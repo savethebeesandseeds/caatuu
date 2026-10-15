@@ -33,7 +33,10 @@ async function fixture({
   await writeFile(join(launcherStaticDir, "assets/images/example.png"), "shared-image");
   await writeFile(join(languageStaticDir, "data/example.json"), "language-data");
   await writeFile(join(sharedRuntimeDir, "static/app/index.html"), "shared-app");
-  await writeFile(join(sharedRuntimeDir, "static/data/interface/en.v1.json"), "{}");
+  await writeFile(join(sharedRuntimeDir, "static/data/interface/en.v1.json"), JSON.stringify({
+    $schema: "https://caatuu.org/schemas/interface-content.v1.schema.json", schemaVersion: 1,
+    locale: "en", direction: "ltr", revision: "interface-en-1", messages: { "common.action.close": "Close" }
+  }));
   await writeFile(join(sharedRuntimeDir, "static/source/shared-runtime.mjs"), "export {};\n");
   await writeFile(join(sharedRuntimeDir, "app-assets.json"), JSON.stringify({
     schemaVersion: 1,
@@ -57,6 +60,7 @@ async function fixture({
     id: courseId,
     directoryName,
     routePrefix,
+    sourceLanguage: { id: "en", locale: "en", direction: "ltr" },
     entryPath: `${routePrefix}/index.html`,
     routes: { wordWorld: "index.html?game=word-net" },
     cache: {
@@ -646,6 +650,92 @@ async function registrationFixture() {
   return { workspaceRoot, czech, mandarin, appAssetsPath, appAssets,
     loadValidatedCatalog: async () => ({ courses: [czech.record, mandarin.record] }) };
 }
+
+async function reviseInterfaceAuthority(f, revision = "interface-en-2") {
+  const path = join(f.czech.sharedRuntimeDir, "static/data/interface/en.v1.json");
+  const content = JSON.parse(await readFile(path, "utf8"));
+  content.revision = revision;
+  await writeFile(path, JSON.stringify(content));
+  for (const paths of [f.czech, f.mandarin]) {
+    paths.course.resources.interfaceCatalog.revision = revision;
+    await writeFile(paths.courseManifestPath, JSON.stringify(paths.course));
+  }
+  return path;
+}
+
+test("registration repairs exact interface revision drift together with newly mapped runtime omissions", async t => {
+  const f = await registrationFixture();
+  t.after(() => rm(f.workspaceRoot, { recursive: true, force: true }));
+  await reviseInterfaceAuthority(f);
+  const before = await Promise.all([f.czech, f.mandarin].map(paths => readFile(paths.manifestPath, "utf8")));
+  const checks = await refreshAllBrowserCourseSetupAssets({ ...f, registerSharedRuntime: true, check: true });
+  for (const report of checks) {
+    assert.ok(report.offlineAssetChanges.some(change => change.url.endsWith("reward-runtime.mjs?v=reward-runtime-3")));
+    assert.ok(report.offlineAssetChanges.some(change =>
+      change.previousUrl === "/language-runtime/static/data/interface/en.v1.json?v=interface-en-1"
+      && change.url === "/language-runtime/static/data/interface/en.v1.json?v=interface-en-2"));
+  }
+  assert.deepEqual(await Promise.all([f.czech, f.mandarin].map(paths => readFile(paths.manifestPath, "utf8"))), before);
+  await refreshAllBrowserCourseSetupAssets({ ...f, registerSharedRuntime: true });
+  for (const paths of [f.czech, f.mandarin]) {
+    const manifest = JSON.parse(await readFile(paths.manifestPath, "utf8"));
+    assert.deepEqual(manifest.offline.assets.filter(asset => asset.includes("/static/data/interface/")),
+      ["/language-runtime/static/data/interface/en.v1.json?v=interface-en-2"]);
+    assert.equal(inspectSetupAssetManifest(paths).offlineAssetChanges.length, 0);
+  }
+});
+
+test("registration cannot repair interface paths, locales, extra queries, duplicate versions or missing revisions", async t => {
+  for (const replacement of [
+    "/language-runtime/static/data/interface/es.v1.json?v=interface-es-1",
+    "/language-runtime/static/data/interface/en.v1.json?v=interface-en-1&extra=1",
+    "/language-runtime/static/data/interface/en.v1.json?v=interface-en-1&v=interface-en-2",
+    "/language-runtime/static/data/interface/en.v1.json?v=interface-en-1#review",
+    "/language-runtime/static/data/interface/en.v1.json",
+    "https://foreign.invalid/language-runtime/static/data/interface/en.v1.json?v=interface-en-1",
+    "/language-runtime/static/data/interface/wrong.v1.json?v=interface-en-1"
+  ]) {
+    const f = await registrationFixture();
+    t.after(() => rm(f.workspaceRoot, { recursive: true, force: true }));
+    await reviseInterfaceAuthority(f);
+    const manifest = JSON.parse(await readFile(f.mandarin.manifestPath, "utf8"));
+    manifest.offline.assets = manifest.offline.assets.map(asset => asset.includes("/static/data/interface/") ? replacement : asset);
+    await writeFile(f.mandarin.manifestPath, JSON.stringify(manifest));
+    const before = await Promise.all([f.czech, f.mandarin].map(paths => readFile(paths.manifestPath, "utf8")));
+    await assert.rejects(refreshAllBrowserCourseSetupAssets({ ...f, registerSharedRuntime: true }));
+    assert.deepEqual(await Promise.all([f.czech, f.mandarin].map(paths => readFile(paths.manifestPath, "utf8"))), before);
+  }
+});
+
+test("interface revision repair requires valid selected content with its declared locale and revision", async t => {
+  for (const mutate of [
+    catalog => { catalog.locale = "es"; },
+    catalog => { catalog.revision = "interface-en-foreign"; },
+    catalog => { catalog.messages = {}; },
+    catalog => { catalog.unsupported = "injected"; }
+  ]) {
+    const f = await registrationFixture();
+    t.after(() => rm(f.workspaceRoot, { recursive: true, force: true }));
+    const contentPath = await reviseInterfaceAuthority(f);
+    const content = JSON.parse(await readFile(contentPath, "utf8"));
+    mutate(content);
+    await writeFile(contentPath, JSON.stringify(content));
+    const before = await Promise.all([f.czech, f.mandarin].map(paths => readFile(paths.manifestPath, "utf8")));
+    await assert.rejects(refreshAllBrowserCourseSetupAssets({ ...f, registerSharedRuntime: true }), /Interface catalog/u);
+    assert.deepEqual(await Promise.all([f.czech, f.mandarin].map(paths => readFile(paths.manifestPath, "utf8"))), before);
+  }
+});
+
+test("interface repair rejects a runtime graph that conflicts with the declared interface revision", async t => {
+  const f = await registrationFixture();
+  t.after(() => rm(f.workspaceRoot, { recursive: true, force: true }));
+  await reviseInterfaceAuthority(f);
+  await writeFile(join(f.czech.sharedRuntimeDir, "static/app/index.html"),
+    '<script src="/language-runtime/static/data/interface/en.v1.json?v=interface-en-1"></script>');
+  const before = await Promise.all([f.czech, f.mandarin].map(paths => readFile(paths.manifestPath, "utf8")));
+  await assert.rejects(refreshAllBrowserCourseSetupAssets({ ...f, registerSharedRuntime: true }), /conflicts with declared resource/u);
+  assert.deepEqual(await Promise.all([f.czech, f.mandarin].map(paths => readFile(paths.manifestPath, "utf8"))), before);
+});
 
 test("all-course refresh hashes shared bytes after refreshing the corpus stage budget", async (t) => {
   const f = await registrationFixture();

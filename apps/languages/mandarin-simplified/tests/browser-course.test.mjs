@@ -224,7 +224,7 @@ test("setup and service-worker catalogs cover every required offline URL", async
     "/assets/icons/coin_icon_ui.png",
   ]) assert.ok(setup.offline.assets.some((cached) => cached.split("?")[0] === asset.split("?")[0]), `offline course must cache ${asset}`);
   const bootstrap = await readFile(path.join(runtimeStaticRoot, "source/app-bootstrap.mjs"), "utf8");
-  const nucleusModules = [...bootstrap.matchAll(/"(source\/games\/naturalization-nucleus\/naturalization-nucleus\.(?:css|js)\?v=[^"]+)"/gu)].map((match) => match[1]);
+  const nucleusModules = [...bootstrap.matchAll(/"(\/language-runtime\/static\/source\/games\/naturalization-nucleus\/naturalization-nucleus\.(?:css|js)\?v=[^"]+)"/gu)].map((match) => match[1]);
   assert.equal(nucleusModules.length, 2);
   for (const asset of [
     "data/games/naturalization-nucleus/content.json",

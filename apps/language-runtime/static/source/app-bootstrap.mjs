@@ -1,7 +1,7 @@
 import { initializeWorkspaceAfterDictionaryProvider } from "./dictionary-provider-loader.mjs";
 import { initializeHomeCourseSetup } from "./course-setup.mjs?v=course-setup-2";
 import { installMusic } from "./music.mjs";
-import { installGameDynamics } from "./game-dynamics.mjs?v=game-dynamics-4";
+import { installGameDynamics } from "./game-dynamics.mjs?v=game-dynamics-6";
 import { installBadgeProgression } from "./badge-progression.mjs?v=badge-progression-1";
 import { createPracticeCompass, sharedPracticeAxes } from "./practice-compass.mjs?v=practice-compass-5";
 import {
@@ -729,8 +729,8 @@ async function loadCourseFeatureProviders() {
   const naturalizationNucleus = gameAvailable("naturalization-nucleus");
   if (naturalizationNucleus) {
     await Promise.all([
-      loadStyle("/language-runtime/static/source/games/naturalization-nucleus/naturalization-nucleus.css?v=naturalization-nucleus-21"),
-      loadScript("/language-runtime/static/source/games/naturalization-nucleus/naturalization-nucleus.js?v=naturalization-nucleus-22")
+      loadStyle("/language-runtime/static/source/games/naturalization-nucleus/naturalization-nucleus.css?v=naturalization-nucleus-23"),
+      loadScript("/language-runtime/static/source/games/naturalization-nucleus/naturalization-nucleus.js?v=naturalization-nucleus-24")
     ]);
   }
   const courseRuntime = declaredBrowserProvider("courseRuntime");
@@ -785,7 +785,7 @@ async function start() {
     axes: sharedPracticeAxes,
     ...createPracticeCompass({ course, learning: globalThis.CaatuuLearning })
   });
-  await loadSharedScript("/language-runtime/static/source/caatuu-chrome.js?v=chrome-180");
+  await loadSharedScript("/language-runtime/static/source/caatuu-chrome.js?v=chrome-182");
   globalThis.CaatuuGameDynamics = installGameDynamics({
     scope: globalThis,
     onPauseChange(paused) {
@@ -801,7 +801,7 @@ async function start() {
   await initializeHomeCourseSetup(globalThis, { onSetupRequired: revealApplication });
   configureGameRoutes();
   applyCapabilityBoundaries();
-  await import("./word-world-host.mjs?v=word-world-host-29");
+  await import("./word-world-host.mjs?v=word-world-host-30");
   await loadCourseFeatureProviders();
   // Publish the usable-controls and voice results together. Further voice
   // retries can recover a late engine without delaying entry to the app.

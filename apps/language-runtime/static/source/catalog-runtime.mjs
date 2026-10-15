@@ -1,4 +1,5 @@
 import { normalizeContentProgression } from "./games/content-progression.mjs";
+import { targetLearningFieldIssues } from "./word-world-learning.mjs";
 
 const CONCEPT_ID_PATTERN = /^[a-z0-9]+(?:[.-][a-z0-9]+)+$/u;
 const LETTER_PATTERN = /\p{L}/u;
@@ -195,6 +196,8 @@ export function validateTargetRealizationCatalog(catalog) {
       throw new CourseCatalogError(`${path} cannot define English embedding fields.`);
     }
     validateAuthoredTokens(realization, path);
+    const learningIssues = targetLearningFieldIssues(realization);
+    if (learningIssues.length) throw new CourseCatalogError(`${path}: ${learningIssues.join(" ")}`);
   }
   return catalog;
 }

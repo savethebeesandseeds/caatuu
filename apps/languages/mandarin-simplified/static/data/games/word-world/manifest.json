@@ -26,14 +26,14 @@
       "colorTones": true
     }
   },
-  "recordCount": 607,
+  "recordCount": 646,
   "targetLanguage": "zh-Hans",
   "mediationLanguage": "en",
   "tokenization": "authored",
   "review": {
     "status": "native-review-required",
     "pronunciationApproved": false,
-    "notes": "Machine-assisted development draft; qualified native Mandarin review is still required. Contextual function-word hints corrected by Codex for location/progress, noun descriptions, expected actions and recipients; AI self-review only. See docs/WORD_WORLD_CONTEXT_REVIEW.md. Native and audio review remain outstanding."
+    "notes": "Machine-assisted development draft; qualified native Mandarin review is still required. Contextual function-word hints corrected by Codex for location/progress, noun descriptions, expected actions and recipients; AI self-review only. See docs/WORD_WORLD_CONTEXT_REVIEW.md. Native and audio review remain outstanding. Mandarin revision 2026-10-14: contextual hints and experiential neutral-tone readings corrected; lexical citation tones for 一 and 不 made consistent while other authored contextual readings and neutral tones remain intact. A 39-sentence beginner pilot was authored and self-reviewed by Codex AI. Native Mandarin and audible device-speech review remain outstanding."
   },
   "capabilities": {
     "llm": false,

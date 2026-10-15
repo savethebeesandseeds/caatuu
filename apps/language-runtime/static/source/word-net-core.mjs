@@ -1,3 +1,5 @@
+import { acceptedTokenOrderIssues } from "./word-world-learning.mjs";
+
 export function capitalizeWord(word) {
   const value = String(word || "").trim();
   if (!value) return value;
@@ -266,7 +268,7 @@ export function buildWordReconstructionChallenge(
 export function buildTokenReconstructionChallenge(
   answerParts,
   candidateParts = [],
-  { distractorCount = 2, normalize = normalizeEnglishReconstructionToken } = {}
+  { distractorCount = 2, normalize = normalizeEnglishReconstructionToken, acceptedTokenOrders } = {}
 ) {
   const canonicalParts = (Array.isArray(answerParts) ? answerParts : [])
     .map((part) => ({
@@ -275,6 +277,10 @@ export function buildTokenReconstructionChallenge(
     }))
     .filter((part) => part.text);
   const answerTokens = canonicalParts.map((part) => part.text);
+  if (acceptedTokenOrders !== undefined) {
+    const issues = acceptedTokenOrderIssues(acceptedTokenOrders, answerTokens);
+    if (issues.length) throw new TypeError(issues.join(" "));
+  }
   const answerKeys = new Set(answerTokens.map((token) => String(normalize(token) || "")));
   const frequency = new Map();
   let candidatePosition = 0;
@@ -322,17 +328,24 @@ export function buildTokenReconstructionChallenge(
   return {
     answerParts: canonicalParts,
     answerTokens,
+    ...(acceptedTokenOrders !== undefined
+      ? { acceptedTokenOrders: acceptedTokenOrders.map((tokens) => tokens.slice()) }
+      : {}),
     options
   };
 }
 
-export function isWordReconstructionCorrect(selectedTokens, answerTokens) {
+export function isWordReconstructionCorrect(selectedTokens, answerTokens, { acceptedTokenOrders = [] } = {}) {
   const selected = (Array.isArray(selectedTokens) ? selectedTokens : [])
     .map(normalizeEnglishReconstructionToken);
-  const expected = (Array.isArray(answerTokens) ? answerTokens : [])
-    .map(normalizeEnglishReconstructionToken);
-  return selected.length === expected.length
-    && selected.every((token, index) => token === expected[index]);
+  const canonical = Array.isArray(answerTokens) ? answerTokens : [];
+  if (!Array.isArray(acceptedTokenOrders)
+      || (acceptedTokenOrders.length && acceptedTokenOrderIssues(acceptedTokenOrders, canonical).length)) return false;
+  return [canonical, ...acceptedTokenOrders].some((tokens) => {
+    const expected = tokens.map(normalizeEnglishReconstructionToken);
+    return selected.length === expected.length
+      && selected.every((token, index) => token === expected[index]);
+  });
 }
 
 export function alignWordReconstructionAttempt(selectedTokens, answerTokens) {

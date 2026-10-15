@@ -1,4 +1,5 @@
 import { isDeepStrictEqual } from "node:util";
+import { targetLearningFieldIssues } from "../../../apps/language-runtime/static/source/word-world-learning.mjs";
 
 export const ENGLISH_CONCEPT_RUNTIME_SCHEMA =
   "https://caatuu.org/schemas/runtime/english-concepts.runtime.v1.schema.json";
@@ -29,7 +30,7 @@ const TARGET_KEYS = [
   "license",
   "realizations"
 ];
-const REALIZATION_KEYS = ["conceptId", "text", "pronunciation", "tokens"];
+const REALIZATION_KEYS = ["conceptId", "text", "pronunciation", "tokens", "acceptedTokenOrders", "learning"];
 const TOKEN_KEYS = ["surface", "pronunciation", "gloss", "playable"];
 const PRONUNCIATION_KEYS = ["system", "notation", "languageTag", "reviewed"];
 const CONCEPT_ID_PATTERN = /^[a-z][a-z0-9]*(?:[.-][a-z0-9]+)+$/u;
@@ -170,6 +171,7 @@ export function validateTargetRealizationRuntimeProjection(projection, {
           !== lexicalSurface(realization.text)) {
         issues.push(`${label}.tokens must reproduce learner text in order.`);
       }
+      issues.push(...targetLearningFieldIssues(realization).map((message) => `${label}.${message}`));
     }
   }
   duplicateIssues(ids, "target realization id", issues);
@@ -196,6 +198,12 @@ function compareTargetProjectionToSource(projection, source, pronunciationInclud
       continue;
     }
     if (realization.text !== authored.text) issues.push(`${realization.conceptId}.text differs from authoring.`);
+    for (const field of ["acceptedTokenOrders", "learning"]) {
+      if (Object.hasOwn(realization, field) !== Object.hasOwn(authored, field)
+          || !isDeepStrictEqual(realization[field], authored[field])) {
+        issues.push(`${realization.conceptId}.${field} differs from authoring.`);
+      }
+    }
     if (pronunciationIncluded) {
       if (!isDeepStrictEqual(realization.pronunciation, authored.pronunciation)) {
         issues.push(`${realization.conceptId}.pronunciation differs from authoring.`);

@@ -2411,3 +2411,76 @@ html[data-theme="dark"] .word-net-trail-head {
     max-width: 100%;
   }
 }
+.word-net-learning {
+  width: min(100%, 42rem);
+  margin: 0.5rem auto;
+  padding: 0.65rem 0.9rem;
+  border: 1px solid var(--caatuu-border, #d8ded8);
+  border-radius: 0.8rem;
+  text-align: start;
+  font-size: 0.85rem;
+}
+.word-net-learning[hidden] { display: none; }
+.word-net-learning details { margin-top: 0.35rem; }
+.word-net-learning summary { cursor: pointer; }
+.word-net-learning p { margin: 0.5rem 0 0; line-height: 1.5; }
+#wordNetLearningUnitOptions { display: contents; }
+.word-net-generation-menu button[data-learning-unit] {
+  width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* Teaching notes grow in ordinary flow, independently of the fixed illustrated
+   layout used by unannotated examples. Expanded explanations cannot cover art. */
+.word-net-sentence-panel:is(.has-learning, :has(.word-net-learning:not([hidden]))) {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.word-net-sentence-panel:is(.has-learning, :has(.word-net-learning:not([hidden]))) .word-net-panel-actions {
+  position: relative;
+  inset: auto;
+  order: -2;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+.word-net-sentence-panel:is(.has-learning, :has(.word-net-learning:not([hidden]))) .word-net-word-translation.dictionary-word-card {
+  position: relative;
+  inset: auto;
+  order: -1;
+  width: min(244px, 100%);
+  max-width: none;
+}
+.word-net-sentence-panel:is(.has-learning, :has(.word-net-learning:not([hidden]))) .word-net-scene {
+  position: relative;
+  inset: auto;
+  flex: 0 0 auto;
+  width: 100%;
+  transform: none;
+}
+.word-net-sentence-panel:is(.has-learning, :has(.word-net-learning:not([hidden]))) .word-net-phrase-stack {
+  position: static;
+  width: 100%;
+  margin-top: auto;
+}
+.word-net-sentence-panel:is(.has-learning, :has(.word-net-learning:not([hidden]))) .word-net-feedback {
+  position: relative;
+  inset: auto;
+  display: grid;
+  justify-items: end;
+  gap: 4px;
+}
+.word-net-sentence-panel:is(.has-learning, :has(.word-net-learning:not([hidden]))) .word-net-feedback .word-net-report-toggle,
+.word-net-sentence-panel:is(.has-learning, :has(.word-net-learning:not([hidden]))) .word-net-feedback .word-net-feedback-status {
+  position: static;
+  max-width: 100%;
+}
+
+@media (min-width: 850px) {
+  .word-net-sentence-panel:is(.has-learning, :has(.word-net-learning:not([hidden]))) .word-net-word-translation.dictionary-word-card {
+    position: absolute;
+    inset: 14px auto auto 14px;
+  }
+}

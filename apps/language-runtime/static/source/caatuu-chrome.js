@@ -51,7 +51,8 @@
   const speechAutoplayStorageKey = "caatuu.speech.autoplay.v1";
   const backpackViewStorageKey = `${course.storage.namespace || `caatuu-${course.id}`}.navigation.backpack-view.v1`;
   const navigationRequestStorageKey = `${course.storage.namespace || `caatuu-${course.id}`}.navigation.request.v1`;
-  const experienceIconSrc = "/assets/icons/icon_gem.png";
+  const experienceIconSrc = "/language-runtime/static/assets/xp-gold.webp";
+  const gemIconSrc = "/assets/icons/icon_gem.png";
   const coinIconSrc = "/assets/icons/coin_icon_ui.png";
   const streakIconSrc = "/assets/icons/streak_icon.png";
   const targetLanguage = course.targetLanguage;
@@ -4219,15 +4220,10 @@
       stat.className = `app-header-stat app-header-${kind}`;
       stat.setAttribute(`data-caatuu-header-${kind}`, "");
 
-      const statIcon = document.createElement(kind === "xp" ? "span" : "img");
-      if (kind === "xp") {
-        statIcon.className = "practice-xp-token";
-        statIcon.textContent = "XP";
-      } else {
-        statIcon.src = iconSrc;
-        statIcon.alt = "";
-        statIcon.decoding = "async";
-      }
+      const statIcon = document.createElement("img");
+      statIcon.src = iconSrc;
+      statIcon.alt = "";
+      statIcon.decoding = "async";
       statIcon.setAttribute("aria-hidden", "true");
 
       const statCount = document.createElement("strong");
@@ -4239,7 +4235,7 @@
 
     const xp = createHeaderStat("xp", experienceIconSrc);
     const coins = createHeaderStat("coins", coinIconSrc);
-    const gems = createHeaderStat("gems", experienceIconSrc);
+    const gems = createHeaderStat("gems", gemIconSrc);
     const streak = createHeaderStat("streak", streakIconSrc);
     streak.removeAttribute("data-caatuu-header-streak");
     streak.setAttribute("data-caatuu-streak", "");

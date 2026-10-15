@@ -47,6 +47,17 @@ test('non-English learner text never becomes English authority by fallback', () 
   assert.equal(greeting.translation.learnerBaseText, '¡Hola!');
 });
 
+test('Nucleus English audit authority stays separate from displayed compound examples', () => {
+  const catalog = { game: 'naturalization-nucleus', course: { sourceLanguage: { locale: 'en' } } };
+  assert.deepEqual(englishAuthority(catalog, { item: {
+    englishAuditText: 'friend; companion', translation: 'friend; companion (as in 朋友)'
+  } }), { text: 'friend; companion', field: 'englishAuditText', reason: null });
+  assert.equal(englishAuthority(catalog, { item: { translation: 'friend; companion' } }).field, 'translation');
+  const spanishBase = { ...catalog, course: { sourceLanguage: { locale: 'es' } } };
+  assert.equal(englishAuthority(spanishBase, { item: { translation: 'amigo' } }).text, null);
+  assert.equal(englishAuthority(spanishBase, { item: { englishAuditText: 'friend', translation: 'amigo' } }).text, 'friend');
+});
+
 test('equal English documents share semantic identity but never learner identity', () => {
   const corpus = buildEvaluationCorpus(fixtureCatalogs);
   const document = corpus.documents.find(document => document.englishText === 'run');

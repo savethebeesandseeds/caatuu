@@ -2,6 +2,7 @@ import { createRewardSound } from "./reward-sound.mjs?v=reward-sound-2";
 
 const CELEBRATION_MS = 2200;
 const REDUCED_MOTION_MS = 1200;
+const XP_ICON = "/language-runtime/static/assets/xp-gold.webp";
 const gameIds = Object.freeze({ "verb-lab": "verb-nebula", "word-net": "word-world" });
 
 /** The shared shell owns practice pacing and presentation; courses supply content. */
@@ -18,10 +19,7 @@ export function installGameDynamics({
   let enabled = false;
   let current = null;
   let meter = null;
-  let meterLabel = null;
-  let meterCount = null;
   let meterProgress = null;
-  let cycleLabel = null;
   let lastSnapshot = null;
   const transitions = new Map();
   const listeners = [];
@@ -66,9 +64,9 @@ export function installGameDynamics({
       const copies = token.kind === "coins" ? 3 : token.kind === "xp" ? 2 : 1;
       for (let index = 0; index < copies; index++) {
         const flight = element("div", `caatuu-practice-flight caatuu-practice-flight-${token.kind}`);
-        const art = element(token.kind === "xp" ? "span" : "img");
-        if (token.kind === "xp") art.textContent = "✦";
-        else { art.src = token.art.src; art.alt = ""; }
+        const art = element("img");
+        art.src = token.art.src;
+        art.alt = "";
         flight.append(art);
         layer.append(flight);
         if (typeof flight.animate !== "function" || !sourceRect || !targetRect || !targetRect.width) {
@@ -110,30 +108,20 @@ export function installGameDynamics({
     if (!meter) {
       meter = element("div", "caatuu-practice-meter");
       meter.setAttribute("data-caatuu-practice-meter", "");
-      meterLabel = element("span", "caatuu-practice-meter-label");
-      meterCount = element("span", "caatuu-practice-meter-count");
       meterProgress = element("progress", "caatuu-practice-meter-progress");
-      cycleLabel = element("span", "caatuu-practice-meter-cycle");
-      meter.append(meterLabel, meterCount, meterProgress, cycleLabel);
+      meter.append(meterProgress);
     }
     const header = document.querySelector(".app-header");
-    const parent = header || document.body;
-    if (meter.parentElement !== parent) parent.append(meter);
-    meter.classList.toggle("is-floating", !header);
+    if (header && meter.parentElement !== header) header.append(meter);
     const target = Math.max(1, Number(snapshot.target) || 1);
     const effort = Math.min(target, Math.max(0, Number(snapshot.effort) || 0));
     const label = translate("practice.set.label", "Practice set");
     const count = translate("practice.set.progress", `${effort} / ${target}`, { effort, target });
-    meterLabel.textContent = label;
-    meterCount.textContent = count;
     meterProgress.max = target;
     meterProgress.value = effort;
     meterProgress.setAttribute("aria-label", label);
     meterProgress.setAttribute("aria-valuetext", count);
-    cycleLabel.hidden = !snapshot.cycle;
-    if (snapshot.cycle) cycleLabel.textContent = translate("practice.cycle.progress",
-      `Cycle · ${snapshot.cycle.sets} / ${snapshot.cycle.target} sets`, snapshot.cycle);
-    meter.hidden = !enabled;
+    meter.hidden = !enabled || !header;
   }
 
   function contentFor(details) {
@@ -196,13 +184,10 @@ export function installGameDynamics({
       const amount = Math.max(0, Number(receipt[kind]) || 0);
       if (!amount) continue;
       const token = element("div", `caatuu-practice-reward caatuu-practice-reward-${kind}`);
-      const art = element(kind === "xp" ? "span" : "img", "caatuu-practice-reward-art");
+      const art = element("img", "caatuu-practice-reward-art");
       art.setAttribute("aria-hidden", "true");
-      if (kind === "xp") art.textContent = "✦";
-      else {
-        art.src = kind === "coins" ? "/assets/icons/coin_icon_ui.png" : "/assets/icons/icon_gem.png";
-        art.alt = "";
-      }
+      art.src = kind === "xp" ? XP_ICON : kind === "coins" ? "/assets/icons/coin_icon_ui.png" : "/assets/icons/icon_gem.png";
+      art.alt = "";
       const amountLabel = element("strong", "caatuu-practice-reward-amount", `+${amount}`);
       const label = element("span", "caatuu-practice-reward-label",
         translate(`practice.reward.${kind}`, kind === "xp" ? "XP" : kind === "coins" ? "Coins" : "Gems"));
@@ -214,7 +199,27 @@ export function installGameDynamics({
       translate("practice.reward.skip", "Continue"));
     skip.type = "button";
     skip.addEventListener("click", () => finish(state, true));
-    card.append(sparkles, heading, message, rewards, skip);
+    card.append(sparkles, heading, message, rewards);
+    const cycle = read()?.cycle;
+    if (cycle) {
+      const row = element("div", "caatuu-practice-cycle-progress");
+      const icon = element("img");
+      icon.src = "/assets/icons/icon_gem.png";
+      icon.alt = "";
+      icon.setAttribute("aria-hidden", "true");
+      const progress = element("progress");
+      const target = Math.max(1, Number(cycle.target) || 1);
+      const completed = Number(receipt.gems) > 0;
+      const sets = completed ? target : Math.min(target, Math.max(0, Number(cycle.sets) || 0));
+      progress.max = target;
+      progress.value = sets;
+      progress.setAttribute("aria-label", translate("practice.gems.description", "Progress toward the next gem"));
+      progress.setAttribute("aria-valuetext", translate("practice.cycle.progress", `${sets} / ${target} sets`, { ...cycle, sets, target }));
+      row.classList.toggle("is-complete", completed);
+      row.append(icon, progress);
+      card.append(row);
+    }
+    card.append(skip);
     overlay.append(card);
     document.body.append(overlay);
     state.overlay = overlay;

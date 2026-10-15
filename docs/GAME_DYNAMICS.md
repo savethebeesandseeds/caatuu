@@ -165,6 +165,21 @@ The workspace propagates reward pauses through the existing game visibility
 contract. The active training panel becomes inert during presentation; navigation
 remains usable. Preparing the next challenge can continue behind the overlay.
 
+During practice, a thin unlabelled bar sits within the shared header and fills
+with the current set's effort. Set completion adds a gem-marked cycle bar to the
+reward card, showing progress through the sixteen sets. A gem milestone shows
+the completed bar before the new cycle begins. Screen readers retain the set
+and cycle descriptions and values. XP uses the approved
+[gold XP lettering](../apps/language-runtime/static/assets/xp-gold.webp) throughout
+the header, Backpack, reward card, and flying tokens. On small screens, the game
+logo sits to the left of the reward counters to give the wider lettering room.
+The lettering was generated with the built-in image generator using the prompt:
+bold rounded gold XP letters, restrained illustrated bevel, pale highlights,
+dark brown outline, transparent background, and no enclosing badge or extra
+object, with the coin and gem artwork as style references. The approved source
+is preserved in ignored artifacts; the runtime asset keeps its transparent
+edges and is sized for the shared UI.
+
 The normal celebration lasts 2.2 seconds, with staged reward entrances, subtle
 sparkles, and small tokens flying toward their header counters. Reduced motion
 uses a 1.2-second static presentation without flights or sparkles. A short ascending

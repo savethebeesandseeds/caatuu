@@ -55,7 +55,7 @@ export function englishAuthority(catalog, row) {
     case 'grammar-gravity': fields = kind === 'agreement-example' ? ['englishAuditText'] : []; break;
     case 'grammar-gravity-nouns': fields = ['english']; break;
     case 'sound-quasar': fields = ['englishAuditText']; break;
-    case 'naturalization-nucleus': fields = englishBase(catalog.course) ? ['translation'] : []; break;
+    case 'naturalization-nucleus': fields = ['englishAuditText', ...(englishBase(catalog.course) ? ['translation'] : [])]; break;
     default: throw new Error(`No English authority adapter for ${catalog.game}`);
   }
   const field = fields.find(key => text(item[key]));

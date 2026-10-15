@@ -4,7 +4,7 @@
   "courseId": "zh",
   "targetLanguageId": "zh",
   "id": "zh-sound-quasar-listening-pilot",
-  "contentRevision": "content-progression-starters-1",
+  "contentRevision": "mandarin-beginner-pilot-lexical-readings-2",
   "mode": "practice",
   "audio": {
     "kind": "device-speech",
@@ -13891,7 +13891,7 @@
     {
       "id": "zh-m260908-word-400",
       "difficulty": 1,
-      "revision": "1",
+      "revision": "2",
       "target": "推",
       "meaning": "push",
       "sourceId": "zh-m260908-word-400",
@@ -13902,7 +13902,7 @@
         "system": "pinyin",
         "status": "machine-assisted-preview",
         "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
-        "sourceId": "ww-zh-m260908-220",
+        "sourceId": "ww.zh.pilot-v1.push-door",
         "tokens": [
           {
             "surface": "推",
@@ -20800,9 +20800,48 @@
       "ww-zh-starter260911-slowly",
       "ww-zh-starter260911-no-thanks",
       "ww-zh-starter260911-stop",
-      "ww-zh-starter260911-dont-know"
+      "ww-zh-starter260911-dont-know",
+      "ww.zh.pilot-v1.origin-country-question",
+      "ww.zh.pilot-v1.origin-british",
+      "ww.zh.pilot-v1.origin-from-question",
+      "ww.zh.pilot-v1.origin-from-china",
+      "ww.zh.pilot-v1.age-question",
+      "ww.zh.pilot-v1.age-twenty",
+      "ww.zh.pilot-v1.surname-question",
+      "ww.zh.pilot-v1.surname-lin",
+      "ww.zh.pilot-v1.need-rest",
+      "ww.zh.pilot-v1.help-question",
+      "ww.zh.pilot-v1.hungry-question",
+      "ww.zh.pilot-v1.no-money",
+      "ww.zh.pilot-v1.no-time",
+      "ww.zh.pilot-v1.not-go-yesterday",
+      "ww.zh.pilot-v1.not-understand-heard",
+      "ww.zh.pilot-v1.have-time-question",
+      "ww.zh.pilot-v1.like-tea-question",
+      "ww.zh.pilot-v1.go-question",
+      "ww.zh.pilot-v1.teacher-question",
+      "ww.zh.pilot-v1.want-water-question",
+      "ww.zh.pilot-v1.two-cups",
+      "ww.zh.pilot-v1.two-people",
+      "ww.zh.pilot-v1.book-question",
+      "ww.zh.pilot-v1.two-books-question",
+      "ww.zh.pilot-v1.twenty-two",
+      "ww.zh.pilot-v1.price-question",
+      "ww.zh.pilot-v1.price-ten",
+      "ww.zh.pilot-v1.price-twelve",
+      "ww.zh.pilot-v1.pay-how",
+      "ww.zh.pilot-v1.pay-phone",
+      "ww.zh.pilot-v1.can-swim",
+      "ww.zh.pilot-v1.cannot-swim",
+      "ww.zh.pilot-v1.permission-enter",
+      "ww.zh.pilot-v1.location-home",
+      "ww.zh.pilot-v1.progressive-eat",
+      "ww.zh.pilot-v1.experience-beijing",
+      "ww.zh.pilot-v1.completed-apple",
+      "ww.zh.pilot-v1.open-window",
+      "ww.zh.pilot-v1.push-door"
     ],
-    "selection": "Sixteen existing short Word World sentences; target text, English meanings, and review status copied without linguistic edits."
+    "selection": "Retained sentence selections plus 39 Mandarin beginner pilot sentences; exact source-linked text and preview readings preserve pending native review."
   },
   "sentences": [
     {
@@ -20906,7 +20945,7 @@
     {
       "id": "zh-sentence-3",
       "difficulty": 2,
-      "revision": "1",
+      "revision": "2",
       "target": "这是一本书。",
       "meaning": "This is a book.",
       "sourceId": "ww.object.book",
@@ -20941,7 +20980,7 @@
             "units": [
               {
                 "surface": "一",
-                "notation": "yì"
+                "notation": "yī"
               }
             ]
           },
@@ -20971,7 +21010,7 @@
     {
       "id": "zh-sentence-4",
       "difficulty": 2,
-      "revision": "1",
+      "revision": "2",
       "target": "那是一只猫。",
       "meaning": "That is a cat.",
       "sourceId": "ww.animal.cat",
@@ -21006,7 +21045,7 @@
             "units": [
               {
                 "surface": "一",
-                "notation": "yì"
+                "notation": "yī"
               }
             ]
           },
@@ -21897,7 +21936,7 @@
     {
       "id": "zh-exp260908-sentences-20",
       "difficulty": 1,
-      "revision": "1",
+      "revision": "2",
       "target": "我们一起鼓掌。",
       "meaning": "We clap together.",
       "sourceId": "ww-exp260908-004",
@@ -21927,7 +21966,7 @@
             "units": [
               {
                 "surface": "一",
-                "notation": "yì"
+                "notation": "yī"
               },
               {
                 "surface": "起",
@@ -22181,7 +22220,7 @@
     {
       "id": "zh-exp260908-sentences-25",
       "difficulty": 2,
-      "revision": "1",
+      "revision": "2",
       "target": "一只松鼠把坚果藏在叶子下面。",
       "meaning": "A squirrel hides a nut under a leaf.",
       "sourceId": "ww-exp260908-009",
@@ -22198,7 +22237,7 @@
             "units": [
               {
                 "surface": "一",
-                "notation": "yì"
+                "notation": "yī"
               }
             ]
           },
@@ -23302,7 +23341,7 @@
     {
       "id": "zh-exp260908-sentences-36",
       "difficulty": 2,
-      "revision": "1",
+      "revision": "2",
       "target": "蜜蜂把花粉从一朵花带到另一朵花。",
       "meaning": "Bees carry pollen from flower to flower.",
       "sourceId": "ww-exp260908-020",
@@ -23363,7 +23402,7 @@
             "units": [
               {
                 "surface": "一",
-                "notation": "yì"
+                "notation": "yī"
               }
             ]
           },
@@ -23417,7 +23456,7 @@
             "units": [
               {
                 "surface": "一",
-                "notation": "yì"
+                "notation": "yī"
               }
             ]
           },
@@ -23590,7 +23629,7 @@
     {
       "id": "zh-exp260908-sentences-38",
       "difficulty": 2,
-      "revision": "1",
+      "revision": "2",
       "target": "影子像一只正在跳舞的大熊。",
       "meaning": "The shadow looks like a giant dancing bear.",
       "sourceId": "ww-exp260908-022",
@@ -23629,7 +23668,7 @@
             "units": [
               {
                 "surface": "一",
-                "notation": "yì"
+                "notation": "yī"
               }
             ]
           },
@@ -23833,7 +23872,7 @@
     {
       "id": "zh-exp260908-sentences-40",
       "difficulty": 2,
-      "revision": "1",
+      "revision": "2",
       "target": "一片羽毛轻轻飘落在草地上。",
       "meaning": "A feather floats gently down onto the grass.",
       "sourceId": "ww-exp260908-024",
@@ -23850,7 +23889,7 @@
             "units": [
               {
                 "surface": "一",
-                "notation": "yí"
+                "notation": "yī"
               }
             ]
           },
@@ -23941,7 +23980,7 @@
     {
       "id": "zh-exp260908-sentences-41",
       "difficulty": 2,
-      "revision": "1",
+      "revision": "2",
       "target": "我们的小队为游戏想出一条新规则。",
       "meaning": "Our team invents a new rule for the game.",
       "sourceId": "ww-exp260908-025",
@@ -24028,7 +24067,7 @@
             "units": [
               {
                 "surface": "一",
-                "notation": "yì"
+                "notation": "yī"
               }
             ]
           },
@@ -24372,7 +24411,7 @@
     {
       "id": "zh-exp260908-sentences-45",
       "difficulty": 2,
-      "revision": "1",
+      "revision": "2",
       "target": "我把最后一张贴纸留给你了。",
       "meaning": "I saved the last sticker for you.",
       "sourceId": "ww-exp260908-029",
@@ -24420,7 +24459,7 @@
             "units": [
               {
                 "surface": "一",
-                "notation": "yì"
+                "notation": "yī"
               }
             ]
           },
@@ -25613,7 +25652,7 @@
     {
       "id": "zh-exp260908-sentences-55",
       "difficulty": 3,
-      "revision": "1",
+      "revision": "2",
       "target": "虽然谜语很难，但谁也不用独自解答。",
       "meaning": "Even though the puzzle was difficult, nobody had to solve it alone.",
       "sourceId": "ww-exp260908-039",
@@ -25701,7 +25740,7 @@
             "units": [
               {
                 "surface": "不",
-                "notation": "bú"
+                "notation": "bù"
               },
               {
                 "surface": "用",
@@ -25908,7 +25947,7 @@
     {
       "id": "zh-exp260908-sentences-57",
       "difficulty": 3,
-      "revision": "1",
+      "revision": "2",
       "target": "宝藏是一封感谢信，写给所有帮忙准备游戏的人。",
       "meaning": "The treasure was a thank-you note for everyone who had helped with the game.",
       "sourceId": "ww-exp260908-041",
@@ -25947,7 +25986,7 @@
             "units": [
               {
                 "surface": "一",
-                "notation": "yì"
+                "notation": "yī"
               }
             ]
           },
@@ -26163,9 +26202,9 @@
     },
     {
       "id": "zh-m260908-sentence-059",
-      "difficulty": 1,
-      "revision": "1",
-      "target": "小狗有软软的耳朵。",
+      "difficulty": 2,
+      "revision": "2",
+      "target": "小狗的耳朵耷拉着。",
       "meaning": "The puppy has floppy ears.",
       "englishAuditText": "The puppy has floppy ears.",
       "sourceId": "ww-zh-m260908-001",
@@ -26190,28 +26229,6 @@
             ]
           },
           {
-            "surface": "有",
-            "units": [
-              {
-                "surface": "有",
-                "notation": "yǒu"
-              }
-            ]
-          },
-          {
-            "surface": "软软",
-            "units": [
-              {
-                "surface": "软",
-                "notation": "ruǎn"
-              },
-              {
-                "surface": "软",
-                "notation": "ruǎn"
-              }
-            ]
-          },
-          {
             "surface": "的",
             "units": [
               {
@@ -26232,11 +26249,33 @@
                 "notation": "duo"
               }
             ]
+          },
+          {
+            "surface": "耷拉",
+            "units": [
+              {
+                "surface": "耷",
+                "notation": "dā"
+              },
+              {
+                "surface": "拉",
+                "notation": "la"
+              }
+            ]
+          },
+          {
+            "surface": "着",
+            "units": [
+              {
+                "surface": "着",
+                "notation": "zhe"
+              }
+            ]
           }
         ]
       },
       "usefulness": 54,
-      "complexity": 33
+      "complexity": 40
     },
     {
       "id": "zh-m260908-sentence-060",
@@ -40929,7 +40968,7 @@
     {
       "id": "zh-m260908-sentence-226",
       "difficulty": 2,
-      "revision": "1",
+      "revision": "2",
       "target": "对不起，我打断了你。",
       "meaning": "I am sorry I interrupted you.",
       "englishAuditText": "I am sorry I interrupted you.",
@@ -40950,7 +40989,7 @@
               },
               {
                 "surface": "不",
-                "notation": "bu"
+                "notation": "bù"
               },
               {
                 "surface": "起",
@@ -46161,8 +46200,8 @@
     {
       "id": "zh-m260908-sentence-278",
       "difficulty": 2,
-      "revision": "1",
-      "target": "车站的电梯方便我们推婴儿车。",
+      "revision": "2",
+      "target": "车站的电梯让我们更容易搬运婴儿车。",
       "meaning": "The station lift makes it easier to carry the stroller.",
       "englishAuditText": "The station lift makes it easier to carry the stroller.",
       "sourceId": "ww-zh-m260908-220",
@@ -46209,15 +46248,11 @@
             ]
           },
           {
-            "surface": "方便",
+            "surface": "让",
             "units": [
               {
-                "surface": "方",
-                "notation": "fāng"
-              },
-              {
-                "surface": "便",
-                "notation": "biàn"
+                "surface": "让",
+                "notation": "ràng"
               }
             ]
           },
@@ -46235,11 +46270,37 @@
             ]
           },
           {
-            "surface": "推",
+            "surface": "更",
             "units": [
               {
-                "surface": "推",
-                "notation": "tuī"
+                "surface": "更",
+                "notation": "gèng"
+              }
+            ]
+          },
+          {
+            "surface": "容易",
+            "units": [
+              {
+                "surface": "容",
+                "notation": "róng"
+              },
+              {
+                "surface": "易",
+                "notation": "yì"
+              }
+            ]
+          },
+          {
+            "surface": "搬运",
+            "units": [
+              {
+                "surface": "搬",
+                "notation": "bān"
+              },
+              {
+                "surface": "运",
+                "notation": "yùn"
               }
             ]
           },
@@ -51368,7 +51429,7 @@
     {
       "id": "zh-m260908-sentence-320",
       "difficulty": 3,
-      "revision": "1",
+      "revision": "2",
       "target": "听了一个没考虑过的例子后，我改变了看法。",
       "meaning": "I changed my opinion after hearing an example I had not considered.",
       "englishAuditText": "I changed my opinion after hearing an example I had not considered.",
@@ -51443,7 +51504,7 @@
             "units": [
               {
                 "surface": "过",
-                "notation": "guò"
+                "notation": "guo"
               }
             ]
           },
@@ -51815,7 +51876,7 @@
     {
       "id": "zh-m260908-sentence-323",
       "difficulty": 3,
-      "revision": "1",
+      "revision": "2",
       "target": "她注意到还没有人问过最安静的那位成员。",
       "meaning": "She noticed that the quietest member had not been asked yet.",
       "englishAuditText": "She noticed that the quietest member had not been asked yet.",
@@ -51898,7 +51959,7 @@
             "units": [
               {
                 "surface": "过",
-                "notation": "guò"
+                "notation": "guo"
               }
             ]
           },
@@ -57373,7 +57434,7 @@
     {
       "id": "zh-starter-listening-politeness.welcome",
       "difficulty": 1,
-      "revision": "1",
+      "revision": "2",
       "target": "不客气。",
       "meaning": "You are welcome.",
       "englishAuditText": "You are welcome.",
@@ -57390,7 +57451,7 @@
             "units": [
               {
                 "surface": "不",
-                "notation": "bú"
+                "notation": "bù"
               }
             ]
           },
@@ -57508,7 +57569,7 @@
     {
       "id": "zh-starter-listening-zh-starter260911-no",
       "difficulty": 1,
-      "revision": "1",
+      "revision": "2",
       "target": "不对。",
       "meaning": "No, that is not right.",
       "englishAuditText": "No, that is not right.",
@@ -57525,7 +57586,7 @@
             "units": [
               {
                 "surface": "不",
-                "notation": "bú"
+                "notation": "bù"
               }
             ]
           },
@@ -57584,7 +57645,7 @@
     {
       "id": "zh-starter-listening-zh-starter260911-sorry",
       "difficulty": 1,
-      "revision": "1",
+      "revision": "2",
       "target": "对不起。",
       "meaning": "I am sorry.",
       "englishAuditText": "I am sorry.",
@@ -57605,7 +57666,7 @@
               },
               {
                 "surface": "不",
-                "notation": "bu"
+                "notation": "bù"
               },
               {
                 "surface": "起",
@@ -57913,7 +57974,7 @@
     {
       "id": "zh-starter-listening-zh-starter260911-again",
       "difficulty": 1,
-      "revision": "1",
+      "revision": "2",
       "target": "请再说一遍。",
       "meaning": "Please say it again.",
       "englishAuditText": "Please say it again.",
@@ -57957,7 +58018,7 @@
             "units": [
               {
                 "surface": "一",
-                "notation": "yí"
+                "notation": "yī"
               }
             ]
           },
@@ -58029,7 +58090,7 @@
     {
       "id": "zh-starter-listening-zh-starter260911-no-thanks",
       "difficulty": 1,
-      "revision": "1",
+      "revision": "2",
       "target": "不用了，谢谢。",
       "meaning": "No, thank you.",
       "englishAuditText": "No, thank you.",
@@ -58046,7 +58107,7 @@
             "units": [
               {
                 "surface": "不",
-                "notation": "bú"
+                "notation": "bù"
               }
             ]
           },
@@ -58165,6 +58226,2187 @@
       },
       "usefulness": 92,
       "complexity": 17
+    },
+    {
+      "id": "zh.listening.zh.pilot-v1.origin-country-question",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "你是哪国人？",
+      "meaning": "What country are you from?",
+      "sourceId": "ww.zh.pilot-v1.origin-country-question",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "What country are you from?",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.zh.pilot-v1.origin-country-question",
+        "tokens": [
+          {
+            "surface": "你",
+            "units": [
+              {
+                "surface": "你",
+                "notation": "nǐ"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "哪国",
+            "units": [
+              {
+                "surface": "哪",
+                "notation": "nǎ"
+              },
+              {
+                "surface": "国",
+                "notation": "guó"
+              }
+            ]
+          },
+          {
+            "surface": "人",
+            "units": [
+              {
+                "surface": "人",
+                "notation": "rén"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 97,
+      "complexity": 25
+    },
+    {
+      "id": "zh.listening.zh.pilot-v1.origin-british",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "我是英国人。",
+      "meaning": "I am British.",
+      "sourceId": "ww.zh.pilot-v1.origin-british",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I am British.",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.zh.pilot-v1.origin-british",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "英国人",
+            "units": [
+              {
+                "surface": "英",
+                "notation": "yīng"
+              },
+              {
+                "surface": "国",
+                "notation": "guó"
+              },
+              {
+                "surface": "人",
+                "notation": "rén"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 88,
+      "complexity": 25
+    },
+    {
+      "id": "zh.listening.zh.pilot-v1.origin-from-question",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "你从哪里来？",
+      "meaning": "Where do you come from?",
+      "sourceId": "ww.zh.pilot-v1.origin-from-question",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "Where do you come from?",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.zh.pilot-v1.origin-from-question",
+        "tokens": [
+          {
+            "surface": "你",
+            "units": [
+              {
+                "surface": "你",
+                "notation": "nǐ"
+              }
+            ]
+          },
+          {
+            "surface": "从",
+            "units": [
+              {
+                "surface": "从",
+                "notation": "cóng"
+              }
+            ]
+          },
+          {
+            "surface": "哪里",
+            "units": [
+              {
+                "surface": "哪",
+                "notation": "nǎ"
+              },
+              {
+                "surface": "里",
+                "notation": "lǐ"
+              }
+            ]
+          },
+          {
+            "surface": "来",
+            "units": [
+              {
+                "surface": "来",
+                "notation": "lái"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 97,
+      "complexity": 25
+    },
+    {
+      "id": "zh.listening.zh.pilot-v1.origin-from-china",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "我从中国来。",
+      "meaning": "I come from China.",
+      "sourceId": "ww.zh.pilot-v1.origin-from-china",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I come from China.",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.zh.pilot-v1.origin-from-china",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "从",
+            "units": [
+              {
+                "surface": "从",
+                "notation": "cóng"
+              }
+            ]
+          },
+          {
+            "surface": "中国",
+            "units": [
+              {
+                "surface": "中",
+                "notation": "zhōng"
+              },
+              {
+                "surface": "国",
+                "notation": "guó"
+              }
+            ]
+          },
+          {
+            "surface": "来",
+            "units": [
+              {
+                "surface": "来",
+                "notation": "lái"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 90,
+      "complexity": 25
+    },
+    {
+      "id": "zh.listening.zh.pilot-v1.age-question",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "你多大了？",
+      "meaning": "How old are you?",
+      "sourceId": "ww.zh.pilot-v1.age-question",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "How old are you?",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.zh.pilot-v1.age-question",
+        "tokens": [
+          {
+            "surface": "你",
+            "units": [
+              {
+                "surface": "你",
+                "notation": "nǐ"
+              }
+            ]
+          },
+          {
+            "surface": "多大",
+            "units": [
+              {
+                "surface": "多",
+                "notation": "duō"
+              },
+              {
+                "surface": "大",
+                "notation": "dà"
+              }
+            ]
+          },
+          {
+            "surface": "了",
+            "units": [
+              {
+                "surface": "了",
+                "notation": "le"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 90,
+      "complexity": 22
+    },
+    {
+      "id": "zh.listening.zh.pilot-v1.age-twenty",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "我二十岁。",
+      "meaning": "I am twenty years old.",
+      "sourceId": "ww.zh.pilot-v1.age-twenty",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I am twenty years old.",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.zh.pilot-v1.age-twenty",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "二十",
+            "units": [
+              {
+                "surface": "二",
+                "notation": "èr"
+              },
+              {
+                "surface": "十",
+                "notation": "shí"
+              }
+            ]
+          },
+          {
+            "surface": "岁",
+            "units": [
+              {
+                "surface": "岁",
+                "notation": "suì"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 88,
+      "complexity": 22
+    },
+    {
+      "id": "zh.listening.zh.pilot-v1.surname-question",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "你姓什么？",
+      "meaning": "What is your surname?",
+      "sourceId": "ww.zh.pilot-v1.surname-question",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "What is your surname?",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.zh.pilot-v1.surname-question",
+        "tokens": [
+          {
+            "surface": "你",
+            "units": [
+              {
+                "surface": "你",
+                "notation": "nǐ"
+              }
+            ]
+          },
+          {
+            "surface": "姓",
+            "units": [
+              {
+                "surface": "姓",
+                "notation": "xìng"
+              }
+            ]
+          },
+          {
+            "surface": "什么",
+            "units": [
+              {
+                "surface": "什",
+                "notation": "shén"
+              },
+              {
+                "surface": "么",
+                "notation": "me"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 91,
+      "complexity": 22
+    },
+    {
+      "id": "zh.listening.zh.pilot-v1.surname-lin",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "我姓林。",
+      "meaning": "My surname is Lin.",
+      "sourceId": "ww.zh.pilot-v1.surname-lin",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "My surname is Lin.",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.zh.pilot-v1.surname-lin",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "姓",
+            "units": [
+              {
+                "surface": "姓",
+                "notation": "xìng"
+              }
+            ]
+          },
+          {
+            "surface": "林",
+            "units": [
+              {
+                "surface": "林",
+                "notation": "lín"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 90,
+      "complexity": 17
+    },
+    {
+      "id": "zh.listening.zh.pilot-v1.need-rest",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "我需要休息。",
+      "meaning": "I need to rest.",
+      "sourceId": "ww.zh.pilot-v1.need-rest",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I need to rest.",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.zh.pilot-v1.need-rest",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "需要",
+            "units": [
+              {
+                "surface": "需",
+                "notation": "xū"
+              },
+              {
+                "surface": "要",
+                "notation": "yào"
+              }
+            ]
+          },
+          {
+            "surface": "休息",
+            "units": [
+              {
+                "surface": "休",
+                "notation": "xiū"
+              },
+              {
+                "surface": "息",
+                "notation": "xi"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 97,
+      "complexity": 22
+    },
+    {
+      "id": "zh.listening.zh.pilot-v1.help-question",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "你能帮我吗？",
+      "meaning": "Can you help me?",
+      "sourceId": "ww.zh.pilot-v1.help-question",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "Can you help me?",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.zh.pilot-v1.help-question",
+        "tokens": [
+          {
+            "surface": "你",
+            "units": [
+              {
+                "surface": "你",
+                "notation": "nǐ"
+              }
+            ]
+          },
+          {
+            "surface": "能",
+            "units": [
+              {
+                "surface": "能",
+                "notation": "néng"
+              }
+            ]
+          },
+          {
+            "surface": "帮",
+            "units": [
+              {
+                "surface": "帮",
+                "notation": "bāng"
+              }
+            ]
+          },
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "吗",
+            "units": [
+              {
+                "surface": "吗",
+                "notation": "ma"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 98,
+      "complexity": 24
+    },
+    {
+      "id": "zh.listening.zh.pilot-v1.hungry-question",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "你饿吗？",
+      "meaning": "Are you hungry?",
+      "sourceId": "ww.zh.pilot-v1.hungry-question",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "Are you hungry?",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.zh.pilot-v1.hungry-question",
+        "tokens": [
+          {
+            "surface": "你",
+            "units": [
+              {
+                "surface": "你",
+                "notation": "nǐ"
+              }
+            ]
+          },
+          {
+            "surface": "饿",
+            "units": [
+              {
+                "surface": "饿",
+                "notation": "è"
+              }
+            ]
+          },
+          {
+            "surface": "吗",
+            "units": [
+              {
+                "surface": "吗",
+                "notation": "ma"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 95,
+      "complexity": 17
+    },
+    {
+      "id": "zh.listening.zh.pilot-v1.no-money",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "我没有钱。",
+      "meaning": "I do not have any money.",
+      "sourceId": "ww.zh.pilot-v1.no-money",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I do not have any money.",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.zh.pilot-v1.no-money",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "没有",
+            "units": [
+              {
+                "surface": "没",
+                "notation": "méi"
+              },
+              {
+                "surface": "有",
+                "notation": "yǒu"
+              }
+            ]
+          },
+          {
+            "surface": "钱",
+            "units": [
+              {
+                "surface": "钱",
+                "notation": "qián"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 96,
+      "complexity": 20
+    },
+    {
+      "id": "zh.listening.zh.pilot-v1.no-time",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "我没有时间。",
+      "meaning": "I do not have time.",
+      "sourceId": "ww.zh.pilot-v1.no-time",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I do not have time.",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.zh.pilot-v1.no-time",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "没有",
+            "units": [
+              {
+                "surface": "没",
+                "notation": "méi"
+              },
+              {
+                "surface": "有",
+                "notation": "yǒu"
+              }
+            ]
+          },
+          {
+            "surface": "时间",
+            "units": [
+              {
+                "surface": "时",
+                "notation": "shí"
+              },
+              {
+                "surface": "间",
+                "notation": "jiān"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 96,
+      "complexity": 22
+    },
+    {
+      "id": "zh.listening.zh.pilot-v1.not-go-yesterday",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "我昨天没去。",
+      "meaning": "I did not go yesterday.",
+      "sourceId": "ww.zh.pilot-v1.not-go-yesterday",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I did not go yesterday.",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.zh.pilot-v1.not-go-yesterday",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "昨天",
+            "units": [
+              {
+                "surface": "昨",
+                "notation": "zuó"
+              },
+              {
+                "surface": "天",
+                "notation": "tiān"
+              }
+            ]
+          },
+          {
+            "surface": "没",
+            "units": [
+              {
+                "surface": "没",
+                "notation": "méi"
+              }
+            ]
+          },
+          {
+            "surface": "去",
+            "units": [
+              {
+                "surface": "去",
+                "notation": "qù"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 91,
+      "complexity": 28
+    },
+    {
+      "id": "zh.listening.zh.pilot-v1.not-understand-heard",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "我没听懂。",
+      "meaning": "I did not understand what I heard.",
+      "sourceId": "ww.zh.pilot-v1.not-understand-heard",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I did not understand what I heard.",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.zh.pilot-v1.not-understand-heard",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "没",
+            "units": [
+              {
+                "surface": "没",
+                "notation": "méi"
+              }
+            ]
+          },
+          {
+            "surface": "听懂",
+            "units": [
+              {
+                "surface": "听",
+                "notation": "tīng"
+              },
+              {
+                "surface": "懂",
+                "notation": "dǒng"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 98,
+      "complexity": 30
+    },
+    {
+      "id": "zh.listening.zh.pilot-v1.have-time-question",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "你有没有时间？",
+      "meaning": "Do you have time?",
+      "sourceId": "ww.zh.pilot-v1.have-time-question",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "Do you have time?",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.zh.pilot-v1.have-time-question",
+        "tokens": [
+          {
+            "surface": "你",
+            "units": [
+              {
+                "surface": "你",
+                "notation": "nǐ"
+              }
+            ]
+          },
+          {
+            "surface": "有",
+            "units": [
+              {
+                "surface": "有",
+                "notation": "yǒu"
+              }
+            ]
+          },
+          {
+            "surface": "没有",
+            "units": [
+              {
+                "surface": "没",
+                "notation": "méi"
+              },
+              {
+                "surface": "有",
+                "notation": "yǒu"
+              }
+            ]
+          },
+          {
+            "surface": "时间",
+            "units": [
+              {
+                "surface": "时",
+                "notation": "shí"
+              },
+              {
+                "surface": "间",
+                "notation": "jiān"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 98,
+      "complexity": 27
+    },
+    {
+      "id": "zh.listening.zh.pilot-v1.like-tea-question",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "你喜不喜欢茶？",
+      "meaning": "Do you like tea?",
+      "sourceId": "ww.zh.pilot-v1.like-tea-question",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "Do you like tea?",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.zh.pilot-v1.like-tea-question",
+        "tokens": [
+          {
+            "surface": "你",
+            "units": [
+              {
+                "surface": "你",
+                "notation": "nǐ"
+              }
+            ]
+          },
+          {
+            "surface": "喜不喜欢",
+            "units": [
+              {
+                "surface": "喜",
+                "notation": "xǐ"
+              },
+              {
+                "surface": "不",
+                "notation": "bù"
+              },
+              {
+                "surface": "喜",
+                "notation": "xǐ"
+              },
+              {
+                "surface": "欢",
+                "notation": "huan"
+              }
+            ]
+          },
+          {
+            "surface": "茶",
+            "units": [
+              {
+                "surface": "茶",
+                "notation": "chá"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 92,
+      "complexity": 30
+    },
+    {
+      "id": "zh.listening.zh.pilot-v1.go-question",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "你去不去？",
+      "meaning": "Are you going?",
+      "sourceId": "ww.zh.pilot-v1.go-question",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "Are you going?",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.zh.pilot-v1.go-question",
+        "tokens": [
+          {
+            "surface": "你",
+            "units": [
+              {
+                "surface": "你",
+                "notation": "nǐ"
+              }
+            ]
+          },
+          {
+            "surface": "去",
+            "units": [
+              {
+                "surface": "去",
+                "notation": "qù"
+              }
+            ]
+          },
+          {
+            "surface": "不",
+            "units": [
+              {
+                "surface": "不",
+                "notation": "bù"
+              }
+            ]
+          },
+          {
+            "surface": "去",
+            "units": [
+              {
+                "surface": "去",
+                "notation": "qù"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 96,
+      "complexity": 24
+    },
+    {
+      "id": "zh.listening.zh.pilot-v1.teacher-question",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "你是不是老师？",
+      "meaning": "Are you a teacher?",
+      "sourceId": "ww.zh.pilot-v1.teacher-question",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "Are you a teacher?",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.zh.pilot-v1.teacher-question",
+        "tokens": [
+          {
+            "surface": "你",
+            "units": [
+              {
+                "surface": "你",
+                "notation": "nǐ"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "不是",
+            "units": [
+              {
+                "surface": "不",
+                "notation": "bù"
+              },
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "老师",
+            "units": [
+              {
+                "surface": "老",
+                "notation": "lǎo"
+              },
+              {
+                "surface": "师",
+                "notation": "shī"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 93,
+      "complexity": 26
+    },
+    {
+      "id": "zh.listening.zh.pilot-v1.want-water-question",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "你要不要水？",
+      "meaning": "Would you like some water?",
+      "sourceId": "ww.zh.pilot-v1.want-water-question",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "Would you like some water?",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.zh.pilot-v1.want-water-question",
+        "tokens": [
+          {
+            "surface": "你",
+            "units": [
+              {
+                "surface": "你",
+                "notation": "nǐ"
+              }
+            ]
+          },
+          {
+            "surface": "要",
+            "units": [
+              {
+                "surface": "要",
+                "notation": "yào"
+              }
+            ]
+          },
+          {
+            "surface": "不要",
+            "units": [
+              {
+                "surface": "不",
+                "notation": "bù"
+              },
+              {
+                "surface": "要",
+                "notation": "yào"
+              }
+            ]
+          },
+          {
+            "surface": "水",
+            "units": [
+              {
+                "surface": "水",
+                "notation": "shuǐ"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 98,
+      "complexity": 25
+    },
+    {
+      "id": "zh.listening.zh.pilot-v1.two-cups",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "两杯水。",
+      "meaning": "Two cups of water.",
+      "sourceId": "ww.zh.pilot-v1.two-cups",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "Two cups of water.",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.zh.pilot-v1.two-cups",
+        "tokens": [
+          {
+            "surface": "两",
+            "units": [
+              {
+                "surface": "两",
+                "notation": "liǎng"
+              }
+            ]
+          },
+          {
+            "surface": "杯",
+            "units": [
+              {
+                "surface": "杯",
+                "notation": "bēi"
+              }
+            ]
+          },
+          {
+            "surface": "水",
+            "units": [
+              {
+                "surface": "水",
+                "notation": "shuǐ"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 95,
+      "complexity": 20
+    },
+    {
+      "id": "zh.listening.zh.pilot-v1.two-people",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "两个人。",
+      "meaning": "Two people.",
+      "sourceId": "ww.zh.pilot-v1.two-people",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "Two people.",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.zh.pilot-v1.two-people",
+        "tokens": [
+          {
+            "surface": "两",
+            "units": [
+              {
+                "surface": "两",
+                "notation": "liǎng"
+              }
+            ]
+          },
+          {
+            "surface": "个",
+            "units": [
+              {
+                "surface": "个",
+                "notation": "gè"
+              }
+            ]
+          },
+          {
+            "surface": "人",
+            "units": [
+              {
+                "surface": "人",
+                "notation": "rén"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 93,
+      "complexity": 20
+    },
+    {
+      "id": "zh.listening.zh.pilot-v1.book-question",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "你有一本书吗？",
+      "meaning": "Do you have a book?",
+      "sourceId": "ww.zh.pilot-v1.book-question",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "Do you have a book?",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.zh.pilot-v1.book-question",
+        "tokens": [
+          {
+            "surface": "你",
+            "units": [
+              {
+                "surface": "你",
+                "notation": "nǐ"
+              }
+            ]
+          },
+          {
+            "surface": "有",
+            "units": [
+              {
+                "surface": "有",
+                "notation": "yǒu"
+              }
+            ]
+          },
+          {
+            "surface": "一",
+            "units": [
+              {
+                "surface": "一",
+                "notation": "yī"
+              }
+            ]
+          },
+          {
+            "surface": "本",
+            "units": [
+              {
+                "surface": "本",
+                "notation": "běn"
+              }
+            ]
+          },
+          {
+            "surface": "书",
+            "units": [
+              {
+                "surface": "书",
+                "notation": "shū"
+              }
+            ]
+          },
+          {
+            "surface": "吗",
+            "units": [
+              {
+                "surface": "吗",
+                "notation": "ma"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 95,
+      "complexity": 25
+    },
+    {
+      "id": "zh.listening.zh.pilot-v1.two-books-question",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "你有两本书吗？",
+      "meaning": "Do you have two books?",
+      "sourceId": "ww.zh.pilot-v1.two-books-question",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "Do you have two books?",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.zh.pilot-v1.two-books-question",
+        "tokens": [
+          {
+            "surface": "你",
+            "units": [
+              {
+                "surface": "你",
+                "notation": "nǐ"
+              }
+            ]
+          },
+          {
+            "surface": "有",
+            "units": [
+              {
+                "surface": "有",
+                "notation": "yǒu"
+              }
+            ]
+          },
+          {
+            "surface": "两",
+            "units": [
+              {
+                "surface": "两",
+                "notation": "liǎng"
+              }
+            ]
+          },
+          {
+            "surface": "本",
+            "units": [
+              {
+                "surface": "本",
+                "notation": "běn"
+              }
+            ]
+          },
+          {
+            "surface": "书",
+            "units": [
+              {
+                "surface": "书",
+                "notation": "shū"
+              }
+            ]
+          },
+          {
+            "surface": "吗",
+            "units": [
+              {
+                "surface": "吗",
+                "notation": "ma"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 92,
+      "complexity": 27
+    },
+    {
+      "id": "zh.listening.zh.pilot-v1.twenty-two",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "二十二。",
+      "meaning": "Twenty-two.",
+      "sourceId": "ww.zh.pilot-v1.twenty-two",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "Twenty-two.",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.zh.pilot-v1.twenty-two",
+        "tokens": [
+          {
+            "surface": "二十二",
+            "units": [
+              {
+                "surface": "二",
+                "notation": "èr"
+              },
+              {
+                "surface": "十",
+                "notation": "shí"
+              },
+              {
+                "surface": "二",
+                "notation": "èr"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 91,
+      "complexity": 20
+    },
+    {
+      "id": "zh.listening.zh.pilot-v1.price-question",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "这个多少钱？",
+      "meaning": "How much does this cost?",
+      "sourceId": "ww.zh.pilot-v1.price-question",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "How much does this cost?",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.zh.pilot-v1.price-question",
+        "tokens": [
+          {
+            "surface": "这个",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              },
+              {
+                "surface": "个",
+                "notation": "ge"
+              }
+            ]
+          },
+          {
+            "surface": "多少钱",
+            "units": [
+              {
+                "surface": "多",
+                "notation": "duō"
+              },
+              {
+                "surface": "少",
+                "notation": "shǎo"
+              },
+              {
+                "surface": "钱",
+                "notation": "qián"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 99,
+      "complexity": 25
+    },
+    {
+      "id": "zh.listening.zh.pilot-v1.price-ten",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "十元。",
+      "meaning": "Ten yuan.",
+      "sourceId": "ww.zh.pilot-v1.price-ten",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "Ten yuan.",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.zh.pilot-v1.price-ten",
+        "tokens": [
+          {
+            "surface": "十",
+            "units": [
+              {
+                "surface": "十",
+                "notation": "shí"
+              }
+            ]
+          },
+          {
+            "surface": "元",
+            "units": [
+              {
+                "surface": "元",
+                "notation": "yuán"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 96,
+      "complexity": 15
+    },
+    {
+      "id": "zh.listening.zh.pilot-v1.price-twelve",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "十二元。",
+      "meaning": "Twelve yuan.",
+      "sourceId": "ww.zh.pilot-v1.price-twelve",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "Twelve yuan.",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.zh.pilot-v1.price-twelve",
+        "tokens": [
+          {
+            "surface": "十二",
+            "units": [
+              {
+                "surface": "十",
+                "notation": "shí"
+              },
+              {
+                "surface": "二",
+                "notation": "èr"
+              }
+            ]
+          },
+          {
+            "surface": "元",
+            "units": [
+              {
+                "surface": "元",
+                "notation": "yuán"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 94,
+      "complexity": 20
+    },
+    {
+      "id": "zh.listening.zh.pilot-v1.pay-how",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "怎么付款？",
+      "meaning": "How do I pay?",
+      "sourceId": "ww.zh.pilot-v1.pay-how",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "How do I pay?",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.zh.pilot-v1.pay-how",
+        "tokens": [
+          {
+            "surface": "怎么",
+            "units": [
+              {
+                "surface": "怎",
+                "notation": "zěn"
+              },
+              {
+                "surface": "么",
+                "notation": "me"
+              }
+            ]
+          },
+          {
+            "surface": "付款",
+            "units": [
+              {
+                "surface": "付",
+                "notation": "fù"
+              },
+              {
+                "surface": "款",
+                "notation": "kuǎn"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 98,
+      "complexity": 24
+    },
+    {
+      "id": "zh.listening.zh.pilot-v1.pay-phone",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "我可以用手机付款吗？",
+      "meaning": "May I pay with my phone?",
+      "sourceId": "ww.zh.pilot-v1.pay-phone",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "May I pay with my phone?",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.zh.pilot-v1.pay-phone",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "可以",
+            "units": [
+              {
+                "surface": "可",
+                "notation": "kě"
+              },
+              {
+                "surface": "以",
+                "notation": "yǐ"
+              }
+            ]
+          },
+          {
+            "surface": "用",
+            "units": [
+              {
+                "surface": "用",
+                "notation": "yòng"
+              }
+            ]
+          },
+          {
+            "surface": "手机",
+            "units": [
+              {
+                "surface": "手",
+                "notation": "shǒu"
+              },
+              {
+                "surface": "机",
+                "notation": "jī"
+              }
+            ]
+          },
+          {
+            "surface": "付款",
+            "units": [
+              {
+                "surface": "付",
+                "notation": "fù"
+              },
+              {
+                "surface": "款",
+                "notation": "kuǎn"
+              }
+            ]
+          },
+          {
+            "surface": "吗",
+            "units": [
+              {
+                "surface": "吗",
+                "notation": "ma"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 98,
+      "complexity": 33
+    },
+    {
+      "id": "zh.listening.zh.pilot-v1.can-swim",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "我会游泳。",
+      "meaning": "I know how to swim.",
+      "sourceId": "ww.zh.pilot-v1.can-swim",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I know how to swim.",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.zh.pilot-v1.can-swim",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "会",
+            "units": [
+              {
+                "surface": "会",
+                "notation": "huì"
+              }
+            ]
+          },
+          {
+            "surface": "游泳",
+            "units": [
+              {
+                "surface": "游",
+                "notation": "yóu"
+              },
+              {
+                "surface": "泳",
+                "notation": "yǒng"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 91,
+      "complexity": 22
+    },
+    {
+      "id": "zh.listening.zh.pilot-v1.cannot-swim",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "我不会游泳。",
+      "meaning": "I do not know how to swim.",
+      "sourceId": "ww.zh.pilot-v1.cannot-swim",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I do not know how to swim.",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.zh.pilot-v1.cannot-swim",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "不",
+            "units": [
+              {
+                "surface": "不",
+                "notation": "bù"
+              }
+            ]
+          },
+          {
+            "surface": "会",
+            "units": [
+              {
+                "surface": "会",
+                "notation": "huì"
+              }
+            ]
+          },
+          {
+            "surface": "游泳",
+            "units": [
+              {
+                "surface": "游",
+                "notation": "yóu"
+              },
+              {
+                "surface": "泳",
+                "notation": "yǒng"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 91,
+      "complexity": 25
+    },
+    {
+      "id": "zh.listening.zh.pilot-v1.permission-enter",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "我可以进来吗？",
+      "meaning": "May I come in?",
+      "sourceId": "ww.zh.pilot-v1.permission-enter",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "May I come in?",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.zh.pilot-v1.permission-enter",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "可以",
+            "units": [
+              {
+                "surface": "可",
+                "notation": "kě"
+              },
+              {
+                "surface": "以",
+                "notation": "yǐ"
+              }
+            ]
+          },
+          {
+            "surface": "进来",
+            "units": [
+              {
+                "surface": "进",
+                "notation": "jìn"
+              },
+              {
+                "surface": "来",
+                "notation": "lái"
+              }
+            ]
+          },
+          {
+            "surface": "吗",
+            "units": [
+              {
+                "surface": "吗",
+                "notation": "ma"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 98,
+      "complexity": 26
+    },
+    {
+      "id": "zh.listening.zh.pilot-v1.location-home",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "我在家。",
+      "meaning": "I am at home.",
+      "sourceId": "ww.zh.pilot-v1.location-home",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I am at home.",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.zh.pilot-v1.location-home",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "在",
+            "units": [
+              {
+                "surface": "在",
+                "notation": "zài"
+              }
+            ]
+          },
+          {
+            "surface": "家",
+            "units": [
+              {
+                "surface": "家",
+                "notation": "jiā"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 97,
+      "complexity": 17
+    },
+    {
+      "id": "zh.listening.zh.pilot-v1.progressive-eat",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "我在吃饭。",
+      "meaning": "I am eating.",
+      "sourceId": "ww.zh.pilot-v1.progressive-eat",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I am eating.",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.zh.pilot-v1.progressive-eat",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "在",
+            "units": [
+              {
+                "surface": "在",
+                "notation": "zài"
+              }
+            ]
+          },
+          {
+            "surface": "吃饭",
+            "units": [
+              {
+                "surface": "吃",
+                "notation": "chī"
+              },
+              {
+                "surface": "饭",
+                "notation": "fàn"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 96,
+      "complexity": 22
+    },
+    {
+      "id": "zh.listening.zh.pilot-v1.experience-beijing",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "你去过北京吗？",
+      "meaning": "Have you been to Beijing?",
+      "sourceId": "ww.zh.pilot-v1.experience-beijing",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "Have you been to Beijing?",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.zh.pilot-v1.experience-beijing",
+        "tokens": [
+          {
+            "surface": "你",
+            "units": [
+              {
+                "surface": "你",
+                "notation": "nǐ"
+              }
+            ]
+          },
+          {
+            "surface": "去",
+            "units": [
+              {
+                "surface": "去",
+                "notation": "qù"
+              }
+            ]
+          },
+          {
+            "surface": "过",
+            "units": [
+              {
+                "surface": "过",
+                "notation": "guo"
+              }
+            ]
+          },
+          {
+            "surface": "北京",
+            "units": [
+              {
+                "surface": "北",
+                "notation": "běi"
+              },
+              {
+                "surface": "京",
+                "notation": "jīng"
+              }
+            ]
+          },
+          {
+            "surface": "吗",
+            "units": [
+              {
+                "surface": "吗",
+                "notation": "ma"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 91,
+      "complexity": 32
+    },
+    {
+      "id": "zh.listening.zh.pilot-v1.completed-apple",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "我吃了一个苹果。",
+      "meaning": "I ate an apple.",
+      "sourceId": "ww.zh.pilot-v1.completed-apple",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I ate an apple.",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.zh.pilot-v1.completed-apple",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "吃",
+            "units": [
+              {
+                "surface": "吃",
+                "notation": "chī"
+              }
+            ]
+          },
+          {
+            "surface": "了",
+            "units": [
+              {
+                "surface": "了",
+                "notation": "le"
+              }
+            ]
+          },
+          {
+            "surface": "一",
+            "units": [
+              {
+                "surface": "一",
+                "notation": "yī"
+              }
+            ]
+          },
+          {
+            "surface": "个",
+            "units": [
+              {
+                "surface": "个",
+                "notation": "gè"
+              }
+            ]
+          },
+          {
+            "surface": "苹果",
+            "units": [
+              {
+                "surface": "苹",
+                "notation": "píng"
+              },
+              {
+                "surface": "果",
+                "notation": "guǒ"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 92,
+      "complexity": 32
+    },
+    {
+      "id": "zh.listening.zh.pilot-v1.open-window",
+      "difficulty": 2,
+      "revision": "1",
+      "target": "窗户开着。",
+      "meaning": "The window is open.",
+      "sourceId": "ww.zh.pilot-v1.open-window",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "The window is open.",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.zh.pilot-v1.open-window",
+        "tokens": [
+          {
+            "surface": "窗户",
+            "units": [
+              {
+                "surface": "窗",
+                "notation": "chuāng"
+              },
+              {
+                "surface": "户",
+                "notation": "hu"
+              }
+            ]
+          },
+          {
+            "surface": "开",
+            "units": [
+              {
+                "surface": "开",
+                "notation": "kāi"
+              }
+            ]
+          },
+          {
+            "surface": "着",
+            "units": [
+              {
+                "surface": "着",
+                "notation": "zhe"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 94,
+      "complexity": 29
+    },
+    {
+      "id": "zh.listening.zh.pilot-v1.push-door",
+      "difficulty": 1,
+      "revision": "1",
+      "target": "请推门。",
+      "meaning": "Please push the door.",
+      "sourceId": "ww.zh.pilot-v1.push-door",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "Please push the door.",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww.zh.pilot-v1.push-door",
+        "tokens": [
+          {
+            "surface": "请",
+            "units": [
+              {
+                "surface": "请",
+                "notation": "qǐng"
+              }
+            ]
+          },
+          {
+            "surface": "推",
+            "units": [
+              {
+                "surface": "推",
+                "notation": "tuī"
+              }
+            ]
+          },
+          {
+            "surface": "门",
+            "units": [
+              {
+                "surface": "门",
+                "notation": "mén"
+              }
+            ]
+          }
+        ]
+      },
+      "usefulness": 96,
+      "complexity": 17
     }
   ],
   "authoredProvenance": {
@@ -58172,6 +60414,6 @@
     "reviewStatus": "ai-editorial-reviewed",
     "reviewer": "Codex AI author self-review (not human or native-speaker approval)",
     "reviewedAt": "2026-09-08",
-    "notes": "Original lexical listening entries, reviewed for written meaning, contextual guide agreement and difficulty by the AI author. Native Mandarin review and audible device-speech review remain outstanding. Reading units come from the declared Word World guide. Exact source IDs and review batches are recorded in docs/MANDARIN_CONTENT_EXPANSION_20260908.md."
+    "notes": "Original lexical listening entries, reviewed for written meaning, contextual guide agreement and difficulty by the AI author. Native Mandarin review and audible device-speech review remain outstanding. Reading units come from the declared Word World guide. Exact source IDs and review batches are recorded in docs/MANDARIN_CONTENT_EXPANSION_20260908.md. The 2026-10-14 Mandarin revision aligns lexical citation tones and source-linked sentence corrections, and adds 39 beginner sentences. This is AI author self-review; native Mandarin and audible speech review remain outstanding."
   }
 }

@@ -106,7 +106,8 @@ function fixture({ pending = null, reduced = false, claim, sound } = {}) {
   content.append(next);
   const menu = browser.document.createElement("button");
   browser.document.body.append(header, content, menu);
-  let snapshot = { target: 12, effort: 4, completedSets: 0, pending, coins: 0, gems: 0 };
+  let snapshot = { target: 12, effort: 4, completedSets: 0, pending, coins: 0, gems: 0,
+    cycle: { sets: 0, target: 16, completed: 0 } };
   const claims = [];
   const pauses = [];
   const boundaries = [];
@@ -146,6 +147,74 @@ function fixture({ pending = null, reduced = false, claim, sound } = {}) {
     transition, timers, overlay: () => browser.document.body.querySelector(".caatuu-practice-celebration"),
     skip: () => browser.document.body.querySelector(".caatuu-practice-celebration-skip") };
 }
+
+test("set progress stays in the header without visible labels or an always-visible cycle", () => {
+  const f = fixture();
+  f.controller.setActive(true);
+  const meter = f.document.querySelector("[data-caatuu-practice-meter]");
+  const progress = meter.querySelector("progress");
+  assert.equal(meter.parentElement, f.document.querySelector(".app-header"));
+  assert.equal(meter.textContent, "");
+  assert.equal(meter.querySelectorAll("progress").length, 1);
+  assert.equal(progress.max, 12);
+  assert.equal(progress.value, 4);
+  assert.equal(progress.getAttribute("aria-label"), "Practice set");
+  f.update({ effort: 10, cycle: { sets: 7, target: 16 } });
+  assert.equal(progress.value, 10);
+  assert.equal(meter.textContent, "");
+  assert.equal(f.document.querySelector(".caatuu-practice-cycle-progress"), null);
+  const query = f.document.querySelector;
+  f.document.querySelector = selector => selector === ".app-header" ? null : query(selector);
+  f.update({ effort: 11 });
+  assert.equal(meter.hidden, true);
+  assert.equal(meter.parentElement.tagName, "HEADER", "a missing header never moves the bar to the body");
+  f.controller.destroy();
+});
+
+test("set completion shows the cycle bar and uses the same XP emblem for the card and flights", async () => {
+  const f = fixture({ pending: receipt() });
+  f.update({ effort: 2, cycle: { sets: 7, target: 16 } }, false);
+  f.controller.setActive(true);
+  const gate = f.controller.boundary();
+  await settle();
+  const row = f.overlay().querySelector(".caatuu-practice-cycle-progress");
+  const progress = row.querySelector("progress");
+  assert.equal(progress.value, 7);
+  assert.equal(progress.max, 16);
+  assert.equal(progress.getAttribute("aria-valuetext"), "7 / 16 sets");
+  assert.equal(row.textContent, "");
+  assert.equal(row.querySelector("img").alt, "");
+  assert.equal(row.classList.contains("is-complete"), false);
+  assert.equal(f.document.querySelector(".caatuu-practice-meter-progress").value, 2);
+  const art = f.overlay().querySelector(".caatuu-practice-reward-xp").querySelector("img");
+  assert.equal(art.src, "/language-runtime/static/assets/xp-gold.webp");
+  const flights = f.overlay().querySelectorAll(".caatuu-practice-flight-xp");
+  assert.equal(flights.length, 2);
+  assert.ok(flights.every(flight => flight.querySelector("img").src === art.src));
+  f.skip().click();
+  assert.equal(await gate, true);
+  assert.deepEqual(f.claims, ["set-1"]);
+  assert.equal(f.document.body.querySelector(".caatuu-practice-cycle-progress"), null);
+  f.controller.destroy();
+});
+
+test("a gem milestone displays a full cycle even after the ledger starts the next cycle", async () => {
+  const f = fixture({ pending: { ...receipt(), gems: 1 }, reduced: true });
+  f.update({ effort: 0, cycle: { sets: 0, target: 16, completed: 1 } }, false);
+  f.controller.setActive(true);
+  const gate = f.controller.boundary();
+  await settle();
+  const row = f.overlay().querySelector(".caatuu-practice-cycle-progress");
+  assert.equal(row.querySelector("progress").value, 16);
+  assert.equal(row.querySelector("progress").max, 16);
+  assert.equal(row.classList.contains("is-complete"), true);
+  assert.match(f.overlay().textContent, /\+16XP\+1Coins\+1Gems/u);
+  await f.advance(1200);
+  assert.equal(await gate, true);
+  assert.equal(await f.controller.boundary(), false);
+  assert.deepEqual(f.claims, ["set-1"]);
+  f.controller.destroy();
+});
 
 test("legacy learning APIs remain a no-op and pending receipts do not animate on install", async () => {
   const old = createBrowserHarness();
@@ -327,7 +396,7 @@ test("learning updates are quiet except for late completion during an actual rob
   const f = fixture();
   f.controller.setActive(true);
   f.update({ effort: 7 });
-  assert.equal(f.document.querySelector(".caatuu-practice-meter-count").textContent, "7 / 12");
+  assert.equal(f.document.querySelector(".caatuu-practice-meter-progress").getAttribute("aria-valuetext"), "7 / 12");
   f.update({ pending: receipt() });
   await settle();
   assert.equal(f.overlay(), null, "answers by themselves do not interrupt gameplay");
@@ -409,7 +478,7 @@ test("cross-tab acknowledgement and reset cancel stale claims, and page restorat
     f.update({ pending: receipt("restored-set"), effort: 2 }, false);
     f.window.dispatchEvent({ type: "pageshow" });
     await settle();
-    assert.equal(f.document.querySelector(".caatuu-practice-meter-count").textContent, "2 / 12");
+    assert.equal(f.document.querySelector(".caatuu-practice-meter-progress").getAttribute("aria-valuetext"), "2 / 12");
     assert.equal(f.overlay(), null);
     assert.deepEqual(f.claims, ["set-1"]);
     f.controller.destroy();

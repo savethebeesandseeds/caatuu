@@ -38,6 +38,36 @@ pronunciation guidance until native Mandarin review passes. Its first-party
 English and Mandarin curriculum licensing is release-cleared under
 `AGPL-3.0-only`.
 
+## Foundation path and sentence patterns
+
+Word World's Next sentence menu offers **Foundation path** and **Sentence
+patterns** when course-authored teaching records are available. The foundation
+path introduces eligible examples in authored order, then revisits them;
+presentation counts do not establish mastery. Pattern practice uses the same
+answer controls and evidence ledger, scoped to the chosen unit and difficulty.
+The ten introductory units cover greetings, identity, needs, negation, questions,
+classifiers, payment, modal verbs, location and aspect. Existing explicit learner
+settings are preserved. Unannotated courses retain their ordinary selection.
+
+The optional **Pattern note** contains course-authored explanations. Opening it
+before answering records assisted practice. Explicit alternate target token
+orders accept only reviewed permutations; the game never guesses valid grammar.
+
+Sounds Quasar excludes exact authored homophones from isolated-word choices.
+Naturalization Nucleus connects all 640 characters to cited compounds or
+sentences after a correct match. **Play example** speaks that context; character
+playback remains separate. Contexts and pronunciation remain machine-assisted
+previews, with qualified native and actual voice review pending.
+
+Refresh the character context projection after its cited Word World text changes:
+
+```sh
+docker exec -w /workspace caatuu-dev node tools/language-content/project-mandarin-nucleus-contexts.mjs --write
+```
+
+Omit `--write` to check citations and generated context drift without changing
+the catalog. Run the Word World builder before offline-catalog refreshes.
+
 ## Validation
 
 Run from the repository development container:

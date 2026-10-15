@@ -26,7 +26,17 @@
   cursor: pointer;
 }
 .caatuu-game-control-toggle > img { width: 28px; height: 28px; object-fit: contain; }
-.caatuu-game-challenge-icon { display: grid; place-items: center; font-size: 0.96rem; font-weight: 900; line-height: 1; pointer-events: none; }
+.caatuu-game-challenge-icon,
+.word-net-translate-icon {
+  display: block;
+  width: 24px;
+  height: 24px;
+  background: url("/language-runtime/static/assets/aa-control.webp") center / contain no-repeat;
+  font-size: 0;
+  pointer-events: none;
+}
+html[data-theme="dark"] .caatuu-game-challenge-icon,
+html[data-theme="dark"] .word-net-translate-icon { filter: brightness(1.45); }
 .caatuu-game-illustration-icon { font-size: 0.95rem; line-height: 1; pointer-events: none; }
 .caatuu-game-sound-icon {
   width: 24px;

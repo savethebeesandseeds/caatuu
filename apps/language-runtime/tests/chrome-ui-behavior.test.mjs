@@ -563,6 +563,8 @@ test("the transparent header renders compact journey stats with exact accessible
   assert.equal(header.querySelector(".language-selector"), null);
   assert.equal(xp.classList.contains("app-header-stat"), true);
   assert.equal(xp.classList.contains("app-header-xp"), true);
+  assert.equal(xp.querySelector("img").src, "/language-runtime/static/assets/xp-gold.webp");
+  assert.equal(header.querySelector("[data-caatuu-header-gems]").querySelector("img").src, "/assets/icons/icon_gem.png");
   assert.equal(coins.classList.contains("app-header-stat"), true);
   assert.equal(coins.classList.contains("app-header-coins"), true);
   assert.equal(streakStat.classList.contains("app-header-stat"), true);

@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "locale": "en",
   "direction": "ltr",
-  "revision": "interface-en-42",
+  "revision": "interface-en-43",
   "messages": {
     "practice.set.label": "Practice set",
     "practice.set.progress": "{effort} / {target}",
@@ -1319,6 +1319,10 @@
     "wordworld.word.selectmeaning": "Select {word} and show its meaning",
     "languages.ar": "Modern Standard Arabic",
     "languages.la": "Scientific Latin",
-    "languages.ka": "Georgian"
+    "languages.ka": "Georgian",
+    "wordworld.learning.foundation": "Foundation path",
+    "wordworld.learning.patterns": "Sentence patterns",
+    "wordworld.learning.units": "Practise a pattern",
+    "wordworld.learning.note": "Pattern note"
   }
 }

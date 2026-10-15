@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://caatuu.org/schemas/development/naturalization-nucleus.preview.v1.json",
+  "title": "Mandarin Naturalization Nucleus development content",
+  "description": "Context is a matched-only authored example. Runtime validation additionally checks character/pinyin alignment, declared source membership, citation readings, safe text and review integrity.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "schemaVersion", "courseId", "gameId", "contentId", "title", "instructions", "roundSettings", "status", "derivedFrom", "review", "challenges"],
+  "properties": {
+    "$schema": { "const": "https://caatuu.org/schemas/development/naturalization-nucleus.preview.v1.json" },
+    "schemaVersion": { "const": 1 },
+    "courseId": { "const": "zh" },
+    "gameId": { "const": "naturalization-nucleus" },
+    "contentId": { "type": "string", "maxLength": 100, "pattern": "^naturalization-nucleus\\.[a-z0-9-]+$" },
+    "title": { "type": "string", "minLength": 1, "maxLength": 100 },
+    "instructions": { "type": "string", "minLength": 1, "maxLength": 240 },
+    "derivedFrom": { "type": "string", "minLength": 1, "maxLength": 240 },
+    "status": { "enum": ["machine-assisted-preview", "native-reviewed"] },
+    "review": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "reviewer", "reviewedAt", "notes"],
+      "properties": {
+        "status": { "enum": ["native-review-required", "native-reviewed"] },
+        "reviewer": { "type": ["string", "null"] },
+        "reviewedAt": { "type": ["string", "null"] },
+        "notes": { "type": "string", "minLength": 1, "maxLength": 1400 }
+      }
+    },
+    "roundSettings": {
+      "type": "object", "additionalProperties": false,
+      "required": ["pieceCounts", "defaultPieceCount", "artwork"],
+      "properties": {
+        "pieceCounts": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "enum": [5, 9] } },
+        "defaultPieceCount": { "enum": [5, 9] },
+        "artwork": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "pattern": "^/assets/ships/[A-Za-z0-9%._()-]+\\.png$" } }
+      }
+    },
+    "challenges": { "type": "array", "minItems": 9, "items": { "$ref": "#/$defs/challenge" } }
+  },
+  "$defs": {
+    "englishAuditText": { "type": "string", "minLength": 1, "maxLength": 300, "pattern": "^[\\p{Script=Latin}\\p{M}\\p{P}\\p{N}\\p{Zs}]+$" },
+    "grade": { "type": "integer", "minimum": 1, "maximum": 100 },
+    "context": {
+      "type": "object", "additionalProperties": false,
+      "required": ["text", "notation", "meaning", "sourceConceptId"],
+      "properties": {
+        "text": { "type": "string", "minLength": 1, "maxLength": 240, "pattern": "^[\\p{Script=Han}\\p{P}\\p{Zs}]+$" },
+        "notation": { "type": "string", "minLength": 1, "maxLength": 1200, "pattern": "^[A-Za-zÀ-ɏ\\p{P}\\p{Zs}]+$" },
+        "meaning": { "$ref": "#/$defs/englishAuditText" },
+        "sourceConceptId": { "type": "string", "minLength": 1, "maxLength": 100 }
+      }
+    },
+    "challenge": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "hanzi", "pinyin", "tone", "translation", "difficulty", "sourceConceptIds"],
+      "properties": {
+        "id": { "type": "string", "maxLength": 80, "pattern": "^zh\\.hanzi\\.[a-z0-9-]+$" },
+        "hanzi": { "type": "string", "minLength": 1, "maxLength": 1, "pattern": "^[㐀-鿿豈-﫿]$" },
+        "pinyin": { "type": "string", "minLength": 1, "maxLength": 24, "pattern": "^[A-Za-zÀ-ɏ]+$" },
+        "tone": { "type": "integer", "minimum": 1, "maximum": 5 },
+        "translation": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "englishAuditText": { "$ref": "#/$defs/englishAuditText" },
+        "context": { "$ref": "#/$defs/context" },
+        "difficulty": { "type": "integer", "minimum": 1, "maximum": 3 },
+        "usefulness": { "$ref": "#/$defs/grade" },
+        "complexity": { "$ref": "#/$defs/grade" },
+        "urgency": { "type": "integer", "minimum": 1, "maximum": 5 },
+        "subdifficulty": { "type": "integer", "minimum": 1, "maximum": 5 },
+        "sourceConceptIds": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1, "maxLength": 100 } }
+      }
+    }
+  }
+}

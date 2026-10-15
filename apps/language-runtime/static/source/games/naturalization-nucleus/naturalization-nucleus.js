@@ -13,7 +13,8 @@
   ]);
   const ROUND_SETTING_KEYS = new Set(["pieceCounts", "defaultPieceCount", "artwork"]);
   const REVIEW_KEYS = new Set(["status", "reviewer", "reviewedAt", "notes"]);
-  const CHALLENGE_KEYS = new Set(["id", "hanzi", "pinyin", "tone", "translation", "sourceConceptIds", "difficulty", "usefulness", "complexity", "urgency", "subdifficulty"]);
+  const CHALLENGE_KEYS = new Set(["id", "hanzi", "pinyin", "tone", "translation", "englishAuditText", "context", "sourceConceptIds", "difficulty", "usefulness", "complexity", "urgency", "subdifficulty"]);
+  const CONTEXT_KEYS = new Set(["text", "notation", "meaning", "sourceConceptId"]);
   const WORD_CHALLENGE_KEYS = new Set(["id", "target", "reading", "translation", "englishAuditText", "sourceItemIds", "difficulty", "usefulness", "complexity"]);
   const CONTENT_STATUSES = new Set(["machine-assisted-preview", "native-reviewed"]);
   const REVIEW_STATUSES = new Set(["native-review-required", "native-reviewed"]);
@@ -173,6 +174,33 @@
     return Number.isInteger(level) && level >= 1 && level <= 3 ? level : fallback;
   }
 
+  function englishAuditText(value, label) {
+    const text = requiredText(value, label, 300);
+    assert(/^[\p{Script=Latin}\p{M}\p{P}\p{N}\p{Zs}]+$/u.test(text), `${label} must contain English audit text without target-script examples.`);
+    assertLearnerSafe(text, label);
+    return text;
+  }
+
+  function validateContext(value, challenge, sources, label) {
+    assert(isPlainObject(value), `${label} must be an object.`);
+    assertExactKeys(value, CONTEXT_KEYS, label);
+    const text = requiredText(value.text, `${label}.text`, 240);
+    assert(/^[\p{Script=Han}\p{P}\p{Zs}]+$/u.test(text), `${label}.text must contain authored Hanzi with plain punctuation.`);
+    assertLearnerSafe(text, `${label}.text`);
+    const notation = requiredText(value.notation, `${label}.notation`, 1200);
+    assert(/^[A-Za-z\u00c0-\u024f\p{P}\p{Zs}]+$/u.test(notation), `${label}.notation must contain authored pinyin.`);
+    assertLearnerSafe(notation, `${label}.notation`);
+    const glyphs = Array.from(text).filter(glyph => /\p{Script=Han}/u.test(glyph));
+    const syllables = notation.toLowerCase().match(/[A-Za-z\u00c0-\u024f]+/gu) || [];
+    assert(glyphs.length === syllables.length, `${label} must align each Han character with one authored pinyin syllable.`);
+    assert(glyphs.some((glyph, index) => glyph === challenge.hanzi && syllables[index] === challenge.pinyin.toLowerCase()),
+      `${label} must contain the challenge's exact Hanzi and contextual reading.`);
+    const meaning = englishAuditText(value.meaning, `${label}.meaning`);
+    const sourceConceptId = requiredText(value.sourceConceptId, `${label}.sourceConceptId`, 100);
+    assert(sources.includes(sourceConceptId), `${label}.sourceConceptId must cite a declared challenge source.`);
+    return Object.freeze({ text, notation, meaning, sourceConceptId });
+  }
+
   function validateChallenge(value, index, wordNotation = false) {
     const label = `challenges[${index}]`;
     assert(isPlainObject(value), `${label} must be an object.`);
@@ -231,10 +259,16 @@
       requiredText(conceptId, `${label}.${sourceField}[${conceptIndex}]`, 100)
     ));
     assert(new Set(sources).size === sources.length, `${label}.${sourceField} must be unique.`);
+    const audit = !wordNotation && value.englishAuditText !== undefined
+      ? englishAuditText(value.englishAuditText, `${label}.englishAuditText`) : null;
+    const context = !wordNotation && value.context !== undefined
+      ? validateContext(value.context, scriptFields, sources, `${label}.context`) : null;
     return Object.freeze({
       id,
       ...scriptFields,
       translation,
+      ...(audit ? { englishAuditText: audit } : {}),
+      ...(context ? { context } : {}),
       difficulty,
       ...progression,
       [sourceField]: Object.freeze(sources)
@@ -725,6 +759,29 @@
     const feedbackGlyph = feedbackHanzi?.querySelector(".word-net-target-text-glyph");
     const feedbackMeaning = root.querySelector("#naturalizationNucleusFeedbackMeaning");
     const feedbackSound = root.querySelector("#naturalizationNucleusFeedbackSound");
+    const feedbackContext = catalog.notation ? null : (() => {
+      const documentRef = feedback.ownerDocument || global.document;
+      const section = feedback.querySelector(".naturalization-nucleus-context") || documentRef.createElement("section");
+      section.className = "naturalization-nucleus-context";
+      section.hidden = true;
+      section.setAttribute("aria-label", "Mandarin example in context");
+      const label = makeText(documentRef, "naturalization-nucleus-context-label", "In a word or sentence", "en");
+      const text = makeText(documentRef, "naturalization-nucleus-context-text", "", "zh-Hans");
+      const notation = makeText(documentRef, "naturalization-nucleus-context-notation", "", "zh-Latn-pinyin");
+      const meaning = makeText(documentRef, "naturalization-nucleus-context-meaning", "", "en");
+      const play = documentRef.createElement("button");
+      play.type = "button";
+      play.className = "naturalization-nucleus-context-play";
+      play.textContent = "Play example";
+      play.setAttribute("aria-label", "Play contextual Mandarin example");
+      play.title = "Play contextual Mandarin example";
+      play.disabled = true;
+      section.replaceChildren(label, text, notation, meaning, play);
+      feedback.append(section);
+      feedbackSound?.setAttribute("aria-label", "Play isolated Mandarin character");
+      if (feedbackSound) feedbackSound.title = "Play isolated Mandarin character";
+      return { section, text, notation, meaning, play };
+    })();
     const countButtons = [...root.querySelectorAll("[data-naturalization-piece-count]")];
     assert(
       stage && game && interstitial && interstitialRobot && board && ring && deck && artwork && status && pieceCount
@@ -957,8 +1014,27 @@
     function renderFeedback() {
       const challenge = state.feedbackChallenge;
       feedback.hidden = !challenge;
+      if (feedbackContext) {
+        // Clear previous content as well as hiding it: selecting a new tile must
+        // not expose its pronunciation or carry the prior example into the DOM.
+        feedbackContext.section.hidden = true;
+        feedbackContext.text.textContent = "";
+        feedbackContext.notation.textContent = "";
+        feedbackContext.meaning.textContent = "";
+        feedbackContext.play.disabled = true;
+        feedback.classList.remove("has-context");
+      }
       if (!challenge) return;
       const revealed = state.feedbackRevealed;
+      if (feedbackContext && revealed && challenge.context) {
+        feedbackContext.text.textContent = challenge.context.text;
+        feedbackContext.notation.textContent = challenge.context.notation;
+        feedbackContext.meaning.textContent = challenge.context.meaning;
+        feedbackContext.section.hidden = false;
+        feedbackContext.play.disabled = global.CaatuuCourse?.capabilities?.speech === false
+          || typeof global.CaatuuChrome?.speakText !== "function";
+        feedback.classList.add("has-context");
+      }
       const script = roundPresentation(state.roundIndex, catalog).deck;
       const targetScript = catalog.notation ? "target" : "hanzi";
       const label = revealed ? `${targetText(challenge)}, ${readingText(challenge)}` : challenge[script];
@@ -982,7 +1058,7 @@
       feedback.dataset.state = revealed ? "matched" : "preview";
       feedback.setAttribute("aria-label", `${revealed ? "Matched" : "Selected"} ${catalog.notation ? "Arabic" : "Mandarin"} word`);
       feedbackMeaning.textContent = challenge.translation;
-      const playLabel = `Play ${label}.`;
+      const playLabel = catalog.notation ? `Play ${label}.` : `Play isolated character ${label}.`;
       feedbackSound.setAttribute("aria-label", playLabel);
       feedbackSound.title = playLabel;
     }
@@ -1086,6 +1162,17 @@
       if (state.feedbackChallenge) return speak(state.feedbackChallenge);
       return Promise.resolve(global.CaatuuChrome?.previewSpeech?.()).catch(() => {
         // The controls remain usable when this device has no Mandarin voice.
+      });
+    }
+
+    function playContext() {
+      const challenge = state.feedbackChallenge;
+      if (!active || !isActive() || destroyed || !state.feedbackRevealed || !challenge?.context
+        || global.CaatuuCourse?.capabilities?.speech === false) return Promise.resolve();
+      const speakText = global.CaatuuChrome?.speakText;
+      if (typeof speakText !== "function") return Promise.resolve();
+      return Promise.resolve(speakText(challenge.context.text)).catch(() => {
+        // Keep the authored context visible when a device voice is unavailable.
       });
     }
 
@@ -1449,6 +1536,7 @@
     listen(audioSpeed, "change", () => {
       void previewAudio();
     });
+    if (feedbackContext) listen(feedbackContext.play, "click", () => { void playContext(); });
     listen(displayMenu, "click", () => global.requestAnimationFrame?.(syncDisplayControls));
     listen(board.ownerDocument || global.document, "click", (event) => {
       if (!event.target.closest?.(".naturalization-nucleus-toolbar")) closeToolbarMenus();

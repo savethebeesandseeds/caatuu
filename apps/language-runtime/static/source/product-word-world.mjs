@@ -17,7 +17,7 @@ import {
   resolveSpeechPace,
   stripModelEcho,
   tokenizeCzechSentence as tokenizeLegacySentence
-} from "./word-net-core.mjs?v=word-net-core-21";
+} from "./word-net-core.mjs?v=word-net-core-22";
 import { WordNetBranchQueue } from "./word-net-queue.mjs?v=word-net-queue-6";
 import { bindHorizontalGesture } from "./horizontal-gesture.mjs";
 import { localAiAvailability } from "./shell-policy.mjs";
@@ -28,6 +28,8 @@ import { createTargetReadingGuide } from "./target-reading-guide.mjs?v=target-re
 import { matchesContentDifficulty, newContentEncounterId } from "./games/content-progression.mjs";
 import { progressiveWordWorldSelection,
   wordWorldEvidenceBank, wordWorldPracticeHistory } from "./word-world-progression.mjs";
+import { wordWorldLearningRows, wordWorldLearningUnits, selectWordWorldFoundationRecord }
+  from "./word-world-teaching.mjs";
 
 let WORD_NET_MODEL_KEY = "";
 let TRANSLATION_MODEL_KEY = "";
@@ -86,6 +88,8 @@ const TRANSLATION_CACHE_STORAGE_KEY = course.storage.wordWorldTranslationCache;
 const WORD_CARD_PREFERENCES_STORAGE_KEY = `${course.storage.namespace}.wordNet.wordCardPreferences.v1`;
 const TARGET_TEXT_PREFERENCES_STORAGE_KEY = `${course.storage.namespace}.wordNet.targetTextPreferences.v1`;
 const CHALLENGE_PROMPT_MODE_STORAGE_KEY = `${course.storage.namespace}.wordNet.challengePromptMode.v1`;
+const LEARNING_UNIT_STORAGE_KEY = `${course.storage.namespace}.wordNet.learningUnit.v1`;
+let selectedLearningUnitId = "";
 const AUDIO_AUTOPLAY_STORAGE_KEY = `${course.storage.namespace}.wordNet.speechAutoplay.v2`;
 const DICTIONARY_GAP_REPORTING_KEYS = Object.freeze([
   "dictionaryDirection",
@@ -176,7 +180,9 @@ const translationModes = {
 };
 const generationModes = {
   random: { labelId: "wordworld.mode.generation.newword" },
-  selected: { labelId: "wordworld.mode.generation.selectedword" }
+  selected: { labelId: "wordworld.mode.generation.selectedword" },
+  foundation: { labelId: "wordworld.learning.foundation" },
+  patterns: { labelId: "wordworld.learning.patterns" }
 };
 const challengePromptModes = Object.freeze({
   random: Object.freeze({ labelId: "wordworld.mode.prompt.random" }),
@@ -2382,7 +2388,62 @@ function syncTranslationMenu() {
   }
 }
 
+function availableWordWorldLearningUnits() {
+  const records = state.standardProvider?.records || (providerContext?.selectionProvider?.records || []).map(record => ({
+    ...record, teaching: providerContext?.sessionRecord?.(recordIdentifier(record))?.target?.learning || null
+  }));
+  return wordWorldLearningUnits(records, learningDifficulty());
+}
+
+function syncWordWorldLearningControls() {
+  const units = availableWordWorldLearningUnits();
+  const section = $("#wordNetLearningUnits");
+  const options = $("#wordNetLearningUnitOptions");
+  if (!units.some(unit => unit.id === selectedLearningUnitId)) selectedLearningUnitId = units[0]?.id || "";
+  if (!units.length && (state.generationMode === "foundation" || state.generationMode === "patterns")) state.generationMode = "random";
+  if (section) section.hidden = !units.length || state.contentMode !== "standard";
+  if (!options) return;
+  const signature = JSON.stringify(units);
+  if (options.dataset.learningSignature !== signature) {
+    options.replaceChildren(...units.map(unit => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.setAttribute("role", "menuitemradio");
+      button.dataset.learningUnit = unit.id;
+      button.textContent = unit.title;
+      return button;
+    }));
+    options.dataset.learningSignature = signature;
+  }
+  options.querySelectorAll("[data-learning-unit]").forEach(button => {
+    button.disabled = state.busy || state.guidedRequested;
+    button.setAttribute("aria-checked", String(state.generationMode === "patterns" && button.dataset.learningUnit === selectedLearningUnitId));
+  });
+}
+
+function renderWordWorldLearning(record, { reset = false } = {}) {
+  const section = $("#wordNetLearning");
+  const note = $("#wordNetLearningNote");
+  if (!section || !note) return;
+  const learning = record?.teaching;
+  section.hidden = !learning || state.contentMode !== "standard";
+  section.closest(".word-net-sentence-panel")?.classList.toggle("has-learning", !section.hidden);
+  if (section.hidden) { note.open = false; return; }
+  if (reset || section.dataset.learningRecord !== record.id) note.open = false;
+  section.dataset.learningRecord = record.id;
+  $("#wordNetLearningTitle").textContent = learning.title;
+  $("#wordNetLearningExplanation").textContent = learning.explanation;
+  section.lang = sourceLocale;
+}
+
+function markWordWorldPatternSupport() {
+  if ($("#wordNetLearning")?.hidden || state.reconstruction?.submitted) return;
+  state.contentEncounterSupported = true;
+  if (state.guidedLifecycle) state.guidedLifecycle.markHint("pattern-note");
+}
+
 function syncGenerationControl() {
+  syncWordWorldLearningControls();
   const button = $("#wordNetGenerationToggle");
   const icon = $("#wordNetGenerationIcon");
   const mode = hasGenerationMode(state.generationMode) ? state.generationMode : "random";
@@ -2390,7 +2451,7 @@ function syncGenerationControl() {
   const config = generationModes[mode];
   const selectedModeLabel = generationModeLabel(mode);
   icon?.querySelectorAll("[data-generation-icon]").forEach((generationIcon) => {
-    generationIcon.toggleAttribute("hidden", generationIcon.dataset.generationIcon !== mode);
+    generationIcon.toggleAttribute("hidden", generationIcon.dataset.generationIcon !== (mode === "selected" ? "selected" : "random"));
   });
   if (button) {
     button.disabled = state.busy || state.guidedRequested;
@@ -2400,11 +2461,14 @@ function syncGenerationControl() {
   }
   document.querySelectorAll("[data-generation-mode]").forEach((option) => {
     const optionMode = option.dataset.generationMode;
+    const learningMode = optionMode === "foundation" || optionMode === "patterns";
+    option.hidden = learningMode && (state.contentMode !== "standard" || !availableWordWorldLearningUnits().length);
     const selected = optionMode === mode;
     option.classList.toggle("is-selected", selected);
     option.setAttribute("aria-checked", selected ? "true" : "false");
     option.disabled = state.busy
       || state.guidedRequested
+      || option.hidden
       || (optionMode === "selected" && !normalizeWord(state.selectedWord));
     const label = option.querySelector("[data-generation-label]");
     if (label) label.textContent = generationModeLabel(optionMode);
@@ -2453,6 +2517,7 @@ function learningDifficulty() {
 }
 
 function syncContentControl() {
+  if (state.contentMode !== "standard") renderWordWorldLearning(null);
   const mode = hasContentMode(state.contentMode) ? state.contentMode : "standard";
   const generative = generationAvailability();
   const generativeMessage = generationAvailabilityMessage(generative);
@@ -2529,6 +2594,7 @@ function controllerRecord(record) {
   );
   const converted = {
     ...record,
+    teaching: target?.learning || null,
     id,
     cs: String(target?.text ?? record.cs ?? record.targetText ?? "").normalize("NFC").trim(),
     en: learnerPromptText,
@@ -2598,7 +2664,22 @@ function createControllerSelectionProvider(selectionProvider) {
     usage: selectionProvider.usage || null,
     difficultyCounts: (...args) => selectionProvider.difficultyCounts(...args),
     nextRandom: (options = {}) => {
-      const record = selectProgressive(options);
+      let record;
+      if (state.generationMode === "foundation") {
+        record = selectWordWorldFoundationRecord(records, {
+          ...options, history: wordWorldSelectionHistory()
+        });
+      } else if (state.generationMode === "patterns") {
+        const pool = wordWorldLearningRows(records, {
+          difficulty: options.difficulty, unitId: selectedLearningUnitId
+        });
+        record = progressiveWordWorldSelection(pool, {
+          ...options, history: wordWorldSelectionHistory(),
+          policy: window.CaatuuLearning?.samplingContext?.("word-world",
+            state.translationMode === "reconstruct" ? wordWorldEvidenceBank(state.contentNextPromptSide) : "sentences"),
+          onPool: candidates => { selectionIds = new Set(candidates.map(item => item.id)); }
+        });
+      } else record = selectProgressive(options);
       return record ? { record, fallback: false, requestedWord: "" } : null;
     },
     nextForWord: (word, options = {}) => {
@@ -2764,6 +2845,7 @@ async function requestContentMode(mode) {
 function setGenerationMode(mode) {
   if (state.guidedRequested) return;
   if (!hasGenerationMode(mode)) return;
+  if ((mode === "foundation" || mode === "patterns") && !availableWordWorldLearningUnits().length) return;
   state.generationMode = mode;
   saveGenerationMode();
   syncGenerationControl();
@@ -2926,6 +3008,7 @@ async function showStandardPhrase(selection, {
     state.currentContentMode = "standard";
     state.currentGenerationSource = "standard-corpus";
     beginWordWorldEncounter();
+    renderWordWorldLearning(record, { reset: true });
     selectWord(target, { lookup: false, render: false });
     renderCzechSentence(record.cs, target);
     renderWordGuidedStatus();
@@ -3170,7 +3253,10 @@ function buildTargetReconstructionChallenge() {
   const challenge = buildTokenReconstructionChallenge(
     answerParts,
     targetReconstructionCandidateParts(),
-    { distractorCount: RECONSTRUCTION_DISTRACTOR_COUNT, normalize }
+    { distractorCount: RECONSTRUCTION_DISTRACTOR_COUNT, normalize,
+      ...(record?.target?.text === state.currentSentence && record.target.acceptedTokenOrders
+        ? { acceptedTokenOrders: record.target.acceptedTokenOrders }
+        : {}) }
   );
   const defaultSeparator = inferReconstructionSeparator(state.currentSentence);
   return {
@@ -3757,7 +3843,8 @@ async function submitReconstructionChallenge() {
   }
   const correct = isWordReconstructionCorrect(
     selected.map((option) => option.text),
-    round.challenge.answerTokens
+    round.challenge.answerTokens,
+    { acceptedTokenOrders: round.challenge.acceptedTokenOrders }
   );
   if (round.guidedLifecycle && !round.guidedLifecycle.state().firstResponseRecorded) {
     round.evidencePending = true;
@@ -5777,6 +5864,15 @@ function bindUi() {
     toggleGenerationMenu();
   });
   $("#wordNetGenerationMenu")?.addEventListener("click", (event) => {
+    const unitButton = event.target.closest("[data-learning-unit]");
+    if (unitButton && !unitButton.disabled) {
+      if (shouldBlockReconstructionAdvance()) return;
+      selectedLearningUnitId = unitButton.dataset.learningUnit;
+      try { localStorage.setItem(LEARNING_UNIT_STORAGE_KEY, selectedLearningUnitId); } catch {}
+      setGenerationMode("patterns");
+      generateFromConfiguredMode("patterns");
+      return;
+    }
     const promptButton = event.target.closest("[data-challenge-prompt-mode]");
     if (promptButton && !promptButton.disabled) {
       setChallengePromptMode(promptButton.dataset.challengePromptMode);
@@ -5948,6 +6044,13 @@ function bindUi() {
 
 async function init() {
   bindUi();
+  $("#wordNetLearningNote")?.querySelector("summary")?.addEventListener("click", () => {
+    if (!$("#wordNetLearningNote").open) markWordWorldPatternSupport();
+  });
+  $("#wordNetLearningNote")?.addEventListener("toggle", (event) => {
+    if (!event.currentTarget.open || $("#wordNetLearning")?.hidden || state.reconstruction?.submitted) return;
+    markWordWorldPatternSupport();
+  });
   syncDisplaySettingsControl();
   initializeSpeechControl();
   runtimeAdapter()?.registerServiceWorker?.().catch(() => {});
@@ -5986,7 +6089,7 @@ async function init() {
     setStatus(interfaceText("wordworld.standard.packpreparing"), { tone: "active" });
     try {
       await initializeStandardCorpus();
-      await generateStandardFromConfiguredMode("random", { allowBusy: true });
+      await generateStandardFromConfiguredMode(state.generationMode, { allowBusy: true });
     } finally {
       if (state.busy) setBusy(false);
     }
@@ -6156,6 +6259,12 @@ export async function mountProductWordWorld(root, preparedContext, options = {})
   state.contentMode = loadContentMode();
   if (!hasContentMode(state.contentMode)) state.contentMode = "standard";
   state.generationMode = loadGenerationMode();
+  try { selectedLearningUnitId = localStorage.getItem(LEARNING_UNIT_STORAGE_KEY) || ""; } catch {}
+  if (availableWordWorldLearningUnits().length) {
+    try { if (!localStorage.getItem(GENERATION_MODE_STORAGE_KEY)) state.generationMode = "foundation"; } catch {}
+  } else if (state.generationMode === "foundation" || state.generationMode === "patterns") {
+    state.generationMode = "random";
+  }
   state.challengePromptMode = loadChallengePromptMode();
   applyTargetLanguageLabels(root);
   applyTargetContentLanguage(root);

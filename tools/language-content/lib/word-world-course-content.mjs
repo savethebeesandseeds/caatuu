@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 import { prepareLanguageRoleContent } from "./language-role-contract.mjs";
 import { validateRecords, toRuntimeRecord } from "../../czech-ml/scripts/word-world-standard-lib.mjs";
 import { normalizeContentProgression } from "../../../apps/language-runtime/static/source/games/content-progression.mjs";
+import { targetLearningFieldIssues } from "../../../apps/language-runtime/static/source/word-world-learning.mjs";
 
 export const WORD_WORLD_COURSE_SCHEMA = "caatuu-word-world-course-content-v1";
 export const repositoryRoot = fileURLToPath(new URL("../../../", import.meta.url));
@@ -97,14 +98,24 @@ export function modernCatalogs(document, course) {
   const concepts = { ...structuredClone(english), concepts: document.records.map(item => {
     assert.equal(item.englishAlternates.length, 0, `${item.id}: this provider has no alternate-English field`);
     assert.equal(item.sceneAssetIds.length, 0, `${item.id}: this provider uses embedding image retrieval`);
-    assert.equal(Object.keys(item.annotations).length, 0, `${item.id}: unsupported extra annotations`);
+    assert.ok(Object.keys(item.annotations).every(key => ["learning", "acceptedTokenOrders"].includes(key)),
+      `${item.id}: unsupported extra annotations`);
+    const teachingIssues = targetLearningFieldIssues({ ...item.annotations, tokens: item.tokens });
+    assert.equal(teachingIssues.length, 0, `${item.id}: ${teachingIssues.join(" ")}`);
+    if (item.annotations.learning) {
+      text(item.annotations.learning.title, `${item.id}.annotations.learning.title`);
+      text(item.annotations.learning.explanation, `${item.id}.annotations.learning.explanation`);
+    }
     return { id: item.id, englishText: item.englishText, embeddingText: item.embeddingText,
       sceneQuery: item.sceneQuery, topic: item.topic, difficulty: item.difficulty,
       ...normalizeContentProgression(item, item.id) };
   }) };
   const realizations = { ...structuredClone(target), sourceCatalog: course.publication.concepts,
     realizations: document.records.map(item => ({ conceptId: item.id, text: item.targetText,
-      pronunciation: structuredClone(item.pronunciation), tokens: structuredClone(item.tokens) })) };
+      pronunciation: structuredClone(item.pronunciation), tokens: structuredClone(item.tokens),
+      ...(Object.hasOwn(item.annotations, "learning") ? { learning: structuredClone(item.annotations.learning) } : {}),
+      ...(Object.hasOwn(item.annotations, "acceptedTokenOrders")
+        ? { acceptedTokenOrders: structuredClone(item.annotations.acceptedTokenOrders) } : {}) })) };
   const learnerBase = baseMetadata ? { ...structuredClone(baseMetadata), sourceCatalog: course.publication.concepts,
     realizations: document.records.map(item => ({ conceptId: item.id, ...structuredClone(item.learnerBase) })) } : null;
   assert.equal(Boolean(learnerBase), Boolean(course.publication.learnerBaseRealizations));

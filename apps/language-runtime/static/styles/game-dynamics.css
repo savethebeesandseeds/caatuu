@@ -1,51 +1,47 @@
 /* Shared practice pacing: one course-wide set, one brief reward bundle. */
 .app-header:has(.caatuu-reward-received) { z-index: 41; }
-.practice-xp-token {
-  display: grid;
-  place-items: center;
-  min-width: 25px;
-  height: 25px;
-  border-radius: 8px;
-  background: color-mix(in srgb, var(--green, #22594d) 12%, var(--panel, #fffdf8));
-  color: var(--green, #22594d);
-  font-size: 0.62rem;
-  font-weight: 900;
-  line-height: 1;
+.app-header:has(.caatuu-practice-meter:not([hidden])) {
+  flex-wrap: wrap;
+  row-gap: 5px;
+}
+.app-header:has(.caatuu-practice-meter:not([hidden])) .app-header-center {
+  top: max(14px, env(safe-area-inset-top));
+}
+@media (max-width: 600px) {
+  .app-header:has(.caatuu-practice-meter:not([hidden])) {
+    column-gap: 5px;
+  }
+  .app-header:has(.caatuu-practice-meter:not([hidden])) .header-actions {
+    gap: 8px;
+  }
+  .app-header:has(.caatuu-practice-meter:not([hidden])) .app-header-stats {
+    gap: 4px;
+  }
+  .app-header.has-screen-title:has(.caatuu-practice-meter:not([hidden])) .app-header-back {
+    margin-right: 0;
+  }
+  .app-header.has-screen-title:has(.caatuu-practice-meter:not([hidden])) .app-header-center {
+    position: static;
+    flex: 0 0 var(--caatuu-control-target-size, 44px);
+    margin-right: auto;
+    transform: none;
+  }
 }
 
 .caatuu-practice-meter {
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  z-index: 8;
-  display: grid;
-  grid-template-columns: auto auto;
+  position: relative;
+  flex: 0 0 100%;
+  order: 9;
+  display: flex;
   align-items: center;
-  gap: 3px 8px;
-  width: max-content;
-  max-width: calc(100vw - 32px);
-  padding: 5px 9px;
-  border: 1px solid var(--line, #cfd8d1);
-  border-radius: 10px;
-  background: var(--panel, #fffdf8);
-  color: var(--muted, #5d6b65);
-  font-size: 0.65rem;
-  font-weight: 600;
-  line-height: 1.2;
-  transform: translateX(-50%);
+  gap: 8px;
+  min-width: 0;
+  min-height: 4px;
   pointer-events: none;
 }
 
-.caatuu-practice-meter.is-floating {
-  position: fixed;
-  top: auto;
-  bottom: calc(80px + env(safe-area-inset-bottom));
-}
-
-.caatuu-practice-meter-count { font-variant-numeric: tabular-nums; }
-.caatuu-practice-meter-cycle { grid-column: 1 / -1; font-size: .6rem; color: var(--muted, #5d6b65); }
-.caatuu-practice-badge-offer { grid-column: 1 / -1; padding: 5px 8px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--green); font: inherit; pointer-events: auto; }
-.caatuu-practice-meter-cycle[hidden], .caatuu-practice-badge-offer[hidden], .caatuu-badge-progression[hidden] { display: none; }
+.caatuu-practice-badge-offer { flex: 0 0 auto; padding: 5px 8px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--green); font: inherit; font-size: .65rem; font-weight: 600; pointer-events: auto; }
+.caatuu-practice-badge-offer[hidden], .caatuu-badge-progression[hidden] { display: none; }
 .caatuu-badge-progression { display: grid; gap: 5px; padding: 10px; border: 1px solid var(--line); border-radius: 12px; font-size: .75rem; line-height: 1.4; }
 .caatuu-badge-progression p { margin: 0; }
 .caatuu-badge-stage-title { color: var(--ink); }
@@ -61,16 +57,17 @@
 .caatuu-badge-recommendation button:focus-visible, .caatuu-practice-badge-offer:focus-visible { outline: 3px solid var(--green); outline-offset: 3px; }
 .difficulty-control button.is-recommended { outline: 2px solid var(--green); outline-offset: 1px; }
 .caatuu-practice-meter-progress {
-  grid-column: 1 / -1;
+  flex: 1;
+  min-width: 0;
   width: 100%;
-  height: 3px;
+  height: 4px;
   border: 0;
   border-radius: 4px;
-  accent-color: var(--green, #22594d);
+  accent-color: #c59b3a;
 }
 .caatuu-practice-meter-progress::-webkit-progress-bar { background: var(--line, #cfd8d1); border-radius: 4px; }
-.caatuu-practice-meter-progress::-webkit-progress-value { background: var(--green, #22594d); border-radius: 4px; }
-.caatuu-practice-meter-progress::-moz-progress-bar { background: var(--green, #22594d); border-radius: 4px; }
+.caatuu-practice-meter-progress::-webkit-progress-value { background: #c59b3a; border-radius: 4px; }
+.caatuu-practice-meter-progress::-moz-progress-bar { background: #c59b3a; border-radius: 4px; }
 
 .caatuu-practice-celebration {
   position: fixed;
@@ -115,7 +112,7 @@
 .caatuu-practice-reward-coins { animation-delay: 160ms; }
 .caatuu-practice-reward-gems { animation-delay: 240ms; }
 .caatuu-practice-reward-art { width: 52px; height: 52px; object-fit: contain; filter: drop-shadow(0 4px 6px #17201d20); }
-.caatuu-practice-reward-xp .caatuu-practice-reward-art { display: grid; place-items: center; border-radius: 16px; background: color-mix(in srgb, var(--green, #22594d) 12%, var(--panel, #fffdf8)); color: var(--green, #22594d); font-size: 2.3rem; }
+.caatuu-practice-reward-xp .caatuu-practice-reward-art { width: 40px; }
 .caatuu-practice-reward-coins .caatuu-practice-reward-art { animation: caatuu-practice-coin-turn 560ms ease-out 180ms both; }
 .caatuu-practice-reward-coins::after {
   position: absolute;
@@ -133,6 +130,15 @@
 .caatuu-practice-reward-gems .caatuu-practice-reward-art { animation: caatuu-practice-gem-bloom 1100ms ease-out 300ms both; }
 .caatuu-practice-reward-amount { font-size: 1.2rem; font-variant-numeric: tabular-nums; }
 .caatuu-practice-reward-label { color: var(--muted, #5d6b65); font-size: 0.72rem; }
+.caatuu-practice-cycle-progress { position: relative; display: flex; align-items: center; gap: 9px; margin: 0 0 16px; }
+.caatuu-practice-cycle-progress img { width: 24px; height: 24px; object-fit: contain; }
+.caatuu-practice-cycle-progress progress { flex: 1; min-width: 0; width: 100%; height: 6px; border: 0; border-radius: 6px; accent-color: var(--green, #22594d); }
+.caatuu-practice-cycle-progress progress::-webkit-progress-bar { background: var(--line, #cfd8d1); border-radius: 6px; }
+.caatuu-practice-cycle-progress progress::-webkit-progress-value { background: var(--green, #22594d); border-radius: 6px; }
+.caatuu-practice-cycle-progress progress::-moz-progress-bar { background: var(--green, #22594d); border-radius: 6px; }
+.caatuu-practice-cycle-progress.is-complete progress { accent-color: #c59b3a; }
+.caatuu-practice-cycle-progress.is-complete progress::-webkit-progress-value { background: #c59b3a; }
+.caatuu-practice-cycle-progress.is-complete progress::-moz-progress-bar { background: #c59b3a; }
 .caatuu-practice-celebration-skip { position: relative; min-width: 108px; min-height: 44px; padding: 8px 18px; border: 1px solid var(--line, #cfd8d1); border-radius: 12px; background: transparent; color: var(--green, #22594d); font-weight: 700; font-size: 0.8rem; }
 .caatuu-practice-celebration-skip:focus-visible { outline: 3px solid var(--green, #22594d); outline-offset: 3px; }
 
@@ -183,20 +189,13 @@
   opacity: 0;
   pointer-events: none;
 }
-.caatuu-practice-flight-layer img, .caatuu-practice-flight-layer span {
+.caatuu-practice-flight-layer img {
   width: 24px;
   height: 24px;
   object-fit: contain;
   filter: drop-shadow(0 3px 4px #17201d25);
 }
-.caatuu-practice-flight-xp > span {
-  display: grid;
-  place-items: center;
-  border-radius: 7px;
-  background: color-mix(in srgb, var(--green, #22594d) 12%, var(--panel, #fffdf8));
-  color: var(--green, #22594d);
-  font-size: 1.15rem;
-}
+.caatuu-practice-flight-xp img { width: 18px; margin-left: 3px; }
 .caatuu-practice-flight-coins { --caatuu-flight-offset: -22px; }
 .caatuu-practice-flight-gems { --caatuu-flight-offset: 22px; }
 .caatuu-practice-flight-xp.is-fallback, .caatuu-practice-flight-coins.is-fallback, .caatuu-practice-flight-gems.is-fallback {

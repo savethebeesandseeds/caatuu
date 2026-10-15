@@ -14,14 +14,14 @@
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-theme.css?v=theme-8">
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-workspace.css?v=shell-102">
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-home.css?v=home-61">
-    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-142">
+    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-145">
     <link rel="stylesheet" href="/language-runtime/static/styles/music-controls.css?v=music-controls-2">
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-developer-tools.css?v=developer-tools-2">
     <link rel="stylesheet" href="/language-runtime/static/styles/dictionary-word-card.css?v=dictionary-card-3">
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-target-text.css?v=target-text-4">
-    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-word-world.css?v=word-net-95">
+    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-word-world.css?v=word-net-100">
     <link rel="stylesheet" href="/language-runtime/static/styles/games/embedded-game-controls.css?v=embedded-game-controls-10">
-    <link rel="stylesheet" href="/language-runtime/static/styles/game-dynamics.css?v=game-dynamics-3">
+    <link rel="stylesheet" href="/language-runtime/static/styles/game-dynamics.css?v=game-dynamics-6">
   </head>
   <body class="games-page setup-blocked app-loading">
     <div class="app-loading-screen" id="appLoadingScreen" role="status" aria-live="polite">
@@ -614,6 +614,12 @@
                               <span data-generation-label data-i18n="wordworld.generation.newword">New word</span>
                             </button>
                             <button type="button" role="menuitemradio" data-generation-mode="selected"><span aria-hidden="true">&#8635;</span> <span data-generation-label data-i18n="wordworld.generation.selectedword">Selected word</span></button>
+                            <button type="button" role="menuitemradio" data-generation-mode="foundation" hidden><span data-generation-label data-i18n="wordworld.learning.foundation">Foundation path</span></button>
+                            <button type="button" role="menuitemradio" data-generation-mode="patterns" hidden><span data-generation-label data-i18n="wordworld.learning.patterns">Sentence patterns</span></button>
+                          </section>
+                          <section class="word-net-generation-menu-section" id="wordNetLearningUnits" role="group" aria-labelledby="wordNetLearningUnitsLabel" hidden>
+                            <span class="word-net-generation-menu-label" id="wordNetLearningUnitsLabel" data-i18n="wordworld.learning.units">Practise a pattern</span>
+                            <div id="wordNetLearningUnitOptions"></div>
                           </section>
                           <section class="word-net-generation-menu-section" role="group" aria-labelledby="wordNetChallengePromptModeLabel">
                             <span class="word-net-generation-menu-label" id="wordNetChallengePromptModeLabel" data-i18n="wordworld.prompt.title">Challenge prompt</span>
@@ -675,6 +681,10 @@
                           </button>
                         </div>
                         <p class="word-net-translation" id="wordNetTranslation" aria-live="polite"></p>
+                        <section class="word-net-learning" id="wordNetLearning" hidden>
+                          <strong id="wordNetLearningTitle"></strong>
+                          <details id="wordNetLearningNote"><summary data-i18n="wordworld.learning.note">Pattern note</summary><p id="wordNetLearningExplanation"></p></details>
+                        </section>
                         <section class="word-net-reconstruction" id="wordNetReconstruction" aria-label="Rebuild the sentence" data-i18n-aria-label="wordworld.reconstruction.label" hidden>
                           <div class="word-net-reconstruction-play" id="wordNetReconstructionPlay">
                             <div class="word-net-reconstruction-composer">
@@ -1160,6 +1170,6 @@
     <section class="print-book" id="printBook" aria-label="Generated pocket book" aria-hidden="true" data-i18n-aria-label="print.book.label"></section>
 
     <script src="/language-runtime/static/source/shell-policy.js?v=shell-policy-17"></script>
-    <script type="module" src="/language-runtime/static/source/app-bootstrap.mjs?v=app-115"></script>
+    <script type="module" src="/language-runtime/static/source/app-bootstrap.mjs?v=app-118"></script>
   </body>
 </html>

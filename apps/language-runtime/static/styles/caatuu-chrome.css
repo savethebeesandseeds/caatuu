@@ -510,7 +510,7 @@ html {
 
 .app-header-xp img {
   width: 22px;
-  height: 27px;
+  height: 24px;
 }
 
 .app-header-coins img {
@@ -2370,7 +2370,8 @@ body.settings-open {
 
 .wallet-token-xp {
   border: 0;
-  background: url("/assets/icons/icon_gem.png") center / contain no-repeat;
+  background: url("/language-runtime/static/assets/xp-gold.webp") center / contain no-repeat;
+  background-size: 30px auto;
 }
 
 .wallet-token-coin {
@@ -4610,7 +4611,7 @@ html[data-caatuu-runtime="android"] .settings-section-switcher {
 
   .app-header-xp img {
     width: 20px;
-    height: 24px;
+    height: 22px;
   }
 
   .app-header-streak img {

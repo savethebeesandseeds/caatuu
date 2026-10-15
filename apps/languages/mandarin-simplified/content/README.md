@@ -33,6 +33,20 @@ depend on their word and sentence context. While the catalog remains
 entirely. Native approval must update the catalog gate and all pronunciation
 objects consistently before learner-facing adapters may consume them.
 
+## Pronunciation notation and contextual teaching
+
+Word World and its linked listening previews use lexical citation tones for
+一 and 不, together with explicit authored neutral syllables. They do not encode
+all connected-speech tone changes. Experiential 过 is distinguished from the
+lexical verb 过. Sentence, token and character-unit readings must compose exactly;
+contextual pronunciation is never inferred from a default character reading.
+
+Modern Word World records may declare `annotations.learning` with a stable unit,
+presentation order, title, explanation and focus tags. Explicit
+`annotations.acceptedTokenOrders` must preserve every canonical token and its
+occurrence count. The shared builder projects these fields into the target
+realizations, while English embedding text remains unchanged.
+
 ## Verb Nebula preview readings
 
 Every row in the [Verb Nebula catalog](../static/data/games/verb-nebula/content.json)

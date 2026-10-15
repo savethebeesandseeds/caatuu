@@ -3,6 +3,14 @@
   "appEntry": "apps/language-runtime/static/app/index.html",
   "assets": [
     {
+      "source": "apps/language-runtime/static/assets/aa-control.webp",
+      "output": "language-runtime/static/assets/aa-control.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/xp-gold.webp",
+      "output": "language-runtime/static/assets/xp-gold.webp"
+    },
+    {
       "source": "apps/language-runtime/static/source/badge-recommendation.mjs",
       "output": "language-runtime/static/source/badge-recommendation.mjs"
     },
@@ -1037,6 +1045,14 @@
     {
       "source": "apps/language-runtime/static/source/games/naturalization-nucleus/naturalization-nucleus.css",
       "output": "language-runtime/static/source/games/naturalization-nucleus/naturalization-nucleus.css"
+    },
+    {
+      "source": "apps/language-runtime/static/source/word-world-learning.mjs",
+      "output": "language-runtime/static/source/word-world-learning.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/word-world-teaching.mjs",
+      "output": "language-runtime/static/source/word-world-teaching.mjs"
     }
   ]
 }

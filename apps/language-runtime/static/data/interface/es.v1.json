@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "locale": "es-ES",
   "direction": "ltr",
-  "revision": "interface-es-17",
+  "revision": "interface-es-18",
   "messages": {
     "practice.set.label": "Serie de práctica",
     "practice.set.progress": "{effort} de {target}",
@@ -1319,6 +1319,10 @@
     "wordworld.word.selectmeaning": "Seleccionar {word} y mostrar su significado",
     "languages.ar": "Árabe estándar moderno",
     "languages.la": "Latín científico",
-    "languages.ka": "Georgiano"
+    "languages.ka": "Georgiano",
+    "wordworld.learning.foundation": "Ruta de fundamentos",
+    "wordworld.learning.patterns": "Patrones de frases",
+    "wordworld.learning.units": "Practicar un patrón",
+    "wordworld.learning.note": "Nota sobre el patrón"
   }
 }

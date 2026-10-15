@@ -18,7 +18,7 @@
     "status": "native-review-required",
     "reviewer": null,
     "reviewedAt": null,
-    "notes": "Machine-assisted development draft; qualified native Mandarin review is still required. Contextual function-word hints corrected by Codex for location/progress, noun descriptions, expected actions and recipients; AI self-review only. See docs/WORD_WORLD_CONTEXT_REVIEW.md. Native and audio review remain outstanding."
+    "notes": "Machine-assisted development draft; qualified native Mandarin review is still required. Contextual function-word hints corrected by Codex for location/progress, noun descriptions, expected actions and recipients; AI self-review only. See docs/WORD_WORLD_CONTEXT_REVIEW.md. Native and audio review remain outstanding. Mandarin revision 2026-10-14: contextual hints and experiential neutral-tone readings corrected; lexical citation tones for 一 and 不 made consistent while other authored contextual readings and neutral tones remain intact. A 39-sentence beginner pilot was authored and self-reviewed by Codex AI. Native Mandarin and audible device-speech review remain outstanding."
   },
   "license": {
     "origin": "caatuu-first-party-authored",
@@ -70,7 +70,17 @@
             }
           ]
         }
-      ]
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.greetings",
+        "order": 1,
+        "title": "Greetings and simple replies",
+        "explanation": "Use 你好 to greet someone, 谢谢 to thank them, and 再见 to say goodbye. An adjective statement such as 我很好 does not need 是.",
+        "focus": [
+          "greetings",
+          "adjective-predicates"
+        ]
+      }
     },
     {
       "conceptId": "ww.greeting.thanks",
@@ -135,7 +145,17 @@
             }
           ]
         }
-      ]
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.greetings",
+        "order": 4,
+        "title": "Greetings and simple replies",
+        "explanation": "Use 你好 to greet someone, 谢谢 to thank them, and 再见 to say goodbye. An adjective statement such as 我很好 does not need 是.",
+        "focus": [
+          "greetings",
+          "adjective-predicates"
+        ]
+      }
     },
     {
       "conceptId": "ww.greeting.goodbye",
@@ -178,7 +198,17 @@
             }
           ]
         }
-      ]
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.greetings",
+        "order": 5,
+        "title": "Greetings and simple replies",
+        "explanation": "Use 你好 to greet someone, 谢谢 to thank them, and 再见 to say goodbye. An adjective statement such as 我很好 does not need 是.",
+        "focus": [
+          "greetings",
+          "adjective-predicates"
+        ]
+      }
     },
     {
       "conceptId": "ww.identity.name",
@@ -256,7 +286,18 @@
             }
           ]
         }
-      ]
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.identity",
+        "order": 8,
+        "title": "Introductions and personal details",
+        "explanation": "Use 是 before an identity noun, 叫 for a name, and 姓 for a family name. 哪国 asks which country; 多大 asks age, with 岁 for years of age.",
+        "focus": [
+          "identity",
+          "copula",
+          "age"
+        ]
+      }
     },
     {
       "conceptId": "ww.identity.student",
@@ -343,14 +384,25 @@
             }
           ]
         }
-      ]
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.identity",
+        "order": 10,
+        "title": "Introductions and personal details",
+        "explanation": "Use 是 before an identity noun, 叫 for a name, and 姓 for a family name. 哪国 asks which country; 多大 asks age, with 岁 for years of age.",
+        "focus": [
+          "identity",
+          "copula",
+          "age"
+        ]
+      }
     },
     {
       "conceptId": "ww.object.book",
       "text": "这是一本书。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "Zhè shì yì běn shū.",
+        "notation": "Zhè shì yī běn shū.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -403,7 +455,7 @@
           "surface": "一",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "yì",
+            "notation": "yī",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -414,7 +466,7 @@
               "surface": "一",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "yì",
+                "notation": "yī",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -472,7 +524,7 @@
       "text": "那是一只猫。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "Nà shì yì zhī māo.",
+        "notation": "Nà shì yī zhī māo.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -525,7 +577,7 @@
           "surface": "一",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "yì",
+            "notation": "yī",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -536,7 +588,7 @@
               "surface": "一",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "yì",
+                "notation": "yī",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -826,7 +878,17 @@
             }
           ]
         }
-      ]
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.greetings",
+        "order": 2,
+        "title": "Greetings and simple replies",
+        "explanation": "Use 你好 to greet someone, 谢谢 to thank them, and 再见 to say goodbye. An adjective statement such as 我很好 does not need 是.",
+        "focus": [
+          "greetings",
+          "adjective-predicates"
+        ]
+      }
     },
     {
       "conceptId": "ww.greeting.good-evening",
@@ -891,7 +953,17 @@
             }
           ]
         }
-      ]
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.greetings",
+        "order": 3,
+        "title": "Greetings and simple replies",
+        "explanation": "Use 你好 to greet someone, 谢谢 to thank them, and 再见 to say goodbye. An adjective statement such as 我很好 does not need 是.",
+        "focus": [
+          "greetings",
+          "adjective-predicates"
+        ]
+      }
     },
     {
       "conceptId": "ww.number.seven-to-ten",
@@ -998,7 +1070,7 @@
       "text": "不客气。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "Bú kèqi.",
+        "notation": "Bù kèqi.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -1007,18 +1079,18 @@
           "surface": "不",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "bú",
+            "notation": "bù",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "not (before fourth tone)",
+          "gloss": "not",
           "playable": true,
           "readingUnits": [
             {
               "surface": "不",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "bú",
+                "notation": "bù",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -1134,7 +1206,17 @@
             }
           ]
         }
-      ]
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.greetings",
+        "order": 6,
+        "title": "Greetings and simple replies",
+        "explanation": "Use 你好 to greet someone, 谢谢 to thank them, and 再见 to say goodbye. An adjective statement such as 我很好 does not need 是.",
+        "focus": [
+          "greetings",
+          "adjective-predicates"
+        ]
+      }
     },
     {
       "conceptId": "ww.greeting.i-am-well",
@@ -1212,7 +1294,17 @@
             }
           ]
         }
-      ]
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.greetings",
+        "order": 7,
+        "title": "Greetings and simple replies",
+        "explanation": "Use 你好 to greet someone, 谢谢 to thank them, and 再见 to say goodbye. An adjective statement such as 我很好 does not need 是.",
+        "focus": [
+          "greetings",
+          "adjective-predicates"
+        ]
+      }
     },
     {
       "conceptId": "ww.identity.your-name",
@@ -1330,7 +1422,18 @@
             }
           ]
         }
-      ]
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.identity",
+        "order": 9,
+        "title": "Introductions and personal details",
+        "explanation": "Use 是 before an identity noun, 叫 for a name, and 姓 for a family name. 哪国 asks which country; 多大 asks age, with 岁 for years of age.",
+        "focus": [
+          "identity",
+          "copula",
+          "age"
+        ]
+      }
     },
     {
       "conceptId": "ww.people.my-friend",
@@ -1599,7 +1702,7 @@
       "text": "我们是一家人。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "Wǒmen shì yì jiā rén.",
+        "notation": "Wǒmen shì yī jiā rén.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -1661,7 +1764,7 @@
           "surface": "一家人",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "yì jiā rén",
+            "notation": "yī jiā rén",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -1672,7 +1775,7 @@
               "surface": "一",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "yì",
+                "notation": "yī",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -5312,7 +5415,7 @@
       "text": "你可以再说一次吗？",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "Nǐ kěyǐ zài shuō yí cì ma?",
+        "notation": "Nǐ kěyǐ zài shuō yī cì ma?",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -5405,7 +5508,7 @@
           "surface": "一次",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "yí cì",
+            "notation": "yī cì",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -5416,7 +5519,7 @@
               "surface": "一",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "yí",
+                "notation": "yī",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -5679,7 +5782,7 @@
       "text": "我还有一个问题。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "Wǒ hái yǒu yí ge wèntí.",
+        "notation": "Wǒ hái yǒu yī ge wèntí.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -5754,7 +5857,7 @@
           "surface": "一个",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "yí ge",
+            "notation": "yī ge",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -5765,7 +5868,7 @@
               "surface": "一",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "yí",
+                "notation": "yī",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -7733,7 +7836,7 @@
       "text": "这个问题有一点难。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "Zhège wèntí yǒu yìdiǎn nán.",
+        "notation": "Zhège wèntí yǒu yī diǎn nán.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -7804,7 +7907,7 @@
           "surface": "有一点",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "yǒu yìdiǎn",
+            "notation": "yǒu yī diǎn",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -7824,7 +7927,7 @@
               "surface": "一",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "yì",
+                "notation": "yī",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -7965,7 +8068,7 @@
       "text": "请再解释一次。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "Qǐng zài jiěshì yí cì.",
+        "notation": "Qǐng zài jiěshì yī cì.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -8049,7 +8152,7 @@
           "surface": "一次",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "yí cì",
+            "notation": "yī cì",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -8060,7 +8163,7 @@
               "surface": "一",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "yí",
+                "notation": "yī",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -8083,7 +8186,7 @@
       "text": "我们一起学习吧。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "Wǒmen yìqǐ xuéxí ba.",
+        "notation": "Wǒmen yī qǐ xuéxí ba.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -8123,7 +8226,7 @@
           "surface": "一起",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "yìqǐ",
+            "notation": "yī qǐ",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -8134,7 +8237,7 @@
               "surface": "一",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "yì",
+                "notation": "yī",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -9247,7 +9350,7 @@
       "text": "我们休息一下。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "Wǒmen xiūxi yíxià.",
+        "notation": "Wǒmen xiūxi yī xià.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -9318,7 +9421,7 @@
           "surface": "一下",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "yíxià",
+            "notation": "yī xià",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -9329,7 +9432,7 @@
               "surface": "一",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "yí",
+                "notation": "yī",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -9501,7 +9604,7 @@
       "text": "苹果多少钱一斤？",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "Píngguǒ duōshao qián yì jīn?",
+        "notation": "Píngguǒ duōshao qián yī jīn?",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -9581,7 +9684,7 @@
           "surface": "一",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "yì",
+            "notation": "yī",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -9592,7 +9695,7 @@
               "surface": "一",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "yì",
+                "notation": "yī",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -9628,7 +9731,7 @@
       "text": "我想买一件蓝色衬衫。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "Wǒ xiǎng mǎi yí jiàn lánsè chènshān.",
+        "notation": "Wǒ xiǎng mǎi yī jiàn lánsè chènshān.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -9703,7 +9806,7 @@
           "surface": "一件",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "yí jiàn",
+            "notation": "yī jiàn",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -9714,7 +9817,7 @@
               "surface": "一",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "yí",
+                "notation": "yī",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -11098,7 +11201,7 @@
       "text": "一直走五分钟。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "Yìzhí zǒu wǔ fēnzhōng.",
+        "notation": "Yī zhí zǒu wǔ fēnzhōng.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -11107,7 +11210,7 @@
           "surface": "一直",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "yìzhí",
+            "notation": "yī zhí",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -11118,7 +11221,7 @@
               "surface": "一",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "yì",
+                "notation": "yī",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -11291,7 +11394,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "sit",
+          "gloss": "take; ride (transport)",
           "playable": true,
           "readingUnits": [
             {
@@ -12056,7 +12159,7 @@
       "text": "我觉得有一点累。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "Wǒ juéde yǒu yìdiǎn lèi.",
+        "notation": "Wǒ juéde yǒu yī diǎn lèi.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -12118,7 +12221,7 @@
           "surface": "有一点",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "yǒu yìdiǎn",
+            "notation": "yǒu yī diǎn",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -12138,7 +12241,7 @@
               "surface": "一",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "yì",
+                "notation": "yī",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -12183,7 +12286,7 @@
       "text": "请休息一下。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "Qǐng xiūxi yíxià.",
+        "notation": "Qǐng xiūxi yī xià.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -12245,7 +12348,7 @@
           "surface": "一下",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "yíxià",
+            "notation": "yī xià",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -12256,7 +12359,7 @@
               "surface": "一",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "yí",
+                "notation": "yī",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -12725,7 +12828,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "look; read",
+          "gloss": "see; consult (a doctor)",
           "playable": true,
           "readingUnits": [
             {
@@ -14013,6 +14116,13 @@
             }
           ]
         }
+      ],
+      "acceptedTokenOrders": [
+        [
+          "今天",
+          "博物馆",
+          "开放"
+        ]
       ]
     },
     {
@@ -16259,7 +16369,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "sit",
+          "gloss": "take; ride (transport)",
           "playable": true,
           "readingUnits": [
             {
@@ -17393,7 +17503,7 @@
       "text": "对不起，我来晚了。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "Duìbuqǐ, wǒ láiwǎn le.",
+        "notation": "Duì bù qǐ, wǒ láiwǎn le.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -17402,7 +17512,7 @@
           "surface": "对不起",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "duìbuqǐ",
+            "notation": "duì bù qǐ",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -17422,7 +17532,7 @@
               "surface": "不",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "bu",
+                "notation": "bù",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -18831,7 +18941,7 @@
       "text": "请再给我一碗米饭。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "Qǐng zài gěi wǒ yì wǎn mǐfàn.",
+        "notation": "Qǐng zài gěi wǒ yī wǎn mǐfàn.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -18928,7 +19038,7 @@
           "surface": "一碗",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "yì wǎn",
+            "notation": "yī wǎn",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -18939,7 +19049,7 @@
               "surface": "一",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "yì",
+                "notation": "yī",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -19129,7 +19239,7 @@
       "text": "风有一点大。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "Fēng yǒu yìdiǎn dà.",
+        "notation": "Fēng yǒu yī diǎn dà.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -19160,7 +19270,7 @@
           "surface": "有一点",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "yǒu yìdiǎn",
+            "notation": "yǒu yī diǎn",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -19180,7 +19290,7 @@
               "surface": "一",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "yì",
+                "notation": "yī",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -20100,7 +20210,7 @@
       "text": "我们一家人一起吃晚饭。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "Wǒmen yì jiā rén yìqǐ chī wǎnfàn.",
+        "notation": "Wǒmen yī jiā rén yī qǐ chī wǎnfàn.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -20140,7 +20250,7 @@
           "surface": "一家人",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "yì jiā rén",
+            "notation": "yī jiā rén",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -20151,7 +20261,7 @@
               "surface": "一",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "yì",
+                "notation": "yī",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -20180,7 +20290,7 @@
           "surface": "一起",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "yìqǐ",
+            "notation": "yī qǐ",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -20191,7 +20301,7 @@
               "surface": "一",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "yì",
+                "notation": "yī",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -20674,7 +20784,7 @@
       "text": "邻居家有一只狗。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "Línjū jiā yǒu yì zhī gǒu.",
+        "notation": "Línjū jiā yǒu yī zhī gǒu.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -20745,7 +20855,7 @@
           "surface": "一",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "yì",
+            "notation": "yī",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -20756,7 +20866,7 @@
               "surface": "一",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "yì",
+                "notation": "yī",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -20911,7 +21021,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "look; read",
+          "gloss": "visit",
           "playable": true,
           "readingUnits": [
             {
@@ -22407,7 +22517,7 @@
       "text": "我找不到钥匙。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "Wǒ zhǎobudào yàoshi.",
+        "notation": "Wǒ zhǎo bù dào yàoshi.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -22438,7 +22548,7 @@
           "surface": "找不到",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "zhǎobudào",
+            "notation": "zhǎo bù dào",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -22458,7 +22568,7 @@
               "surface": "不",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "bu",
+                "notation": "bù",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -22805,7 +22915,7 @@
       "text": "我们走另一条路吧。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "Wǒmen zǒu lìng yì tiáo lù ba.",
+        "notation": "Wǒmen zǒu lìng yī tiáo lù ba.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -22867,7 +22977,7 @@
           "surface": "另一条",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "lìng yì tiáo",
+            "notation": "lìng yī tiáo",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -22887,7 +22997,7 @@
               "surface": "一",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "yì",
+                "notation": "yī",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -24944,7 +25054,7 @@
       "text": "这个月的预算有一点紧。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "Zhè ge yuè de yùsuàn yǒu yìdiǎn jǐn.",
+        "notation": "Zhè ge yuè de yùsuàn yǒu yī diǎn jǐn.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -25046,7 +25156,7 @@
           "surface": "有一点",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "yǒu yìdiǎn",
+            "notation": "yǒu yī diǎn",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -25066,7 +25176,7 @@
               "surface": "一",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "yì",
+                "notation": "yī",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -25274,7 +25384,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "comparatively",
+          "gloss": "compare",
           "playable": true,
           "readingUnits": [
             {
@@ -26104,7 +26214,7 @@
       "text": "我们一起找到了问题的解决办法。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "Wǒmen yìqǐ zhǎodàole wèntí de jiějué bànfǎ.",
+        "notation": "Wǒmen yī qǐ zhǎodàole wèntí de jiějué bànfǎ.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -26144,7 +26254,7 @@
           "surface": "一起",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "yìqǐ",
+            "notation": "yī qǐ",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -26155,7 +26265,7 @@
               "surface": "一",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "yì",
+                "notation": "yī",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -26320,7 +26430,7 @@
       "text": "这份报告需要一个更清晰的图表。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "Zhè fèn bàogào xūyào yí ge gèng qīngxī de túbiǎo.",
+        "notation": "Zhè fèn bàogào xūyào yī ge gèng qīngxī de túbiǎo.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -26435,7 +26545,7 @@
           "surface": "一个",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "yí ge",
+            "notation": "yī ge",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -26446,7 +26556,7 @@
               "surface": "一",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "yí",
+                "notation": "yī",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -27102,7 +27212,7 @@
       "text": "我们需要在下一站换车。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "Wǒmen xūyào zài xià yí zhàn huànchē.",
+        "notation": "Wǒmen xūyào zài xià yī zhàn huànchē.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -27195,7 +27305,7 @@
           "surface": "下一站",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "xià yí zhàn",
+            "notation": "xià yī zhàn",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -27215,7 +27325,7 @@
               "surface": "一",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "yí",
+                "notation": "yī",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -27489,7 +27599,7 @@
       "text": "请设置一个安全性高的新密码。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "Qǐng shèzhì yí ge ānquánxìng gāo de xīn mìmǎ.",
+        "notation": "Qǐng shèzhì yī ge ānquánxìng gāo de xīn mìmǎ.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -27551,7 +27661,7 @@
           "surface": "一个",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "yí ge",
+            "notation": "yī ge",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -27562,7 +27672,7 @@
               "surface": "一",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "yí",
+                "notation": "yī",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -27709,7 +27819,7 @@
       "text": "不要把验证码告诉别人。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "Bú yào bǎ yànzhèngmǎ gàosu biérén.",
+        "notation": "Bù yào bǎ yànzhèngmǎ gàosu biérén.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -27718,7 +27828,7 @@
           "surface": "不要",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "bú yào",
+            "notation": "bù yào",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -27729,7 +27839,7 @@
               "surface": "不",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "bú",
+                "notation": "bù",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -29176,7 +29286,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "sit",
+          "gloss": "take; ride (transport)",
           "playable": true,
           "readingUnits": [
             {
@@ -30527,7 +30637,7 @@
       "text": "我学中文一年了。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "Wǒ xué Zhōngwén yì nián le.",
+        "notation": "Wǒ xué zhōngwén yī nián le.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -30611,7 +30721,7 @@
           "surface": "一年",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "yì nián",
+            "notation": "yī nián",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -30622,7 +30732,7 @@
               "surface": "一",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "yì",
+                "notation": "yī",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -32311,7 +32421,7 @@
       "text": "我忘了带充电器，同事借给我一个。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "Wǒ wàngle dài chōngdiànqì, tóngshì jiè gěi wǒ yí ge.",
+        "notation": "Wǒ wàngle dài chōngdiànqì, tóngshì jiè gěi wǒ yī ge.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -32519,7 +32629,7 @@
           "surface": "一个",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "yí ge",
+            "notation": "yī ge",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -32530,7 +32640,7 @@
               "surface": "一",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "yí",
+                "notation": "yī",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -32553,7 +32663,7 @@
       "text": "遇到不认识的词时，我会问它是什么意思。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "Yùdào bú rènshi de cí shí, wǒ huì wèn tā shì shénme yìsi.",
+        "notation": "Yùdào bù rèn shi de cí shí, wǒ huì wèn tā shì shénme yìsi.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -32593,7 +32703,7 @@
           "surface": "不认识",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "bú rènshi",
+            "notation": "bù rèn shi",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -32604,7 +32714,7 @@
               "surface": "不",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "bú",
+                "notation": "bù",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -34129,7 +34239,7 @@
       "text": "我们一起鼓掌。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "wǒ men yì qǐ gǔ zhǎng.",
+        "notation": "Wǒ men yī qǐ gǔ zhǎng.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -34169,7 +34279,7 @@
           "surface": "一起",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "yì qǐ",
+            "notation": "yī qǐ",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -34180,7 +34290,7 @@
               "surface": "一",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "yì",
+                "notation": "yī",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -34631,7 +34741,7 @@
       "text": "一只松鼠把坚果藏在叶子下面。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "yì zhī sōng shǔ bǎ jiān guǒ cáng zài yè zi xià miàn.",
+        "notation": "Yī zhī sōng shǔ bǎ jiān guǒ cáng zài yè zi xià miàn.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -34640,7 +34750,7 @@
           "surface": "一",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "yì",
+            "notation": "yī",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -34651,7 +34761,7 @@
               "surface": "一",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "yì",
+                "notation": "yī",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -36932,7 +37042,7 @@
       "text": "蜜蜂把花粉从一朵花带到另一朵花。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "mì fēng bǎ huā fěn cóng yì duǒ huā dài dào lìng yì duǒ huā.",
+        "notation": "Mì fēng bǎ huā fěn cóng yī duǒ huā dài dào lìng yī duǒ huā.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -37047,7 +37157,7 @@
           "surface": "一",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "yì",
+            "notation": "yī",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -37058,7 +37168,7 @@
               "surface": "一",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "yì",
+                "notation": "yī",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -37179,7 +37289,7 @@
           "surface": "一",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "yì",
+            "notation": "yī",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -37190,7 +37300,7 @@
               "surface": "一",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "yì",
+                "notation": "yī",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -37556,7 +37666,7 @@
       "text": "影子像一只正在跳舞的大熊。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "yǐng zi xiàng yì zhī zhèng zài tiào wǔ de dà xióng.",
+        "notation": "Yǐng zi xiàng yī zhī zhèng zài tiào wǔ de dà xióng.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -37618,7 +37728,7 @@
           "surface": "一",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "yì",
+            "notation": "yī",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -37629,7 +37739,7 @@
               "surface": "一",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "yì",
+                "notation": "yī",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -38070,7 +38180,7 @@
       "text": "一片羽毛轻轻飘落在草地上。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "yí piàn yǔ máo qīng qīng piāo luò zài cǎo dì shàng.",
+        "notation": "Yī piàn yǔ máo qīng qīng piāo luò zài cǎo dì shàng.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -38079,7 +38189,7 @@
           "surface": "一",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "yí",
+            "notation": "yī",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -38090,7 +38200,7 @@
               "surface": "一",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "yí",
+                "notation": "yī",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -38294,7 +38404,7 @@
       "text": "我们的小队为游戏想出一条新规则。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "wǒ men de xiǎo duì wèi yóu xì xiǎng chū yì tiáo xīn guī zé.",
+        "notation": "Wǒ men de xiǎo duì wèi yóu xì xiǎng chū yī tiáo xīn guī zé.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -38471,7 +38581,7 @@
           "surface": "一",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "yì",
+            "notation": "yī",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -38482,7 +38592,7 @@
               "surface": "一",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "yì",
+                "notation": "yī",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -39186,7 +39296,7 @@
       "text": "我把最后一张贴纸留给你了。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "wǒ bǎ zuì hòu yì zhāng tiē zhǐ liú gěi nǐ le.",
+        "notation": "Wǒ bǎ zuì hòu yī zhāng tiē zhǐ liú gěi nǐ le.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -39270,7 +39380,7 @@
           "surface": "一",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "yì",
+            "notation": "yī",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -39281,7 +39391,7 @@
               "surface": "一",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "yì",
+                "notation": "yī",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -41811,7 +41921,7 @@
       "text": "虽然谜语很难，但谁也不用独自解答。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "suī rán mí yǔ hěn nán dàn shéi yě bú yòng dú zì jiě dá.",
+        "notation": "Suī rán mí yǔ hěn nán, dàn shéi yě bù yòng dú zì jiě dá.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -41992,7 +42102,7 @@
           "surface": "不用",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "bú yòng",
+            "notation": "bù yòng",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -42003,7 +42113,7 @@
               "surface": "不",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "bú",
+                "notation": "bù",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -42449,7 +42559,7 @@
       "text": "宝藏是一封感谢信，写给所有帮忙准备游戏的人。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "bǎo zàng shì yì fēng gǎn xiè xìn xiě gěi suǒ yǒu bāng máng zhǔn bèi yóu xì de rén.",
+        "notation": "Bǎo zàng shì yī fēng gǎn xiè xìn, xiě gěi suǒ yǒu bāng máng zhǔn bèi yóu xì de rén.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -42511,7 +42621,7 @@
           "surface": "一",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "yì",
+            "notation": "yī",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -42522,7 +42632,7 @@
               "surface": "一",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "yì",
+                "notation": "yī",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -42991,10 +43101,10 @@
     },
     {
       "conceptId": "ww-zh-m260908-001",
-      "text": "小狗有软软的耳朵。",
+      "text": "小狗的耳朵耷拉着。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "xiǎo gǒu yǒu ruǎn ruǎn de ěr duo .",
+        "notation": "Xiǎo gǒu de ěr duo dā la zhe.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -43031,59 +43141,6 @@
           ]
         },
         {
-          "surface": "有",
-          "pronunciation": {
-            "system": "pinyin",
-            "notation": "yǒu",
-            "languageTag": "zh-Latn-pinyin",
-            "reviewed": false
-          },
-          "gloss": "have",
-          "playable": true,
-          "readingUnits": [
-            {
-              "surface": "有",
-              "pronunciation": {
-                "system": "pinyin",
-                "notation": "yǒu",
-                "languageTag": "zh-Latn-pinyin",
-                "reviewed": false
-              }
-            }
-          ]
-        },
-        {
-          "surface": "软软",
-          "pronunciation": {
-            "system": "pinyin",
-            "notation": "ruǎn ruǎn",
-            "languageTag": "zh-Latn-pinyin",
-            "reviewed": false
-          },
-          "gloss": "soft and floppy",
-          "playable": true,
-          "readingUnits": [
-            {
-              "surface": "软",
-              "pronunciation": {
-                "system": "pinyin",
-                "notation": "ruǎn",
-                "languageTag": "zh-Latn-pinyin",
-                "reviewed": false
-              }
-            },
-            {
-              "surface": "软",
-              "pronunciation": {
-                "system": "pinyin",
-                "notation": "ruǎn",
-                "languageTag": "zh-Latn-pinyin",
-                "reviewed": false
-              }
-            }
-          ]
-        },
-        {
           "surface": "的",
           "pronunciation": {
             "system": "pinyin",
@@ -43091,7 +43148,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "marks possession or a noun description",
+          "gloss": "links the puppy to its ears",
           "playable": true,
           "readingUnits": [
             {
@@ -43113,7 +43170,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "ear; ears",
+          "gloss": "ears",
           "playable": true,
           "readingUnits": [
             {
@@ -43130,6 +43187,59 @@
               "pronunciation": {
                 "system": "pinyin",
                 "notation": "duo",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "耷拉",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "dā la",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "droop; hang loosely",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "耷",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "dā",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "拉",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "la",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "着",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "zhe",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "marks the continuing state of the ears",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "着",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "zhe",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -72533,7 +72643,7 @@
       "text": "对不起，我打断了你。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "duìbuqǐ , wǒ dǎ duàn le nǐ .",
+        "notation": "Duì bù qǐ, wǒ dǎ duàn le nǐ.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -72542,7 +72652,7 @@
           "surface": "对不起",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "duìbuqǐ",
+            "notation": "duì bù qǐ",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -72562,7 +72672,7 @@
               "surface": "不",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "bu",
+                "notation": "bù",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -83258,10 +83368,10 @@
     },
     {
       "conceptId": "ww-zh-m260908-220",
-      "text": "车站的电梯方便我们推婴儿车。",
+      "text": "车站的电梯让我们更容易搬运婴儿车。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "chēzhàn de diàntī fāngbiàn wǒmen tuī yīng ér chē .",
+        "notation": "Chē zhàn de diàn tī ràng wǒ men gèng róng yì bān yùn yīng ér chē.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -83270,7 +83380,7 @@
           "surface": "车站",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "chēzhàn",
+            "notation": "chē zhàn",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -83305,7 +83415,7 @@
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "marks possession or a noun description",
+          "gloss": "links the station to its lift",
           "playable": true,
           "readingUnits": [
             {
@@ -83323,11 +83433,11 @@
           "surface": "电梯",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "diàntī",
+            "notation": "diàn tī",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "elevator",
+          "gloss": "lift; elevator",
           "playable": true,
           "readingUnits": [
             {
@@ -83351,30 +83461,21 @@
           ]
         },
         {
-          "surface": "方便",
+          "surface": "让",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "fāngbiàn",
+            "notation": "ràng",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "convenient",
+          "gloss": "make; enable",
           "playable": true,
           "readingUnits": [
             {
-              "surface": "方",
+              "surface": "让",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "fāng",
-                "languageTag": "zh-Latn-pinyin",
-                "reviewed": false
-              }
-            },
-            {
-              "surface": "便",
-              "pronunciation": {
-                "system": "pinyin",
-                "notation": "biàn",
+                "notation": "ràng",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -83385,11 +83486,11 @@
           "surface": "我们",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "wǒmen",
+            "notation": "wǒ men",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "we; us",
+          "gloss": "us",
           "playable": true,
           "readingUnits": [
             {
@@ -83413,21 +83514,83 @@
           ]
         },
         {
-          "surface": "推",
+          "surface": "更",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "tuī",
+            "notation": "gèng",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "push",
+          "gloss": "more",
           "playable": true,
           "readingUnits": [
             {
-              "surface": "推",
+              "surface": "更",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "tuī",
+                "notation": "gèng",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "容易",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "róng yì",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "easy",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "容",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "róng",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "易",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "yì",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "搬运",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "bān yùn",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "carry; transport",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "搬",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "bān",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "运",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "yùn",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -94268,7 +94431,7 @@
       "text": "听了一个没考虑过的例子后，我改变了看法。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "tīng le yī gè méi kǎo lǜ guò de lì zi hòu , wǒ gǎi biàn le kàn fǎ .",
+        "notation": "Tīng le yī gè méi kǎo lǜ guo de lì zi hòu, wǒ gǎi biàn le kàn fǎ.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -94418,18 +94581,18 @@
           "surface": "过",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "guò",
+            "notation": "guo",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "pass; after passing",
+          "gloss": "marks previous experience of the action",
           "playable": true,
           "readingUnits": [
             {
               "surface": "过",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "guò",
+                "notation": "guo",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -95236,7 +95399,7 @@
       "text": "她注意到还没有人问过最安静的那位成员。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "tā zhù yì dào hái méi yǒu rén wèn guò zuì ānjìng de nà wèi chéng yuán .",
+        "notation": "Tā zhù yì dào hái méi yǒu rén wèn guo zuì ānjìng de nà wèi chéng yuán.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -95404,18 +95567,18 @@
           "surface": "过",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "guò",
+            "notation": "guo",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "pass; after passing",
+          "gloss": "marks previous experience of the action",
           "playable": true,
           "readingUnits": [
             {
               "surface": "过",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "guò",
+                "notation": "guo",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -107083,7 +107246,7 @@
       "text": "不对。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "Bú duì.",
+        "notation": "Bù duì.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -107092,18 +107255,18 @@
           "surface": "不",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "bú",
+            "notation": "bù",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "not; tone before a fourth tone",
+          "gloss": "not",
           "playable": true,
           "readingUnits": [
             {
               "surface": "不",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "bú",
+                "notation": "bù",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -107195,7 +107358,7 @@
       "text": "对不起。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "Duìbuqǐ.",
+        "notation": "Duì bù qǐ.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -107204,7 +107367,7 @@
           "surface": "对不起",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "duìbuqǐ",
+            "notation": "duì bù qǐ",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
@@ -107224,7 +107387,7 @@
               "surface": "不",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "bu",
+                "notation": "bù",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -107734,7 +107897,7 @@
       "text": "请再说一遍。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "Qǐng zài shuō yí biàn.",
+        "notation": "Qǐng zài shuō yī biàn.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -107809,18 +107972,18 @@
           "surface": "一",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "yí",
+            "notation": "yī",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "one; tone before a fourth tone",
+          "gloss": "one",
           "playable": true,
           "readingUnits": [
             {
               "surface": "一",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "yí",
+                "notation": "yī",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -107943,7 +108106,7 @@
       "text": "不用了，谢谢。",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "Bú yòng le, xièxie.",
+        "notation": "Bù yòng le, xièxie.",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
@@ -107952,18 +108115,18 @@
           "surface": "不",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "bú",
+            "notation": "bù",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "not; tone before a fourth tone",
+          "gloss": "not",
           "playable": true,
           "readingUnits": [
             {
               "surface": "不",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "bú",
+                "notation": "bù",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -108167,6 +108330,4288 @@
           ]
         }
       ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.origin-country-question",
+      "text": "你是哪国人？",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Nǐ shì nǎ guó rén?",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "你",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "nǐ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "you",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "你",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "nǐ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "是",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "shì",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "be",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "是",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "shì",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "哪国",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "nǎ guó",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "which country",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "哪",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "nǎ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "国",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "guó",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "人",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "rén",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "person; indicates nationality here",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "人",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "rén",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.identity",
+        "order": 11,
+        "title": "Introductions and personal details",
+        "explanation": "Use 是 before an identity noun, 叫 for a name, and 姓 for a family name. 哪国 asks which country; 多大 asks age, with 岁 for years of age.",
+        "focus": [
+          "identity",
+          "copula",
+          "age"
+        ]
+      }
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.origin-british",
+      "text": "我是英国人。",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Wǒ shì yīng guó rén.",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "wǒ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "I",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "我",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "wǒ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "是",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "shì",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "be",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "是",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "shì",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "英国人",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "yīng guó rén",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "British person",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "英",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "yīng",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "国",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "guó",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "人",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "rén",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.identity",
+        "order": 12,
+        "title": "Introductions and personal details",
+        "explanation": "Use 是 before an identity noun, 叫 for a name, and 姓 for a family name. 哪国 asks which country; 多大 asks age, with 岁 for years of age.",
+        "focus": [
+          "identity",
+          "copula",
+          "age"
+        ]
+      }
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.origin-from-question",
+      "text": "你从哪里来？",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Nǐ cóng nǎ lǐ lái?",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "你",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "nǐ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "you",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "你",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "nǐ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "从",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "cóng",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "from",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "从",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "cóng",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "哪里",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "nǎ lǐ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "where",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "哪",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "nǎ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "里",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "lǐ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "来",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "lái",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "come",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "来",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "lái",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.identity",
+        "order": 13,
+        "title": "Introductions and personal details",
+        "explanation": "Use 是 before an identity noun, 叫 for a name, and 姓 for a family name. 哪国 asks which country; 多大 asks age, with 岁 for years of age.",
+        "focus": [
+          "identity",
+          "copula",
+          "age"
+        ]
+      }
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.origin-from-china",
+      "text": "我从中国来。",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Wǒ cóng zhōng guó lái.",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "wǒ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "I",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "我",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "wǒ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "从",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "cóng",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "from",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "从",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "cóng",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "中国",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "zhōng guó",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "China",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "中",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "zhōng",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "国",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "guó",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "来",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "lái",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "come",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "来",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "lái",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.identity",
+        "order": 14,
+        "title": "Introductions and personal details",
+        "explanation": "Use 是 before an identity noun, 叫 for a name, and 姓 for a family name. 哪国 asks which country; 多大 asks age, with 岁 for years of age.",
+        "focus": [
+          "identity",
+          "copula",
+          "age"
+        ]
+      }
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.age-question",
+      "text": "你多大了？",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Nǐ duō dà le?",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "你",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "nǐ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "you",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "你",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "nǐ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "多大",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "duō dà",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "how old",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "多",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "duō",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "大",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "dà",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "了",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "le",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "marks the current age being asked about",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "了",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "le",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.identity",
+        "order": 15,
+        "title": "Introductions and personal details",
+        "explanation": "Use 是 before an identity noun, 叫 for a name, and 姓 for a family name. 哪国 asks which country; 多大 asks age, with 岁 for years of age.",
+        "focus": [
+          "identity",
+          "copula",
+          "age"
+        ]
+      }
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.age-twenty",
+      "text": "我二十岁。",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Wǒ èr shí suì.",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "wǒ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "I",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "我",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "wǒ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "二十",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "èr shí",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "twenty",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "二",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "èr",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "十",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "shí",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "岁",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "suì",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "years old",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "岁",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "suì",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.identity",
+        "order": 16,
+        "title": "Introductions and personal details",
+        "explanation": "Use 是 before an identity noun, 叫 for a name, and 姓 for a family name. 哪国 asks which country; 多大 asks age, with 岁 for years of age.",
+        "focus": [
+          "identity",
+          "copula",
+          "age"
+        ]
+      }
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.surname-question",
+      "text": "你姓什么？",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Nǐ xìng shén me?",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "你",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "nǐ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "you",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "你",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "nǐ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "姓",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "xìng",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "have the surname",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "姓",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "xìng",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "什么",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "shén me",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "what",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "什",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "shén",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "么",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "me",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.identity",
+        "order": 17,
+        "title": "Introductions and personal details",
+        "explanation": "Use 是 before an identity noun, 叫 for a name, and 姓 for a family name. 哪国 asks which country; 多大 asks age, with 岁 for years of age.",
+        "focus": [
+          "identity",
+          "copula",
+          "age"
+        ]
+      }
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.surname-lin",
+      "text": "我姓林。",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Wǒ xìng lín.",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "wǒ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "I",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "我",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "wǒ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "姓",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "xìng",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "have the surname",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "姓",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "xìng",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "林",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "lín",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "Lin (surname)",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "林",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "lín",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.identity",
+        "order": 18,
+        "title": "Introductions and personal details",
+        "explanation": "Use 是 before an identity noun, 叫 for a name, and 姓 for a family name. 哪国 asks which country; 多大 asks age, with 岁 for years of age.",
+        "focus": [
+          "identity",
+          "copula",
+          "age"
+        ]
+      }
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.need-rest",
+      "text": "我需要休息。",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Wǒ xū yào xiū xi.",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "wǒ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "I",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "我",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "wǒ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "需要",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "xū yào",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "need",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "需",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "xū",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "要",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "yào",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "休息",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "xiū xi",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "rest",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "休",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "xiū",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "息",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "xi",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.needs",
+        "order": 19,
+        "title": "Needs and requests",
+        "explanation": "需要 names a need. Put the question particle 吗 at the end of a statement to ask a yes/no question. A request with 能 asks whether the person can help.",
+        "focus": [
+          "needs",
+          "question-particle"
+        ]
+      }
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.help-question",
+      "text": "你能帮我吗？",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Nǐ néng bāng wǒ ma?",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "你",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "nǐ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "you",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "你",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "nǐ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "能",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "néng",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "can; be able to",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "能",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "néng",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "帮",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "bāng",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "help",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "帮",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "bāng",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "我",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "wǒ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "me",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "我",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "wǒ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "吗",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "ma",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "marks a yes-no question",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "吗",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "ma",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.needs",
+        "order": 20,
+        "title": "Needs and requests",
+        "explanation": "需要 names a need. Put the question particle 吗 at the end of a statement to ask a yes/no question. A request with 能 asks whether the person can help.",
+        "focus": [
+          "needs",
+          "question-particle"
+        ]
+      }
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.hungry-question",
+      "text": "你饿吗？",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Nǐ è ma?",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "你",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "nǐ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "you",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "你",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "nǐ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "饿",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "è",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "hungry",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "饿",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "è",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "吗",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "ma",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "marks a yes-no question",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "吗",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "ma",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.needs",
+        "order": 21,
+        "title": "Needs and requests",
+        "explanation": "需要 names a need. Put the question particle 吗 at the end of a statement to ask a yes/no question. A request with 能 asks whether the person can help.",
+        "focus": [
+          "needs",
+          "question-particle"
+        ]
+      }
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.no-money",
+      "text": "我没有钱。",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Wǒ méi yǒu qián.",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "wǒ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "I",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "我",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "wǒ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "没有",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "méi yǒu",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "do not have",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "没",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "méi",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "有",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "yǒu",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "钱",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "qián",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "money",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "钱",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "qián",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.negation",
+        "order": 23,
+        "title": "Not having and not doing",
+        "explanation": "没有 means not having; 没 negates an action that did not happen. 不 is used for a general negative or an intention. Listening without understanding can be expressed with 没听懂.",
+        "focus": [
+          "negation",
+          "mei-versus-bu"
+        ]
+      }
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.no-time",
+      "text": "我没有时间。",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Wǒ méi yǒu shí jiān.",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "wǒ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "I",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "我",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "wǒ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "没有",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "méi yǒu",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "do not have",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "没",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "méi",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "有",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "yǒu",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "时间",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "shí jiān",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "time",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "时",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "shí",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "间",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "jiān",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.negation",
+        "order": 24,
+        "title": "Not having and not doing",
+        "explanation": "没有 means not having; 没 negates an action that did not happen. 不 is used for a general negative or an intention. Listening without understanding can be expressed with 没听懂.",
+        "focus": [
+          "negation",
+          "mei-versus-bu"
+        ]
+      }
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.not-go-yesterday",
+      "text": "我昨天没去。",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Wǒ zuó tiān méi qù.",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "wǒ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "I",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "我",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "wǒ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "昨天",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "zuó tiān",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "yesterday",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "昨",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "zuó",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "天",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "tiān",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "没",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "méi",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "did not",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "没",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "méi",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "去",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "qù",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "go",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "去",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "qù",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.negation",
+        "order": 25,
+        "title": "Not having and not doing",
+        "explanation": "没有 means not having; 没 negates an action that did not happen. 不 is used for a general negative or an intention. Listening without understanding can be expressed with 没听懂.",
+        "focus": [
+          "negation",
+          "mei-versus-bu"
+        ]
+      },
+      "acceptedTokenOrders": [
+        [
+          "昨天",
+          "我",
+          "没",
+          "去"
+        ]
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.not-understand-heard",
+      "text": "我没听懂。",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Wǒ méi tīng dǒng.",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "wǒ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "I",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "我",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "wǒ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "没",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "méi",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "did not",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "没",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "méi",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "听懂",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "tīng dǒng",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "understand what is heard",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "听",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "tīng",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "懂",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "dǒng",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.negation",
+        "order": 26,
+        "title": "Not having and not doing",
+        "explanation": "没有 means not having; 没 negates an action that did not happen. 不 is used for a general negative or an intention. Listening without understanding can be expressed with 没听懂.",
+        "focus": [
+          "negation",
+          "mei-versus-bu"
+        ]
+      }
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.have-time-question",
+      "text": "你有没有时间？",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Nǐ yǒu méi yǒu shí jiān?",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "你",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "nǐ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "you",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "你",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "nǐ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "有",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "yǒu",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "have; first part of a have-or-not question",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "有",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "yǒu",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "没有",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "méi yǒu",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "not have; second part of a have-or-not question",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "没",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "méi",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "有",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "yǒu",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "时间",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "shí jiān",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "time",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "时",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "shí",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "间",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "jiān",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.questions",
+        "order": 27,
+        "title": "Yes/no alternatives",
+        "explanation": "A-not-A questions place the positive and negative choices together: 去不去, 是不是, or 要不要. With 有, use 有没有. These questions do not also need 吗.",
+        "focus": [
+          "a-not-a",
+          "questions"
+        ]
+      }
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.like-tea-question",
+      "text": "你喜不喜欢茶？",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Nǐ xǐ bù xǐ huan chá?",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "你",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "nǐ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "you",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "你",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "nǐ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "喜不喜欢",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "xǐ bù xǐ huan",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "like or not; asks whether you like",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "喜",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "xǐ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "不",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "bù",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "喜",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "xǐ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "欢",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "huan",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "茶",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "chá",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "tea",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "茶",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "chá",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.questions",
+        "order": 28,
+        "title": "Yes/no alternatives",
+        "explanation": "A-not-A questions place the positive and negative choices together: 去不去, 是不是, or 要不要. With 有, use 有没有. These questions do not also need 吗.",
+        "focus": [
+          "a-not-a",
+          "questions"
+        ]
+      }
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.go-question",
+      "text": "你去不去？",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Nǐ qù bù qù?",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "你",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "nǐ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "you",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "你",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "nǐ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "去",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "qù",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "go; first part of a go-or-not question",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "去",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "qù",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "不",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "bù",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "not; negative part of the question",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "不",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "bù",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "去",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "qù",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "go; repeated to complete the question",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "去",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "qù",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.questions",
+        "order": 29,
+        "title": "Yes/no alternatives",
+        "explanation": "A-not-A questions place the positive and negative choices together: 去不去, 是不是, or 要不要. With 有, use 有没有. These questions do not also need 吗.",
+        "focus": [
+          "a-not-a",
+          "questions"
+        ]
+      }
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.teacher-question",
+      "text": "你是不是老师？",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Nǐ shì bù shì lǎo shī?",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "你",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "nǐ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "you",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "你",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "nǐ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "是",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "shì",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "be; first part of a be-or-not question",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "是",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "shì",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "不是",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "bù shì",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "not be; second part of the question",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "不",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "bù",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "是",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "shì",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "老师",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "lǎo shī",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "teacher",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "老",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "lǎo",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "师",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "shī",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.questions",
+        "order": 30,
+        "title": "Yes/no alternatives",
+        "explanation": "A-not-A questions place the positive and negative choices together: 去不去, 是不是, or 要不要. With 有, use 有没有. These questions do not also need 吗.",
+        "focus": [
+          "a-not-a",
+          "questions"
+        ]
+      }
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.want-water-question",
+      "text": "你要不要水？",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Nǐ yào bù yào shuǐ?",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "你",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "nǐ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "you",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "你",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "nǐ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "要",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "yào",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "want; first part of a want-or-not question",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "要",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "yào",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "不要",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "bù yào",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "not want; second part of the question",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "不",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "bù",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "要",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "yào",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "水",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "shuǐ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "water",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "水",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "shuǐ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.questions",
+        "order": 31,
+        "title": "Yes/no alternatives",
+        "explanation": "A-not-A questions place the positive and negative choices together: 去不去, 是不是, or 要不要. With 有, use 有没有. These questions do not also need 吗.",
+        "focus": [
+          "a-not-a",
+          "questions"
+        ]
+      }
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.two-cups",
+      "text": "两杯水。",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Liǎng bēi shuǐ.",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "两",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "liǎng",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "two before a measure word",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "两",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "liǎng",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "杯",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "bēi",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "cup; measure word for cups",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "杯",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "bēi",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "水",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "shuǐ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "water",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "水",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "shuǐ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.quantities",
+        "order": 32,
+        "title": "Numbers and classifiers",
+        "explanation": "Use 两 before most classifiers when counting two things: 两杯水, 两个人, 两本书. Use 二 within numbers such as 二十二. 一本书 contains 一, the classifier 本, and the noun 书.",
+        "focus": [
+          "numbers",
+          "classifiers",
+          "er-versus-liang"
+        ]
+      }
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.two-people",
+      "text": "两个人。",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Liǎng gè rén.",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "两",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "liǎng",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "two before a measure word",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "两",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "liǎng",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "个",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "gè",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "general measure word; used for people here",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "个",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "gè",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "人",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "rén",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "people",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "人",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "rén",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.quantities",
+        "order": 33,
+        "title": "Numbers and classifiers",
+        "explanation": "Use 两 before most classifiers when counting two things: 两杯水, 两个人, 两本书. Use 二 within numbers such as 二十二. 一本书 contains 一, the classifier 本, and the noun 书.",
+        "focus": [
+          "numbers",
+          "classifiers",
+          "er-versus-liang"
+        ]
+      }
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.book-question",
+      "text": "你有一本书吗？",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Nǐ yǒu yī běn shū ma?",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "你",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "nǐ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "you",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "你",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "nǐ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "有",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "yǒu",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "have",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "有",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "yǒu",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "一",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "yī",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "one; a",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "一",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "yī",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "本",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "běn",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "measure word for books",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "本",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "běn",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "书",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "shū",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "book",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "书",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "shū",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "吗",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "ma",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "marks a yes-no question",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "吗",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "ma",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.quantities",
+        "order": 34,
+        "title": "Numbers and classifiers",
+        "explanation": "Use 两 before most classifiers when counting two things: 两杯水, 两个人, 两本书. Use 二 within numbers such as 二十二. 一本书 contains 一, the classifier 本, and the noun 书.",
+        "focus": [
+          "numbers",
+          "classifiers",
+          "er-versus-liang"
+        ]
+      }
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.two-books-question",
+      "text": "你有两本书吗？",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Nǐ yǒu liǎng běn shū ma?",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "你",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "nǐ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "you",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "你",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "nǐ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "有",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "yǒu",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "have",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "有",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "yǒu",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "两",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "liǎng",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "two before a measure word",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "两",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "liǎng",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "本",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "běn",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "measure word for books",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "本",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "běn",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "书",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "shū",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "book",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "书",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "shū",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "吗",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "ma",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "marks a yes-no question",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "吗",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "ma",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.quantities",
+        "order": 35,
+        "title": "Numbers and classifiers",
+        "explanation": "Use 两 before most classifiers when counting two things: 两杯水, 两个人, 两本书. Use 二 within numbers such as 二十二. 一本书 contains 一, the classifier 本, and the noun 书.",
+        "focus": [
+          "numbers",
+          "classifiers",
+          "er-versus-liang"
+        ]
+      }
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.twenty-two",
+      "text": "二十二。",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Èr shí èr.",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "二十二",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "èr shí èr",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "twenty-two",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "二",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "èr",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "十",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "shí",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "二",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "èr",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.quantities",
+        "order": 36,
+        "title": "Numbers and classifiers",
+        "explanation": "Use 两 before most classifiers when counting two things: 两杯水, 两个人, 两本书. Use 二 within numbers such as 二十二. 一本书 contains 一, the classifier 本, and the noun 书.",
+        "focus": [
+          "numbers",
+          "classifiers",
+          "er-versus-liang"
+        ]
+      }
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.price-question",
+      "text": "这个多少钱？",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Zhè ge duō shǎo qián?",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "这个",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "zhè ge",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "this item",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "这",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "zhè",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "个",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "ge",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "多少钱",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "duō shǎo qián",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "how much money; what price",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "多",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "duō",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "少",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "shǎo",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "钱",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "qián",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.buying",
+        "order": 37,
+        "title": "Prices and paying",
+        "explanation": "多少钱 asks the price. Put the number before 元 when saying an amount. 怎么 asks how to do something, such as paying; 用 introduces the method or tool.",
+        "focus": [
+          "prices",
+          "payment",
+          "method"
+        ]
+      }
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.price-ten",
+      "text": "十元。",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Shí yuán.",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "十",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "shí",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "ten",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "十",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "shí",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "元",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "yuán",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "yuan; Chinese currency unit",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "元",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "yuán",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.buying",
+        "order": 38,
+        "title": "Prices and paying",
+        "explanation": "多少钱 asks the price. Put the number before 元 when saying an amount. 怎么 asks how to do something, such as paying; 用 introduces the method or tool.",
+        "focus": [
+          "prices",
+          "payment",
+          "method"
+        ]
+      }
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.price-twelve",
+      "text": "十二元。",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Shí èr yuán.",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "十二",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "shí èr",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "twelve",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "十",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "shí",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "二",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "èr",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "元",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "yuán",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "yuan; Chinese currency unit",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "元",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "yuán",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.buying",
+        "order": 39,
+        "title": "Prices and paying",
+        "explanation": "多少钱 asks the price. Put the number before 元 when saying an amount. 怎么 asks how to do something, such as paying; 用 introduces the method or tool.",
+        "focus": [
+          "prices",
+          "payment",
+          "method"
+        ]
+      }
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.pay-how",
+      "text": "怎么付款？",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Zěn me fù kuǎn?",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "怎么",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "zěn me",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "how",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "怎",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "zěn",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "么",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "me",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "付款",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "fù kuǎn",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "pay",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "付",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "fù",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "款",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "kuǎn",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.buying",
+        "order": 40,
+        "title": "Prices and paying",
+        "explanation": "多少钱 asks the price. Put the number before 元 when saying an amount. 怎么 asks how to do something, such as paying; 用 introduces the method or tool.",
+        "focus": [
+          "prices",
+          "payment",
+          "method"
+        ]
+      }
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.pay-phone",
+      "text": "我可以用手机付款吗？",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Wǒ kě yǐ yòng shǒu jī fù kuǎn ma?",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "wǒ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "I",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "我",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "wǒ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "可以",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "kě yǐ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "may; have permission to",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "可",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "kě",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "以",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "yǐ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "用",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "yòng",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "use; with",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "用",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "yòng",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "手机",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "shǒu jī",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "mobile phone",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "手",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "shǒu",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "机",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "jī",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "付款",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "fù kuǎn",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "pay",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "付",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "fù",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "款",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "kuǎn",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "吗",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "ma",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "marks a yes-no question",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "吗",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "ma",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.buying",
+        "order": 41,
+        "title": "Prices and paying",
+        "explanation": "多少钱 asks the price. Put the number before 元 when saying an amount. 怎么 asks how to do something, such as paying; 用 introduces the method or tool.",
+        "focus": [
+          "prices",
+          "payment",
+          "method"
+        ]
+      }
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.can-swim",
+      "text": "我会游泳。",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Wǒ huì yóu yǒng.",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "wǒ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "I",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "我",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "wǒ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "会",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "huì",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "know how to; learned ability",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "会",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "huì",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "游泳",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "yóu yǒng",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "swim",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "游",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "yóu",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "泳",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "yǒng",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.modals",
+        "order": 42,
+        "title": "Ability and permission",
+        "explanation": "会 often describes a learned skill, such as swimming. 能 concerns ability or possibility in the situation. 可以 is useful for asking permission. Put 不 before the modal to make it negative.",
+        "focus": [
+          "hui-neng-keyi",
+          "ability",
+          "permission"
+        ]
+      }
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.cannot-swim",
+      "text": "我不会游泳。",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Wǒ bù huì yóu yǒng.",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "wǒ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "I",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "我",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "wǒ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "不",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "bù",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "not",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "不",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "bù",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "会",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "huì",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "know how to; learned ability",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "会",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "huì",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "游泳",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "yóu yǒng",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "swim",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "游",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "yóu",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "泳",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "yǒng",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.modals",
+        "order": 43,
+        "title": "Ability and permission",
+        "explanation": "会 often describes a learned skill, such as swimming. 能 concerns ability or possibility in the situation. 可以 is useful for asking permission. Put 不 before the modal to make it negative.",
+        "focus": [
+          "hui-neng-keyi",
+          "ability",
+          "permission"
+        ]
+      }
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.permission-enter",
+      "text": "我可以进来吗？",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Wǒ kě yǐ jìn lái ma?",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "wǒ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "I",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "我",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "wǒ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "可以",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "kě yǐ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "may; have permission to",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "可",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "kě",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "以",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "yǐ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "进来",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "jìn lái",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "come in",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "进",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "jìn",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "来",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "lái",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "吗",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "ma",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "marks a yes-no question",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "吗",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "ma",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.modals",
+        "order": 44,
+        "title": "Ability and permission",
+        "explanation": "会 often describes a learned skill, such as swimming. 能 concerns ability or possibility in the situation. 可以 is useful for asking permission. Put 不 before the modal to make it negative.",
+        "focus": [
+          "hui-neng-keyi",
+          "ability",
+          "permission"
+        ]
+      }
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.location-home",
+      "text": "我在家。",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Wǒ zài jiā.",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "wǒ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "I",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "我",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "wǒ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "在",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "zài",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "be located at",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "在",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "zài",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "家",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "jiā",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "home",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "家",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "jiā",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.location",
+        "order": 45,
+        "title": "Location and an action in progress",
+        "explanation": "在 before a place says where someone is. In 我在吃饭, 在 marks an action in progress: compare 在家 and 在吃饭.",
+        "focus": [
+          "location",
+          "progressive-zai"
+        ]
+      }
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.progressive-eat",
+      "text": "我在吃饭。",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Wǒ zài chī fàn.",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "wǒ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "I",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "我",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "wǒ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "在",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "zài",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "marks an action happening now",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "在",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "zài",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "吃饭",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "chī fàn",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "eat; have a meal",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "吃",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "chī",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "饭",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "fàn",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.location",
+        "order": 46,
+        "title": "Location and an action in progress",
+        "explanation": "在 before a place says where someone is. In 我在吃饭, 在 marks an action in progress: compare 在家 and 在吃饭.",
+        "focus": [
+          "location",
+          "progressive-zai"
+        ]
+      }
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.experience-beijing",
+      "text": "你去过北京吗？",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Nǐ qù guo běi jīng ma?",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "你",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "nǐ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "you",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "你",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "nǐ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "去",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "qù",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "go",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "去",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "qù",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "过",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "guo",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "marks previous experience of the action",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "过",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "guo",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "北京",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "běi jīng",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "Beijing",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "北",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "běi",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "京",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "jīng",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "吗",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "ma",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "marks a yes-no question",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "吗",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "ma",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.aspect",
+        "order": 47,
+        "title": "Experience, completion and a continuing state",
+        "explanation": "In 去过北京, 过 marks a past experience; here it is not the verb meaning pass. 了 after a verb can mark a completed action. 着 describes a continuing state, such as a window remaining open. These particles do not conjugate the verb.",
+        "focus": [
+          "experience-guo",
+          "completion-le",
+          "state-zhe"
+        ]
+      }
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.completed-apple",
+      "text": "我吃了一个苹果。",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Wǒ chī le yī gè píng guǒ.",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "wǒ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "I",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "我",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "wǒ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "吃",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "chī",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "eat",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "吃",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "chī",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "了",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "le",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "marks the completed eating event",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "了",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "le",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "一",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "yī",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "one; a",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "一",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "yī",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "个",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "gè",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "general measure word",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "个",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "gè",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "苹果",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "píng guǒ",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "apple",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "苹",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "píng",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "果",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "guǒ",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.aspect",
+        "order": 48,
+        "title": "Experience, completion and a continuing state",
+        "explanation": "In 去过北京, 过 marks a past experience; here it is not the verb meaning pass. 了 after a verb can mark a completed action. 着 describes a continuing state, such as a window remaining open. These particles do not conjugate the verb.",
+        "focus": [
+          "experience-guo",
+          "completion-le",
+          "state-zhe"
+        ]
+      }
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.open-window",
+      "text": "窗户开着。",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Chuāng hu kāi zhe.",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "窗户",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "chuāng hu",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "window",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "窗",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "chuāng",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            },
+            {
+              "surface": "户",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "hu",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "开",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "kāi",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "open",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "开",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "kāi",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "着",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "zhe",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "marks the continuing open state",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "着",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "zhe",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.aspect",
+        "order": 49,
+        "title": "Experience, completion and a continuing state",
+        "explanation": "In 去过北京, 过 marks a past experience; here it is not the verb meaning pass. 了 after a verb can mark a completed action. 着 describes a continuing state, such as a window remaining open. These particles do not conjugate the verb.",
+        "focus": [
+          "experience-guo",
+          "completion-le",
+          "state-zhe"
+        ]
+      }
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.push-door",
+      "text": "请推门。",
+      "pronunciation": {
+        "system": "pinyin",
+        "notation": "Qǐng tuī mén.",
+        "languageTag": "zh-Latn-pinyin",
+        "reviewed": false
+      },
+      "tokens": [
+        {
+          "surface": "请",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "qǐng",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "please; marks a polite request",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "请",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "qǐng",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "推",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "tuī",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "push",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "推",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "tuī",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        },
+        {
+          "surface": "门",
+          "pronunciation": {
+            "system": "pinyin",
+            "notation": "mén",
+            "languageTag": "zh-Latn-pinyin",
+            "reviewed": false
+          },
+          "gloss": "door",
+          "playable": true,
+          "readingUnits": [
+            {
+              "surface": "门",
+              "pronunciation": {
+                "system": "pinyin",
+                "notation": "mén",
+                "languageTag": "zh-Latn-pinyin",
+                "reviewed": false
+              }
+            }
+          ]
+        }
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.needs",
+        "order": 22,
+        "title": "Needs and requests",
+        "explanation": "需要 names a need. Put the question particle 吗 at the end of a statement to ask a yes/no question. A request with 能 asks whether the person can help.",
+        "focus": [
+          "needs",
+          "question-particle"
+        ]
+      }
     }
   ]
 }

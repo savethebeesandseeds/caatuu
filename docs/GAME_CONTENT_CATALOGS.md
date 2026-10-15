@@ -44,6 +44,13 @@ grammar, provenance and review. Catalog metadata preserves review and licensing
 for English, target and learner-base roles. The format does not invent human
 review or promote any development course.
 
+Modern authored providers may use `annotations.learning` for a declared teaching
+unit, order, title, explanation and focus tags, and `annotations.acceptedTokenOrders`
+for explicitly authored alternate target arrangements. Alternate arrangements
+must preserve the exact token multiset. These optional target fields survive
+validation and projection; unannotated records retain their existing behavior.
+Opening a Word World pattern note before answering marks the response assisted.
+
 `learnerBase` is null for English-base courses because `englishText` already
 supplies that translation. Spanish → English records include Spanish text and
 position-bound Spanish word hints there. Czech token hints are now inline in

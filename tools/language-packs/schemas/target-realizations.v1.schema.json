@@ -133,11 +133,33 @@
         "conceptId": { "$ref": "#/$defs/conceptId" },
         "text": { "$ref": "#/$defs/nonEmptyString" },
         "pronunciation": { "$ref": "#/$defs/pronunciation" },
+        "acceptedTokenOrders": { "$ref": "#/$defs/acceptedTokenOrders" },
+        "learning": { "$ref": "#/$defs/learning" },
         "tokens": {
           "type": "array",
           "minItems": 1,
           "items": { "$ref": "#/$defs/token" }
         }
+      }
+    },
+    "acceptedTokenOrders": {
+      "description": "Explicit alternate reconstructions using exactly the canonical token surfaces and occurrence counts. Canonical and duplicate orders are rejected by the content validator.",
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/nonEmptyString" } }
+    },
+    "learning": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["unitId", "order", "title", "explanation", "focus"],
+      "properties": {
+        "unitId": { "type": "string", "pattern": "^[a-z][a-z0-9]*(?:[.-][a-z0-9]+)*$" },
+        "order": { "type": "integer", "minimum": 1, "maximum": 9007199254740991 },
+        "title": { "$ref": "#/$defs/nonEmptyString" },
+        "explanation": { "$ref": "#/$defs/nonEmptyString" },
+        "focus": { "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[a-z][a-z0-9]*(?:[.-][a-z0-9]+)*$" } }
       }
     },
     "token": {

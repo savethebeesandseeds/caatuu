@@ -296,7 +296,10 @@ docker exec -w /workspace caatuu-dev node apps/server/tooling/refresh-setup-asse
 
 Registration is explicit; ordinary refresh and validation continue to reject
 missing runtime assets. The command validates every prospective course before
-writing any catalog. Shared [game dynamics](../../docs/GAME_DYNAMICS.md) use this
+writing any catalog. Registration can also repair a stale interface catalog's
+version query when its exact declared path, mapping, locale and content are
+valid; wrong paths, extra queries and invalid catalogs remain blocking.
+Shared [game dynamics](../../docs/GAME_DYNAMICS.md) use this
 path rather than course-specific integration.
 
 Check that the public launcher and every present course profile have not

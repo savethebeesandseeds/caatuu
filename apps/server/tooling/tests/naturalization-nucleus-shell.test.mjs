@@ -7,6 +7,7 @@ import * as adaptivePractice from "../../../language-runtime/static/source/games
 import { createBrowserHarness } from "../../../language-runtime/tests/helpers/fake-browser.mjs";
 import { mountRobotLoadingScreen } from "../../../language-runtime/static/source/games/embedded-game-controls.mjs";
 import { createArabicReadingGuide } from "../../../language-runtime/static/source/arabic-reading-guide.mjs";
+import { projectMandarinNucleusContexts } from "../../../../tools/language-content/project-mandarin-nucleus-contexts.mjs";
 
 const repoRoot = new URL("../../../../", import.meta.url);
 const NUCLEUS_SCHEMA_URL = "https://caatuu.org/schemas/development/naturalization-nucleus.preview.v1.json";
@@ -654,7 +655,7 @@ test("unfinished dictionary cards conceal the answer, then reveal both scripts a
     assert.equal(fixture.element("FeedbackMeaning").textContent, challenge.translation);
     assert.equal(fixture.element("FeedbackPinyin").textContent, "");
     assert.equal(fixture.element("FeedbackHanzi").getAttribute("aria-label"), challenge[script]);
-    assert.equal(fixture.element("FeedbackSound").getAttribute("aria-label"), `Play ${challenge[script]}.`);
+    assert.equal(fixture.element("FeedbackSound").getAttribute("aria-label"), `Play isolated character ${challenge[script]}.`);
     assert.equal(fixture.element("FeedbackReading").hasAttribute("data-tone"), false);
     const otherScript = script === "hanzi" ? "pinyin" : "hanzi";
     fixture.element("Ring").querySelectorAll("button").find((button) => button.textContent === challenge[otherScript]).click();
@@ -991,6 +992,9 @@ test("large content catalogs preserve validation, difficulty filtering and both 
     id: `zh.hanzi.capacity-${index}`,
     hanzi: String.fromCodePoint(0x3400 + index)
   }));
+  // The capacity fixture borrows readings but invents glyphs, so it has no
+  // authored contextual example for those synthetic characters.
+  expanded.challenges.forEach(challenge => { delete challenge.context; });
   const validated = game.validateCatalog(expanded);
   assert.equal(validated.challenges.length, expanded.challenges.length);
   assert.equal(validated.challenges.at(-1).id, expanded.challenges.at(-1).id);
@@ -1146,6 +1150,108 @@ test("every challenge cites a Word World concept with the exact Hanzi and pinyin
       );
     }
   }
+});
+
+test("Mandarin contexts preserve exact source words, readings and English meanings for every character", async () => {
+  const authority = await readJson("apps/languages/mandarin-simplified/content/word-world/content.json");
+  const records = new Map(authority.records.map(record => [record.id, record]));
+  assert.deepEqual(projectMandarinNucleusContexts(catalog, authority), catalog, "the maintained projection is reproducible");
+  for (const challenge of catalog.challenges) {
+    const context = challenge.context;
+    assert.ok(context, challenge.id);
+    assert.ok(challenge.sourceConceptIds.includes(context.sourceConceptId), challenge.id);
+    const record = records.get(context.sourceConceptId);
+    const token = record.tokens.find(token => token.surface === context.text);
+    if (token) {
+      assert.equal(context.meaning, token.gloss, challenge.id);
+      assert.equal(context.notation, token.readingUnits.map(unit => unit.pronunciation.notation).join(" "), challenge.id);
+    } else {
+      assert.equal(context.text, record.targetText, challenge.id);
+      assert.equal(context.meaning, record.englishText, challenge.id);
+      assert.equal(context.notation, record.tokens.flatMap(token => token.readingUnits).map(unit => unit.pronunciation.notation).join(" "), challenge.id);
+    }
+    assert.ok(Object.isFrozen(validatedCatalog.challenges.find(item => item.id === challenge.id).context));
+    assert.doesNotMatch(challenge.englishAuditText, /\p{Script=Han}/u, challenge.id);
+  }
+  assert.equal(catalog.challenges.find(item => item.hanzi === "乐").context.text, "音乐");
+  assert.equal(catalog.challenges.find(item => item.hanzi === "觉").context.text, "睡觉");
+  assert.equal(catalog.review.status, "native-review-required");
+  const schema = await readJson("tools/language-packs/schemas/naturalization-nucleus.preview.v1.schema.json");
+  assert.equal(schema.$id, catalog.$schema);
+  assert.equal(schema.$defs.context.additionalProperties, false);
+  assert.deepEqual(schema.$defs.context.required, ["text", "notation", "meaning", "sourceConceptId"]);
+});
+
+test("optional Mandarin context cannot change the character reading, leak scripts or cite another source", () => {
+  const legacy = structuredClone(catalog);
+  legacy.challenges.forEach(challenge => { delete challenge.context; delete challenge.englishAuditText; });
+  assert.equal(game.validateCatalog(legacy).challenges.length, catalog.challenges.length);
+  for (const change of [
+    challenge => { challenge.context.sourceConceptId = "unrelated.source"; },
+    challenge => { challenge.context.notation = challenge.context.notation.replace(challenge.pinyin, "wò"); },
+    challenge => { challenge.context.text = "你好"; challenge.context.notation = "nǐ hǎo"; },
+    challenge => { challenge.context.text = "<img>"; },
+    challenge => { challenge.context.notation = "<script>"; },
+    challenge => { challenge.context.meaning = "中文"; },
+    challenge => { delete challenge.context.meaning; },
+    challenge => { challenge.context.extra = "not part of the contract"; },
+    challenge => { challenge.englishAuditText = "friend (朋友)"; }
+  ]) {
+    const changed = structuredClone(catalog);
+    change(changed.challenges[0]);
+    assert.throws(() => game.validateCatalog(changed));
+  }
+  const arabic = structuredClone(arabicCatalog);
+  arabic.challenges[0].context = structuredClone(catalog.challenges[0].context);
+  assert.throws(() => game.validateCatalog(arabic), /unsupported field/u);
+});
+
+test("context is revealed only by a match and its playback remains separate from the isolated character", async () => {
+  const fixture = createLoadingHarness();
+  const spoken = [];
+  fixture.window.CaatuuChrome = { speakText: async text => { spoken.push(text); } };
+  await fixture.api.mount();
+  await fixture.advance(1600);
+  const feedback = fixture.element("Feedback");
+  const section = feedback.querySelector(".naturalization-nucleus-context");
+  const example = feedback.querySelector(".naturalization-nucleus-context-text");
+  const play = feedback.querySelector(".naturalization-nucleus-context-play");
+  const tile = fixture.element("Deck").querySelector("button[data-naturalization-piece-id]");
+  const id = tile.dataset.naturalizationPieceId.split("--")[0];
+  const challenge = catalog.challenges.find(item => item.id === id);
+  tile.click();
+  assert.equal(section.hidden, true);
+  assert.equal(example.textContent, "");
+  assert.equal(play.disabled, true);
+  play.click();
+  await settle();
+  assert.deepEqual(spoken, [], "context cannot be an answer hint before the match");
+  fixture.element("Ring").querySelectorAll("[data-naturalization-challenge-id]")
+    .find(socket => socket.dataset.naturalizationChallengeId !== id).click();
+  assert.equal(section.hidden, true, "an unsuccessful match does not reveal the example");
+  assert.equal(example.textContent, "");
+  await fixture.advance(900);
+  fixture.element("Ring").querySelector(`[data-naturalization-challenge-id="${id}"]`).click();
+  await settle();
+  assert.equal(section.hidden, false);
+  assert.equal(example.textContent, challenge.context.text);
+  assert.equal(feedback.querySelector(".naturalization-nucleus-context-notation").textContent, challenge.context.notation);
+  assert.equal(feedback.querySelector(".naturalization-nucleus-context-meaning").textContent, challenge.context.meaning);
+  assert.equal(spoken.at(-1), challenge.hanzi, "automatic match pronunciation retains the isolated cue");
+  play.click();
+  await settle();
+  assert.equal(spoken.at(-1), challenge.context.text);
+  fixture.element("FeedbackSound").click();
+  await settle();
+  assert.equal(spoken.at(-1), challenge.hanzi);
+  const calls = spoken.length;
+  fixture.element("Deck").querySelector("button[data-naturalization-piece-id]").click();
+  assert.equal(section.hidden, true);
+  assert.equal(example.textContent, "", "the prior matched example is cleared when another tile is selected");
+  play.click();
+  await settle();
+  assert.equal(spoken.length, calls);
+  fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
 });
 
 test("difficulty metadata selects one exact band and keeps each band playable", () => {

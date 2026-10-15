@@ -223,6 +223,12 @@ export function buildWordWorldRuntimeProjections(
     realizations: realizations.realizations.map((realization) => ({
       conceptId: realization.conceptId,
       text: realization.text,
+      ...(Object.hasOwn(realization, "acceptedTokenOrders")
+        ? { acceptedTokenOrders: clone(realization.acceptedTokenOrders) }
+        : {}),
+      ...(Object.hasOwn(realization, "learning")
+        ? { learning: clone(realization.learning) }
+        : {}),
       ...(targetPolicy.pronunciationIncluded
         ? { pronunciation: clone(realization.pronunciation) }
         : {}),

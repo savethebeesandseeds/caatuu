@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 
 import { validatePolicyIssues } from "../policies/contract.mjs";
 import { resolveTargetContentPolicy } from "../policies/registry.mjs";
+import { targetLearningFieldIssues } from "../../../apps/language-runtime/static/source/word-world-learning.mjs";
 
 export const ENGLISH_CONCEPT_SCHEMA_VERSION = 1;
 export const TARGET_REALIZATIONS_SCHEMA_VERSION = 1;
@@ -70,7 +71,8 @@ const TARGET_CATALOG_KEYS = [
   "license",
   "realizations"
 ];
-const REALIZATION_KEYS = ["conceptId", "text", "pronunciation", "tokens"];
+const REALIZATION_KEYS = ["conceptId", "text", "pronunciation", "tokens", "acceptedTokenOrders", "learning"];
+const REALIZATION_REQUIRED_KEYS = ["conceptId", "text", "pronunciation", "tokens"];
 const TOKEN_KEYS = ["surface", "pronunciation", "gloss", "playable", "readingUnits"];
 const TOKEN_REQUIRED_KEYS = ["surface", "pronunciation", "gloss", "playable"];
 const READING_UNIT_KEYS = ["surface", "pronunciation"];
@@ -319,7 +321,7 @@ function validateTargetRealizationCatalog(
       addIssue(issues, "realizations.shape", `${label} must be an object.`);
       continue;
     }
-    addUnknownAndMissingKeys(issues, realization, REALIZATION_KEYS, REALIZATION_KEYS, label, "realizations.shape");
+    addUnknownAndMissingKeys(issues, realization, REALIZATION_KEYS, REALIZATION_REQUIRED_KEYS, label, "realizations.shape");
     if (typeof realization.conceptId !== "string" || !CONCEPT_ID_PATTERN.test(realization.conceptId)) {
       addIssue(issues, "realizations.id", `${label}.conceptId must be a stable namespaced concept ID.`);
     } else {
@@ -330,6 +332,9 @@ function validateTargetRealizationCatalog(
     }
     validatePronunciation(realization.pronunciation, `${label}.pronunciation`, issues);
     validateTokens(realization, label, issues);
+    for (const message of targetLearningFieldIssues(realization)) {
+      addIssue(issues, "realizations.learning", `${label}.${message}`);
+    }
   }
   addDuplicateIssues(ids, issues, "realizations.duplicate", "realization concept ID");
   validatePronunciationReviewConsistency(catalog, issues);

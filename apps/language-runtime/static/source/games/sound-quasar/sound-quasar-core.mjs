@@ -262,6 +262,24 @@ function wordShape(item) {
   return { letters, vowels };
 }
 
+function wordSoundKey(item) {
+  // Only explicit contextual readings establish a shared sound. Preserve tones
+  // and syllable boundaries; written Hanzi alone cannot identify homophones.
+  if (item.reading?.system !== "pinyin") return `item:${item.id}`;
+  const syllables = item.reading.tokens.flatMap(token => token.units.map(unit => unit.notation));
+  return `pinyin:${syllables.join(" ").normalize("NFC").toLowerCase().replace(/\s+/gu, " ").trim()}`;
+}
+
+function distinctWordSounds(items, excludedKey = "") {
+  const seen = new Set([excludedKey]);
+  return items.filter(item => {
+    const key = wordSoundKey(item);
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
 function letterSimilarity(first, second) {
   const length = Math.max(first.length, second.length);
   if (length === 0) return 1;
@@ -291,9 +309,19 @@ function similarWordDistractors(candidates, answer, count, random) {
   return shuffled(nearby, random).slice(0, count);
 }
 
-function makeRound(items, answer, random, choiceCount, mode) {
+function makeRound(items, answer, random, choiceCount, mode, eligibleItems = items) {
   integer(choiceCount, "choiceCount", 2, items.length);
-  const candidates = shuffled(items.filter(({ id }) => id !== answer.id), random);
+  let candidates = shuffled(items.filter(({ id }) => id !== answer.id), random);
+  if (mode === "words") {
+    const answerSound = wordSoundKey(answer);
+    candidates = distinctWordSounds(candidates, answerSound);
+    // An adaptive answer cohort may contain only homophones. Keep its chosen
+    // answers, and obtain a distinguishable distractor from the same badge.
+    if (!candidates.length && eligibleItems !== items) {
+      candidates = distinctWordSounds(shuffled(eligibleItems, random), answerSound);
+    }
+    requireCondition(candidates.length > 0, "word round needs at least two distinct listening sounds.");
+  }
   const distractors = mode === "words"
     ? similarWordDistractors(candidates, answer, choiceCount - 1, random)
     : candidates.slice(0, choiceCount - 1);
@@ -313,7 +341,10 @@ function makeRound(items, answer, random, choiceCount, mode) {
 
 export function soundQuasarItemsForDifficulty(catalog, { mode = "words", difficulty = 3 } = {}) {
   integer(difficulty, "difficulty", 1, 3);
-  return modeItems(asCatalog(catalog), mode).filter(item => matchesContentDifficulty(item, difficulty));
+  const items = modeItems(asCatalog(catalog), mode).filter(item => matchesContentDifficulty(item, difficulty));
+  // Let the existing host's insufficient-content state handle a badge with no
+  // audible contrast rather than presenting a single, trivially correct tile.
+  return mode === "words" && distinctWordSounds(items).length < 2 ? [] : items;
 }
 
 export function buildSoundQuasarRound(catalog, { index = 0, random = Math.random, choiceCount = 4, mode = "words", difficulty = 3 } = {}) {
@@ -337,7 +368,7 @@ export function createSoundQuasarSession(catalog, { random = Math.random, roundL
   const answers = history === undefined
     ? shuffled(items, random).slice(0, Math.min(roundLength, items.length))
     : pool.slice(0, roundLength);
-  return Object.freeze(answers.map((answer) => makeRound(pool, answer, random, Math.min(choiceCount, pool.length), mode)));
+  return Object.freeze(answers.map((answer) => makeRound(pool, answer, random, Math.min(choiceCount, pool.length), mode, items)));
 }
 
 export function evaluateSoundQuasarChoice(round, choiceId) {

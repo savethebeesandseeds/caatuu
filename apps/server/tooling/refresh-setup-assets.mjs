@@ -22,6 +22,7 @@ import {
 } from "../../../tools/language-packs/lib/browser-shared-runtime-closure.mjs";
 import {
   CourseContractError,
+  interfaceCatalogContentIssues,
   loadAndValidateCourseCatalog,
   loadCourseCatalog
 } from "../../../tools/language-packs/lib/course-contract.mjs";
@@ -418,6 +419,38 @@ function requireUnique(value, values, label) {
   values.add(value);
 }
 
+function interfaceRevisionRepairChanges({ course, manifest, appAssetCatalog, workspaceRoot }) {
+  const issues = browserInterfaceContentClosureIssues({ course, appAssetCatalog, setupCatalog: manifest });
+  if (!issues.length) return [];
+  if (issues.length !== 1 || !isInterfaceRevisionDriftIssue(issues[0])) {
+    throw new Error(issues.map(({ message }) => message).join("\n"));
+  }
+  const resource = course.resources.interfaceCatalog;
+  const pathname = `/${resource.path.slice("apps/".length)}`;
+  const url = `${pathname}?v=${resource.revision}`;
+  const base = `https://caatuu.invalid${course.routePrefix.replace(/\/$/u, "")}/`;
+  const index = manifest.offline.assets.findIndex(asset => new URL(asset, base).pathname === pathname);
+  const previousUrl = manifest.offline.assets[index];
+  const previous = new URL(previousUrl, base);
+  // Registration repairs a stale revision of the exact declared resource.
+  // It never cleans up unsafe URLs or substitutes another language catalog.
+  if (previous.origin !== "https://caatuu.invalid" || previous.username || previous.password
+      || previous.hash || !/^\?v=[a-z0-9]+(?:-[a-z0-9]+)*$/u.test(previous.search)
+      || previousUrl !== `${pathname}${previous.search}`) {
+    throw new Error(`Interface revision repair requires the same canonical pathname with only one valid v parameter: ${previousUrl}`);
+  }
+  const source = resolvedWithin(workspaceRoot, resource.path, "declared interface catalog");
+  const content = JSON.parse(readFileSync(source, "utf8"));
+  const contentIssues = interfaceCatalogContentIssues(course, content);
+  if (contentIssues.length) throw new Error(contentIssues.map(({ message }) => message).join("\n"));
+  return [{ index, pathname, previousUrl, url }];
+}
+
+function isInterfaceRevisionDriftIssue({ code, message }) {
+  return code === "browser.interface-content-package"
+    && /^[a-z0-9-]+ setup offline assets must cache exact interface catalog URL (\/language-runtime\/static\/data\/interface\/[A-Za-z0-9][A-Za-z0-9._-]*\.json)\?v=[a-z0-9]+(?:-[a-z0-9]+)*; found \1\?v=[a-z0-9]+(?:-[a-z0-9]+)*\.$/u.test(message);
+}
+
 export function inspectSetupAssetManifest({
   workspaceRoot = defaultWorkspaceRoot,
   manifestPath = join(workspaceRoot, "apps/languages/czech/static/setup-assets.json"),
@@ -473,6 +506,10 @@ export function inspectSetupAssetManifest({
       languageRoutePrefix: effectiveRoutePrefix
     });
   });
+  const interfaceChanges = registerSharedRuntime
+    ? interfaceRevisionRepairChanges({ course, manifest, appAssetCatalog, workspaceRoot: resolve(workspaceRoot) })
+    : [];
+  for (const change of interfaceChanges) manifest.offline.assets[change.index] = change.url;
   const interfaceContentIssues = browserInterfaceContentClosureIssues({
     course,
     appAssetCatalog,
@@ -489,8 +526,12 @@ export function inspectSetupAssetManifest({
     appAssetCatalog,
     selectorFlagUrls
   });
-  const offlineByIndex = new Map(registrations.map((change) => [change.index, change]));
+  const offlineByIndex = new Map([...registrations, ...interfaceChanges].map((change) => [change.index, change]));
   for (const change of canonicalChanges) {
+    const interfaceChange = interfaceChanges.find(item => item.index === change.index);
+    if (interfaceChange && interfaceChange.url !== change.url) {
+      throw new Error(`Canonical runtime interface URL ${change.url} conflicts with declared resource ${interfaceChange.url}.`);
+    }
     offlineByIndex.set(change.index, { ...change,
       previousUrl: offlineByIndex.has(change.index) ? null : change.previousUrl });
   }
@@ -622,11 +663,14 @@ export async function refreshAllBrowserCourseSetupAssets({
   try { loaded = await loadValidatedCatalog(loadOptions); }
   catch (error) {
     // New mapped runtime assets intentionally precede generated course closure.
-    // Permit only those omissions; every other catalog guard remains mandatory.
+    // Exact interface revision drift can accompany newly mapped modules.
+    // Every course is inspected before writing; unsafe URLs and invalid content
+    // cannot pass the narrow interface-repair guard below.
     if (!registerSharedRuntime || loadValidatedCatalog !== loadAndValidateCourseCatalog
         || !(error instanceof CourseContractError) || !error.issues.length
-        || error.issues.some(({ code, message }) => code !== "browser.shared-runtime-package"
-          || !/ setup offline assets omit shared runtime pathname \/language-runtime\//u.test(message))) throw error;
+        || error.issues.some(issue => !isInterfaceRevisionDriftIssue(issue)
+          && (issue.code !== "browser.shared-runtime-package"
+            || !/ setup offline assets omit shared runtime pathname \/language-runtime\//u.test(issue.message)))) throw error;
     loaded = await loadCourseCatalog(loadOptions);
   }
   const browserRecords = loaded.courses.filter(

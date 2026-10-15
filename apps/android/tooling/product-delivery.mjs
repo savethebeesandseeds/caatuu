@@ -17,6 +17,7 @@ export const HOME_BOOTSTRAP_ASSET_MAX_BYTES = 256 * 1024;
 export const HOME_BOOTSTRAP_ARTWORK = Object.freeze([
   "language-runtime/static/assets/initial-image.png",
   "language-runtime/static/assets/caatuu-shell-512.png",
+  "language-runtime/static/assets/xp-gold.webp",
   "assets/icons/hello.png",
   "assets/icons/home_icon.png",
   "assets/icons/homebase_icon.png",

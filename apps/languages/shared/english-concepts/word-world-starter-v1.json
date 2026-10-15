@@ -2943,9 +2943,9 @@
       "embeddingText": "A puppy with soft ears hanging beside its face.",
       "sceneQuery": "A puppy with soft ears hanging beside its face.",
       "topic": "animal-friends",
-      "difficulty": 1,
+      "difficulty": 2,
       "usefulness": 54,
-      "complexity": 33
+      "complexity": 40
     },
     {
       "id": "ww-zh-m260908-002",
@@ -6085,6 +6085,396 @@
       "topic": "first-contact",
       "difficulty": 1,
       "usefulness": 92,
+      "complexity": 17
+    },
+    {
+      "id": "ww.zh.pilot-v1.origin-country-question",
+      "englishText": "What country are you from?",
+      "embeddingText": "Asking which nationality someone has.",
+      "sceneQuery": "Asking which nationality someone has.",
+      "topic": "identity-people-family",
+      "difficulty": 1,
+      "usefulness": 97,
+      "complexity": 25
+    },
+    {
+      "id": "ww.zh.pilot-v1.origin-british",
+      "englishText": "I am British.",
+      "embeddingText": "A person stating that they are British.",
+      "sceneQuery": "A person stating that they are British.",
+      "topic": "identity-people-family",
+      "difficulty": 1,
+      "usefulness": 88,
+      "complexity": 25
+    },
+    {
+      "id": "ww.zh.pilot-v1.origin-from-question",
+      "englishText": "Where do you come from?",
+      "embeddingText": "Asking where another person comes from.",
+      "sceneQuery": "Asking where another person comes from.",
+      "topic": "first-contact",
+      "difficulty": 1,
+      "usefulness": 97,
+      "complexity": 25
+    },
+    {
+      "id": "ww.zh.pilot-v1.origin-from-china",
+      "englishText": "I come from China.",
+      "embeddingText": "A person saying that they come from China.",
+      "sceneQuery": "A person saying that they come from China.",
+      "topic": "first-contact",
+      "difficulty": 1,
+      "usefulness": 90,
+      "complexity": 25
+    },
+    {
+      "id": "ww.zh.pilot-v1.age-question",
+      "englishText": "How old are you?",
+      "embeddingText": "Asking another person their age.",
+      "sceneQuery": "Asking another person their age.",
+      "topic": "identity-people-family",
+      "difficulty": 1,
+      "usefulness": 90,
+      "complexity": 22
+    },
+    {
+      "id": "ww.zh.pilot-v1.age-twenty",
+      "englishText": "I am twenty years old.",
+      "embeddingText": "A person stating that they are twenty years old.",
+      "sceneQuery": "A person stating that they are twenty years old.",
+      "topic": "identity-people-family",
+      "difficulty": 1,
+      "usefulness": 88,
+      "complexity": 22
+    },
+    {
+      "id": "ww.zh.pilot-v1.surname-question",
+      "englishText": "What is your surname?",
+      "embeddingText": "Asking another person their family name.",
+      "sceneQuery": "Asking another person their family name.",
+      "topic": "first-contact",
+      "difficulty": 1,
+      "usefulness": 91,
+      "complexity": 22
+    },
+    {
+      "id": "ww.zh.pilot-v1.surname-lin",
+      "englishText": "My surname is Lin.",
+      "embeddingText": "A person introducing their family name as Lin.",
+      "sceneQuery": "A person introducing their family name as Lin.",
+      "topic": "first-contact",
+      "difficulty": 1,
+      "usefulness": 90,
+      "complexity": 17
+    },
+    {
+      "id": "ww.zh.pilot-v1.need-rest",
+      "englishText": "I need to rest.",
+      "embeddingText": "Expressing the need for a rest.",
+      "sceneQuery": "Expressing the need for a rest.",
+      "topic": "daily-life",
+      "difficulty": 1,
+      "usefulness": 97,
+      "complexity": 22
+    },
+    {
+      "id": "ww.zh.pilot-v1.help-question",
+      "englishText": "Can you help me?",
+      "embeddingText": "Asking another person for help.",
+      "sceneQuery": "Asking another person for help.",
+      "topic": "community-politeness",
+      "difficulty": 1,
+      "usefulness": 98,
+      "complexity": 24
+    },
+    {
+      "id": "ww.zh.pilot-v1.hungry-question",
+      "englishText": "Are you hungry?",
+      "embeddingText": "Asking whether another person is hungry.",
+      "sceneQuery": "Asking whether another person is hungry.",
+      "topic": "food-drink",
+      "difficulty": 1,
+      "usefulness": 95,
+      "complexity": 17
+    },
+    {
+      "id": "ww.zh.pilot-v1.no-money",
+      "englishText": "I do not have any money.",
+      "embeddingText": "Saying that one has no money.",
+      "sceneQuery": "Saying that one has no money.",
+      "topic": "shopping-services",
+      "difficulty": 1,
+      "usefulness": 96,
+      "complexity": 20
+    },
+    {
+      "id": "ww.zh.pilot-v1.no-time",
+      "englishText": "I do not have time.",
+      "embeddingText": "Saying that one has no time available.",
+      "sceneQuery": "Saying that one has no time available.",
+      "topic": "numbers-time",
+      "difficulty": 1,
+      "usefulness": 96,
+      "complexity": 22
+    },
+    {
+      "id": "ww.zh.pilot-v1.not-go-yesterday",
+      "englishText": "I did not go yesterday.",
+      "embeddingText": "Saying that an intended visit did not happen yesterday.",
+      "sceneQuery": "Saying that an intended visit did not happen yesterday.",
+      "topic": "daily-life",
+      "difficulty": 2,
+      "usefulness": 91,
+      "complexity": 28
+    },
+    {
+      "id": "ww.zh.pilot-v1.not-understand-heard",
+      "englishText": "I did not understand what I heard.",
+      "embeddingText": "A listener explaining that they did not understand the spoken words.",
+      "sceneQuery": "A listener explaining that they did not understand the spoken words.",
+      "topic": "classroom-language",
+      "difficulty": 2,
+      "usefulness": 98,
+      "complexity": 30
+    },
+    {
+      "id": "ww.zh.pilot-v1.have-time-question",
+      "englishText": "Do you have time?",
+      "embeddingText": "Asking whether another person has time available.",
+      "sceneQuery": "Asking whether another person has time available.",
+      "topic": "conversation-questions",
+      "difficulty": 1,
+      "usefulness": 98,
+      "complexity": 27
+    },
+    {
+      "id": "ww.zh.pilot-v1.like-tea-question",
+      "englishText": "Do you like tea?",
+      "embeddingText": "Asking whether another person likes tea.",
+      "sceneQuery": "Asking whether another person likes tea.",
+      "topic": "food-drink",
+      "difficulty": 2,
+      "usefulness": 92,
+      "complexity": 30
+    },
+    {
+      "id": "ww.zh.pilot-v1.go-question",
+      "englishText": "Are you going?",
+      "embeddingText": "Asking whether another person is going.",
+      "sceneQuery": "Asking whether another person is going.",
+      "topic": "conversation-questions",
+      "difficulty": 1,
+      "usefulness": 96,
+      "complexity": 24
+    },
+    {
+      "id": "ww.zh.pilot-v1.teacher-question",
+      "englishText": "Are you a teacher?",
+      "embeddingText": "Asking whether another person is a teacher.",
+      "sceneQuery": "Asking whether another person is a teacher.",
+      "topic": "identity-people-family",
+      "difficulty": 1,
+      "usefulness": 93,
+      "complexity": 26
+    },
+    {
+      "id": "ww.zh.pilot-v1.want-water-question",
+      "englishText": "Would you like some water?",
+      "embeddingText": "Offering water and asking whether another person wants it.",
+      "sceneQuery": "Offering water and asking whether another person wants it.",
+      "topic": "food-drink",
+      "difficulty": 1,
+      "usefulness": 98,
+      "complexity": 25
+    },
+    {
+      "id": "ww.zh.pilot-v1.two-cups",
+      "englishText": "Two cups of water.",
+      "embeddingText": "Two cups of drinking water.",
+      "sceneQuery": "Two cups of drinking water.",
+      "topic": "food-drink",
+      "difficulty": 1,
+      "usefulness": 95,
+      "complexity": 20
+    },
+    {
+      "id": "ww.zh.pilot-v1.two-people",
+      "englishText": "Two people.",
+      "embeddingText": "A pair of people.",
+      "sceneQuery": "A pair of people.",
+      "topic": "identity-people-family",
+      "difficulty": 1,
+      "usefulness": 93,
+      "complexity": 20
+    },
+    {
+      "id": "ww.zh.pilot-v1.book-question",
+      "englishText": "Do you have a book?",
+      "embeddingText": "Asking whether another person has a book.",
+      "sceneQuery": "Asking whether another person has a book.",
+      "topic": "classroom-language",
+      "difficulty": 1,
+      "usefulness": 95,
+      "complexity": 25
+    },
+    {
+      "id": "ww.zh.pilot-v1.two-books-question",
+      "englishText": "Do you have two books?",
+      "embeddingText": "Asking whether another person has two books.",
+      "sceneQuery": "Asking whether another person has two books.",
+      "topic": "classroom-language",
+      "difficulty": 1,
+      "usefulness": 92,
+      "complexity": 27
+    },
+    {
+      "id": "ww.zh.pilot-v1.twenty-two",
+      "englishText": "Twenty-two.",
+      "embeddingText": "Counting the number twenty-two.",
+      "sceneQuery": "Counting the number twenty-two.",
+      "topic": "numbers-time",
+      "difficulty": 1,
+      "usefulness": 91,
+      "complexity": 20
+    },
+    {
+      "id": "ww.zh.pilot-v1.price-question",
+      "englishText": "How much does this cost?",
+      "embeddingText": "Asking the price of an item.",
+      "sceneQuery": "Asking the price of an item.",
+      "topic": "shopping-services",
+      "difficulty": 1,
+      "usefulness": 99,
+      "complexity": 25
+    },
+    {
+      "id": "ww.zh.pilot-v1.price-ten",
+      "englishText": "Ten yuan.",
+      "embeddingText": "An item priced at ten yuan.",
+      "sceneQuery": "An item priced at ten yuan.",
+      "topic": "shopping-services",
+      "difficulty": 1,
+      "usefulness": 96,
+      "complexity": 15
+    },
+    {
+      "id": "ww.zh.pilot-v1.price-twelve",
+      "englishText": "Twelve yuan.",
+      "embeddingText": "An item priced at twelve yuan.",
+      "sceneQuery": "An item priced at twelve yuan.",
+      "topic": "shopping-services",
+      "difficulty": 1,
+      "usefulness": 94,
+      "complexity": 20
+    },
+    {
+      "id": "ww.zh.pilot-v1.pay-how",
+      "englishText": "How do I pay?",
+      "embeddingText": "Asking how to pay for a purchase.",
+      "sceneQuery": "Asking how to pay for a purchase.",
+      "topic": "shopping-services",
+      "difficulty": 1,
+      "usefulness": 98,
+      "complexity": 24
+    },
+    {
+      "id": "ww.zh.pilot-v1.pay-phone",
+      "englishText": "May I pay with my phone?",
+      "embeddingText": "Asking permission to use a phone to pay.",
+      "sceneQuery": "Asking permission to use a phone to pay.",
+      "topic": "shopping-services",
+      "difficulty": 2,
+      "usefulness": 98,
+      "complexity": 33
+    },
+    {
+      "id": "ww.zh.pilot-v1.can-swim",
+      "englishText": "I know how to swim.",
+      "embeddingText": "A person saying they have learned the skill of swimming.",
+      "sceneQuery": "A person saying they have learned the skill of swimming.",
+      "topic": "play",
+      "difficulty": 1,
+      "usefulness": 91,
+      "complexity": 22
+    },
+    {
+      "id": "ww.zh.pilot-v1.cannot-swim",
+      "englishText": "I do not know how to swim.",
+      "embeddingText": "A person saying they have not learned to swim.",
+      "sceneQuery": "A person saying they have not learned to swim.",
+      "topic": "play",
+      "difficulty": 1,
+      "usefulness": 91,
+      "complexity": 25
+    },
+    {
+      "id": "ww.zh.pilot-v1.permission-enter",
+      "englishText": "May I come in?",
+      "embeddingText": "Asking permission to enter a room.",
+      "sceneQuery": "Asking permission to enter a room.",
+      "topic": "community-politeness",
+      "difficulty": 1,
+      "usefulness": 98,
+      "complexity": 26
+    },
+    {
+      "id": "ww.zh.pilot-v1.location-home",
+      "englishText": "I am at home.",
+      "embeddingText": "A person stating their location at home.",
+      "sceneQuery": "A person stating their location at home.",
+      "topic": "home-objects-location",
+      "difficulty": 1,
+      "usefulness": 97,
+      "complexity": 17
+    },
+    {
+      "id": "ww.zh.pilot-v1.progressive-eat",
+      "englishText": "I am eating.",
+      "embeddingText": "A person describing eating as an action happening now.",
+      "sceneQuery": "A person describing eating as an action happening now.",
+      "topic": "daily-life",
+      "difficulty": 1,
+      "usefulness": 96,
+      "complexity": 22
+    },
+    {
+      "id": "ww.zh.pilot-v1.experience-beijing",
+      "englishText": "Have you been to Beijing?",
+      "embeddingText": "Asking whether another person has ever visited Beijing.",
+      "sceneQuery": "Asking whether another person has ever visited Beijing.",
+      "topic": "experience-opinion",
+      "difficulty": 2,
+      "usefulness": 91,
+      "complexity": 32
+    },
+    {
+      "id": "ww.zh.pilot-v1.completed-apple",
+      "englishText": "I ate an apple.",
+      "embeddingText": "A person reporting that they ate an apple.",
+      "sceneQuery": "A person reporting that they ate an apple.",
+      "topic": "food-drink",
+      "difficulty": 2,
+      "usefulness": 92,
+      "complexity": 32
+    },
+    {
+      "id": "ww.zh.pilot-v1.open-window",
+      "englishText": "The window is open.",
+      "embeddingText": "A window remaining in the open state.",
+      "sceneQuery": "A window remaining in the open state.",
+      "topic": "home-objects-location",
+      "difficulty": 2,
+      "usefulness": 94,
+      "complexity": 29
+    },
+    {
+      "id": "ww.zh.pilot-v1.push-door",
+      "englishText": "Please push the door.",
+      "embeddingText": "A polite request to push a door open.",
+      "sceneQuery": "A polite request to push a door open.",
+      "topic": "community-politeness",
+      "difficulty": 1,
+      "usefulness": 96,
       "complexity": 17
     }
   ]

@@ -9,7 +9,7 @@
     "status": "native-review-required",
     "reviewer": null,
     "reviewedAt": null,
-    "notes": "Machine-assisted development draft; qualified native Mandarin review is still required. Contextual function-word hints corrected by Codex for location/progress, noun descriptions, expected actions and recipients; AI self-review only. See docs/WORD_WORLD_CONTEXT_REVIEW.md. Native and audio review remain outstanding."
+    "notes": "Machine-assisted development draft; qualified native Mandarin review is still required. Contextual function-word hints corrected by Codex for location/progress, noun descriptions, expected actions and recipients; AI self-review only. See docs/WORD_WORLD_CONTEXT_REVIEW.md. Native and audio review remain outstanding. Mandarin revision 2026-10-14: contextual hints and experiential neutral-tone readings corrected; lexical citation tones for 一 and 不 made consistent while other authored contextual readings and neutral tones remain intact. A 39-sentence beginner pilot was authored and self-reviewed by Codex AI. Native Mandarin and audible device-speech review remain outstanding."
   },
   "entries": [
     {
@@ -169,7 +169,7 @@
           "units": [
             {
               "surface": "一",
-              "notation": "yì"
+              "notation": "yī"
             }
           ]
         },
@@ -219,7 +219,7 @@
           "units": [
             {
               "surface": "一",
-              "notation": "yì"
+              "notation": "yī"
             }
           ]
         },
@@ -418,7 +418,7 @@
           "units": [
             {
               "surface": "不",
-              "notation": "bú"
+              "notation": "bù"
             }
           ]
         },
@@ -688,7 +688,7 @@
           "units": [
             {
               "surface": "一",
-              "notation": "yì"
+              "notation": "yī"
             },
             {
               "surface": "家",
@@ -2239,7 +2239,7 @@
           "units": [
             {
               "surface": "一",
-              "notation": "yí"
+              "notation": "yī"
             },
             {
               "surface": "次",
@@ -2383,7 +2383,7 @@
           "units": [
             {
               "surface": "一",
-              "notation": "yí"
+              "notation": "yī"
             },
             {
               "surface": "个",
@@ -3238,7 +3238,7 @@
             },
             {
               "surface": "一",
-              "notation": "yì"
+              "notation": "yī"
             },
             {
               "surface": "点",
@@ -3336,7 +3336,7 @@
           "units": [
             {
               "surface": "一",
-              "notation": "yí"
+              "notation": "yī"
             },
             {
               "surface": "次",
@@ -3367,7 +3367,7 @@
           "units": [
             {
               "surface": "一",
-              "notation": "yì"
+              "notation": "yī"
             },
             {
               "surface": "起",
@@ -3864,7 +3864,7 @@
           "units": [
             {
               "surface": "一",
-              "notation": "yí"
+              "notation": "yī"
             },
             {
               "surface": "下",
@@ -3974,7 +3974,7 @@
           "units": [
             {
               "surface": "一",
-              "notation": "yì"
+              "notation": "yī"
             }
           ]
         },
@@ -4024,7 +4024,7 @@
           "units": [
             {
               "surface": "一",
-              "notation": "yí"
+              "notation": "yī"
             },
             {
               "surface": "件",
@@ -4609,7 +4609,7 @@
           "units": [
             {
               "surface": "一",
-              "notation": "yì"
+              "notation": "yī"
             },
             {
               "surface": "直",
@@ -5032,7 +5032,7 @@
             },
             {
               "surface": "一",
-              "notation": "yì"
+              "notation": "yī"
             },
             {
               "surface": "点",
@@ -5081,7 +5081,7 @@
           "units": [
             {
               "surface": "一",
-              "notation": "yí"
+              "notation": "yī"
             },
             {
               "surface": "下",
@@ -7226,7 +7226,7 @@
             },
             {
               "surface": "不",
-              "notation": "bu"
+              "notation": "bù"
             },
             {
               "surface": "起",
@@ -7857,7 +7857,7 @@
           "units": [
             {
               "surface": "一",
-              "notation": "yì"
+              "notation": "yī"
             },
             {
               "surface": "碗",
@@ -7958,7 +7958,7 @@
             },
             {
               "surface": "一",
-              "notation": "yì"
+              "notation": "yī"
             },
             {
               "surface": "点",
@@ -8362,7 +8362,7 @@
           "units": [
             {
               "surface": "一",
-              "notation": "yì"
+              "notation": "yī"
             },
             {
               "surface": "家",
@@ -8379,7 +8379,7 @@
           "units": [
             {
               "surface": "一",
-              "notation": "yì"
+              "notation": "yī"
             },
             {
               "surface": "起",
@@ -8614,7 +8614,7 @@
           "units": [
             {
               "surface": "一",
-              "notation": "yì"
+              "notation": "yī"
             }
           ]
         },
@@ -9323,7 +9323,7 @@
             },
             {
               "surface": "不",
-              "notation": "bu"
+              "notation": "bù"
             },
             {
               "surface": "到",
@@ -9501,7 +9501,7 @@
             },
             {
               "surface": "一",
-              "notation": "yì"
+              "notation": "yī"
             },
             {
               "surface": "条",
@@ -10411,7 +10411,7 @@
             },
             {
               "surface": "一",
-              "notation": "yì"
+              "notation": "yī"
             },
             {
               "surface": "点",
@@ -10865,7 +10865,7 @@
           "units": [
             {
               "surface": "一",
-              "notation": "yì"
+              "notation": "yī"
             },
             {
               "surface": "起",
@@ -10987,7 +10987,7 @@
           "units": [
             {
               "surface": "一",
-              "notation": "yí"
+              "notation": "yī"
             },
             {
               "surface": "个",
@@ -11308,7 +11308,7 @@
             },
             {
               "surface": "一",
-              "notation": "yí"
+              "notation": "yī"
             },
             {
               "surface": "站",
@@ -11453,7 +11453,7 @@
           "units": [
             {
               "surface": "一",
-              "notation": "yí"
+              "notation": "yī"
             },
             {
               "surface": "个",
@@ -11523,7 +11523,7 @@
           "units": [
             {
               "surface": "不",
-              "notation": "bú"
+              "notation": "bù"
             },
             {
               "surface": "要",
@@ -12731,7 +12731,7 @@
           "units": [
             {
               "surface": "一",
-              "notation": "yì"
+              "notation": "yī"
             },
             {
               "surface": "年",
@@ -13527,7 +13527,7 @@
           "units": [
             {
               "surface": "一",
-              "notation": "yí"
+              "notation": "yī"
             },
             {
               "surface": "个",
@@ -13558,7 +13558,7 @@
           "units": [
             {
               "surface": "不",
-              "notation": "bú"
+              "notation": "bù"
             },
             {
               "surface": "认",
@@ -14213,7 +14213,7 @@
           "units": [
             {
               "surface": "一",
-              "notation": "yì"
+              "notation": "yī"
             },
             {
               "surface": "起",
@@ -14409,7 +14409,7 @@
           "units": [
             {
               "surface": "一",
-              "notation": "yì"
+              "notation": "yī"
             }
           ]
         },
@@ -15409,7 +15409,7 @@
           "units": [
             {
               "surface": "一",
-              "notation": "yì"
+              "notation": "yī"
             }
           ]
         },
@@ -15463,7 +15463,7 @@
           "units": [
             {
               "surface": "一",
-              "notation": "yì"
+              "notation": "yī"
             }
           ]
         },
@@ -15645,7 +15645,7 @@
           "units": [
             {
               "surface": "一",
-              "notation": "yì"
+              "notation": "yī"
             }
           ]
         },
@@ -15836,7 +15836,7 @@
           "units": [
             {
               "surface": "一",
-              "notation": "yí"
+              "notation": "yī"
             }
           ]
         },
@@ -15999,7 +15999,7 @@
           "units": [
             {
               "surface": "一",
-              "notation": "yì"
+              "notation": "yī"
             }
           ]
         },
@@ -16331,7 +16331,7 @@
           "units": [
             {
               "surface": "一",
-              "notation": "yì"
+              "notation": "yī"
             }
           ]
         },
@@ -17462,7 +17462,7 @@
           "units": [
             {
               "surface": "不",
-              "notation": "bú"
+              "notation": "bù"
             },
             {
               "surface": "用",
@@ -17678,7 +17678,7 @@
           "units": [
             {
               "surface": "一",
-              "notation": "yì"
+              "notation": "yī"
             }
           ]
         },
@@ -17891,28 +17891,6 @@
           ]
         },
         {
-          "surface": "有",
-          "units": [
-            {
-              "surface": "有",
-              "notation": "yǒu"
-            }
-          ]
-        },
-        {
-          "surface": "软软",
-          "units": [
-            {
-              "surface": "软",
-              "notation": "ruǎn"
-            },
-            {
-              "surface": "软",
-              "notation": "ruǎn"
-            }
-          ]
-        },
-        {
           "surface": "的",
           "units": [
             {
@@ -17931,6 +17909,28 @@
             {
               "surface": "朵",
               "notation": "duo"
+            }
+          ]
+        },
+        {
+          "surface": "耷拉",
+          "units": [
+            {
+              "surface": "耷",
+              "notation": "dā"
+            },
+            {
+              "surface": "拉",
+              "notation": "la"
+            }
+          ]
+        },
+        {
+          "surface": "着",
+          "units": [
+            {
+              "surface": "着",
+              "notation": "zhe"
             }
           ]
         }
@@ -30146,7 +30146,7 @@
             },
             {
               "surface": "不",
-              "notation": "bu"
+              "notation": "bù"
             },
             {
               "surface": "起",
@@ -34625,15 +34625,11 @@
           ]
         },
         {
-          "surface": "方便",
+          "surface": "让",
           "units": [
             {
-              "surface": "方",
-              "notation": "fāng"
-            },
-            {
-              "surface": "便",
-              "notation": "biàn"
+              "surface": "让",
+              "notation": "ràng"
             }
           ]
         },
@@ -34651,11 +34647,37 @@
           ]
         },
         {
-          "surface": "推",
+          "surface": "更",
           "units": [
             {
-              "surface": "推",
-              "notation": "tuī"
+              "surface": "更",
+              "notation": "gèng"
+            }
+          ]
+        },
+        {
+          "surface": "容易",
+          "units": [
+            {
+              "surface": "容",
+              "notation": "róng"
+            },
+            {
+              "surface": "易",
+              "notation": "yì"
+            }
+          ]
+        },
+        {
+          "surface": "搬运",
+          "units": [
+            {
+              "surface": "搬",
+              "notation": "bān"
+            },
+            {
+              "surface": "运",
+              "notation": "yùn"
             }
           ]
         },
@@ -39229,7 +39251,7 @@
           "units": [
             {
               "surface": "过",
-              "notation": "guò"
+              "notation": "guo"
             }
           ]
         },
@@ -39639,7 +39661,7 @@
           "units": [
             {
               "surface": "过",
-              "notation": "guò"
+              "notation": "guo"
             }
           ]
         },
@@ -44497,7 +44519,7 @@
           "units": [
             {
               "surface": "不",
-              "notation": "bú"
+              "notation": "bù"
             }
           ]
         },
@@ -44547,7 +44569,7 @@
             },
             {
               "surface": "不",
-              "notation": "bu"
+              "notation": "bù"
             },
             {
               "surface": "起",
@@ -44794,7 +44816,7 @@
           "units": [
             {
               "surface": "一",
-              "notation": "yí"
+              "notation": "yī"
             }
           ]
         },
@@ -44853,7 +44875,7 @@
           "units": [
             {
               "surface": "不",
-              "notation": "bú"
+              "notation": "bù"
             }
           ]
         },
@@ -44935,6 +44957,1602 @@
             {
               "surface": "道",
               "notation": "dào"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.origin-country-question",
+      "tokens": [
+        {
+          "surface": "你",
+          "units": [
+            {
+              "surface": "你",
+              "notation": "nǐ"
+            }
+          ]
+        },
+        {
+          "surface": "是",
+          "units": [
+            {
+              "surface": "是",
+              "notation": "shì"
+            }
+          ]
+        },
+        {
+          "surface": "哪国",
+          "units": [
+            {
+              "surface": "哪",
+              "notation": "nǎ"
+            },
+            {
+              "surface": "国",
+              "notation": "guó"
+            }
+          ]
+        },
+        {
+          "surface": "人",
+          "units": [
+            {
+              "surface": "人",
+              "notation": "rén"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.origin-british",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "是",
+          "units": [
+            {
+              "surface": "是",
+              "notation": "shì"
+            }
+          ]
+        },
+        {
+          "surface": "英国人",
+          "units": [
+            {
+              "surface": "英",
+              "notation": "yīng"
+            },
+            {
+              "surface": "国",
+              "notation": "guó"
+            },
+            {
+              "surface": "人",
+              "notation": "rén"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.origin-from-question",
+      "tokens": [
+        {
+          "surface": "你",
+          "units": [
+            {
+              "surface": "你",
+              "notation": "nǐ"
+            }
+          ]
+        },
+        {
+          "surface": "从",
+          "units": [
+            {
+              "surface": "从",
+              "notation": "cóng"
+            }
+          ]
+        },
+        {
+          "surface": "哪里",
+          "units": [
+            {
+              "surface": "哪",
+              "notation": "nǎ"
+            },
+            {
+              "surface": "里",
+              "notation": "lǐ"
+            }
+          ]
+        },
+        {
+          "surface": "来",
+          "units": [
+            {
+              "surface": "来",
+              "notation": "lái"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.origin-from-china",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "从",
+          "units": [
+            {
+              "surface": "从",
+              "notation": "cóng"
+            }
+          ]
+        },
+        {
+          "surface": "中国",
+          "units": [
+            {
+              "surface": "中",
+              "notation": "zhōng"
+            },
+            {
+              "surface": "国",
+              "notation": "guó"
+            }
+          ]
+        },
+        {
+          "surface": "来",
+          "units": [
+            {
+              "surface": "来",
+              "notation": "lái"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.age-question",
+      "tokens": [
+        {
+          "surface": "你",
+          "units": [
+            {
+              "surface": "你",
+              "notation": "nǐ"
+            }
+          ]
+        },
+        {
+          "surface": "多大",
+          "units": [
+            {
+              "surface": "多",
+              "notation": "duō"
+            },
+            {
+              "surface": "大",
+              "notation": "dà"
+            }
+          ]
+        },
+        {
+          "surface": "了",
+          "units": [
+            {
+              "surface": "了",
+              "notation": "le"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.age-twenty",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "二十",
+          "units": [
+            {
+              "surface": "二",
+              "notation": "èr"
+            },
+            {
+              "surface": "十",
+              "notation": "shí"
+            }
+          ]
+        },
+        {
+          "surface": "岁",
+          "units": [
+            {
+              "surface": "岁",
+              "notation": "suì"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.surname-question",
+      "tokens": [
+        {
+          "surface": "你",
+          "units": [
+            {
+              "surface": "你",
+              "notation": "nǐ"
+            }
+          ]
+        },
+        {
+          "surface": "姓",
+          "units": [
+            {
+              "surface": "姓",
+              "notation": "xìng"
+            }
+          ]
+        },
+        {
+          "surface": "什么",
+          "units": [
+            {
+              "surface": "什",
+              "notation": "shén"
+            },
+            {
+              "surface": "么",
+              "notation": "me"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.surname-lin",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "姓",
+          "units": [
+            {
+              "surface": "姓",
+              "notation": "xìng"
+            }
+          ]
+        },
+        {
+          "surface": "林",
+          "units": [
+            {
+              "surface": "林",
+              "notation": "lín"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.need-rest",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "需要",
+          "units": [
+            {
+              "surface": "需",
+              "notation": "xū"
+            },
+            {
+              "surface": "要",
+              "notation": "yào"
+            }
+          ]
+        },
+        {
+          "surface": "休息",
+          "units": [
+            {
+              "surface": "休",
+              "notation": "xiū"
+            },
+            {
+              "surface": "息",
+              "notation": "xi"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.help-question",
+      "tokens": [
+        {
+          "surface": "你",
+          "units": [
+            {
+              "surface": "你",
+              "notation": "nǐ"
+            }
+          ]
+        },
+        {
+          "surface": "能",
+          "units": [
+            {
+              "surface": "能",
+              "notation": "néng"
+            }
+          ]
+        },
+        {
+          "surface": "帮",
+          "units": [
+            {
+              "surface": "帮",
+              "notation": "bāng"
+            }
+          ]
+        },
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "吗",
+          "units": [
+            {
+              "surface": "吗",
+              "notation": "ma"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.hungry-question",
+      "tokens": [
+        {
+          "surface": "你",
+          "units": [
+            {
+              "surface": "你",
+              "notation": "nǐ"
+            }
+          ]
+        },
+        {
+          "surface": "饿",
+          "units": [
+            {
+              "surface": "饿",
+              "notation": "è"
+            }
+          ]
+        },
+        {
+          "surface": "吗",
+          "units": [
+            {
+              "surface": "吗",
+              "notation": "ma"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.no-money",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "没有",
+          "units": [
+            {
+              "surface": "没",
+              "notation": "méi"
+            },
+            {
+              "surface": "有",
+              "notation": "yǒu"
+            }
+          ]
+        },
+        {
+          "surface": "钱",
+          "units": [
+            {
+              "surface": "钱",
+              "notation": "qián"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.no-time",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "没有",
+          "units": [
+            {
+              "surface": "没",
+              "notation": "méi"
+            },
+            {
+              "surface": "有",
+              "notation": "yǒu"
+            }
+          ]
+        },
+        {
+          "surface": "时间",
+          "units": [
+            {
+              "surface": "时",
+              "notation": "shí"
+            },
+            {
+              "surface": "间",
+              "notation": "jiān"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.not-go-yesterday",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "昨天",
+          "units": [
+            {
+              "surface": "昨",
+              "notation": "zuó"
+            },
+            {
+              "surface": "天",
+              "notation": "tiān"
+            }
+          ]
+        },
+        {
+          "surface": "没",
+          "units": [
+            {
+              "surface": "没",
+              "notation": "méi"
+            }
+          ]
+        },
+        {
+          "surface": "去",
+          "units": [
+            {
+              "surface": "去",
+              "notation": "qù"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.not-understand-heard",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "没",
+          "units": [
+            {
+              "surface": "没",
+              "notation": "méi"
+            }
+          ]
+        },
+        {
+          "surface": "听懂",
+          "units": [
+            {
+              "surface": "听",
+              "notation": "tīng"
+            },
+            {
+              "surface": "懂",
+              "notation": "dǒng"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.have-time-question",
+      "tokens": [
+        {
+          "surface": "你",
+          "units": [
+            {
+              "surface": "你",
+              "notation": "nǐ"
+            }
+          ]
+        },
+        {
+          "surface": "有",
+          "units": [
+            {
+              "surface": "有",
+              "notation": "yǒu"
+            }
+          ]
+        },
+        {
+          "surface": "没有",
+          "units": [
+            {
+              "surface": "没",
+              "notation": "méi"
+            },
+            {
+              "surface": "有",
+              "notation": "yǒu"
+            }
+          ]
+        },
+        {
+          "surface": "时间",
+          "units": [
+            {
+              "surface": "时",
+              "notation": "shí"
+            },
+            {
+              "surface": "间",
+              "notation": "jiān"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.like-tea-question",
+      "tokens": [
+        {
+          "surface": "你",
+          "units": [
+            {
+              "surface": "你",
+              "notation": "nǐ"
+            }
+          ]
+        },
+        {
+          "surface": "喜不喜欢",
+          "units": [
+            {
+              "surface": "喜",
+              "notation": "xǐ"
+            },
+            {
+              "surface": "不",
+              "notation": "bù"
+            },
+            {
+              "surface": "喜",
+              "notation": "xǐ"
+            },
+            {
+              "surface": "欢",
+              "notation": "huan"
+            }
+          ]
+        },
+        {
+          "surface": "茶",
+          "units": [
+            {
+              "surface": "茶",
+              "notation": "chá"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.go-question",
+      "tokens": [
+        {
+          "surface": "你",
+          "units": [
+            {
+              "surface": "你",
+              "notation": "nǐ"
+            }
+          ]
+        },
+        {
+          "surface": "去",
+          "units": [
+            {
+              "surface": "去",
+              "notation": "qù"
+            }
+          ]
+        },
+        {
+          "surface": "不",
+          "units": [
+            {
+              "surface": "不",
+              "notation": "bù"
+            }
+          ]
+        },
+        {
+          "surface": "去",
+          "units": [
+            {
+              "surface": "去",
+              "notation": "qù"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.teacher-question",
+      "tokens": [
+        {
+          "surface": "你",
+          "units": [
+            {
+              "surface": "你",
+              "notation": "nǐ"
+            }
+          ]
+        },
+        {
+          "surface": "是",
+          "units": [
+            {
+              "surface": "是",
+              "notation": "shì"
+            }
+          ]
+        },
+        {
+          "surface": "不是",
+          "units": [
+            {
+              "surface": "不",
+              "notation": "bù"
+            },
+            {
+              "surface": "是",
+              "notation": "shì"
+            }
+          ]
+        },
+        {
+          "surface": "老师",
+          "units": [
+            {
+              "surface": "老",
+              "notation": "lǎo"
+            },
+            {
+              "surface": "师",
+              "notation": "shī"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.want-water-question",
+      "tokens": [
+        {
+          "surface": "你",
+          "units": [
+            {
+              "surface": "你",
+              "notation": "nǐ"
+            }
+          ]
+        },
+        {
+          "surface": "要",
+          "units": [
+            {
+              "surface": "要",
+              "notation": "yào"
+            }
+          ]
+        },
+        {
+          "surface": "不要",
+          "units": [
+            {
+              "surface": "不",
+              "notation": "bù"
+            },
+            {
+              "surface": "要",
+              "notation": "yào"
+            }
+          ]
+        },
+        {
+          "surface": "水",
+          "units": [
+            {
+              "surface": "水",
+              "notation": "shuǐ"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.two-cups",
+      "tokens": [
+        {
+          "surface": "两",
+          "units": [
+            {
+              "surface": "两",
+              "notation": "liǎng"
+            }
+          ]
+        },
+        {
+          "surface": "杯",
+          "units": [
+            {
+              "surface": "杯",
+              "notation": "bēi"
+            }
+          ]
+        },
+        {
+          "surface": "水",
+          "units": [
+            {
+              "surface": "水",
+              "notation": "shuǐ"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.two-people",
+      "tokens": [
+        {
+          "surface": "两",
+          "units": [
+            {
+              "surface": "两",
+              "notation": "liǎng"
+            }
+          ]
+        },
+        {
+          "surface": "个",
+          "units": [
+            {
+              "surface": "个",
+              "notation": "gè"
+            }
+          ]
+        },
+        {
+          "surface": "人",
+          "units": [
+            {
+              "surface": "人",
+              "notation": "rén"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.book-question",
+      "tokens": [
+        {
+          "surface": "你",
+          "units": [
+            {
+              "surface": "你",
+              "notation": "nǐ"
+            }
+          ]
+        },
+        {
+          "surface": "有",
+          "units": [
+            {
+              "surface": "有",
+              "notation": "yǒu"
+            }
+          ]
+        },
+        {
+          "surface": "一",
+          "units": [
+            {
+              "surface": "一",
+              "notation": "yī"
+            }
+          ]
+        },
+        {
+          "surface": "本",
+          "units": [
+            {
+              "surface": "本",
+              "notation": "běn"
+            }
+          ]
+        },
+        {
+          "surface": "书",
+          "units": [
+            {
+              "surface": "书",
+              "notation": "shū"
+            }
+          ]
+        },
+        {
+          "surface": "吗",
+          "units": [
+            {
+              "surface": "吗",
+              "notation": "ma"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.two-books-question",
+      "tokens": [
+        {
+          "surface": "你",
+          "units": [
+            {
+              "surface": "你",
+              "notation": "nǐ"
+            }
+          ]
+        },
+        {
+          "surface": "有",
+          "units": [
+            {
+              "surface": "有",
+              "notation": "yǒu"
+            }
+          ]
+        },
+        {
+          "surface": "两",
+          "units": [
+            {
+              "surface": "两",
+              "notation": "liǎng"
+            }
+          ]
+        },
+        {
+          "surface": "本",
+          "units": [
+            {
+              "surface": "本",
+              "notation": "běn"
+            }
+          ]
+        },
+        {
+          "surface": "书",
+          "units": [
+            {
+              "surface": "书",
+              "notation": "shū"
+            }
+          ]
+        },
+        {
+          "surface": "吗",
+          "units": [
+            {
+              "surface": "吗",
+              "notation": "ma"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.twenty-two",
+      "tokens": [
+        {
+          "surface": "二十二",
+          "units": [
+            {
+              "surface": "二",
+              "notation": "èr"
+            },
+            {
+              "surface": "十",
+              "notation": "shí"
+            },
+            {
+              "surface": "二",
+              "notation": "èr"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.price-question",
+      "tokens": [
+        {
+          "surface": "这个",
+          "units": [
+            {
+              "surface": "这",
+              "notation": "zhè"
+            },
+            {
+              "surface": "个",
+              "notation": "ge"
+            }
+          ]
+        },
+        {
+          "surface": "多少钱",
+          "units": [
+            {
+              "surface": "多",
+              "notation": "duō"
+            },
+            {
+              "surface": "少",
+              "notation": "shǎo"
+            },
+            {
+              "surface": "钱",
+              "notation": "qián"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.price-ten",
+      "tokens": [
+        {
+          "surface": "十",
+          "units": [
+            {
+              "surface": "十",
+              "notation": "shí"
+            }
+          ]
+        },
+        {
+          "surface": "元",
+          "units": [
+            {
+              "surface": "元",
+              "notation": "yuán"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.price-twelve",
+      "tokens": [
+        {
+          "surface": "十二",
+          "units": [
+            {
+              "surface": "十",
+              "notation": "shí"
+            },
+            {
+              "surface": "二",
+              "notation": "èr"
+            }
+          ]
+        },
+        {
+          "surface": "元",
+          "units": [
+            {
+              "surface": "元",
+              "notation": "yuán"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.pay-how",
+      "tokens": [
+        {
+          "surface": "怎么",
+          "units": [
+            {
+              "surface": "怎",
+              "notation": "zěn"
+            },
+            {
+              "surface": "么",
+              "notation": "me"
+            }
+          ]
+        },
+        {
+          "surface": "付款",
+          "units": [
+            {
+              "surface": "付",
+              "notation": "fù"
+            },
+            {
+              "surface": "款",
+              "notation": "kuǎn"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.pay-phone",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "可以",
+          "units": [
+            {
+              "surface": "可",
+              "notation": "kě"
+            },
+            {
+              "surface": "以",
+              "notation": "yǐ"
+            }
+          ]
+        },
+        {
+          "surface": "用",
+          "units": [
+            {
+              "surface": "用",
+              "notation": "yòng"
+            }
+          ]
+        },
+        {
+          "surface": "手机",
+          "units": [
+            {
+              "surface": "手",
+              "notation": "shǒu"
+            },
+            {
+              "surface": "机",
+              "notation": "jī"
+            }
+          ]
+        },
+        {
+          "surface": "付款",
+          "units": [
+            {
+              "surface": "付",
+              "notation": "fù"
+            },
+            {
+              "surface": "款",
+              "notation": "kuǎn"
+            }
+          ]
+        },
+        {
+          "surface": "吗",
+          "units": [
+            {
+              "surface": "吗",
+              "notation": "ma"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.can-swim",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "会",
+          "units": [
+            {
+              "surface": "会",
+              "notation": "huì"
+            }
+          ]
+        },
+        {
+          "surface": "游泳",
+          "units": [
+            {
+              "surface": "游",
+              "notation": "yóu"
+            },
+            {
+              "surface": "泳",
+              "notation": "yǒng"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.cannot-swim",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "不",
+          "units": [
+            {
+              "surface": "不",
+              "notation": "bù"
+            }
+          ]
+        },
+        {
+          "surface": "会",
+          "units": [
+            {
+              "surface": "会",
+              "notation": "huì"
+            }
+          ]
+        },
+        {
+          "surface": "游泳",
+          "units": [
+            {
+              "surface": "游",
+              "notation": "yóu"
+            },
+            {
+              "surface": "泳",
+              "notation": "yǒng"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.permission-enter",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "可以",
+          "units": [
+            {
+              "surface": "可",
+              "notation": "kě"
+            },
+            {
+              "surface": "以",
+              "notation": "yǐ"
+            }
+          ]
+        },
+        {
+          "surface": "进来",
+          "units": [
+            {
+              "surface": "进",
+              "notation": "jìn"
+            },
+            {
+              "surface": "来",
+              "notation": "lái"
+            }
+          ]
+        },
+        {
+          "surface": "吗",
+          "units": [
+            {
+              "surface": "吗",
+              "notation": "ma"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.location-home",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "在",
+          "units": [
+            {
+              "surface": "在",
+              "notation": "zài"
+            }
+          ]
+        },
+        {
+          "surface": "家",
+          "units": [
+            {
+              "surface": "家",
+              "notation": "jiā"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.progressive-eat",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "在",
+          "units": [
+            {
+              "surface": "在",
+              "notation": "zài"
+            }
+          ]
+        },
+        {
+          "surface": "吃饭",
+          "units": [
+            {
+              "surface": "吃",
+              "notation": "chī"
+            },
+            {
+              "surface": "饭",
+              "notation": "fàn"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.experience-beijing",
+      "tokens": [
+        {
+          "surface": "你",
+          "units": [
+            {
+              "surface": "你",
+              "notation": "nǐ"
+            }
+          ]
+        },
+        {
+          "surface": "去",
+          "units": [
+            {
+              "surface": "去",
+              "notation": "qù"
+            }
+          ]
+        },
+        {
+          "surface": "过",
+          "units": [
+            {
+              "surface": "过",
+              "notation": "guo"
+            }
+          ]
+        },
+        {
+          "surface": "北京",
+          "units": [
+            {
+              "surface": "北",
+              "notation": "běi"
+            },
+            {
+              "surface": "京",
+              "notation": "jīng"
+            }
+          ]
+        },
+        {
+          "surface": "吗",
+          "units": [
+            {
+              "surface": "吗",
+              "notation": "ma"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.completed-apple",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "吃",
+          "units": [
+            {
+              "surface": "吃",
+              "notation": "chī"
+            }
+          ]
+        },
+        {
+          "surface": "了",
+          "units": [
+            {
+              "surface": "了",
+              "notation": "le"
+            }
+          ]
+        },
+        {
+          "surface": "一",
+          "units": [
+            {
+              "surface": "一",
+              "notation": "yī"
+            }
+          ]
+        },
+        {
+          "surface": "个",
+          "units": [
+            {
+              "surface": "个",
+              "notation": "gè"
+            }
+          ]
+        },
+        {
+          "surface": "苹果",
+          "units": [
+            {
+              "surface": "苹",
+              "notation": "píng"
+            },
+            {
+              "surface": "果",
+              "notation": "guǒ"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.open-window",
+      "tokens": [
+        {
+          "surface": "窗户",
+          "units": [
+            {
+              "surface": "窗",
+              "notation": "chuāng"
+            },
+            {
+              "surface": "户",
+              "notation": "hu"
+            }
+          ]
+        },
+        {
+          "surface": "开",
+          "units": [
+            {
+              "surface": "开",
+              "notation": "kāi"
+            }
+          ]
+        },
+        {
+          "surface": "着",
+          "units": [
+            {
+              "surface": "着",
+              "notation": "zhe"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.push-door",
+      "tokens": [
+        {
+          "surface": "请",
+          "units": [
+            {
+              "surface": "请",
+              "notation": "qǐng"
+            }
+          ]
+        },
+        {
+          "surface": "推",
+          "units": [
+            {
+              "surface": "推",
+              "notation": "tuī"
+            }
+          ]
+        },
+        {
+          "surface": "门",
+          "units": [
+            {
+              "surface": "门",
+              "notation": "mén"
             }
           ]
         }

@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import test from "node:test";
-import { buildSoundQuasarRound, validateSoundQuasarCatalog } from "../static/source/games/sound-quasar/sound-quasar-core.mjs";
+import { buildSoundQuasarRound, createSoundQuasarSession, evaluateSoundQuasarChoice, soundQuasarItemsForDifficulty, validateSoundQuasarCatalog } from "../static/source/games/sound-quasar/sound-quasar-core.mjs";
 
 function catalogFor(words, { mandarin = false } = {}) {
   const items = words.map((word, index) => {
@@ -73,4 +74,76 @@ test("similar word options handle a small eligible pool without duplicates or ha
   const catalog = catalogFor(["cat", "bat", "hat", { target: "mat", difficulty: 3 }]);
   const round = buildSoundQuasarRound(catalog, { difficulty: 1, choiceCount: 4, random: seededRandom(1) });
   assert.deepEqual(new Set(round.choices.map(choice => choice.target)), new Set(["cat", "bat", "hat"]));
+});
+
+test("real Mandarin homophones never compete as isolated-word listening answers", async () => {
+  const catalog = validateSoundQuasarCatalog(JSON.parse(await readFile(new URL(
+    "../../languages/mandarin-simplified/static/data/games/sound-quasar/content.json", import.meta.url
+  ), "utf8")));
+  for (const peers of [["是", "试", "事"], ["浇水", "胶水"], ["页", "夜"], ["响起", "想起"]]) {
+    for (const target of peers) {
+      const item = catalog.items.find(item => item.target === target);
+      assert.ok(item, `${target} exists in the authored listening inventory`);
+      const eligible = soundQuasarItemsForDifficulty(catalog, { difficulty: item.difficulty });
+      const index = eligible.findIndex(candidate => candidate.id === item.id);
+      for (const choiceCount of [4, 6]) for (let seed = 1; seed <= 24; seed += 1) {
+        const round = buildSoundQuasarRound(catalog, { index, difficulty: item.difficulty, choiceCount, random: seededRandom(seed) });
+        assert.equal(round.target, target);
+        assert.equal(round.choices.length, choiceCount);
+        assert.ok(round.choices.filter(choice => choice.id !== round.answerId).every(choice => !peers.includes(choice.target)),
+          `${target} must not compete against another word with the same sound`);
+        assert.equal(round.choices.filter(choice => evaluateSoundQuasarChoice(round, choice.id)).length, 1);
+      }
+    }
+  }
+});
+
+test("word rounds retain tone contrasts and cap options by distinct authored sounds", () => {
+  const catalog = catalogFor([
+    { target: "是", notation: "shì" }, { target: "事", notation: "shi\u0300" },
+    { target: "试", notation: "shì" }, { target: "诗", notation: "shī" },
+    { target: "时", notation: "shí" }, { target: "史", notation: "shǐ" }
+  ], { mandarin: true });
+  for (let seed = 1; seed <= 16; seed += 1) {
+    const round = buildSoundQuasarRound(catalog, { index: 0, difficulty: 1, choiceCount: 6, random: seededRandom(seed) });
+    assert.deepEqual(new Set(round.choices.map(choice => choice.target)), new Set(["是", "诗", "时", "史"]));
+    const session = createSoundQuasarSession(catalog, { difficulty: 1, roundLength: 6, choiceCount: 6, random: seededRandom(seed) });
+    assert.equal(new Set(session.map(round => round.answerId)).size, 6, "homophones remain reachable as separate answer encounters");
+    assert.ok(session.every(round => round.choices.length === 4));
+    assert.ok(session.every(round => round.choices.filter(choice => evaluateSoundQuasarChoice(round, choice.id)).length === 1));
+  }
+});
+
+test("a badge containing only homophones reports no playable isolated-word rounds", () => {
+  const catalog = catalogFor([
+    { target: "是", notation: "shì" }, { target: "事", notation: "shì" },
+    { target: "试", notation: "shì" }, { target: "市", notation: "shì" },
+    { target: "诗", notation: "shī", difficulty: 2 }, { target: "史", notation: "shǐ", difficulty: 2 }
+  ], { mandarin: true });
+  assert.deepEqual(soundQuasarItemsForDifficulty(catalog, { difficulty: 1 }), []);
+  assert.throws(() => buildSoundQuasarRound(catalog, { difficulty: 1 }), /at least two eligible/u);
+  assert.throws(() => createSoundQuasarSession(catalog, { difficulty: 1 }), /at least two eligible/u);
+  assert.ok(soundQuasarItemsForDifficulty(catalog, { difficulty: 2 }).length >= 2);
+});
+
+test("an adaptive homophone cohort keeps its answers and borrows only eligible sound contrasts", () => {
+  const catalog = catalogFor([
+    { target: "是", notation: "shì" }, { target: "事", notation: "shì" },
+    { target: "试", notation: "shì" }, { target: "市", notation: "shì" },
+    { target: "诗", notation: "shī" }, { target: "史", notation: "shǐ" },
+    { target: "时", notation: "shí", difficulty: 2 }
+  ], { mandarin: true });
+  const selected = catalog.items.slice(0, 4);
+  const session = createSoundQuasarSession(catalog, { difficulty: 1, roundLength: 4, choiceCount: 4,
+    random: seededRandom(19), history: {}, policy: {
+      identity: { courseId: "zh", gameId: "sound-quasar", bankId: "words" },
+      select: () => ({ items: selected, trace: {} })
+    }
+  });
+  assert.deepEqual(session.map(round => round.answerId), selected.map(item => item.id));
+  for (const round of session) {
+    assert.equal(round.choices.length, 3);
+    assert.deepEqual(new Set(round.choices.filter(choice => choice.id !== round.answerId).map(choice => choice.target)), new Set(["诗", "史"]));
+    assert.equal(round.choices.filter(choice => evaluateSoundQuasarChoice(round, choice.id)).length, 1);
+  }
 });

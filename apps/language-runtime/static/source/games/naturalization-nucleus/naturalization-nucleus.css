@@ -474,6 +474,28 @@
   min-height: 104px;
 }
 
+.word-net-word-translation.naturalization-nucleus-feedback.has-context {
+  width: min(100%, 440px);
+  max-width: min(100%, 440px);
+}
+
+.naturalization-nucleus-context {
+  display: grid;
+  grid-column: 1 / -1;
+  gap: 4px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+  text-align: center;
+}
+
+.naturalization-nucleus-context[hidden] { display: none; }
+.naturalization-nucleus-context-label { font-size: 0.72rem; color: var(--muted); }
+.naturalization-nucleus-context-text { font-size: 1.15rem; line-height: 1.5; overflow-wrap: anywhere; }
+.naturalization-nucleus-context-notation { font-size: 0.85rem; line-height: 1.4; overflow-wrap: anywhere; }
+.naturalization-nucleus-context-meaning { font-size: 0.85rem; line-height: 1.4; }
+.naturalization-nucleus-context-play { justify-self: center; padding: 5px 10px; }
+
 .word-net-word-translation.naturalization-nucleus-feedback .word-net-word-card-copy {
   gap: 1px;
 }

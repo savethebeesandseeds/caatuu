@@ -19,7 +19,7 @@
     "status": "native-review-required",
     "reviewer": null,
     "reviewedAt": null,
-    "notes": "Machine-assisted development draft; qualified native Mandarin review is still required. Contextual function-word hints corrected by Codex for location/progress, noun descriptions, expected actions and recipients; AI self-review only. See docs/WORD_WORLD_CONTEXT_REVIEW.md. Native and audio review remain outstanding."
+    "notes": "Machine-assisted development draft; qualified native Mandarin review is still required. Contextual function-word hints corrected by Codex for location/progress, noun descriptions, expected actions and recipients; AI self-review only. See docs/WORD_WORLD_CONTEXT_REVIEW.md. Native and audio review remain outstanding. Mandarin revision 2026-10-14: contextual hints and experiential neutral-tone readings corrected; lexical citation tones for 一 and 不 made consistent while other authored contextual readings and neutral tones remain intact. A 39-sentence beginner pilot was authored and self-reviewed by Codex AI. Native Mandarin and audible device-speech review remain outstanding."
   },
   "license": {
     "origin": "caatuu-first-party-authored",
@@ -33,6 +33,16 @@
     {
       "conceptId": "ww.greeting.hello",
       "text": "你好！",
+      "learning": {
+        "unitId": "ww.zh.foundation.greetings",
+        "order": 1,
+        "title": "Greetings and simple replies",
+        "explanation": "Use 你好 to greet someone, 谢谢 to thank them, and 再见 to say goodbye. An adjective statement such as 我很好 does not need 是.",
+        "focus": [
+          "greetings",
+          "adjective-predicates"
+        ]
+      },
       "tokens": [
         {
           "surface": "你好",
@@ -44,6 +54,16 @@
     {
       "conceptId": "ww.greeting.thanks",
       "text": "谢谢你。",
+      "learning": {
+        "unitId": "ww.zh.foundation.greetings",
+        "order": 4,
+        "title": "Greetings and simple replies",
+        "explanation": "Use 你好 to greet someone, 谢谢 to thank them, and 再见 to say goodbye. An adjective statement such as 我很好 does not need 是.",
+        "focus": [
+          "greetings",
+          "adjective-predicates"
+        ]
+      },
       "tokens": [
         {
           "surface": "谢谢",
@@ -60,6 +80,16 @@
     {
       "conceptId": "ww.greeting.goodbye",
       "text": "再见！",
+      "learning": {
+        "unitId": "ww.zh.foundation.greetings",
+        "order": 5,
+        "title": "Greetings and simple replies",
+        "explanation": "Use 你好 to greet someone, 谢谢 to thank them, and 再见 to say goodbye. An adjective statement such as 我很好 does not need 是.",
+        "focus": [
+          "greetings",
+          "adjective-predicates"
+        ]
+      },
       "tokens": [
         {
           "surface": "再见",
@@ -71,6 +101,17 @@
     {
       "conceptId": "ww.identity.name",
       "text": "我叫林。",
+      "learning": {
+        "unitId": "ww.zh.foundation.identity",
+        "order": 8,
+        "title": "Introductions and personal details",
+        "explanation": "Use 是 before an identity noun, 叫 for a name, and 姓 for a family name. 哪国 asks which country; 多大 asks age, with 岁 for years of age.",
+        "focus": [
+          "identity",
+          "copula",
+          "age"
+        ]
+      },
       "tokens": [
         {
           "surface": "我",
@@ -92,6 +133,17 @@
     {
       "conceptId": "ww.identity.student",
       "text": "我是学生。",
+      "learning": {
+        "unitId": "ww.zh.foundation.identity",
+        "order": 10,
+        "title": "Introductions and personal details",
+        "explanation": "Use 是 before an identity noun, 叫 for a name, and 姓 for a family name. 哪国 asks which country; 多大 asks age, with 岁 for years of age.",
+        "focus": [
+          "identity",
+          "copula",
+          "age"
+        ]
+      },
       "tokens": [
         {
           "surface": "我",
@@ -217,6 +269,16 @@
     {
       "conceptId": "ww.greeting.good-morning",
       "text": "早上好！",
+      "learning": {
+        "unitId": "ww.zh.foundation.greetings",
+        "order": 2,
+        "title": "Greetings and simple replies",
+        "explanation": "Use 你好 to greet someone, 谢谢 to thank them, and 再见 to say goodbye. An adjective statement such as 我很好 does not need 是.",
+        "focus": [
+          "greetings",
+          "adjective-predicates"
+        ]
+      },
       "tokens": [
         {
           "surface": "早上",
@@ -233,6 +295,16 @@
     {
       "conceptId": "ww.greeting.good-evening",
       "text": "晚上好！",
+      "learning": {
+        "unitId": "ww.zh.foundation.greetings",
+        "order": 3,
+        "title": "Greetings and simple replies",
+        "explanation": "Use 你好 to greet someone, 谢谢 to thank them, and 再见 to say goodbye. An adjective statement such as 我很好 does not need 是.",
+        "focus": [
+          "greetings",
+          "adjective-predicates"
+        ]
+      },
       "tokens": [
         {
           "surface": "晚上",
@@ -278,7 +350,7 @@
       "tokens": [
         {
           "surface": "不",
-          "gloss": "not (before fourth tone)",
+          "gloss": "not",
           "playable": true
         },
         {
@@ -291,6 +363,16 @@
     {
       "conceptId": "ww.greeting.how-are-you",
       "text": "你好吗？",
+      "learning": {
+        "unitId": "ww.zh.foundation.greetings",
+        "order": 6,
+        "title": "Greetings and simple replies",
+        "explanation": "Use 你好 to greet someone, 谢谢 to thank them, and 再见 to say goodbye. An adjective statement such as 我很好 does not need 是.",
+        "focus": [
+          "greetings",
+          "adjective-predicates"
+        ]
+      },
       "tokens": [
         {
           "surface": "你",
@@ -312,6 +394,16 @@
     {
       "conceptId": "ww.greeting.i-am-well",
       "text": "我很好。",
+      "learning": {
+        "unitId": "ww.zh.foundation.greetings",
+        "order": 7,
+        "title": "Greetings and simple replies",
+        "explanation": "Use 你好 to greet someone, 谢谢 to thank them, and 再见 to say goodbye. An adjective statement such as 我很好 does not need 是.",
+        "focus": [
+          "greetings",
+          "adjective-predicates"
+        ]
+      },
       "tokens": [
         {
           "surface": "我",
@@ -333,6 +425,17 @@
     {
       "conceptId": "ww.identity.your-name",
       "text": "你叫什么名字？",
+      "learning": {
+        "unitId": "ww.zh.foundation.identity",
+        "order": 9,
+        "title": "Introductions and personal details",
+        "explanation": "Use 是 before an identity noun, 叫 for a name, and 姓 for a family name. 哪国 asks which country; 多大 asks age, with 岁 for years of age.",
+        "focus": [
+          "identity",
+          "copula",
+          "age"
+        ]
+      },
       "tokens": [
         {
           "surface": "你",
@@ -2580,7 +2683,7 @@
         },
         {
           "surface": "坐",
-          "gloss": "sit",
+          "gloss": "take; ride (transport)",
           "playable": true
         },
         {
@@ -2901,7 +3004,7 @@
         },
         {
           "surface": "看",
-          "gloss": "look; read",
+          "gloss": "see; consult (a doctor)",
           "playable": true
         },
         {
@@ -3153,6 +3256,13 @@
     {
       "conceptId": "ww.culture.museum-open",
       "text": "博物馆今天开放。",
+      "acceptedTokenOrders": [
+        [
+          "今天",
+          "博物馆",
+          "开放"
+        ]
+      ],
       "tokens": [
         {
           "surface": "博物馆",
@@ -3669,7 +3779,7 @@
       "tokens": [
         {
           "surface": "坐",
-          "gloss": "sit",
+          "gloss": "take; ride (transport)",
           "playable": true
         },
         {
@@ -4660,7 +4770,7 @@
         },
         {
           "surface": "看",
-          "gloss": "look; read",
+          "gloss": "visit",
           "playable": true
         },
         {
@@ -5544,7 +5654,7 @@
         },
         {
           "surface": "比较",
-          "gloss": "comparatively",
+          "gloss": "compare",
           "playable": true
         },
         {
@@ -6295,7 +6405,7 @@
       "tokens": [
         {
           "surface": "坐",
-          "gloss": "sit",
+          "gloss": "take; ride (transport)",
           "playable": true
         },
         {
@@ -9074,7 +9184,7 @@
     },
     {
       "conceptId": "ww-zh-m260908-001",
-      "text": "小狗有软软的耳朵。",
+      "text": "小狗的耳朵耷拉着。",
       "tokens": [
         {
           "surface": "小狗",
@@ -9082,23 +9192,23 @@
           "playable": true
         },
         {
-          "surface": "有",
-          "gloss": "have",
-          "playable": true
-        },
-        {
-          "surface": "软软",
-          "gloss": "soft and floppy",
-          "playable": true
-        },
-        {
           "surface": "的",
-          "gloss": "marks possession or a noun description",
+          "gloss": "links the puppy to its ears",
           "playable": true
         },
         {
           "surface": "耳朵",
-          "gloss": "ear; ears",
+          "gloss": "ears",
+          "playable": true
+        },
+        {
+          "surface": "耷拉",
+          "gloss": "droop; hang loosely",
+          "playable": true
+        },
+        {
+          "surface": "着",
+          "gloss": "marks the continuing state of the ears",
           "playable": true
         }
       ]
@@ -17533,7 +17643,7 @@
     },
     {
       "conceptId": "ww-zh-m260908-220",
-      "text": "车站的电梯方便我们推婴儿车。",
+      "text": "车站的电梯让我们更容易搬运婴儿车。",
       "tokens": [
         {
           "surface": "车站",
@@ -17542,27 +17652,37 @@
         },
         {
           "surface": "的",
-          "gloss": "marks possession or a noun description",
+          "gloss": "links the station to its lift",
           "playable": true
         },
         {
           "surface": "电梯",
-          "gloss": "elevator",
+          "gloss": "lift; elevator",
           "playable": true
         },
         {
-          "surface": "方便",
-          "gloss": "convenient",
+          "surface": "让",
+          "gloss": "make; enable",
           "playable": true
         },
         {
           "surface": "我们",
-          "gloss": "we; us",
+          "gloss": "us",
           "playable": true
         },
         {
-          "surface": "推",
-          "gloss": "push",
+          "surface": "更",
+          "gloss": "more",
+          "playable": true
+        },
+        {
+          "surface": "容易",
+          "gloss": "easy",
+          "playable": true
+        },
+        {
+          "surface": "搬运",
+          "gloss": "carry; transport",
           "playable": true
         },
         {
@@ -19754,7 +19874,7 @@
         },
         {
           "surface": "过",
-          "gloss": "pass; after passing",
+          "gloss": "marks previous experience of the action",
           "playable": true
         },
         {
@@ -19947,7 +20067,7 @@
         },
         {
           "surface": "过",
-          "gloss": "pass; after passing",
+          "gloss": "marks previous experience of the action",
           "playable": true
         },
         {
@@ -22254,7 +22374,7 @@
       "tokens": [
         {
           "surface": "不",
-          "gloss": "not; tone before a fourth tone",
+          "gloss": "not",
           "playable": true
         },
         {
@@ -22428,7 +22548,7 @@
         },
         {
           "surface": "一",
-          "gloss": "one; tone before a fourth tone",
+          "gloss": "one",
           "playable": true
         },
         {
@@ -22465,7 +22585,7 @@
       "tokens": [
         {
           "surface": "不",
-          "gloss": "not; tone before a fourth tone",
+          "gloss": "not",
           "playable": true
         },
         {
@@ -22513,6 +22633,1347 @@
         {
           "surface": "知道",
           "gloss": "know",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.origin-country-question",
+      "text": "你是哪国人？",
+      "learning": {
+        "unitId": "ww.zh.foundation.identity",
+        "order": 11,
+        "title": "Introductions and personal details",
+        "explanation": "Use 是 before an identity noun, 叫 for a name, and 姓 for a family name. 哪国 asks which country; 多大 asks age, with 岁 for years of age.",
+        "focus": [
+          "identity",
+          "copula",
+          "age"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "你",
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "是",
+          "gloss": "be",
+          "playable": true
+        },
+        {
+          "surface": "哪国",
+          "gloss": "which country",
+          "playable": true
+        },
+        {
+          "surface": "人",
+          "gloss": "person; indicates nationality here",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.origin-british",
+      "text": "我是英国人。",
+      "learning": {
+        "unitId": "ww.zh.foundation.identity",
+        "order": 12,
+        "title": "Introductions and personal details",
+        "explanation": "Use 是 before an identity noun, 叫 for a name, and 姓 for a family name. 哪国 asks which country; 多大 asks age, with 岁 for years of age.",
+        "focus": [
+          "identity",
+          "copula",
+          "age"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "是",
+          "gloss": "be",
+          "playable": true
+        },
+        {
+          "surface": "英国人",
+          "gloss": "British person",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.origin-from-question",
+      "text": "你从哪里来？",
+      "learning": {
+        "unitId": "ww.zh.foundation.identity",
+        "order": 13,
+        "title": "Introductions and personal details",
+        "explanation": "Use 是 before an identity noun, 叫 for a name, and 姓 for a family name. 哪国 asks which country; 多大 asks age, with 岁 for years of age.",
+        "focus": [
+          "identity",
+          "copula",
+          "age"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "你",
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "从",
+          "gloss": "from",
+          "playable": true
+        },
+        {
+          "surface": "哪里",
+          "gloss": "where",
+          "playable": true
+        },
+        {
+          "surface": "来",
+          "gloss": "come",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.origin-from-china",
+      "text": "我从中国来。",
+      "learning": {
+        "unitId": "ww.zh.foundation.identity",
+        "order": 14,
+        "title": "Introductions and personal details",
+        "explanation": "Use 是 before an identity noun, 叫 for a name, and 姓 for a family name. 哪国 asks which country; 多大 asks age, with 岁 for years of age.",
+        "focus": [
+          "identity",
+          "copula",
+          "age"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "从",
+          "gloss": "from",
+          "playable": true
+        },
+        {
+          "surface": "中国",
+          "gloss": "China",
+          "playable": true
+        },
+        {
+          "surface": "来",
+          "gloss": "come",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.age-question",
+      "text": "你多大了？",
+      "learning": {
+        "unitId": "ww.zh.foundation.identity",
+        "order": 15,
+        "title": "Introductions and personal details",
+        "explanation": "Use 是 before an identity noun, 叫 for a name, and 姓 for a family name. 哪国 asks which country; 多大 asks age, with 岁 for years of age.",
+        "focus": [
+          "identity",
+          "copula",
+          "age"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "你",
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "多大",
+          "gloss": "how old",
+          "playable": true
+        },
+        {
+          "surface": "了",
+          "gloss": "marks the current age being asked about",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.age-twenty",
+      "text": "我二十岁。",
+      "learning": {
+        "unitId": "ww.zh.foundation.identity",
+        "order": 16,
+        "title": "Introductions and personal details",
+        "explanation": "Use 是 before an identity noun, 叫 for a name, and 姓 for a family name. 哪国 asks which country; 多大 asks age, with 岁 for years of age.",
+        "focus": [
+          "identity",
+          "copula",
+          "age"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "二十",
+          "gloss": "twenty",
+          "playable": true
+        },
+        {
+          "surface": "岁",
+          "gloss": "years old",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.surname-question",
+      "text": "你姓什么？",
+      "learning": {
+        "unitId": "ww.zh.foundation.identity",
+        "order": 17,
+        "title": "Introductions and personal details",
+        "explanation": "Use 是 before an identity noun, 叫 for a name, and 姓 for a family name. 哪国 asks which country; 多大 asks age, with 岁 for years of age.",
+        "focus": [
+          "identity",
+          "copula",
+          "age"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "你",
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "姓",
+          "gloss": "have the surname",
+          "playable": true
+        },
+        {
+          "surface": "什么",
+          "gloss": "what",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.surname-lin",
+      "text": "我姓林。",
+      "learning": {
+        "unitId": "ww.zh.foundation.identity",
+        "order": 18,
+        "title": "Introductions and personal details",
+        "explanation": "Use 是 before an identity noun, 叫 for a name, and 姓 for a family name. 哪国 asks which country; 多大 asks age, with 岁 for years of age.",
+        "focus": [
+          "identity",
+          "copula",
+          "age"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "姓",
+          "gloss": "have the surname",
+          "playable": true
+        },
+        {
+          "surface": "林",
+          "gloss": "Lin (surname)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.need-rest",
+      "text": "我需要休息。",
+      "learning": {
+        "unitId": "ww.zh.foundation.needs",
+        "order": 19,
+        "title": "Needs and requests",
+        "explanation": "需要 names a need. Put the question particle 吗 at the end of a statement to ask a yes/no question. A request with 能 asks whether the person can help.",
+        "focus": [
+          "needs",
+          "question-particle"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "需要",
+          "gloss": "need",
+          "playable": true
+        },
+        {
+          "surface": "休息",
+          "gloss": "rest",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.help-question",
+      "text": "你能帮我吗？",
+      "learning": {
+        "unitId": "ww.zh.foundation.needs",
+        "order": 20,
+        "title": "Needs and requests",
+        "explanation": "需要 names a need. Put the question particle 吗 at the end of a statement to ask a yes/no question. A request with 能 asks whether the person can help.",
+        "focus": [
+          "needs",
+          "question-particle"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "你",
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "能",
+          "gloss": "can; be able to",
+          "playable": true
+        },
+        {
+          "surface": "帮",
+          "gloss": "help",
+          "playable": true
+        },
+        {
+          "surface": "我",
+          "gloss": "me",
+          "playable": true
+        },
+        {
+          "surface": "吗",
+          "gloss": "marks a yes-no question",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.hungry-question",
+      "text": "你饿吗？",
+      "learning": {
+        "unitId": "ww.zh.foundation.needs",
+        "order": 21,
+        "title": "Needs and requests",
+        "explanation": "需要 names a need. Put the question particle 吗 at the end of a statement to ask a yes/no question. A request with 能 asks whether the person can help.",
+        "focus": [
+          "needs",
+          "question-particle"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "你",
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "饿",
+          "gloss": "hungry",
+          "playable": true
+        },
+        {
+          "surface": "吗",
+          "gloss": "marks a yes-no question",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.no-money",
+      "text": "我没有钱。",
+      "learning": {
+        "unitId": "ww.zh.foundation.negation",
+        "order": 23,
+        "title": "Not having and not doing",
+        "explanation": "没有 means not having; 没 negates an action that did not happen. 不 is used for a general negative or an intention. Listening without understanding can be expressed with 没听懂.",
+        "focus": [
+          "negation",
+          "mei-versus-bu"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "没有",
+          "gloss": "do not have",
+          "playable": true
+        },
+        {
+          "surface": "钱",
+          "gloss": "money",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.no-time",
+      "text": "我没有时间。",
+      "learning": {
+        "unitId": "ww.zh.foundation.negation",
+        "order": 24,
+        "title": "Not having and not doing",
+        "explanation": "没有 means not having; 没 negates an action that did not happen. 不 is used for a general negative or an intention. Listening without understanding can be expressed with 没听懂.",
+        "focus": [
+          "negation",
+          "mei-versus-bu"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "没有",
+          "gloss": "do not have",
+          "playable": true
+        },
+        {
+          "surface": "时间",
+          "gloss": "time",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.not-go-yesterday",
+      "text": "我昨天没去。",
+      "acceptedTokenOrders": [
+        [
+          "昨天",
+          "我",
+          "没",
+          "去"
+        ]
+      ],
+      "learning": {
+        "unitId": "ww.zh.foundation.negation",
+        "order": 25,
+        "title": "Not having and not doing",
+        "explanation": "没有 means not having; 没 negates an action that did not happen. 不 is used for a general negative or an intention. Listening without understanding can be expressed with 没听懂.",
+        "focus": [
+          "negation",
+          "mei-versus-bu"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "昨天",
+          "gloss": "yesterday",
+          "playable": true
+        },
+        {
+          "surface": "没",
+          "gloss": "did not",
+          "playable": true
+        },
+        {
+          "surface": "去",
+          "gloss": "go",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.not-understand-heard",
+      "text": "我没听懂。",
+      "learning": {
+        "unitId": "ww.zh.foundation.negation",
+        "order": 26,
+        "title": "Not having and not doing",
+        "explanation": "没有 means not having; 没 negates an action that did not happen. 不 is used for a general negative or an intention. Listening without understanding can be expressed with 没听懂.",
+        "focus": [
+          "negation",
+          "mei-versus-bu"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "没",
+          "gloss": "did not",
+          "playable": true
+        },
+        {
+          "surface": "听懂",
+          "gloss": "understand what is heard",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.have-time-question",
+      "text": "你有没有时间？",
+      "learning": {
+        "unitId": "ww.zh.foundation.questions",
+        "order": 27,
+        "title": "Yes/no alternatives",
+        "explanation": "A-not-A questions place the positive and negative choices together: 去不去, 是不是, or 要不要. With 有, use 有没有. These questions do not also need 吗.",
+        "focus": [
+          "a-not-a",
+          "questions"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "你",
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "有",
+          "gloss": "have; first part of a have-or-not question",
+          "playable": true
+        },
+        {
+          "surface": "没有",
+          "gloss": "not have; second part of a have-or-not question",
+          "playable": true
+        },
+        {
+          "surface": "时间",
+          "gloss": "time",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.like-tea-question",
+      "text": "你喜不喜欢茶？",
+      "learning": {
+        "unitId": "ww.zh.foundation.questions",
+        "order": 28,
+        "title": "Yes/no alternatives",
+        "explanation": "A-not-A questions place the positive and negative choices together: 去不去, 是不是, or 要不要. With 有, use 有没有. These questions do not also need 吗.",
+        "focus": [
+          "a-not-a",
+          "questions"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "你",
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "喜不喜欢",
+          "gloss": "like or not; asks whether you like",
+          "playable": true
+        },
+        {
+          "surface": "茶",
+          "gloss": "tea",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.go-question",
+      "text": "你去不去？",
+      "learning": {
+        "unitId": "ww.zh.foundation.questions",
+        "order": 29,
+        "title": "Yes/no alternatives",
+        "explanation": "A-not-A questions place the positive and negative choices together: 去不去, 是不是, or 要不要. With 有, use 有没有. These questions do not also need 吗.",
+        "focus": [
+          "a-not-a",
+          "questions"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "你",
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "去",
+          "gloss": "go; first part of a go-or-not question",
+          "playable": true
+        },
+        {
+          "surface": "不",
+          "gloss": "not; negative part of the question",
+          "playable": true
+        },
+        {
+          "surface": "去",
+          "gloss": "go; repeated to complete the question",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.teacher-question",
+      "text": "你是不是老师？",
+      "learning": {
+        "unitId": "ww.zh.foundation.questions",
+        "order": 30,
+        "title": "Yes/no alternatives",
+        "explanation": "A-not-A questions place the positive and negative choices together: 去不去, 是不是, or 要不要. With 有, use 有没有. These questions do not also need 吗.",
+        "focus": [
+          "a-not-a",
+          "questions"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "你",
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "是",
+          "gloss": "be; first part of a be-or-not question",
+          "playable": true
+        },
+        {
+          "surface": "不是",
+          "gloss": "not be; second part of the question",
+          "playable": true
+        },
+        {
+          "surface": "老师",
+          "gloss": "teacher",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.want-water-question",
+      "text": "你要不要水？",
+      "learning": {
+        "unitId": "ww.zh.foundation.questions",
+        "order": 31,
+        "title": "Yes/no alternatives",
+        "explanation": "A-not-A questions place the positive and negative choices together: 去不去, 是不是, or 要不要. With 有, use 有没有. These questions do not also need 吗.",
+        "focus": [
+          "a-not-a",
+          "questions"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "你",
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "要",
+          "gloss": "want; first part of a want-or-not question",
+          "playable": true
+        },
+        {
+          "surface": "不要",
+          "gloss": "not want; second part of the question",
+          "playable": true
+        },
+        {
+          "surface": "水",
+          "gloss": "water",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.two-cups",
+      "text": "两杯水。",
+      "learning": {
+        "unitId": "ww.zh.foundation.quantities",
+        "order": 32,
+        "title": "Numbers and classifiers",
+        "explanation": "Use 两 before most classifiers when counting two things: 两杯水, 两个人, 两本书. Use 二 within numbers such as 二十二. 一本书 contains 一, the classifier 本, and the noun 书.",
+        "focus": [
+          "numbers",
+          "classifiers",
+          "er-versus-liang"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "两",
+          "gloss": "two before a measure word",
+          "playable": true
+        },
+        {
+          "surface": "杯",
+          "gloss": "cup; measure word for cups",
+          "playable": true
+        },
+        {
+          "surface": "水",
+          "gloss": "water",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.two-people",
+      "text": "两个人。",
+      "learning": {
+        "unitId": "ww.zh.foundation.quantities",
+        "order": 33,
+        "title": "Numbers and classifiers",
+        "explanation": "Use 两 before most classifiers when counting two things: 两杯水, 两个人, 两本书. Use 二 within numbers such as 二十二. 一本书 contains 一, the classifier 本, and the noun 书.",
+        "focus": [
+          "numbers",
+          "classifiers",
+          "er-versus-liang"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "两",
+          "gloss": "two before a measure word",
+          "playable": true
+        },
+        {
+          "surface": "个",
+          "gloss": "general measure word; used for people here",
+          "playable": true
+        },
+        {
+          "surface": "人",
+          "gloss": "people",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.book-question",
+      "text": "你有一本书吗？",
+      "learning": {
+        "unitId": "ww.zh.foundation.quantities",
+        "order": 34,
+        "title": "Numbers and classifiers",
+        "explanation": "Use 两 before most classifiers when counting two things: 两杯水, 两个人, 两本书. Use 二 within numbers such as 二十二. 一本书 contains 一, the classifier 本, and the noun 书.",
+        "focus": [
+          "numbers",
+          "classifiers",
+          "er-versus-liang"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "你",
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "有",
+          "gloss": "have",
+          "playable": true
+        },
+        {
+          "surface": "一",
+          "gloss": "one; a",
+          "playable": true
+        },
+        {
+          "surface": "本",
+          "gloss": "measure word for books",
+          "playable": true
+        },
+        {
+          "surface": "书",
+          "gloss": "book",
+          "playable": true
+        },
+        {
+          "surface": "吗",
+          "gloss": "marks a yes-no question",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.two-books-question",
+      "text": "你有两本书吗？",
+      "learning": {
+        "unitId": "ww.zh.foundation.quantities",
+        "order": 35,
+        "title": "Numbers and classifiers",
+        "explanation": "Use 两 before most classifiers when counting two things: 两杯水, 两个人, 两本书. Use 二 within numbers such as 二十二. 一本书 contains 一, the classifier 本, and the noun 书.",
+        "focus": [
+          "numbers",
+          "classifiers",
+          "er-versus-liang"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "你",
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "有",
+          "gloss": "have",
+          "playable": true
+        },
+        {
+          "surface": "两",
+          "gloss": "two before a measure word",
+          "playable": true
+        },
+        {
+          "surface": "本",
+          "gloss": "measure word for books",
+          "playable": true
+        },
+        {
+          "surface": "书",
+          "gloss": "book",
+          "playable": true
+        },
+        {
+          "surface": "吗",
+          "gloss": "marks a yes-no question",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.twenty-two",
+      "text": "二十二。",
+      "learning": {
+        "unitId": "ww.zh.foundation.quantities",
+        "order": 36,
+        "title": "Numbers and classifiers",
+        "explanation": "Use 两 before most classifiers when counting two things: 两杯水, 两个人, 两本书. Use 二 within numbers such as 二十二. 一本书 contains 一, the classifier 本, and the noun 书.",
+        "focus": [
+          "numbers",
+          "classifiers",
+          "er-versus-liang"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "二十二",
+          "gloss": "twenty-two",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.price-question",
+      "text": "这个多少钱？",
+      "learning": {
+        "unitId": "ww.zh.foundation.buying",
+        "order": 37,
+        "title": "Prices and paying",
+        "explanation": "多少钱 asks the price. Put the number before 元 when saying an amount. 怎么 asks how to do something, such as paying; 用 introduces the method or tool.",
+        "focus": [
+          "prices",
+          "payment",
+          "method"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "这个",
+          "gloss": "this item",
+          "playable": true
+        },
+        {
+          "surface": "多少钱",
+          "gloss": "how much money; what price",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.price-ten",
+      "text": "十元。",
+      "learning": {
+        "unitId": "ww.zh.foundation.buying",
+        "order": 38,
+        "title": "Prices and paying",
+        "explanation": "多少钱 asks the price. Put the number before 元 when saying an amount. 怎么 asks how to do something, such as paying; 用 introduces the method or tool.",
+        "focus": [
+          "prices",
+          "payment",
+          "method"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "十",
+          "gloss": "ten",
+          "playable": true
+        },
+        {
+          "surface": "元",
+          "gloss": "yuan; Chinese currency unit",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.price-twelve",
+      "text": "十二元。",
+      "learning": {
+        "unitId": "ww.zh.foundation.buying",
+        "order": 39,
+        "title": "Prices and paying",
+        "explanation": "多少钱 asks the price. Put the number before 元 when saying an amount. 怎么 asks how to do something, such as paying; 用 introduces the method or tool.",
+        "focus": [
+          "prices",
+          "payment",
+          "method"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "十二",
+          "gloss": "twelve",
+          "playable": true
+        },
+        {
+          "surface": "元",
+          "gloss": "yuan; Chinese currency unit",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.pay-how",
+      "text": "怎么付款？",
+      "learning": {
+        "unitId": "ww.zh.foundation.buying",
+        "order": 40,
+        "title": "Prices and paying",
+        "explanation": "多少钱 asks the price. Put the number before 元 when saying an amount. 怎么 asks how to do something, such as paying; 用 introduces the method or tool.",
+        "focus": [
+          "prices",
+          "payment",
+          "method"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "怎么",
+          "gloss": "how",
+          "playable": true
+        },
+        {
+          "surface": "付款",
+          "gloss": "pay",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.pay-phone",
+      "text": "我可以用手机付款吗？",
+      "learning": {
+        "unitId": "ww.zh.foundation.buying",
+        "order": 41,
+        "title": "Prices and paying",
+        "explanation": "多少钱 asks the price. Put the number before 元 when saying an amount. 怎么 asks how to do something, such as paying; 用 introduces the method or tool.",
+        "focus": [
+          "prices",
+          "payment",
+          "method"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "可以",
+          "gloss": "may; have permission to",
+          "playable": true
+        },
+        {
+          "surface": "用",
+          "gloss": "use; with",
+          "playable": true
+        },
+        {
+          "surface": "手机",
+          "gloss": "mobile phone",
+          "playable": true
+        },
+        {
+          "surface": "付款",
+          "gloss": "pay",
+          "playable": true
+        },
+        {
+          "surface": "吗",
+          "gloss": "marks a yes-no question",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.can-swim",
+      "text": "我会游泳。",
+      "learning": {
+        "unitId": "ww.zh.foundation.modals",
+        "order": 42,
+        "title": "Ability and permission",
+        "explanation": "会 often describes a learned skill, such as swimming. 能 concerns ability or possibility in the situation. 可以 is useful for asking permission. Put 不 before the modal to make it negative.",
+        "focus": [
+          "hui-neng-keyi",
+          "ability",
+          "permission"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "会",
+          "gloss": "know how to; learned ability",
+          "playable": true
+        },
+        {
+          "surface": "游泳",
+          "gloss": "swim",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.cannot-swim",
+      "text": "我不会游泳。",
+      "learning": {
+        "unitId": "ww.zh.foundation.modals",
+        "order": 43,
+        "title": "Ability and permission",
+        "explanation": "会 often describes a learned skill, such as swimming. 能 concerns ability or possibility in the situation. 可以 is useful for asking permission. Put 不 before the modal to make it negative.",
+        "focus": [
+          "hui-neng-keyi",
+          "ability",
+          "permission"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "不",
+          "gloss": "not",
+          "playable": true
+        },
+        {
+          "surface": "会",
+          "gloss": "know how to; learned ability",
+          "playable": true
+        },
+        {
+          "surface": "游泳",
+          "gloss": "swim",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.permission-enter",
+      "text": "我可以进来吗？",
+      "learning": {
+        "unitId": "ww.zh.foundation.modals",
+        "order": 44,
+        "title": "Ability and permission",
+        "explanation": "会 often describes a learned skill, such as swimming. 能 concerns ability or possibility in the situation. 可以 is useful for asking permission. Put 不 before the modal to make it negative.",
+        "focus": [
+          "hui-neng-keyi",
+          "ability",
+          "permission"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "可以",
+          "gloss": "may; have permission to",
+          "playable": true
+        },
+        {
+          "surface": "进来",
+          "gloss": "come in",
+          "playable": true
+        },
+        {
+          "surface": "吗",
+          "gloss": "marks a yes-no question",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.location-home",
+      "text": "我在家。",
+      "learning": {
+        "unitId": "ww.zh.foundation.location",
+        "order": 45,
+        "title": "Location and an action in progress",
+        "explanation": "在 before a place says where someone is. In 我在吃饭, 在 marks an action in progress: compare 在家 and 在吃饭.",
+        "focus": [
+          "location",
+          "progressive-zai"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "be located at",
+          "playable": true
+        },
+        {
+          "surface": "家",
+          "gloss": "home",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.progressive-eat",
+      "text": "我在吃饭。",
+      "learning": {
+        "unitId": "ww.zh.foundation.location",
+        "order": 46,
+        "title": "Location and an action in progress",
+        "explanation": "在 before a place says where someone is. In 我在吃饭, 在 marks an action in progress: compare 在家 and 在吃饭.",
+        "focus": [
+          "location",
+          "progressive-zai"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "在",
+          "gloss": "marks an action happening now",
+          "playable": true
+        },
+        {
+          "surface": "吃饭",
+          "gloss": "eat; have a meal",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.experience-beijing",
+      "text": "你去过北京吗？",
+      "learning": {
+        "unitId": "ww.zh.foundation.aspect",
+        "order": 47,
+        "title": "Experience, completion and a continuing state",
+        "explanation": "In 去过北京, 过 marks a past experience; here it is not the verb meaning pass. 了 after a verb can mark a completed action. 着 describes a continuing state, such as a window remaining open. These particles do not conjugate the verb.",
+        "focus": [
+          "experience-guo",
+          "completion-le",
+          "state-zhe"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "你",
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "去",
+          "gloss": "go",
+          "playable": true
+        },
+        {
+          "surface": "过",
+          "gloss": "marks previous experience of the action",
+          "playable": true
+        },
+        {
+          "surface": "北京",
+          "gloss": "Beijing",
+          "playable": true
+        },
+        {
+          "surface": "吗",
+          "gloss": "marks a yes-no question",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.completed-apple",
+      "text": "我吃了一个苹果。",
+      "learning": {
+        "unitId": "ww.zh.foundation.aspect",
+        "order": 48,
+        "title": "Experience, completion and a continuing state",
+        "explanation": "In 去过北京, 过 marks a past experience; here it is not the verb meaning pass. 了 after a verb can mark a completed action. 着 describes a continuing state, such as a window remaining open. These particles do not conjugate the verb.",
+        "focus": [
+          "experience-guo",
+          "completion-le",
+          "state-zhe"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "吃",
+          "gloss": "eat",
+          "playable": true
+        },
+        {
+          "surface": "了",
+          "gloss": "marks the completed eating event",
+          "playable": true
+        },
+        {
+          "surface": "一",
+          "gloss": "one; a",
+          "playable": true
+        },
+        {
+          "surface": "个",
+          "gloss": "general measure word",
+          "playable": true
+        },
+        {
+          "surface": "苹果",
+          "gloss": "apple",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.open-window",
+      "text": "窗户开着。",
+      "learning": {
+        "unitId": "ww.zh.foundation.aspect",
+        "order": 49,
+        "title": "Experience, completion and a continuing state",
+        "explanation": "In 去过北京, 过 marks a past experience; here it is not the verb meaning pass. 了 after a verb can mark a completed action. 着 describes a continuing state, such as a window remaining open. These particles do not conjugate the verb.",
+        "focus": [
+          "experience-guo",
+          "completion-le",
+          "state-zhe"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "窗户",
+          "gloss": "window",
+          "playable": true
+        },
+        {
+          "surface": "开",
+          "gloss": "open",
+          "playable": true
+        },
+        {
+          "surface": "着",
+          "gloss": "marks the continuing open state",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww.zh.pilot-v1.push-door",
+      "text": "请推门。",
+      "learning": {
+        "unitId": "ww.zh.foundation.needs",
+        "order": 22,
+        "title": "Needs and requests",
+        "explanation": "需要 names a need. Put the question particle 吗 at the end of a statement to ask a yes/no question. A request with 能 asks whether the person can help.",
+        "focus": [
+          "needs",
+          "question-particle"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "请",
+          "gloss": "please; marks a polite request",
+          "playable": true
+        },
+        {
+          "surface": "推",
+          "gloss": "push",
+          "playable": true
+        },
+        {
+          "surface": "门",
+          "gloss": "door",
           "playable": true
         }
       ]
