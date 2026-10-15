@@ -677,8 +677,13 @@ export function assertCourseBundleContract(
   return bundle;
 }
 
-function assertStoreProfile(profile, label, defaultCourse) {
+export function assertStoreProfile(profile, label, defaultCourse) {
   const expectedTopLevelKeys = ["assets", "capabilities", "course", "nativeProviders", "privacy", "profile", "schemaVersion"];
+  if (Object.hasOwn(profile ?? {}, "setupCatalogFormat")) {
+    assert(profile.setupCatalogFormat === NATIVE_SETUP_CATALOG_FORMAT, `${label} unsupported setup catalog format`);
+    expectedTopLevelKeys.push("setupCatalogFormat");
+    expectedTopLevelKeys.sort();
+  }
   const expectedCourseKeys = ["id", "routePrefix", "sourceLanguage", "targetLanguage"];
   const expectedSourceLanguageKeys = ["id", "locale"];
   const expectedTargetLanguageKeys = ["id", "locale", "script", "speechLocale"];

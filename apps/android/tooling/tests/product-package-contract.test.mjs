@@ -13,6 +13,7 @@ import {
   requiredNativeClassNames,
   packageBootstrapAssets,
   assertSetupEmbeddingBoundary,
+  assertStoreProfile,
 } from "../validate-product-package.mjs";
 import { HOME_BOOTSTRAP_ARTWORK, HOME_BOOTSTRAP_ASSET_MAX_BYTES, projectNativeSetupCatalog } from "../product-delivery.mjs";
 
@@ -199,6 +200,17 @@ function publicationPlanFor(bundle) {
     })),
   };
 }
+
+test("the exact product profile allows only the supported native setup marker while retaining legacy profiles", () => {
+  const { bundle, profile } = packageFixture();
+  const check = value => assertStoreProfile(value, "fixture", bundle.courses[0]);
+  check(profile);
+  check({ ...profile, setupCatalogFormat: "android-native-v1" });
+  assert.throws(() => check({ ...profile, setupCatalogFormat: "unknown" }), /unsupported setup catalog format/u);
+  assert.throws(() => check({ ...profile, setupCatalogFormat: "android-native-v1", extra: true }), /top-level keys/u);
+  assert.throws(() => check({ ...profile, setupCatalogFormat: "android-native-v1",
+    privacy: { ...profile.privacy, bugReportsLocalOnly: false } }), /local-only/u);
+});
 
 function thirdCourseFixture() {
   const fixture = packageFixture();

@@ -274,6 +274,12 @@ requirements, exact URLs, sizes, hashes and shared storage. Unmarked historical
 packages retain their original catalog layout during receipt verification.
 Focused delivery and package contracts cover both layouts, idempotent auditing
 and rejection of changed native download identities.
+The resulting signed 183 package fits at 7,922,244 resident bytes. Its final
+audit exposed a missing profile-field allowlist entry for the new marker; the
+validator now allows only that exact supported format and tests the complete
+profile contract. An audit-only correction can adopt the existing signed APK
+with its original source revision, exact hash and `--setup-archive`, preserving
+the already built companion instead of invoking Gradle again.
 
 Record the failing phase, exact error, source revision, candidate identity and
 relevant run/log link. Fix the owning entrypoint or validator, add a focused

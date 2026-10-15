@@ -12,6 +12,7 @@ mode=""
 candidate_receipt=""
 expected_apk_sha256=""
 expected_source_revision=""
+adopt_setup_archive=""
 build_outcome="not-requested"
 pipeline_started_at=$SECONDS
 phase_name=""
@@ -39,7 +40,7 @@ usage() {
 Usage:
   publish-release.sh --build-once
   publish-release.sh --candidate-receipt <receipt> [--expected-apk-sha256 <sha>] [--source-revision <commit>]
-  publish-release.sh --adopt-existing --expected-apk-sha256 <sha> --source-revision <commit>
+  publish-release.sh --adopt-existing --expected-apk-sha256 <sha> --source-revision <commit> [--setup-archive <archive>]
 
 With no mode, the publisher reuses the sealed receipt for the version declared
 in build.gradle.kts. It never starts an implicit Android build.
@@ -81,6 +82,11 @@ while [[ "$#" -gt 0 ]]; do
       expected_source_revision="$(tr '[:upper:]' '[:lower:]' <<<"$2" | tr -d '[:space:]')"
       shift 2
       ;;
+    --setup-archive)
+      [[ "$#" -ge 2 ]] || { usage; exit 2; }
+      adopt_setup_archive="$2"
+      shift 2
+      ;;
     -h|--help)
       usage
       exit 0
@@ -92,6 +98,11 @@ while [[ "$#" -gt 0 ]]; do
       ;;
   esac
 done
+
+if [[ -n "$adopt_setup_archive" && "$mode" != "adopt-existing" ]]; then
+  echo "--setup-archive is only valid with --adopt-existing." >&2
+  exit 2
+fi
 
 [[ "$public_base_url" == "$canonical_public_base_url" ]] || {
   echo "Stable Android releases must use exactly $canonical_public_base_url." >&2
@@ -341,12 +352,29 @@ if [[ "$mode" == "adopt-existing" ]]; then
     echo "The existing APK does not match the explicitly approved SHA-256." >&2
     exit 1
   }
-  validate_and_read_existing_candidate "$source_apk" "$source_aab" "" "" "" "" "$expected_source_revision"
+  adoption_setup_args=()
+  if [[ -n "$adopt_setup_archive" ]]; then
+    [[ "$adopt_setup_archive" == /* ]] || adopt_setup_archive="$repo_root/$adopt_setup_archive"
+    [[ -f "$adopt_setup_archive" && ! -L "$adopt_setup_archive" ]] || {
+      echo "The adoption setup archive must be an existing regular file." >&2; exit 1;
+    }
+    adopt_setup_archive="$(realpath -e "$adopt_setup_archive")"
+    case "$adopt_setup_archive" in
+      "$repo_root/artifacts/android/release-candidates/setup/"*.tar) ;;
+      *) echo "Adoption requires the existing content-addressed candidate setup archive." >&2; exit 1 ;;
+    esac
+    [[ "${adopt_setup_archive##*/}" == "$(sha256sum "$adopt_setup_archive" | awk '{print $1}').tar" ]] || {
+      echo "The adoption setup archive does not match its content-addressed filename." >&2; exit 1;
+    }
+    adoption_setup_args=(--setup "${adopt_setup_archive#"$repo_root/"}")
+  fi
+  validate_and_read_existing_candidate "$source_apk" "$source_aab" "" "" "" "$adopt_setup_archive" "$expected_source_revision"
   candidate_receipt="$repo_root/artifacts/android/release-candidates/$version_code.json"
   node "$repo_root/apps/android/tooling/release-candidate.mjs" seal-existing \
     --repo-root "$repo_root" \
     --apk "artifacts/android/caatuu-universal.apk" \
     --aab "artifacts/android/caatuu.aab" \
+    "${adoption_setup_args[@]}" \
     --source-revision "$expected_source_revision" \
     --package-name "$package_name" \
     --version-code "$version_code" \

@@ -342,7 +342,8 @@ do not block publication; they are never used for building or deploying. Before
 release, verify that the existing build container mounts `C:\Work\caatuu` at
 `/workspace` and that no alternate checkout is actively serving or building.
 
-When a signed candidate was built before receipt support, adopt it explicitly:
+When a signed candidate has no receipt, including after an audit-only repair,
+adopt it explicitly without changing its original source identity:
 
 ```bash
 docker exec -w /workspace caatuu-dev \
@@ -355,6 +356,10 @@ docker exec -w /workspace caatuu-dev \
 Adoption validates the package boundary, version, non-debuggable state, signing
 certificate, exact hash, and source commit, then seals and promotes the existing
 files. It does not invoke Gradle.
+For a bootstrap APK, also pass `--setup-archive` with its existing
+`artifacts/android/release-candidates/setup/<sha256>.tar`. Adoption validates
+that archive against the exact APK and seals it in the same receipt; omission
+cannot publish a bootstrap APK without its required companion objects.
 
 The publisher finalizes local immutable inputs for the Pages pipeline. It does
 not itself create a GitHub Release, deploy Pages, change DNS, or verify the

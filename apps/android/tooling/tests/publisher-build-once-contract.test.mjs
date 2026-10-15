@@ -1,9 +1,26 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
+import { spawnSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
 import test from "node:test";
 
 const publisher = await readFile(new URL("../publish-release.sh", import.meta.url), "utf8");
 const builder = await readFile(new URL("../build-release-aab.sh", import.meta.url), "utf8");
+
+test("only explicit adoption accepts an existing setup companion and binds it to audit and receipt", () => {
+  const script = fileURLToPath(new URL("../publish-release.sh", import.meta.url));
+  const wrongMode = spawnSync("bash", [script, "--candidate-receipt", "unused.json", "--setup-archive", "unused.tar"], { encoding: "utf8" });
+  assert.equal(wrongMode.status, 2);
+  assert.match(wrongMode.stderr, /only valid with --adopt-existing/u);
+  const missingValue = spawnSync("bash", [script, "--adopt-existing", "--setup-archive"], { encoding: "utf8" });
+  assert.equal(missingValue.status, 2);
+  const adoption = publisher.slice(publisher.indexOf('if [[ "$mode" == "adopt-existing" ]]; then'),
+    publisher.indexOf('[[ "$mode" == "receipt" && -n "$candidate_receipt" ]]'));
+  assert.ok(adoption.includes('"$adopt_setup_archive" "$expected_source_revision"'));
+  assert.ok(adoption.includes('"${adoption_setup_args[@]}"'));
+  assert.ok(adoption.includes('sha256sum "$adopt_setup_archive"'));
+  assert.doesNotMatch(adoption, /build-release|gradle/u);
+});
 
 function assertTimedCommand(source, command) {
   const operation = source.indexOf(command);
