@@ -258,7 +258,7 @@
       "/language-runtime/static/source/word-world-teaching.mjs",
       "/language-runtime/static/assets/aa-control.webp",
       "/language-runtime/static/source/campaign-roadmap.mjs?v=campaign-roadmap-2",
-      "/language-runtime/static/styles/campaign-roadmap.css?v=campaign-roadmap-6",
+      "/language-runtime/static/styles/campaign-roadmap.css?v=campaign-roadmap-7",
       "/language-runtime/static/assets/campaign/robot-01.webp",
       "/language-runtime/static/assets/campaign/robot-02.webp",
       "/language-runtime/static/assets/campaign/robot-03.webp",
@@ -317,7 +317,7 @@
       "url": "/nb/index.html",
       "browserRequired": true,
       "bytes": 96834,
-      "sha256": "878cc64de7dac31d1418f77ca7f33693292d12e17cf8324c77a0b2a83d96fb28"
+      "sha256": "d4cd20bbdba18dc4ad5499a5928859e6ffe95e4a1dab2ffb3366f7d8229011d6"
     },
     {
       "key": "course-profile",
@@ -605,7 +605,7 @@
       "url": "/language-runtime/static/source/course-service-worker.js",
       "browserRequired": true,
       "bytes": 12418,
-      "sha256": "fc31b9a4eeea801754802102b5378369e89c0ab697867c9f97e33a4f9deb74c0"
+      "sha256": "1da9d6b05ffe3b515a02317bcdb9c8dbbe3c071913152a1b55b549dbfc760f85"
     },
     {
       "key": "course-flag",

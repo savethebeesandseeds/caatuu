@@ -74,7 +74,7 @@ button.campaign-stop-content { cursor: pointer; }
 .campaign-stop-current .campaign-robot { transform: translateY(-3px); }
 .campaign-continue { position: relative; z-index: 1; margin-top: 4px; padding: 6px 15px; border-radius: 999px; background: var(--theme-green-filled, #376a5a); color: #fffdf4; font-size: .72rem; white-space: nowrap; box-shadow: 0 3px 9px #1b655b22; }
 .campaign-set-progress { width: 76px; height: 5px; margin-top: 4px; }
-.campaign-side-scene { position: absolute; top: 46px; width: 32%; max-width: 190px; height: 220px; object-fit: contain; opacity: .7; pointer-events: none; filter: drop-shadow(0 12px 16px #30290c10); }
+.campaign-side-scene { position: absolute; top: 46px; width: 32%; max-width: 190px; height: 220px; object-fit: contain; opacity: .85; pointer-events: none; filter: drop-shadow(0 12px 16px #30290c10); }
 .campaign-side-scene-left { left: 0; }
 .campaign-side-scene-right { right: 0; }
 .campaign-cycle-reward { height: 156px; padding-top: 8px; position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
