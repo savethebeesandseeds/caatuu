@@ -6149,9 +6149,9 @@
     },
     {
       "id": "ww.zh.pilot-v1.surname-question",
-      "englishText": "What is your surname?",
-      "embeddingText": "Asking another person their family name.",
-      "sceneQuery": "Asking another person their family name.",
+      "englishText": "What is his surname?",
+      "embeddingText": "Asking about a man's family name.",
+      "sceneQuery": "Asking about a man's family name.",
       "topic": "first-contact",
       "difficulty": 1,
       "usefulness": 91,

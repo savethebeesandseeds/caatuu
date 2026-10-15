@@ -22846,7 +22846,7 @@
     },
     {
       "conceptId": "ww.zh.pilot-v1.surname-question",
-      "text": "你姓什么？",
+      "text": "他姓什么？",
       "learning": {
         "unitId": "ww.zh.foundation.identity",
         "order": 17,
@@ -22860,8 +22860,8 @@
       },
       "tokens": [
         {
-          "surface": "你",
-          "gloss": "you",
+          "surface": "他",
+          "gloss": "he",
           "playable": true
         },
         {

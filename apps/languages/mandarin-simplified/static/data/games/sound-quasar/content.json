@@ -4,7 +4,7 @@
   "courseId": "zh",
   "targetLanguageId": "zh",
   "id": "zh-sound-quasar-listening-pilot",
-  "contentRevision": "mandarin-beginner-pilot-lexical-readings-2",
+  "contentRevision": "mandarin-beginner-pilot-lexical-readings-3",
   "mode": "practice",
   "audio": {
     "kind": "device-speech",
@@ -58567,12 +58567,12 @@
     {
       "id": "zh.listening.zh.pilot-v1.surname-question",
       "difficulty": 1,
-      "revision": "1",
-      "target": "你姓什么？",
-      "meaning": "What is your surname?",
+      "revision": "2",
+      "target": "他姓什么？",
+      "meaning": "What is his surname?",
       "sourceId": "ww.zh.pilot-v1.surname-question",
       "sourceReviewStatus": "native-review-required",
-      "englishAuditText": "What is your surname?",
+      "englishAuditText": "What is his surname?",
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -58580,11 +58580,11 @@
         "sourceId": "ww.zh.pilot-v1.surname-question",
         "tokens": [
           {
-            "surface": "你",
+            "surface": "他",
             "units": [
               {
-                "surface": "你",
-                "notation": "nǐ"
+                "surface": "他",
+                "notation": "tā"
               }
             ]
           },

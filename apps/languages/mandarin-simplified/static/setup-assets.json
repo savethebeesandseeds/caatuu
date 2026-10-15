@@ -7,7 +7,7 @@
     "appEntry": "apps/language-runtime/static/app/index.html"
   },
   "offline": {
-    "cacheName": "caatuu-zh-hans-pwa-v215",
+    "cacheName": "caatuu-zh-hans-pwa-v216",
     "cachePrefix": "caatuu-zh-hans-pwa-",
     "assets": [
       "/language-runtime/static/assets/initial-image.png",
@@ -444,7 +444,7 @@
       "url": "/language-runtime/static/source/learning-profile.js",
       "browserRequired": true,
       "bytes": 107245,
-      "sha256": "c627a1ab24921eb30b8e3b90db74bce8c57376f710d9f111fd1e73acf2fcfd05"
+      "sha256": "13e85e69d3332e962f7bf0ecdaee4b7c5881b9ac6049a0849c633d856afed4ff"
     },
     {
       "key": "product-word-world",
@@ -539,16 +539,16 @@
       "kind": "english-concept-catalog",
       "url": "/language-runtime/static/data/english-concepts/word-world-starter-v1.json",
       "browserRequired": true,
-      "bytes": 233816,
-      "sha256": "d0179acb263cd2e8e0e1ab99e495b3e03fc8f5586b179daa21e05c3a95a4fe47"
+      "bytes": 233801,
+      "sha256": "9e1279fc386645db22728f6a1a71224cea5c1523f8acecbb2599a2b74e49aa57"
     },
     {
       "key": "target-realizations",
       "kind": "target-realization-catalog",
       "url": "/zh/data/games/word-world/content.json",
       "browserRequired": true,
-      "bytes": 542725,
-      "sha256": "51c92ed0f26ac23415fce542d09b9ec6a24b39064bd5794714ea7e40c23684cf"
+      "bytes": 542724,
+      "sha256": "07df2694f0bbc2da5efbedfbe12b7f758d600a8764e81750f47c2e5e2ada9678"
     },
     {
       "key": "target-reading-guides",
@@ -556,7 +556,7 @@
       "url": "/zh/data/games/word-world/reading-guides.json",
       "browserRequired": true,
       "bytes": 933777,
-      "sha256": "e5f43471d6946f2d7e28ddea2b6930387340974e7ee600b4b41c6bf853b6e8e0"
+      "sha256": "1ef9da458125aae96f6c000713ab37109ed6a96521ada5fbb816135e854a1786"
     },
     {
       "key": "word-world-manifest",
@@ -628,7 +628,7 @@
       "url": "/zh/sw.js",
       "browserRequired": true,
       "bytes": 142,
-      "sha256": "eabe43e28ee43d0fdef5586638d052e5da7d9d5cae7e2378d74fc7e318715e49"
+      "sha256": "4dbd7f7cbbf4b0f5c1fa3d9ac0a3212de0883097e5ecb1f90f5dbbce41c8a781"
     },
     {
       "key": "shared-course-service-worker",

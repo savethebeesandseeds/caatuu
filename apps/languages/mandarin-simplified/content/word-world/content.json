@@ -115786,33 +115786,33 @@
       "id": "ww.zh.pilot-v1.surname-question",
       "difficulty": 1,
       "topic": "first-contact",
-      "englishText": "What is your surname?",
-      "embeddingText": "Asking another person their family name.",
+      "englishText": "What is his surname?",
+      "embeddingText": "Asking about a man's family name.",
       "englishAlternates": [],
-      "targetText": "你姓什么？",
+      "targetText": "他姓什么？",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "Nǐ xìng shén me?",
+        "notation": "Tā xìng shén me?",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
       "tokens": [
         {
-          "surface": "你",
+          "surface": "他",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "nǐ",
+            "notation": "tā",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "you",
+          "gloss": "he",
           "playable": true,
           "readingUnits": [
             {
-              "surface": "你",
+              "surface": "他",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "nǐ",
+                "notation": "tā",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
@@ -115874,7 +115874,7 @@
         }
       ],
       "learnerBase": null,
-      "sceneQuery": "Asking another person their family name.",
+      "sceneQuery": "Asking about a man's family name.",
       "sceneAssetIds": [],
       "annotations": {
         "learning": {

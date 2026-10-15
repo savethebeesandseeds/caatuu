@@ -108996,30 +108996,30 @@
     },
     {
       "conceptId": "ww.zh.pilot-v1.surname-question",
-      "text": "你姓什么？",
+      "text": "他姓什么？",
       "pronunciation": {
         "system": "pinyin",
-        "notation": "Nǐ xìng shén me?",
+        "notation": "Tā xìng shén me?",
         "languageTag": "zh-Latn-pinyin",
         "reviewed": false
       },
       "tokens": [
         {
-          "surface": "你",
+          "surface": "他",
           "pronunciation": {
             "system": "pinyin",
-            "notation": "nǐ",
+            "notation": "tā",
             "languageTag": "zh-Latn-pinyin",
             "reviewed": false
           },
-          "gloss": "you",
+          "gloss": "he",
           "playable": true,
           "readingUnits": [
             {
-              "surface": "你",
+              "surface": "他",
               "pronunciation": {
                 "system": "pinyin",
-                "notation": "nǐ",
+                "notation": "tā",
                 "languageTag": "zh-Latn-pinyin",
                 "reviewed": false
               }
