@@ -13,6 +13,8 @@ import {
   refreshSetupAssetManifest,
   sourcePathForArtifact
 } from "../refresh-setup-assets.mjs";
+import { IMAGE_SOURCES } from "../../../language-runtime/static/source/english-image-search.mjs";
+import { IMAGE_EMBEDDING_INDEX_PATH } from "../../../language-runtime/static/source/image-embedding-index.mjs";
 
 async function fixture({
   workspaceRoot = null,
@@ -662,6 +664,82 @@ async function reviseInterfaceAuthority(f, revision = "interface-en-2") {
   }
   return path;
 }
+
+async function artworkRegistrationFixture() {
+  const f = await registrationFixture();
+  const indexSource = `apps${IMAGE_EMBEDDING_INDEX_PATH}`;
+  const mappings = [
+    { source: indexSource, output: IMAGE_EMBEDDING_INDEX_PATH.slice(1) },
+    ...IMAGE_SOURCES.map(({ path }) => ({ source: `apps/launcher/static${path}`, output: path.slice(1) }))
+  ];
+  for (const mapping of mappings) {
+    const sourceFile = join(f.workspaceRoot, mapping.source);
+    await mkdir(dirname(sourceFile), { recursive: true });
+    await writeFile(sourceFile, "{}\n");
+  }
+  f.appAssets.assets.push(...mappings);
+  await writeFile(f.appAssetsPath, JSON.stringify(f.appAssets));
+  return f;
+}
+
+test("shared image index registration adds every artwork catalog once for every browser course", async t => {
+  const f = await artworkRegistrationFixture();
+  t.after(() => rm(f.workspaceRoot, { recursive: true, force: true }));
+  const existingCatalog = IMAGE_SOURCES[0].path;
+  for (const paths of [f.czech, f.mandarin]) {
+    const manifest = JSON.parse(await readFile(paths.manifestPath, "utf8"));
+    manifest.offline.assets.push(`${existingCatalog}?v=existing-revision`);
+    await writeFile(paths.manifestPath, JSON.stringify(manifest));
+  }
+  await assert.rejects(refreshAllBrowserCourseSetupAssets(f), error =>
+    IMAGE_SOURCES.slice(1).every(({ path }) => error.message.includes(path)));
+  const before = await Promise.all([f.czech, f.mandarin].map(paths => readFile(paths.manifestPath, "utf8")));
+  const preview = await refreshAllBrowserCourseSetupAssets({ ...f, registerSharedRuntime: true, check: true });
+  assert.deepEqual(await Promise.all([f.czech, f.mandarin].map(paths => readFile(paths.manifestPath, "utf8"))), before);
+  for (const report of preview) {
+    for (const { path } of IMAGE_SOURCES.slice(1)) {
+      assert.equal(report.offlineAssetChanges.filter(change => change.url === path).length, 1, path);
+    }
+    assert.equal(report.offlineAssetChanges.some(change => change.pathname === existingCatalog), false);
+  }
+
+  const reports = await refreshAllBrowserCourseSetupAssets({ ...f, registerSharedRuntime: true });
+  for (const report of reports) {
+    const manifest = JSON.parse(await readFile(report.manifestPath, "utf8"));
+    for (const pathname of [IMAGE_EMBEDDING_INDEX_PATH, ...IMAGE_SOURCES.map(({ path }) => path)]) {
+      const cached = manifest.offline.assets.filter(asset => new URL(asset, "https://caatuu.invalid/").pathname === pathname);
+      assert.equal(cached.length, 1, `${report.courseId}: ${pathname}`);
+    }
+    assert.ok(manifest.offline.assets.includes(`${existingCatalog}?v=existing-revision`));
+  }
+  const repeated = await refreshAllBrowserCourseSetupAssets({ ...f, registerSharedRuntime: true });
+  assert.ok(repeated.every(report => report.offlineAssetChanges.length === 0));
+});
+
+test("artwork registration rejects missing or duplicate catalog mappings and duplicate cached paths before any write", async t => {
+  for (const { path } of IMAGE_SOURCES) {
+    for (const failure of ["missing-mapping", "duplicate-mapping", "duplicate-cache"]) {
+      const f = await artworkRegistrationFixture();
+      t.after(() => rm(f.workspaceRoot, { recursive: true, force: true }));
+      if (failure === "missing-mapping") {
+        f.appAssets.assets = f.appAssets.assets.filter(mapping => `/${mapping.output}` !== path);
+      } else if (failure === "duplicate-mapping") {
+        f.appAssets.assets.push({ ...f.appAssets.assets.find(mapping => `/${mapping.output}` === path) });
+      } else {
+        const manifest = JSON.parse(await readFile(f.mandarin.manifestPath, "utf8"));
+        manifest.offline.assets.push(path, `${path}?v=duplicate`);
+        await writeFile(f.mandarin.manifestPath, JSON.stringify(manifest));
+      }
+      await writeFile(f.appAssetsPath, JSON.stringify(f.appAssets));
+      const before = await Promise.all([f.czech, f.mandarin].map(paths => readFile(paths.manifestPath, "utf8")));
+      await assert.rejects(refreshAllBrowserCourseSetupAssets({ ...f, registerSharedRuntime: true }), error =>
+        error.message.includes(path) && (failure === "duplicate-cache"
+          ? /repeat shared runtime pathname/u.test(error.message)
+          : /must have exactly one app-assets mapping/u.test(error.message)), `${failure}: ${path}`);
+      assert.deepEqual(await Promise.all([f.czech, f.mandarin].map(paths => readFile(paths.manifestPath, "utf8"))), before);
+    }
+  }
+});
 
 test("registration repairs exact interface revision drift together with newly mapped runtime omissions", async t => {
   const f = await registrationFixture();

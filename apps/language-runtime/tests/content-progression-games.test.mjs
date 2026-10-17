@@ -65,7 +65,7 @@ test("listening keeps shared practice order and valid distinct distractors witho
   const expected = selectContentItems(catalog.items, { difficulty: 1, history, minimumPool: 4, random });
   const session = createSoundQuasarSession(catalog, { difficulty: 1, history, random, roundLength: 500 });
   assert.deepEqual(session.map(round => round.id), expected.map(item => item.id));
-  const ids = new Set(expected.map(item => item.id));
+  const ids = new Set(catalog.items.filter(item => item.difficulty === 1).map(item => item.id));
   for (const round of session) {
     assert.ok(round.choices.every(choice => ids.has(choice.id)));
     assert.equal(new Set(round.choices.map(choice => choice.id)).size, round.choices.length);

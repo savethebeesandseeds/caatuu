@@ -15,6 +15,14 @@ metadata and a bounded English semantic sample for selected courses using
 and B for sampling-policy experiments. These are optional manual diagnostics,
 separate from structural validation and linguistic review.
 
+Memory Moon has its own independent `static/data/games/memory-moon/content.json`
+in every registered course, declared by `resources.memoryMoonCatalog`. Its
+shared v1 contract keeps target, learner-base answer choices and English retrieval
+roles separate. Run `node tools/language-content/validate-memory-moon.mjs --all`
+in the established container for the complete inventory and structural checks.
+See the [authoring guide](../../docs/MEMORY_MOON_CONTENT.md) for review status and
+the content-only integration boundary.
+
 Word World has one editable source per course:
 `apps/languages/<course>/content/word-world/content.json`. Every source uses the
 same record format and contains its English meaning, target sentence, word

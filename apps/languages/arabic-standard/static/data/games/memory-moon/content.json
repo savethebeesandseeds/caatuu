@@ -1,0 +1,4168 @@
+{
+  "schemaVersion": "caatuu-memory-moon-content-v1",
+  "courseId": "ar",
+  "gameId": "memory-moon",
+  "contentId": "ar.memory-moon.v1",
+  "contentRevision": 1,
+  "status": "machine-assisted-preview",
+  "learnerBaseLanguage": "en",
+  "targetLanguage": "ar",
+  "englishAuditLanguage": "en",
+  "review": {
+    "status": "native-review-required",
+    "humanApproved": false,
+    "reviewer": "OpenAI Codex",
+    "reviewedAt": "2026-10-18",
+    "notes": "Original Memory Moon authoring with AI self-review. Independent native-language review remains required."
+  },
+  "license": {
+    "origin": "caatuu-first-party-authored",
+    "spdxExpression": "AGPL-3.0-only"
+  },
+  "embeddingPolicy": {
+    "inputLanguage": "en",
+    "inputField": "embeddingText"
+  },
+  "challenges": [
+    {
+      "id": "mm-ar-cold-water",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 98,
+      "complexity": 12,
+      "topic": "food-and-drink",
+      "familyId": "mm-ar-cold-water",
+      "targetText": "الماءُ باردٌ.",
+      "learnerBaseText": "The water is cold.",
+      "englishText": "The water is cold.",
+      "embeddingText": "The water is cold.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "The water is cold",
+          "food and drink"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The water is cold.",
+          "englishAuditText": "The water is cold."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The water is hot.",
+          "englishAuditText": "The water is hot.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The water is cold.” This option changes the state: “The water is hot.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The water is warm.",
+          "englishAuditText": "The water is warm.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The water is cold.” This option changes the state: “The water is warm.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-fresh-bread",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 93,
+      "complexity": 13,
+      "topic": "food-and-drink",
+      "familyId": "mm-ar-fresh-bread",
+      "targetText": "الخُبزُ طازجٌ.",
+      "learnerBaseText": "The bread is fresh.",
+      "englishText": "The bread is fresh.",
+      "embeddingText": "The bread is fresh.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "The bread is fresh",
+          "food and drink"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The bread is fresh.",
+          "englishAuditText": "The bread is fresh."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The bread is stale.",
+          "englishAuditText": "The bread is stale.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The bread is fresh.” This option changes the state: “The bread is stale.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The bread is frozen.",
+          "englishAuditText": "The bread is frozen.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The bread is fresh.” This option changes the state: “The bread is frozen.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-empty-cup",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 85,
+      "complexity": 15,
+      "topic": "household",
+      "familyId": "mm-ar-empty-cup",
+      "targetText": "الكوبُ فارغٌ.",
+      "learnerBaseText": "The cup is empty.",
+      "englishText": "The cup is empty.",
+      "embeddingText": "The cup is empty.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "The cup is empty",
+          "household"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The cup is empty.",
+          "englishAuditText": "The cup is empty."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The cup is full.",
+          "englishAuditText": "The cup is full.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The cup is empty.” This option changes the state: “The cup is full.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The cup is broken.",
+          "englishAuditText": "The cup is broken.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The cup is empty.” This option changes the state: “The cup is broken.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-closed-door",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 94,
+      "complexity": 14,
+      "topic": "household",
+      "familyId": "mm-ar-closed-door",
+      "targetText": "البابُ مُغلَقٌ.",
+      "learnerBaseText": "The door is closed.",
+      "englishText": "The door is closed.",
+      "embeddingText": "The door is closed.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "The door is closed",
+          "household"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The door is closed.",
+          "englishAuditText": "The door is closed."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The door is open.",
+          "englishAuditText": "The door is open.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The door is closed.” This option changes the state: “The door is open.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The door is locked.",
+          "englishAuditText": "The door is locked.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The door is closed.” This option changes the state: “The door is locked.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-sleeping-cat",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 76,
+      "complexity": 17,
+      "topic": "animals",
+      "familyId": "mm-ar-sleeping-cat",
+      "targetText": "القِطَّةُ نائمةٌ.",
+      "learnerBaseText": "The cat is sleeping.",
+      "englishText": "The cat is sleeping.",
+      "embeddingText": "The cat is sleeping.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "The cat is sleeping",
+          "animals"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The cat is sleeping.",
+          "englishAuditText": "The cat is sleeping."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The cat is eating.",
+          "englishAuditText": "The cat is eating.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target means “The cat is sleeping.” This option changes the action: “The cat is eating.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The cat is playing.",
+          "englishAuditText": "The cat is playing.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target means “The cat is sleeping.” This option changes the action: “The cat is playing.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-open-window",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 91,
+      "complexity": 16,
+      "topic": "household",
+      "familyId": "mm-ar-open-window",
+      "targetText": "النافذةُ مفتوحةٌ.",
+      "learnerBaseText": "The window is open.",
+      "englishText": "The window is open.",
+      "embeddingText": "The window is open.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "The window is open",
+          "household"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The window is open.",
+          "englishAuditText": "The window is open."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The window is closed.",
+          "englishAuditText": "The window is closed.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The window is open.” This option changes the state: “The window is closed.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The window is broken.",
+          "englishAuditText": "The window is broken.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The window is open.” This option changes the state: “The window is broken.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-heavy-bag",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 94,
+      "complexity": 17,
+      "topic": "travel",
+      "familyId": "mm-ar-heavy-bag",
+      "targetText": "الحقيبةُ ثقيلةٌ.",
+      "learnerBaseText": "The bag is heavy.",
+      "englishText": "The bag is heavy.",
+      "embeddingText": "The bag is heavy.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "The bag is heavy",
+          "travel"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The bag is heavy.",
+          "englishAuditText": "The bag is heavy."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The bag is light.",
+          "englishAuditText": "The bag is light.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The bag is heavy.” This option changes the state: “The bag is light.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The bag is empty.",
+          "englishAuditText": "The bag is empty.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The bag is heavy.” This option changes the state: “The bag is empty.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-table-book",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 86,
+      "complexity": 21,
+      "topic": "household",
+      "familyId": "mm-ar-table-book",
+      "targetText": "الكتابُ على الطاولةِ.",
+      "learnerBaseText": "The book is on the table.",
+      "englishText": "The book is on the table.",
+      "embeddingText": "The book is on the table.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "The book is on the table",
+          "household"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The book is on the table.",
+          "englishAuditText": "The book is on the table."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The book is under the table.",
+          "englishAuditText": "The book is under the table.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “The book is on the table.” This option changes the location: “The book is under the table.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The book is beside the table.",
+          "englishAuditText": "The book is beside the table.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “The book is on the table.” This option changes the location: “The book is beside the table.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-mother-home",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 91,
+      "complexity": 20,
+      "topic": "family",
+      "familyId": "mm-ar-mother-home",
+      "targetText": "أُمّي في البيتِ.",
+      "learnerBaseText": "My mother is at home.",
+      "englishText": "My mother is at home.",
+      "embeddingText": "My mother is at home.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "My mother is at home",
+          "family"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "My mother is at home.",
+          "englishAuditText": "My mother is at home."
+        },
+        {
+          "id": "contrast-1",
+          "text": "My mother is at school.",
+          "englishAuditText": "My mother is at school.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “My mother is at home.” This option changes the location: “My mother is at school.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "My mother is at work.",
+          "englishAuditText": "My mother is at work.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “My mother is at home.” This option changes the location: “My mother is at work.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-salim-name",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 99,
+      "complexity": 19,
+      "topic": "introductions",
+      "familyId": "mm-ar-salim-name",
+      "targetText": "اسمي سليمٌ.",
+      "learnerBaseText": "My name is Salim.",
+      "englishText": "My name is Salim.",
+      "embeddingText": "My name is Salim.",
+      "focus": {
+        "kind": "subject",
+        "englishConcepts": [
+          "My name is Salim",
+          "introductions"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "My name is Salim.",
+          "englishAuditText": "My name is Salim."
+        },
+        {
+          "id": "contrast-1",
+          "text": "My name is Sami.",
+          "englishAuditText": "My name is Sami.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "The target means “My name is Salim.” This option changes the subject: “My name is Sami.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "My name is Samir.",
+          "englishAuditText": "My name is Samir.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "The target means “My name is Salim.” This option changes the subject: “My name is Samir.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-need-pen",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 97,
+      "complexity": 20,
+      "topic": "communication",
+      "familyId": "mm-ar-need-pen",
+      "targetText": "أحتاجُ إلى قلمٍ.",
+      "learnerBaseText": "I need a pen.",
+      "englishText": "I need a pen.",
+      "embeddingText": "I need a pen.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "I need a pen",
+          "communication"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I need a pen.",
+          "englishAuditText": "I need a pen."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I need a notebook.",
+          "englishAuditText": "I need a notebook.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means “I need a pen.” This option changes the object: “I need a notebook.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I need a ruler.",
+          "englishAuditText": "I need a ruler.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means “I need a pen.” This option changes the object: “I need a ruler.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-drink-milk",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 90,
+      "complexity": 19,
+      "topic": "food-and-drink",
+      "familyId": "mm-ar-drink-milk",
+      "targetText": "أشربُ الحليبَ.",
+      "learnerBaseText": "I drink milk.",
+      "englishText": "I drink milk.",
+      "embeddingText": "I drink milk.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "I drink milk",
+          "food and drink"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I drink milk.",
+          "englishAuditText": "I drink milk."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I drink water.",
+          "englishAuditText": "I drink water.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means “I drink milk.” This option changes the object: “I drink water.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I drink juice.",
+          "englishAuditText": "I drink juice.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means “I drink milk.” This option changes the object: “I drink juice.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-child-apple",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 88,
+      "complexity": 23,
+      "topic": "food-and-drink",
+      "familyId": "mm-ar-child-apple",
+      "targetText": "يأكلُ الطفلُ تُفّاحةً.",
+      "learnerBaseText": "The child eats an apple.",
+      "englishText": "The child eats an apple.",
+      "embeddingText": "The child eats an apple.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "The child eats an apple",
+          "food and drink"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The child eats an apple.",
+          "englishAuditText": "The child eats an apple."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The child eats an orange.",
+          "englishAuditText": "The child eats an orange.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means “The child eats an apple.” This option changes the object: “The child eats an orange.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The child eats a banana.",
+          "englishAuditText": "The child eats a banana.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means “The child eats an apple.” This option changes the object: “The child eats a banana.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-bus-here",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 96,
+      "complexity": 14,
+      "topic": "transport",
+      "familyId": "mm-ar-bus-here",
+      "targetText": "الحافلةُ هنا.",
+      "learnerBaseText": "The bus is here.",
+      "englishText": "The bus is here.",
+      "embeddingText": "The bus is here.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "The bus is here",
+          "transport"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The bus is here.",
+          "englishAuditText": "The bus is here."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The bus is there.",
+          "englishAuditText": "The bus is there.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “The bus is here.” This option changes the location: “The bus is there.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The bus is far away.",
+          "englishAuditText": "The bus is far away.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “The bus is here.” This option changes the location: “The bus is far away.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-near-station",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 98,
+      "complexity": 16,
+      "topic": "transport",
+      "familyId": "mm-ar-near-station",
+      "targetText": "المحطّةُ قريبةٌ.",
+      "learnerBaseText": "The station is nearby.",
+      "englishText": "The station is nearby.",
+      "embeddingText": "The station is nearby.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "The station is nearby",
+          "transport"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The station is nearby.",
+          "englishAuditText": "The station is nearby."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The station is far away.",
+          "englishAuditText": "The station is far away.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “The station is nearby.” This option changes the location: “The station is far away.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The station is downstairs.",
+          "englishAuditText": "The station is downstairs.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “The station is nearby.” This option changes the location: “The station is downstairs.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-hot-weather",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 95,
+      "complexity": 18,
+      "topic": "weather",
+      "familyId": "mm-ar-hot-weather",
+      "targetText": "الطقسُ حارٌّ.",
+      "learnerBaseText": "The weather is hot.",
+      "englishText": "The weather is hot.",
+      "embeddingText": "The weather is hot.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "The weather is hot",
+          "weather"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The weather is hot.",
+          "englishAuditText": "The weather is hot."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The weather is cold.",
+          "englishAuditText": "The weather is cold.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The weather is hot.” This option changes the state: “The weather is cold.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The weather is mild.",
+          "englishAuditText": "The weather is mild.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The weather is hot.” This option changes the state: “The weather is mild.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-bright-sun",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 82,
+      "complexity": 19,
+      "topic": "weather",
+      "familyId": "mm-ar-bright-sun",
+      "targetText": "الشمسُ ساطعةٌ.",
+      "learnerBaseText": "The sun is bright.",
+      "englishText": "The sun is bright.",
+      "embeddingText": "The sun is bright.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "The sun is bright",
+          "weather"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The sun is bright.",
+          "englishAuditText": "The sun is bright."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The sun is hidden.",
+          "englishAuditText": "The sun is hidden.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The sun is bright.” This option changes the state: “The sun is hidden.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The sun is setting.",
+          "englishAuditText": "The sun is setting.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The sun is bright.” This option changes the state: “The sun is setting.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-pocket-key",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 95,
+      "complexity": 22,
+      "topic": "belongings",
+      "familyId": "mm-ar-pocket-key",
+      "targetText": "المفتاحُ في الجيبِ.",
+      "learnerBaseText": "The key is in the pocket.",
+      "englishText": "The key is in the pocket.",
+      "embeddingText": "The key is in the pocket.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "The key is in the pocket",
+          "belongings"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The key is in the pocket.",
+          "englishAuditText": "The key is in the pocket."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The key is on the shelf.",
+          "englishAuditText": "The key is on the shelf.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “The key is in the pocket.” This option changes the location: “The key is on the shelf.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The key is in the drawer.",
+          "englishAuditText": "The key is in the drawer.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “The key is in the pocket.” This option changes the location: “The key is in the drawer.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-easy-lesson",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 93,
+      "complexity": 16,
+      "topic": "study",
+      "familyId": "mm-ar-easy-lesson",
+      "targetText": "الدرسُ سهلٌ.",
+      "learnerBaseText": "The lesson is easy.",
+      "englishText": "The lesson is easy.",
+      "embeddingText": "The lesson is easy.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "The lesson is easy",
+          "study"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The lesson is easy.",
+          "englishAuditText": "The lesson is easy."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The lesson is difficult.",
+          "englishAuditText": "The lesson is difficult.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The lesson is easy.” This option changes the state: “The lesson is difficult.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The lesson is long.",
+          "englishAuditText": "The lesson is long.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The lesson is easy.” This option changes the state: “The lesson is long.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-one-ticket",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 99,
+      "complexity": 21,
+      "topic": "transport",
+      "familyId": "mm-ar-one-ticket",
+      "targetText": "أريدُ تذكرةً واحدةً.",
+      "learnerBaseText": "I want one ticket.",
+      "englishText": "I want one ticket.",
+      "embeddingText": "I want one ticket.",
+      "focus": {
+        "kind": "number",
+        "englishConcepts": [
+          "I want one ticket",
+          "transport"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I want one ticket.",
+          "englishAuditText": "I want one ticket."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I want two tickets.",
+          "englishAuditText": "I want two tickets.",
+          "contrast": {
+            "kind": "number",
+            "explanation": "The target means “I want one ticket.” This option changes the number: “I want two tickets.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I want three tickets.",
+          "englishAuditText": "I want three tickets.",
+          "contrast": {
+            "kind": "number",
+            "explanation": "The target means “I want one ticket.” This option changes the number: “I want three tickets.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-two-chairs",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 87,
+      "complexity": 25,
+      "topic": "household",
+      "familyId": "mm-ar-two-chairs",
+      "targetText": "هنا كُرسيّانِ.",
+      "learnerBaseText": "There are two chairs here.",
+      "englishText": "There are two chairs here.",
+      "embeddingText": "There are two chairs here.",
+      "focus": {
+        "kind": "number",
+        "englishConcepts": [
+          "There are two chairs here",
+          "household"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "There are two chairs here.",
+          "englishAuditText": "There are two chairs here."
+        },
+        {
+          "id": "contrast-1",
+          "text": "There are three chairs here.",
+          "englishAuditText": "There are three chairs here.",
+          "contrast": {
+            "kind": "number",
+            "explanation": "The target means “There are two chairs here.” This option changes the number: “There are three chairs here.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "There are four chairs here.",
+          "englishAuditText": "There are four chairs here.",
+          "contrast": {
+            "kind": "number",
+            "explanation": "The target means “There are two chairs here.” This option changes the number: “There are four chairs here.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-three-books",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 84,
+      "complexity": 26,
+      "topic": "study",
+      "familyId": "mm-ar-three-books",
+      "targetText": "عندي ثلاثةُ كُتُبٍ.",
+      "learnerBaseText": "I have three books.",
+      "englishText": "I have three books.",
+      "embeddingText": "I have three books.",
+      "focus": {
+        "kind": "number",
+        "englishConcepts": [
+          "I have three books",
+          "study"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I have three books.",
+          "englishAuditText": "I have three books."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I have two books.",
+          "englishAuditText": "I have two books.",
+          "contrast": {
+            "kind": "number",
+            "explanation": "The target means “I have three books.” This option changes the number: “I have two books.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I have four books.",
+          "englishAuditText": "I have four books.",
+          "contrast": {
+            "kind": "number",
+            "explanation": "The target means “I have three books.” This option changes the number: “I have four books.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-my-house",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 95,
+      "complexity": 19,
+      "topic": "belongings",
+      "familyId": "mm-ar-my-house",
+      "targetText": "هذا بيتي.",
+      "learnerBaseText": "This is my house.",
+      "englishText": "This is my house.",
+      "embeddingText": "This is my house.",
+      "focus": {
+        "kind": "possession",
+        "englishConcepts": [
+          "This is my house",
+          "belongings"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This is my house.",
+          "englishAuditText": "This is my house."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This is your house.",
+          "englishAuditText": "This is your house.",
+          "contrast": {
+            "kind": "possession",
+            "explanation": "The target means “This is my house.” This option changes the possession: “This is your house.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This is our house.",
+          "englishAuditText": "This is our house.",
+          "contrast": {
+            "kind": "possession",
+            "explanation": "The target means “This is my house.” This option changes the possession: “This is our house.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-calm-sea",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 77,
+      "complexity": 18,
+      "topic": "nature",
+      "familyId": "mm-ar-calm-sea",
+      "targetText": "البحرُ هادئٌ.",
+      "learnerBaseText": "The sea is calm.",
+      "englishText": "The sea is calm.",
+      "embeddingText": "The sea is calm.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "The sea is calm",
+          "nature"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The sea is calm.",
+          "englishAuditText": "The sea is calm."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The sea is rough.",
+          "englishAuditText": "The sea is rough.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The sea is calm.” This option changes the state: “The sea is rough.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The sea is cold.",
+          "englishAuditText": "The sea is cold.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The sea is calm.” This option changes the state: “The sea is cold.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-beautiful-garden",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 82,
+      "complexity": 17,
+      "topic": "nature",
+      "familyId": "mm-ar-beautiful-garden",
+      "targetText": "الحديقةُ جميلةٌ.",
+      "learnerBaseText": "The garden is beautiful.",
+      "englishText": "The garden is beautiful.",
+      "embeddingText": "The garden is beautiful.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "The garden is beautiful",
+          "nature"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The garden is beautiful.",
+          "englishAuditText": "The garden is beautiful."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The garden is large.",
+          "englishAuditText": "The garden is large.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The garden is beautiful.” This option changes the state: “The garden is large.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The garden is quiet.",
+          "englishAuditText": "The garden is quiet.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The garden is beautiful.” This option changes the state: “The garden is quiet.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-tired-sister",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 94,
+      "complexity": 20,
+      "topic": "family",
+      "familyId": "mm-ar-tired-sister",
+      "targetText": "أُختي مُتعَبةٌ.",
+      "learnerBaseText": "My sister is tired.",
+      "englishText": "My sister is tired.",
+      "embeddingText": "My sister is tired.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "My sister is tired",
+          "family"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "My sister is tired.",
+          "englishAuditText": "My sister is tired."
+        },
+        {
+          "id": "contrast-1",
+          "text": "My sister is hungry.",
+          "englishAuditText": "My sister is hungry.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “My sister is tired.” This option changes the state: “My sister is hungry.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "My sister is thirsty.",
+          "englishAuditText": "My sister is thirsty.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “My sister is tired.” This option changes the state: “My sister is thirsty.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-read-arabic",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 99,
+      "complexity": 22,
+      "topic": "communication",
+      "familyId": "mm-ar-read-arabic",
+      "targetText": "أقرأُ بالعربيّةِ.",
+      "learnerBaseText": "I read in Arabic.",
+      "englishText": "I read in Arabic.",
+      "embeddingText": "I read in Arabic.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "I read in Arabic",
+          "communication"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I read in Arabic.",
+          "englishAuditText": "I read in Arabic."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I write in Arabic.",
+          "englishAuditText": "I write in Arabic.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target means “I read in Arabic.” This option changes the action: “I write in Arabic.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I speak in Arabic.",
+          "englishAuditText": "I speak in Arabic.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target means “I read in Arabic.” This option changes the action: “I speak in Arabic.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-doctor-friend",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 91,
+      "complexity": 21,
+      "topic": "introductions",
+      "familyId": "mm-ar-doctor-friend",
+      "targetText": "صديقي طبيبٌ.",
+      "learnerBaseText": "My friend is a doctor.",
+      "englishText": "My friend is a doctor.",
+      "embeddingText": "My friend is a doctor.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "My friend is a doctor",
+          "introductions"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "My friend is a doctor.",
+          "englishAuditText": "My friend is a doctor."
+        },
+        {
+          "id": "contrast-1",
+          "text": "My friend is a teacher.",
+          "englishAuditText": "My friend is a teacher.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “My friend is a doctor.” This option changes the state: “My friend is a teacher.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "My friend is an engineer.",
+          "englishAuditText": "My friend is an engineer.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “My friend is a doctor.” This option changes the state: “My friend is an engineer.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-small-fish",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 75,
+      "complexity": 17,
+      "topic": "animals",
+      "familyId": "mm-ar-small-fish",
+      "targetText": "السمكةُ صغيرةٌ.",
+      "learnerBaseText": "The fish is small.",
+      "englishText": "The fish is small.",
+      "embeddingText": "The fish is small.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "The fish is small",
+          "animals"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The fish is small.",
+          "englishAuditText": "The fish is small."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The fish is large.",
+          "englishAuditText": "The fish is large.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The fish is small.” This option changes the state: “The fish is large.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The fish is long.",
+          "englishAuditText": "The fish is long.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The fish is small.” This option changes the state: “The fish is long.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-clean-room",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 93,
+      "complexity": 18,
+      "topic": "household",
+      "familyId": "mm-ar-clean-room",
+      "targetText": "الغرفةُ نظيفةٌ.",
+      "learnerBaseText": "The room is clean.",
+      "englishText": "The room is clean.",
+      "embeddingText": "The room is clean.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "The room is clean",
+          "household"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The room is clean.",
+          "englishAuditText": "The room is clean."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The room is dirty.",
+          "englishAuditText": "The room is dirty.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The room is clean.” This option changes the state: “The room is dirty.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The room is dark.",
+          "englishAuditText": "The room is dark.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The room is clean.” This option changes the state: “The room is dark.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-morning-bakery",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 98,
+      "complexity": 39,
+      "topic": "shopping",
+      "familyId": "mm-ar-morning-bakery",
+      "targetText": "أشتري الخبزَ من المخبزِ كلَّ صباحٍ.",
+      "learnerBaseText": "I buy bread from the bakery every morning.",
+      "englishText": "I buy bread from the bakery every morning.",
+      "embeddingText": "I buy bread from the bakery every morning.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "I buy bread from the bakery every morning",
+          "shopping"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I buy bread from the bakery every morning.",
+          "englishAuditText": "I buy bread from the bakery every morning."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I buy bread from the bakery every evening.",
+          "englishAuditText": "I buy bread from the bakery every evening.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means “I buy bread from the bakery every morning.” This option changes the time: “I buy bread from the bakery every evening.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I buy bread from the bakery every Friday.",
+          "englishAuditText": "I buy bread from the bakery every Friday.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means “I buy bread from the bakery every morning.” This option changes the time: “I buy bread from the bakery every Friday.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-train-before-noon",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 99,
+      "complexity": 41,
+      "topic": "transport",
+      "familyId": "mm-ar-train-before-noon",
+      "targetText": "يصلُ القطارُ قبلَ الظهرِ.",
+      "learnerBaseText": "The train arrives before noon.",
+      "englishText": "The train arrives before noon.",
+      "embeddingText": "The train arrives before noon.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "The train arrives before noon",
+          "transport"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The train arrives before noon.",
+          "englishAuditText": "The train arrives before noon."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The train arrives after noon.",
+          "englishAuditText": "The train arrives after noon.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means “The train arrives before noon.” This option changes the time: “The train arrives after noon.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The train arrives at midnight.",
+          "englishAuditText": "The train arrives at midnight.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means “The train arrives before noon.” This option changes the time: “The train arrives at midnight.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-daughter-reading",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 91,
+      "complexity": 42,
+      "topic": "family",
+      "familyId": "mm-ar-daughter-reading",
+      "targetText": "تقرأُ ابنتي كتابًا قبلَ النومِ.",
+      "learnerBaseText": "My daughter reads a book before going to sleep.",
+      "englishText": "My daughter reads a book before going to sleep.",
+      "embeddingText": "My daughter reads a book before going to sleep.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "My daughter reads a book before going to sleep",
+          "family"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "My daughter reads a book before going to sleep.",
+          "englishAuditText": "My daughter reads a book before going to sleep."
+        },
+        {
+          "id": "contrast-1",
+          "text": "My daughter reads a book after waking up.",
+          "englishAuditText": "My daughter reads a book after waking up.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means “My daughter reads a book before going to sleep.” This option changes the time: “My daughter reads a book after waking up.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "My daughter reads a book before lunch.",
+          "englishAuditText": "My daughter reads a book before lunch.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means “My daughter reads a book before going to sleep.” This option changes the time: “My daughter reads a book before lunch.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-office-distance",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 96,
+      "complexity": 38,
+      "topic": "directions",
+      "familyId": "mm-ar-office-distance",
+      "targetText": "المكتبُ على بُعدِ خمسِ دقائقَ سيرًا.",
+      "learnerBaseText": "The office is a five-minute walk away.",
+      "englishText": "The office is a five-minute walk away.",
+      "embeddingText": "The office is a five-minute walk away.",
+      "focus": {
+        "kind": "quantity",
+        "englishConcepts": [
+          "The office is a five-minute walk away",
+          "directions"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The office is a five-minute walk away.",
+          "englishAuditText": "The office is a five-minute walk away."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The office is a ten-minute walk away.",
+          "englishAuditText": "The office is a ten-minute walk away.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "The target means “The office is a five-minute walk away.” This option changes the quantity: “The office is a ten-minute walk away.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The office is a twenty-minute walk away.",
+          "englishAuditText": "The office is a twenty-minute walk away.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "The target means “The office is a five-minute walk away.” This option changes the quantity: “The office is a twenty-minute walk away.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-without-sugar",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 99,
+      "complexity": 34,
+      "topic": "food-and-drink",
+      "familyId": "mm-ar-without-sugar",
+      "targetText": "أُفضّلُ الشايَ من دونِ سُكّرٍ.",
+      "learnerBaseText": "I prefer tea without sugar.",
+      "englishText": "I prefer tea without sugar.",
+      "embeddingText": "I prefer tea without sugar.",
+      "focus": {
+        "kind": "quantity",
+        "englishConcepts": [
+          "I prefer tea without sugar",
+          "food and drink"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I prefer tea without sugar.",
+          "englishAuditText": "I prefer tea without sugar."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I prefer tea with a little sugar.",
+          "englishAuditText": "I prefer tea with a little sugar.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "The target means “I prefer tea without sugar.” This option changes the quantity: “I prefer tea with a little sugar.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I prefer tea with a lot of sugar.",
+          "englishAuditText": "I prefer tea with a lot of sugar.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "The target means “I prefer tea without sugar.” This option changes the quantity: “I prefer tea with a lot of sugar.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-meat-not-fish",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 94,
+      "complexity": 40,
+      "topic": "food-and-drink",
+      "familyId": "mm-ar-meat-not-fish",
+      "targetText": "نطلبُ السَّمكَ مع الأرزِ.",
+      "learnerBaseText": "We order fish with rice.",
+      "englishText": "We order fish with rice.",
+      "embeddingText": "We order fish with rice.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "We order fish with rice",
+          "food and drink"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "We order fish with rice.",
+          "englishAuditText": "We order fish with rice."
+        },
+        {
+          "id": "contrast-1",
+          "text": "We order chicken with rice.",
+          "englishAuditText": "We order chicken with rice.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means “We order fish with rice.” This option changes the object: “We order chicken with rice.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "We order meat with rice.",
+          "englishAuditText": "We order meat with rice.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means “We order fish with rice.” This option changes the object: “We order meat with rice.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-behind-museum",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 96,
+      "complexity": 40,
+      "topic": "directions",
+      "familyId": "mm-ar-behind-museum",
+      "targetText": "المقهى خلفَ المتحفِ.",
+      "learnerBaseText": "The cafe is behind the museum.",
+      "englishText": "The cafe is behind the museum.",
+      "embeddingText": "The cafe is behind the museum.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "The cafe is behind the museum",
+          "directions"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The cafe is behind the museum.",
+          "englishAuditText": "The cafe is behind the museum."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The cafe is in front of the museum.",
+          "englishAuditText": "The cafe is in front of the museum.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “The cafe is behind the museum.” This option changes the location: “The cafe is in front of the museum.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The cafe is inside the museum.",
+          "englishAuditText": "The cafe is inside the museum.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “The cafe is behind the museum.” This option changes the location: “The cafe is inside the museum.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-sister-drives",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 91,
+      "complexity": 45,
+      "topic": "family",
+      "familyId": "mm-ar-sister-drives",
+      "targetText": "تقودُ أُختي السيارةَ إلى العملِ.",
+      "learnerBaseText": "My sister drives the car to work.",
+      "englishText": "My sister drives the car to work.",
+      "embeddingText": "My sister drives the car to work.",
+      "focus": {
+        "kind": "subject",
+        "englishConcepts": [
+          "My sister drives the car to work",
+          "family"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "My sister drives the car to work.",
+          "englishAuditText": "My sister drives the car to work."
+        },
+        {
+          "id": "contrast-1",
+          "text": "My brother drives the car to work.",
+          "englishAuditText": "My brother drives the car to work.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "The target means “My sister drives the car to work.” This option changes the subject: “My brother drives the car to work.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "My father drives the car to work.",
+          "englishAuditText": "My father drives the car to work.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "The target means “My sister drives the car to work.” This option changes the subject: “My father drives the car to work.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-daily-exercise",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 96,
+      "complexity": 41,
+      "topic": "health-and-routine",
+      "familyId": "mm-ar-daily-exercise",
+      "targetText": "أمشي لمدّةِ نصفِ ساعةٍ كلَّ يومٍ.",
+      "learnerBaseText": "I walk for half an hour every day.",
+      "englishText": "I walk for half an hour every day.",
+      "embeddingText": "I walk for half an hour every day.",
+      "focus": {
+        "kind": "quantity",
+        "englishConcepts": [
+          "I walk for half an hour every day",
+          "health and routine"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I walk for half an hour every day.",
+          "englishAuditText": "I walk for half an hour every day."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I walk for a quarter of an hour every day.",
+          "englishAuditText": "I walk for a quarter of an hour every day.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "The target means “I walk for half an hour every day.” This option changes the quantity: “I walk for a quarter of an hour every day.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I walk for a full hour every day.",
+          "englishAuditText": "I walk for a full hour every day.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "The target means “I walk for half an hour every day.” This option changes the quantity: “I walk for a full hour every day.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-closed-friday",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 98,
+      "complexity": 38,
+      "topic": "services",
+      "familyId": "mm-ar-closed-friday",
+      "targetText": "المكتبةُ مُغلَقةٌ يومَ الجمعةِ.",
+      "learnerBaseText": "The library is closed on Friday.",
+      "englishText": "The library is closed on Friday.",
+      "embeddingText": "The library is closed on Friday.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "The library is closed on Friday",
+          "services"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The library is closed on Friday.",
+          "englishAuditText": "The library is closed on Friday."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The library is closed on Saturday.",
+          "englishAuditText": "The library is closed on Saturday.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means “The library is closed on Friday.” This option changes the time: “The library is closed on Saturday.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The library is closed on Sunday.",
+          "englishAuditText": "The library is closed on Sunday.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means “The library is closed on Friday.” This option changes the time: “The library is closed on Sunday.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-blue-shirt",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 93,
+      "complexity": 37,
+      "topic": "shopping",
+      "familyId": "mm-ar-blue-shirt",
+      "targetText": "أبحثُ عن قميصٍ أزرقَ.",
+      "learnerBaseText": "I am looking for a blue shirt.",
+      "englishText": "I am looking for a blue shirt.",
+      "embeddingText": "I am looking for a blue shirt.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "I am looking for a blue shirt",
+          "shopping"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I am looking for a blue shirt.",
+          "englishAuditText": "I am looking for a blue shirt."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I am looking for a blue coat.",
+          "englishAuditText": "I am looking for a blue coat.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means “I am looking for a blue shirt.” This option changes the object: “I am looking for a blue coat.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I am looking for a blue hat.",
+          "englishAuditText": "I am looking for a blue hat.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means “I am looking for a blue shirt.” This option changes the object: “I am looking for a blue hat.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-drawer-passport",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 99,
+      "complexity": 36,
+      "topic": "travel",
+      "familyId": "mm-ar-drawer-passport",
+      "targetText": "جوازُ سفري في الدُّرجِ.",
+      "learnerBaseText": "My passport is in the drawer.",
+      "englishText": "My passport is in the drawer.",
+      "embeddingText": "My passport is in the drawer.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "My passport is in the drawer",
+          "travel"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "My passport is in the drawer.",
+          "englishAuditText": "My passport is in the drawer."
+        },
+        {
+          "id": "contrast-1",
+          "text": "My passport is in the suitcase.",
+          "englishAuditText": "My passport is in the suitcase.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “My passport is in the drawer.” This option changes the location: “My passport is in the suitcase.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "My passport is in the cupboard.",
+          "englishAuditText": "My passport is in the cupboard.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “My passport is in the drawer.” This option changes the location: “My passport is in the cupboard.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-water-flowers",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 86,
+      "complexity": 40,
+      "topic": "household",
+      "familyId": "mm-ar-water-flowers",
+      "targetText": "نسقي الأزهارَ في المساءِ.",
+      "learnerBaseText": "We water the flowers in the evening.",
+      "englishText": "We water the flowers in the evening.",
+      "embeddingText": "We water the flowers in the evening.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "We water the flowers in the evening",
+          "household"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "We water the flowers in the evening.",
+          "englishAuditText": "We water the flowers in the evening."
+        },
+        {
+          "id": "contrast-1",
+          "text": "We water the flowers in the morning.",
+          "englishAuditText": "We water the flowers in the morning.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means “We water the flowers in the evening.” This option changes the time: “We water the flowers in the morning.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "We water the flowers at noon.",
+          "englishAuditText": "We water the flowers at noon.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means “We water the flowers in the evening.” This option changes the time: “We water the flowers at noon.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-waiting-doctor",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 97,
+      "complexity": 42,
+      "topic": "services",
+      "familyId": "mm-ar-waiting-doctor",
+      "targetText": "أنتظرُ الطبيبَ في غرفةِ الانتظارِ.",
+      "learnerBaseText": "I am waiting for the doctor in the waiting room.",
+      "englishText": "I am waiting for the doctor in the waiting room.",
+      "embeddingText": "I am waiting for the doctor in the waiting room.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "I am waiting for the doctor in the waiting room",
+          "services"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I am waiting for the doctor in the waiting room.",
+          "englishAuditText": "I am waiting for the doctor in the waiting room."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I am waiting for the doctor in the corridor.",
+          "englishAuditText": "I am waiting for the doctor in the corridor.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “I am waiting for the doctor in the waiting room.” This option changes the location: “I am waiting for the doctor in the corridor.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I am waiting for the doctor outside the building.",
+          "englishAuditText": "I am waiting for the doctor outside the building.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “I am waiting for the doctor in the waiting room.” This option changes the location: “I am waiting for the doctor outside the building.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-learn-with-friend",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 95,
+      "complexity": 43,
+      "topic": "study",
+      "familyId": "mm-ar-learn-with-friend",
+      "targetText": "أدرسُ العربيّةَ مع صديقي.",
+      "learnerBaseText": "I study Arabic with my friend.",
+      "englishText": "I study Arabic with my friend.",
+      "embeddingText": "I study Arabic with my friend.",
+      "focus": {
+        "kind": "subject",
+        "englishConcepts": [
+          "I study Arabic with my friend",
+          "study"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I study Arabic with my friend.",
+          "englishAuditText": "I study Arabic with my friend."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I study Arabic with my brother.",
+          "englishAuditText": "I study Arabic with my brother.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "The target means “I study Arabic with my friend.” This option changes the subject: “I study Arabic with my brother.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I study Arabic with my teacher.",
+          "englishAuditText": "I study Arabic with my teacher.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "The target means “I study Arabic with my friend.” This option changes the subject: “I study Arabic with my teacher.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-return-tomorrow",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 99,
+      "complexity": 43,
+      "topic": "travel",
+      "familyId": "mm-ar-return-tomorrow",
+      "targetText": "سأعودُ غدًا في الصباحِ.",
+      "learnerBaseText": "I will return tomorrow morning.",
+      "englishText": "I will return tomorrow morning.",
+      "embeddingText": "I will return tomorrow morning.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "I will return tomorrow morning",
+          "travel"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I will return tomorrow morning.",
+          "englishAuditText": "I will return tomorrow morning."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I will return tomorrow evening.",
+          "englishAuditText": "I will return tomorrow evening.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means “I will return tomorrow morning.” This option changes the time: “I will return tomorrow evening.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I will return the day after tomorrow.",
+          "englishAuditText": "I will return the day after tomorrow.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means “I will return tomorrow morning.” This option changes the time: “I will return the day after tomorrow.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-train-cheaper",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 98,
+      "complexity": 46,
+      "topic": "transport",
+      "familyId": "mm-ar-train-cheaper",
+      "targetText": "تذكرةُ الحافلةِ أرخصُ من تذكرةِ القطارِ.",
+      "learnerBaseText": "The bus ticket is cheaper than the train ticket.",
+      "englishText": "The bus ticket is cheaper than the train ticket.",
+      "embeddingText": "The bus ticket is cheaper than the train ticket.",
+      "focus": {
+        "kind": "comparison",
+        "englishConcepts": [
+          "The bus ticket is cheaper than the train ticket",
+          "transport"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The bus ticket is cheaper than the train ticket.",
+          "englishAuditText": "The bus ticket is cheaper than the train ticket."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The bus ticket is more expensive than the train ticket.",
+          "englishAuditText": "The bus ticket is more expensive than the train ticket.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "The target means “The bus ticket is cheaper than the train ticket.” This option changes the comparison: “The bus ticket is more expensive than the train ticket.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The bus ticket costs the same as the train ticket.",
+          "englishAuditText": "The bus ticket costs the same as the train ticket.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "The target means “The bus ticket is cheaper than the train ticket.” This option changes the comparison: “The bus ticket costs the same as the train ticket.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-pharmacy-corner",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 99,
+      "complexity": 40,
+      "topic": "directions",
+      "familyId": "mm-ar-pharmacy-corner",
+      "targetText": "الصيدليّةُ على يسارِ الشارعِ.",
+      "learnerBaseText": "The pharmacy is on the left side of the street.",
+      "englishText": "The pharmacy is on the left side of the street.",
+      "embeddingText": "The pharmacy is on the left side of the street.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "The pharmacy is on the left side of the street",
+          "directions"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The pharmacy is on the left side of the street.",
+          "englishAuditText": "The pharmacy is on the left side of the street."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The pharmacy is on the right side of the street.",
+          "englishAuditText": "The pharmacy is on the right side of the street.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “The pharmacy is on the left side of the street.” This option changes the location: “The pharmacy is on the right side of the street.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The pharmacy is at the end of the street.",
+          "englishAuditText": "The pharmacy is at the end of the street.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “The pharmacy is on the left side of the street.” This option changes the location: “The pharmacy is at the end of the street.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-message-to-mother",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 97,
+      "complexity": 41,
+      "topic": "communication",
+      "familyId": "mm-ar-message-to-mother",
+      "targetText": "أُرسلُ رسالةً إلى أُمّي.",
+      "learnerBaseText": "I am sending a message to my mother.",
+      "englishText": "I am sending a message to my mother.",
+      "embeddingText": "I am sending a message to my mother.",
+      "focus": {
+        "kind": "subject",
+        "englishConcepts": [
+          "I am sending a message to my mother",
+          "communication"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I am sending a message to my mother.",
+          "englishAuditText": "I am sending a message to my mother."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I am sending a message to my sister.",
+          "englishAuditText": "I am sending a message to my sister.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "The target means “I am sending a message to my mother.” This option changes the subject: “I am sending a message to my sister.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I am sending a message to my father.",
+          "englishAuditText": "I am sending a message to my father.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "The target means “I am sending a message to my mother.” This option changes the subject: “I am sending a message to my father.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-phone-not-working",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 100,
+      "complexity": 37,
+      "topic": "communication",
+      "familyId": "mm-ar-phone-not-working",
+      "targetText": "هاتفي لا يعملُ الآنَ.",
+      "learnerBaseText": "My phone is not working now.",
+      "englishText": "My phone is not working now.",
+      "embeddingText": "My phone is not working now.",
+      "focus": {
+        "kind": "polarity",
+        "englishConcepts": [
+          "My phone is not working now",
+          "communication"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "My phone is not working now.",
+          "englishAuditText": "My phone is not working now."
+        },
+        {
+          "id": "contrast-1",
+          "text": "My phone is working now.",
+          "englishAuditText": "My phone is working now.",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "The target means “My phone is not working now.” This option changes the polarity: “My phone is working now.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "My phone is working again now.",
+          "englishAuditText": "My phone is working again now.",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "The target means “My phone is not working now.” This option changes the polarity: “My phone is working again now.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-market-apples",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 95,
+      "complexity": 43,
+      "topic": "shopping",
+      "familyId": "mm-ar-market-apples",
+      "targetText": "أشتري كيلوغرامًا من التُّفّاحِ.",
+      "learnerBaseText": "I am buying one kilogram of apples.",
+      "englishText": "I am buying one kilogram of apples.",
+      "embeddingText": "I am buying one kilogram of apples.",
+      "focus": {
+        "kind": "quantity",
+        "englishConcepts": [
+          "I am buying one kilogram of apples",
+          "shopping"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I am buying one kilogram of apples.",
+          "englishAuditText": "I am buying one kilogram of apples."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I am buying half a kilogram of apples.",
+          "englishAuditText": "I am buying half a kilogram of apples.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "The target means “I am buying one kilogram of apples.” This option changes the quantity: “I am buying half a kilogram of apples.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I am buying two kilograms of apples.",
+          "englishAuditText": "I am buying two kilograms of apples.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "The target means “I am buying one kilogram of apples.” This option changes the quantity: “I am buying two kilograms of apples.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-open-until-eight",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 99,
+      "complexity": 44,
+      "topic": "services",
+      "familyId": "mm-ar-open-until-eight",
+      "targetText": "يبقى المتجرُ مفتوحًا حتّى الثامنةِ.",
+      "learnerBaseText": "The shop stays open until eight.",
+      "englishText": "The shop stays open until eight.",
+      "embeddingText": "The shop stays open until eight.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "The shop stays open until eight",
+          "services"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The shop stays open until eight.",
+          "englishAuditText": "The shop stays open until eight."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The shop stays open until seven.",
+          "englishAuditText": "The shop stays open until seven.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means “The shop stays open until eight.” This option changes the time: “The shop stays open until seven.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The shop stays open until nine.",
+          "englishAuditText": "The shop stays open until nine.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means “The shop stays open until eight.” This option changes the time: “The shop stays open until nine.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-borrow-book",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 92,
+      "complexity": 43,
+      "topic": "study",
+      "familyId": "mm-ar-borrow-book",
+      "targetText": "أستعيرُ كتابًا من المكتبةِ.",
+      "learnerBaseText": "I am borrowing a book from the library.",
+      "englishText": "I am borrowing a book from the library.",
+      "embeddingText": "I am borrowing a book from the library.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "I am borrowing a book from the library",
+          "study"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I am borrowing a book from the library.",
+          "englishAuditText": "I am borrowing a book from the library."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I am returning a book to the library.",
+          "englishAuditText": "I am returning a book to the library.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target means “I am borrowing a book from the library.” This option changes the action: “I am returning a book to the library.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I am donating a book to the library.",
+          "englishAuditText": "I am donating a book to the library.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target means “I am borrowing a book from the library.” This option changes the action: “I am donating a book to the library.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-rain-in-mountains",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 88,
+      "complexity": 40,
+      "topic": "weather",
+      "familyId": "mm-ar-rain-in-mountains",
+      "targetText": "تمطرُ في الجبالِ اليومَ.",
+      "learnerBaseText": "It is raining in the mountains today.",
+      "englishText": "It is raining in the mountains today.",
+      "embeddingText": "It is raining in the mountains today.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "It is raining in the mountains today",
+          "weather"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "It is raining in the mountains today.",
+          "englishAuditText": "It is raining in the mountains today."
+        },
+        {
+          "id": "contrast-1",
+          "text": "It is raining on the coast today.",
+          "englishAuditText": "It is raining on the coast today.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “It is raining in the mountains today.” This option changes the location: “It is raining on the coast today.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "It is raining in the city today.",
+          "englishAuditText": "It is raining in the city today.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “It is raining in the mountains today.” This option changes the location: “It is raining in the city today.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-children-play",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 39,
+      "topic": "family",
+      "familyId": "mm-ar-children-play",
+      "targetText": "يلعبُ الأطفالُ في الحديقةِ.",
+      "learnerBaseText": "The children are playing in the garden.",
+      "englishText": "The children are playing in the garden.",
+      "embeddingText": "The children are playing in the garden.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "The children are playing in the garden",
+          "family"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The children are playing in the garden.",
+          "englishAuditText": "The children are playing in the garden."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The children are playing in the kitchen.",
+          "englishAuditText": "The children are playing in the kitchen.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “The children are playing in the garden.” This option changes the location: “The children are playing in the kitchen.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The children are playing in the street.",
+          "englishAuditText": "The children are playing in the street.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “The children are playing in the garden.” This option changes the location: “The children are playing in the street.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-work-after-breakfast",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 96,
+      "complexity": 44,
+      "topic": "routine",
+      "familyId": "mm-ar-work-after-breakfast",
+      "targetText": "أبدأُ العملَ بعدَ الفطورِ.",
+      "learnerBaseText": "I start work after breakfast.",
+      "englishText": "I start work after breakfast.",
+      "embeddingText": "I start work after breakfast.",
+      "focus": {
+        "kind": "sequence",
+        "englishConcepts": [
+          "I start work after breakfast",
+          "routine"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I start work after breakfast.",
+          "englishAuditText": "I start work after breakfast."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I start work before breakfast.",
+          "englishAuditText": "I start work before breakfast.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "The target means “I start work after breakfast.” This option changes the sequence: “I start work before breakfast.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I start work during breakfast.",
+          "englishAuditText": "I start work during breakfast.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "The target means “I start work after breakfast.” This option changes the sequence: “I start work during breakfast.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-quietly-speak",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 99,
+      "complexity": 44,
+      "topic": "communication",
+      "familyId": "mm-ar-quietly-speak",
+      "targetText": "يتحدّثُ المعلّمُ ببطءٍ.",
+      "learnerBaseText": "The teacher speaks slowly.",
+      "englishText": "The teacher speaks slowly.",
+      "embeddingText": "The teacher speaks slowly.",
+      "focus": {
+        "kind": "manner",
+        "englishConcepts": [
+          "The teacher speaks slowly",
+          "communication"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The teacher speaks slowly.",
+          "englishAuditText": "The teacher speaks slowly."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The teacher speaks quickly.",
+          "englishAuditText": "The teacher speaks quickly.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "The target means “The teacher speaks slowly.” This option changes the manner: “The teacher speaks quickly.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The teacher speaks loudly.",
+          "englishAuditText": "The teacher speaks loudly.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "The target means “The teacher speaks slowly.” This option changes the manner: “The teacher speaks loudly.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-room-balcony",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 96,
+      "complexity": 45,
+      "topic": "accommodation",
+      "familyId": "mm-ar-room-balcony",
+      "targetText": "للغرفةِ شُرفةٌ صغيرةٌ.",
+      "learnerBaseText": "The room has a small balcony.",
+      "englishText": "The room has a small balcony.",
+      "embeddingText": "The room has a small balcony.",
+      "focus": {
+        "kind": "possession",
+        "englishConcepts": [
+          "The room has a small balcony",
+          "accommodation"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The room has a small balcony.",
+          "englishAuditText": "The room has a small balcony."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The room has a small kitchen.",
+          "englishAuditText": "The room has a small kitchen.",
+          "contrast": {
+            "kind": "possession",
+            "explanation": "The target means “The room has a small balcony.” This option changes the possession: “The room has a small kitchen.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The room has a small bathroom.",
+          "englishAuditText": "The room has a small bathroom.",
+          "contrast": {
+            "kind": "possession",
+            "explanation": "The target means “The room has a small balcony.” This option changes the possession: “The room has a small bathroom.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-mountain-trip",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 88,
+      "complexity": 42,
+      "topic": "leisure",
+      "familyId": "mm-ar-mountain-trip",
+      "targetText": "نزورُ القريةَ في نهايةِ الأسبوعِ.",
+      "learnerBaseText": "We visit the village at the weekend.",
+      "englishText": "We visit the village at the weekend.",
+      "embeddingText": "We visit the village at the weekend.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "We visit the village at the weekend",
+          "leisure"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "We visit the village at the weekend.",
+          "englishAuditText": "We visit the village at the weekend."
+        },
+        {
+          "id": "contrast-1",
+          "text": "We visit the village at the beginning of the week.",
+          "englishAuditText": "We visit the village at the beginning of the week.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means “We visit the village at the weekend.” This option changes the time: “We visit the village at the beginning of the week.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "We visit the village in the middle of the week.",
+          "englishAuditText": "We visit the village in the middle of the week.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means “We visit the village at the weekend.” This option changes the time: “We visit the village in the middle of the week.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-need-help-luggage",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 100,
+      "complexity": 46,
+      "topic": "travel",
+      "familyId": "mm-ar-need-help-luggage",
+      "targetText": "أحتاجُ إلى مساعدةٍ في حملِ الحقيبةِ.",
+      "learnerBaseText": "I need help carrying the suitcase.",
+      "englishText": "I need help carrying the suitcase.",
+      "embeddingText": "I need help carrying the suitcase.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "I need help carrying the suitcase",
+          "travel"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I need help carrying the suitcase.",
+          "englishAuditText": "I need help carrying the suitcase."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I need help opening the suitcase.",
+          "englishAuditText": "I need help opening the suitcase.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The requested help is with carrying the suitcase; this option changes the action to opening it."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I need help finding the suitcase.",
+          "englishAuditText": "I need help finding the suitcase.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The requested help is with carrying the suitcase; this option changes the action to finding it."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-rain-reason",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 97,
+      "complexity": 64,
+      "topic": "weather-and-plans",
+      "familyId": "mm-ar-rain-reason",
+      "targetText": "نبقى في البيتِ لأنَّ المطرَ غزيرٌ.",
+      "learnerBaseText": "We are staying at home because the rain is heavy.",
+      "englishText": "We are staying at home because the rain is heavy.",
+      "embeddingText": "We are staying at home because the rain is heavy.",
+      "focus": {
+        "kind": "reason",
+        "englishConcepts": [
+          "We are staying at home because the rain is heavy",
+          "weather and plans"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "We are staying at home because the rain is heavy.",
+          "englishAuditText": "We are staying at home because the rain is heavy."
+        },
+        {
+          "id": "contrast-1",
+          "text": "We are staying at home because the wind is strong.",
+          "englishAuditText": "We are staying at home because the wind is strong.",
+          "contrast": {
+            "kind": "reason",
+            "explanation": "The target means “We are staying at home because the rain is heavy.” This option changes the reason: “We are staying at home because the wind is strong.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "We are staying at home because the heat is intense.",
+          "englishAuditText": "We are staying at home because the heat is intense.",
+          "contrast": {
+            "kind": "reason",
+            "explanation": "The target means “We are staying at home because the rain is heavy.” This option changes the reason: “We are staying at home because the heat is intense.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-if-bus-late",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 99,
+      "complexity": 69,
+      "topic": "transport",
+      "familyId": "mm-ar-if-bus-late",
+      "targetText": "إذا تأخّرتِ الحافلةُ، سنذهبُ سيرًا.",
+      "learnerBaseText": "If the bus is late, we will go on foot.",
+      "englishText": "If the bus is late, we will go on foot.",
+      "embeddingText": "If the bus is late, we will go on foot.",
+      "focus": {
+        "kind": "condition",
+        "englishConcepts": [
+          "If the bus is late, we will go on foot",
+          "transport"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "If the bus is late, we will go on foot.",
+          "englishAuditText": "If the bus is late, we will go on foot."
+        },
+        {
+          "id": "contrast-1",
+          "text": "If the bus is full, we will go on foot.",
+          "englishAuditText": "If the bus is full, we will go on foot.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "The target means “If the bus is late, we will go on foot.” This option changes the condition: “If the bus is full, we will go on foot.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "If the bus is cancelled, we will go on foot.",
+          "englishAuditText": "If the bus is cancelled, we will go on foot.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "The target means “If the bus is late, we will go on foot.” This option changes the condition: “If the bus is cancelled, we will go on foot.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-call-before-leave",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 100,
+      "complexity": 66,
+      "topic": "communication",
+      "familyId": "mm-ar-call-before-leave",
+      "targetText": "اتّصلْ بي قبلَ أنْ تُغادرَ المكتبَ.",
+      "learnerBaseText": "Call me before you leave the office.",
+      "englishText": "Call me before you leave the office.",
+      "embeddingText": "Call me before you leave the office.",
+      "focus": {
+        "kind": "sequence",
+        "englishConcepts": [
+          "Call me before you leave the office",
+          "communication"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Call me before you leave the office.",
+          "englishAuditText": "Call me before you leave the office."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Call me after you leave the office.",
+          "englishAuditText": "Call me after you leave the office.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "The target means “Call me before you leave the office.” This option changes the sequence: “Call me after you leave the office.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Call me when you arrive at the office.",
+          "englishAuditText": "Call me when you arrive at the office.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "The target means “Call me before you leave the office.” This option changes the sequence: “Call me when you arrive at the office.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-save-for-journey",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 96,
+      "complexity": 67,
+      "topic": "planning",
+      "familyId": "mm-ar-save-for-journey",
+      "targetText": "أدّخرُ المالَ لكي أُسافرَ في الصيفِ.",
+      "learnerBaseText": "I am saving money so that I can travel in the summer.",
+      "englishText": "I am saving money so that I can travel in the summer.",
+      "embeddingText": "I am saving money so that I can travel in the summer.",
+      "focus": {
+        "kind": "purpose",
+        "englishConcepts": [
+          "I am saving money so that I can travel in the summer",
+          "planning"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I am saving money so that I can travel in the summer.",
+          "englishAuditText": "I am saving money so that I can travel in the summer."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I am saving money so that I can study in the summer.",
+          "englishAuditText": "I am saving money so that I can study in the summer.",
+          "contrast": {
+            "kind": "purpose",
+            "explanation": "The target means “I am saving money so that I can travel in the summer.” This option changes the purpose: “I am saving money so that I can study in the summer.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I am saving money so that I can move house in the summer.",
+          "englishAuditText": "I am saving money so that I can move house in the summer.",
+          "contrast": {
+            "kind": "purpose",
+            "explanation": "The target means “I am saving money so that I can travel in the summer.” This option changes the purpose: “I am saving money so that I can move house in the summer.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-although-tired",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 95,
+      "complexity": 68,
+      "topic": "work-and-study",
+      "familyId": "mm-ar-although-tired",
+      "targetText": "مع أنَّها مُتعَبةٌ، تُكمِلُ عملَها.",
+      "learnerBaseText": "Although she is tired, she is finishing her work.",
+      "englishText": "Although she is tired, she is finishing her work.",
+      "embeddingText": "Although she is tired, she is finishing her work.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "Although she is tired, she is finishing her work",
+          "work and study"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Although she is tired, she is finishing her work.",
+          "englishAuditText": "Although she is tired, she is finishing her work."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Although she is hungry, she is finishing her work.",
+          "englishAuditText": "Although she is hungry, she is finishing her work.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “Although she is tired, she is finishing her work.” This option changes the state: “Although she is hungry, she is finishing her work.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Although she is ill, she is finishing her work.",
+          "englishAuditText": "Although she is ill, she is finishing her work.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “Although she is tired, she is finishing her work.” This option changes the state: “Although she is ill, she is finishing her work.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-fewer-than-yesterday",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 88,
+      "complexity": 70,
+      "topic": "shopping",
+      "familyId": "mm-ar-fewer-than-yesterday",
+      "targetText": "في السوقِ ناسٌ أقلُّ ممّا كانَ أمسِ.",
+      "learnerBaseText": "There are fewer people at the market than yesterday.",
+      "englishText": "There are fewer people at the market than yesterday.",
+      "embeddingText": "There are fewer people at the market than yesterday.",
+      "focus": {
+        "kind": "comparison",
+        "englishConcepts": [
+          "There are fewer people at the market than yesterday",
+          "shopping"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "There are fewer people at the market than yesterday.",
+          "englishAuditText": "There are fewer people at the market than yesterday."
+        },
+        {
+          "id": "contrast-1",
+          "text": "There are more people at the market than yesterday.",
+          "englishAuditText": "There are more people at the market than yesterday.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "The target means “There are fewer people at the market than yesterday.” This option changes the comparison: “There are more people at the market than yesterday.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "There are as many people at the market as yesterday.",
+          "englishAuditText": "There are as many people at the market as yesterday.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "The target means “There are fewer people at the market than yesterday.” This option changes the comparison: “There are as many people at the market as yesterday.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-turn-after-bridge",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 100,
+      "complexity": 66,
+      "topic": "directions",
+      "familyId": "mm-ar-turn-after-bridge",
+      "targetText": "بعدَ أنْ تعبرَ الجسرَ، انعطفْ يمينًا.",
+      "learnerBaseText": "After you cross the bridge, turn right.",
+      "englishText": "After you cross the bridge, turn right.",
+      "embeddingText": "After you cross the bridge, turn right.",
+      "focus": {
+        "kind": "sequence",
+        "englishConcepts": [
+          "After you cross the bridge, turn right",
+          "directions"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "After you cross the bridge, turn right.",
+          "englishAuditText": "After you cross the bridge, turn right."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Before you cross the bridge, turn right.",
+          "englishAuditText": "Before you cross the bridge, turn right.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "The target means “After you cross the bridge, turn right.” This option changes the sequence: “Before you cross the bridge, turn right.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "While you are crossing the bridge, turn right.",
+          "englishAuditText": "While you are crossing the bridge, turn right.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "The target means “After you cross the bridge, turn right.” This option changes the sequence: “While you are crossing the bridge, turn right.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-lost-ticket",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 99,
+      "complexity": 68,
+      "topic": "travel",
+      "familyId": "mm-ar-lost-ticket",
+      "targetText": "لا أستطيعُ دخولَ المتحفِ لأنّني فقدتُ تذكرتي.",
+      "learnerBaseText": "I cannot enter the museum because I lost my ticket.",
+      "englishText": "I cannot enter the museum because I lost my ticket.",
+      "embeddingText": "I cannot enter the museum because I lost my ticket.",
+      "focus": {
+        "kind": "reason",
+        "englishConcepts": [
+          "I cannot enter the museum because I lost my ticket",
+          "travel"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I cannot enter the museum because I lost my ticket.",
+          "englishAuditText": "I cannot enter the museum because I lost my ticket."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I cannot enter the museum because I forgot my wallet.",
+          "englishAuditText": "I cannot enter the museum because I forgot my wallet.",
+          "contrast": {
+            "kind": "reason",
+            "explanation": "The target means “I cannot enter the museum because I lost my ticket.” This option changes the reason: “I cannot enter the museum because I forgot my wallet.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I cannot enter the museum because I lost my keys.",
+          "englishAuditText": "I cannot enter the museum because I lost my keys.",
+          "contrast": {
+            "kind": "reason",
+            "explanation": "The target means “I cannot enter the museum because I lost my ticket.” This option changes the reason: “I cannot enter the museum because I lost my keys.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-book-that-borrowed",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 92,
+      "complexity": 72,
+      "topic": "study",
+      "familyId": "mm-ar-book-that-borrowed",
+      "targetText": "الكتابُ الذي استعرتُهُ منكَ مفيدٌ جدًّا.",
+      "learnerBaseText": "The book that I borrowed from you is very useful.",
+      "englishText": "The book that I borrowed from you is very useful.",
+      "embeddingText": "The book that I borrowed from you is very useful.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "The book that I borrowed from you is very useful",
+          "study"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The book that I borrowed from you is very useful.",
+          "englishAuditText": "The book that I borrowed from you is very useful."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The book that I bought from you is very useful.",
+          "englishAuditText": "The book that I bought from you is very useful.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target means “The book that I borrowed from you is very useful.” This option changes the action: “The book that I bought from you is very useful.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The book that I received from you as a gift is very useful.",
+          "englishAuditText": "The book that I received from you as a gift is very useful.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target means “The book that I borrowed from you is very useful.” This option changes the action: “The book that I received from you as a gift is very useful.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-doctor-if-persists",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 99,
+      "complexity": 70,
+      "topic": "services",
+      "familyId": "mm-ar-doctor-if-persists",
+      "targetText": "إذا استمرَّ الألمُ، سأتّصلُ بالطبيبِ.",
+      "learnerBaseText": "If the pain continues, I will call the doctor.",
+      "englishText": "If the pain continues, I will call the doctor.",
+      "embeddingText": "If the pain continues, I will call the doctor.",
+      "focus": {
+        "kind": "condition",
+        "englishConcepts": [
+          "If the pain continues, I will call the doctor",
+          "services"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "If the pain continues, I will call the doctor.",
+          "englishAuditText": "If the pain continues, I will call the doctor."
+        },
+        {
+          "id": "contrast-1",
+          "text": "If the pain stops, I will call the doctor.",
+          "englishAuditText": "If the pain stops, I will call the doctor.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "The target means “If the pain continues, I will call the doctor.” This option changes the condition: “If the pain stops, I will call the doctor.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "If the pain returns, I will call the doctor.",
+          "englishAuditText": "If the pain returns, I will call the doctor.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "The target means “If the pain continues, I will call the doctor.” This option changes the condition: “If the pain returns, I will call the doctor.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-not-only-near",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 95,
+      "complexity": 73,
+      "topic": "accommodation",
+      "familyId": "mm-ar-not-only-near",
+      "targetText": "الفندقُ قريبٌ من المحطّةِ، لكنَّ غرفَهُ صغيرةٌ.",
+      "learnerBaseText": "The hotel is near the station, but its rooms are small.",
+      "englishText": "The hotel is near the station, but its rooms are small.",
+      "embeddingText": "The hotel is near the station, but its rooms are small.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "The hotel is near the station, but its rooms are small",
+          "accommodation"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The hotel is near the station, but its rooms are small.",
+          "englishAuditText": "The hotel is near the station, but its rooms are small."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The hotel is near the station, but its rooms are noisy.",
+          "englishAuditText": "The hotel is near the station, but its rooms are noisy.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The hotel is near the station, but its rooms are small.” This option changes the state: “The hotel is near the station, but its rooms are noisy.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The hotel is near the station, but its rooms are dark.",
+          "englishAuditText": "The hotel is near the station, but its rooms are dark.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The hotel is near the station, but its rooms are small.” This option changes the state: “The hotel is near the station, but its rooms are dark.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-until-arrival",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 97,
+      "complexity": 67,
+      "topic": "family",
+      "familyId": "mm-ar-until-arrival",
+      "targetText": "سأنتظرُ هنا حتّى يصلَ أخي.",
+      "learnerBaseText": "I will wait here until my brother arrives.",
+      "englishText": "I will wait here until my brother arrives.",
+      "embeddingText": "I will wait here until my brother arrives.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "I will wait here until my brother arrives",
+          "family"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I will wait here until my brother arrives.",
+          "englishAuditText": "I will wait here until my brother arrives."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I will wait here until my brother leaves.",
+          "englishAuditText": "I will wait here until my brother leaves.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means “I will wait here until my brother arrives.” This option changes the time: “I will wait here until my brother leaves.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I will wait here until my brother calls.",
+          "englishAuditText": "I will wait here until my brother calls.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means “I will wait here until my brother arrives.” This option changes the time: “I will wait here until my brother calls.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-repair-not-replace",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 96,
+      "complexity": 68,
+      "topic": "household",
+      "familyId": "mm-ar-repair-not-replace",
+      "targetText": "نُصلحُ الكرسيَّ بدلًا من شراءِ كرسيٍّ جديدٍ.",
+      "learnerBaseText": "We are repairing the chair instead of buying a new one.",
+      "englishText": "We are repairing the chair instead of buying a new one.",
+      "embeddingText": "We are repairing the chair instead of buying a new one.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "We are repairing the chair instead of buying a new one",
+          "household"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "We are repairing the chair instead of buying a new one.",
+          "englishAuditText": "We are repairing the chair instead of buying a new one."
+        },
+        {
+          "id": "contrast-1",
+          "text": "We are painting the chair instead of buying a new one.",
+          "englishAuditText": "We are painting the chair instead of buying a new one.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target means “We are repairing the chair instead of buying a new one.” This option changes the action: “We are painting the chair instead of buying a new one.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "We are cleaning the chair instead of buying a new one.",
+          "englishAuditText": "We are cleaning the chair instead of buying a new one.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target means “We are repairing the chair instead of buying a new one.” This option changes the action: “We are cleaning the chair instead of buying a new one.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-meeting-moved",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 99,
+      "complexity": 72,
+      "topic": "work",
+      "familyId": "mm-ar-meeting-moved",
+      "targetText": "نُقلَ الاجتماعُ من الاثنينِ إلى الثلاثاءِ.",
+      "learnerBaseText": "The meeting was moved from Monday to Tuesday.",
+      "englishText": "The meeting was moved from Monday to Tuesday.",
+      "embeddingText": "The meeting was moved from Monday to Tuesday.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "The meeting was moved from Monday to Tuesday",
+          "work"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The meeting was moved from Monday to Tuesday.",
+          "englishAuditText": "The meeting was moved from Monday to Tuesday."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The meeting was moved from Monday to Wednesday.",
+          "englishAuditText": "The meeting was moved from Monday to Wednesday.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means “The meeting was moved from Monday to Tuesday.” This option changes the time: “The meeting was moved from Monday to Wednesday.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The meeting was moved from Monday to Thursday.",
+          "englishAuditText": "The meeting was moved from Monday to Thursday.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means “The meeting was moved from Monday to Tuesday.” This option changes the time: “The meeting was moved from Monday to Thursday.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-window-to-cool",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 95,
+      "complexity": 69,
+      "topic": "household",
+      "familyId": "mm-ar-window-to-cool",
+      "targetText": "أفتحُ النافذةَ لكي يدخلَ الهواءُ الباردُ.",
+      "learnerBaseText": "I open the window to let cool air in.",
+      "englishText": "I open the window to let cool air in.",
+      "embeddingText": "I open the window to let cool air in.",
+      "focus": {
+        "kind": "purpose",
+        "englishConcepts": [
+          "I open the window to let cool air in",
+          "household"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I open the window to let cool air in.",
+          "englishAuditText": "I open the window to let cool air in."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I open the window to let warm air in.",
+          "englishAuditText": "I open the window to let warm air in.",
+          "contrast": {
+            "kind": "purpose",
+            "explanation": "The target means “I open the window to let cool air in.” This option changes the purpose: “I open the window to let warm air in.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I open the window to let bright sunlight in.",
+          "englishAuditText": "I open the window to let bright sunlight in.",
+          "contrast": {
+            "kind": "purpose",
+            "explanation": "The target means “I open the window to let cool air in.” This option changes the purpose: “I open the window to let bright sunlight in.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-asked-repeat",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 100,
+      "complexity": 68,
+      "topic": "communication",
+      "familyId": "mm-ar-asked-repeat",
+      "targetText": "طلبتُ منهُ أنْ يُعيدَ السؤالَ ببطءٍ.",
+      "learnerBaseText": "I asked him to repeat the question slowly.",
+      "englishText": "I asked him to repeat the question slowly.",
+      "embeddingText": "I asked him to repeat the question slowly.",
+      "focus": {
+        "kind": "manner",
+        "englishConcepts": [
+          "I asked him to repeat the question slowly",
+          "communication"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I asked him to repeat the question slowly.",
+          "englishAuditText": "I asked him to repeat the question slowly."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I asked him to repeat the question loudly.",
+          "englishAuditText": "I asked him to repeat the question loudly.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "The target means “I asked him to repeat the question slowly.” This option changes the manner: “I asked him to repeat the question loudly.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I asked him to repeat the question quietly.",
+          "englishAuditText": "I asked him to repeat the question quietly.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "The target means “I asked him to repeat the question slowly.” This option changes the manner: “I asked him to repeat the question quietly.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-before-paying-check",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 100,
+      "complexity": 70,
+      "topic": "shopping",
+      "familyId": "mm-ar-before-paying-check",
+      "targetText": "أتحقّقُ من السِّعرِ قبلَ أنْ أدفعَ.",
+      "learnerBaseText": "I check the price before I pay.",
+      "englishText": "I check the price before I pay.",
+      "embeddingText": "I check the price before I pay.",
+      "focus": {
+        "kind": "sequence",
+        "englishConcepts": [
+          "I check the price before I pay",
+          "shopping"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I check the price before I pay.",
+          "englishAuditText": "I check the price before I pay."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I check the price after I pay.",
+          "englishAuditText": "I check the price after I pay.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "The target means “I check the price before I pay.” This option changes the sequence: “I check the price after I pay.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I check the price while I pay.",
+          "englishAuditText": "I check the price while I pay.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "The target means “I check the price before I pay.” This option changes the sequence: “I check the price while I pay.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-garden-without-water",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 91,
+      "complexity": 71,
+      "topic": "nature",
+      "familyId": "mm-ar-garden-without-water",
+      "targetText": "إذا لمْ نَسقِ النباتاتِ، ستجفُّ أوراقُها.",
+      "learnerBaseText": "If we do not water the plants, their leaves will dry out.",
+      "englishText": "If we do not water the plants, their leaves will dry out.",
+      "embeddingText": "If we do not water the plants, their leaves will dry out.",
+      "focus": {
+        "kind": "condition",
+        "englishConcepts": [
+          "If we do not water the plants, their leaves will dry out",
+          "nature"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "If we do not water the plants, their leaves will dry out.",
+          "englishAuditText": "If we do not water the plants, their leaves will dry out."
+        },
+        {
+          "id": "contrast-1",
+          "text": "If we do not prune the plants, their leaves will dry out.",
+          "englishAuditText": "If we do not prune the plants, their leaves will dry out.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "The target means “If we do not water the plants, their leaves will dry out.” This option changes the condition: “If we do not prune the plants, their leaves will dry out.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "If we do not move the plants, their leaves will dry out.",
+          "englishAuditText": "If we do not move the plants, their leaves will dry out.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "The target means “If we do not water the plants, their leaves will dry out.” This option changes the condition: “If we do not move the plants, their leaves will dry out.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-route-longer-quieter",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 95,
+      "complexity": 73,
+      "topic": "travel",
+      "familyId": "mm-ar-route-longer-quieter",
+      "targetText": "هذا الطريقُ أطولُ، لكنّهُ أكثرُ هدوءًا.",
+      "learnerBaseText": "This route is longer, but it is quieter.",
+      "englishText": "This route is longer, but it is quieter.",
+      "embeddingText": "This route is longer, but it is quieter.",
+      "focus": {
+        "kind": "comparison",
+        "englishConcepts": [
+          "This route is longer, but it is quieter",
+          "travel"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This route is longer, but it is quieter.",
+          "englishAuditText": "This route is longer, but it is quieter."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This route is shorter, but it is quieter.",
+          "englishAuditText": "This route is shorter, but it is quieter.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "The target means “This route is longer, but it is quieter.” This option changes the comparison: “This route is shorter, but it is quieter.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This route is wider, but it is quieter.",
+          "englishAuditText": "This route is wider, but it is quieter.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "The target means “This route is longer, but it is quieter.” This option changes the comparison: “This route is wider, but it is quieter.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-enough-money",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 99,
+      "complexity": 68,
+      "topic": "shopping",
+      "familyId": "mm-ar-enough-money",
+      "targetText": "عندي ما يكفي من المالِ لشراءِ الطعامِ، لا لشراءِ الملابسِ.",
+      "learnerBaseText": "I have enough money to buy food, but not clothes.",
+      "englishText": "I have enough money to buy food, but not clothes.",
+      "embeddingText": "I have enough money to buy food, but not clothes.",
+      "focus": {
+        "kind": "purpose",
+        "englishConcepts": [
+          "I have enough money to buy food, but not clothes",
+          "shopping"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I have enough money to buy food, but not clothes.",
+          "englishAuditText": "I have enough money to buy food, but not clothes."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I have enough money to buy food, but not books.",
+          "englishAuditText": "I have enough money to buy food, but not books.",
+          "contrast": {
+            "kind": "purpose",
+            "explanation": "The target means “I have enough money to buy food, but not clothes.” This option changes the purpose: “I have enough money to buy food, but not books.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I have enough money to buy food, but not tickets.",
+          "englishAuditText": "I have enough money to buy food, but not tickets.",
+          "contrast": {
+            "kind": "purpose",
+            "explanation": "The target means “I have enough money to buy food, but not clothes.” This option changes the purpose: “I have enough money to buy food, but not tickets.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-work-from-home",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 96,
+      "complexity": 70,
+      "topic": "work",
+      "familyId": "mm-ar-work-from-home",
+      "targetText": "أعملُ من البيتِ اليومَ لأنَّ ابني مريضٌ.",
+      "learnerBaseText": "I am working from home today because my son is ill.",
+      "englishText": "I am working from home today because my son is ill.",
+      "embeddingText": "I am working from home today because my son is ill.",
+      "focus": {
+        "kind": "reason",
+        "englishConcepts": [
+          "I am working from home today because my son is ill",
+          "work"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I am working from home today because my son is ill.",
+          "englishAuditText": "I am working from home today because my son is ill."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I am working from home today because my daughter is ill.",
+          "englishAuditText": "I am working from home today because my daughter is ill.",
+          "contrast": {
+            "kind": "reason",
+            "explanation": "The target means “I am working from home today because my son is ill.” This option changes the reason: “I am working from home today because my daughter is ill.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I am working from home today because my mother is ill.",
+          "englishAuditText": "I am working from home today because my mother is ill.",
+          "contrast": {
+            "kind": "reason",
+            "explanation": "The target means “I am working from home today because my son is ill.” This option changes the reason: “I am working from home today because my mother is ill.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-only-after-confirmation",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 99,
+      "complexity": 74,
+      "topic": "planning",
+      "familyId": "mm-ar-only-after-confirmation",
+      "targetText": "لنْ نحجزَ الغرفةَ إلّا بعدَ تأكيدِ الموعدِ.",
+      "learnerBaseText": "We will book the room only after the date is confirmed.",
+      "englishText": "We will book the room only after the date is confirmed.",
+      "embeddingText": "We will book the room only after the date is confirmed.",
+      "focus": {
+        "kind": "sequence",
+        "englishConcepts": [
+          "We will book the room only after the date is confirmed",
+          "planning"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "We will book the room only after the date is confirmed.",
+          "englishAuditText": "We will book the room only after the date is confirmed."
+        },
+        {
+          "id": "contrast-1",
+          "text": "We will book the room only before the date is confirmed.",
+          "englishAuditText": "We will book the room only before the date is confirmed.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "The target means “We will book the room only after the date is confirmed.” This option changes the sequence: “We will book the room only before the date is confirmed.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "We will book the room only while the date is being confirmed.",
+          "englishAuditText": "We will book the room only while the date is being confirmed.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "The target means “We will book the room only after the date is confirmed.” This option changes the sequence: “We will book the room only while the date is being confirmed.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-she-showed-map",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 96,
+      "complexity": 73,
+      "topic": "directions",
+      "familyId": "mm-ar-she-showed-map",
+      "targetText": "أَرَتْني الخريطةَ لكي أجدَ المحطّةَ بسهولةٍ.",
+      "learnerBaseText": "She showed me the map so that I could find the station easily.",
+      "englishText": "She showed me the map so that I could find the station easily.",
+      "embeddingText": "She showed me the map so that I could find the station easily.",
+      "focus": {
+        "kind": "purpose",
+        "englishConcepts": [
+          "She showed me the map so that I could find the station easily",
+          "directions"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "She showed me the map so that I could find the station easily.",
+          "englishAuditText": "She showed me the map so that I could find the station easily."
+        },
+        {
+          "id": "contrast-1",
+          "text": "She showed me the map so that I could find the hospital easily.",
+          "englishAuditText": "She showed me the map so that I could find the hospital easily.",
+          "contrast": {
+            "kind": "purpose",
+            "explanation": "The target means “She showed me the map so that I could find the station easily.” This option changes the purpose: “She showed me the map so that I could find the hospital easily.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "She showed me the map so that I could find the market easily.",
+          "englishAuditText": "She showed me the map so that I could find the market easily.",
+          "contrast": {
+            "kind": "purpose",
+            "explanation": "The target means “She showed me the map so that I could find the station easily.” This option changes the purpose: “She showed me the map so that I could find the market easily.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-if-wifi-absent",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 99,
+      "complexity": 72,
+      "topic": "communication",
+      "familyId": "mm-ar-if-wifi-absent",
+      "targetText": "إذا لمْ تتوفّرْ شبكةُ الإنترنتِ، سأتّصلُ بكَ هاتفيًّا.",
+      "learnerBaseText": "If internet access is unavailable, I will call you by phone.",
+      "englishText": "If internet access is unavailable, I will call you by phone.",
+      "embeddingText": "If internet access is unavailable, I will call you by phone.",
+      "focus": {
+        "kind": "condition",
+        "englishConcepts": [
+          "If internet access is unavailable, I will call you by phone",
+          "communication"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "If internet access is unavailable, I will call you by phone.",
+          "englishAuditText": "If internet access is unavailable, I will call you by phone."
+        },
+        {
+          "id": "contrast-1",
+          "text": "If internet access is slow, I will call you by phone.",
+          "englishAuditText": "If internet access is slow, I will call you by phone.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "The target means “If internet access is unavailable, I will call you by phone.” This option changes the condition: “If internet access is slow, I will call you by phone.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "If internet access is expensive, I will call you by phone.",
+          "englishAuditText": "If internet access is expensive, I will call you by phone.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "The target means “If internet access is unavailable, I will call you by phone.” This option changes the condition: “If internet access is expensive, I will call you by phone.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-more-time-than",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 95,
+      "complexity": 74,
+      "topic": "study",
+      "familyId": "mm-ar-more-time-than",
+      "targetText": "أحتاجُ إلى وقتٍ أكثرَ لِفَهْمِ النصِّ لا لقراءتِهِ.",
+      "learnerBaseText": "I need more time to understand the text, not to read it.",
+      "englishText": "I need more time to understand the text, not to read it.",
+      "embeddingText": "I need more time to understand the text, not to read it.",
+      "focus": {
+        "kind": "comparison",
+        "englishConcepts": [
+          "I need more time to understand the text, not to read it",
+          "study"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I need more time to understand the text, not to read it.",
+          "englishAuditText": "I need more time to understand the text, not to read it."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I need more time to translate the text, not to read it.",
+          "englishAuditText": "I need more time to translate the text, not to read it.",
+          "contrast": {
+            "kind": "purpose",
+            "explanation": "The extra time is for understanding the text; this option changes that purpose to translating it."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I need more time to copy the text, not to read it.",
+          "englishAuditText": "I need more time to copy the text, not to read it.",
+          "contrast": {
+            "kind": "purpose",
+            "explanation": "The extra time is for understanding the text; this option changes that purpose to copying it."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-first-wash-then-cut",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 97,
+      "complexity": 67,
+      "topic": "food-and-drink",
+      "familyId": "mm-ar-first-wash-then-cut",
+      "targetText": "أغسلُ الخُضارَ أوّلًا، ثمَّ أُقطّعُها.",
+      "learnerBaseText": "I wash the vegetables first, then cut them.",
+      "englishText": "I wash the vegetables first, then cut them.",
+      "embeddingText": "I wash the vegetables first, then cut them.",
+      "focus": {
+        "kind": "sequence",
+        "englishConcepts": [
+          "I wash the vegetables first, then cut them",
+          "food and drink"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I wash the vegetables first, then cut them.",
+          "englishAuditText": "I wash the vegetables first, then cut them."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I cut the vegetables first, then wash them.",
+          "englishAuditText": "I cut the vegetables first, then wash them.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "The target means “I wash the vegetables first, then cut them.” This option changes the sequence: “I cut the vegetables first, then wash them.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I cook the vegetables first, then cut them.",
+          "englishAuditText": "I cook the vegetables first, then cut them.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The first action is washing the vegetables; this option replaces washing with cooking."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-even-without-car",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 94,
+      "complexity": 71,
+      "topic": "travel",
+      "familyId": "mm-ar-even-without-car",
+      "targetText": "يمكنُنا زيارةُ القريةِ حتّى من دونِ سيارةٍ.",
+      "learnerBaseText": "We can visit the village even without a car.",
+      "englishText": "We can visit the village even without a car.",
+      "embeddingText": "We can visit the village even without a car.",
+      "focus": {
+        "kind": "condition",
+        "englishConcepts": [
+          "We can visit the village even without a car",
+          "travel"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "We can visit the village even without a car.",
+          "englishAuditText": "We can visit the village even without a car."
+        },
+        {
+          "id": "contrast-1",
+          "text": "We can visit the village even without a guide.",
+          "englishAuditText": "We can visit the village even without a guide.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "The target means “We can visit the village even without a car.” This option changes the condition: “We can visit the village even without a guide.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "We can visit the village even without a map.",
+          "englishAuditText": "We can visit the village even without a map.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "The target means “We can visit the village even without a car.” This option changes the condition: “We can visit the village even without a map.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-said-not-ready",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 99,
+      "complexity": 71,
+      "topic": "work",
+      "familyId": "mm-ar-said-not-ready",
+      "targetText": "قالَ المديرُ إنَّ التقريرَ لمْ يكتملْ بعدُ.",
+      "learnerBaseText": "The manager said that the report is not finished yet.",
+      "englishText": "The manager said that the report is not finished yet.",
+      "embeddingText": "The manager said that the report is not finished yet.",
+      "focus": {
+        "kind": "polarity",
+        "englishConcepts": [
+          "The manager said that the report is not finished yet",
+          "work"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The manager said that the report is not finished yet.",
+          "englishAuditText": "The manager said that the report is not finished yet."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The manager said that the report is already finished.",
+          "englishAuditText": "The manager said that the report is already finished.",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "The target means “The manager said that the report is not finished yet.” This option changes the polarity: “The manager said that the report is already finished.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The manager said that the report will never be finished.",
+          "englishAuditText": "The manager said that the report will never be finished.",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "The target means “The manager said that the report is not finished yet.” This option changes the polarity: “The manager said that the report will never be finished.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-closed-for-repair",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 98,
+      "complexity": 68,
+      "topic": "services",
+      "familyId": "mm-ar-closed-for-repair",
+      "targetText": "المسبحُ مُغلَقٌ هذا الأسبوعَ بسببِ أعمالِ الإصلاحِ.",
+      "learnerBaseText": "The swimming pool is closed this week because of repair work.",
+      "englishText": "The swimming pool is closed this week because of repair work.",
+      "embeddingText": "The swimming pool is closed this week because of repair work.",
+      "focus": {
+        "kind": "reason",
+        "englishConcepts": [
+          "The swimming pool is closed this week because of repair work",
+          "services"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The swimming pool is closed this week because of repair work.",
+          "englishAuditText": "The swimming pool is closed this week because of repair work."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The swimming pool is closed this week because of staff training.",
+          "englishAuditText": "The swimming pool is closed this week because of staff training.",
+          "contrast": {
+            "kind": "reason",
+            "explanation": "The target means “The swimming pool is closed this week because of repair work.” This option changes the reason: “The swimming pool is closed this week because of staff training.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The swimming pool is closed this week because of a competition.",
+          "englishAuditText": "The swimming pool is closed this week because of a competition.",
+          "contrast": {
+            "kind": "reason",
+            "explanation": "The target means “The swimming pool is closed this week because of repair work.” This option changes the reason: “The swimming pool is closed this week because of a competition.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ar-bring-umbrella",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 97,
+      "complexity": 68,
+      "topic": "weather-and-plans",
+      "familyId": "mm-ar-bring-umbrella",
+      "targetText": "خذْ مِظلّةً لأنَّ المطرَ قدْ يبدأُ قريبًا.",
+      "learnerBaseText": "Take an umbrella because it may start raining soon.",
+      "englishText": "Take an umbrella because it may start raining soon.",
+      "embeddingText": "Take an umbrella because it may start raining soon.",
+      "focus": {
+        "kind": "reason",
+        "englishConcepts": [
+          "Take an umbrella because it may start raining soon",
+          "weather and plans"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Take an umbrella because it may start raining soon.",
+          "englishAuditText": "Take an umbrella because it may start raining soon."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Take an umbrella because it may start snowing soon.",
+          "englishAuditText": "Take an umbrella because it may start snowing soon.",
+          "contrast": {
+            "kind": "reason",
+            "explanation": "The target means “Take an umbrella because it may start raining soon.” This option changes the reason: “Take an umbrella because it may start snowing soon.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Take an umbrella because the sun may come out soon.",
+          "englishAuditText": "Take an umbrella because the sun may come out soon.",
+          "contrast": {
+            "kind": "reason",
+            "explanation": "The target means “Take an umbrella because it may start raining soon.” This option changes the reason: “Take an umbrella because the sun may come out soon.”"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,4230 @@
+{
+  "schemaVersion": "caatuu-memory-moon-content-v1",
+  "courseId": "zh",
+  "gameId": "memory-moon",
+  "contentId": "zh.memory-moon.v1",
+  "contentRevision": 1,
+  "status": "machine-assisted-preview",
+  "learnerBaseLanguage": "en",
+  "targetLanguage": "zh-Hans",
+  "englishAuditLanguage": "en",
+  "review": {
+    "status": "native-review-required",
+    "humanApproved": false,
+    "reviewer": "OpenAI Codex",
+    "reviewedAt": "2026-10-18",
+    "notes": "Original Memory Moon authoring with AI self-review. Independent native-language review remains required."
+  },
+  "license": {
+    "origin": "caatuu-first-party-authored",
+    "spdxExpression": "AGPL-3.0-only"
+  },
+  "embeddingPolicy": {
+    "inputLanguage": "en",
+    "inputField": "embeddingText"
+  },
+  "challenges": [
+    {
+      "id": "mm-zh-drinking-water",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 96,
+      "complexity": 14,
+      "topic": "food",
+      "familyId": "mm-zh-drinking-water",
+      "targetText": "我正在用这个杯子喝水。",
+      "learnerBaseText": "I am drinking water from this cup.",
+      "englishText": "I am drinking water from this cup.",
+      "embeddingText": "I am drinking water from this cup.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "drink",
+          "water"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I am drinking water from this cup.",
+          "englishAuditText": "I am drinking water from this cup."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I am drinking milk from this cup.",
+          "englishAuditText": "I am drinking milk from this cup.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "Replaces water with milk."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I am drinking juice from this cup.",
+          "englishAuditText": "I am drinking juice from this cup.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "Replaces water with juice."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-mum-cuts-pear",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 87,
+      "complexity": 16,
+      "topic": "family",
+      "familyId": "mm-zh-mum-cuts-pear",
+      "targetText": "妈妈正在切一个梨。",
+      "learnerBaseText": "Mum is cutting up a pear.",
+      "englishText": "Mum is cutting up a pear.",
+      "embeddingText": "Mum is cutting up a pear.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "cut",
+          "pear"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Mum is cutting up a pear.",
+          "englishAuditText": "Mum is cutting up a pear."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Mum is washing a pear.",
+          "englishAuditText": "Mum is washing a pear.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "Replaces cutting up with washing."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Mum is eating a pear.",
+          "englishAuditText": "Mum is eating a pear.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "Replaces cutting up with eating."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-brother-red-hat",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 85,
+      "complexity": 21,
+      "topic": "clothing",
+      "familyId": "mm-zh-brother-red-hat",
+      "targetText": "我哥哥戴着一顶红帽子。",
+      "learnerBaseText": "My older brother is wearing a red hat.",
+      "englishText": "My older brother is wearing a red hat.",
+      "embeddingText": "My older brother is wearing a red hat.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "older brother",
+          "red hat"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "My older brother is wearing a red hat.",
+          "englishAuditText": "My older brother is wearing a red hat."
+        },
+        {
+          "id": "contrast-1",
+          "text": "My older brother is wearing a red scarf.",
+          "englishAuditText": "My older brother is wearing a red scarf.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "Replaces the hat with a scarf."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "My older brother is wearing a red coat.",
+          "englishAuditText": "My older brother is wearing a red coat.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "Replaces the hat with a coat."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-rabbit-under-bench",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 85,
+      "complexity": 18,
+      "topic": "animals",
+      "familyId": "mm-zh-rabbit-under-bench",
+      "targetText": "这只兔子在长椅下面。",
+      "learnerBaseText": "This rabbit is under the bench.",
+      "englishText": "This rabbit is under the bench.",
+      "embeddingText": "This rabbit is under the bench.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "rabbit",
+          "under",
+          "bench"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This rabbit is under the bench.",
+          "englishAuditText": "This rabbit is under the bench."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This rabbit is beside the bench.",
+          "englishAuditText": "This rabbit is beside the bench.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "Replaces under with beside."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This rabbit is on the bench.",
+          "englishAuditText": "This rabbit is on the bench.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "Replaces under with on."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-three-spoons",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 95,
+      "complexity": 13,
+      "topic": "numbers",
+      "familyId": "mm-zh-three-spoons",
+      "targetText": "我需要三把勺子。",
+      "learnerBaseText": "I need three spoons.",
+      "englishText": "I need three spoons.",
+      "embeddingText": "I need three spoons.",
+      "focus": {
+        "kind": "quantity",
+        "englishConcepts": [
+          "three",
+          "spoon"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I need three spoons.",
+          "englishAuditText": "I need three spoons."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I need two spoons.",
+          "englishAuditText": "I need two spoons.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "Replaces three with two."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I need four spoons.",
+          "englishAuditText": "I need four spoons.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "Replaces three with four."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-we-at-library",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 93,
+      "complexity": 10,
+      "topic": "places",
+      "familyId": "mm-zh-we-at-library",
+      "targetText": "我们在图书馆。",
+      "learnerBaseText": "We are at the library.",
+      "englishText": "We are at the library.",
+      "embeddingText": "We are at the library.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "we",
+          "library"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "We are at the library.",
+          "englishAuditText": "We are at the library."
+        },
+        {
+          "id": "contrast-1",
+          "text": "We are at the park.",
+          "englishAuditText": "We are at the park.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "Replaces the library with the park."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "We are at the station.",
+          "englishAuditText": "We are at the station.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "Replaces the library with the station."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-sister-wants-bread",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 93,
+      "complexity": 18,
+      "topic": "food",
+      "familyId": "mm-zh-sister-wants-bread",
+      "targetText": "我妹妹想吃面包。",
+      "learnerBaseText": "My younger sister wants to eat some bread.",
+      "englishText": "My younger sister wants to eat some bread.",
+      "embeddingText": "My younger sister wants to eat some bread.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "younger sister",
+          "want",
+          "bread"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "My younger sister wants to eat some bread.",
+          "englishAuditText": "My younger sister wants to eat some bread."
+        },
+        {
+          "id": "contrast-1",
+          "text": "My younger sister wants to eat some rice.",
+          "englishAuditText": "My younger sister wants to eat some rice.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "Replaces bread with rice."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "My younger sister wants to eat some soup.",
+          "englishAuditText": "My younger sister wants to eat some soup.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "Replaces bread with soup."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-pencil-blue",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 90,
+      "complexity": 11,
+      "topic": "school",
+      "familyId": "mm-zh-pencil-blue",
+      "targetText": "我的铅笔是蓝色的。",
+      "learnerBaseText": "My pencil is blue.",
+      "englishText": "My pencil is blue.",
+      "embeddingText": "My pencil is blue.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "pencil",
+          "blue"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "My pencil is blue.",
+          "englishAuditText": "My pencil is blue."
+        },
+        {
+          "id": "contrast-1",
+          "text": "My pencil is green.",
+          "englishAuditText": "My pencil is green.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "Replaces blue with green."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "My pencil is red.",
+          "englishAuditText": "My pencil is red.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "Replaces blue with red."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-bag-belongs-to-me",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 96,
+      "complexity": 14,
+      "topic": "home",
+      "familyId": "mm-zh-bag-belongs-to-me",
+      "targetText": "这个包是我的。",
+      "learnerBaseText": "This bag is mine.",
+      "englishText": "This bag is mine.",
+      "embeddingText": "This bag is mine.",
+      "focus": {
+        "kind": "possession",
+        "englishConcepts": [
+          "bag",
+          "mine"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This bag is mine.",
+          "englishAuditText": "This bag is mine."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This bag is yours.",
+          "englishAuditText": "This bag is yours.",
+          "contrast": {
+            "kind": "possession",
+            "explanation": "Changes the owner from me to you."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This bag is his.",
+          "englishAuditText": "This bag is his.",
+          "contrast": {
+            "kind": "possession",
+            "explanation": "Changes the owner from me to him."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-window-open",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 93,
+      "complexity": 13,
+      "topic": "home",
+      "familyId": "mm-zh-window-open",
+      "targetText": "这扇窗户开着。",
+      "learnerBaseText": "This window is open.",
+      "englishText": "This window is open.",
+      "embeddingText": "This window is open.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "window",
+          "open"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This window is open.",
+          "englishAuditText": "This window is open."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This window is closed.",
+          "englishAuditText": "This window is closed.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "Replaces open with closed."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This window is broken.",
+          "englishAuditText": "This window is broken.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "Replaces open with broken."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-before-lunch",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 89,
+      "complexity": 21,
+      "topic": "daily-routines",
+      "familyId": "mm-zh-before-lunch",
+      "targetText": "我午饭前看书。",
+      "learnerBaseText": "I read before lunch.",
+      "englishText": "I read before lunch.",
+      "embeddingText": "I read before lunch.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "read",
+          "before lunch"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I read before lunch.",
+          "englishAuditText": "I read before lunch."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I read after lunch.",
+          "englishAuditText": "I read after lunch.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "Changes before lunch to after lunch."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I read during lunch.",
+          "englishAuditText": "I read during lunch.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "Changes before lunch to during lunch."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-dad-walks-school",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 89,
+      "complexity": 16,
+      "topic": "travel",
+      "familyId": "mm-zh-dad-walks-school",
+      "targetText": "爸爸走路去学校。",
+      "learnerBaseText": "Dad walks to school.",
+      "englishText": "Dad walks to school.",
+      "embeddingText": "Dad walks to school.",
+      "focus": {
+        "kind": "manner",
+        "englishConcepts": [
+          "dad",
+          "walk",
+          "school"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Dad walks to school.",
+          "englishAuditText": "Dad walks to school."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Dad cycles to school.",
+          "englishAuditText": "Dad cycles to school.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "Changes walking to cycling."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Dad runs to school.",
+          "englishAuditText": "Dad runs to school.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "Changes walking to running."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-bird-on-roof",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 82,
+      "complexity": 16,
+      "topic": "animals",
+      "familyId": "mm-zh-bird-on-roof",
+      "targetText": "这只鸟在屋顶上。",
+      "learnerBaseText": "This bird is on the roof.",
+      "englishText": "This bird is on the roof.",
+      "embeddingText": "This bird is on the roof.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "bird",
+          "roof",
+          "on"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This bird is on the roof.",
+          "englishAuditText": "This bird is on the roof."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This bird is above the roof.",
+          "englishAuditText": "This bird is above the roof.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "Changes on the roof to above it."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This bird is below the roof.",
+          "englishAuditText": "This bird is below the roof.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "Changes on the roof to below it."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-two-empty-cups",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 88,
+      "complexity": 21,
+      "topic": "home",
+      "familyId": "mm-zh-two-empty-cups",
+      "targetText": "这里有两个空杯子。",
+      "learnerBaseText": "There are two empty cups here.",
+      "englishText": "There are two empty cups here.",
+      "embeddingText": "There are two empty cups here.",
+      "focus": {
+        "kind": "number",
+        "englishConcepts": [
+          "two",
+          "empty cup"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "There are two empty cups here.",
+          "englishAuditText": "There are two empty cups here."
+        },
+        {
+          "id": "contrast-1",
+          "text": "There are three empty cups here.",
+          "englishAuditText": "There are three empty cups here.",
+          "contrast": {
+            "kind": "number",
+            "explanation": "Replaces two with three."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "There are four empty cups here.",
+          "englishAuditText": "There are four empty cups here.",
+          "contrast": {
+            "kind": "number",
+            "explanation": "Replaces two with four."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-train-nine",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 96,
+      "complexity": 18,
+      "topic": "public-transport",
+      "familyId": "mm-zh-train-nine",
+      "targetText": "火车九点出发。",
+      "learnerBaseText": "The train leaves at nine.",
+      "englishText": "The train leaves at nine.",
+      "embeddingText": "The train leaves at nine.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "train",
+          "leave",
+          "nine"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The train leaves at nine.",
+          "englishAuditText": "The train leaves at nine."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The train leaves at eight.",
+          "englishAuditText": "The train leaves at eight.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "Replaces nine with eight."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The train leaves at ten.",
+          "englishAuditText": "The train leaves at ten.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "Replaces nine with ten."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-holding-key",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 86,
+      "complexity": 23,
+      "topic": "practical-needs",
+      "familyId": "mm-zh-holding-key",
+      "targetText": "她手里拿着一把钥匙。",
+      "learnerBaseText": "She is holding a key in her hand.",
+      "englishText": "She is holding a key in her hand.",
+      "embeddingText": "She is holding a key in her hand.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "she",
+          "hold",
+          "key"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "She is holding a key in her hand.",
+          "englishAuditText": "She is holding a key in her hand."
+        },
+        {
+          "id": "contrast-1",
+          "text": "She is holding a coin in her hand.",
+          "englishAuditText": "She is holding a coin in her hand.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "Replaces the key with a coin."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "She is holding a leaf in her hand.",
+          "englishAuditText": "She is holding a leaf in her hand.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "Replaces the key with a leaf."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-hear-drum",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 85,
+      "complexity": 14,
+      "topic": "music",
+      "familyId": "mm-zh-hear-drum",
+      "targetText": "我们听到鼓声。",
+      "learnerBaseText": "We hear a drum.",
+      "englishText": "We hear a drum.",
+      "embeddingText": "We hear a drum.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "we",
+          "hear",
+          "drum"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "We hear a drum.",
+          "englishAuditText": "We hear a drum."
+        },
+        {
+          "id": "contrast-1",
+          "text": "We hear a bell.",
+          "englishAuditText": "We hear a bell.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "Replaces a drum with a bell."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "We hear a bird.",
+          "englishAuditText": "We hear a bird.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "Replaces a drum with a bird."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-soup-warm",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 94,
+      "complexity": 19,
+      "topic": "food",
+      "familyId": "mm-zh-soup-warm",
+      "targetText": "这碗汤是温的。",
+      "learnerBaseText": "This soup is lukewarm.",
+      "englishText": "This soup is lukewarm.",
+      "embeddingText": "This soup is lukewarm.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "soup",
+          "warm"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This soup is lukewarm.",
+          "englishAuditText": "This soup is lukewarm."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This soup is cold.",
+          "englishAuditText": "This soup is cold.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "Replaces lukewarm with cold."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This soup is hot.",
+          "englishAuditText": "This soup is hot.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "Replaces lukewarm with hot."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-aunt-sells-flowers",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 83,
+      "complexity": 17,
+      "topic": "community",
+      "familyId": "mm-zh-aunt-sells-flowers",
+      "targetText": "我阿姨卖花。",
+      "learnerBaseText": "My aunt sells flowers.",
+      "englishText": "My aunt sells flowers.",
+      "embeddingText": "My aunt sells flowers.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "aunt",
+          "sell",
+          "flowers"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "My aunt sells flowers.",
+          "englishAuditText": "My aunt sells flowers."
+        },
+        {
+          "id": "contrast-1",
+          "text": "My aunt grows flowers.",
+          "englishAuditText": "My aunt grows flowers.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "Replaces selling with growing."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "My aunt waters flowers.",
+          "englishAuditText": "My aunt waters flowers.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "Replaces selling with watering."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-dog-sleeping",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 84,
+      "complexity": 10,
+      "topic": "animals",
+      "familyId": "mm-zh-dog-sleeping",
+      "targetText": "这只狗正在睡觉。",
+      "learnerBaseText": "This dog is sleeping.",
+      "englishText": "This dog is sleeping.",
+      "embeddingText": "This dog is sleeping.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "dog",
+          "sleep"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This dog is sleeping.",
+          "englishAuditText": "This dog is sleeping."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This dog is jumping.",
+          "englishAuditText": "This dog is jumping.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "Replaces sleeping with jumping."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This dog is eating.",
+          "englishAuditText": "This dog is eating.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "Replaces sleeping with eating."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-speaks-softly",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 93,
+      "complexity": 24,
+      "topic": "communication",
+      "familyId": "mm-zh-speaks-softly",
+      "targetText": "她说话的声音很轻。",
+      "learnerBaseText": "She speaks quietly.",
+      "englishText": "She speaks quietly.",
+      "embeddingText": "She speaks quietly.",
+      "focus": {
+        "kind": "manner",
+        "englishConcepts": [
+          "she",
+          "speak",
+          "softly"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "She speaks quietly.",
+          "englishAuditText": "She speaks quietly."
+        },
+        {
+          "id": "contrast-1",
+          "text": "She speaks loudly.",
+          "englishAuditText": "She speaks loudly.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "Replaces quietly with loudly."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "She speaks quickly.",
+          "englishAuditText": "She speaks quickly.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "Replaces quietly with quickly."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-carrying-box",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 89,
+      "complexity": 18,
+      "topic": "home",
+      "familyId": "mm-zh-carrying-box",
+      "targetText": "我正在搬这个箱子。",
+      "learnerBaseText": "I am carrying this box.",
+      "englishText": "I am carrying this box.",
+      "embeddingText": "I am carrying this box.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "I",
+          "carry",
+          "box"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I am carrying this box.",
+          "englishAuditText": "I am carrying this box."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I am opening this box.",
+          "englishAuditText": "I am opening this box.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "Replaces carrying with opening."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I am closing this box.",
+          "englishAuditText": "I am closing this box.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "Replaces carrying with closing."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-milk-in-fridge",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 96,
+      "complexity": 15,
+      "topic": "food",
+      "familyId": "mm-zh-milk-in-fridge",
+      "targetText": "牛奶在冰箱里。",
+      "learnerBaseText": "The milk is in the fridge.",
+      "englishText": "The milk is in the fridge.",
+      "embeddingText": "The milk is in the fridge.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "milk",
+          "fridge"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The milk is in the fridge.",
+          "englishAuditText": "The milk is in the fridge."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The milk is in the cupboard.",
+          "englishAuditText": "The milk is in the cupboard.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "Replaces the fridge with the cupboard."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The milk is on the table.",
+          "englishAuditText": "The milk is on the table.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "Replaces in the fridge with on the table."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-five-green-leaves",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 80,
+      "complexity": 20,
+      "topic": "nature",
+      "familyId": "mm-zh-five-green-leaves",
+      "targetText": "我有五片绿叶。",
+      "learnerBaseText": "I have five green leaves.",
+      "englishText": "I have five green leaves.",
+      "embeddingText": "I have five green leaves.",
+      "focus": {
+        "kind": "quantity",
+        "englishConcepts": [
+          "five",
+          "green leaves"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I have five green leaves.",
+          "englishAuditText": "I have five green leaves."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I have four green leaves.",
+          "englishAuditText": "I have four green leaves.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "Replaces five with four."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I have six green leaves.",
+          "englishAuditText": "I have six green leaves.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "Replaces five with six."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-grandma-draws-moon",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 83,
+      "complexity": 18,
+      "topic": "art",
+      "familyId": "mm-zh-grandma-draws-moon",
+      "targetText": "奶奶正在画一个月亮。",
+      "learnerBaseText": "Grandma is drawing a moon.",
+      "englishText": "Grandma is drawing a moon.",
+      "embeddingText": "Grandma is drawing a moon.",
+      "focus": {
+        "kind": "subject",
+        "englishConcepts": [
+          "grandmother",
+          "draw",
+          "moon"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Grandma is drawing a moon.",
+          "englishAuditText": "Grandma is drawing a moon."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Grandpa is drawing a moon.",
+          "englishAuditText": "Grandpa is drawing a moon.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "Changes the artist from Grandma to Grandpa."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Dad is drawing a moon.",
+          "englishAuditText": "Dad is drawing a moon.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "Changes the artist from Grandma to Dad."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-today-windy",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 94,
+      "complexity": 13,
+      "topic": "weather",
+      "familyId": "mm-zh-today-windy",
+      "targetText": "今天风很大。",
+      "learnerBaseText": "It is very windy today.",
+      "englishText": "It is very windy today.",
+      "embeddingText": "It is very windy today.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "today",
+          "windy"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "It is very windy today.",
+          "englishAuditText": "It is very windy today."
+        },
+        {
+          "id": "contrast-1",
+          "text": "It is very foggy today.",
+          "englishAuditText": "It is very foggy today.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "Replaces windy with foggy."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "It is very sunny today.",
+          "englishAuditText": "It is very sunny today.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "Replaces windy with sunny."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-bus-stop-near",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 96,
+      "complexity": 24,
+      "topic": "town",
+      "familyId": "mm-zh-bus-stop-near",
+      "targetText": "公交车站离这里很近。",
+      "learnerBaseText": "The bus stop is very near here.",
+      "englishText": "The bus stop is very near here.",
+      "embeddingText": "The bus stop is very near here.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "bus stop",
+          "near"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The bus stop is very near here.",
+          "englishAuditText": "The bus stop is very near here."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The bus stop is very far from here.",
+          "englishAuditText": "The bus stop is very far from here.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "Changes very near to very far away."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The bus stop is behind us.",
+          "englishAuditText": "The bus stop is behind us.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "Changes a statement of proximity to a position behind us."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-boots-under-chair",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 90,
+      "complexity": 21,
+      "topic": "clothing",
+      "familyId": "mm-zh-boots-under-chair",
+      "targetText": "我的靴子在椅子下面。",
+      "learnerBaseText": "My boots are under the chair.",
+      "englishText": "My boots are under the chair.",
+      "embeddingText": "My boots are under the chair.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "my boots",
+          "under chair"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "My boots are under the chair.",
+          "englishAuditText": "My boots are under the chair."
+        },
+        {
+          "id": "contrast-1",
+          "text": "My boots are beside the chair.",
+          "englishAuditText": "My boots are beside the chair.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "Replaces under with beside."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "My boots are on the chair.",
+          "englishAuditText": "My boots are on the chair.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "Replaces under with on."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-sister-reads-map",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 88,
+      "complexity": 22,
+      "topic": "travel",
+      "familyId": "mm-zh-sister-reads-map",
+      "targetText": "我妹妹正在看一张地图。",
+      "learnerBaseText": "My younger sister is reading a map.",
+      "englishText": "My younger sister is reading a map.",
+      "embeddingText": "My younger sister is reading a map.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "younger sister",
+          "read",
+          "map"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "My younger sister is reading a map.",
+          "englishAuditText": "My younger sister is reading a map."
+        },
+        {
+          "id": "contrast-1",
+          "text": "My younger sister is reading a menu.",
+          "englishAuditText": "My younger sister is reading a menu.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "Replaces a map with a menu."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "My younger sister is reading a letter.",
+          "englishAuditText": "My younger sister is reading a letter.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "Replaces a map with a letter."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-he-needs-rest",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 98,
+      "complexity": 9,
+      "topic": "body-and-rest",
+      "familyId": "mm-zh-he-needs-rest",
+      "targetText": "他需要休息。",
+      "learnerBaseText": "He needs some rest.",
+      "englishText": "He needs some rest.",
+      "embeddingText": "He needs some rest.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "he",
+          "need",
+          "rest"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "He needs some rest.",
+          "englishAuditText": "He needs some rest."
+        },
+        {
+          "id": "contrast-1",
+          "text": "He needs some water.",
+          "englishAuditText": "He needs some water.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "Replaces rest with water."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "He needs some help.",
+          "englishAuditText": "He needs some help.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "Replaces rest with help."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-parcel-after-breakfast",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 92,
+      "complexity": 37,
+      "topic": "daily-routines",
+      "familyId": "mm-zh-parcel-after-breakfast",
+      "targetText": "我明天早饭后去寄这个包裹。",
+      "learnerBaseText": "I will send this parcel after breakfast tomorrow.",
+      "englishText": "I will send this parcel after breakfast tomorrow.",
+      "embeddingText": "I will send this parcel after breakfast tomorrow.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "parcel",
+          "send",
+          "after breakfast"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I will send this parcel after breakfast tomorrow.",
+          "englishAuditText": "I will send this parcel after breakfast tomorrow."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I will send this parcel before breakfast tomorrow.",
+          "englishAuditText": "I will send this parcel before breakfast tomorrow.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "Changes after breakfast to before breakfast."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I will send this parcel during breakfast tomorrow.",
+          "englishAuditText": "I will send this parcel during breakfast tomorrow.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "Changes after breakfast to during breakfast."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-stopped-raining",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 94,
+      "complexity": 43,
+      "topic": "weather",
+      "familyId": "mm-zh-stopped-raining",
+      "targetText": "雨已经停了，我们现在可以出门了。",
+      "learnerBaseText": "It has stopped raining, and we can go out now.",
+      "englishText": "It has stopped raining, and we can go out now.",
+      "embeddingText": "It has stopped raining, and we can go out now.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "rain",
+          "stop"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "It has stopped raining, and we can go out now.",
+          "englishAuditText": "It has stopped raining, and we can go out now."
+        },
+        {
+          "id": "contrast-1",
+          "text": "It has started raining, and we can go out now.",
+          "englishAuditText": "It has started raining, and we can go out now.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "Changes the rain stopping to the rain starting."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "It is still raining, and we can go out now.",
+          "englishAuditText": "It is still raining, and we can go out now.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "Changes the rain having stopped to rain continuing."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-bowl-for-cat",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 86,
+      "complexity": 40,
+      "topic": "animals",
+      "familyId": "mm-zh-bowl-for-cat",
+      "targetText": "这个碗是给猫喝水用的。",
+      "learnerBaseText": "This bowl is for giving the cat water.",
+      "englishText": "This bowl is for giving the cat water.",
+      "embeddingText": "This bowl is for giving the cat water.",
+      "focus": {
+        "kind": "purpose",
+        "englishConcepts": [
+          "bowl",
+          "cat",
+          "water"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This bowl is for giving the cat water.",
+          "englishAuditText": "This bowl is for giving the cat water."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This bowl is for giving the cat food.",
+          "englishAuditText": "This bowl is for giving the cat food.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "Changes the purpose from providing water to providing food."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This bowl is for giving the dog water.",
+          "englishAuditText": "This bowl is for giving the dog water.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "Changes the intended animal from the cat to the dog."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-dad-scarf-owner",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 88,
+      "complexity": 39,
+      "topic": "clothing",
+      "familyId": "mm-zh-dad-scarf-owner",
+      "targetText": "椅子上的蓝围巾是爸爸的。",
+      "learnerBaseText": "The blue scarf on the chair belongs to Dad.",
+      "englishText": "The blue scarf on the chair belongs to Dad.",
+      "embeddingText": "The blue scarf on the chair belongs to Dad.",
+      "focus": {
+        "kind": "possession",
+        "englishConcepts": [
+          "blue scarf",
+          "dad",
+          "ownership"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The blue scarf on the chair belongs to Dad.",
+          "englishAuditText": "The blue scarf on the chair belongs to Dad."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The blue scarf on the chair belongs to Mum.",
+          "englishAuditText": "The blue scarf on the chair belongs to Mum.",
+          "contrast": {
+            "kind": "possession",
+            "explanation": "Changes the owner from Dad to Mum."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The blue scarf on the chair belongs to me.",
+          "englishAuditText": "The blue scarf on the chair belongs to me.",
+          "contrast": {
+            "kind": "possession",
+            "explanation": "Changes the owner from Dad to me."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-basket-lighter",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 91,
+      "complexity": 37,
+      "topic": "shopping",
+      "familyId": "mm-zh-basket-lighter",
+      "targetText": "这个篮子比我的包轻。",
+      "learnerBaseText": "This basket is lighter than my bag.",
+      "englishText": "This basket is lighter than my bag.",
+      "embeddingText": "This basket is lighter than my bag.",
+      "focus": {
+        "kind": "comparison",
+        "englishConcepts": [
+          "basket",
+          "lighter",
+          "bag"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This basket is lighter than my bag.",
+          "englishAuditText": "This basket is lighter than my bag."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This basket is heavier than my bag.",
+          "englishAuditText": "This basket is heavier than my bag.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "Reverses the comparison from lighter to heavier."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This basket is as heavy as my bag.",
+          "englishAuditText": "This basket is as heavy as my bag.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "Changes a difference in weight to equal weight."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-because-battery-empty",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 96,
+      "complexity": 48,
+      "topic": "technology",
+      "familyId": "mm-zh-because-battery-empty",
+      "targetText": "这盏灯不亮，因为电池没电了。",
+      "learnerBaseText": "This lamp is not working because the battery is empty.",
+      "englishText": "This lamp is not working because the battery is empty.",
+      "embeddingText": "This lamp is not working because the battery is empty.",
+      "focus": {
+        "kind": "reason",
+        "englishConcepts": [
+          "lamp",
+          "battery",
+          "empty"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This lamp is not working because the battery is empty.",
+          "englishAuditText": "This lamp is not working because the battery is empty."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This lamp is not working because the bulb is broken.",
+          "englishAuditText": "This lamp is not working because the bulb is broken.",
+          "contrast": {
+            "kind": "reason",
+            "explanation": "Replaces the empty battery with a broken bulb as the cause."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This lamp is not working because the switch is broken.",
+          "englishAuditText": "This lamp is not working because the switch is broken.",
+          "contrast": {
+            "kind": "reason",
+            "explanation": "Replaces the empty battery with a broken switch as the cause."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-tea-without-sugar",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 98,
+      "complexity": 41,
+      "topic": "food",
+      "familyId": "mm-zh-tea-without-sugar",
+      "targetText": "我想喝一杯茶，一点糖也不要。",
+      "learnerBaseText": "I would like a cup of tea with no sugar at all.",
+      "englishText": "I would like a cup of tea with no sugar at all.",
+      "embeddingText": "I would like a cup of tea with no sugar at all.",
+      "focus": {
+        "kind": "quantity",
+        "englishConcepts": [
+          "tea",
+          "no sugar"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I would like a cup of tea with no sugar at all.",
+          "englishAuditText": "I would like a cup of tea with no sugar at all."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I would like a cup of tea with a little sugar.",
+          "englishAuditText": "I would like a cup of tea with a little sugar.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "Changes no sugar to a little sugar."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I would like a cup of tea with a lot of sugar.",
+          "englishAuditText": "I would like a cup of tea with a lot of sugar.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "Changes no sugar to a lot of sugar."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-return-book-friday",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 95,
+      "complexity": 38,
+      "topic": "school",
+      "familyId": "mm-zh-return-book-friday",
+      "targetText": "请在星期五把这本书还给我。",
+      "learnerBaseText": "Please return this book to me on Friday.",
+      "englishText": "Please return this book to me on Friday.",
+      "embeddingText": "Please return this book to me on Friday.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "book",
+          "return",
+          "Friday"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Please return this book to me on Friday.",
+          "englishAuditText": "Please return this book to me on Friday."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Please return this book to me on Thursday.",
+          "englishAuditText": "Please return this book to me on Thursday.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "Changes Friday to Thursday."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Please return this book to me on Saturday.",
+          "englishAuditText": "Please return this book to me on Saturday.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "Changes Friday to Saturday."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-soup-first-then-bread",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 89,
+      "complexity": 39,
+      "topic": "meals",
+      "familyId": "mm-zh-soup-first-then-bread",
+      "targetText": "我们先喝汤，再吃面包。",
+      "learnerBaseText": "We have the soup first and the bread afterwards.",
+      "englishText": "We have the soup first and the bread afterwards.",
+      "embeddingText": "We have the soup first and the bread afterwards.",
+      "focus": {
+        "kind": "sequence",
+        "englishConcepts": [
+          "soup",
+          "bread",
+          "first then"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "We have the soup first and the bread afterwards.",
+          "englishAuditText": "We have the soup first and the bread afterwards."
+        },
+        {
+          "id": "contrast-1",
+          "text": "We have the bread first and the soup afterwards.",
+          "englishAuditText": "We have the bread first and the soup afterwards.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "Reverses the order of bread and soup."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "We have the soup and the bread at the same time.",
+          "englishAuditText": "We have the soup and the bread at the same time.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "Changes sequential eating to eating both together."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-park-beside-museum",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 91,
+      "complexity": 46,
+      "topic": "town",
+      "familyId": "mm-zh-park-beside-museum",
+      "targetText": "我们要去的公园就在博物馆旁边。",
+      "learnerBaseText": "The park we are going to is right beside the museum.",
+      "englishText": "The park we are going to is right beside the museum.",
+      "embeddingText": "The park we are going to is right beside the museum.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "park",
+          "museum",
+          "beside"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The park we are going to is right beside the museum.",
+          "englishAuditText": "The park we are going to is right beside the museum."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The park we are going to is right behind the museum.",
+          "englishAuditText": "The park we are going to is right behind the museum.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "Changes beside to behind."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The park we are going to is right opposite the museum.",
+          "englishAuditText": "The park we are going to is right opposite the museum.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "Changes beside to opposite."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-sister-has-finished-puzzle",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 83,
+      "complexity": 44,
+      "topic": "play",
+      "familyId": "mm-zh-sister-has-finished-puzzle",
+      "targetText": "我妹妹已经完成这幅拼图了。",
+      "learnerBaseText": "My younger sister has already finished this puzzle.",
+      "englishText": "My younger sister has already finished this puzzle.",
+      "embeddingText": "My younger sister has already finished this puzzle.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "younger sister",
+          "puzzle",
+          "finished"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "My younger sister has already finished this puzzle.",
+          "englishAuditText": "My younger sister has already finished this puzzle."
+        },
+        {
+          "id": "contrast-1",
+          "text": "My younger sister has just started this puzzle.",
+          "englishAuditText": "My younger sister has just started this puzzle.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "Changes having finished to having just started."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "My younger sister has not started this puzzle yet.",
+          "englishAuditText": "My younger sister has not started this puzzle yet.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "Changes having finished to not having started."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-meet-after-swimming",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 93,
+      "complexity": 45,
+      "topic": "sports",
+      "familyId": "mm-zh-meet-after-swimming",
+      "targetText": "我们明天游泳课后在门口见。",
+      "learnerBaseText": "We will meet at the entrance after the swimming lesson tomorrow.",
+      "englishText": "We will meet at the entrance after the swimming lesson tomorrow.",
+      "embeddingText": "We will meet at the entrance after the swimming lesson tomorrow.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "meet",
+          "after",
+          "swimming lesson"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "We will meet at the entrance after the swimming lesson tomorrow.",
+          "englishAuditText": "We will meet at the entrance after the swimming lesson tomorrow."
+        },
+        {
+          "id": "contrast-1",
+          "text": "We will meet at the entrance before the swimming lesson tomorrow.",
+          "englishAuditText": "We will meet at the entrance before the swimming lesson tomorrow.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "Changes after the lesson to before it."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "We will meet at the entrance during the swimming lesson tomorrow.",
+          "englishAuditText": "We will meet at the entrance during the swimming lesson tomorrow.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "Changes after the lesson to during it."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-borrow-rather-than-buy",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 96,
+      "complexity": 49,
+      "topic": "shopping",
+      "familyId": "mm-zh-borrow-rather-than-buy",
+      "targetText": "这次我想借一件雨衣，不想买。",
+      "learnerBaseText": "This time I want to borrow a raincoat instead of buying one.",
+      "englishText": "This time I want to borrow a raincoat instead of buying one.",
+      "embeddingText": "This time I want to borrow a raincoat instead of buying one.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "raincoat",
+          "borrow",
+          "buy"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This time I want to borrow a raincoat instead of buying one.",
+          "englishAuditText": "This time I want to borrow a raincoat instead of buying one."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This time I want to buy a raincoat instead of borrowing one.",
+          "englishAuditText": "This time I want to buy a raincoat instead of borrowing one.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "Reverses borrowing and buying."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This time I want to rent a raincoat instead of buying one.",
+          "englishAuditText": "This time I want to rent a raincoat instead of buying one.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "Changes borrowing to renting."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-both-windows-closed",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 92,
+      "complexity": 34,
+      "topic": "home",
+      "familyId": "mm-zh-both-windows-closed",
+      "targetText": "这两扇窗户都关着。",
+      "learnerBaseText": "Both of these windows are closed.",
+      "englishText": "Both of these windows are closed.",
+      "embeddingText": "Both of these windows are closed.",
+      "focus": {
+        "kind": "quantity",
+        "englishConcepts": [
+          "both windows",
+          "closed"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Both of these windows are closed.",
+          "englishAuditText": "Both of these windows are closed."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Only one of these windows is closed.",
+          "englishAuditText": "Only one of these windows is closed.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "Changes both closed windows to only one."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Neither of these windows is closed.",
+          "englishAuditText": "Neither of these windows is closed.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "Changes both closed windows to neither."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-basket-has-six-more",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 37,
+      "topic": "numbers",
+      "familyId": "mm-zh-basket-has-six-more",
+      "targetText": "这个篮子里还有六个苹果。",
+      "learnerBaseText": "There are six apples left in this basket.",
+      "englishText": "There are six apples left in this basket.",
+      "embeddingText": "There are six apples left in this basket.",
+      "focus": {
+        "kind": "quantity",
+        "englishConcepts": [
+          "basket",
+          "six apples",
+          "more"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "There are six apples left in this basket.",
+          "englishAuditText": "There are six apples left in this basket."
+        },
+        {
+          "id": "contrast-1",
+          "text": "There are five apples left in this basket.",
+          "englishAuditText": "There are five apples left in this basket.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "Changes six remaining apples to five."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "There are seven apples left in this basket.",
+          "englishAuditText": "There are seven apples left in this basket.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "Changes six remaining apples to seven."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-coat-drying-balcony",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 87,
+      "complexity": 38,
+      "topic": "home",
+      "familyId": "mm-zh-coat-drying-balcony",
+      "targetText": "我的外套正在阳台上晾着。",
+      "learnerBaseText": "My coat is drying on the balcony.",
+      "englishText": "My coat is drying on the balcony.",
+      "embeddingText": "My coat is drying on the balcony.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "coat",
+          "dry",
+          "balcony"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "My coat is drying on the balcony.",
+          "englishAuditText": "My coat is drying on the balcony."
+        },
+        {
+          "id": "contrast-1",
+          "text": "My coat is drying in the bathroom.",
+          "englishAuditText": "My coat is drying in the bathroom.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "Changes the balcony to the bathroom."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "My coat is drying in the kitchen.",
+          "englishAuditText": "My coat is drying in the kitchen.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "Changes the balcony to the kitchen."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-because-noisy",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 98,
+      "complexity": 55,
+      "topic": "learning",
+      "familyId": "mm-zh-because-noisy",
+      "targetText": "我去另一个房间看书，因为这里太吵了。",
+      "learnerBaseText": "I am going to another room to read because it is too noisy here.",
+      "englishText": "I am going to another room to read because it is too noisy here.",
+      "embeddingText": "I am going to another room to read because it is too noisy here.",
+      "focus": {
+        "kind": "reason",
+        "englishConcepts": [
+          "read",
+          "another room",
+          "noise"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I am going to another room to read because it is too noisy here.",
+          "englishAuditText": "I am going to another room to read because it is too noisy here."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I am going to another room to read because it is too dark here.",
+          "englishAuditText": "I am going to another room to read because it is too dark here.",
+          "contrast": {
+            "kind": "reason",
+            "explanation": "Changes the reason from too much noise to too little light."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I am going to another room to read because it is too cold here.",
+          "englishAuditText": "I am going to another room to read because it is too cold here.",
+          "contrast": {
+            "kind": "reason",
+            "explanation": "Changes the reason from noise to cold."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-if-late-call",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 99,
+      "complexity": 46,
+      "topic": "communication",
+      "familyId": "mm-zh-if-late-call",
+      "targetText": "如果你明天迟到了，就给我打电话。",
+      "learnerBaseText": "If you are late tomorrow, call me.",
+      "englishText": "If you are late tomorrow, call me.",
+      "embeddingText": "If you are late tomorrow, call me.",
+      "focus": {
+        "kind": "condition",
+        "englishConcepts": [
+          "late",
+          "call"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "If you are late tomorrow, call me.",
+          "englishAuditText": "If you are late tomorrow, call me."
+        },
+        {
+          "id": "contrast-1",
+          "text": "If you are early tomorrow, call me.",
+          "englishAuditText": "If you are early tomorrow, call me.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "Changes the condition from being late to being early."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "If you are tired tomorrow, call me.",
+          "englishAuditText": "If you are tired tomorrow, call me.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "Changes the condition from being late to being tired."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-put-label-outside",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 91,
+      "complexity": 42,
+      "topic": "school",
+      "familyId": "mm-zh-put-label-outside",
+      "targetText": "请把标签贴在盒子的外面。",
+      "learnerBaseText": "Please attach the label to the outside of the box.",
+      "englishText": "Please attach the label to the outside of the box.",
+      "embeddingText": "Please attach the label to the outside of the box.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "label",
+          "outside",
+          "box"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Please attach the label to the outside of the box.",
+          "englishAuditText": "Please attach the label to the outside of the box."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Please attach the label to the inside of the box.",
+          "englishAuditText": "Please attach the label to the inside of the box.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "Changes the outside to the inside."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Please attach the label to the bottom of the box.",
+          "englishAuditText": "Please attach the label to the bottom of the box.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "Changes the outside to the bottom."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-prefer-smaller-table",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 88,
+      "complexity": 43,
+      "topic": "home",
+      "familyId": "mm-zh-prefer-smaller-table",
+      "targetText": "我更喜欢靠窗的那张小桌子。",
+      "learnerBaseText": "I prefer the small table by the window.",
+      "englishText": "I prefer the small table by the window.",
+      "embeddingText": "I prefer the small table by the window.",
+      "focus": {
+        "kind": "comparison",
+        "englishConcepts": [
+          "prefer",
+          "smaller",
+          "table"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I prefer the small table by the window.",
+          "englishAuditText": "I prefer the small table by the window."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I prefer the large table by the window.",
+          "englishAuditText": "I prefer the large table by the window.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "Changes the preferred table from small to large."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I prefer the tall table by the window.",
+          "englishAuditText": "I prefer the tall table by the window.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "Changes the table description from small to tall."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-twice-each-week",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 93,
+      "complexity": 42,
+      "topic": "daily-routines",
+      "familyId": "mm-zh-twice-each-week",
+      "targetText": "我每周给这些植物浇两次水。",
+      "learnerBaseText": "I water these plants twice a week.",
+      "englishText": "I water these plants twice a week.",
+      "embeddingText": "I water these plants twice a week.",
+      "focus": {
+        "kind": "quantity",
+        "englishConcepts": [
+          "twice",
+          "week",
+          "plants"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I water these plants twice a week.",
+          "englishAuditText": "I water these plants twice a week."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I water these plants once a week.",
+          "englishAuditText": "I water these plants once a week.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "Changes twice a week to once a week."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I water these plants three times a week.",
+          "englishAuditText": "I water these plants three times a week.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "Changes twice a week to three times a week."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-uncle-brings-tools",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 89,
+      "complexity": 47,
+      "topic": "family",
+      "familyId": "mm-zh-uncle-brings-tools",
+      "targetText": "明天叔叔会带修自行车的工具来。",
+      "learnerBaseText": "Uncle will bring tools to repair the bike tomorrow.",
+      "englishText": "Uncle will bring tools to repair the bike tomorrow.",
+      "embeddingText": "Uncle will bring tools to repair the bike tomorrow.",
+      "focus": {
+        "kind": "subject",
+        "englishConcepts": [
+          "uncle",
+          "bring",
+          "tools"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Uncle will bring tools to repair the bike tomorrow.",
+          "englishAuditText": "Uncle will bring tools to repair the bike tomorrow."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Dad will bring tools to repair the bike tomorrow.",
+          "englishAuditText": "Dad will bring tools to repair the bike tomorrow.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "Changes the person bringing the tools from Uncle to Dad."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Grandpa will bring tools to repair the bike tomorrow.",
+          "englishAuditText": "Grandpa will bring tools to repair the bike tomorrow.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "Changes the person bringing the tools from Uncle to Grandpa."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-still-waiting-reply",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 97,
+      "complexity": 36,
+      "topic": "communication",
+      "familyId": "mm-zh-still-waiting-reply",
+      "targetText": "我还在等她的回复。",
+      "learnerBaseText": "I am still waiting for her reply.",
+      "englishText": "I am still waiting for her reply.",
+      "embeddingText": "I am still waiting for her reply.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "wait",
+          "reply",
+          "still"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I am still waiting for her reply.",
+          "englishAuditText": "I am still waiting for her reply."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I have already received her reply.",
+          "englishAuditText": "I have already received her reply.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "Changes still waiting to having received the reply."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I am no longer waiting for her reply.",
+          "englishAuditText": "I am no longer waiting for her reply.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "Changes still waiting to no longer waiting."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-leave-shoes-by-door",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 94,
+      "complexity": 48,
+      "topic": "home",
+      "familyId": "mm-zh-leave-shoes-by-door",
+      "targetText": "进来以前，请把鞋放在门旁边。",
+      "learnerBaseText": "Before coming in, please leave your shoes beside the door.",
+      "englishText": "Before coming in, please leave your shoes beside the door.",
+      "embeddingText": "Before coming in, please leave your shoes beside the door.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "shoes",
+          "beside",
+          "door"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Before coming in, please leave your shoes beside the door.",
+          "englishAuditText": "Before coming in, please leave your shoes beside the door."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Before coming in, please leave your shoes behind the door.",
+          "englishAuditText": "Before coming in, please leave your shoes behind the door.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "Changes beside the door to behind it."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Before coming in, please leave your shoes under the bench.",
+          "englishAuditText": "Before coming in, please leave your shoes under the bench.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "Changes beside the door to under the bench."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-spoon-for-stirring",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 87,
+      "complexity": 40,
+      "topic": "cooking",
+      "familyId": "mm-zh-spoon-for-stirring",
+      "targetText": "这把木勺是用来搅汤的。",
+      "learnerBaseText": "This wooden spoon is for stirring the soup.",
+      "englishText": "This wooden spoon is for stirring the soup.",
+      "embeddingText": "This wooden spoon is for stirring the soup.",
+      "focus": {
+        "kind": "purpose",
+        "englishConcepts": [
+          "wooden spoon",
+          "stir",
+          "soup"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This wooden spoon is for stirring the soup.",
+          "englishAuditText": "This wooden spoon is for stirring the soup."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This wooden spoon is for serving the soup.",
+          "englishAuditText": "This wooden spoon is for serving the soup.",
+          "contrast": {
+            "kind": "purpose",
+            "explanation": "Changes stirring the soup to serving it."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This wooden spoon is for tasting the soup.",
+          "englishAuditText": "This wooden spoon is for tasting the soup.",
+          "contrast": {
+            "kind": "purpose",
+            "explanation": "Changes stirring the soup to tasting it."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-choose-same-colour",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 86,
+      "complexity": 44,
+      "topic": "art",
+      "familyId": "mm-zh-choose-same-colour",
+      "targetText": "请选两条颜色一样的丝带。",
+      "learnerBaseText": "Please choose two ribbons of the same colour.",
+      "englishText": "Please choose two ribbons of the same colour.",
+      "embeddingText": "Please choose two ribbons of the same colour.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "two ribbons",
+          "same colour"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Please choose two ribbons of the same colour.",
+          "englishAuditText": "Please choose two ribbons of the same colour."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Please choose two ribbons of different colours.",
+          "englishAuditText": "Please choose two ribbons of different colours.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "Changes the same colour to different colours."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Please choose two ribbons of the same length.",
+          "englishAuditText": "Please choose two ribbons of the same length.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "Changes matching colour to matching length."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-bus-ten-minutes",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 98,
+      "complexity": 36,
+      "topic": "public-transport",
+      "familyId": "mm-zh-bus-ten-minutes",
+      "targetText": "下一班公交车十分钟后到。",
+      "learnerBaseText": "The next bus arrives in ten minutes.",
+      "englishText": "The next bus arrives in ten minutes.",
+      "embeddingText": "The next bus arrives in ten minutes.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "next bus",
+          "ten minutes"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The next bus arrives in ten minutes.",
+          "englishAuditText": "The next bus arrives in ten minutes."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The next bus arrives in five minutes.",
+          "englishAuditText": "The next bus arrives in five minutes.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "Changes the waiting time from ten minutes to five."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The next bus arrives in twenty minutes.",
+          "englishAuditText": "The next bus arrives in twenty minutes.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "Changes the waiting time from ten minutes to twenty."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-need-larger-size",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 99,
+      "complexity": 51,
+      "topic": "shopping",
+      "familyId": "mm-zh-need-larger-size",
+      "targetText": "这双鞋太小了，我需要大一号的。",
+      "learnerBaseText": "These shoes are too small; I need the next size up.",
+      "englishText": "These shoes are too small; I need the next size up.",
+      "embeddingText": "These shoes are too small; I need the next size up.",
+      "focus": {
+        "kind": "comparison",
+        "englishConcepts": [
+          "shoes",
+          "larger size"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "These shoes are too small; I need the next size up.",
+          "englishAuditText": "These shoes are too small; I need the next size up."
+        },
+        {
+          "id": "contrast-1",
+          "text": "These shoes are too large; I need the next size down.",
+          "englishAuditText": "These shoes are too large; I need the next size down.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "Reverses the size problem and the requested adjustment."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "These shoes fit; I need another pair in the same size.",
+          "englishAuditText": "These shoes fit; I need another pair in the same size.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "Changes needing a larger size to needing the same size."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-bring-so-we-share",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 92,
+      "complexity": 50,
+      "topic": "friendship",
+      "familyId": "mm-zh-bring-so-we-share",
+      "targetText": "明天带上你的彩色铅笔，这样我们就可以一起用了。",
+      "learnerBaseText": "Bring your coloured pencils tomorrow so we can share them.",
+      "englishText": "Bring your coloured pencils tomorrow so we can share them.",
+      "embeddingText": "Bring your coloured pencils tomorrow so we can share them.",
+      "focus": {
+        "kind": "purpose",
+        "englishConcepts": [
+          "coloured pencils",
+          "share"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Bring your coloured pencils tomorrow so we can share them.",
+          "englishAuditText": "Bring your coloured pencils tomorrow so we can share them."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Bring your coloured pencils tomorrow so we can sell them.",
+          "englishAuditText": "Bring your coloured pencils tomorrow so we can sell them.",
+          "contrast": {
+            "kind": "purpose",
+            "explanation": "Changes sharing the pencils to selling them."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Bring your coloured pencils tomorrow so we can count them.",
+          "englishAuditText": "Bring your coloured pencils tomorrow so we can count them.",
+          "contrast": {
+            "kind": "purpose",
+            "explanation": "Changes sharing the pencils to counting them."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-carefully-fold-map",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 93,
+      "complexity": 49,
+      "topic": "travel",
+      "familyId": "mm-zh-carefully-fold-map",
+      "targetText": "收起来以前，请小心地把这张地图折好。",
+      "learnerBaseText": "Before putting this map away, please fold it carefully.",
+      "englishText": "Before putting this map away, please fold it carefully.",
+      "embeddingText": "Before putting this map away, please fold it carefully.",
+      "focus": {
+        "kind": "manner",
+        "englishConcepts": [
+          "map",
+          "fold",
+          "carefully"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Before putting this map away, please fold it carefully.",
+          "englishAuditText": "Before putting this map away, please fold it carefully."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Before putting this map away, please fold it quickly.",
+          "englishAuditText": "Before putting this map away, please fold it quickly.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "Changes carefully to quickly."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Before putting this map away, please fold it roughly.",
+          "englishAuditText": "Before putting this map away, please fold it roughly.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "Changes carefully to roughly."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-although-cloudy-picnic",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 89,
+      "complexity": 66,
+      "topic": "weather",
+      "familyId": "mm-zh-although-cloudy-picnic",
+      "targetText": "虽然明天多云，我们还是打算去野餐。",
+      "learnerBaseText": "Although it will be cloudy tomorrow, we still plan to go on a picnic.",
+      "englishText": "Although it will be cloudy tomorrow, we still plan to go on a picnic.",
+      "embeddingText": "Although it will be cloudy tomorrow, we still plan to go on a picnic.",
+      "focus": {
+        "kind": "condition",
+        "englishConcepts": [
+          "cloudy",
+          "picnic",
+          "still"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Although it will be cloudy tomorrow, we still plan to go on a picnic.",
+          "englishAuditText": "Although it will be cloudy tomorrow, we still plan to go on a picnic."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Unless it is cloudy tomorrow, we still plan to go on a picnic.",
+          "englishAuditText": "Unless it is cloudy tomorrow, we still plan to go on a picnic.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "Changes a concessive cloudy forecast to an exception if it is cloudy."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Because it will be cloudy tomorrow, we still plan to go on a picnic.",
+          "englishAuditText": "Because it will be cloudy tomorrow, we still plan to go on a picnic.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "Changes despite the clouds to because of the clouds."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-if-no-reply-ask-teacher",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 98,
+      "complexity": 72,
+      "topic": "communication",
+      "familyId": "mm-zh-if-no-reply-ask-teacher",
+      "targetText": "如果明天还没有收到回复，我就去问老师。",
+      "learnerBaseText": "If I still have not received a reply tomorrow, I will ask the teacher.",
+      "englishText": "If I still have not received a reply tomorrow, I will ask the teacher.",
+      "embeddingText": "If I still have not received a reply tomorrow, I will ask the teacher.",
+      "focus": {
+        "kind": "condition",
+        "englishConcepts": [
+          "reply",
+          "tomorrow",
+          "ask teacher"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "If I still have not received a reply tomorrow, I will ask the teacher.",
+          "englishAuditText": "If I still have not received a reply tomorrow, I will ask the teacher."
+        },
+        {
+          "id": "contrast-1",
+          "text": "If I have already received a reply tomorrow, I will ask the teacher.",
+          "englishAuditText": "If I have already received a reply tomorrow, I will ask the teacher.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "Changes not having received a reply to having received one."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "If the teacher has not received a reply tomorrow, I will ask the teacher.",
+          "englishAuditText": "If the teacher has not received a reply tomorrow, I will ask the teacher.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "Changes whose missing reply triggers the question."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-leave-enough-for-others",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 98,
+      "complexity": 69,
+      "topic": "cooperation",
+      "familyId": "mm-zh-leave-enough-for-others",
+      "targetText": "拿你需要的纸就好，剩下的留给其他人。",
+      "learnerBaseText": "Take only the paper you need and leave the rest for the others.",
+      "englishText": "Take only the paper you need and leave the rest for the others.",
+      "embeddingText": "Take only the paper you need and leave the rest for the others.",
+      "focus": {
+        "kind": "quantity",
+        "englishConcepts": [
+          "paper",
+          "enough",
+          "others"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Take only the paper you need and leave the rest for the others.",
+          "englishAuditText": "Take only the paper you need and leave the rest for the others."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Take all the paper you can carry and leave the rest for the others.",
+          "englishAuditText": "Take all the paper you can carry and leave the rest for the others.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "Changes taking what is needed to taking as much as can be carried."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Take half the paper you need and leave the rest for the others.",
+          "englishAuditText": "Take half the paper you need and leave the rest for the others.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "Changes taking what is needed to taking half that amount."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-ticket-instead-of-receipt",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 95,
+      "complexity": 70,
+      "topic": "travel",
+      "familyId": "mm-zh-ticket-instead-of-receipt",
+      "targetText": "请把车票放进蓝色文件夹里，收据留在桌上。",
+      "learnerBaseText": "Please put the ticket in the blue folder and leave the receipt on the table.",
+      "englishText": "Please put the ticket in the blue folder and leave the receipt on the table.",
+      "embeddingText": "Please put the ticket in the blue folder and leave the receipt on the table.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "ticket",
+          "receipt",
+          "blue folder"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Please put the ticket in the blue folder and leave the receipt on the table.",
+          "englishAuditText": "Please put the ticket in the blue folder and leave the receipt on the table."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Please put the receipt in the blue folder and leave the ticket on the table.",
+          "englishAuditText": "Please put the receipt in the blue folder and leave the ticket on the table.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "Swaps which document belongs in each place."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Please put the map in the blue folder and leave the receipt on the table.",
+          "englishAuditText": "Please put the map in the blue folder and leave the receipt on the table.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "Replaces the ticket with the map."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-library-closes-earlier",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 97,
+      "complexity": 73,
+      "topic": "school",
+      "familyId": "mm-zh-library-closes-earlier",
+      "targetText": "今天图书馆比平时早一个小时关门，所以我们得早点去。",
+      "learnerBaseText": "The library closes one hour earlier than usual today, so we need to go early.",
+      "englishText": "The library closes one hour earlier than usual today, so we need to go early.",
+      "embeddingText": "The library closes one hour earlier than usual today, so we need to go early.",
+      "focus": {
+        "kind": "comparison",
+        "englishConcepts": [
+          "library",
+          "close",
+          "one hour earlier"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The library closes one hour earlier than usual today, so we need to go early.",
+          "englishAuditText": "The library closes one hour earlier than usual today, so we need to go early."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The library closes one hour later than usual today, so we need to go early.",
+          "englishAuditText": "The library closes one hour later than usual today, so we need to go early.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "Changes earlier closing to later closing."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The library closes two hours earlier than usual today, so we need to go early.",
+          "englishAuditText": "The library closes two hours earlier than usual today, so we need to go early.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "Changes the difference from one hour to two hours."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-since-fixed-light-use-room",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 94,
+      "complexity": 70,
+      "topic": "home",
+      "familyId": "mm-zh-since-fixed-light-use-room",
+      "targetText": "既然灯已经修好了，我们今晚就可以用这个房间了。",
+      "learnerBaseText": "Since the light has already been repaired, we can use this room tonight.",
+      "englishText": "Since the light has already been repaired, we can use this room tonight.",
+      "embeddingText": "Since the light has already been repaired, we can use this room tonight.",
+      "focus": {
+        "kind": "reason",
+        "englishConcepts": [
+          "light",
+          "fixed",
+          "room usable"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Since the light has already been repaired, we can use this room tonight.",
+          "englishAuditText": "Since the light has already been repaired, we can use this room tonight."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Since the light has not been repaired yet, we can use this room tonight.",
+          "englishAuditText": "Since the light has not been repaired yet, we can use this room tonight.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "Changes the completed repair to an unfinished repair."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Since the window has already been repaired, we can use this room tonight.",
+          "englishAuditText": "Since the window has already been repaired, we can use this room tonight.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "Changes what was repaired from the light to the window."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-unless-raining-walk-home",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 97,
+      "complexity": 65,
+      "topic": "weather",
+      "familyId": "mm-zh-unless-raining-walk-home",
+      "targetText": "明天除非下雨，否则我们就走路回家。",
+      "learnerBaseText": "Tomorrow we will walk home unless it rains.",
+      "englishText": "Tomorrow we will walk home unless it rains.",
+      "embeddingText": "Tomorrow we will walk home unless it rains.",
+      "focus": {
+        "kind": "condition",
+        "englishConcepts": [
+          "unless",
+          "rain",
+          "walk home"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Tomorrow we will walk home unless it rains.",
+          "englishAuditText": "Tomorrow we will walk home unless it rains."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Tomorrow we will walk home only if it rains.",
+          "englishAuditText": "Tomorrow we will walk home only if it rains.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "Reverses the rain condition from an exception to a requirement."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Tomorrow we will walk home whether it rains or not.",
+          "englishAuditText": "Tomorrow we will walk home whether it rains or not.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "Removes the rain exception."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-after-everyone-ready",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 98,
+      "complexity": 67,
+      "topic": "cooperation",
+      "familyId": "mm-zh-after-everyone-ready",
+      "targetText": "等大家都准备好了，我们再开始游戏。",
+      "learnerBaseText": "We will not start the game until everyone is ready.",
+      "englishText": "We will not start the game until everyone is ready.",
+      "embeddingText": "We will not start the game until everyone is ready.",
+      "focus": {
+        "kind": "sequence",
+        "englishConcepts": [
+          "everyone ready",
+          "start",
+          "not before"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "We will not start the game until everyone is ready.",
+          "englishAuditText": "We will not start the game until everyone is ready."
+        },
+        {
+          "id": "contrast-1",
+          "text": "We will start the game before everyone is ready.",
+          "englishAuditText": "We will start the game before everyone is ready.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "Changes waiting for everyone to starting before all are ready."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "We will not start the game until one person is ready.",
+          "englishAuditText": "We will not start the game until one person is ready.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "Changes everyone being ready to one person being ready."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-water-plants-before-trip",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 93,
+      "complexity": 78,
+      "topic": "nature",
+      "familyId": "mm-zh-water-plants-before-trip",
+      "targetText": "出发以前，我会先给植物浇水，再把浇水壶放回架子上。",
+      "learnerBaseText": "Before we leave, I will water the plants and then put the watering can back on the shelf.",
+      "englishText": "Before we leave, I will water the plants and then put the watering can back on the shelf.",
+      "embeddingText": "Before we leave, I will water the plants and then put the watering can back on the shelf.",
+      "focus": {
+        "kind": "sequence",
+        "englishConcepts": [
+          "plants",
+          "water",
+          "before leaving"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Before we leave, I will water the plants and then put the watering can back on the shelf.",
+          "englishAuditText": "Before we leave, I will water the plants and then put the watering can back on the shelf."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Before we leave, I will put the watering can back on the shelf and then water the plants.",
+          "englishAuditText": "Before we leave, I will put the watering can back on the shelf and then water the plants.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "Reverses watering and putting away the watering can."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "After we return, I will water the plants and then put the watering can back on the shelf.",
+          "englishAuditText": "After we return, I will water the plants and then put the watering can back on the shelf.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "Changes before leaving to after returning."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-not-sure-which-platform",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 99,
+      "complexity": 77,
+      "topic": "public-transport",
+      "familyId": "mm-zh-not-sure-which-platform",
+      "targetText": "我知道火车几点出发，但还不确定应该去哪个站台。",
+      "learnerBaseText": "I know when the train leaves, but I am still not sure which platform to go to.",
+      "englishText": "I know when the train leaves, but I am still not sure which platform to go to.",
+      "embeddingText": "I know when the train leaves, but I am still not sure which platform to go to.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "not sure",
+          "platform",
+          "train"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I know when the train leaves, but I am still not sure which platform to go to.",
+          "englishAuditText": "I know when the train leaves, but I am still not sure which platform to go to."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I know which platform to go to, but I am still not sure when the train leaves.",
+          "englishAuditText": "I know which platform to go to, but I am still not sure when the train leaves.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "Swaps the known information and the uncertain information."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I know when the train leaves, but I am still not sure which seat to go to.",
+          "englishAuditText": "I know when the train leaves, but I am still not sure which seat to go to.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "Changes uncertainty about the platform to uncertainty about the seat."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-less-salt-than-last-time",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 92,
+      "complexity": 74,
+      "topic": "cooking",
+      "familyId": "mm-zh-less-salt-than-last-time",
+      "targetText": "这次汤里的盐比上次少，但味道还是很好。",
+      "learnerBaseText": "There is less salt in the soup this time than last time, but it still tastes very good.",
+      "englishText": "There is less salt in the soup this time than last time, but it still tastes very good.",
+      "embeddingText": "There is less salt in the soup this time than last time, but it still tastes very good.",
+      "focus": {
+        "kind": "comparison",
+        "englishConcepts": [
+          "soup",
+          "less salt",
+          "last time"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "There is less salt in the soup this time than last time, but it still tastes very good.",
+          "englishAuditText": "There is less salt in the soup this time than last time, but it still tastes very good."
+        },
+        {
+          "id": "contrast-1",
+          "text": "There is more salt in the soup this time than last time, but it still tastes very good.",
+          "englishAuditText": "There is more salt in the soup this time than last time, but it still tastes very good.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "Changes less salt to more salt."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "There is as much salt in the soup this time as last time, but it still tastes very good.",
+          "englishAuditText": "There is as much salt in the soup this time as last time, but it still tastes very good.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "Changes less salt to the same amount of salt."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-message-for-absent-friend",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 97,
+      "complexity": 84,
+      "topic": "friendship",
+      "familyId": "mm-zh-message-for-absent-friend",
+      "targetText": "我给没来上课的朋友发了消息，告诉他集合时间改了。",
+      "learnerBaseText": "I sent a message to the friend who was absent from class to tell him the meeting time had changed.",
+      "englishText": "I sent a message to the friend who was absent from class to tell him the meeting time had changed.",
+      "embeddingText": "I sent a message to the friend who was absent from class to tell him the meeting time had changed.",
+      "focus": {
+        "kind": "purpose",
+        "englishConcepts": [
+          "message",
+          "friend absent",
+          "meeting changed"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I sent a message to the friend who was absent from class to tell him the meeting time had changed.",
+          "englishAuditText": "I sent a message to the friend who was absent from class to tell him the meeting time had changed."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I sent a message to the friend who was absent from class to tell him the meeting place had changed.",
+          "englishAuditText": "I sent a message to the friend who was absent from class to tell him the meeting place had changed.",
+          "contrast": {
+            "kind": "purpose",
+            "explanation": "Changes the update from the meeting time to the meeting place."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I sent a message to the friend who was absent from class to tell him the meeting had been cancelled.",
+          "englishAuditText": "I sent a message to the friend who was absent from class to tell him the meeting had been cancelled.",
+          "contrast": {
+            "kind": "purpose",
+            "explanation": "Changes a changed time to a cancelled meeting."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-wait-instead-of-run",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 96,
+      "complexity": 76,
+      "topic": "travel",
+      "familyId": "mm-zh-wait-instead-of-run",
+      "targetText": "我们已经错过那班公交车了，还是等下一班吧，别跑了。",
+      "learnerBaseText": "We have already missed that bus, so let us wait for the next one instead of running.",
+      "englishText": "We have already missed that bus, so let us wait for the next one instead of running.",
+      "embeddingText": "We have already missed that bus, so let us wait for the next one instead of running.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "missed bus",
+          "wait",
+          "next bus"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "We have already missed that bus, so let us wait for the next one instead of running.",
+          "englishAuditText": "We have already missed that bus, so let us wait for the next one instead of running."
+        },
+        {
+          "id": "contrast-1",
+          "text": "We have already missed that bus, so let us run after it instead of waiting.",
+          "englishAuditText": "We have already missed that bus, so let us run after it instead of waiting.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "Reverses waiting for the next bus and running after the missed one."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "We have already missed that bus, so let us walk home instead of running.",
+          "englishAuditText": "We have already missed that bus, so let us walk home instead of running.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "Changes waiting for the next bus to walking home."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-paper-before-opening-window",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 96,
+      "complexity": 80,
+      "topic": "home",
+      "familyId": "mm-zh-paper-before-opening-window",
+      "targetText": "开窗以前，请先把桌上的纸收起来，免得被风吹走。",
+      "learnerBaseText": "Before opening the window, please put away the papers on the table so they do not blow away.",
+      "englishText": "Before opening the window, please put away the papers on the table so they do not blow away.",
+      "embeddingText": "Before opening the window, please put away the papers on the table so they do not blow away.",
+      "focus": {
+        "kind": "sequence",
+        "englishConcepts": [
+          "papers",
+          "put away",
+          "window"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Before opening the window, please put away the papers on the table so they do not blow away.",
+          "englishAuditText": "Before opening the window, please put away the papers on the table so they do not blow away."
+        },
+        {
+          "id": "contrast-1",
+          "text": "After opening the window, please put away the papers on the table so they do not blow away.",
+          "englishAuditText": "After opening the window, please put away the papers on the table so they do not blow away.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "Changes putting the papers away before opening to afterwards."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "While opening the window, please put away the papers on the table so they do not blow away.",
+          "englishAuditText": "While opening the window, please put away the papers on the table so they do not blow away.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "Changes putting the papers away beforehand to doing both together."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-as-soon-as-water-boils",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 92,
+      "complexity": 78,
+      "topic": "cooking",
+      "familyId": "mm-zh-as-soon-as-water-boils",
+      "targetText": "水一开就把火调小，不用再等五分钟。",
+      "learnerBaseText": "Turn down the heat as soon as the water boils; there is no need to wait another five minutes.",
+      "englishText": "Turn down the heat as soon as the water boils; there is no need to wait another five minutes.",
+      "embeddingText": "Turn down the heat as soon as the water boils; there is no need to wait another five minutes.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "water boils",
+          "turn down heat"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Turn down the heat as soon as the water boils; there is no need to wait another five minutes.",
+          "englishAuditText": "Turn down the heat as soon as the water boils; there is no need to wait another five minutes."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Turn down the heat five minutes after the water boils; there is no need to wait another five minutes.",
+          "englishAuditText": "Turn down the heat five minutes after the water boils; there is no need to wait another five minutes.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "Changes immediately at boiling to five minutes later."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Turn down the heat before the water boils; there is no need to wait another five minutes.",
+          "englishAuditText": "Turn down the heat before the water boils; there is no need to wait another five minutes.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "Changes at boiling to before boiling."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-take-umbrella-even-dry",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 98,
+      "complexity": 72,
+      "topic": "weather",
+      "familyId": "mm-zh-take-umbrella-even-dry",
+      "targetText": "即使出门时还没下雨，也请带上雨伞。",
+      "learnerBaseText": "Please take an umbrella even if it is not raining yet when you go out.",
+      "englishText": "Please take an umbrella even if it is not raining yet when you go out.",
+      "embeddingText": "Please take an umbrella even if it is not raining yet when you go out.",
+      "focus": {
+        "kind": "condition",
+        "englishConcepts": [
+          "umbrella",
+          "even if",
+          "not raining yet"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Please take an umbrella even if it is not raining yet when you go out.",
+          "englishAuditText": "Please take an umbrella even if it is not raining yet when you go out."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Please take an umbrella only if it is already raining when you go out.",
+          "englishAuditText": "Please take an umbrella only if it is already raining when you go out.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "Changes taking it despite dry weather to taking it only in rain."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Please take an umbrella only if it has stopped raining when you go out.",
+          "englishAuditText": "Please take an umbrella only if it has stopped raining when you go out.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "Changes an unconditional precaution to a requirement that the rain has stopped."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-which-bag-contains-lunch",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 98,
+      "complexity": 75,
+      "topic": "practical-needs",
+      "familyId": "mm-zh-which-bag-contains-lunch",
+      "targetText": "我问的是哪个包里装着午饭，不是哪个包里有钥匙。",
+      "learnerBaseText": "I am asking which bag contains lunch, not which one contains the keys.",
+      "englishText": "I am asking which bag contains lunch, not which one contains the keys.",
+      "embeddingText": "I am asking which bag contains lunch, not which one contains the keys.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "bag",
+          "lunch",
+          "not keys"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I am asking which bag contains lunch, not which one contains the keys.",
+          "englishAuditText": "I am asking which bag contains lunch, not which one contains the keys."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I am asking which bag contains the keys, not which one contains lunch.",
+          "englishAuditText": "I am asking which bag contains the keys, not which one contains lunch.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "Swaps the requested contents and the rejected contents."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I am asking which bag contains water, not which one contains the keys.",
+          "englishAuditText": "I am asking which bag contains water, not which one contains the keys.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "Changes the requested contents from lunch to water."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-finished-before-sister-arrived",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 94,
+      "complexity": 70,
+      "topic": "family",
+      "familyId": "mm-zh-finished-before-sister-arrived",
+      "targetText": "妹妹到家以前，我就已经做完作业了。",
+      "learnerBaseText": "I had already finished my homework before my younger sister came home.",
+      "englishText": "I had already finished my homework before my younger sister came home.",
+      "embeddingText": "I had already finished my homework before my younger sister came home.",
+      "focus": {
+        "kind": "sequence",
+        "englishConcepts": [
+          "homework finished",
+          "before",
+          "younger sister arrives"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I had already finished my homework before my younger sister came home.",
+          "englishAuditText": "I had already finished my homework before my younger sister came home."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I did not finish my homework until after my younger sister came home.",
+          "englishAuditText": "I did not finish my homework until after my younger sister came home.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "Changes finishing before the arrival to finishing afterwards."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I started my homework just as my younger sister came home.",
+          "englishAuditText": "I started my homework just as my younger sister came home.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "Changes prior completion to starting at the time of arrival."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-fewer-stops-longer-route",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 93,
+      "complexity": 78,
+      "topic": "public-transport",
+      "familyId": "mm-zh-fewer-stops-longer-route",
+      "targetText": "这条路线停的站更少，可是到图书馆反而花的时间更长。",
+      "learnerBaseText": "This route has fewer stops, but it still takes longer to reach the library.",
+      "englishText": "This route has fewer stops, but it still takes longer to reach the library.",
+      "embeddingText": "This route has fewer stops, but it still takes longer to reach the library.",
+      "focus": {
+        "kind": "comparison",
+        "englishConcepts": [
+          "route",
+          "fewer stops",
+          "longer"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This route has fewer stops, but it still takes longer to reach the library.",
+          "englishAuditText": "This route has fewer stops, but it still takes longer to reach the library."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This route has more stops, but it still takes longer to reach the library.",
+          "englishAuditText": "This route has more stops, but it still takes longer to reach the library.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "Changes fewer stops to more stops."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This route has fewer stops, but it still takes less time to reach the library.",
+          "englishAuditText": "This route has fewer stops, but it still takes less time to reach the library.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "Changes taking longer to taking less time."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-only-copy-with-permission",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 98,
+      "complexity": 69,
+      "topic": "school",
+      "familyId": "mm-zh-only-copy-with-permission",
+      "targetText": "只有得到她的同意，你才能复制这张画。",
+      "learnerBaseText": "You may copy this drawing only if you have her permission.",
+      "englishText": "You may copy this drawing only if you have her permission.",
+      "embeddingText": "You may copy this drawing only if you have her permission.",
+      "focus": {
+        "kind": "condition",
+        "englishConcepts": [
+          "copy",
+          "drawing",
+          "permission"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "You may copy this drawing only if you have her permission.",
+          "englishAuditText": "You may copy this drawing only if you have her permission."
+        },
+        {
+          "id": "contrast-1",
+          "text": "You may copy this drawing even if you do not have her permission.",
+          "englishAuditText": "You may copy this drawing even if you do not have her permission.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "Removes the permission requirement."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "You may copy this drawing only if you have his permission.",
+          "englishAuditText": "You may copy this drawing only if you have his permission.",
+          "contrast": {
+            "kind": "possession",
+            "explanation": "Changes whose permission is required."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-both-arrive-before-noon",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 94,
+      "complexity": 66,
+      "topic": "planning",
+      "familyId": "mm-zh-both-arrive-before-noon",
+      "targetText": "这两个包裹都必须在明天中午以前送到。",
+      "learnerBaseText": "Both of these parcels must arrive before noon tomorrow.",
+      "englishText": "Both of these parcels must arrive before noon tomorrow.",
+      "embeddingText": "Both of these parcels must arrive before noon tomorrow.",
+      "focus": {
+        "kind": "quantity",
+        "englishConcepts": [
+          "both parcels",
+          "before noon"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Both of these parcels must arrive before noon tomorrow.",
+          "englishAuditText": "Both of these parcels must arrive before noon tomorrow."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Only one of these parcels must arrive before noon tomorrow.",
+          "englishAuditText": "Only one of these parcels must arrive before noon tomorrow.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "Changes both parcels to only one parcel."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Neither of these parcels needs to arrive before noon tomorrow.",
+          "englishAuditText": "Neither of these parcels needs to arrive before noon tomorrow.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "Changes both being required to neither being required."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-rather-repair-than-replace",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 95,
+      "complexity": 70,
+      "topic": "practical-needs",
+      "familyId": "mm-zh-rather-repair-than-replace",
+      "targetText": "与其买一把新椅子，我更愿意修好这把坏椅子。",
+      "learnerBaseText": "I would rather repair this broken chair than buy a new one.",
+      "englishText": "I would rather repair this broken chair than buy a new one.",
+      "embeddingText": "I would rather repair this broken chair than buy a new one.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "broken chair",
+          "repair",
+          "replace"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I would rather repair this broken chair than buy a new one.",
+          "englishAuditText": "I would rather repair this broken chair than buy a new one."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I would rather buy a new chair than repair this broken one.",
+          "englishAuditText": "I would rather buy a new chair than repair this broken one.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "Reverses the preference for repair over replacement."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I would rather give away this broken chair than buy a new one.",
+          "englishAuditText": "I would rather give away this broken chair than buy a new one.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "Changes the preferred action from repairing to giving away."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-explain-again-more-slowly",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 100,
+      "complexity": 76,
+      "topic": "communication",
+      "familyId": "mm-zh-explain-again-more-slowly",
+      "targetText": "你能再解释一次吗？这次慢一点，我想弄明白每一步。",
+      "learnerBaseText": "Could you explain it again, more slowly this time? I want to understand every step.",
+      "englishText": "Could you explain it again, more slowly this time? I want to understand every step.",
+      "embeddingText": "Could you explain it again, more slowly this time? I want to understand every step.",
+      "focus": {
+        "kind": "manner",
+        "englishConcepts": [
+          "explain again",
+          "more slowly",
+          "understand"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Could you explain it again, more slowly this time? I want to understand every step.",
+          "englishAuditText": "Could you explain it again, more slowly this time? I want to understand every step."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Could you explain it again, more quickly this time? I want to understand every step.",
+          "englishAuditText": "Could you explain it again, more quickly this time? I want to understand every step.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "Changes more slowly to more quickly."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Could you explain it again, more loudly this time? I want to understand every step.",
+          "englishAuditText": "Could you explain it again, more loudly this time? I want to understand every step.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "Changes the requested adjustment from slower speech to louder speech."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-not-because-forgot",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 99,
+      "complexity": 82,
+      "topic": "cooperation",
+      "familyId": "mm-zh-not-because-forgot",
+      "targetText": "我来晚了，不是因为忘了约定的时间，而是因为公交车晚点了。",
+      "learnerBaseText": "I arrived late, not because I forgot the agreed time, but because the bus was delayed.",
+      "englishText": "I arrived late, not because I forgot the agreed time, but because the bus was delayed.",
+      "embeddingText": "I arrived late, not because I forgot the agreed time, but because the bus was delayed.",
+      "focus": {
+        "kind": "reason",
+        "englishConcepts": [
+          "late",
+          "bus delayed",
+          "not forgot"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I arrived late, not because I forgot the agreed time, but because the bus was delayed.",
+          "englishAuditText": "I arrived late, not because I forgot the agreed time, but because the bus was delayed."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I arrived late, not because the bus was delayed, but because I forgot the agreed time.",
+          "englishAuditText": "I arrived late, not because the bus was delayed, but because I forgot the agreed time.",
+          "contrast": {
+            "kind": "reason",
+            "explanation": "Swaps the actual reason and the rejected reason."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I arrived late, not because I forgot the agreed time, but because the train was delayed.",
+          "englishAuditText": "I arrived late, not because I forgot the agreed time, but because the train was delayed.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "Changes the delayed transport from the bus to the train."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-save-file-before-close",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 99,
+      "complexity": 79,
+      "topic": "technology",
+      "familyId": "mm-zh-save-file-before-close",
+      "targetText": "关闭电脑以前，先保存文件，这样明天就不用重新做了。",
+      "learnerBaseText": "Save the file before turning off the computer so you will not have to do the work again tomorrow.",
+      "englishText": "Save the file before turning off the computer so you will not have to do the work again tomorrow.",
+      "embeddingText": "Save the file before turning off the computer so you will not have to do the work again tomorrow.",
+      "focus": {
+        "kind": "sequence",
+        "englishConcepts": [
+          "save",
+          "file",
+          "before closing"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Save the file before turning off the computer so you will not have to do the work again tomorrow.",
+          "englishAuditText": "Save the file before turning off the computer so you will not have to do the work again tomorrow."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Save the file after turning off the computer so you will not have to do the work again tomorrow.",
+          "englishAuditText": "Save the file after turning off the computer so you will not have to do the work again tomorrow.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "Changes saving before turning off the computer to afterwards."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Delete the file before turning off the computer so you will not have to do the work again tomorrow.",
+          "englishAuditText": "Delete the file before turning off the computer so you will not have to do the work again tomorrow.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "Changes saving the file to deleting it."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-whoever-finishes-helps",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 96,
+      "complexity": 74,
+      "topic": "cooperation",
+      "familyId": "mm-zh-whoever-finishes-helps",
+      "targetText": "谁先做完，谁就去帮助还没做完的人。",
+      "learnerBaseText": "Whoever finishes first should help those who have not finished yet.",
+      "englishText": "Whoever finishes first should help those who have not finished yet.",
+      "embeddingText": "Whoever finishes first should help those who have not finished yet.",
+      "focus": {
+        "kind": "subject",
+        "englishConcepts": [
+          "first finisher",
+          "help",
+          "others"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Whoever finishes first should help those who have not finished yet.",
+          "englishAuditText": "Whoever finishes first should help those who have not finished yet."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Whoever finishes last should help those who have not finished yet.",
+          "englishAuditText": "Whoever finishes last should help those who have not finished yet.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "Changes the helper from the first finisher to the last finisher."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Whoever has not started yet should help those who have not finished yet.",
+          "englishAuditText": "Whoever has not started yet should help those who have not finished yet.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "Changes the helper from the first finisher to someone who has not started."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-only-small-box-not-both",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 96,
+      "complexity": 67,
+      "topic": "home",
+      "familyId": "mm-zh-only-small-box-not-both",
+      "targetText": "请只把小盒子搬到楼上，不要两个都搬。",
+      "learnerBaseText": "Please carry only the small box upstairs, not both boxes.",
+      "englishText": "Please carry only the small box upstairs, not both boxes.",
+      "embeddingText": "Please carry only the small box upstairs, not both boxes.",
+      "focus": {
+        "kind": "quantity",
+        "englishConcepts": [
+          "only small box",
+          "not both"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Please carry only the small box upstairs, not both boxes.",
+          "englishAuditText": "Please carry only the small box upstairs, not both boxes."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Please carry both boxes upstairs, not only the small one.",
+          "englishAuditText": "Please carry both boxes upstairs, not only the small one.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "Changes only the small box to both boxes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Please carry only the large box upstairs, not both boxes.",
+          "englishAuditText": "Please carry only the large box upstairs, not both boxes.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "Changes the selected box from small to large."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-filling-not-colour",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 84,
+      "complexity": 80,
+      "topic": "cooking",
+      "familyId": "mm-zh-filling-not-colour",
+      "targetText": "选饺子时，我最在意的是馅儿，不是外皮的颜色。",
+      "learnerBaseText": "When choosing dumplings, I care most about the filling, not the colour of the wrapper.",
+      "englishText": "When choosing dumplings, I care most about the filling, not the colour of the wrapper.",
+      "embeddingText": "When choosing dumplings, I care most about the filling, not the colour of the wrapper.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "dumpling",
+          "filling",
+          "not colour"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "When choosing dumplings, I care most about the filling, not the colour of the wrapper.",
+          "englishAuditText": "When choosing dumplings, I care most about the filling, not the colour of the wrapper."
+        },
+        {
+          "id": "contrast-1",
+          "text": "When choosing dumplings, I care most about the colour of the wrapper, not the filling.",
+          "englishAuditText": "When choosing dumplings, I care most about the colour of the wrapper, not the filling.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "Swaps the important feature and the rejected feature."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "When choosing dumplings, I care most about the shape, not the colour of the wrapper.",
+          "englishAuditText": "When choosing dumplings, I care most about the shape, not the colour of the wrapper.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "Changes the important feature from filling to shape."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-report-change-not-cancel",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 98,
+      "complexity": 85,
+      "topic": "planning",
+      "familyId": "mm-zh-report-change-not-cancel",
+      "targetText": "通知上只说活动改到星期六了，并没有说活动取消了。",
+      "learnerBaseText": "The notice only says the activity has moved to Saturday; it does not say it has been cancelled.",
+      "englishText": "The notice only says the activity has moved to Saturday; it does not say it has been cancelled.",
+      "embeddingText": "The notice only says the activity has moved to Saturday; it does not say it has been cancelled.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "meeting",
+          "time changed",
+          "not cancelled"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The notice only says the activity has moved to Saturday; it does not say it has been cancelled.",
+          "englishAuditText": "The notice only says the activity has moved to Saturday; it does not say it has been cancelled."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The notice only says the activity has been cancelled; it does not say it has moved to Saturday.",
+          "englishAuditText": "The notice only says the activity has been cancelled; it does not say it has moved to Saturday.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "Swaps rescheduling and cancellation."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The notice only says the activity has moved to Sunday; it does not say it has been cancelled.",
+          "englishAuditText": "The notice only says the activity has moved to Sunday; it does not say it has been cancelled.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "Changes the new day from Saturday to Sunday."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-zh-search-before-buy-another",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 95,
+      "complexity": 83,
+      "topic": "shopping",
+      "familyId": "mm-zh-search-before-buy-another",
+      "targetText": "再买一副手套以前，我们先找找丢的那只，也许就在书包里。",
+      "learnerBaseText": "Before buying another pair of gloves, let us look for the missing one; it may be in the schoolbag.",
+      "englishText": "Before buying another pair of gloves, let us look for the missing one; it may be in the schoolbag.",
+      "embeddingText": "Before buying another pair of gloves, let us look for the missing one; it may be in the schoolbag.",
+      "focus": {
+        "kind": "sequence",
+        "englishConcepts": [
+          "search",
+          "lost glove",
+          "before buy"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Before buying another pair of gloves, let us look for the missing one; it may be in the schoolbag.",
+          "englishAuditText": "Before buying another pair of gloves, let us look for the missing one; it may be in the schoolbag."
+        },
+        {
+          "id": "contrast-1",
+          "text": "After buying another pair of gloves, let us look for the missing one; it may be in the schoolbag.",
+          "englishAuditText": "After buying another pair of gloves, let us look for the missing one; it may be in the schoolbag.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "Changes searching before buying to searching afterwards."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Before buying another pair of gloves, let us look for the missing one; it may be in the cupboard.",
+          "englishAuditText": "Before buying another pair of gloves, let us look for the missing one; it may be in the cupboard.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "Changes the possible location from the schoolbag to the cupboard."
+          }
+        }
+      ]
+    }
+  ]
+}

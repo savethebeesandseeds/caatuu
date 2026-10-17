@@ -1,9 +1,30 @@
-import { ENGLISH_MINILM_RUNTIME } from "./english-minilm-ranker.mjs";
+import { ENGLISH_MINILM_RUNTIME, validateEnglishEmbeddingPayload } from "./english-minilm-ranker.mjs";
 
-export const IMAGE_EMBEDDING_INDEX_URL = "/language-runtime/static/data/image-embeddings/minilm-v1.json?v=image-index-1";
+export const IMAGE_EMBEDDING_INDEX_PATH = "/language-runtime/static/data/image-embeddings/minilm-v1.json";
+export const IMAGE_EMBEDDING_INDEX_URL = `${IMAGE_EMBEDDING_INDEX_PATH}?v=image-index-2`;
+export const IMAGE_EMBEDDING_MODEL_ID = ENGLISH_MINILM_RUNTIME.modelId.replace(/\/runtime$/u, "");
 export const IMAGE_INDEX_SCHEMA = "caatuu-shared-image-embeddings-v1";
 
-export function imageVectorKey(row) { return `${row.sourceKind}\u0000${row.path}`; }
+const SOURCE_PREFIXES = Object.freeze({ image_asset: "/assets/miscellaneous/",
+  macaw_action_asset: "/assets/macaw/actions/", robot_asset: "/assets/robots/", ship_asset: "/assets/ships/" });
+
+export function imageVectorKey(row) { return JSON.stringify([row.sourceKind, row.path]); }
+
+export function imageEmbeddingReference(row) {
+  return { index: IMAGE_EMBEDDING_INDEX_PATH, model_id: IMAGE_EMBEDDING_MODEL_ID,
+    source_kind: row.sourceKind, asset_path: row.path };
+}
+
+function validAssetPath(row) {
+  const prefix = SOURCE_PREFIXES[row.sourceKind];
+  if (!prefix || typeof row.path !== "string" || !row.path.startsWith(prefix)) return false;
+  try {
+    const decoded = decodeURIComponent(row.path);
+    const filename = decoded.slice(prefix.length);
+    return decoded.startsWith(prefix) && !/[\\/?#]/u.test(filename)
+      && /\.(png|webp|jpe?g|avif)$/iu.test(filename);
+  } catch { return false; }
+}
 
 export function readImageEmbeddingIndex(raw) {
   if (raw?.schema !== IMAGE_INDEX_SCHEMA || raw.inputLanguage !== "en"
@@ -15,9 +36,15 @@ export function readImageEmbeddingIndex(raw) {
   }
   const rows = new Map();
   for (const row of raw.rows) {
-    if (typeof row?.path !== "string" || typeof row.embeddingText !== "string"
-        || !["image_asset", "macaw_action_asset"].includes(row.sourceKind)
+    if (!row || !validAssetPath(row) || typeof row.embeddingText !== "string"
         || typeof row.vector !== "string") throw new Error("Invalid image index row.");
+    const english = validateEnglishEmbeddingPayload({ inputLanguage: "en", query: { embeddingText: row.embeddingText },
+      candidates: [{ conceptId: "shared-image-description", embeddingText: row.embeddingText }] }).query.embeddingText;
+    if (english !== row.embeddingText) throw new Error("Image index descriptions must be normalized English.");
+    if (row.sourceKind === "ship_asset" && (!Number.isFinite(row.orientation?.heading_degrees)
+        || row.orientation.heading_degrees < 0 || row.orientation.heading_degrees >= 360)) {
+      throw new Error("Invalid image index heading.");
+    }
     const key = imageVectorKey(row);
     if (rows.has(key)) throw new Error("Duplicate image index row.");
     const decoded = atob(row.vector);
@@ -32,7 +59,10 @@ export function readImageEmbeddingIndex(raw) {
       norm += vector[index] ** 2;
     }
     if (Math.abs(norm - 1) > .002) throw new Error("Image vectors must be normalized.");
-    rows.set(key, { embeddingText: row.embeddingText, vector });
+    rows.set(key, { embeddingText: row.embeddingText, vector,
+      ...(row.category !== undefined ? { category: row.category } : {}),
+      ...(row.action !== undefined ? { action: row.action } : {}),
+      ...(row.orientation ? { orientation: { ...row.orientation } } : {}) });
   }
   return rows;
 }

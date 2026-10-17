@@ -1,12 +1,12 @@
 # Vector Quality Notes
 
-Generated: 2026-08-13T19:18:03.107Z
+Generated: 2026-10-17T20:37:08.444Z
 
 Rows: 5000
 Vector DB: `apps/languages/czech/static/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite`
 Model: `all-minilm-l6-v2-qint8-v0.1`
 
-Caveat: This semantic vector index is computed only from english_text (or manual English image descriptions), never from czech_text or metadata. Retrieval quality is measured separately by the human-curated image benchmark.
+Caveat: This semantic vector index is computed only from english_text, never from target-language realizations or metadata. Shared artwork retrieval is built and evaluated separately.
 
 ## Cleanup Uses
 

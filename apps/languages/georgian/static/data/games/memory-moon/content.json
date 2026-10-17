@@ -1,0 +1,4168 @@
+{
+  "schemaVersion": "caatuu-memory-moon-content-v1",
+  "courseId": "ka",
+  "gameId": "memory-moon",
+  "contentId": "ka.memory-moon.v1",
+  "contentRevision": 1,
+  "status": "machine-assisted-preview",
+  "learnerBaseLanguage": "en",
+  "targetLanguage": "ka",
+  "englishAuditLanguage": "en",
+  "review": {
+    "status": "native-review-required",
+    "humanApproved": false,
+    "reviewer": "OpenAI Codex",
+    "reviewedAt": "2026-10-18",
+    "notes": "Original Memory Moon authoring with AI self-review. Independent native-language review remains required."
+  },
+  "license": {
+    "origin": "caatuu-first-party-authored",
+    "spdxExpression": "AGPL-3.0-only"
+  },
+  "embeddingPolicy": {
+    "inputLanguage": "en",
+    "inputField": "embeddingText"
+  },
+  "challenges": [
+    {
+      "id": "mm-ka-cold-water",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 98,
+      "complexity": 12,
+      "topic": "food-and-drink",
+      "familyId": "mm-ka-cold-water",
+      "targetText": "წყალი ცივია.",
+      "learnerBaseText": "The water is cold.",
+      "englishText": "The water is cold.",
+      "embeddingText": "The water is cold.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "The water is cold",
+          "food and drink"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The water is cold.",
+          "englishAuditText": "The water is cold."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The water is hot.",
+          "englishAuditText": "The water is hot.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The water is cold.” This option changes the state: “The water is hot.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The water is warm.",
+          "englishAuditText": "The water is warm.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The water is cold.” This option changes the state: “The water is warm.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-fresh-bread",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 95,
+      "complexity": 14,
+      "topic": "food-and-drink",
+      "familyId": "mm-ka-fresh-bread",
+      "targetText": "პური ახალია.",
+      "learnerBaseText": "The bread is fresh.",
+      "englishText": "The bread is fresh.",
+      "embeddingText": "The bread is fresh.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "The bread is fresh",
+          "food and drink"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The bread is fresh.",
+          "englishAuditText": "The bread is fresh."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The bread is stale.",
+          "englishAuditText": "The bread is stale.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The bread is fresh.” This option changes the state: “The bread is stale.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The bread is frozen.",
+          "englishAuditText": "The bread is frozen.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The bread is fresh.” This option changes the state: “The bread is frozen.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-open-door",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 97,
+      "complexity": 14,
+      "topic": "household",
+      "familyId": "mm-ka-open-door",
+      "targetText": "კარი ღიაა.",
+      "learnerBaseText": "The door is open.",
+      "englishText": "The door is open.",
+      "embeddingText": "The door is open.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "The door is open",
+          "household"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The door is open.",
+          "englishAuditText": "The door is open."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The door is closed.",
+          "englishAuditText": "The door is closed.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The door is open.” This option changes the state: “The door is closed.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The door is locked.",
+          "englishAuditText": "The door is locked.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The door is open.” This option changes the state: “The door is locked.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-empty-cup",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 90,
+      "complexity": 15,
+      "topic": "household",
+      "familyId": "mm-ka-empty-cup",
+      "targetText": "ჭიქა ცარიელია.",
+      "learnerBaseText": "The glass is empty.",
+      "englishText": "The glass is empty.",
+      "embeddingText": "The glass is empty.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "The glass is empty",
+          "household"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The glass is empty.",
+          "englishAuditText": "The glass is empty."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The glass is full.",
+          "englishAuditText": "The glass is full.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The glass is empty.” This option changes the state: “The glass is full.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The glass is broken.",
+          "englishAuditText": "The glass is broken.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The glass is empty.” This option changes the state: “The glass is broken.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-small-dog",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 83,
+      "complexity": 14,
+      "topic": "animals",
+      "familyId": "mm-ka-small-dog",
+      "targetText": "ძაღლი პატარაა.",
+      "learnerBaseText": "The dog is small.",
+      "englishText": "The dog is small.",
+      "embeddingText": "The dog is small.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "The dog is small",
+          "animals"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The dog is small.",
+          "englishAuditText": "The dog is small."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The dog is large.",
+          "englishAuditText": "The dog is large.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The dog is small.” This option changes the state: “The dog is large.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The dog is tall.",
+          "englishAuditText": "The dog is tall.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The dog is small.” This option changes the state: “The dog is tall.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-sleeping-cat",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 80,
+      "complexity": 18,
+      "topic": "animals",
+      "familyId": "mm-ka-sleeping-cat",
+      "targetText": "კატას სძინავს.",
+      "learnerBaseText": "The cat is sleeping.",
+      "englishText": "The cat is sleeping.",
+      "embeddingText": "The cat is sleeping.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "The cat is sleeping",
+          "animals"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The cat is sleeping.",
+          "englishAuditText": "The cat is sleeping."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The cat is eating.",
+          "englishAuditText": "The cat is eating.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target means “The cat is sleeping.” This option changes the action: “The cat is eating.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The cat is playing.",
+          "englishAuditText": "The cat is playing.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target means “The cat is sleeping.” This option changes the action: “The cat is playing.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-mother-home",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 95,
+      "complexity": 15,
+      "topic": "family",
+      "familyId": "mm-ka-mother-home",
+      "targetText": "დედა სახლშია.",
+      "learnerBaseText": "Mother is at home.",
+      "englishText": "Mother is at home.",
+      "embeddingText": "Mother is at home.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "Mother is at home",
+          "family"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Mother is at home.",
+          "englishAuditText": "Mother is at home."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Mother is at work.",
+          "englishAuditText": "Mother is at work.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “Mother is at home.” This option changes the location: “Mother is at work.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Mother is at school.",
+          "englishAuditText": "Mother is at school.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “Mother is at home.” This option changes the location: “Mother is at school.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-book-table",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 92,
+      "complexity": 19,
+      "topic": "household",
+      "familyId": "mm-ka-book-table",
+      "targetText": "წიგნი მაგიდაზეა.",
+      "learnerBaseText": "The book is on the table.",
+      "englishText": "The book is on the table.",
+      "embeddingText": "The book is on the table.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "The book is on the table",
+          "household"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The book is on the table.",
+          "englishAuditText": "The book is on the table."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The book is under the table.",
+          "englishAuditText": "The book is under the table.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “The book is on the table.” This option changes the location: “The book is under the table.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The book is beside the table.",
+          "englishAuditText": "The book is beside the table.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “The book is on the table.” This option changes the location: “The book is beside the table.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-heavy-bag",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 95,
+      "complexity": 18,
+      "topic": "travel",
+      "familyId": "mm-ka-heavy-bag",
+      "targetText": "ჩანთა მძიმეა.",
+      "learnerBaseText": "The bag is heavy.",
+      "englishText": "The bag is heavy.",
+      "embeddingText": "The bag is heavy.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "The bag is heavy",
+          "travel"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The bag is heavy.",
+          "englishAuditText": "The bag is heavy."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The bag is light.",
+          "englishAuditText": "The bag is light.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The bag is heavy.” This option changes the state: “The bag is light.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The bag is empty.",
+          "englishAuditText": "The bag is empty.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The bag is heavy.” This option changes the state: “The bag is empty.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-need-help",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 100,
+      "complexity": 17,
+      "topic": "communication",
+      "familyId": "mm-ka-need-help",
+      "targetText": "დახმარება მჭირდება.",
+      "learnerBaseText": "I need help.",
+      "englishText": "I need help.",
+      "embeddingText": "I need help.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "I need help",
+          "communication"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I need help.",
+          "englishAuditText": "I need help."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I need money.",
+          "englishAuditText": "I need money.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means “I need help.” This option changes the object: “I need money.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I need time.",
+          "englishAuditText": "I need time.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means “I need help.” This option changes the object: “I need time.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-drink-tea",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 95,
+      "complexity": 18,
+      "topic": "food-and-drink",
+      "familyId": "mm-ka-drink-tea",
+      "targetText": "ჩაის ვსვამ.",
+      "learnerBaseText": "I drink tea.",
+      "englishText": "I drink tea.",
+      "embeddingText": "I drink tea.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "I drink tea",
+          "food and drink"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I drink tea.",
+          "englishAuditText": "I drink tea."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I drink coffee.",
+          "englishAuditText": "I drink coffee.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means “I drink tea.” This option changes the object: “I drink coffee.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I drink water.",
+          "englishAuditText": "I drink water.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means “I drink tea.” This option changes the object: “I drink water.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-child-bread",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 90,
+      "complexity": 21,
+      "topic": "food-and-drink",
+      "familyId": "mm-ka-child-bread",
+      "targetText": "ბავშვი პურს ჭამს.",
+      "learnerBaseText": "The child eats bread.",
+      "englishText": "The child eats bread.",
+      "embeddingText": "The child eats bread.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "The child eats bread",
+          "food and drink"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The child eats bread.",
+          "englishAuditText": "The child eats bread."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The child eats cheese.",
+          "englishAuditText": "The child eats cheese.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means “The child eats bread.” This option changes the object: “The child eats cheese.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The child eats rice.",
+          "englishAuditText": "The child eats rice.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means “The child eats bread.” This option changes the object: “The child eats rice.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-bus-here",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 98,
+      "complexity": 18,
+      "topic": "transport",
+      "familyId": "mm-ka-bus-here",
+      "targetText": "ავტობუსი აქ არის.",
+      "learnerBaseText": "The bus is here.",
+      "englishText": "The bus is here.",
+      "embeddingText": "The bus is here.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "The bus is here",
+          "transport"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The bus is here.",
+          "englishAuditText": "The bus is here."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The bus is there.",
+          "englishAuditText": "The bus is there.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “The bus is here.” This option changes the location: “The bus is there.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The bus is far away.",
+          "englishAuditText": "The bus is far away.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “The bus is here.” This option changes the location: “The bus is far away.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-near-station",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 99,
+      "complexity": 21,
+      "topic": "transport",
+      "familyId": "mm-ka-near-station",
+      "targetText": "სადგური ახლოსაა.",
+      "learnerBaseText": "The station is nearby.",
+      "englishText": "The station is nearby.",
+      "embeddingText": "The station is nearby.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "The station is nearby",
+          "transport"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The station is nearby.",
+          "englishAuditText": "The station is nearby."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The station is far away.",
+          "englishAuditText": "The station is far away.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “The station is nearby.” This option changes the location: “The station is far away.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The station is upstairs.",
+          "englishAuditText": "The station is upstairs.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “The station is nearby.” This option changes the location: “The station is upstairs.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-rain-now",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 95,
+      "complexity": 19,
+      "topic": "weather",
+      "familyId": "mm-ka-rain-now",
+      "targetText": "ახლა წვიმს.",
+      "learnerBaseText": "It is raining now.",
+      "englishText": "It is raining now.",
+      "embeddingText": "It is raining now.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "It is raining now",
+          "weather"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "It is raining now.",
+          "englishAuditText": "It is raining now."
+        },
+        {
+          "id": "contrast-1",
+          "text": "It is snowing now.",
+          "englishAuditText": "It is snowing now.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “It is raining now.” This option changes the state: “It is snowing now.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "It is windy now.",
+          "englishAuditText": "It is windy now.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “It is raining now.” This option changes the state: “It is windy now.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-bright-room",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 90,
+      "complexity": 20,
+      "topic": "household",
+      "familyId": "mm-ka-bright-room",
+      "targetText": "ოთახი ნათელია.",
+      "learnerBaseText": "The room is bright.",
+      "englishText": "The room is bright.",
+      "embeddingText": "The room is bright.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "The room is bright",
+          "household"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The room is bright.",
+          "englishAuditText": "The room is bright."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The room is dark.",
+          "englishAuditText": "The room is dark.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The room is bright.” This option changes the state: “The room is dark.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The room is quiet.",
+          "englishAuditText": "The room is quiet.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The room is bright.” This option changes the state: “The room is quiet.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-one-ticket",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 99,
+      "complexity": 21,
+      "topic": "transport",
+      "familyId": "mm-ka-one-ticket",
+      "targetText": "ერთი ბილეთი მინდა.",
+      "learnerBaseText": "I want one ticket.",
+      "englishText": "I want one ticket.",
+      "embeddingText": "I want one ticket.",
+      "focus": {
+        "kind": "number",
+        "englishConcepts": [
+          "I want one ticket",
+          "transport"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I want one ticket.",
+          "englishAuditText": "I want one ticket."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I want two tickets.",
+          "englishAuditText": "I want two tickets.",
+          "contrast": {
+            "kind": "number",
+            "explanation": "The target means “I want one ticket.” This option changes the number: “I want two tickets.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I want three tickets.",
+          "englishAuditText": "I want three tickets.",
+          "contrast": {
+            "kind": "number",
+            "explanation": "The target means “I want one ticket.” This option changes the number: “I want three tickets.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-two-chairs",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 86,
+      "complexity": 22,
+      "topic": "household",
+      "familyId": "mm-ka-two-chairs",
+      "targetText": "აქ ორი სკამია.",
+      "learnerBaseText": "There are two chairs here.",
+      "englishText": "There are two chairs here.",
+      "embeddingText": "There are two chairs here.",
+      "focus": {
+        "kind": "number",
+        "englishConcepts": [
+          "There are two chairs here",
+          "household"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "There are two chairs here.",
+          "englishAuditText": "There are two chairs here."
+        },
+        {
+          "id": "contrast-1",
+          "text": "There are three chairs here.",
+          "englishAuditText": "There are three chairs here.",
+          "contrast": {
+            "kind": "number",
+            "explanation": "The target means “There are two chairs here.” This option changes the number: “There are three chairs here.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "There are four chairs here.",
+          "englishAuditText": "There are four chairs here.",
+          "contrast": {
+            "kind": "number",
+            "explanation": "The target means “There are two chairs here.” This option changes the number: “There are four chairs here.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-three-apples",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 87,
+      "complexity": 23,
+      "topic": "shopping",
+      "familyId": "mm-ka-three-apples",
+      "targetText": "სამი ვაშლი მაქვს.",
+      "learnerBaseText": "I have three apples.",
+      "englishText": "I have three apples.",
+      "embeddingText": "I have three apples.",
+      "focus": {
+        "kind": "number",
+        "englishConcepts": [
+          "I have three apples",
+          "shopping"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I have three apples.",
+          "englishAuditText": "I have three apples."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I have two apples.",
+          "englishAuditText": "I have two apples.",
+          "contrast": {
+            "kind": "number",
+            "explanation": "The target means “I have three apples.” This option changes the number: “I have two apples.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I have five apples.",
+          "englishAuditText": "I have five apples.",
+          "contrast": {
+            "kind": "number",
+            "explanation": "The target means “I have three apples.” This option changes the number: “I have five apples.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-my-house",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 95,
+      "complexity": 19,
+      "topic": "belongings",
+      "familyId": "mm-ka-my-house",
+      "targetText": "ეს ჩემი სახლია.",
+      "learnerBaseText": "This is my house.",
+      "englishText": "This is my house.",
+      "embeddingText": "This is my house.",
+      "focus": {
+        "kind": "possession",
+        "englishConcepts": [
+          "This is my house",
+          "belongings"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This is my house.",
+          "englishAuditText": "This is my house."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This is your house.",
+          "englishAuditText": "This is your house.",
+          "contrast": {
+            "kind": "possession",
+            "explanation": "The target means “This is my house.” This option changes the possession: “This is your house.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This is our house.",
+          "englishAuditText": "This is our house.",
+          "contrast": {
+            "kind": "possession",
+            "explanation": "The target means “This is my house.” This option changes the possession: “This is our house.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-tired-sister",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 94,
+      "complexity": 22,
+      "topic": "family",
+      "familyId": "mm-ka-tired-sister",
+      "targetText": "ჩემი და დაღლილია.",
+      "learnerBaseText": "My sister is tired.",
+      "englishText": "My sister is tired.",
+      "embeddingText": "My sister is tired.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "My sister is tired",
+          "family"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "My sister is tired.",
+          "englishAuditText": "My sister is tired."
+        },
+        {
+          "id": "contrast-1",
+          "text": "My sister is hungry.",
+          "englishAuditText": "My sister is hungry.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “My sister is tired.” This option changes the state: “My sister is hungry.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "My sister is thirsty.",
+          "englishAuditText": "My sister is thirsty.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “My sister is tired.” This option changes the state: “My sister is thirsty.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-read-book",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 97,
+      "complexity": 20,
+      "topic": "study",
+      "familyId": "mm-ka-read-book",
+      "targetText": "წიგნს ვკითხულობ.",
+      "learnerBaseText": "I am reading a book.",
+      "englishText": "I am reading a book.",
+      "embeddingText": "I am reading a book.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "I am reading a book",
+          "study"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I am reading a book.",
+          "englishAuditText": "I am reading a book."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I am writing a book.",
+          "englishAuditText": "I am writing a book.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target means “I am reading a book.” This option changes the action: “I am writing a book.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I am buying a book.",
+          "englishAuditText": "I am buying a book.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target means “I am reading a book.” This option changes the action: “I am buying a book.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-writing-name",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 97,
+      "complexity": 22,
+      "topic": "introductions",
+      "familyId": "mm-ka-writing-name",
+      "targetText": "სახელს ვწერ.",
+      "learnerBaseText": "I am writing a name.",
+      "englishText": "I am writing a name.",
+      "embeddingText": "I am writing a name.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "I am writing a name",
+          "introductions"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I am writing a name.",
+          "englishAuditText": "I am writing a name."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I am writing a date.",
+          "englishAuditText": "I am writing a date.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means “I am writing a name.” This option changes the object: “I am writing a date.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I am writing an address.",
+          "englishAuditText": "I am writing an address.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means “I am writing a name.” This option changes the object: “I am writing an address.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-key-pocket",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 97,
+      "complexity": 22,
+      "topic": "belongings",
+      "familyId": "mm-ka-key-pocket",
+      "targetText": "გასაღები ჯიბეშია.",
+      "learnerBaseText": "The key is in the pocket.",
+      "englishText": "The key is in the pocket.",
+      "embeddingText": "The key is in the pocket.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "The key is in the pocket",
+          "belongings"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The key is in the pocket.",
+          "englishAuditText": "The key is in the pocket."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The key is in the bag.",
+          "englishAuditText": "The key is in the bag.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “The key is in the pocket.” This option changes the location: “The key is in the bag.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The key is in the drawer.",
+          "englishAuditText": "The key is in the drawer.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “The key is in the pocket.” This option changes the location: “The key is in the drawer.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-warm-soup",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 92,
+      "complexity": 19,
+      "topic": "food-and-drink",
+      "familyId": "mm-ka-warm-soup",
+      "targetText": "წვნიანი თბილია.",
+      "learnerBaseText": "The soup is warm.",
+      "englishText": "The soup is warm.",
+      "embeddingText": "The soup is warm.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "The soup is warm",
+          "food and drink"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The soup is warm.",
+          "englishAuditText": "The soup is warm."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The soup is cold.",
+          "englishAuditText": "The soup is cold.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The soup is warm.” This option changes the state: “The soup is cold.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The soup is hot.",
+          "englishAuditText": "The soup is hot.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The soup is warm.” This option changes the state: “The soup is hot.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-red-flower",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 81,
+      "complexity": 19,
+      "topic": "nature",
+      "familyId": "mm-ka-red-flower",
+      "targetText": "ყვავილი წითელია.",
+      "learnerBaseText": "The flower is red.",
+      "englishText": "The flower is red.",
+      "embeddingText": "The flower is red.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "The flower is red",
+          "nature"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The flower is red.",
+          "englishAuditText": "The flower is red."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The flower is white.",
+          "englishAuditText": "The flower is white.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The flower is red.” This option changes the state: “The flower is white.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The flower is yellow.",
+          "englishAuditText": "The flower is yellow.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The flower is red.” This option changes the state: “The flower is yellow.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-doctor-father",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 92,
+      "complexity": 22,
+      "topic": "family",
+      "familyId": "mm-ka-doctor-father",
+      "targetText": "მამა ექიმია.",
+      "learnerBaseText": "Father is a doctor.",
+      "englishText": "Father is a doctor.",
+      "embeddingText": "Father is a doctor.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "Father is a doctor",
+          "family"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Father is a doctor.",
+          "englishAuditText": "Father is a doctor."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Father is a teacher.",
+          "englishAuditText": "Father is a teacher.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “Father is a doctor.” This option changes the state: “Father is a teacher.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Father is an engineer.",
+          "englishAuditText": "Father is an engineer.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “Father is a doctor.” This option changes the state: “Father is an engineer.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-sea-calm",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 81,
+      "complexity": 20,
+      "topic": "nature",
+      "familyId": "mm-ka-sea-calm",
+      "targetText": "ზღვა მშვიდია.",
+      "learnerBaseText": "The sea is calm.",
+      "englishText": "The sea is calm.",
+      "embeddingText": "The sea is calm.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "The sea is calm",
+          "nature"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The sea is calm.",
+          "englishAuditText": "The sea is calm."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The sea is rough.",
+          "englishAuditText": "The sea is rough.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The sea is calm.” This option changes the state: “The sea is rough.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The sea is cold.",
+          "englishAuditText": "The sea is cold.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The sea is calm.” This option changes the state: “The sea is cold.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-garden-beautiful",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 84,
+      "complexity": 20,
+      "topic": "nature",
+      "familyId": "mm-ka-garden-beautiful",
+      "targetText": "ბაღი ლამაზია.",
+      "learnerBaseText": "The garden is beautiful.",
+      "englishText": "The garden is beautiful.",
+      "embeddingText": "The garden is beautiful.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "The garden is beautiful",
+          "nature"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The garden is beautiful.",
+          "englishAuditText": "The garden is beautiful."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The garden is large.",
+          "englishAuditText": "The garden is large.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The garden is beautiful.” This option changes the state: “The garden is large.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The garden is quiet.",
+          "englishAuditText": "The garden is quiet.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The garden is beautiful.” This option changes the state: “The garden is quiet.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-lesson-easy",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 95,
+      "complexity": 20,
+      "topic": "study",
+      "familyId": "mm-ka-lesson-easy",
+      "targetText": "გაკვეთილი ადვილია.",
+      "learnerBaseText": "The lesson is easy.",
+      "englishText": "The lesson is easy.",
+      "embeddingText": "The lesson is easy.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "The lesson is easy",
+          "study"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The lesson is easy.",
+          "englishAuditText": "The lesson is easy."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The lesson is difficult.",
+          "englishAuditText": "The lesson is difficult.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The lesson is easy.” This option changes the state: “The lesson is difficult.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The lesson is long.",
+          "englishAuditText": "The lesson is long.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The lesson is easy.” This option changes the state: “The lesson is long.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-bread-morning",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 98,
+      "complexity": 36,
+      "topic": "shopping",
+      "familyId": "mm-ka-bread-morning",
+      "targetText": "ყოველ დილით პურს ვყიდულობ.",
+      "learnerBaseText": "I buy bread every morning.",
+      "englishText": "I buy bread every morning.",
+      "embeddingText": "I buy bread every morning.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "I buy bread every morning",
+          "shopping"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I buy bread every morning.",
+          "englishAuditText": "I buy bread every morning."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I buy bread every evening.",
+          "englishAuditText": "I buy bread every evening.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means “I buy bread every morning.” This option changes the time: “I buy bread every evening.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I buy bread every Sunday.",
+          "englishAuditText": "I buy bread every Sunday.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means “I buy bread every morning.” This option changes the time: “I buy bread every Sunday.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-without-sugar",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 99,
+      "complexity": 36,
+      "topic": "food-and-drink",
+      "familyId": "mm-ka-without-sugar",
+      "targetText": "ჩაის უშაქროდ ვსვამ.",
+      "learnerBaseText": "I drink tea without sugar.",
+      "englishText": "I drink tea without sugar.",
+      "embeddingText": "I drink tea without sugar.",
+      "focus": {
+        "kind": "quantity",
+        "englishConcepts": [
+          "I drink tea without sugar",
+          "food and drink"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I drink tea without sugar.",
+          "englishAuditText": "I drink tea without sugar."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I drink tea with a little sugar.",
+          "englishAuditText": "I drink tea with a little sugar.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "The target means “I drink tea without sugar.” This option changes the quantity: “I drink tea with a little sugar.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I drink tea with a lot of sugar.",
+          "englishAuditText": "I drink tea with a lot of sugar.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "The target means “I drink tea without sugar.” This option changes the quantity: “I drink tea with a lot of sugar.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-train-at-noon",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 99,
+      "complexity": 39,
+      "topic": "transport",
+      "familyId": "mm-ka-train-at-noon",
+      "targetText": "მატარებელი შუადღისას ჩამოდის.",
+      "learnerBaseText": "The train arrives at noon.",
+      "englishText": "The train arrives at noon.",
+      "embeddingText": "The train arrives at noon.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "The train arrives at noon",
+          "transport"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The train arrives at noon.",
+          "englishAuditText": "The train arrives at noon."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The train arrives at midnight.",
+          "englishAuditText": "The train arrives at midnight.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means “The train arrives at noon.” This option changes the time: “The train arrives at midnight.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The train arrives in the morning.",
+          "englishAuditText": "The train arrives in the morning.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means “The train arrives at noon.” This option changes the time: “The train arrives in the morning.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-school-on-foot",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 97,
+      "complexity": 37,
+      "topic": "routine",
+      "familyId": "mm-ka-school-on-foot",
+      "targetText": "სკოლაში ფეხით მივდივარ.",
+      "learnerBaseText": "I go to school on foot.",
+      "englishText": "I go to school on foot.",
+      "embeddingText": "I go to school on foot.",
+      "focus": {
+        "kind": "manner",
+        "englishConcepts": [
+          "I go to school on foot",
+          "routine"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I go to school on foot.",
+          "englishAuditText": "I go to school on foot."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I go to school by bus.",
+          "englishAuditText": "I go to school by bus.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "The target means “I go to school on foot.” This option changes the manner: “I go to school by bus.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I go to school by car.",
+          "englishAuditText": "I go to school by car.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "The target means “I go to school on foot.” This option changes the manner: “I go to school by car.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-library-quiet",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 96,
+      "complexity": 39,
+      "topic": "study",
+      "familyId": "mm-ka-library-quiet",
+      "targetText": "ბიბლიოთეკაში ჩუმად ვლაპარაკობთ.",
+      "learnerBaseText": "We speak quietly in the library.",
+      "englishText": "We speak quietly in the library.",
+      "embeddingText": "We speak quietly in the library.",
+      "focus": {
+        "kind": "manner",
+        "englishConcepts": [
+          "We speak quietly in the library",
+          "study"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "We speak quietly in the library.",
+          "englishAuditText": "We speak quietly in the library."
+        },
+        {
+          "id": "contrast-1",
+          "text": "We speak loudly in the library.",
+          "englishAuditText": "We speak loudly in the library.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "The target means “We speak quietly in the library.” This option changes the manner: “We speak loudly in the library.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "We speak quickly in the library.",
+          "englishAuditText": "We speak quickly in the library.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "The target means “We speak quietly in the library.” This option changes the manner: “We speak quickly in the library.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-behind-museum",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 96,
+      "complexity": 41,
+      "topic": "directions",
+      "familyId": "mm-ka-behind-museum",
+      "targetText": "კაფე მუზეუმის უკან არის.",
+      "learnerBaseText": "The cafe is behind the museum.",
+      "englishText": "The cafe is behind the museum.",
+      "embeddingText": "The cafe is behind the museum.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "The cafe is behind the museum",
+          "directions"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The cafe is behind the museum.",
+          "englishAuditText": "The cafe is behind the museum."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The cafe is in front of the museum.",
+          "englishAuditText": "The cafe is in front of the museum.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “The cafe is behind the museum.” This option changes the location: “The cafe is in front of the museum.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The cafe is beside the museum.",
+          "englishAuditText": "The cafe is beside the museum.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “The cafe is behind the museum.” This option changes the location: “The cafe is beside the museum.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-phone-in-bag",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 99,
+      "complexity": 39,
+      "topic": "belongings",
+      "familyId": "mm-ka-phone-in-bag",
+      "targetText": "ჩემი ტელეფონი ჩანთაში დევს.",
+      "learnerBaseText": "My phone is in the bag.",
+      "englishText": "My phone is in the bag.",
+      "embeddingText": "My phone is in the bag.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "My phone is in the bag",
+          "belongings"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "My phone is in the bag.",
+          "englishAuditText": "My phone is in the bag."
+        },
+        {
+          "id": "contrast-1",
+          "text": "My phone is on the table.",
+          "englishAuditText": "My phone is on the table.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “My phone is in the bag.” This option changes the location: “My phone is on the table.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "My phone is in the drawer.",
+          "englishAuditText": "My phone is in the drawer.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “My phone is in the bag.” This option changes the location: “My phone is in the drawer.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-mother-message",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 98,
+      "complexity": 43,
+      "topic": "communication",
+      "familyId": "mm-ka-mother-message",
+      "targetText": "დედას შეტყობინებას ვუგზავნი.",
+      "learnerBaseText": "I am sending a message to my mother.",
+      "englishText": "I am sending a message to my mother.",
+      "embeddingText": "I am sending a message to my mother.",
+      "focus": {
+        "kind": "subject",
+        "englishConcepts": [
+          "I am sending a message to my mother",
+          "communication"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I am sending a message to my mother.",
+          "englishAuditText": "I am sending a message to my mother."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I am sending a message to my sister.",
+          "englishAuditText": "I am sending a message to my sister.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "The target means “I am sending a message to my mother.” This option changes the subject: “I am sending a message to my sister.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I am sending a message to my father.",
+          "englishAuditText": "I am sending a message to my father.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "The target means “I am sending a message to my mother.” This option changes the subject: “I am sending a message to my father.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-water-flowers",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 89,
+      "complexity": 43,
+      "topic": "household",
+      "familyId": "mm-ka-water-flowers",
+      "targetText": "საღამოს ყვავილებს ვრწყავ.",
+      "learnerBaseText": "I water the flowers in the evening.",
+      "englishText": "I water the flowers in the evening.",
+      "embeddingText": "I water the flowers in the evening.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "I water the flowers in the evening",
+          "household"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I water the flowers in the evening.",
+          "englishAuditText": "I water the flowers in the evening."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I water the flowers in the morning.",
+          "englishAuditText": "I water the flowers in the morning.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means “I water the flowers in the evening.” This option changes the time: “I water the flowers in the morning.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I water the flowers at noon.",
+          "englishAuditText": "I water the flowers at noon.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means “I water the flowers in the evening.” This option changes the time: “I water the flowers at noon.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-shop-open-until",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 99,
+      "complexity": 44,
+      "topic": "services",
+      "familyId": "mm-ka-shop-open-until",
+      "targetText": "მაღაზია რვა საათამდე ღიაა.",
+      "learnerBaseText": "The shop is open until eight o'clock.",
+      "englishText": "The shop is open until eight o'clock.",
+      "embeddingText": "The shop is open until eight o'clock.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "The shop is open until eight o'clock",
+          "services"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The shop is open until eight o'clock.",
+          "englishAuditText": "The shop is open until eight o'clock."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The shop is open until seven o'clock.",
+          "englishAuditText": "The shop is open until seven o'clock.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means “The shop is open until eight o'clock.” This option changes the time: “The shop is open until seven o'clock.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The shop is open until nine o'clock.",
+          "englishAuditText": "The shop is open until nine o'clock.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means “The shop is open until eight o'clock.” This option changes the time: “The shop is open until nine o'clock.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-need-blue-shirt",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 95,
+      "complexity": 41,
+      "topic": "shopping",
+      "familyId": "mm-ka-need-blue-shirt",
+      "targetText": "ლურჯ პერანგს ვეძებ.",
+      "learnerBaseText": "I am looking for a blue shirt.",
+      "englishText": "I am looking for a blue shirt.",
+      "embeddingText": "I am looking for a blue shirt.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "I am looking for a blue shirt",
+          "shopping"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I am looking for a blue shirt.",
+          "englishAuditText": "I am looking for a blue shirt."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I am looking for a blue coat.",
+          "englishAuditText": "I am looking for a blue coat.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means “I am looking for a blue shirt.” This option changes the object: “I am looking for a blue coat.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I am looking for a blue hat.",
+          "englishAuditText": "I am looking for a blue hat.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means “I am looking for a blue shirt.” This option changes the object: “I am looking for a blue hat.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-visit-grandmother",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 95,
+      "complexity": 42,
+      "topic": "family",
+      "familyId": "mm-ka-visit-grandmother",
+      "targetText": "ბებიას კვირაში ერთხელ ვნახულობ.",
+      "learnerBaseText": "I visit my grandmother once a week.",
+      "englishText": "I visit my grandmother once a week.",
+      "embeddingText": "I visit my grandmother once a week.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "I visit my grandmother once a week",
+          "family"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I visit my grandmother once a week.",
+          "englishAuditText": "I visit my grandmother once a week."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I visit my grandmother once a day.",
+          "englishAuditText": "I visit my grandmother once a day.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means “I visit my grandmother once a week.” This option changes the time: “I visit my grandmother once a day.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I visit my grandmother once a month.",
+          "englishAuditText": "I visit my grandmother once a month.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means “I visit my grandmother once a week.” This option changes the time: “I visit my grandmother once a month.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-work-after-breakfast",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 98,
+      "complexity": 43,
+      "topic": "routine",
+      "familyId": "mm-ka-work-after-breakfast",
+      "targetText": "საუზმის შემდეგ მუშაობას ვიწყებ.",
+      "learnerBaseText": "I start work after breakfast.",
+      "englishText": "I start work after breakfast.",
+      "embeddingText": "I start work after breakfast.",
+      "focus": {
+        "kind": "sequence",
+        "englishConcepts": [
+          "I start work after breakfast",
+          "routine"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I start work after breakfast.",
+          "englishAuditText": "I start work after breakfast."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I start work before breakfast.",
+          "englishAuditText": "I start work before breakfast.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "The target means “I start work after breakfast.” This option changes the sequence: “I start work before breakfast.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I start work during breakfast.",
+          "englishAuditText": "I start work during breakfast.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "The target means “I start work after breakfast.” This option changes the sequence: “I start work during breakfast.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-bus-cheaper",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 98,
+      "complexity": 45,
+      "topic": "transport",
+      "familyId": "mm-ka-bus-cheaper",
+      "targetText": "ავტობუსის ბილეთი მატარებლის ბილეთზე იაფია.",
+      "learnerBaseText": "The bus ticket is cheaper than the train ticket.",
+      "englishText": "The bus ticket is cheaper than the train ticket.",
+      "embeddingText": "The bus ticket is cheaper than the train ticket.",
+      "focus": {
+        "kind": "comparison",
+        "englishConcepts": [
+          "The bus ticket is cheaper than the train ticket",
+          "transport"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The bus ticket is cheaper than the train ticket.",
+          "englishAuditText": "The bus ticket is cheaper than the train ticket."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The bus ticket is more expensive than the train ticket.",
+          "englishAuditText": "The bus ticket is more expensive than the train ticket.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "The target means “The bus ticket is cheaper than the train ticket.” This option changes the comparison: “The bus ticket is more expensive than the train ticket.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The bus ticket costs the same as the train ticket.",
+          "englishAuditText": "The bus ticket costs the same as the train ticket.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "The target means “The bus ticket is cheaper than the train ticket.” This option changes the comparison: “The bus ticket costs the same as the train ticket.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-children-garden",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 91,
+      "complexity": 40,
+      "topic": "family",
+      "familyId": "mm-ka-children-garden",
+      "targetText": "ბავშვები ბაღში თამაშობენ.",
+      "learnerBaseText": "The children are playing in the garden.",
+      "englishText": "The children are playing in the garden.",
+      "embeddingText": "The children are playing in the garden.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "The children are playing in the garden",
+          "family"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The children are playing in the garden.",
+          "englishAuditText": "The children are playing in the garden."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The children are playing in the kitchen.",
+          "englishAuditText": "The children are playing in the kitchen.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “The children are playing in the garden.” This option changes the location: “The children are playing in the kitchen.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The children are playing in the street.",
+          "englishAuditText": "The children are playing in the street.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “The children are playing in the garden.” This option changes the location: “The children are playing in the street.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-need-two-hours",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 99,
+      "complexity": 40,
+      "topic": "planning",
+      "familyId": "mm-ka-need-two-hours",
+      "targetText": "ორი საათი მჭირდება.",
+      "learnerBaseText": "I need two hours.",
+      "englishText": "I need two hours.",
+      "embeddingText": "I need two hours.",
+      "focus": {
+        "kind": "quantity",
+        "englishConcepts": [
+          "I need two hours",
+          "planning"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I need two hours.",
+          "englishAuditText": "I need two hours."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I need half an hour.",
+          "englishAuditText": "I need half an hour.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "The target means “I need two hours.” This option changes the quantity: “I need half an hour.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I need three hours.",
+          "englishAuditText": "I need three hours.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "The target means “I need two hours.” This option changes the quantity: “I need three hours.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-closed-monday",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 98,
+      "complexity": 42,
+      "topic": "services",
+      "familyId": "mm-ka-closed-monday",
+      "targetText": "მუზეუმი ორშაბათს დაკეტილია.",
+      "learnerBaseText": "The museum is closed on Monday.",
+      "englishText": "The museum is closed on Monday.",
+      "embeddingText": "The museum is closed on Monday.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "The museum is closed on Monday",
+          "services"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The museum is closed on Monday.",
+          "englishAuditText": "The museum is closed on Monday."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The museum is closed on Tuesday.",
+          "englishAuditText": "The museum is closed on Tuesday.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means “The museum is closed on Monday.” This option changes the time: “The museum is closed on Tuesday.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The museum is closed on Wednesday.",
+          "englishAuditText": "The museum is closed on Wednesday.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means “The museum is closed on Monday.” This option changes the time: “The museum is closed on Wednesday.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-doctor-waiting",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 98,
+      "complexity": 44,
+      "topic": "services",
+      "familyId": "mm-ka-doctor-waiting",
+      "targetText": "ექიმს დერეფანში ველოდები.",
+      "learnerBaseText": "I am waiting for the doctor in the corridor.",
+      "englishText": "I am waiting for the doctor in the corridor.",
+      "embeddingText": "I am waiting for the doctor in the corridor.",
+      "focus": {
+        "kind": "subject",
+        "englishConcepts": [
+          "I am waiting for the doctor in the corridor",
+          "services"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I am waiting for the doctor in the corridor.",
+          "englishAuditText": "I am waiting for the doctor in the corridor."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I am waiting for the nurse in the corridor.",
+          "englishAuditText": "I am waiting for the nurse in the corridor.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "The target means “I am waiting for the doctor in the corridor.” This option changes the subject: “I am waiting for the nurse in the corridor.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I am waiting for my friend in the corridor.",
+          "englishAuditText": "I am waiting for my friend in the corridor.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "The target means “I am waiting for the doctor in the corridor.” This option changes the subject: “I am waiting for my friend in the corridor.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-passport-drawer",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 100,
+      "complexity": 41,
+      "topic": "travel",
+      "familyId": "mm-ka-passport-drawer",
+      "targetText": "პასპორტი უჯრაში ინახება.",
+      "learnerBaseText": "The passport is kept in the drawer.",
+      "englishText": "The passport is kept in the drawer.",
+      "embeddingText": "The passport is kept in the drawer.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "The passport is kept in the drawer",
+          "travel"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The passport is kept in the drawer.",
+          "englishAuditText": "The passport is kept in the drawer."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The passport is kept in the cupboard.",
+          "englishAuditText": "The passport is kept in the cupboard.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “The passport is kept in the drawer.” This option changes the location: “The passport is kept in the cupboard.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The passport is kept in the suitcase.",
+          "englishAuditText": "The passport is kept in the suitcase.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “The passport is kept in the drawer.” This option changes the location: “The passport is kept in the suitcase.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-book-about-history",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 92,
+      "complexity": 43,
+      "topic": "study",
+      "familyId": "mm-ka-book-about-history",
+      "targetText": "ეს წიგნი ისტორიაზეა.",
+      "learnerBaseText": "This book is about history.",
+      "englishText": "This book is about history.",
+      "embeddingText": "This book is about history.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "This book is about history",
+          "study"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This book is about history.",
+          "englishAuditText": "This book is about history."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This book is about geography.",
+          "englishAuditText": "This book is about geography.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means “This book is about history.” This option changes the object: “This book is about geography.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This book is about music.",
+          "englishAuditText": "This book is about music.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means “This book is about history.” This option changes the object: “This book is about music.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-coffee-want",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 97,
+      "complexity": 40,
+      "topic": "food-and-drink",
+      "familyId": "mm-ka-coffee-want",
+      "targetText": "ცოტა ყავა მინდა.",
+      "learnerBaseText": "I want a little coffee.",
+      "englishText": "I want a little coffee.",
+      "embeddingText": "I want a little coffee.",
+      "focus": {
+        "kind": "quantity",
+        "englishConcepts": [
+          "I want a little coffee",
+          "food and drink"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I want a little coffee.",
+          "englishAuditText": "I want a little coffee."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I want a lot of coffee.",
+          "englishAuditText": "I want a lot of coffee.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "The target means “I want a little coffee.” This option changes the quantity: “I want a lot of coffee.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I want no coffee.",
+          "englishAuditText": "I want no coffee.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "The target means “I want a little coffee.” This option changes the quantity: “I want no coffee.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-walk-half-hour",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 97,
+      "complexity": 44,
+      "topic": "health-and-routine",
+      "familyId": "mm-ka-walk-half-hour",
+      "targetText": "ყოველდღე ნახევარ საათს ვსეირნობ.",
+      "learnerBaseText": "I walk for half an hour every day.",
+      "englishText": "I walk for half an hour every day.",
+      "embeddingText": "I walk for half an hour every day.",
+      "focus": {
+        "kind": "quantity",
+        "englishConcepts": [
+          "I walk for half an hour every day",
+          "health and routine"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I walk for half an hour every day.",
+          "englishAuditText": "I walk for half an hour every day."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I walk for a quarter of an hour every day.",
+          "englishAuditText": "I walk for a quarter of an hour every day.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "The target means “I walk for half an hour every day.” This option changes the quantity: “I walk for a quarter of an hour every day.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I walk for a full hour every day.",
+          "englishAuditText": "I walk for a full hour every day.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "The target means “I walk for half an hour every day.” This option changes the quantity: “I walk for a full hour every day.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-friend-helps",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 98,
+      "complexity": 43,
+      "topic": "communication",
+      "familyId": "mm-ka-friend-helps",
+      "targetText": "ჩემი მეგობარი თარგმანში მეხმარება.",
+      "learnerBaseText": "My friend helps me with translation.",
+      "englishText": "My friend helps me with translation.",
+      "embeddingText": "My friend helps me with translation.",
+      "focus": {
+        "kind": "subject",
+        "englishConcepts": [
+          "My friend helps me with translation",
+          "communication"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "My friend helps me with translation.",
+          "englishAuditText": "My friend helps me with translation."
+        },
+        {
+          "id": "contrast-1",
+          "text": "My teacher helps me with translation.",
+          "englishAuditText": "My teacher helps me with translation.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "The target means “My friend helps me with translation.” This option changes the subject: “My teacher helps me with translation.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "My sister helps me with translation.",
+          "englishAuditText": "My sister helps me with translation.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "The target means “My friend helps me with translation.” This option changes the subject: “My sister helps me with translation.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-my-room-balcony",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 96,
+      "complexity": 42,
+      "topic": "accommodation",
+      "familyId": "mm-ka-my-room-balcony",
+      "targetText": "ჩემს ოთახს პატარა აივანი აქვს.",
+      "learnerBaseText": "My room has a small balcony.",
+      "englishText": "My room has a small balcony.",
+      "embeddingText": "My room has a small balcony.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "My room has a small balcony",
+          "accommodation"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "My room has a small balcony.",
+          "englishAuditText": "My room has a small balcony."
+        },
+        {
+          "id": "contrast-1",
+          "text": "My room has a small kitchen.",
+          "englishAuditText": "My room has a small kitchen.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means “My room has a small balcony.” This option changes the object: “My room has a small kitchen.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "My room has a small bathroom.",
+          "englishAuditText": "My room has a small bathroom.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means “My room has a small balcony.” This option changes the object: “My room has a small bathroom.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-phone-not-working",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 100,
+      "complexity": 40,
+      "topic": "communication",
+      "familyId": "mm-ka-phone-not-working",
+      "targetText": "ჩემი ტელეფონი ახლა არ მუშაობს.",
+      "learnerBaseText": "My phone is not working now.",
+      "englishText": "My phone is not working now.",
+      "embeddingText": "My phone is not working now.",
+      "focus": {
+        "kind": "polarity",
+        "englishConcepts": [
+          "My phone is not working now",
+          "communication"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "My phone is not working now.",
+          "englishAuditText": "My phone is not working now."
+        },
+        {
+          "id": "contrast-1",
+          "text": "My phone is working now.",
+          "englishAuditText": "My phone is working now.",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "The target means “My phone is not working now.” This option changes the polarity: “My phone is working now.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "My phone is working again now.",
+          "englishAuditText": "My phone is working again now.",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "The target means “My phone is not working now.” This option changes the polarity: “My phone is working again now.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-train-tomorrow",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 99,
+      "complexity": 44,
+      "topic": "planning",
+      "familyId": "mm-ka-train-tomorrow",
+      "targetText": "ხვალ დილით მატარებლით მივდივარ.",
+      "learnerBaseText": "I am leaving by train tomorrow morning.",
+      "englishText": "I am leaving by train tomorrow morning.",
+      "embeddingText": "I am leaving by train tomorrow morning.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "I am leaving by train tomorrow morning",
+          "planning"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I am leaving by train tomorrow morning.",
+          "englishAuditText": "I am leaving by train tomorrow morning."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I am leaving by train tomorrow evening.",
+          "englishAuditText": "I am leaving by train tomorrow evening.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means “I am leaving by train tomorrow morning.” This option changes the time: “I am leaving by train tomorrow evening.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I am leaving by train the day after tomorrow.",
+          "englishAuditText": "I am leaving by train the day after tomorrow.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means “I am leaving by train tomorrow morning.” This option changes the time: “I am leaving by train the day after tomorrow.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-market-apples",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 97,
+      "complexity": 43,
+      "topic": "shopping",
+      "familyId": "mm-ka-market-apples",
+      "targetText": "ერთ კილოგრამ ვაშლს ვყიდულობ.",
+      "learnerBaseText": "I am buying one kilogram of apples.",
+      "englishText": "I am buying one kilogram of apples.",
+      "embeddingText": "I am buying one kilogram of apples.",
+      "focus": {
+        "kind": "quantity",
+        "englishConcepts": [
+          "I am buying one kilogram of apples",
+          "shopping"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I am buying one kilogram of apples.",
+          "englishAuditText": "I am buying one kilogram of apples."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I am buying half a kilogram of apples.",
+          "englishAuditText": "I am buying half a kilogram of apples.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "The target means “I am buying one kilogram of apples.” This option changes the quantity: “I am buying half a kilogram of apples.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I am buying two kilograms of apples.",
+          "englishAuditText": "I am buying two kilograms of apples.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "The target means “I am buying one kilogram of apples.” This option changes the quantity: “I am buying two kilograms of apples.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-station-right",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 100,
+      "complexity": 43,
+      "topic": "directions",
+      "familyId": "mm-ka-station-right",
+      "targetText": "სადგური ქუჩის მარჯვენა მხარესაა.",
+      "learnerBaseText": "The station is on the right side of the street.",
+      "englishText": "The station is on the right side of the street.",
+      "embeddingText": "The station is on the right side of the street.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "The station is on the right side of the street",
+          "directions"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The station is on the right side of the street.",
+          "englishAuditText": "The station is on the right side of the street."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The station is on the left side of the street.",
+          "englishAuditText": "The station is on the left side of the street.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “The station is on the right side of the street.” This option changes the location: “The station is on the left side of the street.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The station is at the end of the street.",
+          "englishAuditText": "The station is at the end of the street.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “The station is on the right side of the street.” This option changes the location: “The station is at the end of the street.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-reading-before-sleep",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 92,
+      "complexity": 44,
+      "topic": "routine",
+      "familyId": "mm-ka-reading-before-sleep",
+      "targetText": "ძილის წინ წიგნს ვკითხულობ.",
+      "learnerBaseText": "I read a book before going to sleep.",
+      "englishText": "I read a book before going to sleep.",
+      "embeddingText": "I read a book before going to sleep.",
+      "focus": {
+        "kind": "sequence",
+        "englishConcepts": [
+          "I read a book before going to sleep",
+          "routine"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I read a book before going to sleep.",
+          "englishAuditText": "I read a book before going to sleep."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I read a book after waking up.",
+          "englishAuditText": "I read a book after waking up.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "The target means “I read a book before going to sleep.” This option changes the sequence: “I read a book after waking up.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I read a book before lunch.",
+          "englishAuditText": "I read a book before lunch.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "The target means “I read a book before going to sleep.” This option changes the sequence: “I read a book before lunch.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-mountain-snow",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 88,
+      "complexity": 41,
+      "topic": "weather",
+      "familyId": "mm-ka-mountain-snow",
+      "targetText": "დღეს მთაში თოვს.",
+      "learnerBaseText": "It is snowing in the mountains today.",
+      "englishText": "It is snowing in the mountains today.",
+      "embeddingText": "It is snowing in the mountains today.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "It is snowing in the mountains today",
+          "weather"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "It is snowing in the mountains today.",
+          "englishAuditText": "It is snowing in the mountains today."
+        },
+        {
+          "id": "contrast-1",
+          "text": "It is snowing in the city today.",
+          "englishAuditText": "It is snowing in the city today.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “It is snowing in the mountains today.” This option changes the location: “It is snowing in the city today.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "It is snowing on the coast today.",
+          "englishAuditText": "It is snowing on the coast today.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means “It is snowing in the mountains today.” This option changes the location: “It is snowing on the coast today.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-stay-because-rain",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 98,
+      "complexity": 64,
+      "topic": "weather-and-plans",
+      "familyId": "mm-ka-stay-because-rain",
+      "targetText": "სახლში ვრჩები, რადგან ძლიერად წვიმს.",
+      "learnerBaseText": "I am staying at home because it is raining heavily.",
+      "englishText": "I am staying at home because it is raining heavily.",
+      "embeddingText": "I am staying at home because it is raining heavily.",
+      "focus": {
+        "kind": "reason",
+        "englishConcepts": [
+          "I am staying at home because it is raining heavily",
+          "weather and plans"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I am staying at home because it is raining heavily.",
+          "englishAuditText": "I am staying at home because it is raining heavily."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I am staying at home because it is snowing heavily.",
+          "englishAuditText": "I am staying at home because it is snowing heavily.",
+          "contrast": {
+            "kind": "reason",
+            "explanation": "The target means “I am staying at home because it is raining heavily.” This option changes the reason: “I am staying at home because it is snowing heavily.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I am staying at home because it is very windy.",
+          "englishAuditText": "I am staying at home because it is very windy.",
+          "contrast": {
+            "kind": "reason",
+            "explanation": "The target means “I am staying at home because it is raining heavily.” This option changes the reason: “I am staying at home because it is very windy.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-bus-late-walk",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 100,
+      "complexity": 67,
+      "topic": "transport",
+      "familyId": "mm-ka-bus-late-walk",
+      "targetText": "თუ ავტობუსი აგვიანებს, ფეხით მივდივართ.",
+      "learnerBaseText": "If the bus is late, we go on foot.",
+      "englishText": "If the bus is late, we go on foot.",
+      "embeddingText": "If the bus is late, we go on foot.",
+      "focus": {
+        "kind": "condition",
+        "englishConcepts": [
+          "If the bus is late, we go on foot",
+          "transport"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "If the bus is late, we go on foot.",
+          "englishAuditText": "If the bus is late, we go on foot."
+        },
+        {
+          "id": "contrast-1",
+          "text": "If the bus is full, we go on foot.",
+          "englishAuditText": "If the bus is full, we go on foot.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "The target means “If the bus is late, we go on foot.” This option changes the condition: “If the bus is full, we go on foot.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "If the bus is empty, we go on foot.",
+          "englishAuditText": "If the bus is empty, we go on foot.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "The target means “If the bus is late, we go on foot.” This option changes the condition: “If the bus is empty, we go on foot.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-before-leave-call",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 100,
+      "complexity": 70,
+      "topic": "communication",
+      "familyId": "mm-ka-before-leave-call",
+      "targetText": "სანამ სახლიდან გავალ, დედას ვურეკავ.",
+      "learnerBaseText": "Before I leave the house, I call my mother.",
+      "englishText": "Before I leave the house, I call my mother.",
+      "embeddingText": "Before I leave the house, I call my mother.",
+      "focus": {
+        "kind": "sequence",
+        "englishConcepts": [
+          "Before I leave the house, I call my mother",
+          "communication"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Before I leave the house, I call my mother.",
+          "englishAuditText": "Before I leave the house, I call my mother."
+        },
+        {
+          "id": "contrast-1",
+          "text": "After I leave the house, I call my mother.",
+          "englishAuditText": "After I leave the house, I call my mother.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "The target means “Before I leave the house, I call my mother.” This option changes the sequence: “After I leave the house, I call my mother.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "When I return to the house, I call my mother.",
+          "englishAuditText": "When I return to the house, I call my mother.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "The target means “Before I leave the house, I call my mother.” This option changes the sequence: “When I return to the house, I call my mother.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-study-to-understand",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 99,
+      "complexity": 67,
+      "topic": "study",
+      "familyId": "mm-ka-study-to-understand",
+      "targetText": "ქართულს ვსწავლობ, რომ მეზობლებს გავუგო.",
+      "learnerBaseText": "I study Georgian so that I can understand my neighbours.",
+      "englishText": "I study Georgian so that I can understand my neighbours.",
+      "embeddingText": "I study Georgian so that I can understand my neighbours.",
+      "focus": {
+        "kind": "purpose",
+        "englishConcepts": [
+          "I study Georgian so that I can understand my neighbours",
+          "study"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I study Georgian so that I can understand my neighbours.",
+          "englishAuditText": "I study Georgian so that I can understand my neighbours."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I study Georgian so that I can teach my neighbours.",
+          "englishAuditText": "I study Georgian so that I can teach my neighbours.",
+          "contrast": {
+            "kind": "purpose",
+            "explanation": "The target means “I study Georgian so that I can understand my neighbours.” This option changes the purpose: “I study Georgian so that I can teach my neighbours.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I study Georgian so that I can help my neighbours.",
+          "englishAuditText": "I study Georgian so that I can help my neighbours.",
+          "contrast": {
+            "kind": "purpose",
+            "explanation": "The target means “I study Georgian so that I can understand my neighbours.” This option changes the purpose: “I study Georgian so that I can help my neighbours.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-although-tired",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 96,
+      "complexity": 65,
+      "topic": "work",
+      "familyId": "mm-ka-although-tired",
+      "targetText": "მიუხედავად იმისა, რომ დაღლილი ვარ, მუშაობას ვაგრძელებ.",
+      "learnerBaseText": "Although I am tired, I keep working.",
+      "englishText": "Although I am tired, I keep working.",
+      "embeddingText": "Although I am tired, I keep working.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "Although I am tired, I keep working",
+          "work"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Although I am tired, I keep working.",
+          "englishAuditText": "Although I am tired, I keep working."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Although I am hungry, I keep working.",
+          "englishAuditText": "Although I am hungry, I keep working.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “Although I am tired, I keep working.” This option changes the state: “Although I am hungry, I keep working.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Although I am ill, I keep working.",
+          "englishAuditText": "Although I am ill, I keep working.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “Although I am tired, I keep working.” This option changes the state: “Although I am ill, I keep working.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-route-longer-quieter",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 96,
+      "complexity": 67,
+      "topic": "travel",
+      "familyId": "mm-ka-route-longer-quieter",
+      "targetText": "ეს გზა უფრო გრძელია, მაგრამ უფრო მშვიდია.",
+      "learnerBaseText": "This route is longer, but it is quieter.",
+      "englishText": "This route is longer, but it is quieter.",
+      "embeddingText": "This route is longer, but it is quieter.",
+      "focus": {
+        "kind": "comparison",
+        "englishConcepts": [
+          "This route is longer, but it is quieter",
+          "travel"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This route is longer, but it is quieter.",
+          "englishAuditText": "This route is longer, but it is quieter."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This route is shorter, but it is quieter.",
+          "englishAuditText": "This route is shorter, but it is quieter.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "The target means “This route is longer, but it is quieter.” This option changes the comparison: “This route is shorter, but it is quieter.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This route is wider, but it is quieter.",
+          "englishAuditText": "This route is wider, but it is quieter.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "The target means “This route is longer, but it is quieter.” This option changes the comparison: “This route is wider, but it is quieter.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-if-shop-closed",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 99,
+      "complexity": 68,
+      "topic": "shopping",
+      "familyId": "mm-ka-if-shop-closed",
+      "targetText": "თუ მაღაზია დაკეტილია, ხვალ ვბრუნდები.",
+      "learnerBaseText": "If the shop is closed, I return tomorrow.",
+      "englishText": "If the shop is closed, I return tomorrow.",
+      "embeddingText": "If the shop is closed, I return tomorrow.",
+      "focus": {
+        "kind": "condition",
+        "englishConcepts": [
+          "If the shop is closed, I return tomorrow",
+          "shopping"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "If the shop is closed, I return tomorrow.",
+          "englishAuditText": "If the shop is closed, I return tomorrow."
+        },
+        {
+          "id": "contrast-1",
+          "text": "If the shop is crowded, I return tomorrow.",
+          "englishAuditText": "If the shop is crowded, I return tomorrow.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "The target means “If the shop is closed, I return tomorrow.” This option changes the condition: “If the shop is crowded, I return tomorrow.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "If the shop is empty, I return tomorrow.",
+          "englishAuditText": "If the shop is empty, I return tomorrow.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "The target means “If the shop is closed, I return tomorrow.” This option changes the condition: “If the shop is empty, I return tomorrow.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-read-then-write",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 98,
+      "complexity": 65,
+      "topic": "study",
+      "familyId": "mm-ka-read-then-write",
+      "targetText": "ჯერ ტექსტს ვკითხულობ, შემდეგ პასუხს ვწერ.",
+      "learnerBaseText": "First I read the text, then I write the answer.",
+      "englishText": "First I read the text, then I write the answer.",
+      "embeddingText": "First I read the text, then I write the answer.",
+      "focus": {
+        "kind": "sequence",
+        "englishConcepts": [
+          "First I read the text, then I write the answer",
+          "study"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "First I read the text, then I write the answer.",
+          "englishAuditText": "First I read the text, then I write the answer."
+        },
+        {
+          "id": "contrast-1",
+          "text": "First I write the answer, then I read the text.",
+          "englishAuditText": "First I write the answer, then I read the text.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "The target means “First I read the text, then I write the answer.” This option changes the sequence: “First I write the answer, then I read the text.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "First I translate the text, then I write the answer.",
+          "englishAuditText": "First I translate the text, then I write the answer.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The first action is reading the text; this option replaces reading with translating."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-because-phone-broken",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 100,
+      "complexity": 68,
+      "topic": "communication",
+      "familyId": "mm-ka-because-phone-broken",
+      "targetText": "ელფოსტას ვწერ, რადგან ტელეფონი გაფუჭებულია.",
+      "learnerBaseText": "I am writing an email because the phone is broken.",
+      "englishText": "I am writing an email because the phone is broken.",
+      "embeddingText": "I am writing an email because the phone is broken.",
+      "focus": {
+        "kind": "reason",
+        "englishConcepts": [
+          "I am writing an email because the phone is broken",
+          "communication"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I am writing an email because the phone is broken.",
+          "englishAuditText": "I am writing an email because the phone is broken."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I am writing an email because the phone is busy.",
+          "englishAuditText": "I am writing an email because the phone is busy.",
+          "contrast": {
+            "kind": "reason",
+            "explanation": "The target means “I am writing an email because the phone is broken.” This option changes the reason: “I am writing an email because the phone is busy.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I am writing an email because the phone is missing.",
+          "englishAuditText": "I am writing an email because the phone is missing.",
+          "contrast": {
+            "kind": "reason",
+            "explanation": "The target means “I am writing an email because the phone is broken.” This option changes the reason: “I am writing an email because the phone is missing.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-book-reading",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 94,
+      "complexity": 72,
+      "topic": "study",
+      "familyId": "mm-ka-book-reading",
+      "targetText": "წიგნი, რომელსაც ვკითხულობ, ძალიან საინტერესოა.",
+      "learnerBaseText": "The book that I am reading is very interesting.",
+      "englishText": "The book that I am reading is very interesting.",
+      "embeddingText": "The book that I am reading is very interesting.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "The book that I am reading is very interesting",
+          "study"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The book that I am reading is very interesting.",
+          "englishAuditText": "The book that I am reading is very interesting."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The book that I am writing is very interesting.",
+          "englishAuditText": "The book that I am writing is very interesting.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target means “The book that I am reading is very interesting.” This option changes the action: “The book that I am writing is very interesting.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The book that I am translating is very interesting.",
+          "englishAuditText": "The book that I am translating is very interesting.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target means “The book that I am reading is very interesting.” This option changes the action: “The book that I am translating is very interesting.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-window-cool-air",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 97,
+      "complexity": 69,
+      "topic": "household",
+      "familyId": "mm-ka-window-cool-air",
+      "targetText": "ფანჯარას ვაღებ, რომ გრილი ჰაერი შემოვიდეს.",
+      "learnerBaseText": "I open the window to let cool air in.",
+      "englishText": "I open the window to let cool air in.",
+      "embeddingText": "I open the window to let cool air in.",
+      "focus": {
+        "kind": "purpose",
+        "englishConcepts": [
+          "I open the window to let cool air in",
+          "household"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I open the window to let cool air in.",
+          "englishAuditText": "I open the window to let cool air in."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I open the window to let warm air in.",
+          "englishAuditText": "I open the window to let warm air in.",
+          "contrast": {
+            "kind": "purpose",
+            "explanation": "The target means “I open the window to let cool air in.” This option changes the purpose: “I open the window to let warm air in.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I open the window to let bright sunlight in.",
+          "englishAuditText": "I open the window to let bright sunlight in.",
+          "contrast": {
+            "kind": "purpose",
+            "explanation": "The target means “I open the window to let cool air in.” This option changes the purpose: “I open the window to let bright sunlight in.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-when-rain-stops",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 98,
+      "complexity": 66,
+      "topic": "weather-and-plans",
+      "familyId": "mm-ka-when-rain-stops",
+      "targetText": "როცა წვიმა წყდება, სასეირნოდ გავდივართ.",
+      "learnerBaseText": "When the rain stops, we go out for a walk.",
+      "englishText": "When the rain stops, we go out for a walk.",
+      "embeddingText": "When the rain stops, we go out for a walk.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "When the rain stops, we go out for a walk",
+          "weather and plans"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "When the rain stops, we go out for a walk.",
+          "englishAuditText": "When the rain stops, we go out for a walk."
+        },
+        {
+          "id": "contrast-1",
+          "text": "When the rain starts, we go out for a walk.",
+          "englishAuditText": "When the rain starts, we go out for a walk.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means “When the rain stops, we go out for a walk.” This option changes the time: “When the rain starts, we go out for a walk.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "When the rain gets heavier, we go out for a walk.",
+          "englishAuditText": "When the rain gets heavier, we go out for a walk.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means “When the rain stops, we go out for a walk.” This option changes the time: “When the rain gets heavier, we go out for a walk.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-enough-for-food",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 99,
+      "complexity": 68,
+      "topic": "shopping",
+      "familyId": "mm-ka-enough-for-food",
+      "targetText": "ფული საჭმლისთვის მყოფნის, მაგრამ ტანსაცმლისთვის არა.",
+      "learnerBaseText": "I have enough money for food, but not for clothes.",
+      "englishText": "I have enough money for food, but not for clothes.",
+      "embeddingText": "I have enough money for food, but not for clothes.",
+      "focus": {
+        "kind": "purpose",
+        "englishConcepts": [
+          "I have enough money for food, but not for clothes",
+          "shopping"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I have enough money for food, but not for clothes.",
+          "englishAuditText": "I have enough money for food, but not for clothes."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I have enough money for food, but not for books.",
+          "englishAuditText": "I have enough money for food, but not for books.",
+          "contrast": {
+            "kind": "purpose",
+            "explanation": "The target means “I have enough money for food, but not for clothes.” This option changes the purpose: “I have enough money for food, but not for books.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I have enough money for food, but not for tickets.",
+          "englishAuditText": "I have enough money for food, but not for tickets.",
+          "contrast": {
+            "kind": "purpose",
+            "explanation": "The target means “I have enough money for food, but not for clothes.” This option changes the purpose: “I have enough money for food, but not for tickets.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-if-no-internet",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 100,
+      "complexity": 68,
+      "topic": "communication",
+      "familyId": "mm-ka-if-no-internet",
+      "targetText": "თუ ინტერნეტი არ მუშაობს, ტელეფონით ვრეკავ.",
+      "learnerBaseText": "If the internet is not working, I call by phone.",
+      "englishText": "If the internet is not working, I call by phone.",
+      "embeddingText": "If the internet is not working, I call by phone.",
+      "focus": {
+        "kind": "condition",
+        "englishConcepts": [
+          "If the internet is not working, I call by phone",
+          "communication"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "If the internet is not working, I call by phone.",
+          "englishAuditText": "If the internet is not working, I call by phone."
+        },
+        {
+          "id": "contrast-1",
+          "text": "If the internet is slow, I call by phone.",
+          "englishAuditText": "If the internet is slow, I call by phone.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "The target means “If the internet is not working, I call by phone.” This option changes the condition: “If the internet is slow, I call by phone.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "If the internet is expensive, I call by phone.",
+          "englishAuditText": "If the internet is expensive, I call by phone.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "The target means “If the internet is not working, I call by phone.” This option changes the condition: “If the internet is expensive, I call by phone.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-after-bridge",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 100,
+      "complexity": 71,
+      "topic": "directions",
+      "familyId": "mm-ka-after-bridge",
+      "targetText": "ხიდის გადაკვეთის შემდეგ მარჯვნივ ვუხვევ.",
+      "learnerBaseText": "After crossing the bridge, I turn right.",
+      "englishText": "After crossing the bridge, I turn right.",
+      "embeddingText": "After crossing the bridge, I turn right.",
+      "focus": {
+        "kind": "sequence",
+        "englishConcepts": [
+          "After crossing the bridge, I turn right",
+          "directions"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "After crossing the bridge, I turn right.",
+          "englishAuditText": "After crossing the bridge, I turn right."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Before crossing the bridge, I turn right.",
+          "englishAuditText": "Before crossing the bridge, I turn right.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "The target means “After crossing the bridge, I turn right.” This option changes the sequence: “Before crossing the bridge, I turn right.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "While crossing the bridge, I turn right.",
+          "englishAuditText": "While crossing the bridge, I turn right.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "The target means “After crossing the bridge, I turn right.” This option changes the sequence: “While crossing the bridge, I turn right.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-repair-instead",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 98,
+      "complexity": 69,
+      "topic": "household",
+      "familyId": "mm-ka-repair-instead",
+      "targetText": "ძველ სკამს ვაკეთებ, ნაცვლად იმისა, რომ ახალი ვიყიდო.",
+      "learnerBaseText": "I repair the old chair instead of buying a new one.",
+      "englishText": "I repair the old chair instead of buying a new one.",
+      "embeddingText": "I repair the old chair instead of buying a new one.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "I repair the old chair instead of buying a new one",
+          "household"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I repair the old chair instead of buying a new one.",
+          "englishAuditText": "I repair the old chair instead of buying a new one."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I paint the old chair instead of buying a new one.",
+          "englishAuditText": "I paint the old chair instead of buying a new one.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target means “I repair the old chair instead of buying a new one.” This option changes the action: “I paint the old chair instead of buying a new one.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I clean the old chair instead of buying a new one.",
+          "englishAuditText": "I clean the old chair instead of buying a new one.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target means “I repair the old chair instead of buying a new one.” This option changes the action: “I clean the old chair instead of buying a new one.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-teacher-slowly",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 100,
+      "complexity": 69,
+      "topic": "communication",
+      "familyId": "mm-ka-teacher-slowly",
+      "targetText": "მასწავლებელს ვთხოვ, რომ კითხვა ნელა გაიმეოროს.",
+      "learnerBaseText": "I ask the teacher to repeat the question slowly.",
+      "englishText": "I ask the teacher to repeat the question slowly.",
+      "embeddingText": "I ask the teacher to repeat the question slowly.",
+      "focus": {
+        "kind": "manner",
+        "englishConcepts": [
+          "I ask the teacher to repeat the question slowly",
+          "communication"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I ask the teacher to repeat the question slowly.",
+          "englishAuditText": "I ask the teacher to repeat the question slowly."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I ask the teacher to repeat the question loudly.",
+          "englishAuditText": "I ask the teacher to repeat the question loudly.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "The target means “I ask the teacher to repeat the question slowly.” This option changes the manner: “I ask the teacher to repeat the question loudly.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I ask the teacher to repeat the question quietly.",
+          "englishAuditText": "I ask the teacher to repeat the question quietly.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "The target means “I ask the teacher to repeat the question slowly.” This option changes the manner: “I ask the teacher to repeat the question quietly.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-hotel-near-rooms",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 98,
+      "complexity": 68,
+      "topic": "accommodation",
+      "familyId": "mm-ka-hotel-near-rooms",
+      "targetText": "სასტუმრო სადგურთან ახლოსაა, მაგრამ ოთახები პატარაა.",
+      "learnerBaseText": "The hotel is near the station, but the rooms are small.",
+      "englishText": "The hotel is near the station, but the rooms are small.",
+      "embeddingText": "The hotel is near the station, but the rooms are small.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "The hotel is near the station, but the rooms are small",
+          "accommodation"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The hotel is near the station, but the rooms are small.",
+          "englishAuditText": "The hotel is near the station, but the rooms are small."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The hotel is near the station, but the rooms are dark.",
+          "englishAuditText": "The hotel is near the station, but the rooms are dark.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The hotel is near the station, but the rooms are small.” This option changes the state: “The hotel is near the station, but the rooms are dark.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The hotel is near the station, but the rooms are noisy.",
+          "englishAuditText": "The hotel is near the station, but the rooms are noisy.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means “The hotel is near the station, but the rooms are small.” This option changes the state: “The hotel is near the station, but the rooms are noisy.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-garden-needs-water",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 93,
+      "complexity": 70,
+      "topic": "nature",
+      "familyId": "mm-ka-garden-needs-water",
+      "targetText": "თუ მცენარეებს წყალი აკლიათ, ფოთლები ხმება.",
+      "learnerBaseText": "If the plants lack water, their leaves dry out.",
+      "englishText": "If the plants lack water, their leaves dry out.",
+      "embeddingText": "If the plants lack water, their leaves dry out.",
+      "focus": {
+        "kind": "condition",
+        "englishConcepts": [
+          "If the plants lack water, their leaves dry out",
+          "nature"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "If the plants lack water, their leaves dry out.",
+          "englishAuditText": "If the plants lack water, their leaves dry out."
+        },
+        {
+          "id": "contrast-1",
+          "text": "If the plants lack light, their leaves dry out.",
+          "englishAuditText": "If the plants lack light, their leaves dry out.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "The target means “If the plants lack water, their leaves dry out.” This option changes the condition: “If the plants lack light, their leaves dry out.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "If the plants lack space, their leaves dry out.",
+          "englishAuditText": "If the plants lack space, their leaves dry out.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "The target means “If the plants lack water, their leaves dry out.” This option changes the condition: “If the plants lack space, their leaves dry out.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-price-before-pay",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 100,
+      "complexity": 67,
+      "topic": "shopping",
+      "familyId": "mm-ka-price-before-pay",
+      "targetText": "გადახდამდე ფასს ვამოწმებ.",
+      "learnerBaseText": "I check the price before paying.",
+      "englishText": "I check the price before paying.",
+      "embeddingText": "I check the price before paying.",
+      "focus": {
+        "kind": "sequence",
+        "englishConcepts": [
+          "I check the price before paying",
+          "shopping"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I check the price before paying.",
+          "englishAuditText": "I check the price before paying."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I check the price after paying.",
+          "englishAuditText": "I check the price after paying.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "The target means “I check the price before paying.” This option changes the sequence: “I check the price after paying.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I check the price while paying.",
+          "englishAuditText": "I check the price while paying.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "The target means “I check the price before paying.” This option changes the sequence: “I check the price while paying.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-less-time-than",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 97,
+      "complexity": 71,
+      "topic": "planning",
+      "familyId": "mm-ka-less-time-than",
+      "targetText": "დღეს გუშინდელზე ნაკლები დრო მაქვს.",
+      "learnerBaseText": "I have less time today than yesterday.",
+      "englishText": "I have less time today than yesterday.",
+      "embeddingText": "I have less time today than yesterday.",
+      "focus": {
+        "kind": "comparison",
+        "englishConcepts": [
+          "I have less time today than yesterday",
+          "planning"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I have less time today than yesterday.",
+          "englishAuditText": "I have less time today than yesterday."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I have more time today than yesterday.",
+          "englishAuditText": "I have more time today than yesterday.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "The target means “I have less time today than yesterday.” This option changes the comparison: “I have more time today than yesterday.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I have as much time today as yesterday.",
+          "englishAuditText": "I have as much time today as yesterday.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "The target means “I have less time today than yesterday.” This option changes the comparison: “I have as much time today as yesterday.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-wait-until-brother",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 98,
+      "complexity": 72,
+      "topic": "family",
+      "familyId": "mm-ka-wait-until-brother",
+      "targetText": "აქ ველოდები, სანამ ჩემი ძმა მოვა.",
+      "learnerBaseText": "I wait here until my brother arrives.",
+      "englishText": "I wait here until my brother arrives.",
+      "embeddingText": "I wait here until my brother arrives.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "I wait here until my brother arrives",
+          "family"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I wait here until my brother arrives.",
+          "englishAuditText": "I wait here until my brother arrives."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I wait here until my brother leaves.",
+          "englishAuditText": "I wait here until my brother leaves.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means “I wait here until my brother arrives.” This option changes the time: “I wait here until my brother leaves.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I wait here until my brother calls.",
+          "englishAuditText": "I wait here until my brother calls.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means “I wait here until my brother arrives.” This option changes the time: “I wait here until my brother calls.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-map-for-station",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 100,
+      "complexity": 72,
+      "topic": "directions",
+      "familyId": "mm-ka-map-for-station",
+      "targetText": "რუკას ვუყურებ, რომ სადგური ვიპოვო.",
+      "learnerBaseText": "I look at the map so that I can find the station.",
+      "englishText": "I look at the map so that I can find the station.",
+      "embeddingText": "I look at the map so that I can find the station.",
+      "focus": {
+        "kind": "purpose",
+        "englishConcepts": [
+          "I look at the map so that I can find the station",
+          "directions"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I look at the map so that I can find the station.",
+          "englishAuditText": "I look at the map so that I can find the station."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I look at the map so that I can find the hospital.",
+          "englishAuditText": "I look at the map so that I can find the hospital.",
+          "contrast": {
+            "kind": "purpose",
+            "explanation": "The target means “I look at the map so that I can find the station.” This option changes the purpose: “I look at the map so that I can find the hospital.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I look at the map so that I can find the market.",
+          "englishAuditText": "I look at the map so that I can find the market.",
+          "contrast": {
+            "kind": "purpose",
+            "explanation": "The target means “I look at the map so that I can find the station.” This option changes the purpose: “I look at the map so that I can find the market.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-closed-for-repairs",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 98,
+      "complexity": 69,
+      "topic": "services",
+      "familyId": "mm-ka-closed-for-repairs",
+      "targetText": "აუზი ამ კვირაში რემონტის გამო დაკეტილია.",
+      "learnerBaseText": "The swimming pool is closed this week because of repairs.",
+      "englishText": "The swimming pool is closed this week because of repairs.",
+      "embeddingText": "The swimming pool is closed this week because of repairs.",
+      "focus": {
+        "kind": "reason",
+        "englishConcepts": [
+          "The swimming pool is closed this week because of repairs",
+          "services"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The swimming pool is closed this week because of repairs.",
+          "englishAuditText": "The swimming pool is closed this week because of repairs."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The swimming pool is closed this week because of a competition.",
+          "englishAuditText": "The swimming pool is closed this week because of a competition.",
+          "contrast": {
+            "kind": "reason",
+            "explanation": "The target means “The swimming pool is closed this week because of repairs.” This option changes the reason: “The swimming pool is closed this week because of a competition.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The swimming pool is closed this week because of staff training.",
+          "englishAuditText": "The swimming pool is closed this week because of staff training.",
+          "contrast": {
+            "kind": "reason",
+            "explanation": "The target means “The swimming pool is closed this week because of repairs.” This option changes the reason: “The swimming pool is closed this week because of staff training.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-not-finished-yet",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 99,
+      "complexity": 69,
+      "topic": "work",
+      "familyId": "mm-ka-not-finished-yet",
+      "targetText": "ანგარიში ჯერ არ არის მზად, მაგრამ მუშაობა გრძელდება.",
+      "learnerBaseText": "The report is not ready yet, but work is continuing.",
+      "englishText": "The report is not ready yet, but work is continuing.",
+      "embeddingText": "The report is not ready yet, but work is continuing.",
+      "focus": {
+        "kind": "polarity",
+        "englishConcepts": [
+          "The report is not ready yet, but work is continuing",
+          "work"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The report is not ready yet, but work is continuing.",
+          "englishAuditText": "The report is not ready yet, but work is continuing."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The report is already ready, but work is continuing.",
+          "englishAuditText": "The report is already ready, but work is continuing.",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "The target means “The report is not ready yet, but work is continuing.” This option changes the polarity: “The report is already ready, but work is continuing.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The report will never be ready, but work is continuing.",
+          "englishAuditText": "The report will never be ready, but work is continuing.",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "The target means “The report is not ready yet, but work is continuing.” This option changes the polarity: “The report will never be ready, but work is continuing.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-washing-before-cutting",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 98,
+      "complexity": 67,
+      "topic": "food-and-drink",
+      "familyId": "mm-ka-washing-before-cutting",
+      "targetText": "ბოსტნეულს ჯერ ვრეცხავ, შემდეგ ვჭრი.",
+      "learnerBaseText": "First I wash the vegetables, then I cut them.",
+      "englishText": "First I wash the vegetables, then I cut them.",
+      "embeddingText": "First I wash the vegetables, then I cut them.",
+      "focus": {
+        "kind": "sequence",
+        "englishConcepts": [
+          "First I wash the vegetables, then I cut them",
+          "food and drink"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "First I wash the vegetables, then I cut them.",
+          "englishAuditText": "First I wash the vegetables, then I cut them."
+        },
+        {
+          "id": "contrast-1",
+          "text": "First I cut the vegetables, then I wash them.",
+          "englishAuditText": "First I cut the vegetables, then I wash them.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "The target means “First I wash the vegetables, then I cut them.” This option changes the sequence: “First I cut the vegetables, then I wash them.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "First I cook the vegetables, then I cut them.",
+          "englishAuditText": "First I cook the vegetables, then I cut them.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The first action is washing the vegetables; this option replaces washing with cooking."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-umbrella-because-rain",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 98,
+      "complexity": 68,
+      "topic": "weather-and-plans",
+      "familyId": "mm-ka-umbrella-because-rain",
+      "targetText": "ქოლგას ვიღებ, რადგან შეიძლება იწვიმოს.",
+      "learnerBaseText": "I take an umbrella because it may rain.",
+      "englishText": "I take an umbrella because it may rain.",
+      "embeddingText": "I take an umbrella because it may rain.",
+      "focus": {
+        "kind": "reason",
+        "englishConcepts": [
+          "I take an umbrella because it may rain",
+          "weather and plans"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I take an umbrella because it may rain.",
+          "englishAuditText": "I take an umbrella because it may rain."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I take an umbrella because it may snow.",
+          "englishAuditText": "I take an umbrella because it may snow.",
+          "contrast": {
+            "kind": "reason",
+            "explanation": "The target means “I take an umbrella because it may rain.” This option changes the reason: “I take an umbrella because it may snow.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I take an umbrella because it may get sunny.",
+          "englishAuditText": "I take an umbrella because it may get sunny.",
+          "contrast": {
+            "kind": "reason",
+            "explanation": "The target means “I take an umbrella because it may rain.” This option changes the reason: “I take an umbrella because it may get sunny.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-even-without-car",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 96,
+      "complexity": 70,
+      "topic": "travel",
+      "familyId": "mm-ka-even-without-car",
+      "targetText": "სოფელში მანქანის გარეშეც შეგვიძლია წასვლა.",
+      "learnerBaseText": "We can go to the village even without a car.",
+      "englishText": "We can go to the village even without a car.",
+      "embeddingText": "We can go to the village even without a car.",
+      "focus": {
+        "kind": "condition",
+        "englishConcepts": [
+          "We can go to the village even without a car",
+          "travel"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "We can go to the village even without a car.",
+          "englishAuditText": "We can go to the village even without a car."
+        },
+        {
+          "id": "contrast-1",
+          "text": "We can go to the village even without a guide.",
+          "englishAuditText": "We can go to the village even without a guide.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "The target means “We can go to the village even without a car.” This option changes the condition: “We can go to the village even without a guide.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "We can go to the village even without a map.",
+          "englishAuditText": "We can go to the village even without a map.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "The target means “We can go to the village even without a car.” This option changes the condition: “We can go to the village even without a map.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-more-time-understand",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 99,
+      "complexity": 72,
+      "topic": "study",
+      "familyId": "mm-ka-more-time-understand",
+      "targetText": "მეტი დრო ტექსტის გასაგებად მჭირდება და არა მის გადასაწერად.",
+      "learnerBaseText": "I need more time to understand the text, not to copy it.",
+      "englishText": "I need more time to understand the text, not to copy it.",
+      "embeddingText": "I need more time to understand the text, not to copy it.",
+      "focus": {
+        "kind": "purpose",
+        "englishConcepts": [
+          "I need more time to understand the text, not to copy it",
+          "study"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I need more time to understand the text, not to copy it.",
+          "englishAuditText": "I need more time to understand the text, not to copy it."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I need more time to translate the text, not to copy it.",
+          "englishAuditText": "I need more time to translate the text, not to copy it.",
+          "contrast": {
+            "kind": "purpose",
+            "explanation": "The target means “I need more time to understand the text, not to copy it.” This option changes the purpose: “I need more time to translate the text, not to copy it.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I need more time to read the text aloud, not to copy it.",
+          "englishAuditText": "I need more time to read the text aloud, not to copy it.",
+          "contrast": {
+            "kind": "purpose",
+            "explanation": "The target means “I need more time to understand the text, not to copy it.” This option changes the purpose: “I need more time to read the text aloud, not to copy it.”"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-quiet-place-because",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 98,
+      "complexity": 69,
+      "topic": "work-and-study",
+      "familyId": "mm-ka-quiet-place-because",
+      "targetText": "წყნარ ადგილს ვეძებ, რადგან სწავლა მინდა.",
+      "learnerBaseText": "I am looking for a quiet place because I want to study.",
+      "englishText": "I am looking for a quiet place because I want to study.",
+      "embeddingText": "I am looking for a quiet place because I want to study.",
+      "focus": {
+        "kind": "reason",
+        "englishConcepts": [
+          "I am looking for a quiet place because I want to study",
+          "work and study"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I am looking for a quiet place because I want to study.",
+          "englishAuditText": "I am looking for a quiet place because I want to study."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I am looking for a quiet place because I want to sleep.",
+          "englishAuditText": "I am looking for a quiet place because I want to sleep.",
+          "contrast": {
+            "kind": "reason",
+            "explanation": "The target means “I am looking for a quiet place because I want to study.” This option changes the reason: “I am looking for a quiet place because I want to sleep.”"
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I am looking for a quiet place because I want to work.",
+          "englishAuditText": "I am looking for a quiet place because I want to work.",
+          "contrast": {
+            "kind": "reason",
+            "explanation": "The target means “I am looking for a quiet place because I want to study.” This option changes the reason: “I am looking for a quiet place because I want to work.”"
+          }
+        }
+      ]
+    }
+  ]
+}

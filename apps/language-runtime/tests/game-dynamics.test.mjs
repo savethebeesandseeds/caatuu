@@ -30,6 +30,9 @@ test("reward audio plays once when visible, stops on pause/skip, and never repea
   f.document.visibilityState = "visible";
   f.document.dispatchEvent({ type: "visibilitychange" });
   assert.equal(played.length, 1, "resuming does not repeat the cue");
+  await f.advance(60000);
+  assert.equal(f.controller.active, true, "the finished sound does not dismiss its reward screen");
+  assert.equal(played.length, 1, "waiting for Continue does not repeat the cue");
   f.skip().dispatchEvent({ type: "click" });
   assert.equal(await gate, true);
   const afterSkip = stops;
@@ -38,15 +41,17 @@ test("reward audio plays once when visible, stops on pause/skip, and never repea
   assert.ok(afterSkip >= 2);
 });
 
-test("reward flights target the real header counters and pause/cancel with their receipt", async () => {
+test("reward flights target the header, pause when running, and never replay after finishing", async () => {
   const f = fixture({ pending: { ...receipt(), gems: 1 } });
   const animations = [];
   const create = f.document.createElement;
   f.document.createElement = tag => {
     const node = create(tag);
     node.animate = (frames, options) => {
-      const animation = { frames, options, plays: 0, pauses: 0, cancels: 0,
-        play() { this.plays++; }, pause() { this.pauses++; }, cancel() { this.cancels++; } };
+      const animation = { frames, options, playState: "running", plays: 0, pauses: 0, cancels: 0,
+        play() { this.plays++; this.playState = "running"; },
+        pause() { this.pauses++; this.playState = "paused"; },
+        cancel() { this.cancels++; this.playState = "idle"; } };
       animations.push(animation);
       return animation;
     };
@@ -68,7 +73,16 @@ test("reward flights target the real header counters and pause/cancel with their
   assert.ok(animations.every(animation => animation.pauses === 1));
   f.document.visibilityState = "visible";
   f.document.dispatchEvent({ type: "visibilitychange" });
-  assert.ok(animations.every(animation => animation.plays === 2));
+  assert.ok(animations.every(animation => animation.plays === 1));
+  animations.forEach(animation => { animation.playState = "finished"; });
+  await f.advance(60000);
+  f.document.visibilityState = "hidden";
+  f.document.dispatchEvent({ type: "visibilitychange" });
+  f.document.visibilityState = "visible";
+  f.document.dispatchEvent({ type: "visibilitychange" });
+  assert.ok(animations.every(animation => animation.pauses === 1), "completed flights stay finished in the background");
+  assert.ok(animations.every(animation => animation.plays === 1), "returning to the receipt does not restart completed flights");
+  assert.equal(f.controller.active, true);
   f.skip().dispatchEvent({ type: "click" });
   assert.equal(await gate, true);
   assert.ok(animations.every(animation => animation.cancels === 1));
@@ -85,6 +99,47 @@ test("reduced motion omits flight tokens and spark effects", async () => {
   assert.equal(f.overlay().classList.contains("is-reduced-motion"), true);
   f.skip().dispatchEvent({ type: "click" });
   await gate;
+  f.controller.destroy();
+});
+
+test("the reward area follows the header and navigation during viewport and chrome changes", async () => {
+  const f = fixture({ pending: receipt(), reduced: true });
+  const header = f.document.querySelector(".app-header");
+  const dock = f.document.createElement("nav");
+  dock.className = "app-bottom-dock";
+  f.document.body.append(dock);
+  let headerBottom = 88, dockTop = 730, dockHeight = 70;
+  header.getBoundingClientRect = () => ({ bottom: headerBottom });
+  dock.getBoundingClientRect = () => ({ top: dockTop, height: dockHeight });
+  let observer;
+  f.window.ResizeObserver = class {
+    constructor(callback) { this.callback = callback; this.targets = []; this.disconnected = false; observer = this; }
+    observe(target) { this.targets.push(target); }
+    disconnect() { this.disconnected = true; }
+  };
+  f.controller.setActive(true);
+  const gate = f.controller.boundary();
+  await settle();
+  const overlay = f.overlay();
+  assert.equal(overlay.style.getPropertyValue("--caatuu-reward-top"), "88px");
+  assert.equal(overlay.style.getPropertyValue("--caatuu-reward-bottom"), "70px");
+  assert.deepEqual(observer.targets, [header, dock]);
+  f.window.innerHeight = 650;
+  headerBottom = 100;
+  dockTop = 580;
+  f.window.dispatchEvent({ type: "resize" });
+  assert.equal(overlay.style.getPropertyValue("--caatuu-reward-top"), "100px");
+  assert.equal(overlay.style.getPropertyValue("--caatuu-reward-bottom"), "70px");
+  dockTop = 490;
+  dockHeight = 160;
+  observer.callback();
+  assert.equal(overlay.style.getPropertyValue("--caatuu-reward-bottom"), "160px", "an expanded navigation area remains uncovered");
+  headerBottom = 50;
+  f.window.dispatchEvent({ type: "scroll" });
+  assert.equal(overlay.style.getPropertyValue("--caatuu-reward-top"), "50px");
+  f.skip().click();
+  assert.equal(await gate, true);
+  assert.equal(observer.disconnected, true);
   f.controller.destroy();
 });
 
@@ -203,13 +258,19 @@ test("a gem milestone displays a full cycle even after the ledger starts the nex
   f.update({ effort: 0, cycle: { sets: 0, target: 16, completed: 1 } }, false);
   f.controller.setActive(true);
   const gate = f.controller.boundary();
+  let completed = false;
+  void gate.then(() => { completed = true; });
   await settle();
   const row = f.overlay().querySelector(".caatuu-practice-cycle-progress");
   assert.equal(row.querySelector("progress").value, 16);
   assert.equal(row.querySelector("progress").max, 16);
   assert.equal(row.classList.contains("is-complete"), true);
   assert.match(f.overlay().textContent, /\+16XP\+1Coins\+1Gems/u);
-  await f.advance(1200);
+  await f.advance(60000);
+  assert.equal(f.controller.active, true);
+  assert.equal(completed, false, "the gem milestone waits for acknowledgement");
+  assert.equal(f.content.hasAttribute("inert"), true);
+  f.skip().click();
   assert.equal(await gate, true);
   assert.equal(await f.controller.boundary(), false);
   assert.deepEqual(f.claims, ["set-1"]);
@@ -238,6 +299,8 @@ test("an earned set pauses the game synchronously, waits for the claim, and pres
   f.controller.setActive(true);
   f.next.focus();
   const gate = f.controller.boundary({ content: f.content });
+  let completed = false;
+  void gate.then(() => { completed = true; });
   assert.equal(f.controller.active, true);
   assert.equal(f.content.hasAttribute("inert"), true);
   assert.equal(f.menu.hasAttribute("inert"), false);
@@ -252,9 +315,14 @@ test("an earned set pauses the game synchronously, waits for the claim, and pres
   assert.equal(f.overlay().querySelectorAll(".caatuu-practice-reward").length, 3);
   assert.match(f.overlay().textContent, /\+16XP\+1Coins\+1Gems/u);
   assert.equal(f.document.activeElement, f.skip());
-  await f.advance(2199);
+  await f.advance(60000);
   assert.equal(f.controller.active, true);
-  await f.advance(1);
+  assert.equal(completed, false, "elapsed animation time does not release the next challenge");
+  assert.equal(f.overlay().hidden, false);
+  assert.equal(f.content.hasAttribute("inert"), true);
+  assert.deepEqual(f.pauses, [true]);
+  assert.deepEqual(f.claims, ["set-1"], "waiting does not claim the reward again");
+  f.skip().click();
   assert.equal(await gate, true);
   assert.equal(f.content.hasAttribute("inert"), false);
   assert.deepEqual(f.pauses, [true, false]);
@@ -262,7 +330,7 @@ test("an earned set pauses the game synchronously, waits for the claim, and pres
   f.controller.destroy();
 });
 
-test("skip and Escape acknowledge without replay and restore meaningful game focus", async () => {
+test("Continue and Escape acknowledge without replay and restore meaningful game focus", async () => {
   const f = fixture({ pending: receipt() });
   f.controller.setActive(true);
   f.next.focus();
@@ -284,42 +352,107 @@ test("skip and Escape acknowledge without replay and restore meaningful game foc
   f.controller.destroy();
 });
 
-test("reduced motion presents a short static receipt with the same idempotent acknowledgement", async () => {
+test("Escape from another dialog leaves the reward waiting for its own acknowledgement", async () => {
+  const f = fixture({ pending: receipt() });
+  f.controller.setActive(true);
+  const gate = f.controller.boundary();
+  let completed = false;
+  void gate.then(() => { completed = true; });
+  await settle();
+  const otherDialog = f.document.createElement("section");
+  otherDialog.setAttribute("role", "dialog");
+  const dialogControl = f.document.createElement("button");
+  otherDialog.append(dialogControl);
+  f.document.body.append(otherDialog);
+  dialogControl.focus();
+  f.document.dispatchEvent({ type: "keydown", key: "Escape", target: dialogControl });
+  await settle();
+  assert.equal(completed, false, "closing a menu or settings dialog does not also acknowledge the reward");
+  assert.equal(f.controller.active, true);
+  assert.equal(f.content.hasAttribute("inert"), true);
+  assert.equal(f.document.activeElement, dialogControl);
+  otherDialog.remove();
+  f.skip().focus();
+  f.document.dispatchEvent({ type: "keydown", key: "Escape", target: f.skip() });
+  assert.equal(await gate, true, "Escape in the reward dialog remains an explicit acknowledgement");
+  assert.equal(f.content.hasAttribute("inert"), false);
+  assert.deepEqual(f.claims, ["set-1"]);
+  f.controller.destroy();
+});
+
+test("Tab navigation can leave the waiting reward while game content remains inert", async () => {
+  const f = fixture({ pending: receipt() });
+  f.controller.setActive(true);
+  f.next.focus();
+  const gate = f.controller.boundary();
+  let completed = false;
+  void gate.then(() => { completed = true; });
+  await settle();
+  assert.equal(f.document.activeElement, f.skip());
+  for (const shiftKey of [false, true]) {
+    const event = { type: "keydown", key: "Tab", shiftKey, target: f.skip() };
+    f.document.dispatchEvent(event);
+    assert.equal(event.defaultPrevented, false, "the browser owns forward and backward focus navigation");
+  }
+  f.menu.focus();
+  await settle();
+  assert.equal(f.document.activeElement, f.menu, "chrome controls remain outside the inert game content");
+  assert.equal(f.content.hasAttribute("inert"), true);
+  assert.equal(f.menu.hasAttribute("inert"), false);
+  assert.equal(f.controller.active, true);
+  assert.equal(completed, false, "moving focus does not acknowledge the receipt");
+  f.skip().click();
+  assert.equal(await gate, true);
+  assert.equal(f.content.hasAttribute("inert"), false);
+  f.controller.destroy();
+});
+
+test("reduced motion keeps the static receipt until explicit acknowledgement", async () => {
   const f = fixture({ pending: receipt(), reduced: true });
   f.controller.setActive(true);
   const gate = f.controller.boundary();
+  let completed = false;
+  void gate.then(() => { completed = true; });
   await settle();
   assert.equal(f.overlay().classList.contains("is-reduced-motion"), true);
-  await f.advance(1199);
+  await f.advance(60000);
   assert.equal(f.controller.active, true);
-  await f.advance(1);
+  assert.equal(completed, false);
+  assert.equal(f.content.hasAttribute("inert"), true);
+  f.skip().click();
   assert.equal(await gate, true);
   assert.deepEqual(f.claims, ["set-1"]);
   f.controller.destroy();
 });
 
-test("hidden pages wait to present and pause the remaining celebration time", async () => {
+test("hidden pages defer presentation and keep the reward waiting after every resume", async () => {
   const f = fixture({ pending: receipt() });
   f.controller.setActive(true);
   f.document.visibilityState = "hidden";
   const gate = f.controller.boundary();
+  let completed = false;
+  void gate.then(() => { completed = true; });
   await settle();
   assert.equal(f.overlay().hidden, true);
   assert.equal(f.timers.size, 0);
-  await f.advance(5000);
+  await f.advance(60000);
+  assert.equal(completed, false);
   f.document.visibilityState = "visible";
   f.document.dispatchEvent({ type: "visibilitychange" });
   await f.advance(400);
   f.document.visibilityState = "hidden";
   f.document.dispatchEvent({ type: "visibilitychange" });
   assert.equal(f.overlay().classList.contains("is-paused"), true);
-  await f.advance(5000);
+  await f.advance(60000);
   assert.equal(f.controller.active, true);
   f.document.visibilityState = "visible";
   f.document.dispatchEvent({ type: "visibilitychange" });
-  await f.advance(1799);
+  await f.advance(60000);
   assert.equal(f.controller.active, true);
-  await f.advance(1);
+  assert.equal(f.overlay().classList.contains("is-paused"), false);
+  assert.equal(completed, false);
+  assert.equal(f.content.hasAttribute("inert"), true);
+  f.skip().click();
   assert.equal(await gate, true);
   f.controller.destroy();
 });
@@ -372,6 +505,29 @@ test("initial robot loads leave persisted receipts quiet and later real transiti
   assert.equal(next.length, 1);
   f.skip().click();
   assert.equal(await next[0], true);
+  f.controller.destroy();
+});
+
+test("challenge transitions remain gated after the animation until Continue", async () => {
+  const f = fixture({ pending: receipt() });
+  f.controller.setActive(true);
+  const [showGate] = f.transition();
+  let released = false;
+  void showGate.then(() => { released = true; });
+  await settle();
+  const [hideGate] = f.transition({ phase: "hide" });
+  assert.equal(hideGate, showGate, "show and hide await the same reward acknowledgement");
+  await f.advance(60000);
+  assert.equal(released, false);
+  assert.equal(f.controller.active, true);
+  assert.equal(f.content.hasAttribute("inert"), true);
+  assert.deepEqual(f.pauses, [true]);
+  f.skip().click();
+  assert.equal(await showGate, true);
+  assert.equal(await hideGate, true);
+  assert.equal(f.content.hasAttribute("inert"), false);
+  assert.deepEqual(f.pauses, [true, false]);
+  assert.deepEqual(f.claims, ["set-1"]);
   f.controller.destroy();
 });
 

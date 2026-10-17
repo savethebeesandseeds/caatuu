@@ -255,6 +255,15 @@
     }
   }
 
+  function browserVersionName() {
+    for (const script of document.querySelectorAll("script[src]")) {
+      const url = new URL(script.getAttribute("src"), window.location.href);
+      if (url.pathname !== "/language-runtime/static/source/app-bootstrap.mjs") continue;
+      return /^app-(\d+)$/u.exec(url.searchParams.get("v") || "")?.[1] || "";
+    }
+    return "";
+  }
+
   function createUpdateController(runtime = window.CaatuuRuntime) {
     const buttons = () => [...document.querySelectorAll("#updateApp, [data-app-update-control]")];
     if (!buttons().length || !runtime?.maintenance) return null;
@@ -342,6 +351,10 @@
       });
       if (runtime.env === "android") {
         setVersionNote(versionNode(), status);
+      } else {
+        const version = browserVersionName();
+        const element = versionNode();
+        if (version && element) element.textContent = t("maintenance.version.web", { version });
       }
       const browserInstall = document.querySelector("#browserInstallActions");
       if (browserInstall) browserInstall.hidden = runtime.env === "android";
@@ -371,7 +384,6 @@
             && status?.serverReachable !== false
             && !status?.updateError;
           render(status, { busy: false });
-          if (status?.currentVersionName || status?.currentVersionCode) setVersionNote(versionNode(), status);
           if (runtime.env === "android" && (announce || observingDownload || updateDownloadState(status) === "active")) {
             setMessage(updateStatusLine(status));
           }

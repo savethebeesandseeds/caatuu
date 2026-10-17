@@ -14,7 +14,7 @@
 }
 
 .naturalization-nucleus-panel {
-  min-height: 520px;
+  min-height: 0;
   display: grid;
   gap: 14px;
   padding: 18px;
@@ -24,7 +24,12 @@
   box-shadow: var(--shadow);
 }
 
-.naturalization-nucleus-toolbar {
+.word-net-panel-actions.naturalization-nucleus-toolbar {
+  position: relative;
+  inset: auto;
+  justify-self: stretch;
+  justify-content: flex-end;
+  width: 100%;
   z-index: 8;
   flex-wrap: nowrap;
 }
@@ -52,7 +57,7 @@
 
 .naturalization-nucleus-stage {
   position: relative;
-  min-height: 390px;
+  min-height: 0;
   display: grid;
   place-items: center;
   padding: clamp(8px, 2vw, 18px);
@@ -93,7 +98,6 @@
   justify-items: center;
   gap: 10px;
   container: nucleus-playfield / inline-size;
-  padding-top: 56px;
 }
 
 .naturalization-nucleus-board {
@@ -471,7 +475,10 @@
   display: grid;
   place-items: center;
   width: 100%;
-  min-height: 104px;
+}
+
+.naturalization-nucleus-dictionary:has(> [hidden]) {
+  display: none;
 }
 
 .word-net-word-translation.naturalization-nucleus-feedback.has-context {
@@ -595,12 +602,7 @@ html[data-theme="dark"] .naturalization-nucleus-tone-5 { color: #c0cbc7; }
   }
 
   .naturalization-nucleus-stage {
-    min-height: 330px;
     padding: 6px;
-  }
-
-  .naturalization-nucleus-playfield {
-    padding-top: 48px;
   }
 
   .naturalization-nucleus-board {
@@ -612,7 +614,7 @@ html[data-theme="dark"] .naturalization-nucleus-tone-5 { color: #c0cbc7; }
   }
 
   .naturalization-nucleus-deck-item {
-    flex-basis: 88px;
+    flex-basis: min(88px, calc((100% - 16px) / 3));
   }
 }
 
@@ -666,7 +668,7 @@ html[data-theme="dark"] .naturalization-nucleus-tone-5 { color: #c0cbc7; }
 }
 
 [data-notation="arabic-learning-romanization-v1"] .naturalization-nucleus-deck-item {
-  flex-basis: 140px;
+  flex-basis: min(140px, calc((100% - 8px) / 2));
 }
 
 [data-notation="arabic-learning-romanization-v1"] .naturalization-nucleus-domino-hanzi.naturalization-nucleus-script-reading {

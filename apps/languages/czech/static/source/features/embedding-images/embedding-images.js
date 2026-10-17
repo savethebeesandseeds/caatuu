@@ -1,6 +1,8 @@
 import { isChildFacingMacawActionAssetAllowed } from "../../shared/child-facing-assets.mjs?v=child-facing-assets-2";
+import { IMAGE_SOURCES, createEnglishImageSearch } from "/language-runtime/static/source/english-image-search.mjs?v=english-image-search-5";
 
-const sourceKinds = ["image_asset", "macaw_action_asset"];
+const sourceKinds = IMAGE_SOURCES.map(({ kind }) => kind);
+const searchImages = createEnglishImageSearch();
 const promptSamples = [
   "a child reads a book at home",
   "a small house in a green garden",
@@ -38,53 +40,29 @@ function setStatus(message) {
   if (status) status.textContent = message;
 }
 
-function parseJsonObject(value) {
-  if (!value || typeof value !== "string") return {};
-  try {
-    const parsed = JSON.parse(value);
-    return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : {};
-  } catch (error) {
-    return {};
-  }
-}
-
-function rowMetadata(row) {
-  return row?.documentMetadata && typeof row.documentMetadata === "object"
-    ? row.documentMetadata
-    : parseJsonObject(row?.documentMetadataJson || row?.document_metadata_json);
-}
-
-function rowSourceKind(row) {
-  return String(row?.sourceKind || row?.source_kind || "");
-}
-
-function rowImagePath(row) {
-  const metadata = rowMetadata(row);
-  const path = String(row?.sourceId || row?.source_id || metadata.asset_path || metadata.path || "").trim();
-  if (!path) return "";
-  if (path.startsWith("/")) return path;
-  if (path.startsWith("assets/")) return `/${path}`;
-  return path;
-}
-
 function sourceLabel(sourceKind) {
-  return sourceKind === "macaw_action_asset" ? "Macaw actions" : "Miscellaneous";
+  return {
+    image_asset: "Miscellaneous",
+    macaw_action_asset: "Macaw actions",
+    robot_asset: "Robots",
+    ship_asset: "Spaceships"
+  }[sourceKind] || sourceKind;
 }
 
 function normalizeRows(payload) {
-  const rows = Array.isArray(payload?.results) ? payload.results : [];
+  const rows = Array.isArray(payload?.rows) ? payload.rows : [];
   return rows
     .map((row) => {
-      const sourceKind = rowSourceKind(row);
-      const metadata = rowMetadata(row);
-      const path = rowImagePath(row);
+      const sourceKind = String(row?.sourceKind || "");
+      const path = String(row?.path || "");
       return {
+        ...row,
         sourceKind,
         sourceLabel: sourceLabel(sourceKind),
         path,
-        action: String(metadata.action || "").trim(),
-        title: String(row?.title || metadata.title || "").trim(),
-        description: String(row?.text || metadata.description || metadata.label || path).trim(),
+        action: String(row?.action || "").trim(),
+        title: String(row?.title || "").trim(),
+        description: String(row?.description || path).trim(),
         score: Number(row?.score || 0)
       };
     })
@@ -155,14 +133,10 @@ function renderResults(rows) {
     return;
   }
 
-  const miscellaneous = rows.filter((row) => row.sourceKind === "image_asset").slice(0, 12);
-  const actions = rows.filter((row) => row.sourceKind === "macaw_action_asset").slice(0, 12);
-  if (miscellaneous.length) results.append(renderGroup("Miscellaneous", miscellaneous));
-  if (actions.length) results.append(renderGroup("Macaw actions", actions));
-}
-
-async function searchSourceKind(runtime, text, sourceKind) {
-  return runtime.vector.search(text, { limit: 16, sourceKinds: [sourceKind] });
+  for (const sourceKind of sourceKinds) {
+    const group = rows.filter((row) => row.sourceKind === sourceKind).slice(0, 12);
+    if (group.length) results.append(renderGroup(sourceLabel(sourceKind), group));
+  }
 }
 
 async function runSearch() {
@@ -173,22 +147,16 @@ async function runSearch() {
     return;
   }
 
-  const runtime = window.CaatuuRuntime;
-  if (!runtime?.vector?.search) {
-    setStatus("Vector runtime is not available.");
-    return;
-  }
-
   const request = ++searchRequest;
   searching = true;
   syncSearchControls();
   setStatus("Searching local vectors.");
   try {
-    const payloads = await Promise.all(sourceKinds.map((sourceKind) => searchSourceKind(runtime, text, sourceKind)));
+    const payload = await searchImages(text);
     if (request !== searchRequest) return;
-    const rows = payloads.flatMap(normalizeRows);
+    const rows = normalizeRows(payload);
     renderResults(rows);
-    setStatus(`${rows.length} image matches.`);
+    setStatus(`${rows.length} ${payload.mode === "lexical" ? "keyword" : "image"} matches.`);
   } catch (error) {
     if (request !== searchRequest) return;
     renderResults([]);

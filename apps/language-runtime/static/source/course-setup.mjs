@@ -169,6 +169,57 @@ function retryVerifiedSetupImages(scope) {
   }
 }
 
+/** Rotate resident setup artwork without tying image changes to download order. */
+export function initializeSetupShipLoop(scope, { random = Math.random, intervalMs = 4200 } = {}) {
+  const frames = [...scope.document.querySelectorAll("[data-setup-ship]")];
+  if (!frames.length) return () => {};
+  const preference = scope.matchMedia?.("(prefers-reduced-motion: reduce)");
+  const storageKey = "caatuu.setup.last-ship.v1";
+  let previous = "";
+  try { previous = scope.sessionStorage?.getItem(storageKey) || ""; } catch { /* Optional visual preference. */ }
+  let deck = [];
+  let timer = null;
+  let disposed = false;
+  const stop = () => {
+    if (timer !== null) scope.clearTimeout(timer);
+    timer = null;
+  };
+  const showNext = () => {
+    if (!deck.length) {
+      deck = [...frames];
+      for (let index = deck.length - 1; index > 0; index--) {
+        const target = Math.min(index, Math.max(0, Math.floor(random() * (index + 1))));
+        [deck[index], deck[target]] = [deck[target], deck[index]];
+      }
+      if (deck.length > 1 && deck[0].src === previous) [deck[0], deck[1]] = [deck[1], deck[0]];
+    }
+    const selected = deck.shift();
+    for (const frame of frames) frame.hidden = frame !== selected;
+    previous = selected.src;
+    try { scope.sessionStorage?.setItem(storageKey, previous); } catch { /* Artwork works without storage. */ }
+  };
+  const schedule = () => {
+    stop();
+    if (disposed || frames.length < 2 || scope.document.hidden || preference?.matches) return;
+    timer = scope.setTimeout(() => {
+      timer = null;
+      if (disposed || scope.document.hidden || preference?.matches) return;
+      showNext();
+      schedule();
+    }, intervalMs);
+  };
+  showNext();
+  schedule();
+  scope.document.addEventListener("visibilitychange", schedule);
+  preference?.addEventListener?.("change", schedule);
+  return () => {
+    disposed = true;
+    stop();
+    scope.document.removeEventListener("visibilitychange", schedule);
+    preference?.removeEventListener?.("change", schedule);
+  };
+}
+
 /** Prepare native product content in the existing Home, before game imports. */
 export function initializeHomeCourseSetup(scope = globalThis, { onSetupRequired = () => {} } = {}) {
   const native = scope.CaatuuAndroid;
@@ -180,6 +231,9 @@ export function initializeHomeCourseSetup(scope = globalThis, { onSetupRequired 
   const card = document.getElementById("nativeSetup");
   const action = document.getElementById("setupAction");
   const cancel = document.getElementById("setupAbort");
+  const actions = card?.querySelector(".setup-actions");
+  const detailsToggle = document.getElementById("setupDetailsToggle");
+  const details = document.getElementById("setupDetails");
   const selection = document.getElementById("setupLanguageSelection");
   const form = document.getElementById("setupLanguageForm");
   const sourceOptions = document.getElementById("setupSourceLanguageOptions");
@@ -198,6 +252,7 @@ export function initializeHomeCourseSetup(scope = globalThis, { onSetupRequired 
   const text = (id, value) => { const node = document.getElementById(id); if (node) node.textContent = value; };
   const hide = (id, hidden) => { const node = document.getElementById(id); if (node) node.hidden = hidden; };
   const client = createNativeSetupClient(scope);
+  const stopShipLoop = initializeSetupShipLoop(scope);
   const locale = course.sourceLanguage.locale;
   let sourceId = "";
   let selectedId = "";
@@ -227,10 +282,19 @@ export function initializeHomeCourseSetup(scope = globalThis, { onSetupRequired 
     if (pollTimer) scope.clearTimeout(pollTimer);
     pollTimer = null;
   };
+  const setDetailsOpen = (open) => {
+    card.classList.toggle("details-open", open);
+    if (details) details.hidden = !open;
+    detailsToggle?.setAttribute("aria-expanded", String(open));
+    if (detailsToggle) detailsToggle.textContent = t(open ? "common.hidedetails" : "common.showdetails");
+  };
+  const toggleDetails = () => setDetailsOpen(!card.classList.contains("details-open"));
   const setChoosing = (choosing) => {
     selection.hidden = !choosing;
     card.classList.toggle("is-choosing-language", choosing);
     document.body.classList.toggle("choosing-setup-language", choosing);
+    if (detailsToggle) detailsToggle.hidden = choosing;
+    if (choosing) setDetailsOpen(false);
   };
   const setBusy = (busy) => {
     if (busy) onSetupRequired();
@@ -240,7 +304,7 @@ export function initializeHomeCourseSetup(scope = globalThis, { onSetupRequired 
     action.disabled = busy;
     cancel.hidden = false;
     cancel.disabled = false;
-    cancel.textContent = t(busy ? "common.cancel" : "courseselector.heading");
+    cancel.textContent = t(busy ? "setup.abort" : "courseselector.heading");
     cancel.onclick = busy ? stopDownload : showChoices;
   };
   const setProgress = (percent, bytes = "") => {
@@ -257,10 +321,12 @@ export function initializeHomeCourseSetup(scope = globalThis, { onSetupRequired 
     `${formatSetupBytes(progress.bytes, locale)} / ${formatSetupBytes(progress.totalBytes, locale)}`);
   const showPreparing = () => {
     setChoosing(false);
-    card.classList.remove("is-ready", "is-error");
+    card.classList.remove("is-ready", "is-error", "is-recovery");
     text("setupTitle", t("setup.preparing"));
     text("setupPhase", t("setup.preparing"));
     text("setupMessage", t("setup.offlinefiles"));
+    text("setupArtifact", "");
+    hide("setupArtifact", true);
     hide("setupProgress", false);
     card.querySelector(".setup-progress-meta")?.removeAttribute("hidden");
   };
@@ -270,6 +336,7 @@ export function initializeHomeCourseSetup(scope = globalThis, { onSetupRequired 
     stopPolling();
     showPreparing();
     setBusy(false);
+    card.classList.add("is-recovery");
     card.classList.toggle("is-error", !cancelled);
     text("setupPhase", t(cancelled ? "setup.prepare" : "common.unavailable"));
     text("setupMessage", error?.message || String(error || t("common.unavailable")));
@@ -314,7 +381,7 @@ export function initializeHomeCourseSetup(scope = globalThis, { onSetupRequired 
     onSetupRequired();
     stopPolling();
     setChoosing(true);
-    card.classList.remove("is-ready", "is-error");
+    card.classList.remove("is-ready", "is-error", "is-recovery");
     card.setAttribute("aria-busy", "false");
     text("setupTitle", t("courseselector.heading"));
     action.hidden = true;
@@ -357,10 +424,21 @@ export function initializeHomeCourseSetup(scope = globalThis, { onSetupRequired 
     closed = true;
     stopPolling();
     form.removeEventListener("submit", chooseCourse);
+    stopShipLoop();
     scope.removeEventListener("pagehide", handlePageHide);
     if (scope.CaatuuHandleAndroidBack === handleBack) scope.CaatuuHandleAndroidBack = previousBack;
     action.onclick = null;
     cancel.onclick = null;
+    if (actions) {
+      actions.classList.remove("native-setup-actions");
+      if (detailsToggle?.parentElement === card) detailsToggle.before(actions);
+      else card.append(actions);
+    }
+    detailsToggle?.removeEventListener("click", toggleDetails);
+    setDetailsOpen(false);
+    detailsToggle?.setAttribute("aria-controls", "setupDetails");
+    card.classList.remove("is-native-course-setup", "is-recovery");
+    document.body.classList.remove("native-course-setup");
     client.dispose();
   };
   const handlePageHide = () => {
@@ -425,6 +503,14 @@ export function initializeHomeCourseSetup(scope = globalThis, { onSetupRequired 
         const count = Math.max(0, Number(event.artifactCount) || 0);
         const index = Math.max(1, Number(event.artifactIndex) || 1);
         if (count) text("setupCount", `${Math.min(index, count)} / ${count}`);
+        if (event.phase) text("setupPhase", setupMessages[setupLocale(locale)][
+          /(?:_ready|verif)/u.test(event.phase) ? "verifying" : "downloading"
+        ]);
+        if (event.message) text("setupMessage", String(event.message));
+        if (event.label) {
+          text("setupArtifact", String(event.label));
+          hide("setupArtifact", false);
+        }
         renderDownloadProgress(downloadProgress.update(event));
       });
       if (closed || current !== generation) return;
@@ -451,11 +537,20 @@ export function initializeHomeCourseSetup(scope = globalThis, { onSetupRequired 
   }
 
   card.hidden = false;
+  card.classList.add("is-native-course-setup");
+  if (actions) {
+    actions.classList.add("native-setup-actions");
+    card.parentElement.append(actions);
+  }
+  document.body.classList.add("native-course-setup");
   showPreparing();
   document.body.classList.add("setup-blocked");
   action.hidden = true;
   cancel.hidden = true;
-  for (const id of ["setupDetailsToggle", "setupDetails", "setupReportBug"]) hide(id, true);
+  hide("setupReportBug", true);
+  setDetailsOpen(false);
+  detailsToggle?.setAttribute("aria-controls", "setupCount setupBytes setupDetails");
+  detailsToggle?.addEventListener("click", toggleDetails);
   text("setupPhase", t("setup.checking"));
   text("setupCount", t("setup.checking"));
   setProgress(0);

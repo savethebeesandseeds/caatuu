@@ -1,0 +1,366 @@
+{
+  "/assets/ships/ship%20(1).png": {
+    "description": "A cream-and-gold pointed spaceship with a broad turquoise canopy, swept wings, twin rear engine pods, and a long brown scarf draped around its hull.",
+    "category": "ship",
+    "orientation": {
+      "heading_degrees": 155
+    },
+    "embedding": {
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "source_kind": "ship_asset",
+      "asset_path": "/assets/ships/ship%20(1).png"
+    }
+  },
+  "/assets/ships/ship%20(2).png": {
+    "description": "A rounded cream spaceship with a large circular turquoise windshield, two side engine pods, brass nose probes, a tall dorsal fin, and brown leather-like wrapping.",
+    "category": "ship",
+    "orientation": {
+      "heading_degrees": 145
+    },
+    "embedding": {
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "source_kind": "ship_asset",
+      "asset_path": "/assets/ships/ship%20(2).png"
+    }
+  },
+  "/assets/ships/ship%20(3).png": {
+    "description": "A slim cream-and-gold starfighter with a pointed nose, angular turquoise cockpit, swept wings, twin long rear engines, and a brown scarf across its fuselage.",
+    "category": "ship",
+    "orientation": {
+      "heading_degrees": 160
+    },
+    "embedding": {
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "source_kind": "ship_asset",
+      "asset_path": "/assets/ships/ship%20(3).png"
+    }
+  },
+  "/assets/ships/ship%20(4).png": {
+    "description": "A cream bird-like glider spaceship with broad curved wings, a turquoise teardrop cockpit, small side engines, brown fabric wrapping, and an ochre pennant above the cabin.",
+    "category": "ship",
+    "orientation": {
+      "heading_degrees": 145
+    },
+    "embedding": {
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "source_kind": "ship_asset",
+      "asset_path": "/assets/ships/ship%20(4).png"
+    }
+  },
+  "/assets/ships/ship%20(5).png": {
+    "description": "A cream ring-shaped spaceship with an open circular center, a small turquoise front cockpit, pointed side fins, a rear engine pod, and brown cloth tied around the hull.",
+    "category": "ship",
+    "orientation": {
+      "heading_degrees": 165
+    },
+    "embedding": {
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "source_kind": "ship_asset",
+      "asset_path": "/assets/ships/ship%20(5).png"
+    }
+  },
+  "/assets/ships/ship%20(6).png": {
+    "description": "A wooden pirate airship with a brown square sail bearing a pale skull emblem, cream hull panels, turquoise cabin windows, rope rigging, small flags, and hanging lanterns.",
+    "category": "ship",
+    "orientation": {
+      "heading_degrees": 175
+    },
+    "embedding": {
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "source_kind": "ship_asset",
+      "asset_path": "/assets/ships/ship%20(6).png"
+    }
+  },
+  "/assets/ships/ship%20(7).png": {
+    "description": "A boxy cream cargo spaceship with turquoise cab windows, bulky clustered rear engines, brass fittings, a broad front bumper, and brown straps securing its hull.",
+    "category": "ship",
+    "orientation": {
+      "heading_degrees": 165
+    },
+    "embedding": {
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "source_kind": "ship_asset",
+      "asset_path": "/assets/ships/ship%20(7).png"
+    }
+  },
+  "/assets/ships/ship%20(8).png": {
+    "description": "A narrow cream-and-gold fighter spaceship with a turquoise cockpit, four long wing-mounted cannons, clustered rear engines, and brown fabric around its central body.",
+    "category": "ship",
+    "orientation": {
+      "heading_degrees": 150
+    },
+    "embedding": {
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "source_kind": "ship_asset",
+      "asset_path": "/assets/ships/ship%20(8).png"
+    }
+  },
+  "/assets/ships/ship%20(9).png": {
+    "description": "A walking wooden cabin spacecraft on two jointed bird-like legs, with a leafy rooftop tree, a smoking chimney, round turquoise windows, hanging plants, and small lanterns.",
+    "category": "ship",
+    "orientation": {
+      "heading_degrees": 165
+    },
+    "embedding": {
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "source_kind": "ship_asset",
+      "asset_path": "/assets/ships/ship%20(9).png"
+    }
+  },
+  "/assets/ships/ship%20(10).png": {
+    "description": "A compact cream gondola spaceship with large turquoise cabin windows, brass framing, a roof-mounted spar, small rear machinery, and orange tassels hanging beneath its body.",
+    "category": "ship",
+    "orientation": {
+      "heading_degrees": 175
+    },
+    "embedding": {
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "source_kind": "ship_asset",
+      "asset_path": "/assets/ships/ship%20(10).png"
+    }
+  },
+  "/assets/ships/ship%20(11).png": {
+    "description": "A cream crescent-moon spaceship with an open dark pilot seat, a small turquoise windshield, an orange nose cap, round blue portholes, a turquoise side fin, and rear engines.",
+    "category": "ship",
+    "orientation": {
+      "heading_degrees": 180
+    },
+    "embedding": {
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "source_kind": "ship_asset",
+      "asset_path": "/assets/ships/ship%20(11).png"
+    }
+  },
+  "/assets/ships/ship%20(12).png": {
+    "description": "A beetle-like cream spacecraft with a broad turquoise glass back, orange circular front lights, curved antenna-like tubes, and short jointed landing legs with gold feet.",
+    "category": "ship",
+    "orientation": {
+      "heading_degrees": 150
+    },
+    "embedding": {
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "source_kind": "ship_asset",
+      "asset_path": "/assets/ships/ship%20(12).png"
+    }
+  },
+  "/assets/ships/ship%20(13).png": {
+    "description": "A bell-shaped cream flying craft with a tall turquoise front window, an orange pennant, a turquoise lower rim, two side fins, and a large round engine beneath its open base.",
+    "category": "ship",
+    "orientation": {
+      "heading_degrees": 160
+    },
+    "embedding": {
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "source_kind": "ship_asset",
+      "asset_path": "/assets/ships/ship%20(13).png"
+    }
+  },
+  "/assets/ships/ship%20(14).png": {
+    "description": "A rounded cream utility spaceship with turquoise cockpit glass and circular side windows, orange-rimmed front intakes, a large side engine, and three short rear rocket pods.",
+    "category": "ship",
+    "orientation": {
+      "heading_degrees": 160
+    },
+    "embedding": {
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "source_kind": "ship_asset",
+      "asset_path": "/assets/ships/ship%20(14).png"
+    }
+  },
+  "/assets/ships/ship%20(15).png": {
+    "description": "A small cream-and-turquoise rocket plane with a pointed nose, an oval blue cockpit, short swept fins, an ochre dorsal fin, and a bright orange exhaust flame.",
+    "category": "ship",
+    "orientation": {
+      "heading_degrees": 150
+    },
+    "embedding": {
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "source_kind": "ship_asset",
+      "asset_path": "/assets/ships/ship%20(15).png"
+    }
+  },
+  "/assets/ships/ship%20(16).png": {
+    "description": "A turtle-shaped cream spacecraft with a segmented turquoise shell, a rounded glass cockpit at the front, gold shell seams, small side fins, and short pointed rear engine pods.",
+    "category": "ship",
+    "orientation": {
+      "heading_degrees": 160
+    },
+    "embedding": {
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "source_kind": "ship_asset",
+      "asset_path": "/assets/ships/ship%20(16).png"
+    }
+  },
+  "/assets/ships/ship%20(17).png": {
+    "description": "A small wooden sailing airship with cream hull plates, turquoise portholes, a tall turquoise sail, an orange pennant, rope rigging, decorative tassels, and projecting spars.",
+    "category": "ship",
+    "orientation": {
+      "heading_degrees": 185
+    },
+    "embedding": {
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "source_kind": "ship_asset",
+      "asset_path": "/assets/ships/ship%20(17).png"
+    }
+  },
+  "/assets/ships/ship%20(18).png": {
+    "description": "A cream-and-turquoise pointed spaceship with an orange nose, a long blue canopy, paired rear rocket engines, swept wings with ochre tips, and brown cloth wrapped around its middle.",
+    "category": "ship",
+    "orientation": {
+      "heading_degrees": 150
+    },
+    "embedding": {
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "source_kind": "ship_asset",
+      "asset_path": "/assets/ships/ship%20(18).png"
+    }
+  },
+  "/assets/ships/ship%20(19).png": {
+    "description": "A cream sailing starfighter with a pointed nose, a turquoise canopy, broad curved wings striped in teal and cream, paired rear engines, brown wrapping, and an orange mast pennant.",
+    "category": "ship",
+    "orientation": {
+      "heading_degrees": 150
+    },
+    "embedding": {
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "source_kind": "ship_asset",
+      "asset_path": "/assets/ships/ship%20(19).png"
+    }
+  },
+  "/assets/ships/ship%20(20).png": {
+    "description": "A tall open-ring spacecraft with segmented cream-and-turquoise hull plates, a pointed front probe, a cylindrical side engine, and a long brown scarf trailing below the ring.",
+    "category": "ship",
+    "orientation": {
+      "heading_degrees": 165
+    },
+    "embedding": {
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "source_kind": "ship_asset",
+      "asset_path": "/assets/ships/ship%20(20).png"
+    }
+  },
+  "/assets/ships/ship%20(21).png": {
+    "description": "An insect-like cream spacecraft with a turquoise glass canopy, an orange nose plate, multiple pointed mechanical legs, brown armored wrapping, and a compact rear engine cluster.",
+    "category": "ship",
+    "orientation": {
+      "heading_degrees": 150
+    },
+    "embedding": {
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "source_kind": "ship_asset",
+      "asset_path": "/assets/ships/ship%20(21).png"
+    }
+  },
+  "/assets/ships/ship%20(22).png": {
+    "description": "A short cream pod spaceship with a large oval turquoise windshield, a small upper cockpit dome, a gold-rimmed side turbine, rear engine pods, and a brown scarf trailing from its hull.",
+    "category": "ship",
+    "orientation": {
+      "heading_degrees": 150
+    },
+    "embedding": {
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "source_kind": "ship_asset",
+      "asset_path": "/assets/ships/ship%20(22).png"
+    }
+  },
+  "/assets/ships/ship%20(23).png": {
+    "description": "A broad manta-ray spaceship with cream swept wings, large turquoise circular wing panels, a teardrop glass cockpit, an ochre nose rim, and a narrow raised tail.",
+    "category": "ship",
+    "orientation": {
+      "heading_degrees": 145
+    },
+    "embedding": {
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "source_kind": "ship_asset",
+      "asset_path": "/assets/ships/ship%20(23).png"
+    }
+  },
+  "/assets/ships/ship%20(24).png": {
+    "description": "A wheeled snail-shaped spacecraft with a cream-and-orange spiral shell, a turquoise front canopy, chunky wheels, small rear machinery, and a turquoise pennant above its cabin.",
+    "category": "ship",
+    "orientation": {
+      "heading_degrees": 170
+    },
+    "embedding": {
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "source_kind": "ship_asset",
+      "asset_path": "/assets/ships/ship%20(24).png"
+    }
+  },
+  "/assets/ships/ship%20(25).png": {
+    "description": "A hot-air-balloon airship with a striped turquoise-and-cream balloon, gold suspension ropes, a wooden boat-shaped cabin, turquoise windows, a hanging lantern, and an orange pennant.",
+    "category": "ship",
+    "orientation": {
+      "heading_degrees": 180
+    },
+    "embedding": {
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "source_kind": "ship_asset",
+      "asset_path": "/assets/ships/ship%20(25).png"
+    }
+  },
+  "/assets/ships/ship%20(26).png": {
+    "description": "A cream crescent-moon boat spacecraft with an open turquoise cockpit, a tall curved bow, small side fins, brass rear engines, brown straps, and a turquoise pennant.",
+    "category": "ship",
+    "orientation": {
+      "heading_degrees": 180
+    },
+    "embedding": {
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "source_kind": "ship_asset",
+      "asset_path": "/assets/ships/ship%20(26).png"
+    }
+  },
+  "/assets/ships/ship%20(27).png": {
+    "description": "A squat cream walking spacecraft with a rounded turquoise canopy, four jointed landing legs, a gold-rimmed side engine, rear equipment, and a rolled brown pack strapped to its roof.",
+    "category": "ship",
+    "orientation": {
+      "heading_degrees": 165
+    },
+    "embedding": {
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "source_kind": "ship_asset",
+      "asset_path": "/assets/ships/ship%20(27).png"
+    }
+  },
+  "/assets/ships/ship%20(28).png": {
+    "description": "A compact cream rover-like pod spaceship with a tall turquoise bubble canopy, a visible pilot seat and steering wheel, paired side engine pods, gold fittings, and an orange pennant.",
+    "category": "ship",
+    "orientation": {
+      "heading_degrees": 170
+    },
+    "embedding": {
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
+      "model_id": "all-minilm-l6-v2-qint8-v0.1",
+      "source_kind": "ship_asset",
+      "asset_path": "/assets/ships/ship%20(28).png"
+    }
+  }
+}

@@ -294,12 +294,24 @@ function letterSimilarity(first, second) {
   return 1 - row[second.length] / length;
 }
 
-function similarWordDistractors(candidates, answer, count, random) {
+function characterCount(target) {
+  // Count written letters and numbers, not spaces, punctuation or vowel marks.
+  return (target.normalize("NFC").match(/[\p{L}\p{N}]/gu) || []).length;
+}
+
+function similarDistractors(candidates, answer, count, random) {
+  const targetLength = characterCount(answer.target);
+  const byLength = candidates.map(item => ({ item, gap: Math.abs(characterCount(item.target) - targetLength) }))
+    .sort((first, second) => first.gap - second.gap);
+  // Stay within about 15% of the written length, widening only to fill the round.
+  const lengthLimit = Math.max(Math.floor(targetLength * 0.15), byLength[Math.min(count, byLength.length) - 1].gap);
+  // Bound edit-distance work for long sentence banks; equal-length candidates
+  // are already shuffled, so the nearby sample varies between rounds.
+  const nearbyByLength = byLength.filter(({ gap }) => gap <= lengthLimit).slice(0, Math.max(24, count * 4));
   const target = wordShape(answer);
-  const ranked = candidates.map(item => {
+  const ranked = nearbyByLength.map(({ item, gap }) => {
     const candidate = wordShape(item);
-    const length = Math.max(target.letters.length, candidate.letters.length, 1);
-    const lengthSimilarity = 1 - Math.abs(target.letters.length - candidate.letters.length) / length;
+    const lengthSimilarity = 1 - gap / Math.max(targetLength, characterCount(item.target), 1);
     const score = 0.6 * letterSimilarity(target.letters, candidate.letters)
       + 0.25 * letterSimilarity(target.vowels, candidate.vowels) + 0.15 * lengthSimilarity;
     return { item, score };
@@ -309,22 +321,15 @@ function similarWordDistractors(candidates, answer, count, random) {
   return shuffled(nearby, random).slice(0, count);
 }
 
-function makeRound(items, answer, random, choiceCount, mode, eligibleItems = items) {
+function makeRound(items, answer, random, choiceCount, mode) {
   integer(choiceCount, "choiceCount", 2, items.length);
   let candidates = shuffled(items.filter(({ id }) => id !== answer.id), random);
   if (mode === "words") {
     const answerSound = wordSoundKey(answer);
     candidates = distinctWordSounds(candidates, answerSound);
-    // An adaptive answer cohort may contain only homophones. Keep its chosen
-    // answers, and obtain a distinguishable distractor from the same badge.
-    if (!candidates.length && eligibleItems !== items) {
-      candidates = distinctWordSounds(shuffled(eligibleItems, random), answerSound);
-    }
     requireCondition(candidates.length > 0, "word round needs at least two distinct listening sounds.");
   }
-  const distractors = mode === "words"
-    ? similarWordDistractors(candidates, answer, choiceCount - 1, random)
-    : candidates.slice(0, choiceCount - 1);
+  const distractors = similarDistractors(candidates, answer, choiceCount - 1, random);
   const choices = shuffled([answer, ...distractors], random).map(({ id, target, meaning, reading }) => Object.freeze({ id, target, meaning, ...(reading ? { reading } : {}) }));
   return Object.freeze({
     id: answer.id,
@@ -368,7 +373,9 @@ export function createSoundQuasarSession(catalog, { random = Math.random, roundL
   const answers = history === undefined
     ? shuffled(items, random).slice(0, Math.min(roundLength, items.length))
     : pool.slice(0, roundLength);
-  return Object.freeze(answers.map((answer) => makeRound(pool, answer, random, Math.min(choiceCount, pool.length), mode, items)));
+  // The adaptive cohort schedules answers. Alternatives use the same badge's
+  // full bank so even six-option rounds can find comparable written lengths.
+  return Object.freeze(answers.map((answer) => makeRound(items, answer, random, Math.min(choiceCount, items.length), mode)));
 }
 
 export function evaluateSoundQuasarChoice(round, choiceId) {

@@ -11,6 +11,7 @@ import {
 import { auditDictionaryContentDocuments } from "../../language-content/lib/dictionary-content-audit.mjs";
 import { loadAndPrepareLanguageRoleContent } from "../../language-content/lib/language-role-contract.mjs";
 import { auditPlanetEnglishResource } from "../../language-content/lib/planet-english-audit.mjs";
+import { validateMemoryMoonContent } from "../../language-content/lib/memory-moon-content.mjs";
 import { projectWordWorldRuntime } from "../../language-content/project-word-world-runtime.mjs";
 import { resolveWordWorldProjectionPolicy } from "../../language-content/word-world-projection/registry.mjs";
 import {
@@ -2190,6 +2191,25 @@ async function validateAuthoredGrammarPromotionEvidence(record, repoRoot, issues
   }
 }
 
+async function validateMemoryMoonResource(record, repoRoot, issues, checkExistence) {
+  const { course } = record;
+  const resource = course.resources?.memoryMoonCatalog;
+  if (!resource) return; // Older isolated contract fixtures predate this upcoming game.
+  const expected = `apps/languages/${course.directoryName}/static/data/games/memory-moon/content.json`;
+  if (resource.path !== expected || resource.kind !== "file" || resource.state !== "present" || resource.scope !== "course") {
+    issues.push({ code: "content.memory-moon", message: `${course.id}.memoryMoonCatalog must be the present course-owned ${expected}.` });
+    return;
+  }
+  if (!checkExistence) return;
+  try {
+    const confined = await resolveConfinedCourseFile(record, repoRoot, "memoryMoonCatalog");
+    if (!confined) throw new Error("Memory Moon content is outside its canonical course static root.");
+    validateMemoryMoonContent(await readJsonDocument(confined.file), { course });
+  } catch (error) {
+    issues.push({ code: "content.memory-moon", message: `${course.id}: ${error.message}` });
+  }
+}
+
 async function validatePlanetEnglishAudit(record, repoRoot, issues, checkExistence) {
   if (!checkExistence) return;
   const { course } = record;
@@ -2678,6 +2698,7 @@ export async function validateCourseCatalog(
     await validateDictionaryReferenceDocument(record, repoRoot, issues, checkExistence);
     await validateDictionaryContent(record, repoRoot, issues, checkExistence);
     await validatePlanetEnglishAudit(record, repoRoot, issues, checkExistence);
+    await validateMemoryMoonResource(record, repoRoot, issues, checkExistence);
     await validateAuthoredGrammarPromotionEvidence(record, repoRoot, issues);
     await validatePublicationEvidence(record, repoRoot, issues, {
       release: requiresCourseReleaseEvidence(course),

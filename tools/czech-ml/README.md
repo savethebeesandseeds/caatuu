@@ -149,9 +149,9 @@ Android app's optional Generative mode. Its historical Termux scripts remain
 available for manual phone benchmarks; see the
 [on-device model guide](../on-device-models/README.md).
 
-## Vector Database Infrastructure
+## Czech Curriculum Vector Database
 
-The shared SQLite schema for Czech embeddings is:
+The SQLite schema for Czech curriculum embeddings is:
 
 ```text
 vector-schema.sql
@@ -164,22 +164,14 @@ ONNX artifact `all-minilm-l6-v2-qint8-v0.1`. The vector input is only
 `english_text`; metadata is stored in SQLite for filtering and reports, not
 mixed into the embedding.
 
-The same database can include manually described image assets. The current
-miscellaneous asset keymap lives at:
-
-```text
-C:\Work\caatuu\apps\launcher\static\assets\visual-vocabulary\keymap.json
-```
-
-The current macaw action asset keymap lives at:
-
-```text
-C:\Work\caatuu\apps\launcher\static\assets\macaw\actions\keymaps.json
-```
-
-Those entries must be written by inspecting the images. The vector build only
-embeds those manual English descriptions and records lookup rows in
-`asset_embedding_refs` or `macaw_action_embedding_refs`.
+The Czech database owns curriculum vectors and the separate Czech
+`target_realizations` overlay. Its `caatuu-cz-curriculum.sqlite` filename and
+`caatuu-cz-vector-db` schema identity are compatibility names. Shared artwork
+vectors are owned by
+`apps/language-runtime/static/data/image-embeddings/minilm-v1.json`, not this
+course database. The miscellaneous, macaw action, robot, and spaceship catalogs
+reference that shared index; see the
+[shared runtime guide](../../apps/language-runtime/README.md#shared-artwork-embedding-index).
 
 Build or refresh generated indexes under:
 
@@ -227,11 +219,12 @@ This writes the tracked semantic SQLite database, updates its tracked manifest,
 and refreshes the vector quality files under
 `data/curriculum/core-v0.2/validation` and
 `data/curriculum/core-v0.2/reports`.
-It also ingests the manual miscellaneous and macaw action image keymaps when
-those files exist and updates the embedding entries in
-`apps/languages/czech/static/setup-assets.json`.
+It also updates the curriculum embedding entries in
+`apps/languages/czech/static/setup-assets.json`. It does not ingest artwork
+catalogs or rewrite their embedding references.
 
-Run the human-reviewed retrieval regression suite after rebuilding:
+The human-reviewed image retrieval regression suite evaluates the shared
+artwork index independently of the Czech curriculum database:
 
 ```powershell
 npm run evaluate:images
@@ -245,9 +238,10 @@ expect normalized 384-dimensional `float32le` vectors. The legacy local-hash DB
 is retained only as a rollback/debug artifact and must never be compared with
 semantic query vectors.
 
-The embedding rule is strict: compute vectors from `english_text` only. Store
-`czech_text`, topic, target words, grammar tags, difficulty, and age band as
-metadata for filtering and review, but do not mix them into the embedding input.
+The embedding rule is strict: compute curriculum vectors from `english_text`
+only. Store `czech_text` in `target_realizations`, and keep topic, target words,
+grammar tags, difficulty, and age band as metadata for filtering and review.
+None of those fields enter the embedding input.
 
 ## Curriculum Utility LoRAs
 

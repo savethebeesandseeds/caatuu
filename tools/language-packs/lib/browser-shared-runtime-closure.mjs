@@ -1,4 +1,6 @@
 import { NON_CAMPAIGN_GAME_REGISTRY } from "../../../apps/language-runtime/static/source/shell-policy.mjs";
+import { IMAGE_SOURCES } from "../../../apps/language-runtime/static/source/english-image-search.mjs";
+import { IMAGE_EMBEDDING_INDEX_PATH } from "../../../apps/language-runtime/static/source/image-embedding-index.mjs";
 
 const SHARED_RUNTIME_SOURCE_PREFIX = "apps/language-runtime/";
 const SHARED_RUNTIME_OUTPUT_PREFIX = "language-runtime/";
@@ -19,6 +21,12 @@ function isObject(value) {
 
 function issue(code, message) {
   return { code, message };
+}
+
+export function sharedArtworkCatalogPaths(appAssetCatalog) {
+  if (!Array.isArray(appAssetCatalog?.assets)) return [];
+  const publishesIndex = appAssetCatalog.assets.some(mapping => `/${mapping?.output}` === IMAGE_EMBEDDING_INDEX_PATH);
+  return publishesIndex ? IMAGE_SOURCES.map(source => source.path) : [];
 }
 
 export function browserSetupCacheNamespaceIssues({ course, setupCatalog } = {}) {
@@ -343,6 +351,17 @@ export function browserSharedRuntimeClosureIssues({
     ) continue;
     if (interfaceCatalogMapping(mapping)) continue;
     expectedByPathname.set(pathname, { source, output });
+  }
+
+  // The shared vector index needs its authored metadata even though these
+  // catalogs retain their /assets URLs rather than /language-runtime URLs.
+  for (const pathname of sharedArtworkCatalogPaths(appAssetCatalog)) {
+    const mappings = appAssetCatalog.assets.filter(mapping => `/${mapping?.output}` === pathname);
+    if (mappings.length !== 1) {
+      issues.push(issue("browser.shared-runtime-catalog",
+        `Shared artwork catalog ${pathname} must have exactly one app-assets mapping.`));
+    }
+    expectedByPathname.set(pathname, mappings[0]);
   }
 
   const counts = new Map([...expectedByPathname.keys()].map((pathname) => [pathname, 0]));

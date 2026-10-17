@@ -13,6 +13,12 @@ added:
 - each course config owns its output root, public route, and compatibility
   filename without changing the shared model contract.
 
+Shared artwork is course-independent. Its current vectors live in
+`apps/language-runtime/static/data/image-embeddings/minilm-v1.json`, built from
+the miscellaneous, macaw action, robot, and spaceship English catalogs. Artwork
+metadata references that index by model ID, source kind, and public asset path;
+it does not depend on a course SQLite database.
+
 The executable contract is in `src/contract.mjs`. The normalized config shape
 is documented by `semantic-index-config.schema.json`.
 
@@ -99,11 +105,12 @@ cd /workspace/tools/czech-ml
 npm run build:vector-db
 ```
 
-The tracked Czech SQLite database and manifest are not rebuilt as part of this
-foundation change. On the next deliberate rebuild, Czech target text is
-written to `target_realizations` and no longer copied into the English
-embedding document metadata. The database path, model ID, setup URLs, and
-catalog command remain compatible.
+The Czech database contains curriculum English vectors and a separate Czech
+`target_realizations` overlay. Shared artwork vectors are owned by the
+language-runtime image index. The Czech filename and published schema identity
+remain compatibility names; they do not name the shared model or artwork
+store. The database path, model ID, setup URLs, and catalog command remain
+compatible.
 
 Run the focused contract tests in the repository container:
 

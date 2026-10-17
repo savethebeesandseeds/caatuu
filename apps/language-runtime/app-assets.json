@@ -699,6 +699,22 @@
       "output": "language-runtime/static/data/english-concepts/word-world-es-en-v1.json"
     },
     {
+      "source": "apps/language-runtime/static/assets/home/setup-ship-1.webp",
+      "output": "language-runtime/static/assets/home/setup-ship-1.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/home/setup-ship-8.webp",
+      "output": "language-runtime/static/assets/home/setup-ship-8.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/home/setup-ship-15.webp",
+      "output": "language-runtime/static/assets/home/setup-ship-15.webp"
+    },
+    {
+      "source": "apps/language-runtime/static/assets/home/setup-ship-22.webp",
+      "output": "language-runtime/static/assets/home/setup-ship-22.webp"
+    },
+    {
       "source": "apps/language-runtime/static/assets/home/backpack_icon.png",
       "output": "assets/icons/backpack_icon.png"
     },
@@ -939,6 +955,10 @@
       "output": "assets/stores/stores (16).png"
     },
     {
+      "source": "apps/launcher/static/assets/ships/meta.json",
+      "output": "assets/ships/meta.json"
+    },
+    {
       "source": "apps/launcher/static/assets/ships/ship (1).png",
       "output": "assets/ships/ship (1).png"
     },
@@ -1057,6 +1077,138 @@
     {
       "source": "apps/launcher/static/assets/planets/word-world.png",
       "output": "assets/planets/word-world.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/robots/keymap.json",
+      "output": "assets/robots/keymap.json"
+    },
+    {
+      "source": "apps/launcher/static/assets/robots/robot (2).png",
+      "output": "assets/robots/robot (2).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/robots/robot (3).png",
+      "output": "assets/robots/robot (3).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/robots/robot (4).png",
+      "output": "assets/robots/robot (4).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/robots/robot (5).png",
+      "output": "assets/robots/robot (5).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/robots/robot (6).png",
+      "output": "assets/robots/robot (6).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/robots/robot (7).png",
+      "output": "assets/robots/robot (7).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/robots/robot (8).png",
+      "output": "assets/robots/robot (8).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/robots/robot (9).png",
+      "output": "assets/robots/robot (9).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/robots/robot (10).png",
+      "output": "assets/robots/robot (10).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/robots/robot (11).png",
+      "output": "assets/robots/robot (11).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/robots/robot (12).png",
+      "output": "assets/robots/robot (12).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/robots/robot (13).png",
+      "output": "assets/robots/robot (13).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/robots/robot (14).png",
+      "output": "assets/robots/robot (14).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/robots/robot (15).png",
+      "output": "assets/robots/robot (15).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/robots/robot (16).png",
+      "output": "assets/robots/robot (16).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/robots/robot (17).png",
+      "output": "assets/robots/robot (17).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/robots/robot (18).png",
+      "output": "assets/robots/robot (18).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/robots/robot (19).png",
+      "output": "assets/robots/robot (19).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/robots/robot (20).png",
+      "output": "assets/robots/robot (20).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/robots/robot (21).png",
+      "output": "assets/robots/robot (21).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/robots/robot (22).png",
+      "output": "assets/robots/robot (22).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/robots/robot (23).png",
+      "output": "assets/robots/robot (23).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/robots/robot (24).png",
+      "output": "assets/robots/robot (24).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/robots/robot (25).png",
+      "output": "assets/robots/robot (25).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/robots/robot (26).png",
+      "output": "assets/robots/robot (26).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/robots/robot (27).png",
+      "output": "assets/robots/robot (27).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/robots/robot (28).png",
+      "output": "assets/robots/robot (28).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/robots/robot (29).png",
+      "output": "assets/robots/robot (29).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/robots/robot (30).png",
+      "output": "assets/robots/robot (30).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/robots/robot (31).png",
+      "output": "assets/robots/robot (31).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/robots/robot (32).png",
+      "output": "assets/robots/robot (32).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/robots/robot (33).png",
+      "output": "assets/robots/robot (33).png"
     },
     {
       "source": "apps/launcher/static/assets/robots/robot (1).png",

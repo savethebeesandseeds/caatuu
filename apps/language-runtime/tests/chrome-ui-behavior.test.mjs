@@ -1118,6 +1118,8 @@ test("About preserves its content with a compact update button and install contr
   const panel = harness.document.createElement("div");
   harness.window.CaatuuChrome.renderSettingsPanel(panel);
   const about = panel.innerHTML.slice(panel.innerHTML.indexOf('class="settings-card side-card about-card"'));
+  assert.equal((about.match(/\bid="settingsVersion"/gu) || []).length, 1,
+    "About must expose the installed-version target used by the shared maintenance controller");
   assert.match(about, /id="updateApp"/u);
   assert.doesNotMatch(about, /id="browserInstallActions"|data-update-app-copy|data-maintenance-action-row/u);
   assert.match(panel.innerHTML.slice(0, panel.innerHTML.indexOf('class="settings-card side-card about-card"')), /id="browserInstallActions"/u);
@@ -1704,11 +1706,21 @@ test("the Home course card offers engaged courses as confirmed quick switches", 
   const menu = host.querySelector("[data-language-selector-menu]");
   const currentCourse = host.querySelector("[data-home-language-current-course]");
   const ongoing = host.querySelector("[data-home-language-ongoing-courses]");
+  const ongoingBody = ongoing.querySelector("[data-home-language-ongoing-body]");
+  const ongoingToggle = ongoing.querySelector("[data-home-language-ongoing-toggle]");
   const quickSwitches = host.querySelectorAll("[data-home-language-quick-course]");
   assert.equal(currentCourse.tagName, "DIV");
   assert.equal(currentCourse.parentElement, host);
   assert.equal(ongoing.parentElement, host);
   assert.equal(ongoing.querySelector("h3").textContent, "Ongoing courses");
+  assert.equal(ongoingToggle.type, "button");
+  assert.equal(ongoingToggle.getAttribute("aria-controls"), ongoingBody.id);
+  assert.equal(ongoingBody.id, menu.id + "OngoingCourses");
+  assert.equal(ongoingToggle.getAttribute("aria-expanded"), "false");
+  assert.equal(ongoingBody.hidden, true, "other courses start collapsed");
+  assert.equal(ongoingBody.contains(quickSwitches[0]), true);
+  assert.equal(ongoingBody.contains(currentCourse), false, "the current course stays outside the disclosure");
+  assert.equal(ongoingBody.contains(trigger), false, "New course remains available while courses are collapsed");
   assert.match(currentCourse.textContent, /Current/u);
   assert.doesNotMatch(currentCourse.textContent, /Change|›/u);
   assert.equal(trigger.classList.contains("home-language-manage"), true);
@@ -1726,6 +1738,28 @@ test("the Home course card offers engaged courses as confirmed quick switches", 
   assert.equal(menu.querySelector("[data-language-selector-choice-stage]").hidden, false);
   menu.querySelector("[data-language-selector-cancel]").click();
   assert.equal(menu.hidden, true);
+  assert.equal(ongoingBody.hidden, true, "opening and cancelling New course does not expand other courses");
+  assert.equal(ongoingToggle.getAttribute("aria-expanded"), "false");
+
+  ongoingToggle.click();
+  assert.equal(ongoingBody.hidden, false);
+  assert.equal(ongoingToggle.getAttribute("aria-expanded"), "true");
+  assert.equal(menu.hidden, true, "the disclosure does not open the course selection dialog");
+  ongoingToggle.click();
+  assert.equal(ongoingBody.hidden, true);
+  assert.equal(ongoingToggle.getAttribute("aria-expanded"), "false");
+  ongoingToggle.click();
+  assert.equal(ongoingBody.hidden, false);
+
+  trigger.click();
+  assert.equal(menu.hidden, false);
+  assert.equal(ongoingBody.hidden, false, "New course does not toggle the expanded course list");
+  assert.equal(ongoingToggle.getAttribute("aria-expanded"), "true");
+  menu.querySelector("[data-language-selector-cancel]").click();
+  assert.equal(menu.hidden, true);
+  assert.equal(ongoingBody.hidden, false, "cancelling New course preserves the expanded course list");
+  assert.equal(ongoingToggle.getAttribute("aria-expanded"), "true");
+  assert.equal(harness.document.activeElement, trigger);
 
   quickSwitches[0].click();
   assert.equal(assignments.length, 0, "quick switching still requires confirmation");

@@ -1102,7 +1102,7 @@
       if (cached) return { vector: cached, cached: true };
     }
 
-    const { embedSharedEnglishTexts } = await import("./english-image-search.mjs?v=english-image-search-4");
+    const { embedSharedEnglishTexts } = await import("./english-image-search.mjs?v=english-image-search-5");
     const [sharedVector] = await embedSharedEnglishTexts([normalizedText], { owner: window });
     const result = { modelId: defaultEmbeddingModelId, vector: sharedVector };
     assertCurrent();

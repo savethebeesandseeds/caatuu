@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Caatuu Memory Moon course-owned content",
+  "type": "object",
+  "required": ["schemaVersion", "courseId", "gameId", "contentId", "contentRevision", "status", "learnerBaseLanguage", "targetLanguage", "englishAuditLanguage", "embeddingPolicy", "review", "license", "challenges"],
+  "properties": {
+    "schemaVersion": {"const": "caatuu-memory-moon-content-v1"},
+    "courseId": {"$ref": "#/$defs/id"},
+    "gameId": {"const": "memory-moon"},
+    "contentId": {"$ref": "#/$defs/text"},
+    "contentRevision": {"type": "integer", "minimum": 1},
+    "status": {"const": "machine-assisted-preview"},
+    "learnerBaseLanguage": {"$ref": "#/$defs/text"},
+    "targetLanguage": {"$ref": "#/$defs/text"},
+    "englishAuditLanguage": {"const": "en"},
+    "embeddingPolicy": {
+      "type": "object", "required": ["inputLanguage", "inputField"],
+      "properties": {"inputLanguage": {"const": "en"}, "inputField": {"const": "embeddingText"}}
+    },
+    "review": {
+      "type": "object", "required": ["status", "humanApproved", "reviewer", "reviewedAt", "notes"],
+      "properties": {
+        "status": {"const": "native-review-required"}, "humanApproved": {"const": false},
+        "reviewer": {"$ref": "#/$defs/text"}, "reviewedAt": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
+        "notes": {"$ref": "#/$defs/text"}
+      }
+    },
+    "license": {
+      "type": "object", "required": ["origin", "spdxExpression"],
+      "properties": {"origin": {"const": "caatuu-first-party-authored"}, "spdxExpression": {"const": "AGPL-3.0-only"}}
+    },
+    "challenges": {"type": "array", "minItems": 18, "items": {"$ref": "#/$defs/challenge"}}
+  },
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "text": {"type": "string", "minLength": 1},
+    "grade": {"type": "integer", "minimum": 1, "maximum": 100},
+    "kind": {"enum": ["action", "object", "subject", "number", "time", "location", "polarity", "quantity", "possession", "comparison", "reason", "condition", "sequence", "purpose", "manner", "state"]},
+    "choice": {
+      "type": "object", "required": ["id", "text", "englishAuditText"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "text": {"$ref": "#/$defs/text"}, "englishAuditText": {"$ref": "#/$defs/text"},
+        "contrast": {"type": "object", "required": ["kind", "explanation"], "properties": {"kind": {"$ref": "#/$defs/kind"}, "explanation": {"$ref": "#/$defs/text"}}}
+      }
+    },
+    "challenge": {
+      "type": "object",
+      "required": ["id", "revision", "difficulty", "usefulness", "complexity", "topic", "familyId", "targetText", "learnerBaseText", "englishText", "embeddingText", "focus", "correctChoiceId", "choices"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "revision": {"type": "integer", "minimum": 1},
+        "difficulty": {"enum": [1, 2, 3]}, "usefulness": {"$ref": "#/$defs/grade"}, "complexity": {"$ref": "#/$defs/grade"},
+        "topic": {"$ref": "#/$defs/text"}, "familyId": {"$ref": "#/$defs/id"},
+        "targetText": {"$ref": "#/$defs/text"}, "learnerBaseText": {"$ref": "#/$defs/text"},
+        "englishText": {"$ref": "#/$defs/text"}, "embeddingText": {"$ref": "#/$defs/text"},
+        "focus": {"type": "object", "required": ["kind", "englishConcepts"], "properties": {"kind": {"$ref": "#/$defs/kind"}, "englishConcepts": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/text"}}}},
+        "correctChoiceId": {"$ref": "#/$defs/id"}, "choices": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"$ref": "#/$defs/choice"}}
+      }
+    }
+  }
+}

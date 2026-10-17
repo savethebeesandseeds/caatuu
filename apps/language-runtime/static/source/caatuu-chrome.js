@@ -4059,7 +4059,22 @@
     header.className = "home-language-ongoing-head";
     const heading = document.createElement("h3");
     heading.id = menu.id + "OngoingTitle";
-    heading.textContent = interfaceMessage("courseselector.ongoing.heading");
+    const body = document.createElement("div");
+    body.id = menu.id + "OngoingCourses";
+    body.dataset.homeLanguageOngoingBody = "";
+    body.hidden = true;
+    const toggle = document.createElement("button");
+    toggle.type = "button";
+    toggle.className = "home-language-ongoing-toggle";
+    toggle.dataset.homeLanguageOngoingToggle = "";
+    toggle.textContent = interfaceMessage("courseselector.ongoing.heading");
+    toggle.setAttribute("aria-controls", body.id);
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.addEventListener("click", () => {
+      body.hidden = !body.hidden;
+      toggle.setAttribute("aria-expanded", String(!body.hidden));
+    });
+    heading.append(toggle);
 
     trigger.className = "home-language-manage";
     const manageIcon = document.createElement("span");
@@ -4077,13 +4092,14 @@
     const quickSwitches = createHomeLanguageQuickSwitches(host, menu, heading.id);
     if (quickSwitches) {
       host.classList.add("has-quick-courses");
-      section.append(quickSwitches);
+      body.append(quickSwitches);
     } else {
       const empty = document.createElement("p");
       empty.className = "home-language-ongoing-empty";
       empty.textContent = interfaceMessage("courseselector.ongoing.empty");
-      section.append(empty);
+      body.append(empty);
     }
+    section.append(body);
     return section;
   }
 
@@ -4929,7 +4945,7 @@
             <div class="settings-card-head side-head about-card-head">
               <div>
                 <p class="settings-kicker kicker">${interfaceHtml("settings.about.label")}</p>
-                <h3>${interfaceHtml("settings.about.details")}</h3>
+                <h3 id="settingsVersion">${interfaceHtml("settings.about.details")}</h3>
               </div>
               <button class="maintenance-row-control pwa-install-action" type="button" id="updateApp" aria-describedby="maintenanceStatus" hidden>${interfaceHtml("settings.update.action")}</button>
             </div>

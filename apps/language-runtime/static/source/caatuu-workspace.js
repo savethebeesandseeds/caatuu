@@ -3124,7 +3124,7 @@ function isChildSafeVerbHintAsset(assetPath, action = "") {
 
 function loadVerbImageSearch() {
   if (!verbImageSearchPromise) {
-    verbImageSearchPromise = import("/language-runtime/static/source/english-image-search.mjs?v=english-image-search-4")
+    verbImageSearchPromise = import("/language-runtime/static/source/english-image-search.mjs?v=english-image-search-5")
       .then(({ createEnglishImageSearch }) => createEnglishImageSearch({ timeoutMs: verbHintLookupTimeoutMillis }))
       .catch((error) => { verbImageSearchPromise = null; throw error; });
   }

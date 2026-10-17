@@ -5,7 +5,9 @@ import { filterPackagedImageKeymap, transformPackagedImageKeymap } from "../deve
 
 test("packaged keymaps retain original keys and exact metadata only for copied outputs", () => {
   const metadata = Object.freeze({ description: "A macaw waves hello.", action: "wave_hello",
-    embedding: Object.freeze({ database: "/cz/data/embeddings/catalog.sqlite", document_id: "original-id" }),
+    embedding: Object.freeze({ index: "/language-runtime/static/data/image-embeddings/minilm-v1.json",
+      model_id: "all-minilm-l6-v2-qint8-v0.1", source_kind: "macaw_action_asset",
+      asset_path: "/assets/macaw/actions/macaw%20(4).png" }),
     attribution: Object.freeze({ creator: "Caatuu", license: "original" }) });
   const catalog = Object.freeze({
     "/assets/macaw/actions/macaw%20(4).png": metadata,
@@ -28,6 +30,20 @@ test("the helper accepts both escaped and literal package output sets", () => {
     new Set(["assets/miscellaneous/example (1).png"]),
     new Set(["/assets/miscellaneous/example%20(1).png"])
   ]) assert.deepEqual(filterPackagedImageKeymap(catalog, outputs), catalog);
+});
+
+test("robot and ship catalogs keep only delivered artwork with exact index and orientation metadata", () => {
+  const ship = { description: "A spaceship.", orientation: { heading_degrees: 155 },
+    embedding: { index: "/language-runtime/static/data/image-embeddings/minilm-v1.json",
+      source_kind: "ship_asset", asset_path: "/assets/ships/ship%20(1).png" } };
+  const robot = { description: "A robot.", category: "robot" };
+  const catalog = { "/assets/ships/ship%20(1).png": ship, "/assets/ships/missing.png": ship,
+    "/assets/robots/robot.png": robot, "/assets/robots/nested/robot.png": robot };
+  const outputs = new Set(["assets/ships/ship (1).png", "assets/robots/robot.png", "assets/robots/nested/robot.png"]);
+  const result = filterPackagedImageKeymap(catalog, outputs);
+  assert.deepEqual(Object.keys(result), ["/assets/ships/ship%20(1).png", "/assets/robots/robot.png"]);
+  assert.equal(result["/assets/ships/ship%20(1).png"], ship);
+  assert.equal(result["/assets/robots/robot.png"], robot);
 });
 
 test("packaged action images still obey the maintained child-facing exclusions", () => {
@@ -71,12 +87,15 @@ test("the real package artwork yields usable source catalogs without dangling im
   let packagedImageCount = 0;
   for (const path of [
     "../../../launcher/static/assets/visual-vocabulary/keymap.json",
-    "../../../launcher/static/assets/macaw/actions/keymaps.json"
+    "../../../launcher/static/assets/macaw/actions/keymaps.json",
+    "../../../launcher/static/assets/robots/keymap.json",
+    "../../../launcher/static/assets/ships/meta.json"
   ]) {
     const source = JSON.parse(await readFile(new URL(path, import.meta.url), "utf8"));
     const result = JSON.parse(transformPackagedImageKeymap(source, appAssets));
     packagedImageCount += Object.keys(result).length;
-    assert.ok(Object.keys(result).length < Object.keys(source).length, "unpackaged artwork stays excluded");
+    assert.ok(Object.keys(result).length <= Object.keys(source).length, "packaging cannot invent artwork");
+    assert.ok(Object.keys(result).length > 0, `${path} keeps its delivered artwork`);
     for (const [key, metadata] of Object.entries(result)) {
       assert.ok(outputs.has(decodeURIComponent(key)), `Packaged image exists: ${key}`);
       assert.deepEqual(metadata, source[key]);

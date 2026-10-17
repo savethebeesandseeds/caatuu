@@ -90,6 +90,23 @@ an existing concept ID preserves its English meaning across courses; inventories
 and difficulty may differ. New content still needs linguistic review. The
 builder's structural checks and unchanged fixed rubric are not that review.
 
+## Memory Moon: independent content for every course
+
+Every registered course owns an editable
+`static/data/games/memory-moon/content.json`, declared by
+`resources.memoryMoonCatalog`. The shared
+`caatuu-memory-moon-content-v1` contract contains original target sentences,
+three authored learner-base answer choices, English audit/retrieval text,
+meaning contrasts, stable semantic-family IDs, and all three difficulty badges.
+It has no runtime dependency on another game's content. English-base courses
+show English choices; Spanish-to-English shows Spanish choices while retaining
+independent English embedding text.
+
+See the [Memory Moon content guide](MEMORY_MOON_CONTENT.md) for authoring,
+review boundaries, the JSON schema and the all-course validation command.
+These banks remain machine-assisted previews pending independent native review.
+Their presence does not activate the upcoming game or publish a course.
+
 ## Case Cosmos: JSON is the content authority
 
 Following the numeric ceiling removal, the user separately authorized removal

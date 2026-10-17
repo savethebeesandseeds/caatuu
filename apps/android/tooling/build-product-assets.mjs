@@ -1929,7 +1929,8 @@ function sharedAppAssetTransform(output, assets, storageRecords = []) {
   if (/^language-runtime\/static\/data\/interface\/[^/]+\.json$/u.test(output)) {
     return transformProductInterfaceCatalog;
   }
-  if (output === "assets/miscellaneous/keymap.json" || output === "assets/macaw/actions/keymaps.json") {
+  if (["assets/miscellaneous/keymap.json", "assets/macaw/actions/keymaps.json",
+    "assets/robots/keymap.json", "assets/ships/meta.json"].includes(output)) {
     // Setup downloads are part of the usable image catalog too. These records
     // have already passed the same path, HTTPS, hash and size contracts as setup.
     const availableAssets = [...assets, ...storageRecords.map(({ declaredPath }) => ({ output: declaredPath }))];

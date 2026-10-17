@@ -270,6 +270,13 @@
     }
   },
   "resources": {
+    "memoryMoonCatalog": {
+      "path": "apps/languages/arabic-standard/static/data/games/memory-moon/content.json",
+      "kind": "file",
+      "state": "present",
+      "scope": "course",
+      "revision": "memory-moon-1"
+    },
     "androidAssetCatalog": {
       "kind": "file",
       "path": "apps/languages/arabic-standard/android-assets.json",
@@ -300,7 +307,7 @@
       "path": "apps/language-runtime/static/data/interface/en.v1.json",
       "scope": "shared",
       "state": "present",
-      "revision": "interface-en-45"
+      "revision": "interface-en-46"
     },
     "courseProfile": {
       "kind": "file",

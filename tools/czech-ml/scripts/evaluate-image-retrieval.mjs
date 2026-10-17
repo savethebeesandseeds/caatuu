@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 import fs from "node:fs/promises";
 import path from "node:path";
-import { createRequire } from "node:module";
 import { env, pipeline } from "@huggingface/transformers";
-import { appDataRoot, fromRoot, mlRoot } from "./paths.mjs";
+import { caatuuRoot, fromRoot } from "./paths.mjs";
+import { imageIndexInputs } from "../../../apps/language-runtime/tooling/build-image-embedding-index.mjs";
+import { imageVectorKey, readImageEmbeddingIndex } from "../../../apps/language-runtime/static/source/image-embedding-index.mjs";
 
 const MODEL_ID = "all-minilm-l6-v2-qint8-v0.1";
 const MODEL_REVISION = "1110a243fdf4706b3f48f1d95db1a4f5529b4d41";
@@ -19,24 +20,17 @@ const evaluationFile = path.resolve(argValue(
   "--evaluation-file",
   fromRoot("data", "curriculum", "core-v0.2", "evaluation", "image-retrieval.en.jsonl"),
 ));
-const databaseFile = path.resolve(argValue(
-  "--database-file",
-  path.join(appDataRoot, "embeddings", MODEL_ID, "caatuu-cz-curriculum.sqlite"),
+const indexFile = path.resolve(argValue(
+  "--index-file",
+  path.join(caatuuRoot, "apps/language-runtime/static/data/image-embeddings/minilm-v1.json"),
 ));
 const modelSourceDir = path.resolve(argValue(
   "--model-source-dir",
-  path.join(
-    mlRoot,
-    "data",
-    "models",
-    "english-base",
-    "hf-cache",
-    "hub",
-    "models--sentence-transformers--all-MiniLM-L6-v2",
-    "snapshots",
-    MODEL_REVISION,
-  ),
+  path.join(caatuuRoot, "apps/language-runtime/models", MODEL_ID, "runtime"),
 ));
+if (process.argv.includes("--database-file")) {
+  throw new Error("Artwork retrieval now uses the shared JSON index; use --index-file instead of --database-file.");
+}
 const reportFile = path.resolve(argValue(
   "--report-file",
   fromRoot("data", "curriculum", "core-v0.2", "validation", "image-retrieval.json"),
@@ -50,8 +44,8 @@ const minRecallAt5 = Number(argValue("--min-recall-at-5", "0.90"));
 
 const evaluations = await readJsonl(evaluationFile);
 assertEvaluations(evaluations);
-const candidates = await readCandidates(databaseFile);
-if (!candidates.length) throw new Error(`No image candidates found in ${databaseFile}.`);
+const candidates = await readCandidates(indexFile);
+if (!candidates.length) throw new Error(`No image candidates found in ${indexFile}.`);
 
 env.allowRemoteModels = false;
 env.allowLocalModels = true;
@@ -103,7 +97,7 @@ const summary = {
   model_id: MODEL_ID,
   model_revision: MODEL_REVISION,
   evaluation_file: evaluationFile,
-  database_file: databaseFile,
+  index_file: indexFile,
   query_count: results.length,
   candidate_count: candidates.length,
   recall_at_1: recallAt(results, 1),
@@ -165,56 +159,25 @@ function assertEvaluations(items) {
 }
 
 async function readCandidates(file) {
-  const require = createRequire(import.meta.url);
-  const sqlJsFile = path.join(appDataRoot, "..", "vendor", "sql.js", "sql-wasm.js");
-  const sqlWasmFile = path.join(path.dirname(sqlJsFile), "sql-wasm.wasm");
-  const initSqlJs = require(sqlJsFile);
-  const SQL = await initSqlJs({ locateFile: () => sqlWasmFile });
-  const db = new SQL.Database(await fs.readFile(file));
-  const statement = db.prepare(`
-    SELECT
-      documents.source_kind,
-      documents.source_id,
-      chunks.text,
-      embeddings.vector,
-      COALESCE(asset_embedding_refs.asset_path, robot_embedding_refs.asset_path, macaw_action_embedding_refs.asset_path) AS asset_path,
-      COALESCE(asset_embedding_refs.category, robot_embedding_refs.category, macaw_action_embedding_refs.action) AS category
-    FROM embeddings
-    JOIN chunks ON chunks.id = embeddings.chunk_id
-    JOIN documents ON documents.id = chunks.document_id
-    LEFT JOIN asset_embedding_refs
-      ON asset_embedding_refs.chunk_id = chunks.id AND asset_embedding_refs.model_id = embeddings.model_id
-    LEFT JOIN robot_embedding_refs
-      ON robot_embedding_refs.chunk_id = chunks.id AND robot_embedding_refs.model_id = embeddings.model_id
-    LEFT JOIN macaw_action_embedding_refs
-      ON macaw_action_embedding_refs.chunk_id = chunks.id AND macaw_action_embedding_refs.model_id = embeddings.model_id
-    WHERE embeddings.model_id = $model_id
-      AND documents.source_kind IN ('image_asset', 'robot_asset', 'macaw_action_asset')
-  `);
-  const rows = [];
-  try {
-    statement.bind({ $model_id: MODEL_ID });
-    while (statement.step()) {
-      const row = statement.getAsObject();
-      rows.push({
-        assetPath: String(row.asset_path || row.source_id || ""),
-        category: String(row.category || ""),
-        description: String(row.text || ""),
-        sourceKind: String(row.source_kind || ""),
-        vector: decodeFloat32(row.vector),
-      });
-    }
-  } finally {
-    statement.free();
-    db.close();
+  const raw = JSON.parse(await fs.readFile(file, "utf8"));
+  const vectors = readImageEmbeddingIndex(raw);
+  const { rows, sources, model } = await imageIndexInputs();
+  if (JSON.stringify(raw.sources) !== JSON.stringify(sources) || raw.modelSha256 !== model.sha256) {
+    throw new Error("Shared artwork index is stale; rebuild it before evaluating retrieval.");
   }
-  return rows;
-}
-
-function decodeFloat32(value) {
-  const bytes = value instanceof Uint8Array ? value : new Uint8Array(value);
-  const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
-  return Float32Array.from({ length: bytes.byteLength / 4 }, (_, index) => view.getFloat32(index * 4, true));
+  return rows.map(row => {
+    const stored = vectors.get(imageVectorKey(row));
+    if (!stored || stored.embeddingText !== row.embeddingText) {
+      throw new Error("Shared artwork vector is missing or stale: " + row.path);
+    }
+    return {
+      assetPath: row.path,
+      category: row.action || row.category || "",
+      description: row.embeddingText,
+      sourceKind: row.sourceKind,
+      vector: stored.vector,
+    };
+  });
 }
 
 function isAccepted(evaluation, candidate) {

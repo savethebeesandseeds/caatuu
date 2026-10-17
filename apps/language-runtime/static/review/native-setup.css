@@ -1,0 +1,35 @@
+/* Local review framing only; the screen itself uses the production Home CSS. */
+body.setup-review { padding: 22px; }
+.review-toolbar {
+  max-width: 720px;
+  margin: 0 auto 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px 20px;
+  color: var(--theme-muted);
+  font-size: .85rem;
+}
+.review-toolbar p { width: 100%; text-align: center; }
+.review-toolbar label { display: inline-flex; align-items: center; gap: 8px; }
+.review-toolbar input { max-width: 140px; }
+.review-toolbar select { padding: 6px; font: inherit; }
+.review-phone {
+  display: block;
+  box-sizing: content-box;
+  width: 390px;
+  max-width: 100%;
+  height: 600px;
+  margin: auto;
+  border: 1px solid var(--theme-line-strong);
+  border-radius: 24px;
+  background: var(--theme-paper);
+  box-shadow: var(--theme-shadow);
+}
+body.setup-review-screen #homeBaseView {
+  min-height: 100dvh;
+  align-content: center;
+  padding-inline: 20px;
+}
+.setup-review-screen #setupAudioMenu { display: none; }

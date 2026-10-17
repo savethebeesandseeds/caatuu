@@ -1,5 +1,5 @@
-import { IMAGE_SOURCES, createEnglishImageSearch } from "../english-image-search.mjs?v=english-image-search-4";
-export { createEnglishImageSearch, normalizeImageCatalog } from "../english-image-search.mjs?v=english-image-search-4";
+import { IMAGE_SOURCES, createEnglishImageSearch } from "../english-image-search.mjs?v=english-image-search-5";
+export { createEnglishImageSearch, normalizeImageCatalog } from "../english-image-search.mjs?v=english-image-search-5";
 
 export const messages = Object.freeze({
   "developer.images.description": "Search shared artwork using its English descriptions. The image collection is the same for every course.",
@@ -9,6 +9,8 @@ export const messages = Object.freeze({
   "developer.images.all": "All images",
   "developer.images.miscellaneous": "Miscellaneous",
   "developer.images.actions": "Macaw actions",
+  "developer.images.robots": "Robots",
+  "developer.images.ships": "Spaceships",
   "developer.images.search": "Search images",
   "developer.images.ready": "Ready to search shared artwork.",
   "developer.images.searching": "Searching shared English embeddings…",

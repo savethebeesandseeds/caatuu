@@ -16,9 +16,11 @@ const imageReferences = (text) => [...text.matchAll(/\/(?:assets|language-runtim
   .map(([reference]) => decodeURIComponent(reference.slice(1)))
   .filter((reference) => !reference.includes("${"));
 
-test("the product Home renders its existing art, controls, and course flags before any download", () => {
+test("the product Home renders its existing art, controls, and course flags before any download", (t) => {
   const bundle = loadAndroidCourseBundleConfiguration({ allowMissingSetupDeliveredRuntimeFiles: true });
   const delivery = createAndroidProductDelivery(bundle);
+  t.diagnostic(`Bootstrap assets ${delivery.byteCounts.bootstrap} bytes of ${PRODUCT_BOOTSTRAP_MAX_BYTES}; ${PRODUCT_BOOTSTRAP_MAX_BYTES - delivery.byteCounts.bootstrap} bytes remain.`);
+  assert.ok(delivery.byteCounts.bootstrap <= PRODUCT_BOOTSTRAP_MAX_BYTES);
   const courses = bundle.configurations.map(({ course }) => course);
   const required = homeBootstrapAssets(delivery.logicalFiles, courses);
   const html = delivery.logicalFiles.get("index.html").toString("utf8");
@@ -26,6 +28,20 @@ test("the product Home renders its existing art, controls, and course flags befo
   assert.ok(nextView, "The shared application retains its Home and subsequent course views");
   const home = html.slice(0, nextView.index);
   assert.match(home, /id="view-home"/u);
+  const setupShips = [...home.matchAll(/<img\b(?=[^>]*\bdata-setup-ship\b)[^>]*>/gu)]
+    .flatMap(([element]) => imageReferences(element));
+  assert.ok(setupShips.length > 1, "First-install setup has multiple ships to rotate before downloading");
+  assert.equal(new Set(setupShips).size, setupShips.length, "The setup gallery uses distinct artwork");
+  for (const path of imageReferences(home)) {
+    assert.ok(delivery.bundledFiles.get(path)?.equals(delivery.logicalFiles.get(path)),
+      `First-install artwork must be bundled intact: ${path}`);
+    assert.ok(!delivery.downloadedAssets.includes(path), `First-install artwork must not depend on download order: ${path}`);
+  }
+  // These modules own the Home and shared shell. Stylesheets for hidden game
+  // views are linked in the same document, but their art belongs to setup.
+  const homeStylesheets = new Set([
+    "caatuu-theme.css", "caatuu-workspace.css", "caatuu-home.css", "caatuu-chrome.css", "music-controls.css",
+  ]);
   const dependencySources = [
     home,
     // Chrome creates Home navigation, reward counters, and display controls.
@@ -34,6 +50,7 @@ test("the product Home renders its existing art, controls, and course flags befo
       .filter((path) => path.startsWith("assets/icons/")).map((path) => `/${path}`).join("\n"),
     delivery.logicalFiles.get("language-runtime/static/source/app-bootstrap.mjs").toString("utf8"),
     ...[...html.matchAll(/\/language-runtime\/static\/styles\/[^"?]+\.css/gu)]
+      .filter(([path]) => homeStylesheets.has(path.split("/").at(-1)))
       .map(([path]) => delivery.logicalFiles.get(path.slice(1)).toString("utf8")),
   ];
   for (const source of dependencySources) {
@@ -45,7 +62,6 @@ test("the product Home renders its existing art, controls, and course flags befo
     assert.ok(delivery.bundledFiles.has(path), `Home must not need a download to render ${path}`);
     assert.ok(!delivery.downloadedAssets.includes(path), `Home artwork has one APK residency owner: ${path}`);
   }
-  assert.ok(delivery.byteCounts.bootstrap <= PRODUCT_BOOTSTRAP_MAX_BYTES);
   assert.ok(delivery.downloadedAssets.some((path) => path.startsWith("assets/planets/")), "Larger game art remains setup-delivered");
   for (const course of courses) {
     assert.ok(delivery.downloadedAssets.some((path) => path.startsWith(`courses/${course.id}/data/`)),

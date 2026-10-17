@@ -536,12 +536,15 @@ test("the Android product bundles declared courses behind one shared app documen
     assert.ok(!result.files.includes(`language-runtime/${artifact.path}`));
   }
   const czechSetup = JSON.parse(readFileSync(join(outputDir, "courses/cz/setup-assets.json"), "utf8"));
-  for (const catalogPath of ["assets/miscellaneous/keymap.json", "assets/macaw/actions/keymaps.json"]) {
+  for (const catalogPath of ["assets/miscellaneous/keymap.json", "assets/macaw/actions/keymaps.json",
+    "assets/robots/keymap.json", "assets/ships/meta.json"]) {
     const images = JSON.parse(readFileSync(join(outputDir, catalogPath), "utf8"));
     const paths = Object.keys(images).map(decodeURIComponent);
     const available = new Set([...result.files, ...configuration.sharedStorageRecords.map(({ declaredPath }) => declaredPath)]);
     assert.ok(paths.every((path) => available.has(path.replace(/^\//u, ""))), "all image metadata has a bundled or verified setup source");
-    assert.ok(paths.some((path) => !result.files.includes(path.replace(/^\//u, ""))), "downloaded artwork remains searchable after setup");
+    if (["assets/miscellaneous/keymap.json", "assets/macaw/actions/keymaps.json"].includes(catalogPath)) {
+      assert.ok(paths.some((path) => !result.files.includes(path.replace(/^\//u, ""))), "downloaded artwork remains searchable after setup");
+    }
   }
   const sourceSetup = JSON.parse(readFileSync(join(languageStaticDir, "setup-assets.json"), "utf8"));
   for (const sourceArtwork of sourceSetup.artifacts.filter(({ artifact_kind }) => artifact_kind === "visual-asset")) {
@@ -883,7 +886,8 @@ test("a no-LLM embedding course compiles from its manifest without Czech diction
     outputDir: czechOutputDir,
   });
   for (const path of ["index.html", ...configuration.appAssets.map(({ output }) => output)]) {
-    if (["assets/miscellaneous/keymap.json", "assets/macaw/actions/keymaps.json"].includes(path)) {
+    if (["assets/miscellaneous/keymap.json", "assets/macaw/actions/keymaps.json",
+      "assets/robots/keymap.json", "assets/ships/meta.json"].includes(path)) {
       const authority = JSON.parse(readFileSync(configuration.appAssets.find(({ output }) => output === path).source, "utf8"));
       for (const root of [outputDir, czechOutputDir]) {
         const setup = JSON.parse(readFileSync(join(root, "setup-assets.json"), "utf8"));

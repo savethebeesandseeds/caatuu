@@ -44,6 +44,9 @@ import {
   NON_CAMPAIGN_GAME_IDS,
   PLANET_GAME_CONTRACT
 } from "../../../apps/language-runtime/static/source/shell-policy.mjs";
+import { IMAGE_SOURCES } from "../../../apps/language-runtime/static/source/english-image-search.mjs";
+import { IMAGE_EMBEDDING_INDEX_PATH } from "../../../apps/language-runtime/static/source/image-embedding-index.mjs";
+import { sharedArtworkCatalogPaths } from "../lib/browser-shared-runtime-closure.mjs";
 
 const repoRoot = new URL("../../../", import.meta.url);
 
@@ -296,6 +299,50 @@ test("browser shared runtime delivery requires one canonical offline pathname pe
     })[0].message,
     /is remapped to language-runtime\/static\/source\/renamed-runtime\.mjs/
   );
+});
+
+test("publishing the shared image index requires exactly one mapping and cache entry for every artwork catalog", () => {
+  const catalogMappings = IMAGE_SOURCES.map(({ path }) => ({
+    source: `apps/launcher/static${path}`,
+    output: path.slice(1)
+  }));
+  const appAssetCatalog = { assets: catalogMappings };
+  const setupCatalog = { offline: { assets: [] } };
+  const issues = (catalog = appAssetCatalog, setup = setupCatalog) => browserSharedRuntimeClosureIssues({
+    appAssetCatalog: catalog, setupCatalog: setup, courseId: "xx", routePrefix: "/xx"
+  });
+
+  // Small fixtures that publish no shared index acquire no artwork dependency.
+  assert.deepEqual(sharedArtworkCatalogPaths(appAssetCatalog), []);
+  assert.deepEqual(issues(), []);
+
+  appAssetCatalog.assets = [
+    ...catalogMappings,
+    { source: `apps${IMAGE_EMBEDDING_INDEX_PATH}`, output: IMAGE_EMBEDDING_INDEX_PATH.slice(1) }
+  ];
+  const expectedPaths = IMAGE_SOURCES.map(({ path }) => path);
+  assert.deepEqual(sharedArtworkCatalogPaths(appAssetCatalog), expectedPaths);
+  setupCatalog.offline.assets = [IMAGE_EMBEDDING_INDEX_PATH, ...expectedPaths];
+  assert.deepEqual(issues(), []);
+
+  for (const pathname of expectedPaths) {
+    for (const failure of ["missing-mapping", "duplicate-mapping", "missing-cache", "duplicate-cache"]) {
+      const catalog = structuredClone(appAssetCatalog);
+      const setup = structuredClone(setupCatalog);
+      if (failure === "missing-mapping") {
+        catalog.assets = catalog.assets.filter(mapping => `/${mapping.output}` !== pathname);
+      } else if (failure === "duplicate-mapping") {
+        catalog.assets.push({ ...catalog.assets.find(mapping => `/${mapping.output}` === pathname) });
+      } else if (failure === "missing-cache") {
+        setup.offline.assets = setup.offline.assets.filter(asset => asset !== pathname);
+      } else {
+        setup.offline.assets.push(`${pathname}?v=another-revision`);
+      }
+      const code = failure.endsWith("mapping") ? "browser.shared-runtime-catalog" : "browser.shared-runtime-package";
+      assert.ok(issues(catalog, setup).some(issue => issue.code === code && issue.message.includes(pathname)),
+        `${failure}: ${pathname}`);
+    }
+  }
 });
 
 test("browser courses cache only their exact learner-base interface catalog revision", () => {

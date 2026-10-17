@@ -26,30 +26,23 @@ Web source revisions and records their Apache-2.0/MIT terms.
 The vector input is the English sentence text only. Curriculum metadata is kept
 inside SQLite for filters and debugging, but it is not embedded into the vector.
 
-The database can also include manually described image assets. Those rows are
-stored as `source_kind = image_asset` or `source_kind = macaw_action_asset`,
-with lookup references in `asset_embedding_refs` and
-`macaw_action_embedding_refs`. The current human-curated miscellaneous image
-keymap lives at:
-
-```text
-apps/launcher/static/assets/visual-vocabulary/keymap.json
-```
-
-The current human-curated macaw action keymap lives at:
-
-```text
-apps/launcher/static/assets/macaw/actions/keymaps.json
-```
-
-Those asset vectors are computed from the manual English descriptions in those
-JSON files, not from the image pixels.
+The database contains curriculum English vectors and a separate Czech
+`target_realizations` overlay. Shared artwork vectors live in the
+language-neutral index
+`apps/language-runtime/static/data/image-embeddings/minilm-v1.json`.
+Miscellaneous, macaw action, robot, and spaceship metadata reference that index
+by model ID, source kind, and public asset path. Artwork is not part of the
+Czech curriculum database.
 
 The current generated database path is:
 
 ```text
 data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite
 ```
+
+The filename and `caatuu-cz-vector-db` schema identity are retained for existing
+course consumers and published downloads. They do not name the shared MiniLM
+model or the artwork index.
 
 It is generated from:
 

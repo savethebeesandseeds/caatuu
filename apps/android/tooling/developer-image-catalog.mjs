@@ -1,6 +1,6 @@
 import { isChildFacingMacawActionAssetAllowed } from "../../language-runtime/static/source/child-facing-assets.mjs";
 
-const IMAGE_PREFIXES = ["/assets/miscellaneous/", "/assets/macaw/actions/"];
+const IMAGE_PREFIXES = ["/assets/miscellaneous/", "/assets/macaw/actions/", "/assets/robots/", "/assets/ships/"];
 const IMAGE_EXTENSIONS = new Set(["png", "jpg", "jpeg", "webp", "avif"]);
 
 function imageOutputPath(value) {

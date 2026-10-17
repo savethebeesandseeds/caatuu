@@ -72,6 +72,8 @@ CREATE TABLE IF NOT EXISTS embeddings (
   CHECK (length(vector) = dimension * 4)
 );
 
+-- Empty compatibility tables retained for published schema version 1.
+-- Current artwork lives in the language-neutral shared image JSON index.
 CREATE TABLE IF NOT EXISTS asset_embedding_refs (
   asset_path TEXT PRIMARY KEY,
   category TEXT NOT NULL CHECK (length(category) > 0),
@@ -128,16 +130,7 @@ INSERT OR IGNORE INTO schema_meta(key, value) VALUES
   ('target_realizations_table', 'target_realizations'),
   ('default_embedding_model', 'all-minilm-l6-v2-qint8-v0.1'),
   ('embedding_text_field', 'english_text'),
-  ('embedding_input_policy', 'english_text_only'),
-  ('asset_embedding_table', 'asset_embedding_refs'),
-  ('asset_embedding_text_field', 'manual_english_description'),
-  ('asset_embedding_input_policy', 'manual_english_description_only'),
-  ('robot_embedding_table', 'robot_embedding_refs'),
-  ('robot_embedding_text_field', 'manual_english_description'),
-  ('robot_embedding_input_policy', 'manual_english_description_only'),
-  ('macaw_action_embedding_table', 'macaw_action_embedding_refs'),
-  ('macaw_action_embedding_text_field', 'manual_english_description'),
-  ('macaw_action_embedding_input_policy', 'manual_english_description_only');
+  ('embedding_input_policy', 'english_text_only');
 
 INSERT OR IGNORE INTO embedding_models(
   id,

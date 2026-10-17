@@ -1,7 +1,5 @@
 import { createRewardSound } from "./reward-sound.mjs?v=reward-sound-2";
 
-const CELEBRATION_MS = 2200;
-const REDUCED_MOTION_MS = 1200;
 const XP_ICON = "/language-runtime/static/assets/xp-gold.webp";
 const gameIds = Object.freeze({ "verb-lab": "verb-nebula", "word-net": "word-world" });
 
@@ -23,7 +21,6 @@ export function installGameDynamics({
   let lastSnapshot = null;
   const transitions = new Map();
   const listeners = [];
-  const clock = () => scope.performance?.now?.() ?? Date.now();
   const setTimer = (callback, delay) => (scope.setTimeout ?? setTimeout)(callback, delay);
   const clearTimer = id => (scope.clearTimeout ?? clearTimeout)(id);
   const read = () => typeof learning?.practiceSet === "function" ? learning.practiceSet() : null;
@@ -132,7 +129,7 @@ export function installGameDynamics({
 
   function finish(state, restoreFocus = false) {
     if (current !== state) return;
-    clearTimer(state.timer);
+    state.layoutObserver?.disconnect();
     stopEffects(state);
     state.overlay?.remove();
     if (state.content && !state.wasInert) state.content.removeAttribute("inert");
@@ -144,8 +141,21 @@ export function installGameDynamics({
     state.resolve(state.shown);
   }
 
-  function resumeClock(state) {
-    if (current !== state || !state.claimed || state.timer !== null || document.visibilityState === "hidden") return;
+  function syncPresentationBounds() {
+    const overlay = current?.overlay;
+    if (!overlay) return;
+    const height = scope.innerHeight || document.documentElement?.clientHeight || 0;
+    const header = document.querySelector(".app-header")?.getBoundingClientRect();
+    const dock = document.querySelector(".app-bottom-dock")?.getBoundingClientRect();
+    const top = Math.max(0, Math.min(height, header?.bottom || 0));
+    const bottom = dock?.height ? Math.max(0, Math.min(height - top, height - dock.top)) : 0;
+    overlay.style.setProperty("--caatuu-reward-top", `${top}px`);
+    overlay.style.setProperty("--caatuu-reward-bottom", `${bottom}px`);
+  }
+
+  function resumePresentation(state) {
+    if (current !== state || !state.claimed || document.visibilityState === "hidden") return;
+    syncPresentationBounds();
     state.overlay.hidden = false;
     state.overlay.classList.remove("is-paused");
     if (!state.shown) {
@@ -155,10 +165,10 @@ export function installGameDynamics({
       // Move focus only when the game currently owns it. Menus remain usable.
       if (state.content?.contains?.(state.previousFocus)) state.skip.focus?.();
     }
-    state.started = clock();
     state.targets.forEach(target => target.classList.remove("is-paused"));
-    state.animations.forEach(animation => { try { animation.play(); } catch { /* Optional visual effect. */ } });
-    state.timer = setTimer(() => finish(state), state.remaining);
+    state.animations.forEach(animation => {
+      try { if (animation.playState === "paused") animation.play(); } catch { /* Optional visual effect. */ }
+    });
   }
 
   function buildCelebration(state, receipt) {
@@ -225,7 +235,14 @@ export function installGameDynamics({
     state.overlay = overlay;
     state.skip = skip;
     state.reduced = reduced;
-    state.remaining = reduced ? REDUCED_MOTION_MS : CELEBRATION_MS;
+    if (typeof scope.ResizeObserver === "function") {
+      state.layoutObserver = new scope.ResizeObserver(syncPresentationBounds);
+      for (const selector of [".app-header", ".app-bottom-dock"]) {
+        const node = document.querySelector(selector);
+        if (node) state.layoutObserver.observe(node);
+      }
+    }
+    syncPresentationBounds();
   }
 
   function boundary(details = {}) {
@@ -241,7 +258,7 @@ export function installGameDynamics({
     const content = contentFor(details);
     const state = { content, receiptId: receipt.id, previousFocus: document.activeElement, wasInert: content?.hasAttribute("inert"),
       receipt, tokens: [], animations: new Set(), targets: new Set(), effectsTimers: [], reduced: false,
-      claimed: false, shown: false, timer: null, overlay: null, started: 0, remaining: 0, resolve: null, promise: null };
+      claimed: false, shown: false, overlay: null, layoutObserver: null, resolve: null, promise: null };
     state.promise = new Promise(resolve => { state.resolve = resolve; });
     current = state;
     content?.setAttribute("inert", "");
@@ -254,7 +271,7 @@ export function installGameDynamics({
       if (!claimed) { finish(state); return; }
       state.claimed = true;
       buildCelebration(state, receipt);
-      resumeClock(state);
+      resumePresentation(state);
     }).catch(() => finish(state));
     return state.promise;
   }
@@ -312,6 +329,9 @@ export function installGameDynamics({
     if (current) finish(current);
   });
   listen(scope, "pageshow", () => refresh());
+  listen(scope, "resize", syncPresentationBounds);
+  listen(scope, "scroll", syncPresentationBounds, true);
+  listen(scope.visualViewport, "resize", syncPresentationBounds);
   listen(scope, "storage", event => {
     if (event.storageArea && event.storageArea !== scope.localStorage) return;
     const practiceKey = learning?.storage?.practiceStorageKey;
@@ -329,23 +349,21 @@ export function installGameDynamics({
     const state = current;
     if (!state?.claimed) return;
     if (document.visibilityState === "hidden") {
-      clearTimer(state.timer);
-      if (state.timer !== null && state.shown) state.remaining = Math.max(0, state.remaining - (clock() - state.started));
-      state.timer = null;
       rewardSound.stop();
       state.targets.forEach(target => target.classList.add("is-paused"));
-      state.animations.forEach(animation => { try { animation.pause(); } catch { /* Optional visual effect. */ } });
+      state.animations.forEach(animation => {
+        try { if (animation.playState === "running") animation.pause(); } catch { /* Optional visual effect. */ }
+      });
       state.overlay.classList.add("is-paused");
-    } else resumeClock(state);
+    } else resumePresentation(state);
   });
   listen(document, "keydown", event => {
     if (!current?.shown || event.defaultPrevented) return;
     if (event.key === "Escape") {
+      const dialog = event.target?.closest?.('[role="dialog"]');
+      if (dialog && !current.overlay?.contains(dialog)) return;
       event.preventDefault();
       finish(current, true);
-    } else if (event.key === "Tab" && current.overlay?.contains(document.activeElement)) {
-      event.preventDefault();
-      current.skip.focus?.();
     }
   });
   refresh();

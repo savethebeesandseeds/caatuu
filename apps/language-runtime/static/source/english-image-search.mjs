@@ -1,10 +1,12 @@
 import { EnglishMiniLmRanker, validateEnglishEmbeddingPayload } from "./english-minilm-ranker.mjs";
 import { isChildFacingMacawActionAssetAllowed } from "./child-facing-assets.mjs";
-import { IMAGE_EMBEDDING_INDEX_URL, readImageEmbeddingIndex, rankIndexedImages } from "./image-embedding-index.mjs?v=image-index-runtime-1";
+import { IMAGE_EMBEDDING_INDEX_URL, readImageEmbeddingIndex, rankIndexedImages } from "./image-embedding-index.mjs?v=image-index-runtime-2";
 
 export const IMAGE_SOURCES = Object.freeze([
   { kind: "image_asset", path: "/assets/miscellaneous/keymap.json", prefix: "/assets/miscellaneous/", label: "developer.images.miscellaneous" },
-  { kind: "macaw_action_asset", path: "/assets/macaw/actions/keymaps.json", prefix: "/assets/macaw/actions/", label: "developer.images.actions" }
+  { kind: "macaw_action_asset", path: "/assets/macaw/actions/keymaps.json", prefix: "/assets/macaw/actions/", label: "developer.images.actions" },
+  { kind: "robot_asset", path: "/assets/robots/keymap.json", prefix: "/assets/robots/", label: "developer.images.robots" },
+  { kind: "ship_asset", path: "/assets/ships/meta.json", prefix: "/assets/ships/", label: "developer.images.ships" }
 ]);
 function safeAssetPath(value, source) {
   const candidate = String(value || "").trim();
@@ -27,10 +29,17 @@ export function normalizeImageCatalog(raw, sourceKind) {
     const action = String(metadata?.action || "");
     if (!safePath || !description
         || (sourceKind === "macaw_action_asset" && !isChildFacingMacawActionAssetAllowed(safePath, action))) return [];
+    const embeddingText = normalizeSharedEnglishText(description);
+    const heading = metadata?.orientation?.heading_degrees;
+    if (sourceKind === "ship_asset" && (!Number.isFinite(heading) || heading < 0 || heading >= 360)) {
+      throw new Error(`Invalid image heading: ${safePath}`);
+    }
     return [{
       conceptId: `shared-${sourceKind.replaceAll("_", "-")}-${index}`,
-      embeddingText: description.slice(0, 1024), description, path: safePath,
+      embeddingText, description, path: safePath,
       title: String(metadata?.title || action.replaceAll("_", " ") || metadata?.category || ""),
+      category: String(metadata?.category || ""), action,
+      ...(sourceKind === "ship_asset" ? { orientation: { heading_degrees: heading } } : {}),
       sourceKind, sourceCatalog: source.path, sourceLabel: source.label
     }];
   });
@@ -198,9 +207,19 @@ export function createEnglishImageSearch({
       }
       return scored;
     }
-    ranking.indexPromise ||= Promise.resolve().then(() => loadJson(IMAGE_EMBEDDING_INDEX_URL))
-      .then(readImageEmbeddingIndex).catch(error => { ranking.indexPromise = null; throw error; });
-    const index = await ranking.indexPromise;
+    // A live older consumer can retain a differently keyed parsed index. Keep
+    // its indexPromise intact while sharing the model, inference queue and text
+    // vectors. Each index revision owns its parser's result independently.
+    const indexesByUrl = ranking.indexesByUrl ||= new Map();
+    if (!indexesByUrl.has(IMAGE_EMBEDDING_INDEX_URL)) {
+      const pending = Promise.resolve().then(() => loadJson(IMAGE_EMBEDDING_INDEX_URL))
+        .then(readImageEmbeddingIndex).catch(error => {
+          if (indexesByUrl.get(IMAGE_EMBEDDING_INDEX_URL) === pending) indexesByUrl.delete(IMAGE_EMBEDDING_INDEX_URL);
+          throw error;
+        });
+      indexesByUrl.set(IMAGE_EMBEDDING_INDEX_URL, pending);
+    }
+    const index = await indexesByUrl.get(IMAGE_EMBEDDING_INDEX_URL);
     const key = textCacheKey(query);
     if (!ranking.queries.has(key)) {
       const vector = ranking.embedQuery ? await ranking.embedQuery(query) : (await ranking.engine.embedBatch([query]))[0];

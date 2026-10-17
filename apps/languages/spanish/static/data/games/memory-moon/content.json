@@ -1,0 +1,4232 @@
+{
+  "schemaVersion": "caatuu-memory-moon-content-v1",
+  "courseId": "es",
+  "gameId": "memory-moon",
+  "contentId": "es.memory-moon.v1",
+  "contentRevision": 1,
+  "status": "machine-assisted-preview",
+  "learnerBaseLanguage": "en",
+  "targetLanguage": "es-ES",
+  "englishAuditLanguage": "en",
+  "review": {
+    "status": "native-review-required",
+    "humanApproved": false,
+    "reviewer": "OpenAI Codex",
+    "reviewedAt": "2026-10-18",
+    "notes": "Original Memory Moon authoring with AI self-review. Independent native-language review remains required."
+  },
+  "license": {
+    "origin": "caatuu-first-party-authored",
+    "spdxExpression": "AGPL-3.0-only"
+  },
+  "embeddingPolicy": {
+    "inputLanguage": "en",
+    "inputField": "embeddingText"
+  },
+  "challenges": [
+    {
+      "id": "mm-es-scarf-on-hook",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 84,
+      "complexity": 17,
+      "topic": "home",
+      "familyId": "mm-es-home-location",
+      "targetText": "La bufanda está en el gancho.",
+      "learnerBaseText": "The scarf is on the hook.",
+      "englishText": "The scarf is on the hook.",
+      "embeddingText": "The scarf is on the hook.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "scarf",
+          "hook",
+          "on"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The scarf is on the hook.",
+          "englishAuditText": "The scarf is on the hook."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The scarf is under the hook.",
+          "englishAuditText": "The scarf is under the hook.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The location changes from on to under."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The scarf is beside the hook.",
+          "englishAuditText": "The scarf is beside the hook.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The location changes from on to beside."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-fox-sleeps-near-tent",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 66,
+      "complexity": 22,
+      "topic": "animals",
+      "familyId": "mm-es-animals-action",
+      "targetText": "El zorro duerme cerca de la tienda de campaña.",
+      "learnerBaseText": "The fox sleeps near the tent.",
+      "englishText": "The fox sleeps near the tent.",
+      "embeddingText": "The fox sleeps near the tent.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "fox",
+          "sleep",
+          "tent"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The fox sleeps near the tent.",
+          "englishAuditText": "The fox sleeps near the tent."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The fox runs near the tent.",
+          "englishAuditText": "The fox runs near the tent.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The action changes from sleeping to running."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The fox eats near the tent.",
+          "englishAuditText": "The fox eats near the tent.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The action changes from sleeping to eating."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-two-white-buttons",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 77,
+      "complexity": 18,
+      "topic": "clothing",
+      "familyId": "mm-es-clothing-number",
+      "targetText": "Hay dos botones blancos.",
+      "learnerBaseText": "There are two white buttons.",
+      "englishText": "There are two white buttons.",
+      "embeddingText": "There are two white buttons.",
+      "focus": {
+        "kind": "number",
+        "englishConcepts": [
+          "two",
+          "white buttons"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "There are two white buttons.",
+          "englishAuditText": "There are two white buttons."
+        },
+        {
+          "id": "contrast-1",
+          "text": "There are three white buttons.",
+          "englishAuditText": "There are three white buttons.",
+          "contrast": {
+            "kind": "number",
+            "explanation": "The number changes from two to three."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "There are four white buttons.",
+          "englishAuditText": "There are four white buttons.",
+          "contrast": {
+            "kind": "number",
+            "explanation": "The number changes from two to four."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-nurse-carries-tray",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 76,
+      "complexity": 19,
+      "topic": "people",
+      "familyId": "mm-es-people-subject",
+      "targetText": "La enfermera lleva la bandeja.",
+      "learnerBaseText": "The nurse carries the tray.",
+      "englishText": "The nurse carries the tray.",
+      "embeddingText": "The nurse carries the tray.",
+      "focus": {
+        "kind": "subject",
+        "englishConcepts": [
+          "nurse",
+          "carry",
+          "tray"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The nurse carries the tray.",
+          "englishAuditText": "The nurse carries the tray."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The baker carries the tray.",
+          "englishAuditText": "The baker carries the tray.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "The person carrying the tray changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The teacher carries the tray.",
+          "englishAuditText": "The teacher carries the tray.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "The person carrying the tray changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-pumpkin-soup-warm",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 89,
+      "complexity": 18,
+      "topic": "food",
+      "familyId": "mm-es-food-state",
+      "targetText": "La sopa de calabaza está templada.",
+      "learnerBaseText": "The pumpkin soup is warm.",
+      "englishText": "The pumpkin soup is warm.",
+      "embeddingText": "The pumpkin soup is warm.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "pumpkin soup",
+          "warm"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The pumpkin soup is warm.",
+          "englishAuditText": "The pumpkin soup is warm."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The pumpkin soup is cold.",
+          "englishAuditText": "The pumpkin soup is cold.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The temperature changes from warm to cold."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The pumpkin soup is frozen.",
+          "englishAuditText": "The pumpkin soup is frozen.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The soup is frozen rather than warm."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-lena-opens-drawer",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 88,
+      "complexity": 16,
+      "topic": "home",
+      "familyId": "mm-es-home-action",
+      "targetText": "Lena abre el cajón.",
+      "learnerBaseText": "Lena opens the drawer.",
+      "englishText": "Lena opens the drawer.",
+      "embeddingText": "Lena opens the drawer.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "Lena",
+          "open",
+          "drawer"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Lena opens the drawer.",
+          "englishAuditText": "Lena opens the drawer."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Lena closes the drawer.",
+          "englishAuditText": "Lena closes the drawer.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The action changes from opening to closing."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Lena cleans the drawer.",
+          "englishAuditText": "Lena cleans the drawer.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The action changes from opening to cleaning."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-small-bell-quiet",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 70,
+      "complexity": 21,
+      "topic": "sounds",
+      "familyId": "mm-es-sounds-state",
+      "targetText": "La campanilla es silenciosa.",
+      "learnerBaseText": "The small bell is quiet.",
+      "englishText": "The small bell is quiet.",
+      "embeddingText": "The small bell is quiet.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "small bell",
+          "quiet"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The small bell is quiet.",
+          "englishAuditText": "The small bell is quiet."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The small bell is loud.",
+          "englishAuditText": "The small bell is loud.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The sound changes from quiet to loud."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The small bell is broken.",
+          "englishAuditText": "The small bell is broken.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "A quiet bell is described as broken instead."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-train-leaves-noon",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 92,
+      "complexity": 23,
+      "topic": "travel",
+      "familyId": "mm-es-travel-time",
+      "targetText": "El tren sale al mediodía.",
+      "learnerBaseText": "The train leaves at noon.",
+      "englishText": "The train leaves at noon.",
+      "embeddingText": "The train leaves at noon.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "train departure",
+          "noon"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The train leaves at noon.",
+          "englishAuditText": "The train leaves at noon."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The train leaves at midnight.",
+          "englishAuditText": "The train leaves at midnight.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The departure changes from noon to midnight."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The train leaves at dawn.",
+          "englishAuditText": "The train leaves at dawn.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The departure changes from noon to dawn."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-umbrella-belongs-omar",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 86,
+      "complexity": 22,
+      "topic": "possessions",
+      "familyId": "mm-es-possessions-possession",
+      "targetText": "Este paraguas es de Omar.",
+      "learnerBaseText": "This umbrella belongs to Omar.",
+      "englishText": "This umbrella belongs to Omar.",
+      "embeddingText": "This umbrella belongs to Omar.",
+      "focus": {
+        "kind": "possession",
+        "englishConcepts": [
+          "umbrella",
+          "belong",
+          "Omar"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This umbrella belongs to Omar.",
+          "englishAuditText": "This umbrella belongs to Omar."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This umbrella belongs to Lena.",
+          "englishAuditText": "This umbrella belongs to Lena.",
+          "contrast": {
+            "kind": "possession",
+            "explanation": "The owner changes from Omar to Lena."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This umbrella belongs to Nora.",
+          "englishAuditText": "This umbrella belongs to Nora.",
+          "contrast": {
+            "kind": "possession",
+            "explanation": "The owner changes from Omar to Nora."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-apples-in-basket",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 83,
+      "complexity": 21,
+      "topic": "food",
+      "familyId": "mm-es-food-location",
+      "targetText": "Las manzanas están en la cesta.",
+      "learnerBaseText": "The apples are in the basket.",
+      "englishText": "The apples are in the basket.",
+      "embeddingText": "The apples are in the basket.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "apples",
+          "basket",
+          "inside"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The apples are in the basket.",
+          "englishAuditText": "The apples are in the basket."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The apples are behind the basket.",
+          "englishAuditText": "The apples are behind the basket.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The apples are behind rather than inside."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The apples are beside the basket.",
+          "englishAuditText": "The apples are beside the basket.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The apples are beside rather than inside."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-grandma-waters-mint",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 75,
+      "complexity": 20,
+      "topic": "garden",
+      "familyId": "mm-es-garden-action",
+      "targetText": "La abuela riega la menta.",
+      "learnerBaseText": "Grandma waters the mint.",
+      "englishText": "Grandma waters the mint.",
+      "embeddingText": "Grandma waters the mint.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "grandma",
+          "water",
+          "mint"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Grandma waters the mint.",
+          "englishAuditText": "Grandma waters the mint."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Grandma picks the mint.",
+          "englishAuditText": "Grandma picks the mint.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The action changes from watering to picking."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Grandma plants the mint.",
+          "englishAuditText": "Grandma plants the mint.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The action changes from watering to planting."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-puppy-behind-fence",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 71,
+      "complexity": 22,
+      "topic": "animals",
+      "familyId": "mm-es-animals-location",
+      "targetText": "El cachorro está detrás de la valla.",
+      "learnerBaseText": "The puppy is behind the fence.",
+      "englishText": "The puppy is behind the fence.",
+      "embeddingText": "The puppy is behind the fence.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "puppy",
+          "fence",
+          "behind"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The puppy is behind the fence.",
+          "englishAuditText": "The puppy is behind the fence."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The puppy is beside the fence.",
+          "englishAuditText": "The puppy is beside the fence.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The position changes from behind to beside."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The puppy is in front of the fence.",
+          "englishAuditText": "The puppy is in front of the fence.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The position changes from behind to in front."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-red-cup-empty",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 88,
+      "complexity": 18,
+      "topic": "home",
+      "familyId": "mm-es-home-state",
+      "targetText": "La taza roja está vacía.",
+      "learnerBaseText": "The red cup is empty.",
+      "englishText": "The red cup is empty.",
+      "embeddingText": "The red cup is empty.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "red cup",
+          "empty"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The red cup is empty.",
+          "englishAuditText": "The red cup is empty."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The red cup is full.",
+          "englishAuditText": "The red cup is full.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The cup is full rather than empty."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The red cup is half full.",
+          "englishAuditText": "The red cup is half full.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "Half full differs from completely empty."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-need-three-eggs",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 92,
+      "complexity": 18,
+      "topic": "cooking",
+      "familyId": "mm-es-cooking-quantity",
+      "targetText": "Necesitamos tres huevos.",
+      "learnerBaseText": "We need three eggs.",
+      "englishText": "We need three eggs.",
+      "embeddingText": "We need three eggs.",
+      "focus": {
+        "kind": "quantity",
+        "englishConcepts": [
+          "need",
+          "three eggs"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "We need three eggs.",
+          "englishAuditText": "We need three eggs."
+        },
+        {
+          "id": "contrast-1",
+          "text": "We need two eggs.",
+          "englishAuditText": "We need two eggs.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "The required quantity changes from three to two."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "We need six eggs.",
+          "englishAuditText": "We need six eggs.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "The required quantity changes from three to six."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-snail-moves-slowly",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 70,
+      "complexity": 20,
+      "topic": "animals",
+      "familyId": "mm-es-animals-manner",
+      "targetText": "El caracol se mueve despacio.",
+      "learnerBaseText": "The snail moves slowly.",
+      "englishText": "The snail moves slowly.",
+      "embeddingText": "The snail moves slowly.",
+      "focus": {
+        "kind": "manner",
+        "englishConcepts": [
+          "snail",
+          "move",
+          "slowly"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The snail moves slowly.",
+          "englishAuditText": "The snail moves slowly."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The snail moves quickly.",
+          "englishAuditText": "The snail moves quickly.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "The speed changes from slowly to quickly."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The snail moves backwards.",
+          "englishAuditText": "The snail moves backwards.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "Backward movement replaces the stated slow manner."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-maya-drinks-lemonade",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 88,
+      "complexity": 17,
+      "topic": "food",
+      "familyId": "mm-es-food-object",
+      "targetText": "Maya bebe limonada.",
+      "learnerBaseText": "Maya drinks lemonade.",
+      "englishText": "Maya drinks lemonade.",
+      "embeddingText": "Maya drinks lemonade.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "Maya",
+          "drink",
+          "lemonade"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Maya drinks lemonade.",
+          "englishAuditText": "Maya drinks lemonade."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Maya drinks milk.",
+          "englishAuditText": "Maya drinks milk.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The drink changes from lemonade to milk."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Maya drinks tea.",
+          "englishAuditText": "Maya drinks tea.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The drink changes from lemonade to tea."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-desk-bigger-than-stool",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 78,
+      "complexity": 28,
+      "topic": "home",
+      "familyId": "mm-es-home-comparison",
+      "targetText": "El escritorio es más grande que el taburete.",
+      "learnerBaseText": "The desk is bigger than the stool.",
+      "englishText": "The desk is bigger than the stool.",
+      "embeddingText": "The desk is bigger than the stool.",
+      "focus": {
+        "kind": "comparison",
+        "englishConcepts": [
+          "desk",
+          "stool",
+          "bigger"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The desk is bigger than the stool.",
+          "englishAuditText": "The desk is bigger than the stool."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The desk is smaller than the stool.",
+          "englishAuditText": "The desk is smaller than the stool.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "The size comparison is reversed."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The desk is as big as the stool.",
+          "englishAuditText": "The desk is as big as the stool.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "Equal size replaces greater size."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-child-wears-mittens",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 83,
+      "complexity": 20,
+      "topic": "clothing",
+      "familyId": "mm-es-clothing-object",
+      "targetText": "El niño lleva manoplas.",
+      "learnerBaseText": "The child wears mittens.",
+      "englishText": "The child wears mittens.",
+      "embeddingText": "The child wears mittens.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "child",
+          "wear",
+          "mittens"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The child wears mittens.",
+          "englishAuditText": "The child wears mittens."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The child wears boots.",
+          "englishAuditText": "The child wears boots.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The clothing changes from mittens to boots."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The child wears socks.",
+          "englishAuditText": "The child wears socks.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The clothing changes from mittens to socks."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-baker-brings-rolls",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 79,
+      "complexity": 20,
+      "topic": "work",
+      "familyId": "mm-es-work-action",
+      "targetText": "El panadero trae los panecillos.",
+      "learnerBaseText": "The baker brings the rolls.",
+      "englishText": "The baker brings the rolls.",
+      "embeddingText": "The baker brings the rolls.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "baker",
+          "bring",
+          "bread rolls"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The baker brings the rolls.",
+          "englishAuditText": "The baker brings the rolls."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The baker eats the rolls.",
+          "englishAuditText": "The baker eats the rolls.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The action changes from bringing to eating."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The baker counts the rolls.",
+          "englishAuditText": "The baker counts the rolls.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The action changes from bringing to counting."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-park-not-open",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 90,
+      "complexity": 18,
+      "topic": "places",
+      "familyId": "mm-es-places-polarity",
+      "targetText": "El parque no está abierto.",
+      "learnerBaseText": "The park is not open.",
+      "englishText": "The park is not open.",
+      "embeddingText": "The park is not open.",
+      "focus": {
+        "kind": "polarity",
+        "englishConcepts": [
+          "park",
+          "not open"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The park is not open.",
+          "englishAuditText": "The park is not open."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The park is open.",
+          "englishAuditText": "The park is open.",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "Negation is removed."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The park is always open.",
+          "englishAuditText": "The park is always open.",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "Always open contradicts the negative statement."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-bus-near-bridge",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 91,
+      "complexity": 23,
+      "topic": "travel",
+      "familyId": "mm-es-travel-location",
+      "targetText": "El autobús está cerca del puente.",
+      "learnerBaseText": "The bus is near the bridge.",
+      "englishText": "The bus is near the bridge.",
+      "embeddingText": "The bus is near the bridge.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "bus",
+          "near bridge"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The bus is near the bridge.",
+          "englishAuditText": "The bus is near the bridge."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The bus is on the bridge.",
+          "englishAuditText": "The bus is on the bridge.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "On the bridge differs from near it."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The bus is under the bridge.",
+          "englishAuditText": "The bus is under the bridge.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "Under the bridge differs from near it."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-chess-on-friday",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 78,
+      "complexity": 23,
+      "topic": "play",
+      "familyId": "mm-es-play-time",
+      "targetText": "Jugamos al ajedrez el viernes.",
+      "learnerBaseText": "We play chess on Friday.",
+      "englishText": "We play chess on Friday.",
+      "embeddingText": "We play chess on Friday.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "play chess",
+          "Friday"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "We play chess on Friday.",
+          "englishAuditText": "We play chess on Friday."
+        },
+        {
+          "id": "contrast-1",
+          "text": "We play chess on Thursday.",
+          "englishAuditText": "We play chess on Thursday.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The day changes from Friday to Thursday."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "We play chess on Saturday.",
+          "englishAuditText": "We play chess on Saturday.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The day changes from Friday to Saturday."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-paint-stars-silver",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 69,
+      "complexity": 22,
+      "topic": "art",
+      "familyId": "mm-es-art-object",
+      "targetText": "Pinta las estrellas de color plateado.",
+      "learnerBaseText": "Paint the stars silver.",
+      "englishText": "Paint the stars silver.",
+      "embeddingText": "Paint the stars silver.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "paint",
+          "stars",
+          "silver"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Paint the stars silver.",
+          "englishAuditText": "Paint the stars silver."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Paint the stars gold.",
+          "englishAuditText": "Paint the stars gold.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The requested paint color changes to gold."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Paint the stars blue.",
+          "englishAuditText": "Paint the stars blue.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The requested paint color changes to blue."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-glass-bottle-heavy",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 83,
+      "complexity": 21,
+      "topic": "objects",
+      "familyId": "mm-es-objects-state",
+      "targetText": "La botella de cristal es pesada.",
+      "learnerBaseText": "The glass bottle is heavy.",
+      "englishText": "The glass bottle is heavy.",
+      "embeddingText": "The glass bottle is heavy.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "glass bottle",
+          "heavy"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The glass bottle is heavy.",
+          "englishAuditText": "The glass bottle is heavy."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The glass bottle is light.",
+          "englishAuditText": "The glass bottle is light.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The weight changes from heavy to light."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The glass bottle is fragile.",
+          "englishAuditText": "The glass bottle is fragile.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "Fragility is a different property from weight."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-fox-long-tail",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 67,
+      "complexity": 20,
+      "topic": "animals",
+      "familyId": "mm-es-animals-state",
+      "targetText": "El zorro tiene una cola larga.",
+      "learnerBaseText": "The fox has a long tail.",
+      "englishText": "The fox has a long tail.",
+      "embeddingText": "The fox has a long tail.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "fox",
+          "long tail"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The fox has a long tail.",
+          "englishAuditText": "The fox has a long tail."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The fox has a short tail.",
+          "englishAuditText": "The fox has a short tail.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The tail length changes from long to short."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The fox has a crooked tail.",
+          "englishAuditText": "The fox has a crooked tail.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "Tail shape replaces the stated tail length."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-rabbit-under-cart",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 69,
+      "complexity": 22,
+      "topic": "animals",
+      "familyId": "mm-es-animals-location",
+      "targetText": "El conejo está debajo del carro.",
+      "learnerBaseText": "The rabbit is under the cart.",
+      "englishText": "The rabbit is under the cart.",
+      "embeddingText": "The rabbit is under the cart.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "rabbit",
+          "under cart"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The rabbit is under the cart.",
+          "englishAuditText": "The rabbit is under the cart."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The rabbit is inside the cart.",
+          "englishAuditText": "The rabbit is inside the cart.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "Inside the cart differs from underneath."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The rabbit is behind the cart.",
+          "englishAuditText": "The rabbit is behind the cart.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "Behind the cart differs from underneath."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-lend-green-pencil",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 93,
+      "complexity": 22,
+      "topic": "school",
+      "familyId": "mm-es-school-object",
+      "targetText": "Préstame el lápiz verde.",
+      "learnerBaseText": "Lend me the green pencil.",
+      "englishText": "Lend me the green pencil.",
+      "embeddingText": "Lend me the green pencil.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "lend",
+          "green pencil"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Lend me the green pencil.",
+          "englishAuditText": "Lend me the green pencil."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Lend me the red pencil.",
+          "englishAuditText": "Lend me the red pencil.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The requested pencil color changes to red."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Lend me the black pencil.",
+          "englishAuditText": "Lend me the black pencil.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The requested pencil color changes to black."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-one-candle-burning",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 72,
+      "complexity": 18,
+      "topic": "home",
+      "familyId": "mm-es-home-number",
+      "targetText": "Hay una vela encendida.",
+      "learnerBaseText": "One candle is burning.",
+      "englishText": "One candle is burning.",
+      "embeddingText": "One candle is burning.",
+      "focus": {
+        "kind": "number",
+        "englishConcepts": [
+          "one candle",
+          "burning"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "One candle is burning.",
+          "englishAuditText": "One candle is burning."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Two candles are burning.",
+          "englishAuditText": "Two candles are burning.",
+          "contrast": {
+            "kind": "number",
+            "explanation": "The number of burning candles changes to two."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Three candles are burning.",
+          "englishAuditText": "Three candles are burning.",
+          "contrast": {
+            "kind": "number",
+            "explanation": "The number of burning candles changes to three."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-can-hear-owl",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 76,
+      "complexity": 22,
+      "topic": "nature",
+      "familyId": "mm-es-nature-polarity",
+      "targetText": "Puedo oír al búho.",
+      "learnerBaseText": "I can hear the owl.",
+      "englishText": "I can hear the owl.",
+      "embeddingText": "I can hear the owl.",
+      "focus": {
+        "kind": "polarity",
+        "englishConcepts": [
+          "hear",
+          "owl",
+          "can"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I can hear the owl.",
+          "englishAuditText": "I can hear the owl."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I cannot hear the owl.",
+          "englishAuditText": "I cannot hear the owl.",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "The ability to hear is negated."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I can no longer hear the owl.",
+          "englishAuditText": "I can no longer hear the owl.",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "Hearing has ceased rather than being possible now."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-gardener-picks-pears",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 73,
+      "complexity": 21,
+      "topic": "garden",
+      "familyId": "mm-es-garden-object",
+      "targetText": "El jardinero recoge peras.",
+      "learnerBaseText": "The gardener picks pears.",
+      "englishText": "The gardener picks pears.",
+      "embeddingText": "The gardener picks pears.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "gardener",
+          "pick",
+          "pears"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The gardener picks pears.",
+          "englishAuditText": "The gardener picks pears."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The gardener picks apples.",
+          "englishAuditText": "The gardener picks apples.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The harvested fruit changes from pears to apples."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The gardener picks plums.",
+          "englishAuditText": "The gardener picks plums.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The harvested fruit changes from pears to plums."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-fish-before-breakfast",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 88,
+      "complexity": 40,
+      "topic": "routine",
+      "familyId": "mm-es-routine-sequence",
+      "targetText": "Antes de desayunar, Lena da de comer a los peces.",
+      "learnerBaseText": "Before breakfast, Lena feeds the fish.",
+      "englishText": "Before breakfast, Lena feeds the fish.",
+      "embeddingText": "Before breakfast, Lena feeds the fish.",
+      "focus": {
+        "kind": "sequence",
+        "englishConcepts": [
+          "feed fish",
+          "before breakfast"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Before breakfast, Lena feeds the fish.",
+          "englishAuditText": "Before breakfast, Lena feeds the fish."
+        },
+        {
+          "id": "contrast-1",
+          "text": "After breakfast, Lena feeds the fish.",
+          "englishAuditText": "After breakfast, Lena feeds the fish.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "Feeding moves from before breakfast to after it."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "During breakfast, Lena feeds the fish.",
+          "englishAuditText": "During breakfast, Lena feeds the fish.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "Feeding happens during breakfast rather than before it."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-jacket-wet-reason",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 84,
+      "complexity": 43,
+      "topic": "home",
+      "familyId": "mm-es-home-reason",
+      "targetText": "La chaqueta se queda en la silla porque está mojada.",
+      "learnerBaseText": "The jacket stays on the chair because it is wet.",
+      "englishText": "The jacket stays on the chair because it is wet.",
+      "embeddingText": "The jacket stays on the chair because it is wet.",
+      "focus": {
+        "kind": "reason",
+        "englishConcepts": [
+          "jacket",
+          "chair",
+          "wet"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The jacket stays on the chair because it is wet.",
+          "englishAuditText": "The jacket stays on the chair because it is wet."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The jacket stays on the chair because it is dirty.",
+          "englishAuditText": "The jacket stays on the chair because it is dirty.",
+          "contrast": {
+            "kind": "reason",
+            "explanation": "Dirt replaces wetness as the stated reason."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The jacket stays on the chair because it is torn.",
+          "englishAuditText": "The jacket stays on the chair because it is torn.",
+          "contrast": {
+            "kind": "reason",
+            "explanation": "A tear replaces wetness as the stated reason."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-ticket-valid-through-sunday",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 93,
+      "complexity": 52,
+      "topic": "travel",
+      "familyId": "mm-es-travel-time",
+      "targetText": "Este billete es válido hasta el domingo incluido.",
+      "learnerBaseText": "This ticket is valid up to and including Sunday.",
+      "englishText": "This ticket is valid up to and including Sunday.",
+      "embeddingText": "This ticket is valid up to and including Sunday.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "ticket validity",
+          "Sunday included"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This ticket is valid up to and including Sunday.",
+          "englishAuditText": "This ticket is valid up to and including Sunday."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This ticket is valid up to and including Monday.",
+          "englishAuditText": "This ticket is valid up to and including Monday.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The final valid day changes from Sunday to Monday."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This ticket is valid up to and including Saturday.",
+          "englishAuditText": "This ticket is valid up to and including Saturday.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The final valid day changes from Sunday to Saturday."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-lunch-bag-keeps-warm",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 89,
+      "complexity": 49,
+      "topic": "food",
+      "familyId": "mm-es-food-purpose",
+      "targetText": "Metemos la comida en la bolsa para mantenerla caliente.",
+      "learnerBaseText": "We put lunch in the bag to keep it warm.",
+      "englishText": "We put lunch in the bag to keep it warm.",
+      "embeddingText": "We put lunch in the bag to keep it warm.",
+      "focus": {
+        "kind": "purpose",
+        "englishConcepts": [
+          "lunch",
+          "bag",
+          "keep warm"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "We put lunch in the bag to keep it warm.",
+          "englishAuditText": "We put lunch in the bag to keep it warm."
+        },
+        {
+          "id": "contrast-1",
+          "text": "We put lunch in the bag to keep it cold.",
+          "englishAuditText": "We put lunch in the bag to keep it cold.",
+          "contrast": {
+            "kind": "purpose",
+            "explanation": "Cooling replaces keeping the meal warm."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "We put lunch in the bag to hide it.",
+          "englishAuditText": "We put lunch in the bag to hide it.",
+          "contrast": {
+            "kind": "purpose",
+            "explanation": "Hiding replaces temperature preservation as the purpose."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-shop-brown-rice",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 91,
+      "complexity": 45,
+      "topic": "shopping",
+      "familyId": "mm-es-shopping-object",
+      "targetText": "Si la tienda tiene arroz integral, compraremos una bolsa.",
+      "learnerBaseText": "If the shop has brown rice, we will buy a bag.",
+      "englishText": "If the shop has brown rice, we will buy a bag.",
+      "embeddingText": "If the shop has brown rice, we will buy a bag.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "shop",
+          "brown rice",
+          "conditional purchase"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "If the shop has brown rice, we will buy a bag.",
+          "englishAuditText": "If the shop has brown rice, we will buy a bag."
+        },
+        {
+          "id": "contrast-1",
+          "text": "If the shop has white rice, we will buy a bag.",
+          "englishAuditText": "If the shop has white rice, we will buy a bag.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The rice variety changes from brown to white."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "If the shop has red rice, we will buy a bag.",
+          "englishAuditText": "If the shop has red rice, we will buy a bag.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The rice variety changes from brown to red."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-bus-left-before-arrival",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 94,
+      "complexity": 50,
+      "topic": "travel",
+      "familyId": "mm-es-travel-sequence",
+      "targetText": "El autobús salió antes de que llegáramos a la parada.",
+      "learnerBaseText": "The bus left before we reached the stop.",
+      "englishText": "The bus left before we reached the stop.",
+      "embeddingText": "The bus left before we reached the stop.",
+      "focus": {
+        "kind": "sequence",
+        "englishConcepts": [
+          "bus departure",
+          "arrival at stop",
+          "before"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The bus left before we reached the stop.",
+          "englishAuditText": "The bus left before we reached the stop."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The bus left after we reached the stop.",
+          "englishAuditText": "The bus left after we reached the stop.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "The departure moves from before arrival to after it."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The bus left when we reached the stop.",
+          "englishAuditText": "The bus left when we reached the stop.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "The two events become simultaneous rather than ordered."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-uncle-forgot-umbrella-office",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 91,
+      "complexity": 47,
+      "topic": "work",
+      "familyId": "mm-es-work-location",
+      "targetText": "Mi tío se dejó el paraguas en la oficina.",
+      "learnerBaseText": "My uncle left his umbrella at the office.",
+      "englishText": "My uncle left his umbrella at the office.",
+      "embeddingText": "My uncle left his umbrella at the office.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "uncle",
+          "forgot umbrella",
+          "office"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "My uncle left his umbrella at the office.",
+          "englishAuditText": "My uncle left his umbrella at the office."
+        },
+        {
+          "id": "contrast-1",
+          "text": "My uncle left his umbrella at the station.",
+          "englishAuditText": "My uncle left his umbrella at the station.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The forgotten umbrella is at a different place."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "My uncle left his umbrella at the bakery.",
+          "englishAuditText": "My uncle left his umbrella at the bakery.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The forgotten umbrella is at a different place."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-picnic-needs-two-bottles",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 87,
+      "complexity": 45,
+      "topic": "outdoors",
+      "familyId": "mm-es-outdoors-quantity",
+      "targetText": "Dos botellas de agua bastan para nuestro pícnic.",
+      "learnerBaseText": "Two bottles of water are enough for our picnic.",
+      "englishText": "Two bottles of water are enough for our picnic.",
+      "embeddingText": "Two bottles of water are enough for our picnic.",
+      "focus": {
+        "kind": "quantity",
+        "englishConcepts": [
+          "picnic",
+          "two bottles",
+          "enough"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Two bottles of water are enough for our picnic.",
+          "englishAuditText": "Two bottles of water are enough for our picnic."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Three bottles of water are enough for our picnic.",
+          "englishAuditText": "Three bottles of water are enough for our picnic.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "The stated sufficient quantity changes from two to three."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Four bottles of water are enough for our picnic.",
+          "englishAuditText": "Four bottles of water are enough for our picnic.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "The stated sufficient quantity changes from two to four."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-boots-because-mud",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 48,
+      "topic": "outdoors",
+      "familyId": "mm-es-outdoors-reason",
+      "targetText": "Trae las botas porque el camino está embarrado.",
+      "learnerBaseText": "Bring your boots because the path is muddy.",
+      "englishText": "Bring your boots because the path is muddy.",
+      "embeddingText": "Bring your boots because the path is muddy.",
+      "focus": {
+        "kind": "reason",
+        "englishConcepts": [
+          "boots",
+          "muddy path"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Bring your boots because the path is muddy.",
+          "englishAuditText": "Bring your boots because the path is muddy."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Bring your boots because the path is icy.",
+          "englishAuditText": "Bring your boots because the path is icy.",
+          "contrast": {
+            "kind": "reason",
+            "explanation": "Ice replaces mud as the reason for boots."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Bring your boots because the path is flooded.",
+          "englishAuditText": "Bring your boots because the path is flooded.",
+          "contrast": {
+            "kind": "reason",
+            "explanation": "Flooding replaces mud as the reason for boots."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-nora-prefers-mint-tea",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 89,
+      "complexity": 42,
+      "topic": "food",
+      "familyId": "mm-es-food-object",
+      "targetText": "Nora quiere té de menta, no café.",
+      "learnerBaseText": "Nora wants mint tea, not coffee.",
+      "englishText": "Nora wants mint tea, not coffee.",
+      "embeddingText": "Nora wants mint tea, not coffee.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "Nora",
+          "mint tea",
+          "not coffee"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Nora wants mint tea, not coffee.",
+          "englishAuditText": "Nora wants mint tea, not coffee."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Nora wants lemon tea, not coffee.",
+          "englishAuditText": "Nora wants lemon tea, not coffee.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The requested tea changes from mint to lemon."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Nora wants ginger tea, not coffee.",
+          "englishAuditText": "Nora wants ginger tea, not coffee.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The requested tea changes from mint to ginger."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-set-table-while-soup-cooks",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 83,
+      "complexity": 48,
+      "topic": "home",
+      "familyId": "mm-es-home-action",
+      "targetText": "Mientras papá prepara la sopa, ponemos la mesa.",
+      "learnerBaseText": "While Dad cooks the soup, we set the table.",
+      "englishText": "While Dad cooks the soup, we set the table.",
+      "embeddingText": "While Dad cooks the soup, we set the table.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "dad cooks soup",
+          "set table",
+          "while"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "While Dad cooks the soup, we set the table.",
+          "englishAuditText": "While Dad cooks the soup, we set the table."
+        },
+        {
+          "id": "contrast-1",
+          "text": "While Dad cooks the soup, we clear the table.",
+          "englishAuditText": "While Dad cooks the soup, we clear the table.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "Clearing replaces setting the table."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "While Dad cooks the soup, we wipe the table.",
+          "englishAuditText": "While Dad cooks the soup, we wipe the table.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "Wiping replaces setting the table."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-walk-instead-of-bus",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 92,
+      "complexity": 49,
+      "topic": "travel",
+      "familyId": "mm-es-travel-manner",
+      "targetText": "Iremos andando a la estación en vez de coger el autobús.",
+      "learnerBaseText": "We will walk to the station instead of taking the bus.",
+      "englishText": "We will walk to the station instead of taking the bus.",
+      "embeddingText": "We will walk to the station instead of taking the bus.",
+      "focus": {
+        "kind": "manner",
+        "englishConcepts": [
+          "station",
+          "walk",
+          "instead of bus"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "We will walk to the station instead of taking the bus.",
+          "englishAuditText": "We will walk to the station instead of taking the bus."
+        },
+        {
+          "id": "contrast-1",
+          "text": "We will cycle to the station instead of taking the bus.",
+          "englishAuditText": "We will cycle to the station instead of taking the bus.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "Cycling replaces walking as the chosen transport."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "We will drive to the station instead of taking the bus.",
+          "englishAuditText": "We will drive to the station instead of taking the bus.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "Driving replaces walking as the chosen transport."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-librarian-asks-lower-voice",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 91,
+      "complexity": 51,
+      "topic": "places",
+      "familyId": "mm-es-places-manner",
+      "targetText": "La bibliotecaria nos pide que hablemos más bajo.",
+      "learnerBaseText": "The librarian asks us to speak more quietly.",
+      "englishText": "The librarian asks us to speak more quietly.",
+      "embeddingText": "The librarian asks us to speak more quietly.",
+      "focus": {
+        "kind": "manner",
+        "englishConcepts": [
+          "librarian",
+          "speak quietly"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The librarian asks us to speak more quietly.",
+          "englishAuditText": "The librarian asks us to speak more quietly."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The librarian asks us to speak more loudly.",
+          "englishAuditText": "The librarian asks us to speak more loudly.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "The requested volume is increased rather than reduced."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The librarian asks us to speak more slowly.",
+          "englishAuditText": "The librarian asks us to speak more slowly.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "Speech speed replaces speech volume as the request."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-six-rolls-double-cost",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 83,
+      "complexity": 55,
+      "topic": "shopping",
+      "familyId": "mm-es-shopping-comparison",
+      "targetText": "Seis panecillos cuestan el doble que tres panecillos.",
+      "learnerBaseText": "Six rolls cost twice as much as three rolls.",
+      "englishText": "Six rolls cost twice as much as three rolls.",
+      "embeddingText": "Six rolls cost twice as much as three rolls.",
+      "focus": {
+        "kind": "comparison",
+        "englishConcepts": [
+          "six rolls",
+          "twice price",
+          "three rolls"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Six rolls cost twice as much as three rolls.",
+          "englishAuditText": "Six rolls cost twice as much as three rolls."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Six rolls cost half as much as three rolls.",
+          "englishAuditText": "Six rolls cost half as much as three rolls.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "Half the price replaces twice the price."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Six rolls cost the same as three rolls.",
+          "englishAuditText": "Six rolls cost the same as three rolls.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "Equal prices replace the stated double price."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-save-last-piece-sister",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 84,
+      "complexity": 44,
+      "topic": "people",
+      "familyId": "mm-es-people-possession",
+      "targetText": "Por favor, guarda el último trozo para mi hermana.",
+      "learnerBaseText": "Please save the last piece for my sister.",
+      "englishText": "Please save the last piece for my sister.",
+      "embeddingText": "Please save the last piece for my sister.",
+      "focus": {
+        "kind": "possession",
+        "englishConcepts": [
+          "last piece",
+          "save for sister"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Please save the last piece for my sister.",
+          "englishAuditText": "Please save the last piece for my sister."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Please save the last piece for my brother.",
+          "englishAuditText": "Please save the last piece for my brother.",
+          "contrast": {
+            "kind": "possession",
+            "explanation": "The intended recipient changes from sister to brother."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Please save the last piece for my cousin.",
+          "englishAuditText": "Please save the last piece for my cousin.",
+          "contrast": {
+            "kind": "possession",
+            "explanation": "The intended recipient changes from sister to cousin."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-rain-stopped-open-window",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 86,
+      "complexity": 55,
+      "topic": "weather",
+      "familyId": "mm-es-weather-reason",
+      "targetText": "Abrimos la ventana porque había dejado de llover.",
+      "learnerBaseText": "We opened the window because the rain had stopped.",
+      "englishText": "We opened the window because the rain had stopped.",
+      "embeddingText": "We opened the window because the rain had stopped.",
+      "focus": {
+        "kind": "reason",
+        "englishConcepts": [
+          "rain stopped",
+          "open window"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "We opened the window because the rain had stopped.",
+          "englishAuditText": "We opened the window because the rain had stopped."
+        },
+        {
+          "id": "contrast-1",
+          "text": "We opened the window because the rain had started.",
+          "englishAuditText": "We opened the window because the rain had started.",
+          "contrast": {
+            "kind": "reason",
+            "explanation": "Rain starting replaces rain stopping as the reason."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "We opened the window because the rain had become heavier.",
+          "englishAuditText": "We opened the window because the rain had become heavier.",
+          "contrast": {
+            "kind": "reason",
+            "explanation": "Heavier rain replaces rain stopping as the reason."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-roof-dry-garden-wet",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 78,
+      "complexity": 50,
+      "topic": "weather",
+      "familyId": "mm-es-weather-state",
+      "targetText": "Después del chubasco, el tejado está seco y el jardín sigue mojado.",
+      "learnerBaseText": "After the shower, the roof is dry and the garden is still wet.",
+      "englishText": "After the shower, the roof is dry and the garden is still wet.",
+      "embeddingText": "After the shower, the roof is dry and the garden is still wet.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "after shower",
+          "roof dry",
+          "garden wet"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "After the shower, the roof is dry and the garden is still wet.",
+          "englishAuditText": "After the shower, the roof is dry and the garden is still wet."
+        },
+        {
+          "id": "contrast-1",
+          "text": "After the shower, the roof is wet and the garden is still wet.",
+          "englishAuditText": "After the shower, the roof is wet and the garden is still wet.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "Only the roof changes from dry to wet."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "After the shower, the roof is icy and the garden is still wet.",
+          "englishAuditText": "After the shower, the roof is icy and the garden is still wet.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "Only the roof changes from dry to icy."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-museum-after-lunch",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 85,
+      "complexity": 47,
+      "topic": "places",
+      "familyId": "mm-es-places-time",
+      "targetText": "Mañana visitaremos el museo después de comer.",
+      "learnerBaseText": "We are visiting the museum after lunch tomorrow.",
+      "englishText": "We are visiting the museum after lunch tomorrow.",
+      "embeddingText": "We are visiting the museum after lunch tomorrow.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "visit museum",
+          "after lunch"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "We are visiting the museum after lunch tomorrow.",
+          "englishAuditText": "We are visiting the museum after lunch tomorrow."
+        },
+        {
+          "id": "contrast-1",
+          "text": "We are visiting the museum before lunch tomorrow.",
+          "englishAuditText": "We are visiting the museum before lunch tomorrow.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The visit moves from after lunch to before lunch."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "We are visiting the museum during lunch tomorrow.",
+          "englishAuditText": "We are visiting the museum during lunch tomorrow.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The visit moves to lunchtime itself."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-doctor-between-lunch-and-three",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 91,
+      "complexity": 51,
+      "topic": "health",
+      "familyId": "mm-es-health-time",
+      "targetText": "El médico llegará después de comer, pero antes de las tres.",
+      "learnerBaseText": "The doctor will arrive after lunch but before three.",
+      "englishText": "The doctor will arrive after lunch but before three.",
+      "embeddingText": "The doctor will arrive after lunch but before three.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "doctor arrival",
+          "after lunch",
+          "before three"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The doctor will arrive after lunch but before three.",
+          "englishAuditText": "The doctor will arrive after lunch but before three."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The doctor will arrive after lunch but before four.",
+          "englishAuditText": "The doctor will arrive after lunch but before four.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The upper time bound changes from three to four."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The doctor will arrive after lunch but before five.",
+          "englishAuditText": "The doctor will arrive after lunch but before five.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The upper time bound changes from three to five."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-less-juice-in-jug",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 82,
+      "complexity": 52,
+      "topic": "food",
+      "familyId": "mm-es-food-comparison",
+      "targetText": "Hay menos zumo en esta jarra que en aquella.",
+      "learnerBaseText": "There is less juice in this jug than in that one.",
+      "englishText": "There is less juice in this jug than in that one.",
+      "embeddingText": "There is less juice in this jug than in that one.",
+      "focus": {
+        "kind": "comparison",
+        "englishConcepts": [
+          "jug",
+          "less juice",
+          "other jug"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "There is less juice in this jug than in that one.",
+          "englishAuditText": "There is less juice in this jug than in that one."
+        },
+        {
+          "id": "contrast-1",
+          "text": "There is more juice in this jug than in that one.",
+          "englishAuditText": "There is more juice in this jug than in that one.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "The quantity comparison changes from less to more."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "There is as much juice in this jug as in that one.",
+          "englishAuditText": "There is as much juice in this jug as in that one.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "Equal quantities replace the stated smaller quantity."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-bread-without-seeds",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 92,
+      "complexity": 43,
+      "topic": "shopping",
+      "familyId": "mm-es-shopping-polarity",
+      "targetText": "Por favor, compra una hogaza de pan sin semillas.",
+      "learnerBaseText": "Please buy a loaf of bread without seeds.",
+      "englishText": "Please buy a loaf of bread without seeds.",
+      "embeddingText": "Please buy a loaf of bread without seeds.",
+      "focus": {
+        "kind": "polarity",
+        "englishConcepts": [
+          "buy bread",
+          "without seeds"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Please buy a loaf of bread without seeds.",
+          "englishAuditText": "Please buy a loaf of bread without seeds."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Please buy a loaf of bread with seeds.",
+          "englishAuditText": "Please buy a loaf of bread with seeds.",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "Seeds are included instead of excluded."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Please buy a loaf of bread with extra seeds.",
+          "englishAuditText": "Please buy a loaf of bread with extra seeds.",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "Extra seeds reverse the request to exclude seeds."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-brushes-before-paint-dries",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 88,
+      "complexity": 52,
+      "topic": "art",
+      "familyId": "mm-es-art-sequence",
+      "targetText": "Lava los pinceles antes de que se seque la pintura.",
+      "learnerBaseText": "Wash the brushes before the paint dries.",
+      "englishText": "Wash the brushes before the paint dries.",
+      "embeddingText": "Wash the brushes before the paint dries.",
+      "focus": {
+        "kind": "sequence",
+        "englishConcepts": [
+          "wash brushes",
+          "before paint dries"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Wash the brushes before the paint dries.",
+          "englishAuditText": "Wash the brushes before the paint dries."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Wash the brushes after the paint dries.",
+          "englishAuditText": "Wash the brushes after the paint dries.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "Washing moves from before drying to after it."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Wash the brushes while the paint dries.",
+          "englishAuditText": "Wash the brushes while the paint dries.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "Washing becomes simultaneous with drying."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-printer-needs-paper",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 48,
+      "topic": "technology",
+      "familyId": "mm-es-technology-object",
+      "targetText": "La impresora necesita papel, pero tiene suficiente tinta.",
+      "learnerBaseText": "The printer needs paper, but it has enough ink.",
+      "englishText": "The printer needs paper, but it has enough ink.",
+      "embeddingText": "The printer needs paper, but it has enough ink.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "printer",
+          "out of paper",
+          "enough ink"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The printer needs paper, but it has enough ink.",
+          "englishAuditText": "The printer needs paper, but it has enough ink."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The printer needs power, but it has enough ink.",
+          "englishAuditText": "The printer needs power, but it has enough ink.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "Electric power replaces paper as the unmet need."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The printer needs a new cable, but it has enough ink.",
+          "englishAuditText": "The printer needs a new cable, but it has enough ink.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "A cable replaces paper as the unmet need."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-share-markers-other-group",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 85,
+      "complexity": 43,
+      "topic": "school",
+      "familyId": "mm-es-school-object",
+      "targetText": "Compartimos los rotuladores con el otro grupo.",
+      "learnerBaseText": "We share the markers with the other group.",
+      "englishText": "We share the markers with the other group.",
+      "embeddingText": "We share the markers with the other group.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "share markers",
+          "other group"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "We share the markers with the other group.",
+          "englishAuditText": "We share the markers with the other group."
+        },
+        {
+          "id": "contrast-1",
+          "text": "We share the rulers with the other group.",
+          "englishAuditText": "We share the rulers with the other group.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "Rulers replace markers as the shared objects."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "We share the scissors with the other group.",
+          "englishAuditText": "We share the scissors with the other group.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "Scissors replace markers as the shared objects."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-path-along-river",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 91,
+      "complexity": 51,
+      "topic": "outdoors",
+      "familyId": "mm-es-outdoors-location",
+      "targetText": "Toma el camino que va junto al río, no el que sube la cuesta.",
+      "learnerBaseText": "Take the path along the river, not the one uphill.",
+      "englishText": "Take the path along the river, not the one uphill.",
+      "embeddingText": "Take the path along the river, not the one uphill.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "path",
+          "along river",
+          "not uphill"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Take the path along the river, not the one uphill.",
+          "englishAuditText": "Take the path along the river, not the one uphill."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Take the path through the forest, not the one uphill.",
+          "englishAuditText": "Take the path through the forest, not the one uphill.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The forest replaces the riverside route."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Take the path across the field, not the one uphill.",
+          "englishAuditText": "Take the path across the field, not the one uphill.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The field replaces the riverside route."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-soup-out-ten-minutes-before",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 87,
+      "complexity": 50,
+      "topic": "cooking",
+      "familyId": "mm-es-cooking-time",
+      "targetText": "Saca la sopa de la nevera diez minutos antes de comer.",
+      "learnerBaseText": "Take the soup out of the fridge ten minutes before the meal.",
+      "englishText": "Take the soup out of the fridge ten minutes before the meal.",
+      "embeddingText": "Take the soup out of the fridge ten minutes before the meal.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "soup",
+          "fridge",
+          "ten minutes before meal"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Take the soup out of the fridge ten minutes before the meal.",
+          "englishAuditText": "Take the soup out of the fridge ten minutes before the meal."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Take the soup out of the fridge twenty minutes before the meal.",
+          "englishAuditText": "Take the soup out of the fridge twenty minutes before the meal.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The waiting interval changes from ten to twenty minutes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Take the soup out of the fridge thirty minutes before the meal.",
+          "englishAuditText": "Take the soup out of the fridge thirty minutes before the meal.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The waiting interval changes from ten to thirty minutes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-dog-found-glove-under-bench",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 80,
+      "complexity": 49,
+      "topic": "animals",
+      "familyId": "mm-es-animals-location",
+      "targetText": "Nuestro perro encontró un guante debajo del banco de madera.",
+      "learnerBaseText": "Our dog found a glove under the wooden bench.",
+      "englishText": "Our dog found a glove under the wooden bench.",
+      "embeddingText": "Our dog found a glove under the wooden bench.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "dog",
+          "found glove",
+          "under bench"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Our dog found a glove under the wooden bench.",
+          "englishAuditText": "Our dog found a glove under the wooden bench."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Our dog found a glove on the wooden bench.",
+          "englishAuditText": "Our dog found a glove on the wooden bench.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The glove is on the bench rather than underneath."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Our dog found a glove behind the wooden bench.",
+          "englishAuditText": "Our dog found a glove behind the wooden bench.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The glove is behind the bench rather than underneath."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-near-home-cycle-work",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 48,
+      "topic": "work",
+      "familyId": "mm-es-work-manner",
+      "targetText": "Omar trabaja cerca de casa, así que va al trabajo en bicicleta.",
+      "learnerBaseText": "Omar works near home, so he goes to work by bike.",
+      "englishText": "Omar works near home, so he goes to work by bike.",
+      "embeddingText": "Omar works near home, so he goes to work by bike.",
+      "focus": {
+        "kind": "manner",
+        "englishConcepts": [
+          "work near home",
+          "travel by bike"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Omar works near home, so he goes to work by bike.",
+          "englishAuditText": "Omar works near home, so he goes to work by bike."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Omar works near home, so he goes to work on foot.",
+          "englishAuditText": "Omar works near home, so he goes to work on foot.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "Walking replaces cycling as his way to work."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Omar works near home, so he goes to work by bus.",
+          "englishAuditText": "Omar works near home, so he goes to work by bus.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "Taking a bus replaces cycling as his way to work."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-teacher-wants-summary",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 88,
+      "complexity": 50,
+      "topic": "school",
+      "familyId": "mm-es-school-object",
+      "targetText": "La profesora quiere un breve resumen, no solo un título.",
+      "learnerBaseText": "The teacher wants a brief summary, not just a title.",
+      "englishText": "The teacher wants a brief summary, not just a title.",
+      "embeddingText": "The teacher wants a brief summary, not just a title.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "teacher",
+          "brief summary",
+          "not title"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The teacher wants a brief summary, not just a title.",
+          "englishAuditText": "The teacher wants a brief summary, not just a title."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The teacher wants a brief invitation, not just a title.",
+          "englishAuditText": "The teacher wants a brief invitation, not just a title.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "An invitation replaces a summary."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The teacher wants a brief dialogue, not just a title.",
+          "englishAuditText": "The teacher wants a brief dialogue, not just a title.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "A dialogue replaces a summary."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-glass-jar-ours",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 89,
+      "complexity": 47,
+      "topic": "possessions",
+      "familyId": "mm-es-possessions-possession",
+      "targetText": "Ese tarro de cristal es nuestro, no de nuestros vecinos.",
+      "learnerBaseText": "That glass jar is ours, not our neighbors’.",
+      "englishText": "That glass jar is ours, not our neighbors’.",
+      "embeddingText": "That glass jar is ours, not our neighbors’.",
+      "focus": {
+        "kind": "possession",
+        "englishConcepts": [
+          "glass jar",
+          "ours",
+          "not neighbors"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "That glass jar is ours, not our neighbors’.",
+          "englishAuditText": "That glass jar is ours, not our neighbors’."
+        },
+        {
+          "id": "contrast-1",
+          "text": "That glass jar is yours, not our neighbors’.",
+          "englishAuditText": "That glass jar is yours, not our neighbors’.",
+          "contrast": {
+            "kind": "possession",
+            "explanation": "The owner changes from us to you."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "That glass jar is theirs, not our neighbors’.",
+          "englishAuditText": "That glass jar is theirs, not our neighbors’.",
+          "contrast": {
+            "kind": "possession",
+            "explanation": "The owner changes from us to them."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-closed-footbridge-counterfactual",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 85,
+      "complexity": 87,
+      "topic": "travel",
+      "familyId": "mm-es-travel-condition",
+      "targetText": "Si hubiera sabido que la pasarela estaba cerrada, habría tomado la carretera que rodea el lago.",
+      "learnerBaseText": "If I had known the footbridge was closed, I would have taken the road around the lake.",
+      "englishText": "If I had known the footbridge was closed, I would have taken the road around the lake.",
+      "embeddingText": "If I had known the footbridge was closed, I would have taken the road around the lake.",
+      "focus": {
+        "kind": "condition",
+        "englishConcepts": [
+          "closed footbridge",
+          "past counterfactual",
+          "road around lake"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "If I had known the footbridge was closed, I would have taken the road around the lake.",
+          "englishAuditText": "If I had known the footbridge was closed, I would have taken the road around the lake."
+        },
+        {
+          "id": "contrast-1",
+          "text": "If I had known the footbridge was open, I would have taken the road around the lake.",
+          "englishAuditText": "If I had known the footbridge was open, I would have taken the road around the lake.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "The known condition changes from closed to open."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "If I had known the footbridge was narrow, I would have taken the road around the lake.",
+          "englishAuditText": "If I had known the footbridge was narrow, I would have taken the road around the lake.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "A narrow bridge replaces a closed bridge as the condition."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-basket-weighs-more",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 75,
+      "complexity": 72,
+      "topic": "objects",
+      "familyId": "mm-es-objects-comparison",
+      "targetText": "Pesamos la cesta dos veces porque parecía pesar más que la caja de madera.",
+      "learnerBaseText": "We weighed the basket twice because it seemed to weigh more than the wooden box.",
+      "englishText": "We weighed the basket twice because it seemed to weigh more than the wooden box.",
+      "embeddingText": "We weighed the basket twice because it seemed to weigh more than the wooden box.",
+      "focus": {
+        "kind": "comparison",
+        "englishConcepts": [
+          "basket weighed twice",
+          "apparently heavier",
+          "wooden box"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "We weighed the basket twice because it seemed to weigh more than the wooden box.",
+          "englishAuditText": "We weighed the basket twice because it seemed to weigh more than the wooden box."
+        },
+        {
+          "id": "contrast-1",
+          "text": "We weighed the basket twice because it seemed to weigh less than the wooden box.",
+          "englishAuditText": "We weighed the basket twice because it seemed to weigh less than the wooden box.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "The apparent weight comparison changes from more to less."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "We weighed the basket twice because it seemed to weigh the same as the wooden box.",
+          "englishAuditText": "We weighed the basket twice because it seemed to weigh the same as the wooden box.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "Equal apparent weights replace the greater apparent weight."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-parcel-awaits-address-confirmation",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 92,
+      "complexity": 74,
+      "topic": "services",
+      "familyId": "mm-es-services-condition",
+      "targetText": "El paquete no se entregó hasta que el destinatario confirmó la dirección.",
+      "learnerBaseText": "The parcel was not delivered until the recipient confirmed the address.",
+      "englishText": "The parcel was not delivered until the recipient confirmed the address.",
+      "embeddingText": "The parcel was not delivered until the recipient confirmed the address.",
+      "focus": {
+        "kind": "condition",
+        "englishConcepts": [
+          "parcel delivery",
+          "recipient",
+          "confirm address"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The parcel was not delivered until the recipient confirmed the address.",
+          "englishAuditText": "The parcel was not delivered until the recipient confirmed the address."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The parcel was not delivered until the recipient paid the fee.",
+          "englishAuditText": "The parcel was not delivered until the recipient paid the fee.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "Paying a fee replaces confirming an address as the delivery condition."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The parcel was not delivered until the recipient signed the form.",
+          "englishAuditText": "The parcel was not delivered until the recipient signed the form.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "Signing a form replaces confirming an address as the delivery condition."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-repair-pot-to-grow-mint",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 76,
+      "complexity": 73,
+      "topic": "garden",
+      "familyId": "mm-es-garden-purpose",
+      "targetText": "Marek reparó la maceta agrietada para poder plantar menta en ella.",
+      "learnerBaseText": "Marek repaired the cracked pot so that he could plant mint in it.",
+      "englishText": "Marek repaired the cracked pot so that he could plant mint in it.",
+      "embeddingText": "Marek repaired the cracked pot so that he could plant mint in it.",
+      "focus": {
+        "kind": "purpose",
+        "englishConcepts": [
+          "repair cracked pot",
+          "plant mint",
+          "purpose"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Marek repaired the cracked pot so that he could plant mint in it.",
+          "englishAuditText": "Marek repaired the cracked pot so that he could plant mint in it."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Marek repaired the cracked pot so that he could store nails in it.",
+          "englishAuditText": "Marek repaired the cracked pot so that he could store nails in it.",
+          "contrast": {
+            "kind": "purpose",
+            "explanation": "Storing nails replaces growing mint as the intended use."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Marek repaired the cracked pot so that he could collect rainwater in it.",
+          "englishAuditText": "Marek repaired the cracked pot so that he could collect rainwater in it.",
+          "contrast": {
+            "kind": "purpose",
+            "explanation": "Collecting rainwater replaces growing mint as the intended use."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-receipt-exchange-boots",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 93,
+      "complexity": 88,
+      "topic": "shopping",
+      "familyId": "mm-es-shopping-object",
+      "targetText": "Si hubieras guardado el recibo, habrías podido cambiar las botas antes de que cerrara la tienda.",
+      "learnerBaseText": "If you had kept the receipt, you could have exchanged the boots before the shop closed.",
+      "englishText": "If you had kept the receipt, you could have exchanged the boots before the shop closed.",
+      "embeddingText": "If you had kept the receipt, you could have exchanged the boots before the shop closed.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "keep receipt",
+          "exchange boots",
+          "before shop closes"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "If you had kept the receipt, you could have exchanged the boots before the shop closed.",
+          "englishAuditText": "If you had kept the receipt, you could have exchanged the boots before the shop closed."
+        },
+        {
+          "id": "contrast-1",
+          "text": "If you had kept the receipt, you could have exchanged the coat before the shop closed.",
+          "englishAuditText": "If you had kept the receipt, you could have exchanged the coat before the shop closed.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The item to exchange changes from boots to a coat."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "If you had kept the receipt, you could have exchanged the gloves before the shop closed.",
+          "englishAuditText": "If you had kept the receipt, you could have exchanged the gloves before the shop closed.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The item to exchange changes from boots to gloves."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-water-level-rose-after-gate-adjustment",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 80,
+      "complexity": 81,
+      "topic": "nature",
+      "familyId": "mm-es-nature-state",
+      "targetText": "El informe explica por qué subió el nivel del agua después de ajustar las compuertas.",
+      "learnerBaseText": "The report explains why the water level rose after the sluice gates were adjusted.",
+      "englishText": "The report explains why the water level rose after the sluice gates were adjusted.",
+      "embeddingText": "The report explains why the water level rose after the sluice gates were adjusted.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "report",
+          "water level rose",
+          "sluice gates adjusted"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The report explains why the water level rose after the sluice gates were adjusted.",
+          "englishAuditText": "The report explains why the water level rose after the sluice gates were adjusted."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The report explains why the water level fell after the sluice gates were adjusted.",
+          "englishAuditText": "The report explains why the water level fell after the sluice gates were adjusted.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "A falling water level replaces a rising one."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The report explains why the water level stayed unchanged after the sluice gates were adjusted.",
+          "englishAuditText": "The report explains why the water level stayed unchanged after the sluice gates were adjusted.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "An unchanged water level replaces a rising one."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-upstairs-aminas-scarf",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 85,
+      "complexity": 78,
+      "topic": "possessions",
+      "familyId": "mm-es-possessions-possession",
+      "targetText": "La bufanda que dejaste en la silla es de Amina, que vive en el piso de arriba.",
+      "learnerBaseText": "The scarf you left on the chair belongs to Amina, who lives upstairs.",
+      "englishText": "The scarf you left on the chair belongs to Amina, who lives upstairs.",
+      "embeddingText": "The scarf you left on the chair belongs to Amina, who lives upstairs.",
+      "focus": {
+        "kind": "possession",
+        "englishConcepts": [
+          "scarf left on chair",
+          "belongs to Amina",
+          "upstairs neighbor"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The scarf you left on the chair belongs to Amina, who lives upstairs.",
+          "englishAuditText": "The scarf you left on the chair belongs to Amina, who lives upstairs."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The scarf you left on the chair belongs to Omar, who lives upstairs.",
+          "englishAuditText": "The scarf you left on the chair belongs to Omar, who lives upstairs.",
+          "contrast": {
+            "kind": "possession",
+            "explanation": "The named owner changes from Amina to Omar."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The scarf you left on the chair belongs to Nora, who lives upstairs.",
+          "englishAuditText": "The scarf you left on the chair belongs to Nora, who lives upstairs.",
+          "contrast": {
+            "kind": "possession",
+            "explanation": "The named owner changes from Amina to Nora."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-emergency-light-after-last-lamp",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 94,
+      "complexity": 76,
+      "topic": "safety",
+      "familyId": "mm-es-safety-sequence",
+      "targetText": "Después de apagar la última lámpara, comprueba que la luz de emergencia siga encendida.",
+      "learnerBaseText": "After the final lamp is switched off, check that the emergency light is still on.",
+      "englishText": "After the final lamp is switched off, check that the emergency light is still on.",
+      "embeddingText": "After the final lamp is switched off, check that the emergency light is still on.",
+      "focus": {
+        "kind": "sequence",
+        "englishConcepts": [
+          "last lamp off",
+          "check emergency light",
+          "after"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "After the final lamp is switched off, check that the emergency light is still on.",
+          "englishAuditText": "After the final lamp is switched off, check that the emergency light is still on."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Before the final lamp is switched off, check that the emergency light is still on.",
+          "englishAuditText": "Before the final lamp is switched off, check that the emergency light is still on.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "The check moves from after the lamp is off to before."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "While the final lamp is being switched off, check that the emergency light is still on.",
+          "englishAuditText": "While the final lamp is being switched off, check that the emergency light is still on.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "The check becomes simultaneous with switching off the lamp."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-early-group-helps-label-checkers",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 84,
+      "complexity": 82,
+      "topic": "school",
+      "familyId": "mm-es-school-action",
+      "targetText": "El grupo que acabó pronto de clasificar ayudó al grupo que todavía estaba comprobando las etiquetas.",
+      "learnerBaseText": "The group that finished sorting early helped the group that was still checking the labels.",
+      "englishText": "The group that finished sorting early helped the group that was still checking the labels.",
+      "embeddingText": "The group that finished sorting early helped the group that was still checking the labels.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "early sorting group",
+          "help",
+          "check labels"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The group that finished sorting early helped the group that was still checking the labels.",
+          "englishAuditText": "The group that finished sorting early helped the group that was still checking the labels."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The group that finished sorting early helped the group that was still counting the boxes.",
+          "englishAuditText": "The group that finished sorting early helped the group that was still counting the boxes.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "Counting boxes replaces checking labels as the unfinished task."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The group that finished sorting early helped the group that was still weighing the parcels.",
+          "englishAuditText": "The group that finished sorting early helped the group that was still weighing the parcels.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "Weighing parcels replaces checking labels as the unfinished task."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-half-cup-enough-three-cakes",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 89,
+      "complexity": 77,
+      "topic": "cooking",
+      "familyId": "mm-es-cooking-quantity",
+      "targetText": "Si cada receta lleva media taza de harina, tendremos suficiente para tres pasteles.",
+      "learnerBaseText": "If each recipe uses half a cup of flour, we will have enough for three cakes.",
+      "englishText": "If each recipe uses half a cup of flour, we will have enough for three cakes.",
+      "embeddingText": "If each recipe uses half a cup of flour, we will have enough for three cakes.",
+      "focus": {
+        "kind": "quantity",
+        "englishConcepts": [
+          "half cup per recipe",
+          "enough flour",
+          "three cakes"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "If each recipe uses half a cup of flour, we will have enough for three cakes.",
+          "englishAuditText": "If each recipe uses half a cup of flour, we will have enough for three cakes."
+        },
+        {
+          "id": "contrast-1",
+          "text": "If each recipe uses half a cup of flour, we will have enough for two cakes.",
+          "englishAuditText": "If each recipe uses half a cup of flour, we will have enough for two cakes.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "The stated number of cakes changes from three to two."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "If each recipe uses half a cup of flour, we will have enough for four cakes.",
+          "englishAuditText": "If each recipe uses half a cup of flour, we will have enough for four cakes.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "The stated number of cakes changes from three to four."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-asked-whether-last-train-left",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 91,
+      "complexity": 83,
+      "topic": "travel",
+      "familyId": "mm-es-travel-time",
+      "targetText": "Lena preguntó si el último tren ya había salido cuando llegamos a la estación.",
+      "learnerBaseText": "Lena asked whether the last train had already left when we reached the station.",
+      "englishText": "Lena asked whether the last train had already left when we reached the station.",
+      "embeddingText": "Lena asked whether the last train had already left when we reached the station.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "ask whether",
+          "last train already left",
+          "station arrival"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Lena asked whether the last train had already left when we reached the station.",
+          "englishAuditText": "Lena asked whether the last train had already left when we reached the station."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Lena asked whether the first train had already left when we reached the station.",
+          "englishAuditText": "Lena asked whether the first train had already left when we reached the station.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The question concerns the first train rather than the last."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Lena asked whether the next train had already left when we reached the station.",
+          "englishAuditText": "Lena asked whether the next train had already left when we reached the station.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The question concerns the next train rather than the last."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-loaf-cools-before-slicing",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 88,
+      "complexity": 79,
+      "topic": "cooking",
+      "familyId": "mm-es-cooking-sequence",
+      "targetText": "El panadero escribió que la hogaza se había enfriado antes de cortarla.",
+      "learnerBaseText": "The baker wrote that the loaf had cooled before he sliced it.",
+      "englishText": "The baker wrote that the loaf had cooled before he sliced it.",
+      "embeddingText": "The baker wrote that the loaf had cooled before he sliced it.",
+      "focus": {
+        "kind": "sequence",
+        "englishConcepts": [
+          "baker reported",
+          "loaf cooled",
+          "before slicing"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The baker wrote that the loaf had cooled before he sliced it.",
+          "englishAuditText": "The baker wrote that the loaf had cooled before he sliced it."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The baker wrote that the loaf had cooled after he sliced it.",
+          "englishAuditText": "The baker wrote that the loaf had cooled after he sliced it.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "The reported cooling moves from before slicing to after it."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The baker wrote that the loaf cooled while he was slicing it.",
+          "englishAuditText": "The baker wrote that the loaf cooled while he was slicing it.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "The reported cooling becomes simultaneous with slicing."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-borrowed-ruler-return-deadline",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 90,
+      "complexity": 76,
+      "topic": "school",
+      "familyId": "mm-es-school-time",
+      "targetText": "Quien tome prestada la regla pequeña debe devolverla antes de que empiece la clase de plástica.",
+      "learnerBaseText": "Anyone who borrows the small ruler must return it before the art lesson begins.",
+      "englishText": "Anyone who borrows the small ruler must return it before the art lesson begins.",
+      "embeddingText": "Anyone who borrows the small ruler must return it before the art lesson begins.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "borrow small ruler",
+          "return",
+          "before art lesson"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Anyone who borrows the small ruler must return it before the art lesson begins.",
+          "englishAuditText": "Anyone who borrows the small ruler must return it before the art lesson begins."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Anyone who borrows the small ruler must return it after the art lesson begins.",
+          "englishAuditText": "Anyone who borrows the small ruler must return it after the art lesson begins.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The deadline moves from before the lesson starts to after."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Anyone who borrows the small ruler must return it when the art lesson ends.",
+          "englishAuditText": "Anyone who borrows the small ruler must return it when the art lesson ends.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The deadline moves to the end of the lesson."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-street-window-quieter-room",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 89,
+      "complexity": 83,
+      "topic": "home",
+      "familyId": "mm-es-home-state",
+      "targetText": "La habitación estaría más silenciosa si la ventana que da a la calle estuviera cerrada.",
+      "learnerBaseText": "The room would be quieter if the window facing the street were closed.",
+      "englishText": "The room would be quieter if the window facing the street were closed.",
+      "embeddingText": "The room would be quieter if the window facing the street were closed.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "street-facing window",
+          "closed",
+          "quieter room"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The room would be quieter if the window facing the street were closed.",
+          "englishAuditText": "The room would be quieter if the window facing the street were closed."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The room would be warmer if the window facing the street were closed.",
+          "englishAuditText": "The room would be warmer if the window facing the street were closed.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "Greater warmth replaces reduced noise as the result."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The room would be cooler if the window facing the street were closed.",
+          "englishAuditText": "The room would be cooler if the window facing the street were closed.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "Greater coolness replaces reduced noise as the result."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-meeting-postponed-not-canceled",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 94,
+      "complexity": 82,
+      "topic": "work",
+      "familyId": "mm-es-work-state",
+      "targetText": "La reunión se ha aplazado en lugar de cancelarse porque el técnico no puede venir hoy.",
+      "learnerBaseText": "The meeting has been postponed rather than canceled because the technician cannot come today.",
+      "englishText": "The meeting has been postponed rather than canceled because the technician cannot come today.",
+      "embeddingText": "The meeting has been postponed rather than canceled because the technician cannot come today.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "meeting postponed",
+          "not canceled",
+          "technician unavailable"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The meeting has been postponed rather than canceled because the technician cannot come today.",
+          "englishAuditText": "The meeting has been postponed rather than canceled because the technician cannot come today."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The meeting has been moved online rather than canceled because the technician cannot come today.",
+          "englishAuditText": "The meeting has been moved online rather than canceled because the technician cannot come today.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "An online meeting replaces postponement."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The meeting has been shortened rather than canceled because the technician cannot come today.",
+          "englishAuditText": "The meeting has been shortened rather than canceled because the technician cannot come today.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "A shorter meeting replaces postponement."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-seedlings-except-rainy-days",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 85,
+      "complexity": 81,
+      "topic": "garden",
+      "familyId": "mm-es-garden-condition",
+      "targetText": "Prometí regar las plántulas todas las tardes salvo los días en que llueva.",
+      "learnerBaseText": "I promised to water the seedlings every afternoon except on days when it rains.",
+      "englishText": "I promised to water the seedlings every afternoon except on days when it rains.",
+      "embeddingText": "I promised to water the seedlings every afternoon except on days when it rains.",
+      "focus": {
+        "kind": "condition",
+        "englishConcepts": [
+          "promise",
+          "water seedlings",
+          "afternoon except rainy days"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I promised to water the seedlings every afternoon except on days when it rains.",
+          "englishAuditText": "I promised to water the seedlings every afternoon except on days when it rains."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I promised to water the seedlings every afternoon except on days when it snows.",
+          "englishAuditText": "I promised to water the seedlings every afternoon except on days when it snows.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "Snowy days replace rainy days as the exception."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I promised to water the seedlings every afternoon except on days when it hails.",
+          "englishAuditText": "I promised to water the seedlings every afternoon except on days when it hails.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "Days with hail replace rainy days as the exception."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-warning-before-machine-restart",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 94,
+      "complexity": 82,
+      "topic": "safety",
+      "familyId": "mm-es-safety-action",
+      "targetText": "El aviso se colocó después de detectar la avería, pero antes de volver a poner en marcha la máquina.",
+      "learnerBaseText": "The warning was posted after the fault was found but before the machine was restarted.",
+      "englishText": "The warning was posted after the fault was found but before the machine was restarted.",
+      "embeddingText": "The warning was posted after the fault was found but before the machine was restarted.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "warning posted",
+          "fault discovered",
+          "before restart"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The warning was posted after the fault was found but before the machine was restarted.",
+          "englishAuditText": "The warning was posted after the fault was found but before the machine was restarted."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The warning was posted after the fault was repaired but before the machine was restarted.",
+          "englishAuditText": "The warning was posted after the fault was repaired but before the machine was restarted.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The preceding event changes from finding the fault to repairing it."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The warning was posted after the fault was reported but before the machine was restarted.",
+          "englishAuditText": "The warning was posted after the fault was reported but before the machine was restarted.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The preceding event changes from finding the fault to reporting it."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-wheel-repair-costs-less",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 90,
+      "complexity": 75,
+      "topic": "repairs",
+      "familyId": "mm-es-repairs-comparison",
+      "targetText": "Reparar una rueda dañada cuesta menos que sustituir el carro entero.",
+      "learnerBaseText": "Repairing one damaged wheel costs less than replacing the whole cart.",
+      "englishText": "Repairing one damaged wheel costs less than replacing the whole cart.",
+      "embeddingText": "Repairing one damaged wheel costs less than replacing the whole cart.",
+      "focus": {
+        "kind": "comparison",
+        "englishConcepts": [
+          "damaged wheel",
+          "repair cost",
+          "replace whole cart"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Repairing one damaged wheel costs less than replacing the whole cart.",
+          "englishAuditText": "Repairing one damaged wheel costs less than replacing the whole cart."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Repairing one damaged wheel costs more than replacing the whole cart.",
+          "englishAuditText": "Repairing one damaged wheel costs more than replacing the whole cart.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "The repair cost changes from lower to higher."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Repairing one damaged wheel costs the same as replacing the whole cart.",
+          "englishAuditText": "Repairing one damaged wheel costs the same as replacing the whole cart.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "Equal costs replace the lower repair cost."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-save-seat-until-message",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 91,
+      "complexity": 84,
+      "topic": "travel",
+      "familyId": "mm-es-travel-condition",
+      "targetText": "Aunque el autobús llegue tarde, guárdame el asiento hasta que te mande un mensaje.",
+      "learnerBaseText": "Even if the bus is late, keep my seat free until I send you a message.",
+      "englishText": "Even if the bus is late, keep my seat free until I send you a message.",
+      "embeddingText": "Even if the bus is late, keep my seat free until I send you a message.",
+      "focus": {
+        "kind": "condition",
+        "englishConcepts": [
+          "bus may be late",
+          "save seat",
+          "until message"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Even if the bus is late, keep my seat free until I send you a message.",
+          "englishAuditText": "Even if the bus is late, keep my seat free until I send you a message."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Even if the bus is late, keep my seat free until my sister calls you.",
+          "englishAuditText": "Even if the bus is late, keep my seat free until my sister calls you.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "A call from the sister replaces the promised message as the endpoint."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Even if the bus is late, keep my seat free until the station closes.",
+          "englishAuditText": "Even if the bus is late, keep my seat free until the station closes.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "The station closing replaces the promised message as the endpoint."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-letter-for-former-corner-resident",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 86,
+      "complexity": 81,
+      "topic": "services",
+      "familyId": "mm-es-services-action",
+      "targetText": "La carta está dirigida a la mujer que vivía en la casa de la esquina el invierno pasado.",
+      "learnerBaseText": "The letter is addressed to the woman who lived in the corner house last winter.",
+      "englishText": "The letter is addressed to the woman who lived in the corner house last winter.",
+      "embeddingText": "The letter is addressed to the woman who lived in the corner house last winter.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "letter recipient",
+          "lived in corner house",
+          "last winter"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The letter is addressed to the woman who lived in the corner house last winter.",
+          "englishAuditText": "The letter is addressed to the woman who lived in the corner house last winter."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The letter is addressed to the woman who worked in the corner house last winter.",
+          "englishAuditText": "The letter is addressed to the woman who worked in the corner house last winter.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "Working in the house replaces living there."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The letter is addressed to the woman who painted the corner house last winter.",
+          "englishAuditText": "The letter is addressed to the woman who painted the corner house last winter.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "Painting the house replaces living there."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-platform-arrival-coffee-cold",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 83,
+      "complexity": 85,
+      "topic": "routine",
+      "familyId": "mm-es-routine-state",
+      "targetText": "Cuando llegamos al andén, el café que había comprado ya estaba frío.",
+      "learnerBaseText": "By the time we reached the platform, the coffee I had bought was already cold.",
+      "englishText": "By the time we reached the platform, the coffee I had bought was already cold.",
+      "embeddingText": "By the time we reached the platform, the coffee I had bought was already cold.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "platform arrival",
+          "previously bought coffee",
+          "already cold"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "By the time we reached the platform, the coffee I had bought was already cold.",
+          "englishAuditText": "By the time we reached the platform, the coffee I had bought was already cold."
+        },
+        {
+          "id": "contrast-1",
+          "text": "By the time we reached the platform, the coffee I had bought was already hot.",
+          "englishAuditText": "By the time we reached the platform, the coffee I had bought was already hot.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The coffee temperature changes from cold to hot."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "By the time we reached the platform, the coffee I had bought was already lukewarm.",
+          "englishAuditText": "By the time we reached the platform, the coffee I had bought was already lukewarm.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The coffee temperature changes from cold to lukewarm."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-tools-only-in-dry-box",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 92,
+      "complexity": 87,
+      "topic": "repairs",
+      "familyId": "mm-es-repairs-condition",
+      "targetText": "A menos que la caja de madera esté completamente seca, no vuelvas a meter las herramientas en ella.",
+      "learnerBaseText": "Unless the wooden box is completely dry, do not put the tools back inside it.",
+      "englishText": "Unless the wooden box is completely dry, do not put the tools back inside it.",
+      "embeddingText": "Unless the wooden box is completely dry, do not put the tools back inside it.",
+      "focus": {
+        "kind": "condition",
+        "englishConcepts": [
+          "wooden box",
+          "completely dry",
+          "store tools"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Unless the wooden box is completely dry, do not put the tools back inside it.",
+          "englishAuditText": "Unless the wooden box is completely dry, do not put the tools back inside it."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Unless the wooden box is completely clean, do not put the tools back inside it.",
+          "englishAuditText": "Unless the wooden box is completely clean, do not put the tools back inside it.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "Cleanliness replaces dryness as the required condition."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Unless the wooden box is completely empty, do not put the tools back inside it.",
+          "englishAuditText": "Unless the wooden box is completely empty, do not put the tools back inside it.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "Emptiness replaces dryness as the required condition."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-widest-plank-stream-crossing",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 88,
+      "complexity": 86,
+      "topic": "outdoors",
+      "familyId": "mm-es-outdoors-comparison",
+      "targetText": "Elegimos el tablón más ancho para que el carro pudiera cruzar el arroyo sin volcar.",
+      "learnerBaseText": "We chose the widest plank so that the cart could cross the stream without tipping over.",
+      "englishText": "We chose the widest plank so that the cart could cross the stream without tipping over.",
+      "embeddingText": "We chose the widest plank so that the cart could cross the stream without tipping over.",
+      "focus": {
+        "kind": "comparison",
+        "englishConcepts": [
+          "widest plank",
+          "cart crossing stream",
+          "avoid tipping"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "We chose the widest plank so that the cart could cross the stream without tipping over.",
+          "englishAuditText": "We chose the widest plank so that the cart could cross the stream without tipping over."
+        },
+        {
+          "id": "contrast-1",
+          "text": "We chose the longest plank so that the cart could cross the stream without tipping over.",
+          "englishAuditText": "We chose the longest plank so that the cart could cross the stream without tipping over.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "The selected dimension changes from width to length."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "We chose the thickest plank so that the cart could cross the stream without tipping over.",
+          "englishAuditText": "We chose the thickest plank so that the cart could cross the stream without tipping over.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "The selected dimension changes from width to thickness."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-staff-warning-platform-counterfactual",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 92,
+      "complexity": 88,
+      "topic": "travel",
+      "familyId": "mm-es-travel-location",
+      "targetText": "Si el personal de la estación no nos hubiera avisado, habríamos esperado en el andén equivocado.",
+      "learnerBaseText": "If the station staff had not warned us, we would have waited on the wrong platform.",
+      "englishText": "If the station staff had not warned us, we would have waited on the wrong platform.",
+      "embeddingText": "If the station staff had not warned us, we would have waited on the wrong platform.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "station warning",
+          "past counterfactual",
+          "wrong platform"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "If the station staff had not warned us, we would have waited on the wrong platform.",
+          "englishAuditText": "If the station staff had not warned us, we would have waited on the wrong platform."
+        },
+        {
+          "id": "contrast-1",
+          "text": "If the station staff had not warned us, we would have waited on the correct platform.",
+          "englishAuditText": "If the station staff had not warned us, we would have waited on the correct platform.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The waiting place changes from the wrong platform to the correct one."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "If the station staff had not warned us, we would have waited on the nearest platform.",
+          "englishAuditText": "If the station staff had not warned us, we would have waited on the nearest platform.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The nearest platform replaces the wrong platform as the specified place."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-flooded-path-route-behind-mill",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 91,
+      "complexity": 81,
+      "topic": "outdoors",
+      "familyId": "mm-es-outdoors-location",
+      "targetText": "Como el camino junto al río estaba inundado, tomamos la ruta más larga por detrás del molino.",
+      "learnerBaseText": "Because the riverside path was flooded, we took the longer route behind the mill.",
+      "englishText": "Because the riverside path was flooded, we took the longer route behind the mill.",
+      "embeddingText": "Because the riverside path was flooded, we took the longer route behind the mill.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "flooded riverside path",
+          "longer route",
+          "behind mill"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Because the riverside path was flooded, we took the longer route behind the mill.",
+          "englishAuditText": "Because the riverside path was flooded, we took the longer route behind the mill."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Because the riverside path was flooded, we took the longer route in front of the mill.",
+          "englishAuditText": "Because the riverside path was flooded, we took the longer route in front of the mill.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The route moves from behind the mill to in front of it."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Because the riverside path was flooded, we took the longer route through the mill.",
+          "englishAuditText": "Because the riverside path was flooded, we took the longer route through the mill.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The route goes through the mill instead of behind it."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-second-jar-fresh-leaves",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 79,
+      "complexity": 83,
+      "topic": "garden",
+      "familyId": "mm-es-garden-object",
+      "targetText": "Mientras que el primer tarro contiene hierbas secas, el segundo contiene hojas frescas del jardín.",
+      "learnerBaseText": "Whereas the first jar contains dried herbs, the second contains fresh leaves from the garden.",
+      "englishText": "Whereas the first jar contains dried herbs, the second contains fresh leaves from the garden.",
+      "embeddingText": "Whereas the first jar contains dried herbs, the second contains fresh leaves from the garden.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "first jar dried herbs",
+          "second jar fresh leaves"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Whereas the first jar contains dried herbs, the second contains fresh leaves from the garden.",
+          "englishAuditText": "Whereas the first jar contains dried herbs, the second contains fresh leaves from the garden."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Whereas the first jar contains dried herbs, the second contains fresh flowers from the garden.",
+          "englishAuditText": "Whereas the first jar contains dried herbs, the second contains fresh flowers from the garden.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "Fresh flowers replace fresh leaves in the second jar."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Whereas the first jar contains dried herbs, the second contains fresh stems from the garden.",
+          "englishAuditText": "Whereas the first jar contains dried herbs, the second contains fresh stems from the garden.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "Fresh stems replace fresh leaves in the second jar."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-free-entry-registration-deadline",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 91,
+      "complexity": 76,
+      "topic": "events",
+      "familyId": "mm-es-events-time",
+      "targetText": "La entrada gratuita está disponible solo para los visitantes que se inscribieron antes del viernes.",
+      "learnerBaseText": "Free entry is available only to visitors who registered before Friday.",
+      "englishText": "Free entry is available only to visitors who registered before Friday.",
+      "embeddingText": "Free entry is available only to visitors who registered before Friday.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "free entry",
+          "registered before Friday",
+          "only eligible visitors"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Free entry is available only to visitors who registered before Friday.",
+          "englishAuditText": "Free entry is available only to visitors who registered before Friday."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Free entry is available only to visitors who registered after Friday.",
+          "englishAuditText": "Free entry is available only to visitors who registered after Friday.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "Registration after Friday replaces registration before Friday."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Free entry is available only to visitors who registered on Friday.",
+          "englishAuditText": "Free entry is available only to visitors who registered on Friday.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "Registration on Friday replaces registration before Friday."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-gardener-not-courier-left-parcel",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 82,
+      "complexity": 85,
+      "topic": "people",
+      "familyId": "mm-es-people-subject",
+      "targetText": "Fue el jardinero, y no el mensajero, quien dejó el paquete pequeño junto a la cancela.",
+      "learnerBaseText": "It was the gardener, not the courier, who left the small parcel beside the gate.",
+      "englishText": "It was the gardener, not the courier, who left the small parcel beside the gate.",
+      "embeddingText": "It was the gardener, not the courier, who left the small parcel beside the gate.",
+      "focus": {
+        "kind": "subject",
+        "englishConcepts": [
+          "gardener not courier",
+          "left small parcel",
+          "beside gate"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "It was the gardener, not the courier, who left the small parcel beside the gate.",
+          "englishAuditText": "It was the gardener, not the courier, who left the small parcel beside the gate."
+        },
+        {
+          "id": "contrast-1",
+          "text": "It was the teacher, not the courier, who left the small parcel beside the gate.",
+          "englishAuditText": "It was the teacher, not the courier, who left the small parcel beside the gate.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "The identified person changes from gardener to teacher."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "It was the plumber, not the courier, who left the small parcel beside the gate.",
+          "englishAuditText": "It was the plumber, not the courier, who left the small parcel beside the gate.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "The identified person changes from gardener to plumber."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-two-labels-came-loose",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 86,
+      "complexity": 82,
+      "topic": "work",
+      "familyId": "mm-es-work-quantity",
+      "targetText": "Aunque había etiquetado cada tarro con cuidado, se despegaron dos etiquetas durante el viaje.",
+      "learnerBaseText": "Although she had labeled every jar carefully, two labels came loose during the journey.",
+      "englishText": "Although she had labeled every jar carefully, two labels came loose during the journey.",
+      "embeddingText": "Although she had labeled every jar carefully, two labels came loose during the journey.",
+      "focus": {
+        "kind": "quantity",
+        "englishConcepts": [
+          "careful labeling",
+          "two labels detached",
+          "during journey"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Although she had labeled every jar carefully, two labels came loose during the journey.",
+          "englishAuditText": "Although she had labeled every jar carefully, two labels came loose during the journey."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Although she had labeled every jar carefully, three labels came loose during the journey.",
+          "englishAuditText": "Although she had labeled every jar carefully, three labels came loose during the journey.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "The number of detached labels changes from two to three."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Although she had labeled every jar carefully, four labels came loose during the journey.",
+          "englishAuditText": "Although she had labeled every jar carefully, four labels came loose during the journey.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "The number of detached labels changes from two to four."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-letter-still-needs-stamp",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 93,
+      "complexity": 84,
+      "topic": "services",
+      "familyId": "mm-es-services-object",
+      "targetText": "Antes de enviarla, comprobó si a la carta que había escrito antes todavía le faltaba un sello.",
+      "learnerBaseText": "She checked whether the letter she had written earlier still needed a stamp before posting it.",
+      "englishText": "She checked whether the letter she had written earlier still needed a stamp before posting it.",
+      "embeddingText": "She checked whether the letter she had written earlier still needed a stamp before posting it.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "previously written letter",
+          "check stamp",
+          "before posting"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "She checked whether the letter she had written earlier still needed a stamp before posting it.",
+          "englishAuditText": "She checked whether the letter she had written earlier still needed a stamp before posting it."
+        },
+        {
+          "id": "contrast-1",
+          "text": "She checked whether the letter she had written earlier still needed an address before posting it.",
+          "englishAuditText": "She checked whether the letter she had written earlier still needed an address before posting it.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "An address replaces a stamp as the item checked."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "She checked whether the letter she had written earlier still needed a signature before posting it.",
+          "englishAuditText": "She checked whether the letter she had written earlier still needed a signature before posting it.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "A signature replaces a stamp as the item checked."
+          }
+        }
+      ]
+    }
+  ]
+}

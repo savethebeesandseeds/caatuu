@@ -170,8 +170,86 @@ async function game(t, { czech = false, saved = {}, difficulty = 1 } = {}) {
     return round;
   }
   t.after(() => { controller.pause(); timers.clear(); });
-  return { ...browser, course, controller, learning, state, node, run, generation, settle, submitCorrect,
+  return { ...browser, course, prepared: context, controller, learning, state, node, run, generation, settle, submitCorrect,
     setDifficulty(value) { learning.setDifficulty(value); } };
+}
+
+function assertDictionaryHidden(g) {
+  const card = g.node("wordNetWordTranslation");
+  assert.equal(card.hidden, true);
+  assert.equal(card.getAttribute("aria-hidden"), "true");
+  for (const id of ["wordNetSelectedWord", "wordNetSelectedMeaning", "wordNetSelectedPos", "wordNetSelectedMeta"]) {
+    assert.equal(g.node(id).textContent, "", `${id} must not disclose a hidden answer`);
+  }
+}
+
+for (const czech of [false, true]) {
+  const namespace = `caatuu-${czech ? "cz" : "annotated-test"}`;
+  const cardKey = `${namespace}.wordNet.wordCardPreferences.v1`;
+  const promptKey = `${namespace}.wordNet.challengePromptMode.v1`;
+
+  test(`${czech ? "Czech" : "Mandarin"} learner-base prompts keep dictionary answers hidden through lookup, preference changes, and submission`, async t => {
+    const g = await game(t, { czech, saved: {
+      [cardKey]: JSON.stringify({ showCard: true, showMeta: true }), [promptKey]: "source"
+    } });
+    await g.settle();
+    assert.equal(g.state.reconstruction.promptSide, "source");
+    assertDictionaryHidden(g);
+    assert.equal(g.state.contentEncounterSupported, false, "a hidden dictionary must not mark recall as assisted");
+
+    let finishLookup;
+    g.state.wordMeaningCache.clear();
+    g.prepared.lookupMeaning = () => new Promise(resolve => { finishLookup = resolve; });
+    const lookup = g.run("lookupSelectedWord(state.selectedWord)");
+    assert.equal(g.state.wordMeaningLoading, true);
+    assertDictionaryHidden(g);
+    finishLookup({ meaning: "the selected target word", partOfSpeech: "pronoun", languageTag: "en" });
+    await lookup;
+    assert.equal(g.state.selectedWordMeaning, "the selected target word");
+    assertDictionaryHidden(g);
+
+    g.run('toggleWordCardPreference("showCard")');
+    g.run('toggleWordCardPreference("showCard")');
+    assert.equal(g.state.wordCardPreferences.showCard, true);
+    assert.equal(JSON.parse(g.localStorage.getItem(cardKey)).showCard, true);
+    assertDictionaryHidden(g);
+    await g.submitCorrect();
+    assert.equal(g.state.reconstruction.submitted, true);
+    assertDictionaryHidden(g);
+  });
+
+  test(`${czech ? "Czech" : "Mandarin"} dictionary visibility follows the displayed prompt while preserving the learner preference`, async t => {
+    const g = await game(t, { czech, saved: {
+      [cardKey]: JSON.stringify({ showCard: true, showMeta: false }), [promptKey]: "target"
+    } });
+    await g.settle();
+    await g.run("lookupSelectedWord(state.selectedWord)");
+    assert.equal(g.state.reconstruction.promptSide, "target");
+    assert.equal(g.node("wordNetWordTranslation").hidden, false);
+    assert.equal(g.node("wordNetWordTranslation").getAttribute("aria-hidden"), "false");
+    assert.ok(g.node("wordNetSelectedWord").textContent.includes(g.state.selectedWord));
+    assert.ok(g.node("wordNetSelectedMeaning").textContent);
+
+    await g.submitCorrect();
+    g.run('setChallengePromptMode("source")');
+    await g.controller.next(); await g.settle();
+    assert.equal(g.state.reconstruction.promptSide, "source");
+    assertDictionaryHidden(g);
+
+    g.run('setTranslationMode("visible")');
+    assert.equal(g.node("wordNetWordTranslation").hidden, false, "ordinary reading mode retains dictionary support");
+    assert.ok(g.node("wordNetSelectedWord").textContent.includes(g.state.selectedWord));
+    g.run('setTranslationMode("reconstruct")');
+    assertDictionaryHidden(g);
+
+    await g.submitCorrect();
+    g.run('setChallengePromptMode("target")');
+    await g.controller.next(); await g.settle();
+    assert.equal(g.state.reconstruction.promptSide, "target");
+    assert.equal(g.node("wordNetWordTranslation").hidden, false);
+    assert.equal(g.state.wordCardPreferences.showCard, true);
+    assert.equal(JSON.parse(g.localStorage.getItem(cardKey)).showCard, true);
+  });
 }
 
 test("annotated courses offer a foundation default while preserving saved practice and prompt settings", async t => {

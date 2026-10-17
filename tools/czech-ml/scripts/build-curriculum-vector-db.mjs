@@ -6,21 +6,12 @@ import { createRequire } from "node:module";
 import { caatuuRoot, fromRoot, mlRoot } from "./paths.mjs";
 import { czechSemanticIndexConfig } from "../../semantic-index/configs/czech-compat.mjs";
 import {
-  MANUAL_ENGLISH_DESCRIPTION_FIELD,
-  MANUAL_ENGLISH_DESCRIPTION_INPUT_POLICY,
   SEMANTIC_INDEX_CONTRACT_NAME,
   SEMANTIC_INDEX_CONTRACT_VERSION,
   TARGET_REALIZATIONS_TABLE,
-  manualEnglishDescriptionEmbeddingInput,
   prepareSemanticCurriculumRows,
   resolveSemanticIndexArtifactPaths,
 } from "../../semantic-index/src/contract.mjs";
-import {
-  CHILD_FACING_EXCLUDED_MACAW_ACTIONS,
-  CHILD_FACING_EXCLUDED_MACAW_ASSET_PATHS,
-  isChildFacingMacawActionAssetAllowed,
-  normalizeMacawActionAssetPath,
-} from "../../../apps/language-runtime/static/source/child-facing-assets.mjs";
 
 const MODEL_ID = "all-minilm-l6-v2-qint8-v0.1";
 const LEGACY_HASH_MODEL_ID = "caatuu-local-hash-v0.1";
@@ -38,11 +29,6 @@ const EMBEDDING_DIMENSION = 384;
 const DB_FILE_NAME = czechSemanticIndexConfig.storage.databaseFile;
 const EMBEDDING_TEXT_FIELD = czechSemanticIndexConfig.embedding.textField;
 const EMBEDDING_INPUT_POLICY = czechSemanticIndexConfig.embedding.inputPolicy;
-const MISC_ASSET_EMBEDDING_TABLE = "asset_embedding_refs";
-const ROBOT_ASSET_EMBEDDING_TABLE = "robot_embedding_refs";
-const MACAW_ACTION_EMBEDDING_TABLE = "macaw_action_embedding_refs";
-const ASSET_EMBEDDING_TEXT_FIELD = MANUAL_ENGLISH_DESCRIPTION_FIELD;
-const ASSET_EMBEDDING_INPUT_POLICY = MANUAL_ENGLISH_DESCRIPTION_INPUT_POLICY;
 const VECTOR_ENCODING = "float32le";
 const DISTANCE_METRIC = "cosine";
 const MAX_REVIEW_CANDIDATES = 200;
@@ -127,34 +113,6 @@ const sqlJsWasmFile = path.resolve(
 const browserVectorDbFile = path.resolve(
   argValue("--browser-vector-db-file", path.join(caatuuRoot, "apps", "languages", "czech", "static", "source", "shared", "vector-db.js")),
 );
-const assetKeymapFile = path.resolve(
-  argValue(
-    "--asset-keymap-file",
-    path.join(caatuuRoot, "apps", "launcher", "static", "assets", "visual-vocabulary", "keymap.json"),
-  ),
-);
-const robotKeymapFile = path.resolve(
-  argValue(
-    "--robot-keymap-file",
-    path.join(caatuuRoot, "apps", "launcher", "static", "assets", "robots", "keymap.json"),
-  ),
-);
-const macawActionKeymapsFile = path.resolve(
-  argValue(
-    "--macaw-action-keymap-file",
-    path.join(caatuuRoot, "apps", "launcher", "static", "assets", "macaw", "actions", "keymaps.json"),
-  ),
-);
-const childFacingAssetPolicyFile = path.join(
-  caatuuRoot,
-  "apps",
-  "languages",
-  "czech",
-  "static",
-  "source",
-  "shared",
-  "child-facing-assets.mjs",
-);
 const setupAssetsFile = path.resolve(
   argValue("--setup-assets-file", path.join(caatuuRoot, "apps", "languages", "czech", "static", "setup-assets.json")),
 );
@@ -190,64 +148,15 @@ const transformersVendorDir = path.resolve(
     path.join(caatuuRoot, "apps", "language-runtime", "vendor", "transformers"),
   ),
 );
-const assetKeymapSpecs = [
-  {
-    group: "miscellaneous",
-    file: assetKeymapFile,
-    table: MISC_ASSET_EMBEDDING_TABLE,
-    sourceKind: "image_asset",
-    defaultCategory: "",
-  },
-  {
-    group: "robots",
-    file: robotKeymapFile,
-    table: ROBOT_ASSET_EMBEDDING_TABLE,
-    sourceKind: "robot_asset",
-    defaultCategory: "robot",
-  },
-  {
-    group: "macaw_actions",
-    file: macawActionKeymapsFile,
-    table: MACAW_ACTION_EMBEDDING_TABLE,
-    sourceKind: "macaw_action_asset",
-    defaultCategory: "macaw_action",
-  },
-];
-const setupAssetGroups = {
-  miscellaneous: {
-    keyPrefix: "misc-character",
-    keymapKey: "misc-character-keymap",
-    keymapLabel: "Character image keymap",
-    imageLabel: "Character image",
-  },
-  robots: {
-    keyPrefix: "robot",
-    keymapKey: "robot-keymap",
-    keymapLabel: "Robot image keymap",
-    imageLabel: "Robot image",
-  },
-  macaw_actions: {
-    keyPrefix: "macaw-action",
-    keymapKey: "macaw-action-keymap",
-    keymapLabel: "Macaw action keymap",
-    imageLabel: "Macaw action image",
-  },
-};
-
 const rows = await readJsonl(inputFile);
 assertRows(rows);
 const preparedRows = prepareSemanticCurriculumRows(rows, czechSemanticIndexConfig);
-const allAssetRows = (await Promise.all(assetKeymapSpecs.map((spec) => readAssetKeymap(spec)))).flat();
-const { assetRows, excludedAssetRows } = partitionChildFacingAssetRows(allAssetRows);
-
 const runtimeArtifacts = await prepareSemanticRuntime();
 const embedder = await createSemanticEmbedder();
 const SQL = await loadSqlJs();
 const schemaSql = await fs.readFile(schemaFile, "utf8");
 const curriculumTexts = preparedRows.map((prepared) => prepared.embeddingInput.text);
-const preparedAssetInputs = assetRows.map((row) => manualEnglishDescriptionEmbeddingInput(row));
-const assetTexts = preparedAssetInputs.map((input) => input.text);
-const vectors = await embedder.embedTexts([...curriculumTexts, ...assetTexts]);
+const vectors = await embedder.embedTexts(curriculumTexts);
 await embedder.dispose();
 const embeddedRows = rows.map((row, index) => {
   const prepared = preparedRows[index];
@@ -261,41 +170,28 @@ const embeddedRows = rows.map((row, index) => {
     normalizedText: normalizeText(indexedText),
   };
 });
-const embeddedAssetRows = assetRows.map((row, index) => ({
-  row,
-  indexedText: preparedAssetInputs[index].text,
-  vector: vectors[rows.length + index],
-}));
-
 await fs.mkdir(outDir, { recursive: true });
-await buildDatabase(SQL, schemaSql, embeddedRows, embeddedAssetRows, outFile);
+await buildDatabase(SQL, schemaSql, embeddedRows, outFile);
 const manifest = await writeManifest(
   rows,
-  embeddedAssetRows,
-  excludedAssetRows,
   outFile,
   manifestFile,
   runtimeArtifacts,
 );
 await writeEmbeddingCatalog(manifest, embeddingCatalogFile);
 await updateBrowserVectorDbUrl(browserVectorDbFile, manifest.sha256);
-await updateAssetKeymapReferences(allAssetRows, excludedAssetRows);
 const setup_assets_file = await updateSetupAssetsManifest(setupAssetsFile, {
   "browser-vector-db-js": browserVectorDbFile,
   "embedding-catalog": embeddingCatalogFile,
   "embedding-manifest": manifestFile,
   "embedding-sqlite": outFile,
   ...Object.fromEntries(runtimeArtifacts.map((artifact) => [artifact.key, artifact.file])),
-}, assetRows, runtimeArtifacts);
+}, runtimeArtifacts);
 const quality = await writeQualityReports(embeddedRows, manifest);
 
 console.log(JSON.stringify({
   ok: true,
   rows: rows.length,
-  asset_rows: embeddedAssetRows.length,
-  asset_counts: countAssetGroups(embeddedAssetRows),
-  excluded_asset_rows: excludedAssetRows.length,
-  child_facing_asset_policy: path.relative(caatuuRoot, childFacingAssetPolicyFile).replaceAll("\\", "/"),
   model_id: MODEL_ID,
   model_source: MODEL_SOURCE_ID,
   model_revision: MODEL_REVISION,
@@ -305,9 +201,6 @@ console.log(JSON.stringify({
   db_sha256: manifest.sha256,
   manifest_file: manifestFile,
   catalog_file: embeddingCatalogFile,
-  asset_keymap_files: Object.fromEntries(
-    assetKeymapSpecs.map((spec) => [spec.group, spec.file]),
-  ),
   setup_assets_file,
   quality_file: qualityFile,
   quality_markdown_file: qualityMarkdownFile,
@@ -410,10 +303,13 @@ async function prepareSemanticRuntime() {
       "",
       `Vendored from \`@huggingface/transformers@${TRANSFORMERS_JS_VERSION}\` (Apache-2.0).`,
       "",
-      "This shared copy is the canonical browser dependency for every language course that selects the English MiniLM runtime.",
-      "Its exact bytes and license are pinned in `../../embedding-runtimes.json`; the server exposes only the reviewed bundle and license, not this repository note.",
+      "This shared copy is the canonical browser dependency for every language course",
+      "that selects the English MiniLM runtime. Its exact bytes and license are pinned",
+      "in `../../embedding-runtimes.json`; the server exposes only the reviewed bundle",
+      "and license, not this repository note.",
       "",
-      "Large ONNX and WASM files live under `../../models/`, remain ignored by Git, and must pass the shared size and SHA-256 readiness check before the server starts.",
+      "Large ONNX and WASM files live under `../../models/`, remain ignored by Git, and",
+      "must pass the shared size and SHA-256 readiness check before the server starts.",
       "",
     ].join("\n"),
     "utf8",
@@ -436,7 +332,7 @@ async function prepareSemanticRuntime() {
     }
   }
   if (path.resolve(czechCompatibilityTransformersVendorDir) !== path.resolve(transformersVendorDir)) {
-    for (const relativeFile of ["transformers.min.js", "LICENSE", "README.md"]) {
+    for (const relativeFile of ["transformers.min.js", "LICENSE"]) {
       await copyRequiredFile(
         path.join(transformersVendorDir, relativeFile),
         path.join(czechCompatibilityTransformersVendorDir, relativeFile),
@@ -564,150 +460,12 @@ function assertRows(rows) {
   }
 }
 
-async function readAssetKeymap(spec) {
-  const { file } = spec;
-  let text = "";
-  try {
-    text = await fs.readFile(file, "utf8");
-  } catch (error) {
-    if (error?.code === "ENOENT") return [];
-    throw error;
-  }
-
-  const parsed = JSON.parse(text);
-  if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
-    throw new Error(`${file}: expected a JSON object keyed by served asset path`);
-  }
-
-  const rows = Object.entries(parsed).map(([assetPath, value], index) => {
-    if (!assetPath.startsWith("/assets/")) {
-      throw new Error(`${file}: entry ${index + 1} key must start with /assets/`);
-    }
-    if (!value || typeof value !== "object" || Array.isArray(value)) {
-      throw new Error(`${file}: entry ${assetPath} must be an object`);
-    }
-    const description = String(value.description || "").trim();
-    if (!description) throw new Error(`${file}: entry ${assetPath} has blank description`);
-    const category = String(value.category || spec.defaultCategory || "").trim();
-    if (!category) throw new Error(`${file}: entry ${assetPath} has blank category`);
-    const action = String(value.action || category).trim();
-    if (!action) throw new Error(`${file}: entry ${assetPath} has blank action`);
-    const embedding = value.embedding && typeof value.embedding === "object" && !Array.isArray(value.embedding)
-      ? value.embedding
-      : {};
-    const documentId = String(embedding.document_id || assetDocumentId(assetPath)).trim();
-    const chunkId = String(embedding.chunk_id || `${documentId}:description`).trim();
-    const referencedModelId = String(embedding.model_id || MODEL_ID).trim();
-    const table = String(embedding.table || spec.table).trim();
-    if (!documentId || !chunkId) throw new Error(`${file}: entry ${assetPath} has blank DB reference`);
-    if (![MODEL_ID, LEGACY_HASH_MODEL_ID].includes(referencedModelId)) {
-      throw new Error(`${file}: entry ${assetPath} uses unsupported model ${referencedModelId}`);
-    }
-    if (table !== spec.table) throw new Error(`${file}: entry ${assetPath} must reference ${spec.table}`);
-    return {
-      assetPath,
-      description,
-      category,
-      action,
-      documentId,
-      chunkId,
-      modelId: MODEL_ID,
-      table,
-      group: spec.group,
-      sourceKind: spec.sourceKind,
-      sourceKeymapFile: file,
-    };
-  });
-
-  const paths = new Set();
-  const documents = new Set();
-  const chunks = new Set();
-  for (const row of rows) {
-    if (paths.has(row.assetPath)) throw new Error(`${file}: duplicate asset path ${row.assetPath}`);
-    if (documents.has(row.documentId)) throw new Error(`${file}: duplicate document_id ${row.documentId}`);
-    if (chunks.has(row.chunkId)) throw new Error(`${file}: duplicate chunk_id ${row.chunkId}`);
-    paths.add(row.assetPath);
-    documents.add(row.documentId);
-    chunks.add(row.chunkId);
-  }
-  return rows;
-}
-
-function partitionChildFacingAssetRows(rows) {
-  const excludedAssetRows = rows.filter((row) => (
-    row.sourceKind === "macaw_action_asset"
-      && !isChildFacingMacawActionAssetAllowed(row.assetPath, row.action)
-  ));
-  const excludedPaths = new Set(excludedAssetRows.map((row) => normalizeMacawActionAssetPath(row.assetPath)));
-  const excludedActions = new Set(excludedAssetRows.map((row) => row.action));
-
-  for (const assetPath of CHILD_FACING_EXCLUDED_MACAW_ASSET_PATHS) {
-    if (!excludedPaths.has(normalizeMacawActionAssetPath(assetPath))) {
-      throw new Error(`Child-facing asset policy path is missing from the Macaw keymap: ${assetPath}`);
-    }
-  }
-  for (const action of CHILD_FACING_EXCLUDED_MACAW_ACTIONS) {
-    if (!excludedActions.has(action)) {
-      throw new Error(`Child-facing asset policy action is missing from the Macaw keymap: ${action}`);
-    }
-  }
-  if (excludedAssetRows.length !== CHILD_FACING_EXCLUDED_MACAW_ASSET_PATHS.length) {
-    throw new Error(
-      `Child-facing asset policy expected ${CHILD_FACING_EXCLUDED_MACAW_ASSET_PATHS.length} excluded assets, found ${excludedAssetRows.length}`,
-    );
-  }
-
-  const excludedKeys = new Set(excludedAssetRows.map((row) => `${row.sourceKeymapFile}\u0000${row.assetPath}`));
-  return {
-    assetRows: rows.filter((row) => !excludedKeys.has(`${row.sourceKeymapFile}\u0000${row.assetPath}`)),
-    excludedAssetRows,
-  };
-}
-
-async function updateAssetKeymapReferences(assetRows, excludedAssetRows = []) {
-  const excludedKeys = new Set(excludedAssetRows.map((row) => `${row.sourceKeymapFile}\u0000${row.assetPath}`));
-  const rowsByFile = new Map();
-  for (const row of assetRows) {
-    if (!rowsByFile.has(row.sourceKeymapFile)) rowsByFile.set(row.sourceKeymapFile, []);
-    rowsByFile.get(row.sourceKeymapFile).push(row);
-  }
-
-  for (const [file, rowsForFile] of rowsByFile) {
-    const keymap = JSON.parse(await fs.readFile(file, "utf8"));
-    let changed = false;
-    for (const row of rowsForFile) {
-      const entry = keymap[row.assetPath];
-      if (!entry) throw new Error(`${file}: missing asset entry ${row.assetPath}`);
-      if (excludedKeys.has(`${file}\u0000${row.assetPath}`)) {
-        if (Object.hasOwn(entry, "embedding")) {
-          delete entry.embedding;
-          changed = true;
-        }
-        continue;
-      }
-      const previous = entry.embedding && typeof entry.embedding === "object" ? entry.embedding : {};
-      const embedding = {
-        ...previous,
-        database: semanticArtifactPaths.route.database,
-        table: row.table,
-        model_id: MODEL_ID,
-        document_id: row.documentId,
-        chunk_id: row.chunkId,
-      };
-      if (JSON.stringify(previous) !== JSON.stringify(embedding)) changed = true;
-      entry.embedding = embedding;
-    }
-    if (changed) await writeJson(file, keymap);
-  }
-}
-
-async function buildDatabase(SQL, schemaSql, items, assetItems, file) {
+async function buildDatabase(SQL, schemaSql, items, file) {
   const db = new SQL.Database();
+  // 384-float vectors pack more efficiently into 8 KiB pages than 4 KiB.
+  db.run("PRAGMA page_size = 8192");
   db.run("PRAGMA foreign_keys = ON");
   db.run(schemaSql);
-  db.run("DELETE FROM macaw_action_embedding_refs");
-  db.run("DELETE FROM robot_embedding_refs");
-  db.run("DELETE FROM asset_embedding_refs");
   db.run("DELETE FROM embeddings");
   db.run("DELETE FROM chunks");
   db.run(`DELETE FROM ${TARGET_REALIZATIONS_TABLE}`);
@@ -720,15 +478,6 @@ async function buildDatabase(SQL, schemaSql, items, assetItems, file) {
   db.run("INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)", ["default_embedding_model", MODEL_ID]);
   db.run("INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)", ["embedding_text_field", EMBEDDING_TEXT_FIELD]);
   db.run("INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)", ["embedding_input_policy", EMBEDDING_INPUT_POLICY]);
-  db.run("INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)", ["asset_embedding_table", MISC_ASSET_EMBEDDING_TABLE]);
-  db.run("INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)", ["asset_embedding_text_field", ASSET_EMBEDDING_TEXT_FIELD]);
-  db.run("INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)", ["asset_embedding_input_policy", ASSET_EMBEDDING_INPUT_POLICY]);
-  db.run("INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)", ["robot_embedding_table", ROBOT_ASSET_EMBEDDING_TABLE]);
-  db.run("INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)", ["robot_embedding_text_field", ASSET_EMBEDDING_TEXT_FIELD]);
-  db.run("INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)", ["robot_embedding_input_policy", ASSET_EMBEDDING_INPUT_POLICY]);
-  db.run("INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)", ["macaw_action_embedding_table", MACAW_ACTION_EMBEDDING_TABLE]);
-  db.run("INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)", ["macaw_action_embedding_text_field", ASSET_EMBEDDING_TEXT_FIELD]);
-  db.run("INSERT OR REPLACE INTO schema_meta(key, value) VALUES (?, ?)", ["macaw_action_embedding_input_policy", ASSET_EMBEDDING_INPUT_POLICY]);
   db.run(
     `INSERT OR REPLACE INTO embedding_models(
       id, provider, model_name, revision, license, dimension, max_tokens, pooling,
@@ -777,22 +526,6 @@ async function buildDatabase(SQL, schemaSql, items, assetItems, file) {
       pronunciation_json, linguistic_metadata_json, review_metadata_json
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
   `);
-  const assetRefStmt = db.prepare(`
-    INSERT INTO asset_embedding_refs(
-      asset_path, category, description, document_id, chunk_id, model_id, metadata_json
-    ) VALUES (?, ?, ?, ?, ?, ?, ?)
-  `);
-  const robotRefStmt = db.prepare(`
-    INSERT INTO robot_embedding_refs(
-      asset_path, category, description, document_id, chunk_id, model_id, metadata_json
-    ) VALUES (?, ?, ?, ?, ?, ?, ?)
-  `);
-  const macawActionRefStmt = db.prepare(`
-    INSERT INTO macaw_action_embedding_refs(
-      asset_path, action, description, document_id, chunk_id, model_id, metadata_json
-    ) VALUES (?, ?, ?, ?, ?, ?, ?)
-  `);
-
   db.run("BEGIN");
   try {
     for (const item of items) {
@@ -845,95 +578,6 @@ async function buildDatabase(SQL, schemaSql, items, assetItems, file) {
         JSON.stringify(targetRealization.reviewMetadata),
       ]);
     }
-    for (const item of assetItems) {
-      const { row, indexedText, vector } = item;
-      const documentMetadata = JSON.stringify({
-        asset_path: row.assetPath,
-        asset_group: row.group,
-        category: row.category,
-        action: row.action,
-        source_keymap: path.relative(caatuuRoot, row.sourceKeymapFile).replaceAll("\\", "/"),
-        embedding_text_field: ASSET_EMBEDDING_TEXT_FIELD,
-        embedding_input_policy: ASSET_EMBEDDING_INPUT_POLICY,
-      });
-      const chunkMetadata = JSON.stringify({
-        asset_path: row.assetPath,
-        asset_group: row.group,
-        category: row.category,
-        action: row.action,
-        embedding_text_field: ASSET_EMBEDDING_TEXT_FIELD,
-        embedding_input_policy: ASSET_EMBEDDING_INPUT_POLICY,
-        indexed_text_hash: sha256Text(indexedText),
-        indexed_text_tokens: tokenize(indexedText).length,
-      });
-      const refMetadata = JSON.stringify({
-        source_kind: row.sourceKind,
-        asset_group: row.group,
-        category: row.category,
-        action: row.action,
-        source_keymap: path.relative(caatuuRoot, row.sourceKeymapFile).replaceAll("\\", "/"),
-      });
-
-      documentStmt.run([
-        row.documentId,
-        row.sourceKind,
-        row.assetPath,
-        "en",
-        displayAssetName(row.assetPath),
-        row.description,
-        sha256Text(`${row.description}\n${documentMetadata}`),
-        documentMetadata,
-      ]);
-      chunkStmt.run([
-        row.chunkId,
-        row.documentId,
-        0,
-        row.description,
-        tokenize(indexedText).length,
-        sha256Text(row.description),
-        chunkMetadata,
-      ]);
-      embeddingStmt.run([
-        row.chunkId,
-        row.modelId,
-        EMBEDDING_DIMENSION,
-        encodeFloat32le(vector),
-        1,
-      ]);
-      if (row.table === MISC_ASSET_EMBEDDING_TABLE) {
-        assetRefStmt.run([
-          row.assetPath,
-          row.category,
-          row.description,
-          row.documentId,
-          row.chunkId,
-          row.modelId,
-          refMetadata,
-        ]);
-      } else if (row.table === ROBOT_ASSET_EMBEDDING_TABLE) {
-        robotRefStmt.run([
-          row.assetPath,
-          row.category,
-          row.description,
-          row.documentId,
-          row.chunkId,
-          row.modelId,
-          refMetadata,
-        ]);
-      } else if (row.table === MACAW_ACTION_EMBEDDING_TABLE) {
-        macawActionRefStmt.run([
-          row.assetPath,
-          row.action,
-          row.description,
-          row.documentId,
-          row.chunkId,
-          row.modelId,
-          refMetadata,
-        ]);
-      } else {
-        throw new Error(`${row.assetPath}: unsupported asset embedding table ${row.table}`);
-      }
-    }
     db.run("COMMIT");
   } catch (error) {
     db.run("ROLLBACK");
@@ -943,9 +587,6 @@ async function buildDatabase(SQL, schemaSql, items, assetItems, file) {
     chunkStmt.free();
     embeddingStmt.free();
     targetRealizationStmt.free();
-    assetRefStmt.free();
-    robotRefStmt.free();
-    macawActionRefStmt.free();
   }
 
   const bytes = db.export();
@@ -953,12 +594,10 @@ async function buildDatabase(SQL, schemaSql, items, assetItems, file) {
   await fs.writeFile(file, Buffer.from(bytes));
 }
 
-async function writeManifest(rows, assetItems, excludedAssetRows, dbFile, file, runtimeArtifacts) {
+async function writeManifest(rows, dbFile, file, runtimeArtifacts) {
   const [stat, sha256] = await Promise.all([fs.stat(dbFile), sha256File(dbFile)]);
   const qualityCounts = countFields(rows);
-  const totalRows = rows.length + assetItems.length;
-  const assetCounts = countAssetGroups(assetItems);
-  const assetSourceCounts = countAssetSourceKinds(assetItems);
+  const totalRows = rows.length;
   const manifest = {
     schema_name: SCHEMA_NAME,
     schema_version: SCHEMA_VERSION,
@@ -1008,27 +647,11 @@ async function writeManifest(rows, assetItems, excludedAssetRows, dbFile, file, 
       course_id: czechSemanticIndexConfig.courseId,
       locale: czechSemanticIndexConfig.target.locale,
     },
-    asset_count: assetItems.length,
-    asset_counts: assetCounts,
-    child_facing_asset_policy: {
-      file: path.relative(caatuuRoot, childFacingAssetPolicyFile).replaceAll("\\", "/"),
-      excluded_asset_count: excludedAssetRows.length,
-      excluded_macaw_actions: [...CHILD_FACING_EXCLUDED_MACAW_ACTIONS],
-      excluded_macaw_asset_paths: [...CHILD_FACING_EXCLUDED_MACAW_ASSET_PATHS],
-    },
+    asset_count: 0,
     generated_at: new Date().toISOString(),
     generated_from: path.relative(caatuuRoot, inputFile).replaceAll("\\", "/"),
-    generated_asset_keymap: assetCounts.miscellaneous
-      ? path.relative(caatuuRoot, assetKeymapFile).replaceAll("\\", "/")
-      : null,
-    generated_asset_keymaps: Object.fromEntries(
-      assetKeymapSpecs
-        .filter((spec) => assetCounts[spec.group])
-        .map((spec) => [spec.group, path.relative(caatuuRoot, spec.file).replaceAll("\\", "/")]),
-    ),
     source_counts: {
       curriculum: rows.length,
-      ...assetSourceCounts,
     },
     row_counts: {
       topics: qualityCounts.topics,
@@ -1048,18 +671,18 @@ async function writeEmbeddingCatalog(manifest, file) {
       {
         key: MODEL_ID,
         model_id: MODEL_ID,
-        label: "Caatuu Curriculum and Asset Embeddings",
+        label: "Czech Curriculum Embeddings",
         short_label: "Embeddings",
         status: "active",
         artifact_kind: "embedding-vector-db",
-        source_label: "Caatuu curated curriculum corpus and manual image descriptions",
+        source_label: "Caatuu reviewed Czech curriculum English concepts",
         source_url: "data/embeddings/README.md",
         license: MODEL_LICENSE,
         license_url: "https://www.apache.org/licenses/LICENSE-2.0",
         embedding_model_source: MODEL_SOURCE_ID,
         embedding_model_revision: MODEL_REVISION,
         embedding_model_source_url: `https://huggingface.co/${MODEL_SOURCE_ID}/tree/${MODEL_REVISION}`,
-        intended_use: "Local curriculum retrieval, duplicate review, game selection, distractor search, and manually described image asset lookup.",
+        intended_use: "Local Czech curriculum retrieval, duplicate review, game selection, and distractor search.",
         runtime: `SQLite vector database with Transformers.js ${TRANSFORMERS_JS_VERSION} and ONNX Runtime Web`,
         format: "sqlite",
         model_file: `${MODEL_ID}/${DB_FILE_NAME}`,
@@ -1079,9 +702,6 @@ async function writeEmbeddingCatalog(manifest, file) {
         notes: [
           "Semantic English retrieval uses the pinned quantized all-MiniLM-L6-v2 ONNX artifact.",
           "Curriculum metadata is stored in SQLite for filtering and review but is not embedded.",
-          "Image asset vectors are computed only from manually written English descriptions.",
-          "Macaw action assets excluded by the central child-facing asset policy are not indexed.",
-          "Miscellaneous scene assets and macaw action assets are stored in separate lookup tables.",
           "The legacy local hash database remains versioned separately for rollback and comparison.",
         ],
       },
@@ -1116,7 +736,7 @@ async function writeQualityReports(items, manifest) {
     source_file: path.relative(caatuuRoot, inputFile).replaceAll("\\", "/"),
     vector_db: path.relative(caatuuRoot, outFile).replaceAll("\\", "/"),
     model_id: MODEL_ID,
-    caveat: "This semantic vector index is computed only from english_text (or manual English image descriptions), never from target-language realizations or metadata. Retrieval quality is measured separately by the human-curated image benchmark.",
+    caveat: "This semantic vector index is computed only from english_text, never from target-language realizations or metadata. Shared artwork retrieval is built and evaluated separately.",
     rows: items.length,
     db_bytes: manifest.bytes,
     db_sha256: manifest.sha256,
@@ -1348,24 +968,6 @@ function countFields(rows) {
   };
 }
 
-function countAssetGroups(assetItems) {
-  const counts = {};
-  for (const item of assetItems) {
-    const key = item?.row?.group || "unknown";
-    counts[key] = (counts[key] || 0) + 1;
-  }
-  return sortObject(counts);
-}
-
-function countAssetSourceKinds(assetItems) {
-  const counts = {};
-  for (const item of assetItems) {
-    const key = item?.row?.sourceKind || "image_asset";
-    counts[key] = (counts[key] || 0) + 1;
-  }
-  return sortObject(counts);
-}
-
 function mostCommonOpenings(items, limit) {
   const counts = {};
   for (const item of items) {
@@ -1444,7 +1046,7 @@ function round(value, digits) {
   return Math.round(value * scale) / scale;
 }
 
-async function updateSetupAssetsManifest(file, artifactFilesByKey, assetRows = [], extraArtifacts = []) {
+async function updateSetupAssetsManifest(file, artifactFilesByKey, extraArtifacts = []) {
   let text = "";
   try {
     text = await fs.readFile(file, "utf8");
@@ -1486,21 +1088,7 @@ async function updateSetupAssetsManifest(file, artifactFilesByKey, assetRows = [
       browserRequired: true,
     }),
     ...extraArtifacts.map(({ file: _file, relativeFile: _relativeFile, ...artifact }) => artifact),
-    ...await setupArtifactsForAssetRows(assetRows),
   ];
-  const generatedManagedKeys = new Set(managedArtifacts.map((artifact) => artifact.key));
-  const managedAssetPrefixes = [
-    ...Object.values(setupAssetGroups).map((group) => `${group.keyPrefix}-`),
-    "robot-art-",
-  ];
-  const retainedArtifacts = manifest.artifacts.filter((artifact) => {
-    const key = String(artifact?.key || "");
-    const isManagedAsset = managedAssetPrefixes.some((prefix) => key.startsWith(prefix));
-    if (!isManagedAsset || generatedManagedKeys.has(key)) return true;
-    changed = true;
-    return false;
-  });
-  if (retainedArtifacts.length !== manifest.artifacts.length) manifest.artifacts = retainedArtifacts;
   for (const generatedArtifact of managedArtifacts) {
     const index = manifest.artifacts.findIndex((artifact) => artifact?.key === generatedArtifact.key);
     if (index >= 0) {
@@ -1523,46 +1111,6 @@ async function updateSetupAssetsManifest(file, artifactFilesByKey, assetRows = [
 
   if (changed) await writeJson(file, manifest);
   return path.relative(caatuuRoot, file).replaceAll("\\", "/");
-}
-
-async function setupArtifactsForAssetRows(assetRows) {
-  const artifacts = [];
-  const rowsByGroup = groupAssetRows(assetRows);
-
-  for (const spec of assetKeymapSpecs) {
-    const rows = rowsByGroup.get(spec.group) || [];
-    const setupGroup = setupAssetGroups[spec.group];
-    if (!setupGroup || !rows.length) continue;
-
-    artifacts.push(await setupArtifactForFile({
-      key: setupGroup.keymapKey,
-      label: setupGroup.keymapLabel,
-      artifactKind: "asset-keymap",
-      url: launcherStaticUrlForFile(spec.file),
-      file: spec.file,
-    }));
-
-    for (const [index, row] of rows.entries()) {
-      artifacts.push(await setupArtifactForFile({
-        key: `${setupGroup.keyPrefix}-${String(index + 1).padStart(3, "0")}`,
-        label: `${setupGroup.imageLabel} ${index + 1}`,
-        artifactKind: "visual-asset",
-        url: row.assetPath,
-        file: launcherStaticFileForUrl(row.assetPath),
-      }));
-    }
-  }
-
-  return artifacts;
-}
-
-function groupAssetRows(assetRows) {
-  const groups = new Map();
-  for (const row of assetRows) {
-    if (!groups.has(row.group)) groups.set(row.group, []);
-    groups.get(row.group).push(row);
-  }
-  return groups;
 }
 
 async function setupArtifactForFile({
@@ -1588,37 +1136,6 @@ async function setupArtifactForFile({
   };
 }
 
-function launcherStaticUrlForFile(file) {
-  const launcherStaticRoot = path.join(caatuuRoot, "apps", "launcher", "static");
-  const sourcePath = path.relative(launcherStaticRoot, file).replaceAll("\\", "/");
-  return `/${publicAssetPathForSource(sourcePath)}`;
-}
-
-function launcherStaticFileForUrl(url) {
-  const launcherStaticRoot = path.join(caatuuRoot, "apps", "launcher", "static");
-  return path.join(launcherStaticRoot, sourceAssetPathForPublic(decodeAssetUrl(url)));
-}
-
-function publicAssetPathForSource(sourcePath) {
-  if (sourcePath.startsWith("assets/loading-animation/")) {
-    return `assets/loading_animation/${sourcePath.slice("assets/loading-animation/".length)}`;
-  }
-  if (sourcePath.startsWith("assets/visual-vocabulary/")) {
-    return `assets/miscellaneous/${sourcePath.slice("assets/visual-vocabulary/".length)}`;
-  }
-  return sourcePath;
-}
-
-function sourceAssetPathForPublic(publicPath) {
-  if (publicPath.startsWith("assets/loading_animation/")) {
-    return `assets/loading-animation/${publicPath.slice("assets/loading_animation/".length)}`;
-  }
-  if (publicPath.startsWith("assets/miscellaneous/")) {
-    return `assets/visual-vocabulary/${publicPath.slice("assets/miscellaneous/".length)}`;
-  }
-  return publicPath;
-}
-
 function decodeAssetUrl(url) {
   const cleanUrl = String(url || "").replace(/^\/+/, "");
   try {
@@ -1626,20 +1143,6 @@ function decodeAssetUrl(url) {
   } catch {
     return cleanUrl;
   }
-}
-
-function assetDocumentId(assetPath) {
-  return `asset-${sha256Text(assetPath).slice(0, 16)}`;
-}
-
-function displayAssetName(assetPath) {
-  let decoded = assetPath;
-  try {
-    decoded = decodeURIComponent(assetPath);
-  } catch {
-    // Keep the original string if it is not valid URI encoding.
-  }
-  return path.posix.basename(decoded);
 }
 
 async function writeJson(file, value) {

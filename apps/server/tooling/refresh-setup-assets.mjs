@@ -18,7 +18,8 @@ import {
   browserCourseGameContentClosureIssues,
   browserInterfaceContentClosureIssues,
   browserSetupCacheNamespaceIssues,
-  browserSharedRuntimeClosureIssues
+  browserSharedRuntimeClosureIssues,
+  sharedArtworkCatalogPaths
 } from "../../../tools/language-packs/lib/browser-shared-runtime-closure.mjs";
 import {
   CourseContractError,
@@ -231,6 +232,13 @@ function validateBrowserSharedRuntimeOfflineContract({
           || mapping.source === BUILD_ONLY_COURSE_SERVICE_WORKER_MAPPING.source
             && mapping.output === BUILD_ONLY_COURSE_SERVICE_WORKER_MAPPING.output) continue;
       const pathname = new URL(`/${mapping.output}`, "https://caatuu.invalid/").pathname;
+      if (cached.has(pathname)) continue;
+      const index = manifest.offline.assets.length;
+      manifest.offline.assets.push(pathname);
+      cached.add(pathname);
+      registrations.push({ index, pathname, previousUrl: null, url: pathname });
+    }
+    for (const pathname of sharedArtworkCatalogPaths(appAssetCatalog)) {
       if (cached.has(pathname)) continue;
       const index = manifest.offline.assets.length;
       manifest.offline.assets.push(pathname);
@@ -667,10 +675,17 @@ export async function refreshAllBrowserCourseSetupAssets({
     // Every course is inspected before writing; unsafe URLs and invalid content
     // cannot pass the narrow interface-repair guard below.
     if (!registerSharedRuntime || loadValidatedCatalog !== loadAndValidateCourseCatalog
-        || !(error instanceof CourseContractError) || !error.issues.length
-        || error.issues.some(issue => !isInterfaceRevisionDriftIssue(issue)
-          && (issue.code !== "browser.shared-runtime-package"
-            || !/ setup offline assets omit shared runtime pathname \/language-runtime\//u.test(issue.message)))) throw error;
+        || !(error instanceof CourseContractError) || !error.issues.length) throw error;
+    const artworkCatalogs = new Set(sharedArtworkCatalogPaths(JSON.parse(readFileSync(
+      join(absoluteWorkspaceRoot, "apps/language-runtime/app-assets.json"), "utf8"
+    ))));
+    const recoverableMissingRuntime = issue => {
+      if (issue.code !== "browser.shared-runtime-package") return false;
+      const pathname = issue.message.match(/ setup offline assets omit shared runtime pathname (\/[^ ]+)\.$/u)?.[1];
+      return pathname?.startsWith("/language-runtime/") || artworkCatalogs.has(pathname);
+    };
+    if (error.issues.some(issue => !isInterfaceRevisionDriftIssue(issue)
+        && !recoverableMissingRuntime(issue))) throw error;
     loaded = await loadCourseCatalog(loadOptions);
   }
   const browserRecords = loaded.courses.filter(

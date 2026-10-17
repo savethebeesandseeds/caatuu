@@ -22,7 +22,7 @@ import { WordNetBranchQueue } from "./word-net-queue.mjs?v=word-net-queue-6";
 import { bindHorizontalGesture } from "./horizontal-gesture.mjs";
 import { localAiAvailability } from "./shell-policy.mjs";
 import { mountRobotLoadingScreen } from "./games/embedded-game-controls.mjs?v=embedded-game-controls-10";
-import { createEnglishImageSearch } from "./english-image-search.mjs?v=english-image-search-4";
+import { createEnglishImageSearch } from "./english-image-search.mjs?v=english-image-search-5";
 import { renderTargetText } from "./target-text.mjs?v=target-text-1";
 import { createTargetReadingGuide } from "./target-reading-guide.mjs?v=target-reading-guide-1";
 import { matchesContentDifficulty, newContentEncounterId } from "./games/content-progression.mjs";
@@ -3707,6 +3707,7 @@ function syncReconstructionPresentation(round = null) {
     bank.dir = answerDirection;
   }
   if (badge) badge.textContent = String(answerLanguage?.shortCode || answerLanguage?.id || "").toUpperCase();
+  syncWordTranslation();
 }
 
 function renderReconstruction() {
@@ -4183,11 +4184,15 @@ function syncWordTranslation() {
   if (!panel || !wordNode || !meaningNode || !posNode || !metaNode) return;
 
   const translationEnabled = state.translationMode !== "off";
+  // The selected target word would reveal part of a learner-base prompt's answer.
+  const dictionaryAllowed = state.translationMode !== "reconstruct"
+    || state.reconstruction?.promptSide === "target";
   const guidedState = state.guidedLifecycle?.state();
   const guidedCardAllowed = !state.guidedMode
     || Boolean(guidedState?.hintsUsed || guidedState?.firstResponseRecorded);
   const visible = Boolean(state.selectedWord)
     && translationEnabled
+    && dictionaryAllowed
     && state.wordCardPreferences.showCard
     && guidedCardAllowed;
   const details = state.selectedWordDetails;

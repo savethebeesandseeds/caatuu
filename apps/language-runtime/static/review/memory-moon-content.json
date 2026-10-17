@@ -1,0 +1,580 @@
+{
+  "schemaVersion": "caatuu-memory-moon-demo-v1",
+  "courseId": "cz",
+  "gameId": "memory-moon",
+  "targetLanguage": "cs",
+  "baseLanguage": "en",
+  "provenance": {
+    "status": "local-demo-selection",
+    "sourcePath": "apps/languages/czech/static/data/games/word-world/content.json",
+    "sourceManifestPath": "apps/languages/czech/static/data/games/word-world/manifest.json",
+    "sourceContentSha256": "55f63c965334a83c417ed077fdef94f72e3fe3ee9729889632493652ab843b38",
+    "notes": "Exact authored source sentences and translations. Distractors are hand-selected from the full source catalogue for nearby, non-equivalent meanings: subject, action, object, state, polarity or location. Each distractor records its lexical contrast and rationale. Four prompts were replaced with existing source sentences to support tighter contrasts. Local concept selection only; this adds no qualified language review and records no learner evidence."
+  },
+  "challenges": [
+    {
+      "id": "ww-codex-exp-0001-0001",
+      "targetText": "Můj bratr běhá.",
+      "englishText": "My brother runs.",
+      "topic": "people",
+      "correctChoiceId": "ww-codex-exp-0001-0001",
+      "choices": [
+        {
+          "id": "ww-codex-exp-0001-0001",
+          "text": "My brother runs.",
+          "sourceItemId": "ww-codex-exp-0001-0001"
+        },
+        {
+          "id": "ww-cp-000141",
+          "text": "My baby brother is sleeping.",
+          "sourceItemId": "ww-cp-000141",
+          "distractorContrast": {
+            "focus": "action",
+            "targetPhrase": "runs",
+            "alternativePhrase": "is sleeping",
+            "rationale": "The same family member is sleeping rather than running."
+          }
+        },
+        {
+          "id": "ww-codex-exp-0001-0007",
+          "text": "My little brother is building a tower.",
+          "sourceItemId": "ww-codex-exp-0001-0007",
+          "distractorContrast": {
+            "focus": "action",
+            "targetPhrase": "runs",
+            "alternativePhrase": "is building a tower",
+            "rationale": "The same family member is building rather than running."
+          }
+        }
+      ],
+      "sourceReference": {
+        "courseId": "cz",
+        "gameId": "word-world",
+        "bankId": "sentences",
+        "itemId": "ww-codex-exp-0001-0001",
+        "contentRevision": "55f63c965334a83c417ed077fdef94f72e3fe3ee9729889632493652ab843b38"
+      },
+      "sourceReview": {
+        "status": "codex_reviewed",
+        "humanApproved": false
+      }
+    },
+    {
+      "id": "ww-codex-exp-0001-0004",
+      "targetText": "Cítím se dobře.",
+      "englishText": "I feel good.",
+      "topic": "people",
+      "correctChoiceId": "ww-codex-exp-0001-0004",
+      "choices": [
+        {
+          "id": "ww-codex-exp-0001-0004",
+          "text": "I feel good.",
+          "sourceItemId": "ww-codex-exp-0001-0004"
+        },
+        {
+          "id": "ww-cp-000111",
+          "text": "I feel better.",
+          "sourceItemId": "ww-cp-000111",
+          "distractorContrast": {
+            "focus": "state",
+            "targetPhrase": "good",
+            "alternativePhrase": "better",
+            "rationale": "Feeling good differs from a comparative improvement."
+          }
+        },
+        {
+          "id": "ww-cp-000112",
+          "text": "I don't feel well.",
+          "sourceItemId": "ww-cp-000112",
+          "distractorContrast": {
+            "focus": "polarity",
+            "targetPhrase": "feel good",
+            "alternativePhrase": "don't feel well",
+            "rationale": "Positive well-being differs from not feeling well."
+          }
+        }
+      ],
+      "sourceReference": {
+        "courseId": "cz",
+        "gameId": "word-world",
+        "bankId": "sentences",
+        "itemId": "ww-codex-exp-0001-0004",
+        "contentRevision": "55f63c965334a83c417ed077fdef94f72e3fe3ee9729889632493652ab843b38"
+      },
+      "sourceReview": {
+        "status": "codex_reviewed",
+        "humanApproved": false
+      }
+    },
+    {
+      "id": "ww-codex-exp-0001-0005",
+      "targetText": "Po škole mám hlad.",
+      "englishText": "After school I am hungry.",
+      "topic": "people",
+      "correctChoiceId": "ww-codex-exp-0001-0005",
+      "choices": [
+        {
+          "id": "ww-codex-exp-0001-0005",
+          "text": "After school I am hungry.",
+          "sourceItemId": "ww-codex-exp-0001-0005"
+        },
+        {
+          "id": "ww-cp-000105",
+          "text": "I'm thirsty.",
+          "sourceItemId": "ww-cp-000105",
+          "distractorContrast": {
+            "focus": "state",
+            "targetPhrase": "hungry",
+            "alternativePhrase": "thirsty",
+            "rationale": "Both describe a bodily need; thirst does not translate hunger."
+          }
+        },
+        {
+          "id": "ww-cp-000246",
+          "text": "I'm not hungry anymore.",
+          "sourceItemId": "ww-cp-000246",
+          "distractorContrast": {
+            "focus": "polarity",
+            "targetPhrase": "am hungry",
+            "alternativePhrase": "not hungry anymore",
+            "rationale": "Being hungry after school differs from no longer being hungry."
+          }
+        }
+      ],
+      "sourceReference": {
+        "courseId": "cz",
+        "gameId": "word-world",
+        "bankId": "sentences",
+        "itemId": "ww-codex-exp-0001-0005",
+        "contentRevision": "55f63c965334a83c417ed077fdef94f72e3fe3ee9729889632493652ab843b38"
+      },
+      "sourceReview": {
+        "status": "codex_reviewed",
+        "humanApproved": false
+      }
+    },
+    {
+      "id": "ww-cp-000231",
+      "targetText": "Chutnají mi banány.",
+      "englishText": "I like bananas.",
+      "topic": "food",
+      "correctChoiceId": "ww-cp-000231",
+      "choices": [
+        {
+          "id": "ww-cp-000231",
+          "text": "I like bananas.",
+          "sourceItemId": "ww-cp-000231"
+        },
+        {
+          "id": "ww-cp-000230",
+          "text": "I like apples.",
+          "sourceItemId": "ww-cp-000230",
+          "distractorContrast": {
+            "focus": "object",
+            "targetPhrase": "bananas",
+            "alternativePhrase": "apples",
+            "rationale": "The preference statement has the same structure but names another fruit."
+          }
+        },
+        {
+          "id": "ww-cp-000232",
+          "text": "I don't like onions.",
+          "sourceItemId": "ww-cp-000232",
+          "distractorContrast": {
+            "focus": "polarity",
+            "targetPhrase": "like bananas",
+            "alternativePhrase": "don't like onions",
+            "rationale": "Both express food preferences, but the object and polarity differ."
+          }
+        }
+      ],
+      "sourceReference": {
+        "courseId": "cz",
+        "gameId": "word-world",
+        "bankId": "sentences",
+        "itemId": "ww-cp-000231",
+        "contentRevision": "55f63c965334a83c417ed077fdef94f72e3fe3ee9729889632493652ab843b38"
+      },
+      "sourceReview": {
+        "status": "codex_reviewed",
+        "humanApproved": false
+      }
+    },
+    {
+      "id": "ww-cp-000234",
+      "targetText": "Můžu dostat mléko?",
+      "englishText": "Can I have milk?",
+      "topic": "food",
+      "correctChoiceId": "ww-cp-000234",
+      "choices": [
+        {
+          "id": "ww-cp-000234",
+          "text": "Can I have milk?",
+          "sourceItemId": "ww-cp-000234"
+        },
+        {
+          "id": "ww-cp-000233",
+          "text": "Can I have water?",
+          "sourceItemId": "ww-cp-000233",
+          "distractorContrast": {
+            "focus": "object",
+            "targetPhrase": "milk",
+            "alternativePhrase": "water",
+            "rationale": "The same request asks for a different drink."
+          }
+        },
+        {
+          "id": "ww-cp-000235",
+          "text": "I want some juice.",
+          "sourceItemId": "ww-cp-000235",
+          "distractorContrast": {
+            "focus": "object",
+            "targetPhrase": "milk",
+            "alternativePhrase": "juice",
+            "rationale": "Both request a drink, but juice does not translate milk."
+          }
+        }
+      ],
+      "sourceReference": {
+        "courseId": "cz",
+        "gameId": "word-world",
+        "bankId": "sentences",
+        "itemId": "ww-cp-000234",
+        "contentRevision": "55f63c965334a83c417ed077fdef94f72e3fe3ee9729889632493652ab843b38"
+      },
+      "sourceReview": {
+        "status": "codex_reviewed",
+        "humanApproved": false
+      }
+    },
+    {
+      "id": "ww-codex-exp-0001-0054",
+      "targetText": "Talíř je čistý.",
+      "englishText": "The plate is clean.",
+      "topic": "food",
+      "correctChoiceId": "ww-codex-exp-0001-0054",
+      "choices": [
+        {
+          "id": "ww-codex-exp-0001-0054",
+          "text": "The plate is clean.",
+          "sourceItemId": "ww-codex-exp-0001-0054"
+        },
+        {
+          "id": "ww-codex-exp-0001-0028",
+          "text": "The table is clean.",
+          "sourceItemId": "ww-codex-exp-0001-0028",
+          "distractorContrast": {
+            "focus": "subject",
+            "targetPhrase": "plate",
+            "alternativePhrase": "table",
+            "rationale": "The adjective stays clean while the household object changes."
+          }
+        },
+        {
+          "id": "ww-cp-000290",
+          "text": "The shirt is clean.",
+          "sourceItemId": "ww-cp-000290",
+          "distractorContrast": {
+            "focus": "subject",
+            "targetPhrase": "plate",
+            "alternativePhrase": "shirt",
+            "rationale": "The adjective stays clean while the object changes."
+          }
+        }
+      ],
+      "sourceReference": {
+        "courseId": "cz",
+        "gameId": "word-world",
+        "bankId": "sentences",
+        "itemId": "ww-codex-exp-0001-0054",
+        "contentRevision": "55f63c965334a83c417ed077fdef94f72e3fe3ee9729889632493652ab843b38"
+      },
+      "sourceReview": {
+        "status": "codex_reviewed",
+        "humanApproved": false
+      }
+    },
+    {
+      "id": "ww-codex-exp-0001-0026",
+      "targetText": "Tady je klíč.",
+      "englishText": "Here is the key.",
+      "topic": "home",
+      "correctChoiceId": "ww-codex-exp-0001-0026",
+      "choices": [
+        {
+          "id": "ww-codex-exp-0001-0026",
+          "text": "Here is the key.",
+          "sourceItemId": "ww-codex-exp-0001-0026"
+        },
+        {
+          "id": "ww-cp-000370",
+          "text": "The key is on the shelf.",
+          "sourceItemId": "ww-cp-000370",
+          "distractorContrast": {
+            "focus": "location",
+            "targetPhrase": "Here",
+            "alternativePhrase": "on the shelf",
+            "rationale": "The same key is on a specified shelf rather than here."
+          }
+        },
+        {
+          "id": "ww-codex-exp-0001-0160",
+          "text": "The keys are on the table.",
+          "sourceItemId": "ww-codex-exp-0001-0160",
+          "distractorContrast": {
+            "focus": "location",
+            "targetPhrase": "Here",
+            "alternativePhrase": "on the table",
+            "rationale": "Keys on a table differ in location and number from this key here."
+          }
+        }
+      ],
+      "sourceReference": {
+        "courseId": "cz",
+        "gameId": "word-world",
+        "bankId": "sentences",
+        "itemId": "ww-codex-exp-0001-0026",
+        "contentRevision": "55f63c965334a83c417ed077fdef94f72e3fe3ee9729889632493652ab843b38"
+      },
+      "sourceReview": {
+        "status": "codex_reviewed",
+        "humanApproved": false
+      }
+    },
+    {
+      "id": "ww-cp-000368",
+      "targetText": "Postel je měkká.",
+      "englishText": "The bed is soft.",
+      "topic": "home",
+      "correctChoiceId": "ww-cp-000368",
+      "choices": [
+        {
+          "id": "ww-cp-000368",
+          "text": "The bed is soft.",
+          "sourceItemId": "ww-cp-000368"
+        },
+        {
+          "id": "ww-codex-exp-0001-0029",
+          "text": "The sofa is soft.",
+          "sourceItemId": "ww-codex-exp-0001-0029",
+          "distractorContrast": {
+            "focus": "subject",
+            "targetPhrase": "bed",
+            "alternativePhrase": "sofa",
+            "rationale": "The quality stays soft while the item of furniture changes."
+          }
+        },
+        {
+          "id": "ww-cp-000369",
+          "text": "The sofa is comfortable.",
+          "sourceItemId": "ww-cp-000369",
+          "distractorContrast": {
+            "focus": "subject",
+            "targetPhrase": "bed",
+            "alternativePhrase": "sofa",
+            "rationale": "Both describe furniture; a comfortable sofa is not a soft bed."
+          }
+        }
+      ],
+      "sourceReference": {
+        "courseId": "cz",
+        "gameId": "word-world",
+        "bankId": "sentences",
+        "itemId": "ww-cp-000368",
+        "contentRevision": "55f63c965334a83c417ed077fdef94f72e3fe3ee9729889632493652ab843b38"
+      },
+      "sourceReview": {
+        "status": "codex_reviewed",
+        "humanApproved": false
+      }
+    },
+    {
+      "id": "ww-codex-exp-0001-0028",
+      "targetText": "Stůl je čistý.",
+      "englishText": "The table is clean.",
+      "topic": "home",
+      "correctChoiceId": "ww-codex-exp-0001-0028",
+      "choices": [
+        {
+          "id": "ww-codex-exp-0001-0028",
+          "text": "The table is clean.",
+          "sourceItemId": "ww-codex-exp-0001-0028"
+        },
+        {
+          "id": "ww-codex-exp-0001-0054",
+          "text": "The plate is clean.",
+          "sourceItemId": "ww-codex-exp-0001-0054",
+          "distractorContrast": {
+            "focus": "subject",
+            "targetPhrase": "table",
+            "alternativePhrase": "plate",
+            "rationale": "The adjective stays clean while the household object changes."
+          }
+        },
+        {
+          "id": "ww-cp-000290",
+          "text": "The shirt is clean.",
+          "sourceItemId": "ww-cp-000290",
+          "distractorContrast": {
+            "focus": "subject",
+            "targetPhrase": "table",
+            "alternativePhrase": "shirt",
+            "rationale": "The adjective stays clean while the object changes."
+          }
+        }
+      ],
+      "sourceReference": {
+        "courseId": "cz",
+        "gameId": "word-world",
+        "bankId": "sentences",
+        "itemId": "ww-codex-exp-0001-0028",
+        "contentRevision": "55f63c965334a83c417ed077fdef94f72e3fe3ee9729889632493652ab843b38"
+      },
+      "sourceReview": {
+        "status": "codex_reviewed",
+        "humanApproved": false
+      }
+    },
+    {
+      "id": "ww-codex-exp-0001-0126",
+      "targetText": "Auto je modré.",
+      "englishText": "The car is blue.",
+      "topic": "transport",
+      "correctChoiceId": "ww-codex-exp-0001-0126",
+      "choices": [
+        {
+          "id": "ww-codex-exp-0001-0126",
+          "text": "The car is blue.",
+          "sourceItemId": "ww-codex-exp-0001-0126"
+        },
+        {
+          "id": "ww-cp-000379",
+          "text": "The car is full.",
+          "sourceItemId": "ww-cp-000379",
+          "distractorContrast": {
+            "focus": "state",
+            "targetPhrase": "blue",
+            "alternativePhrase": "full",
+            "rationale": "The same car has a different property."
+          }
+        },
+        {
+          "id": "ww-cp-000281",
+          "text": "The sky is blue.",
+          "sourceItemId": "ww-cp-000281",
+          "distractorContrast": {
+            "focus": "subject",
+            "targetPhrase": "car",
+            "alternativePhrase": "sky",
+            "rationale": "The color stays blue while the subject changes."
+          }
+        }
+      ],
+      "sourceReference": {
+        "courseId": "cz",
+        "gameId": "word-world",
+        "bankId": "sentences",
+        "itemId": "ww-codex-exp-0001-0126",
+        "contentRevision": "55f63c965334a83c417ed077fdef94f72e3fe3ee9729889632493652ab843b38"
+      },
+      "sourceReview": {
+        "status": "codex_reviewed",
+        "humanApproved": false
+      }
+    },
+    {
+      "id": "ww-codex-exp-0001-0127",
+      "targetText": "Vlak přijíždí.",
+      "englishText": "The train is arriving.",
+      "topic": "transport",
+      "correctChoiceId": "ww-codex-exp-0001-0127",
+      "choices": [
+        {
+          "id": "ww-codex-exp-0001-0127",
+          "text": "The train is arriving.",
+          "sourceItemId": "ww-codex-exp-0001-0127"
+        },
+        {
+          "id": "ww-cp-000378",
+          "text": "The train is late.",
+          "sourceItemId": "ww-cp-000378",
+          "distractorContrast": {
+            "focus": "state",
+            "targetPhrase": "arriving",
+            "alternativePhrase": "late",
+            "rationale": "The same train is described as late rather than arriving."
+          }
+        },
+        {
+          "id": "ww-codex-exp-0001-0216",
+          "text": "The bus will arrive in five minutes.",
+          "sourceItemId": "ww-codex-exp-0001-0216",
+          "distractorContrast": {
+            "focus": "subject",
+            "targetPhrase": "train",
+            "alternativePhrase": "bus",
+            "rationale": "Both describe vehicle arrival, but a bus arriving in five minutes is not a train arriving now."
+          }
+        }
+      ],
+      "sourceReference": {
+        "courseId": "cz",
+        "gameId": "word-world",
+        "bankId": "sentences",
+        "itemId": "ww-codex-exp-0001-0127",
+        "contentRevision": "55f63c965334a83c417ed077fdef94f72e3fe3ee9729889632493652ab843b38"
+      },
+      "sourceReview": {
+        "status": "codex_reviewed",
+        "humanApproved": false
+      }
+    },
+    {
+      "id": "ww-cp-000383",
+      "targetText": "Jsme ve vlaku.",
+      "englishText": "We are on the train.",
+      "topic": "transport",
+      "correctChoiceId": "ww-cp-000383",
+      "choices": [
+        {
+          "id": "ww-cp-000383",
+          "text": "We are on the train.",
+          "sourceItemId": "ww-cp-000383"
+        },
+        {
+          "id": "ww-cp-000382",
+          "text": "We are on the bus.",
+          "sourceItemId": "ww-cp-000382",
+          "distractorContrast": {
+            "focus": "object",
+            "targetPhrase": "train",
+            "alternativePhrase": "bus",
+            "rationale": "The same travel statement uses a different vehicle."
+          }
+        },
+        {
+          "id": "ww-cp-000384",
+          "text": "We are in the car.",
+          "sourceItemId": "ww-cp-000384",
+          "distractorContrast": {
+            "focus": "object",
+            "targetPhrase": "train",
+            "alternativePhrase": "car",
+            "rationale": "The same travel statement uses a different vehicle."
+          }
+        }
+      ],
+      "sourceReference": {
+        "courseId": "cz",
+        "gameId": "word-world",
+        "bankId": "sentences",
+        "itemId": "ww-cp-000383",
+        "contentRevision": "55f63c965334a83c417ed077fdef94f72e3fe3ee9729889632493652ab843b38"
+      },
+      "sourceReview": {
+        "status": "codex_reviewed",
+        "humanApproved": false
+      }
+    }
+  ]
+}

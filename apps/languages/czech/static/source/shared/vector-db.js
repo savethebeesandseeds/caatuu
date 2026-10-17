@@ -1,4 +1,4 @@
-const defaultDbUrl = "../../data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite?v=d30277c5";
+const defaultDbUrl = "../../data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite?v=8ec3e42b";
 const defaultSqlJsModuleUrl = "../../vendor/sql.js/sql-wasm.js";
 const defaultSqlJsWasmUrl = "../../vendor/sql.js/sql-wasm.wasm";
 const defaultTransformersModuleUrl = "../../vendor/transformers/transformers.min.js";
@@ -25,7 +25,7 @@ export const caatuuEmbeddingModelCatalog = Object.freeze({
   models: [
     Object.freeze({
       key: "all-minilm-l6-v2-qint8-v0.1",
-      label: "Caatuu Curriculum and Asset Embeddings",
+      label: "Czech Curriculum Embeddings",
       shortLabel: "Embeddings",
       status: "active",
       artifactKind: "embedding-vector-db",

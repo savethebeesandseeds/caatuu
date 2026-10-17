@@ -41,7 +41,9 @@
     "grammar-gravity",
     "sound-quasar"
   ],
-  "upcomingGames": [],
+  "upcomingGames": [
+    "memory-moon"
+  ],
   "launcher": {
     "flagClass": "flag-icon"
   },
@@ -241,6 +243,13 @@
     }
   },
   "resources": {
+    "memoryMoonCatalog": {
+      "path": "apps/languages/english-from-spanish/static/data/games/memory-moon/content.json",
+      "kind": "file",
+      "state": "present",
+      "scope": "course",
+      "revision": "memory-moon-1"
+    },
     "androidAssetCatalog": {
       "kind": "file",
       "path": "apps/languages/english-from-spanish/android-assets.json",
@@ -277,7 +286,7 @@
       "path": "apps/language-runtime/static/data/interface/es.v1.json",
       "scope": "shared",
       "state": "present",
-      "revision": "interface-es-20"
+      "revision": "interface-es-21"
     },
     "courseProfile": {
       "kind": "file",

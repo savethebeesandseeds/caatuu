@@ -4,7 +4,7 @@ import { extractCoreVerbPairs } from "./games/verb-nebula/verb-nebula-core.mjs?v
 import { validateConjugationCometCatalog, buildConjugationHelixRound } from "./games/conjugation-comet/conjugation-comet-core.mjs?v=conjugation-comet-core-4";
 import { validateGrammarGravityPack, buildGrammarGravityRounds } from "./games/grammar-gravity/grammar-gravity-core.mjs?v=grammar-gravity-core-7";
 import { normalizeNounLandingPack, createNounLandingSession } from "./games/grammar-gravity/noun-landing-core.mjs?v=noun-landing-core-11";
-import { validateSoundQuasarCatalog, buildSoundQuasarRound } from "./games/sound-quasar/sound-quasar-core.mjs?v=sound-quasar-9";
+import { validateSoundQuasarCatalog, buildSoundQuasarRound } from "./games/sound-quasar/sound-quasar-core.mjs?v=sound-quasar-10";
 import { joinConceptCatalogs } from "./catalog-runtime.mjs";
 import "./shell-policy.js?v=shell-policy-17";
 

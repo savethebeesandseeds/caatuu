@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en" data-theme="dark" data-font-size="largest">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="robots" content="noindex, nofollow">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' blob: 'wasm-unsafe-eval'; style-src 'self'; style-src-elem 'self' 'unsafe-inline'; style-src-attr 'none'; img-src 'self'; connect-src 'self'; worker-src 'self' blob:; frame-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+    <title>Memory Moon · Caatuu demo</title>
+    <link rel="icon" href="/assets/planets/memory-moon.png">
+    <link rel="stylesheet" href="../styles/caatuu-theme.css?v=theme-8">
+    <link rel="stylesheet" href="../styles/caatuu-workspace.css?v=shell-102">
+    <link rel="stylesheet" href="../styles/caatuu-chrome.css?v=chrome-style-146">
+    <link rel="stylesheet" href="../styles/dictionary-word-card.css?v=dictionary-card-3">
+    <link rel="stylesheet" href="../styles/caatuu-word-world.css?v=word-net-100">
+    <link rel="stylesheet" href="../styles/games/embedded-game-controls.css?v=embedded-game-controls-10">
+    <link rel="stylesheet" href="memory-moon.css">
+    <script src="/cz/source/shared/course-profile.js?v=course-72"></script>
+    <script src="../source/learning-profile.js?v=learning-17"></script>
+    <script src="../source/initial-theme.js?v=theme-3"></script>
+    <script type="module" src="memory-moon.mjs"></script>
+  </head>
+  <body class="games-page moon-demo">
+    <div class="app-shell">
+      <header class="app-header" data-caatuu-app-header data-caatuu-page-kicker="Train" data-caatuu-page-title="Games" data-caatuu-page-icon="/assets/planets/memory-moon.png" data-caatuu-header-title="Memory Moon" data-caatuu-header-back-href="/cz/index.html"></header>
+      <main class="moon-workspace">
+        <section class="moon-board" aria-label="Memory Moon translation practice" aria-busy="true" id="moonBoard">
+          <header class="moon-overview">
+            <figure class="moon-figure">
+              <svg class="moon-globe" id="moonGlobe" viewBox="0 0 200 200" role="img" aria-label="New moon, no memories restored yet">
+                <defs>
+                  <clipPath id="moonDisc"><circle cx="100" cy="100" r="98"/></clipPath>
+                  <filter id="moonSoftEdge" x="-5%" y="-5%" width="110%" height="110%"><feGaussianBlur stdDeviation="0.65"/></filter>
+                  <radialGradient id="moonLimb" cx="58%" cy="44%" r="65%">
+                    <stop offset="55%" stop-color="#000" stop-opacity="0"/>
+                    <stop offset="100%" stop-color="#000" stop-opacity="0.32"/>
+                  </radialGradient>
+                </defs>
+                <g clip-path="url(#moonDisc)">
+                  <image href="/assets/planets/memory-moon.png" x="-62" y="-58" width="326" height="326"/>
+                  <circle cx="100" cy="100" r="100" fill="url(#moonLimb)"/>
+                  <path class="moon-shade" id="moonShade" filter="url(#moonSoftEdge)"/>
+                </g>
+                <circle class="moon-rim" cx="100" cy="100" r="98"/>
+              </svg>
+              <svg class="moon-orbit" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+                <g id="moonShip" visibility="hidden">
+                  <image id="moonShipImage" x="-19" y="-19" width="38" height="38"/>
+                </g>
+              </svg>
+            </figure>
+            <div class="moon-toolbar">
+              <div id="moonControls"></div>
+            </div>
+          </header>
+          <section class="moon-challenge" aria-labelledby="moonSentence">
+            <div class="moon-sentence-row word-net-sentence-row">
+              <h1 class="moon-sentence cz-sentence-renderer" id="moonSentence" lang="cs">A little light, one memory at a time.</h1>
+              <button class="moon-speak word-net-sound-toggle word-net-word-pronounce word-net-phrase-pronounce" id="moonSpeak" type="button" aria-label="Play Czech sentence" aria-pressed="false" title="Play Czech sentence" disabled></button>
+            </div>
+            <p class="moon-audio-status" id="moonAudioStatus" role="status" aria-live="polite" aria-atomic="true"></p>
+            <div class="moon-choices" id="moonChoices" role="group" aria-label="Choose the English translation"></div>
+            <p class="moon-status" id="moonStatus" role="status" aria-live="polite" aria-atomic="true"></p>
+            <button class="moon-restart" id="moonReplay" type="button" hidden>Start a new moon</button>
+          </section>
+          <footer class="moon-session-status">
+            <span class="moon-round" id="moonRound">Preparing your memories…</span>
+          </footer>
+        </section>
+      </main>
+      <footer class="app-footer">
+        <a class="footer-brand" href="https://www.waajacu.com/" rel="noopener">
+          <img class="footer-logo" src="/language-runtime/static/assets/caatuu-shell-512.png" alt="">
+          <span>by Waajacu<sup class="brand-trademark" aria-hidden="true">™</sup></span>
+        </a>
+      </footer>
+    </div>
+    <nav class="bottom-app-nav" data-caatuu-bottom-nav data-active-section="train" data-view-buttons="false" data-settings-href="/cz/index.html" aria-label="Caatuu navigation"></nav>
+    <fieldset id="moonPracticeOptions" class="caatuu-game-controls-setting" hidden>
+      <legend>Practice selection</legend>
+      <button type="button" class="caatuu-game-control-option" data-profile="saved" aria-pressed="true">Your practice</button>
+      <button type="button" class="caatuu-game-control-option" data-profile="fresh" aria-pressed="false">Fresh start</button>
+      <button type="button" class="caatuu-game-control-option" data-profile="travel" aria-pressed="false">Try travel review</button>
+      <button type="button" class="caatuu-game-control-option" data-profile="food" aria-pressed="false">Try food review</button>
+      <button type="button" class="moon-restart" id="moonRestart">Start a new moon</button>
+    </fieldset>
+  </body>
+</html>

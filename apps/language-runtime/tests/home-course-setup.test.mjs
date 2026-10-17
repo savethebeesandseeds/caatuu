@@ -56,8 +56,14 @@ function home({ id = "cz", pathname = null, status = { ready: false }, pendingCo
   art.className = "stage-art";
   art.src = "/language-runtime/static/assets/caatuu-shell-512.png";
   const card = add("section", "nativeSetup", main);
-  for (const node of ["setupTitle", "setupPhase", "setupMessage", "setupPercent", "setupCount", "setupBytes", "setupProgress", "setupProgressBar", "setupDetails"]) add("div", node, card);
-  for (const node of ["setupAction", "setupAbort", "setupDetailsToggle", "setupReportBug"]) add("button", node, card);
+  for (const node of ["setupTitle", "setupPercent", "setupCount", "setupBytes", "setupProgress", "setupProgressBar", "setupDetails"]) add("div", node, card);
+  const message = add("div", "setupMessageZone", card);
+  for (const node of ["setupPhase", "setupMessage"]) add("div", node, message);
+  add("p", "setupArtifact", nodes.setupDetails);
+  const actions = add("div", "setupActions", card);
+  actions.className = "setup-actions";
+  for (const node of ["setupAction", "setupAbort"]) add("button", node, actions);
+  for (const node of ["setupDetailsToggle", "setupReportBug"]) add("button", node, card);
   add("div", "progressMeta", card).className = "setup-progress-meta";
   const choices = add("section", "setupLanguageSelection", card);
   const form = add("form", "setupLanguageForm", choices);
@@ -208,8 +214,87 @@ test("verified saved courses continue without downloads and without awaiting the
   assert.deepEqual(fixture.requests.map(({ type }) => type), ["setup_status"]);
   assert.equal(fixture.window.CaatuuNative, fixture.priorReceiver);
   assert.equal(fixture.nodes.setupAction.onclick, null);
+  assert.equal(fixture.nodes.setupActions.parentElement, fixture.nodes.nativeSetup, "normal Home regains its action controls after setup completes");
+  assert.equal(fixture.nodes.setupActions.classList.contains("native-setup-actions"), false);
+  assert.equal(fixture.nodes.nativeSetup.classList.contains("is-native-course-setup"), false);
+  assert.equal(fixture.document.body.classList.contains("native-course-setup"), false);
+  fixture.nodes.setupDetailsToggle.click();
+  assert.equal(fixture.nodes.setupDetails.hidden, true, "native details listener is released before the normal Home takes over");
   assert.equal(fixture.nodes.nativeSetup.classList.contains("is-ready"), false);
   assert.equal(fixture.document.body.classList.contains("setup-blocked"), true);
+});
+
+test("native download details begin collapsed, reveal current diagnostics and preserve progress when toggled", async () => {
+  const fixture = home({ status: { ready: false, staticAssets: { assets: [
+    { key: "art", artifactKind: "visual-asset", expectedBytes: 10_000_000, bytes: 0 },
+  ] } } });
+  await flush();
+  assert.equal(fixture.nodes.setupDetailsToggle.hidden, true, "language choices have no download details");
+  fixture.select("en", "cz");
+  fixture.submit();
+  const downloading = fixture.requests.at(-1);
+  assert.equal(fixture.nodes.nativeSetup.classList.contains("is-native-course-setup"), true);
+  assert.equal(fixture.document.body.classList.contains("native-course-setup"), true);
+  assert.equal(fixture.nodes.setupActions.parentElement, fixture.nodes.nativeSetup.parentElement, "download controls sit outside the progress card");
+  assert.equal(fixture.nodes.setupAbort.textContent, fixture.content.t("setup.abort"));
+  assert.equal(fixture.nodes.setupDetailsToggle.hidden, false);
+  assert.equal(fixture.nodes.setupDetails.hidden, true);
+  assert.equal(fixture.nodes.setupDetailsToggle.getAttribute("aria-expanded"), "false");
+  assert.equal(fixture.nodes.setupDetailsToggle.textContent, fixture.content.t("common.showdetails"));
+  assert.equal(fixture.nodes.setupDetailsToggle.getAttribute("aria-controls"), "setupCount setupBytes setupDetails");
+  fixture.window.CaatuuNative.receive({
+    id: downloading.id, kind: "progress", phase: "asset_download", label: "Spaceship art", message: "Preparing spaceship art.",
+    artifactKey: "art", artifactKind: "visual-asset", artifactIndex: 1, artifactCount: 1, bytes: 4_000_000,
+  });
+  assert.equal(fixture.nodes.setupDetails.hidden, true, "progress updates do not open diagnostics");
+  assert.equal(fixture.nodes.setupPercent.textContent, "40%");
+  fixture.nodes.setupDetailsToggle.click();
+  assert.equal(fixture.nodes.setupDetails.hidden, false);
+  assert.equal(fixture.nodes.nativeSetup.classList.contains("details-open"), true);
+  assert.equal(fixture.nodes.setupDetailsToggle.getAttribute("aria-expanded"), "true");
+  assert.equal(fixture.nodes.setupDetailsToggle.textContent, fixture.content.t("common.hidedetails"));
+  assert.equal(fixture.nodes.setupCount.textContent, "1 / 1");
+  assert.equal(fixture.nodes.setupBytes.textContent, "4 MB / 10 MB");
+  assert.equal(fixture.nodes.setupArtifact.textContent, "Spaceship art");
+  assert.equal(fixture.nodes.setupArtifact.hidden, false);
+  assert.equal(fixture.nodes.setupMessage.textContent, "Preparing spaceship art.");
+  fixture.nodes.setupDetailsToggle.click();
+  assert.equal(fixture.nodes.setupDetails.hidden, true);
+  assert.equal(fixture.nodes.setupPercent.textContent, "40%");
+  assert.deepEqual(fixture.requests.map(({ type }) => type), ["setup_status", "setup_download"]);
+  await fixture.close();
+  assert.equal(fixture.document.body.classList.contains("native-course-setup"), false);
+  assert.equal(fixture.nodes.setupActions.parentElement, fixture.nodes.nativeSetup, "page exit restores the action controls");
+  fixture.nodes.setupDetailsToggle.click();
+  assert.equal(fixture.nodes.setupDetails.hidden, true, "page exit releases the native details listener");
+});
+
+test("native recovery exposes error and cancellation messages even with details collapsed and retries clear recovery", async () => {
+  const fixture = home({ id: "es-en", rememberedCourse: "es-en" });
+  await flush();
+  const downloading = fixture.requests.at(-1);
+  fixture.reply(downloading, "Download could not be verified.", "error");
+  await flush();
+  assert.equal(fixture.nodes.setupDetails.hidden, true);
+  assert.equal(fixture.nodes.nativeSetup.classList.contains("is-error"), true);
+  assert.equal(fixture.nodes.nativeSetup.classList.contains("is-recovery"), true, "recovery status remains visible outside the collapsed details");
+  assert.equal(fixture.nodes.setupMessage.textContent, "Download could not be verified.");
+  assert.equal(fixture.nodes.setupDetailsToggle.textContent, fixture.content.t("common.showdetails"));
+  fixture.nodes.setupDetailsToggle.click();
+  assert.equal(fixture.nodes.setupDetailsToggle.textContent, fixture.content.t("common.hidedetails"));
+  const retry = fixture.nodes.setupAction.onclick();
+  assert.equal(fixture.nodes.nativeSetup.classList.contains("is-recovery"), false);
+  assert.equal(fixture.nodes.nativeSetup.classList.contains("is-error"), false);
+  fixture.nodes.setupDetailsToggle.click();
+  const cancellation = fixture.nodes.setupAbort.onclick();
+  fixture.reply(fixture.requests.at(-1), { ready: false });
+  await cancellation;
+  assert.equal(fixture.nodes.setupDetails.hidden, true);
+  assert.equal(fixture.nodes.nativeSetup.classList.contains("is-recovery"), true);
+  assert.equal(fixture.nodes.nativeSetup.classList.contains("is-error"), false);
+  assert.ok(fixture.nodes.setupMessage.textContent.length > 0);
+  await fixture.close();
+  await retry;
 });
 
 test("native course Home aliases preserve course identity without accepting another course path", async () => {

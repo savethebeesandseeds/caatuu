@@ -168,6 +168,9 @@ body.app-loading .app-shell { visibility: hidden; }
   animation: setup-float 4.6s ease-in-out infinite;
 }
 
+.setup-ships { display: none; }
+#homeBaseView > .setup-brand { display: none; }
+
 .native-setup-card {
   width: min(900px, 100%);
   display: grid;
@@ -261,20 +264,22 @@ body.app-loading .app-shell { visibility: hidden; }
   width: 100%;
   min-height: 76px;
   padding: 10px 14px;
-  border: 1px solid color-mix(in srgb, var(--setup-accent) 72%, var(--setup-line));
+  border: 1px solid color-mix(in srgb, var(--theme-amber) 55%, var(--setup-line));
   border-radius: 14px;
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
   gap: 14px;
-  background: var(--theme-panel-head-bg, #eee8de);
+  background: color-mix(in srgb, var(--theme-amber) 20%, var(--setup-panel-raised));
   box-shadow:
-    inset 0 0 0 1px color-mix(in srgb, var(--setup-accent) 18%, transparent),
+    inset 0 0 0 1px color-mix(in srgb, var(--theme-amber) 15%, transparent),
     0 12px 30px color-mix(in srgb, var(--setup-text) 10%, transparent);
   color: var(--setup-text);
   font: inherit;
   text-align: left;
 }
+
+.home-language-current-course .home-language-switch-kicker { color: var(--theme-amber-ink); }
 
 .home-language-current-status {
   min-height: 32px;
@@ -373,6 +378,7 @@ body.app-loading .app-shell { visibility: hidden; }
 }
 
 .home-language-ongoing-head {
+  position: relative;
   min-height: 46px;
   padding: 8px 10px 8px 14px;
   border-bottom: 1px solid color-mix(in srgb, var(--setup-accent) 20%, var(--setup-line));
@@ -382,9 +388,9 @@ body.app-loading .app-shell { visibility: hidden; }
   justify-content: space-between;
   gap: 12px;
   background: var(--theme-panel-head-bg, #eee8de);
+  cursor: pointer;
 }
 
-html[data-theme="dark"] .home-language-current-course,
 html[data-theme="dark"] .home-language-ongoing-head {
   background: var(--theme-selection, #334640);
 }
@@ -399,7 +405,42 @@ html[data-theme="dark"] .home-language-ongoing-head {
   text-transform: uppercase;
 }
 
+.home-language-ongoing-toggle {
+  position: static;
+  min-height: var(--caatuu-control-target-size, 44px);
+  padding: 0;
+  border: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  text-align: left;
+}
+
+.home-language-ongoing-toggle::after {
+  width: 7px;
+  height: 7px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  content: "";
+  transform: translateY(-2px) rotate(45deg);
+}
+
+.home-language-ongoing-toggle::before { position: absolute; inset: 0; content: ""; }
+.home-language-ongoing-toggle[aria-expanded="true"]::after { transform: translateY(2px) rotate(225deg); }
+.home-language-ongoing-toggle:focus-visible { outline: none; }
+.home-language-ongoing-head:has(.home-language-ongoing-toggle:focus-visible) { outline: 3px solid var(--theme-focus-ring); outline-offset: -3px; }
+.home-language-ongoing-head:has(.home-language-ongoing-toggle[aria-expanded="false"]) { border-bottom-color: transparent; }
+.home-language-ongoing-body[hidden] { display: none; }
+
 .home-language-manage {
+  position: relative;
+  z-index: 1;
   flex: 0 0 auto;
   min-height: var(--caatuu-control-target-size, 44px);
   padding: 6px 9px 6px 11px;
@@ -1091,7 +1132,7 @@ body.app-update-lock [data-caatuu-app-header] button {
 }
 
 .setup-detail-link {
-  justify-self: end;
+  justify-self: center;
   touch-action: manipulation;
 }
 
@@ -1647,6 +1688,219 @@ body.setup-blocked .bottom-app-nav,
   }
 }
 
+/* Native first-install setup uses only APK-resident art, even at zero percent. */
+body.native-course-setup #homeBaseView {
+  grid-template-rows: 1fr auto;
+  align-content: stretch;
+  row-gap: 16px;
+  padding-bottom: max(12px, env(safe-area-inset-bottom));
+}
+
+body.native-course-setup:not(.choosing-setup-language) #homeBaseView {
+  padding-top: clamp(16px, 4dvh, 40px);
+}
+
+body.native-course-setup:not(.choosing-setup-language) .home-hero {
+  width: min(640px, 100%);
+  gap: 12px;
+}
+
+body.native-course-setup:not(.choosing-setup-language) .home-hero > .home-kicker {
+  display: none;
+}
+
+body.native-course-setup:not(.choosing-setup-language) .home-hero h1 {
+  font-size: clamp(2.4rem, 6vw, 3.6rem);
+}
+
+body.native-course-setup:not(.choosing-setup-language) .setup-visual {
+  width: min(540px, 100%);
+  height: clamp(165px, 27dvh, 230px);
+}
+
+body.native-course-setup .setup-orbit { display: none; }
+body.native-course-setup .stage-art { display: none; }
+body.native-course-setup .app-footer { display: none; }
+body.native-course-setup #homeBaseView > .setup-brand {
+  display: inline-flex;
+  min-height: 44px;
+  margin-top: 0;
+  color: var(--setup-muted);
+  font-size: .7rem;
+  font-weight: 600;
+}
+body.native-course-setup .setup-ships {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: min(250px, 76%);
+  height: 100%;
+  min-height: 0;
+}
+.setup-ship-frame {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: contain;
+  filter: drop-shadow(0 16px 22px color-mix(in srgb, var(--setup-accent) 16%, transparent));
+  animation: setup-float 4.6s ease-in-out infinite;
+}
+.setup-ship-frame[hidden] { display: none; }
+
+.native-setup-card.is-native-course-setup:not(.is-choosing-language) {
+  width: min(520px, 100%);
+  gap: 4px 10px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border-color: color-mix(in srgb, var(--setup-accent) 22%, var(--setup-line));
+  box-shadow: 0 18px 46px color-mix(in srgb, var(--setup-accent) 10%, transparent);
+}
+
+.is-native-course-setup .setup-head {
+  align-items: center;
+  flex-direction: row;
+}
+
+.is-native-course-setup .setup-head > div:first-child { min-width: 0; }
+.is-native-course-setup .setup-head .home-kicker { display: none; }
+.is-native-course-setup .setup-head h2 {
+  font-size: .8rem;
+  line-height: 1.2;
+}
+.is-native-course-setup .setup-head-meta { flex: none; }
+.is-native-course-setup .setup-detail-link { font-size: .7rem; font-weight: 500; }
+
+.is-native-course-setup .setup-progress-meta {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.is-native-course-setup .setup-progress-meta > .setup-progress-metrics {
+  width: auto;
+  gap: 12px;
+}
+
+.is-native-course-setup .setup-progress-pill {
+  flex: none;
+  min-width: 0;
+  width: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--setup-text);
+  font-size: 1rem;
+  font-weight: 750;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.is-native-course-setup .setup-progress {
+  height: 6px;
+  border: 0;
+  background: color-mix(in srgb, var(--setup-accent) 12%, var(--setup-panel));
+}
+
+.is-native-course-setup .setup-progress span {
+  background: linear-gradient(90deg, var(--setup-accent), var(--setup-blue));
+}
+
+.is-native-course-setup:not(.is-error):not(.is-recovery) .setup-message-zone,
+.is-native-course-setup:not(.details-open) #setupCount,
+.is-native-course-setup:not(.details-open) #setupBytes {
+  display: none;
+}
+
+.is-native-course-setup .setup-message-zone {
+  min-height: 0;
+  padding: 8px;
+  gap: 4px;
+}
+.is-native-course-setup .setup-message { min-height: 0; font-size: .75rem; font-weight: 400; }
+.is-native-course-setup #setupCount,
+.is-native-course-setup #setupBytes {
+  width: auto;
+  max-width: none;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-weight: 400;
+  font-size: .68rem;
+  color: var(--setup-muted);
+}
+.is-native-course-setup #setupCount { text-align: left; }
+.is-native-course-setup #setupBytes { text-align: right; }
+.is-native-course-setup .setup-detail-grid { gap: 0; }
+.is-native-course-setup #setupArtifacts,
+.is-native-course-setup .setup-log-panel { display: none; }
+.setup-current-artifact {
+  margin: 0;
+  color: var(--setup-muted);
+  font-size: .7rem;
+  overflow-wrap: anywhere;
+}
+.native-setup-actions {
+  width: min(520px, 100%);
+  justify-content: center;
+}
+body.choosing-setup-language .native-setup-actions { display: none; }
+.native-setup-actions > .setup-action,
+.native-setup-actions > .setup-small-action {
+  flex: none;
+  padding: 4px 10px;
+  min-height: var(--caatuu-control-target-size, 44px);
+  border-radius: 8px;
+  font-size: .7rem;
+}
+
+.is-native-course-setup:not(.is-choosing-language) {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+.is-native-course-setup:not(.is-choosing-language) .setup-head,
+.is-native-course-setup:not(.is-choosing-language) .setup-head-meta,
+.is-native-course-setup:not(.is-choosing-language) .setup-progress-meta,
+.is-native-course-setup:not(.is-choosing-language) .setup-progress-metrics { display: contents; }
+.is-native-course-setup:not(.is-choosing-language) .setup-head > div:first-child {
+  grid-column: 1;
+  order: 1;
+  align-self: center;
+}
+.is-native-course-setup:not(.is-choosing-language) .setup-message-zone {
+  grid-column: 1 / -1;
+  order: 3;
+}
+.is-native-course-setup:not(.is-choosing-language) .setup-progress-pill {
+  grid-column: 2;
+  order: 1;
+  justify-self: end;
+  align-self: center;
+}
+.is-native-course-setup:not(.is-choosing-language) .setup-progress {
+  grid-column: 1 / -1;
+  order: 2;
+}
+.is-native-course-setup:not(.is-choosing-language) .setup-detail-grid {
+  grid-column: 1 / -1;
+  order: 3;
+}
+.is-native-course-setup:not(.is-choosing-language) #setupCount { grid-column: 1; order: 4; }
+.is-native-course-setup:not(.is-choosing-language) #setupBytes { grid-column: 2; order: 4; }
+.is-native-course-setup:not(.is-choosing-language) .setup-detail-link {
+  grid-column: 1 / -1;
+  order: 7;
+  justify-self: center;
+  align-self: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.native-course-setup .setup-ship-frame { animation: none; }
+  .is-native-course-setup .setup-progress span { transition: none; }
+}
+
 @media (max-width: 520px) {
   .home-language-card .language-selector-menu {
     top: 68px;
@@ -1709,10 +1963,6 @@ body.setup-blocked .bottom-app-nav,
 
   .setup-head-meta {
     justify-items: stretch;
-  }
-
-  .setup-detail-link {
-    justify-self: start;
   }
 
   .setup-language-form-actions {

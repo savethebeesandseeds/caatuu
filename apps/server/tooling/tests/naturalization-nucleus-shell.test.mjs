@@ -835,9 +835,7 @@ test("each round swaps Hanzi and pinyin without exposing the answer on either si
   assert.match(controller, /state\.roundIndex \+= 1/u);
 });
 
-test("deck tiles are compact with readable Hanzi, regular pinyin and quiet empty marks", () => {
-  assert.match(stylesheet, /flex:\s*0 1 104px/u);
-  assert.match(stylesheet, /flex-basis:\s*88px/u);
+test("deck tiles keep readable Hanzi, regular pinyin and quiet empty marks", () => {
   const hanziRule = stylesheet.match(/\.naturalization-nucleus-domino-hanzi\s*\{[^}]*font-weight:\s*(\d+);/u);
   const socketRule = stylesheet.match(/\.naturalization-nucleus-socket-pinyin\.naturalization-nucleus-script-hanzi\s*\{[^}]*font-weight:\s*(\d+);/u);
   assert.ok(Number(hanziRule?.[1]) >= 400 && Number(hanziRule?.[1]) <= 500);
@@ -931,14 +929,13 @@ test("matched tiles stay flat in both themes and completed rounds advance withou
   assert.match(controller, /prepareRound\(state\.pieceCount, \{ holdMillis: SOLVED_HOLD_MILLIS \}\)/u);
 });
 
-test("the responsive playfield keeps the challenge below its toolbar", () => {
-  const tabletStart = stylesheet.indexOf("@media screen and (max-width: 760px)");
-  const phoneStart = stylesheet.indexOf("@media screen and (max-width: 480px)");
-  assert.ok(tabletStart >= 0 && phoneStart > tabletStart);
-  assert.match(
-    stylesheet.slice(tabletStart, phoneStart),
-    /\.naturalization-nucleus-playfield\s*\{\s*padding-top:\s*48px;\s*\}/u
-  );
+test("word details follow the playable tiles so feedback cannot push the deck down", () => {
+  const fixture = createLoadingHarness();
+  const children = Array.from(fixture.element("Game").children);
+  const deck = children.findIndex((node) => node.contains(fixture.element("Deck")));
+  const feedback = children.findIndex((node) => node.contains(fixture.element("Feedback")));
+  assert.ok(deck >= 0);
+  assert.ok(feedback > deck);
 });
 
 test("the matched-word dictionary card keeps intrinsic shared sizing", () => {

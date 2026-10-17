@@ -3,7 +3,7 @@
 // Contract revision 8: offline updates bypass stale HTTP cache entries.
 
 const CAATUU_CANONICAL_APP_ENTRY = "apps/language-runtime/static/app/index.html";
-// Shared application revision: campaign-roadmap-8. Updating this imported worker
+// Shared application revision: home-header-controls-1. Updating this imported worker
 // refreshes the canonical runtime for every course through the same lifecycle.
 const CAATUU_SHARED_WORKER_URL = "/language-runtime/static/source/course-service-worker.js";
 const CAATUU_LEGACY_MINI_APP_DOCUMENTS = new Set(["word-world.html", "word-net.html"]);

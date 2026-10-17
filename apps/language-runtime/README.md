@@ -309,6 +309,40 @@ approved content-review state. Draft course projections may therefore expose
 authored target text and word boundaries without exposing unreviewed readings or
 guessing segmentation and polyphones.
 
+## Shared artwork embedding index
+
+`static/data/image-embeddings/minilm-v1.json` owns the current artwork vectors
+for every course. Its public URL is
+`/language-runtime/static/data/image-embeddings/minilm-v1.json`. It uses the
+shared pinned MiniLM runtime, with normalized 384-dimensional vectors computed
+only from the catalogs' manually reviewed English descriptions.
+
+| Catalog source | Public catalog | Source kind |
+| --- | --- | --- |
+| `apps/launcher/static/assets/visual-vocabulary/keymap.json` | `/assets/miscellaneous/keymap.json` | `image_asset` |
+| `apps/launcher/static/assets/macaw/actions/keymaps.json` | `/assets/macaw/actions/keymaps.json` | `macaw_action_asset` |
+| `apps/launcher/static/assets/robots/keymap.json` | `/assets/robots/keymap.json` | `robot_asset` |
+| `apps/launcher/static/assets/ships/meta.json` | `/assets/ships/meta.json` | `ship_asset` |
+
+Each artwork entry keeps its description and filtering metadata in its catalog.
+Its `embedding` reference contains `index`, `model_id`, `source_kind`, and
+`asset_path`; the source kind and encoded public asset path identify its vector
+in the shared index. Full vectors are not duplicated in the catalogs. Ship
+headings remain rendering metadata and never enter embedding text.
+
+From the canonical checkout, rebuild and refresh offline delivery in the
+existing container:
+
+```powershell
+docker exec -w /workspace caatuu-dev node apps/language-runtime/tooling/build-image-embedding-index.mjs
+docker exec -w /workspace caatuu-dev node apps/server/tooling/refresh-setup-assets.mjs --all-browser-courses --register-shared-runtime
+```
+
+The index records source-catalog checksums and the pinned model checksum. Its
+`--check` mode verifies that the stored vectors match the current catalogs and
+model. Course SQLite databases own curriculum data separately; the Czech
+compatibility database is not an artwork dependency.
+
 ## Shared developer tools
 
 Backpack → Settings → Advanced exposes one shared developer section for every

@@ -1,0 +1,4232 @@
+{
+  "schemaVersion": "caatuu-memory-moon-content-v1",
+  "courseId": "cz",
+  "gameId": "memory-moon",
+  "contentId": "cz.memory-moon.v1",
+  "contentRevision": 1,
+  "status": "machine-assisted-preview",
+  "learnerBaseLanguage": "en",
+  "targetLanguage": "cs-CZ",
+  "englishAuditLanguage": "en",
+  "review": {
+    "status": "native-review-required",
+    "humanApproved": false,
+    "reviewer": "OpenAI Codex",
+    "reviewedAt": "2026-10-18",
+    "notes": "Original Memory Moon authoring with AI self-review. Independent native-language review remains required."
+  },
+  "license": {
+    "origin": "caatuu-first-party-authored",
+    "spdxExpression": "AGPL-3.0-only"
+  },
+  "embeddingPolicy": {
+    "inputLanguage": "en",
+    "inputField": "embeddingText"
+  },
+  "challenges": [
+    {
+      "id": "mm-cz-scarf-on-hook",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 84,
+      "complexity": 17,
+      "topic": "home",
+      "familyId": "mm-cz-home-location",
+      "targetText": "Šála je na háčku.",
+      "learnerBaseText": "The scarf is on the hook.",
+      "englishText": "The scarf is on the hook.",
+      "embeddingText": "The scarf is on the hook.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "scarf",
+          "hook",
+          "on"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The scarf is on the hook.",
+          "englishAuditText": "The scarf is on the hook."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The scarf is under the hook.",
+          "englishAuditText": "The scarf is under the hook.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The location changes from on to under."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The scarf is beside the hook.",
+          "englishAuditText": "The scarf is beside the hook.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The location changes from on to beside."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-fox-sleeps-near-tent",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 66,
+      "complexity": 22,
+      "topic": "animals",
+      "familyId": "mm-cz-animals-action",
+      "targetText": "Liška spí poblíž stanu.",
+      "learnerBaseText": "The fox sleeps near the tent.",
+      "englishText": "The fox sleeps near the tent.",
+      "embeddingText": "The fox sleeps near the tent.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "fox",
+          "sleep",
+          "tent"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The fox sleeps near the tent.",
+          "englishAuditText": "The fox sleeps near the tent."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The fox runs near the tent.",
+          "englishAuditText": "The fox runs near the tent.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The action changes from sleeping to running."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The fox eats near the tent.",
+          "englishAuditText": "The fox eats near the tent.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The action changes from sleeping to eating."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-two-white-buttons",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 77,
+      "complexity": 18,
+      "topic": "clothing",
+      "familyId": "mm-cz-clothing-number",
+      "targetText": "Jsou tu dva bílé knoflíky.",
+      "learnerBaseText": "There are two white buttons.",
+      "englishText": "There are two white buttons.",
+      "embeddingText": "There are two white buttons.",
+      "focus": {
+        "kind": "number",
+        "englishConcepts": [
+          "two",
+          "white buttons"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "There are two white buttons.",
+          "englishAuditText": "There are two white buttons."
+        },
+        {
+          "id": "contrast-1",
+          "text": "There are three white buttons.",
+          "englishAuditText": "There are three white buttons.",
+          "contrast": {
+            "kind": "number",
+            "explanation": "The number changes from two to three."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "There are four white buttons.",
+          "englishAuditText": "There are four white buttons.",
+          "contrast": {
+            "kind": "number",
+            "explanation": "The number changes from two to four."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-nurse-carries-tray",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 76,
+      "complexity": 19,
+      "topic": "people",
+      "familyId": "mm-cz-people-subject",
+      "targetText": "Zdravotní sestra nese tác.",
+      "learnerBaseText": "The nurse carries the tray.",
+      "englishText": "The nurse carries the tray.",
+      "embeddingText": "The nurse carries the tray.",
+      "focus": {
+        "kind": "subject",
+        "englishConcepts": [
+          "nurse",
+          "carry",
+          "tray"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The nurse carries the tray.",
+          "englishAuditText": "The nurse carries the tray."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The baker carries the tray.",
+          "englishAuditText": "The baker carries the tray.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "The person carrying the tray changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The teacher carries the tray.",
+          "englishAuditText": "The teacher carries the tray.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "The person carrying the tray changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-pumpkin-soup-warm",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 89,
+      "complexity": 18,
+      "topic": "food",
+      "familyId": "mm-cz-food-state",
+      "targetText": "Dýňová polévka je teplá.",
+      "learnerBaseText": "The pumpkin soup is warm.",
+      "englishText": "The pumpkin soup is warm.",
+      "embeddingText": "The pumpkin soup is warm.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "pumpkin soup",
+          "warm"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The pumpkin soup is warm.",
+          "englishAuditText": "The pumpkin soup is warm."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The pumpkin soup is cold.",
+          "englishAuditText": "The pumpkin soup is cold.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The temperature changes from warm to cold."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The pumpkin soup is frozen.",
+          "englishAuditText": "The pumpkin soup is frozen.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The soup is frozen rather than warm."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-lena-opens-drawer",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 88,
+      "complexity": 16,
+      "topic": "home",
+      "familyId": "mm-cz-home-action",
+      "targetText": "Lena otevírá zásuvku.",
+      "learnerBaseText": "Lena opens the drawer.",
+      "englishText": "Lena opens the drawer.",
+      "embeddingText": "Lena opens the drawer.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "Lena",
+          "open",
+          "drawer"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Lena opens the drawer.",
+          "englishAuditText": "Lena opens the drawer."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Lena closes the drawer.",
+          "englishAuditText": "Lena closes the drawer.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The action changes from opening to closing."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Lena cleans the drawer.",
+          "englishAuditText": "Lena cleans the drawer.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The action changes from opening to cleaning."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-small-bell-quiet",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 70,
+      "complexity": 21,
+      "topic": "sounds",
+      "familyId": "mm-cz-sounds-state",
+      "targetText": "Malý zvonek je tichý.",
+      "learnerBaseText": "The small bell is quiet.",
+      "englishText": "The small bell is quiet.",
+      "embeddingText": "The small bell is quiet.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "small bell",
+          "quiet"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The small bell is quiet.",
+          "englishAuditText": "The small bell is quiet."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The small bell is loud.",
+          "englishAuditText": "The small bell is loud.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The sound changes from quiet to loud."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The small bell is broken.",
+          "englishAuditText": "The small bell is broken.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "A quiet bell is described as broken instead."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-train-leaves-noon",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 92,
+      "complexity": 23,
+      "topic": "travel",
+      "familyId": "mm-cz-travel-time",
+      "targetText": "Vlak odjíždí v poledne.",
+      "learnerBaseText": "The train leaves at noon.",
+      "englishText": "The train leaves at noon.",
+      "embeddingText": "The train leaves at noon.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "train departure",
+          "noon"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The train leaves at noon.",
+          "englishAuditText": "The train leaves at noon."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The train leaves at midnight.",
+          "englishAuditText": "The train leaves at midnight.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The departure changes from noon to midnight."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The train leaves at dawn.",
+          "englishAuditText": "The train leaves at dawn.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The departure changes from noon to dawn."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-umbrella-belongs-omar",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 86,
+      "complexity": 22,
+      "topic": "possessions",
+      "familyId": "mm-cz-possessions-possession",
+      "targetText": "Tento deštník patří Omarovi.",
+      "learnerBaseText": "This umbrella belongs to Omar.",
+      "englishText": "This umbrella belongs to Omar.",
+      "embeddingText": "This umbrella belongs to Omar.",
+      "focus": {
+        "kind": "possession",
+        "englishConcepts": [
+          "umbrella",
+          "belong",
+          "Omar"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This umbrella belongs to Omar.",
+          "englishAuditText": "This umbrella belongs to Omar."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This umbrella belongs to Lena.",
+          "englishAuditText": "This umbrella belongs to Lena.",
+          "contrast": {
+            "kind": "possession",
+            "explanation": "The owner changes from Omar to Lena."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This umbrella belongs to Nora.",
+          "englishAuditText": "This umbrella belongs to Nora.",
+          "contrast": {
+            "kind": "possession",
+            "explanation": "The owner changes from Omar to Nora."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-apples-in-basket",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 83,
+      "complexity": 21,
+      "topic": "food",
+      "familyId": "mm-cz-food-location",
+      "targetText": "Jablka jsou v košíku.",
+      "learnerBaseText": "The apples are in the basket.",
+      "englishText": "The apples are in the basket.",
+      "embeddingText": "The apples are in the basket.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "apples",
+          "basket",
+          "inside"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The apples are in the basket.",
+          "englishAuditText": "The apples are in the basket."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The apples are behind the basket.",
+          "englishAuditText": "The apples are behind the basket.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The apples are behind rather than inside."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The apples are beside the basket.",
+          "englishAuditText": "The apples are beside the basket.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The apples are beside rather than inside."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-grandma-waters-mint",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 75,
+      "complexity": 20,
+      "topic": "garden",
+      "familyId": "mm-cz-garden-action",
+      "targetText": "Babička zalévá mátu.",
+      "learnerBaseText": "Grandma waters the mint.",
+      "englishText": "Grandma waters the mint.",
+      "embeddingText": "Grandma waters the mint.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "grandma",
+          "water",
+          "mint"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Grandma waters the mint.",
+          "englishAuditText": "Grandma waters the mint."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Grandma picks the mint.",
+          "englishAuditText": "Grandma picks the mint.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The action changes from watering to picking."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Grandma plants the mint.",
+          "englishAuditText": "Grandma plants the mint.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The action changes from watering to planting."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-puppy-behind-fence",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 71,
+      "complexity": 22,
+      "topic": "animals",
+      "familyId": "mm-cz-animals-location",
+      "targetText": "Štěně je za plotem.",
+      "learnerBaseText": "The puppy is behind the fence.",
+      "englishText": "The puppy is behind the fence.",
+      "embeddingText": "The puppy is behind the fence.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "puppy",
+          "fence",
+          "behind"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The puppy is behind the fence.",
+          "englishAuditText": "The puppy is behind the fence."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The puppy is beside the fence.",
+          "englishAuditText": "The puppy is beside the fence.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The position changes from behind to beside."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The puppy is in front of the fence.",
+          "englishAuditText": "The puppy is in front of the fence.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The position changes from behind to in front."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-red-cup-empty",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 88,
+      "complexity": 18,
+      "topic": "home",
+      "familyId": "mm-cz-home-state",
+      "targetText": "Červený hrnek je prázdný.",
+      "learnerBaseText": "The red cup is empty.",
+      "englishText": "The red cup is empty.",
+      "embeddingText": "The red cup is empty.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "red cup",
+          "empty"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The red cup is empty.",
+          "englishAuditText": "The red cup is empty."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The red cup is full.",
+          "englishAuditText": "The red cup is full.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The cup is full rather than empty."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The red cup is half full.",
+          "englishAuditText": "The red cup is half full.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "Half full differs from completely empty."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-need-three-eggs",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 92,
+      "complexity": 18,
+      "topic": "cooking",
+      "familyId": "mm-cz-cooking-quantity",
+      "targetText": "Potřebujeme tři vejce.",
+      "learnerBaseText": "We need three eggs.",
+      "englishText": "We need three eggs.",
+      "embeddingText": "We need three eggs.",
+      "focus": {
+        "kind": "quantity",
+        "englishConcepts": [
+          "need",
+          "three eggs"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "We need three eggs.",
+          "englishAuditText": "We need three eggs."
+        },
+        {
+          "id": "contrast-1",
+          "text": "We need two eggs.",
+          "englishAuditText": "We need two eggs.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "The required quantity changes from three to two."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "We need six eggs.",
+          "englishAuditText": "We need six eggs.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "The required quantity changes from three to six."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-snail-moves-slowly",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 70,
+      "complexity": 20,
+      "topic": "animals",
+      "familyId": "mm-cz-animals-manner",
+      "targetText": "Šnek se pohybuje pomalu.",
+      "learnerBaseText": "The snail moves slowly.",
+      "englishText": "The snail moves slowly.",
+      "embeddingText": "The snail moves slowly.",
+      "focus": {
+        "kind": "manner",
+        "englishConcepts": [
+          "snail",
+          "move",
+          "slowly"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The snail moves slowly.",
+          "englishAuditText": "The snail moves slowly."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The snail moves quickly.",
+          "englishAuditText": "The snail moves quickly.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "The speed changes from slowly to quickly."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The snail moves backwards.",
+          "englishAuditText": "The snail moves backwards.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "Backward movement replaces the stated slow manner."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-maya-drinks-lemonade",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 88,
+      "complexity": 17,
+      "topic": "food",
+      "familyId": "mm-cz-food-object",
+      "targetText": "Maya pije citronovou limonádu.",
+      "learnerBaseText": "Maya drinks lemonade.",
+      "englishText": "Maya drinks lemonade.",
+      "embeddingText": "Maya drinks lemonade.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "Maya",
+          "drink",
+          "lemonade"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Maya drinks lemonade.",
+          "englishAuditText": "Maya drinks lemonade."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Maya drinks milk.",
+          "englishAuditText": "Maya drinks milk.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The drink changes from lemonade to milk."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Maya drinks tea.",
+          "englishAuditText": "Maya drinks tea.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The drink changes from lemonade to tea."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-desk-bigger-than-stool",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 78,
+      "complexity": 28,
+      "topic": "home",
+      "familyId": "mm-cz-home-comparison",
+      "targetText": "Psací stůl je větší než stolička.",
+      "learnerBaseText": "The desk is bigger than the stool.",
+      "englishText": "The desk is bigger than the stool.",
+      "embeddingText": "The desk is bigger than the stool.",
+      "focus": {
+        "kind": "comparison",
+        "englishConcepts": [
+          "desk",
+          "stool",
+          "bigger"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The desk is bigger than the stool.",
+          "englishAuditText": "The desk is bigger than the stool."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The desk is smaller than the stool.",
+          "englishAuditText": "The desk is smaller than the stool.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "The size comparison is reversed."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The desk is as big as the stool.",
+          "englishAuditText": "The desk is as big as the stool.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "Equal size replaces greater size."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-child-wears-mittens",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 83,
+      "complexity": 20,
+      "topic": "clothing",
+      "familyId": "mm-cz-clothing-object",
+      "targetText": "Dítě nosí palčáky.",
+      "learnerBaseText": "The child wears mittens.",
+      "englishText": "The child wears mittens.",
+      "embeddingText": "The child wears mittens.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "child",
+          "wear",
+          "mittens"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The child wears mittens.",
+          "englishAuditText": "The child wears mittens."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The child wears boots.",
+          "englishAuditText": "The child wears boots.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The clothing changes from mittens to boots."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The child wears socks.",
+          "englishAuditText": "The child wears socks.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The clothing changes from mittens to socks."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-baker-brings-rolls",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 79,
+      "complexity": 20,
+      "topic": "work",
+      "familyId": "mm-cz-work-action",
+      "targetText": "Pekař přináší housky.",
+      "learnerBaseText": "The baker brings the rolls.",
+      "englishText": "The baker brings the rolls.",
+      "embeddingText": "The baker brings the rolls.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "baker",
+          "bring",
+          "bread rolls"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The baker brings the rolls.",
+          "englishAuditText": "The baker brings the rolls."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The baker eats the rolls.",
+          "englishAuditText": "The baker eats the rolls.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The action changes from bringing to eating."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The baker counts the rolls.",
+          "englishAuditText": "The baker counts the rolls.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The action changes from bringing to counting."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-park-not-open",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 90,
+      "complexity": 18,
+      "topic": "places",
+      "familyId": "mm-cz-places-polarity",
+      "targetText": "Park není otevřený.",
+      "learnerBaseText": "The park is not open.",
+      "englishText": "The park is not open.",
+      "embeddingText": "The park is not open.",
+      "focus": {
+        "kind": "polarity",
+        "englishConcepts": [
+          "park",
+          "not open"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The park is not open.",
+          "englishAuditText": "The park is not open."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The park is open.",
+          "englishAuditText": "The park is open.",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "Negation is removed."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The park is always open.",
+          "englishAuditText": "The park is always open.",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "Always open contradicts the negative statement."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-bus-near-bridge",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 91,
+      "complexity": 23,
+      "topic": "travel",
+      "familyId": "mm-cz-travel-location",
+      "targetText": "Autobus je blízko mostu.",
+      "learnerBaseText": "The bus is near the bridge.",
+      "englishText": "The bus is near the bridge.",
+      "embeddingText": "The bus is near the bridge.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "bus",
+          "near bridge"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The bus is near the bridge.",
+          "englishAuditText": "The bus is near the bridge."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The bus is on the bridge.",
+          "englishAuditText": "The bus is on the bridge.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "On the bridge differs from near it."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The bus is under the bridge.",
+          "englishAuditText": "The bus is under the bridge.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "Under the bridge differs from near it."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-chess-on-friday",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 78,
+      "complexity": 23,
+      "topic": "play",
+      "familyId": "mm-cz-play-time",
+      "targetText": "V pátek hrajeme šachy.",
+      "learnerBaseText": "We play chess on Friday.",
+      "englishText": "We play chess on Friday.",
+      "embeddingText": "We play chess on Friday.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "play chess",
+          "Friday"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "We play chess on Friday.",
+          "englishAuditText": "We play chess on Friday."
+        },
+        {
+          "id": "contrast-1",
+          "text": "We play chess on Thursday.",
+          "englishAuditText": "We play chess on Thursday.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The day changes from Friday to Thursday."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "We play chess on Saturday.",
+          "englishAuditText": "We play chess on Saturday.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The day changes from Friday to Saturday."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-paint-stars-silver",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 69,
+      "complexity": 22,
+      "topic": "art",
+      "familyId": "mm-cz-art-object",
+      "targetText": "Namaluj hvězdy stříbrnou barvou.",
+      "learnerBaseText": "Paint the stars silver.",
+      "englishText": "Paint the stars silver.",
+      "embeddingText": "Paint the stars silver.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "paint",
+          "stars",
+          "silver"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Paint the stars silver.",
+          "englishAuditText": "Paint the stars silver."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Paint the stars gold.",
+          "englishAuditText": "Paint the stars gold.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The requested paint color changes to gold."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Paint the stars blue.",
+          "englishAuditText": "Paint the stars blue.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The requested paint color changes to blue."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-glass-bottle-heavy",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 83,
+      "complexity": 21,
+      "topic": "objects",
+      "familyId": "mm-cz-objects-state",
+      "targetText": "Skleněná láhev je těžká.",
+      "learnerBaseText": "The glass bottle is heavy.",
+      "englishText": "The glass bottle is heavy.",
+      "embeddingText": "The glass bottle is heavy.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "glass bottle",
+          "heavy"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The glass bottle is heavy.",
+          "englishAuditText": "The glass bottle is heavy."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The glass bottle is light.",
+          "englishAuditText": "The glass bottle is light.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The weight changes from heavy to light."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The glass bottle is fragile.",
+          "englishAuditText": "The glass bottle is fragile.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "Fragility is a different property from weight."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-fox-long-tail",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 67,
+      "complexity": 20,
+      "topic": "animals",
+      "familyId": "mm-cz-animals-state",
+      "targetText": "Liška má dlouhý ocas.",
+      "learnerBaseText": "The fox has a long tail.",
+      "englishText": "The fox has a long tail.",
+      "embeddingText": "The fox has a long tail.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "fox",
+          "long tail"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The fox has a long tail.",
+          "englishAuditText": "The fox has a long tail."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The fox has a short tail.",
+          "englishAuditText": "The fox has a short tail.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The tail length changes from long to short."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The fox has a crooked tail.",
+          "englishAuditText": "The fox has a crooked tail.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "Tail shape replaces the stated tail length."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-rabbit-under-cart",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 69,
+      "complexity": 22,
+      "topic": "animals",
+      "familyId": "mm-cz-animals-location",
+      "targetText": "Králík je pod vozíkem.",
+      "learnerBaseText": "The rabbit is under the cart.",
+      "englishText": "The rabbit is under the cart.",
+      "embeddingText": "The rabbit is under the cart.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "rabbit",
+          "under cart"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The rabbit is under the cart.",
+          "englishAuditText": "The rabbit is under the cart."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The rabbit is inside the cart.",
+          "englishAuditText": "The rabbit is inside the cart.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "Inside the cart differs from underneath."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The rabbit is behind the cart.",
+          "englishAuditText": "The rabbit is behind the cart.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "Behind the cart differs from underneath."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-lend-green-pencil",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 93,
+      "complexity": 22,
+      "topic": "school",
+      "familyId": "mm-cz-school-object",
+      "targetText": "Půjč mi zelenou tužku.",
+      "learnerBaseText": "Lend me the green pencil.",
+      "englishText": "Lend me the green pencil.",
+      "embeddingText": "Lend me the green pencil.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "lend",
+          "green pencil"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Lend me the green pencil.",
+          "englishAuditText": "Lend me the green pencil."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Lend me the red pencil.",
+          "englishAuditText": "Lend me the red pencil.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The requested pencil color changes to red."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Lend me the black pencil.",
+          "englishAuditText": "Lend me the black pencil.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The requested pencil color changes to black."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-one-candle-burning",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 72,
+      "complexity": 18,
+      "topic": "home",
+      "familyId": "mm-cz-home-number",
+      "targetText": "Hoří jedna svíčka.",
+      "learnerBaseText": "One candle is burning.",
+      "englishText": "One candle is burning.",
+      "embeddingText": "One candle is burning.",
+      "focus": {
+        "kind": "number",
+        "englishConcepts": [
+          "one candle",
+          "burning"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "One candle is burning.",
+          "englishAuditText": "One candle is burning."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Two candles are burning.",
+          "englishAuditText": "Two candles are burning.",
+          "contrast": {
+            "kind": "number",
+            "explanation": "The number of burning candles changes to two."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Three candles are burning.",
+          "englishAuditText": "Three candles are burning.",
+          "contrast": {
+            "kind": "number",
+            "explanation": "The number of burning candles changes to three."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-can-hear-owl",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 76,
+      "complexity": 22,
+      "topic": "nature",
+      "familyId": "mm-cz-nature-polarity",
+      "targetText": "Slyším sovu.",
+      "learnerBaseText": "I can hear the owl.",
+      "englishText": "I can hear the owl.",
+      "embeddingText": "I can hear the owl.",
+      "focus": {
+        "kind": "polarity",
+        "englishConcepts": [
+          "hear",
+          "owl",
+          "can"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I can hear the owl.",
+          "englishAuditText": "I can hear the owl."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I cannot hear the owl.",
+          "englishAuditText": "I cannot hear the owl.",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "The ability to hear is negated."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I can no longer hear the owl.",
+          "englishAuditText": "I can no longer hear the owl.",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "Hearing has ceased rather than being possible now."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-gardener-picks-pears",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 73,
+      "complexity": 21,
+      "topic": "garden",
+      "familyId": "mm-cz-garden-object",
+      "targetText": "Zahradník sklízí hrušky.",
+      "learnerBaseText": "The gardener picks pears.",
+      "englishText": "The gardener picks pears.",
+      "embeddingText": "The gardener picks pears.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "gardener",
+          "pick",
+          "pears"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The gardener picks pears.",
+          "englishAuditText": "The gardener picks pears."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The gardener picks apples.",
+          "englishAuditText": "The gardener picks apples.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The harvested fruit changes from pears to apples."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The gardener picks plums.",
+          "englishAuditText": "The gardener picks plums.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The harvested fruit changes from pears to plums."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-fish-before-breakfast",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 88,
+      "complexity": 40,
+      "topic": "routine",
+      "familyId": "mm-cz-routine-sequence",
+      "targetText": "Před snídaní Lena krmí rybičky.",
+      "learnerBaseText": "Before breakfast, Lena feeds the fish.",
+      "englishText": "Before breakfast, Lena feeds the fish.",
+      "embeddingText": "Before breakfast, Lena feeds the fish.",
+      "focus": {
+        "kind": "sequence",
+        "englishConcepts": [
+          "feed fish",
+          "before breakfast"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Before breakfast, Lena feeds the fish.",
+          "englishAuditText": "Before breakfast, Lena feeds the fish."
+        },
+        {
+          "id": "contrast-1",
+          "text": "After breakfast, Lena feeds the fish.",
+          "englishAuditText": "After breakfast, Lena feeds the fish.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "Feeding moves from before breakfast to after it."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "During breakfast, Lena feeds the fish.",
+          "englishAuditText": "During breakfast, Lena feeds the fish.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "Feeding happens during breakfast rather than before it."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-jacket-wet-reason",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 84,
+      "complexity": 43,
+      "topic": "home",
+      "familyId": "mm-cz-home-reason",
+      "targetText": "Bunda zůstává na židli, protože je mokrá.",
+      "learnerBaseText": "The jacket stays on the chair because it is wet.",
+      "englishText": "The jacket stays on the chair because it is wet.",
+      "embeddingText": "The jacket stays on the chair because it is wet.",
+      "focus": {
+        "kind": "reason",
+        "englishConcepts": [
+          "jacket",
+          "chair",
+          "wet"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The jacket stays on the chair because it is wet.",
+          "englishAuditText": "The jacket stays on the chair because it is wet."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The jacket stays on the chair because it is dirty.",
+          "englishAuditText": "The jacket stays on the chair because it is dirty.",
+          "contrast": {
+            "kind": "reason",
+            "explanation": "Dirt replaces wetness as the stated reason."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The jacket stays on the chair because it is torn.",
+          "englishAuditText": "The jacket stays on the chair because it is torn.",
+          "contrast": {
+            "kind": "reason",
+            "explanation": "A tear replaces wetness as the stated reason."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-ticket-valid-through-sunday",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 93,
+      "complexity": 52,
+      "topic": "travel",
+      "familyId": "mm-cz-travel-time",
+      "targetText": "Tato jízdenka platí až do neděle včetně.",
+      "learnerBaseText": "This ticket is valid up to and including Sunday.",
+      "englishText": "This ticket is valid up to and including Sunday.",
+      "embeddingText": "This ticket is valid up to and including Sunday.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "ticket validity",
+          "Sunday included"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This ticket is valid up to and including Sunday.",
+          "englishAuditText": "This ticket is valid up to and including Sunday."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This ticket is valid up to and including Monday.",
+          "englishAuditText": "This ticket is valid up to and including Monday.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The final valid day changes from Sunday to Monday."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This ticket is valid up to and including Saturday.",
+          "englishAuditText": "This ticket is valid up to and including Saturday.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The final valid day changes from Sunday to Saturday."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-lunch-bag-keeps-warm",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 89,
+      "complexity": 49,
+      "topic": "food",
+      "familyId": "mm-cz-food-purpose",
+      "targetText": "Dáváme oběd do tašky, aby zůstal teplý.",
+      "learnerBaseText": "We put lunch in the bag to keep it warm.",
+      "englishText": "We put lunch in the bag to keep it warm.",
+      "embeddingText": "We put lunch in the bag to keep it warm.",
+      "focus": {
+        "kind": "purpose",
+        "englishConcepts": [
+          "lunch",
+          "bag",
+          "keep warm"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "We put lunch in the bag to keep it warm.",
+          "englishAuditText": "We put lunch in the bag to keep it warm."
+        },
+        {
+          "id": "contrast-1",
+          "text": "We put lunch in the bag to keep it cold.",
+          "englishAuditText": "We put lunch in the bag to keep it cold.",
+          "contrast": {
+            "kind": "purpose",
+            "explanation": "Cooling replaces keeping the meal warm."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "We put lunch in the bag to hide it.",
+          "englishAuditText": "We put lunch in the bag to hide it.",
+          "contrast": {
+            "kind": "purpose",
+            "explanation": "Hiding replaces temperature preservation as the purpose."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-shop-brown-rice",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 91,
+      "complexity": 45,
+      "topic": "shopping",
+      "familyId": "mm-cz-shopping-object",
+      "targetText": "Pokud mají v obchodě hnědou rýži, koupíme jeden sáček.",
+      "learnerBaseText": "If the shop has brown rice, we will buy a bag.",
+      "englishText": "If the shop has brown rice, we will buy a bag.",
+      "embeddingText": "If the shop has brown rice, we will buy a bag.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "shop",
+          "brown rice",
+          "conditional purchase"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "If the shop has brown rice, we will buy a bag.",
+          "englishAuditText": "If the shop has brown rice, we will buy a bag."
+        },
+        {
+          "id": "contrast-1",
+          "text": "If the shop has white rice, we will buy a bag.",
+          "englishAuditText": "If the shop has white rice, we will buy a bag.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The rice variety changes from brown to white."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "If the shop has red rice, we will buy a bag.",
+          "englishAuditText": "If the shop has red rice, we will buy a bag.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The rice variety changes from brown to red."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-bus-left-before-arrival",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 94,
+      "complexity": 50,
+      "topic": "travel",
+      "familyId": "mm-cz-travel-sequence",
+      "targetText": "Autobus odjel, než jsme došli na zastávku.",
+      "learnerBaseText": "The bus left before we reached the stop.",
+      "englishText": "The bus left before we reached the stop.",
+      "embeddingText": "The bus left before we reached the stop.",
+      "focus": {
+        "kind": "sequence",
+        "englishConcepts": [
+          "bus departure",
+          "arrival at stop",
+          "before"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The bus left before we reached the stop.",
+          "englishAuditText": "The bus left before we reached the stop."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The bus left after we reached the stop.",
+          "englishAuditText": "The bus left after we reached the stop.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "The departure moves from before arrival to after it."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The bus left when we reached the stop.",
+          "englishAuditText": "The bus left when we reached the stop.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "The two events become simultaneous rather than ordered."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-uncle-forgot-umbrella-office",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 91,
+      "complexity": 47,
+      "topic": "work",
+      "familyId": "mm-cz-work-location",
+      "targetText": "Můj strýc nechal deštník v kanceláři.",
+      "learnerBaseText": "My uncle left his umbrella at the office.",
+      "englishText": "My uncle left his umbrella at the office.",
+      "embeddingText": "My uncle left his umbrella at the office.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "uncle",
+          "forgot umbrella",
+          "office"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "My uncle left his umbrella at the office.",
+          "englishAuditText": "My uncle left his umbrella at the office."
+        },
+        {
+          "id": "contrast-1",
+          "text": "My uncle left his umbrella at the station.",
+          "englishAuditText": "My uncle left his umbrella at the station.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The forgotten umbrella is at a different place."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "My uncle left his umbrella at the bakery.",
+          "englishAuditText": "My uncle left his umbrella at the bakery.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The forgotten umbrella is at a different place."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-picnic-needs-two-bottles",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 87,
+      "complexity": 45,
+      "topic": "outdoors",
+      "familyId": "mm-cz-outdoors-quantity",
+      "targetText": "Dvě láhve vody nám na piknik stačí.",
+      "learnerBaseText": "Two bottles of water are enough for our picnic.",
+      "englishText": "Two bottles of water are enough for our picnic.",
+      "embeddingText": "Two bottles of water are enough for our picnic.",
+      "focus": {
+        "kind": "quantity",
+        "englishConcepts": [
+          "picnic",
+          "two bottles",
+          "enough"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Two bottles of water are enough for our picnic.",
+          "englishAuditText": "Two bottles of water are enough for our picnic."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Three bottles of water are enough for our picnic.",
+          "englishAuditText": "Three bottles of water are enough for our picnic.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "The stated sufficient quantity changes from two to three."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Four bottles of water are enough for our picnic.",
+          "englishAuditText": "Four bottles of water are enough for our picnic.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "The stated sufficient quantity changes from two to four."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-boots-because-mud",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 48,
+      "topic": "outdoors",
+      "familyId": "mm-cz-outdoors-reason",
+      "targetText": "Vezmi si holínky, protože cesta je blátivá.",
+      "learnerBaseText": "Bring your boots because the path is muddy.",
+      "englishText": "Bring your boots because the path is muddy.",
+      "embeddingText": "Bring your boots because the path is muddy.",
+      "focus": {
+        "kind": "reason",
+        "englishConcepts": [
+          "boots",
+          "muddy path"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Bring your boots because the path is muddy.",
+          "englishAuditText": "Bring your boots because the path is muddy."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Bring your boots because the path is icy.",
+          "englishAuditText": "Bring your boots because the path is icy.",
+          "contrast": {
+            "kind": "reason",
+            "explanation": "Ice replaces mud as the reason for boots."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Bring your boots because the path is flooded.",
+          "englishAuditText": "Bring your boots because the path is flooded.",
+          "contrast": {
+            "kind": "reason",
+            "explanation": "Flooding replaces mud as the reason for boots."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-nora-prefers-mint-tea",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 89,
+      "complexity": 42,
+      "topic": "food",
+      "familyId": "mm-cz-food-object",
+      "targetText": "Nora chce mátový čaj, ne kávu.",
+      "learnerBaseText": "Nora wants mint tea, not coffee.",
+      "englishText": "Nora wants mint tea, not coffee.",
+      "embeddingText": "Nora wants mint tea, not coffee.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "Nora",
+          "mint tea",
+          "not coffee"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Nora wants mint tea, not coffee.",
+          "englishAuditText": "Nora wants mint tea, not coffee."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Nora wants lemon tea, not coffee.",
+          "englishAuditText": "Nora wants lemon tea, not coffee.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The requested tea changes from mint to lemon."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Nora wants ginger tea, not coffee.",
+          "englishAuditText": "Nora wants ginger tea, not coffee.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The requested tea changes from mint to ginger."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-set-table-while-soup-cooks",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 83,
+      "complexity": 48,
+      "topic": "home",
+      "familyId": "mm-cz-home-action",
+      "targetText": "Zatímco táta vaří polévku, prostíráme stůl.",
+      "learnerBaseText": "While Dad cooks the soup, we set the table.",
+      "englishText": "While Dad cooks the soup, we set the table.",
+      "embeddingText": "While Dad cooks the soup, we set the table.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "dad cooks soup",
+          "set table",
+          "while"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "While Dad cooks the soup, we set the table.",
+          "englishAuditText": "While Dad cooks the soup, we set the table."
+        },
+        {
+          "id": "contrast-1",
+          "text": "While Dad cooks the soup, we clear the table.",
+          "englishAuditText": "While Dad cooks the soup, we clear the table.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "Clearing replaces setting the table."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "While Dad cooks the soup, we wipe the table.",
+          "englishAuditText": "While Dad cooks the soup, we wipe the table.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "Wiping replaces setting the table."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-walk-instead-of-bus",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 92,
+      "complexity": 49,
+      "topic": "travel",
+      "familyId": "mm-cz-travel-manner",
+      "targetText": "Na nádraží půjdeme pěšky místo autobusem.",
+      "learnerBaseText": "We will walk to the station instead of taking the bus.",
+      "englishText": "We will walk to the station instead of taking the bus.",
+      "embeddingText": "We will walk to the station instead of taking the bus.",
+      "focus": {
+        "kind": "manner",
+        "englishConcepts": [
+          "station",
+          "walk",
+          "instead of bus"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "We will walk to the station instead of taking the bus.",
+          "englishAuditText": "We will walk to the station instead of taking the bus."
+        },
+        {
+          "id": "contrast-1",
+          "text": "We will cycle to the station instead of taking the bus.",
+          "englishAuditText": "We will cycle to the station instead of taking the bus.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "Cycling replaces walking as the chosen transport."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "We will drive to the station instead of taking the bus.",
+          "englishAuditText": "We will drive to the station instead of taking the bus.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "Driving replaces walking as the chosen transport."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-librarian-asks-lower-voice",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 91,
+      "complexity": 51,
+      "topic": "places",
+      "familyId": "mm-cz-places-manner",
+      "targetText": "Knihovnice nás žádá, abychom mluvili tišeji.",
+      "learnerBaseText": "The librarian asks us to speak more quietly.",
+      "englishText": "The librarian asks us to speak more quietly.",
+      "embeddingText": "The librarian asks us to speak more quietly.",
+      "focus": {
+        "kind": "manner",
+        "englishConcepts": [
+          "librarian",
+          "speak quietly"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The librarian asks us to speak more quietly.",
+          "englishAuditText": "The librarian asks us to speak more quietly."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The librarian asks us to speak more loudly.",
+          "englishAuditText": "The librarian asks us to speak more loudly.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "The requested volume is increased rather than reduced."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The librarian asks us to speak more slowly.",
+          "englishAuditText": "The librarian asks us to speak more slowly.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "Speech speed replaces speech volume as the request."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-six-rolls-double-cost",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 83,
+      "complexity": 55,
+      "topic": "shopping",
+      "familyId": "mm-cz-shopping-comparison",
+      "targetText": "Šest housek stojí dvakrát tolik co tři housky.",
+      "learnerBaseText": "Six rolls cost twice as much as three rolls.",
+      "englishText": "Six rolls cost twice as much as three rolls.",
+      "embeddingText": "Six rolls cost twice as much as three rolls.",
+      "focus": {
+        "kind": "comparison",
+        "englishConcepts": [
+          "six rolls",
+          "twice price",
+          "three rolls"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Six rolls cost twice as much as three rolls.",
+          "englishAuditText": "Six rolls cost twice as much as three rolls."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Six rolls cost half as much as three rolls.",
+          "englishAuditText": "Six rolls cost half as much as three rolls.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "Half the price replaces twice the price."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Six rolls cost the same as three rolls.",
+          "englishAuditText": "Six rolls cost the same as three rolls.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "Equal prices replace the stated double price."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-save-last-piece-sister",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 84,
+      "complexity": 44,
+      "topic": "people",
+      "familyId": "mm-cz-people-possession",
+      "targetText": "Nech prosím poslední kousek pro mou sestru.",
+      "learnerBaseText": "Please save the last piece for my sister.",
+      "englishText": "Please save the last piece for my sister.",
+      "embeddingText": "Please save the last piece for my sister.",
+      "focus": {
+        "kind": "possession",
+        "englishConcepts": [
+          "last piece",
+          "save for sister"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Please save the last piece for my sister.",
+          "englishAuditText": "Please save the last piece for my sister."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Please save the last piece for my brother.",
+          "englishAuditText": "Please save the last piece for my brother.",
+          "contrast": {
+            "kind": "possession",
+            "explanation": "The intended recipient changes from sister to brother."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Please save the last piece for my cousin.",
+          "englishAuditText": "Please save the last piece for my cousin.",
+          "contrast": {
+            "kind": "possession",
+            "explanation": "The intended recipient changes from sister to cousin."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-rain-stopped-open-window",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 86,
+      "complexity": 55,
+      "topic": "weather",
+      "familyId": "mm-cz-weather-reason",
+      "targetText": "Otevřeli jsme okno, protože přestalo pršet.",
+      "learnerBaseText": "We opened the window because the rain had stopped.",
+      "englishText": "We opened the window because the rain had stopped.",
+      "embeddingText": "We opened the window because the rain had stopped.",
+      "focus": {
+        "kind": "reason",
+        "englishConcepts": [
+          "rain stopped",
+          "open window"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "We opened the window because the rain had stopped.",
+          "englishAuditText": "We opened the window because the rain had stopped."
+        },
+        {
+          "id": "contrast-1",
+          "text": "We opened the window because the rain had started.",
+          "englishAuditText": "We opened the window because the rain had started.",
+          "contrast": {
+            "kind": "reason",
+            "explanation": "Rain starting replaces rain stopping as the reason."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "We opened the window because the rain had become heavier.",
+          "englishAuditText": "We opened the window because the rain had become heavier.",
+          "contrast": {
+            "kind": "reason",
+            "explanation": "Heavier rain replaces rain stopping as the reason."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-roof-dry-garden-wet",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 78,
+      "complexity": 50,
+      "topic": "weather",
+      "familyId": "mm-cz-weather-state",
+      "targetText": "Po přeháňce je střecha suchá a zahrada je ještě mokrá.",
+      "learnerBaseText": "After the shower, the roof is dry and the garden is still wet.",
+      "englishText": "After the shower, the roof is dry and the garden is still wet.",
+      "embeddingText": "After the shower, the roof is dry and the garden is still wet.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "after shower",
+          "roof dry",
+          "garden wet"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "After the shower, the roof is dry and the garden is still wet.",
+          "englishAuditText": "After the shower, the roof is dry and the garden is still wet."
+        },
+        {
+          "id": "contrast-1",
+          "text": "After the shower, the roof is wet and the garden is still wet.",
+          "englishAuditText": "After the shower, the roof is wet and the garden is still wet.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "Only the roof changes from dry to wet."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "After the shower, the roof is icy and the garden is still wet.",
+          "englishAuditText": "After the shower, the roof is icy and the garden is still wet.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "Only the roof changes from dry to icy."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-museum-after-lunch",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 85,
+      "complexity": 47,
+      "topic": "places",
+      "familyId": "mm-cz-places-time",
+      "targetText": "Zítra po obědě navštívíme muzeum.",
+      "learnerBaseText": "We are visiting the museum after lunch tomorrow.",
+      "englishText": "We are visiting the museum after lunch tomorrow.",
+      "embeddingText": "We are visiting the museum after lunch tomorrow.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "visit museum",
+          "after lunch"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "We are visiting the museum after lunch tomorrow.",
+          "englishAuditText": "We are visiting the museum after lunch tomorrow."
+        },
+        {
+          "id": "contrast-1",
+          "text": "We are visiting the museum before lunch tomorrow.",
+          "englishAuditText": "We are visiting the museum before lunch tomorrow.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The visit moves from after lunch to before lunch."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "We are visiting the museum during lunch tomorrow.",
+          "englishAuditText": "We are visiting the museum during lunch tomorrow.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The visit moves to lunchtime itself."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-doctor-between-lunch-and-three",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 91,
+      "complexity": 51,
+      "topic": "health",
+      "familyId": "mm-cz-health-time",
+      "targetText": "Lékař přijde po obědě, ale před třetí hodinou.",
+      "learnerBaseText": "The doctor will arrive after lunch but before three.",
+      "englishText": "The doctor will arrive after lunch but before three.",
+      "embeddingText": "The doctor will arrive after lunch but before three.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "doctor arrival",
+          "after lunch",
+          "before three"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The doctor will arrive after lunch but before three.",
+          "englishAuditText": "The doctor will arrive after lunch but before three."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The doctor will arrive after lunch but before four.",
+          "englishAuditText": "The doctor will arrive after lunch but before four.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The upper time bound changes from three to four."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The doctor will arrive after lunch but before five.",
+          "englishAuditText": "The doctor will arrive after lunch but before five.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The upper time bound changes from three to five."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-less-juice-in-jug",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 82,
+      "complexity": 52,
+      "topic": "food",
+      "familyId": "mm-cz-food-comparison",
+      "targetText": "V tomto džbánu je méně džusu než v tamtom.",
+      "learnerBaseText": "There is less juice in this jug than in that one.",
+      "englishText": "There is less juice in this jug than in that one.",
+      "embeddingText": "There is less juice in this jug than in that one.",
+      "focus": {
+        "kind": "comparison",
+        "englishConcepts": [
+          "jug",
+          "less juice",
+          "other jug"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "There is less juice in this jug than in that one.",
+          "englishAuditText": "There is less juice in this jug than in that one."
+        },
+        {
+          "id": "contrast-1",
+          "text": "There is more juice in this jug than in that one.",
+          "englishAuditText": "There is more juice in this jug than in that one.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "The quantity comparison changes from less to more."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "There is as much juice in this jug as in that one.",
+          "englishAuditText": "There is as much juice in this jug as in that one.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "Equal quantities replace the stated smaller quantity."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-bread-without-seeds",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 92,
+      "complexity": 43,
+      "topic": "shopping",
+      "familyId": "mm-cz-shopping-polarity",
+      "targetText": "Kup prosím bochník chleba bez semínek.",
+      "learnerBaseText": "Please buy a loaf of bread without seeds.",
+      "englishText": "Please buy a loaf of bread without seeds.",
+      "embeddingText": "Please buy a loaf of bread without seeds.",
+      "focus": {
+        "kind": "polarity",
+        "englishConcepts": [
+          "buy bread",
+          "without seeds"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Please buy a loaf of bread without seeds.",
+          "englishAuditText": "Please buy a loaf of bread without seeds."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Please buy a loaf of bread with seeds.",
+          "englishAuditText": "Please buy a loaf of bread with seeds.",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "Seeds are included instead of excluded."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Please buy a loaf of bread with extra seeds.",
+          "englishAuditText": "Please buy a loaf of bread with extra seeds.",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "Extra seeds reverse the request to exclude seeds."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-brushes-before-paint-dries",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 88,
+      "complexity": 52,
+      "topic": "art",
+      "familyId": "mm-cz-art-sequence",
+      "targetText": "Umyj štětce, než barva zaschne.",
+      "learnerBaseText": "Wash the brushes before the paint dries.",
+      "englishText": "Wash the brushes before the paint dries.",
+      "embeddingText": "Wash the brushes before the paint dries.",
+      "focus": {
+        "kind": "sequence",
+        "englishConcepts": [
+          "wash brushes",
+          "before paint dries"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Wash the brushes before the paint dries.",
+          "englishAuditText": "Wash the brushes before the paint dries."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Wash the brushes after the paint dries.",
+          "englishAuditText": "Wash the brushes after the paint dries.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "Washing moves from before drying to after it."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Wash the brushes while the paint dries.",
+          "englishAuditText": "Wash the brushes while the paint dries.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "Washing becomes simultaneous with drying."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-printer-needs-paper",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 48,
+      "topic": "technology",
+      "familyId": "mm-cz-technology-object",
+      "targetText": "Tiskárna potřebuje papír, ale inkoustu má dost.",
+      "learnerBaseText": "The printer needs paper, but it has enough ink.",
+      "englishText": "The printer needs paper, but it has enough ink.",
+      "embeddingText": "The printer needs paper, but it has enough ink.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "printer",
+          "out of paper",
+          "enough ink"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The printer needs paper, but it has enough ink.",
+          "englishAuditText": "The printer needs paper, but it has enough ink."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The printer needs power, but it has enough ink.",
+          "englishAuditText": "The printer needs power, but it has enough ink.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "Electric power replaces paper as the unmet need."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The printer needs a new cable, but it has enough ink.",
+          "englishAuditText": "The printer needs a new cable, but it has enough ink.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "A cable replaces paper as the unmet need."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-share-markers-other-group",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 85,
+      "complexity": 43,
+      "topic": "school",
+      "familyId": "mm-cz-school-object",
+      "targetText": "Dělíme se o fixy s druhou skupinou.",
+      "learnerBaseText": "We share the markers with the other group.",
+      "englishText": "We share the markers with the other group.",
+      "embeddingText": "We share the markers with the other group.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "share markers",
+          "other group"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "We share the markers with the other group.",
+          "englishAuditText": "We share the markers with the other group."
+        },
+        {
+          "id": "contrast-1",
+          "text": "We share the rulers with the other group.",
+          "englishAuditText": "We share the rulers with the other group.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "Rulers replace markers as the shared objects."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "We share the scissors with the other group.",
+          "englishAuditText": "We share the scissors with the other group.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "Scissors replace markers as the shared objects."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-path-along-river",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 91,
+      "complexity": 51,
+      "topic": "outdoors",
+      "familyId": "mm-cz-outdoors-location",
+      "targetText": "Jdi po cestě podél řeky, ne po té do kopce.",
+      "learnerBaseText": "Take the path along the river, not the one uphill.",
+      "englishText": "Take the path along the river, not the one uphill.",
+      "embeddingText": "Take the path along the river, not the one uphill.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "path",
+          "along river",
+          "not uphill"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Take the path along the river, not the one uphill.",
+          "englishAuditText": "Take the path along the river, not the one uphill."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Take the path through the forest, not the one uphill.",
+          "englishAuditText": "Take the path through the forest, not the one uphill.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The forest replaces the riverside route."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Take the path across the field, not the one uphill.",
+          "englishAuditText": "Take the path across the field, not the one uphill.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The field replaces the riverside route."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-soup-out-ten-minutes-before",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 87,
+      "complexity": 50,
+      "topic": "cooking",
+      "familyId": "mm-cz-cooking-time",
+      "targetText": "Vyndej polévku z lednice deset minut před jídlem.",
+      "learnerBaseText": "Take the soup out of the fridge ten minutes before the meal.",
+      "englishText": "Take the soup out of the fridge ten minutes before the meal.",
+      "embeddingText": "Take the soup out of the fridge ten minutes before the meal.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "soup",
+          "fridge",
+          "ten minutes before meal"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Take the soup out of the fridge ten minutes before the meal.",
+          "englishAuditText": "Take the soup out of the fridge ten minutes before the meal."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Take the soup out of the fridge twenty minutes before the meal.",
+          "englishAuditText": "Take the soup out of the fridge twenty minutes before the meal.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The waiting interval changes from ten to twenty minutes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Take the soup out of the fridge thirty minutes before the meal.",
+          "englishAuditText": "Take the soup out of the fridge thirty minutes before the meal.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The waiting interval changes from ten to thirty minutes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-dog-found-glove-under-bench",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 80,
+      "complexity": 49,
+      "topic": "animals",
+      "familyId": "mm-cz-animals-location",
+      "targetText": "Náš pes našel rukavici pod dřevěnou lavičkou.",
+      "learnerBaseText": "Our dog found a glove under the wooden bench.",
+      "englishText": "Our dog found a glove under the wooden bench.",
+      "embeddingText": "Our dog found a glove under the wooden bench.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "dog",
+          "found glove",
+          "under bench"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Our dog found a glove under the wooden bench.",
+          "englishAuditText": "Our dog found a glove under the wooden bench."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Our dog found a glove on the wooden bench.",
+          "englishAuditText": "Our dog found a glove on the wooden bench.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The glove is on the bench rather than underneath."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Our dog found a glove behind the wooden bench.",
+          "englishAuditText": "Our dog found a glove behind the wooden bench.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The glove is behind the bench rather than underneath."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-near-home-cycle-work",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 90,
+      "complexity": 48,
+      "topic": "work",
+      "familyId": "mm-cz-work-manner",
+      "targetText": "Omar pracuje blízko domova, a tak jezdí do práce na kole.",
+      "learnerBaseText": "Omar works near home, so he goes to work by bike.",
+      "englishText": "Omar works near home, so he goes to work by bike.",
+      "embeddingText": "Omar works near home, so he goes to work by bike.",
+      "focus": {
+        "kind": "manner",
+        "englishConcepts": [
+          "work near home",
+          "travel by bike"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Omar works near home, so he goes to work by bike.",
+          "englishAuditText": "Omar works near home, so he goes to work by bike."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Omar works near home, so he goes to work on foot.",
+          "englishAuditText": "Omar works near home, so he goes to work on foot.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "Walking replaces cycling as his way to work."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Omar works near home, so he goes to work by bus.",
+          "englishAuditText": "Omar works near home, so he goes to work by bus.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "Taking a bus replaces cycling as his way to work."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-teacher-wants-summary",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 88,
+      "complexity": 50,
+      "topic": "school",
+      "familyId": "mm-cz-school-object",
+      "targetText": "Učitelka chce stručné shrnutí, ne jen název.",
+      "learnerBaseText": "The teacher wants a brief summary, not just a title.",
+      "englishText": "The teacher wants a brief summary, not just a title.",
+      "embeddingText": "The teacher wants a brief summary, not just a title.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "teacher",
+          "brief summary",
+          "not title"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The teacher wants a brief summary, not just a title.",
+          "englishAuditText": "The teacher wants a brief summary, not just a title."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The teacher wants a brief invitation, not just a title.",
+          "englishAuditText": "The teacher wants a brief invitation, not just a title.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "An invitation replaces a summary."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The teacher wants a brief dialogue, not just a title.",
+          "englishAuditText": "The teacher wants a brief dialogue, not just a title.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "A dialogue replaces a summary."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-glass-jar-ours",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 89,
+      "complexity": 47,
+      "topic": "possessions",
+      "familyId": "mm-cz-possessions-possession",
+      "targetText": "Ta skleněná nádoba je naše, ne našich sousedů.",
+      "learnerBaseText": "That glass jar is ours, not our neighbors’.",
+      "englishText": "That glass jar is ours, not our neighbors’.",
+      "embeddingText": "That glass jar is ours, not our neighbors’.",
+      "focus": {
+        "kind": "possession",
+        "englishConcepts": [
+          "glass jar",
+          "ours",
+          "not neighbors"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "That glass jar is ours, not our neighbors’.",
+          "englishAuditText": "That glass jar is ours, not our neighbors’."
+        },
+        {
+          "id": "contrast-1",
+          "text": "That glass jar is yours, not our neighbors’.",
+          "englishAuditText": "That glass jar is yours, not our neighbors’.",
+          "contrast": {
+            "kind": "possession",
+            "explanation": "The owner changes from us to you."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "That glass jar is theirs, not our neighbors’.",
+          "englishAuditText": "That glass jar is theirs, not our neighbors’.",
+          "contrast": {
+            "kind": "possession",
+            "explanation": "The owner changes from us to them."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-closed-footbridge-counterfactual",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 85,
+      "complexity": 87,
+      "topic": "travel",
+      "familyId": "mm-cz-travel-condition",
+      "targetText": "Kdybych věděl, že lávka je zavřená, šel bych po silnici kolem jezera.",
+      "learnerBaseText": "If I had known the footbridge was closed, I would have taken the road around the lake.",
+      "englishText": "If I had known the footbridge was closed, I would have taken the road around the lake.",
+      "embeddingText": "If I had known the footbridge was closed, I would have taken the road around the lake.",
+      "focus": {
+        "kind": "condition",
+        "englishConcepts": [
+          "closed footbridge",
+          "past counterfactual",
+          "road around lake"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "If I had known the footbridge was closed, I would have taken the road around the lake.",
+          "englishAuditText": "If I had known the footbridge was closed, I would have taken the road around the lake."
+        },
+        {
+          "id": "contrast-1",
+          "text": "If I had known the footbridge was open, I would have taken the road around the lake.",
+          "englishAuditText": "If I had known the footbridge was open, I would have taken the road around the lake.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "The known condition changes from closed to open."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "If I had known the footbridge was narrow, I would have taken the road around the lake.",
+          "englishAuditText": "If I had known the footbridge was narrow, I would have taken the road around the lake.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "A narrow bridge replaces a closed bridge as the condition."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-basket-weighs-more",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 75,
+      "complexity": 72,
+      "topic": "objects",
+      "familyId": "mm-cz-objects-comparison",
+      "targetText": "Košík jsme zvážili dvakrát, protože se zdálo, že váží víc než dřevěná bedna.",
+      "learnerBaseText": "We weighed the basket twice because it seemed to weigh more than the wooden box.",
+      "englishText": "We weighed the basket twice because it seemed to weigh more than the wooden box.",
+      "embeddingText": "We weighed the basket twice because it seemed to weigh more than the wooden box.",
+      "focus": {
+        "kind": "comparison",
+        "englishConcepts": [
+          "basket weighed twice",
+          "apparently heavier",
+          "wooden box"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "We weighed the basket twice because it seemed to weigh more than the wooden box.",
+          "englishAuditText": "We weighed the basket twice because it seemed to weigh more than the wooden box."
+        },
+        {
+          "id": "contrast-1",
+          "text": "We weighed the basket twice because it seemed to weigh less than the wooden box.",
+          "englishAuditText": "We weighed the basket twice because it seemed to weigh less than the wooden box.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "The apparent weight comparison changes from more to less."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "We weighed the basket twice because it seemed to weigh the same as the wooden box.",
+          "englishAuditText": "We weighed the basket twice because it seemed to weigh the same as the wooden box.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "Equal apparent weights replace the greater apparent weight."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-parcel-awaits-address-confirmation",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 92,
+      "complexity": 74,
+      "topic": "services",
+      "familyId": "mm-cz-services-condition",
+      "targetText": "Balík byl doručen teprve poté, co příjemce potvrdil adresu.",
+      "learnerBaseText": "The parcel was not delivered until the recipient confirmed the address.",
+      "englishText": "The parcel was not delivered until the recipient confirmed the address.",
+      "embeddingText": "The parcel was not delivered until the recipient confirmed the address.",
+      "focus": {
+        "kind": "condition",
+        "englishConcepts": [
+          "parcel delivery",
+          "recipient",
+          "confirm address"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The parcel was not delivered until the recipient confirmed the address.",
+          "englishAuditText": "The parcel was not delivered until the recipient confirmed the address."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The parcel was not delivered until the recipient paid the fee.",
+          "englishAuditText": "The parcel was not delivered until the recipient paid the fee.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "Paying a fee replaces confirming an address as the delivery condition."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The parcel was not delivered until the recipient signed the form.",
+          "englishAuditText": "The parcel was not delivered until the recipient signed the form.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "Signing a form replaces confirming an address as the delivery condition."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-repair-pot-to-grow-mint",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 76,
+      "complexity": 73,
+      "topic": "garden",
+      "familyId": "mm-cz-garden-purpose",
+      "targetText": "Marek opravil prasklý květináč, aby do něj mohl zasadit mátu.",
+      "learnerBaseText": "Marek repaired the cracked pot so that he could plant mint in it.",
+      "englishText": "Marek repaired the cracked pot so that he could plant mint in it.",
+      "embeddingText": "Marek repaired the cracked pot so that he could plant mint in it.",
+      "focus": {
+        "kind": "purpose",
+        "englishConcepts": [
+          "repair cracked pot",
+          "plant mint",
+          "purpose"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Marek repaired the cracked pot so that he could plant mint in it.",
+          "englishAuditText": "Marek repaired the cracked pot so that he could plant mint in it."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Marek repaired the cracked pot so that he could store nails in it.",
+          "englishAuditText": "Marek repaired the cracked pot so that he could store nails in it.",
+          "contrast": {
+            "kind": "purpose",
+            "explanation": "Storing nails replaces growing mint as the intended use."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Marek repaired the cracked pot so that he could collect rainwater in it.",
+          "englishAuditText": "Marek repaired the cracked pot so that he could collect rainwater in it.",
+          "contrast": {
+            "kind": "purpose",
+            "explanation": "Collecting rainwater replaces growing mint as the intended use."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-receipt-exchange-boots",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 93,
+      "complexity": 88,
+      "topic": "shopping",
+      "familyId": "mm-cz-shopping-object",
+      "targetText": "Kdyby sis schoval účtenku, mohl bys vysoké boty vyměnit, než obchod zavřel.",
+      "learnerBaseText": "If you had kept the receipt, you could have exchanged the boots before the shop closed.",
+      "englishText": "If you had kept the receipt, you could have exchanged the boots before the shop closed.",
+      "embeddingText": "If you had kept the receipt, you could have exchanged the boots before the shop closed.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "keep receipt",
+          "exchange boots",
+          "before shop closes"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "If you had kept the receipt, you could have exchanged the boots before the shop closed.",
+          "englishAuditText": "If you had kept the receipt, you could have exchanged the boots before the shop closed."
+        },
+        {
+          "id": "contrast-1",
+          "text": "If you had kept the receipt, you could have exchanged the coat before the shop closed.",
+          "englishAuditText": "If you had kept the receipt, you could have exchanged the coat before the shop closed.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The item to exchange changes from boots to a coat."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "If you had kept the receipt, you could have exchanged the gloves before the shop closed.",
+          "englishAuditText": "If you had kept the receipt, you could have exchanged the gloves before the shop closed.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The item to exchange changes from boots to gloves."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-water-level-rose-after-gate-adjustment",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 80,
+      "complexity": 81,
+      "topic": "nature",
+      "familyId": "mm-cz-nature-state",
+      "targetText": "Zpráva vysvětluje, proč hladina vody stoupla po úpravě stavidel.",
+      "learnerBaseText": "The report explains why the water level rose after the sluice gates were adjusted.",
+      "englishText": "The report explains why the water level rose after the sluice gates were adjusted.",
+      "embeddingText": "The report explains why the water level rose after the sluice gates were adjusted.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "report",
+          "water level rose",
+          "sluice gates adjusted"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The report explains why the water level rose after the sluice gates were adjusted.",
+          "englishAuditText": "The report explains why the water level rose after the sluice gates were adjusted."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The report explains why the water level fell after the sluice gates were adjusted.",
+          "englishAuditText": "The report explains why the water level fell after the sluice gates were adjusted.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "A falling water level replaces a rising one."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The report explains why the water level stayed unchanged after the sluice gates were adjusted.",
+          "englishAuditText": "The report explains why the water level stayed unchanged after the sluice gates were adjusted.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "An unchanged water level replaces a rising one."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-upstairs-aminas-scarf",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 85,
+      "complexity": 78,
+      "topic": "possessions",
+      "familyId": "mm-cz-possessions-possession",
+      "targetText": "Šála, kterou jsi nechal na židli, patří Amině, která bydlí nahoře.",
+      "learnerBaseText": "The scarf you left on the chair belongs to Amina, who lives upstairs.",
+      "englishText": "The scarf you left on the chair belongs to Amina, who lives upstairs.",
+      "embeddingText": "The scarf you left on the chair belongs to Amina, who lives upstairs.",
+      "focus": {
+        "kind": "possession",
+        "englishConcepts": [
+          "scarf left on chair",
+          "belongs to Amina",
+          "upstairs neighbor"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The scarf you left on the chair belongs to Amina, who lives upstairs.",
+          "englishAuditText": "The scarf you left on the chair belongs to Amina, who lives upstairs."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The scarf you left on the chair belongs to Omar, who lives upstairs.",
+          "englishAuditText": "The scarf you left on the chair belongs to Omar, who lives upstairs.",
+          "contrast": {
+            "kind": "possession",
+            "explanation": "The named owner changes from Amina to Omar."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The scarf you left on the chair belongs to Nora, who lives upstairs.",
+          "englishAuditText": "The scarf you left on the chair belongs to Nora, who lives upstairs.",
+          "contrast": {
+            "kind": "possession",
+            "explanation": "The named owner changes from Amina to Nora."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-emergency-light-after-last-lamp",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 94,
+      "complexity": 76,
+      "topic": "safety",
+      "familyId": "mm-cz-safety-sequence",
+      "targetText": "Po zhasnutí poslední lampy zkontroluj, že nouzové světlo stále svítí.",
+      "learnerBaseText": "After the final lamp is switched off, check that the emergency light is still on.",
+      "englishText": "After the final lamp is switched off, check that the emergency light is still on.",
+      "embeddingText": "After the final lamp is switched off, check that the emergency light is still on.",
+      "focus": {
+        "kind": "sequence",
+        "englishConcepts": [
+          "last lamp off",
+          "check emergency light",
+          "after"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "After the final lamp is switched off, check that the emergency light is still on.",
+          "englishAuditText": "After the final lamp is switched off, check that the emergency light is still on."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Before the final lamp is switched off, check that the emergency light is still on.",
+          "englishAuditText": "Before the final lamp is switched off, check that the emergency light is still on.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "The check moves from after the lamp is off to before."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "While the final lamp is being switched off, check that the emergency light is still on.",
+          "englishAuditText": "While the final lamp is being switched off, check that the emergency light is still on.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "The check becomes simultaneous with switching off the lamp."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-early-group-helps-label-checkers",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 84,
+      "complexity": 82,
+      "topic": "school",
+      "familyId": "mm-cz-school-action",
+      "targetText": "Skupina, která skončila s tříděním dříve, pomohla skupině, jež ještě kontrolovala štítky.",
+      "learnerBaseText": "The group that finished sorting early helped the group that was still checking the labels.",
+      "englishText": "The group that finished sorting early helped the group that was still checking the labels.",
+      "embeddingText": "The group that finished sorting early helped the group that was still checking the labels.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "early sorting group",
+          "help",
+          "check labels"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The group that finished sorting early helped the group that was still checking the labels.",
+          "englishAuditText": "The group that finished sorting early helped the group that was still checking the labels."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The group that finished sorting early helped the group that was still counting the boxes.",
+          "englishAuditText": "The group that finished sorting early helped the group that was still counting the boxes.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "Counting boxes replaces checking labels as the unfinished task."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The group that finished sorting early helped the group that was still weighing the parcels.",
+          "englishAuditText": "The group that finished sorting early helped the group that was still weighing the parcels.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "Weighing parcels replaces checking labels as the unfinished task."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-half-cup-enough-three-cakes",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 89,
+      "complexity": 77,
+      "topic": "cooking",
+      "familyId": "mm-cz-cooking-quantity",
+      "targetText": "Pokud každý recept vyžaduje půl hrnku mouky, budeme jí mít dost na tři koláče.",
+      "learnerBaseText": "If each recipe uses half a cup of flour, we will have enough for three cakes.",
+      "englishText": "If each recipe uses half a cup of flour, we will have enough for three cakes.",
+      "embeddingText": "If each recipe uses half a cup of flour, we will have enough for three cakes.",
+      "focus": {
+        "kind": "quantity",
+        "englishConcepts": [
+          "half cup per recipe",
+          "enough flour",
+          "three cakes"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "If each recipe uses half a cup of flour, we will have enough for three cakes.",
+          "englishAuditText": "If each recipe uses half a cup of flour, we will have enough for three cakes."
+        },
+        {
+          "id": "contrast-1",
+          "text": "If each recipe uses half a cup of flour, we will have enough for two cakes.",
+          "englishAuditText": "If each recipe uses half a cup of flour, we will have enough for two cakes.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "The stated number of cakes changes from three to two."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "If each recipe uses half a cup of flour, we will have enough for four cakes.",
+          "englishAuditText": "If each recipe uses half a cup of flour, we will have enough for four cakes.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "The stated number of cakes changes from three to four."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-asked-whether-last-train-left",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 91,
+      "complexity": 83,
+      "topic": "travel",
+      "familyId": "mm-cz-travel-time",
+      "targetText": "Lena se zeptala, jestli poslední vlak už odjel, když jsme dorazili na nádraží.",
+      "learnerBaseText": "Lena asked whether the last train had already left when we reached the station.",
+      "englishText": "Lena asked whether the last train had already left when we reached the station.",
+      "embeddingText": "Lena asked whether the last train had already left when we reached the station.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "ask whether",
+          "last train already left",
+          "station arrival"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Lena asked whether the last train had already left when we reached the station.",
+          "englishAuditText": "Lena asked whether the last train had already left when we reached the station."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Lena asked whether the first train had already left when we reached the station.",
+          "englishAuditText": "Lena asked whether the first train had already left when we reached the station.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The question concerns the first train rather than the last."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Lena asked whether the next train had already left when we reached the station.",
+          "englishAuditText": "Lena asked whether the next train had already left when we reached the station.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The question concerns the next train rather than the last."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-loaf-cools-before-slicing",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 88,
+      "complexity": 79,
+      "topic": "cooking",
+      "familyId": "mm-cz-cooking-sequence",
+      "targetText": "Pekař napsal, že bochník vychladl dříve, než ho nakrájel.",
+      "learnerBaseText": "The baker wrote that the loaf had cooled before he sliced it.",
+      "englishText": "The baker wrote that the loaf had cooled before he sliced it.",
+      "embeddingText": "The baker wrote that the loaf had cooled before he sliced it.",
+      "focus": {
+        "kind": "sequence",
+        "englishConcepts": [
+          "baker reported",
+          "loaf cooled",
+          "before slicing"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The baker wrote that the loaf had cooled before he sliced it.",
+          "englishAuditText": "The baker wrote that the loaf had cooled before he sliced it."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The baker wrote that the loaf had cooled after he sliced it.",
+          "englishAuditText": "The baker wrote that the loaf had cooled after he sliced it.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "The reported cooling moves from before slicing to after it."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The baker wrote that the loaf cooled while he was slicing it.",
+          "englishAuditText": "The baker wrote that the loaf cooled while he was slicing it.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "The reported cooling becomes simultaneous with slicing."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-borrowed-ruler-return-deadline",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 90,
+      "complexity": 76,
+      "topic": "school",
+      "familyId": "mm-cz-school-time",
+      "targetText": "Každý, kdo si půjčí malé pravítko, ho musí vrátit před začátkem výtvarné výchovy.",
+      "learnerBaseText": "Anyone who borrows the small ruler must return it before the art lesson begins.",
+      "englishText": "Anyone who borrows the small ruler must return it before the art lesson begins.",
+      "embeddingText": "Anyone who borrows the small ruler must return it before the art lesson begins.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "borrow small ruler",
+          "return",
+          "before art lesson"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Anyone who borrows the small ruler must return it before the art lesson begins.",
+          "englishAuditText": "Anyone who borrows the small ruler must return it before the art lesson begins."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Anyone who borrows the small ruler must return it after the art lesson begins.",
+          "englishAuditText": "Anyone who borrows the small ruler must return it after the art lesson begins.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The deadline moves from before the lesson starts to after."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Anyone who borrows the small ruler must return it when the art lesson ends.",
+          "englishAuditText": "Anyone who borrows the small ruler must return it when the art lesson ends.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The deadline moves to the end of the lesson."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-street-window-quieter-room",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 89,
+      "complexity": 83,
+      "topic": "home",
+      "familyId": "mm-cz-home-state",
+      "targetText": "V místnosti by bylo tišeji, kdyby okno do ulice bylo zavřené.",
+      "learnerBaseText": "The room would be quieter if the window facing the street were closed.",
+      "englishText": "The room would be quieter if the window facing the street were closed.",
+      "embeddingText": "The room would be quieter if the window facing the street were closed.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "street-facing window",
+          "closed",
+          "quieter room"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The room would be quieter if the window facing the street were closed.",
+          "englishAuditText": "The room would be quieter if the window facing the street were closed."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The room would be warmer if the window facing the street were closed.",
+          "englishAuditText": "The room would be warmer if the window facing the street were closed.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "Greater warmth replaces reduced noise as the result."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The room would be cooler if the window facing the street were closed.",
+          "englishAuditText": "The room would be cooler if the window facing the street were closed.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "Greater coolness replaces reduced noise as the result."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-meeting-postponed-not-canceled",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 94,
+      "complexity": 82,
+      "topic": "work",
+      "familyId": "mm-cz-work-state",
+      "targetText": "Schůzka byla odložena, nikoli zrušena, protože technik dnes nemůže přijít.",
+      "learnerBaseText": "The meeting has been postponed rather than canceled because the technician cannot come today.",
+      "englishText": "The meeting has been postponed rather than canceled because the technician cannot come today.",
+      "embeddingText": "The meeting has been postponed rather than canceled because the technician cannot come today.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "meeting postponed",
+          "not canceled",
+          "technician unavailable"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The meeting has been postponed rather than canceled because the technician cannot come today.",
+          "englishAuditText": "The meeting has been postponed rather than canceled because the technician cannot come today."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The meeting has been moved online rather than canceled because the technician cannot come today.",
+          "englishAuditText": "The meeting has been moved online rather than canceled because the technician cannot come today.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "An online meeting replaces postponement."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The meeting has been shortened rather than canceled because the technician cannot come today.",
+          "englishAuditText": "The meeting has been shortened rather than canceled because the technician cannot come today.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "A shorter meeting replaces postponement."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-seedlings-except-rainy-days",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 85,
+      "complexity": 81,
+      "topic": "garden",
+      "familyId": "mm-cz-garden-condition",
+      "targetText": "Slíbil jsem, že budu sazenice zalévat každé odpoledne kromě dnů, kdy prší.",
+      "learnerBaseText": "I promised to water the seedlings every afternoon except on days when it rains.",
+      "englishText": "I promised to water the seedlings every afternoon except on days when it rains.",
+      "embeddingText": "I promised to water the seedlings every afternoon except on days when it rains.",
+      "focus": {
+        "kind": "condition",
+        "englishConcepts": [
+          "promise",
+          "water seedlings",
+          "afternoon except rainy days"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I promised to water the seedlings every afternoon except on days when it rains.",
+          "englishAuditText": "I promised to water the seedlings every afternoon except on days when it rains."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I promised to water the seedlings every afternoon except on days when it snows.",
+          "englishAuditText": "I promised to water the seedlings every afternoon except on days when it snows.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "Snowy days replace rainy days as the exception."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I promised to water the seedlings every afternoon except on days when it hails.",
+          "englishAuditText": "I promised to water the seedlings every afternoon except on days when it hails.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "Days with hail replace rainy days as the exception."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-warning-before-machine-restart",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 94,
+      "complexity": 82,
+      "topic": "safety",
+      "familyId": "mm-cz-safety-action",
+      "targetText": "Varování bylo vyvěšeno po zjištění závady, ale před opětovným spuštěním stroje.",
+      "learnerBaseText": "The warning was posted after the fault was found but before the machine was restarted.",
+      "englishText": "The warning was posted after the fault was found but before the machine was restarted.",
+      "embeddingText": "The warning was posted after the fault was found but before the machine was restarted.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "warning posted",
+          "fault discovered",
+          "before restart"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The warning was posted after the fault was found but before the machine was restarted.",
+          "englishAuditText": "The warning was posted after the fault was found but before the machine was restarted."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The warning was posted after the fault was repaired but before the machine was restarted.",
+          "englishAuditText": "The warning was posted after the fault was repaired but before the machine was restarted.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The preceding event changes from finding the fault to repairing it."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The warning was posted after the fault was reported but before the machine was restarted.",
+          "englishAuditText": "The warning was posted after the fault was reported but before the machine was restarted.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The preceding event changes from finding the fault to reporting it."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-wheel-repair-costs-less",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 90,
+      "complexity": 75,
+      "topic": "repairs",
+      "familyId": "mm-cz-repairs-comparison",
+      "targetText": "Opravit jedno poškozené kolo vyjde levněji než vyměnit celý vozík.",
+      "learnerBaseText": "Repairing one damaged wheel costs less than replacing the whole cart.",
+      "englishText": "Repairing one damaged wheel costs less than replacing the whole cart.",
+      "embeddingText": "Repairing one damaged wheel costs less than replacing the whole cart.",
+      "focus": {
+        "kind": "comparison",
+        "englishConcepts": [
+          "damaged wheel",
+          "repair cost",
+          "replace whole cart"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Repairing one damaged wheel costs less than replacing the whole cart.",
+          "englishAuditText": "Repairing one damaged wheel costs less than replacing the whole cart."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Repairing one damaged wheel costs more than replacing the whole cart.",
+          "englishAuditText": "Repairing one damaged wheel costs more than replacing the whole cart.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "The repair cost changes from lower to higher."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Repairing one damaged wheel costs the same as replacing the whole cart.",
+          "englishAuditText": "Repairing one damaged wheel costs the same as replacing the whole cart.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "Equal costs replace the lower repair cost."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-save-seat-until-message",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 91,
+      "complexity": 84,
+      "topic": "travel",
+      "familyId": "mm-cz-travel-condition",
+      "targetText": "I když bude mít autobus zpoždění, nech mi volné místo, dokud ti nepošlu zprávu.",
+      "learnerBaseText": "Even if the bus is late, keep my seat free until I send you a message.",
+      "englishText": "Even if the bus is late, keep my seat free until I send you a message.",
+      "embeddingText": "Even if the bus is late, keep my seat free until I send you a message.",
+      "focus": {
+        "kind": "condition",
+        "englishConcepts": [
+          "bus may be late",
+          "save seat",
+          "until message"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Even if the bus is late, keep my seat free until I send you a message.",
+          "englishAuditText": "Even if the bus is late, keep my seat free until I send you a message."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Even if the bus is late, keep my seat free until my sister calls you.",
+          "englishAuditText": "Even if the bus is late, keep my seat free until my sister calls you.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "A call from the sister replaces the promised message as the endpoint."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Even if the bus is late, keep my seat free until the station closes.",
+          "englishAuditText": "Even if the bus is late, keep my seat free until the station closes.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "The station closing replaces the promised message as the endpoint."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-letter-for-former-corner-resident",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 86,
+      "complexity": 81,
+      "topic": "services",
+      "familyId": "mm-cz-services-action",
+      "targetText": "Dopis je adresovaný ženě, která minulou zimu bydlela v domě na rohu.",
+      "learnerBaseText": "The letter is addressed to the woman who lived in the corner house last winter.",
+      "englishText": "The letter is addressed to the woman who lived in the corner house last winter.",
+      "embeddingText": "The letter is addressed to the woman who lived in the corner house last winter.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "letter recipient",
+          "lived in corner house",
+          "last winter"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The letter is addressed to the woman who lived in the corner house last winter.",
+          "englishAuditText": "The letter is addressed to the woman who lived in the corner house last winter."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The letter is addressed to the woman who worked in the corner house last winter.",
+          "englishAuditText": "The letter is addressed to the woman who worked in the corner house last winter.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "Working in the house replaces living there."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The letter is addressed to the woman who painted the corner house last winter.",
+          "englishAuditText": "The letter is addressed to the woman who painted the corner house last winter.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "Painting the house replaces living there."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-platform-arrival-coffee-cold",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 83,
+      "complexity": 85,
+      "topic": "routine",
+      "familyId": "mm-cz-routine-state",
+      "targetText": "Když jsme dorazili na nástupiště, káva, kterou jsem koupil, už byla studená.",
+      "learnerBaseText": "By the time we reached the platform, the coffee I had bought was already cold.",
+      "englishText": "By the time we reached the platform, the coffee I had bought was already cold.",
+      "embeddingText": "By the time we reached the platform, the coffee I had bought was already cold.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "platform arrival",
+          "previously bought coffee",
+          "already cold"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "By the time we reached the platform, the coffee I had bought was already cold.",
+          "englishAuditText": "By the time we reached the platform, the coffee I had bought was already cold."
+        },
+        {
+          "id": "contrast-1",
+          "text": "By the time we reached the platform, the coffee I had bought was already hot.",
+          "englishAuditText": "By the time we reached the platform, the coffee I had bought was already hot.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The coffee temperature changes from cold to hot."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "By the time we reached the platform, the coffee I had bought was already lukewarm.",
+          "englishAuditText": "By the time we reached the platform, the coffee I had bought was already lukewarm.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The coffee temperature changes from cold to lukewarm."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-tools-only-in-dry-box",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 92,
+      "complexity": 87,
+      "topic": "repairs",
+      "familyId": "mm-cz-repairs-condition",
+      "targetText": "Není-li dřevěná krabice úplně suchá, nevracej do ní nářadí.",
+      "learnerBaseText": "Unless the wooden box is completely dry, do not put the tools back inside it.",
+      "englishText": "Unless the wooden box is completely dry, do not put the tools back inside it.",
+      "embeddingText": "Unless the wooden box is completely dry, do not put the tools back inside it.",
+      "focus": {
+        "kind": "condition",
+        "englishConcepts": [
+          "wooden box",
+          "completely dry",
+          "store tools"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Unless the wooden box is completely dry, do not put the tools back inside it.",
+          "englishAuditText": "Unless the wooden box is completely dry, do not put the tools back inside it."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Unless the wooden box is completely clean, do not put the tools back inside it.",
+          "englishAuditText": "Unless the wooden box is completely clean, do not put the tools back inside it.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "Cleanliness replaces dryness as the required condition."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Unless the wooden box is completely empty, do not put the tools back inside it.",
+          "englishAuditText": "Unless the wooden box is completely empty, do not put the tools back inside it.",
+          "contrast": {
+            "kind": "condition",
+            "explanation": "Emptiness replaces dryness as the required condition."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-widest-plank-stream-crossing",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 88,
+      "complexity": 86,
+      "topic": "outdoors",
+      "familyId": "mm-cz-outdoors-comparison",
+      "targetText": "Vybrali jsme nejširší prkno, aby mohl vozík přejet potok, aniž by se převrátil.",
+      "learnerBaseText": "We chose the widest plank so that the cart could cross the stream without tipping over.",
+      "englishText": "We chose the widest plank so that the cart could cross the stream without tipping over.",
+      "embeddingText": "We chose the widest plank so that the cart could cross the stream without tipping over.",
+      "focus": {
+        "kind": "comparison",
+        "englishConcepts": [
+          "widest plank",
+          "cart crossing stream",
+          "avoid tipping"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "We chose the widest plank so that the cart could cross the stream without tipping over.",
+          "englishAuditText": "We chose the widest plank so that the cart could cross the stream without tipping over."
+        },
+        {
+          "id": "contrast-1",
+          "text": "We chose the longest plank so that the cart could cross the stream without tipping over.",
+          "englishAuditText": "We chose the longest plank so that the cart could cross the stream without tipping over.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "The selected dimension changes from width to length."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "We chose the thickest plank so that the cart could cross the stream without tipping over.",
+          "englishAuditText": "We chose the thickest plank so that the cart could cross the stream without tipping over.",
+          "contrast": {
+            "kind": "comparison",
+            "explanation": "The selected dimension changes from width to thickness."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-staff-warning-platform-counterfactual",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 92,
+      "complexity": 88,
+      "topic": "travel",
+      "familyId": "mm-cz-travel-location",
+      "targetText": "Kdyby nás zaměstnanci nádraží nevarovali, čekali bychom na špatném nástupišti.",
+      "learnerBaseText": "If the station staff had not warned us, we would have waited on the wrong platform.",
+      "englishText": "If the station staff had not warned us, we would have waited on the wrong platform.",
+      "embeddingText": "If the station staff had not warned us, we would have waited on the wrong platform.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "station warning",
+          "past counterfactual",
+          "wrong platform"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "If the station staff had not warned us, we would have waited on the wrong platform.",
+          "englishAuditText": "If the station staff had not warned us, we would have waited on the wrong platform."
+        },
+        {
+          "id": "contrast-1",
+          "text": "If the station staff had not warned us, we would have waited on the correct platform.",
+          "englishAuditText": "If the station staff had not warned us, we would have waited on the correct platform.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The waiting place changes from the wrong platform to the correct one."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "If the station staff had not warned us, we would have waited on the nearest platform.",
+          "englishAuditText": "If the station staff had not warned us, we would have waited on the nearest platform.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The nearest platform replaces the wrong platform as the specified place."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-flooded-path-route-behind-mill",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 91,
+      "complexity": 81,
+      "topic": "outdoors",
+      "familyId": "mm-cz-outdoors-location",
+      "targetText": "Protože cesta podél řeky byla zaplavená, šli jsme delší cestou za mlýnem.",
+      "learnerBaseText": "Because the riverside path was flooded, we took the longer route behind the mill.",
+      "englishText": "Because the riverside path was flooded, we took the longer route behind the mill.",
+      "embeddingText": "Because the riverside path was flooded, we took the longer route behind the mill.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "flooded riverside path",
+          "longer route",
+          "behind mill"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Because the riverside path was flooded, we took the longer route behind the mill.",
+          "englishAuditText": "Because the riverside path was flooded, we took the longer route behind the mill."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Because the riverside path was flooded, we took the longer route in front of the mill.",
+          "englishAuditText": "Because the riverside path was flooded, we took the longer route in front of the mill.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The route moves from behind the mill to in front of it."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Because the riverside path was flooded, we took the longer route through the mill.",
+          "englishAuditText": "Because the riverside path was flooded, we took the longer route through the mill.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The route goes through the mill instead of behind it."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-second-jar-fresh-leaves",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 79,
+      "complexity": 83,
+      "topic": "garden",
+      "familyId": "mm-cz-garden-object",
+      "targetText": "Zatímco první sklenice obsahuje sušené bylinky, druhá obsahuje čerstvé listy ze zahrady.",
+      "learnerBaseText": "Whereas the first jar contains dried herbs, the second contains fresh leaves from the garden.",
+      "englishText": "Whereas the first jar contains dried herbs, the second contains fresh leaves from the garden.",
+      "embeddingText": "Whereas the first jar contains dried herbs, the second contains fresh leaves from the garden.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "first jar dried herbs",
+          "second jar fresh leaves"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Whereas the first jar contains dried herbs, the second contains fresh leaves from the garden.",
+          "englishAuditText": "Whereas the first jar contains dried herbs, the second contains fresh leaves from the garden."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Whereas the first jar contains dried herbs, the second contains fresh flowers from the garden.",
+          "englishAuditText": "Whereas the first jar contains dried herbs, the second contains fresh flowers from the garden.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "Fresh flowers replace fresh leaves in the second jar."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Whereas the first jar contains dried herbs, the second contains fresh stems from the garden.",
+          "englishAuditText": "Whereas the first jar contains dried herbs, the second contains fresh stems from the garden.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "Fresh stems replace fresh leaves in the second jar."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-free-entry-registration-deadline",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 91,
+      "complexity": 76,
+      "topic": "events",
+      "familyId": "mm-cz-events-time",
+      "targetText": "Vstup zdarma mají jen návštěvníci, kteří se zaregistrovali před pátkem.",
+      "learnerBaseText": "Free entry is available only to visitors who registered before Friday.",
+      "englishText": "Free entry is available only to visitors who registered before Friday.",
+      "embeddingText": "Free entry is available only to visitors who registered before Friday.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "free entry",
+          "registered before Friday",
+          "only eligible visitors"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Free entry is available only to visitors who registered before Friday.",
+          "englishAuditText": "Free entry is available only to visitors who registered before Friday."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Free entry is available only to visitors who registered after Friday.",
+          "englishAuditText": "Free entry is available only to visitors who registered after Friday.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "Registration after Friday replaces registration before Friday."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Free entry is available only to visitors who registered on Friday.",
+          "englishAuditText": "Free entry is available only to visitors who registered on Friday.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "Registration on Friday replaces registration before Friday."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-gardener-not-courier-left-parcel",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 82,
+      "complexity": 85,
+      "topic": "people",
+      "familyId": "mm-cz-people-subject",
+      "targetText": "Malý balíček vedle branky nechal zahradník, ne kurýr.",
+      "learnerBaseText": "It was the gardener, not the courier, who left the small parcel beside the gate.",
+      "englishText": "It was the gardener, not the courier, who left the small parcel beside the gate.",
+      "embeddingText": "It was the gardener, not the courier, who left the small parcel beside the gate.",
+      "focus": {
+        "kind": "subject",
+        "englishConcepts": [
+          "gardener not courier",
+          "left small parcel",
+          "beside gate"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "It was the gardener, not the courier, who left the small parcel beside the gate.",
+          "englishAuditText": "It was the gardener, not the courier, who left the small parcel beside the gate."
+        },
+        {
+          "id": "contrast-1",
+          "text": "It was the teacher, not the courier, who left the small parcel beside the gate.",
+          "englishAuditText": "It was the teacher, not the courier, who left the small parcel beside the gate.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "The identified person changes from gardener to teacher."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "It was the plumber, not the courier, who left the small parcel beside the gate.",
+          "englishAuditText": "It was the plumber, not the courier, who left the small parcel beside the gate.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "The identified person changes from gardener to plumber."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-two-labels-came-loose",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 86,
+      "complexity": 82,
+      "topic": "work",
+      "familyId": "mm-cz-work-quantity",
+      "targetText": "Přestože každou sklenici pečlivě označila, během cesty se odlepily dva štítky.",
+      "learnerBaseText": "Although she had labeled every jar carefully, two labels came loose during the journey.",
+      "englishText": "Although she had labeled every jar carefully, two labels came loose during the journey.",
+      "embeddingText": "Although she had labeled every jar carefully, two labels came loose during the journey.",
+      "focus": {
+        "kind": "quantity",
+        "englishConcepts": [
+          "careful labeling",
+          "two labels detached",
+          "during journey"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Although she had labeled every jar carefully, two labels came loose during the journey.",
+          "englishAuditText": "Although she had labeled every jar carefully, two labels came loose during the journey."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Although she had labeled every jar carefully, three labels came loose during the journey.",
+          "englishAuditText": "Although she had labeled every jar carefully, three labels came loose during the journey.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "The number of detached labels changes from two to three."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Although she had labeled every jar carefully, four labels came loose during the journey.",
+          "englishAuditText": "Although she had labeled every jar carefully, four labels came loose during the journey.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "The number of detached labels changes from two to four."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-cz-letter-still-needs-stamp",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 93,
+      "complexity": 84,
+      "topic": "services",
+      "familyId": "mm-cz-services-object",
+      "targetText": "Před odesláním zkontrolovala, zda na dopise, který předtím napsala, nechybí známka.",
+      "learnerBaseText": "She checked whether the letter she had written earlier still needed a stamp before posting it.",
+      "englishText": "She checked whether the letter she had written earlier still needed a stamp before posting it.",
+      "embeddingText": "She checked whether the letter she had written earlier still needed a stamp before posting it.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "previously written letter",
+          "check stamp",
+          "before posting"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "She checked whether the letter she had written earlier still needed a stamp before posting it.",
+          "englishAuditText": "She checked whether the letter she had written earlier still needed a stamp before posting it."
+        },
+        {
+          "id": "contrast-1",
+          "text": "She checked whether the letter she had written earlier still needed an address before posting it.",
+          "englishAuditText": "She checked whether the letter she had written earlier still needed an address before posting it.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "An address replaces a stamp as the item checked."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "She checked whether the letter she had written earlier still needed a signature before posting it.",
+          "englishAuditText": "She checked whether the letter she had written earlier still needed a signature before posting it.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "A signature replaces a stamp as the item checked."
+          }
+        }
+      ]
+    }
+  ]
+}

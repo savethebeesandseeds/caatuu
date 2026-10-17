@@ -1,4 +1,4 @@
-/* Shared practice pacing: one course-wide set, one brief reward bundle. */
+/* Shared practice pacing: one course-wide set, acknowledged between challenges. */
 .app-header:has(.caatuu-reward-received) { z-index: 41; }
 .app-header:has(.caatuu-practice-meter:not([hidden])) {
   flex-wrap: wrap;
@@ -50,25 +50,29 @@
 
 .caatuu-practice-celebration {
   position: fixed;
-  inset: 0;
+  inset: var(--caatuu-reward-top, 80px) 0 var(--caatuu-reward-bottom, var(--caatuu-bottom-dock-height, 78px));
   z-index: 40;
-  display: grid;
-  align-items: center;
-  justify-items: center;
-  padding: max(20px, env(safe-area-inset-top)) 20px max(84px, env(safe-area-inset-bottom));
-  background: color-mix(in srgb, var(--paper, #f5efe5) 78%, transparent);
-  pointer-events: none;
+  overflow: hidden;
+  background: var(--theme-page-background, var(--paper, #f5efe5));
+  pointer-events: auto;
 }
+
+/* Shared navigation must remain above the waiting reward and game loaders. */
+body[data-caatuu-practice-paused] :is(#settingsPanel.settings-backdrop, .home-menu-backdrop, .games-menu-backdrop) { z-index: 42; }
+body[data-caatuu-practice-paused] .app-bottom-dock { z-index: 43; }
 
 .caatuu-practice-celebration-card {
   position: relative;
-  width: min(370px, 100%);
-  padding: 27px 20px 17px;
-  overflow: hidden;
-  border: 1px solid color-mix(in srgb, var(--green, #22594d) 36%, var(--line, #cfd8d1));
-  border-radius: 22px;
+  width: min(1280px, 100%);
+  height: 100%;
+  margin: 0 auto;
+  padding: clamp(24px, 5dvh, 64px) clamp(16px, 5vw, 72px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden auto;
+  overscroll-behavior: contain;
   background: var(--panel, #fffdf8);
-  box-shadow: var(--shadow, 0 18px 44px #17201d22);
   color: var(--ink, #17201d);
   text-align: center;
   pointer-events: auto;
@@ -84,14 +88,14 @@
   animation: caatuu-practice-warmth 1600ms ease-out both;
 }
 
-.caatuu-practice-celebration-title { position: relative; font-size: 1.2rem; font-weight: 800; }
-.caatuu-practice-celebration-message { position: relative; margin-top: 7px; color: var(--muted, #5d6b65); font-size: 0.79rem; line-height: 1.4; }
-.caatuu-practice-celebration-rewards { position: relative; display: flex; justify-content: center; gap: 28px; margin: 22px 0 18px; }
+.caatuu-practice-celebration-title { position: relative; margin-top: auto; font-size: clamp(1.5rem, 4vw, 2.4rem); font-weight: 800; }
+.caatuu-practice-celebration-message { position: relative; margin-top: 10px; color: var(--muted, #5d6b65); font-size: clamp(.85rem, 2vw, 1.05rem); line-height: 1.4; }
+.caatuu-practice-celebration-rewards { position: relative; display: flex; justify-content: center; gap: clamp(24px, 6vw, 72px); margin: clamp(28px, 6dvh, 64px) 0 28px; }
 .caatuu-practice-reward { position: relative; display: grid; justify-items: center; gap: 3px; min-width: 52px; animation: caatuu-practice-token 640ms cubic-bezier(.16, .7, .2, 1) 80ms both; }
 .caatuu-practice-reward-coins { animation-delay: 160ms; }
 .caatuu-practice-reward-gems { animation-delay: 240ms; }
-.caatuu-practice-reward-art { width: 52px; height: 52px; object-fit: contain; filter: drop-shadow(0 4px 6px #17201d20); }
-.caatuu-practice-reward-xp .caatuu-practice-reward-art { width: 40px; }
+.caatuu-practice-reward-art { width: clamp(64px, 12vmin, 104px); height: clamp(64px, 12vmin, 104px); object-fit: contain; filter: drop-shadow(0 4px 6px #17201d20); }
+.caatuu-practice-reward-xp .caatuu-practice-reward-art { width: clamp(50px, 9vmin, 80px); }
 .caatuu-practice-reward-coins .caatuu-practice-reward-art { animation: caatuu-practice-coin-turn 560ms ease-out 180ms both; }
 .caatuu-practice-reward-coins::after {
   position: absolute;
@@ -107,9 +111,9 @@
   animation: caatuu-practice-glint 600ms ease-out 520ms both;
 }
 .caatuu-practice-reward-gems .caatuu-practice-reward-art { animation: caatuu-practice-gem-bloom 1100ms ease-out 300ms both; }
-.caatuu-practice-reward-amount { font-size: 1.2rem; font-variant-numeric: tabular-nums; }
-.caatuu-practice-reward-label { color: var(--muted, #5d6b65); font-size: 0.72rem; }
-.caatuu-practice-cycle-progress { position: relative; display: flex; align-items: center; gap: 9px; margin: 0 0 16px; }
+.caatuu-practice-reward-amount { font-size: clamp(1.4rem, 4vw, 2rem); font-variant-numeric: tabular-nums; }
+.caatuu-practice-reward-label { color: var(--muted, #5d6b65); font-size: .85rem; }
+.caatuu-practice-cycle-progress { position: relative; display: flex; flex-shrink: 0; align-items: center; gap: 9px; width: min(420px, 100%); margin: 0 0 24px; }
 .caatuu-practice-cycle-progress img { width: 24px; height: 24px; object-fit: contain; }
 .caatuu-practice-cycle-progress progress { flex: 1; min-width: 0; width: 100%; height: 6px; border: 0; border-radius: 6px; accent-color: var(--green, #22594d); }
 .caatuu-practice-cycle-progress progress::-webkit-progress-bar { background: var(--line, #cfd8d1); border-radius: 6px; }
@@ -118,7 +122,7 @@
 .caatuu-practice-cycle-progress.is-complete progress { accent-color: #c59b3a; }
 .caatuu-practice-cycle-progress.is-complete progress::-webkit-progress-value { background: #c59b3a; }
 .caatuu-practice-cycle-progress.is-complete progress::-moz-progress-bar { background: #c59b3a; }
-.caatuu-practice-celebration-skip { position: relative; min-width: 108px; min-height: 44px; padding: 8px 18px; border: 1px solid var(--line, #cfd8d1); border-radius: 12px; background: transparent; color: var(--green, #22594d); font-weight: 700; font-size: 0.8rem; }
+.caatuu-practice-celebration-skip { position: relative; flex-shrink: 0; min-width: 160px; min-height: 48px; margin-bottom: auto; padding: 12px 28px; border: 1px solid var(--green, #22594d); border-radius: 12px; background: var(--green, #22594d); color: var(--panel, #fffdf8); font-weight: 700; font-size: 1rem; }
 .caatuu-practice-celebration-skip:focus-visible { outline: 3px solid var(--green, #22594d); outline-offset: 3px; }
 
 .caatuu-practice-sparkles {
@@ -154,7 +158,7 @@
 }
 
 .caatuu-practice-flight-layer {
-  position: absolute;
+  position: fixed;
   inset: 0;
   overflow: hidden;
   pointer-events: none;

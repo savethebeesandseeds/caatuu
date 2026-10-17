@@ -1,5 +1,19 @@
 # Changelog
 
+## Android 184 / 0.1.32
+
+- Refine course setup with rotating ship artwork, compact download details and
+  a consistent native splash. Improve game reward presentation and controls.
+- Make Sounds Quasar alternatives closer in length and improve Word World
+  teaching controls. Keep shared artwork search independent of Czech curriculum
+  storage, with ship orientation metadata and compatibility for open sessions.
+- Author independent Memory Moon content for all eight courses: 90 questions
+  per course across three difficulty levels. The game remains upcoming while
+  production selection and learner-evidence integration are pending; its local
+  interaction demo is excluded from published assets.
+- Physical-device installation, update, offline use and saved-data preservation
+  remain unverified for this candidate. Course review status is unchanged.
+
 ## Android 183 / 0.1.31
 
 - Open Campaign Mode on a shared winding roadmap for every course, with distinct

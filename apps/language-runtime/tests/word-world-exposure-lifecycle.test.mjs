@@ -45,7 +45,7 @@ function game(storage) {
     sourcePrimaryLanguage: "en", newContentEncounterId: () => `visit-${++sequence}`, wordWorldEvidenceBank,
     learningDifficulty: () => 1, normalizeWord: value => String(value || ""), sentenceFingerprint: value => value,
     setBusy: value => { state.busy = value; }, setTranslation: value => { state.currentTranslation = value; },
-    selectWord() {}, renderCzechSentence() {}, renderWordGuidedStatus() {}, renderReconstruction() {},
+    selectWord() {}, renderCzechSentence() {}, renderWordGuidedStatus() {}, renderWordWorldLearning() {}, renderReconstruction() {},
     setStatus() {}, setProgress() {}, cancelBackgroundWork() {}, hideSceneAsset() {},
     resetSentenceFeedback() {}, saveStandardUsage() {}, rememberStep() {}, recordStandardSemanticExposure() {},
     rememberSeenSentence() {}, savePreparedQueue() {}, holdSentenceTransition: async () => {},
@@ -237,10 +237,13 @@ test("first unsupported reconstruction is independent only in its actual directi
 
 test("dictionary support remains assisted when its card is subsequently hidden", async () => {
   const a = game(); await a.present();
-  const node = { hidden: false, setAttribute() {}, classList: { toggle() {}, contains() { return false; } } };
-  a.context.$ = () => node;
+  const node = a.registry.element("wordNetWordTranslation");
+  a.context.$ = selector => a.registry.element(selector.slice(1));
   Object.assign(a.state, { selectedWord: "target", wordCardPreferences: { showCard: true }, selectedWordMeaning: "base" });
+  a.state.translationMode = "visible";
   a.run("syncWordTranslation()");
+  assert.equal(node.hidden, false, "the support was actually displayed in ordinary reading mode");
+  a.state.translationMode = "reconstruct";
   a.state.wordCardPreferences.showCard = false; a.run("syncWordTranslation()");
   a.context.$ = () => null;
   const round = a.run("ensureReconstructionChallenge()"); round.selectedIds = ["correct"];

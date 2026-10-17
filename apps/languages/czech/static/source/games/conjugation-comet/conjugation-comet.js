@@ -1,4 +1,5 @@
 import { isChildFacingMacawActionAssetAllowed } from "../../shared/child-facing-assets.mjs?v=child-facing-assets-2";
+import { createEnglishImageSearch } from "/language-runtime/static/source/english-image-search.mjs?v=english-image-search-5";
 
 "use strict";
 
@@ -31,6 +32,7 @@ const SOLUTION_REVEAL_BASE_MILLIS = 1400;
 const SOLUTION_REVEAL_MILLIS_PER_PAIR = 450;
 const COMPLETED_ROUND_HOLD_MILLIS = 1100;
 const MACAW_KEYMAP_URL = "/assets/macaw/actions/keymaps.json";
+const searchMacawImages = createEnglishImageSearch();
 const MACAW_FALLBACK = "/assets/macaw/actions/macaw (71).png";
 const MACAW_LOOKUP_TIMEOUT_MILLIS = 6000;
 const MACAW_STOPWORDS = new Set(["a", "an", "and", "be", "by", "for", "from", "in", "into", "of", "on", "or", "the", "to", "with"]);
@@ -826,22 +828,15 @@ async function loadMacawKeymap() {
 }
 
 async function vectorMacawCandidates(englishMeaning) {
-  const search = window.CaatuuRuntime?.vector?.search;
-  if (typeof search !== "function") return [];
-  const response = await search(englishMeaning, {
-    limit: 10,
-    sourceKinds: ["macaw_action_asset"]
-  });
-  return (Array.isArray(response?.results) ? response.results : [])
+  const response = await searchMacawImages(englishMeaning, { sourceKind: "macaw_action_asset" });
+  if (response?.mode !== "embedding") return [];
+  return (Array.isArray(response?.rows) ? response.rows : [])
     .filter((row) => row?.sourceKind === "macaw_action_asset")
+    .slice(0, 10)
     .map((row) => ({
-      assetPath: normalizeMacawPath(
-        row.documentMetadata?.asset_path
-          || row.chunkMetadata?.asset_path
-          || row.sourceId
-      ),
-      action: row.documentMetadata?.action || row.chunkMetadata?.action || "",
-      alt: row.text || "Macaw picture clue",
+      assetPath: normalizeMacawPath(row.path),
+      action: row.action || "",
+      alt: row.description || "Macaw picture clue",
       score: 100 + (Number.isFinite(Number(row.score)) ? Number(row.score) : 0)
     }))
     .filter((row) => (

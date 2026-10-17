@@ -33,6 +33,10 @@ export const HOME_BOOTSTRAP_ARTWORK = Object.freeze([
   "assets/icons/streak_icon.png",
   "assets/icons/light_mode_ui.png",
   "assets/icons/dark_mode_ui.png",
+  "language-runtime/static/assets/home/setup-ship-1.webp",
+  "language-runtime/static/assets/home/setup-ship-8.webp",
+  "language-runtime/static/assets/home/setup-ship-15.webp",
+  "language-runtime/static/assets/home/setup-ship-22.webp",
 ]);
 // Separate residency and content budgets; independently delivered model and
 // dictionary binaries are not duplicated in this companion payload.

@@ -11,7 +11,7 @@ const profile = await readFile(new URL("../../languages/mandarin-simplified/stat
 const spanishProfile = await readFile(new URL("../../languages/spanish/static/source/shared/course-profile.js", import.meta.url), "utf8");
 const flush = () => new Promise((resolve) => setImmediate(resolve));
 
-function harness({ android = true, confirm = true, existing = null, speech = true, courseProfile = profile, timers = null, setupProvider = false } = {}) {
+function harness({ android = true, confirm = true, existing = null, speech = true, courseProfile = profile, timers = null, setupProvider = false, appRevision = null } = {}) {
   const browser = createBrowserHarness();
   const { context, document } = browser;
   // Tests trigger startup explicitly; direct controller tests control native replies.
@@ -20,6 +20,11 @@ function harness({ android = true, confirm = true, existing = null, speech = tru
   context.window = context;
   context.confirm = () => confirm;
   context.CaatuuRuntime = existing;
+  if (appRevision !== null) {
+    const appScript = document.createElement("script");
+    appScript.src = `/language-runtime/static/source/app-bootstrap.mjs?v=app-${appRevision}`;
+    document.head.append(appScript);
+  }
   vm.runInContext(courseProfile, context);
   context.course = context.CaatuuCourse;
   if (!speech) context.course = { ...context.course, capabilities: { ...context.course.capabilities, speech: false } };
@@ -71,6 +76,73 @@ test("Mandarin gets update and cache operations without replacing its working sp
   assert.equal((await speaking).outcome, "completed");
   await checking;
   assert.ok(h.document.getElementById("settingsVersion").textContent.includes("1.0"));
+});
+
+test("About keeps the installed version visible when the update service is unavailable", async () => {
+  const h = harness();
+  const checking = h.ui.getUpdateController().refresh();
+  const installed = { currentVersionName: "installed-test-release", currentVersionCode: 73 };
+  h.reply(h.requests[0], { ...installed, selfUpdateEnabled: true, updateAvailable: false,
+    serverReachable: false, updateError: "The update service is unavailable." });
+  await checking;
+  const version = h.document.getElementById("settingsVersion");
+  assert.equal(version.hidden, false);
+  assert.equal(version.textContent, englishInterfaceContent.t("maintenance.version.line", {
+    version: installed.currentVersionName, code: installed.currentVersionCode
+  }));
+});
+
+test("browser About identifies the loaded application while offline", async () => {
+  const h = harness({ android: false, appRevision: 8123 });
+  h.context.navigator.onLine = false;
+  const controller = h.ui.getUpdateController();
+  const version = h.document.getElementById("settingsVersion");
+  const expected = englishInterfaceContent.t("maintenance.version.web", { version: "8123" });
+  assert.equal(version.hidden, false);
+  assert.equal(version.textContent, expected, "About does not need a network check to identify its loaded code");
+  await controller.refresh();
+  assert.equal(version.textContent, expected);
+  assert.equal(h.requests.length, 0, "browser versions do not need the Android bridge");
+});
+
+test("browser About does not use APK version metadata from a course provider", async () => {
+  const h = harness({ android: false, appRevision: 8124, existing: { env: "browser", maintenance: {
+    updateStatus: async () => ({ currentVersionName: "apk-release-9.9.9", currentVersionCode: 999,
+      selfUpdateEnabled: false, updateAvailable: false })
+  } } });
+  const controller = h.ui.getUpdateController();
+  await controller.refresh();
+  assert.equal(h.document.getElementById("settingsVersion").textContent,
+    englishInterfaceContent.t("maintenance.version.web", { version: "8124" }));
+});
+
+test("browser About keeps its loaded version when a freshness check fails", async () => {
+  const h = harness({ android: false, appRevision: 8125, existing: { env: "browser", maintenance: {
+    updateStatus: async () => { throw new Error("The update service is unavailable."); }
+  } } });
+  const result = await h.ui.getUpdateController().refresh();
+  assert.equal(result.serverReachable, false);
+  assert.equal(h.document.getElementById("settingsVersion").textContent,
+    englishInterfaceContent.t("maintenance.version.web", { version: "8125" }));
+});
+
+test("browser About gets its version when Settings first opens after the Home check", async () => {
+  let checks = 0;
+  const h = harness({ android: false, appRevision: 8126, existing: { env: "browser", maintenance: {
+    updateStatus: async () => { checks += 1; return { selfUpdateEnabled: false, updateAvailable: false }; }
+  } } });
+  const placeholder = h.document.getElementById("settingsVersion");
+  placeholder.removeAttribute("id");
+  placeholder.remove();
+  await h.ui.getUpdateController().refresh({ announce: false });
+  const version = h.document.createElement("h3");
+  version.id = "settingsVersion";
+  version.textContent = "Details";
+  h.row.append(version);
+  h.document.dispatchEvent({ type: "caatuu:settings-open" });
+  await flush();
+  assert.equal(version.textContent, englishInterfaceContent.t("maintenance.version.web", { version: "8126" }));
+  assert.equal(checks, 1, "the already completed Home check is reused for lazily rendered Settings");
 });
 
 test("startup and resume checks are quiet and show a separate Home action only for an available APK", async () => {

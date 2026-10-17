@@ -2,11 +2,10 @@
   "/assets/macaw/actions/macaw%20(1).png": {
     "description": "A robed macaw strains while lifting a heavy gray rock overhead.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-001",
-      "chunk_id": "asset-macaw-action-001:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(1).png"
     },
     "category": "macaw_action",
     "action": "carry_rock"
@@ -14,11 +13,10 @@
   "/assets/macaw/actions/macaw%20(2).png": {
     "description": "A smiling robed macaw carries a wooden crate in both hands.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-002",
-      "chunk_id": "asset-macaw-action-002:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(2).png"
     },
     "category": "macaw_action",
     "action": "carry_box"
@@ -26,11 +24,10 @@
   "/assets/macaw/actions/macaw%20(3).png": {
     "description": "A peaceful robed macaw holds and smells a small bunch of pink flowers.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-003",
-      "chunk_id": "asset-macaw-action-003:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(3).png"
     },
     "category": "macaw_action",
     "action": "hold_flowers"
@@ -38,11 +35,10 @@
   "/assets/macaw/actions/macaw%20(4).png": {
     "description": "A friendly robed macaw waves hello with one raised wing.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-004",
-      "chunk_id": "asset-macaw-action-004:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(4).png"
     },
     "category": "macaw_action",
     "action": "wave_hello"
@@ -50,11 +46,10 @@
   "/assets/macaw/actions/macaw%20(5).png": {
     "description": "A joyful robed macaw jumps with both wings raised in celebration.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-005",
-      "chunk_id": "asset-macaw-action-005:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(5).png"
     },
     "category": "macaw_action",
     "action": "jump_joyfully"
@@ -62,11 +57,10 @@
   "/assets/macaw/actions/macaw%20(6).png": {
     "description": "A robed macaw tosses a small brown ball or stone through the air.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-006",
-      "chunk_id": "asset-macaw-action-006:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(6).png"
     },
     "category": "macaw_action",
     "action": "throw_ball"
@@ -74,11 +68,10 @@
   "/assets/macaw/actions/macaw%20(7).png": {
     "description": "A focused robed macaw hammers nails into a wooden board.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-007",
-      "chunk_id": "asset-macaw-action-007:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(7).png"
     },
     "category": "macaw_action",
     "action": "hammer_nails"
@@ -86,11 +79,10 @@
   "/assets/macaw/actions/macaw%20(8).png": {
     "description": "A determined robed macaw pushes against a large gray boulder.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-008",
-      "chunk_id": "asset-macaw-action-008:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(8).png"
     },
     "category": "macaw_action",
     "action": "push_boulder"
@@ -98,11 +90,10 @@
   "/assets/macaw/actions/macaw%20(9).png": {
     "description": "A calm robed macaw paints with a brush and colorful palette.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-009",
-      "chunk_id": "asset-macaw-action-009:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(9).png"
     },
     "category": "macaw_action",
     "action": "paint_picture"
@@ -110,11 +101,10 @@
   "/assets/macaw/actions/macaw%20(10).png": {
     "description": "A robed macaw washes laundry in a round wooden tub with soap bubbles.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-010",
-      "chunk_id": "asset-macaw-action-010:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(10).png"
     },
     "category": "macaw_action",
     "action": "wash_laundry"
@@ -122,11 +112,10 @@
   "/assets/macaw/actions/macaw%20(11).png": {
     "description": "A robed macaw sweeps the floor with a broom.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-011",
-      "chunk_id": "asset-macaw-action-011:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(11).png"
     },
     "category": "macaw_action",
     "action": "sweep_floor"
@@ -134,11 +123,10 @@
   "/assets/macaw/actions/macaw%20(12).png": {
     "description": "A robed macaw pulls hard on a thick rope.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-012",
-      "chunk_id": "asset-macaw-action-012:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(12).png"
     },
     "category": "macaw_action",
     "action": "pull_rope"
@@ -146,11 +134,10 @@
   "/assets/macaw/actions/macaw%20(13).png": {
     "description": "A gentle robed macaw plants a small green seedling in soil.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-013",
-      "chunk_id": "asset-macaw-action-013:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(13).png"
     },
     "category": "macaw_action",
     "action": "plant_seedling"
@@ -158,11 +145,10 @@
   "/assets/macaw/actions/macaw%20(14).png": {
     "description": "A relaxed robed macaw fishes with a rod beside water.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-014",
-      "chunk_id": "asset-macaw-action-014:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(14).png"
     },
     "category": "macaw_action",
     "action": "fish_with_rod"
@@ -170,11 +156,10 @@
   "/assets/macaw/actions/macaw%20(15).png": {
     "description": "A robed macaw climbs a tall wooden ladder.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-015",
-      "chunk_id": "asset-macaw-action-015:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(15).png"
     },
     "category": "macaw_action",
     "action": "climb_ladder"
@@ -182,11 +167,10 @@
   "/assets/macaw/actions/macaw%20(16).png": {
     "description": "A smiling robed macaw opens a wooden door glowing with warm light.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-016",
-      "chunk_id": "asset-macaw-action-016:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(16).png"
     },
     "category": "macaw_action",
     "action": "open_door"
@@ -194,11 +178,10 @@
   "/assets/macaw/actions/macaw%20(17).png": {
     "description": "A hooded robed macaw sneaks forward cautiously.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-017",
-      "chunk_id": "asset-macaw-action-017:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(17).png"
     },
     "category": "macaw_action",
     "action": "sneak_cautiously"
@@ -206,11 +189,10 @@
   "/assets/macaw/actions/macaw%20(18).png": {
     "description": "A curious robed macaw examines something with a magnifying glass.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-018",
-      "chunk_id": "asset-macaw-action-018:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(18).png"
     },
     "category": "macaw_action",
     "action": "inspect_magnifier"
@@ -218,11 +200,10 @@
   "/assets/macaw/actions/macaw%20(19).png": {
     "description": "A sad robed macaw cries loudly with tears streaming down.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-019",
-      "chunk_id": "asset-macaw-action-019:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(19).png"
     },
     "category": "macaw_action",
     "action": "cry_loudly"
@@ -230,11 +211,10 @@
   "/assets/macaw/actions/macaw%20(20).png": {
     "description": "A thoughtful robed macaw rests one wing on its beak while thinking.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-020",
-      "chunk_id": "asset-macaw-action-020:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(20).png"
     },
     "category": "macaw_action",
     "action": "think"
@@ -242,11 +222,10 @@
   "/assets/macaw/actions/macaw%20(21).png": {
     "description": "A robed macaw runs quickly with one wing forward.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-021",
-      "chunk_id": "asset-macaw-action-021:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(21).png"
     },
     "category": "macaw_action",
     "action": "run"
@@ -254,11 +233,10 @@
   "/assets/macaw/actions/macaw%20(22).png": {
     "description": "A sleepy robed macaw dozes with its cheek resting on one wing.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-022",
-      "chunk_id": "asset-macaw-action-022:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(22).png"
     },
     "category": "macaw_action",
     "action": "sleepy"
@@ -266,11 +244,10 @@
   "/assets/macaw/actions/macaw%20(23).png": {
     "description": "A robed macaw reads an open book attentively.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-023",
-      "chunk_id": "asset-macaw-action-023:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(23).png"
     },
     "category": "macaw_action",
     "action": "read_book"
@@ -278,11 +255,10 @@
   "/assets/macaw/actions/macaw%20(24).png": {
     "description": "A robed macaw writes on paper with a feather quill.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-024",
-      "chunk_id": "asset-macaw-action-024:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(24).png"
     },
     "category": "macaw_action",
     "action": "write_quill"
@@ -290,11 +266,10 @@
   "/assets/macaw/actions/macaw%20(25).png": {
     "description": "A robed macaw eats from a small bowl with a spoon.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-025",
-      "chunk_id": "asset-macaw-action-025:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(25).png"
     },
     "category": "macaw_action",
     "action": "eat_bowl"
@@ -302,11 +277,10 @@
   "/assets/macaw/actions/macaw%20(26).png": {
     "description": "A relaxed robed macaw drinks from a mug.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-026",
-      "chunk_id": "asset-macaw-action-026:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(26).png"
     },
     "category": "macaw_action",
     "action": "drink_mug"
@@ -314,11 +288,10 @@
   "/assets/macaw/actions/macaw%20(27).png": {
     "description": "An excited robed macaw raises one finger and a fist in triumph.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-027",
-      "chunk_id": "asset-macaw-action-027:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(27).png"
     },
     "category": "macaw_action",
     "action": "announce_victory"
@@ -326,11 +299,10 @@
   "/assets/macaw/actions/macaw%20(28).png": {
     "description": "A robed macaw cooks by stirring a steaming pot.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-028",
-      "chunk_id": "asset-macaw-action-028:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(28).png"
     },
     "category": "macaw_action",
     "action": "cook_pot"
@@ -338,11 +310,10 @@
   "/assets/macaw/actions/macaw%20(29).png": {
     "description": "A cheerful robed macaw laughs with one wing on its belly.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-029",
-      "chunk_id": "asset-macaw-action-029:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(29).png"
     },
     "category": "macaw_action",
     "action": "laugh"
@@ -350,11 +321,10 @@
   "/assets/macaw/actions/macaw%20(30).png": {
     "description": "A happy robed macaw hugs itself with a small heart nearby.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-030",
-      "chunk_id": "asset-macaw-action-030:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(30).png"
     },
     "category": "macaw_action",
     "action": "love_hug"
@@ -362,11 +332,10 @@
   "/assets/macaw/actions/macaw%20(31).png": {
     "description": "A caring robed macaw waters a tiny green sprout with a watering can.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-031",
-      "chunk_id": "asset-macaw-action-031:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(31).png"
     },
     "category": "macaw_action",
     "action": "water_sprout"
@@ -374,11 +343,10 @@
   "/assets/macaw/actions/macaw%20(32).png": {
     "description": "A robed macaw digs soil with a shovel.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-032",
-      "chunk_id": "asset-macaw-action-032:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(32).png"
     },
     "category": "macaw_action",
     "action": "dig_soil"
@@ -386,11 +354,10 @@
   "/assets/macaw/actions/macaw%20(33).png": {
     "description": "A robed macaw cheers with both wings lifted high.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-033",
-      "chunk_id": "asset-macaw-action-033:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(33).png"
     },
     "category": "macaw_action",
     "action": "cheer_arms_up"
@@ -398,11 +365,10 @@
   "/assets/macaw/actions/macaw%20(34).png": {
     "description": "A smiling robed macaw dances or skips with open wings.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-034",
-      "chunk_id": "asset-macaw-action-034:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(34).png"
     },
     "category": "macaw_action",
     "action": "dance"
@@ -415,11 +381,10 @@
   "/assets/macaw/actions/macaw%20(36).png": {
     "description": "A happy astronaut macaw waves while standing on the moon.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-036",
-      "chunk_id": "asset-macaw-action-036:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(36).png"
     },
     "category": "macaw_action",
     "action": "astronaut_wave"
@@ -427,11 +392,10 @@
   "/assets/macaw/actions/macaw%20(37).png": {
     "description": "An astronaut macaw jumps joyfully on the moon.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-037",
-      "chunk_id": "asset-macaw-action-037:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(37).png"
     },
     "category": "macaw_action",
     "action": "astronaut_jump"
@@ -439,11 +403,10 @@
   "/assets/macaw/actions/macaw%20(38).png": {
     "description": "An astronaut macaw studies the moon surface beside a small flag.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-038",
-      "chunk_id": "asset-macaw-action-038:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(38).png"
     },
     "category": "macaw_action",
     "action": "astronaut_explore"
@@ -451,11 +414,10 @@
   "/assets/macaw/actions/macaw%20(39).png": {
     "description": "A smiling astronaut macaw stands proudly on the moon.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-039",
-      "chunk_id": "asset-macaw-action-039:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(39).png"
     },
     "category": "macaw_action",
     "action": "astronaut_stand"
@@ -463,11 +425,10 @@
   "/assets/macaw/actions/macaw%20(40).png": {
     "description": "An astronaut macaw walks across the moon with a space backpack.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-040",
-      "chunk_id": "asset-macaw-action-040:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(40).png"
     },
     "category": "macaw_action",
     "action": "astronaut_walk"
@@ -475,11 +436,10 @@
   "/assets/macaw/actions/macaw%20(41).png": {
     "description": "A polite robed macaw bows with one wing over its chest.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-041",
-      "chunk_id": "asset-macaw-action-041:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(41).png"
     },
     "category": "macaw_action",
     "action": "bow_politely"
@@ -487,11 +447,10 @@
   "/assets/macaw/actions/macaw%20(42).png": {
     "description": "A robed macaw speaks quietly with one wing near its beak.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-042",
-      "chunk_id": "asset-macaw-action-042:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(42).png"
     },
     "category": "macaw_action",
     "action": "speak_quietly"
@@ -499,11 +458,10 @@
   "/assets/macaw/actions/macaw%20(43).png": {
     "description": "A robed macaw listens carefully with one wing cupped to its ear.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-043",
-      "chunk_id": "asset-macaw-action-043:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(43).png"
     },
     "category": "macaw_action",
     "action": "listen"
@@ -511,11 +469,10 @@
   "/assets/macaw/actions/macaw%20(44).png": {
     "description": "A cheerful robed macaw gives a simple friendly wave.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-044",
-      "chunk_id": "asset-macaw-action-044:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(44).png"
     },
     "category": "macaw_action",
     "action": "friendly_wave"
@@ -523,11 +480,10 @@
   "/assets/macaw/actions/macaw%20(45).png": {
     "description": "A smiling robed macaw offers a wrapped gift with a red bow.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-045",
-      "chunk_id": "asset-macaw-action-045:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(45).png"
     },
     "category": "macaw_action",
     "action": "offer_gift"
@@ -535,11 +491,10 @@
   "/assets/macaw/actions/macaw%20(46).png": {
     "description": "A confused robed macaw shrugs with a question mark overhead.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-046",
-      "chunk_id": "asset-macaw-action-046:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(46).png"
     },
     "category": "macaw_action",
     "action": "confused_shrug"
@@ -547,11 +502,10 @@
   "/assets/macaw/actions/macaw%20(47).png": {
     "description": "A welcoming robed macaw opens both wings happily.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-047",
-      "chunk_id": "asset-macaw-action-047:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(47).png"
     },
     "category": "macaw_action",
     "action": "welcome"
@@ -559,11 +513,10 @@
   "/assets/macaw/actions/macaw%20(48).png": {
     "description": "A robed macaw climbs upward on a wooden ladder.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-048",
-      "chunk_id": "asset-macaw-action-048:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(48).png"
     },
     "category": "macaw_action",
     "action": "climb_ladder_up"
@@ -571,11 +524,10 @@
   "/assets/macaw/actions/macaw%20(49).png": {
     "description": "A hooded robed macaw crouches and creeps forward suspiciously.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-049",
-      "chunk_id": "asset-macaw-action-049:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(49).png"
     },
     "category": "macaw_action",
     "action": "creep"
@@ -583,11 +535,10 @@
   "/assets/macaw/actions/macaw%20(50).png": {
     "description": "A robed macaw celebrates with both fists raised.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-050",
-      "chunk_id": "asset-macaw-action-050:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(50).png"
     },
     "category": "macaw_action",
     "action": "raise_fists"
@@ -595,11 +546,10 @@
   "/assets/macaw/actions/macaw%20(51).png": {
     "description": "A calm robed macaw meditates while sitting cross-legged.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-051",
-      "chunk_id": "asset-macaw-action-051:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(51).png"
     },
     "category": "macaw_action",
     "action": "meditate"
@@ -607,11 +557,10 @@
   "/assets/macaw/actions/macaw%20(52).png": {
     "description": "A robed macaw points to the right with one wing.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-052",
-      "chunk_id": "asset-macaw-action-052:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(52).png"
     },
     "category": "macaw_action",
     "action": "point_right"
@@ -619,11 +568,10 @@
   "/assets/macaw/actions/macaw%20(53).png": {
     "description": "A puzzled robed macaw thinks with a blue question mark above its head.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-053",
-      "chunk_id": "asset-macaw-action-053:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(53).png"
     },
     "category": "macaw_action",
     "action": "wonder"
@@ -631,11 +579,10 @@
   "/assets/macaw/actions/macaw%20(54).png": {
     "description": "A surprised robed macaw reacts with an orange exclamation mark.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-054",
-      "chunk_id": "asset-macaw-action-054:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(54).png"
     },
     "category": "macaw_action",
     "action": "surprised"
@@ -643,11 +590,10 @@
   "/assets/macaw/actions/macaw%20(55).png": {
     "description": "A kneeling robed macaw cries with tears on both sides of its face.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-055",
-      "chunk_id": "asset-macaw-action-055:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(55).png"
     },
     "category": "macaw_action",
     "action": "cry_kneeling"
@@ -655,11 +601,10 @@
   "/assets/macaw/actions/macaw%20(56).png": {
     "description": "A robed macaw laughs warmly with one wing on its belly.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-056",
-      "chunk_id": "asset-macaw-action-056:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(56).png"
     },
     "category": "macaw_action",
     "action": "laugh_warmly"
@@ -667,11 +612,10 @@
   "/assets/macaw/actions/macaw%20(57).png": {
     "description": "A triumphant robed macaw pumps one fist in the air.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-057",
-      "chunk_id": "asset-macaw-action-057:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(57).png"
     },
     "category": "macaw_action",
     "action": "victory_fist"
@@ -679,11 +623,10 @@
   "/assets/macaw/actions/macaw%20(58).png": {
     "description": "An affectionate robed macaw hugs itself with hearts floating nearby.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-058",
-      "chunk_id": "asset-macaw-action-058:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(58).png"
     },
     "category": "macaw_action",
     "action": "hearts_hug"
@@ -691,11 +634,10 @@
   "/assets/macaw/actions/macaw%20(59).png": {
     "description": "A gentle robed macaw waters a small flower with a watering can.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-059",
-      "chunk_id": "asset-macaw-action-059:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(59).png"
     },
     "category": "macaw_action",
     "action": "water_flower"
@@ -703,11 +645,10 @@
   "/assets/macaw/actions/macaw%20(60).png": {
     "description": "A robed macaw carefully plants a small seedling in the dirt.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-060",
-      "chunk_id": "asset-macaw-action-060:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(60).png"
     },
     "category": "macaw_action",
     "action": "plant_carefully"
@@ -715,11 +656,10 @@
   "/assets/macaw/actions/macaw%20(61).png": {
     "description": "A hooded robed macaw sits and fishes with a fishing rod.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-061",
-      "chunk_id": "asset-macaw-action-061:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(61).png"
     },
     "category": "macaw_action",
     "action": "sit_and_fish"
@@ -727,11 +667,10 @@
   "/assets/macaw/actions/macaw%20(62).png": {
     "description": "A robed macaw studies an old map with a serious expression.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-062",
-      "chunk_id": "asset-macaw-action-062:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(62).png"
     },
     "category": "macaw_action",
     "action": "read_map"
@@ -739,11 +678,10 @@
   "/assets/macaw/actions/macaw%20(63).png": {
     "description": "A robed macaw walks while holding a glowing lantern.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-063",
-      "chunk_id": "asset-macaw-action-063:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(63).png"
     },
     "category": "macaw_action",
     "action": "carry_lantern"
@@ -751,11 +689,10 @@
   "/assets/macaw/actions/macaw%20(64).png": {
     "description": "A happy robed macaw rows a small wooden boat on water.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-064",
-      "chunk_id": "asset-macaw-action-064:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(64).png"
     },
     "category": "macaw_action",
     "action": "row_boat"
@@ -763,11 +700,10 @@
   "/assets/macaw/actions/macaw%20(65).png": {
     "description": "A robed macaw calls out loudly with both wings around its beak.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-065",
-      "chunk_id": "asset-macaw-action-065:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(65).png"
     },
     "category": "macaw_action",
     "action": "call_loudly"
@@ -775,11 +711,10 @@
   "/assets/macaw/actions/macaw%20(66).png": {
     "description": "A cheerful robed macaw sings with music notes in the air.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-066",
-      "chunk_id": "asset-macaw-action-066:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(66).png"
     },
     "category": "macaw_action",
     "action": "sing"
@@ -787,11 +722,10 @@
   "/assets/macaw/actions/macaw%20(67).png": {
     "description": "A happy robed macaw claps its wings together.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-067",
-      "chunk_id": "asset-macaw-action-067:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(67).png"
     },
     "category": "macaw_action",
     "action": "clap"
@@ -799,11 +733,10 @@
   "/assets/macaw/actions/macaw%20(68).png": {
     "description": "A smiling robed macaw salutes or shades its eyes with one wing.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-068",
-      "chunk_id": "asset-macaw-action-068:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(68).png"
     },
     "category": "macaw_action",
     "action": "salute"
@@ -811,11 +744,10 @@
   "/assets/macaw/actions/macaw%20(69).png": {
     "description": "A lively robed macaw points outward with both wings.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-069",
-      "chunk_id": "asset-macaw-action-069:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(69).png"
     },
     "category": "macaw_action",
     "action": "point_both_ways"
@@ -823,11 +755,10 @@
   "/assets/macaw/actions/macaw%20(70).png": {
     "description": "A relaxed robed macaw sits on the ground beside a small cup.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-070",
-      "chunk_id": "asset-macaw-action-070:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(70).png"
     },
     "category": "macaw_action",
     "action": "rest_with_cup"
@@ -835,11 +766,10 @@
   "/assets/macaw/actions/macaw%20(71).png": {
     "description": "A hooded robed macaw stands quietly with a walking stick.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-071",
-      "chunk_id": "asset-macaw-action-071:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(71).png"
     },
     "category": "macaw_action",
     "action": "stand_with_staff"
@@ -847,11 +777,10 @@
   "/assets/macaw/actions/macaw%20(72).png": {
     "description": "A calm robed macaw raises one wing in a gentle wave.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-072",
-      "chunk_id": "asset-macaw-action-072:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(72).png"
     },
     "category": "macaw_action",
     "action": "gentle_wave"
@@ -859,11 +788,10 @@
   "/assets/macaw/actions/macaw%20(73).png": {
     "description": "A seated robed macaw thinks with one wing touching its beak.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-073",
-      "chunk_id": "asset-macaw-action-073:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(73).png"
     },
     "category": "macaw_action",
     "action": "sit_and_think"
@@ -871,11 +799,10 @@
   "/assets/macaw/actions/macaw%20(74).png": {
     "description": "A robed macaw stands like a traveler holding a tall wooden staff.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-074",
-      "chunk_id": "asset-macaw-action-074:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(74).png"
     },
     "category": "macaw_action",
     "action": "traveler_staff"
@@ -883,11 +810,10 @@
   "/assets/macaw/actions/macaw%20(75).png": {
     "description": "A welcoming robed macaw speaks with both wings open.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-075",
-      "chunk_id": "asset-macaw-action-075:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(75).png"
     },
     "category": "macaw_action",
     "action": "open_arms_speak"
@@ -895,11 +821,10 @@
   "/assets/macaw/actions/macaw%20(76).png": {
     "description": "A robed macaw measures with a yellow tape measure.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-076",
-      "chunk_id": "asset-macaw-action-076:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(76).png"
     },
     "category": "macaw_action",
     "action": "measure_tape"
@@ -907,11 +832,10 @@
   "/assets/macaw/actions/macaw%20(77).png": {
     "description": "A robed macaw saws a wooden board on a small workbench.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-077",
-      "chunk_id": "asset-macaw-action-077:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(77).png"
     },
     "category": "macaw_action",
     "action": "saw_wood"
@@ -919,11 +843,10 @@
   "/assets/macaw/actions/macaw%20(78).png": {
     "description": "A robed macaw sews or mends green fabric with a needle and thread.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-078",
-      "chunk_id": "asset-macaw-action-078:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(78).png"
     },
     "category": "macaw_action",
     "action": "sew_fabric"
@@ -931,11 +854,10 @@
   "/assets/macaw/actions/macaw%20(79).png": {
     "description": "A robed macaw polishes a shiny glass orb with a cloth.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-079",
-      "chunk_id": "asset-macaw-action-079:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(79).png"
     },
     "category": "macaw_action",
     "action": "polish_orb"
@@ -943,11 +865,10 @@
   "/assets/macaw/actions/macaw%20(80).png": {
     "description": "A robed macaw hammers a small wooden block with a mallet.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-080",
-      "chunk_id": "asset-macaw-action-080:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(80).png"
     },
     "category": "macaw_action",
     "action": "hammer_block"
@@ -955,11 +876,10 @@
   "/assets/macaw/actions/macaw%20(81).png": {
     "description": "A studious robed macaw carries a stack of books.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-081",
-      "chunk_id": "asset-macaw-action-081:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(81).png"
     },
     "category": "macaw_action",
     "action": "carry_books"
@@ -967,11 +887,10 @@
   "/assets/macaw/actions/macaw%20(82).png": {
     "description": "A playful robed macaw chases a butterfly with a net.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-082",
-      "chunk_id": "asset-macaw-action-082:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(82).png"
     },
     "category": "macaw_action",
     "action": "catch_butterfly"
@@ -979,11 +898,10 @@
   "/assets/macaw/actions/macaw%20(83).png": {
     "description": "A traveler macaw hikes with a backpack, bedroll, and walking stick.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-083",
-      "chunk_id": "asset-macaw-action-083:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(83).png"
     },
     "category": "macaw_action",
     "action": "hike_with_pack"
@@ -991,11 +909,10 @@
   "/assets/macaw/actions/macaw%20(84).png": {
     "description": "A tired hooded macaw lies flat on the ground, exhausted.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-084",
-      "chunk_id": "asset-macaw-action-084:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(84).png"
     },
     "category": "macaw_action",
     "action": "exhausted"
@@ -1003,11 +920,10 @@
   "/assets/macaw/actions/macaw%20(85).png": {
     "description": "A happy robed macaw glides or flies with its robe spread like wings.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-085",
-      "chunk_id": "asset-macaw-action-085:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(85).png"
     },
     "category": "macaw_action",
     "action": "glide"
@@ -1015,11 +931,10 @@
   "/assets/macaw/actions/macaw%20(86).png": {
     "description": "A small robed macaw jogs forward with one fist raised.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-086",
-      "chunk_id": "asset-macaw-action-086:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(86).png"
     },
     "category": "macaw_action",
     "action": "jog"
@@ -1027,11 +942,10 @@
   "/assets/macaw/actions/macaw%20(87).png": {
     "description": "A joyful robed macaw swims through splashing blue water.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-087",
-      "chunk_id": "asset-macaw-action-087:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(87).png"
     },
     "category": "macaw_action",
     "action": "swim"
@@ -1039,11 +953,10 @@
   "/assets/macaw/actions/macaw%20(88).png": {
     "description": "A musical robed macaw plays a small lute or ukulele.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-088",
-      "chunk_id": "asset-macaw-action-088:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(88).png"
     },
     "category": "macaw_action",
     "action": "play_lute"
@@ -1051,11 +964,10 @@
   "/assets/macaw/actions/macaw%20(89).png": {
     "description": "A robed macaw plays a round drum with two drumsticks.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-089",
-      "chunk_id": "asset-macaw-action-089:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(89).png"
     },
     "category": "macaw_action",
     "action": "play_drum"
@@ -1063,11 +975,10 @@
   "/assets/macaw/actions/macaw%20(90).png": {
     "description": "A robed macaw plays a wooden flute.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-090",
-      "chunk_id": "asset-macaw-action-090:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(90).png"
     },
     "category": "macaw_action",
     "action": "play_flute"
@@ -1075,11 +986,10 @@
   "/assets/macaw/actions/macaw%20(91).png": {
     "description": "A dancing robed macaw shakes two colorful maracas.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-091",
-      "chunk_id": "asset-macaw-action-091:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(91).png"
     },
     "category": "macaw_action",
     "action": "shake_maracas"
@@ -1087,11 +997,10 @@
   "/assets/macaw/actions/macaw%20(92).png": {
     "description": "A playful robed macaw juggles red, green, and blue balls.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-092",
-      "chunk_id": "asset-macaw-action-092:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(92).png"
     },
     "category": "macaw_action",
     "action": "juggle_balls"
@@ -1099,11 +1008,10 @@
   "/assets/macaw/actions/macaw%20(93).png": {
     "description": "A robed macaw conducts music with a baton and raised wing.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-093",
-      "chunk_id": "asset-macaw-action-093:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/macaw%20(93).png"
     },
     "category": "macaw_action",
     "action": "conduct_music"
@@ -1111,11 +1019,10 @@
   "/assets/macaw/actions/000-idle_neutral.png": {
     "description": "The robed traveler macaw stands upright at rest in a neutral idle pose, ready and waiting without handling an object.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-094",
-      "chunk_id": "asset-macaw-action-094:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/000-idle_neutral.png"
     },
     "category": "macaw_action",
     "action": "idle_neutral"
@@ -1123,11 +1030,10 @@
   "/assets/macaw/actions/001-walk.png": {
     "description": "The macaw takes a clear forward walking step with coordinated arms and feet, representing ordinary travel, strolling, or movement.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-095",
-      "chunk_id": "asset-macaw-action-095:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/001-walk.png"
     },
     "category": "macaw_action",
     "action": "walk"
@@ -1135,11 +1041,10 @@
   "/assets/macaw/actions/004-turn_around.png": {
     "description": "The macaw pivots through the body to turn around and face the opposite direction, clearly showing a change of course.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-096",
-      "chunk_id": "asset-macaw-action-096:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/004-turn_around.png"
     },
     "category": "macaw_action",
     "action": "turn_around"
@@ -1147,11 +1052,10 @@
   "/assets/macaw/actions/005-look_back.png": {
     "description": "The macaw twists the head and upper body to look back over a shoulder, checking something behind while remaining in place.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-097",
-      "chunk_id": "asset-macaw-action-097:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/005-look_back.png"
     },
     "category": "macaw_action",
     "action": "look_back"
@@ -1159,11 +1063,10 @@
   "/assets/macaw/actions/007-stand_up.png": {
     "description": "The macaw rises from a lowered or seated posture to stand upright, bracing the body during the upward transition.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-098",
-      "chunk_id": "asset-macaw-action-098:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/007-stand_up.png"
     },
     "category": "macaw_action",
     "action": "stand_up"
@@ -1171,11 +1074,10 @@
   "/assets/macaw/actions/008-sit_on_chair.png": {
     "description": "The macaw sits naturally on a wooden chair with the body supported and feet lowered, suitable for resting or conversation scenes.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-099",
-      "chunk_id": "asset-macaw-action-099:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/008-sit_on_chair.png"
     },
     "category": "macaw_action",
     "action": "sit_on_chair"
@@ -1183,11 +1085,10 @@
   "/assets/macaw/actions/009-kneel.png": {
     "description": "The macaw lowers onto one knee in a stable kneeling pose, useful for examining, helping, honoring, or working near the ground.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-100",
-      "chunk_id": "asset-macaw-action-100:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/009-kneel.png"
     },
     "category": "macaw_action",
     "action": "kneel"
@@ -1195,11 +1096,10 @@
   "/assets/macaw/actions/010-crouch.png": {
     "description": "The macaw bends both knees and lowers the torso into a compact crouch, suggesting hiding, inspecting, or preparing to move.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-101",
-      "chunk_id": "asset-macaw-action-101:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/010-crouch.png"
     },
     "category": "macaw_action",
     "action": "crouch"
@@ -1207,11 +1107,10 @@
   "/assets/macaw/actions/011-crawl.png": {
     "description": "The macaw travels low on hands and knees in a crawling posture, suitable for tunnels, searching, stealth, or recovery.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-102",
-      "chunk_id": "asset-macaw-action-102:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/011-crawl.png"
     },
     "category": "macaw_action",
     "action": "crawl"
@@ -1219,11 +1118,10 @@
   "/assets/macaw/actions/012-climb_down_ladder.png": {
     "description": "The macaw descends a ladder rung by rung while gripping it with both hands, clearly communicating downward climbing.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-103",
-      "chunk_id": "asset-macaw-action-103:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/012-climb_down_ladder.png"
     },
     "category": "macaw_action",
     "action": "climb_down_ladder"
@@ -1231,11 +1129,10 @@
   "/assets/macaw/actions/013-jump_forward.png": {
     "description": "The macaw launches forward in a jump with both feet off the ground and limbs extended in the direction of travel.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-104",
-      "chunk_id": "asset-macaw-action-104:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/013-jump_forward.png"
     },
     "category": "macaw_action",
     "action": "jump_forward"
@@ -1243,11 +1140,10 @@
   "/assets/macaw/actions/014-land_after_jump.png": {
     "description": "The macaw absorbs a landing after a jump with bent knees, lowered weight, and balanced arms at the moment of impact.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-105",
-      "chunk_id": "asset-macaw-action-105:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/014-land_after_jump.png"
     },
     "category": "macaw_action",
     "action": "land_after_jump"
@@ -1255,11 +1151,10 @@
   "/assets/macaw/actions/015-fall_down.png": {
     "description": "The macaw loses balance and falls toward the ground with an uncontrolled tilted body and outstretched limbs.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-106",
-      "chunk_id": "asset-macaw-action-106:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/015-fall_down.png"
     },
     "category": "macaw_action",
     "action": "fall_down"
@@ -1267,11 +1162,10 @@
   "/assets/macaw/actions/016-get_up.png": {
     "description": "The macaw pushes up from the ground and regains a standing position after falling, using hands and knees for support.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-107",
-      "chunk_id": "asset-macaw-action-107:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/016-get_up.png"
     },
     "category": "macaw_action",
     "action": "get_up"
@@ -1279,11 +1173,10 @@
   "/assets/macaw/actions/017-trip.png": {
     "description": "The macaw stumbles after catching a foot, pitching forward with arms reacting to prevent a complete fall.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-108",
-      "chunk_id": "asset-macaw-action-108:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/017-trip.png"
     },
     "category": "macaw_action",
     "action": "trip"
@@ -1291,11 +1184,10 @@
   "/assets/macaw/actions/018-balance.png": {
     "description": "The macaw carefully balances on an unstable footing with arms spread and weight centered to avoid falling.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-109",
-      "chunk_id": "asset-macaw-action-109:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/018-balance.png"
     },
     "category": "macaw_action",
     "action": "balance"
@@ -1303,11 +1195,10 @@
   "/assets/macaw/actions/019-tiptoe.png": {
     "description": "The macaw moves quietly on tiptoe with raised heels and cautious posture, suggesting stealth or an attempt not to disturb anyone.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-110",
-      "chunk_id": "asset-macaw-action-110:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/019-tiptoe.png"
     },
     "category": "macaw_action",
     "action": "tiptoe"
@@ -1315,11 +1206,10 @@
   "/assets/macaw/actions/023-pick_up_object.png": {
     "description": "The macaw bends toward a loose object and lifts it from the ground, clearly depicting the complete pick-up interaction.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-111",
-      "chunk_id": "asset-macaw-action-111:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/023-pick_up_object.png"
     },
     "category": "macaw_action",
     "action": "pick_up_object"
@@ -1327,11 +1217,10 @@
   "/assets/macaw/actions/025-drop_object.png": {
     "description": "The macaw releases a held object so it falls freely from the hand, conveying an accidental or deliberate drop.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-112",
-      "chunk_id": "asset-macaw-action-112:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/025-drop_object.png"
     },
     "category": "macaw_action",
     "action": "drop_object"
@@ -1339,11 +1228,10 @@
   "/assets/macaw/actions/026-place_object.png": {
     "description": "The macaw carefully sets a held object onto a surface or marked location with controlled hands and attention.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-113",
-      "chunk_id": "asset-macaw-action-113:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/026-place_object.png"
     },
     "category": "macaw_action",
     "action": "place_object"
@@ -1351,11 +1239,10 @@
   "/assets/macaw/actions/028-hold_object.png": {
     "description": "The macaw securely holds an object in both hands at torso height, presenting a neutral carrying or possession pose.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-114",
-      "chunk_id": "asset-macaw-action-114:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/028-hold_object.png"
     },
     "category": "macaw_action",
     "action": "hold_object"
@@ -1363,11 +1250,10 @@
   "/assets/macaw/actions/030-receive_object.png": {
     "description": "The macaw reaches forward with open hands to accept an object being offered by another character.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-115",
-      "chunk_id": "asset-macaw-action-115:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/030-receive_object.png"
     },
     "category": "macaw_action",
     "action": "receive_object"
@@ -1375,11 +1261,10 @@
   "/assets/macaw/actions/032-catch_ball.png": {
     "description": "The macaw catches an incoming ball with both hands and a braced stance, focusing on the object in mid-action.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-116",
-      "chunk_id": "asset-macaw-action-116:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/032-catch_ball.png"
     },
     "category": "macaw_action",
     "action": "catch_ball"
@@ -1387,11 +1272,10 @@
   "/assets/macaw/actions/035-search_chest.png": {
     "description": "The macaw leans over an open treasure chest and searches through its contents, looking for a useful item.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-117",
-      "chunk_id": "asset-macaw-action-117:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/035-search_chest.png"
     },
     "category": "macaw_action",
     "action": "search_chest"
@@ -1399,11 +1283,10 @@
   "/assets/macaw/actions/036-close_door.png": {
     "description": "The macaw pushes a hinged door shut with one hand, clearly showing the closing phase of a doorway interaction.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-118",
-      "chunk_id": "asset-macaw-action-118:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/036-close_door.png"
     },
     "category": "macaw_action",
     "action": "close_door"
@@ -1411,11 +1294,10 @@
   "/assets/macaw/actions/037-knock_on_door.png": {
     "description": "The macaw faces a closed door and raises a fist to knock, requesting attention or permission to enter.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-119",
-      "chunk_id": "asset-macaw-action-119:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/037-knock_on_door.png"
     },
     "category": "macaw_action",
     "action": "knock_on_door"
@@ -1423,11 +1305,10 @@
   "/assets/macaw/actions/038-lock_door.png": {
     "description": "The macaw secures a door lock using a key or locking mechanism, indicating that the entrance is being made inaccessible.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-120",
-      "chunk_id": "asset-macaw-action-120:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/038-lock_door.png"
     },
     "category": "macaw_action",
     "action": "lock_door"
@@ -1435,11 +1316,10 @@
   "/assets/macaw/actions/039-unlock_door.png": {
     "description": "The macaw operates a door lock with a key to open access, clearly representing an unlocking interaction.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-121",
-      "chunk_id": "asset-macaw-action-121:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/039-unlock_door.png"
     },
     "category": "macaw_action",
     "action": "unlock_door"
@@ -1447,11 +1327,10 @@
   "/assets/macaw/actions/043-press_button.png": {
     "description": "The macaw extends one finger to press a visible button on a device or wall control, activating a mechanism.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-122",
-      "chunk_id": "asset-macaw-action-122:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/043-press_button.png"
     },
     "category": "macaw_action",
     "action": "press_button"
@@ -1459,11 +1338,10 @@
   "/assets/macaw/actions/044-pull_lever.png": {
     "description": "The macaw grips a mechanical lever and pulls it through its range, operating machinery, a switch, or a gate.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-123",
-      "chunk_id": "asset-macaw-action-123:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/044-pull_lever.png"
     },
     "category": "macaw_action",
     "action": "pull_lever"
@@ -1471,11 +1349,10 @@
   "/assets/macaw/actions/046-ring_bell.png": {
     "description": "The macaw rings a hand bell or mounted bell with a deliberate motion to signal, summon, or announce something.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-124",
-      "chunk_id": "asset-macaw-action-124:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/046-ring_bell.png"
     },
     "category": "macaw_action",
     "action": "ring_bell"
@@ -1483,11 +1360,10 @@
   "/assets/macaw/actions/047-light_lantern.png": {
     "description": "The macaw carefully ignites a lantern, bringing its warm light to life for darkness, travel, or exploration.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-125",
-      "chunk_id": "asset-macaw-action-125:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/047-light_lantern.png"
     },
     "category": "macaw_action",
     "action": "light_lantern"
@@ -1495,11 +1371,10 @@
   "/assets/macaw/actions/048-extinguish_lantern.png": {
     "description": "The macaw puts out a burning lantern safely, removing the visible flame and ending its light.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-126",
-      "chunk_id": "asset-macaw-action-126:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/048-extinguish_lantern.png"
     },
     "category": "macaw_action",
     "action": "extinguish_lantern"
@@ -1507,11 +1382,10 @@
   "/assets/macaw/actions/049-light_fire.png": {
     "description": "The macaw kneels beside fuel and starts a small fire, using a flame or spark to ignite the kindling.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-127",
-      "chunk_id": "asset-macaw-action-127:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/049-light_fire.png"
     },
     "category": "macaw_action",
     "action": "light_fire"
@@ -1519,11 +1393,10 @@
   "/assets/macaw/actions/050-extinguish_fire.png": {
     "description": "The macaw deliberately smothers or douses a small fire until the flames go out, making the area safe.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-128",
-      "chunk_id": "asset-macaw-action-128:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/050-extinguish_fire.png"
     },
     "category": "macaw_action",
     "action": "extinguish_fire"
@@ -1531,11 +1404,10 @@
   "/assets/macaw/actions/051-push_cart.png": {
     "description": "The macaw leans forward with both hands against a loaded handcart, using body weight to push it along.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-129",
-      "chunk_id": "asset-macaw-action-129:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/051-push_cart.png"
     },
     "category": "macaw_action",
     "action": "push_cart"
@@ -1543,11 +1415,10 @@
   "/assets/macaw/actions/052-pull_cart.png": {
     "description": "The macaw walks ahead while pulling a handcart by its handle, transporting cargo behind the body.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-130",
-      "chunk_id": "asset-macaw-action-130:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/052-pull_cart.png"
     },
     "category": "macaw_action",
     "action": "pull_cart"
@@ -1555,11 +1426,10 @@
   "/assets/macaw/actions/053-carry_bucket.png": {
     "description": "The macaw carries a bucket by its handle at the side, keeping it upright while walking or working.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-131",
-      "chunk_id": "asset-macaw-action-131:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/053-carry_bucket.png"
     },
     "category": "macaw_action",
     "action": "carry_bucket"
@@ -1567,11 +1437,10 @@
   "/assets/macaw/actions/054-pour_bucket.png": {
     "description": "The macaw tips a bucket forward with both hands so its contents pour onto a target area or container.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-132",
-      "chunk_id": "asset-macaw-action-132:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/054-pour_bucket.png"
     },
     "category": "macaw_action",
     "action": "pour_bucket"
@@ -1579,11 +1448,10 @@
   "/assets/macaw/actions/055-pack_bag.png": {
     "description": "The macaw places supplies into an open travel bag and arranges them for a journey, delivery, or departure.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-133",
-      "chunk_id": "asset-macaw-action-133:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/055-pack_bag.png"
     },
     "category": "macaw_action",
     "action": "pack_bag"
@@ -1591,11 +1459,10 @@
   "/assets/macaw/actions/056-unpack_bag.png": {
     "description": "The macaw removes stored items from an open travel bag, laying out supplies after arriving or preparing to work.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-134",
-      "chunk_id": "asset-macaw-action-134:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/056-unpack_bag.png"
     },
     "category": "macaw_action",
     "action": "unpack_bag"
@@ -1603,11 +1470,10 @@
   "/assets/macaw/actions/059-answer_question.png": {
     "description": "The macaw responds to a question with an engaged speaking gesture, conveying a clear explanation or reply.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-135",
-      "chunk_id": "asset-macaw-action-135:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/059-answer_question.png"
     },
     "category": "macaw_action",
     "action": "answer_question"
@@ -1615,11 +1481,10 @@
   "/assets/macaw/actions/060-nod_yes.png": {
     "description": "The macaw nods the head affirmatively to communicate yes, confirmation, permission, or understanding.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-136",
-      "chunk_id": "asset-macaw-action-136:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/060-nod_yes.png"
     },
     "category": "macaw_action",
     "action": "nod_yes"
@@ -1627,11 +1492,10 @@
   "/assets/macaw/actions/061-shake_head_no.png": {
     "description": "The macaw turns the head side to side to communicate no, refusal, disagreement, or correction.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-137",
-      "chunk_id": "asset-macaw-action-137:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/061-shake_head_no.png"
     },
     "category": "macaw_action",
     "action": "shake_head_no"
@@ -1639,11 +1503,10 @@
   "/assets/macaw/actions/062-agree.png": {
     "description": "The macaw shows clear agreement with an approving expression and open affirmative gesture toward another speaker.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-138",
-      "chunk_id": "asset-macaw-action-138:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/062-agree.png"
     },
     "category": "macaw_action",
     "action": "agree"
@@ -1651,11 +1514,10 @@
   "/assets/macaw/actions/063-disagree.png": {
     "description": "The macaw visibly disagrees through a resistant hand gesture and skeptical posture without becoming aggressive.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-139",
-      "chunk_id": "asset-macaw-action-139:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/063-disagree.png"
     },
     "category": "macaw_action",
     "action": "disagree"
@@ -1663,11 +1525,10 @@
   "/assets/macaw/actions/064-point_left.png": {
     "description": "The macaw extends an arm and finger toward the left, giving a precise directional cue or indicating something off-screen.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-140",
-      "chunk_id": "asset-macaw-action-140:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/064-point_left.png"
     },
     "category": "macaw_action",
     "action": "point_left"
@@ -1675,11 +1536,10 @@
   "/assets/macaw/actions/065-point_up.png": {
     "description": "The macaw points clearly upward with one raised finger, indicating a higher location, skyward object, or important idea.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-141",
-      "chunk_id": "asset-macaw-action-141:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/065-point_up.png"
     },
     "category": "macaw_action",
     "action": "point_up"
@@ -1687,11 +1547,10 @@
   "/assets/macaw/actions/066-point_down.png": {
     "description": "The macaw points clearly downward toward the ground, a nearby object, or a lower level.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-142",
-      "chunk_id": "asset-macaw-action-142:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/066-point_down.png"
     },
     "category": "macaw_action",
     "action": "point_down"
@@ -1699,11 +1558,10 @@
   "/assets/macaw/actions/067-point_at_self.png": {
     "description": "The macaw points toward the own chest to mean me, identify the speaker, or volunteer personally.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-143",
-      "chunk_id": "asset-macaw-action-143:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/067-point_at_self.png"
     },
     "category": "macaw_action",
     "action": "point_at_self"
@@ -1711,11 +1569,10 @@
   "/assets/macaw/actions/068-point_at_object.png": {
     "description": "The macaw extends a finger toward a nearby object, drawing attention to a specific item or target.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-144",
-      "chunk_id": "asset-macaw-action-144:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/068-point_at_object.png"
     },
     "category": "macaw_action",
     "action": "point_at_object"
@@ -1723,11 +1580,10 @@
   "/assets/macaw/actions/069-beckon_come_here.png": {
     "description": "The macaw curls an extended hand inward in a come-here beckoning gesture, inviting another character to approach.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-145",
-      "chunk_id": "asset-macaw-action-145:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/069-beckon_come_here.png"
     },
     "category": "macaw_action",
     "action": "beckon_come_here"
@@ -1735,11 +1591,10 @@
   "/assets/macaw/actions/070-gesture_follow_me.png": {
     "description": "The macaw motions forward and back toward the path ahead, signaling another character to follow along.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-146",
-      "chunk_id": "asset-macaw-action-146:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/070-gesture_follow_me.png"
     },
     "category": "macaw_action",
     "action": "gesture_follow_me"
@@ -1747,11 +1602,10 @@
   "/assets/macaw/actions/071-gesture_wait.png": {
     "description": "The macaw raises a steady hand in a wait or hold-on gesture, asking others to pause temporarily.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-147",
-      "chunk_id": "asset-macaw-action-147:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/071-gesture_wait.png"
     },
     "category": "macaw_action",
     "action": "gesture_wait"
@@ -1759,11 +1613,10 @@
   "/assets/macaw/actions/072-gesture_stop.png": {
     "description": "The macaw presents an open palm firmly toward the viewer in an unmistakable stop or do-not-proceed signal.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-148",
-      "chunk_id": "asset-macaw-action-148:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/072-gesture_stop.png"
     },
     "category": "macaw_action",
     "action": "gesture_stop"
@@ -1771,11 +1624,10 @@
   "/assets/macaw/actions/073-wave_goodbye.png": {
     "description": "The macaw raises one hand and waves goodbye, clearly communicating departure, leave-taking, or a friendly farewell.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-149",
-      "chunk_id": "asset-macaw-action-149:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/073-wave_goodbye.png"
     },
     "category": "macaw_action",
     "action": "wave_goodbye"
@@ -1783,11 +1635,10 @@
   "/assets/macaw/actions/074-thank.png": {
     "description": "The macaw expresses gratitude with a warm appreciative gesture, suitable for saying thank you after receiving help or a gift.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-150",
-      "chunk_id": "asset-macaw-action-150:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/074-thank.png"
     },
     "category": "macaw_action",
     "action": "thank"
@@ -1795,11 +1646,10 @@
   "/assets/macaw/actions/075-apologize.png": {
     "description": "The macaw adopts a remorseful posture and apologetic hand gesture, communicating regret and asking forgiveness.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-151",
-      "chunk_id": "asset-macaw-action-151:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/075-apologize.png"
     },
     "category": "macaw_action",
     "action": "apologize"
@@ -1807,11 +1657,10 @@
   "/assets/macaw/actions/076-request_please.png": {
     "description": "The macaw makes a polite requesting gesture with open hands, asking please for help, permission, or an item.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-152",
-      "chunk_id": "asset-macaw-action-152:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/076-request_please.png"
     },
     "category": "macaw_action",
     "action": "request_please"
@@ -1819,11 +1668,10 @@
   "/assets/macaw/actions/077-warn_danger.png": {
     "description": "The macaw urgently warns of danger with an alarmed expression and emphatic pointing or raised-hand signal.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-153",
-      "chunk_id": "asset-macaw-action-153:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/077-warn_danger.png"
     },
     "category": "macaw_action",
     "action": "warn_danger"
@@ -1831,11 +1679,10 @@
   "/assets/macaw/actions/078-explain.png": {
     "description": "The macaw explains a topic with expressive teaching gestures, organizing information for another character to understand.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-154",
-      "chunk_id": "asset-macaw-action-154:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/078-explain.png"
     },
     "category": "macaw_action",
     "action": "explain"
@@ -1843,11 +1690,10 @@
   "/assets/macaw/actions/079-demonstrate.png": {
     "description": "The macaw visibly demonstrates how to perform a task, showing a practical example with focused hands and attention.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-155",
-      "chunk_id": "asset-macaw-action-155:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/079-demonstrate.png"
     },
     "category": "macaw_action",
     "action": "demonstrate"
@@ -1855,11 +1701,10 @@
   "/assets/macaw/actions/080-repeat_slowly.png": {
     "description": "The macaw repeats a message slowly with measured gestures, emphasizing each part for clarity and comprehension.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-156",
-      "chunk_id": "asset-macaw-action-156:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/080-repeat_slowly.png"
     },
     "category": "macaw_action",
     "action": "repeat_slowly"
@@ -1867,11 +1712,10 @@
   "/assets/macaw/actions/081-introduce_self.png": {
     "description": "The macaw politely introduces themself by gesturing to the chest while greeting a new person.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-157",
-      "chunk_id": "asset-macaw-action-157:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/081-introduce_self.png"
     },
     "category": "macaw_action",
     "action": "introduce_self"
@@ -1879,11 +1723,10 @@
   "/assets/macaw/actions/082-handshake.png": {
     "description": "The macaw reaches out and shakes another character's hand in greeting, agreement, introduction, or partnership.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-158",
-      "chunk_id": "asset-macaw-action-158:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/082-handshake.png"
     },
     "category": "macaw_action",
     "action": "handshake"
@@ -1891,11 +1734,10 @@
   "/assets/macaw/actions/083-high_five.png": {
     "description": "The macaw raises an open hand to meet another character's palm in a celebratory high five.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-159",
-      "chunk_id": "asset-macaw-action-159:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/083-high_five.png"
     },
     "category": "macaw_action",
     "action": "high_five"
@@ -1903,11 +1745,10 @@
   "/assets/macaw/actions/084-hug_friend.png": {
     "description": "The macaw embraces a friend warmly with both arms, showing affection, reunion, support, or celebration.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-160",
-      "chunk_id": "asset-macaw-action-160:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/084-hug_friend.png"
     },
     "category": "macaw_action",
     "action": "hug_friend"
@@ -1915,11 +1756,10 @@
   "/assets/macaw/actions/085-comfort_friend.png": {
     "description": "The macaw gently consoles a distressed friend with a supportive touch and compassionate, attentive posture.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-161",
-      "chunk_id": "asset-macaw-action-161:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/085-comfort_friend.png"
     },
     "category": "macaw_action",
     "action": "comfort_friend"
@@ -1927,11 +1767,10 @@
   "/assets/macaw/actions/086-help_friend_up.png": {
     "description": "The macaw grips a fallen friend's hand and pulls them upward, clearly depicting practical assistance and recovery.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-162",
-      "chunk_id": "asset-macaw-action-162:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/086-help_friend_up.png"
     },
     "category": "macaw_action",
     "action": "help_friend_up"
@@ -1939,11 +1778,10 @@
   "/assets/macaw/actions/087-hold_hands.png": {
     "description": "The macaw holds hands with a companion in a calm supportive pose, suggesting trust, affection, or guidance.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-163",
-      "chunk_id": "asset-macaw-action-163:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/087-hold_hands.png"
     },
     "category": "macaw_action",
     "action": "hold_hands"
@@ -1951,11 +1789,10 @@
   "/assets/macaw/actions/088-share_food.png": {
     "description": "The macaw offers part of a meal to a companion, clearly depicting generosity and sharing food.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-164",
-      "chunk_id": "asset-macaw-action-164:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/088-share_food.png"
     },
     "category": "macaw_action",
     "action": "share_food"
@@ -1963,11 +1800,10 @@
   "/assets/macaw/actions/089-share_object.png": {
     "description": "The macaw presents a useful object for a companion to use jointly, showing cooperation and shared possession.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-165",
-      "chunk_id": "asset-macaw-action-165:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/089-share_object.png"
     },
     "category": "macaw_action",
     "action": "share_object"
@@ -1975,11 +1811,10 @@
   "/assets/macaw/actions/090-exchange_items.png": {
     "description": "The macaw and another character trade different items at the same time, representing barter or a mutual exchange.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-166",
-      "chunk_id": "asset-macaw-action-166:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/090-exchange_items.png"
     },
     "category": "macaw_action",
     "action": "exchange_items"
@@ -1987,11 +1822,10 @@
   "/assets/macaw/actions/091-give_directions.png": {
     "description": "The macaw gives travel directions with clear pointing and route-explaining gestures toward a destination.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-167",
-      "chunk_id": "asset-macaw-action-167:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/091-give_directions.png"
     },
     "category": "macaw_action",
     "action": "give_directions"
@@ -1999,11 +1833,10 @@
   "/assets/macaw/actions/092-listen_to_friend.png": {
     "description": "The macaw listens attentively to a speaking friend, facing them with patient focus and receptive body language.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-168",
-      "chunk_id": "asset-macaw-action-168:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/092-listen_to_friend.png"
     },
     "category": "macaw_action",
     "action": "listen_to_friend"
@@ -2011,11 +1844,10 @@
   "/assets/macaw/actions/093-whisper_to_friend.png": {
     "description": "The macaw leans close to a friend's ear and shields a quiet message, conveying private whispering or a secret.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-169",
-      "chunk_id": "asset-macaw-action-169:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/093-whisper_to_friend.png"
     },
     "category": "macaw_action",
     "action": "whisper_to_friend"
@@ -2023,11 +1855,10 @@
   "/assets/macaw/actions/094-argue.png": {
     "description": "The macaw argues with another character using tense posture and forceful opposing gestures during a disagreement.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-170",
-      "chunk_id": "asset-macaw-action-170:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/094-argue.png"
     },
     "category": "macaw_action",
     "action": "argue"
@@ -2035,11 +1866,10 @@
   "/assets/macaw/actions/095-scold.png": {
     "description": "The macaw reprimands another character with a stern expression and pointed admonishing gesture.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-171",
-      "chunk_id": "asset-macaw-action-171:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/095-scold.png"
     },
     "category": "macaw_action",
     "action": "scold"
@@ -2047,11 +1877,10 @@
   "/assets/macaw/actions/096-congratulate.png": {
     "description": "The macaw enthusiastically congratulates a companion with a joyful expression and celebratory gesture.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-172",
-      "chunk_id": "asset-macaw-action-172:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/096-congratulate.png"
     },
     "category": "macaw_action",
     "action": "congratulate"
@@ -2059,11 +1888,10 @@
   "/assets/macaw/actions/097-welcome_guest.png": {
     "description": "The macaw warmly welcomes an arriving guest with open arms and an inviting greeting posture.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-173",
-      "chunk_id": "asset-macaw-action-173:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/097-welcome_guest.png"
     },
     "category": "macaw_action",
     "action": "welcome_guest"
@@ -2071,11 +1899,10 @@
   "/assets/macaw/actions/098-say_farewell.png": {
     "description": "The macaw gives a sincere farewell before parting, with a gentle wave and emotionally clear leave-taking posture.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-174",
-      "chunk_id": "asset-macaw-action-174:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/098-say_farewell.png"
     },
     "category": "macaw_action",
     "action": "say_farewell"
@@ -2083,11 +1910,10 @@
   "/assets/macaw/actions/099-dance_with_partner.png": {
     "description": "The macaw dances together with a partner in a coordinated social pose, showing shared rhythm and celebration.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-175",
-      "chunk_id": "asset-macaw-action-175:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/099-dance_with_partner.png"
     },
     "category": "macaw_action",
     "action": "dance_with_partner"
@@ -2095,11 +1921,10 @@
   "/assets/macaw/actions/100-carry_injured_friend.png": {
     "description": "The macaw supports and carries an injured companion, bearing their weight carefully during rescue or evacuation.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-176",
-      "chunk_id": "asset-macaw-action-176:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/100-carry_injured_friend.png"
     },
     "category": "macaw_action",
     "action": "carry_injured_friend"
@@ -2107,11 +1932,10 @@
   "/assets/macaw/actions/101-protect_friend.png": {
     "description": "The macaw places the body defensively between a friend and danger, shielding the companion with a protective stance.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-177",
-      "chunk_id": "asset-macaw-action-177:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/101-protect_friend.png"
     },
     "category": "macaw_action",
     "action": "protect_friend"
@@ -2119,11 +1943,10 @@
   "/assets/macaw/actions/102-angry.png": {
     "description": "The macaw shows anger through a hard glare, tense shoulders, and clenched hands while remaining in place.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-178",
-      "chunk_id": "asset-macaw-action-178:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/102-angry.png"
     },
     "category": "macaw_action",
     "action": "angry"
@@ -2131,11 +1954,10 @@
   "/assets/macaw/actions/103-furious.png": {
     "description": "The macaw displays intense fury with an explosive expression, forceful stance, and tightly clenched fists.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-179",
-      "chunk_id": "asset-macaw-action-179:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/103-furious.png"
     },
     "category": "macaw_action",
     "action": "furious"
@@ -2143,11 +1965,10 @@
   "/assets/macaw/actions/104-afraid.png": {
     "description": "The macaw recoils in fear with widened eyes, raised shoulders, and guarded hands in response to a threat.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-180",
-      "chunk_id": "asset-macaw-action-180:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/104-afraid.png"
     },
     "category": "macaw_action",
     "action": "afraid"
@@ -2155,11 +1976,10 @@
   "/assets/macaw/actions/105-terrified.png": {
     "description": "The macaw is overwhelmed by terror, shrinking back with a panicked expression and strongly defensive body language.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-181",
-      "chunk_id": "asset-macaw-action-181:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/105-terrified.png"
     },
     "category": "macaw_action",
     "action": "terrified"
@@ -2167,11 +1987,10 @@
   "/assets/macaw/actions/106-worried.png": {
     "description": "The macaw looks worried and preoccupied, holding a tense uncertain posture while anticipating a problem.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-182",
-      "chunk_id": "asset-macaw-action-182:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/106-worried.png"
     },
     "category": "macaw_action",
     "action": "worried"
@@ -2179,11 +1998,10 @@
   "/assets/macaw/actions/107-nervous.png": {
     "description": "The macaw fidgets nervously with uneasy hands and a hesitant stance, showing anxiety before an uncertain event.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-183",
-      "chunk_id": "asset-macaw-action-183:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/107-nervous.png"
     },
     "category": "macaw_action",
     "action": "nervous"
@@ -2191,11 +2009,10 @@
   "/assets/macaw/actions/108-embarrassed.png": {
     "description": "The macaw appears embarrassed with an awkward averted gaze and self-conscious posture after an uncomfortable moment.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-184",
-      "chunk_id": "asset-macaw-action-184:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/108-embarrassed.png"
     },
     "category": "macaw_action",
     "action": "embarrassed"
@@ -2203,11 +2020,10 @@
   "/assets/macaw/actions/109-ashamed.png": {
     "description": "The macaw lowers the head and shoulders in shame, avoiding eye contact and expressing remorse or humiliation.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-185",
-      "chunk_id": "asset-macaw-action-185:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/109-ashamed.png"
     },
     "category": "macaw_action",
     "action": "ashamed"
@@ -2215,11 +2031,10 @@
   "/assets/macaw/actions/110-disgusted.png": {
     "description": "The macaw reacts with visible disgust, leaning away and grimacing at something unpleasant or offensive.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-186",
-      "chunk_id": "asset-macaw-action-186:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/110-disgusted.png"
     },
     "category": "macaw_action",
     "action": "disgusted"
@@ -2227,11 +2042,10 @@
   "/assets/macaw/actions/111-proud.png": {
     "description": "The macaw stands tall with chest lifted and a satisfied expression, clearly showing pride in an accomplishment.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-187",
-      "chunk_id": "asset-macaw-action-187:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/111-proud.png"
     },
     "category": "macaw_action",
     "action": "proud"
@@ -2239,11 +2053,10 @@
   "/assets/macaw/actions/112-relieved.png": {
     "description": "The macaw relaxes after tension, exhaling and lowering the shoulders with an unmistakable expression of relief.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-188",
-      "chunk_id": "asset-macaw-action-188:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/112-relieved.png"
     },
     "category": "macaw_action",
     "action": "relieved"
@@ -2251,11 +2064,10 @@
   "/assets/macaw/actions/113-determined.png": {
     "description": "The macaw faces forward with a focused gaze, squared stance, and firm resolve to complete a difficult task.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-189",
-      "chunk_id": "asset-macaw-action-189:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/113-determined.png"
     },
     "category": "macaw_action",
     "action": "determined"
@@ -2263,11 +2075,10 @@
   "/assets/macaw/actions/114-suspicious.png": {
     "description": "The macaw studies something with narrowed eyes and guarded posture, expressing doubt, mistrust, or careful suspicion.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-190",
-      "chunk_id": "asset-macaw-action-190:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/114-suspicious.png"
     },
     "category": "macaw_action",
     "action": "suspicious"
@@ -2275,11 +2086,10 @@
   "/assets/macaw/actions/115-hungry.png": {
     "description": "The macaw shows hunger by holding the stomach and looking longingly toward food or an expected meal.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-191",
-      "chunk_id": "asset-macaw-action-191:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/115-hungry.png"
     },
     "category": "macaw_action",
     "action": "hungry"
@@ -2287,11 +2097,10 @@
   "/assets/macaw/actions/116-yawn.png": {
     "description": "The macaw yawns widely while covering the beak, showing tiredness, boredom, or the need to sleep.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-192",
-      "chunk_id": "asset-macaw-action-192:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/116-yawn.png"
     },
     "category": "macaw_action",
     "action": "yawn"
@@ -2299,11 +2108,10 @@
   "/assets/macaw/actions/117-sick.png": {
     "description": "The macaw looks visibly unwell with a weak hunched posture, discomfort, and one hand supporting the body.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-193",
-      "chunk_id": "asset-macaw-action-193:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/117-sick.png"
     },
     "category": "macaw_action",
     "action": "sick"
@@ -2311,11 +2119,10 @@
   "/assets/macaw/actions/118-faint.png": {
     "description": "The macaw loses consciousness and collapses backward or downward in a clearly readable fainting motion.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-194",
-      "chunk_id": "asset-macaw-action-194:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/118-faint.png"
     },
     "category": "macaw_action",
     "action": "faint"
@@ -2323,11 +2130,10 @@
   "/assets/macaw/actions/119-wash_hands.png": {
     "description": "The macaw washes and rubs both hands with water and soap, depicting everyday hygiene and cleaning.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-195",
-      "chunk_id": "asset-macaw-action-195:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/119-wash_hands.png"
     },
     "category": "macaw_action",
     "action": "wash_hands"
@@ -2335,11 +2141,10 @@
   "/assets/macaw/actions/120-comb_feathers.png": {
     "description": "The macaw carefully combs and grooms the head feathers, performing personal care with a small comb.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-196",
-      "chunk_id": "asset-macaw-action-196:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/120-comb_feathers.png"
     },
     "category": "macaw_action",
     "action": "comb_feathers"
@@ -2347,11 +2152,10 @@
   "/assets/macaw/actions/121-put_on_backpack.png": {
     "description": "The macaw slides the arms into backpack straps and settles the pack onto the shoulders before travel.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-197",
-      "chunk_id": "asset-macaw-action-197:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/121-put_on_backpack.png"
     },
     "category": "macaw_action",
     "action": "put_on_backpack"
@@ -2359,11 +2163,10 @@
   "/assets/macaw/actions/122-sleep_in_bed.png": {
     "description": "The macaw sleeps peacefully under bedding with the head resting on a pillow, suitable for nighttime or rest scenes.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-198",
-      "chunk_id": "asset-macaw-action-198:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/122-sleep_in_bed.png"
     },
     "category": "macaw_action",
     "action": "sleep_in_bed"
@@ -2371,11 +2174,10 @@
   "/assets/macaw/actions/123-mop_floor.png": {
     "description": "The macaw cleans the ground with a long-handled mop, pushing it across the floor in a practical household task.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-199",
-      "chunk_id": "asset-macaw-action-199:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/123-mop_floor.png"
     },
     "category": "macaw_action",
     "action": "mop_floor"
@@ -2383,11 +2185,10 @@
   "/assets/macaw/actions/124-wash_dishes.png": {
     "description": "The macaw washes plates or bowls with water and soap at a basin, clearly depicting kitchen cleanup.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-200",
-      "chunk_id": "asset-macaw-action-200:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/124-wash_dishes.png"
     },
     "category": "macaw_action",
     "action": "wash_dishes"
@@ -2395,11 +2196,10 @@
   "/assets/macaw/actions/125-carry_tray.png": {
     "description": "The macaw carries a serving tray level with both hands, transporting food, drinks, or dishes without spilling.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-201",
-      "chunk_id": "asset-macaw-action-201:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/125-carry_tray.png"
     },
     "category": "macaw_action",
     "action": "carry_tray"
@@ -2407,11 +2207,10 @@
   "/assets/macaw/actions/126-take_out_trash.png": {
     "description": "The macaw carries a tied bag of rubbish away for disposal, representing the everyday chore of taking out trash.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-202",
-      "chunk_id": "asset-macaw-action-202:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/126-take_out_trash.png"
     },
     "category": "macaw_action",
     "action": "take_out_trash"
@@ -2419,11 +2218,10 @@
   "/assets/macaw/actions/127-chop_vegetables.png": {
     "description": "The macaw uses a kitchen knife to chop vegetables on a cutting board while preparing a meal.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-203",
-      "chunk_id": "asset-macaw-action-203:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/127-chop_vegetables.png"
     },
     "category": "macaw_action",
     "action": "chop_vegetables"
@@ -2431,11 +2229,10 @@
   "/assets/macaw/actions/128-mix_ingredients.png": {
     "description": "The macaw stirs several cooking ingredients together in a bowl, combining them for a recipe.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-204",
-      "chunk_id": "asset-macaw-action-204:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/128-mix_ingredients.png"
     },
     "category": "macaw_action",
     "action": "mix_ingredients"
@@ -2443,11 +2240,10 @@
   "/assets/macaw/actions/129-knead_dough.png": {
     "description": "The macaw presses and folds bread dough with both hands on a work surface, preparing it for baking.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-205",
-      "chunk_id": "asset-macaw-action-205:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/129-knead_dough.png"
     },
     "category": "macaw_action",
     "action": "knead_dough"
@@ -2455,11 +2251,10 @@
   "/assets/macaw/actions/130-bake_bread.png": {
     "description": "The macaw places or removes a loaf from a hot oven using safe baking tools, clearly depicting bread making.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-206",
-      "chunk_id": "asset-macaw-action-206:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/130-bake_bread.png"
     },
     "category": "macaw_action",
     "action": "bake_bread"
@@ -2467,11 +2262,10 @@
   "/assets/macaw/actions/131-serve_food.png": {
     "description": "The macaw presents a prepared plate or bowl of food to another person, table, or waiting guest.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-207",
-      "chunk_id": "asset-macaw-action-207:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/131-serve_food.png"
     },
     "category": "macaw_action",
     "action": "serve_food"
@@ -2479,11 +2273,10 @@
   "/assets/macaw/actions/132-drink_water.png": {
     "description": "The macaw lifts a cup or vessel and drinks water, clearly representing thirst, refreshment, or hydration.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-208",
-      "chunk_id": "asset-macaw-action-208:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/132-drink_water.png"
     },
     "category": "macaw_action",
     "action": "drink_water"
@@ -2491,11 +2284,10 @@
   "/assets/macaw/actions/133-chop_wood.png": {
     "description": "The macaw swings an axe into a log or chopping block, splitting firewood with a controlled working stance.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-209",
-      "chunk_id": "asset-macaw-action-209:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/133-chop_wood.png"
     },
     "category": "macaw_action",
     "action": "chop_wood"
@@ -2503,11 +2295,10 @@
   "/assets/macaw/actions/134-hammer_anvil.png": {
     "description": "The macaw strikes heated metal on an anvil with a blacksmith's hammer, forging or shaping a tool.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-210",
-      "chunk_id": "asset-macaw-action-210:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/134-hammer_anvil.png"
     },
     "category": "macaw_action",
     "action": "hammer_anvil"
@@ -2515,11 +2306,10 @@
   "/assets/macaw/actions/135-make_pottery.png": {
     "description": "The macaw shapes wet clay into a vessel on a pottery wheel using both hands.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-211",
-      "chunk_id": "asset-macaw-action-211:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/135-make_pottery.png"
     },
     "category": "macaw_action",
     "action": "make_pottery"
@@ -2527,11 +2317,10 @@
   "/assets/macaw/actions/136-weave_cloth.png": {
     "description": "The macaw works thread through a loom to weave cloth, clearly depicting textile making and craftwork.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-212",
-      "chunk_id": "asset-macaw-action-212:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/136-weave_cloth.png"
     },
     "category": "macaw_action",
     "action": "weave_cloth"
@@ -2539,11 +2328,10 @@
   "/assets/macaw/actions/137-repair_machine.png": {
     "description": "The macaw uses tools to inspect and repair a mechanical device, tightening or adjusting its exposed parts.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-213",
-      "chunk_id": "asset-macaw-action-213:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/137-repair_machine.png"
     },
     "category": "macaw_action",
     "action": "repair_machine"
@@ -2551,11 +2339,10 @@
   "/assets/macaw/actions/138-sow_seeds.png": {
     "description": "The macaw scatters or places seeds into prepared soil in an orderly planting action.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-214",
-      "chunk_id": "asset-macaw-action-214:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/138-sow_seeds.png"
     },
     "category": "macaw_action",
     "action": "sow_seeds"
@@ -2563,11 +2350,10 @@
   "/assets/macaw/actions/139-hoe_soil.png": {
     "description": "The macaw works the earth with a garden hoe, loosening soil and clearing a row for crops.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-215",
-      "chunk_id": "asset-macaw-action-215:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/139-hoe_soil.png"
     },
     "category": "macaw_action",
     "action": "hoe_soil"
@@ -2575,11 +2361,10 @@
   "/assets/macaw/actions/140-harvest_crop.png": {
     "description": "The macaw gathers mature crops from a cultivated field, collecting the harvest into a container.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-216",
-      "chunk_id": "asset-macaw-action-216:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/140-harvest_crop.png"
     },
     "category": "macaw_action",
     "action": "harvest_crop"
@@ -2587,11 +2372,10 @@
   "/assets/macaw/actions/141-pick_fruit.png": {
     "description": "The macaw reaches up to pluck ripe fruit from a branch and collect it carefully.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-217",
-      "chunk_id": "asset-macaw-action-217:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/141-pick_fruit.png"
     },
     "category": "macaw_action",
     "action": "pick_fruit"
@@ -2599,11 +2383,10 @@
   "/assets/macaw/actions/142-feed_animal.png": {
     "description": "The macaw offers food to a nearby animal by hand or from a container, showing gentle daily care.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-218",
-      "chunk_id": "asset-macaw-action-218:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/142-feed_animal.png"
     },
     "category": "macaw_action",
     "action": "feed_animal"
@@ -2611,11 +2394,10 @@
   "/assets/macaw/actions/143-plant_tree.png": {
     "description": "The macaw places a young tree into a prepared hole and settles soil around its roots.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-219",
-      "chunk_id": "asset-macaw-action-219:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/143-plant_tree.png"
     },
     "category": "macaw_action",
     "action": "plant_tree"
@@ -2623,11 +2405,10 @@
   "/assets/macaw/actions/144-buy_item.png": {
     "description": "The macaw receives a selected market item from a seller as part of a purchase.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-220",
-      "chunk_id": "asset-macaw-action-220:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/144-buy_item.png"
     },
     "category": "macaw_action",
     "action": "buy_item"
@@ -2635,11 +2416,10 @@
   "/assets/macaw/actions/145-sell_item.png": {
     "description": "The macaw presents merchandise to a customer in a clear market or shop selling interaction.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-221",
-      "chunk_id": "asset-macaw-action-221:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/145-sell_item.png"
     },
     "category": "macaw_action",
     "action": "sell_item"
@@ -2647,11 +2427,10 @@
   "/assets/macaw/actions/146-pay_coins.png": {
     "description": "The macaw counts and hands over coins to complete a purchase, fee, debt, or reward.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-222",
-      "chunk_id": "asset-macaw-action-222:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/146-pay_coins.png"
     },
     "category": "macaw_action",
     "action": "pay_coins"
@@ -2659,11 +2438,10 @@
   "/assets/macaw/actions/147-deliver_package.png": {
     "description": "The macaw carries and hands a wrapped parcel to its intended recipient, completing a delivery.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-223",
-      "chunk_id": "asset-macaw-action-223:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/147-deliver_package.png"
     },
     "category": "macaw_action",
     "action": "deliver_package"
@@ -2671,11 +2449,10 @@
   "/assets/macaw/actions/148-write_letter.png": {
     "description": "The macaw writes a message with pen and paper at a desk, composing a letter or note.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-224",
-      "chunk_id": "asset-macaw-action-224:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/148-write_letter.png"
     },
     "category": "macaw_action",
     "action": "write_letter"
@@ -2683,11 +2460,10 @@
   "/assets/macaw/actions/149-sweep_street.png": {
     "description": "The macaw cleans an outdoor street or path with a broom, gathering dirt and debris into a pile.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-225",
-      "chunk_id": "asset-macaw-action-225:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/149-sweep_street.png"
     },
     "category": "macaw_action",
     "action": "sweep_street"
@@ -2695,11 +2471,10 @@
   "/assets/macaw/actions/150-read_aloud.png": {
     "description": "The macaw holds an open book and reads its words aloud to listeners with an expressive speaking posture.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-226",
-      "chunk_id": "asset-macaw-action-226:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/150-read_aloud.png"
     },
     "category": "macaw_action",
     "action": "read_aloud"
@@ -2707,11 +2482,10 @@
   "/assets/macaw/actions/151-study_notes.png": {
     "description": "The macaw reviews written notes closely, concentrating while learning, researching, or preparing an answer.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-227",
-      "chunk_id": "asset-macaw-action-227:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/151-study_notes.png"
     },
     "category": "macaw_action",
     "action": "study_notes"
@@ -2719,11 +2493,10 @@
   "/assets/macaw/actions/152-teach_at_board.png": {
     "description": "The macaw stands beside a teaching board and points to written material while explaining a lesson.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-228",
-      "chunk_id": "asset-macaw-action-228:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/152-teach_at_board.png"
     },
     "category": "macaw_action",
     "action": "teach_at_board"
@@ -2731,11 +2504,10 @@
   "/assets/macaw/actions/153-use_compass.png": {
     "description": "The macaw holds and studies a navigation compass, checking direction before continuing a journey.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-229",
-      "chunk_id": "asset-macaw-action-229:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/153-use_compass.png"
     },
     "category": "macaw_action",
     "action": "use_compass"
@@ -2743,11 +2515,10 @@
   "/assets/macaw/actions/155-follow_map.png": {
     "description": "The macaw walks or pauses with an unfolded map, comparing the route to the surrounding landscape.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-230",
-      "chunk_id": "asset-macaw-action-230:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/155-follow_map.png"
     },
     "category": "macaw_action",
     "action": "follow_map"
@@ -2755,11 +2526,10 @@
   "/assets/macaw/actions/156-track_footprints.png": {
     "description": "The macaw crouches to inspect a trail of footprints, following clues left across the ground.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-231",
-      "chunk_id": "asset-macaw-action-231:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/156-track_footprints.png"
     },
     "category": "macaw_action",
     "action": "track_footprints"
@@ -2767,11 +2537,10 @@
   "/assets/macaw/actions/157-climb_rope.png": {
     "description": "The macaw climbs vertically up a rope using alternating hands and feet in a clear exertion pose.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-232",
-      "chunk_id": "asset-macaw-action-232:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/157-climb_rope.png"
     },
     "category": "macaw_action",
     "action": "climb_rope"
@@ -2779,11 +2548,10 @@
   "/assets/macaw/actions/158-pitch_tent.png": {
     "description": "The macaw assembles and raises a campsite tent using poles, fabric, and ground stakes.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-233",
-      "chunk_id": "asset-macaw-action-233:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/158-pitch_tent.png"
     },
     "category": "macaw_action",
     "action": "pitch_tent"
@@ -2791,11 +2559,10 @@
   "/assets/macaw/actions/159-build_campfire.png": {
     "description": "The macaw arranges firewood and kindling into a campsite fire before or while igniting it.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-234",
-      "chunk_id": "asset-macaw-action-234:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/159-build_campfire.png"
     },
     "category": "macaw_action",
     "action": "build_campfire"
@@ -2803,11 +2570,10 @@
   "/assets/macaw/actions/160-ride_animal.png": {
     "description": "The macaw sits securely on a riding animal and holds the reins while traveling.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-235",
-      "chunk_id": "asset-macaw-action-235:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/160-ride_animal.png"
     },
     "category": "macaw_action",
     "action": "ride_animal"
@@ -2815,11 +2581,10 @@
   "/assets/macaw/actions/161-limp.png": {
     "description": "The macaw walks with an injured leg held or favored, showing an uneven painful limping gait.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-236",
-      "chunk_id": "asset-macaw-action-236:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/161-limp.png"
     },
     "category": "macaw_action",
     "action": "limp"
@@ -2827,11 +2592,10 @@
   "/assets/macaw/actions/162-apply_bandage.png": {
     "description": "The macaw wraps a bandage around the own injured limb, performing basic first aid.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-237",
-      "chunk_id": "asset-macaw-action-237:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/162-apply_bandage.png"
     },
     "category": "macaw_action",
     "action": "apply_bandage"
@@ -2839,11 +2603,10 @@
   "/assets/macaw/actions/163-bandage_friend.png": {
     "description": "The macaw carefully wraps a bandage around a companion's injury, providing first aid and care.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-238",
-      "chunk_id": "asset-macaw-action-238:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/163-bandage_friend.png"
     },
     "category": "macaw_action",
     "action": "bandage_friend"
@@ -2851,11 +2614,10 @@
   "/assets/macaw/actions/164-call_for_help.png": {
     "description": "The macaw cups hands around the beak and calls loudly for rescue, assistance, or attention.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-239",
-      "chunk_id": "asset-macaw-action-239:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/164-call_for_help.png"
     },
     "category": "macaw_action",
     "action": "call_for_help"
@@ -2863,11 +2625,10 @@
   "/assets/macaw/actions/165-put_out_fire.png": {
     "description": "The macaw fights a dangerous fire with water or firefighting equipment, urgently extinguishing the flames.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-240",
-      "chunk_id": "asset-macaw-action-240:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/165-put_out_fire.png"
     },
     "category": "macaw_action",
     "action": "put_out_fire"
@@ -2900,11 +2661,10 @@
   "/assets/macaw/actions/171-cast_spell.png": {
     "description": "The macaw channels visible magical energy through an extended hand or focus to cast a spell.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-246",
-      "chunk_id": "asset-macaw-action-246:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/171-cast_spell.png"
     },
     "category": "macaw_action",
     "action": "cast_spell"
@@ -2912,11 +2672,10 @@
   "/assets/macaw/actions/172-healing_magic.png": {
     "description": "The macaw directs soft restorative magic toward an injury or companion, clearly communicating magical healing.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-247",
-      "chunk_id": "asset-macaw-action-247:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/172-healing_magic.png"
     },
     "category": "macaw_action",
     "action": "healing_magic"
@@ -2924,11 +2683,10 @@
   "/assets/macaw/actions/173-magic_shield.png": {
     "description": "The macaw summons a glowing protective barrier in front of the body to block danger or an attack.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-248",
-      "chunk_id": "asset-macaw-action-248:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/173-magic_shield.png"
     },
     "category": "macaw_action",
     "action": "magic_shield"
@@ -2936,11 +2694,10 @@
   "/assets/macaw/actions/174-mix_potion.png": {
     "description": "The macaw combines and stirs magical ingredients in a potion vessel, carefully brewing an alchemical mixture.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-249",
-      "chunk_id": "asset-macaw-action-249:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/174-mix_potion.png"
     },
     "category": "macaw_action",
     "action": "mix_potion"
@@ -2948,11 +2705,10 @@
   "/assets/macaw/actions/175-open_magic_portal.png": {
     "description": "The macaw conjures a luminous circular portal with magic, opening a passage to another place.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-250",
-      "chunk_id": "asset-macaw-action-250:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/175-open_magic_portal.png"
     },
     "category": "macaw_action",
     "action": "open_magic_portal"
@@ -2960,11 +2716,10 @@
   "/assets/macaw/actions/176-astronaut_float.png": {
     "description": "The macaw wears a spacesuit and floats freely in zero gravity with limbs drifting away from the body.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-251",
-      "chunk_id": "asset-macaw-action-251:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/176-astronaut_float.png"
     },
     "category": "macaw_action",
     "action": "astronaut_float"
@@ -2972,11 +2727,10 @@
   "/assets/macaw/actions/177-astronaut_collect_sample.png": {
     "description": "The suited macaw gathers a scientific rock or soil sample with astronaut tools for later analysis.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-252",
-      "chunk_id": "asset-macaw-action-252:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/177-astronaut_collect_sample.png"
     },
     "category": "macaw_action",
     "action": "astronaut_collect_sample"
@@ -2984,11 +2738,10 @@
   "/assets/macaw/actions/178-astronaut_operate_console.png": {
     "description": "The suited macaw works at a spacecraft control console, pressing illuminated controls and reading instruments.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-253",
-      "chunk_id": "asset-macaw-action-253:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/178-astronaut_operate_console.png"
     },
     "category": "macaw_action",
     "action": "astronaut_operate_console"
@@ -2996,11 +2749,10 @@
   "/assets/macaw/actions/179-astronaut_pilot_ship.png": {
     "description": "The suited macaw sits at spacecraft controls and actively pilots the ship using the flight console.",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-macaw-action-254",
-      "chunk_id": "asset-macaw-action-254:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/179-astronaut_pilot_ship.png"
     },
     "category": "macaw_action",
     "action": "astronaut_pilot_ship"
@@ -3010,11 +2762,10 @@
     "category": "macaw_action",
     "action": "hear_listen",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-d0c75716be8a9977",
-      "chunk_id": "asset-d0c75716be8a9977:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/180-hear_listen.png"
     }
   },
   "/assets/macaw/actions/181-see_look.png": {
@@ -3022,11 +2773,10 @@
     "category": "macaw_action",
     "action": "see_look",
     "embedding": {
-      "database": "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite",
-      "table": "macaw_action_embedding_refs",
+      "index": "/language-runtime/static/data/image-embeddings/minilm-v1.json",
       "model_id": "all-minilm-l6-v2-qint8-v0.1",
-      "document_id": "asset-a3dec80cd9e068d8",
-      "chunk_id": "asset-a3dec80cd9e068d8:description"
+      "source_kind": "macaw_action_asset",
+      "asset_path": "/assets/macaw/actions/181-see_look.png"
     }
   }
 }
