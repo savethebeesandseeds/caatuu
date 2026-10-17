@@ -137,11 +137,17 @@
       }),
       "memory-moon": Object.freeze({
         id: "memory-moon",
-        implementationState: "unimplemented",
+        implementationState: "implemented",
         route: "memoryMoon",
+        sharedHost: "/language-runtime/static/games/memory-moon.html",
         capabilities: Object.freeze(["memory"]),
         linguisticFeatures: Object.freeze([]),
-        resources: Object.freeze([])
+        resources: Object.freeze([presentCourseFile(
+          "memoryMoonCatalog",
+          "static/data/games/memory-moon/content.json",
+          "memory-moon-items-v1"
+        )]),
+        learnerBasePresentationContract: "authored-game-three-role-v1"
       }),
       "sound-quasar": Object.freeze({
         id: "sound-quasar",

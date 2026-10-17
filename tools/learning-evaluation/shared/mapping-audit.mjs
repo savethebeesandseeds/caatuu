@@ -63,7 +63,8 @@ export function primaryPracticeIdentity(unit) {
   const gameId = ({ 'verb-lab': 'verb-nebula', 'word-net': 'word-world' })[unit.gameId] || unit.gameId;
   const bankId = ({ 'verb-match': 'default', sentence: 'sentences', 'conjugation-form': 'forms',
     'case-context': 'default', 'agreement-example': 'phrases-sequence', 'noun-category': 'nouns',
-    'listening-word': 'words', 'listening-sentence': 'sentences', 'character-puzzle': 'default' })[unit.kind];
+    'listening-word': 'words', 'listening-sentence': 'sentences', 'character-puzzle': 'default',
+    'translation-choice': 'translations' })[unit.kind];
   assert.ok(bankId, `Unknown playable kind ${unit.kind}`);
   const itemId = unit.kind === 'conjugation-form' ? unit.itemId.replace('/', '.') : unit.itemId;
   return { courseId: unit.courseId, gameId, bankId, itemId };

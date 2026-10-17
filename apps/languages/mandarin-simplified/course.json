@@ -37,9 +37,7 @@
     "verb-lab",
     "word-net",
     "naturalization-nucleus",
-    "sound-quasar"
-  ],
-  "upcomingGames": [
+    "sound-quasar",
     "memory-moon"
   ],
   "launcher": {
@@ -53,7 +51,8 @@
     "verbNebula": "index.html?game=verb-lab",
     "wordWorld": "index.html?game=word-net",
     "naturalizationNucleus": "index.html?game=naturalization-nucleus",
-    "settings": "index.html"
+    "settings": "index.html",
+    "memoryMoon": "/language-runtime/static/games/memory-moon.html"
   },
   "storage": {
     "namespace": "caatuu-zh-hans",
@@ -281,7 +280,7 @@
       "path": "apps/language-runtime/static/data/interface/en.v1.json",
       "scope": "shared",
       "state": "present",
-      "revision": "interface-en-46"
+      "revision": "interface-en-47"
     },
     "courseProfile": {
       "kind": "file",

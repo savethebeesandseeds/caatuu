@@ -141,6 +141,12 @@ async function courseSamples(manifest) {
   for (const [bankId, values] of [["words", sound?.items], ["sentences", sound?.sentences]]) {
     if (values?.length) add("sound-quasar", bankId, values[0].id, values[0].englishAuditText);
   }
+  const moon = await resource("memoryMoonCatalog");
+  if (moon) for (const difficulty of [1, 2, 3]) {
+    const question = moon.challenges.find(item => item.difficulty === difficulty);
+    assert.ok(question, `${manifest.id}: Memory Moon badge ${difficulty}`);
+    add("memory-moon", "translations", question.id, question.englishText);
+  }
   const cases = await resource("caseCosmosCatalog");
   if (cases) {
     const legacyRound = buildRounds(cases, 3).find(round => !round.contextItem);

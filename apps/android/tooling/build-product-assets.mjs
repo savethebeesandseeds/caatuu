@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { assertProductSourceText } from "./product-source-policy.mjs";
 import { transformPackagedImageKeymap } from "./developer-image-catalog.mjs";
 import { homeBootstrapAssets, nativeBootstrapCatalogAssets, planProductDelivery, SETUP_PAYLOAD_MANIFEST } from "./product-delivery.mjs";
+import { validateSetupPayloadForApk } from "./setup-payload.mjs";
 import {
   copyFileSync,
   existsSync,
@@ -31,6 +32,8 @@ import {
 import {
   assertCompatibleSharedStorage,
   assertCanonicalPositiveBytes,
+  assertNormalizedRelativePath,
+  assertSha256,
   dictionaryStorageRecord,
   embeddingStorageRecord,
   assertEmbeddingArtifactContract,
@@ -2194,7 +2197,7 @@ function assertSetupBoundary(
   outputDir,
   languageStaticDir,
   profile,
-  { expectedTransform = null, packageRoot = outputDir, assetPrefix = "" } = {},
+  { expectedTransform = null, packageRoot = outputDir, assetPrefix = "", releaseSetup = null } = {},
 ) {
   const outputPath = join(outputDir, "setup-assets.json");
   assert.ok(existsSync(outputPath), "store output must retain the setup manifest");
@@ -2214,7 +2217,7 @@ function assertSetupBoundary(
   if (process.env.CAATUU_RELEASE_PUBLIC_INVENTORY) {
     const inventoryPath = exactWorkspaceSource(defaultWorkspaceRoot, process.env.CAATUU_RELEASE_PUBLIC_INVENTORY,
       "Release public asset inventory", { allowAbsolute: true, kind: "file" });
-    assertPublicSetupDependencies(manifest, JSON.parse(readFileSync(inventoryPath, "utf8")), `${profile.course.id} release setup`);
+    assertPublicSetupDependencies(releaseSetup ?? manifest, JSON.parse(readFileSync(inventoryPath, "utf8")), `${profile.course.id} release setup`);
   }
   const artifacts = Array.isArray(manifest.artifacts) ? manifest.artifacts : [];
   assert.ok(artifacts.length > 0, "setup manifest must retain artifacts");
@@ -2677,7 +2680,7 @@ function validateFullProductAssetBundle({
   launcherStaticDir = join(workspaceRoot, "apps/launcher/static"),
   allowMissingSetupDeliveredRuntimeFiles = false,
   configuration,
-}) {
+}, bootstrapReleaseSetups = null) {
   const bundle = configuration || loadAndroidCourseBundleConfiguration({
     workspaceRoot,
     courseBundlePath,
@@ -2753,10 +2756,14 @@ function validateFullProductAssetBundle({
       });
     }
     if (courseFiles.includes("setup-assets.json")) {
+      const releaseSetup = bootstrapReleaseSetups?.get(courseConfiguration.course.id) ?? null;
+      if (bootstrapReleaseSetups) assert.ok(releaseSetup,
+        `${courseConfiguration.course.id} bootstrap dependencies were not verified`);
       assertSetupBoundary(courseRoot, courseConfiguration.languageStaticDir, courseProfile, {
         expectedTransform: courseAssetTransform(courseConfiguration, "setup-assets.json", bundle.embeddingRuntime),
         packageRoot: resolvedOutput,
         assetPrefix: `courses/${courseConfiguration.course.id}`,
+        releaseSetup,
       });
     }
     assertLearnerContentSafety(courseRoot);
@@ -2926,6 +2933,65 @@ export function createAndroidProductDelivery(bundle) {
   };
 }
 
+/** Prove final bootstrap ownership before checking only its remaining public downloads. */
+export function validateBootstrapSetupDependencies({ bundledFiles, setupPayload, setupObjects }, { publicInventory = null } = {}) {
+  assert.ok(bundledFiles instanceof Map && setupObjects instanceof Map, "Bootstrap setup requires exact asset maps");
+  assert.ok(setupPayload?.schemaVersion === 1 && Array.isArray(setupPayload.artifacts),
+    "Bootstrap setup requires its companion inventory");
+  const payload = new Map(), logicalPaths = new Set(), objectFiles = new Set();
+  for (const record of setupPayload.artifacts) {
+    assert.deepEqual(Object.keys(record).sort(), ["assetPath", "bytes", "file", "path", "sha256"],
+      "Bootstrap companion record fields differ");
+    assertNormalizedRelativePath(record.assetPath, "Bootstrap companion logical path");
+    assert.ok(!logicalPaths.has(record.assetPath.toLowerCase()), `Repeated bootstrap companion asset: ${record.assetPath}`);
+    logicalPaths.add(record.assetPath.toLowerCase());
+    assertSha256(record.sha256, "Bootstrap companion hash");
+    assertCanonicalPositiveBytes(record.bytes, "Bootstrap companion bytes");
+    const match = /^assets\/setup\/([a-f0-9]{64})\/([A-Za-z0-9_.-]+)$/u.exec(record.path);
+    assert.ok(match && match[1] === record.sha256, "Bootstrap companion URL is not content-addressed");
+    assert.equal(record.file, `objects/${record.sha256}/${match[2]}`, "Bootstrap companion object path differs");
+    const content = setupObjects.get(record.file);
+    assert.ok(Buffer.isBuffer(content), `Bootstrap companion object is missing: ${record.file}`);
+    assert.equal(content.length, record.bytes, `Bootstrap companion bytes changed: ${record.path}`);
+    assert.equal(createHash("sha256").update(content).digest("hex"), record.sha256,
+      `Bootstrap companion hash changed: ${record.path}`);
+    objectFiles.add(record.file);
+    const previous = payload.get(record.path);
+    if (previous) previous.assetPaths.push(record.assetPath);
+    else payload.set(record.path, { ...record, content, assetPaths: [record.assetPath] });
+  }
+  assert.deepEqual([...setupObjects.keys()].sort(), [...objectFiles].sort(),
+    "Bootstrap companion has missing or unlisted objects");
+  assert.equal(new Set([...payload.keys()].map(path => path.toLowerCase())).size, payload.size,
+    "Bootstrap companion has case-colliding object paths");
+  const readApkAsset = (_apk, asset) => {
+    assert.ok(asset.startsWith("assets/"), "Bootstrap APK reader requires an asset path");
+    const content = bundledFiles.get(asset.slice("assets/".length));
+    assert.ok(Buffer.isBuffer(content), `Bootstrap APK asset is missing: ${asset}`);
+    return content;
+  };
+  // Reuse the sealed-archive contract for course ownership, exact receipts and
+  // reachability; the staged maps have already passed the same byte checks.
+  validateSetupPayloadForApk(null, payload, readApkAsset);
+  const bundle = JSON.parse(readApkAsset(null, `assets/${PRODUCT_COURSE_BUNDLE_ASSET}`).toString("utf8"));
+  const remaining = new Map();
+  for (const course of bundle.courses) {
+    const setup = JSON.parse(readApkAsset(null, `assets/${course.assetPrefix}/setup-assets.json`).toString("utf8"));
+    const label = `${course.id} bootstrap setup`;
+    assertBundledSetupArtifacts(setup, { assetPrefix: course.assetPrefix,
+      readAsset: path => bundledFiles.get(path) ?? null, label });
+    const external = { ...setup, artifacts: setup.artifacts.filter(artifact => {
+      if (artifact.native_required !== true) return true;
+      const path = new URL(artifact.url, "https://caatuu.waajacu.com").pathname.slice(1);
+      return !payload.has(path);
+    }) };
+    if (publicInventory) assertPublicSetupDependencies(external, publicInventory, `${course.id} release setup`);
+    assert.ok(!remaining.has(course.id), `Bootstrap course is repeated: ${course.id}`);
+    remaining.set(course.id, external);
+  }
+  return remaining;
+}
+
 function writeExactAssetMap(root, files) {
   for (const [path, bytes] of files) {
     const target = resolve(root, path);
@@ -2938,7 +3004,7 @@ function writeExactAssetMap(root, files) {
 function productSourceSnapshot(bundle) {
   const paths = new Set([
     scriptPath, join(dirname(scriptPath), "product-delivery.mjs"),
-    join(dirname(scriptPath), "android-artifact-contract.mjs"),
+    join(dirname(scriptPath), "android-artifact-contract.mjs"), join(dirname(scriptPath), "setup-payload.mjs"),
     bundle.courseBundlePath, bundle.languageCatalogPath, bundle.embeddingRuntime.catalogPath,
     ...bundle.sharedAssets.map(({ source }) => source),
     ...bundle.configurations.flatMap((configuration) => [
@@ -2984,9 +3050,11 @@ function validateBootstrapProductAssetBundle(options, bundle, delivery) {
   const files = allFiles(resolvedOutput);
   assert.deepEqual(files, [...delivery.bundledFiles.keys()].sort(),
     "Bootstrap APK assets must equal the exact delivery allowlist");
+  const bundledFiles = new Map(), setupObjects = new Map();
   for (const [path, expected] of delivery.bundledFiles) {
     const actual = readStagedSetupAsset(resolvedOutput, path);
     assert.ok(actual?.equals(expected), `Bootstrap asset drifted: ${path}`);
+    bundledFiles.set(path, actual);
   }
   assert.deepEqual(allFiles(setupPayloadDir), [SETUP_PAYLOAD_MANIFEST, ...delivery.setupObjects.keys()].sort(),
     "Setup payload must contain exactly its immutable objects and inventory");
@@ -2995,14 +3063,17 @@ function validateBootstrapProductAssetBundle(options, bundle, delivery) {
   for (const [path, expected] of delivery.setupObjects) {
     const actual = readStagedSetupAsset(setupPayloadDir, path);
     assert.ok(actual?.equals(expected), `Setup payload bytes drifted: ${path}`);
+    setupObjects.set(path, actual);
   }
+  const bootstrapReleaseSetups = validateBootstrapSetupDependencies({ bundledFiles,
+    setupPayload: inventory, setupObjects });
   // Reuse every existing content, executable, provider and reference check on
   // the proven union. The temporary directory is generated validation output,
   // not another source checkout or serving environment.
   const closureRoot = mkdtempSync(join(dirname(resolvedOutput), ".product-closure-"));
   try {
     writeExactAssetMap(closureRoot, delivery.logicalFiles);
-    validateFullProductAssetBundle({ outputDir: closureRoot, configuration: bundle });
+    validateFullProductAssetBundle({ outputDir: closureRoot, configuration: bundle }, bootstrapReleaseSetups);
   } finally {
     rmSync(closureRoot, { recursive: true, force: true });
   }

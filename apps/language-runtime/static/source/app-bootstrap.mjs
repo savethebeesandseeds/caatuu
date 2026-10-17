@@ -2,9 +2,9 @@ import { initializeWorkspaceAfterDictionaryProvider } from "./dictionary-provide
 import { initializeHomeCourseSetup } from "./course-setup.mjs?v=course-setup-5";
 import { installMusic } from "./music.mjs";
 import { installGameDynamics } from "./game-dynamics.mjs?v=game-dynamics-7";
-import { installBadgeProgression } from "./badge-progression.mjs?v=badge-progression-2";
+import { installBadgeProgression } from "./badge-progression.mjs?v=badge-progression-3";
 import { installCampaignRoadmap } from "./campaign-roadmap.mjs?v=campaign-roadmap-2";
-import { createPracticeCompass, sharedPracticeAxes } from "./practice-compass.mjs?v=practice-compass-6";
+import { createPracticeCompass, sharedPracticeAxes } from "./practice-compass.mjs?v=practice-compass-7";
 import {
   installInterfaceContent,
   loadInterfaceContent
@@ -664,6 +664,7 @@ function configureGameRoutes() {
   const routes = course.routes || {};
   const routeBindings = {
     conjugationCometEmbeddedGame: routes.conjugationComet,
+    memoryMoonEmbeddedGame: routes.memoryMoon,
     caseCosmosEmbeddedGame: routes.caseCosmos,
     grammarGravityEmbeddedGame: routes.grammarGravity
   };
@@ -751,7 +752,7 @@ async function loadCourseFeatureProviders() {
     origin: location.origin,
     routeBase,
     async initializeWorkspace() {
-      await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-48");
+      await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-49");
       const workspace = await globalThis.CaatuuWorkspaceReady;
       if (workspace?.ready !== true) {
         throw workspace?.error instanceof Error

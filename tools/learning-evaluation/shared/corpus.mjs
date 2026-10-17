@@ -10,12 +10,13 @@ import { buildRounds, buildQuestions } from '../../../apps/languages/czech/stati
 import { buildGrammarGravityRounds } from '../../../apps/language-runtime/static/source/games/grammar-gravity/grammar-gravity-core.mjs';
 import { normalizeNounLandingPack } from '../../../apps/language-runtime/static/source/games/grammar-gravity/noun-landing-core.mjs';
 import { validateSoundQuasarCatalog } from '../../../apps/language-runtime/static/source/games/sound-quasar/sound-quasar-core.mjs';
+import { validateMemoryMoonCatalog } from '../../../apps/language-runtime/static/source/games/memory-moon/memory-moon-core.mjs';
 import { StandardWordWorldProvider } from '../../../apps/languages/czech/static/source/games/word-world/word-net-standard.mjs';
 import { joinConceptCatalogs } from '../../../apps/language-runtime/static/source/catalog-runtime.mjs';
 import { canonicalEnglishInput } from './semantic-cache.mjs';
 
 export const CORPUS_SCHEMA_VERSION = 1;
-export const CORPUS_ADAPTER_VERSION = 'english-authority-and-static-assessment-units-v1';
+export const CORPUS_ADAPTER_VERSION = 'english-authority-and-static-assessment-units-v2';
 const repositoryRoot = fileURLToPath(new URL('../../../', import.meta.url));
 const NATURALIZATION_SOURCE = 'apps/language-runtime/static/source/games/naturalization-nucleus/naturalization-nucleus.js';
 const IMPLEMENTATION_SOURCES = [
@@ -30,6 +31,7 @@ const IMPLEMENTATION_SOURCES = [
   'apps/language-runtime/static/source/games/grammar-gravity/adjective-flight-core.mjs',
   'apps/language-runtime/static/source/games/grammar-gravity/noun-landing-core.mjs',
   'apps/language-runtime/static/source/games/sound-quasar/sound-quasar-core.mjs',
+  'apps/language-runtime/static/source/games/memory-moon/memory-moon-core.mjs',
   'apps/languages/czech/static/source/games/word-world/word-net-standard.mjs',
   'apps/language-runtime/static/source/catalog-runtime.mjs',
   'apps/language-runtime/static/source/games/content-progression.mjs',
@@ -55,6 +57,7 @@ export function englishAuthority(catalog, row) {
     case 'grammar-gravity': fields = kind === 'agreement-example' ? ['englishAuditText'] : []; break;
     case 'grammar-gravity-nouns': fields = ['english']; break;
     case 'sound-quasar': fields = ['englishAuditText']; break;
+    case 'memory-moon': fields = ['englishText']; break;
     case 'naturalization-nucleus': fields = ['englishAuditText', ...(englishBase(catalog.course) ? ['translation'] : [])]; break;
     default: throw new Error(`No English authority adapter for ${catalog.game}`);
   }
@@ -74,6 +77,7 @@ function translations(catalog, row, english) {
     case 'grammar-gravity': targetText = text(item.targetText) || text(item.displayForm) || text(item.focus?.targetText); learnerBaseText = text(item.learnerBaseText); break;
     case 'grammar-gravity-nouns': targetText = text(item.targetText); learnerBaseText = text(item.learnerBaseText); break;
     case 'sound-quasar': targetText = text(item.target); learnerBaseText = text(item.meaning); break;
+    case 'memory-moon': targetText = text(item.targetText); learnerBaseText = text(item.learnerBaseText); break;
     case 'naturalization-nucleus': targetText = text(item.target ?? item.hanzi); learnerBaseText = englishBase(catalog.course) ? text(item.translation) : null; break;
   }
   const structural = english.reason === 'structural-record-without-independent-English';
@@ -90,7 +94,7 @@ function categoriesFor(row, catalog) {
       categoryProvenance[key] = { source, inherited };
     }
   };
-  for (const key of ['topic', 'category', 'categories', 'tags', 'family', 'lessonId', 'laneId', 'case', 'number', 'gender', 'phase', 'objectiveId', 'tone', 'kind']) put(key, row.item[key]);
+  for (const key of ['topic', 'category', 'categories', 'tags', 'family', 'familyId', 'lessonId', 'laneId', 'case', 'number', 'gender', 'phase', 'objectiveId', 'tone', 'kind']) put(key, row.item[key]);
   put('focus.kind', row.item.focus?.kind || row.parent?.focus?.kind, row.item.focus?.kind ? 'item.focus.kind' : 'parent.focus.kind', !row.item.focus?.kind);
   put('grammar.tags', row.item.annotations?.grammar?.tags, 'item.annotations.grammar.tags');
   put('cefr', row.item.annotations?.cefr || row.item.cefr, row.item.annotations?.cefr ? 'item.annotations.cefr' : 'item.cefr');
@@ -184,6 +188,11 @@ function actualPlayableUnits(catalog, rows, { naturalizationValidator } = {}) {
     normalizer = 'validateSoundQuasarCatalog';
     const pack = validateSoundQuasarCatalog(document, { courseId: course.id, targetLanguageId: course.targetLanguage.id, learnerBaseLanguage: course.sourceLanguage.locale });
     for (const [kind, items] of [['listening-word', pack.items], ['listening-sentence', pack.sentences]]) for (const item of items) add(item, kind, [byItemId.get(item.id)], normalizer);
+  } else if (game === 'memory-moon') {
+    normalizer = 'validateMemoryMoonCatalog';
+    const pack = validateMemoryMoonCatalog(document, { course });
+    for (const item of pack.challenges) add(item, 'translation-choice', [byItemId.get(item.id)], normalizer,
+      item.id, { assessmentDirection: 'recognize-translation' });
   } else if (game === 'naturalization-nucleus') {
     normalizer = 'CaatuuNaturalizationNucleus.validateCatalog';
     if (typeof naturalizationValidator !== 'function') throw new Error('The existing Naturalization Nucleus validator must be supplied.');

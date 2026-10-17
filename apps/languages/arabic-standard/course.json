@@ -42,9 +42,7 @@
     "conjugation-comet",
     "grammar-gravity",
     "naturalization-nucleus",
-    "sound-quasar"
-  ],
-  "upcomingGames": [
+    "sound-quasar",
     "memory-moon"
   ],
   "launcher": {
@@ -60,7 +58,8 @@
     "verbNebula": "index.html?game=verb-lab",
     "wordWorld": "index.html?game=word-net",
     "settings": "index.html",
-    "naturalizationNucleus": "index.html?game=naturalization-nucleus"
+    "naturalizationNucleus": "index.html?game=naturalization-nucleus",
+    "memoryMoon": "/language-runtime/static/games/memory-moon.html"
   },
   "storage": {
     "namespace": "caatuu-ar",
@@ -98,7 +97,7 @@
     "embeddings": true,
     "semanticSearch": true,
     "dictionary": false,
-    "memory": false,
+    "memory": true,
     "verbs": false,
     "wordWorld": true,
     "conjugationComet": true,
@@ -307,7 +306,7 @@
       "path": "apps/language-runtime/static/data/interface/en.v1.json",
       "scope": "shared",
       "state": "present",
-      "revision": "interface-en-46"
+      "revision": "interface-en-47"
     },
     "courseProfile": {
       "kind": "file",

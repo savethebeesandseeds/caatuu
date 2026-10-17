@@ -28,7 +28,8 @@
     "data/games/word-world/content.json",
     "data/games/conjugation-comet/content.json",
     "data/games/grammar-gravity/content.json",
-    "data/games/grammar-gravity/nouns.json"
+    "data/games/grammar-gravity/nouns.json",
+    "data/games/memory-moon/content.json"
   ],
   "launcherIconFiles": [],
   "policy": {

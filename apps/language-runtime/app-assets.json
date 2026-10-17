@@ -1377,6 +1377,50 @@
     {
       "source": "apps/language-runtime/static/source/word-world-teaching.mjs",
       "output": "language-runtime/static/source/word-world-teaching.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/games/memory-moon.html",
+      "output": "language-runtime/static/games/memory-moon.html"
+    },
+    {
+      "source": "apps/language-runtime/static/source/games/memory-moon/memory-moon-advance.mjs",
+      "output": "language-runtime/static/source/games/memory-moon/memory-moon-advance.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/games/memory-moon/memory-moon-core.mjs",
+      "output": "language-runtime/static/source/games/memory-moon/memory-moon-core.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/games/memory-moon/memory-moon-entry.mjs",
+      "output": "language-runtime/static/source/games/memory-moon/memory-moon-entry.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/games/memory-moon/memory-moon-host.mjs",
+      "output": "language-runtime/static/source/games/memory-moon/memory-moon-host.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/games/memory-moon/memory-moon-orbit.mjs",
+      "output": "language-runtime/static/source/games/memory-moon/memory-moon-orbit.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/games/memory-moon/memory-moon-phase.mjs",
+      "output": "language-runtime/static/source/games/memory-moon/memory-moon-phase.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/games/memory-moon/memory-moon-practice.mjs",
+      "output": "language-runtime/static/source/games/memory-moon/memory-moon-practice.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/games/memory-moon/memory-moon-render.mjs",
+      "output": "language-runtime/static/source/games/memory-moon/memory-moon-render.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/games/memory-moon/memory-moon-speech.mjs",
+      "output": "language-runtime/static/source/games/memory-moon/memory-moon-speech.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/games/memory-moon/memory-moon.css",
+      "output": "language-runtime/static/source/games/memory-moon/memory-moon.css"
     }
   ]
 }

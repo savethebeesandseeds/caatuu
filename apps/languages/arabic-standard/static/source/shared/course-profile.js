@@ -47,7 +47,7 @@
       schemaVersion: 1,
       locale: "en",
       direction: "ltr",
-      revision: "interface-en-46",
+      revision: "interface-en-47",
       catalog: "/language-runtime/static/data/interface/en.v1.json"
     },
     learnerBasePreview: false,
@@ -63,11 +63,10 @@
       "conjugation-comet",
       "grammar-gravity",
       "naturalization-nucleus",
-      "sound-quasar"
-    ],
-    upcomingGames: [
+      "sound-quasar",
       "memory-moon"
     ],
+    upcomingGames: [],
     languageAdapter: {
       schemaVersion: 1,
       module: "source/language/adapter.mjs"
@@ -92,6 +91,9 @@
       },
       "sound-quasar": {
         soundQuasarCatalog: "data/games/sound-quasar/content.json?v=sound-quasar-content-1"
+      },
+      "memory-moon": {
+        memoryMoonCatalog: "data/games/memory-moon/content.json?v=memory-moon-1"
       }
     },
     dictionaryContent: null,
@@ -129,6 +131,9 @@
               },
               "sound-quasar": {
                 soundQuasarCatalog: "data/games/sound-quasar/content.json?v=sound-quasar-retained-levels-1"
+              },
+              "memory-moon": {
+                memoryMoonCatalog: "data/games/memory-moon/content.json?v=memory-moon-1"
               }
             },
             dictionaryContent: {
@@ -156,7 +161,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-46",
+            revision: "interface-en-47",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -192,6 +197,9 @@
               },
               "sound-quasar": {
                 soundQuasarCatalog: "data/games/sound-quasar/content.json?v=sound-quasar-retained-levels-1"
+              },
+              "memory-moon": {
+                memoryMoonCatalog: "data/games/memory-moon/content.json?v=memory-moon-1"
               }
             },
             dictionaryContent: null,
@@ -213,7 +221,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-46",
+            revision: "interface-en-47",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -253,6 +261,9 @@
               },
               "sound-quasar": {
                 soundQuasarCatalog: "data/games/sound-quasar/content.json?v=sound-quasar-retained-levels-1"
+              },
+              "memory-moon": {
+                memoryMoonCatalog: "data/games/memory-moon/content.json?v=memory-moon-1"
               }
             },
             dictionaryContent: null,
@@ -274,7 +285,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-46",
+            revision: "interface-en-47",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -314,6 +325,9 @@
               },
               "sound-quasar": {
                 soundQuasarCatalog: "data/games/sound-quasar/content.json?v=sound-quasar-items-v3"
+              },
+              "memory-moon": {
+                memoryMoonCatalog: "data/games/memory-moon/content.json?v=memory-moon-1"
               }
             },
             dictionaryContent: null,
@@ -335,7 +349,7 @@
             schemaVersion: 1,
             locale: "es-ES",
             direction: "ltr",
-            revision: "interface-es-21",
+            revision: "interface-es-22",
             catalog: "/language-runtime/static/data/interface/es.v1.json"
           },
           targetLanguage: {
@@ -375,6 +389,9 @@
               },
               "sound-quasar": {
                 soundQuasarCatalog: "data/games/sound-quasar/content.json?v=sound-quasar-content-1"
+              },
+              "memory-moon": {
+                memoryMoonCatalog: "data/games/memory-moon/content.json?v=memory-moon-1"
               }
             },
             dictionaryContent: null,
@@ -396,7 +413,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-46",
+            revision: "interface-en-47",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -439,6 +456,9 @@
               },
               "sound-quasar": {
                 soundQuasarCatalog: "data/games/sound-quasar/content.json?v=sound-quasar-content-1"
+              },
+              "memory-moon": {
+                memoryMoonCatalog: "data/games/memory-moon/content.json?v=memory-moon-1"
               }
             },
             dictionaryContent: null,
@@ -460,7 +480,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-46",
+            revision: "interface-en-47",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -497,6 +517,9 @@
               "grammar-gravity": {
                 grammarGravityCatalog: "data/games/grammar-gravity/content.json?v=grammar-gravity-content-1",
                 grammarGravityNouns: "data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-1"
+              },
+              "memory-moon": {
+                memoryMoonCatalog: "data/games/memory-moon/content.json?v=memory-moon-1"
               }
             },
             dictionaryContent: null,
@@ -518,7 +541,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-46",
+            revision: "interface-en-47",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -555,6 +578,9 @@
               "grammar-gravity": {
                 grammarGravityCatalog: "data/games/grammar-gravity/content.json?v=grammar-gravity-content-1",
                 grammarGravityNouns: "data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-2"
+              },
+              "memory-moon": {
+                memoryMoonCatalog: "data/games/memory-moon/content.json?v=memory-moon-1"
               }
             },
             dictionaryContent: null,
@@ -576,7 +602,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-46",
+            revision: "interface-en-47",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -603,7 +629,8 @@
       verbNebula: "index.html?game=verb-lab",
       wordWorld: "index.html?game=word-net",
       settings: "index.html",
-      naturalizationNucleus: "index.html?game=naturalization-nucleus"
+      naturalizationNucleus: "index.html?game=naturalization-nucleus",
+      memoryMoon: "/language-runtime/static/games/memory-moon.html"
     },
     storage: {
       namespace: "caatuu-ar",
@@ -627,7 +654,7 @@
       embeddings: true,
       semanticSearch: true,
       dictionary: false,
-      memory: false,
+      memory: true,
       verbs: false,
       wordWorld: true,
       conjugationComet: true,

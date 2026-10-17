@@ -27,7 +27,8 @@
     "data/games/verb-nebula/content.json",
     "data/games/word-world/manifest.json",
     "data/games/word-world/content.json",
-    "data/games/word-world/reading-guides.json"
+    "data/games/word-world/reading-guides.json",
+    "data/games/memory-moon/content.json"
   ],
   "launcherIconFiles": [
     "china_flag.png"

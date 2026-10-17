@@ -525,6 +525,7 @@ val generateProductAssets by tasks.registering(Exec::class) {
     )
     inputs.file(assetCompiler)
     inputs.file(workspaceRootDir.file("apps/android/tooling/product-delivery.mjs"))
+    inputs.file(workspaceRootDir.file("apps/android/tooling/setup-payload.mjs"))
     inputs.file(courseBundlePlanner)
     inputs.file(androidArtifactContract)
     val publicSetupInventory = providers.environmentVariable("CAATUU_RELEASE_PUBLIC_INVENTORY")

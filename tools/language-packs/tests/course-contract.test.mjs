@@ -1252,6 +1252,9 @@ test("launcher and course-profile compatibility views match the current consumer
       },
       "sound-quasar": {
         soundQuasarCatalog: `data/games/sound-quasar/content.json?v=${czech.resources.soundQuasarCatalog.revision}`
+      },
+      "memory-moon": {
+        memoryMoonCatalog: `data/games/memory-moon/content.json?v=${czech.resources.memoryMoonCatalog.revision}`
       }
     }
   );
@@ -1555,9 +1558,10 @@ test("browser courses declare only known, unique linguistic features and games",
     assert.equal(new Set(course.linguisticFeatures).size, course.linguisticFeatures.length, course.id);
     assert.ok(Array.isArray(course.games), course.id);
     assert.equal(new Set(course.games).size, course.games.length, course.id);
-    assert.ok(Array.isArray(course.upcomingGames), course.id);
-    assert.equal(new Set(course.upcomingGames).size, course.upcomingGames.length, course.id);
-    assert.equal(course.upcomingGames.some((gameId) => course.games.includes(gameId)), false, course.id);
+    const upcomingGames = course.upcomingGames ?? [];
+    assert.ok(Array.isArray(upcomingGames), course.id);
+    assert.equal(new Set(upcomingGames).size, upcomingGames.length, course.id);
+    assert.equal(upcomingGames.some((gameId) => course.games.includes(gameId)), false, course.id);
   }
 
   const fixtures = [
@@ -1614,7 +1618,7 @@ test("browser courses declare only known, unique linguistic features and games",
       code: "game.upcoming.invalid",
       message: /unsupported value/,
       mutate(candidate) {
-        candidate.courses[1].course.upcomingGames.push("translation-planet");
+        (candidate.courses[1].course.upcomingGames ??= []).push("translation-planet");
       }
     },
     {
@@ -1622,7 +1626,7 @@ test("browser courses declare only known, unique linguistic features and games",
       code: "game.lifecycle",
       message: /cannot be both playable and upcoming/,
       mutate(candidate) {
-        candidate.courses[1].course.upcomingGames.push("verb-lab");
+        (candidate.courses[1].course.upcomingGames ??= []).push("verb-lab");
       }
     },
     {
@@ -1747,6 +1751,7 @@ test("Naturalization Nucleus requires Chinese pinyin support and a present cours
 
 test("every playable authored planet requires its declared course content", async () => {
   const requirements = [
+    ...loaded.courses.map(({course}) => [course.id, "memory-moon", "memoryMoonCatalog"]),
     ["cz", "sound-quasar", "soundQuasarCatalog"],
     ["zh", "sound-quasar", "soundQuasarCatalog"],
     ["es", "sound-quasar", "soundQuasarCatalog"],

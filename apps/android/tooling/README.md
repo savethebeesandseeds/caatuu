@@ -156,6 +156,11 @@ sha256}` for every removed logical asset. Public `path` is
 `objects/<sha256>/<filename>`. The payload contains transformed production
 bytes; it never re-reads a newer checkout at deployment time.
 
+Bootstrap validation verifies downloads against these exact companion objects
+and the final APK setup catalogs. Only remaining external dependencies require
+an existing matching public receipt. Earlier logical source receipts are not
+the deployment plan; frozen legacy artwork URLs remain unchanged for older apps.
+
 The maintained builder calls `setup-payload.mjs` to create a deterministic
 regular-file ustar archive with exact inventory closure, no links or path
 escapes, and a 256 MiB transport safety limit. It verifies every object against

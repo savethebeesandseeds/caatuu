@@ -148,6 +148,16 @@ companion object against the verified APK's setup catalogs. A missing or
 changed archive/object is a failed release, never permission to regenerate
 payload from a newer checkout or publish the APK without its dependencies.
 
+Bootstrap validation checks the final APK setup catalogs. Companion-owned
+downloads must match the verified payload inventory and object bytes; only
+downloads outside that sealed payload must already match the published asset
+inventory. Logical source receipts can retain historical, unversioned artwork
+URLs before delivery planning rewrites them. Those receipts must not be treated
+as the final bootstrap download plan. Website publication deliberately preserves
+legacy keymap bytes for older clients, so rebuilding the website cannot repair
+such a validator ordering error. Fix the maintained validator and its regression
+tests, then retry the same version if no candidate was sealed.
+
 ## Recovery decision table
 
 | Observed state | Next action | Never do |

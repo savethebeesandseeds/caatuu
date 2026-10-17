@@ -39,6 +39,21 @@ test('non-learning metadata objects are excluded from the inventory', () => {
   assert.equal(progressionRecords('word-world', { records: [item] }).length, 1);
 });
 
+test('Memory Moon grades its complete authored questions rather than their options or focus metadata', () => {
+  const question = graded({ id: 'mm-fixture-basket-position', revision: 1, difficulty: 2,
+    familyId: 'mm-fixture-location', focus: { kind: 'location', englishConcepts: ['basket', 'bench'] },
+    choices: [{ id: 'correct', text: 'A basket is below a bench.' }, { id: 'contrast-1', text: 'A basket is beside a bench.' }] });
+  const rows = validateProgressionCatalog('memory-moon', { challenges: [question] });
+  assert.equal(rows.length, 1);
+  assert.equal(rows[0].item, question);
+  assert.equal(rows[0].kind, 'translation-choice');
+  assert.equal(rows[0].item.difficulty, 2);
+  assert.equal(rows[0].item.usefulness, 78);
+  assert.equal(rows[0].item.complexity, 24);
+  delete question.complexity;
+  assert.throws(() => validateProgressionCatalog('memory-moon', { challenges: [question] }), /complexity/u);
+});
+
 test('editorial task demand can vary independently from a retained badge', () => {
   const parent = { difficulty: 1, id: 'synthetic.family', forms: [] };
   const simple = proposeProgression({ kind: 'conjugation-form', item: {}, parent: { ...parent, family: 'regular' }, detail: 'first-singular' });

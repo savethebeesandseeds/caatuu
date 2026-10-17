@@ -14,6 +14,11 @@ test("every planet English-audit contract accepts its current English-base shape
   const fixtures = new Map([
     ["verb-nebula-items-v1", [{ target: "gehen", source: "go" }]],
     ["sound-quasar-items-v2", { items: [{ target: "gehen", meaning: "go", englishAuditText: "go" }] }],
+    ["memory-moon-items-v1", {
+      englishAuditLanguage: "en", embeddingPolicy: { inputLanguage: "en", inputField: "embeddingText" },
+      challenges: [{ englishText: "The basket is under the bench.", embeddingText: "The basket is under the bench.",
+        choices: [{ englishAuditText: "The basket is under the bench." }, { englishAuditText: "The basket is beside the bench." }] }]
+    }],
     ["conjugation-comet-items-v1", {
       verbs: [{ verb: "gehen", meaning: "go", forms: [{ form: "gehe", cue: "I go" }] }]
     }],
@@ -58,6 +63,25 @@ test("Sounds Quasar requires independent English for every practice item", () =>
     assert.deepEqual(validatePlanetEnglishAuditDocument("sound-quasar-items-v2", document, { sourceLanguageId }), []);
   }
   assert.equal(validatePlanetEnglishAuditDocument("sound-quasar-items-v2", { items: [] }).length, 1);
+});
+
+test("Memory Moon audits every complete question and each authored choice independently of the learner base", () => {
+  const document = { englishAuditLanguage: "en", embeddingPolicy: { inputLanguage: "en", inputField: "embeddingText" },
+    challenges: [{ targetText: "The basket is under the bench.", learnerBaseText: "La cesta está debajo del banco.",
+      englishText: "The basket is under the bench.", embeddingText: "The basket is under the bench.",
+      choices: [{ text: "La cesta está debajo del banco.", englishAuditText: "The basket is under the bench." },
+        { text: "La cesta está al lado del banco.", englishAuditText: "The basket is beside the bench." }] }] };
+  const check = value => validatePlanetEnglishAuditDocument("memory-moon-items-v1", value, { sourceLanguageId: "es" });
+  assert.deepEqual(check(document), []);
+  const missingMeaning = structuredClone(document);
+  delete missingMeaning.challenges[0].englishText;
+  assert.ok(check(missingMeaning).some(issue => /englishText/u.test(issue.message)));
+  const missingChoiceMeaning = structuredClone(document);
+  delete missingChoiceMeaning.challenges[0].choices[1].englishAuditText;
+  assert.ok(check(missingChoiceMeaning).some(issue => /choices\[1\]/u.test(issue.message)));
+  const wrongEmbedding = structuredClone(document);
+  wrongEmbedding.challenges[0].embeddingText = wrongEmbedding.challenges[0].learnerBaseText;
+  assert.ok(check(wrongEmbedding).some(issue => /authored English/u.test(issue.message)));
 });
 test("Grammar Gravity accepts metadata-bearing content packs without dropping English audit", () => {
   assert.deepEqual(validatePlanetEnglishAuditDocument("grammar-gravity-items-v1", {

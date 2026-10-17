@@ -39,9 +39,7 @@
     "verb-lab",
     "word-net",
     "conjugation-comet",
-    "grammar-gravity"
-  ],
-  "upcomingGames": [
+    "grammar-gravity",
     "memory-moon"
   ],
   "launcher": {
@@ -55,7 +53,8 @@
     "games": "index.html",
     "verbNebula": "index.html?game=verb-lab",
     "wordWorld": "index.html?game=word-net",
-    "settings": "index.html"
+    "settings": "index.html",
+    "memoryMoon": "/language-runtime/static/games/memory-moon.html"
   },
   "storage": {
     "namespace": "caatuu-ka",
@@ -93,7 +92,7 @@
     "embeddings": true,
     "semanticSearch": true,
     "dictionary": false,
-    "memory": false,
+    "memory": true,
     "verbs": false,
     "wordWorld": true,
     "conjugationComet": true,
@@ -196,7 +195,7 @@
       "path": "apps/language-runtime/static/data/interface/en.v1.json",
       "scope": "shared",
       "state": "present",
-      "revision": "interface-en-46"
+      "revision": "interface-en-47"
     },
     "courseProfile": {
       "kind": "file",

@@ -9,13 +9,14 @@ const RESOURCE_GAMES = {
   verbNebulaCatalog: 'verb-nebula', conjugationCometCatalog: 'conjugation-comet',
   caseCosmosCatalog: 'case-cosmos', grammarGravityCatalog: 'grammar-gravity',
   grammarGravityNouns: 'grammar-gravity-nouns', naturalizationNucleusCatalog: 'naturalization-nucleus',
-  soundQuasarCatalog: 'sound-quasar'
+  soundQuasarCatalog: 'sound-quasar', memoryMoonCatalog: 'memory-moon'
 };
 const DECLARED_GAMES = {
   campaign: [], 'word-net': ['wordWorldManifest'], 'verb-lab': ['verbNebulaCatalog'],
   'conjugation-comet': ['conjugationCometCatalog'], 'case-cosmos': ['caseCosmosCatalog'],
   'grammar-gravity': ['grammarGravityCatalog', 'grammarGravityNouns'],
-  'naturalization-nucleus': ['naturalizationNucleusCatalog'], 'sound-quasar': ['soundQuasarCatalog']
+  'naturalization-nucleus': ['naturalizationNucleusCatalog'], 'sound-quasar': ['soundQuasarCatalog'],
+  'memory-moon': ['memoryMoonCatalog']
 };
 
 export async function loadProgressionCatalogs(root = repositoryRoot) {
@@ -89,6 +90,8 @@ export function progressionRecords(game, document) {
     document.sentences.forEach((item, i) => add(item, `sentences[${i}]`, 'listening-sentence'));
   } else if (game === 'naturalization-nucleus') {
     document.challenges.forEach((item, i) => add(item, `challenges[${i}]`, 'character'));
+  } else if (game === 'memory-moon') {
+    document.challenges.forEach((item, i) => add(item, `challenges[${i}]`, 'translation-choice'));
   } else throw new Error(`Unsupported game ${game}`);
   return records;
 }

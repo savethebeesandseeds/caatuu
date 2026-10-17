@@ -3,7 +3,8 @@ import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 import vm from 'node:vm';
 import { extractCoreVerbPairs, filterVerbPairsForDifficulty, dealVerbRound, VERB_NEBULA_PAIR_COUNTS } from '../../../apps/language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs';
-import { validateSoundQuasarCatalog, createSoundQuasarSession } from '../../../apps/language-runtime/static/source/games/sound-quasar/sound-quasar-core.mjs';
+import { validateSoundQuasarCatalog, createSoundQuasarSession, buildSoundQuasarRound } from '../../../apps/language-runtime/static/source/games/sound-quasar/sound-quasar-core.mjs';
+import { validateMemoryMoonCatalog, selectMemoryMoonChallenges } from '../../../apps/language-runtime/static/source/games/memory-moon/memory-moon-core.mjs';
 import { createNounLandingSession } from '../../../apps/language-runtime/static/source/games/grammar-gravity/noun-landing-core.mjs';
 import { buildGrammarGravityRounds } from '../../../apps/language-runtime/static/source/games/grammar-gravity/grammar-gravity-core.mjs';
 import { validateConjugationCometCatalog, buildConjugationVerbQueue, buildConjugationHelixRound, judgeConjugationHelixPair } from '../../../apps/language-runtime/static/source/games/conjugation-comet/conjugation-comet-core.mjs';
@@ -50,7 +51,14 @@ for (const course of courses) {
         for (const mode of ['words', 'sentences']) for (const difficulty of [1, 2, 3]) {
           const rows = eligible(mode === 'words' ? pack.items : pack.sentences, difficulty);
           for (const choiceCount of [2, 4, 6, 8]) {
-            const rounds = createSoundQuasarSession(pack, { mode, difficulty, choiceCount, roundLength: 500, random });
+            const session = createSoundQuasarSession(pack, { mode, difficulty, choiceCount, roundLength: 500, random });
+            assert.equal(session.length, Math.min(500, rows.length), 'Finite sessions retain their existing size bound.');
+            assert.equal(new Set(session.map(round => round.answerId)).size, session.length, 'A finite session never repeats an answer.');
+            assert.ok(session.every(round => rows.some(row => row.id === round.answerId)));
+            // Banks may exceed one finite session. The round builder must still
+            // expose every authored item without raising the session limit.
+            const rounds = rows.length <= 500 ? session : rows.map((_row, index) =>
+              buildSoundQuasarRound(pack, { mode, difficulty, choiceCount, index, random }));
             assert.deepEqual(new Set(rounds.map(round => round.answerId)), new Set(rows.map(row => row.id)));
             for (const round of rounds) {
               assert.equal(round.choices.length, Math.min(choiceCount, rows.length));
@@ -62,6 +70,22 @@ for (const course of courses) {
             }
           }
           t.diagnostic(`L${difficulty} ${mode}: ${rows.length} items; all choice counts`);
+        }
+      } else if (game === 'memory-moon') {
+        const pack = validateMemoryMoonCatalog(await resource('memoryMoonCatalog'), { course });
+        for (const difficulty of [1, 2, 3]) {
+          const rows = eligible(pack.challenges, difficulty);
+          const selected = selectMemoryMoonChallenges(pack, { difficulty, limit: 6, random }).items;
+          assert.equal(selected.length, 6);
+          assert.equal(new Set(selected.map(row => row.id)).size, selected.length);
+          for (const question of selected) {
+            const authored = rows.find(row => row.id === question.id);
+            assert.ok(authored, 'Every selected question stays in its chosen badge.');
+            for (const key of ['revision', 'usefulness', 'complexity', 'familyId']) assert.equal(question[key], authored[key]);
+            assert.equal(question.choices.filter(choice => choice.id === question.correctChoiceId).length, 1);
+            sameIds(question.choices, authored.choices);
+          }
+          t.diagnostic(`L${difficulty}: ${rows.length} independent translation questions`);
         }
       } else if (game === 'grammar-gravity') {
         const pack = await resource('grammarGravityCatalog');

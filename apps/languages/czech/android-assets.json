@@ -68,7 +68,8 @@
     "data/games/verb-nebula/content.json",
     "data/games/word-world/manifest.json",
     "data/games/word-world/content.json",
-    "data/language/scripts.json"
+    "data/language/scripts.json",
+    "data/games/memory-moon/content.json"
   ],
   "launcherIconFiles": [
     "coin_icon_ui.png",

@@ -29,7 +29,8 @@
     "data/games/conjugation-comet/content.json",
     "data/games/grammar-gravity/content.json",
     "data/games/grammar-gravity/nouns.json",
-    "data/games/naturalization-nucleus/content.json"
+    "data/games/naturalization-nucleus/content.json",
+    "data/games/memory-moon/content.json"
   ],
   "launcherIconFiles": [],
   "policy": {

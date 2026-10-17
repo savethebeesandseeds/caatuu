@@ -39,9 +39,7 @@
     "word-net",
     "conjugation-comet",
     "grammar-gravity",
-    "sound-quasar"
-  ],
-  "upcomingGames": [
+    "sound-quasar",
     "memory-moon"
   ],
   "launcher": {
@@ -56,7 +54,8 @@
     "wordWorld": "index.html?game=word-net",
     "conjugationComet": "/language-runtime/static/games/conjugation-comet.html",
     "grammarGravity": "/language-runtime/static/games/grammar-gravity.html",
-    "settings": "index.html"
+    "settings": "index.html",
+    "memoryMoon": "/language-runtime/static/games/memory-moon.html"
   },
   "storage": {
     "namespace": "caatuu-nb",
@@ -94,7 +93,7 @@
     "embeddings": true,
     "semanticSearch": true,
     "dictionary": false,
-    "memory": false,
+    "memory": true,
     "verbs": false,
     "wordWorld": true,
     "conjugationComet": true,
@@ -280,7 +279,7 @@
       "path": "apps/language-runtime/static/data/interface/en.v1.json",
       "scope": "shared",
       "state": "present",
-      "revision": "interface-en-46"
+      "revision": "interface-en-47"
     },
     "courseProfile": {
       "kind": "file",

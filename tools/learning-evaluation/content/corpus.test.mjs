@@ -3,6 +3,37 @@ import test from 'node:test';
 import { readFile } from 'node:fs/promises';
 import { buildEvaluationCorpus, englishAuthority } from '../shared/corpus.mjs';
 import { fixtureCatalogs } from './fixture.mjs';
+import { loadMemoryMoonCatalogs } from '../../language-content/lib/memory-moon-content.mjs';
+import { primaryPracticeIdentity } from '../shared/mapping-audit.mjs';
+
+test('Memory Moon has one independent playable recognition unit per authored question with exact grades and English authority', async () => {
+  const banks = await loadMemoryMoonCatalogs();
+  const catalogs = banks.map(({ course, path, document }) => ({ course, path, document,
+    game: 'memory-moon', resource: 'memoryMoonCatalog' }));
+  const corpus = buildEvaluationCorpus(catalogs);
+  const authored = banks.flatMap(({ course, document }) => document.challenges.map(item => ({ course, item })));
+  assert.ok(corpus.adapters.every(adapter => adapter.status === 'ok'), JSON.stringify(corpus.adapters));
+  assert.equal(corpus.records.length, authored.length);
+  assert.equal(corpus.playableUnits.length, authored.length);
+  assert.deepEqual(corpus.documents.map(row => row.englishText).sort(), [...new Set(authored.map(row => row.item.englishText))].sort());
+  for (const { course, item } of authored) {
+    const record = corpus.records.find(row => row.courseId === course.id && row.itemId === item.id);
+    const unit = corpus.playableUnits.find(row => row.courseId === course.id && row.itemId === item.id);
+    assert.equal(record.english.text, item.englishText);
+    assert.equal(record.english.field, 'englishText');
+    assert.equal(record.translation.targetText, item.targetText);
+    assert.equal(record.translation.learnerBaseText, item.learnerBaseText);
+    assert.deepEqual(unit.metadata, { difficulty: item.difficulty, usefulness: item.usefulness, complexity: item.complexity });
+    assert.equal(unit.kind, 'translation-choice');
+    assert.equal(unit.assessmentDirection, 'recognize-translation');
+    assert.deepEqual(primaryPracticeIdentity(unit), { courseId: course.id, gameId: 'memory-moon', bankId: 'translations', itemId: item.id });
+    assert.ok(unit.recordIds.includes(record.id));
+  }
+  const course = banks.find(row => row.course.id === 'es-en').course;
+  assert.equal(englishAuthority({ game: 'memory-moon', course }, {
+    item: { learnerBaseText: 'Una cesta.', targetText: 'A basket.' }
+  }).text, null, 'neither learner-base nor target text substitutes for an explicit English authority');
+});
 
 test('playable corpus covers every exact band of the real Case and Grammar banks once', async () => {
   const read = async path => JSON.parse(await readFile(new URL(`../../../${path}`, import.meta.url), 'utf8'));

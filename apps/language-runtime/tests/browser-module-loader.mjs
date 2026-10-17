@@ -1,7 +1,7 @@
 import { Buffer } from "node:buffer";
 import { readFile } from "node:fs/promises";
 
-const CONTRACT_SPECIFIER = '"/language-runtime/contract.mjs"';
+const CONTRACT_SPECIFIER = /(["'])\/language-runtime\/contract\.mjs\1/gu;
 const CONTRACT_URL = new URL("../contract.mjs", import.meta.url).href;
 
 export async function importBrowserLanguageAdapter(relativeUrl) {
@@ -9,7 +9,7 @@ export async function importBrowserLanguageAdapter(relativeUrl) {
     ? relativeUrl
     : new URL(relativeUrl, import.meta.url);
   const source = await readFile(moduleUrl, "utf8");
-  const contractImports = source.split(CONTRACT_SPECIFIER).length - 1;
+  const contractImports = [...source.matchAll(CONTRACT_SPECIFIER)].length;
 
   if (contractImports !== 1) {
     throw new Error(

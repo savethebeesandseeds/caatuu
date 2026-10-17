@@ -211,6 +211,12 @@ test("every supported actual course bank resolves difficulty and next-task feasi
     }
     const sound = await resource("soundQuasarCatalog");
     if (sound) for (const bankId of ["words", "sentences"]) add("sound-quasar", bankId, sound[bankId === "words" ? "items" : "sentences"][0].id);
+    const moon = await resource("memoryMoonCatalog");
+    if (moon) for (const level of [1, 2, 3]) {
+      const question = moon.challenges.find(row => row.difficulty === level);
+      assert.ok(question, `${manifest.id}: Memory Moon badge ${level}`);
+      add("memory-moon", "translations", question.id);
+    }
     const cases = await resource("caseCosmosCatalog");
     if (cases) {
       const noun = cases.legacyNouns[0], name = Object.keys(noun.cases)[0];

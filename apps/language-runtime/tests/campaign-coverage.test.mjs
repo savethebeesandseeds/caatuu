@@ -47,7 +47,7 @@ function campaign(course, random = () => 0.5) {
         context.handleCampaignGameMessage({ origin: window.location.origin,
           source: ["word-net", "naturalization-nucleus"].includes(id) ? window : frames.get(id).contentWindow,
           data: { source: "caatuu-game", gameId: id,
-            type: ["sound-quasar", "conjugation-comet"].includes(id) ? "round-complete" : "round-success" } });
+            type: ["sound-quasar", "conjugation-comet", "memory-moon"].includes(id) ? "round-complete" : "round-success" } });
         await new Promise((resolve) => setImmediate(resolve));
       }
       assert.equal(state.campaignTransitioning, false);
@@ -112,6 +112,41 @@ test("cancelling a transition returns its unvisited destination to the queue", a
   game.context.waitForVerbTransition = async () => {};
   await game.context.startCampaign();
   assert.equal(game.state.trainTab, originalQueue[0]);
+});
+
+test("Memory Moon completion requires the active Campaign iframe and matching origin", async () => {
+  const course = JSON.parse(await read(registry.courses[0].manifest));
+  const game = campaign(course);
+  const frame = game.frames.get("memory-moon");
+  assert.ok(frame, "the registered course must expose Memory Moon to Campaign");
+  const completion = { origin: game.window.location.origin, source: frame.contentWindow,
+    data: { source: "caatuu-game", type: "round-complete", gameId: "memory-moon" } };
+  game.state.campaignActive = true;
+  game.state.trainTab = "memory-moon";
+  for (const invalid of [
+    { ...completion, origin: "https://foreign.test" },
+    { ...completion, source: {} },
+    { ...completion, data: { ...completion.data, gameId: "unregistered-game" } },
+    { ...completion, data: { ...completion.data, source: "other-source" } }
+  ]) {
+    game.context.handleCampaignGameMessage(invalid);
+    assert.equal(game.state.campaignTransitioning, false);
+    assert.equal(game.visits.length, 0);
+  }
+  game.state.campaignActive = false;
+  game.context.handleCampaignGameMessage(completion);
+  assert.equal(game.state.campaignTransitioning, false);
+  game.state.campaignActive = true;
+  game.state.trainTab = "galaxy";
+  game.context.handleCampaignGameMessage(completion);
+  assert.equal(game.state.campaignTransitioning, false);
+  game.state.trainTab = "memory-moon";
+  game.context.handleCampaignGameMessage(completion);
+  game.context.handleCampaignGameMessage(completion);
+  await new Promise(resolve => setImmediate(resolve));
+  assert.equal(game.visits.length, 1, "a duplicate completion cannot consume two Campaign turns");
+  assert.deepEqual(game.resets.map(({ id, message, origin }) => ({ id, type: message?.type, origin })),
+    [{ id: "memory-moon", type: "campaign-advance", origin: game.window.location.origin }]);
 });
 
 test("a game that becomes unavailable cannot remain in the pending queue", () => {

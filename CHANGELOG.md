@@ -7,10 +7,10 @@
 - Make Sounds Quasar alternatives closer in length and improve Word World
   teaching controls. Keep shared artwork search independent of Czech curriculum
   storage, with ship orientation metadata and compatibility for open sessions.
-- Author independent Memory Moon content for all eight courses: 90 questions
-  per course across three difficulty levels. The game remains upcoming while
-  production selection and learner-evidence integration are pending; its local
-  interaction demo is excluded from published assets.
+- Launch Memory Moon in all eight courses with 90 authored questions per course,
+  close translation choices, target audio and an animated moon. Sample retained
+  weak spots across games while varying questions and resting recent families.
+  Save Memory Moon results independently and include it in Campaign and Stats.
 - Physical-device installation, update, offline use and saved-data preservation
   remain unverified for this candidate. Course review status is unchanged.
 

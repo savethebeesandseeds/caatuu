@@ -4570,6 +4570,11 @@ function ensureWordNetLoaded() {
 }
 
 const embeddedGameTabs = {
+  "memory-moon": {
+    frameId: "memoryMoonEmbeddedGame",
+    stageId: "memoryMoonEmbeddedStage",
+    statusId: "memoryMoonEmbeddedStatus"
+  },
   "sound-quasar": {
     frameId: "soundQuasarEmbeddedGame",
     stageId: "soundQuasarEmbeddedStage",
@@ -4775,7 +4780,7 @@ function advanceCompletedCampaignGame(gameId, sourceWindow) {
     return;
   }
   if (sourceWindow === window || !sourceWindow?.postMessage) return;
-  if (!["word-net", "case-cosmos", "grammar-gravity", "sound-quasar", "conjugation-comet"].includes(gameId)) return;
+  if (!["word-net", "case-cosmos", "grammar-gravity", "sound-quasar", "conjugation-comet", "memory-moon"].includes(gameId)) return;
   sourceWindow.postMessage({
     source: "caatuu-app-shell",
     type: "campaign-advance"
@@ -4881,7 +4886,7 @@ function handleCampaignGameMessage(event) {
   if (event.origin !== window.location.origin) return;
   const message = event.data;
   if (message?.source !== "caatuu-game" || !(message.type === "round-success"
-    || (message.type === "round-complete" && ["sound-quasar", "conjugation-comet"].includes(message.gameId)))) return;
+    || (message.type === "round-complete" && ["sound-quasar", "conjugation-comet", "memory-moon"].includes(message.gameId)))) return;
   const gameId = String(message.gameId || "");
   if (["word-net", "naturalization-nucleus"].includes(gameId) && event.source === window) {
     void completeCampaignRound(gameId, window);

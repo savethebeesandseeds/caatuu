@@ -13,7 +13,7 @@
       "/language-runtime/static/assets/initial-image.png",
       "/language-runtime/static/source/semantic-learning-core.mjs?v=semantic-learning-core-5",
       "/language-runtime/static/source/semantic-learning.js?v=semantic-learning-11",
-      "/language-runtime/static/source/practice-compass.mjs?v=practice-compass-6",
+      "/language-runtime/static/source/practice-compass.mjs?v=practice-compass-7",
       "/language-runtime/static/source/image-embedding-index.mjs?v=image-index-runtime-2",
       "/language-runtime/static/data/image-embeddings/minilm-v1.json?v=image-index-1",
       "/language-runtime/static/source/games/curriculum-progression.mjs",
@@ -40,7 +40,7 @@
       "/language-runtime/contract.mjs",
       "/language-runtime/embedding-runtimes.json",
       "/language-runtime/static/source/initial-theme.js?v=theme-3",
-      "/language-runtime/static/source/app-bootstrap.mjs?v=app-130",
+      "/language-runtime/static/source/app-bootstrap.mjs?v=app-131",
       "/language-runtime/static/source/interface-content.mjs?v=interface-runtime-2",
       "/language-runtime/static/source/legacy-page-bootstrap.mjs?v=legacy-page-10",
       "/language-runtime/static/source/dictionary-provider-loader.mjs",
@@ -64,7 +64,7 @@
       "/language-runtime/static/source/games/conjugation-comet/conjugation-comet-host.mjs?v=conjugation-comet-shared-19",
       "/language-runtime/static/styles/games/grammar-gravity.css?v=grammar-gravity-shared-38",
       "/language-runtime/static/styles/games/conjugation-comet.css?v=conjugation-comet-shared-8",
-      "/language-runtime/static/source/caatuu-workspace.js?v=workspace-48",
+      "/language-runtime/static/source/caatuu-workspace.js?v=workspace-49",
       "/language-runtime/static/source/maintenance-ui.js?v=maintenance-27",
       "/language-runtime/static/source/child-facing-assets.mjs?v=child-facing-assets-2",
       "/language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs?v=verb-nebula-core-14",
@@ -73,10 +73,10 @@
       "/language-runtime/static/source/word-world-provider.mjs?v=word-world-provider-35",
       "/language-runtime/static/source/catalog-runtime.mjs",
       "/language-runtime/static/source/browser-shell.mjs?v=browser-shell-2",
-      "/language-runtime/static/source/shell-policy.js?v=shell-policy-17",
+      "/language-runtime/static/source/shell-policy.js?v=shell-policy-18",
       "/language-runtime/static/source/shell-policy.mjs",
       "/language-runtime/static/source/caatuu-chrome.js?v=chrome-185",
-      "/language-runtime/static/source/learning-profile.js?v=learning-17",
+      "/language-runtime/static/source/learning-profile.js?v=learning-18",
       "/language-runtime/static/source/product-word-world.mjs?v=shared-renderer-37",
       "/language-runtime/static/source/word-net-core.mjs?v=word-net-core-22",
       "/language-runtime/static/source/word-net-queue.mjs?v=word-net-queue-6",
@@ -89,7 +89,7 @@
       "/language-runtime/static/styles/caatuu-word-world.css?v=word-net-100",
       "/language-runtime/static/styles/dictionary-word-card.css?v=dictionary-card-3",
       "/language-runtime/static/assets/caatuu-shell-512.png",
-      "/language-runtime/static/data/interface/en.v1.json?v=interface-en-46",
+      "/language-runtime/static/data/interface/en.v1.json?v=interface-en-47",
       "/language-runtime/static/data/english-concepts/word-world-es-v1.json",
       "/language-runtime/static/data/english-concepts/word-world-starter-v1.json",
       "/language-runtime/static/data/english-concepts/word-world-es-en-v1.json",
@@ -251,8 +251,8 @@
       "/language-runtime/static/source/game-dynamics.mjs?v=game-dynamics-7",
       "/language-runtime/static/styles/game-dynamics.css?v=game-dynamics-8",
       "/language-runtime/static/source/reward-sound.mjs?v=reward-sound-2",
-      "/language-runtime/static/source/badge-recommendation.mjs?v=badge-recommendation-2",
-      "/language-runtime/static/source/badge-progression.mjs?v=badge-progression-2",
+      "/language-runtime/static/source/badge-recommendation.mjs?v=badge-recommendation-3",
+      "/language-runtime/static/source/badge-progression.mjs?v=badge-progression-3",
       "/language-runtime/static/assets/xp-gold.webp",
       "/language-runtime/static/source/word-world-learning.mjs",
       "/language-runtime/static/source/word-world-teaching.mjs",
@@ -304,7 +304,19 @@
       "/language-runtime/static/assets/home/setup-ship-8.webp",
       "/language-runtime/static/assets/home/setup-ship-15.webp",
       "/language-runtime/static/assets/home/setup-ship-22.webp",
-      "/assets/ships/meta.json"
+      "/assets/ships/meta.json",
+      "/es/data/games/memory-moon/content.json?v=memory-moon-1",
+      "/language-runtime/static/games/memory-moon.html",
+      "/language-runtime/static/source/games/memory-moon/memory-moon-advance.mjs",
+      "/language-runtime/static/source/games/memory-moon/memory-moon-core.mjs?v=memory-moon-1",
+      "/language-runtime/static/source/games/memory-moon/memory-moon-entry.mjs?v=memory-moon-1",
+      "/language-runtime/static/source/games/memory-moon/memory-moon-host.mjs",
+      "/language-runtime/static/source/games/memory-moon/memory-moon-orbit.mjs",
+      "/language-runtime/static/source/games/memory-moon/memory-moon-phase.mjs",
+      "/language-runtime/static/source/games/memory-moon/memory-moon-practice.mjs",
+      "/language-runtime/static/source/games/memory-moon/memory-moon-render.mjs",
+      "/language-runtime/static/source/games/memory-moon/memory-moon-speech.mjs",
+      "/language-runtime/static/source/games/memory-moon/memory-moon.css?v=memory-moon-1"
     ]
   },
   "artifacts": [
@@ -321,24 +333,24 @@
       "kind": "shared-application",
       "url": "/es/index.html",
       "browserRequired": true,
-      "bytes": 97868,
-      "sha256": "b9687440d26b9e56d3396fe02476023e30daff727d788b4cc9b4d7a1c3c28379"
+      "bytes": 97938,
+      "sha256": "8cc1afa374baed4957dc8ee371299090659e56edcf0ee7bb738410fe06913d1a"
     },
     {
       "key": "course-profile",
       "kind": "course-contract",
       "url": "/es/source/shared/course-profile.js",
       "browserRequired": true,
-      "bytes": 25822,
-      "sha256": "5c4c1926a7e249ecb5eb79ea4e4ef977ddb887d45439f70ee53b9061edc21c6c"
+      "bytes": 27095,
+      "sha256": "96ea0bf5027fa38c2991c8eb296b2e1a9c46cb818630bb35553d57e580dc9360"
     },
     {
       "key": "shared-app-bootstrap",
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/app-bootstrap.mjs",
       "browserRequired": true,
-      "bytes": 35645,
-      "sha256": "7a24b39c6313b1320b2dd2643b1f428c29a067d93bcafe89c039b292d3e32116"
+      "bytes": 35692,
+      "sha256": "a74294de324046bdd57c570c4dfbba4ea719cd1ad4e0aee836d1e476f4705fbd"
     },
     {
       "key": "initial-theme",
@@ -393,16 +405,16 @@
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/shell-policy.js",
       "browserRequired": true,
-      "bytes": 17664,
-      "sha256": "88aa6a080aec4b4d0c098b3dc6a873d545a65aa32f3442b599983919d334a74d"
+      "bytes": 17953,
+      "sha256": "1734356360e97018e40515e6fd892bf33e8dcd59adcfadfe6968be62cfb36c68"
     },
     {
       "key": "caatuu-workspace",
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/caatuu-workspace.js",
       "browserRequired": true,
-      "bytes": 193583,
-      "sha256": "3b446a6f3c3accc3b56106b4bb7e33cad449ab328968547be5f9e0afcb02d914"
+      "bytes": 193757,
+      "sha256": "62f7ebbb04858bfed3e05943f1d025a30452436d9ce1220e5fc8a4a759f46c19"
     },
     {
       "key": "child-facing-assets",
@@ -457,8 +469,8 @@
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/learning-profile.js",
       "browserRequired": true,
-      "bytes": 107245,
-      "sha256": "47d3bda62b0eb07b090a312dd4dc73101155d1dd986c926395528311bb16fd66"
+      "bytes": 107272,
+      "sha256": "1975d69057a06e9502dd7bd16de07ffe58938e94aef6defe0620616b68461397"
     },
     {
       "key": "product-word-world",

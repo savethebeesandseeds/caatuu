@@ -13,11 +13,11 @@ import "../../language-runtime/static/source/shell-policy.js?v=shell-policy-17";
 
 const scriptPath = fileURLToPath(import.meta.url);
 const defaultWorkspaceRoot = resolve(dirname(scriptPath), "../../..");
-export const PRACTICE_CORPUS_GENERATOR_VERSION = "practice-corpus-workload-1";
+export const PRACTICE_CORPUS_GENERATOR_VERSION = "practice-corpus-workload-2";
 export const PRACTICE_PROFILE_PATH = "apps/language-runtime/static/source/learning-profile.js";
 const BEGIN = "// BEGIN GENERATED PRACTICE CORPUS";
 const END = "// END GENERATED PRACTICE CORPUS";
-const simpleKinds = new Set(["verb-match", "sentence", "case-context", "agreement-example", "noun-category", "listening-word", "listening-sentence"]);
+const simpleKinds = new Set(["verb-match", "sentence", "case-context", "agreement-example", "noun-category", "listening-word", "listening-sentence", "translation-choice"]);
 const groupedKinds = new Set(["conjugation-form", "character-puzzle", "word-reading-puzzle"]);
 const identity = value => JSON.stringify([value.courseId, value.gameId, value.bankId]);
 const text = value => typeof value === "string" && Boolean(value.trim());
@@ -47,6 +47,7 @@ function validateEffortPolicy(policy) {
   // items. Below those caps, this one-unit-per-clean-item estimate must change.
   assert.ok(positive(policy["verb-nebula"]?.cap) && policy["verb-nebula"].cap >= 8, "Matching cap cannot truncate supported clean boards");
   assert.ok(positive(policy["sound-quasar"]?.cap) && policy["sound-quasar"].cap >= 5, "Listening cap cannot truncate clean five-item batches");
+  assert.ok(positive(policy["memory-moon"]?.cap) && policy["memory-moon"].cap >= 6, "Memory Moon cap cannot truncate clean six-question moons");
   assert.ok(positive(policy["conjugation-comet"]?.cap) && policy["conjugation-comet"].forms === true, "Missing form-based helix effort policy");
   assert.equal(policy["grammar-gravity"]?.terminalActivity, true, "Missing terminal grammar effort policy");
 }
@@ -59,7 +60,7 @@ function validateEffortPolicy(policy) {
 export function aggregatePracticeCorpusWorkloads(corpus, { courseProfiles, catalogDocuments, effortPolicy } = {}) {
   validateEffortPolicy(effortPolicy);
   const weights = { "verb-match": 1, sentence: effortPolicy["word-world"].units, "case-context": effortPolicy["case-cosmos"].units,
-    "agreement-example": 1, "noun-category": 1, "listening-word": 1, "listening-sentence": 1 };
+    "agreement-example": 1, "noun-category": 1, "listening-word": 1, "listening-sentence": 1, "translation-choice": 1 };
   assert.equal(corpus?.schemaVersion, CORPUS_SCHEMA_VERSION, "Unsupported practice corpus schema");
   assert.equal(corpus?.adapterVersion, CORPUS_ADAPTER_VERSION, "Unsupported practice corpus adapter");
   for (const field of ["courses", "records", "playableUnits", "adapters"]) assert.ok(Array.isArray(corpus[field]), `Missing corpus ${field}`);

@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "locale": "en",
   "direction": "ltr",
-  "revision": "interface-en-46",
+  "revision": "interface-en-47",
   "messages": {
     "campaign.progress.unavailable": "Your progress is temporarily unavailable. Reopen the app to try again.",
     "campaign.stage.progress": "{cycles} / {target} cycles",
@@ -391,7 +391,7 @@
     "games.grammargravity.summary": "Land nouns and make words agree",
     "games.grammargravity.title": "Grammar Gravity",
     "games.grammargravity.unavailable": "This grammar sequence could not load. Reload the game to try again.",
-    "games.memorymoon.summary": "Coming later",
+    "games.memorymoon.summary": "Bring weak spots back into the light",
     "games.memorymoon.title": "Memory Moon",
     "games.naturalizationnucleus.summary": "Match words + Latin readings",
     "games.naturalizationnucleus.title": "Naturalization Nucleus",
@@ -1341,6 +1341,24 @@
     "wordworld.learning.foundation": "Foundation path",
     "wordworld.learning.patterns": "Sentence patterns",
     "wordworld.learning.units": "Practise a pattern",
-    "wordworld.learning.note": "Pattern note"
+    "wordworld.learning.note": "Pattern note",
+    "games.memorymoon.practice": "Memory Moon translation practice",
+    "games.memorymoon.choices": "Choose the translation",
+    "games.memorymoon.loading": "Preparing memories…",
+    "games.memorymoon.error": "Practice could not be loaded.",
+    "games.memorymoon.retry": "Try again",
+    "games.memorymoon.replay": "Another moon",
+    "games.memorymoon.complete": "You brought the moon to light.",
+    "games.memorymoon.restored": "Moon restored",
+    "games.memorymoon.round": "Memory {index} of {total}",
+    "games.memorymoon.correct": "Correct. The next memory will appear shortly.",
+    "games.memorymoon.wrong": "Try another translation.",
+    "games.memorymoon.play": "Play sentence audio",
+    "games.memorymoon.stop": "Stop audio",
+    "games.memorymoon.word": "Play word: {text}",
+    "games.memorymoon.audio.preparing": "Preparing audio.",
+    "games.memorymoon.audio.playing": "Playing audio.",
+    "games.memorymoon.audio.error": "Audio is unavailable.",
+    "games.memorymoon.illumination": "{percent} percent of the moon illuminated"
   }
 }

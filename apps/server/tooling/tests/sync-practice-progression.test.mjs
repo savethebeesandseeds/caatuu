@@ -11,17 +11,19 @@ import { aggregatePracticeCorpusWorkloads, extractPracticeEffortPolicy, practice
 const policySource = `const practicePolicies = Object.freeze({
   "word-world": { units: 3 }, "word-net": { units: 3 }, "case-cosmos": { units: 2 },
   "naturalization-nucleus": { units: 5 }, "verb-nebula": { cap: 12 }, "sound-quasar": { cap: 5 },
+  "memory-moon": { cap: 6 },
   "conjugation-comet": { cap: 6, forms: true }, "grammar-gravity": { terminalActivity: true }
 });`;
 const extracted = extractPracticeEffortPolicy(policySource);
-const profile = id => ({ id, capabilities: { wordWorld: true, conjugationComet: true, speech: true },
-  games: ["verb-lab", "word-net", "case-cosmos", "conjugation-comet", "grammar-gravity", "naturalization-nucleus", "sound-quasar"],
+const profile = id => ({ id, capabilities: { wordWorld: true, conjugationComet: true, speech: true, memory: true },
+  games: ["verb-lab", "word-net", "case-cosmos", "conjugation-comet", "grammar-gravity", "naturalization-nucleus", "sound-quasar", "memory-moon"],
   linguisticFeatures: ["grammatical-case", "verb-conjugation", "grammatical-agreement", "hanzi-pinyin"],
   routes: { verbNebula: "index.html?game=verb-lab", wordWorld: "index.html?game=word-net", caseCosmos: "cases.html",
-    conjugationComet: "conjugation.html", grammarGravity: "grammar.html", naturalizationNucleus: "domino.html", soundQuasar: "sound.html" } });
+    conjugationComet: "conjugation.html", grammarGravity: "grammar.html", naturalizationNucleus: "domino.html", soundQuasar: "sound.html",
+    memoryMoon: "memory.html" } });
 const kinds = { "verb-match": "verb-lab", sentence: "word-net", "case-context": "case-cosmos",
   "conjugation-form": "conjugation-comet", "agreement-example": "grammar-gravity", "noun-category": "grammar-gravity",
-  "character-puzzle": "naturalization-nucleus", "listening-word": "sound-quasar", "listening-sentence": "sound-quasar" };
+  "character-puzzle": "naturalization-nucleus", "listening-word": "sound-quasar", "listening-sentence": "sound-quasar", "translation-choice": "memory-moon" };
 
 function corpusFixture(id = "future-course") {
   const corpus = { schemaVersion: CORPUS_SCHEMA_VERSION, adapterVersion: CORPUS_ADAPTER_VERSION,
@@ -68,6 +70,17 @@ test("reading collisions require additional domino boards, whose repeated filler
   const nine = corpusFixture();
   nine.domino(["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"], 9);
   assert.deepEqual(nine.aggregate()["future-course"][1], { units: 10, effort: 10 });
+});
+
+test("Memory Moon counts each authored translation question once rather than multiplying choices or session phases", () => {
+  const f = corpusFixture();
+  for (const difficulty of [1, 2, 3]) for (let index = 0; index < 6; index++) {
+    f.add('translation-choice', `question-${difficulty}-${index}`, { difficulty, choiceCount: 3, assessmentDirection: 'recognize-translation' });
+  }
+  for (const difficulty of [1, 2, 3]) assert.deepEqual(f.aggregate()['future-course'][difficulty], { units: 6, effort: 6 });
+  f.profiles.get('future-course').capabilities.memory = false;
+  for (const difficulty of [1, 2, 3]) assert.deepEqual(f.aggregate()['future-course'][difficulty], { units: 0, effort: 0 });
+  assert.throws(() => extractPracticeEffortPolicy(policySource.replace('"memory-moon": { cap: 6 }', '"memory-moon": { cap: 5 }')), /Memory Moon cap/u);
 });
 
 test("exact difficulty and canonical game availability apply to dynamically registered courses", () => {

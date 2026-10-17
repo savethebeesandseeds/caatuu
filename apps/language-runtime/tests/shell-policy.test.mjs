@@ -173,10 +173,11 @@ test("Czech receives the complete shared navigation, game, and settings matrix",
     "conjugation-comet",
     "case-cosmos",
     "grammar-gravity",
+    "memory-moon",
     "sound-quasar"
   ]);
-  assert.deepEqual(policy.presentedGames, [...policy.games.slice(0, -1), "memory-moon", "sound-quasar"]);
-  assert.equal(gameState(czech, "memory-moon"), "upcoming");
+  assert.deepEqual(policy.presentedGames, policy.games);
+  assert.equal(gameState(czech, "memory-moon"), "playable");
   assert.equal(gameState(czech, "sound-quasar"), "playable");
   assert.deepEqual(policy.settingsSections, [
     "items",
@@ -200,12 +201,12 @@ test("Mandarin keeps the shared settings structure while precise unsupported con
   const policy = deriveShellPolicy(mandarin);
 
   assert.deepEqual(policy.primaryNavigation.map(({ id }) => id), ["home", "games", "backpack"]);
-  assert.deepEqual(policy.games, ["campaign", "verb-lab", "word-net", "naturalization-nucleus", "sound-quasar"]);
-  assert.deepEqual(policy.presentedGames, ["campaign", "verb-lab", "word-net", "naturalization-nucleus", "memory-moon", "sound-quasar"]);
+  assert.deepEqual(policy.games, ["campaign", "verb-lab", "word-net", "naturalization-nucleus", "memory-moon", "sound-quasar"]);
+  assert.deepEqual(policy.presentedGames, policy.games);
   assert.deepEqual(policy.settingsSections, ["items", "progress", "appearance", "course-storage", "speech", "ai-model"]);
   assert.equal(policy.gameAvailability["verb-lab"], true);
   assert.equal(mandarin.capabilities.verbs, false, "game availability must not load the legacy Czech provider bundle");
-  assert.equal(gameState(mandarin, "memory-moon"), "upcoming");
+  assert.equal(gameState(mandarin, "memory-moon"), "playable");
   assert.equal(gameState(mandarin, "sound-quasar"), "playable");
   assert.deepEqual(presentedGameIds(mandarin), policy.presentedGames);
   assert.equal(policy.gameAvailability["case-cosmos"], false);
@@ -223,9 +224,10 @@ test("Spanish projects its authored grammar games through the same shared shell 
     "word-net",
     "conjugation-comet",
     "grammar-gravity",
+    "memory-moon",
     "sound-quasar"
   ]);
-  assert.deepEqual(policy.presentedGames, [...policy.games.slice(0, -1), "memory-moon", "sound-quasar"]);
+  assert.deepEqual(policy.presentedGames, policy.games);
   assert.deepEqual(policy.settingsSections, [
     "items",
     "progress",
@@ -239,13 +241,13 @@ test("Spanish projects its authored grammar games through the same shared shell 
   assert.equal(gameAvailable(spanish, "conjugation-comet"), true);
   assert.equal(gameAvailable(spanish, "grammar-gravity"), true);
   assert.equal(gameAvailable(spanish, "case-cosmos"), false);
-  assert.equal(gameState(spanish, "memory-moon"), "upcoming");
+  assert.equal(gameState(spanish, "memory-moon"), "playable");
   assert.equal(gameState(spanish, "sound-quasar"), "playable");
 });
 
 test("Sounds Quasar joins Campaign wherever speech practice is playable", () => {
   for (const course of [czech, mandarin, spanish]) {
-    assert.equal(course.upcomingGames.includes("sound-quasar"), false, course.id);
+    assert.equal((course.upcomingGames ?? []).includes("sound-quasar"), false, course.id);
     assert.equal(gameState(course, "sound-quasar"), "playable", course.id);
     assert.equal(isGameAvailable("sound-quasar", course), true, course.id);
     assert.ok(campaignGameIds(course).includes("sound-quasar"));
@@ -312,7 +314,7 @@ test("game lookup is fail-closed for unknown IDs, undeclared games, and missing 
   }), false);
 });
 
-test("Campaign includes every playable planet and excludes unimplemented games", () => {
+test("Campaign includes every playable planet, including Memory Moon on its own", () => {
   const naturalizationOnly = {
     capabilities: {},
     linguisticFeatures: ["hanzi-pinyin"],
@@ -329,8 +331,9 @@ test("Campaign includes every playable planet and excludes unimplemented games",
     games: ["memory-moon"],
     routes: { memoryMoon: "index.html?game=memory-moon" }
   };
-  assert.equal(isGameAvailable("memory-moon", memoryOnly), false);
-  assert.equal(isGameAvailable("campaign", memoryOnly), false);
+  assert.equal(isGameAvailable("memory-moon", memoryOnly), true);
+  assert.equal(isGameAvailable("campaign", memoryOnly), true);
+  assert.deepEqual(campaignGameIds(memoryOnly), ["memory-moon"]);
 });
 
 test("course game routes are explicit while capability-only fixtures stay usable", () => {
@@ -346,8 +349,28 @@ test("course game routes are explicit while capability-only fixtures stay usable
   assert.equal(gameState({ ...course, upcomingGames: ["sound-quasar"] }, "sound-quasar"), "upcoming");
   assert.deepEqual(availableGameIds({ wordWorld: true, memory: true }), [
     "campaign",
-    "word-net"
+    "word-net",
+    "memory-moon"
   ]);
+});
+
+test("Memory Moon uses its independent shared host and joins Campaign for every declared course", async () => {
+  const game = PLANET_GAME_CONTRACT.planets['memory-moon'];
+  assert.equal(game.implementationState, 'implemented');
+  assert.equal(game.sharedHost, '/language-runtime/static/games/memory-moon.html');
+  assert.equal(game.learnerBasePresentationContract, 'authored-game-three-role-v1');
+  assert.deepEqual(game.resources.map(resource => [resource.name, resource.coursePath, resource.englishAuditContract]), [
+    ['memoryMoonCatalog', 'static/data/games/memory-moon/content.json', 'memory-moon-items-v1']
+  ]);
+  const catalog = await json('../../languages/catalog.json');
+  for (const entry of catalog.courses) {
+    const course = await json(`../../../${entry.manifest}`);
+    assert.equal(gameState(course, 'memory-moon'), 'playable', course.id);
+    assert.ok(campaignGameIds(course).includes('memory-moon'), course.id);
+    assert.equal(isGameAvailable('memory-moon', { ...course, games: course.games.filter(id => id !== 'memory-moon') }), false);
+    assert.equal(isGameAvailable('memory-moon', { ...course, capabilities: { ...course.capabilities, memory: false } }), false);
+    assert.equal(isGameAvailable('memory-moon', { ...course, routes: { ...course.routes, memoryMoon: '' } }), false);
+  }
 });
 
 test("AI/model settings remain in the shared structure regardless of course capability", () => {

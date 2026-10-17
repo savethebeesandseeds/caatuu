@@ -5,8 +5,14 @@
   "nativeProviders": {
     "schemaVersion": 1,
     "providers": {
-      "embeddings": { "implementation": "webview-english-minilm-v1", "resource": "embeddingCatalog" },
-      "speech": { "implementation": "android-text-to-speech-v1", "localeSource": "targetLanguage.speechLocale" }
+      "embeddings": {
+        "implementation": "webview-english-minilm-v1",
+        "resource": "embeddingCatalog"
+      },
+      "speech": {
+        "implementation": "android-text-to-speech-v1",
+        "localeSource": "targetLanguage.speechLocale"
+      }
     }
   },
   "files": [
@@ -23,7 +29,8 @@
     "data/games/word-world/learner-base.json",
     "data/games/conjugation-comet/content.json",
     "data/games/grammar-gravity/content.json",
-    "data/games/grammar-gravity/nouns.json"
+    "data/games/grammar-gravity/nouns.json",
+    "data/games/memory-moon/content.json"
   ],
   "launcherIconFiles": [],
   "policy": {

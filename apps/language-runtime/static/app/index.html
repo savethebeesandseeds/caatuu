@@ -9,7 +9,7 @@
     <link rel="icon" href="/language-runtime/static/assets/caatuu-shell-512.png">
     <link rel="apple-touch-icon" href="/language-runtime/static/assets/caatuu-shell-512.png">
     <script src="source/shared/course-profile.js?v=course-72"></script>
-    <script src="/language-runtime/static/source/learning-profile.js?v=learning-17"></script>
+    <script src="/language-runtime/static/source/learning-profile.js?v=learning-18"></script>
     <script src="/language-runtime/static/source/initial-theme.js?v=theme-3"></script>
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-theme.css?v=theme-8">
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-workspace.css?v=shell-102">
@@ -999,18 +999,14 @@
               </div>
             </section>
 
-            <section class="train-tab-panel memory-moon-panel upcoming-game-panel" id="trainPanelMemoryMoon" data-train-panel="memory-moon" aria-label="Memory Moon" data-i18n-aria-label="games.memorymoon.title" hidden>
-              <header class="word-net-head">
-                <div>
-                  <p class="verb-kicker" data-i18n="upcoming.memorymoon.kicker">Memory moon</p>
-                  <h2 data-i18n="games.memorymoon.title">Memory Moon</h2>
-                  <p class="memory-moon-copy upcoming-game-copy" data-i18n="upcoming.memorymoon.description">A smaller orbit for recall games will live here.</p>
+            <section class="train-tab-panel word-net-panel word-net-embedded-panel embedded-game-panel" id="trainPanelMemoryMoon" data-train-panel="memory-moon" aria-label="Memory Moon" data-i18n-aria-label="games.memorymoon.title" hidden>
+              <div class="word-net-embedded-stage embedded-game-stage" id="memoryMoonEmbeddedStage" aria-busy="true">
+                <iframe class="word-net-embedded-game embedded-game-frame" id="memoryMoonEmbeddedGame" data-src="/language-runtime/static/games/memory-moon.html" data-embedded-game="memory-moon" title="Memory Moon" data-i18n-title="games.memorymoon.title" allow="autoplay" aria-hidden="true" tabindex="-1"></iframe>
+                <div class="word-net-embedded-status embedded-game-status caatuu-game-robot-loading" id="memoryMoonEmbeddedStatus" role="status" aria-live="polite" aria-atomic="true">
+                  <img class="caatuu-game-robot-loading-art" src="/assets/robots/robot%20(1).png" alt="" aria-hidden="true">
+                  <strong></strong>
+                  <small></small>
                 </div>
-                <button type="button" class="train-back-button" data-train-tab="galaxy" data-i18n="common.allgames">All games</button>
-              </header>
-              <div class="memory-moon-stage upcoming-game-stage">
-                <img src="/assets/planets/memory-moon.png" alt="">
-                <span data-i18n="upcoming.comingnext">Coming next</span>
               </div>
             </section>
 
@@ -1183,7 +1179,7 @@
 
     <section class="print-book" id="printBook" aria-label="Generated pocket book" aria-hidden="true" data-i18n-aria-label="print.book.label"></section>
 
-    <script src="/language-runtime/static/source/shell-policy.js?v=shell-policy-17"></script>
-    <script type="module" src="/language-runtime/static/source/app-bootstrap.mjs?v=app-130"></script>
+    <script src="/language-runtime/static/source/shell-policy.js?v=shell-policy-18"></script>
+    <script type="module" src="/language-runtime/static/source/app-bootstrap.mjs?v=app-131"></script>
   </body>
 </html>

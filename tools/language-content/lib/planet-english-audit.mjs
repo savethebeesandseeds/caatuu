@@ -11,7 +11,8 @@ export const PLANET_ENGLISH_AUDIT_CONTRACT_IDS = Object.freeze([
   "grammar-gravity-items-v1",
   "grammar-gravity-nouns-v1",
   "naturalization-nucleus-items-v1",
-  "sound-quasar-items-v2"
+  "sound-quasar-items-v2",
+  "memory-moon-items-v1"
 ]);
 
 const CONTRACT_IDS = new Set(PLANET_ENGLISH_AUDIT_CONTRACT_IDS);
@@ -76,6 +77,22 @@ function validateVerbNebula(document, context, issues) {
 function validateSoundQuasar(document, context, issues) {
   for (const [index, item] of requireArray(issues, document?.items, `${context.location}.items`).entries()) {
     requireEnglishText(issues, item, `${context.location}.items[${index}]`);
+  }
+}
+
+function validateMemoryMoon(document, context, issues) {
+  if (document?.englishAuditLanguage !== ENGLISH_AUDIT_LANGUAGE
+    || document?.embeddingPolicy?.inputLanguage !== ENGLISH_AUDIT_LANGUAGE
+    || document?.embeddingPolicy?.inputField !== "embeddingText") {
+    addIssue(issues, context.location, "must keep Memory Moon audit and embedding input in English.");
+  }
+  for (const [index, item] of requireArray(issues, document?.challenges, `${context.location}.challenges`).entries()) {
+    const location = `${context.location}.challenges[${index}]`;
+    if (!nonEmptyString(item?.englishText)) addIssue(issues, location, "requires a non-empty independent englishText audit meaning.");
+    if (item?.embeddingText !== item?.englishText) addIssue(issues, `${location}.embeddingText`, "must equal the authored English meaning.");
+    for (const [choiceIndex, choice] of requireArray(issues, item?.choices, `${location}.choices`).entries()) {
+      requireEnglishText(issues, choice, `${location}.choices[${choiceIndex}]`);
+    }
   }
 }
 
@@ -241,7 +258,8 @@ const VALIDATORS = Object.freeze({
   "grammar-gravity-items-v1": validateGrammarGravity,
   "grammar-gravity-nouns-v1": validateGrammarGravityNouns,
   "naturalization-nucleus-items-v1": validateNaturalizationNucleus,
-  "sound-quasar-items-v2": validateSoundQuasar
+  "sound-quasar-items-v2": validateSoundQuasar,
+  "memory-moon-items-v1": validateMemoryMoon
 });
 
 export function validatePlanetEnglishAuditDocument(contractId, document, context = {}) {

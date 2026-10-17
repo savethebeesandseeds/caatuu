@@ -5,8 +5,9 @@ import { validateConjugationCometCatalog, buildConjugationHelixRound } from "./g
 import { validateGrammarGravityPack, buildGrammarGravityRounds } from "./games/grammar-gravity/grammar-gravity-core.mjs?v=grammar-gravity-core-7";
 import { normalizeNounLandingPack, createNounLandingSession } from "./games/grammar-gravity/noun-landing-core.mjs?v=noun-landing-core-11";
 import { validateSoundQuasarCatalog, buildSoundQuasarRound } from "./games/sound-quasar/sound-quasar-core.mjs?v=sound-quasar-10";
+import { validateMemoryMoonCatalog } from "./games/memory-moon/memory-moon-core.mjs?v=memory-moon-1";
 import { joinConceptCatalogs } from "./catalog-runtime.mjs";
-import "./shell-policy.js?v=shell-policy-17";
+import "./shell-policy.js?v=shell-policy-18";
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 const record = value => Boolean(value) && typeof value === "object" && !Array.isArray(value);
@@ -90,7 +91,8 @@ export function evaluateBadgeRecommendation({ courseId, difficulty, stageComplet
 
 const resourceNames = Object.freeze({ "word-world": "wordWorldManifest", "verb-nebula": "verbNebulaCatalog",
   "conjugation-comet": "conjugationCometCatalog", "grammar-gravity": "grammarGravityCatalog",
-  "sound-quasar": "soundQuasarCatalog", "case-cosmos": "caseCosmosCatalog", "naturalization-nucleus": "naturalizationNucleusCatalog" });
+  "sound-quasar": "soundQuasarCatalog", "case-cosmos": "caseCosmosCatalog", "naturalization-nucleus": "naturalizationNucleusCatalog",
+  "memory-moon": "memoryMoonCatalog" });
 const menuIds = Object.freeze({ "word-world": "word-net", "verb-nebula": "verb-lab" });
 const shellPolicy = globalThis.CaatuuShellPolicy;
 function abortCheck(signal) {
@@ -285,6 +287,11 @@ export function createBadgeRecommendation({ course, learning, runtimeHref = glob
         try { return buildSoundQuasarRound(pack, { difficulty: level, mode: bank, choiceCount: 2, random: () => .5 }).choices.length === 2; }
         catch { return false; }
       } };
+    }
+    if (gameId === "memory-moon") {
+      const pack = validateMemoryMoonCatalog(document, { course });
+      return { banks: { translations: indexRows(pack.challenges, row => row.familyId) },
+        playable: level => pack.challenges.filter(row => row.difficulty === level).length >= 6 };
     }
     if (gameId === "case-cosmos") return caseCatalog(document);
     if (gameId === "naturalization-nucleus") return nucleusCatalog(document);

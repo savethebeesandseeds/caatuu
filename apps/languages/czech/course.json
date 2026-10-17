@@ -42,9 +42,7 @@
     "conjugation-comet",
     "case-cosmos",
     "grammar-gravity",
-    "sound-quasar"
-  ],
-  "upcomingGames": [
+    "sound-quasar",
     "memory-moon"
   ],
   "launcher": {
@@ -66,7 +64,8 @@
     "conjugationComet": "/language-runtime/static/games/conjugation-comet.html",
     "caseCosmos": "case-cosmos.html",
     "grammarGravity": "/language-runtime/static/games/grammar-gravity.html",
-    "settings": "index.html"
+    "settings": "index.html",
+    "memoryMoon": "/language-runtime/static/games/memory-moon.html"
   },
   "storage": {
     "namespace": "caatuu-czech",
@@ -238,7 +237,7 @@
       "path": "apps/language-runtime/static/data/interface/en.v1.json",
       "scope": "shared",
       "state": "present",
-      "revision": "interface-en-46"
+      "revision": "interface-en-47"
     },
     "courseProfile": {
       "kind": "file",

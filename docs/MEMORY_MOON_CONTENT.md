@@ -29,7 +29,7 @@ Counts can grow through JSON edits without changing code or a fixed ceiling.
 
 Each challenge owns a stable course-scoped `id`, item `revision`, `difficulty`,
 `usefulness` and `complexity` on the existing 1–100 editorial scales, `topic`,
-and `familyId`. Family IDs group related situations so later repetition control
+and `familyId`. Family IDs group related situations so repetition control
 can rest a family even when individual question IDs differ.
 
 `targetText` is the sentence shown in the language being learned.
@@ -91,16 +91,34 @@ English-only retrieval, three-badge coverage, contrast metadata and grades. Its
 inventory reports counts, topics, families and contrast types. It uses no model,
 does not generate embeddings and does not alter saved learner profiles.
 
-## Integration boundary
+## Production selection and evidence
 
-This change authors the complete initial banks and declares their resources.
-Memory Moon remains an upcoming shared game until the production host,
-offline delivery and learner-evidence integration are implemented. The local
-interaction demo remains separate from these authoritative banks.
+All eight courses enable the shared production host at
+`/language-runtime/static/games/memory-moon.html`; each course supplies its own
+declared JSON through generated course authority. Runtime code ships with the
+app, and each bank belongs to that course's offline and Android delivery. The
+local interaction demo remains separate and is excluded from release assets.
 
-The agreed selector will use English embeddings of retained mistake/assistance
-evidence across games to sample nearby Memory Moon content. Multiple weakness
-regions, random weighted draws, recent-question history and semantic-family
-cooldowns should control relevance and repetition. No-history learners receive
-varied eligible content. This content task does not implement that selector or
-write results into another game's evidence.
+Each round samples six questions at exactly the selected badge. The selector
+reads retained mistake and assistance evidence across the current course's
+games, resolves its English meanings through Practice Compass, and embeds only
+English text with the shared MiniLM runtime. Multiple weakness regions guide
+weighted random draws, with exploration and a varied fallback for learners
+without history or when optional semantic tooling is unavailable. Saved recent
+question identities, explicit families and semantic neighbours cool down across
+rounds and reloads. A smaller eligible pool relaxes repetition penalties rather
+than preventing a round.
+
+This six-question sampler is Memory Moon's explicit selection boundary. It does
+not apply the other games' frontier or daily introduction quotas, and does not
+claim a calibrated diagnosis of grammatical mastery. Similar meanings provide
+practice hints, while the authored question supplies the assessed skill.
+Usefulness provides a small selection weight; complexity remains editorial
+metadata and does not impose an adaptive readiness gate within the chosen badge.
+
+Answers are recorded only under Memory Moon's `translations` bank and
+`recognize-translation` direction. Source games receive no result credit.
+Ordinary target audio is a prompt modality; a corrected or revealed answer is
+assisted. A completed round updates the existing activity, XP and round ledger
+once. Course changes, progress resets, hidden frames and cancelled asynchronous
+selection are fenced before they can write obsolete evidence.

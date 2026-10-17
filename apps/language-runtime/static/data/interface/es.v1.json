@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "locale": "es-ES",
   "direction": "ltr",
-  "revision": "interface-es-21",
+  "revision": "interface-es-22",
   "messages": {
     "campaign.progress.unavailable": "Tu progreso no está disponible temporalmente. Vuelve a abrir la aplicación para intentarlo de nuevo.",
     "campaign.stage.progress": "{cycles} de {target} ciclos",
@@ -391,7 +391,7 @@
     "games.grammargravity.summary": "Aterriza sustantivos y haz que las palabras concuerden",
     "games.grammargravity.title": "Gravedad gramatical",
     "games.grammargravity.unavailable": "No se ha podido cargar esta secuencia gramatical. Vuelve a cargar el juego para intentarlo de nuevo.",
-    "games.memorymoon.summary": "Próximamente",
+    "games.memorymoon.summary": "Repasa lo que más te cuesta",
     "games.memorymoon.title": "Luna de la memoria",
     "games.naturalizationnucleus.summary": "Empareja palabras y lecturas latinas",
     "games.naturalizationnucleus.title": "Núcleo de la naturalización",
@@ -1341,6 +1341,24 @@
     "wordworld.learning.foundation": "Ruta de fundamentos",
     "wordworld.learning.patterns": "Patrones de frases",
     "wordworld.learning.units": "Practicar un patrón",
-    "wordworld.learning.note": "Nota sobre el patrón"
+    "wordworld.learning.note": "Nota sobre el patrón",
+    "games.memorymoon.practice": "Memory Moon: traducciones",
+    "games.memorymoon.choices": "Elige la traducción",
+    "games.memorymoon.loading": "Preparando recuerdos…",
+    "games.memorymoon.error": "No se pudo cargar la práctica.",
+    "games.memorymoon.retry": "Volver a intentar",
+    "games.memorymoon.replay": "Otra luna",
+    "games.memorymoon.complete": "Has iluminado la luna.",
+    "games.memorymoon.restored": "Luna completa",
+    "games.memorymoon.round": "Recuerdo {index} de {total}",
+    "games.memorymoon.correct": "Correcto. El siguiente recuerdo aparecerá en un momento.",
+    "games.memorymoon.wrong": "Prueba otra traducción.",
+    "games.memorymoon.play": "Escuchar la frase",
+    "games.memorymoon.stop": "Detener audio",
+    "games.memorymoon.word": "Escuchar: {text}",
+    "games.memorymoon.audio.preparing": "Preparando audio.",
+    "games.memorymoon.audio.playing": "Reproduciendo audio.",
+    "games.memorymoon.audio.error": "El audio no está disponible.",
+    "games.memorymoon.illumination": "{percent} por ciento de la luna iluminado"
   }
 }

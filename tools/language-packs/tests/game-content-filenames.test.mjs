@@ -6,7 +6,7 @@ const root=new URL('../../../',import.meta.url);
 const read=async p=>JSON.parse(await readFile(new URL(p,root),'utf8'));
 test('every enabled game uses content.json and keeps its declared companion catalogs',async()=>{
   const catalog=await read('apps/languages/catalog.json');
-  const mainKeys=['verbNebulaCatalog','conjugationCometCatalog','caseCosmosCatalog','grammarGravityCatalog','naturalizationNucleusCatalog','soundQuasarCatalog'];
+  const mainKeys=['verbNebulaCatalog','conjugationCometCatalog','caseCosmosCatalog','grammarGravityCatalog','naturalizationNucleusCatalog','soundQuasarCatalog','memoryMoonCatalog'];
   for(const {manifest} of catalog.courses){
     const course=await read(manifest);
     for(const key of mainKeys){
