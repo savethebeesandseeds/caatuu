@@ -5,6 +5,7 @@ import { validateGrammarGravityPack } from "../../../apps/language-runtime/stati
 import { validateSoundQuasarCatalog } from "../../../apps/language-runtime/static/source/games/sound-quasar/sound-quasar-core.mjs";
 import { validateConjugationCometCatalog } from "../../../apps/language-runtime/static/source/games/conjugation-comet/conjugation-comet-core.mjs";
 import { validatePack as validateCaseCosmosPack } from "../../../apps/languages/czech/static/source/games/case-cosmos/case-cosmos-content.mjs";
+import { validateMemoryMoonContent } from "../../language-content/lib/memory-moon-content.mjs";
 
 export const LEARNER_CONTENT_SAFETY_POLICY_VERSION = "caatuu-child-content-safety-v5";
 
@@ -39,6 +40,10 @@ export const SHIPPED_LEARNER_CONTENT_SOURCES = Object.freeze([
   Object.freeze({
     id: "word-world",
     file: "apps/languages/czech/static/data/games/word-world/content.json",
+  }),
+  Object.freeze({
+    id: "memory-moon",
+    file: "apps/languages/czech/static/data/games/memory-moon/content.json",
   }),
   Object.freeze({
     id: "language-scripts",
@@ -356,6 +361,7 @@ export function extractLearnerContent(sourceId, value, file = sourceForId(source
     case "conjugation-comet": return extractConjugation(value, file);
     case "verb-nebula": return extractVocabulary(value, file);
     case "word-world": return extractWordWorld(value, file);
+    case "memory-moon": return extractMemoryMoon(value, file);
     case "language-scripts": return extractScripts(value, file);
     default: throw new Error(`Unsupported learner-content source: ${sourceId}`);
   }
@@ -634,6 +640,31 @@ function extractScripts(value, file) {
     });
   });
   return { fields, recordCount: rows.length };
+}
+
+function extractMemoryMoon(value, file) {
+  const pack = validateMemoryMoonContent(value);
+  const fields = [];
+  const targetLocale = pack.targetLanguage.split("-")[0];
+  const baseLocale = pack.learnerBaseLanguage.split("-")[0];
+  pack.challenges.forEach((item, index) => {
+    const add = (parts, text, locale, lessonExample = false) => addField(fields, {
+      file, contentId: item.id, field: pointer("challenges", index, ...parts), locale, text,
+      ...(lessonExample ? { [FIXED_LESSON_EXAMPLE]: true } : {})
+    });
+    // Recognition asks for an authored choice, never the learner's own details.
+    // Only the existing exact fixed-name expression exemption is available;
+    // appended requests, credentials and every other safety rule still apply.
+    for (const [name, locale] of [["targetText", targetLocale], ["learnerBaseText", baseLocale],
+      ["englishText", "en"], ["embeddingText", "en"]]) add([name], item[name], locale, true);
+    item.focus.englishConcepts.forEach((text, conceptIndex) => add(["focus", "englishConcepts", conceptIndex], text, "en"));
+    item.choices.forEach((choice, choiceIndex) => {
+      add(["choices", choiceIndex, "text"], choice.text, baseLocale, true);
+      add(["choices", choiceIndex, "englishAuditText"], choice.englishAuditText, "en", true);
+      if (choice.contrast) add(["choices", choiceIndex, "contrast", "explanation"], choice.contrast.explanation, "en");
+    });
+  });
+  return { fields, recordCount: pack.challenges.length };
 }
 
 function relevantPatterns(patterns, locale) {

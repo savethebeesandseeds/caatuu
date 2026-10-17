@@ -60,6 +60,11 @@ cannot establish grammatical correctness, naturalness or translation
 non-equivalence. Independent native-language review remains outstanding, and
 no existing course's review or publication status is promoted by these banks.
 
+The maintained learner-content extractor registers this game for every enabled
+course and scans prompts, every answer option, English audit/retrieval text,
+focus concepts and contrast explanations. Both release source preflight and
+compiled-product validation apply the existing content policy to these fields.
+
 Check all three options against the target sentence, after realization into the
 learner's actual base language. Keep valid paraphrases out of the wrong choices.
 Avoid differences in definiteness, gender, number, time or politeness that the

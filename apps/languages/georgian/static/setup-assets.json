@@ -341,7 +341,7 @@
       "url": "/ka/source/shared/course-profile.js",
       "browserRequired": true,
       "bytes": 24800,
-      "sha256": "482caec5af786cfe4d5c7d55cc91ba145d8aaf923d0e2ffb246d17a1f58a61d2"
+      "sha256": "2fefe19957545b6d4e5c5c0f12cd39544f80891d2c3ce3820d555efb63a960b4"
     },
     {
       "key": "shared-app-bootstrap",
@@ -469,7 +469,7 @@
       "url": "/language-runtime/static/source/learning-profile.js",
       "browserRequired": true,
       "bytes": 107272,
-      "sha256": "1975d69057a06e9502dd7bd16de07ffe58938e94aef6defe0620616b68461397"
+      "sha256": "7f49e5492d3fc2745a06aabffd7c81462be335ee5b81d1662fc04f459b863741"
     },
     {
       "key": "product-word-world",

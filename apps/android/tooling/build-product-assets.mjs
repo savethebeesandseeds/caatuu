@@ -2445,6 +2445,7 @@ function assertLearnerContentSafety(outputDir) {
     ["conjugation-comet", "data/games/conjugation-comet/content.json"],
     ["verb-nebula", "data/games/verb-nebula/content.json"],
     ["word-world", "data/games/word-world/content.json"],
+    ["memory-moon", "data/games/memory-moon/content.json"],
     ["language-scripts", "data/language/scripts.json"]
   ];
   const fields = sources.filter(([, assetPath]) => existsSync(join(outputDir, assetPath))).flatMap(([sourceId, assetPath]) => {

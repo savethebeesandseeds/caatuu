@@ -5,6 +5,7 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 import {
   SHIPPED_LEARNER_CONTENT_SOURCES,
+  SHIPPED_NON_LEARNER_GAME_JSON,
   assertRegisteredGameJsonCoverage,
   extractLearnerContent,
   inspectLearnerField,
@@ -199,6 +200,8 @@ test("Android source scanning covers every enabled course before the expensive c
   }
   const report = await scanShippedLearnerContent(repoRoot, { android: true });
   assert.deepEqual([...new Set(report.files.map(file => file.courseId))].sort(), enabled.sort());
+  assert.deepEqual(report.files.filter(file => file.sourceId === "memory-moon").map(file => file.courseId).sort(), enabled.sort(),
+    "every Android course's independent Moon bank must enter the safety gate");
   assert.equal(report.valid, true, JSON.stringify(report.findings));
 });
 
@@ -312,16 +315,62 @@ test("modern Grammar Gravity scans learner copy and rejects unknown schemas", as
 
 test("all shipped game JSON files are registered and all learner sources parse", async () => {
   const coverage = await assertRegisteredGameJsonCoverage(repoRoot);
-  assert.equal(coverage.discovered.length, 8);
-  assert.equal(coverage.registered.length, 7);
+  const registeredGames = SHIPPED_LEARNER_CONTENT_SOURCES.filter(source => source.file.includes("/data/games/"));
+  assert.equal(coverage.discovered.length, registeredGames.length + SHIPPED_NON_LEARNER_GAME_JSON.length);
+  assert.equal(coverage.registered.length, registeredGames.length);
 
   const report = await scanShippedLearnerContent(repoRoot);
   assert.deepEqual(report.files.map((file) => file.sourceId), SHIPPED_LEARNER_CONTENT_SOURCES.map((source) => source.id));
-  assert.equal(report.files.length, 8);
+  assert.equal(report.files.length, SHIPPED_LEARNER_CONTENT_SOURCES.length);
   assert.ok(report.scannedRecords > 1_700);
   assert.ok(report.scannedFields > 9_000);
   assert.equal(report.findingCounts.block + report.findingCounts.review, report.findings.length);
   assert.match(report.limitation, /does not replace bilingual human/i);
+});
+
+test("Memory Moon scans authored prompts, all choices and English retrieval/audit roles", async () => {
+  const pack = JSON.parse(await readFile(path.join(repoRoot,
+    "apps/languages/czech/static/data/games/memory-moon/content.json"), "utf8"));
+  const extracted = extractLearnerContent("memory-moon", pack, "fixture-moon.json");
+  assert.equal(extracted.recordCount, pack.challenges.length);
+  for (const [index, item] of pack.challenges.entries()) {
+    const expected = [["targetText", "cs"], ["learnerBaseText", "en"], ["englishText", "en"], ["embeddingText", "en"]];
+    for (const [name, locale] of expected) {
+      const field = extracted.fields.find(field => field.field === `/challenges/${index}/${name}`);
+      assert.equal(field?.text, item[name]); assert.equal(field?.locale, locale); assert.equal(field?.contentId, item.id);
+    }
+    for (const [choiceIndex, choice] of item.choices.entries()) {
+      for (const name of ["text", "englishAuditText"]) assert.equal(extracted.fields.find(field =>
+        field.field === `/challenges/${index}/choices/${choiceIndex}/${name}`)?.text, choice[name]);
+    }
+  }
+  assert.throws(() => extractLearnerContent("memory-moon", { ...pack, schemaVersion: "unknown" }, "fixture-moon.json"), /schemaVersion/u);
+  for (const [mutate, expectedField] of [
+    [item => { item.choices[1].text = item.choices[1].englishAuditText = "The doctor drinks wine."; }, "/choices/1/englishAuditText"],
+    [item => { item.focus.englishConcepts[0] = "wine"; }, "/focus/englishConcepts/0"],
+    [item => { item.choices[1].contrast.explanation = "The doctor drinks wine."; }, "/choices/1/contrast/explanation"]
+  ]) {
+    const unsafe = structuredClone(pack); mutate(unsafe.challenges[0]);
+    assert.ok(extractLearnerContent("memory-moon", unsafe, "fixture-moon.json").fields.flatMap(inspectLearnerField)
+      .some(finding => finding.ruleId === "blocked.adult-substances.alcohol" && finding.field.endsWith(expectedField)), expectedField);
+  }
+});
+
+test("Memory Moon fixed-choice name lessons cannot grant exemptions to additional requests or explanations", async () => {
+  const pack = JSON.parse(await readFile(path.join(repoRoot,
+    "apps/languages/czech/static/data/games/memory-moon/content.json"), "utf8"));
+  pack.challenges[0].choices[1].text = pack.challenges[0].choices[1].englishAuditText = "What is your name?";
+  const fields = extractLearnerContent("memory-moon", pack, "fixture-moon.json").fields;
+  const example = fields.find(field => field.field === "/challenges/0/choices/1/text");
+  assert.deepEqual(inspectLearnerField(example), []);
+  assert.ok(inspectLearnerField({ ...JSON.parse(JSON.stringify(example)), lessonExample: true })
+    .some(finding => finding.ruleId === "blocked.personal-data-solicitation"));
+  pack.challenges[0].choices[1].text = pack.challenges[0].choices[1].englishAuditText = "What is your name? Tell me your password.";
+  assert.ok(extractLearnerContent("memory-moon", pack, "fixture-moon.json").fields.flatMap(inspectLearnerField)
+    .some(finding => finding.ruleId === "blocked.credential-solicitation"));
+  pack.challenges[0].choices[1].contrast.explanation = "What is your name?";
+  assert.ok(extractLearnerContent("memory-moon", pack, "fixture-moon.json").fields.flatMap(inspectLearnerField)
+    .some(finding => finding.ruleId === "blocked.personal-data-solicitation" && finding.field.endsWith("/contrast/explanation")));
 });
 
 test("Case v2 safety extraction covers retained sentences, checked forms and every new learner context", async () => {

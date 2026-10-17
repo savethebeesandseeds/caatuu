@@ -510,7 +510,7 @@
                 grammarGravityNouns: "data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-1"
               },
               "memory-moon": {
-                memoryMoonCatalog: "data/games/memory-moon/content.json?v=memory-moon-1"
+                memoryMoonCatalog: "data/games/memory-moon/content.json?v=memory-moon-2"
               }
             },
             dictionaryContent: null,

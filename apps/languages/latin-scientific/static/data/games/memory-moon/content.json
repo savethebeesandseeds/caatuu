@@ -3,7 +3,7 @@
   "courseId": "la",
   "gameId": "memory-moon",
   "contentId": "la.memory-moon.v1",
-  "contentRevision": 1,
+  "contentRevision": 2,
   "status": "machine-assisted-preview",
   "learnerBaseLanguage": "en",
   "targetLanguage": "la",
@@ -670,7 +670,7 @@
     },
     {
       "id": "mm-la-doctor-water",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 1,
       "usefulness": 92,
       "complexity": 21,
@@ -705,11 +705,11 @@
         },
         {
           "id": "contrast-2",
-          "text": "The doctor drinks wine.",
-          "englishAuditText": "The doctor drinks wine.",
+          "text": "The doctor drinks juice.",
+          "englishAuditText": "The doctor drinks juice.",
           "contrast": {
             "kind": "object",
-            "explanation": "The target means “The doctor drinks water.” This option changes the object: “The doctor drinks wine.”"
+            "explanation": "The target means “The doctor drinks water.” This option changes the object: “The doctor drinks juice.”"
           }
         }
       ]
@@ -2141,21 +2141,21 @@
       ]
     },
     {
-      "id": "mm-la-doctor-examines",
+      "id": "mm-la-doctor-examines-foot",
       "revision": 1,
       "difficulty": 2,
       "usefulness": 89,
       "complexity": 41,
       "topic": "body",
       "familyId": "mm-la-doctor-examines",
-      "targetText": "Medicus vulnus inspicit.",
-      "learnerBaseText": "The doctor examines the wound.",
-      "englishText": "The doctor examines the wound.",
-      "embeddingText": "The doctor examines the wound.",
+      "targetText": "Medicus pedem inspicit.",
+      "learnerBaseText": "The doctor examines the foot.",
+      "englishText": "The doctor examines the foot.",
+      "embeddingText": "The doctor examines the foot.",
       "focus": {
         "kind": "object",
         "englishConcepts": [
-          "The doctor examines the wound",
+          "The doctor examines the foot",
           "body"
         ]
       },
@@ -2163,8 +2163,8 @@
       "choices": [
         {
           "id": "correct",
-          "text": "The doctor examines the wound.",
-          "englishAuditText": "The doctor examines the wound."
+          "text": "The doctor examines the foot.",
+          "englishAuditText": "The doctor examines the foot."
         },
         {
           "id": "contrast-1",
@@ -2172,7 +2172,7 @@
           "englishAuditText": "The doctor examines the eye.",
           "contrast": {
             "kind": "object",
-            "explanation": "The target means “The doctor examines the wound.” This option changes the object: “The doctor examines the eye.”"
+            "explanation": "The target means “The doctor examines the foot.” This option changes the object: “The doctor examines the eye.”"
           }
         },
         {
@@ -2181,7 +2181,7 @@
           "englishAuditText": "The doctor examines the hand.",
           "contrast": {
             "kind": "object",
-            "explanation": "The target means “The doctor examines the wound.” This option changes the object: “The doctor examines the hand.”"
+            "explanation": "The target means “The doctor examines the foot.” This option changes the object: “The doctor examines the hand.”"
           }
         }
       ]

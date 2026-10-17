@@ -304,7 +304,7 @@
       "/language-runtime/static/assets/home/setup-ship-15.webp",
       "/language-runtime/static/assets/home/setup-ship-22.webp",
       "/assets/ships/meta.json",
-      "/la/data/games/memory-moon/content.json?v=memory-moon-1",
+      "/la/data/games/memory-moon/content.json?v=memory-moon-2",
       "/language-runtime/static/games/memory-moon.html",
       "/language-runtime/static/source/games/memory-moon/memory-moon-advance.mjs",
       "/language-runtime/static/source/games/memory-moon/memory-moon-core.mjs?v=memory-moon-1",
@@ -341,7 +341,7 @@
       "url": "/la/source/shared/course-profile.js",
       "browserRequired": true,
       "bytes": 24745,
-      "sha256": "6d0af46895d79a4581713654b729c869a286ed13691d8e78455a5145e7a0ad00"
+      "sha256": "2991aedee1d9719ccb2d8aba7bc57134771f4172b3cc921c34e4bc36ac23202c"
     },
     {
       "key": "shared-app-bootstrap",
@@ -469,7 +469,7 @@
       "url": "/language-runtime/static/source/learning-profile.js",
       "browserRequired": true,
       "bytes": 107272,
-      "sha256": "1975d69057a06e9502dd7bd16de07ffe58938e94aef6defe0620616b68461397"
+      "sha256": "7f49e5492d3fc2745a06aabffd7c81462be335ee5b81d1662fc04f459b863741"
     },
     {
       "key": "product-word-world",
