@@ -2,9 +2,9 @@ import { initializeWorkspaceAfterDictionaryProvider } from "./dictionary-provide
 import { initializeHomeCourseSetup } from "./course-setup.mjs?v=course-setup-5";
 import { installMusic } from "./music.mjs";
 import { installGameDynamics } from "./game-dynamics.mjs?v=game-dynamics-7";
-import { installBadgeProgression } from "./badge-progression.mjs?v=badge-progression-3";
+import { installBadgeProgression } from "./badge-progression.mjs?v=badge-progression-4";
 import { installCampaignRoadmap } from "./campaign-roadmap.mjs?v=campaign-roadmap-2";
-import { createPracticeCompass, sharedPracticeAxes } from "./practice-compass.mjs?v=practice-compass-7";
+import { createPracticeCompass, sharedPracticeAxes } from "./practice-compass.mjs?v=practice-compass-8";
 import {
   installInterfaceContent,
   loadInterfaceContent

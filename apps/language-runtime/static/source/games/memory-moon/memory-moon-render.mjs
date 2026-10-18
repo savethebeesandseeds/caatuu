@@ -1,4 +1,5 @@
 import { createSpeechIcon } from '../embedded-game-controls.mjs';
+import { renderTargetText } from '../../target-text.mjs?v=target-text-1';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 let sequence = 0;
@@ -12,6 +13,7 @@ export function moonLabels(course, i18n) {
     restored: 'Luna completa', round: (index, total) => `Recuerdo ${index} de ${total}`,
     correct: 'Correcto. El siguiente recuerdo aparecerá en un momento.', wrong: 'Prueba otra traducción.',
     play: 'Escuchar la frase', stop: 'Detener audio', word: text => `Escuchar: ${text}`,
+    selectWord: text => `Ver el significado de ${text}`,
     preparing: 'Preparando audio.', playing: 'Reproduciendo audio.', audioError: 'El audio no está disponible.',
     illumination: percent => `${percent} por ciento de la luna iluminado`
   } : {
@@ -21,6 +23,7 @@ export function moonLabels(course, i18n) {
     restored: 'Moon restored', round: (index, total) => `Memory ${index} of ${total}`,
     correct: 'Correct. The next memory will appear shortly.', wrong: 'Try another translation.',
     play: 'Play sentence audio', stop: 'Stop audio', word: text => `Play word: ${text}`,
+    selectWord: text => `Show meaning: ${text}`,
     preparing: 'Preparing audio.', playing: 'Playing audio.', audioError: 'Audio is unavailable.',
     illumination: percent => `${percent} percent of the moon illuminated`
   };
@@ -36,6 +39,7 @@ export function moonLabels(course, i18n) {
   }
   result.round = (index, total) => translated('round', labels.round(index, total), { index, total });
   result.word = text => translated('word', labels.word(text), { text });
+  result.selectWord = text => translated('selectword', labels.selectWord(text), { text });
   result.illumination = percent => translated('illumination', labels.illumination(percent), { percent });
   return result;
 }
@@ -53,7 +57,46 @@ export function tokenizeMoonText(text, locale, Segmenter = globalThis.Intl?.Segm
     .map(([part]) => ({ text: part, word: /^[\p{L}\p{M}\p{N}]/u.test(part) }));
 }
 
-export function createMoonRenderer({ root, course, i18n, onAnswer, onSpeak, onReplay } = {}) {
+// Reading positions belong to this occurrence in this sentence. A repeated Han
+// character may have a different reading later; a surface-only lookup is unsafe.
+export function moonWordReadingUnits(item, word, tokenIndex, locale) {
+  const text = String(item?.targetText || '').normalize('NFC');
+  const reading = item?.targetReading;
+  if (reading?.system !== 'pinyin' || !Array.isArray(reading.tokens) || !reading.tokens.length) return null;
+  const aligned = [];
+  let cursor = 0;
+  for (const token of reading.tokens) {
+    if (typeof token?.surface !== 'string' || !token.surface || !Array.isArray(token.units)
+        || !token.units.length || token.units.some(unit => typeof unit?.surface !== 'string'
+          || Array.from(unit.surface).length !== 1 || typeof unit.notation !== 'string'
+          || !unit.notation.trim())
+        || token.units.map(unit => unit.surface).join('') !== token.surface) return null;
+    const start = text.indexOf(token.surface, cursor);
+    if (start < cursor || /\p{Script=Han}/u.test(text.slice(cursor, start))) return null;
+    let offset = start;
+    for (const unit of token.units) {
+      aligned.push({ ...unit, start: offset, end: offset + unit.surface.length });
+      offset += unit.surface.length;
+    }
+    cursor = offset;
+  }
+  if (/\p{Script=Han}/u.test(text.slice(cursor))) return null;
+  let offset = 0, index = 0;
+  for (const token of tokenizeMoonText(text, locale)) {
+    if (token.word && index++ === tokenIndex) {
+      if (token.text !== word) return null;
+      const end = offset + token.text.length;
+      const units = aligned.filter(unit => unit.start >= offset && unit.end <= end);
+      return units.map(unit => unit.surface).join('') === token.text
+        ? units.map(({ surface, notation, tone }) => ({ surface, notation, ...(tone === undefined ? {} : { tone }) })) : null;
+    }
+    offset += token.text.length;
+  }
+  return null;
+}
+
+export function createMoonRenderer({ root, course, i18n, onAnswer, onSpeak, onReplay,
+  onSelectWord, readingGuide } = {}) {
   const document = root?.ownerDocument;
   if (!document) throw new TypeError('Memory Moon needs a local root.');
   const labels = moonLabels(course, i18n);
@@ -96,7 +139,11 @@ export function createMoonRenderer({ root, course, i18n, onAnswer, onSpeak, onRe
   orbit.append(ship);
   figure.append(globe, orbit);
   const toolbar = node('div', 'moon-toolbar');
-  overview.append(figure, toolbar);
+  const overviewSide = node('div', 'moon-overview-side');
+  const dictionarySlot = node('aside', 'moon-dictionary-slot');
+  dictionarySlot.hidden = true;
+  overviewSide.append(toolbar, dictionarySlot);
+  overview.append(figure, overviewSide);
   const challenge = node('section', 'moon-challenge');
   const sentenceRow = node('div', 'moon-sentence-row');
   const sentence = node('h1', 'moon-sentence');
@@ -137,26 +184,46 @@ export function createMoonRenderer({ root, course, i18n, onAnswer, onSpeak, onRe
   root.replaceChildren(board, brandFooter);
   root.classList.add('memory-moon-host');
   let session = null, busy = true, available = true, lastSentence = null, lastComplete = null;
+  let lastItemId = null, lastReading = null;
   let speechState = { status: 'idle' }, failed = false, campaign = false;
 
-  function renderSentence(text, complete) {
-    if (text === lastSentence && complete === lastComplete) return;
+  function renderWord(host, word, { item, tokenIndex, showGuide = false } = {}) {
+    host.lang = target.locale || 'und';
+    host.dir = target.direction || 'auto';
+    if (readingGuide?.supports?.(word)) return readingGuide.render(host, word);
+    return renderTargetText(document, host, word, {
+      units: moonWordReadingUnits(item, word, tokenIndex, target.locale),
+      showGuide, colorTones: true, guideLanguage: 'zh-Latn-pinyin'
+    });
+  }
+  function renderSentence(text, complete, item) {
+    if (text === lastSentence && complete === lastComplete && item?.id === lastItemId
+        && item?.targetReading === lastReading) return;
     lastSentence = text;
     lastComplete = complete;
+    lastItemId = item?.id;
+    lastReading = item?.targetReading;
     sentence.replaceChildren();
     sentence.lang = complete ? source.locale || 'en' : target.locale || 'und';
     sentence.dir = complete ? source.direction || 'auto' : target.direction || 'auto';
     sentence.setAttribute('aria-label', text);
-    if (complete || !speechAvailable) { sentence.textContent = text; return; }
-    let cluster;
+    if (complete || (!speechAvailable && !onSelectWord)) { sentence.textContent = text; return; }
+    let cluster, tokenIndex = 0;
     for (const token of tokenizeMoonText(text, target.locale)) {
       if (token.word) {
         cluster = node('span', 'moon-token-cluster');
-        const button = node('button', 'moon-word-token', token.text);
+        const button = node('button', 'moon-word-token');
+        const index = tokenIndex++;
         button.type = 'button';
         button.dataset.spokenWord = token.text;
-        button.setAttribute('aria-label', labels.word(token.text));
-        button.addEventListener('click', () => onSpeak?.(token.text));
+        button.dataset.tokenIndex = String(index);
+        renderWord(button, token.text, { item, tokenIndex: index });
+        button.setAttribute('aria-label', onSelectWord ? labels.selectWord(token.text) : labels.word(token.text));
+        button.addEventListener('click', () => {
+          if (button.disabled) return;
+          if (onSelectWord) onSelectWord(token.text, { item, tokenIndex: index, button });
+          else onSpeak?.(token.text);
+        });
         cluster.append(button);
         sentence.append(cluster);
       } else if (/^\s+$/u.test(token.text)) { sentence.append(token.text); cluster = null; }
@@ -199,7 +266,7 @@ export function createMoonRenderer({ root, course, i18n, onAnswer, onSpeak, onRe
     globe.setAttribute('aria-label', labels.illumination(Math.round(illumination * 100)));
     round.textContent = complete ? labels.restored : session ? labels.round(session.index + 1, session.target) : '';
     const item = session?.currentItem || session?.items?.[session.index];
-    renderSentence(complete ? labels.complete : loading || error ? '' : item?.targetText || '', complete);
+    renderSentence(complete ? labels.complete : loading || error ? '' : item?.targetText || '', complete, item);
     choices.replaceChildren();
     if (item && !complete && !loading && !error) for (const choice of item.choices) {
       const button = node('button', 'moon-choice', choice.text);
@@ -228,7 +295,8 @@ export function createMoonRenderer({ root, course, i18n, onAnswer, onSpeak, onRe
   const replayClick = () => { if (!replay.disabled && (failed || session?.phase === 'complete')) onReplay?.(); };
   speak.addEventListener('click', speakClick);
   replay.addEventListener('click', replayClick);
-  return { board, toolbar, globe, shade, ship, shipImage, choices, sentence, replay,
+  return { board, toolbar, dictionarySlot, globe, shade, ship, shipImage, choices, sentence, replay,
+    renderDictionaryWord(host, word, context) { return renderWord(host, word, { ...context, showGuide: true }); },
     render, syncSpeech,
     focusChoice() { choices.querySelector('button:not(:disabled)')?.focus({ preventScroll: true }); },
     destroy() { root.replaceChildren(); root.classList.remove('memory-moon-host'); }

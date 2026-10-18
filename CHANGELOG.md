@@ -1,5 +1,18 @@
 # Changelog
 
+## Android 185 / 0.1.33
+
+- Keep Memory Moon sentences naturally spaced and words selectable. Add authored
+  Mandarin tone colours and reuse the Arabic and Georgian reading guides.
+- Speak each new challenge automatically, with the existing saved autoplay
+  switch in the Audio menu. Cancel delayed speech on navigation and audio changes.
+- Open the shared dictionary card only after selecting a word. Reuse available
+  course meanings, keep learner-base languages intact and record displayed
+  meanings as assistance only for the current Memory Moon challenge.
+- The initial 90 challenges per course need substantial expansion. Independent
+  language and pronunciation review, plus physical-device installation, update,
+  offline use and saved-data preservation, remain unverified for this candidate.
+
 ## Android 184 / 0.1.32
 
 - Refine course setup with rotating ship artwork, compact download details and

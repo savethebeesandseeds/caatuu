@@ -1,6 +1,7 @@
 import { readFile, realpath } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { validateMoonTargetReading } from '../../../apps/language-runtime/static/source/games/memory-moon/memory-moon-reading.mjs';
 
 export const MEMORY_MOON_SCHEMA = 'caatuu-memory-moon-content-v1';
 export const MEMORY_MOON_CONTRAST_KINDS = Object.freeze([
@@ -53,6 +54,10 @@ export function validateMemoryMoonContent(document, { course } = {}) {
   for (const [index, item] of challenges.entries()) {
     const where = `challenges[${index}] (${item?.id || 'missing ID'})`;
     if (!item || typeof item !== 'object' || Array.isArray(item)) { check(false, where, 'must be an object'); continue; }
+    const mandarin = /^zh(?:-|$)/u.test(document.targetLanguage);
+    check(item.targetReading === undefined || mandarin, `${where}.targetReading`, 'pinyin belongs only to Mandarin content');
+    try { validateMoonTargetReading(item.targetReading, item.targetText, { required: mandarin }); }
+    catch (failure) { check(false, `${where}.targetReading`, failure.message); }
     check(idPattern.test(item.id || '') && item.id.startsWith(`mm-${document.courseId}-`) && !ids.has(item.id), `${where}.id`, 'must be a unique course-scoped stable ID');
     ids.add(item.id);
     check(Number.isSafeInteger(item.revision) && item.revision > 0, `${where}.revision`, 'must be a positive integer');

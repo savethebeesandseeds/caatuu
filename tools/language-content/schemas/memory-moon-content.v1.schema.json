@@ -31,6 +31,7 @@
     },
     "challenges": {"type": "array", "minItems": 18, "items": {"$ref": "#/$defs/challenge"}}
   },
+  "allOf": [{"if": {"properties": {"targetLanguage": {"pattern": "^zh(?:-|$)"}}}, "then": {"properties": {"challenges": {"items": {"required": ["targetReading"]}}}}}],
   "$defs": {
     "id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
     "text": {"type": "string", "minLength": 1},
@@ -43,6 +44,23 @@
         "contrast": {"type": "object", "required": ["kind", "explanation"], "properties": {"kind": {"$ref": "#/$defs/kind"}, "explanation": {"$ref": "#/$defs/text"}}}
       }
     },
+    "targetReading": {
+      "type": "object", "additionalProperties": false,
+      "required": ["system", "status", "tokens"],
+      "properties": {
+        "system": {"const": "pinyin"}, "status": {"const": "machine-assisted-preview"},
+        "tokens": {"type": "array", "minItems": 1, "maxItems": 200, "items": {
+          "type": "object", "additionalProperties": false, "required": ["surface", "units"],
+          "properties": {
+            "surface": {"$ref": "#/$defs/text"},
+            "units": {"type": "array", "minItems": 1, "items": {
+              "type": "object", "additionalProperties": false, "required": ["surface", "notation"],
+              "properties": {"surface": {"$ref": "#/$defs/text"}, "notation": {"$ref": "#/$defs/text"}}
+            }}
+          }
+        }}
+      }
+    },
     "challenge": {
       "type": "object",
       "required": ["id", "revision", "difficulty", "usefulness", "complexity", "topic", "familyId", "targetText", "learnerBaseText", "englishText", "embeddingText", "focus", "correctChoiceId", "choices"],
@@ -51,6 +69,7 @@
         "difficulty": {"enum": [1, 2, 3]}, "usefulness": {"$ref": "#/$defs/grade"}, "complexity": {"$ref": "#/$defs/grade"},
         "topic": {"$ref": "#/$defs/text"}, "familyId": {"$ref": "#/$defs/id"},
         "targetText": {"$ref": "#/$defs/text"}, "learnerBaseText": {"$ref": "#/$defs/text"},
+        "targetReading": {"$ref": "#/$defs/targetReading"},
         "englishText": {"$ref": "#/$defs/text"}, "embeddingText": {"$ref": "#/$defs/text"},
         "focus": {"type": "object", "required": ["kind", "englishConcepts"], "properties": {"kind": {"$ref": "#/$defs/kind"}, "englishConcepts": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/text"}}}},
         "correctChoiceId": {"$ref": "#/$defs/id"}, "choices": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"$ref": "#/$defs/choice"}}

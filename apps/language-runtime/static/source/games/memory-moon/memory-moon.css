@@ -13,12 +13,23 @@ body { overflow-x: hidden; }
 .moon-shade { fill: #070b09; }
 .moon-rim { fill: none; stroke: color-mix(in srgb, var(--theme-amber) 38%, transparent); stroke-width: .7px; }
 .moon-toolbar { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; padding-top: 4px; }
+.moon-overview-side { display: flex; flex: 1; flex-direction: column; align-items: flex-end; gap: 14px; min-width: 0; }
+.moon-dictionary-slot { width: min(288px, 100%); min-width: 0; direction: ltr; }
+.moon-dictionary-slot .dictionary-word-card { position: relative; width: 100%; max-width: none; }
+.moon-dictionary-slot .dictionary-word-card__word { white-space: normal; overflow: visible; text-overflow: clip; }
+.moon-dictionary-close { position: absolute; top: 0; right: 0; display: grid; place-items: center; width: 32px; height: 32px; padding: 0; border: 0; border-radius: 50%; background: transparent; color: var(--theme-muted); font: inherit; cursor: pointer; }
+.moon-dictionary-close:focus-visible { outline: 3px solid var(--theme-focus-ring); outline-offset: -3px; }
 .moon-challenge { display: flex; flex-direction: column; align-items: center; width: min(900px, 100%); margin: auto auto; padding: 24px 0 16px; }
 .moon-sentence-row { display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; margin-bottom: 16px; }
 .moon-sentence { margin: 0; max-width: 100%; text-wrap: balance; text-align: center; font-size: clamp(1.45rem, 3.2vw, 1.85rem); line-height: 1.65; font-weight: 500; letter-spacing: 0; }
-.moon-token-cluster { display: inline-flex; align-items: baseline; white-space: nowrap; }
-.moon-word-token { display: inline-grid; place-items: center; min-width: var(--caatuu-control-target-size, 44px); min-height: var(--caatuu-control-target-size, 44px); margin-block: 3px; padding: 3px 5px; border: 1px solid color-mix(in srgb, var(--theme-line, #cfd8d1) 44%, transparent); border-radius: 7px; background: color-mix(in srgb, var(--theme-soft-green, #e8f5ee) 10%, transparent); color: var(--theme-green-strong, #1c4a40); font: inherit; font-size: clamp(1.08rem, 4vw, 1.75rem); font-weight: 500; line-height: 1.1; letter-spacing: 0; cursor: pointer; }
-.moon-word-token:hover:not(:disabled), .moon-word-token.is-selected { border-color: var(--theme-green); background: var(--theme-selection); }
+.moon-token-cluster { display: inline; }
+/* Source whitespace is the only word spacing. Whole Arabic words retain their
+   shaping, while adjacent Chinese words remain a continuous line of Hanzi. */
+.moon-word-token { display: inline; min-width: 0; min-height: 0; margin: 0; padding: 0; border: 0; border-radius: .15em; background: transparent; color: var(--theme-green-strong, #1c4a40); font: inherit; line-height: inherit; letter-spacing: 0; text-align: inherit; vertical-align: baseline; user-select: text; -webkit-user-select: text; cursor: pointer; }
+.moon-word-token:hover:not(:disabled), .moon-word-token.is-selected, .moon-word-token.is-dictionary-selected { background: var(--theme-selection); text-decoration: underline; text-decoration-thickness: .05em; text-underline-offset: .15em; }
+.moon-sentence .caatuu-target-text, .moon-dictionary-slot .caatuu-target-text { display: inline; column-gap: 0; }
+.moon-sentence[lang^="ar"] { font-family: "Noto Sans Arabic", "Segoe UI", sans-serif; }
+.moon-sentence[lang^="ka"] { font-family: "Noto Sans Georgian", "Segoe UI", sans-serif; }
 [data-theme="dark"] .moon-word-token { color: color-mix(in srgb, var(--theme-ink) 82%, var(--theme-green) 18%); }
 .moon-speak { display: inline-grid; flex-shrink: 0; place-items: center; min-width: 44px; min-height: 44px; padding: 8px; border: 1px solid var(--theme-control-border); border-radius: 50%; background: var(--theme-panel-raised); color: var(--theme-green-strong); cursor: pointer; }
 .moon-speak[aria-pressed="true"] { background: var(--theme-selection); border-color: var(--theme-green); }

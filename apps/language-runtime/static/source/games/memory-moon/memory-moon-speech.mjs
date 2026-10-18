@@ -20,8 +20,11 @@ export function createMoonSpeech({ api, onState = () => {}, onStart = () => {} }
     return state();
   }
 
-  async function play(text) {
+  async function play(text, { automatic = false, canStart = () => true } = {}) {
     if (destroyed) return state();
+    const permitted = () => canStart() && (!automatic
+      || (!api?.getSpeechMuted?.() && api?.getSpeechAutoplay?.() !== false));
+    if (!permitted()) return state();
     const normalized = String(text || '').normalize('NFC').trim();
     if (!normalized) return stop();
     if (current.text === normalized && ['loading', 'playing'].includes(current.status)) return stop();
@@ -34,9 +37,11 @@ export function createMoonSpeech({ api, onState = () => {}, onStart = () => {} }
       }
       await api.stopSpeech();
       if (!active(id)) return state();
+      if (!permitted()) return stop();
       const result = await api.speakText(normalized, {
-        allowWhileMuted: true,
+        allowWhileMuted: !automatic,
         onStart() {
+          if (active(id) && !permitted()) { void stop(); return; }
           if (active(id) && !started) {
             started = true;
             onStart(normalized);

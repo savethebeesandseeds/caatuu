@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "locale": "en",
   "direction": "ltr",
-  "revision": "interface-en-47",
+  "revision": "interface-en-48",
   "messages": {
     "campaign.progress.unavailable": "Your progress is temporarily unavailable. Reopen the app to try again.",
     "campaign.stage.progress": "{cycles} / {target} cycles",
@@ -1356,6 +1356,7 @@
     "games.memorymoon.play": "Play sentence audio",
     "games.memorymoon.stop": "Stop audio",
     "games.memorymoon.word": "Play word: {text}",
+    "games.memorymoon.selectword": "Word meaning: {text}",
     "games.memorymoon.audio.preparing": "Preparing audio.",
     "games.memorymoon.audio.playing": "Playing audio.",
     "games.memorymoon.audio.error": "Audio is unavailable.",

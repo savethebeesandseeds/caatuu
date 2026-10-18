@@ -19,7 +19,7 @@ WORKSPACE = Path(__file__).resolve().parents[3]
 SOURCE_DIRECTORY = WORKSPACE / "apps/launcher/static/assets/icons"
 SHIP_DIRECTORY = WORKSPACE / "apps/launcher/static/assets/ships"
 OUTPUT_DIRECTORY = WORKSPACE / "apps/language-runtime/static/assets/home"
-# Keep full canvases and alpha; the 320px mascot supports Home at display size
+# Keep full canvases and alpha; the 304px mascot supports Home at display size
 # while leaving room for resident game code and the setup gallery.
 MAX_EDGES = {
     "home_icon.png": 192,
@@ -35,7 +35,7 @@ MAX_EDGES = {
     "icon_gem.png": 256,
     "streak_icon.png": 256,
     "store_icon.png": 256,
-    "hello.png": 320,
+    "hello.png": 304,
 }
 MAX_BYTES = 256 * 1024
 # A resident, transparent ship gallery makes first-install setup independent of

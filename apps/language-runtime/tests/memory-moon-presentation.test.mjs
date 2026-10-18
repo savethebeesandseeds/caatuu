@@ -69,6 +69,32 @@ test('stopped speech cannot report a late start or replace the current audio sta
   assert.equal(changes.filter(value => value === 'playing').length, 1);
 });
 
+test('automatic speech rechecks eligibility before its queued backend request and playback start', async () => {
+  let release, eligible = true, muted = false;
+  const calls = [], starts = [], stops = [];
+  const speech = createMoonSpeech({ api: {
+    getSpeechMuted: () => muted, getSpeechAutoplay: () => true,
+    stopSpeech() { stops.push(true); return new Promise(resolve => { release = resolve; }); },
+    speakText(text, options) { return new Promise(resolve => calls.push({ text, options, resolve })); }
+  }, onStart: text => starts.push(text) });
+  const cancelled = speech.play('First sentence.', { automatic: true, canStart: () => eligible });
+  eligible = false; release(); await Promise.resolve();
+  release(); await cancelled;
+  assert.equal(calls.length, 0);
+  assert.equal(speech.state().status, 'idle');
+  eligible = true;
+  const playing = speech.play('Second sentence.', { automatic: true, canStart: () => eligible });
+  release(); await Promise.resolve();
+  assert.equal(calls[0].options.allowWhileMuted, false);
+  muted = true; calls[0].options.onStart(); release();
+  calls[0].resolve({ outcome: 'completed' }); await playing;
+  assert.deepEqual(starts, []);
+  assert.equal(speech.state().status, 'idle');
+  assert.equal(stops.length, 4);
+  await speech.play('Muted sentence.', { automatic: true });
+  assert.equal(calls.length, 1);
+});
+
 const catalog = {
   '/assets/ships/ship%20(1).png': { category: 'ship', orientation: { heading_degrees: 155 } },
   '/assets/ships/ship%20(2).png': { category: 'ship', orientation: { heading_degrees: 180 } }

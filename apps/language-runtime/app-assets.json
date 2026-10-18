@@ -1391,6 +1391,10 @@
       "output": "language-runtime/static/source/games/memory-moon/memory-moon-core.mjs"
     },
     {
+      "source": "apps/language-runtime/static/source/games/memory-moon/memory-moon-dictionary.mjs",
+      "output": "language-runtime/static/source/games/memory-moon/memory-moon-dictionary.mjs"
+    },
+    {
       "source": "apps/language-runtime/static/source/games/memory-moon/memory-moon-entry.mjs",
       "output": "language-runtime/static/source/games/memory-moon/memory-moon-entry.mjs"
     },
@@ -1409,6 +1413,10 @@
     {
       "source": "apps/language-runtime/static/source/games/memory-moon/memory-moon-practice.mjs",
       "output": "language-runtime/static/source/games/memory-moon/memory-moon-practice.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/games/memory-moon/memory-moon-reading.mjs",
+      "output": "language-runtime/static/source/games/memory-moon/memory-moon-reading.mjs"
     },
     {
       "source": "apps/language-runtime/static/source/games/memory-moon/memory-moon-render.mjs",

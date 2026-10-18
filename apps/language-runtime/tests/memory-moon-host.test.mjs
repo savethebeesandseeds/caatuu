@@ -5,12 +5,19 @@ import { createBrowserHarness } from './helpers/fake-browser.mjs';
 import { mountMemoryMoon } from '../static/source/games/memory-moon/memory-moon-host.mjs';
 import { createMoonSession, answerMoonChallenge, advanceMoonChallenge } from '../static/source/games/memory-moon/memory-moon-core.mjs';
 import { tokenizeMoonText, moonLabels } from '../static/source/games/memory-moon/memory-moon-render.mjs';
+import { arabicReadingUnits } from '../static/source/arabic-romanization.mjs';
+import { georgianReadingUnits } from '../static/source/georgian-romanization.mjs';
 
 const directories = ['czech', 'mandarin-simplified', 'spanish', 'english-from-spanish',
   'norwegian-bokmal', 'arabic-standard', 'latin-scientific', 'georgian'];
 const json = async relative => JSON.parse(await readFile(new URL(relative, import.meta.url), 'utf8'));
 const deferred = () => { let resolve; const promise = new Promise(done => { resolve = done; }); return { promise, resolve }; };
 async function flush() { for (let index = 0; index < 12; index++) await Promise.resolve(); }
+function surfaceText(node) {
+  if (node.nodeType === 3) return node.nodeValue;
+  if (node.tagName === 'RT') return '';
+  return node.childNodes.map(surfaceText).join('');
+}
 
 function clock() {
   let time = 0, sequence = 0;
@@ -32,19 +39,26 @@ function clock() {
 }
 
 async function fixture({ directory = 'czech', catalogWait, selectionWait, realControls = false,
-  speechAvailable, initialActive = true, resetDuringAnswer = false } = {}) {
+  speechAvailable, initialActive = true, resetDuringAnswer = false, autoplay = true, muted = false,
+  resolveWord = async () => null } = {}) {
   const [originalCourse, pack] = await Promise.all([
     json(`../../languages/${directory}/course.json`),
     json(`../../languages/${directory}/static/data/games/memory-moon/content.json`)
   ]);
   const course = structuredClone(originalCourse);
   if (speechAvailable !== undefined) course.capabilities.speech = speechAvailable;
-  const time = clock(), messages = [], speechCalls = [], starts = [], assists = [];
+  const time = clock(), messages = [], speechCalls = [], starts = [], assists = [], wordLookups = [];
   const shell = createBrowserHarness({ course }).window;
   shell.postMessage = (...args) => messages.push(args);
   shell.CaatuuI18n = { t: key => key, languageName: locale => locale };
   shell.CaatuuChrome = {
     applyTheme() {}, applyFontSize() {},
+    getSpeechMuted: () => muted,
+    setSpeechMuted(value) { muted = value; shell.dispatchEvent({ type: 'caatuu:speech-mute-change' }); },
+    getSpeechAutoplay: () => autoplay,
+    setSpeechAutoplay(value) { autoplay = value; shell.dispatchEvent({ type: 'caatuu:speech-autoplay-change' }); },
+    resolveSpeechPace: () => ({ key: 'normal', label: 'Normal', rate: 1 }),
+    setSpeechPacePreference() {},
     stopSpeech: async () => {},
     speakText(text, options) { const wait = deferred(); speechCalls.push({ text, options, ...wait }); return wait.promise; }
   };
@@ -69,11 +83,12 @@ async function fixture({ directory = 'czech', catalogWait, selectionWait, realCo
       if (resetDuringAnswer) shell.dispatchEvent({ type: 'caatuu:learning-change', detail: { reason: 'progress-reset' } });
       return result;
     },
-    assist(reason) { assists.push(reason); },
+    assist(reason) { assists.push(reason); return this.snapshot(); },
     advance() { session = advanceMoonChallenge(session); return this.snapshot(); },
     cancelPending() { cancelled++; }, dispose() { disposed = true; }
   };
   const services = {
+    resolveWord(word, context) { wordLookups.push({ word, ...context }); return resolveWord(word, context); },
     async loadCatalog(receivedCourse, options) {
       assert.equal(receivedCourse.id, course.id);
       requestOptions = options;
@@ -90,7 +105,7 @@ async function fixture({ directory = 'czech', catalogWait, selectionWait, realCo
     active: initialActive, random: () => 0, services,
     fetchImpl: async () => ({ ok: true, json: async () => ({}) })
   });
-  return { host, root, shell, frame, course, pack, time, messages, speechCalls, assists, starts,
+  return { host, root, shell, frame, course, pack, time, messages, speechCalls, assists, starts, wordLookups,
     get disposed() { return disposed; }, get cancelled() { return cancelled; },
     get controlsOptions() { return controlsOptions; }, get requestOptions() { return requestOptions; },
     choice(id) { return root.querySelector(`[data-choice-id="${id}"]`); },
@@ -107,7 +122,26 @@ test('every registered course renders its own target and learner-base choices in
     const sentence = app.root.querySelector('.moon-sentence');
     assert.equal(sentence.ownerDocument, app.frame.document);
     assert.notEqual(sentence.ownerDocument, app.shell.document);
-    assert.equal(sentence.textContent, item.targetText);
+    assert.equal(surfaceText(sentence), item.targetText);
+    assert.equal(sentence.getAttribute('aria-label'), item.targetText);
+    const guided = ['arabic-standard', 'georgian'].includes(directory);
+    assert.equal(app.controlsOptions.readingGuide.available, guided);
+    if (guided) {
+      const notations = sentence.querySelectorAll('rt');
+      const project = directory === 'arabic-standard' ? arabicReadingUnits : georgianReadingUnits;
+      const expectedReadings = project(item.targetText).filter(unit => unit.notation).map(unit => unit.notation);
+      assert.deepEqual(notations.map(node => node.textContent), expectedReadings,
+        'guides use the established written-form authority without inventing missing Arabic vowels');
+      assert.ok(notations.every(node => node.dir === 'ltr'
+        && node.lang === `${app.course.targetLanguage.id}-Latn` && node.getAttribute('aria-hidden') === 'true'));
+      app.controlsOptions.readingGuide.setEnabled(false);
+      assert.equal(sentence.textContent, item.targetText);
+      assert.equal(sentence.querySelector('rt'), null);
+      app.controlsOptions.readingGuide.setEnabled(true);
+      assert.equal(surfaceText(sentence), item.targetText);
+      assert.equal(Boolean(sentence.querySelector('rt')), expectedReadings.length > 0);
+    } else assert.equal(sentence.querySelector('rt'), null);
+    if (directory === 'mandarin-simplified') assert.ok(sentence.querySelector('[data-tone]'));
     assert.equal(sentence.lang, app.course.targetLanguage.locale);
     assert.equal(sentence.dir, app.course.targetLanguage.direction || 'auto');
     assert.deepEqual(app.root.querySelectorAll('.moon-choice').map(button => button.textContent), item.choices.map(choice => choice.text));
@@ -207,7 +241,7 @@ test('leaving during the final animation and reentering campaign cancels the obs
 });
 
 test('target audio delegates to shared speech and only acknowledges a live playback start', async t => {
-  const app = await fixture({ directory: 'arabic-standard', speechAvailable: true });
+  const app = await fixture({ directory: 'arabic-standard', speechAvailable: true, autoplay: false });
   t.after(() => app.host.destroy()); await app.host.ready;
   const word = app.root.querySelector('[data-spoken-word]'); word.click(); await flush();
   assert.equal(app.assists.length, 0);
@@ -219,6 +253,174 @@ test('target audio delegates to shared speech and only acknowledges a live playb
   app.speechCalls[0].options.onStart(); app.speechCalls[0].resolve({ outcome: 'completed' }); await flush();
   assert.deepEqual(app.assists, ['audio']);
   assert.equal(app.root.querySelector('.moon-speak').getAttribute('aria-pressed'), 'false');
+});
+
+test('each new question automatically reads its target once across ready, advance and restart', async t => {
+  const app = await fixture(); t.after(() => app.host.destroy()); await app.host.ready; await flush();
+  assert.equal(app.controlsOptions.autoplay, true);
+  assert.equal(app.speechCalls.length, 1);
+  assert.equal(app.speechCalls[0].text, app.host.snapshot().currentItem.targetText);
+  assert.equal(app.speechCalls[0].options.allowWhileMuted, false);
+  const wrong = app.host.snapshot().currentItem.choices.find(choice => choice.id !== 'correct').id;
+  app.choice(wrong).click(); app.host.setCampaign(true);
+  app.host.setPaused(true); app.host.setPaused(false); await flush();
+  assert.equal(app.speechCalls.length, 1, 'feedback, rendering and resumed activity cannot replay a prompt');
+  app.correct(); app.time.tick(2000); await flush();
+  assert.equal(app.speechCalls.length, 2);
+  assert.equal(app.speechCalls[1].text, app.host.snapshot().currentItem.targetText);
+  app.speechCalls[0].options.onStart();
+  assert.deepEqual(app.assists, [], 'the preceding question cannot acknowledge a late audio start');
+  app.speechCalls[1].options.onStart(); app.speechCalls[1].options.onStart();
+  assert.deepEqual(app.assists, ['audio']);
+  await app.host.restart(); await flush();
+  assert.equal(app.speechCalls.length, 3, 'a fresh round presents its first question again');
+  assert.equal(app.speechCalls[2].text, app.host.snapshot().currentItem.targetText);
+});
+
+test('mute and the persisted autoplay preference suppress automatic audio while manual replay remains available', async t => {
+  for (const setting of ['muted', 'autoplay']) await t.test(setting, async t => {
+    const app = await fixture(setting === 'muted' ? { muted: true } : { autoplay: false });
+    t.after(() => app.host.destroy()); await app.host.ready; await flush();
+    assert.equal(app.speechCalls.length, 0);
+    app.root.querySelector('.moon-speak').click(); await flush();
+    assert.equal(app.speechCalls.length, 1);
+    assert.equal(app.speechCalls[0].options.allowWhileMuted, true);
+    app.speechCalls[0].resolve({ outcome: 'completed' }); await flush();
+    if (setting === 'muted') app.shell.CaatuuChrome.setSpeechMuted(false);
+    else app.shell.CaatuuChrome.setSpeechAutoplay(true);
+    await flush();
+    assert.equal(app.speechCalls.length, 1, 'enabling audio cannot replay the current question');
+    app.correct(); app.time.tick(2000); await flush();
+    assert.equal(app.speechCalls.length, 2);
+    assert.equal(app.speechCalls[1].options.allowWhileMuted, false);
+  });
+});
+
+test('automatic speech cancels stale starts on every activity and audio boundary', async t => {
+  const boundaries = {
+    inactive: app => app.host.setActive(false),
+    paused: app => app.host.setPaused(true),
+    hidden: app => app.visible(true),
+    menu: app => app.controlsOptions.onOpenChange(true),
+    pagehide: app => app.frame.window.dispatchEvent({ type: 'pagehide' }),
+    muted: app => app.shell.CaatuuChrome.setSpeechMuted(true),
+    autoplay: app => app.shell.CaatuuChrome.setSpeechAutoplay(false),
+    destroyed: app => app.host.destroy()
+  };
+  for (const [name, cancel] of Object.entries(boundaries)) await t.test(name, async t => {
+    const app = await fixture(); t.after(() => app.host.destroy()); await app.host.ready; await flush();
+    assert.equal(app.speechCalls.length, 1);
+    cancel(app);
+    app.speechCalls[0].options.onStart(); app.speechCalls[0].resolve({ outcome: 'completed' }); await flush();
+    assert.deepEqual(app.assists, []);
+    if (name !== 'destroyed') assert.equal(app.root.querySelector('.moon-speak').getAttribute('aria-pressed'), 'false');
+  });
+});
+
+test('a queued automatic request cannot reach the speech backend after its question is hidden', async t => {
+  const app = await fixture(); t.after(() => app.host.destroy()); await app.host.ready; await flush();
+  const waiting = deferred();
+  app.shell.CaatuuChrome.stopSpeech = () => waiting.promise;
+  app.correct(); app.time.tick(2000);
+  app.visible(true); waiting.resolve(); await flush();
+  assert.equal(app.speechCalls.length, 1);
+  app.visible(false); await flush();
+  assert.equal(app.speechCalls.length, 1, 'resuming does not revive the cancelled presentation');
+});
+
+test('Memory Moon exposes the shared Audio autoplay switch and uses its persisted value', async t => {
+  const app = await fixture({ realControls: true }); t.after(() => app.host.destroy());
+  await app.host.ready; await flush();
+  const toggle = app.root.querySelector('[role="switch"]');
+  assert.ok(toggle);
+  assert.equal(toggle.textContent, 'common.audio.autoplay');
+  assert.equal(toggle.getAttribute('aria-checked'), 'true');
+  toggle.click();
+  assert.equal(app.shell.CaatuuChrome.getSpeechAutoplay(), false);
+  assert.equal(toggle.getAttribute('aria-checked'), 'false');
+  app.correct(); app.time.tick(2000); await flush();
+  assert.equal(app.speechCalls.length, 1);
+  app.shell.CaatuuChrome.setSpeechMuted(true);
+  assert.equal(toggle.disabled, true);
+});
+
+test('word help stays hidden until selected and only a visible meaning marks dictionary assistance', async t => {
+  const waiting = deferred();
+  const app = await fixture({ autoplay: false, resolveWord: () => waiting.promise });
+  t.after(() => app.host.destroy()); await app.host.ready;
+  const slot = app.root.querySelector('.moon-dictionary-slot');
+  assert.equal(slot.hidden, true);
+  assert.equal(app.wordLookups.length, 0);
+  const word = app.root.querySelector('.moon-word-token');
+  const item = app.host.snapshot().currentItem;
+  word.click(); await flush();
+  assert.equal(slot.hidden, false);
+  assert.equal(slot.querySelector('.dictionary-word-card').classList.contains('is-loading'), true);
+  assert.equal(word.classList.contains('is-dictionary-selected'), true);
+  assert.equal(app.wordLookups.length, 1);
+  assert.equal(app.wordLookups[0].word, word.dataset.spokenWord);
+  assert.equal(app.wordLookups[0].item, item);
+  assert.equal(app.wordLookups[0].tokenIndex, Number(word.dataset.tokenIndex));
+  assert.equal(app.wordLookups[0].button, word);
+  assert.deepEqual(app.assists, []);
+  waiting.resolve({ meaning: 'scarf', languageTag: app.course.sourceLanguage.locale, pos: 'noun' });
+  await flush();
+  assert.equal(slot.querySelector('.dictionary-word-card__meaning').textContent, 'scarf');
+  assert.equal(slot.querySelector('.dictionary-word-card__meaning').lang, app.course.sourceLanguage.locale);
+  assert.equal(slot.querySelector('.dictionary-word-card').classList.contains('is-loading'), false);
+  assert.deepEqual(app.assists, ['dictionary']);
+  app.correct();
+  assert.equal(slot.hidden, true, 'answer feedback clears the old help immediately');
+  assert.equal(word.classList.contains('is-dictionary-selected'), false);
+  app.time.tick(2000); await flush();
+  assert.notEqual(app.host.snapshot().currentItem, item);
+  assert.equal(slot.hidden, true);
+  assert.equal(slot.querySelector('.dictionary-word-card__meaning').textContent, '');
+  assert.equal(app.wordLookups.length, 1, 'a new question never opens or loads help automatically');
+});
+
+test('pending word meanings cannot mark assistance after their question loses eligibility', async t => {
+  const boundaries = {
+    hidden: app => app.visible(true),
+    inactive: app => app.host.setActive(false),
+    paused: app => app.host.setPaused(true),
+    menu: app => app.controlsOptions.onOpenChange(true),
+    answered: app => app.correct(),
+    reset: app => app.shell.dispatchEvent({ type: 'caatuu:learning-change', detail: { reason: 'progress-reset' } }),
+    destroy: app => app.host.destroy()
+  };
+  for (const [name, cancel] of Object.entries(boundaries)) await t.test(name, async t => {
+    const waiting = deferred();
+    const app = await fixture({ autoplay: false, resolveWord: () => waiting.promise });
+    t.after(() => app.host.destroy()); await app.host.ready;
+    const slot = app.root.querySelector('.moon-dictionary-slot');
+    app.root.querySelector('.moon-word-token').click(); await flush();
+    assert.equal(slot.hidden, false);
+    assert.equal(app.wordLookups[0].signal.aborted, false);
+    cancel(app);
+    assert.equal(app.wordLookups[0].signal.aborted, true);
+    waiting.resolve({ meaning: 'obsolete meaning' }); await flush();
+    assert.deepEqual(app.assists, []);
+    assert.equal(slot.hidden, true);
+    if (name === 'destroy') assert.equal(app.root.children.length, 0);
+    else assert.equal(slot.querySelector('.dictionary-word-card__meaning').textContent, '');
+    if (name === 'hidden') {
+      app.visible(false); await flush();
+      assert.equal(slot.hidden, true);
+      assert.equal(app.wordLookups.length, 1, 'returning does not revive the cancelled help');
+    }
+  });
+});
+
+test('missing dictionary meanings preserve an independent answer without claiming help was shown', async t => {
+  const app = await fixture({ autoplay: false }); t.after(() => app.host.destroy()); await app.host.ready;
+  app.root.querySelector('.moon-word-token').click(); await flush();
+  assert.equal(app.root.querySelector('.moon-dictionary-slot').hidden, false);
+  assert.ok(app.root.querySelector('.dictionary-word-card__meaning').textContent);
+  assert.deepEqual(app.assists, []);
+  app.correct();
+  assert.equal(app.host.snapshot().phase, 'answered');
+  assert.deepEqual(app.assists, []);
 });
 
 test('navigation fences late selection and resumes with a fresh session', async t => {
@@ -281,7 +483,12 @@ test('standard controls mount against the local frame even when speech is unavai
   t.after(() => app.host.destroy()); await app.host.ready;
   assert.ok(app.root.querySelector('.caatuu-game-controls'));
   assert.equal(app.root.querySelector('.moon-speak').hidden, true);
-  assert.equal(app.root.querySelector('[data-spoken-word]'), null);
+  const word = app.root.querySelector('[data-spoken-word]');
+  assert.ok(word, 'word meanings remain available without speech');
+  word.click(); await flush();
+  assert.equal(app.root.querySelector('.moon-dictionary-slot').hidden, false);
+  assert.equal(app.wordLookups.length, 1);
+  assert.equal(app.speechCalls.length, 0);
   assert.equal(app.root.querySelector('.moon-sentence').textContent, app.host.snapshot().currentItem.targetText);
 });
 

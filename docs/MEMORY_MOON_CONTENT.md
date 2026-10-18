@@ -14,6 +14,12 @@ quantity, polarity, sequence, condition or reason. Distractors are authored as
 part of the complete question rather than retrieved from arbitrary neighbours.
 Counts can grow through JSON edits without changing code or a fixed ceiling.
 
+**TODO — expand content:** The initial 90 challenges per course (720 across
+all eight courses, only 30 per badge) are too few for sustained weakness-based
+practice. Add substantially more challenges to every course later, covering
+more topics, question families and close alternatives so repeated practice
+stays varied.
+
 | Course | Independent bank | Questions (levels 1 / 2 / 3) |
 | --- | --- | --- |
 | English → Czech | [content.json](../apps/languages/czech/static/data/games/memory-moon/content.json) | 30 / 30 / 30 |
@@ -59,6 +65,29 @@ with `native-review-required` and `humanApproved: false`. Structural validation
 cannot establish grammatical correctness, naturalness or translation
 non-equivalence. Independent native-language review remains outstanding, and
 no existing course's review or publication status is promoted by these banks.
+
+Mandarin questions also own `targetReading`: character-aligned authored pinyin
+with `machine-assisted-preview` status. Every Hanzi must have an aligned unit;
+readings retain contextual polyphonic pronunciations and lexical citation tones,
+not tone sandhi. Runtime rendering uses the shared tone colours without adding
+spaces between characters. Arabic and Georgian reuse the shared optional reading
+guides and preserve their target script and direction.
+
+Each new challenge automatically speaks its target sentence when the shared
+Audio autoplay preference is enabled and speech is unmuted. The preference is
+available in Memory Moon's Audio menu. Manual sentence and word audio remain
+available. Cancelled or hidden challenges cannot start delayed speech.
+
+Selecting a word opens the shared dictionary card beside the moon; it starts
+hidden and resets between questions. Czech uses its existing dictionary service.
+Other courses can lazily consult their authored word meanings as optional help,
+preferring the exact sentence occurrence and otherwise showing up to three
+existing senses. Arabic and Latin use their adapters' lookup normalization;
+Spanish learner-base meanings stay Spanish. Missing meanings are shown as
+unavailable. These help resources do not supply or select Moon challenges.
+Displaying an actual meaning marks only the current Moon response as assisted;
+loading, missing and cancelled lookups do not. Target audio remains a normal
+prompt modality.
 
 The maintained learner-content extractor registers this game for every enabled
 course and scans prompts, every answer option, English audit/retrieval text,

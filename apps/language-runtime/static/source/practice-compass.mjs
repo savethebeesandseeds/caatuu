@@ -7,7 +7,7 @@ import { validateConjugationCometCatalog } from "./games/conjugation-comet/conju
 import { buildGrammarGravityRounds } from "./games/grammar-gravity/grammar-gravity-core.mjs?v=grammar-gravity-core-7";
 import { normalizeNounLandingPack } from "./games/grammar-gravity/noun-landing-core.mjs?v=noun-landing-core-11";
 import { validateSoundQuasarCatalog } from "./games/sound-quasar/sound-quasar-core.mjs?v=sound-quasar-10";
-import { validateMemoryMoonCatalog } from "./games/memory-moon/memory-moon-core.mjs?v=memory-moon-1";
+import { validateMemoryMoonCatalog } from "./games/memory-moon/memory-moon-core.mjs?v=memory-moon-2";
 import { joinConceptCatalogs } from "./catalog-runtime.mjs";
 
 // Topics, order, and arithmetic are shared by every course. UI labels live in

@@ -13,7 +13,7 @@
       "/language-runtime/static/assets/initial-image.png",
       "/language-runtime/static/source/semantic-learning-core.mjs?v=semantic-learning-core-5",
       "/language-runtime/static/source/semantic-learning.js?v=semantic-learning-11",
-      "/language-runtime/static/source/practice-compass.mjs?v=practice-compass-7",
+      "/language-runtime/static/source/practice-compass.mjs?v=practice-compass-8",
       "/language-runtime/static/source/image-embedding-index.mjs?v=image-index-runtime-2",
       "/language-runtime/static/data/image-embeddings/minilm-v1.json?v=image-index-1",
       "/language-runtime/static/source/games/curriculum-progression.mjs",
@@ -39,7 +39,7 @@
       "/language-runtime/contract.mjs",
       "/language-runtime/embedding-runtimes.json",
       "/language-runtime/static/source/initial-theme.js?v=theme-3",
-      "/language-runtime/static/source/app-bootstrap.mjs?v=app-131",
+      "/language-runtime/static/source/app-bootstrap.mjs?v=app-132",
       "/language-runtime/static/source/interface-content.mjs?v=interface-runtime-2",
       "/language-runtime/static/source/legacy-page-bootstrap.mjs?v=legacy-page-10",
       "/language-runtime/static/source/dictionary-provider-loader.mjs",
@@ -88,7 +88,7 @@
       "/language-runtime/static/styles/caatuu-word-world.css?v=word-net-100",
       "/language-runtime/static/styles/dictionary-word-card.css?v=dictionary-card-3",
       "/language-runtime/static/assets/caatuu-shell-512.png",
-      "/language-runtime/static/data/interface/en.v1.json?v=interface-en-47",
+      "/language-runtime/static/data/interface/en.v1.json?v=interface-en-48",
       "/language-runtime/static/data/english-concepts/word-world-starter-v1.json",
       "/language-runtime/static/data/english-concepts/word-world-es-v1.json",
       "/language-runtime/static/data/english-concepts/word-world-es-en-v1.json",
@@ -250,8 +250,8 @@
       "/language-runtime/static/source/game-dynamics.mjs?v=game-dynamics-7",
       "/language-runtime/static/styles/game-dynamics.css?v=game-dynamics-8",
       "/language-runtime/static/source/reward-sound.mjs?v=reward-sound-2",
-      "/language-runtime/static/source/badge-recommendation.mjs?v=badge-recommendation-3",
-      "/language-runtime/static/source/badge-progression.mjs?v=badge-progression-3",
+      "/language-runtime/static/source/badge-recommendation.mjs?v=badge-recommendation-4",
+      "/language-runtime/static/source/badge-progression.mjs?v=badge-progression-4",
       "/language-runtime/static/assets/xp-gold.webp",
       "/language-runtime/static/source/word-world-learning.mjs",
       "/language-runtime/static/source/word-world-teaching.mjs",
@@ -304,18 +304,20 @@
       "/language-runtime/static/assets/home/setup-ship-15.webp",
       "/language-runtime/static/assets/home/setup-ship-22.webp",
       "/assets/ships/meta.json",
-      "/zh/data/games/memory-moon/content.json?v=memory-moon-1",
+      "/zh/data/games/memory-moon/content.json?v=memory-moon-2",
       "/language-runtime/static/games/memory-moon.html",
       "/language-runtime/static/source/games/memory-moon/memory-moon-advance.mjs",
-      "/language-runtime/static/source/games/memory-moon/memory-moon-core.mjs?v=memory-moon-1",
-      "/language-runtime/static/source/games/memory-moon/memory-moon-entry.mjs?v=memory-moon-1",
+      "/language-runtime/static/source/games/memory-moon/memory-moon-core.mjs?v=memory-moon-2",
+      "/language-runtime/static/source/games/memory-moon/memory-moon-entry.mjs?v=memory-moon-2",
       "/language-runtime/static/source/games/memory-moon/memory-moon-host.mjs",
       "/language-runtime/static/source/games/memory-moon/memory-moon-orbit.mjs",
       "/language-runtime/static/source/games/memory-moon/memory-moon-phase.mjs",
       "/language-runtime/static/source/games/memory-moon/memory-moon-practice.mjs",
       "/language-runtime/static/source/games/memory-moon/memory-moon-render.mjs",
       "/language-runtime/static/source/games/memory-moon/memory-moon-speech.mjs",
-      "/language-runtime/static/source/games/memory-moon/memory-moon.css?v=memory-moon-1"
+      "/language-runtime/static/source/games/memory-moon/memory-moon.css?v=memory-moon-2",
+      "/language-runtime/static/source/games/memory-moon/memory-moon-dictionary.mjs",
+      "/language-runtime/static/source/games/memory-moon/memory-moon-reading.mjs"
     ]
   },
   "artifacts": [
@@ -325,7 +327,7 @@
       "url": "/zh/index.html",
       "browserRequired": true,
       "bytes": 97938,
-      "sha256": "8cc1afa374baed4957dc8ee371299090659e56edcf0ee7bb738410fe06913d1a"
+      "sha256": "5c56da988fdc4f02eadea863b41f51aaf6323541d39bd63d58dc9a2a8060806c"
     },
     {
       "key": "course-profile",
@@ -333,7 +335,7 @@
       "url": "/zh/source/shared/course-profile.js",
       "browserRequired": true,
       "bytes": 26961,
-      "sha256": "d31a491cbc6265b671eb4e5379e853a9c2aadf34acdf8e0d944103e7cec45b14"
+      "sha256": "44b420bdbb0062659a0d10318cc6a7d22ebb82cb27c72c604ae2e64fd5fd4da8"
     },
     {
       "key": "shared-app-bootstrap",
@@ -341,7 +343,7 @@
       "url": "/language-runtime/static/source/app-bootstrap.mjs",
       "browserRequired": true,
       "bytes": 35692,
-      "sha256": "a74294de324046bdd57c570c4dfbba4ea719cd1ad4e0aee836d1e476f4705fbd"
+      "sha256": "9c215e592a68b90788b8729fd76851601d9c9f2df50f74e03288278f3f971e7b"
     },
     {
       "key": "initial-theme",
@@ -461,7 +463,7 @@
       "url": "/language-runtime/static/source/learning-profile.js",
       "browserRequired": true,
       "bytes": 107272,
-      "sha256": "7f49e5492d3fc2745a06aabffd7c81462be335ee5b81d1662fc04f459b863741"
+      "sha256": "0b9a2680108edd59416d14cddf6fb64ff9ead66899276ddf75dd8c15ef8de5bb"
     },
     {
       "key": "product-word-world",

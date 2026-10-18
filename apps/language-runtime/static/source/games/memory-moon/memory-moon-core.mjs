@@ -1,5 +1,6 @@
 import { normalizeSharedEnglishText } from '../../english-image-search.mjs?v=english-image-search-5';
 import { learnerItemState } from '../../learner-state.mjs';
+import { validateMoonTargetReading } from './memory-moon-reading.mjs';
 
 export const MEMORY_MOON_GAME = 'memory-moon';
 export const MEMORY_MOON_BANK = 'translations';
@@ -29,6 +30,9 @@ export function validateMemoryMoonCatalog(pack, { course } = {}) {
         || !kinds.has(item.focus?.kind) || !Array.isArray(item.focus?.englishConcepts)
         || !item.focus.englishConcepts.length || item.focus.englishConcepts.some(value => !text(value))) fail(item?.id || 'question');
     if (['usefulness','complexity'].some(field => !Number.isInteger(item[field]) || item[field] < 1 || item[field] > 100)) fail(`${item.id} grades`);
+    const mandarin = /^zh(?:-|$)/u.test(pack.targetLanguage);
+    if (item.targetReading !== undefined && !mandarin) fail(`${item.id} reading language`);
+    validateMoonTargetReading(item.targetReading, item.targetText, { required: mandarin });
     if (normalizeSharedEnglishText(item.englishText) !== item.englishText || item.embeddingText !== item.englishText) fail(`${item.id} English meaning`);
     if (!Array.isArray(item.choices) || item.choices.length !== 3
         || item.choices.some(choice => !text(choice?.id) || !text(choice.text))

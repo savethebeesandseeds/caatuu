@@ -3,7 +3,7 @@
   "courseId": "zh",
   "gameId": "memory-moon",
   "contentId": "zh.memory-moon.v1",
-  "contentRevision": 1,
+  "contentRevision": 2,
   "status": "machine-assisted-preview",
   "learnerBaseLanguage": "en",
   "targetLanguage": "zh-Hans",
@@ -13,7 +13,7 @@
     "humanApproved": false,
     "reviewer": "OpenAI Codex",
     "reviewedAt": "2026-10-18",
-    "notes": "Original Memory Moon authoring with AI self-review. Independent native-language review remains required."
+    "notes": "Original Memory Moon authoring with AI self-review. Independent native-language review remains required. Character-aligned pinyin was authored with contextual polyphonic readings and lexical citation tones; tone sandhi is not represented. Independent pronunciation review remains required."
   },
   "license": {
     "origin": "caatuu-first-party-authored",
@@ -68,7 +68,58 @@
             "explanation": "Replaces water with juice."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我正在用这个杯子喝水",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "正",
+                "notation": "zhèng"
+              },
+              {
+                "surface": "在",
+                "notation": "zài"
+              },
+              {
+                "surface": "用",
+                "notation": "yòng"
+              },
+              {
+                "surface": "这",
+                "notation": "zhè"
+              },
+              {
+                "surface": "个",
+                "notation": "ge"
+              },
+              {
+                "surface": "杯",
+                "notation": "bēi"
+              },
+              {
+                "surface": "子",
+                "notation": "zi"
+              },
+              {
+                "surface": "喝",
+                "notation": "hē"
+              },
+              {
+                "surface": "水",
+                "notation": "shuǐ"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-mum-cuts-pear",
@@ -114,7 +165,50 @@
             "explanation": "Replaces cutting up with eating."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "妈妈正在切一个梨",
+            "units": [
+              {
+                "surface": "妈",
+                "notation": "mā"
+              },
+              {
+                "surface": "妈",
+                "notation": "ma"
+              },
+              {
+                "surface": "正",
+                "notation": "zhèng"
+              },
+              {
+                "surface": "在",
+                "notation": "zài"
+              },
+              {
+                "surface": "切",
+                "notation": "qiē"
+              },
+              {
+                "surface": "一",
+                "notation": "yī"
+              },
+              {
+                "surface": "个",
+                "notation": "ge"
+              },
+              {
+                "surface": "梨",
+                "notation": "lí"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-brother-red-hat",
@@ -160,7 +254,58 @@
             "explanation": "Replaces the hat with a coat."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我哥哥戴着一顶红帽子",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "哥",
+                "notation": "gē"
+              },
+              {
+                "surface": "哥",
+                "notation": "ge"
+              },
+              {
+                "surface": "戴",
+                "notation": "dài"
+              },
+              {
+                "surface": "着",
+                "notation": "zhe"
+              },
+              {
+                "surface": "一",
+                "notation": "yī"
+              },
+              {
+                "surface": "顶",
+                "notation": "dǐng"
+              },
+              {
+                "surface": "红",
+                "notation": "hóng"
+              },
+              {
+                "surface": "帽",
+                "notation": "mào"
+              },
+              {
+                "surface": "子",
+                "notation": "zi"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-rabbit-under-bench",
@@ -207,7 +352,54 @@
             "explanation": "Replaces under with on."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "这只兔子在长椅下面",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              },
+              {
+                "surface": "只",
+                "notation": "zhī"
+              },
+              {
+                "surface": "兔",
+                "notation": "tù"
+              },
+              {
+                "surface": "子",
+                "notation": "zi"
+              },
+              {
+                "surface": "在",
+                "notation": "zài"
+              },
+              {
+                "surface": "长",
+                "notation": "cháng"
+              },
+              {
+                "surface": "椅",
+                "notation": "yǐ"
+              },
+              {
+                "surface": "下",
+                "notation": "xià"
+              },
+              {
+                "surface": "面",
+                "notation": "miàn"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-three-spoons",
@@ -253,7 +445,46 @@
             "explanation": "Replaces three with four."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我需要三把勺子",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "需",
+                "notation": "xū"
+              },
+              {
+                "surface": "要",
+                "notation": "yào"
+              },
+              {
+                "surface": "三",
+                "notation": "sān"
+              },
+              {
+                "surface": "把",
+                "notation": "bǎ"
+              },
+              {
+                "surface": "勺",
+                "notation": "sháo"
+              },
+              {
+                "surface": "子",
+                "notation": "zi"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-we-at-library",
@@ -299,7 +530,42 @@
             "explanation": "Replaces the library with the station."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我们在图书馆",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "们",
+                "notation": "men"
+              },
+              {
+                "surface": "在",
+                "notation": "zài"
+              },
+              {
+                "surface": "图",
+                "notation": "tú"
+              },
+              {
+                "surface": "书",
+                "notation": "shū"
+              },
+              {
+                "surface": "馆",
+                "notation": "guǎn"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-sister-wants-bread",
@@ -346,7 +612,46 @@
             "explanation": "Replaces bread with soup."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我妹妹想吃面包",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "妹",
+                "notation": "mèi"
+              },
+              {
+                "surface": "妹",
+                "notation": "mei"
+              },
+              {
+                "surface": "想",
+                "notation": "xiǎng"
+              },
+              {
+                "surface": "吃",
+                "notation": "chī"
+              },
+              {
+                "surface": "面",
+                "notation": "miàn"
+              },
+              {
+                "surface": "包",
+                "notation": "bāo"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-pencil-blue",
@@ -392,7 +697,50 @@
             "explanation": "Replaces blue with red."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我的铅笔是蓝色的",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "的",
+                "notation": "de"
+              },
+              {
+                "surface": "铅",
+                "notation": "qiān"
+              },
+              {
+                "surface": "笔",
+                "notation": "bǐ"
+              },
+              {
+                "surface": "是",
+                "notation": "shì"
+              },
+              {
+                "surface": "蓝",
+                "notation": "lán"
+              },
+              {
+                "surface": "色",
+                "notation": "sè"
+              },
+              {
+                "surface": "的",
+                "notation": "de"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-bag-belongs-to-me",
@@ -438,7 +786,42 @@
             "explanation": "Changes the owner from me to him."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "这个包是我的",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              },
+              {
+                "surface": "个",
+                "notation": "ge"
+              },
+              {
+                "surface": "包",
+                "notation": "bāo"
+              },
+              {
+                "surface": "是",
+                "notation": "shì"
+              },
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "的",
+                "notation": "de"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-window-open",
@@ -484,7 +867,42 @@
             "explanation": "Replaces open with broken."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "这扇窗户开着",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              },
+              {
+                "surface": "扇",
+                "notation": "shàn"
+              },
+              {
+                "surface": "窗",
+                "notation": "chuāng"
+              },
+              {
+                "surface": "户",
+                "notation": "hu"
+              },
+              {
+                "surface": "开",
+                "notation": "kāi"
+              },
+              {
+                "surface": "着",
+                "notation": "zhe"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-before-lunch",
@@ -530,7 +948,42 @@
             "explanation": "Changes before lunch to during lunch."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我午饭前看书",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "午",
+                "notation": "wǔ"
+              },
+              {
+                "surface": "饭",
+                "notation": "fàn"
+              },
+              {
+                "surface": "前",
+                "notation": "qián"
+              },
+              {
+                "surface": "看",
+                "notation": "kàn"
+              },
+              {
+                "surface": "书",
+                "notation": "shū"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-dad-walks-school",
@@ -577,7 +1030,46 @@
             "explanation": "Changes walking to running."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "爸爸走路去学校",
+            "units": [
+              {
+                "surface": "爸",
+                "notation": "bà"
+              },
+              {
+                "surface": "爸",
+                "notation": "ba"
+              },
+              {
+                "surface": "走",
+                "notation": "zǒu"
+              },
+              {
+                "surface": "路",
+                "notation": "lù"
+              },
+              {
+                "surface": "去",
+                "notation": "qù"
+              },
+              {
+                "surface": "学",
+                "notation": "xué"
+              },
+              {
+                "surface": "校",
+                "notation": "xiào"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-bird-on-roof",
@@ -624,7 +1116,46 @@
             "explanation": "Changes on the roof to below it."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "这只鸟在屋顶上",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              },
+              {
+                "surface": "只",
+                "notation": "zhī"
+              },
+              {
+                "surface": "鸟",
+                "notation": "niǎo"
+              },
+              {
+                "surface": "在",
+                "notation": "zài"
+              },
+              {
+                "surface": "屋",
+                "notation": "wū"
+              },
+              {
+                "surface": "顶",
+                "notation": "dǐng"
+              },
+              {
+                "surface": "上",
+                "notation": "shàng"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-two-empty-cups",
@@ -670,7 +1201,50 @@
             "explanation": "Replaces two with four."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "这里有两个空杯子",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              },
+              {
+                "surface": "里",
+                "notation": "lǐ"
+              },
+              {
+                "surface": "有",
+                "notation": "yǒu"
+              },
+              {
+                "surface": "两",
+                "notation": "liǎng"
+              },
+              {
+                "surface": "个",
+                "notation": "ge"
+              },
+              {
+                "surface": "空",
+                "notation": "kōng"
+              },
+              {
+                "surface": "杯",
+                "notation": "bēi"
+              },
+              {
+                "surface": "子",
+                "notation": "zi"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-train-nine",
@@ -717,7 +1291,42 @@
             "explanation": "Replaces nine with ten."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "火车九点出发",
+            "units": [
+              {
+                "surface": "火",
+                "notation": "huǒ"
+              },
+              {
+                "surface": "车",
+                "notation": "chē"
+              },
+              {
+                "surface": "九",
+                "notation": "jiǔ"
+              },
+              {
+                "surface": "点",
+                "notation": "diǎn"
+              },
+              {
+                "surface": "出",
+                "notation": "chū"
+              },
+              {
+                "surface": "发",
+                "notation": "fā"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-holding-key",
@@ -764,7 +1373,54 @@
             "explanation": "Replaces the key with a leaf."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "她手里拿着一把钥匙",
+            "units": [
+              {
+                "surface": "她",
+                "notation": "tā"
+              },
+              {
+                "surface": "手",
+                "notation": "shǒu"
+              },
+              {
+                "surface": "里",
+                "notation": "lǐ"
+              },
+              {
+                "surface": "拿",
+                "notation": "ná"
+              },
+              {
+                "surface": "着",
+                "notation": "zhe"
+              },
+              {
+                "surface": "一",
+                "notation": "yī"
+              },
+              {
+                "surface": "把",
+                "notation": "bǎ"
+              },
+              {
+                "surface": "钥",
+                "notation": "yào"
+              },
+              {
+                "surface": "匙",
+                "notation": "shi"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-hear-drum",
@@ -811,7 +1467,42 @@
             "explanation": "Replaces a drum with a bird."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我们听到鼓声",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "们",
+                "notation": "men"
+              },
+              {
+                "surface": "听",
+                "notation": "tīng"
+              },
+              {
+                "surface": "到",
+                "notation": "dào"
+              },
+              {
+                "surface": "鼓",
+                "notation": "gǔ"
+              },
+              {
+                "surface": "声",
+                "notation": "shēng"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-soup-warm",
@@ -857,7 +1548,42 @@
             "explanation": "Replaces lukewarm with hot."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "这碗汤是温的",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              },
+              {
+                "surface": "碗",
+                "notation": "wǎn"
+              },
+              {
+                "surface": "汤",
+                "notation": "tāng"
+              },
+              {
+                "surface": "是",
+                "notation": "shì"
+              },
+              {
+                "surface": "温",
+                "notation": "wēn"
+              },
+              {
+                "surface": "的",
+                "notation": "de"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-aunt-sells-flowers",
@@ -904,7 +1630,38 @@
             "explanation": "Replaces selling with watering."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我阿姨卖花",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "阿",
+                "notation": "ā"
+              },
+              {
+                "surface": "姨",
+                "notation": "yí"
+              },
+              {
+                "surface": "卖",
+                "notation": "mài"
+              },
+              {
+                "surface": "花",
+                "notation": "huā"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-dog-sleeping",
@@ -950,7 +1707,46 @@
             "explanation": "Replaces sleeping with eating."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "这只狗正在睡觉",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              },
+              {
+                "surface": "只",
+                "notation": "zhī"
+              },
+              {
+                "surface": "狗",
+                "notation": "gǒu"
+              },
+              {
+                "surface": "正",
+                "notation": "zhèng"
+              },
+              {
+                "surface": "在",
+                "notation": "zài"
+              },
+              {
+                "surface": "睡",
+                "notation": "shuì"
+              },
+              {
+                "surface": "觉",
+                "notation": "jiào"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-speaks-softly",
@@ -997,7 +1793,50 @@
             "explanation": "Replaces quietly with quickly."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "她说话的声音很轻",
+            "units": [
+              {
+                "surface": "她",
+                "notation": "tā"
+              },
+              {
+                "surface": "说",
+                "notation": "shuō"
+              },
+              {
+                "surface": "话",
+                "notation": "huà"
+              },
+              {
+                "surface": "的",
+                "notation": "de"
+              },
+              {
+                "surface": "声",
+                "notation": "shēng"
+              },
+              {
+                "surface": "音",
+                "notation": "yīn"
+              },
+              {
+                "surface": "很",
+                "notation": "hěn"
+              },
+              {
+                "surface": "轻",
+                "notation": "qīng"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-carrying-box",
@@ -1044,7 +1883,50 @@
             "explanation": "Replaces carrying with closing."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我正在搬这个箱子",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "正",
+                "notation": "zhèng"
+              },
+              {
+                "surface": "在",
+                "notation": "zài"
+              },
+              {
+                "surface": "搬",
+                "notation": "bān"
+              },
+              {
+                "surface": "这",
+                "notation": "zhè"
+              },
+              {
+                "surface": "个",
+                "notation": "ge"
+              },
+              {
+                "surface": "箱",
+                "notation": "xiāng"
+              },
+              {
+                "surface": "子",
+                "notation": "zi"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-milk-in-fridge",
@@ -1090,7 +1972,42 @@
             "explanation": "Replaces in the fridge with on the table."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "牛奶在冰箱里",
+            "units": [
+              {
+                "surface": "牛",
+                "notation": "niú"
+              },
+              {
+                "surface": "奶",
+                "notation": "nǎi"
+              },
+              {
+                "surface": "在",
+                "notation": "zài"
+              },
+              {
+                "surface": "冰",
+                "notation": "bīng"
+              },
+              {
+                "surface": "箱",
+                "notation": "xiāng"
+              },
+              {
+                "surface": "里",
+                "notation": "lǐ"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-five-green-leaves",
@@ -1136,7 +2053,42 @@
             "explanation": "Replaces five with six."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我有五片绿叶",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "有",
+                "notation": "yǒu"
+              },
+              {
+                "surface": "五",
+                "notation": "wǔ"
+              },
+              {
+                "surface": "片",
+                "notation": "piàn"
+              },
+              {
+                "surface": "绿",
+                "notation": "lǜ"
+              },
+              {
+                "surface": "叶",
+                "notation": "yè"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-grandma-draws-moon",
@@ -1183,7 +2135,54 @@
             "explanation": "Changes the artist from Grandma to Dad."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "奶奶正在画一个月亮",
+            "units": [
+              {
+                "surface": "奶",
+                "notation": "nǎi"
+              },
+              {
+                "surface": "奶",
+                "notation": "nai"
+              },
+              {
+                "surface": "正",
+                "notation": "zhèng"
+              },
+              {
+                "surface": "在",
+                "notation": "zài"
+              },
+              {
+                "surface": "画",
+                "notation": "huà"
+              },
+              {
+                "surface": "一",
+                "notation": "yī"
+              },
+              {
+                "surface": "个",
+                "notation": "ge"
+              },
+              {
+                "surface": "月",
+                "notation": "yuè"
+              },
+              {
+                "surface": "亮",
+                "notation": "liang"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-today-windy",
@@ -1229,7 +2228,38 @@
             "explanation": "Replaces windy with sunny."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "今天风很大",
+            "units": [
+              {
+                "surface": "今",
+                "notation": "jīn"
+              },
+              {
+                "surface": "天",
+                "notation": "tiān"
+              },
+              {
+                "surface": "风",
+                "notation": "fēng"
+              },
+              {
+                "surface": "很",
+                "notation": "hěn"
+              },
+              {
+                "surface": "大",
+                "notation": "dà"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-bus-stop-near",
@@ -1275,7 +2305,54 @@
             "explanation": "Changes a statement of proximity to a position behind us."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "公交车站离这里很近",
+            "units": [
+              {
+                "surface": "公",
+                "notation": "gōng"
+              },
+              {
+                "surface": "交",
+                "notation": "jiāo"
+              },
+              {
+                "surface": "车",
+                "notation": "chē"
+              },
+              {
+                "surface": "站",
+                "notation": "zhàn"
+              },
+              {
+                "surface": "离",
+                "notation": "lí"
+              },
+              {
+                "surface": "这",
+                "notation": "zhè"
+              },
+              {
+                "surface": "里",
+                "notation": "lǐ"
+              },
+              {
+                "surface": "很",
+                "notation": "hěn"
+              },
+              {
+                "surface": "近",
+                "notation": "jìn"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-boots-under-chair",
@@ -1321,7 +2398,54 @@
             "explanation": "Replaces under with on."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我的靴子在椅子下面",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "的",
+                "notation": "de"
+              },
+              {
+                "surface": "靴",
+                "notation": "xuē"
+              },
+              {
+                "surface": "子",
+                "notation": "zi"
+              },
+              {
+                "surface": "在",
+                "notation": "zài"
+              },
+              {
+                "surface": "椅",
+                "notation": "yǐ"
+              },
+              {
+                "surface": "子",
+                "notation": "zi"
+              },
+              {
+                "surface": "下",
+                "notation": "xià"
+              },
+              {
+                "surface": "面",
+                "notation": "miàn"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-sister-reads-map",
@@ -1368,7 +2492,58 @@
             "explanation": "Replaces a map with a letter."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我妹妹正在看一张地图",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "妹",
+                "notation": "mèi"
+              },
+              {
+                "surface": "妹",
+                "notation": "mei"
+              },
+              {
+                "surface": "正",
+                "notation": "zhèng"
+              },
+              {
+                "surface": "在",
+                "notation": "zài"
+              },
+              {
+                "surface": "看",
+                "notation": "kàn"
+              },
+              {
+                "surface": "一",
+                "notation": "yī"
+              },
+              {
+                "surface": "张",
+                "notation": "zhāng"
+              },
+              {
+                "surface": "地",
+                "notation": "dì"
+              },
+              {
+                "surface": "图",
+                "notation": "tú"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-he-needs-rest",
@@ -1415,7 +2590,38 @@
             "explanation": "Replaces rest with help."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "他需要休息",
+            "units": [
+              {
+                "surface": "他",
+                "notation": "tā"
+              },
+              {
+                "surface": "需",
+                "notation": "xū"
+              },
+              {
+                "surface": "要",
+                "notation": "yào"
+              },
+              {
+                "surface": "休",
+                "notation": "xiū"
+              },
+              {
+                "surface": "息",
+                "notation": "xi"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-parcel-after-breakfast",
@@ -1462,7 +2668,66 @@
             "explanation": "Changes after breakfast to during breakfast."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我明天早饭后去寄这个包裹",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "明",
+                "notation": "míng"
+              },
+              {
+                "surface": "天",
+                "notation": "tiān"
+              },
+              {
+                "surface": "早",
+                "notation": "zǎo"
+              },
+              {
+                "surface": "饭",
+                "notation": "fàn"
+              },
+              {
+                "surface": "后",
+                "notation": "hòu"
+              },
+              {
+                "surface": "去",
+                "notation": "qù"
+              },
+              {
+                "surface": "寄",
+                "notation": "jì"
+              },
+              {
+                "surface": "这",
+                "notation": "zhè"
+              },
+              {
+                "surface": "个",
+                "notation": "ge"
+              },
+              {
+                "surface": "包",
+                "notation": "bāo"
+              },
+              {
+                "surface": "裹",
+                "notation": "guǒ"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-stopped-raining",
@@ -1508,7 +2773,79 @@
             "explanation": "Changes the rain having stopped to rain continuing."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "雨已经停了",
+            "units": [
+              {
+                "surface": "雨",
+                "notation": "yǔ"
+              },
+              {
+                "surface": "已",
+                "notation": "yǐ"
+              },
+              {
+                "surface": "经",
+                "notation": "jīng"
+              },
+              {
+                "surface": "停",
+                "notation": "tíng"
+              },
+              {
+                "surface": "了",
+                "notation": "le"
+              }
+            ]
+          },
+          {
+            "surface": "我们现在可以出门了",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "们",
+                "notation": "men"
+              },
+              {
+                "surface": "现",
+                "notation": "xiàn"
+              },
+              {
+                "surface": "在",
+                "notation": "zài"
+              },
+              {
+                "surface": "可",
+                "notation": "kě"
+              },
+              {
+                "surface": "以",
+                "notation": "yǐ"
+              },
+              {
+                "surface": "出",
+                "notation": "chū"
+              },
+              {
+                "surface": "门",
+                "notation": "mén"
+              },
+              {
+                "surface": "了",
+                "notation": "le"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-bowl-for-cat",
@@ -1555,7 +2892,58 @@
             "explanation": "Changes the intended animal from the cat to the dog."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "这个碗是给猫喝水用的",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              },
+              {
+                "surface": "个",
+                "notation": "ge"
+              },
+              {
+                "surface": "碗",
+                "notation": "wǎn"
+              },
+              {
+                "surface": "是",
+                "notation": "shì"
+              },
+              {
+                "surface": "给",
+                "notation": "gěi"
+              },
+              {
+                "surface": "猫",
+                "notation": "māo"
+              },
+              {
+                "surface": "喝",
+                "notation": "hē"
+              },
+              {
+                "surface": "水",
+                "notation": "shuǐ"
+              },
+              {
+                "surface": "用",
+                "notation": "yòng"
+              },
+              {
+                "surface": "的",
+                "notation": "de"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-dad-scarf-owner",
@@ -1602,7 +2990,62 @@
             "explanation": "Changes the owner from Dad to me."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "椅子上的蓝围巾是爸爸的",
+            "units": [
+              {
+                "surface": "椅",
+                "notation": "yǐ"
+              },
+              {
+                "surface": "子",
+                "notation": "zi"
+              },
+              {
+                "surface": "上",
+                "notation": "shàng"
+              },
+              {
+                "surface": "的",
+                "notation": "de"
+              },
+              {
+                "surface": "蓝",
+                "notation": "lán"
+              },
+              {
+                "surface": "围",
+                "notation": "wéi"
+              },
+              {
+                "surface": "巾",
+                "notation": "jīn"
+              },
+              {
+                "surface": "是",
+                "notation": "shì"
+              },
+              {
+                "surface": "爸",
+                "notation": "bà"
+              },
+              {
+                "surface": "爸",
+                "notation": "ba"
+              },
+              {
+                "surface": "的",
+                "notation": "de"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-basket-lighter",
@@ -1649,7 +3092,54 @@
             "explanation": "Changes a difference in weight to equal weight."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "这个篮子比我的包轻",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              },
+              {
+                "surface": "个",
+                "notation": "ge"
+              },
+              {
+                "surface": "篮",
+                "notation": "lán"
+              },
+              {
+                "surface": "子",
+                "notation": "zi"
+              },
+              {
+                "surface": "比",
+                "notation": "bǐ"
+              },
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "的",
+                "notation": "de"
+              },
+              {
+                "surface": "包",
+                "notation": "bāo"
+              },
+              {
+                "surface": "轻",
+                "notation": "qīng"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-because-battery-empty",
@@ -1696,7 +3186,71 @@
             "explanation": "Replaces the empty battery with a broken switch as the cause."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "这盏灯不亮",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              },
+              {
+                "surface": "盏",
+                "notation": "zhǎn"
+              },
+              {
+                "surface": "灯",
+                "notation": "dēng"
+              },
+              {
+                "surface": "不",
+                "notation": "bù"
+              },
+              {
+                "surface": "亮",
+                "notation": "liàng"
+              }
+            ]
+          },
+          {
+            "surface": "因为电池没电了",
+            "units": [
+              {
+                "surface": "因",
+                "notation": "yīn"
+              },
+              {
+                "surface": "为",
+                "notation": "wèi"
+              },
+              {
+                "surface": "电",
+                "notation": "diàn"
+              },
+              {
+                "surface": "池",
+                "notation": "chí"
+              },
+              {
+                "surface": "没",
+                "notation": "méi"
+              },
+              {
+                "surface": "电",
+                "notation": "diàn"
+              },
+              {
+                "surface": "了",
+                "notation": "le"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-tea-without-sugar",
@@ -1742,7 +3296,71 @@
             "explanation": "Changes no sugar to a lot of sugar."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我想喝一杯茶",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "想",
+                "notation": "xiǎng"
+              },
+              {
+                "surface": "喝",
+                "notation": "hē"
+              },
+              {
+                "surface": "一",
+                "notation": "yī"
+              },
+              {
+                "surface": "杯",
+                "notation": "bēi"
+              },
+              {
+                "surface": "茶",
+                "notation": "chá"
+              }
+            ]
+          },
+          {
+            "surface": "一点糖也不要",
+            "units": [
+              {
+                "surface": "一",
+                "notation": "yī"
+              },
+              {
+                "surface": "点",
+                "notation": "diǎn"
+              },
+              {
+                "surface": "糖",
+                "notation": "táng"
+              },
+              {
+                "surface": "也",
+                "notation": "yě"
+              },
+              {
+                "surface": "不",
+                "notation": "bù"
+              },
+              {
+                "surface": "要",
+                "notation": "yào"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-return-book-friday",
@@ -1789,7 +3407,66 @@
             "explanation": "Changes Friday to Saturday."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "请在星期五把这本书还给我",
+            "units": [
+              {
+                "surface": "请",
+                "notation": "qǐng"
+              },
+              {
+                "surface": "在",
+                "notation": "zài"
+              },
+              {
+                "surface": "星",
+                "notation": "xīng"
+              },
+              {
+                "surface": "期",
+                "notation": "qī"
+              },
+              {
+                "surface": "五",
+                "notation": "wǔ"
+              },
+              {
+                "surface": "把",
+                "notation": "bǎ"
+              },
+              {
+                "surface": "这",
+                "notation": "zhè"
+              },
+              {
+                "surface": "本",
+                "notation": "běn"
+              },
+              {
+                "surface": "书",
+                "notation": "shū"
+              },
+              {
+                "surface": "还",
+                "notation": "huán"
+              },
+              {
+                "surface": "给",
+                "notation": "gěi"
+              },
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-soup-first-then-bread",
@@ -1836,7 +3513,59 @@
             "explanation": "Changes sequential eating to eating both together."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我们先喝汤",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "们",
+                "notation": "men"
+              },
+              {
+                "surface": "先",
+                "notation": "xiān"
+              },
+              {
+                "surface": "喝",
+                "notation": "hē"
+              },
+              {
+                "surface": "汤",
+                "notation": "tāng"
+              }
+            ]
+          },
+          {
+            "surface": "再吃面包",
+            "units": [
+              {
+                "surface": "再",
+                "notation": "zài"
+              },
+              {
+                "surface": "吃",
+                "notation": "chī"
+              },
+              {
+                "surface": "面",
+                "notation": "miàn"
+              },
+              {
+                "surface": "包",
+                "notation": "bāo"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-park-beside-museum",
@@ -1883,7 +3612,74 @@
             "explanation": "Changes beside to opposite."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我们要去的公园就在博物馆旁边",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "们",
+                "notation": "men"
+              },
+              {
+                "surface": "要",
+                "notation": "yào"
+              },
+              {
+                "surface": "去",
+                "notation": "qù"
+              },
+              {
+                "surface": "的",
+                "notation": "de"
+              },
+              {
+                "surface": "公",
+                "notation": "gōng"
+              },
+              {
+                "surface": "园",
+                "notation": "yuán"
+              },
+              {
+                "surface": "就",
+                "notation": "jiù"
+              },
+              {
+                "surface": "在",
+                "notation": "zài"
+              },
+              {
+                "surface": "博",
+                "notation": "bó"
+              },
+              {
+                "surface": "物",
+                "notation": "wù"
+              },
+              {
+                "surface": "馆",
+                "notation": "guǎn"
+              },
+              {
+                "surface": "旁",
+                "notation": "páng"
+              },
+              {
+                "surface": "边",
+                "notation": "biān"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-sister-has-finished-puzzle",
@@ -1930,7 +3726,66 @@
             "explanation": "Changes having finished to not having started."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我妹妹已经完成这幅拼图了",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "妹",
+                "notation": "mèi"
+              },
+              {
+                "surface": "妹",
+                "notation": "mei"
+              },
+              {
+                "surface": "已",
+                "notation": "yǐ"
+              },
+              {
+                "surface": "经",
+                "notation": "jīng"
+              },
+              {
+                "surface": "完",
+                "notation": "wán"
+              },
+              {
+                "surface": "成",
+                "notation": "chéng"
+              },
+              {
+                "surface": "这",
+                "notation": "zhè"
+              },
+              {
+                "surface": "幅",
+                "notation": "fú"
+              },
+              {
+                "surface": "拼",
+                "notation": "pīn"
+              },
+              {
+                "surface": "图",
+                "notation": "tú"
+              },
+              {
+                "surface": "了",
+                "notation": "le"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-meet-after-swimming",
@@ -1977,7 +3832,66 @@
             "explanation": "Changes after the lesson to during it."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我们明天游泳课后在门口见",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "们",
+                "notation": "men"
+              },
+              {
+                "surface": "明",
+                "notation": "míng"
+              },
+              {
+                "surface": "天",
+                "notation": "tiān"
+              },
+              {
+                "surface": "游",
+                "notation": "yóu"
+              },
+              {
+                "surface": "泳",
+                "notation": "yǒng"
+              },
+              {
+                "surface": "课",
+                "notation": "kè"
+              },
+              {
+                "surface": "后",
+                "notation": "hòu"
+              },
+              {
+                "surface": "在",
+                "notation": "zài"
+              },
+              {
+                "surface": "门",
+                "notation": "mén"
+              },
+              {
+                "surface": "口",
+                "notation": "kǒu"
+              },
+              {
+                "surface": "见",
+                "notation": "jiàn"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-borrow-rather-than-buy",
@@ -2024,7 +3938,71 @@
             "explanation": "Changes borrowing to renting."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "这次我想借一件雨衣",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              },
+              {
+                "surface": "次",
+                "notation": "cì"
+              },
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "想",
+                "notation": "xiǎng"
+              },
+              {
+                "surface": "借",
+                "notation": "jiè"
+              },
+              {
+                "surface": "一",
+                "notation": "yī"
+              },
+              {
+                "surface": "件",
+                "notation": "jiàn"
+              },
+              {
+                "surface": "雨",
+                "notation": "yǔ"
+              },
+              {
+                "surface": "衣",
+                "notation": "yī"
+              }
+            ]
+          },
+          {
+            "surface": "不想买",
+            "units": [
+              {
+                "surface": "不",
+                "notation": "bù"
+              },
+              {
+                "surface": "想",
+                "notation": "xiǎng"
+              },
+              {
+                "surface": "买",
+                "notation": "mǎi"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-both-windows-closed",
@@ -2070,7 +4048,50 @@
             "explanation": "Changes both closed windows to neither."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "这两扇窗户都关着",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              },
+              {
+                "surface": "两",
+                "notation": "liǎng"
+              },
+              {
+                "surface": "扇",
+                "notation": "shàn"
+              },
+              {
+                "surface": "窗",
+                "notation": "chuāng"
+              },
+              {
+                "surface": "户",
+                "notation": "hu"
+              },
+              {
+                "surface": "都",
+                "notation": "dōu"
+              },
+              {
+                "surface": "关",
+                "notation": "guān"
+              },
+              {
+                "surface": "着",
+                "notation": "zhe"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-basket-has-six-more",
@@ -2117,7 +4138,62 @@
             "explanation": "Changes six remaining apples to seven."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "这个篮子里还有六个苹果",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              },
+              {
+                "surface": "个",
+                "notation": "ge"
+              },
+              {
+                "surface": "篮",
+                "notation": "lán"
+              },
+              {
+                "surface": "子",
+                "notation": "zi"
+              },
+              {
+                "surface": "里",
+                "notation": "lǐ"
+              },
+              {
+                "surface": "还",
+                "notation": "hái"
+              },
+              {
+                "surface": "有",
+                "notation": "yǒu"
+              },
+              {
+                "surface": "六",
+                "notation": "liù"
+              },
+              {
+                "surface": "个",
+                "notation": "ge"
+              },
+              {
+                "surface": "苹",
+                "notation": "píng"
+              },
+              {
+                "surface": "果",
+                "notation": "guǒ"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-coat-drying-balcony",
@@ -2164,7 +4240,62 @@
             "explanation": "Changes the balcony to the kitchen."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我的外套正在阳台上晾着",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "的",
+                "notation": "de"
+              },
+              {
+                "surface": "外",
+                "notation": "wài"
+              },
+              {
+                "surface": "套",
+                "notation": "tào"
+              },
+              {
+                "surface": "正",
+                "notation": "zhèng"
+              },
+              {
+                "surface": "在",
+                "notation": "zài"
+              },
+              {
+                "surface": "阳",
+                "notation": "yáng"
+              },
+              {
+                "surface": "台",
+                "notation": "tái"
+              },
+              {
+                "surface": "上",
+                "notation": "shàng"
+              },
+              {
+                "surface": "晾",
+                "notation": "liàng"
+              },
+              {
+                "surface": "着",
+                "notation": "zhe"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-because-noisy",
@@ -2211,7 +4342,87 @@
             "explanation": "Changes the reason from noise to cold."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我去另一个房间看书",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "去",
+                "notation": "qù"
+              },
+              {
+                "surface": "另",
+                "notation": "lìng"
+              },
+              {
+                "surface": "一",
+                "notation": "yī"
+              },
+              {
+                "surface": "个",
+                "notation": "ge"
+              },
+              {
+                "surface": "房",
+                "notation": "fáng"
+              },
+              {
+                "surface": "间",
+                "notation": "jiān"
+              },
+              {
+                "surface": "看",
+                "notation": "kàn"
+              },
+              {
+                "surface": "书",
+                "notation": "shū"
+              }
+            ]
+          },
+          {
+            "surface": "因为这里太吵了",
+            "units": [
+              {
+                "surface": "因",
+                "notation": "yīn"
+              },
+              {
+                "surface": "为",
+                "notation": "wèi"
+              },
+              {
+                "surface": "这",
+                "notation": "zhè"
+              },
+              {
+                "surface": "里",
+                "notation": "lǐ"
+              },
+              {
+                "surface": "太",
+                "notation": "tài"
+              },
+              {
+                "surface": "吵",
+                "notation": "chǎo"
+              },
+              {
+                "surface": "了",
+                "notation": "le"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-if-late-call",
@@ -2257,7 +4468,79 @@
             "explanation": "Changes the condition from being late to being tired."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "如果你明天迟到了",
+            "units": [
+              {
+                "surface": "如",
+                "notation": "rú"
+              },
+              {
+                "surface": "果",
+                "notation": "guǒ"
+              },
+              {
+                "surface": "你",
+                "notation": "nǐ"
+              },
+              {
+                "surface": "明",
+                "notation": "míng"
+              },
+              {
+                "surface": "天",
+                "notation": "tiān"
+              },
+              {
+                "surface": "迟",
+                "notation": "chí"
+              },
+              {
+                "surface": "到",
+                "notation": "dào"
+              },
+              {
+                "surface": "了",
+                "notation": "le"
+              }
+            ]
+          },
+          {
+            "surface": "就给我打电话",
+            "units": [
+              {
+                "surface": "就",
+                "notation": "jiù"
+              },
+              {
+                "surface": "给",
+                "notation": "gěi"
+              },
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "打",
+                "notation": "dǎ"
+              },
+              {
+                "surface": "电",
+                "notation": "diàn"
+              },
+              {
+                "surface": "话",
+                "notation": "huà"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-put-label-outside",
@@ -2304,7 +4587,62 @@
             "explanation": "Changes the outside to the bottom."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "请把标签贴在盒子的外面",
+            "units": [
+              {
+                "surface": "请",
+                "notation": "qǐng"
+              },
+              {
+                "surface": "把",
+                "notation": "bǎ"
+              },
+              {
+                "surface": "标",
+                "notation": "biāo"
+              },
+              {
+                "surface": "签",
+                "notation": "qiān"
+              },
+              {
+                "surface": "贴",
+                "notation": "tiē"
+              },
+              {
+                "surface": "在",
+                "notation": "zài"
+              },
+              {
+                "surface": "盒",
+                "notation": "hé"
+              },
+              {
+                "surface": "子",
+                "notation": "zi"
+              },
+              {
+                "surface": "的",
+                "notation": "de"
+              },
+              {
+                "surface": "外",
+                "notation": "wài"
+              },
+              {
+                "surface": "面",
+                "notation": "miàn"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-prefer-smaller-table",
@@ -2351,7 +4689,66 @@
             "explanation": "Changes the table description from small to tall."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我更喜欢靠窗的那张小桌子",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "更",
+                "notation": "gèng"
+              },
+              {
+                "surface": "喜",
+                "notation": "xǐ"
+              },
+              {
+                "surface": "欢",
+                "notation": "huan"
+              },
+              {
+                "surface": "靠",
+                "notation": "kào"
+              },
+              {
+                "surface": "窗",
+                "notation": "chuāng"
+              },
+              {
+                "surface": "的",
+                "notation": "de"
+              },
+              {
+                "surface": "那",
+                "notation": "nà"
+              },
+              {
+                "surface": "张",
+                "notation": "zhāng"
+              },
+              {
+                "surface": "小",
+                "notation": "xiǎo"
+              },
+              {
+                "surface": "桌",
+                "notation": "zhuō"
+              },
+              {
+                "surface": "子",
+                "notation": "zi"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-twice-each-week",
@@ -2398,7 +4795,66 @@
             "explanation": "Changes twice a week to three times a week."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我每周给这些植物浇两次水",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "每",
+                "notation": "měi"
+              },
+              {
+                "surface": "周",
+                "notation": "zhōu"
+              },
+              {
+                "surface": "给",
+                "notation": "gěi"
+              },
+              {
+                "surface": "这",
+                "notation": "zhè"
+              },
+              {
+                "surface": "些",
+                "notation": "xiē"
+              },
+              {
+                "surface": "植",
+                "notation": "zhí"
+              },
+              {
+                "surface": "物",
+                "notation": "wù"
+              },
+              {
+                "surface": "浇",
+                "notation": "jiāo"
+              },
+              {
+                "surface": "两",
+                "notation": "liǎng"
+              },
+              {
+                "surface": "次",
+                "notation": "cì"
+              },
+              {
+                "surface": "水",
+                "notation": "shuǐ"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-uncle-brings-tools",
@@ -2445,7 +4901,74 @@
             "explanation": "Changes the person bringing the tools from Uncle to Grandpa."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "明天叔叔会带修自行车的工具来",
+            "units": [
+              {
+                "surface": "明",
+                "notation": "míng"
+              },
+              {
+                "surface": "天",
+                "notation": "tiān"
+              },
+              {
+                "surface": "叔",
+                "notation": "shū"
+              },
+              {
+                "surface": "叔",
+                "notation": "shu"
+              },
+              {
+                "surface": "会",
+                "notation": "huì"
+              },
+              {
+                "surface": "带",
+                "notation": "dài"
+              },
+              {
+                "surface": "修",
+                "notation": "xiū"
+              },
+              {
+                "surface": "自",
+                "notation": "zì"
+              },
+              {
+                "surface": "行",
+                "notation": "xíng"
+              },
+              {
+                "surface": "车",
+                "notation": "chē"
+              },
+              {
+                "surface": "的",
+                "notation": "de"
+              },
+              {
+                "surface": "工",
+                "notation": "gōng"
+              },
+              {
+                "surface": "具",
+                "notation": "jù"
+              },
+              {
+                "surface": "来",
+                "notation": "lái"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-still-waiting-reply",
@@ -2492,7 +5015,50 @@
             "explanation": "Changes still waiting to no longer waiting."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我还在等她的回复",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "还",
+                "notation": "hái"
+              },
+              {
+                "surface": "在",
+                "notation": "zài"
+              },
+              {
+                "surface": "等",
+                "notation": "děng"
+              },
+              {
+                "surface": "她",
+                "notation": "tā"
+              },
+              {
+                "surface": "的",
+                "notation": "de"
+              },
+              {
+                "surface": "回",
+                "notation": "huí"
+              },
+              {
+                "surface": "复",
+                "notation": "fù"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-leave-shoes-by-door",
@@ -2539,7 +5105,71 @@
             "explanation": "Changes beside the door to under the bench."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "进来以前",
+            "units": [
+              {
+                "surface": "进",
+                "notation": "jìn"
+              },
+              {
+                "surface": "来",
+                "notation": "lái"
+              },
+              {
+                "surface": "以",
+                "notation": "yǐ"
+              },
+              {
+                "surface": "前",
+                "notation": "qián"
+              }
+            ]
+          },
+          {
+            "surface": "请把鞋放在门旁边",
+            "units": [
+              {
+                "surface": "请",
+                "notation": "qǐng"
+              },
+              {
+                "surface": "把",
+                "notation": "bǎ"
+              },
+              {
+                "surface": "鞋",
+                "notation": "xié"
+              },
+              {
+                "surface": "放",
+                "notation": "fàng"
+              },
+              {
+                "surface": "在",
+                "notation": "zài"
+              },
+              {
+                "surface": "门",
+                "notation": "mén"
+              },
+              {
+                "surface": "旁",
+                "notation": "páng"
+              },
+              {
+                "surface": "边",
+                "notation": "biān"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-spoon-for-stirring",
@@ -2586,7 +5216,58 @@
             "explanation": "Changes stirring the soup to tasting it."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "这把木勺是用来搅汤的",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              },
+              {
+                "surface": "把",
+                "notation": "bǎ"
+              },
+              {
+                "surface": "木",
+                "notation": "mù"
+              },
+              {
+                "surface": "勺",
+                "notation": "sháo"
+              },
+              {
+                "surface": "是",
+                "notation": "shì"
+              },
+              {
+                "surface": "用",
+                "notation": "yòng"
+              },
+              {
+                "surface": "来",
+                "notation": "lái"
+              },
+              {
+                "surface": "搅",
+                "notation": "jiǎo"
+              },
+              {
+                "surface": "汤",
+                "notation": "tāng"
+              },
+              {
+                "surface": "的",
+                "notation": "de"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-choose-same-colour",
@@ -2632,7 +5313,62 @@
             "explanation": "Changes matching colour to matching length."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "请选两条颜色一样的丝带",
+            "units": [
+              {
+                "surface": "请",
+                "notation": "qǐng"
+              },
+              {
+                "surface": "选",
+                "notation": "xuǎn"
+              },
+              {
+                "surface": "两",
+                "notation": "liǎng"
+              },
+              {
+                "surface": "条",
+                "notation": "tiáo"
+              },
+              {
+                "surface": "颜",
+                "notation": "yán"
+              },
+              {
+                "surface": "色",
+                "notation": "sè"
+              },
+              {
+                "surface": "一",
+                "notation": "yī"
+              },
+              {
+                "surface": "样",
+                "notation": "yàng"
+              },
+              {
+                "surface": "的",
+                "notation": "de"
+              },
+              {
+                "surface": "丝",
+                "notation": "sī"
+              },
+              {
+                "surface": "带",
+                "notation": "dài"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-bus-ten-minutes",
@@ -2678,7 +5414,62 @@
             "explanation": "Changes the waiting time from ten minutes to twenty."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "下一班公交车十分钟后到",
+            "units": [
+              {
+                "surface": "下",
+                "notation": "xià"
+              },
+              {
+                "surface": "一",
+                "notation": "yī"
+              },
+              {
+                "surface": "班",
+                "notation": "bān"
+              },
+              {
+                "surface": "公",
+                "notation": "gōng"
+              },
+              {
+                "surface": "交",
+                "notation": "jiāo"
+              },
+              {
+                "surface": "车",
+                "notation": "chē"
+              },
+              {
+                "surface": "十",
+                "notation": "shí"
+              },
+              {
+                "surface": "分",
+                "notation": "fēn"
+              },
+              {
+                "surface": "钟",
+                "notation": "zhōng"
+              },
+              {
+                "surface": "后",
+                "notation": "hòu"
+              },
+              {
+                "surface": "到",
+                "notation": "dào"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-need-larger-size",
@@ -2724,7 +5515,75 @@
             "explanation": "Changes needing a larger size to needing the same size."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "这双鞋太小了",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              },
+              {
+                "surface": "双",
+                "notation": "shuāng"
+              },
+              {
+                "surface": "鞋",
+                "notation": "xié"
+              },
+              {
+                "surface": "太",
+                "notation": "tài"
+              },
+              {
+                "surface": "小",
+                "notation": "xiǎo"
+              },
+              {
+                "surface": "了",
+                "notation": "le"
+              }
+            ]
+          },
+          {
+            "surface": "我需要大一号的",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "需",
+                "notation": "xū"
+              },
+              {
+                "surface": "要",
+                "notation": "yào"
+              },
+              {
+                "surface": "大",
+                "notation": "dà"
+              },
+              {
+                "surface": "一",
+                "notation": "yī"
+              },
+              {
+                "surface": "号",
+                "notation": "hào"
+              },
+              {
+                "surface": "的",
+                "notation": "de"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-bring-so-we-share",
@@ -2770,7 +5629,107 @@
             "explanation": "Changes sharing the pencils to counting them."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "明天带上你的彩色铅笔",
+            "units": [
+              {
+                "surface": "明",
+                "notation": "míng"
+              },
+              {
+                "surface": "天",
+                "notation": "tiān"
+              },
+              {
+                "surface": "带",
+                "notation": "dài"
+              },
+              {
+                "surface": "上",
+                "notation": "shàng"
+              },
+              {
+                "surface": "你",
+                "notation": "nǐ"
+              },
+              {
+                "surface": "的",
+                "notation": "de"
+              },
+              {
+                "surface": "彩",
+                "notation": "cǎi"
+              },
+              {
+                "surface": "色",
+                "notation": "sè"
+              },
+              {
+                "surface": "铅",
+                "notation": "qiān"
+              },
+              {
+                "surface": "笔",
+                "notation": "bǐ"
+              }
+            ]
+          },
+          {
+            "surface": "这样我们就可以一起用了",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              },
+              {
+                "surface": "样",
+                "notation": "yàng"
+              },
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "们",
+                "notation": "men"
+              },
+              {
+                "surface": "就",
+                "notation": "jiù"
+              },
+              {
+                "surface": "可",
+                "notation": "kě"
+              },
+              {
+                "surface": "以",
+                "notation": "yǐ"
+              },
+              {
+                "surface": "一",
+                "notation": "yī"
+              },
+              {
+                "surface": "起",
+                "notation": "qǐ"
+              },
+              {
+                "surface": "用",
+                "notation": "yòng"
+              },
+              {
+                "surface": "了",
+                "notation": "le"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-carefully-fold-map",
@@ -2817,7 +5776,87 @@
             "explanation": "Changes carefully to roughly."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "收起来以前",
+            "units": [
+              {
+                "surface": "收",
+                "notation": "shōu"
+              },
+              {
+                "surface": "起",
+                "notation": "qǐ"
+              },
+              {
+                "surface": "来",
+                "notation": "lái"
+              },
+              {
+                "surface": "以",
+                "notation": "yǐ"
+              },
+              {
+                "surface": "前",
+                "notation": "qián"
+              }
+            ]
+          },
+          {
+            "surface": "请小心地把这张地图折好",
+            "units": [
+              {
+                "surface": "请",
+                "notation": "qǐng"
+              },
+              {
+                "surface": "小",
+                "notation": "xiǎo"
+              },
+              {
+                "surface": "心",
+                "notation": "xīn"
+              },
+              {
+                "surface": "地",
+                "notation": "de"
+              },
+              {
+                "surface": "把",
+                "notation": "bǎ"
+              },
+              {
+                "surface": "这",
+                "notation": "zhè"
+              },
+              {
+                "surface": "张",
+                "notation": "zhāng"
+              },
+              {
+                "surface": "地",
+                "notation": "dì"
+              },
+              {
+                "surface": "图",
+                "notation": "tú"
+              },
+              {
+                "surface": "折",
+                "notation": "zhé"
+              },
+              {
+                "surface": "好",
+                "notation": "hǎo"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-although-cloudy-picnic",
@@ -2864,7 +5903,83 @@
             "explanation": "Changes despite the clouds to because of the clouds."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "虽然明天多云",
+            "units": [
+              {
+                "surface": "虽",
+                "notation": "suī"
+              },
+              {
+                "surface": "然",
+                "notation": "rán"
+              },
+              {
+                "surface": "明",
+                "notation": "míng"
+              },
+              {
+                "surface": "天",
+                "notation": "tiān"
+              },
+              {
+                "surface": "多",
+                "notation": "duō"
+              },
+              {
+                "surface": "云",
+                "notation": "yún"
+              }
+            ]
+          },
+          {
+            "surface": "我们还是打算去野餐",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "们",
+                "notation": "men"
+              },
+              {
+                "surface": "还",
+                "notation": "hái"
+              },
+              {
+                "surface": "是",
+                "notation": "shì"
+              },
+              {
+                "surface": "打",
+                "notation": "dǎ"
+              },
+              {
+                "surface": "算",
+                "notation": "suan"
+              },
+              {
+                "surface": "去",
+                "notation": "qù"
+              },
+              {
+                "surface": "野",
+                "notation": "yě"
+              },
+              {
+                "surface": "餐",
+                "notation": "cān"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-if-no-reply-ask-teacher",
@@ -2911,7 +6026,91 @@
             "explanation": "Changes whose missing reply triggers the question."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "如果明天还没有收到回复",
+            "units": [
+              {
+                "surface": "如",
+                "notation": "rú"
+              },
+              {
+                "surface": "果",
+                "notation": "guǒ"
+              },
+              {
+                "surface": "明",
+                "notation": "míng"
+              },
+              {
+                "surface": "天",
+                "notation": "tiān"
+              },
+              {
+                "surface": "还",
+                "notation": "hái"
+              },
+              {
+                "surface": "没",
+                "notation": "méi"
+              },
+              {
+                "surface": "有",
+                "notation": "yǒu"
+              },
+              {
+                "surface": "收",
+                "notation": "shōu"
+              },
+              {
+                "surface": "到",
+                "notation": "dào"
+              },
+              {
+                "surface": "回",
+                "notation": "huí"
+              },
+              {
+                "surface": "复",
+                "notation": "fù"
+              }
+            ]
+          },
+          {
+            "surface": "我就去问老师",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "就",
+                "notation": "jiù"
+              },
+              {
+                "surface": "去",
+                "notation": "qù"
+              },
+              {
+                "surface": "问",
+                "notation": "wèn"
+              },
+              {
+                "surface": "老",
+                "notation": "lǎo"
+              },
+              {
+                "surface": "师",
+                "notation": "shī"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-leave-enough-for-others",
@@ -2958,7 +6157,87 @@
             "explanation": "Changes taking what is needed to taking half that amount."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "拿你需要的纸就好",
+            "units": [
+              {
+                "surface": "拿",
+                "notation": "ná"
+              },
+              {
+                "surface": "你",
+                "notation": "nǐ"
+              },
+              {
+                "surface": "需",
+                "notation": "xū"
+              },
+              {
+                "surface": "要",
+                "notation": "yào"
+              },
+              {
+                "surface": "的",
+                "notation": "de"
+              },
+              {
+                "surface": "纸",
+                "notation": "zhǐ"
+              },
+              {
+                "surface": "就",
+                "notation": "jiù"
+              },
+              {
+                "surface": "好",
+                "notation": "hǎo"
+              }
+            ]
+          },
+          {
+            "surface": "剩下的留给其他人",
+            "units": [
+              {
+                "surface": "剩",
+                "notation": "shèng"
+              },
+              {
+                "surface": "下",
+                "notation": "xià"
+              },
+              {
+                "surface": "的",
+                "notation": "de"
+              },
+              {
+                "surface": "留",
+                "notation": "liú"
+              },
+              {
+                "surface": "给",
+                "notation": "gěi"
+              },
+              {
+                "surface": "其",
+                "notation": "qí"
+              },
+              {
+                "surface": "他",
+                "notation": "tā"
+              },
+              {
+                "surface": "人",
+                "notation": "rén"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-ticket-instead-of-receipt",
@@ -3005,7 +6284,95 @@
             "explanation": "Replaces the ticket with the map."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "请把车票放进蓝色文件夹里",
+            "units": [
+              {
+                "surface": "请",
+                "notation": "qǐng"
+              },
+              {
+                "surface": "把",
+                "notation": "bǎ"
+              },
+              {
+                "surface": "车",
+                "notation": "chē"
+              },
+              {
+                "surface": "票",
+                "notation": "piào"
+              },
+              {
+                "surface": "放",
+                "notation": "fàng"
+              },
+              {
+                "surface": "进",
+                "notation": "jìn"
+              },
+              {
+                "surface": "蓝",
+                "notation": "lán"
+              },
+              {
+                "surface": "色",
+                "notation": "sè"
+              },
+              {
+                "surface": "文",
+                "notation": "wén"
+              },
+              {
+                "surface": "件",
+                "notation": "jiàn"
+              },
+              {
+                "surface": "夹",
+                "notation": "jiā"
+              },
+              {
+                "surface": "里",
+                "notation": "lǐ"
+              }
+            ]
+          },
+          {
+            "surface": "收据留在桌上",
+            "units": [
+              {
+                "surface": "收",
+                "notation": "shōu"
+              },
+              {
+                "surface": "据",
+                "notation": "jù"
+              },
+              {
+                "surface": "留",
+                "notation": "liú"
+              },
+              {
+                "surface": "在",
+                "notation": "zài"
+              },
+              {
+                "surface": "桌",
+                "notation": "zhuō"
+              },
+              {
+                "surface": "上",
+                "notation": "shàng"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-library-closes-earlier",
@@ -3052,7 +6419,115 @@
             "explanation": "Changes the difference from one hour to two hours."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "今天图书馆比平时早一个小时关门",
+            "units": [
+              {
+                "surface": "今",
+                "notation": "jīn"
+              },
+              {
+                "surface": "天",
+                "notation": "tiān"
+              },
+              {
+                "surface": "图",
+                "notation": "tú"
+              },
+              {
+                "surface": "书",
+                "notation": "shū"
+              },
+              {
+                "surface": "馆",
+                "notation": "guǎn"
+              },
+              {
+                "surface": "比",
+                "notation": "bǐ"
+              },
+              {
+                "surface": "平",
+                "notation": "píng"
+              },
+              {
+                "surface": "时",
+                "notation": "shí"
+              },
+              {
+                "surface": "早",
+                "notation": "zǎo"
+              },
+              {
+                "surface": "一",
+                "notation": "yī"
+              },
+              {
+                "surface": "个",
+                "notation": "ge"
+              },
+              {
+                "surface": "小",
+                "notation": "xiǎo"
+              },
+              {
+                "surface": "时",
+                "notation": "shí"
+              },
+              {
+                "surface": "关",
+                "notation": "guān"
+              },
+              {
+                "surface": "门",
+                "notation": "mén"
+              }
+            ]
+          },
+          {
+            "surface": "所以我们得早点去",
+            "units": [
+              {
+                "surface": "所",
+                "notation": "suǒ"
+              },
+              {
+                "surface": "以",
+                "notation": "yǐ"
+              },
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "们",
+                "notation": "men"
+              },
+              {
+                "surface": "得",
+                "notation": "děi"
+              },
+              {
+                "surface": "早",
+                "notation": "zǎo"
+              },
+              {
+                "surface": "点",
+                "notation": "diǎn"
+              },
+              {
+                "surface": "去",
+                "notation": "qù"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-since-fixed-light-use-room",
@@ -3099,7 +6574,107 @@
             "explanation": "Changes what was repaired from the light to the window."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "既然灯已经修好了",
+            "units": [
+              {
+                "surface": "既",
+                "notation": "jì"
+              },
+              {
+                "surface": "然",
+                "notation": "rán"
+              },
+              {
+                "surface": "灯",
+                "notation": "dēng"
+              },
+              {
+                "surface": "已",
+                "notation": "yǐ"
+              },
+              {
+                "surface": "经",
+                "notation": "jīng"
+              },
+              {
+                "surface": "修",
+                "notation": "xiū"
+              },
+              {
+                "surface": "好",
+                "notation": "hǎo"
+              },
+              {
+                "surface": "了",
+                "notation": "le"
+              }
+            ]
+          },
+          {
+            "surface": "我们今晚就可以用这个房间了",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "们",
+                "notation": "men"
+              },
+              {
+                "surface": "今",
+                "notation": "jīn"
+              },
+              {
+                "surface": "晚",
+                "notation": "wǎn"
+              },
+              {
+                "surface": "就",
+                "notation": "jiù"
+              },
+              {
+                "surface": "可",
+                "notation": "kě"
+              },
+              {
+                "surface": "以",
+                "notation": "yǐ"
+              },
+              {
+                "surface": "用",
+                "notation": "yòng"
+              },
+              {
+                "surface": "这",
+                "notation": "zhè"
+              },
+              {
+                "surface": "个",
+                "notation": "ge"
+              },
+              {
+                "surface": "房",
+                "notation": "fáng"
+              },
+              {
+                "surface": "间",
+                "notation": "jiān"
+              },
+              {
+                "surface": "了",
+                "notation": "le"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-unless-raining-walk-home",
@@ -3146,7 +6721,83 @@
             "explanation": "Removes the rain exception."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "明天除非下雨",
+            "units": [
+              {
+                "surface": "明",
+                "notation": "míng"
+              },
+              {
+                "surface": "天",
+                "notation": "tiān"
+              },
+              {
+                "surface": "除",
+                "notation": "chú"
+              },
+              {
+                "surface": "非",
+                "notation": "fēi"
+              },
+              {
+                "surface": "下",
+                "notation": "xià"
+              },
+              {
+                "surface": "雨",
+                "notation": "yǔ"
+              }
+            ]
+          },
+          {
+            "surface": "否则我们就走路回家",
+            "units": [
+              {
+                "surface": "否",
+                "notation": "fǒu"
+              },
+              {
+                "surface": "则",
+                "notation": "zé"
+              },
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "们",
+                "notation": "men"
+              },
+              {
+                "surface": "就",
+                "notation": "jiù"
+              },
+              {
+                "surface": "走",
+                "notation": "zǒu"
+              },
+              {
+                "surface": "路",
+                "notation": "lù"
+              },
+              {
+                "surface": "回",
+                "notation": "huí"
+              },
+              {
+                "surface": "家",
+                "notation": "jiā"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-after-everyone-ready",
@@ -3193,7 +6844,83 @@
             "explanation": "Changes everyone being ready to one person being ready."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "等大家都准备好了",
+            "units": [
+              {
+                "surface": "等",
+                "notation": "děng"
+              },
+              {
+                "surface": "大",
+                "notation": "dà"
+              },
+              {
+                "surface": "家",
+                "notation": "jiā"
+              },
+              {
+                "surface": "都",
+                "notation": "dōu"
+              },
+              {
+                "surface": "准",
+                "notation": "zhǔn"
+              },
+              {
+                "surface": "备",
+                "notation": "bèi"
+              },
+              {
+                "surface": "好",
+                "notation": "hǎo"
+              },
+              {
+                "surface": "了",
+                "notation": "le"
+              }
+            ]
+          },
+          {
+            "surface": "我们再开始游戏",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "们",
+                "notation": "men"
+              },
+              {
+                "surface": "再",
+                "notation": "zài"
+              },
+              {
+                "surface": "开",
+                "notation": "kāi"
+              },
+              {
+                "surface": "始",
+                "notation": "shǐ"
+              },
+              {
+                "surface": "游",
+                "notation": "yóu"
+              },
+              {
+                "surface": "戏",
+                "notation": "xì"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-water-plants-before-trip",
@@ -3240,7 +6967,116 @@
             "explanation": "Changes before leaving to after returning."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "出发以前",
+            "units": [
+              {
+                "surface": "出",
+                "notation": "chū"
+              },
+              {
+                "surface": "发",
+                "notation": "fā"
+              },
+              {
+                "surface": "以",
+                "notation": "yǐ"
+              },
+              {
+                "surface": "前",
+                "notation": "qián"
+              }
+            ]
+          },
+          {
+            "surface": "我会先给植物浇水",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "会",
+                "notation": "huì"
+              },
+              {
+                "surface": "先",
+                "notation": "xiān"
+              },
+              {
+                "surface": "给",
+                "notation": "gěi"
+              },
+              {
+                "surface": "植",
+                "notation": "zhí"
+              },
+              {
+                "surface": "物",
+                "notation": "wù"
+              },
+              {
+                "surface": "浇",
+                "notation": "jiāo"
+              },
+              {
+                "surface": "水",
+                "notation": "shuǐ"
+              }
+            ]
+          },
+          {
+            "surface": "再把浇水壶放回架子上",
+            "units": [
+              {
+                "surface": "再",
+                "notation": "zài"
+              },
+              {
+                "surface": "把",
+                "notation": "bǎ"
+              },
+              {
+                "surface": "浇",
+                "notation": "jiāo"
+              },
+              {
+                "surface": "水",
+                "notation": "shuǐ"
+              },
+              {
+                "surface": "壶",
+                "notation": "hú"
+              },
+              {
+                "surface": "放",
+                "notation": "fàng"
+              },
+              {
+                "surface": "回",
+                "notation": "huí"
+              },
+              {
+                "surface": "架",
+                "notation": "jià"
+              },
+              {
+                "surface": "子",
+                "notation": "zi"
+              },
+              {
+                "surface": "上",
+                "notation": "shàng"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-not-sure-which-platform",
@@ -3287,7 +7123,107 @@
             "explanation": "Changes uncertainty about the platform to uncertainty about the seat."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我知道火车几点出发",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "知",
+                "notation": "zhī"
+              },
+              {
+                "surface": "道",
+                "notation": "dào"
+              },
+              {
+                "surface": "火",
+                "notation": "huǒ"
+              },
+              {
+                "surface": "车",
+                "notation": "chē"
+              },
+              {
+                "surface": "几",
+                "notation": "jǐ"
+              },
+              {
+                "surface": "点",
+                "notation": "diǎn"
+              },
+              {
+                "surface": "出",
+                "notation": "chū"
+              },
+              {
+                "surface": "发",
+                "notation": "fā"
+              }
+            ]
+          },
+          {
+            "surface": "但还不确定应该去哪个站台",
+            "units": [
+              {
+                "surface": "但",
+                "notation": "dàn"
+              },
+              {
+                "surface": "还",
+                "notation": "hái"
+              },
+              {
+                "surface": "不",
+                "notation": "bù"
+              },
+              {
+                "surface": "确",
+                "notation": "què"
+              },
+              {
+                "surface": "定",
+                "notation": "dìng"
+              },
+              {
+                "surface": "应",
+                "notation": "yīng"
+              },
+              {
+                "surface": "该",
+                "notation": "gāi"
+              },
+              {
+                "surface": "去",
+                "notation": "qù"
+              },
+              {
+                "surface": "哪",
+                "notation": "nǎ"
+              },
+              {
+                "surface": "个",
+                "notation": "ge"
+              },
+              {
+                "surface": "站",
+                "notation": "zhàn"
+              },
+              {
+                "surface": "台",
+                "notation": "tái"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-less-salt-than-last-time",
@@ -3334,7 +7270,91 @@
             "explanation": "Changes less salt to the same amount of salt."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "这次汤里的盐比上次少",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              },
+              {
+                "surface": "次",
+                "notation": "cì"
+              },
+              {
+                "surface": "汤",
+                "notation": "tāng"
+              },
+              {
+                "surface": "里",
+                "notation": "lǐ"
+              },
+              {
+                "surface": "的",
+                "notation": "de"
+              },
+              {
+                "surface": "盐",
+                "notation": "yán"
+              },
+              {
+                "surface": "比",
+                "notation": "bǐ"
+              },
+              {
+                "surface": "上",
+                "notation": "shàng"
+              },
+              {
+                "surface": "次",
+                "notation": "cì"
+              },
+              {
+                "surface": "少",
+                "notation": "shǎo"
+              }
+            ]
+          },
+          {
+            "surface": "但味道还是很好",
+            "units": [
+              {
+                "surface": "但",
+                "notation": "dàn"
+              },
+              {
+                "surface": "味",
+                "notation": "wèi"
+              },
+              {
+                "surface": "道",
+                "notation": "dào"
+              },
+              {
+                "surface": "还",
+                "notation": "hái"
+              },
+              {
+                "surface": "是",
+                "notation": "shì"
+              },
+              {
+                "surface": "很",
+                "notation": "hěn"
+              },
+              {
+                "surface": "好",
+                "notation": "hǎo"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-message-for-absent-friend",
@@ -3381,7 +7401,111 @@
             "explanation": "Changes a changed time to a cancelled meeting."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我给没来上课的朋友发了消息",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "给",
+                "notation": "gěi"
+              },
+              {
+                "surface": "没",
+                "notation": "méi"
+              },
+              {
+                "surface": "来",
+                "notation": "lái"
+              },
+              {
+                "surface": "上",
+                "notation": "shàng"
+              },
+              {
+                "surface": "课",
+                "notation": "kè"
+              },
+              {
+                "surface": "的",
+                "notation": "de"
+              },
+              {
+                "surface": "朋",
+                "notation": "péng"
+              },
+              {
+                "surface": "友",
+                "notation": "you"
+              },
+              {
+                "surface": "发",
+                "notation": "fā"
+              },
+              {
+                "surface": "了",
+                "notation": "le"
+              },
+              {
+                "surface": "消",
+                "notation": "xiāo"
+              },
+              {
+                "surface": "息",
+                "notation": "xi"
+              }
+            ]
+          },
+          {
+            "surface": "告诉他集合时间改了",
+            "units": [
+              {
+                "surface": "告",
+                "notation": "gào"
+              },
+              {
+                "surface": "诉",
+                "notation": "su"
+              },
+              {
+                "surface": "他",
+                "notation": "tā"
+              },
+              {
+                "surface": "集",
+                "notation": "jí"
+              },
+              {
+                "surface": "合",
+                "notation": "hé"
+              },
+              {
+                "surface": "时",
+                "notation": "shí"
+              },
+              {
+                "surface": "间",
+                "notation": "jiān"
+              },
+              {
+                "surface": "改",
+                "notation": "gǎi"
+              },
+              {
+                "surface": "了",
+                "notation": "le"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-wait-instead-of-run",
@@ -3428,7 +7552,116 @@
             "explanation": "Changes waiting for the next bus to walking home."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我们已经错过那班公交车了",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "们",
+                "notation": "men"
+              },
+              {
+                "surface": "已",
+                "notation": "yǐ"
+              },
+              {
+                "surface": "经",
+                "notation": "jīng"
+              },
+              {
+                "surface": "错",
+                "notation": "cuò"
+              },
+              {
+                "surface": "过",
+                "notation": "guò"
+              },
+              {
+                "surface": "那",
+                "notation": "nà"
+              },
+              {
+                "surface": "班",
+                "notation": "bān"
+              },
+              {
+                "surface": "公",
+                "notation": "gōng"
+              },
+              {
+                "surface": "交",
+                "notation": "jiāo"
+              },
+              {
+                "surface": "车",
+                "notation": "chē"
+              },
+              {
+                "surface": "了",
+                "notation": "le"
+              }
+            ]
+          },
+          {
+            "surface": "还是等下一班吧",
+            "units": [
+              {
+                "surface": "还",
+                "notation": "hái"
+              },
+              {
+                "surface": "是",
+                "notation": "shì"
+              },
+              {
+                "surface": "等",
+                "notation": "děng"
+              },
+              {
+                "surface": "下",
+                "notation": "xià"
+              },
+              {
+                "surface": "一",
+                "notation": "yī"
+              },
+              {
+                "surface": "班",
+                "notation": "bān"
+              },
+              {
+                "surface": "吧",
+                "notation": "ba"
+              }
+            ]
+          },
+          {
+            "surface": "别跑了",
+            "units": [
+              {
+                "surface": "别",
+                "notation": "bié"
+              },
+              {
+                "surface": "跑",
+                "notation": "pǎo"
+              },
+              {
+                "surface": "了",
+                "notation": "le"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-paper-before-opening-window",
@@ -3475,7 +7708,108 @@
             "explanation": "Changes putting the papers away beforehand to doing both together."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "开窗以前",
+            "units": [
+              {
+                "surface": "开",
+                "notation": "kāi"
+              },
+              {
+                "surface": "窗",
+                "notation": "chuāng"
+              },
+              {
+                "surface": "以",
+                "notation": "yǐ"
+              },
+              {
+                "surface": "前",
+                "notation": "qián"
+              }
+            ]
+          },
+          {
+            "surface": "请先把桌上的纸收起来",
+            "units": [
+              {
+                "surface": "请",
+                "notation": "qǐng"
+              },
+              {
+                "surface": "先",
+                "notation": "xiān"
+              },
+              {
+                "surface": "把",
+                "notation": "bǎ"
+              },
+              {
+                "surface": "桌",
+                "notation": "zhuō"
+              },
+              {
+                "surface": "上",
+                "notation": "shàng"
+              },
+              {
+                "surface": "的",
+                "notation": "de"
+              },
+              {
+                "surface": "纸",
+                "notation": "zhǐ"
+              },
+              {
+                "surface": "收",
+                "notation": "shōu"
+              },
+              {
+                "surface": "起",
+                "notation": "qǐ"
+              },
+              {
+                "surface": "来",
+                "notation": "lái"
+              }
+            ]
+          },
+          {
+            "surface": "免得被风吹走",
+            "units": [
+              {
+                "surface": "免",
+                "notation": "miǎn"
+              },
+              {
+                "surface": "得",
+                "notation": "de"
+              },
+              {
+                "surface": "被",
+                "notation": "bèi"
+              },
+              {
+                "surface": "风",
+                "notation": "fēng"
+              },
+              {
+                "surface": "吹",
+                "notation": "chuī"
+              },
+              {
+                "surface": "走",
+                "notation": "zǒu"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-as-soon-as-water-boils",
@@ -3521,7 +7855,83 @@
             "explanation": "Changes at boiling to before boiling."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "水一开就把火调小",
+            "units": [
+              {
+                "surface": "水",
+                "notation": "shuǐ"
+              },
+              {
+                "surface": "一",
+                "notation": "yī"
+              },
+              {
+                "surface": "开",
+                "notation": "kāi"
+              },
+              {
+                "surface": "就",
+                "notation": "jiù"
+              },
+              {
+                "surface": "把",
+                "notation": "bǎ"
+              },
+              {
+                "surface": "火",
+                "notation": "huǒ"
+              },
+              {
+                "surface": "调",
+                "notation": "tiáo"
+              },
+              {
+                "surface": "小",
+                "notation": "xiǎo"
+              }
+            ]
+          },
+          {
+            "surface": "不用再等五分钟",
+            "units": [
+              {
+                "surface": "不",
+                "notation": "bù"
+              },
+              {
+                "surface": "用",
+                "notation": "yòng"
+              },
+              {
+                "surface": "再",
+                "notation": "zài"
+              },
+              {
+                "surface": "等",
+                "notation": "děng"
+              },
+              {
+                "surface": "五",
+                "notation": "wǔ"
+              },
+              {
+                "surface": "分",
+                "notation": "fēn"
+              },
+              {
+                "surface": "钟",
+                "notation": "zhōng"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-take-umbrella-even-dry",
@@ -3568,7 +7978,83 @@
             "explanation": "Changes an unconditional precaution to a requirement that the rain has stopped."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "即使出门时还没下雨",
+            "units": [
+              {
+                "surface": "即",
+                "notation": "jí"
+              },
+              {
+                "surface": "使",
+                "notation": "shǐ"
+              },
+              {
+                "surface": "出",
+                "notation": "chū"
+              },
+              {
+                "surface": "门",
+                "notation": "mén"
+              },
+              {
+                "surface": "时",
+                "notation": "shí"
+              },
+              {
+                "surface": "还",
+                "notation": "hái"
+              },
+              {
+                "surface": "没",
+                "notation": "méi"
+              },
+              {
+                "surface": "下",
+                "notation": "xià"
+              },
+              {
+                "surface": "雨",
+                "notation": "yǔ"
+              }
+            ]
+          },
+          {
+            "surface": "也请带上雨伞",
+            "units": [
+              {
+                "surface": "也",
+                "notation": "yě"
+              },
+              {
+                "surface": "请",
+                "notation": "qǐng"
+              },
+              {
+                "surface": "带",
+                "notation": "dài"
+              },
+              {
+                "surface": "上",
+                "notation": "shàng"
+              },
+              {
+                "surface": "雨",
+                "notation": "yǔ"
+              },
+              {
+                "surface": "伞",
+                "notation": "sǎn"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-which-bag-contains-lunch",
@@ -3615,7 +8101,107 @@
             "explanation": "Changes the requested contents from lunch to water."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我问的是哪个包里装着午饭",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "问",
+                "notation": "wèn"
+              },
+              {
+                "surface": "的",
+                "notation": "de"
+              },
+              {
+                "surface": "是",
+                "notation": "shì"
+              },
+              {
+                "surface": "哪",
+                "notation": "nǎ"
+              },
+              {
+                "surface": "个",
+                "notation": "ge"
+              },
+              {
+                "surface": "包",
+                "notation": "bāo"
+              },
+              {
+                "surface": "里",
+                "notation": "lǐ"
+              },
+              {
+                "surface": "装",
+                "notation": "zhuāng"
+              },
+              {
+                "surface": "着",
+                "notation": "zhe"
+              },
+              {
+                "surface": "午",
+                "notation": "wǔ"
+              },
+              {
+                "surface": "饭",
+                "notation": "fàn"
+              }
+            ]
+          },
+          {
+            "surface": "不是哪个包里有钥匙",
+            "units": [
+              {
+                "surface": "不",
+                "notation": "bù"
+              },
+              {
+                "surface": "是",
+                "notation": "shì"
+              },
+              {
+                "surface": "哪",
+                "notation": "nǎ"
+              },
+              {
+                "surface": "个",
+                "notation": "ge"
+              },
+              {
+                "surface": "包",
+                "notation": "bāo"
+              },
+              {
+                "surface": "里",
+                "notation": "lǐ"
+              },
+              {
+                "surface": "有",
+                "notation": "yǒu"
+              },
+              {
+                "surface": "钥",
+                "notation": "yào"
+              },
+              {
+                "surface": "匙",
+                "notation": "shi"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-finished-before-sister-arrived",
@@ -3662,7 +8248,83 @@
             "explanation": "Changes prior completion to starting at the time of arrival."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "妹妹到家以前",
+            "units": [
+              {
+                "surface": "妹",
+                "notation": "mèi"
+              },
+              {
+                "surface": "妹",
+                "notation": "mei"
+              },
+              {
+                "surface": "到",
+                "notation": "dào"
+              },
+              {
+                "surface": "家",
+                "notation": "jiā"
+              },
+              {
+                "surface": "以",
+                "notation": "yǐ"
+              },
+              {
+                "surface": "前",
+                "notation": "qián"
+              }
+            ]
+          },
+          {
+            "surface": "我就已经做完作业了",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "就",
+                "notation": "jiù"
+              },
+              {
+                "surface": "已",
+                "notation": "yǐ"
+              },
+              {
+                "surface": "经",
+                "notation": "jīng"
+              },
+              {
+                "surface": "做",
+                "notation": "zuò"
+              },
+              {
+                "surface": "完",
+                "notation": "wán"
+              },
+              {
+                "surface": "作",
+                "notation": "zuò"
+              },
+              {
+                "surface": "业",
+                "notation": "yè"
+              },
+              {
+                "surface": "了",
+                "notation": "le"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-fewer-stops-longer-route",
@@ -3709,7 +8371,115 @@
             "explanation": "Changes taking longer to taking less time."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "这条路线停的站更少",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              },
+              {
+                "surface": "条",
+                "notation": "tiáo"
+              },
+              {
+                "surface": "路",
+                "notation": "lù"
+              },
+              {
+                "surface": "线",
+                "notation": "xiàn"
+              },
+              {
+                "surface": "停",
+                "notation": "tíng"
+              },
+              {
+                "surface": "的",
+                "notation": "de"
+              },
+              {
+                "surface": "站",
+                "notation": "zhàn"
+              },
+              {
+                "surface": "更",
+                "notation": "gèng"
+              },
+              {
+                "surface": "少",
+                "notation": "shǎo"
+              }
+            ]
+          },
+          {
+            "surface": "可是到图书馆反而花的时间更长",
+            "units": [
+              {
+                "surface": "可",
+                "notation": "kě"
+              },
+              {
+                "surface": "是",
+                "notation": "shì"
+              },
+              {
+                "surface": "到",
+                "notation": "dào"
+              },
+              {
+                "surface": "图",
+                "notation": "tú"
+              },
+              {
+                "surface": "书",
+                "notation": "shū"
+              },
+              {
+                "surface": "馆",
+                "notation": "guǎn"
+              },
+              {
+                "surface": "反",
+                "notation": "fǎn"
+              },
+              {
+                "surface": "而",
+                "notation": "ér"
+              },
+              {
+                "surface": "花",
+                "notation": "huā"
+              },
+              {
+                "surface": "的",
+                "notation": "de"
+              },
+              {
+                "surface": "时",
+                "notation": "shí"
+              },
+              {
+                "surface": "间",
+                "notation": "jiān"
+              },
+              {
+                "surface": "更",
+                "notation": "gèng"
+              },
+              {
+                "surface": "长",
+                "notation": "cháng"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-only-copy-with-permission",
@@ -3756,7 +8526,87 @@
             "explanation": "Changes whose permission is required."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "只有得到她的同意",
+            "units": [
+              {
+                "surface": "只",
+                "notation": "zhǐ"
+              },
+              {
+                "surface": "有",
+                "notation": "yǒu"
+              },
+              {
+                "surface": "得",
+                "notation": "dé"
+              },
+              {
+                "surface": "到",
+                "notation": "dào"
+              },
+              {
+                "surface": "她",
+                "notation": "tā"
+              },
+              {
+                "surface": "的",
+                "notation": "de"
+              },
+              {
+                "surface": "同",
+                "notation": "tóng"
+              },
+              {
+                "surface": "意",
+                "notation": "yì"
+              }
+            ]
+          },
+          {
+            "surface": "你才能复制这张画",
+            "units": [
+              {
+                "surface": "你",
+                "notation": "nǐ"
+              },
+              {
+                "surface": "才",
+                "notation": "cái"
+              },
+              {
+                "surface": "能",
+                "notation": "néng"
+              },
+              {
+                "surface": "复",
+                "notation": "fù"
+              },
+              {
+                "surface": "制",
+                "notation": "zhì"
+              },
+              {
+                "surface": "这",
+                "notation": "zhè"
+              },
+              {
+                "surface": "张",
+                "notation": "zhāng"
+              },
+              {
+                "surface": "画",
+                "notation": "huà"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-both-arrive-before-noon",
@@ -3802,7 +8652,86 @@
             "explanation": "Changes both being required to neither being required."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "这两个包裹都必须在明天中午以前送到",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              },
+              {
+                "surface": "两",
+                "notation": "liǎng"
+              },
+              {
+                "surface": "个",
+                "notation": "ge"
+              },
+              {
+                "surface": "包",
+                "notation": "bāo"
+              },
+              {
+                "surface": "裹",
+                "notation": "guǒ"
+              },
+              {
+                "surface": "都",
+                "notation": "dōu"
+              },
+              {
+                "surface": "必",
+                "notation": "bì"
+              },
+              {
+                "surface": "须",
+                "notation": "xū"
+              },
+              {
+                "surface": "在",
+                "notation": "zài"
+              },
+              {
+                "surface": "明",
+                "notation": "míng"
+              },
+              {
+                "surface": "天",
+                "notation": "tiān"
+              },
+              {
+                "surface": "中",
+                "notation": "zhōng"
+              },
+              {
+                "surface": "午",
+                "notation": "wǔ"
+              },
+              {
+                "surface": "以",
+                "notation": "yǐ"
+              },
+              {
+                "surface": "前",
+                "notation": "qián"
+              },
+              {
+                "surface": "送",
+                "notation": "sòng"
+              },
+              {
+                "surface": "到",
+                "notation": "dào"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-rather-repair-than-replace",
@@ -3849,7 +8778,99 @@
             "explanation": "Changes the preferred action from repairing to giving away."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "与其买一把新椅子",
+            "units": [
+              {
+                "surface": "与",
+                "notation": "yǔ"
+              },
+              {
+                "surface": "其",
+                "notation": "qí"
+              },
+              {
+                "surface": "买",
+                "notation": "mǎi"
+              },
+              {
+                "surface": "一",
+                "notation": "yī"
+              },
+              {
+                "surface": "把",
+                "notation": "bǎ"
+              },
+              {
+                "surface": "新",
+                "notation": "xīn"
+              },
+              {
+                "surface": "椅",
+                "notation": "yǐ"
+              },
+              {
+                "surface": "子",
+                "notation": "zi"
+              }
+            ]
+          },
+          {
+            "surface": "我更愿意修好这把坏椅子",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "更",
+                "notation": "gèng"
+              },
+              {
+                "surface": "愿",
+                "notation": "yuàn"
+              },
+              {
+                "surface": "意",
+                "notation": "yì"
+              },
+              {
+                "surface": "修",
+                "notation": "xiū"
+              },
+              {
+                "surface": "好",
+                "notation": "hǎo"
+              },
+              {
+                "surface": "这",
+                "notation": "zhè"
+              },
+              {
+                "surface": "把",
+                "notation": "bǎ"
+              },
+              {
+                "surface": "坏",
+                "notation": "huài"
+              },
+              {
+                "surface": "椅",
+                "notation": "yǐ"
+              },
+              {
+                "surface": "子",
+                "notation": "zi"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-explain-again-more-slowly",
@@ -3896,7 +8917,112 @@
             "explanation": "Changes the requested adjustment from slower speech to louder speech."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "你能再解释一次吗",
+            "units": [
+              {
+                "surface": "你",
+                "notation": "nǐ"
+              },
+              {
+                "surface": "能",
+                "notation": "néng"
+              },
+              {
+                "surface": "再",
+                "notation": "zài"
+              },
+              {
+                "surface": "解",
+                "notation": "jiě"
+              },
+              {
+                "surface": "释",
+                "notation": "shì"
+              },
+              {
+                "surface": "一",
+                "notation": "yī"
+              },
+              {
+                "surface": "次",
+                "notation": "cì"
+              },
+              {
+                "surface": "吗",
+                "notation": "ma"
+              }
+            ]
+          },
+          {
+            "surface": "这次慢一点",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              },
+              {
+                "surface": "次",
+                "notation": "cì"
+              },
+              {
+                "surface": "慢",
+                "notation": "màn"
+              },
+              {
+                "surface": "一",
+                "notation": "yī"
+              },
+              {
+                "surface": "点",
+                "notation": "diǎn"
+              }
+            ]
+          },
+          {
+            "surface": "我想弄明白每一步",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "想",
+                "notation": "xiǎng"
+              },
+              {
+                "surface": "弄",
+                "notation": "nòng"
+              },
+              {
+                "surface": "明",
+                "notation": "míng"
+              },
+              {
+                "surface": "白",
+                "notation": "bai"
+              },
+              {
+                "surface": "每",
+                "notation": "měi"
+              },
+              {
+                "surface": "一",
+                "notation": "yī"
+              },
+              {
+                "surface": "步",
+                "notation": "bù"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-not-because-forgot",
@@ -3943,7 +9069,128 @@
             "explanation": "Changes the delayed transport from the bus to the train."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我来晚了",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "来",
+                "notation": "lái"
+              },
+              {
+                "surface": "晚",
+                "notation": "wǎn"
+              },
+              {
+                "surface": "了",
+                "notation": "le"
+              }
+            ]
+          },
+          {
+            "surface": "不是因为忘了约定的时间",
+            "units": [
+              {
+                "surface": "不",
+                "notation": "bù"
+              },
+              {
+                "surface": "是",
+                "notation": "shì"
+              },
+              {
+                "surface": "因",
+                "notation": "yīn"
+              },
+              {
+                "surface": "为",
+                "notation": "wèi"
+              },
+              {
+                "surface": "忘",
+                "notation": "wàng"
+              },
+              {
+                "surface": "了",
+                "notation": "le"
+              },
+              {
+                "surface": "约",
+                "notation": "yuē"
+              },
+              {
+                "surface": "定",
+                "notation": "dìng"
+              },
+              {
+                "surface": "的",
+                "notation": "de"
+              },
+              {
+                "surface": "时",
+                "notation": "shí"
+              },
+              {
+                "surface": "间",
+                "notation": "jiān"
+              }
+            ]
+          },
+          {
+            "surface": "而是因为公交车晚点了",
+            "units": [
+              {
+                "surface": "而",
+                "notation": "ér"
+              },
+              {
+                "surface": "是",
+                "notation": "shì"
+              },
+              {
+                "surface": "因",
+                "notation": "yīn"
+              },
+              {
+                "surface": "为",
+                "notation": "wèi"
+              },
+              {
+                "surface": "公",
+                "notation": "gōng"
+              },
+              {
+                "surface": "交",
+                "notation": "jiāo"
+              },
+              {
+                "surface": "车",
+                "notation": "chē"
+              },
+              {
+                "surface": "晚",
+                "notation": "wǎn"
+              },
+              {
+                "surface": "点",
+                "notation": "diǎn"
+              },
+              {
+                "surface": "了",
+                "notation": "le"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-save-file-before-close",
@@ -3990,7 +9237,116 @@
             "explanation": "Changes saving the file to deleting it."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "关闭电脑以前",
+            "units": [
+              {
+                "surface": "关",
+                "notation": "guān"
+              },
+              {
+                "surface": "闭",
+                "notation": "bì"
+              },
+              {
+                "surface": "电",
+                "notation": "diàn"
+              },
+              {
+                "surface": "脑",
+                "notation": "nǎo"
+              },
+              {
+                "surface": "以",
+                "notation": "yǐ"
+              },
+              {
+                "surface": "前",
+                "notation": "qián"
+              }
+            ]
+          },
+          {
+            "surface": "先保存文件",
+            "units": [
+              {
+                "surface": "先",
+                "notation": "xiān"
+              },
+              {
+                "surface": "保",
+                "notation": "bǎo"
+              },
+              {
+                "surface": "存",
+                "notation": "cún"
+              },
+              {
+                "surface": "文",
+                "notation": "wén"
+              },
+              {
+                "surface": "件",
+                "notation": "jiàn"
+              }
+            ]
+          },
+          {
+            "surface": "这样明天就不用重新做了",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              },
+              {
+                "surface": "样",
+                "notation": "yàng"
+              },
+              {
+                "surface": "明",
+                "notation": "míng"
+              },
+              {
+                "surface": "天",
+                "notation": "tiān"
+              },
+              {
+                "surface": "就",
+                "notation": "jiù"
+              },
+              {
+                "surface": "不",
+                "notation": "bù"
+              },
+              {
+                "surface": "用",
+                "notation": "yòng"
+              },
+              {
+                "surface": "重",
+                "notation": "chóng"
+              },
+              {
+                "surface": "新",
+                "notation": "xīn"
+              },
+              {
+                "surface": "做",
+                "notation": "zuò"
+              },
+              {
+                "surface": "了",
+                "notation": "le"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-whoever-finishes-helps",
@@ -4037,7 +9393,83 @@
             "explanation": "Changes the helper from the first finisher to someone who has not started."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "谁先做完",
+            "units": [
+              {
+                "surface": "谁",
+                "notation": "shuí"
+              },
+              {
+                "surface": "先",
+                "notation": "xiān"
+              },
+              {
+                "surface": "做",
+                "notation": "zuò"
+              },
+              {
+                "surface": "完",
+                "notation": "wán"
+              }
+            ]
+          },
+          {
+            "surface": "谁就去帮助还没做完的人",
+            "units": [
+              {
+                "surface": "谁",
+                "notation": "shuí"
+              },
+              {
+                "surface": "就",
+                "notation": "jiù"
+              },
+              {
+                "surface": "去",
+                "notation": "qù"
+              },
+              {
+                "surface": "帮",
+                "notation": "bāng"
+              },
+              {
+                "surface": "助",
+                "notation": "zhù"
+              },
+              {
+                "surface": "还",
+                "notation": "hái"
+              },
+              {
+                "surface": "没",
+                "notation": "méi"
+              },
+              {
+                "surface": "做",
+                "notation": "zuò"
+              },
+              {
+                "surface": "完",
+                "notation": "wán"
+              },
+              {
+                "surface": "的",
+                "notation": "de"
+              },
+              {
+                "surface": "人",
+                "notation": "rén"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-only-small-box-not-both",
@@ -4083,7 +9515,87 @@
             "explanation": "Changes the selected box from small to large."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "请只把小盒子搬到楼上",
+            "units": [
+              {
+                "surface": "请",
+                "notation": "qǐng"
+              },
+              {
+                "surface": "只",
+                "notation": "zhǐ"
+              },
+              {
+                "surface": "把",
+                "notation": "bǎ"
+              },
+              {
+                "surface": "小",
+                "notation": "xiǎo"
+              },
+              {
+                "surface": "盒",
+                "notation": "hé"
+              },
+              {
+                "surface": "子",
+                "notation": "zi"
+              },
+              {
+                "surface": "搬",
+                "notation": "bān"
+              },
+              {
+                "surface": "到",
+                "notation": "dào"
+              },
+              {
+                "surface": "楼",
+                "notation": "lóu"
+              },
+              {
+                "surface": "上",
+                "notation": "shàng"
+              }
+            ]
+          },
+          {
+            "surface": "不要两个都搬",
+            "units": [
+              {
+                "surface": "不",
+                "notation": "bù"
+              },
+              {
+                "surface": "要",
+                "notation": "yào"
+              },
+              {
+                "surface": "两",
+                "notation": "liǎng"
+              },
+              {
+                "surface": "个",
+                "notation": "ge"
+              },
+              {
+                "surface": "都",
+                "notation": "dōu"
+              },
+              {
+                "surface": "搬",
+                "notation": "bān"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-filling-not-colour",
@@ -4130,7 +9642,104 @@
             "explanation": "Changes the important feature from filling to shape."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "选饺子时",
+            "units": [
+              {
+                "surface": "选",
+                "notation": "xuǎn"
+              },
+              {
+                "surface": "饺",
+                "notation": "jiǎo"
+              },
+              {
+                "surface": "子",
+                "notation": "zi"
+              },
+              {
+                "surface": "时",
+                "notation": "shí"
+              }
+            ]
+          },
+          {
+            "surface": "我最在意的是馅儿",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "最",
+                "notation": "zuì"
+              },
+              {
+                "surface": "在",
+                "notation": "zài"
+              },
+              {
+                "surface": "意",
+                "notation": "yì"
+              },
+              {
+                "surface": "的",
+                "notation": "de"
+              },
+              {
+                "surface": "是",
+                "notation": "shì"
+              },
+              {
+                "surface": "馅",
+                "notation": "xiàn"
+              },
+              {
+                "surface": "儿",
+                "notation": "er"
+              }
+            ]
+          },
+          {
+            "surface": "不是外皮的颜色",
+            "units": [
+              {
+                "surface": "不",
+                "notation": "bù"
+              },
+              {
+                "surface": "是",
+                "notation": "shì"
+              },
+              {
+                "surface": "外",
+                "notation": "wài"
+              },
+              {
+                "surface": "皮",
+                "notation": "pí"
+              },
+              {
+                "surface": "的",
+                "notation": "de"
+              },
+              {
+                "surface": "颜",
+                "notation": "yán"
+              },
+              {
+                "surface": "色",
+                "notation": "sè"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-report-change-not-cancel",
@@ -4177,7 +9786,111 @@
             "explanation": "Changes the new day from Saturday to Sunday."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "通知上只说活动改到星期六了",
+            "units": [
+              {
+                "surface": "通",
+                "notation": "tōng"
+              },
+              {
+                "surface": "知",
+                "notation": "zhī"
+              },
+              {
+                "surface": "上",
+                "notation": "shàng"
+              },
+              {
+                "surface": "只",
+                "notation": "zhǐ"
+              },
+              {
+                "surface": "说",
+                "notation": "shuō"
+              },
+              {
+                "surface": "活",
+                "notation": "huó"
+              },
+              {
+                "surface": "动",
+                "notation": "dòng"
+              },
+              {
+                "surface": "改",
+                "notation": "gǎi"
+              },
+              {
+                "surface": "到",
+                "notation": "dào"
+              },
+              {
+                "surface": "星",
+                "notation": "xīng"
+              },
+              {
+                "surface": "期",
+                "notation": "qī"
+              },
+              {
+                "surface": "六",
+                "notation": "liù"
+              },
+              {
+                "surface": "了",
+                "notation": "le"
+              }
+            ]
+          },
+          {
+            "surface": "并没有说活动取消了",
+            "units": [
+              {
+                "surface": "并",
+                "notation": "bìng"
+              },
+              {
+                "surface": "没",
+                "notation": "méi"
+              },
+              {
+                "surface": "有",
+                "notation": "yǒu"
+              },
+              {
+                "surface": "说",
+                "notation": "shuō"
+              },
+              {
+                "surface": "活",
+                "notation": "huó"
+              },
+              {
+                "surface": "动",
+                "notation": "dòng"
+              },
+              {
+                "surface": "取",
+                "notation": "qǔ"
+              },
+              {
+                "surface": "消",
+                "notation": "xiāo"
+              },
+              {
+                "surface": "了",
+                "notation": "le"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "mm-zh-search-before-buy-another",
@@ -4224,7 +9937,124 @@
             "explanation": "Changes the possible location from the schoolbag to the cupboard."
           }
         }
-      ]
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "再买一副手套以前",
+            "units": [
+              {
+                "surface": "再",
+                "notation": "zài"
+              },
+              {
+                "surface": "买",
+                "notation": "mǎi"
+              },
+              {
+                "surface": "一",
+                "notation": "yī"
+              },
+              {
+                "surface": "副",
+                "notation": "fù"
+              },
+              {
+                "surface": "手",
+                "notation": "shǒu"
+              },
+              {
+                "surface": "套",
+                "notation": "tào"
+              },
+              {
+                "surface": "以",
+                "notation": "yǐ"
+              },
+              {
+                "surface": "前",
+                "notation": "qián"
+              }
+            ]
+          },
+          {
+            "surface": "我们先找找丢的那只",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "们",
+                "notation": "men"
+              },
+              {
+                "surface": "先",
+                "notation": "xiān"
+              },
+              {
+                "surface": "找",
+                "notation": "zhǎo"
+              },
+              {
+                "surface": "找",
+                "notation": "zhao"
+              },
+              {
+                "surface": "丢",
+                "notation": "diū"
+              },
+              {
+                "surface": "的",
+                "notation": "de"
+              },
+              {
+                "surface": "那",
+                "notation": "nà"
+              },
+              {
+                "surface": "只",
+                "notation": "zhī"
+              }
+            ]
+          },
+          {
+            "surface": "也许就在书包里",
+            "units": [
+              {
+                "surface": "也",
+                "notation": "yě"
+              },
+              {
+                "surface": "许",
+                "notation": "xǔ"
+              },
+              {
+                "surface": "就",
+                "notation": "jiù"
+              },
+              {
+                "surface": "在",
+                "notation": "zài"
+              },
+              {
+                "surface": "书",
+                "notation": "shū"
+              },
+              {
+                "surface": "包",
+                "notation": "bāo"
+              },
+              {
+                "surface": "里",
+                "notation": "lǐ"
+              }
+            ]
+          }
+        ]
+      }
     }
   ]
 }
