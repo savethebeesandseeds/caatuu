@@ -1039,6 +1039,35 @@ test("word details follow the playable tiles so feedback cannot push the deck do
   assert.ok(feedback > deck);
 });
 
+for (const pieceCount of [5, 9]) {
+  test(`a completed ${pieceCount}-tile board replaces the card area with Continue until the learner advances`, async () => {
+    const fixture = createLoadingHarness();
+    await fixture.api.mount();
+    await fixture.advance(1600);
+    if (pieceCount !== 5) {
+      fixture.panel.querySelector(`[data-naturalization-piece-count="${pieceCount}"]`).click();
+      await fixture.advance(1600);
+    }
+    const deck = fixture.element("Deck"), button = fixture.element("Continue");
+    assert.equal(button.parentElement, deck.parentElement);
+    assert.equal(deck.hidden, false);
+    assert.equal(button.hidden, true);
+    solveBoard(fixture);
+    assert.equal(deck.hidden, true, "empty card wells give their space to Continue");
+    assert.equal(button.hidden, false);
+    assert.equal(button.parentElement, deck.parentElement, "rendering preserves Continue in the card panel");
+    await fixture.advance(60000);
+    assert.equal(fixture.element("Board").dataset.solved, "true");
+    assert.equal(button.hidden, false, "review has no automatic continuation");
+    button.click();
+    await fixture.advance(1600);
+    assert.equal(deck.hidden, false, "the next round restores the cards");
+    assert.equal(deck.querySelectorAll("button[data-naturalization-piece-id]").length, pieceCount);
+    assert.equal(button.hidden, true);
+    fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
+  });
+}
+
 test("the matched-word dictionary card keeps intrinsic shared sizing", () => {
   assert.match(
     stylesheet,

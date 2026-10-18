@@ -11,7 +11,7 @@ import { appendTargetToneText } from "../static/source/target-text-tones.mjs";
 import { createArabicReadingGuide } from "../static/source/arabic-reading-guide.mjs";
 import { fetchDeclaredCourseGameJson, readEmbeddedCourseProfile } from "../static/source/games/course-game-content.mjs";
 import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../static/source/games/embedded-game-controls.mjs";
-import { createSoundQuasarSession, evaluateSoundQuasarChoice, validateSoundQuasarCatalog, soundQuasarItemsForDifficulty }
+import { SOUND_QUASAR_ROUND_COUNT, createSoundQuasarSession, evaluateSoundQuasarChoice, validateSoundQuasarCatalog, soundQuasarItemsForDifficulty }
   from "../static/source/games/sound-quasar/sound-quasar-core.mjs";
 
 const hostSource = await readFile(new URL("../static/source/games/sound-quasar/sound-quasar-host.mjs", import.meta.url), "utf8");
@@ -474,7 +474,7 @@ for (const mode of ["Words", "Sentences"]) for (const count of [4, 6]) {
 
 test("an entirely missed session gives no XP, coin, or streak qualification", async () => {
   const game = await mountGame();
-  for (let round = 0; round < 5; round += 1) {
+  for (let round = 0; round < SOUND_QUASAR_ROUND_COUNT; round += 1) {
     await game.listen();
     const mistakes = game.choices().filter((button) => button.dataset.choiceId !== game.current().id);
     game.click(mistakes[0]);
@@ -482,15 +482,15 @@ test("an entirely missed session gives no XP, coin, or streak qualification", as
     await game.continue();
   }
   assert.equal(game.element("Transition").hidden, true);
-  assert.equal(game.records.length, 10);
+  assert.equal(game.records.length, 2 * SOUND_QUASAR_ROUND_COUNT);
   assert.ok(game.records.every(([, delta]) => delta.xp === 0 && !delta.rounds && !delta.streakEligible));
   game.controller.destroy();
 });
 
-test("five manual continuations earn answer XP and one round, then start the next ready batch", async () => {
+test("three manual continuations earn answer XP and one round, then start the next ready batch", async () => {
   const game = await mountGame();
   const answered = new Set();
-  for (let index = 0; index < 5; index += 1) {
+  for (let index = 0; index < SOUND_QUASAR_ROUND_COUNT; index += 1) {
     await game.listen();
     const item = game.current();
     assert.equal(answered.has(item.id), false, "a session does not repeat an answer");
@@ -506,8 +506,8 @@ test("five manual continuations earn answer XP and one round, then start the nex
   }
   assert.equal(game.element("Transition").hidden, true);
   assert.equal(game.element("Summary"), null);
-  assert.equal(game.records.filter(([, delta]) => delta.attempts).length, 5);
-  assert.equal(game.records.reduce((sum, [, delta]) => sum + (delta.xp || 0), 0), 4);
+  assert.equal(game.records.filter(([, delta]) => delta.attempts).length, SOUND_QUASAR_ROUND_COUNT);
+  assert.equal(game.records.reduce((sum, [, delta]) => sum + (delta.xp || 0), 0), SOUND_QUASAR_ROUND_COUNT - 1);
   assert.deepEqual(game.records.filter(([, delta]) => delta.rounds), [["sound-quasar", { rounds: 1, streakEligible: true }]]);
   const recordsBeforeRestart = structuredClone(game.records);
   game.element("Continue").click();
@@ -517,7 +517,7 @@ test("five manual continuations earn answer XP and one round, then start the nex
   assert.equal(game.element("Restart"), null);
   assert.equal(game.element("Transition").hidden, true);
   assert.ok(game.choices().every((button) => button.disabled));
-  assert.equal(game.speechCalls.length, 5);
+  assert.equal(game.speechCalls.length, SOUND_QUASAR_ROUND_COUNT);
   assert.deepEqual(game.records, recordsBeforeRestart, "restarting does not reward an unplayed session");
   game.noCampaign();
   game.controller.destroy();
@@ -527,7 +527,7 @@ test("the final Continue retains sentence mode and six options without a forced 
   const game = await mountGame();
   game.click(game.element("Sentences"));
   game.click(game.element("SixChoices"));
-  for (let index = 0; index < 5; index += 1) { game.click(game.element("Skip")); await game.continue(); }
+  for (let index = 0; index < SOUND_QUASAR_ROUND_COUNT; index += 1) { game.click(game.element("Skip")); await game.continue(); }
   assert.equal(game.element("Transition").hidden, true);
   assert.match(game.element("Robot").src, /^\/assets\/robots\//u);
   assert.equal(game.element("Transition").classList.contains("caatuu-game-robot-loading"), true);
@@ -540,7 +540,7 @@ test("the final Continue retains sentence mode and six options without a forced 
   assert.equal(game.element("Transition").hidden, true);
   assert.equal(game.element("Game").dataset.mode, "sentences");
   assert.equal(game.choices().length, 6);
-  assert.equal(game.element("Progress").textContent, "Sentence 1 of 5");
+  assert.equal(game.element("Progress").textContent, "Sentence 1 of 3");
   assert.ok(game.choices().every((button) => button.disabled));
   game.noCredit();
   game.controller.destroy();
@@ -583,7 +583,7 @@ test("continued listening batches introduce fresh easy targets without earning s
         const before = history(mode);
         const rotation = Object.values(before).reduce((sum, progress) => sum + progress.exposures, 0) % 5;
         const answers = [];
-        for (let index = 0; index < 5; index += 1) {
+        for (let index = 0; index < SOUND_QUASAR_ROUND_COUNT; index += 1) {
           await game.listen();
           const item = game.current();
           assert.ok(byId.has(item.id), "the answer must belong to the selected mode");
@@ -603,8 +603,8 @@ test("continued listening batches introduce fresh easy targets without earning s
         }
         const newIndexes = answers.flatMap((id, index) => before[id] ? [] : [index]);
         if (Object.keys(before).length >= 6) {
-          assert.equal(newIndexes.length, 1, "continued play keeps one fresh target among practiced material");
-          assert.equal((rotation + newIndexes[0]) % 5, 2, "the fresh target belongs in the new-material slot");
+          const introductionSlots = answers.flatMap((_, index) => (rotation + index) % 5 === 2 ? [index] : []);
+          assert.deepEqual(newIndexes, introductionSlots, "short batches preserve the five-slot new-material cadence across sessions");
         }
         assert.equal(game.element("Transition").hidden, true, "the final Continue starts the next ready batch");
         assert.equal(game.element("Game").dataset.mode, mode);
@@ -613,7 +613,7 @@ test("continued listening batches introduce fresh easy targets without earning s
       assert.ok(seen.size > 6, "continued listening must progress beyond the initial six targets");
       const progress = history(mode);
       assert.deepEqual(new Set(Object.keys(progress)), seen, "distractors and unplayed next-batch items earn no exposure");
-      assert.equal(Object.values(progress).reduce((sum, item) => sum + item.exposures, 0), 40);
+      assert.equal(Object.values(progress).reduce((sum, item) => sum + item.exposures, 0), 8 * SOUND_QUASAR_ROUND_COUNT);
       assert.ok(Object.values(progress).some(item => item.exposures > 1), "introductions stay mixed with practice");
       for (const item of Object.values(progress)) {
         assert.equal(item.independentSuccesses, item.exposures);
@@ -671,7 +671,7 @@ for (const reason of ["hidden", "inactive", "destroyed"]) {
 test("a campaign batch hands off once and accepts advance only from its own shell", async () => {
   const game = await mountGame();
   game.shell.document.body.dataset.campaignActive = "true";
-  for (let index = 0; index < 5; index += 1) { game.click(game.element("Skip")); await game.continue(); }
+  for (let index = 0; index < SOUND_QUASAR_ROUND_COUNT; index += 1) { game.click(game.element("Skip")); await game.continue(); }
   assert.equal(game.messages.filter(({ message }) => message.type === "round-complete").length, 1);
   const advance = { source: "caatuu-app-shell", type: "campaign-advance" };
   game.window.dispatchEvent({ type: "message", origin: "https://other.test", source: game.shell, data: advance });
@@ -1114,7 +1114,7 @@ test("learning change callbacks cannot reenter the same answer or completed roun
     if (args[1].attempts) attemptedChoice?.dispatchEvent({ type: "click" });
     if (args[1].rounds) game.element("Continue").click();
   } });
-  for (let index = 0; index < 5; index += 1) {
+  for (let index = 0; index < SOUND_QUASAR_ROUND_COUNT; index += 1) {
     await game.listen();
     if (index === 0) {
       attemptedChoice = game.choices().find((button) => button.dataset.choiceId !== game.current().id);
@@ -1124,8 +1124,8 @@ test("learning change callbacks cannot reenter the same answer or completed roun
     game.click(attemptedChoice);
     await game.continue();
   }
-  assert.equal(game.records.length, 7, "one wrong attempt, five successful attempts, and one finished session");
-  assert.equal(game.records.reduce((sum, [, delta]) => sum + (delta.xp || 0), 0), 5);
+  assert.equal(game.records.length, SOUND_QUASAR_ROUND_COUNT + 2, "one wrong attempt, three successful attempts, and one finished session");
+  assert.equal(game.records.reduce((sum, [, delta]) => sum + (delta.xp || 0), 0), SOUND_QUASAR_ROUND_COUNT);
   assert.equal(game.records.filter(([, delta]) => delta.rounds).length, 1);
   game.noCampaign();
   game.controller.destroy();
@@ -1147,8 +1147,8 @@ for (const language of ["czech", "mandarin-simplified", "spanish"]) {
     const sentenceIds = new Set(game.catalog.sentences.map(({ id }) => id));
     const heard = new Set();
     const artwork = new Set();
-    for (let index = 0; index < 5; index += 1) {
-      assert.equal(game.element("Progress").textContent, interfaceContent.t("soundquasar.progress.sentences", { number: index + 1, count: 5 }));
+    for (let index = 0; index < SOUND_QUASAR_ROUND_COUNT; index += 1) {
+      assert.equal(game.element("Progress").textContent, interfaceContent.t("soundquasar.progress.sentences", { number: index + 1, count: SOUND_QUASAR_ROUND_COUNT }));
       assert.match(game.element("Emblem").src, /^\/assets\/macaw\/music\/music%20\(\d+\)\.png$/u);
       artwork.add(game.element("Emblem").src);
       await game.listen();
@@ -1168,7 +1168,7 @@ for (const language of ["czech", "mandarin-simplified", "spanish"]) {
     }
     assert.ok(artwork.size > 1, "successive questions choose different music artwork");
     assert.equal(game.element("Transition").hidden, true);
-    assert.equal(game.records.reduce((sum, [, delta]) => sum + (delta.xp || 0), 0), 5);
+    assert.equal(game.records.reduce((sum, [, delta]) => sum + (delta.xp || 0), 0), SOUND_QUASAR_ROUND_COUNT);
     assert.deepEqual(game.records.filter(([, delta]) => delta.rounds), [["sound-quasar", { rounds: 1, streakEligible: true }]]);
     game.noCampaign();
     game.controller.destroy();
@@ -1194,7 +1194,7 @@ test("switching modes cancels old audio and requires hearing the new question be
   assert.equal(game.records.reduce((sum, [, delta]) => sum + (delta.xp || 0), 0), 1);
   game.click(game.element("Words"));
   assert.equal(game.element("Game").dataset.mode, "words");
-  assert.equal(game.element("Progress").textContent, interfaceContent.t("soundquasar.progress", { number: 1, count: 5 }));
+  assert.equal(game.element("Progress").textContent, interfaceContent.t("soundquasar.progress", { number: 1, count: SOUND_QUASAR_ROUND_COUNT }));
   assert.ok(game.choices().every((button) => button.disabled));
   assert.equal(game.records.filter(([, delta]) => delta.rounds).length, 0, "changing an unfinished session does not count a round");
   game.noCampaign();
@@ -1203,7 +1203,7 @@ test("switching modes cancels old audio and requires hearing the new question be
 
 test("skipping an entire session gives no XP, coin, or streak qualification", async () => {
   const game = await mountGame({ realLearning: true });
-  for (let index = 0; index < 5; index += 1) { game.click(game.element("Skip")); await game.continue(); }
+  for (let index = 0; index < SOUND_QUASAR_ROUND_COUNT; index += 1) { game.click(game.element("Skip")); await game.continue(); }
   assert.equal(game.element("Transition").hidden, true);
   game.noCredit();
   assert.equal(game.shell.CaatuuLearning.snapshot().summary.xp, 0);
@@ -1214,15 +1214,15 @@ test("skipping an entire session gives no XP, coin, or streak qualification", as
 
 test("earned Quasar XP and rounds persist through the shared learning profile and journey totals", async () => {
   const game = await mountGame({ realLearning: true });
-  for (let index = 0; index < 5; index += 1) {
+  for (let index = 0; index < SOUND_QUASAR_ROUND_COUNT; index += 1) {
     await game.listen();
     game.click(game.choice(game.current().id));
     await game.continue();
   }
   const profile = game.shell.CaatuuLearning.snapshot();
-  assert.equal(profile.performance.games["sound-quasar"].xp, 5);
+  assert.equal(profile.performance.games["sound-quasar"].xp, SOUND_QUASAR_ROUND_COUNT);
   assert.equal(profile.summary.rounds, 1);
-  assert.equal(profile.journey.summary.xp, 5);
+  assert.equal(profile.journey.summary.xp, SOUND_QUASAR_ROUND_COUNT);
   assert.equal(profile.journey.summary.rounds, 1);
   assert.equal(profile.streak.currentDays, 1);
   // Reload all durable storage: progress may be in a compact checkpoint or
@@ -1230,7 +1230,7 @@ test("earned Quasar XP and rounds persist through the shared learning profile an
   const stored = game.parent.localStorage.snapshot();
   const reloaded = createBrowserHarness({ course: game.course, localStorageValues: stored });
   vm.runInContext(learningProfileSource, reloaded.context, { filename: "learning-profile.js" });
-  assert.equal(reloaded.window.CaatuuLearning.snapshot().journey.summary.xp, 5);
+  assert.equal(reloaded.window.CaatuuLearning.snapshot().journey.summary.xp, SOUND_QUASAR_ROUND_COUNT);
   assert.equal(reloaded.window.CaatuuLearning.snapshot().journey.summary.rounds, 1);
   game.noCampaign();
   game.controller.destroy();
@@ -1242,13 +1242,13 @@ test("skip reveals its correction and waits for Continue without earning credit"
   assert.equal(game.element("Next"), null);
   const choices = game.choices();
   game.click(game.element("Skip"));
-  assert.equal(game.element("Progress").textContent, "Word 1 of 5");
+  assert.equal(game.element("Progress").textContent, "Word 1 of 3");
   assert.equal(game.element("Result").hidden, false);
   assert.ok(game.element("ResultTarget").textContent);
   await game.advance(86400000);
-  assert.equal(game.element("Progress").textContent, "Word 1 of 5");
+  assert.equal(game.element("Progress").textContent, "Word 1 of 3");
   await game.continue();
-  assert.equal(game.element("Progress").textContent, "Word 2 of 5");
+  assert.equal(game.element("Progress").textContent, "Word 2 of 3");
   assert.equal(game.element("Result").hidden, true);
   assert.equal(game.element("AnswerArea").classList.contains("is-result"), false);
   assert.ok(choices.every((button) => !button.isConnected));
@@ -1548,7 +1548,7 @@ test("mode changes and destroy invalidate pending Continue without counting an u
   assert.equal(game.clock.pending().length, 0);
   previousContinue.click();
   await game.advance(10000);
-  assert.equal(game.element("Progress").textContent, interfaceContent.t("soundquasar.progress.sentences", { number: 1, count: 5 }));
+  assert.equal(game.element("Progress").textContent, interfaceContent.t("soundquasar.progress.sentences", { number: 1, count: SOUND_QUASAR_ROUND_COUNT }));
   assert.equal(game.element("Result").hidden, true);
   assert.ok(game.choices().every((button) => button.disabled));
   await game.listen();
@@ -1615,7 +1615,7 @@ test("a course with no voice can review a skipped correction then Continue witho
   assert.equal(game.element("Result").hidden, false);
   assert.ok(game.element("ResultTarget").textContent);
   await game.continue();
-  assert.equal(game.element("Progress").textContent, "Word 2 of 5");
+  assert.equal(game.element("Progress").textContent, "Word 2 of 3");
   assert.equal(game.element("Result").hidden, true);
   game.noCredit();
   game.controller.destroy();

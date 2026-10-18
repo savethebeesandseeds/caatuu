@@ -4,7 +4,7 @@ import { readFile } from 'node:fs/promises';
 import vm from 'node:vm';
 import { createBrowserHarness } from './helpers/fake-browser.mjs';
 import { createMemoryMoonPractice } from '../static/source/games/memory-moon/memory-moon-practice.mjs';
-import { validateMemoryMoonCatalog, memoryMoonWeaknesses, selectMemoryMoonChallenges,
+import { MEMORY_MOON_ROUND_COUNT, validateMemoryMoonCatalog, memoryMoonWeaknesses, selectMemoryMoonChallenges,
   moonIllumination, moonShadePath } from '../static/source/games/memory-moon/memory-moon-core.mjs';
 import { moonIllumination as demoIllumination, moonShadePath as demoShade } from '../static/review/memory-moon-core.mjs';
 
@@ -62,7 +62,7 @@ test('weighted selection covers multiple weak regions, explores, respects exact 
   const texts=[...weaknesses.map(item=>item.englishText),...p.challenges.map(item=>item.englishText)];
   const vectorsByText=new Map(texts.map((text,index)=>[text,vectorsFor(texts)[index]]));
   const result=selectMemoryMoonChallenges(p,{difficulty:2,weaknesses,vectorsByText,random:random(),now:clock});
-  assert.equal(result.items.length,6);assert.equal(new Set(result.items.map(item=>item.id)).size,6);
+  assert.equal(result.items.length,MEMORY_MOON_ROUND_COUNT);assert.equal(new Set(result.items.map(item=>item.id)).size,MEMORY_MOON_ROUND_COUNT);
   assert.ok(result.items.every(item=>item.difficulty===2));assert.equal(result.trace.coveredRegions,2);
   assert.ok(result.items.some(item=>item.selectionReason==='exploration'));
   const again=selectMemoryMoonChallenges(p,{difficulty:2,weaknesses,vectorsByText,random:random(9),now:clock,
@@ -73,7 +73,7 @@ test('weighted selection covers multiple weak regions, explores, respects exact 
   assert.equal(selectMemoryMoonChallenges(sparse,{difficulty:3}).items.length,0,'empty badge never borrows questions');
 });
 
-test('stochastic draws vary rather than repeatedly sorting the same top six',()=>{
+test('stochastic draws vary rather than repeatedly sorting the same top items',()=>{
   const p=pack(), selections=new Set();
   for(let seed=1;seed<=20;seed++)selections.add(selectMemoryMoonChallenges(p,{difficulty:1,random:random(seed)}).items.map(item=>item.id).join(','));
   assert.ok(selections.size>10);
@@ -126,11 +126,13 @@ test('actual reducer preserves independent audio-prompt success, mistakes and as
   assert.equal(evidence.mistakes,1);assert.equal(evidence.assistedSuccesses,1);assert.equal(evidence.independentSuccesses,0);
   assert.equal(evidence.exposures,1);assert.equal(state.correctCount,2);assert.equal(state.independentCorrectCount,1);
   assert.equal(Object.keys(a.learning.contentHistory('verb-nebula','default')).length,0);
-  for(let index=2;index<6;index++){state=practice.advance();state=practice.answer(state.currentItem.correctChoiceId);}
+  assert.equal(state.items.length,3);
+  assert.equal(state.phase,'answered','the second correct answer does not complete the challenge');
+  for(let index=2;index<MEMORY_MOON_ROUND_COUNT;index++){state=practice.advance();state=practice.answer(state.currentItem.correctChoiceId);}
   assert.equal(state.phase,'complete');assert.equal(state.progress,1);
   const summary=a.learning.performance().games['memory-moon'];
   assert.ok(summary,'Memory Moon owns aggregate participation');
-  assert.equal(summary.rounds,1);practice.answer(state.currentItem.correctChoiceId);
+  assert.equal(summary.rounds,1);assert.equal(summary.xp,3);practice.answer(state.currentItem.correctChoiceId);
   assert.equal(a.learning.performance().games['memory-moon'].rounds,1);
   practice.dispose();await a.learning.retryPendingSaves();
 });
@@ -156,7 +158,7 @@ test('cancelled or superseded selection cannot install a session and unavailable
   const fallback=createMemoryMoonPractice({course,learning:a.learning,pack:p,random:random(),
     resolveEvidence:async()=>({items:[wrong('source','A weak meaning.')] }),embedTexts:async()=>{throw new Error('offline');}});
   const state=await fallback.startRound({difficulty:3});
-  assert.equal(state.items.length,6);assert.equal(state.selection.semanticStatus,'unavailable');
+  assert.equal(state.items.length,MEMORY_MOON_ROUND_COUNT);assert.equal(state.selection.semanticStatus,'unavailable');
   assert.equal(state.selection.mode,'varied-fallback');fallback.dispose();
 });
 

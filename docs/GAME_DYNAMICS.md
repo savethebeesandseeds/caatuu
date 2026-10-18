@@ -35,7 +35,7 @@ the relevant game:
 | Case Cosmos | 2 per settled noun challenge. Intermediate correct rejections stay staged until acceptance, a mistake, or a safe transition. |
 | Naturalization Nucleus | 5 per solved domino board. |
 | Verb Nebula | Matched pairs plus up to 2 incorrect attempts, capped at 12 per settled board. |
-| Sound Quasar | Correct answers plus up to 2 incorrect attempts, capped at 5 per settled five-item listening batch. |
+| Sound Quasar | Correct answers plus up to 2 incorrect attempts, capped at 5 per settled three-item listening batch. The cap also preserves older five-item batches. |
 | Conjugation Comet | The greater of successful-form XP and up to 2 submission attempts, capped at 6 per settled helix. |
 | Grammar Gravity | 1 per recorded phrase decision or noun landing, including incorrect answers and timeouts. Catalog-completion bonus XP adds no effort. |
 
@@ -44,7 +44,7 @@ twelve Case Cosmos challenges contribute `12 × 2 = 24`. Four correct six-form
 conjugation helices also complete a set. Mixed practice works the same way:
 two reconstructions (6), one solved domino board (5), two clean six-pair
 matching boards (12), and one case challenge (2) total 25, awarding a set and
-leaving `1/24` for the next. Five clean listening batches also total 25.
+leaving `1/24` for the next. Eight clean three-item listening batches total 24.
 
 Mistakes count toward participation, with retry contributions capped per
 settled board. Listening and conjugation currently weight successful work more

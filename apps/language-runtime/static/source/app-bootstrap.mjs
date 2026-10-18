@@ -735,8 +735,8 @@ async function loadCourseFeatureProviders() {
   const naturalizationNucleus = gameAvailable("naturalization-nucleus");
   if (naturalizationNucleus) {
     await Promise.all([
-      loadStyle("/language-runtime/static/source/games/naturalization-nucleus/naturalization-nucleus.css?v=naturalization-nucleus-26"),
-      loadScript("/language-runtime/static/source/games/naturalization-nucleus/naturalization-nucleus.js?v=naturalization-nucleus-26")
+      loadStyle("/language-runtime/static/source/games/naturalization-nucleus/naturalization-nucleus.css?v=naturalization-nucleus-27"),
+      loadScript("/language-runtime/static/source/games/naturalization-nucleus/naturalization-nucleus.js?v=naturalization-nucleus-27")
     ]);
   }
   const courseRuntime = declaredBrowserProvider("courseRuntime");

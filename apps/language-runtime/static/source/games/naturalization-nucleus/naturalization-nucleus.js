@@ -817,7 +817,7 @@
     const continueButton = board.ownerDocument.createElement("button");
     continueButton.id = "naturalizationNucleusContinue";
     continueButton.className = "naturalization-nucleus-continue";
-    game.append(continueButton);
+    deck.parentElement.append(continueButton);
     const continuation = global.CaatuuPracticePacing.createReviewContinuation({
       button: continueButton, i18n: global.CaatuuI18n,
       canContinue: () => active && isActive() && !destroyed
@@ -1108,6 +1108,8 @@
       ring.setAttribute("aria-label", `${presentation.ringLabel} matching positions`);
       const targets = socketTargets();
       const isSolved = solved();
+      deck.hidden = isSolved;
+      if (isSolved) deck.parentElement.removeAttribute("aria-label");
       const available = deckPieces();
       ring.replaceChildren(...targets.map((challenge, index) => (
         orbitSocket(

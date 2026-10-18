@@ -2,11 +2,14 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 import {
+  SOUND_QUASAR_ROUND_COUNT,
   buildSoundQuasarRound,
   createSoundQuasarSession,
   evaluateSoundQuasarChoice,
   validateSoundQuasarCatalog
 } from "../static/source/games/sound-quasar/sound-quasar-core.mjs";
+
+assert.equal(SOUND_QUASAR_ROUND_COUNT, 3);
 
 const repositoryRoot = new URL("../../../", import.meta.url);
 const courses = [
@@ -63,8 +66,8 @@ for (const course of courses) {
       assert.equal(item.sourceReviewStatus, source.reviewStatus ?? "not-declared");
     }
     const session = createSoundQuasarSession(catalog, { difficulty: 1, random: seededRandom(12) });
-    assert.equal(session.length, 5);
-    assert.equal(new Set(session.map(({ answerId }) => answerId)).size, 5);
+    assert.equal(session.length, 3);
+    assert.equal(new Set(session.map(({ answerId }) => answerId)).size, 3);
   });
 
   test(`${course.courseId} sentence mode uses existing Word World sentences and exact English audit text`, async () => {
@@ -88,8 +91,8 @@ for (const course of courses) {
     }
     for (let seed = 1; seed <= 20; seed += 1) {
       const session = createSoundQuasarSession(catalog, { difficulty: 1, mode: "sentences", random: seededRandom(seed) });
-      assert.equal(session.length, 5);
-      assert.equal(new Set(session.map(({ answerId }) => answerId)).size, 5);
+      assert.equal(session.length, 3);
+      assert.equal(new Set(session.map(({ answerId }) => answerId)).size, 3);
       for (const round of session) {
         assert.equal(round.mode, "sentences");
         assert.equal(round.choices.length, 4);

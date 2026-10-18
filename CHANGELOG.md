@@ -1,5 +1,17 @@
 # Changelog
 
+## Android 188 / 0.1.36
+
+- Hide Word World's vertical scrollbar while preserving scrolling.
+- Put Naturalization Nucleus's Continue button in the emptied card area,
+  keeping matched words available for review.
+- Shorten Sounds Quasar and Memory Moon challenges to three questions. Keep
+  manual continuation and credit only the practice actually completed.
+- Show Mandarin pinyin above Memory Moon's Hanzi. Add independent pinyin and
+  tone-colour switches to Aa, with course-local saved preferences.
+- Physical-device installation, update, offline use and saved-data preservation
+  remain unverified for this candidate. Course review status is unchanged.
+
 ## Android 187 / 0.1.35
 
 - Fix Show/Hide details during first-install resource downloads. Native setup

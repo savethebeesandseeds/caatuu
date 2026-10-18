@@ -1461,12 +1461,11 @@ and Spanish use the same screen, round controller, and speech interface.
 
 ### 9.1 Practice interaction
 
-A short session presents five words or sentences with four written choices each.
+A short session presents three words or sentences with four written choices each.
 The standard Aa control selects words or sentences and starts a fresh session.
 The learner can replay the prompt before answering. A correct
 answer replaces the choices with a result card, keeping the macaw in place.
-The game advances automatically after a reading pause, held while replaying
-audio, using controls, reporting a sound, or leaving the game. New prompts play
+The learner clicks Continue after reviewing each result. New prompts play
 automatically when audio is enabled. Mute and the autoplay preference suppress
 automatic playback; an explicit listening tap can play once without changing
 global mute. A right-side arrow skips an item when automatic audio is off or
@@ -1475,11 +1474,12 @@ playback is unavailable. Skipping does not reveal the answer.
 The visible choices use the course's written forms, including Chinese
 characters colored with the existing pinyin tone rules. Correct answers earn
 1 XP; an incorrect attempt earns none, but a correct retry can earn the point.
-Skips earn none. Finishing five items adds one completed round (coin) and streak
+Skips earn none. Finishing three items adds one completed round (coin) and streak
 eligibility only when at least one answer was correct. Replaying audio,
 changing modes, and duplicate answer clicks do not award additional credit.
-The game does not record microphone input, grade pronunciation, claim mastery,
-or complete Campaign rounds. A music macaw is sampled for each question, and
+The game does not record microphone input, grade pronunciation, or claim mastery.
+In Campaign, the final Continue hands completion back to the shell.
+A music macaw is sampled for each question, and
 Report sound saves the item, mode, speech settings, reason, and optional note
 through the existing device feedback queue.
 

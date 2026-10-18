@@ -40,7 +40,7 @@
       "/language-runtime/contract.mjs",
       "/language-runtime/embedding-runtimes.json",
       "/language-runtime/static/source/initial-theme.js?v=theme-3",
-      "/language-runtime/static/source/app-bootstrap.mjs?v=app-137",
+      "/language-runtime/static/source/app-bootstrap.mjs?v=app-138",
       "/language-runtime/static/source/interface-content.mjs?v=interface-runtime-2",
       "/language-runtime/static/source/legacy-page-bootstrap.mjs?v=legacy-page-10",
       "/language-runtime/static/source/dictionary-provider-loader.mjs",
@@ -83,7 +83,7 @@
       "/language-runtime/static/source/embedding-runtime-contract.mjs",
       "/language-runtime/static/source/english-minilm-ranker.mjs",
       "/language-runtime/static/styles/caatuu-theme.css?v=theme-8",
-      "/language-runtime/static/styles/caatuu-workspace.css?v=shell-103",
+      "/language-runtime/static/styles/caatuu-workspace.css?v=shell-104",
       "/language-runtime/static/styles/caatuu-home.css?v=home-69",
       "/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-146",
       "/language-runtime/static/styles/caatuu-word-world.css?v=word-net-102",
@@ -197,8 +197,8 @@
       "/language-runtime/static/styles/caatuu-developer-tools.css?v=developer-tools-2",
       "/assets/macaw/actions/keymaps.json",
       "/language-runtime/static/games/sound-quasar.html",
-      "/language-runtime/static/source/games/sound-quasar/sound-quasar-host.mjs?v=sound-quasar-19",
-      "/language-runtime/static/source/games/sound-quasar/sound-quasar-core.mjs?v=sound-quasar-10",
+      "/language-runtime/static/source/games/sound-quasar/sound-quasar-host.mjs?v=sound-quasar-20",
+      "/language-runtime/static/source/games/sound-quasar/sound-quasar-core.mjs?v=sound-quasar-11",
       "/language-runtime/static/styles/games/sound-quasar.css?v=sound-quasar-7",
       "data/games/sound-quasar/content.json?v=sound-quasar-content-1",
       "/language-runtime/static/source/target-text-tones.mjs?v=target-text-tones-1",
@@ -243,8 +243,8 @@
       "/assets/icons/georgian_flag.svg",
       "/assets/icons/norway_flag.png",
       "data/games/naturalization-nucleus/content.json?v=arabic-reading-starter-1",
-      "/language-runtime/static/source/games/naturalization-nucleus/naturalization-nucleus.js?v=naturalization-nucleus-26",
-      "/language-runtime/static/source/games/naturalization-nucleus/naturalization-nucleus.css?v=naturalization-nucleus-26",
+      "/language-runtime/static/source/games/naturalization-nucleus/naturalization-nucleus.js?v=naturalization-nucleus-27",
+      "/language-runtime/static/source/games/naturalization-nucleus/naturalization-nucleus.css?v=naturalization-nucleus-27",
       "/language-runtime/static/source/arabic-romanization.mjs?v=arabic-romanization-1",
       "/language-runtime/static/source/arabic-reading-guide.mjs?v=arabic-reading-guide-2",
       "/language-runtime/static/source/georgian-romanization.mjs?v=georgian-romanization-1",
@@ -308,13 +308,13 @@
       "/assets/ships/meta.json",
       "/ar/data/games/memory-moon/content.json?v=memory-moon-1",
       "/language-runtime/static/games/memory-moon.html",
-      "/language-runtime/static/source/games/memory-moon/memory-moon-core.mjs?v=memory-moon-2",
-      "/language-runtime/static/source/games/memory-moon/memory-moon-entry.mjs?v=memory-moon-4",
-      "/language-runtime/static/source/games/memory-moon/memory-moon-host.mjs?v=memory-moon-host-3",
+      "/language-runtime/static/source/games/memory-moon/memory-moon-core.mjs?v=memory-moon-3",
+      "/language-runtime/static/source/games/memory-moon/memory-moon-entry.mjs?v=memory-moon-6",
+      "/language-runtime/static/source/games/memory-moon/memory-moon-host.mjs?v=memory-moon-host-5",
       "/language-runtime/static/source/games/memory-moon/memory-moon-orbit.mjs",
       "/language-runtime/static/source/games/memory-moon/memory-moon-phase.mjs",
-      "/language-runtime/static/source/games/memory-moon/memory-moon-practice.mjs",
-      "/language-runtime/static/source/games/memory-moon/memory-moon-render.mjs?v=memory-moon-render-3",
+      "/language-runtime/static/source/games/memory-moon/memory-moon-practice.mjs?v=memory-moon-practice-2",
+      "/language-runtime/static/source/games/memory-moon/memory-moon-render.mjs?v=memory-moon-render-4",
       "/language-runtime/static/source/games/memory-moon/memory-moon-speech.mjs",
       "/language-runtime/static/source/games/memory-moon/memory-moon.css?v=memory-moon-3",
       "/language-runtime/static/source/games/memory-moon/memory-moon-dictionary.mjs?v=memory-moon-dictionary-2",
@@ -337,7 +337,7 @@
       "url": "/ar/index.html",
       "browserRequired": true,
       "bytes": 98246,
-      "sha256": "9b9b0e1df523a597dc83ab37e726b590627f69f7b1e4e8ab35e09d8d95138334"
+      "sha256": "b274d19d2830f429078f626e074f8ef513b1491e72a7b71fd5692db17993ae24"
     },
     {
       "key": "course-profile",
@@ -353,7 +353,7 @@
       "url": "/language-runtime/static/source/app-bootstrap.mjs",
       "browserRequired": true,
       "bytes": 35974,
-      "sha256": "3cbc2cece41a08472936c49594e878717d4737545a348eabc4491ef1558ab7a4"
+      "sha256": "da14d81af11d4e5e7ffa1dc5b63a4648ec079ba5e5e44987525639a2fd849008"
     },
     {
       "key": "initial-theme",
@@ -473,7 +473,7 @@
       "url": "/language-runtime/static/source/learning-profile.js",
       "browserRequired": true,
       "bytes": 107272,
-      "sha256": "0ae7a02896175413d20167c048eea32f9a75746e2a7e149b1609b7a54db09f84"
+      "sha256": "9327c1701aafbabd80b4ad4b07266d768d012fc66d813e2a295d557be4a9d134"
     },
     {
       "key": "product-word-world",
@@ -528,8 +528,8 @@
       "kind": "shared-interface",
       "url": "/language-runtime/static/styles/caatuu-workspace.css",
       "browserRequired": true,
-      "bytes": 151552,
-      "sha256": "a4137b1ef37a0e638332e9932091977799cb4f41b8acf480dc51237d1e440ef0"
+      "bytes": 151662,
+      "sha256": "6e74cc5a023a6383d6d17898711a90f52aa9c5a4f120179eec9bfe72de5e428a"
     },
     {
       "key": "shared-home-style",
@@ -624,8 +624,8 @@
       "kind": "shared-runtime",
       "url": "/language-runtime/static/source/course-service-worker.js",
       "browserRequired": true,
-      "bytes": 12433,
-      "sha256": "69c9fc46bfd108fd9ae03ed1243f0c85669530eab39531416a124654d879f977"
+      "bytes": 12443,
+      "sha256": "9d2b3d05f38dbfb805f2bd848b93ccedfd7d26994bd29e7f4d75505228d47c31"
     },
     {
       "key": "course-flag",
@@ -722,16 +722,16 @@
       "kind": "shared-runtime",
       "url": "/language-runtime/static/source/games/naturalization-nucleus/naturalization-nucleus.js",
       "browserRequired": true,
-      "bytes": 82968,
-      "sha256": "ead4338eb42f361f9de494edd82f3cd3ecafb71c080d7b838fd8b63307865152"
+      "bytes": 83082,
+      "sha256": "4a23c9585eb07d0e6f262ddcacdc684af457580357aa464bb1d75ed0465fcaff"
     },
     {
       "key": "naturalization-nucleus-style",
       "kind": "shared-style",
       "url": "/language-runtime/static/source/games/naturalization-nucleus/naturalization-nucleus.css",
       "browserRequired": true,
-      "bytes": 19889,
-      "sha256": "7f1382baf7ddc37a12bd435715abaa71981496171235c0923d97fcbb4de9a993"
+      "bytes": 19989,
+      "sha256": "3898297d32f2590605ca8d9714e8881e3d5a4583008fb1c825cdfcf446e84cde"
     },
     {
       "key": "planet-naturalization-nucleus",

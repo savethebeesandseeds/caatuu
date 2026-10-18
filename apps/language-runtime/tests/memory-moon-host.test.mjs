@@ -3,7 +3,7 @@ import test from 'node:test';
 import { readFile } from 'node:fs/promises';
 import { createBrowserHarness } from './helpers/fake-browser.mjs';
 import { mountMemoryMoon } from '../static/source/games/memory-moon/memory-moon-host.mjs';
-import { createMoonSession, answerMoonChallenge, advanceMoonChallenge } from '../static/source/games/memory-moon/memory-moon-core.mjs';
+import { MEMORY_MOON_ROUND_COUNT, createMoonSession, answerMoonChallenge, advanceMoonChallenge } from '../static/source/games/memory-moon/memory-moon-core.mjs';
 import { tokenizeMoonText, moonLabels } from '../static/source/games/memory-moon/memory-moon-render.mjs';
 import { arabicReadingUnits } from '../static/source/arabic-romanization.mjs';
 import { georgianReadingUnits } from '../static/source/georgian-romanization.mjs';
@@ -40,7 +40,7 @@ function clock() {
 
 async function fixture({ directory = 'czech', catalogWait, selectionWait, realControls = false,
   speechAvailable, initialActive = true, resetDuringAnswer = false, autoplay = true, muted = false,
-  resolveWord = async () => null } = {}) {
+  resolveWord = async () => null, saved = {} } = {}) {
   const [originalCourse, pack] = await Promise.all([
     json(`../../languages/${directory}/course.json`),
     json(`../../languages/${directory}/static/data/games/memory-moon/content.json`)
@@ -48,7 +48,7 @@ async function fixture({ directory = 'czech', catalogWait, selectionWait, realCo
   const course = structuredClone(originalCourse);
   if (speechAvailable !== undefined) course.capabilities.speech = speechAvailable;
   const time = clock(), messages = [], speechCalls = [], starts = [], assists = [], wordLookups = [];
-  const shell = createBrowserHarness({ course }).window;
+  const shell = createBrowserHarness({ course, localStorageValues: saved }).window;
   shell.postMessage = (...args) => messages.push(args);
   shell.CaatuuI18n = { t: key => key, languageName: locale => locale };
   shell.CaatuuChrome = {
@@ -74,7 +74,7 @@ async function fixture({ directory = 'czech', catalogWait, selectionWait, realCo
       starts.push(options);
       if (selectionWait) await selectionWait.promise;
       // Deliberately tolerate cancellation to test the host's independent fence.
-      session = createMoonSession(pack.challenges.filter(item => item.difficulty === 1).slice(0, 6));
+      session = createMoonSession(pack.challenges.filter(item => item.difficulty === 1).slice(0, MEMORY_MOON_ROUND_COUNT));
     },
     snapshot: () => session ? { ...session, currentItem: session.items[session.index], saveStatus: 'ready' } : null,
     answer(id) {
@@ -141,8 +141,14 @@ test('every registered course renders its own target and learner-base choices in
       app.controlsOptions.readingGuide.setEnabled(true);
       assert.equal(surfaceText(sentence), item.targetText);
       assert.equal(Boolean(sentence.querySelector('rt')), expectedReadings.length > 0);
+    } else if (directory === 'mandarin-simplified') {
+      assert.deepEqual(sentence.querySelectorAll('rt').map(node => node.textContent),
+        item.targetReading.tokens.flatMap(token => token.units).map(unit => unit.notation));
+      assert.ok(sentence.querySelector('[data-tone]'));
+      assert.equal(app.controlsOptions.challenge.labelKey, 'verbnebula.targettext.title');
+      assert.equal(app.controlsOptions.challenge.content.ownerDocument, app.frame.document);
     } else assert.equal(sentence.querySelector('rt'), null);
-    if (directory === 'mandarin-simplified') assert.ok(sentence.querySelector('[data-tone]'));
+    if (directory !== 'mandarin-simplified') assert.equal(app.controlsOptions.challenge, null);
     assert.equal(sentence.lang, app.course.targetLanguage.locale);
     assert.equal(sentence.dir, app.course.targetLanguage.direction || 'auto');
     assert.deepEqual(app.root.querySelectorAll('.moon-choice').map(button => button.textContent), item.choices.map(choice => choice.text));
@@ -153,6 +159,52 @@ test('every registered course renders its own target and learner-base choices in
     assert.equal(app.root.getAttribute('aria-busy'), 'false');
     assert.equal(app.root.querySelector('.moon-brand-footer').closest('.moon-board'), null);
   });
+});
+
+test('Chinese Aa controls toggle persisted readings and tone colors without advancing or replaying the question', async t => {
+  const app = await fixture({ directory: 'mandarin-simplified', realControls: true, autoplay: false });
+  t.after(() => app.host.destroy()); await app.host.ready; await flush();
+  const aaIcon = app.root.querySelector('.caatuu-game-challenge-icon');
+  assert.ok(aaIcon, 'Chinese text controls use the shared Aa button');
+  assert.equal(aaIcon.textContent, 'Aa');
+  const menuToggle = aaIcon.closest('button');
+  assert.equal(menuToggle.getAttribute('aria-expanded'), 'false');
+  menuToggle.click();
+  assert.equal(menuToggle.getAttribute('aria-expanded'), 'true');
+  const guide = app.root.querySelector('[data-target-text-setting="showGuide"]');
+  const tones = app.root.querySelector('[data-target-text-setting="colorTones"]');
+  assert.equal(guide.getAttribute('role'), 'switch');
+  assert.equal(tones.getAttribute('role'), 'switch');
+  const sentence = app.root.querySelector('.moon-sentence'), words = sentence.querySelectorAll('.moon-word-token');
+  const choices = app.root.querySelectorAll('.moon-choice'), snapshot = app.host.snapshot();
+  guide.click();
+  assert.equal(guide.getAttribute('aria-checked'), 'false');
+  assert.equal(sentence.querySelector('rt'), null);
+  assert.ok(sentence.querySelector('[data-tone]'));
+  tones.click();
+  assert.equal(tones.getAttribute('aria-checked'), 'false');
+  assert.equal(sentence.querySelector('[data-tone]'), null);
+  assert.equal(surfaceText(sentence), snapshot.currentItem.targetText);
+  assert.deepEqual(sentence.querySelectorAll('.moon-word-token'), words);
+  assert.deepEqual(app.root.querySelectorAll('.moon-choice'), choices);
+  assert.equal(app.host.snapshot(), snapshot);
+  assert.equal(app.starts.length, 1);
+  assert.equal(app.speechCalls.length, 0);
+  assert.deepEqual(app.assists, []);
+  assert.equal(app.messages.length, 0);
+  menuToggle.click();
+  assert.equal(menuToggle.getAttribute('aria-expanded'), 'false');
+  assert.ok(app.root.querySelectorAll('.moon-choice').every(choice => !choice.disabled));
+  const saved = app.shell.localStorage.snapshot();
+  assert.deepEqual(JSON.parse(saved[`${app.course.storage.namespace}.memoryMoon.targetTextPreferences.v1`]),
+    { showGuide: false, colorTones: false });
+  const reopened = await fixture({ directory: 'mandarin-simplified', realControls: true, autoplay: false, saved });
+  t.after(() => reopened.host.destroy()); await reopened.host.ready;
+  assert.equal(reopened.root.querySelector('[data-target-text-setting="showGuide"]').getAttribute('aria-checked'), 'false');
+  assert.equal(reopened.root.querySelector('[data-target-text-setting="colorTones"]').getAttribute('aria-checked'), 'false');
+  assert.equal(reopened.root.querySelector('.moon-sentence').querySelector('rt'), null);
+  assert.equal(reopened.root.querySelector('.moon-sentence').querySelector('[data-tone]'), null);
+  assert.equal(reopened.host.snapshot().index, 0);
 });
 
 test('incorrect feedback shakes only the rejected alternative and a correction waits for Continue', async t => {
@@ -206,7 +258,8 @@ test('pausing, hidden pages and controls retain feedback until an eligible Conti
 test('final review and its animation do not hand off campaign until Continue', async t => {
   const app = await fixture(); t.after(() => app.host.destroy()); await app.host.ready;
   app.host.setCampaign(true);
-  for (let index = 0; index < 5; index++) { app.correct(); app.continue(); }
+  assert.equal(app.host.snapshot().target, 3);
+  for (let index = 0; index < MEMORY_MOON_ROUND_COUNT - 1; index++) { app.correct(); app.continue(); }
   app.correct();
   assert.equal(app.host.snapshot().phase, 'complete');
   assert.equal(app.messages.length, 0);
@@ -228,20 +281,20 @@ test('final review and its animation do not hand off campaign until Continue', a
 
 test('entering a new campaign restarts a previously completed free-play moon', async t => {
   const app = await fixture(); t.after(() => app.host.destroy()); await app.host.ready;
-  for (let index = 0; index < 6; index++) { app.correct(); app.continue(); }
+  for (let index = 0; index < MEMORY_MOON_ROUND_COUNT; index++) { app.correct(); app.continue(); }
   assert.equal(app.host.snapshot().phase, 'complete');
   assert.equal(app.messages.length, 1);
   app.host.setActive(false); app.host.setCampaign(true); app.host.setActive(true); await flush();
   assert.equal(app.host.snapshot().phase, 'question');
   assert.equal(app.host.snapshot().progress, 0);
-  for (let index = 0; index < 6; index++) { app.correct(); app.continue(); }
+  for (let index = 0; index < MEMORY_MOON_ROUND_COUNT; index++) { app.correct(); app.continue(); }
   assert.equal(app.messages.length, 2);
 });
 
 test('leaving during the final animation and reentering campaign cancels the obsolete completion', async t => {
   const app = await fixture(); t.after(() => app.host.destroy()); await app.host.ready;
   app.host.setCampaign(true);
-  for (let index = 0; index < 5; index++) { app.correct(); app.continue(); }
+  for (let index = 0; index < MEMORY_MOON_ROUND_COUNT - 1; index++) { app.correct(); app.continue(); }
   app.correct(); app.time.tick(500);
   app.host.setCampaign(false); app.host.setActive(false);
   app.host.setCampaign(true); app.host.setActive(true); await flush();
@@ -495,7 +548,7 @@ test('the final sentence and choices remain reviewable until Continue', async t 
   const app = await fixture({ autoplay: false });
   t.after(() => app.host.destroy()); await app.host.ready;
   app.host.setCampaign(true);
-  for (let index = 0; index < 5; index++) { app.correct(); app.continue(); }
+  for (let index = 0; index < MEMORY_MOON_ROUND_COUNT - 1; index++) { app.correct(); app.continue(); }
   const item = app.host.snapshot().currentItem;
   app.correct();
   assert.equal(surfaceText(app.root.querySelector('.moon-sentence')), item.targetText);
@@ -522,7 +575,7 @@ test('reset during final review fences obsolete audio, meanings and a retained C
   const app = await fixture({ autoplay: false, resolveWord: () => waiting.promise });
   t.after(() => app.host.destroy()); await app.host.ready;
   app.host.setCampaign(true);
-  for (let index = 0; index < 5; index++) { app.correct(); app.continue(); }
+  for (let index = 0; index < MEMORY_MOON_ROUND_COUNT - 1; index++) { app.correct(); app.continue(); }
   app.correct();
   const continueButton = app.root.querySelector('.moon-continue');
   assert.equal(app.time.timers.size, 0);

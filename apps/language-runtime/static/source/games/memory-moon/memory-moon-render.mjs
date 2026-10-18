@@ -96,12 +96,24 @@ export function moonWordReadingUnits(item, word, tokenIndex, locale) {
 }
 
 export function createMoonRenderer({ root, course, i18n, onAnswer, onSpeak, onReplay,
-  onSelectWord, readingGuide } = {}) {
+  onSelectWord, readingGuide, storage } = {}) {
   const document = root?.ownerDocument;
   if (!document) throw new TypeError('Memory Moon needs a local root.');
   const labels = moonLabels(course, i18n);
   const speechAvailable = course?.capabilities?.speech === true;
   const target = course?.targetLanguage || {}, source = course?.sourceLanguage || {};
+  const chinese = target.id === 'zh';
+  const textPreferences = { showGuide: true, colorTones: true };
+  const preferenceKey = `${course?.storage?.namespace || `caatuu.${course?.id || target.id}`}.memoryMoon.targetTextPreferences.v1`;
+  if (chinese) try {
+    storage ??= document.defaultView?.localStorage;
+    const stored = JSON.parse(storage?.getItem(preferenceKey) || 'null');
+    for (const key of Object.keys(textPreferences)) {
+      if (typeof stored?.[key] === 'boolean') textPreferences[key] = stored[key];
+    }
+  } catch { /* Reading controls keep session defaults when storage is unavailable. */ }
+  const textRuns = new Map(), preferenceListeners = [];
+  let destroyed = false;
   function node(tag, className, text) {
     const value = document.createElement(tag);
     if (className) value.className = className;
@@ -113,6 +125,51 @@ export function createMoonRenderer({ root, course, i18n, onAnswer, onSpeak, onRe
     Object.entries(attributes).forEach(([key, entry]) => value.setAttribute(key, String(entry)));
     return value;
   }
+  function paintTextRun(host, run) {
+    const rendered = renderTargetText(document, host, run.word, {
+      units: run.units, ...textPreferences, guideLanguage: 'zh-Latn-pinyin'
+    });
+    run.snapshot = host.textContent;
+    return rendered;
+  }
+  function pruneTextRuns() {
+    for (const [host, run] of textRuns) {
+      if (!host.isConnected || host.textContent !== run.snapshot) textRuns.delete(host);
+    }
+  }
+  const targetTextSettings = chinese ? (() => {
+    const content = node('fieldset', 'caatuu-game-controls-setting');
+    const translated = (key, fallback) => {
+      const value = i18n?.t?.(key);
+      return value && value !== key ? value : fallback;
+    };
+    content.append(node('legend', '', translated('verbnebula.targettext.title', 'Chinese text')));
+    for (const [key, labelKey, fallback] of [
+      ['showGuide', 'verbnebula.targettext.pinyin', 'Show pinyin'],
+      ['colorTones', 'verbnebula.targettext.tones', 'Tone colors']
+    ]) {
+      const button = node('button', 'caatuu-romanization-setting');
+      button.type = 'button';
+      button.dataset.targetTextSetting = key;
+      button.setAttribute('role', 'switch');
+      button.setAttribute('aria-checked', String(textPreferences[key]));
+      const indicator = node('i');
+      indicator.setAttribute('aria-hidden', 'true');
+      button.append(node('span', '', translated(labelKey, fallback)), indicator);
+      const toggle = () => {
+        if (destroyed) return;
+        textPreferences[key] = !textPreferences[key];
+        button.setAttribute('aria-checked', String(textPreferences[key]));
+        try { storage?.setItem(preferenceKey, JSON.stringify(textPreferences)); } catch { /* Session fallback. */ }
+        pruneTextRuns();
+        for (const [host, run] of textRuns) paintTextRun(host, run);
+      };
+      button.addEventListener('click', toggle);
+      preferenceListeners.push(() => button.removeEventListener('click', toggle));
+      content.append(button);
+    }
+    return { content, labelKey: 'verbnebula.targettext.title' };
+  })() : null;
   const prefix = `memory-moon-${++sequence}`;
   const board = node('section', 'moon-board');
   board.setAttribute('aria-label', labels.game);
@@ -190,14 +247,16 @@ export function createMoonRenderer({ root, course, i18n, onAnswer, onSpeak, onRe
   let lastItemId = null, lastReading = null;
   let speechState = { status: 'idle' }, failed = false, campaign = false, completedView = false;
 
-  function renderWord(host, word, { item, tokenIndex, showGuide = false } = {}) {
+  function renderWord(host, word, { item, tokenIndex } = {}) {
     host.lang = target.locale || 'und';
     host.dir = target.direction || 'auto';
     if (readingGuide?.supports?.(word)) return readingGuide.render(host, word);
-    return renderTargetText(document, host, word, {
-      units: moonWordReadingUnits(item, word, tokenIndex, target.locale),
-      showGuide, colorTones: true, guideLanguage: 'zh-Latn-pinyin'
-    });
+    pruneTextRuns();
+    const run = { word, units: moonWordReadingUnits(item, word, tokenIndex, target.locale) };
+    const rendered = paintTextRun(host, run);
+    if (chinese && rendered) textRuns.set(host, run);
+    else textRuns.delete(host);
+    return rendered;
   }
   function renderSentence(text, complete, item) {
     if (text === lastSentence && complete === lastComplete && item?.id === lastItemId
@@ -302,10 +361,15 @@ export function createMoonRenderer({ root, course, i18n, onAnswer, onSpeak, onRe
   const replayClick = () => { if (!replay.disabled && (failed || session?.phase === 'complete')) onReplay?.(); };
   speak.addEventListener('click', speakClick);
   replay.addEventListener('click', replayClick);
-  return { board, toolbar, dictionarySlot, globe, shade, ship, shipImage, choices, sentence, replay, continueButton,
-    renderDictionaryWord(host, word, context) { return renderWord(host, word, { ...context, showGuide: true }); },
+  return { board, toolbar, dictionarySlot, globe, shade, ship, shipImage, choices, sentence, replay, continueButton, targetTextSettings,
+    renderDictionaryWord: renderWord,
     render, syncSpeech,
     focusChoice() { choices.querySelector('button:not(:disabled)')?.focus({ preventScroll: true }); },
-    destroy() { root.replaceChildren(); root.classList.remove('memory-moon-host'); }
+    destroy() {
+      destroyed = true;
+      preferenceListeners.splice(0).forEach(remove => remove());
+      textRuns.clear();
+      root.replaceChildren(); root.classList.remove('memory-moon-host');
+    }
   };
 }

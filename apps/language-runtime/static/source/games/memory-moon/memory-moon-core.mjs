@@ -5,6 +5,7 @@ import { validateMoonTargetReading } from './memory-moon-reading.mjs';
 export const MEMORY_MOON_GAME = 'memory-moon';
 export const MEMORY_MOON_BANK = 'translations';
 export const MEMORY_MOON_DIRECTION = 'recognize-translation';
+export const MEMORY_MOON_ROUND_COUNT = 3;
 const bounded = value => Math.max(0, Math.min(1, Number.isFinite(value) ? value : 0));
 const text = value => typeof value === 'string' && value.trim().length > 0;
 const normalized = value => String(value ?? '').normalize('NFC').trim().toLocaleLowerCase('en');
@@ -125,7 +126,7 @@ const affinity = (candidate, region, vectors) => {
 
 /** Weighted draws across separate weak regions; semantic proximity is relevance, never mastery. */
 export function selectMemoryMoonChallenges(pack, { difficulty = 1, weaknesses = [], vectorsByText = new Map(),
-  history = {}, recentIds = [], recentFamilies = [], random = Math.random, limit = 6, now = Date.now() } = {}) {
+  history = {}, recentIds = [], recentFamilies = [], random = Math.random, limit = MEMORY_MOON_ROUND_COUNT, now = Date.now() } = {}) {
   validateMemoryMoonCatalog(pack);
   if (![1,2,3].includes(difficulty) || !Number.isSafeInteger(limit) || limit < 1) throw new TypeError('Invalid Moon badge or round size.');
   const eligible = pack.challenges.filter(item => item.difficulty === difficulty);
@@ -185,7 +186,7 @@ export function selectMemoryMoonChallenges(pack, { difficulty = 1, weaknesses = 
       : Object.keys(history).length ? 'balanced-practice' : 'no-history'}};
 }
 
-export function createMoonSession(items, { target = 6 } = {}) {
+export function createMoonSession(items, { target = MEMORY_MOON_ROUND_COUNT } = {}) {
   if (!Array.isArray(items) || items.length < target || !Number.isSafeInteger(target) || target < 1) throw new TypeError('A Moon needs enough questions for its target.');
   return {items:items.slice(),index:0,target,correctCount:0,independentCorrectCount:0,mistakes:0,progress:0,
     phase:'question',attempts:0,wrongChoiceIds:[],assisted:false,lastAnswer:null};

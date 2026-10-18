@@ -1,5 +1,6 @@
 import { normalizeContentProgression, selectContentItems, matchesContentDifficulty } from "../adaptive-practice.mjs";
 const GAME_ID = "sound-quasar";
+export const SOUND_QUASAR_ROUND_COUNT = 3;
 const ID_PATTERN = /^[a-z0-9]+(?:[.-][a-z0-9]+)*$/u;
 const SOURCE_ID_PATTERN = /^(?:[a-z0-9]+(?:[.-][a-z0-9]+)*|\/(?:0|[1-9][0-9]*))$/u;
 const validatedCatalogs = new WeakSet();
@@ -362,7 +363,7 @@ export function buildSoundQuasarRound(catalog, { index = 0, random = Math.random
 }
 
 /** A finite session never repeats an answer. The host owns playback and progress. */
-export function createSoundQuasarSession(catalog, { random = Math.random, roundLength = 5, choiceCount = 4, mode = "words", difficulty = 3, history, policy = null } = {}) {
+export function createSoundQuasarSession(catalog, { random = Math.random, roundLength = SOUND_QUASAR_ROUND_COUNT, choiceCount = 4, mode = "words", difficulty = 3, history, policy = null } = {}) {
   const validated = asCatalog(catalog);
   const items = soundQuasarItemsForDifficulty(validated, { mode, difficulty });
   requireCondition(items.length >= 2, "difficulty needs at least two eligible listening items.");

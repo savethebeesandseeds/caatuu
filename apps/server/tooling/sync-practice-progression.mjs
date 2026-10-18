@@ -43,8 +43,8 @@ function validateEffortPolicy(policy) {
     assert.ok(positive(policy?.[id]?.units), `Missing fixed practice effort: ${id}`);
   }
   assert.equal(policy["word-world"].units, policy["word-net"].units, "Word World aliases must share effort");
-  // Matching supports up to eight pairs and listening batches contain five
-  // items. Below those caps, this one-unit-per-clean-item estimate must change.
+  // Matching supports up to eight pairs. Listening and Moon caps also preserve
+  // historical five/six-item batches; current challenges contain three items.
   assert.ok(positive(policy["verb-nebula"]?.cap) && policy["verb-nebula"].cap >= 8, "Matching cap cannot truncate supported clean boards");
   assert.ok(positive(policy["sound-quasar"]?.cap) && policy["sound-quasar"].cap >= 5, "Listening cap cannot truncate clean five-item batches");
   assert.ok(positive(policy["memory-moon"]?.cap) && policy["memory-moon"].cap >= 6, "Memory Moon cap cannot truncate clean six-question moons");

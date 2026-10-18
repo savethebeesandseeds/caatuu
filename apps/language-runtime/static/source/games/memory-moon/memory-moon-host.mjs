@@ -1,8 +1,8 @@
 import { fetchDeclaredCourseGameJson } from '../course-game-content.mjs';
 import { mountEmbeddedGameControls } from '../embedded-game-controls.mjs';
-import { createMemoryMoonPractice } from './memory-moon-practice.mjs';
-import { validateMemoryMoonCatalog, moonIllumination, moonShadePath } from './memory-moon-core.mjs';
-import { createMoonRenderer } from './memory-moon-render.mjs?v=memory-moon-render-3';
+import { createMemoryMoonPractice } from './memory-moon-practice.mjs?v=memory-moon-practice-2';
+import { validateMemoryMoonCatalog, moonIllumination, moonShadePath } from './memory-moon-core.mjs?v=memory-moon-3';
+import { createMoonRenderer } from './memory-moon-render.mjs?v=memory-moon-render-4';
 import { createMoonSpeech } from './memory-moon-speech.mjs';
 import { createMoonOrbit } from './memory-moon-orbit.mjs';
 import { createReviewContinuation } from '../practice-pacing.mjs?v=practice-pacing-2';
@@ -32,7 +32,7 @@ export async function mountMemoryMoon({ root, shell = globalThis,
     || (snapshot?.phase === 'complete' && !completionReady);
   const readingGuide = createTargetReadingGuide({ course, gameId: 'memory-moon', document, storage: shell.localStorage });
   const renderer = createMoonRenderer({ root, course, i18n: shell.CaatuuI18n, onAnswer: answer,
-    readingGuide, onSelectWord: selectWord,
+    readingGuide, storage: shell.localStorage, onSelectWord: selectWord,
     onSpeak: text => { void playPrompt(text); },
     onReplay: () => { void restart(); }
   });
@@ -84,7 +84,7 @@ export async function mountMemoryMoon({ root, shell = globalThis,
     }
   });
   const controls = (services.mountControls || mountEmbeddedGameControls)({
-    container: renderer.toolbar, shell, course, autoplay: true, readingGuide,
+    container: renderer.toolbar, shell, course, autoplay: true, readingGuide, challenge: renderer.targetTextSettings,
     onOpenChange(open) {
       if (destroyed) return;
       controlsOpen = open;

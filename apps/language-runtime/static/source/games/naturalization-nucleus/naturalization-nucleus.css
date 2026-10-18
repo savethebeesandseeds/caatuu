@@ -358,6 +358,10 @@
   gap: 8px;
 }
 
+.naturalization-nucleus-deck[hidden] {
+  display: none;
+}
+
 .naturalization-nucleus-deck-item {
   flex: 0 1 104px;
   min-width: 0;
@@ -686,6 +690,8 @@ html[data-theme="dark"] .naturalization-nucleus-tone-5 { color: #c0cbc7; }
   font-size: 0.8rem;
 }
 .naturalization-nucleus-continue {
+  display: block;
+  margin-inline: auto;
   justify-self: center;
   min-height: 44px;
   padding: 9px 24px;

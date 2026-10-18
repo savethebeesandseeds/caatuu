@@ -69,8 +69,11 @@ no existing course's review or publication status is promoted by these banks.
 Mandarin questions also own `targetReading`: character-aligned authored pinyin
 with `machine-assisted-preview` status. Every Hanzi must have an aligned unit;
 readings retain contextual polyphonic pronunciations and lexical citation tones,
-not tone sandhi. Runtime rendering uses the shared tone colours without adding
-spaces between characters. Arabic and Georgian reuse the shared optional reading
+not tone sandhi. Runtime rendering shows pinyin above the Hanzi and uses the
+shared tone colours without adding spaces between characters. The Chinese Aa
+menu controls pinyin and tone colours independently; both start enabled, and
+preferences remain local to the course's Memory Moon game. Sentence and dictionary
+text use the same preferences. Arabic and Georgian reuse the shared optional reading
 guides and preserve their target script and direction.
 
 Each new challenge automatically speaks its target sentence when the shared
@@ -133,7 +136,7 @@ declared JSON through generated course authority. Runtime code ships with the
 app, and each bank belongs to that course's offline and Android delivery. The
 local interaction demo remains separate and is excluded from release assets.
 
-Each round samples six questions at exactly the selected badge. The selector
+Each round samples three questions at exactly the selected badge. The selector
 reads retained mistake and assistance evidence across the current course's
 games, resolves its English meanings through Practice Compass, and embeds only
 English text with the shared MiniLM runtime. Multiple weakness regions guide
@@ -143,7 +146,7 @@ question identities, explicit families and semantic neighbours cool down across
 rounds and reloads. A smaller eligible pool relaxes repetition penalties rather
 than preventing a round.
 
-This six-question sampler is Memory Moon's explicit selection boundary. It does
+This three-question sampler is Memory Moon's explicit selection boundary. It does
 not apply the other games' frontier or daily introduction quotas, and does not
 claim a calibrated diagnosis of grammatical mastery. Similar meanings provide
 practice hints, while the authored question supplies the assessed skill.

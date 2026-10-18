@@ -1,8 +1,8 @@
 import { createPracticeCompass } from '../../practice-compass.mjs';
 import { embedSharedEnglishTexts, normalizeSharedEnglishText, sharedEnglishEmbeddingOwner } from '../../english-image-search.mjs?v=english-image-search-5';
 import { newContentEncounterId } from '../content-progression.mjs';
-import { MEMORY_MOON_GAME, MEMORY_MOON_BANK, validateMemoryMoonCatalog, memoryMoonWeaknesses,
-  selectMemoryMoonChallenges, createMoonSession, answerMoonChallenge, assistMoonChallenge, advanceMoonChallenge } from './memory-moon-core.mjs';
+import { MEMORY_MOON_GAME, MEMORY_MOON_BANK, MEMORY_MOON_ROUND_COUNT, validateMemoryMoonCatalog, memoryMoonWeaknesses,
+  selectMemoryMoonChallenges, createMoonSession, answerMoonChallenge, assistMoonChallenge, advanceMoonChallenge } from './memory-moon-core.mjs?v=memory-moon-3';
 
 function aborted(signal) {
   if (signal?.aborted) { const error=new Error('Memory Moon selection cancelled.');error.name='AbortError';throw error; }
@@ -66,8 +66,8 @@ export function createMemoryMoonPractice({ course, learning, pack, runtimeHref=g
       check();
       if(capturedGeneration!==learning.contentGeneration?.()){const error=new Error('Learning progress changed while preparing Memory Moon.');error.name='AbortError';throw error;}
       const selection=selectMemoryMoonChallenges(pack,{difficulty,weaknesses,vectorsByText:vectors,history,
-        recentIds:lastIds,recentFamilies:lastFamilies,random,limit:6,now:now()});
-      if(selection.items.length<6)throw new Error('Memory Moon needs six questions at the selected difficulty.');
+        recentIds:lastIds,recentFamilies:lastFamilies,random,limit:MEMORY_MOON_ROUND_COUNT,now:now()});
+      if(selection.items.length<MEMORY_MOON_ROUND_COUNT)throw new Error(`Memory Moon needs ${MEMORY_MOON_ROUND_COUNT} questions at the selected difficulty.`);
       generation=capturedGeneration;saveStatus=typeof generation==='string'?'ready':'unavailable';
       session={...createMoonSession(selection.items),selection:{...selection.trace,
         mode:selection.trace.mode==='no-history'&&evidence.length?'balanced-practice':selection.trace.mode,

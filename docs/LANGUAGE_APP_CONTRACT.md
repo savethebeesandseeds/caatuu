@@ -270,7 +270,7 @@ path traversal are invalid.
 Sounds Quasar uses `/language-runtime/static/games/sound-quasar.html` for all
 courses. Its `soundQuasarCatalog` pins course-owned words and sentences with
 English audit text and upstream provenance at `sound-quasar-items-v2`. The
-Aa control switches between five-word and five-sentence rounds. Correct answers
+Aa control switches between three-word and three-sentence rounds. Correct answers
 earn 1 XP, including correct retries; reveals earn none. Completing a round
 adds one completed round and shared practice-set effort, with streak eligibility when at least one
 answer was correct. Device speech remains unreviewed and does not establish
