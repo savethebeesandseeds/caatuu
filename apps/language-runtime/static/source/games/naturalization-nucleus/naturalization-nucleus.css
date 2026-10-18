@@ -685,3 +685,17 @@ html[data-theme="dark"] .naturalization-nucleus-tone-5 { color: #c0cbc7; }
 [data-notation="arabic-learning-romanization-v1"] .naturalization-nucleus-fused-hanzi.naturalization-nucleus-word-long {
   font-size: 0.8rem;
 }
+.naturalization-nucleus-continue {
+  justify-self: center;
+  min-height: 44px;
+  padding: 9px 24px;
+  border: 1px solid var(--theme-green, #356d5e);
+  border-radius: 10px;
+  background: var(--theme-green, #356d5e);
+  color: var(--theme-panel, #fff);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.naturalization-nucleus-continue[hidden] { display: none; }
+.naturalization-nucleus-continue:focus-visible { outline: 3px solid var(--theme-amber, #b77726); outline-offset: 3px; }

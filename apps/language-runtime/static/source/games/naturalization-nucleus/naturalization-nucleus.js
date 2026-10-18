@@ -5,8 +5,6 @@
   const EXPECTED_SCHEMA_URL = "https://caatuu.org/schemas/development/naturalization-nucleus.preview.v1.json";
   const WORD_SCHEMA_URL = "https://caatuu.org/schemas/development/naturalization-nucleus.preview.v2.json";
   const STORAGE_KEY_SUFFIX = "naturalizationNucleus.pieceCount.v1";
-  const SOLVED_HOLD_MILLIS = 420;
-  const ROUND_LOADING_MILLIS = 1600;
   const ROOT_KEYS = new Set([
     "$schema", "schemaVersion", "courseId", "gameId", "contentId", "title",
     "instructions", "roundSettings", "status", "derivedFrom", "review", "challenges", "notation"
@@ -794,12 +792,12 @@
 
     mountedBoards.get(board)?.destroy();
     const listeners = [];
-    let errorTimer = 0;
     let transitionId = 0;
     let transitioning = false;
     let waitingCampaign = false;
     let destroyed = false;
     let active = isActive();
+    let speechRequest = null;
     let cancelArtworkLoad = () => {};
     const roundTimers = new Set();
     const listen = (target, type, handler) => {
@@ -816,6 +814,23 @@
       Object.freeze({ toggle: audioToggle, menu: audioMenu }),
       Object.freeze({ toggle: optionsToggle, menu: optionsMenu })
     ]);
+    const continueButton = board.ownerDocument.createElement("button");
+    continueButton.id = "naturalizationNucleusContinue";
+    continueButton.className = "naturalization-nucleus-continue";
+    game.append(continueButton);
+    const continuation = global.CaatuuPracticePacing.createReviewContinuation({
+      button: continueButton, i18n: global.CaatuuI18n,
+      canContinue: () => active && isActive() && !destroyed
+        && !toolbarMenus.some(({ menu }) => !menu.hidden),
+      onContinue() {
+        cancelSpeech();
+        if (inCampaign()) {
+          waitingCampaign = true;
+          global.postMessage({ source: "caatuu-game", type: "round-success",
+            gameId: "naturalization-nucleus" }, global.location.origin);
+        } else prepareRound();
+      }
+    });
     const state = {
       pieceCount: storedPieceCount(root, catalog),
       difficulty: currentLearningDifficulty(),
@@ -886,6 +901,7 @@
       global.CaatuuChrome?.releaseToolbarPopover?.(entry.menu);
       entry.menu.hidden = true;
       entry.toggle.setAttribute("aria-expanded", "false");
+      syncRoundTasks();
       if (restoreFocus) entry.toggle.focus({ preventScroll: true });
     }
 
@@ -905,6 +921,7 @@
       }
       entry.menu.hidden = false;
       entry.toggle.setAttribute("aria-expanded", "true");
+      syncRoundTasks();
       global.CaatuuChrome?.constrainToolbarPopover?.(entry.menu);
     }
 
@@ -949,20 +966,42 @@
     }
 
     function clearRoundTimers() {
-      roundTimers.forEach((task) => {
-        global.clearTimeout(task.timer);
-        task.token += 1;
-      });
-      roundTimers.clear();
+      [...roundTimers].forEach(cancelRoundTask);
     }
 
     const now = () => global.performance?.now?.() ?? Date.now();
+    function roundTasksCanRun() {
+      return active && isActive() && !destroyed && !speechRequest
+        && !toolbarMenus.some(({ menu }) => !menu.hidden);
+    }
+
+    function pauseRoundTask(task) {
+      if (!task || !roundTimers.has(task)) return;
+      global.clearTimeout(task.timer);
+      task.timer = null;
+      task.token += 1;
+      if (task.startedAt !== null) task.remaining = Math.max(0, task.remaining - (now() - task.startedAt));
+      task.startedAt = null;
+    }
+
+    function cancelRoundTask(task) {
+      pauseRoundTask(task);
+      roundTimers.delete(task);
+    }
+
+    function syncRoundTasks() {
+      continuation.sync();
+      roundTimers.forEach(roundTasksCanRun() ? armRoundTask : pauseRoundTask);
+    }
+
     function armRoundTask(task) {
-      if (!active || destroyed) return;
+      if (!roundTasksCanRun() || task.timer !== null) return;
       task.startedAt = now();
       const token = ++task.token;
       task.timer = global.setTimeout(() => {
-        if (token !== task.token || destroyed || !active || !roundTimers.has(task)) return;
+        if (token !== task.token || destroyed || !roundTimers.has(task)) return;
+        pauseRoundTask(task);
+        if (!roundTasksCanRun()) return;
         roundTimers.delete(task);
         task.callback();
       }, task.remaining);
@@ -983,14 +1022,10 @@
       if (!active) {
         cancelDrag();
         state.feedbackSequence += 1;
+        cancelSpeech();
         closeToolbarMenus();
-        roundTimers.forEach((task) => {
-          global.clearTimeout(task.timer);
-          task.token += 1;
-          if (task.startedAt !== null) task.remaining = Math.max(0, task.remaining - (now() - task.startedAt));
-          task.startedAt = null;
-        });
-      } else roundTimers.forEach(armRoundTask);
+      }
+      syncRoundTasks();
     }
 
     function setRoundLoading(active) {
@@ -1147,22 +1182,48 @@
       }
     }
 
+    function cancelSpeech() {
+      if (!speechRequest) return;
+      speechRequest = null;
+      try {
+        Promise.resolve(global.CaatuuChrome?.stopSpeech?.()).catch(() => {});
+      } catch (_error) {
+        // A retired request must not keep the next visible round paused.
+      }
+    }
+
+    function trackSpeech(play) {
+      const request = {};
+      speechRequest = request;
+      syncRoundTasks();
+      let result;
+      try {
+        result = play();
+      } catch (_error) {
+        result = undefined;
+      }
+      return Promise.resolve(result).catch(() => {
+        // Visual feedback remains useful when speech is unavailable.
+      }).finally(() => {
+        if (speechRequest !== request) return;
+        speechRequest = null;
+        syncRoundTasks();
+      });
+    }
+
     function speak(challenge) {
       if (!challenge || !active || !isActive() || destroyed) return Promise.resolve();
       const speakText = global.CaatuuChrome?.speakText;
       if (typeof speakText !== "function") return Promise.resolve();
       const piece = state.round?.solution.find(item => item.left.id === challenge.id);
       if (piece && !state.placements.includes(piece.id)) state.assistedIds.add(challenge.id);
-      return Promise.resolve(speakText(targetText(challenge))).catch(() => {
-        // Visual feedback remains useful when speech is unavailable.
-      });
+      return trackSpeech(() => speakText(targetText(challenge)));
     }
 
     function previewAudio() {
       if (state.feedbackChallenge) return speak(state.feedbackChallenge);
-      return Promise.resolve(global.CaatuuChrome?.previewSpeech?.()).catch(() => {
-        // The controls remain usable when this device has no Mandarin voice.
-      });
+      if (!active || !isActive() || destroyed) return Promise.resolve();
+      return trackSpeech(() => global.CaatuuChrome?.previewSpeech?.());
     }
 
     function playContext() {
@@ -1171,9 +1232,7 @@
         || global.CaatuuCourse?.capabilities?.speech === false) return Promise.resolve();
       const speakText = global.CaatuuChrome?.speakText;
       if (typeof speakText !== "function") return Promise.resolve();
-      return Promise.resolve(speakText(challenge.context.text)).catch(() => {
-        // Keep the authored context visible when a device voice is unavailable.
-      });
+      return trackSpeech(() => speakText(challenge.context.text));
     }
 
     async function announceMatches(matches) {
@@ -1208,7 +1267,6 @@
     }
 
     function acceptPlacement(transition) {
-      global.clearTimeout(errorTimer);
       state.placements = [...transition.placements];
       state.selectedPieceId = "";
       state.selectedSocketIndex = -1;
@@ -1231,30 +1289,16 @@
           xp: 1,
           rounds: 1
         });
-        if (inCampaign()) {
-          waitingCampaign = true;
-          scheduleRoundTask(() => {
-            if (!inCampaign()) { prepareRound(); return; }
-            global.postMessage({ source: "caatuu-game", type: "round-success",
-              gameId: "naturalization-nucleus" }, global.location.origin);
-          }, SOLVED_HOLD_MILLIS);
-        } else prepareRound(state.pieceCount, { holdMillis: SOLVED_HOLD_MILLIS });
+        continuation.show();
       }
     }
 
     function rejectPlacement(pieceId, socketIndex, message) {
-      global.clearTimeout(errorTimer);
       state.errorPieceId = pieceId;
       state.errorSlot = socketIndex;
       state.errorMessage = message;
       state.newMatchSlots = [];
       render(pieceId);
-      errorTimer = global.setTimeout(() => {
-        state.errorPieceId = "";
-        state.errorSlot = -1;
-        state.errorMessage = "";
-        render(pieceId);
-      }, 900);
     }
 
     function selectPiece(pieceId) {
@@ -1266,7 +1310,6 @@
         tryPlacement(pieceId, state.selectedSocketIndex);
         return;
       }
-      global.clearTimeout(errorTimer);
       state.selectedPieceId = state.selectedPieceId === piece.id ? "" : piece.id;
       state.feedbackSequence += 1;
       if (!state.selectedPieceId) state.feedbackChallenge = null;
@@ -1300,7 +1343,6 @@
     }
 
     function startRound(pieceCount = state.pieceCount) {
-      global.clearTimeout(errorTimer);
       const previousArtworkSrc = state.round?.artworkSrc || "";
       state.pieceCount = pieceCount;
       const presentation = roundPresentation(state.roundIndex + 1, catalog);
@@ -1329,37 +1371,36 @@
       render(deckPieces()[0]?.id || "");
     }
 
-    function prepareRound(pieceCount = state.pieceCount, { holdMillis = 0 } = {}) {
+    function prepareRound(pieceCount = state.pieceCount) {
       cancelDrag();
+      continuation.clear();
+      cancelSpeech();
       waitingCampaign = false;
       transitionId += 1;
       const activeTransition = transitionId;
       clearRoundTimers();
       cancelArtworkLoad();
       transitioning = true;
-      const showInterstitial = () => {
+      setRoundLoading(true);
+      const begin = () => {
         if (activeTransition !== transitionId) return;
-        setRoundLoading(true);
-        scheduleRoundTask(() => {
-          if (activeTransition !== transitionId) return;
-          startRound(pieceCount);
-          waitForArtwork(() => {
-            if (activeTransition !== transitionId || destroyed) return;
-            transitioning = false;
-            setRoundLoading(false);
-            focusDeckPiece(deckPieces()[0]?.id || "");
-          });
-        }, ROUND_LOADING_MILLIS);
+        startRound(pieceCount);
+        waitForArtwork(() => {
+          if (activeTransition !== transitionId || destroyed) return;
+          transitioning = false;
+          setRoundLoading(false);
+          focusDeckPiece(deckPieces()[0]?.id || "");
+        });
       };
-      if (holdMillis > 0) scheduleRoundTask(showInterstitial, holdMillis);
-      else showInterstitial();
+      if (roundTasksCanRun()) begin();
+      else scheduleRoundTask(begin, 0);
     }
 
     function waitForArtwork(ready) {
       let finished = false;
       let timeout;
       const cleanup = () => {
-        global.clearTimeout(timeout);
+        cancelRoundTask(timeout);
         artwork.removeEventListener("load", loaded);
         artwork.removeEventListener("error", failed);
       };
@@ -1367,8 +1408,12 @@
         if (finished) return;
         finished = true;
         cleanup();
-        artwork.hidden = !visible;
-        ready();
+        const reveal = () => {
+          artwork.hidden = !visible;
+          ready();
+        };
+        if (roundTasksCanRun()) reveal();
+        else scheduleRoundTask(reveal, 0);
       };
       const failed = () => finish(false);
       const loaded = () => {
@@ -1379,7 +1424,7 @@
       artwork.hidden = false;
       artwork.addEventListener("load", loaded);
       artwork.addEventListener("error", failed);
-      timeout = global.setTimeout(failed, 8000);
+      timeout = scheduleRoundTask(failed, 8000);
       if (!state.imagesEnabled) finish(true);
       else if (artwork.complete) {
         if (artwork.naturalWidth > 0) loaded();
@@ -1481,7 +1526,6 @@
       const socketIndex = Number.parseInt(target.dataset.naturalizationSocketIndex || "", 10);
       if (!state.selectedPieceId) {
         if (transitioning || solved() || state.placements[socketIndex]) return;
-        global.clearTimeout(errorTimer);
         state.selectedSocketIndex = state.selectedSocketIndex === socketIndex ? -1 : socketIndex;
         state.feedbackSequence += 1;
         state.feedbackChallenge = null;
@@ -1577,7 +1621,9 @@
       destroy() {
         if (destroyed) return;
         destroyed = true;
-        global.clearTimeout(errorTimer);
+        continuation.destroy();
+        continueButton.remove();
+        cancelSpeech();
         transitionId += 1;
         clearRoundTimers();
         cancelArtworkLoad();
@@ -1644,6 +1690,7 @@
     };
     function isActive() {
       if (disposed || pageHidden || documentRef.visibilityState === "hidden" || !board.isConnected) return false;
+      if (documentRef.body.hasAttribute("data-caatuu-practice-paused") || global.CaatuuGameDynamics?.active) return false;
       for (let ancestor = stage; ancestor; ancestor = ancestor.parentElement) {
         if (ancestor.hidden) return false;
       }
@@ -1657,7 +1704,7 @@
     }
     const observer = typeof global.MutationObserver === "function" ? new global.MutationObserver(syncActivity) : null;
     for (let ancestor = stage; ancestor; ancestor = ancestor.parentElement) {
-      observer?.observe(ancestor, { attributes: true, attributeFilter: ["hidden"] });
+      observer?.observe(ancestor, { attributes: true, attributeFilter: ["hidden", "data-caatuu-practice-paused"] });
     }
     function disposeLoading() {
       if (disposed) return;
@@ -1669,6 +1716,7 @@
       listeners.splice(0).forEach((remove) => remove());
     }
     listen(documentRef, "visibilitychange", syncActivity);
+    listen(global, "caatuu:game-dynamics-change", syncActivity);
     listen(global, "pagehide", (event) => {
       pageHidden = true;
       if (event.persisted) syncActivity();

@@ -4,6 +4,7 @@ import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } 
 import { appendTargetToneText } from "../../target-text-tones.mjs?v=target-text-tones-1";
 import { newContentEncounterId } from "../content-progression.mjs";
 import { createArabicReadingGuide } from "../../arabic-reading-guide.mjs?v=arabic-reading-guide-2";
+import { createReviewContinuation } from "../practice-pacing.mjs?v=practice-pacing-2";
 
 const GAME_ID = "sound-quasar";
 const MUSIC_ARTWORK = Object.freeze([
@@ -46,8 +47,8 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     active: !scope.frameElement?.closest?.("[data-train-panel]")?.hidden,
     finished: false, destroyed: false, speechRequest: 0, voiceRequest: 0,
     voiceBackend: "", audioContext: null, report: null, reported: new Set(), mode: "words", artwork: "", sessionCorrect: 0,
-    advanceTimer: null, advanceRequest: 0, pageHidden: false, pendingAutoplay: false, audioFailed: false, choiceCount: 4,
-    batchTimer: null, batchRequest: 0, waitingCampaign: false
+    pageHidden: false, pendingAutoplay: false, audioFailed: false, choiceCount: 4,
+    waitingCampaign: false
   };
   const loadingLabel = t("verbnebula.round.preparing");
   const loadingScreen = mountRobotLoadingScreen({ container: node("quasarLoading"), label: loadingLabel,
@@ -59,22 +60,6 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
       && shell.document.visibilityState !== "hidden";
     loadingScreen.setActive(active);
     transitionScreen.setActive(active && !state.report && !controls.isOpen());
-  }
-  function cancelBatch() {
-    if (state.batchTimer !== null) scope.clearTimeout(state.batchTimer);
-    state.batchTimer = null;
-    state.batchRequest += 1;
-  }
-  function syncBatch() {
-    cancelBatch();
-    if (!state.finished || !state.rounds.length || state.waitingCampaign || !state.active || state.destroyed || state.pageHidden
-      || shell.document.visibilityState === "hidden" || state.report || controls.isOpen()) return;
-    const request = state.batchRequest;
-    state.batchTimer = scope.setTimeout(() => {
-      if (request !== state.batchRequest || state.destroyed || !state.finished) return;
-      startSession();
-      node("quasarListen").focus();
-    }, 1200);
   }
   const choiceCountKey = `${course.storage?.namespace || course.id}.soundQuasar.choiceCount.v1`;
   const modeKey = `${course.storage?.namespace || course.id}.soundQuasar.mode.v1`;
@@ -91,6 +76,8 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     challenge: { content: node("quasarModeOptions"), labelKey: "soundquasar.mode.title" },
     settings: { content: node("quasarChoiceOptions"), labelKey: "soundquasar.options.title", icon: "boxes" },
     onOpenChange: () => syncButtons() });
+  const review = createReviewContinuation({ button: node("quasarContinue"), i18n,
+    canContinue: canAdvance, onContinue: next });
   const current = () => state.rounds[state.index];
   const muted = () => api.getSpeechMuted?.() === true;
   const automaticAudioOff = () => muted() || api.getSpeechAutoplay?.() === false;
@@ -106,28 +93,13 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
       && !state.pageHidden && shell.document.visibilityState !== "hidden" && !state.playing
       && !state.report && !controls.isOpen() && (automaticAudioOff() || !state.audioReady || state.audioFailed);
   }
-  function cancelAdvance() {
-    if (state.advanceTimer !== null) scope.clearTimeout(state.advanceTimer);
-    state.advanceTimer = null;
-    state.advanceRequest += 1;
-  }
   function canAdvance() {
     return (state.resolved || state.skipped) && state.active && !state.destroyed && !state.finished
       && !state.pageHidden && shell.document.visibilityState !== "hidden"
-      && !state.playing && !state.report && !controls.isOpen();
+      && !shell.CaatuuGameDynamics?.active && !state.report && !controls.isOpen();
   }
   function syncAdvance() {
-    cancelAdvance();
-    if (!canAdvance()) return;
-    const request = state.advanceRequest;
-    const round = current();
-    const delay = state.resultCorrect ? (state.mode === "sentences" ? 1800 : 1200)
-      : Math.min(8000, Math.max(state.mode === "sentences" ? 4500 : 3000, round.meaning.length * 55 + 1000));
-    state.advanceTimer = scope.setTimeout(() => {
-      if (request !== state.advanceRequest || current() !== round || !canAdvance()) return;
-      state.advanceTimer = null;
-      next();
-    }, delay);
+    review.sync();
   }
   function showResult(correct = true) {
     const round = current();
@@ -151,6 +123,7 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     node("quasarResultMeaning").textContent = round.meaning;
     node("quasarResult").hidden = false;
     node("quasarResult").focus();
+    review.show();
   }
   function feedback(key, args, tone = "") {
     node("quasarFeedback").textContent = key ? t(key, args) : "";
@@ -171,7 +144,6 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
       button.disabled = unavailable || !state.heard || state.playing || state.resolved || state.skipped || state.missed.has(button.dataset.choiceId);
     }
     syncAdvance();
-    syncBatch();
     maybeAutoplay();
   }
   function stopSpeech() {
@@ -199,6 +171,7 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     syncButtons();
   }
   function beginWord() {
+    review.clear();
     state.encounterId = newContentEncounterId();
     state.contentGeneration = shell.CaatuuLearning?.contentGeneration?.() ?? null;
     state.resolved = false;
@@ -250,11 +223,10 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     syncButtons();
   }
   function startSession() {
-    cancelBatch();
+    review.clear();
     state.waitingCampaign = false;
     state.resolved = false;
     state.skipped = false;
-    cancelAdvance();
     const difficulty = Math.max(1, Math.min(3, Math.floor(Number(shell.CaatuuLearning?.difficulty?.()) || 1)));
     const available = soundQuasarItemsForDifficulty(catalog, { mode: state.mode, difficulty }).length;
     if (available < 2) {
@@ -367,13 +339,14 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     state.skipped = true;
     state.pendingAutoplay = false;
     stopSpeech();
-    next();
+    showResult(false);
+    syncButtons();
   }
   function next() {
     if (!canAdvance()) return;
     state.resolved = false;
     state.skipped = false;
-    cancelAdvance();
+    review.clear();
     stopSpeech();
     state.index += 1;
     if (state.index < state.rounds.length) {
@@ -390,6 +363,11 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     state.waitingCampaign = shell.document.body?.dataset.campaignActive === "true";
     syncButtons();
     if (state.waitingCampaign) shell.postMessage({ source: "caatuu-game", type: "round-complete", gameId: GAME_ID }, scope.location.origin);
+    else {
+      // The final result's Continue already authorizes the next batch.
+      startSession();
+      node("quasarListen").focus();
+    }
   }
   function soundContext() {
     return { backend: state.voiceBackend, locale: catalog.audio.locale,
@@ -531,11 +509,12 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
   });
   listen(shell.document, "visibilitychange", () => {
     if (shell.document.visibilityState === "hidden") { controls.close(); closeReport(false); stopSpeech(); }
-    else { syncRobotScreens(); syncAdvance(); syncBatch(); maybeAutoplay(); }
+    else { syncRobotScreens(); syncAdvance(); maybeAutoplay(); }
   });
   function destroy() {
     if (state.destroyed) return;
     state.destroyed = true;
+    review.destroy();
     loadingScreen.destroy();
     transitionScreen.destroy();
     stopSpeech();

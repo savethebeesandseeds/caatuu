@@ -1450,7 +1450,7 @@ export function transformManifest(input, { packagedFiles = null } = {}) {
       return available.has(source.replace(/^\.\//u, "").split(/[?#]/u, 1)[0]);
     });
   }
-  return `${JSON.stringify(manifest, null, 2)}\n`;
+  return `${JSON.stringify(manifest)}\n`;
 }
 
 export function transformWordWorldManifest(input) {
@@ -1467,7 +1467,7 @@ export function transformWordWorldManifest(input) {
     /generat/iu,
     "Android Word World content must provide a non-generative session provider",
   );
-  return `${JSON.stringify(manifest, null, 2)}\n`;
+  return `${JSON.stringify(manifest)}\n`;
 }
 
 function isDisabledProductSetupSurface(value, productCapabilities) {
@@ -1670,7 +1670,7 @@ export function transformWebViewEmbeddingCatalog(input) {
     modelPrecached: false,
     androidPackaged: false,
   };
-  return `${JSON.stringify(catalog, null, 2)}\n`;
+  return `${JSON.stringify(catalog)}\n`;
 }
 
 export function transformRuntime(input) {

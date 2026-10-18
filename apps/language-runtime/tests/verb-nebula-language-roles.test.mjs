@@ -6,6 +6,7 @@ import * as verbNebulaCore from "../static/source/games/verb-nebula/verb-nebula-
 import * as verbExerciseFamilyCore from "../static/source/games/verb-nebula/verb-exercise-family-core.mjs";
 import { createInterfaceContent } from "../static/source/interface-content.mjs";
 import { createBrowserHarness } from "./helpers/fake-browser.mjs";
+import { createReviewContinuation } from "../static/source/games/practice-pacing.mjs";
 
 const workspace = await readFile(new URL("../static/source/caatuu-workspace.js", import.meta.url), "utf8");
 const learningProfile = await readFile(new URL("../static/source/learning-profile.js", import.meta.url), "utf8");
@@ -34,7 +35,7 @@ function harness() {
     verbSelectedCzechId: "", verbSelectedEnglishId: ""
   };
   Object.assign(browser.context, {
-    course, state, verbNebulaCore, sourceLanguage: course.sourceLanguage, targetLanguage: course.targetLanguage,
+    course, state, verbNebulaCore, verbReviewSpeechJobs: 0, sourceLanguage: course.sourceLanguage, targetLanguage: course.targetLanguage,
     verbTargetAuditLabel: "English", verbSourceAuditLabel: "Spanish",
     verbTargetLabel: "Inglés", verbSourceLabel: "Español", verbTargetNativeLabel: "English",
     interfaceText: (id, parameters) => i18n.t(id, parameters),
@@ -66,6 +67,12 @@ function harness() {
 for (const assisted of [false, true]) {
   test(`completed eight-pair Nebula boards keep introducing suitable verbs (${assisted ? "assisted" : "independent"})`, async () => {
     const game = harness();
+    const continueButton = game.document.createElement("button");
+    continueButton.id = "verbContinue";
+    game.document.body.append(continueButton);
+    game.window.CaatuuPracticePacing = { createReviewContinuation };
+    Object.assign(game.context, { practiceReviewMenusOpen: () => false, shellRobotPageHidden: false, $: selector => game.document.querySelector(selector) });
+    vm.runInContext(between("let verbReviewContinuation =", "function waitForVerbTransition"), game.context);
     const clock = { now: Date.UTC(2026, 8, 19, 12) };
     const synthetic = verbNebulaCore.validateVerbNebulaCatalog([
       ...Array.from({ length: 32 }, (_, index) => ({
@@ -95,7 +102,7 @@ for (const assisted of [false, true]) {
         selectContentItems: (items, options) => verbNebulaCore.selectContentItems(items, {
           ...options, now: clock.now, random: () => 0
         }) },
-      clearVerbSolutionAdvance() {},
+      clearVerbReview() {},
       transitionToNextVerbRound() { completedBoards += 1; }
     });
     vm.runInContext(between("function planVerbRound()", "async function startVerbRound"), game.context);
@@ -119,6 +126,9 @@ for (const assisted of [false, true]) {
         visited.add(pair.id);
       }
       assert.ok(verbNebulaCore.isVerbRoundComplete(game.state.verbRound, game.state.verbMatchedIds));
+      assert.equal(completedBoards, board, "matching cannot release the review");
+      game.context.renderVerbReviewContinuation();
+      continueButton.click(); continueButton.click();
       await learning.retryPendingSaves();
     }
     assert.equal(completedBoards, 12);
@@ -147,7 +157,7 @@ for (const savedGeneration of ["before-reset", undefined]) {
       recordExposure: (id, event) => exposures.push({ id, ...event }) };
     Object.assign(game.context, {
       countryDictionary: rows, readVerbMemory: () => memory, readVerbMemoryEnvelope: () => null,
-      clearVerbSolutionAdvance() {}, persistVerbMemory: value => persisted.push(value),
+      clearVerbReview() {}, persistVerbMemory: value => persisted.push(value),
       verbExerciseFamilyCore: { ...verbExerciseFamilyCore,
         migrateVerbMemoryToV3: value => verbExerciseFamilyCore.migrateVerbMemoryToV3(value ? JSON.parse(JSON.stringify(value)) : null) }
     });
@@ -217,6 +227,7 @@ test("Spanish-base matching feedback uses Spanish while English alone feeds imag
   assert.deepEqual(searches, [pair.englishAuditText]);
   state.verbSpeakOnTap = true;
   context.speakVerbCzechOnTap(pair.id);
+  await new Promise(resolve => setImmediate(resolve));
   assert.deepEqual(speech, [pair.target]);
   state.verbSelectedCzechId = pair.id; state.verbSelectedEnglishId = pairs[1].id;
   await context.settleVerbMatch();
@@ -327,8 +338,8 @@ test("unsupported verb clues stay empty instead of showing unrelated actions or 
     preloadVerbHintAsset: async () => {}
   });
   vm.runInContext([
-    between("const verbHintExactAssets =", "const campaignTransitionMillis ="),
-    between("const verbHintStopwords =", "function verbSolutionRevealDuration"),
+    between("const verbHintExactAssets =", "const campaignGameReadyTimeoutMillis ="),
+    between("const verbHintStopwords =", "const defaultPrintOptions ="),
     between("function verbHintTokens(value)", "function normalizeVerbHintPath"),
     between("async function fallbackVerbHintCandidates(pair)", "function loadableVerbHint"),
     between("function cachedVerbHintCandidates(pair)", "async function loadVerbHintsForRound"),

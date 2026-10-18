@@ -8,6 +8,7 @@ import { createBrowserHarness } from "./helpers/fake-browser.mjs";
 import { createInterfaceContent } from "../static/source/interface-content.mjs";
 import { mountRobotLoadingScreen } from "../static/source/games/embedded-game-controls.mjs";
 import { createTargetReadingGuide } from "../static/source/target-reading-guide.mjs";
+import { createReviewContinuation, preventRepeatedReviewKey } from "../static/source/games/practice-pacing.mjs";
 import {
   fetchDeclaredCourseGameJson,
   readEmbeddedCourseProfile
@@ -196,6 +197,7 @@ async function mountGame({ language = "czech", difficulty = 3, syntheticBase = f
     rejectCatalog = reject;
   }) : Promise.resolve();
   Object.assign(harness.context, {
+    createReviewContinuation, preventRepeatedReviewKey,
     createTargetReadingGuide,
     createArabicReadingGuide: createTargetReadingGuide,
     selectConjugationPracticeVerbs, newContentEncounterId, matchesContentDifficulty,
@@ -331,7 +333,7 @@ async function settleMicrotasks() {
 
 function finishBatch(game) {
   game.submit();
-  game.advance(350); game.click(game.element("conjugationCometSummaryNext"));
+  game.click(game.element("conjugationCometSummaryNext"));
 }
 
 test("Arabic conjugation renders all thirteen RTL forms and expands rows for tall cues", async () => {
@@ -376,7 +378,7 @@ test("Georgian conjugation guides preserve colored forms, assessment and a saved
   guide.setEnabled(true);
   assert.equal(target.querySelectorAll("ruby").length, 6);
   game.submit();
-  game.advance(350);
+
   assert.equal(game.element("conjugationCometSummaryPairs").querySelectorAll("rt").length, 6);
   guide.setEnabled(false);
   assert.equal(game.element("conjugationCometSummaryPairs").querySelector("rt"), null);
@@ -475,7 +477,7 @@ test("conjugation records the assessed verb and each authored form once, after s
   assert.ok(exposures.every(event => event.evidence === "independent"));
   game.element("conjugationCometSubmit").click();
   assert.equal(exposures.length, forms.length + 1);
-  game.advance(200);
+  game.click(game.element("conjugationCometContinue"));
   game.submit(true);
   assert.ok(exposures.slice(forms.length + 1).every(event => event.evidence === "assisted"));
   assert.equal(exposures.at(-1).encounterId, exposures[0].encounterId);
@@ -485,7 +487,7 @@ test("conjugation records the assessed verb and each authored form once, after s
 test("the completion dialog shows every correct relationship and waits for a deliberate Next", async () => {
   const game = await mountGame();
   game.submit();
-  game.advance(350);
+
   const dialog = game.element("conjugationCometSummary");
   assert.equal(dialog.open, true);
   assert.equal(game.document.activeElement.id, "conjugationCometSummaryNext");
@@ -521,6 +523,7 @@ test("initial and between-round loading use the same accessible robot presentati
   const transition = game.element("conjugationCometTransition");
   assert.equal(initial.hidden, true);
   assert.ok(game.loaderCalls.find((call) => call.container === initial).minimumDurations.includes(1000));
+  game.shell.document.body.dataset.campaignActive = "true";
   finishBatch(game);
   assert.equal(transition.hidden, false);
   assert.equal(transition.dataset.active, "true");
@@ -528,7 +531,8 @@ test("initial and between-round loading use the same accessible robot presentati
   assert.equal(transition.dataset.active, "false");
   game.setActive(true);
   assert.equal(transition.dataset.active, "true");
-  game.advance(1200);
+  game.window.dispatchEvent({ type: "message", origin: game.window.location.origin, source: game.shell,
+    data: { source: "caatuu-app-shell", type: "campaign-advance" } });
   assert.equal(transition.hidden, true);
   game.controller.destroy();
   assert.equal(initial.hidden, true);
@@ -553,7 +557,7 @@ test("startup autoplay introduces the target verb once and repeats only for a ne
   game.document.visibilityState = "visible";
   game.document.dispatchEvent({ type: "visibilitychange" });
   game.submit(false);
-  game.advance(200);
+  game.click(game.element("conjugationCometContinue"));
   await settleMicrotasks();
   assert.deepEqual(game.speechCalls, [firstVerb], "navigation, resumption, and a retry do not repeat the introduction");
   game.controller.next();
@@ -871,7 +875,7 @@ test("an incorrect whole-board check grades every pair, awards no XP, and retrie
   assert.equal(game.attempts()[0].successes, 0);
   game.element("conjugationCometSubmit").dispatchEvent({ type: "click", bubbles: true });
   assert.equal(game.attempts().length, 1);
-  game.advance(200);
+  game.click(game.element("conjugationCometContinue"));
   assert.deepEqual([game.offset("subject"), game.offset("target")], offsets);
   assert.equal(game.element("conjugationCometPairBackgrounds").querySelectorAll("[data-result]").length, 0, "retry clears every pair tint");
   assert.equal(game.element("conjugationCometSubmit").disabled, false);
@@ -958,15 +962,15 @@ test("one fully aligned submission earns N XP once and continues through the rob
   assert.equal(game.element("conjugationCometSubmit").disabled, true);
   game.element("conjugationCometSubmit").dispatchEvent({ type: "click", bubbles: true });
   assert.equal(game.attempts().length, 1);
-  game.advance(350); game.click(game.element("conjugationCometSummaryNext"));
+  game.click(game.element("conjugationCometSummaryNext"));
   assert.equal(game.messages.length, 1);
   assert.equal(game.messages[0].message.type, "round-success");
   assert.equal(game.messages[0].message.contentId, original.id);
   assert.equal(game.messages[0].origin, "https://caatuu.test");
   assert.equal(game.records.reduce((sum, entry) => sum + (entry.rounds || 0), 0), 1);
-  assert.equal(game.element("conjugationCometTransition").hidden, false);
+  assert.equal(game.element("conjugationCometTransition").hidden, true);
   assert.equal(game.element("conjugationCometSummary").open, false);
-  game.advance(1200);
+
   assert.notEqual(game.current().id, original.id);
   assert.equal(game.element("conjugationCometTransition").hidden, true);
   assert.equal(game.element("conjugationCometSubmit").disabled, false);
@@ -1008,22 +1012,22 @@ test("leaving campaign releases a pending handoff on trusted standalone reactiva
   game.setActive(true, { source: {} });
   assert.equal(game.timers.size, 0);
   game.setActive(true);
-  game.advance(1200);
+
   assert.notEqual(game.current().id, original.id);
   assert.equal(game.messages.length, 1);
   assert.equal(game.records.length, credits);
   game.controller.destroy();
 });
 
-test("next skips an unfinished board without credit and invalidates pending callbacks", async () => {
+test("next skips an unfinished board without credit and invalidates its pending Continue", async () => {
   const game = await mountGame();
   const original = game.current();
   game.submit(false);
-  const stale = [...game.timers.values()][0].callback;
+  const previousContinue = game.element("conjugationCometContinue");
   game.controller.next();
   assert.notEqual(game.current().id, original.id);
   const next = game.current();
-  stale();
+  previousContinue.click();
   assert.equal(game.current().id, next.id);
   assert.equal(game.attempts().length, 1);
   assert.equal(game.attempts()[0].xp, 0);
@@ -1131,7 +1135,7 @@ test("native Enter and Space replay audio cards while only Check submits the com
   game.click(check);
   assert.equal(game.attempts().length, 1);
   assert.equal(game.attempts()[0].xp, result.total);
-  game.advance(350); game.click(game.element("conjugationCometSummaryNext")); game.advance(1200);
+  game.click(game.element("conjugationCometSummaryNext"));
   const step = game.element("conjugationCometTargetNext");
   assert.equal(game.document.dispatchEvent({ type: "keydown", key: "Enter", target: step }), true);
   assert.equal(game.timers.size, 0);
@@ -1189,6 +1193,51 @@ test("pronunciation remains stoppable, cancels on hide, and ignores stale comple
   game.controller.destroy();
 });
 
+test("result pronunciation completion or failure never dismisses the graded board", async () => {
+  for (const outcome of ["completed", "error"]) {
+    let finishSpeech, failSpeech;
+    const speechResult = new Promise((resolve, reject) => { finishSpeech = resolve; failSpeech = reject; });
+    const game = await mountGame({ speech: true, speechResult });
+    game.submit(false);
+    const speak = game.element("conjugationCometSpeakLemma");
+    game.click(speak); await settleMicrotasks();
+    assert.equal(game.timers.size, 0);
+    assert.equal(game.element("conjugationCometGame").dataset.phase, "result");
+    assert.equal(game.element("conjugationCometCard").dataset.result, "wrong");
+    assert.equal(game.attempts().length, 1);
+    if (outcome === "error") failSpeech(new Error("offline"));
+    else finishSpeech();
+    await settleMicrotasks();
+    assert.equal(game.element("conjugationCometGame").dataset.phase, "result");
+    assert.equal(game.timers.size, 0, 'the result has no timeout after audio settles');
+    const continuation = game.element("conjugationCometContinue");
+    game.click(continuation); continuation.click();
+    assert.equal(game.element("conjugationCometGame").dataset.phase, "question");
+    assert.equal(game.attempts().length, 1);
+    game.controller.destroy();
+  }
+});
+
+test("stopping result playback and hidden playback completion still require Continue", async () => {
+  let finishSpeech;
+  const game = await mountGame({ speech: true, speechResult: new Promise(resolve => { finishSpeech = resolve; }) });
+  game.submit(false);
+  const speak = game.element("conjugationCometSpeakLemma");
+  game.click(speak); await settleMicrotasks();
+  assert.equal(game.timers.size, 0);
+  game.click(speak); await settleMicrotasks();
+  assert.equal(game.timers.size, 0);
+  game.click(speak); await settleMicrotasks();
+  game.setActive(false);
+  finishSpeech(); await settleMicrotasks();
+  assert.equal(game.timers.size, 0);
+  assert.equal(game.element("conjugationCometGame").dataset.phase, "result");
+  game.setActive(true); game.click(game.element("conjugationCometContinue"));
+  assert.equal(game.element("conjugationCometGame").dataset.phase, "question");
+  assert.equal(game.attempts().length, 1);
+  game.controller.destroy();
+});
+
 test("global mute blocks shared pronunciation across boards and restores it on unmute", async () => {
   const game = await mountGame({ speech: true });
   let muted = true;
@@ -1221,12 +1270,11 @@ test("unavailable shared speech reports the authored failure without a browser v
   game.controller.destroy();
 });
 
-for (const phase of ["moving", "correct", "incorrect", "transition"]) {
+for (const phase of ["moving"]) {
   test(`${phase} timers pause while hidden or controls are open and resume safely`, async () => {
     const game = await mountGame();
-    const delay = phase === "moving" ? 420 : phase === "correct" ? 350 : phase === "incorrect" ? 200 : 1200;
+    const delay = phase === "moving" ? 420 : 1200;
     if (phase === "moving") game.click(game.element("conjugationCometSubjectNext"));
-    if (phase === "correct" || phase === "incorrect") game.submit(phase === "correct");
     if (phase === "transition") finishBatch(game);
     const stale = [...game.timers.values()][0].callback;
     const count = game.attempts().length;
@@ -1250,6 +1298,45 @@ for (const phase of ["moving", "correct", "incorrect", "transition"]) {
   });
 }
 
+for (const correct of [false, true]) {
+  test(`${correct ? "successful summary" : "incorrect result"} remains until its eligible Continue click`, async () => {
+    const game = await mountGame();
+    game.submit(correct);
+    const phase = correct ? "summary" : "result";
+    const button = game.element(correct ? "conjugationCometSummaryNext" : "conjugationCometContinue");
+    const reviewed = game.current();
+    const repeat = { type: "keydown", key: "Enter", repeat: true };
+    button.dispatchEvent(repeat);
+    assert.equal(repeat.defaultPrevented, true);
+    assert.equal(game.timers.size, 0, 'feedback has no automatic deadline');
+    assert.equal(button.hidden, false);
+    for (const boundary of ["shell", "controls", "document"]) {
+      if (boundary === "shell") game.setActive(false);
+      if (boundary === "controls") game.setControlsOpen(true);
+      if (boundary === "document") {
+        game.document.visibilityState = "hidden";
+        game.document.dispatchEvent({ type: "visibilitychange" });
+      }
+      button.click();
+      assert.equal(game.element("conjugationCometGame").dataset.phase, phase);
+      assert.equal(game.current(), reviewed);
+      if (boundary === "shell") game.setActive(true);
+      if (boundary === "controls") game.setControlsOpen(false);
+      if (boundary === "document") {
+        game.document.visibilityState = "visible";
+        game.document.dispatchEvent({ type: "visibilitychange" });
+      }
+      assert.equal(game.timers.size, 0);
+      assert.equal(game.element("conjugationCometGame").dataset.phase, phase);
+    }
+    game.click(button); button.click();
+    assert.equal(game.element("conjugationCometGame").dataset.phase, "question");
+    assert.equal(game.attempts().length, 1);
+    assert.equal(game.messages.length, Number(correct));
+    game.controller.destroy();
+  });
+}
+
 test("BFCache pauses result feedback and playback while retaining the live toolbar", async () => {
   const game = await mountGame({ speech: true, speechResult: new Promise(() => {}) });
   game.submit(false);
@@ -1261,7 +1348,7 @@ test("BFCache pauses result feedback and playback while retaining the live toolb
   assert.equal(game.toolbarLifecycle.destroys, 0);
   assert.ok(game.speechStops() > initialStops);
   assert.equal(game.timers.size, 0);
-  game.window.dispatchEvent({ type: "pageshow", persisted: true }); game.advance(200);
+  game.window.dispatchEvent({ type: "pageshow", persisted: true }); game.click(game.element("conjugationCometContinue"));
   game.submit();
   assert.equal(game.toolbarCalls.length, 1);
   assert.equal(game.attempts().length, 2);
@@ -1278,11 +1365,11 @@ test("inactive or stopped games reject whole-board checks until trusted reactiva
   game.controller.destroy();
 });
 
-test("non-persisted pagehide destroys controls and invalidates pending callbacks", async () => {
+test("non-persisted pagehide destroys controls and invalidates pending Continue", async () => {
   const game = await mountGame({ speech: true, speechResult: new Promise(() => {}) });
   game.submit(false);
+  const previousContinue = game.element("conjugationCometContinue");
   game.click(game.element("conjugationCometSpeakLemma")); await settleMicrotasks();
-  const stale = [...game.timers.values()][0].callback;
   const initialStops = game.speechStops();
   const initialCloses = game.toolbarLifecycle.closes;
   game.window.dispatchEvent({ type: "pagehide", persisted: false });
@@ -1290,7 +1377,7 @@ test("non-persisted pagehide destroys controls and invalidates pending callbacks
   assert.equal(game.toolbarLifecycle.destroys, 1);
   assert.ok(game.speechStops() > initialStops);
   assert.equal(game.timers.size, 0);
-  stale(); assert.equal(game.timers.size, 0);
+  previousContinue.click(); assert.equal(game.timers.size, 0);
   assert.equal(game.attempts().length, 1);
   assert.equal(game.messages.length, 0);
 });
@@ -1379,7 +1466,7 @@ test("scrolling preserves zoom and horizontal gestures and respects game lifecyc
   game.submit(false);
   assert.equal(Boolean(scrollBoard(game).defaultPrevented), false);
   assert.equal(game.offset("subject"), before);
-  game.advance(200);
+  game.click(game.element("conjugationCometContinue"));
   game.controller.destroy();
   assert.equal(Boolean(scrollBoard(game).defaultPrevented), false);
   assert.equal(game.element("conjugationCometBoard").listeners.get("wheel").size, 0);

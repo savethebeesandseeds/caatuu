@@ -4,7 +4,7 @@ import { embedSharedEnglishTexts, normalizeSharedEnglishText, peekSharedEnglishV
 import { fetchDeclaredCourseGameJson } from "./games/course-game-content.mjs?v=course-game-content-1";
 import { extractCoreVerbPairs } from "./games/verb-nebula/verb-nebula-core.mjs?v=verb-nebula-core-14";
 import { validateConjugationCometCatalog } from "./games/conjugation-comet/conjugation-comet-core.mjs?v=conjugation-comet-core-4";
-import { buildGrammarGravityRounds } from "./games/grammar-gravity/grammar-gravity-core.mjs?v=grammar-gravity-core-7";
+import { buildGrammarGravityRounds } from "./games/grammar-gravity/grammar-gravity-core.mjs?v=grammar-gravity-core-8";
 import { normalizeNounLandingPack } from "./games/grammar-gravity/noun-landing-core.mjs?v=noun-landing-core-11";
 import { validateSoundQuasarCatalog } from "./games/sound-quasar/sound-quasar-core.mjs?v=sound-quasar-10";
 import { validateMemoryMoonCatalog } from "./games/memory-moon/memory-moon-core.mjs?v=memory-moon-2";

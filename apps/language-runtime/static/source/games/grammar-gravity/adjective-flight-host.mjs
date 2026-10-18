@@ -1,9 +1,9 @@
-import { grammarFeedbackDuration, highlightedFormParts, buildMeaningChoices, validateGrammarFlight, validateGrammarStages } from "./adjective-flight-core.mjs?v=grammar-journey-3";
+import { highlightedFormParts, buildMeaningChoices, validateGrammarFlight, validateGrammarStages } from "./adjective-flight-core.mjs?v=grammar-journey-4";
 import { createNounVisual } from "./noun-visual.mjs?v=noun-visual-4";
 import { createSpeechIcon, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-10";
+import { createReviewContinuation } from "../practice-pacing.mjs?v=practice-pacing-2";
 
 const LANDING_MS = 180;
-const PREVIEW_MS = 4000;
 const FORM_TIME_MULTIPLIER = 2;
 const DURATIONS = [0, 5000, 10000, 15000, 20000];
 
@@ -30,6 +30,8 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
   const reducedMotion = scope.matchMedia?.("(prefers-reduced-motion: reduce)");
   const listeners = [];
   let active = false;
+  let paused = false;
+  let pageHidden = false;
   let destroyed = false;
   let phase = "idle";
   let step = "form";
@@ -39,13 +41,11 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
   let assistanceUsed = false;
   const mistakes = new Set();
   let meaningOptionCount = 3;
-  let previewMs = 0;
   let flights = [];
   let index = 0;
   let elapsedMs = 0;
   let durationMs = 10000;
   let landingMs = 0;
-  let feedbackMs = 0;
   let landingFrom = 0;
   let correct = false;
   let correctCount = 0;
@@ -58,11 +58,13 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
   let speechRequest = 0;
   let lastAutoplayKey = "";
   let roundRevision = null;
+  const review = createReviewContinuation({ button: nextButton, i18n: shell.CaatuuI18n,
+    canContinue: () => engaged() && ["preview", "feedback", "recap"].includes(phase), onContinue: next });
 
   function speechText() { return step !== "form" || ["preview", "falling"].includes(phase) ? current()?.anchorText : current()?.targetText; }
   function syncSpeech() {
     speechButton.hidden = course.capabilities?.speech !== true;
-    speechButton.disabled = !engaged() || !["preview", "falling", "feedback", "recap"].includes(phase) || Boolean(shell.CaatuuChrome?.getSpeechMuted?.());
+    speechButton.disabled = !visible() || !["preview", "falling", "feedback", "recap"].includes(phase) || Boolean(shell.CaatuuChrome?.getSpeechMuted?.());
     speechButton.replaceChildren(createSpeechIcon(document, { stop: speaking }));
     const label = shell.CaatuuI18n?.t(`games.grammargravity.nouns.${speaking ? "stopsound" : "hear"}`, { word: speechText() || "" });
     speechButton.setAttribute("aria-label", label || speechText() || "");
@@ -78,19 +80,20 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
     syncSpeech();
   }
   async function speak() {
-    if (!engaged() || !["preview", "falling", "feedback", "recap"].includes(phase) || !speechText()
+    if (!visible() || !["preview", "falling", "feedback", "recap"].includes(phase) || !speechText()
         || course.capabilities?.speech !== true || shell.CaatuuChrome?.getSpeechMuted?.()) return;
-    if (speaking) { stopSpeech(); return; }
+    if (speaking) { stopSpeech(); syncClock(); return; }
     const request = ++speechRequest;
     const text = speechText();
     speaking = true;
+    cancelFrame();
     syncSpeech();
     try {
       await shell.CaatuuChrome?.stopSpeech?.();
-      if (request !== speechRequest || !engaged() || shell.CaatuuChrome?.getSpeechMuted?.()) return;
+      if (request !== speechRequest || !visible() || shell.CaatuuChrome?.getSpeechMuted?.()) return;
       await shell.CaatuuChrome?.speakText?.(text);
     } catch { /* Keep the timed game playable when pronunciation is unavailable. */ }
-    finally { if (request === speechRequest && !destroyed) { speaking = false; syncSpeech(); } }
+    finally { if (request === speechRequest && !destroyed) { speaking = false; syncSpeech(); syncClock(); } }
   }
   function maybeAutoplay() {
     if (!engaged() || !["preview", "falling"].includes(phase) || !shell.CaatuuChrome?.getSpeechAutoplay?.()
@@ -105,13 +108,17 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
     target?.addEventListener?.(name, handler);
     listeners.push(() => target?.removeEventListener?.(name, handler));
   }
-  function engaged() { return active && !destroyed && !document.hidden && !visual.loading; }
+  function visible() { return active && !destroyed && !document.hidden && !pageHidden && !visual.loading; }
+  function engaged() { return visible() && !paused; }
+  function canRun() { return engaged() && !speaking; }
+  function syncClock() { if (!canRun()) cancelFrame(); else schedule(); }
   function syncVisualState(loading = Boolean(visual.loading)) {
     loadingScreen[loading ? "show" : "hide"]();
-    loadingScreen.setActive(active && !destroyed && !document.hidden);
+    loadingScreen.setActive(active && !destroyed && !document.hidden && !pageHidden && !paused);
     arena.setAttribute("aria-busy", String(loading));
     drop.hidden = loading;
     choices.hidden = loading || phase === "recap";
+    review.sync();
     if (loading) { cancelFrame(); stopSpeech(); }
     else { syncSpeech(); position(); schedule(); }
   }
@@ -138,8 +145,6 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
     mistakes.clear();
     phase = step === "form" ? "preview" : "falling";
     elapsedMs = 0;
-    feedbackMs = 0;
-    previewMs = 0;
   }
   function cancelFrame() {
     if (frame) scope.cancelAnimationFrame(frame);
@@ -148,7 +153,8 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
   }
   function schedule() {
     rememberSupport();
-    if (engaged() && ["preview", "falling", "landing", "feedback"].includes(phase) && !frame) {
+    maybeAutoplay();
+    if (canRun() && ["falling", "landing"].includes(phase) && !frame) {
       frame = scope.requestAnimationFrame(tick);
     }
   }
@@ -233,9 +239,10 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
   function renderFlight() {
     const flight = current();
     if (illustration.parentElement !== arena) arena.append(illustration);
-    recap.hidden = true;
+    recap.hidden = phase !== "preview";
+    review.clear();
+    if (phase === "preview") review.show();
     delete arena.dataset.formResult;
-    nextButton.disabled = true;
     choices.hidden = false;
     arena.dataset.state = phase;
     arena.dataset.step = step;
@@ -330,6 +337,8 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
     element("gravityAdjectiveFeedback").textContent = copy(correct ? "correct" : timeout ? "timeout" : step === "meaning" ? "wrongmeaning" : "wrong", {
       phrase: step !== "form" ? `${flight.anchorText} · ${optionLabel(answerText())}` : flight.targetText
     });
+    recap.hidden = false;
+    review.show();
     syncSpeech();
     position();
   }
@@ -362,9 +371,11 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
     drop.prepend(illustration);
     recap.hidden = false;
     choices.hidden = true;
-    nextButton.textContent = copy("nextword");
-    nextButton.disabled = !engaged();
-    element("gravityAdjectiveFeedback").textContent = copy("recapannouncement", { phrase: flight.targetText });
+    review.show();
+    if (timeout) for (const button of choices.querySelectorAll("button")) {
+      button.classList.toggle("is-correct", button.dataset.grammarForm === answerText());
+    }
+    element("gravityAdjectiveFeedback").textContent = copy(timeout ? "timeout" : "recapannouncement", { phrase: flight.targetText });
     syncHelp();
     syncSpeech();
     position();
@@ -374,6 +385,7 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
     if (!engaged() || !["preview", "falling"].includes(phase)
         || timedOut && phase !== "falling" || !timedOut && !currentOptions().includes(form)) return;
     rememberSupport();
+    review.clear();
     const evidence = timedOut ? "exposure" : assistanceUsed || meaningRetries > 0 || mistakes.size > 0 ? "assisted" : "independent";
     restoreFocus = arena.contains(document.activeElement) && !headerContains(document.activeElement);
     correct = !timedOut && form === answerText();
@@ -386,7 +398,6 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
     renderProgress();
     landingFrom = phase === "preview" ? 0.5 : durationMs ? Math.min(1, elapsedMs / stepDurationMs()) : 0;
     landingMs = 0;
-    feedbackMs = 0;
     phase = "landing";
     if (timedOut) arena.dataset.state = "wrong";
     stopSpeech();
@@ -407,21 +418,21 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
     schedule();
   }
   function next() {
-    if (!engaged() || (phase !== "recap" && (phase !== "feedback" || feedbackMs < grammarFeedbackDuration(correct)))) return;
+    if (review.pending || !engaged() || !["preview", "feedback", "recap"].includes(phase)) return;
     cancelFrame();
     stopSpeech();
-    if (phase === "feedback" && finalStep() && step === "form") {
-      phase = "recap";
-      renderRecap();
+    if (phase === "preview") {
+      phase = "falling";
+      elapsedMs = 0;
+      renderFlight();
+      schedule();
       return;
     }
     if (phase === "recap") restoreFocus = arena.contains(document.activeElement) && !headerContains(document.activeElement);
     if (retryMeaning() || !finalStep() && !(timeout && step === "meaning")) {
       if (!retryMeaning()) step = steps[steps.indexOf(step) + 1];
       phase = step === "form" ? "preview" : "falling";
-      previewMs = 0;
       elapsedMs = 0;
-      feedbackMs = 0;
     } else {
       index += 1;
       if (index >= flights.length) {
@@ -438,42 +449,33 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
   }
   function tick(timestamp) {
     frame = 0;
-    if (!engaged()) { lastTick = null; return; }
+    if (!canRun()) { lastTick = null; return; }
     maybeAutoplay();
+    if (!canRun()) { lastTick = null; return; }
     const elapsed = lastTick === null ? 0 : Math.max(0, timestamp - lastTick);
     lastTick = timestamp;
     if (!Number.isFinite(elapsed) || elapsed > 1000) { schedule(); return; }
-    if (phase === "preview") {
-      previewMs = Math.min(PREVIEW_MS, previewMs + elapsed);
-      if (previewMs >= PREVIEW_MS) {
-        phase = "falling";
-        elapsedMs = 0;
-        renderFlight();
-      }
-    } else if (phase === "falling" && durationMs !== 0) {
+    if (phase === "falling" && durationMs !== 0) {
       elapsedMs = Math.min(stepDurationMs(), elapsedMs + elapsed);
       if (elapsedMs >= stepDurationMs()) { choose("", true); return; }
     } else if (phase === "landing") {
       landingMs += elapsed;
       if (landingMs >= LANDING_MS) {
-        feedbackMs = landingMs - LANDING_MS;
-        phase = "feedback";
-        renderResult();
+        phase = finalStep() && step === "form" ? "recap" : "feedback";
+        if (phase === "recap") renderRecap(); else renderResult();
       }
-    } else if (phase === "feedback") {
-      feedbackMs += elapsed;
-      if (feedbackMs >= grammarFeedbackDuration(correct)) { next(); return; }
     }
     position();
     schedule();
   }
   function syncVisibility() {
     cancelFrame();
-    nextButton.disabled = !engaged() || phase !== "recap";
+    review.sync();
+    for (const button of choices.querySelectorAll("button")) button.disabled = !engaged() || !["preview", "falling"].includes(phase);
     syncHelp();
-    if (!engaged()) stopSpeech();
+    if (!visible()) stopSpeech();
     else syncSpeech();
-    visual.setActive(active && !destroyed && !document.hidden);
+    visual.setActive(active && !destroyed && !document.hidden && !pageHidden);
     syncVisualState();
     position();
     schedule();
@@ -493,15 +495,15 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
   });
   listen(document, "visibilitychange", syncVisibility);
   listen(speechButton, "click", () => { void speak(); });
-  listen(nextButton, "click", next);
-  listen(shell, "caatuu:speech-mute-change", () => { if (shell.CaatuuChrome?.getSpeechMuted?.()) stopSpeech(); syncSpeech(); });
+  listen(shell, "caatuu:speech-mute-change", () => { if (shell.CaatuuChrome?.getSpeechMuted?.()) stopSpeech(); syncSpeech(); syncClock(); });
   listen(shell, "caatuu:speech-autoplay-change", () => {
     if (!shell.CaatuuChrome?.getSpeechAutoplay?.()) stopSpeech();
     else { lastAutoplayKey = ""; maybeAutoplay(); }
+    syncClock();
   });
   listen(scope, "resize", position);
-  listen(scope, "pagehide", () => { cancelFrame(); stopSpeech(); visual.setActive(false); });
-  listen(scope, "pageshow", syncVisibility);
+  listen(scope, "pagehide", () => { pageHidden = true; cancelFrame(); stopSpeech(); visual.setActive(false); });
+  listen(scope, "pageshow", () => { pageHidden = false; syncVisibility(); });
   listen(reducedMotion, "change", position);
   return Object.freeze({
     start(round, nextFlights, options = {}) {
@@ -526,7 +528,6 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
       index = 0;
       correctCount = 0;
       elapsedMs = 0;
-      feedbackMs = 0;
       restoreFocus = false;
       resetFlight();
       renderFlight();
@@ -534,6 +535,7 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
       return true;
     },
     setActive(value) { active = Boolean(value); syncVisibility(); },
+    setPaused(value) { if (destroyed) return; paused = Boolean(value); syncVisibility(); },
     setDurationMs(value) {
       if (!DURATIONS.includes(value)) return false;
       elapsedMs = durationMs && value ? elapsedMs / durationMs * value : 0;
@@ -564,10 +566,11 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
       return true;
     },
     next,
-    snapshot: () => ({ phase, step, steps: [...steps], practiceMode, mistakes: [...mistakes], meaningRetries, meaningOptionCount, previewMs, index, elapsedMs, feedbackMs, correctCount, total: flights.length, current: current(), durationMs, stepDurationMs: stepDurationMs() }),
+    snapshot: () => ({ phase, step, steps: [...steps], practiceMode, mistakes: [...mistakes], meaningRetries, meaningOptionCount, index, elapsedMs, correctCount, total: flights.length, current: current(), durationMs, stepDurationMs: stepDurationMs() }),
     destroy() {
       if (destroyed) return;
       destroyed = true;
+      review.destroy();
       stopSpeech();
       cancelFrame();
       visual.destroy();

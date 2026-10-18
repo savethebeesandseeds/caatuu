@@ -29,86 +29,54 @@ const campaignCompletionSource = sourceBetween(
 function wordWorldCampaign({ nextGameId = "verb-lab" } = {}) {
   const state = { campaignActive: true, campaignTransitioning: false,
     campaignTransitionId: 0, trainTab: "word-net", campaignQueue: [] };
-  const calls = [];
-  const waits = [];
-  const timers = new Set();
+  const calls = [], waits = [], readiness = [];
   const window = { location: { origin: "https://local.test" },
-    setTimeout(callback, delay) {
-      const timer = { delay, resolve: callback };
-      waits.push(timer);
-      timers.add(timer);
-      return timer;
-    },
-    clearTimeout(timer) { timers.delete(timer); },
     CaatuuWordWorldHost: { advanceCampaignRound: () => calls.push("next-sentence") } };
-  const context = vm.createContext({
-    state, window, Promise, campaignTransitionMillis: 1600,
-    nextCampaignTab: () => nextGameId,
+  const context = vm.createContext({ state, window, Promise,
+    waitForPracticePresentation: () => ({ promise: Promise.resolve(true) }),
+    cancelPracticePresentationWaits() {}, nextCampaignTab: () => nextGameId,
     document: { body: { dataset: {} } },
-    showCampaignTransition: () => calls.push("show-transition"),
-    hideCampaignTransition: () => calls.push("hide-transition"),
+    showCampaignTransition: () => calls.push("show-transition"), hideCampaignTransition: () => calls.push("hide-transition"),
     ensureCampaignGameLoaded: () => calls.push("load-next-game"),
-    waitForCampaignGameReady: async () => {},
-    setTrainTab: (id) => { state.trainTab = id; },
-    waitForVerbTransition: (delay) => new Promise((resolve) => waits.push({ delay, resolve }))
+    waitForCampaignGameReady: () => new Promise(resolve => readiness.push(resolve)),
+    setTrainTab: id => { state.trainTab = id; }
   });
-  vm.runInContext(workspace.match(/^const wordWorldResultHoldMillis = .+;$/mu)[0]
-    + "\n" + campaignCompletionSource
-    + sourceBetween("function stopCampaign()", "function handleCampaignGameMessage"), context);
-  window.CaatuuWorkspaceShell = {
-    completeWordWorldRound: () => context.completeWordWorldCampaignRound(),
-    continueWordWorld: () => context.continueWordWorldCampaign()
-  };
-  return { state, calls, waits, timers, window, context,
+  vm.runInContext(campaignCompletionSource + sourceBetween("function stopCampaign()", "function handleCampaignGameMessage"), context);
+  window.CaatuuWorkspaceShell = { completeWordWorldRound: () => context.completeWordWorldCampaignRound(),
+    continueWordWorld: () => context.continueWordWorldCampaign() };
+  return { state, calls, waits, window, context, ready: () => readiness.shift()?.(),
     complete: () => context.completeCampaignRound("word-net", window) };
 }
 
-test("Campaign leaves the Word World result visible for reading before loading the next round", async () => {
-  const game = wordWorldCampaign();
-  const completed = game.complete();
-  assert.equal(game.waits.length, 1);
-  assert.ok(game.waits[0].delay >= 4000, "the result needs at least four seconds of reading time");
-  assert.deepEqual(game.calls, [], "neither the loader nor the next sentence may cover the result");
+test("Campaign preserves the Word World result until Next, then waits only for real readiness", async () => {
+  const game = wordWorldCampaign(), completed = game.complete();
+  await new Promise(resolve => setImmediate(resolve));
+  assert.deepEqual(game.calls, [], "there is no timed result dismissal or loading overlay");
   await game.complete();
-  assert.equal(game.waits.length, 1, "duplicate success events cannot start another transition");
-  game.waits[0].resolve();
-  await new Promise((resolve) => setImmediate(resolve));
-  assert.deepEqual(game.calls, ["show-transition", "next-sentence", "load-next-game"]);
-  game.waits[1].resolve();
-  await completed;
-  assert.equal(game.state.trainTab, "verb-lab");
-  assert.equal(game.state.campaignTransitioning, false);
-});
-
-test("leaving Campaign while reading a Word World result cancels its delayed transition", async () => {
-  const game = wordWorldCampaign();
-  const completed = game.complete();
-  game.context.stopCampaign();
-  assert.equal(game.timers.size, 0);
-  game.waits[0].resolve();
-  await completed;
-  assert.deepEqual(game.calls, ["hide-transition"]);
-  assert.equal(game.state.trainTab, "word-net");
-});
-
-test("a cancelled result timer cannot release a later campaign round", async () => {
-  const game = wordWorldCampaign();
-  const oldCompletion = game.complete();
-  const oldTimer = game.waits[0];
-  game.context.stopCampaign();
-  game.state.campaignActive = true;
-  const newCompletion = game.complete();
-  oldTimer.resolve();
-  await oldCompletion;
-  assert.equal(game.timers.size, 1);
-  assert.deepEqual(game.calls, ["hide-transition"]);
   game.context.continueWordWorldCampaign();
-  await new Promise((resolve) => setImmediate(resolve));
-  game.waits.at(-1).resolve();
-  await newCompletion;
-  assert.equal(game.calls.filter((call) => call === "next-sentence").length, 1);
+  await new Promise(resolve => setImmediate(resolve));
+  assert.deepEqual(game.calls, ["show-transition", "next-sentence", "load-next-game"]);
+  assert.equal(game.state.trainTab, "word-net", "unready destination cannot replace the current game");
+  game.ready(); await completed;
+  assert.equal(game.state.trainTab, "verb-lab"); assert.equal(game.state.campaignTransitioning, false);
 });
 
+test("leaving Campaign while reviewing cancels its pending manual handoff", async () => {
+  const game = wordWorldCampaign(), completed = game.complete();
+  game.context.stopCampaign(); await completed;
+  assert.deepEqual(game.calls, ["hide-transition"]); assert.equal(game.state.trainTab, "word-net");
+});
+
+test("a retired review callback cannot release a later campaign round", async () => {
+  const game = wordWorldCampaign(), oldCompletion = game.complete(), oldRelease = game.state.campaignContinueResult;
+  game.context.stopCampaign(); game.state.campaignActive = true;
+  const newCompletion = game.complete(); oldRelease(); await oldCompletion;
+  assert.equal(typeof game.state.campaignContinueResult, "function");
+  assert.deepEqual(game.calls, ["hide-transition"]);
+  game.context.continueWordWorldCampaign(); await new Promise(resolve => setImmediate(resolve));
+  game.ready(); await newCompletion;
+  assert.equal(game.calls.filter(call => call === "next-sentence").length, 1);
+});
 function attachWordWorld(game) {
   const state = { guidedRequested: false, busy: false, reconstruction: { submitted: true, correct: true } };
   let generated = 0;
@@ -128,29 +96,17 @@ function attachWordWorld(game) {
 }
 
 for (const nextGameId of ["verb-lab", "word-net"]) {
-  for (const first of ["click", "timer"]) test(`${first} and repeated Next clicks consume one campaign round before ${nextGameId}`, async () => {
-    const game = wordWorldCampaign({ nextGameId });
-    const round = attachWordWorld(game);
-    round.success();
-    assert.equal(game.state.campaignTransitioning, true, "success claims the transition synchronously");
-    const oldTimer = game.waits[0];
-    if (first === "click") await round.next();
-    else oldTimer.resolve();
-    await round.next();
-    oldTimer.resolve(); // A timer callback already queued before cancellation is harmless.
-    await new Promise((resolve) => setImmediate(resolve));
-    await round.next();
-    assert.equal(round.generated(), 1);
-    assert.equal(game.timers.size, 0);
-    assert.equal(game.waits.length, 2, "only one result hold and one game transition");
-    game.waits[1].resolve();
-    await new Promise((resolve) => setImmediate(resolve));
-    assert.equal(game.state.trainTab, nextGameId);
-    assert.equal(game.state.campaignTransitioning, false);
+  test(`repeated Next clicks consume one campaign round before ${nextGameId}`, async () => {
+    const game = wordWorldCampaign({ nextGameId }), round = attachWordWorld(game);
+    round.success(); assert.equal(game.state.campaignTransitioning, true);
+    assert.equal(round.generated(), 0, "success itself preserves the learning result");
+    await round.next(); await round.next(); await new Promise(resolve => setImmediate(resolve));
+    await round.next(); assert.equal(round.generated(), 1);
+    game.ready(); await new Promise(resolve => setImmediate(resolve));
+    assert.equal(game.state.trainTab, nextGameId); assert.equal(game.state.campaignTransitioning, false);
     assert.equal(round.generated(), 1);
   });
 }
-
 test("ordinary Word World and an incorrect campaign answer continue within the game", async () => {
   for (const campaignActive of [false, true]) {
     const game = wordWorldCampaign();
@@ -232,7 +188,8 @@ test("a one-game Campaign consumes each completed Verb round before the next cyc
   const context = vm.createContext({
     course: {},
     campaignTransitionMillis: 0,
-    clearVerbSolutionAdvance() {
+    waitForPracticePresentation: () => ({ promise: Promise.resolve(true), cancel() {} }),
+    clearVerbReview() {
       clearedSolutionAdvances += 1;
     },
     courseGameAvailable(gameId) {

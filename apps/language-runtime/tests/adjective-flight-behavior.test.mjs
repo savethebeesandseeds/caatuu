@@ -11,6 +11,7 @@ import {
 import * as flightCore from "../static/source/games/grammar-gravity/adjective-flight-core.mjs";
 import { createSpeechIcon, mountRobotLoadingScreen } from "../static/source/games/embedded-game-controls.mjs";
 import { createTargetReadingGuide } from "../static/source/target-reading-guide.mjs";
+import { createReviewContinuation } from "../static/source/games/practice-pacing.mjs";
 
 const hostSource = await readFile(new URL(
   "../static/source/games/grammar-gravity/adjective-flight-host.mjs", import.meta.url
@@ -36,7 +37,7 @@ function seedMarkup(harness) {
   }
 }
 
-async function mountGame({ language = "czech", active = true, reducedMotion = false, speech = false, autoplay = false, meaningThenForm = false, practiceMode, focusKind, delayVisual = false, localStorageValues = {} } = {}) {
+async function mountGame({ language = "czech", active = true, reducedMotion = false, speech = false, autoplay = false, deferSpeech = false, meaningThenForm = false, practiceMode, focusKind, delayVisual = false, localStorageValues = {} } = {}) {
   const czech = language === "czech";
   const english = language === "english-from-spanish";
   const arabic = language === "arabic-standard";
@@ -67,12 +68,16 @@ async function mountGame({ language = "czech", active = true, reducedMotion = fa
   harness.window.CaatuuI18n = englishInterfaceContent;
   course.capabilities = { speech };
   const speechCalls = [];
+  let finishSpeech;
   const speechState = { muted: false, autoplay, stops: 0 };
   harness.window.CaatuuChrome = {
     getSpeechMuted: () => speechState.muted,
     getSpeechAutoplay: () => speechState.autoplay,
     stopSpeech: async () => { speechState.stops += 1; },
-    speakText: async (text) => { speechCalls.push(text); }
+    speakText: async (text) => {
+      speechCalls.push(text);
+      if (deferSpeech) await new Promise((resolve) => { finishSpeech = resolve; });
+    }
   };
   seedMarkup(harness);
   const readingGuide = createTargetReadingGuide({ course, gameId: "grammar-gravity", document: harness.document, storage: harness.window.localStorage });
@@ -102,6 +107,7 @@ async function mountGame({ language = "czech", active = true, reducedMotion = fa
     removeEventListener: (_event, callback) => motionListeners.delete(callback)
   });
   Object.assign(harness.context, flightCore, {
+    createReviewContinuation,
     createSpeechIcon, mountRobotLoadingScreen,
     readingGuide,
     course,
@@ -158,14 +164,26 @@ async function mountGame({ language = "czech", active = true, reducedMotion = fa
     callback(timestamp);
   }
   function advance(milliseconds) {
-    frame(now);
+    if (frames.size) frame(now);
     let remaining = milliseconds;
     while (remaining > 0) {
       const delta = Math.min(remaining, 1000);
-      frame(now + delta);
+      if (frames.size) frame(now + delta);
+      else now += delta;
       remaining -= delta;
     }
   }
+  function continueReview() {
+    const phase = controller.snapshot().phase;
+    assert.ok(["feedback", "recap"].includes(phase), "a settled review must exist");
+    if (phase === "feedback") element("gravityAdjectiveNext").click();
+  }
+  function startFall() {
+    assert.equal(controller.snapshot().phase, "preview");
+    element("gravityAdjectiveNext").click();
+    assert.equal(controller.snapshot().phase, "falling");
+  }
+  async function autoplayPrompt() { await settleSpeech(); }
   const option = (form = controller.snapshot().step === "meaning" ? controller.snapshot().current.anchorMeaning
     : controller.snapshot().step === "category" ? controller.snapshot().current.categoryId : controller.snapshot().current.answer) =>
     [...element("gravityAdjectiveChoices").querySelectorAll("button")]
@@ -178,9 +196,11 @@ async function mountGame({ language = "czech", active = true, reducedMotion = fa
     button.click();
   }
   // Timing/input tests begin at the response window; dedicated modern preview tests keep it visible.
-  if (!meaningThenForm && !practiceMode && active) advance(4000);
+  if (!meaningThenForm && !practiceMode && active) startFall();
   return { ...harness, course, round, flights, controller, element, arena, outsideControl, outsideInput, readingGuide,
     attempts, completions, visuals, motionListeners, frames, frame, advance, option, answer, speechCalls, speechState,
+    autoplayPrompt, finishSpeech: () => finishSpeech?.(),
+    continueReview, startFall,
     responseWindow: !meaningThenForm && !practiceMode };
 }
 
@@ -286,7 +306,7 @@ function continueFromRecap(game) {
   assert.equal(next.disabled, false);
   next.focus();
   next.click();
-  if (game.responseWindow && game.controller.snapshot().phase === "preview") game.advance(4000);
+  if (game.responseWindow && game.controller.snapshot().phase === "preview") game.startFall();
 }
 
 for (const language of ["czech", "spanish"]) {
@@ -297,7 +317,7 @@ for (const language of ["czech", "spanish"]) {
     assert.doesNotMatch(game.element("gravityAdjectiveProgress").textContent, /[0-9]/u);
     game.answer();
     game.advance(180);
-    game.advance(900);
+    game.continueReview();
     assert.equal(game.controller.snapshot().step, "category");
     assert.equal(game.controller.snapshot().current, first);
     assert.equal(game.element("gravityAdjectiveNoun").textContent, first.anchorText);
@@ -319,19 +339,19 @@ for (const language of ["czech", "spanish"]) {
     assert.ok([...game.element("gravityAdjectiveChoices").querySelectorAll("img")].every((image) => !image.hidden));
     game.answer();
     game.advance(180);
-    game.advance(900);
+    game.continueReview();
     assert.equal(game.controller.snapshot().step, "form");
     assert.equal(game.controller.snapshot().phase, "preview");
     assert.equal(game.controller.snapshot().current, first);
     assert.ok(game.element("gravityAdjectiveContext").textContent.includes(first.anchorMeaning));
     assert.ok(game.element("gravityAdjectiveContext").textContent.includes(first.categoryOptions.find(({ id }) => id === first.categoryId).label));
     assert.ok(game.visuals.updates.every(({ id }) => id === first.id));
-    game.advance(4000);
+    game.startFall();
     game.answer();
     assert.equal(game.attempts.length, 1);
     assert.equal(game.attempts[0].correct, true);
     game.advance(180);
-    game.advance(900);
+    game.continueReview();
     continueFromRecap(game);
     assert.equal(game.controller.snapshot().index, 1);
     assert.equal(game.controller.snapshot().step, "meaning");
@@ -343,7 +363,7 @@ for (const practiceMode of ["meaning", "forms", "sequence"]) {
   test(practiceMode + " supports infinite time without drifting or timing out", async () => {
     const game = await mountGame({ meaningThenForm: true, practiceMode });
     game.controller.setDurationMs(0);
-    if (game.controller.snapshot().phase === "preview") game.advance(4000);
+    if (game.controller.snapshot().phase === "preview") game.startFall();
     const first = game.controller.snapshot().current;
     const position = game.element("gravityAdjectiveDrop").style.transform;
     game.advance(60000);
@@ -355,7 +375,7 @@ for (const practiceMode of ["meaning", "forms", "sequence"]) {
     assert.equal(game.attempts.length, 0);
     game.answer();
     game.advance(180);
-    game.advance(900);
+    game.continueReview();
     if (practiceMode === "sequence") {
       assert.equal(game.controller.snapshot().step, "category");
       game.advance(60000);
@@ -364,7 +384,7 @@ for (const practiceMode of ["meaning", "forms", "sequence"]) {
     } else {
       if (practiceMode === "forms") continueFromRecap(game);
       assert.equal(game.controller.snapshot().index, 1);
-      if (game.controller.snapshot().phase === "preview") game.advance(4000);
+      if (game.controller.snapshot().phase === "preview") game.startFall();
     }
     game.controller.setDurationMs(10000);
     assert.equal(game.controller.snapshot().elapsedMs, 0);
@@ -389,7 +409,7 @@ for (const language of ["czech", "spanish"]) {
     game.advance(180);
     assert.equal(game.element("gravityAdjectiveMeaning").textContent, flight.anchorMeaning);
     assert.equal(game.element("gravityAdjectiveNoun").textContent, flight.anchorText);
-    game.advance(900);
+    game.continueReview();
     assert.equal(game.controller.snapshot().step, "form");
     assert.equal(game.controller.snapshot().current, flight);
     assert.equal(game.controller.snapshot().elapsedMs, 0);
@@ -405,7 +425,7 @@ for (const language of ["czech", "spanish"]) {
     assert.equal(game.controller.snapshot().phase, "preview");
     assert.equal(game.controller.snapshot().elapsedMs, 0);
     assert.equal(game.element("gravityAdjectiveDrop").style.transform, "translateY(192px)");
-    game.advance(1);
+    game.startFall();
     assert.equal(game.controller.snapshot().phase, "falling");
     assert.equal(game.controller.snapshot().elapsedMs, 0);
     assert.equal(game.element("gravityAdjectivePreviewLabel").hidden, true);
@@ -413,7 +433,7 @@ for (const language of ["czech", "spanish"]) {
     assert.equal(game.attempts.length, 1);
     assert.equal(game.attempts[0].correct, true);
     game.advance(180);
-    game.advance(900);
+    game.continueReview();
     continueFromRecap(game);
     assert.equal(game.controller.snapshot().step, "meaning");
     assert.equal(game.controller.snapshot().index, 1);
@@ -431,7 +451,7 @@ test("a wrong meaning shakes and reveals the correction, then retries without sk
   assert.equal(game.element("gravityAdjectiveMeaning").textContent, flight.anchorMeaning);
   game.advance(2399);
   assert.equal(game.controller.snapshot().phase, "feedback");
-  game.advance(1);
+  game.continueReview();
   assert.equal(game.controller.snapshot().step, "meaning");
   assert.equal(game.controller.snapshot().phase, "falling");
   assert.equal(game.controller.snapshot().elapsedMs, 0);
@@ -439,8 +459,8 @@ test("a wrong meaning shakes and reveals the correction, then retries without sk
   assert.equal(game.attempts.length, 0);
   game.answer();
   game.advance(180);
-  game.advance(900);
-  game.advance(4000);
+  game.continueReview();
+  game.startFall();
   game.answer();
   assert.equal(game.attempts.length, 1);
   assert.equal(game.attempts[0].meaningRetries, 1);
@@ -455,7 +475,7 @@ test("sequence retains each mistake while meaning retries and gender and adjecti
   game.answer(first.meaningOptions.find((meaning) => meaning !== first.anchorMeaning));
   game.advance(180);
   assertMistakes(game, ["meaning"]);
-  game.advance(2400);
+  game.continueReview();
   assert.equal(game.controller.snapshot().current, first);
   assert.equal(game.controller.snapshot().step, "meaning");
   assert.equal(game.controller.snapshot().elapsedMs, 0);
@@ -464,7 +484,7 @@ test("sequence retains each mistake while meaning retries and gender and adjecti
 
   game.answer();
   game.advance(180);
-  game.advance(900);
+  game.continueReview();
   assert.equal(game.controller.snapshot().step, "category");
   assert.equal(game.controller.snapshot().current, first);
   assertMistakes(game, ["meaning"]);
@@ -475,7 +495,7 @@ test("sequence retains each mistake while meaning retries and gender and adjecti
   assertMistakes(game, ["meaning", "category"]);
   game.advance(2399);
   assert.equal(game.controller.snapshot().phase, "feedback");
-  game.advance(1);
+  game.continueReview();
   assert.equal(game.controller.snapshot().step, "form");
   assert.equal(game.controller.snapshot().phase, "preview");
   assert.equal(game.controller.snapshot().current, first);
@@ -483,14 +503,14 @@ test("sequence retains each mistake while meaning retries and gender and adjecti
   assert.equal(game.attempts.length, 0, "a gender error cannot award or finish the noun before the adjective");
   assertMistakes(game, ["meaning", "category"]);
 
-  game.advance(4000);
+  game.startFall();
   game.answer(first.options.find((form) => form !== first.answer));
   game.advance(180);
   assertMistakes(game, ["meaning", "category", "form"]);
   assert.equal(game.attempts.length, 1);
   assert.equal(game.attempts[0].correct, false);
   assert.equal(game.attempts[0].meaningRetries, 2);
-  game.advance(2400);
+  game.continueReview();
   assertMistakes(game, ["meaning", "category", "form"]);
   continueFromRecap(game);
   assert.equal(game.controller.snapshot().index, 1);
@@ -508,17 +528,17 @@ test("a corrected meaning or gender mistake never earns clean sequence credit", 
     if (mistakenStage === "meaning") {
       game.answer(first.meaningOptions.find((meaning) => meaning !== first.anchorMeaning));
       game.advance(180);
-      game.advance(2400);
+      game.continueReview();
     }
     game.answer();
     game.advance(180);
-    game.advance(900);
+    game.continueReview();
     game.answer(mistakenStage === "category" ? first.categoryOptions.find(({ id }) => id !== first.categoryId).id : undefined);
     game.advance(180);
-    game.advance(mistakenStage === "category" ? 2400 : 900);
+    game.continueReview();
     assert.equal(game.controller.snapshot().phase, "preview");
     assertMistakes(game, [mistakenStage]);
-    game.advance(4000);
+    game.startFall();
     game.answer();
     assert.equal(game.attempts.length, 1);
     assert.equal(game.attempts[0].correct, false);
@@ -535,7 +555,7 @@ test("standalone meaning retries the same noun until correct and records just on
     game.answer(first.meaningOptions.find((meaning) => meaning !== first.anchorMeaning));
     game.advance(180);
     assertMistakes(game, ["meaning"]);
-    game.advance(2400);
+    game.continueReview();
     assert.equal(game.controller.snapshot().current, first);
     assert.equal(game.controller.snapshot().phase, "falling");
     assert.equal(game.attempts.length, 0);
@@ -545,7 +565,7 @@ test("standalone meaning retries the same noun until correct and records just on
   assert.equal(game.attempts[0].correct, false);
   assert.equal(game.attempts[0].meaningRetries, 2);
   game.advance(180);
-  game.advance(900);
+  game.continueReview();
   assert.equal(game.controller.snapshot().index, 1);
   assertMistakes(game, []);
   game.controller.destroy();
@@ -556,17 +576,17 @@ test("gender timeout keeps the same noun for adjective practice without recordin
   const first = game.controller.snapshot().current;
   game.answer();
   game.advance(180);
-  game.advance(900);
+  game.continueReview();
   game.advance(10000);
   game.advance(180);
   assertMistakes(game, ["category"]);
   assert.equal(game.attempts.length, 0);
-  game.advance(2400);
+  game.continueReview();
   assert.equal(game.controller.snapshot().current, first);
   assert.equal(game.controller.snapshot().step, "form");
   assert.equal(game.controller.snapshot().phase, "preview");
   assertMistakes(game, ["category"]);
-  game.advance(4000);
+  game.startFall();
   game.answer();
   assert.equal(game.attempts.length, 1);
   assert.equal(game.attempts[0].correct, false);
@@ -583,7 +603,7 @@ test("sequence meaning timeout still skips an unanswered noun rather than creati
   assert.equal(game.attempts.length, 1);
   assert.equal(game.attempts[0].timeout, true);
   assert.equal(game.attempts[0].correct, false);
-  game.advance(2400);
+  game.continueReview();
   assert.equal(game.controller.snapshot().index, 1);
   assert.equal(game.controller.snapshot().step, "meaning");
   assertMistakes(game, []);
@@ -596,7 +616,7 @@ test("meaning timeout reveals once and skips to the next noun without credit or 
   game.advance(10000);
   game.advance(180);
   assert.equal(game.element("gravityAdjectiveMeaning").textContent, first.anchorMeaning);
-  game.advance(2400);
+  game.continueReview();
   assert.equal(game.controller.snapshot().step, "meaning");
   assert.equal(game.controller.snapshot().index, 1);
   assert.equal(game.attempts.length, 1);
@@ -607,8 +627,8 @@ test("meaning timeout reveals once and skips to the next noun without credit or 
   game.arena.dispatchEvent({ type: "keydown", key: String(flight.meaningOptions.indexOf(flight.anchorMeaning) + 1) });
   assert.equal(game.controller.snapshot().phase, "landing");
   game.advance(180);
-  game.advance(900);
-  game.advance(4000);
+  game.continueReview();
+  game.startFall();
   game.arena.dispatchEvent({ type: "keydown", key: String(flight.options.indexOf(flight.answer) + 1) });
   assert.equal(game.controller.snapshot().phase, "landing");
   assert.equal(game.attempts.length, 2);
@@ -619,32 +639,29 @@ test("meaning timeout reveals once and skips to the next noun without credit or 
 test("sequence speaks once at each step start, with silent answer feedback and no preview repeat", async () => {
   const game = await mountGame({ meaningThenForm: true, practiceMode: "sequence", speech: true, autoplay: true });
   const first = game.controller.snapshot().current;
-  game.advance(100);
-  await settleSpeech();
+  await game.autoplayPrompt();
   assert.deepEqual(game.speechCalls, [first.anchorText]);
   for (const [index, nextStep] of ["category", "form"].entries()) {
     game.answer();
     game.advance(180);
     await settleSpeech();
     assert.equal(game.speechCalls.length, index + 1, "answer selection must not speak");
-    game.advance(900);
-    game.advance(100);
-    await settleSpeech();
+    game.continueReview();
+    await game.autoplayPrompt();
     assert.equal(game.controller.snapshot().step, nextStep);
     assert.equal(game.speechCalls.length, index + 2, "only the incoming step speaks");
   }
-  game.advance(4000);
+  game.startFall();
   await settleSpeech();
   assert.deepEqual(game.speechCalls, [first.anchorText, first.anchorText, first.anchorText]);
   game.answer();
   game.advance(180);
   await settleSpeech();
   assert.equal(game.speechCalls.length, 3, "the final adjective answer is also silent");
-  game.advance(900);
+  game.continueReview();
   assert.equal(game.speechCalls.length, 3, "the recap does not add automatic pronunciation");
   continueFromRecap(game);
-  game.advance(100);
-  await settleSpeech();
+  await game.autoplayPrompt();
   assert.equal(game.speechCalls.length, 4);
   assert.equal(game.speechCalls.at(-1), game.controller.snapshot().current.anchorText);
   game.controller.destroy();
@@ -653,16 +670,14 @@ test("sequence speaks once at each step start, with silent answer feedback and n
 test("wrong answers stay silent until the retry prompt starts", async () => {
   const game = await mountGame({ meaningThenForm: true, practiceMode: "sequence", speech: true, autoplay: true });
   const first = game.controller.snapshot().current;
-  game.advance(100);
-  await settleSpeech();
+  await game.autoplayPrompt();
   game.answer(first.meaningOptions.find((option) => option !== first.anchorMeaning));
   game.advance(180);
   game.advance(500);
   await settleSpeech();
   assert.deepEqual(game.speechCalls, [first.anchorText]);
-  game.advance(1900);
-  game.advance(100);
-  await settleSpeech();
+  game.continueReview();
+  await game.autoplayPrompt();
   assert.equal(game.controller.snapshot().phase, "falling");
   assert.equal(game.controller.snapshot().step, "meaning");
   assert.deepEqual(game.speechCalls, [first.anchorText, first.anchorText]);
@@ -672,18 +687,16 @@ test("wrong answers stay silent until the retry prompt starts", async () => {
 test("two-step autoplay does not reveal an adjective during noun practice", async () => {
   const game = await mountGame({ meaningThenForm: true, speech: true, autoplay: true });
   const flight = game.controller.snapshot().current;
-  game.advance(100);
-  await settleSpeech();
+  await game.autoplayPrompt();
   game.answer();
   game.advance(180);
   await settleSpeech();
   assert.ok(game.speechCalls.every((text) => text === flight.anchorText));
-  game.advance(900);
-  game.advance(100);
-  await settleSpeech();
+  game.continueReview();
+  await game.autoplayPrompt();
   assert.equal(game.speechCalls.at(-1), flight.anchorText);
   const calls = game.speechCalls.length;
-  game.advance(3900);
+  game.startFall();
   await settleSpeech();
   assert.equal(game.speechCalls.length, calls, "starting gravity must not repeat the preview pronunciation");
   game.answer();
@@ -728,13 +741,13 @@ for (const duration of [5000, 10000, 15000, 20000]) {
           assert.equal(game.controller.snapshot().phase, "falling");
           game.answer();
           game.advance(180);
-          game.advance(900);
+          game.continueReview();
         }
       }
       assert.equal(game.controller.snapshot().phase, "preview");
       assert.equal(game.controller.snapshot().stepDurationMs, duration * 2);
       assert.equal(clock.getAttribute("aria-valuemax"), String(duration * 2 / 1000));
-      game.advance(4000);
+      game.startFall();
       assert.equal(game.controller.snapshot().elapsedMs, 0, "warm-up is separate from answering time");
       game.advance(duration * 2 - 1);
       assert.equal(game.controller.snapshot().phase, "falling");
@@ -766,7 +779,7 @@ test("the parachute follows the falling card without changing timing or covering
     assert.equal(game.controller.snapshot().step, step);
     if (step === "form") {
       assert.equal(parachute.hidden, true, "warm-up stays uncluttered");
-      game.advance(4000);
+      game.startFall();
       assert.equal(parachute.hidden, false);
       assert.equal(game.controller.snapshot().stepDurationMs, 20000);
     }
@@ -774,7 +787,7 @@ test("the parachute follows the falling card without changing timing or covering
     assert.equal(parachute.dataset.motion, "landing");
     game.advance(180);
     assert.equal(parachute.hidden, true);
-    game.advance(900);
+    game.continueReview();
   }
   assert.equal(game.controller.snapshot().phase, "recap");
   assert.equal(parachute.hidden, true);
@@ -797,7 +810,7 @@ test("the preview pauses offscreen and rejects hidden answer input without using
   const game = await mountGame({ meaningThenForm: true });
   game.answer();
   game.advance(180);
-  game.advance(900);
+  game.continueReview();
   game.advance(500);
   assert.equal(game.controller.snapshot().phase, "preview");
   assert.equal(game.attempts.length, 0);
@@ -810,13 +823,15 @@ test("the preview pauses offscreen and rejects hidden answer input without using
   assert.equal(game.controller.snapshot().phase, "preview");
   game.document.hidden = false;
   game.document.dispatchEvent({ type: "visibilitychange" });
-  game.frame(20000);
-  assert.equal(game.controller.snapshot().previewMs, 500);
+  game.advance(20000);
+  assert.equal(game.frames.size, 0);
   game.controller.setActive(false);
   assert.equal(game.frames.size, 0);
   game.controller.setActive(true);
-  game.frame(40000);
+  game.advance(40000);
   game.advance(3500);
+  assert.equal(game.controller.snapshot().phase, "preview");
+  game.startFall();
   assert.equal(game.controller.snapshot().phase, "falling");
   assert.equal(game.controller.snapshot().elapsedMs, 0);
   game.controller.destroy();
@@ -836,7 +851,7 @@ for (const input of ["click", "keyboard"]) {
     assert.equal(game.attempts.length, 1);
     assert.equal(game.attempts[0].correct, input === "click");
     game.advance(180);
-    game.advance(input === "click" ? 900 : 2400);
+    game.continueReview();
     assert.equal(game.controller.snapshot().phase, "recap");
     assert.equal(game.arena.dataset.formResult, input === "click" ? "correct" : "wrong");
     assert.equal(game.element("gravityAdjectiveRecapHint"), null);
@@ -860,7 +875,7 @@ test("the adjective introduction is centered below the in-arena header before fa
   for (let step = 0; step < 2; step += 1) {
     game.answer();
     game.advance(180);
-    game.advance(900);
+    game.continueReview();
   }
   assert.equal(game.controller.snapshot().phase, "preview");
   assert.equal(game.element("gravityAdjectiveDrop").style.transform, "translateY(229px)",
@@ -868,7 +883,7 @@ test("the adjective introduction is centered below the in-arena header before fa
   game.advance(3999);
   assert.equal(game.element("gravityAdjectiveDrop").style.transform, "translateY(229px)");
   assert.equal(game.controller.snapshot().elapsedMs, 0);
-  game.advance(1);
+  game.startFall();
   assert.equal(game.controller.snapshot().phase, "falling");
   assert.equal(game.element("gravityAdjectiveDrop").style.transform, "translateY(112px)");
   game.controller.setDurationMs(10000);
@@ -876,8 +891,8 @@ test("the adjective introduction is centered below the in-arena header before fa
   assert.equal(game.element("gravityAdjectiveDrop").style.transform, "translateY(170.5px)");
   game.answer();
   game.advance(180);
-  assert.equal(game.element("gravityAdjectiveDrop").style.transform, "translateY(346px)",
-    "moving the header inside does not move the final landing beyond the divider");
+  assert.equal(game.element("gravityAdjectiveDrop").style.transform, "translateY(260px)",
+    "the settled review stays centered beneath the header");
   game.controller.destroy();
 });
 
@@ -887,7 +902,7 @@ test("leaving every meaning unanswered finishes the segment with one failed atte
     assert.equal(game.controller.snapshot().index, index);
     game.advance(10000);
     game.advance(180);
-    game.advance(2400);
+    game.continueReview();
   }
   assert.equal(game.controller.snapshot().phase, "complete");
   assert.equal(game.attempts.length, game.flights.length);
@@ -898,7 +913,7 @@ test("leaving every meaning unanswered finishes the segment with one failed atte
   game.controller.destroy();
 });
 
-test("the card speaker reads the noun before an answer and the full phrase after it without pausing", async () => {
+test("the card speaker reads the noun before an answer and the full phrase after it", async () => {
   const game = await mountGame({ speech: true });
   const flight = game.controller.snapshot().current;
   const speaker = game.element("gravityAdjectiveSpeak");
@@ -931,8 +946,7 @@ test("adjective autoplay fires once per visible prompt, never on its result, and
   const game = await mountGame({ speech: true, autoplay: true, active: false });
   assert.equal(game.speechCalls.length, 0);
   game.controller.setActive(true);
-  game.advance(100);
-  await settleSpeech();
+  await game.autoplayPrompt();
   const first = game.controller.snapshot().current;
   assert.deepEqual(game.speechCalls, [first.anchorText]);
   game.advance(100);
@@ -944,7 +958,8 @@ test("adjective autoplay fires once per visible prompt, never on its result, and
   game.advance(100);
   await settleSpeech();
   assert.equal(game.speechCalls.length, 1);
-  game.advance(3700);
+  game.advance(3800);
+  game.startFall();
   assert.equal(game.controller.snapshot().phase, "falling");
   game.answer();
   game.advance(180);
@@ -952,10 +967,9 @@ test("adjective autoplay fires once per visible prompt, never on its result, and
   assert.deepEqual(game.speechCalls, [first.anchorText]);
   game.speechState.muted = true;
   game.window.dispatchEvent({ type: "caatuu:speech-mute-change" });
-  game.advance(900);
+  game.continueReview();
   continueFromRecap(game);
-  game.advance(100);
-  await settleSpeech();
+  await game.autoplayPrompt();
   assert.equal(game.speechCalls.length, 1);
   game.speechState.autoplay = false;
   game.window.dispatchEvent({ type: "caatuu:speech-autoplay-change" });
@@ -990,7 +1004,7 @@ for (const language of ["czech", "spanish"]) {
   });
 }
 
-test("a correct choice lands for180ms then joins the authored phrase for900ms", async () => {
+test("a correct choice settles then keeps the authored phrase until Continue", async () => {
   const game = await mountGame();
   const first = game.controller.snapshot().current;
   game.answer();
@@ -1005,16 +1019,15 @@ test("a correct choice lands for180ms then joins the authored phrase for900ms", 
   game.advance(179);
   assert.equal(game.controller.snapshot().phase, "landing");
   game.advance(1);
-  assert.equal(game.controller.snapshot().phase, "feedback");
+  assert.equal(game.controller.snapshot().phase, "recap");
   assert.equal(game.element("gravityAdjectiveDrop").hidden, false);
-  assert.equal(game.element("gravityAdjectiveDrop").style.transform, "translateY(346px)",
-    "the full phrase lands exactly at the options divider");
   assert.equal(game.element("gravityAdjectiveNoun").textContent, first.targetText);
   assert.ok(game.element("gravityAdjectiveNoun").querySelector(".gravity-adjective-ending"));
-  assert.equal(game.arena.dataset.state, "correct");
-  game.advance(899);
+  assert.equal(game.arena.dataset.formResult, "correct");
+  game.advance(120000);
   assert.equal(game.controller.snapshot().current.id, first.id);
-  game.advance(1);
+  game.controller.next();
+  assert.equal(game.controller.snapshot().current.id, first.id, "programmatic Next cannot bypass Continue");
   continueFromRecap(game);
   assert.equal(game.controller.snapshot().phase, "falling");
   assert.equal(game.controller.snapshot().index, 1);
@@ -1023,18 +1036,17 @@ test("a correct choice lands for180ms then joins the authored phrase for900ms", 
   game.controller.destroy();
 });
 
-test("wrong choices retain the full2400ms correction without success credit", async () => {
+test("wrong choices retain their correction until Continue without success credit", async () => {
   const game = await mountGame();
   const first = game.controller.snapshot().current;
   game.answer(first.options.find((form) => form !== first.answer));
   game.advance(180);
-  assert.equal(game.arena.dataset.state, "wrong");
+  assert.equal(game.arena.dataset.formResult, "wrong");
   assert.equal(game.element("gravityAdjectiveNoun").textContent, first.targetText);
   assert.equal(game.attempts[0].correct, false);
   assert.equal(game.attempts[0].timeout, false);
-  game.advance(2399);
-  assert.equal(game.controller.snapshot().phase, "feedback");
-  game.advance(1);
+  game.advance(120000);
+  assert.equal(game.controller.snapshot().phase, "recap");
   assert.equal(game.arena.dataset.formResult, "wrong");
   continueFromRecap(game);
   assert.equal(game.controller.snapshot().index, 1);
@@ -1053,7 +1065,7 @@ test("timeout records once, shows the correct phrase, and continues without stea
   assert.equal(game.attempts[0].correct, false);
   game.advance(180);
   assert.match(game.element("gravityAdjectiveFeedback").textContent, /^Time:/);
-  game.advance(2400);
+  game.continueReview();
   assert.equal(game.document.activeElement, game.document.body, "an unattended recap does not steal focus");
   assert.equal(game.arena.dataset.formResult, "wrong");
   continueFromRecap(game);
@@ -1069,9 +1081,9 @@ for (const stage of ["meaning", "category", "form"]) {
     while (game.controller.snapshot().step !== stage) {
       game.answer();
       game.advance(180);
-      game.advance(900);
+      game.continueReview();
     }
-    if (game.controller.snapshot().phase === "preview") game.advance(4000);
+    if (game.controller.snapshot().phase === "preview") game.startFall();
     const unanswered = game.element("gravityAdjectiveNoun").textContent;
     game.advance(game.controller.snapshot().stepDurationMs);
     assert.equal(game.arena.dataset.state, "wrong");
@@ -1085,7 +1097,7 @@ for (const stage of ["meaning", "category", "form"]) {
       assert.equal(button.classList.contains("is-wrong"), false);
     }
     game.advance(180);
-    assert.equal(game.arena.dataset.state, "wrong");
+    assert.equal(stage === "form" ? game.arena.dataset.formResult : game.arena.dataset.state, "wrong");
     const feedback = game.element("gravityAdjectiveFeedback");
     assert.equal(feedback.classList.contains("gravity-visually-hidden"), true);
     assert.match(feedback.textContent, /^Time:/);
@@ -1098,8 +1110,8 @@ for (const stage of ["meaning", "category", "form"]) {
       assert.equal(button.disabled, true);
     }
     if (stage === "category") {
-      game.advance(2400);
-      game.advance(4000);
+      game.continueReview();
+      game.startFall();
       game.answer();
     }
     assert.equal(game.attempts.length, 1);
@@ -1114,7 +1126,7 @@ test("completed flights emit a single completion and stop scheduling frames", as
   for (let index = 0; index < game.flights.length; index += 1) {
     game.answer();
     game.advance(180);
-    game.advance(900);
+    game.continueReview();
     assert.equal(game.arena.dataset.formResult, "correct");
     continueFromRecap(game);
   }
@@ -1138,13 +1150,14 @@ for (const language of ["czech", "spanish"]) {
     for (let step = 0; step < 2; step += 1) {
       game.answer();
       game.advance(180);
-      game.advance(900);
+      game.continueReview();
     }
-    game.advance(4000);
+    await game.autoplayPrompt();
+    game.startFall();
     await settleSpeech();
     game.answer(first.options.find((form) => form !== first.answer));
     game.advance(180);
-    game.advance(2400);
+    game.continueReview();
     await settleSpeech();
     assert.equal(game.controller.snapshot().phase, "recap");
     assert.equal(game.controller.snapshot().current, first);
@@ -1157,7 +1170,7 @@ for (const language of ["czech", "spanish"]) {
     assert.equal(game.element("gravityAdjectiveContext").hidden, false);
     assert.equal(game.element("gravityAdjectiveContext").textContent,
       first.categoryOptions.find(({ id }) => id === first.categoryId).label);
-    assert.equal(game.element("gravityAdjectiveNext").textContent, "Next");
+    assert.equal(game.element("gravityAdjectiveNext").textContent, game.window.CaatuuI18n.t("common.continue"));
     assert.equal(game.element("gravityAdjectiveVisual").parentElement, game.element("gravityAdjectiveDrop"));
     assert.equal(game.element("gravityAdjectiveVisual").getAttribute("aria-hidden"), "true");
     game.controller.setIconsVisible(false);
@@ -1202,7 +1215,7 @@ for (const language of ["czech", "spanish"]) {
   });
 }
 
-test("restarting a game during recap clears it and restores the four-second preview", async () => {
+test("restarting during recap clears the answer and restores a manual reading preview", async () => {
   const game = await mountGame({ meaningThenForm: true, practiceMode: "forms" });
   game.advance(3999);
   assert.equal(game.controller.snapshot().phase, "preview");
@@ -1210,15 +1223,122 @@ test("restarting a game during recap clears it and restores the four-second prev
   game.advance(1);
   game.answer();
   game.advance(180);
-  game.advance(900);
+  game.continueReview();
   assert.equal(game.controller.snapshot().phase, "recap");
   game.controller.start(game.round, game.flights, { practiceMode: "forms" });
   assert.equal(game.controller.snapshot().phase, "preview");
-  assert.equal(game.controller.snapshot().previewMs, 0);
-  assert.equal(game.element("gravityAdjectiveRecap").hidden, true);
-  assert.equal(game.element("gravityAdjectiveNext").disabled, true);
+  assert.equal(game.element("gravityAdjectiveRecap").hidden, false);
+  assert.equal(game.element("gravityAdjectiveNext").disabled, false);
   assert.equal(game.element("gravityAdjectiveChoices").hidden, false);
   assert.equal(game.element("gravityAdjectiveVisual").parentElement, game.arena);
+  game.controller.destroy();
+});
+
+test("open controls hold preview, falling, and feedback across visibility and activity changes", async () => {
+  const game = await mountGame({ practiceMode: "sequence" });
+  game.advance(250);
+  const before = game.controller.snapshot();
+  const pending = [...game.frames.values()][0];
+  game.controller.setPaused(true);
+  assert.equal(game.frames.size, 0);
+  assert.equal(game.option().disabled, true);
+  game.option().click();
+  game.arena.dispatchEvent({ type: "keydown", key: "1" });
+  pending(20000);
+  assert.equal(game.controller.snapshot().elapsedMs, before.elapsedMs);
+  assert.equal(game.attempts.length, 0);
+  game.controller.setActive(false);
+  game.controller.setActive(true);
+  game.document.hidden = true;
+  game.document.dispatchEvent({ type: "visibilitychange" });
+  game.document.hidden = false;
+  game.document.dispatchEvent({ type: "visibilitychange" });
+  assert.equal(game.frames.size, 0, "returning to an open menu stays paused");
+  game.controller.setPaused(false);
+  game.frame(20000);
+  game.frame(20250);
+  assert.equal(game.controller.snapshot().elapsedMs, before.elapsedMs + 250);
+  game.answer();
+  game.advance(180);
+  game.advance(400);
+  const result = game.controller.snapshot();
+  game.controller.setPaused(true);
+  assert.equal(game.frames.size, 0);
+  game.controller.next();
+  assert.equal(game.controller.snapshot().current, result.current);
+  assert.equal(game.controller.snapshot().step, "meaning");
+  game.controller.setPaused(false);
+  game.advance(499);
+  assert.equal(game.controller.snapshot().phase, "feedback");
+  game.advance(120000);
+  assert.equal(game.controller.snapshot().step, "meaning", "restoring activity never dismisses review");
+  game.continueReview();
+  assert.equal(game.controller.snapshot().step, "category");
+  game.answer();
+  game.advance(180);
+  game.continueReview();
+  assert.equal(game.controller.snapshot().phase, "preview");
+  game.advance(1000);
+  game.controller.setPaused(true);
+  assert.equal(game.frames.size, 0);
+  game.controller.setPaused(false);
+  game.advance(2999);
+  assert.equal(game.controller.snapshot().phase, "preview");
+  game.startFall();
+  assert.equal(game.controller.snapshot().phase, "falling");
+  game.controller.destroy();
+  game.controller.setPaused(false);
+  assert.equal(game.frames.size, 0);
+});
+
+test("pronunciation holds feedback until finished or stopped and late speech cannot revive hidden games", async () => {
+  const game = await mountGame({ speech: true, deferSpeech: true });
+  const speaker = game.element("gravityAdjectiveSpeak");
+  speaker.click();
+  await settleSpeech();
+  assert.equal(game.frames.size, 0);
+  assert.equal(game.controller.snapshot().elapsedMs, 0);
+  speaker.click();
+  assert.equal(game.frames.size, 1, "Stop resumes the remaining fall");
+  game.finishSpeech();
+  await settleSpeech();
+  game.answer();
+  game.advance(180);
+  game.advance(300);
+  speaker.click();
+  await settleSpeech();
+  assert.equal(game.frames.size, 0);
+  assert.equal(game.controller.snapshot().phase, "recap");
+  assert.equal(game.speechCalls.at(-1), game.controller.snapshot().current.targetText);
+  game.finishSpeech();
+  await settleSpeech();
+  game.advance(599);
+  assert.equal(game.controller.snapshot().phase, "recap");
+  game.advance(1);
+  assert.equal(game.controller.snapshot().phase, "recap");
+  assert.equal(game.attempts.length, 1);
+  speaker.click();
+  await settleSpeech();
+  game.controller.setActive(false);
+  game.finishSpeech();
+  await settleSpeech();
+  assert.equal(game.frames.size, 0);
+  assert.equal(speaker.disabled, true);
+  game.controller.destroy();
+});
+
+test("pagehide holds the grammar clock even if another event attempts to reschedule before pageshow", async () => {
+  const game = await mountGame();
+  game.advance(300);
+  game.window.dispatchEvent({ type: "pagehide", persisted: true });
+  assert.equal(game.frames.size, 0);
+  game.controller.setActive(true);
+  game.document.dispatchEvent({ type: "visibilitychange" });
+  assert.equal(game.frames.size, 0);
+  game.window.dispatchEvent({ type: "pageshow", persisted: true });
+  game.frame(20000);
+  game.frame(20200);
+  assert.equal(game.controller.snapshot().elapsedMs, 500);
   game.controller.destroy();
 });
 
@@ -1295,7 +1415,7 @@ test("a setting focused during answer feedback keeps focus when the next step st
   game.answer();
   game.advance(180);
   setting.focus();
-  game.advance(900);
+  game.continueReview();
   assert.equal(game.controller.snapshot().step, "category");
   assert.equal(game.document.activeElement, setting,
     "moving settings into the arena must not turn their focus into play focus");
@@ -1307,13 +1427,13 @@ test("automatic progress restores blurred play focus but preserves deliberate ou
   game.answer();
   game.document.body.focus(); // Native browsers blur a focused button when it becomes disabled.
   game.advance(180);
-  game.advance(900);
+  game.continueReview();
   continueFromRecap(game);
   assert.equal(game.document.activeElement, game.arena);
   game.answer();
   game.outsideControl.focus();
   game.advance(180);
-  game.advance(900);
+  game.continueReview();
   assert.equal(game.document.activeElement, game.outsideControl);
   assert.equal(game.controller.snapshot().phase, "recap");
   game.controller.destroy();
@@ -1398,14 +1518,14 @@ for (const focusKind of ["determiner", "subject-agreement"]) {
     assert.deepEqual(game.speechCalls, [first.anchorText]);
     game.answer();
     game.advance(180);
-    game.advance(900);
+    game.continueReview();
     assert.equal(game.controller.snapshot().step, "category");
     assert.deepEqual(Array.from(first.categoryOptions, ({ id }) => id), ["singular", "plural"]);
     assert.equal(game.element("gravityAdjectiveMeaning").textContent, first.anchorMeaning);
     assert.equal(game.option().getAttribute("aria-label"), first.categoryOptions.find(({ id }) => id === first.categoryId).label);
     game.answer();
     game.advance(180);
-    game.advance(900);
+    game.continueReview();
     assert.equal(game.controller.snapshot().phase, "preview");
     assert.equal(game.element("gravityAdjectiveNoun").textContent, first.beforeText + game.element("gravityAdjectivePrompt").textContent + first.afterText);
     assert.equal(game.element("gravityAdjectiveMeaning").textContent, first.learnerBaseText);
@@ -1415,14 +1535,14 @@ for (const focusKind of ["determiner", "subject-agreement"]) {
       assert.ok(first.beforeText.startsWith("The "));
       assert.ok(first.afterText.trim(), "the predicate after the assessed verb stays in the frame");
     } else assert.equal(first.beforeText, "");
-    game.advance(4000);
+    game.startFall();
     game.answer();
     game.advance(180);
     assert.equal(game.element("gravityAdjectiveNoun").textContent, first.targetText);
     game.element("gravityAdjectiveSpeak").click();
     await settleSpeech();
     assert.equal(game.speechCalls.at(-1), first.targetText);
-    game.advance(900);
+    game.continueReview();
     assert.equal(game.controller.snapshot().phase, "recap");
     assert.equal(game.attempts.length, 1);
     assert.equal(game.attempts[0].correct, true);
@@ -1437,10 +1557,10 @@ test("Spanish determiners use the same authored modern sequence", async () => {
     assert.equal(game.controller.snapshot().step, stage);
     game.answer();
     game.advance(180);
-    game.advance(900);
+    game.continueReview();
   }
   assert.equal(game.controller.snapshot().step, "form");
-  game.advance(4000);
+  game.startFall();
   game.answer();
   game.advance(180);
   assert.equal(game.element("gravityAdjectiveNoun").textContent, first.targetText);

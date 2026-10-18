@@ -6,10 +6,11 @@ import {
 import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-10";
 import { newContentEncounterId, matchesContentDifficulty } from "../content-progression.mjs";
 import { createArabicReadingGuide } from "../../arabic-reading-guide.mjs?v=arabic-reading-guide-2";
+import { createReviewContinuation, preventRepeatedReviewKey } from "../practice-pacing.mjs?v=practice-pacing-2";
 
 const GAME_ID = "conjugation-comet";
 const RESOURCE_NAME = "conjugationCometCatalog";
-const PHASE_DELAYS = Object.freeze({ moving: 420, transition: 1200 });
+const PHASE_DELAYS = Object.freeze({ moving: 420 });
 const ILLUSTRATIONS_KEY = "caatuu.conjugation-comet.illustrations";
 const element = (id) => document.getElementById(id);
 const targetReadingMeasurements = new WeakMap();
@@ -62,7 +63,7 @@ function finishMotion(state) {
 function armPhase(state) {
   clearTimer(state);
   if (!canInteract(state) || state.waitingCampaign) return;
-  const delay = state.phase === "result" ? (state.lastCorrect ? 350 : 200) : PHASE_DELAYS[state.phase];
+  const delay = PHASE_DELAYS[state.phase];
   if (!delay) return;
   const serial = state.timerSerial;
   state.timer = window.setTimeout(() => {
@@ -73,13 +74,7 @@ function armPhase(state) {
       state.phase = "question";
       syncInteraction(state);
       focusStrand(state, state.focusSide);
-    } else if (state.phase === "result") {
-      if (state.lastCorrect) { showSummary(state); return; }
-      state.phase = "question";
-      resetResult(state);
-      syncInteraction(state);
-      focusStrand(state, state.focusSide);
-    } else if (state.phase === "transition") beginNextVerb(state);
+    }
   }, delay);
 }
 async function stopSpeech() {
@@ -142,6 +137,7 @@ async function speakTargetText(state, text, { automatic = false } = {}) {
   state.speechText = normalized;
   state.speechAutomatic = automatic;
   syncSpeechButtons(state);
+  if (state.phase === "result") clearTimer(state);
   try {
     await stopSpeech();
     const chrome = shellWindow().CaatuuChrome;
@@ -154,7 +150,11 @@ async function speakTargetText(state, text, { automatic = false } = {}) {
       setFeedback(formatCopy(state.catalog.copy.audioUnavailableTemplate, { language: state.targetLanguageName }));
     }
   } finally {
-    if (request === state.speechRequest) { state.speechText = ""; state.speechAutomatic = false; syncSpeechButtons(state); }
+    if (request === state.speechRequest) {
+      state.speechText = "";
+      state.speechAutomatic = false;
+      syncSpeechButtons(state);
+    }
   }
 }
 function syncInteraction(state) {
@@ -172,6 +172,7 @@ function syncInteraction(state) {
   }
   element("conjugationCometSubmit").disabled = locked || !state.round;
   element("conjugationCometSummaryNext").disabled = state.phase !== "summary" || !canInteract(state);
+  state.continuation?.sync();
   renderPairBackgrounds(state);
   syncSpeechButtons(state);
 }
@@ -550,6 +551,7 @@ function moveStrand(state, side, requested) {
 function beginNextVerb(state) {
   if (state.destroyed) return;
   element("conjugationCometSummary").close();
+  state.continuation?.clear();
   clearTimer(state);
   cancelSpeech(state);
   finishMotion(state);
@@ -631,14 +633,18 @@ function submitHelix(state) {
   renderJudgment(state);
   syncInteraction(state);
   element("conjugationCometFeedback").focus({ preventScroll: true });
-  armPhase(state);
+  if (state.lastCorrect) showSummary(state);
+  else {
+    state.continuation.show();
+    element("conjugationCometContinue").focus({ preventScroll: true });
+  }
 }
 function showSummary(state) {
   clearTimer(state);
   state.phase = "summary";
   const dialog = element("conjugationCometSummary");
   element("conjugationCometSummaryTitle").textContent = copy(state, "correct");
-  element("conjugationCometSummaryNextLabel").textContent = copy(state, "next");
+  element("conjugationCometSummaryNextLabel").textContent = state.interfaceContent.t("common.continue");
   const origins = [];
   const rows = state.round.subjects.map((subject) => {
     const row = document.createElement("div");
@@ -677,6 +683,7 @@ function completeBatch(state) {
   if (state.batchSent || state.destroyed) return;
   clearTimer(state);
   cancelSpeech(state);
+  state.continuation?.clear();
   state.batchSent = true;
   state.phase = "transition";
   const shell = shellWindow();
@@ -691,7 +698,7 @@ function completeBatch(state) {
     contentId: state.current.id, contentRevision: state.current.revision,
     catalogId: state.catalog.id, catalogRevision: state.catalog.contentRevision
   }, window.location.origin);
-  armPhase(state);
+  if (!state.waitingCampaign) beginNextVerb(state);
 }
 
 function bindUi(state) {
@@ -706,6 +713,7 @@ function bindUi(state) {
   }
   const board = element("conjugationCometBoard");
   listen(element("conjugationCometSummary"), "cancel", (event) => event.preventDefault());
+  listen(element("conjugationCometSummaryNext"), "keydown", preventRepeatedReviewKey);
   listen(element("conjugationCometSummaryNext"), "click", () => {
     if (!canInteract(state) || state.phase !== "summary") return;
     element("conjugationCometSummary").close();
@@ -802,7 +810,9 @@ function bindLifecycle(state) {
       state.controls?.sync();
       if (typeof message.active === "boolean") state.active = message.active;
       if (message.active === true && shell.document?.body?.dataset?.campaignActive !== "true") {
+        const awaitingHandoff = state.waitingCampaign;
         state.waitingCampaign = false;
+        if (awaitingHandoff && state.phase === "transition") beginNextVerb(state);
       }
       if (!state.active) state.controls?.close();
       syncActivity(state);
@@ -830,6 +840,7 @@ function destroy(state) {
   finishMotion(state);
   clearTimer(state);
   cancelSpeech(state);
+  state.continuation?.destroy();
   state.removeListeners.forEach((remove) => remove());
   state.removeListeners = [];
   state.controls?.destroy();
@@ -903,6 +914,21 @@ export async function mountSharedConjugationComet({ scope = globalThis, fetchImp
 
   state.readingGuide = createArabicReadingGuide({ course, gameId: GAME_ID, document, storage: shellWindow().localStorage,
     onChange: () => renderPairBackgrounds(state) });
+  const continueButton = document.createElement("button");
+  continueButton.id = "conjugationCometContinue";
+  continueButton.type = "button";
+  continueButton.className = "conjugation-comet-continue";
+  element("conjugationCometFeedback").closest(".conjugation-comet-footer").append(continueButton);
+  state.continuation = createReviewContinuation({ button: continueButton, i18n: interfaceContent,
+    canContinue: () => canInteract(state) && state.phase === "result" && !state.lastCorrect,
+    onContinue() {
+      cancelSpeech(state);
+      state.phase = "question";
+      resetResult(state);
+      syncInteraction(state);
+      focusStrand(state, state.focusSide);
+    }
+  });
   state.controls = mountEmbeddedGameControls({
     container: element("conjugationCometControls"), shell: shellWindow(), course, autoplay: true,
     readingGuide: state.readingGuide,

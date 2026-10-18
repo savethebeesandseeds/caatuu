@@ -593,10 +593,7 @@ test("Verb Nebula keeps revealed solutions visible and gates the next round on c
     app,
     /#verbRevealSolution"\)\?\.addEventListener\("click", \(\) => \{\s*void trackVerbGuidedOperation\(toggleVerbSolution\);\s*\}\)/
   );
-  assert.match(
-    app,
-    /const roundComplete = verbRoundComplete\(\);[\s\S]*?if \(roundComplete && !state\.verbGuidedMode\) \{\s*if \(state\.campaignActive\) void completeCampaignRound\("verb-lab", window\);\s*else void transitionToNextVerbRound\(\);\s*\}/
-  );
+  assert.match(index, /id="verbContinue"/);
   assert.match(index, /id="verbSolutionArrows"/);
   assert.match(app, /renderVerbSolutionArrows\(\)/);
   assert.match(app, /svg\.classList\.toggle\("is-visible", Boolean\(visible\)\)/);
@@ -607,7 +604,6 @@ test("Verb Nebula keeps revealed solutions visible and gates the next round on c
     app,
     /const guidedLifecycle = state\.verbGuidedLifecycle;[\s\S]*?await guidedLifecycle\.recordSolutionReveal[\s\S]*?state\.verbSolutionRevealed = true/
   );
-  assert.match(app, /if \(!state\.verbGuidedMode\) \{[\s\S]*?state\.verbSolutionAdvanceTimer = window\.setTimeout/);
   assert.doesNotMatch(app, /transitionToNextVerbRound\(\{ revealSolution: true \}\)/);
   assert.match(app, /preloadVerbHintsForRound\(nextRound\.round\)/);
   assert.match(app, /preloadVerbHintAsset\(hint\?\.assetPath\)/);
@@ -617,7 +613,6 @@ test("Verb Nebula keeps revealed solutions visible and gates the next round on c
   assert.match(app, /const sameDifficulty = Number\(memory\?\.difficulty\) === state\.verbDifficulty/);
   assert.match(app, /reason === "difficulty"\) rebaseVerbDifficulty\(\)/);
   assert.match(app, /row\.append\(renderVerbHintSlot\(pair\), button\);/);
-  assert.match(app, /waitForVerbTransition\(verbRoundInterstitialMillis\)/);
   assert.match(app, /entry\.screen = mountRobotLoadingScreen\(/);
   assert.doesNotMatch(app, /verbRobotKeymapUrl/);
   assert.match(app, /const verbHintLookupTimeoutMillis = 6000;/);

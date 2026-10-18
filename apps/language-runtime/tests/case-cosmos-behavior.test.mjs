@@ -8,6 +8,7 @@ import { bindHorizontalGesture } from "../static/source/horizontal-gesture.mjs";
 import { createBrowserHarness } from "./helpers/fake-browser.mjs";
 import { englishInterfaceContent } from "./helpers/english-interface-content.mjs";
 import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../static/source/games/embedded-game-controls.mjs";
+import { createReviewContinuation } from "../static/source/games/practice-pacing.mjs";
 import { CZECH_CASES, validatePack, buildRounds, buildQuestions, buildCasePracticeRounds } from "../../languages/czech/static/source/games/case-cosmos/case-cosmos-content.mjs";
 import { assertEnglishCzechCourse } from "../../languages/czech/static/source/games/case-cosmos/case-cosmos-cs-policy.mjs";
 
@@ -98,6 +99,7 @@ async function mountGame({ difficulty = 1, pack = catalog, status = 200, duringL
     chromeStates.set(scope, preferences);
     if (musicPlayer) scope.CaatuuMusic = musicPlayer;
     scope.CaatuuI18n = englishInterfaceContent;
+    scope.CaatuuPracticePacing = { createReviewContinuation };
     scope.document.documentElement.dataset.theme = "light";
     scope.document.documentElement.dataset.fontSize = "largest";
     scope.MutationObserver = class {
@@ -244,6 +246,7 @@ test("case progression schedules individual sentences and credits only the compl
   game.api.chooseAnswer(false);
   assert.equal(exposures.length, 0, "rejecting a distractor is not a completed sentence");
   await game.tick(1400);
+  game.element("Next").click();
   game.selectCandidate(true);
   game.api.chooseAnswer(true);
   assert.equal(exposures.length, 1);
@@ -385,7 +388,7 @@ test("swipe right answers Yes and left answers No in both illustrated and plain 
       pointer(game, "pointerup", 150 + direction * 80);
       assert.equal(game.api.state.answer, direction > 0);
       assert.equal(game.api.state.phase, direction > 0 ? "solved" : "mistake");
-      assert.equal(game.document.activeElement.id, game.element(direction > 0 ? "Example" : "Next").id);
+      assert.equal(game.document.activeElement.id, game.element("Next").id);
       assert.equal(game.element("Board").dataset.swipeAnswer, undefined);
       assert.equal(game.records.length, 1);
       assert.equal(game.records[0].delta.successes, question.matches === (direction > 0) ? 1 : 0);
@@ -460,7 +463,7 @@ test("changing cards, layout, focus, or visibility cancels an in-flight swipe", 
       game.window.dispatchEvent({ type: "pagehide", persisted: true });
       game.window.dispatchEvent({ type: "pageshow", persisted: true });
     },
-    next: (game) => { game.api.chooseAnswer(true); game.api.nextRound(); }
+    next: (game) => { game.api.chooseAnswer(true); game.element("Next").click(); }
   };
   for (const [name, transition] of Object.entries(transitions)) {
     const game = await mountGame();
@@ -470,7 +473,7 @@ test("changing cards, layout, focus, or visibility cancels an in-flight swipe", 
     const before = game.records.length;
     pointer(game, "pointerup", 240);
     assert.equal(game.records.length, before, name);
-    assert.equal(game.api.state.phase, name === "next" ? "loading" : "question", name);
+    assert.equal(game.api.state.phase, "question", name);
     assert.equal(game.element("Board").dataset.swipeAnswer, undefined, name);
   }
 });
@@ -544,207 +547,196 @@ test("English-to-Czech content cannot be mounted in a different course or learne
   }
 });
 
-test("only accepting the correct form solves the sentence and awards once, followed by result and robot", async () => {
+test("a solved sentence earns once and stays until Continue hands off to Campaign", async () => {
   const game = await mountGame();
-  game.element("Yes").click();
-  game.element("Yes").click();
-  game.api.chooseAnswer(false);
+  const question = game.api.currentQuestion();
+  game.element("Yes").click(); game.element("Yes").click(); game.api.chooseAnswer(false);
   assert.equal(game.api.state.phase, "solved");
-  assert.equal(game.records.length, 1);
   assert.deepEqual(game.records[0].delta, { activities: 1, attempts: 1, successes: 1, rounds: 1, xp: 1 });
-  assert.equal(game.messages.length, 0, "show the result before handing off to the campaign");
-  assert.equal(game.element("Next").hidden, true);
-  assert.equal(game.element("Yes").disabled, true);
-  assert.match(game.element("FeedbackTitle").textContent, /✓ Sentence solved/u);
-  await game.tick(1799);
-  assert.equal(game.api.state.phase, "solved");
-  await game.tick(1);
-  assert.equal(game.api.state.phase, "loading");
-  assert.equal(game.element("Board").hidden, true);
-  assert.equal(game.element("Loading").hidden, false);
-  assert.equal(game.messages.length, 1);
-  assert.deepEqual({ ...game.messages[0].data }, { source: "caatuu-game", type: "round-success", gameId: "case-cosmos" });
-  await game.tick(849);
-  assert.equal(game.api.state.questionIndex, 0);
-  await game.tick(1);
+  assert.equal(game.element("Next").hidden, false);
+  assert.equal(game.element("Next").textContent, "Continue");
+  await game.tick(120000);
+  assert.equal(game.api.currentQuestion(), question);
+  assert.equal(game.messages.length, 0);
+  assert.equal(game.records.length, 1);
+  game.api.nextRound();
+  assert.equal(game.api.state.phase, "solved", "a programmatic next cannot bypass the review button");
+  game.element("Next").click(); game.element("Next").click();
   assert.equal(game.api.state.phase, "question");
   assert.equal(game.api.state.questionIndex, 1);
-  assert.equal(game.element("Loading").hidden, true);
+  assert.equal(game.messages.length, 1);
+  assert.deepEqual({ ...game.messages[0].data }, { source: "caatuu-game", type: "round-success", gameId: "case-cosmos" });
   assert.equal(game.records.length, 1);
+  assert.equal(game.timers.length, 0);
 });
 
-test("a mistake ends the challenge with its correction and cannot be converted to a win", async () => {
-  for (const correctForm of [true, false]) {
+test("a mistake preserves its correction until Continue and cannot be converted to a win", async () => {
+  for (const matches of [true, false]) {
     const game = await mountGame();
-    const question = game.selectCandidate(correctForm);
-    game.api.chooseAnswer(!correctForm);
+    const question = game.selectCandidate(matches);
+    game.api.chooseAnswer(!matches);
     assert.equal(game.api.state.phase, "mistake");
-    assert.equal(game.element("Board").dataset.state, "mistake");
-    assert.match(game.element("FeedbackTitle").textContent, /× Not quite/u);
-    assert.equal(game.element(!correctForm ? "Yes" : "No").dataset.result, "wrong");
-    assert.equal(game.element("Next").hidden, false);
-    assert.equal(game.records[0].delta.xp, 0);
-    assert.equal(game.records[0].delta.rounds, 1);
     assert.equal(game.element("ActualCase").textContent, game.api.currentChallenge().czech);
-    await game.tick(1800);
+    await game.tick(120000);
+    game.api.chooseAnswer(matches); game.api.nextRound();
     assert.equal(game.api.currentQuestion(), question);
-    game.api.chooseAnswer(correctForm);
-    assert.equal(game.records.length, 1);
     assert.equal(game.api.state.phase, "mistake");
-    assert.equal(game.api.state.questionIndex, 0);
-    game.element("Next").click();
-    await game.tick(850);
+    assert.equal(game.records.length, 1);
+    assert.equal(game.records[0].delta.xp, 0);
+    game.element("Next").click(); game.element("Next").click();
     assert.equal(game.api.state.questionIndex, 1);
     assert.equal(game.api.state.phase, "question");
-    assert.equal(game.element("Feedback").hidden, true);
     assert.equal(game.messages.length, 0);
-    assert.equal(game.element("Yes").disabled, false);
   }
 });
 
-test("a correct X replaces only the noun, stays in the sentence, and does not complete a round", async () => {
+test("a correct No keeps the same noun form visible until Continue replaces only that form", async () => {
   const game = await mountGame();
-  const old = game.selectCandidate(false);
-  const challenge = game.api.currentChallenge();
-  const sentence = game.element("Sentence");
-  const mark = sentence.querySelector("mark");
-  const before = sentence.childNodes[0];
+  const old = game.selectCandidate(false), challenge = game.api.currentChallenge();
+  const sentence = game.element("Sentence"), mark = sentence.querySelector("mark"), before = sentence.childNodes[0];
   game.element("No").click();
   assert.equal(game.api.state.phase, "rejecting");
-  assert.equal(game.records[0].delta.successes, 1);
+  assert.equal(game.element("Next").hidden, false);
   assert.equal(game.records[0].delta.rounds, 0);
   assert.equal(game.records[0].delta.xp, 0);
-  game.api.chooseAnswer(false);
-  await game.tick(649);
+  await game.tick(120000);
   assert.equal(game.api.currentQuestion(), old);
-  await game.tick(1);
-  assert.equal(game.api.state.phase, "entering");
+  assert.equal(mark.textContent, old.form);
+  game.element("Next").click(); game.element("Next").click();
+  assert.equal(game.api.state.phase, "question");
   assert.notEqual(game.api.currentQuestion().form, old.form);
   assert.equal(game.api.currentChallenge(), challenge);
   assert.equal(game.element("Sentence").querySelector("mark"), mark);
   assert.equal(game.element("Sentence").childNodes[0], before);
   assert.equal(game.element("Translation").textContent, old.english);
-  assert.equal(game.element("ProposedCase").textContent, old.case);
-  await game.tick(300);
-  assert.equal(game.api.state.phase, "question");
-  assert.equal(game.api.state.questionIndex, 0);
-  assert.equal(game.messages.length, 0);
   assert.equal(game.records.length, 1);
+  assert.equal(game.messages.length, 0);
 });
 
-test("every sentence persists through rejection until solved, then all seven cases advance and nouns wrap", async () => {
+test("all sentence alternatives and seven cases advance only through deliberate Continue clicks", async () => {
   const game = await mountGame();
   const count = game.api.state.rounds.length;
   const total = game.api.state.rounds.reduce((sum, round) => sum + (round.contextItem ? 1 : 7), 0);
-  for (let nounIndex = 0; nounIndex < count; nounIndex += 1) {
-    const questionCount = game.api.currentRound().contextItem ? 1 : 7;
-    for (let questionIndex = 0; questionIndex < questionCount; questionIndex += 1) {
+  for (let noun = 0; noun < count; noun++) {
+    const questions = game.api.currentRound().contextItem ? 1 : 7;
+    for (let question = 0; question < questions; question++) {
       const challenge = game.api.currentChallenge();
-      game.api.nextRound();
-      assert.equal(game.api.currentChallenge(), challenge);
-      for (let guard = 0; guard < 4; guard += 1) {
+      for (let guard = 0; guard < 4; guard++) {
         const candidate = game.api.currentQuestion();
         game.api.chooseAnswer(candidate.matches);
+        await game.tick(10000);
+        assert.equal(game.api.currentQuestion(), candidate);
+        game.element("Next").click();
         if (candidate.matches) break;
-        await game.tick(950);
         assert.equal(game.api.currentChallenge(), challenge);
       }
-      assert.equal(game.api.state.phase, "solved");
-      await game.tick(2650);
     }
-    assert.equal(game.api.state.index, (nounIndex + 1) % count);
+    assert.equal(game.api.state.index, (noun + 1) % count);
   }
-  assert.equal(game.api.state.questionIndex, 0);
   assert.equal(game.records.reduce((sum, entry) => sum + entry.delta.rounds, 0), total);
   assert.equal(game.records.reduce((sum, entry) => sum + entry.delta.xp, 0), total);
   assert.equal(game.messages.length, total);
   assert.equal(game.timers.length, 0);
 });
 
-test("animations and robot transitions pause while hidden, in menus, and in the back-forward cache", async () => {
-  for (const pause of ["document", "shell", "page", "menu"]) {
-    for (const phase of ["mistake", "rejecting", "solved", "loading"]) {
-      const game = await mountGame();
-      if (phase === "rejecting") game.selectCandidate(false);
-      game.api.chooseAnswer(phase === "solved" || phase === "loading");
-      if (phase === "loading") await game.tick(1800);
-      assert.equal(game.api.state.phase, phase);
-      const toggle = (active) => {
-        if (pause === "document") {
-          game.document.hidden = !active;
-          game.document.dispatchEvent({ type: "visibilitychange" });
-        } else if (pause === "shell") game.window.dispatchEvent({ type: "message", origin: game.window.location.origin,
-          source: game.window.parent, data: { source: "caatuu-app-shell", type: "visibility", active } });
-        else if (pause === "page") game.window.dispatchEvent({ type: active ? "pageshow" : "pagehide", persisted: true });
-        else game.element("Controls").querySelector(".caatuu-game-control-toggle").click();
-      };
-      const candidate = game.api.currentQuestion();
-      await game.tick(100);
-      toggle(false);
-      await game.tick(10000);
-      assert.equal(game.api.state.phase, phase, `${pause}/${phase}`);
-      assert.equal(game.api.currentQuestion(), candidate);
-      assert.equal(game.element("Board").dataset.active, "false");
-      toggle(true);
-      await game.tick(3000);
-      assert.equal(game.api.state.phase, phase === "mistake" ? "mistake" : "question", `${pause}/${phase} resumes`);
-      assert.equal(game.records.length, 1);
-    }
+test("review cannot continue while hidden or in menus, and reopening never dismisses it", async () => {
+  for (const pause of ["document", "shell", "page", "menu"]) for (const phase of ["mistake", "rejecting", "solved"]) {
+    const game = await mountGame();
+    if (phase === "rejecting") game.selectCandidate(false);
+    game.api.chooseAnswer(phase === "solved");
+    const candidate = game.api.currentQuestion();
+    const toggle = active => {
+      if (pause === "document") {
+        game.document.hidden = !active; game.document.dispatchEvent({ type: "visibilitychange" });
+      } else if (pause === "shell") game.window.dispatchEvent({ type: "message", origin: game.window.location.origin,
+        source: game.window.parent, data: { source: "caatuu-app-shell", type: "visibility", active } });
+      else if (pause === "page") game.window.dispatchEvent({ type: active ? "pageshow" : "pagehide", persisted: true });
+      else game.element("Controls").querySelector(".caatuu-game-control-toggle").click();
+    };
+    toggle(false); game.element("Next").dispatchEvent({ type: "click" }); await game.tick(120000);
+    assert.equal(game.api.currentQuestion(), candidate, `${pause}/${phase}`);
+    assert.equal(game.element("Next").disabled, true, `${pause}/${phase} disables Continue`);
+    toggle(true); await game.tick(120000);
+    assert.equal(game.api.state.phase, phase);
+    assert.equal(game.element("Next").disabled, false);
+    game.element("Next").click();
+    assert.equal(game.api.state.phase, "question");
+    assert.equal(game.records.length, 1);
   }
 });
 
-test("difficulty resets and final disposal cancel stale noun replacements and robot continuations", async () => {
-  for (const phase of ["mistake", "rejecting", "solved", "loading"]) {
-    for (const destroy of [false, true]) {
-      const game = await mountGame();
-      if (phase === "rejecting") game.selectCandidate(false);
-      game.api.chooseAnswer(phase === "solved" || phase === "loading");
-      if (phase === "loading") await game.tick(1800);
-      const staleCallbacks = game.timers.map((entry) => entry.callback);
-      if (destroy) game.window.dispatchEvent({ type: "pagehide", persisted: false });
-      else game.difficulty(2);
-      const candidate = game.api.currentQuestion();
-      const messages = game.messages.length;
-      staleCallbacks.forEach((callback) => callback());
-      await game.tick(10000);
-      assert.equal(game.api.currentQuestion(), candidate);
-      assert.equal(game.api.state.destroyed, destroy);
-      if (!destroy) assert.equal(game.api.state.phase, "question");
-      assert.equal(game.messages.length, messages);
-      assert.equal(game.records.length, 1);
-      assert.equal(game.timers.length, 0);
-    }
+test("difficulty resets and final disposal cancel obsolete review buttons without extra credit", async () => {
+  for (const phase of ["mistake", "rejecting", "solved"]) for (const destroy of [false, true]) {
+    const game = await mountGame();
+    if (phase === "rejecting") game.selectCandidate(false);
+    game.api.chooseAnswer(phase === "solved");
+    const button = game.element("Next");
+    if (destroy) game.window.dispatchEvent({ type: "pagehide", persisted: false });
+    else game.difficulty(2);
+    const candidate = game.api.currentQuestion();
+    button.click(); await game.tick(120000);
+    assert.equal(game.api.currentQuestion(), candidate);
+    assert.equal(button.hidden, true);
+    assert.equal(game.messages.length, 0);
+    assert.equal(game.records.length, 1);
   }
 });
 
-test("reduced motion removes noun transforms without removing reject, retry, or solve semantics", async () => {
+test("reduced motion retains the same explicit review boundary", async () => {
   const game = await mountGame();
   game.window.matchMedia = () => ({ matches: true });
   const old = game.selectCandidate(false);
-  game.api.chooseAnswer(false);
-  await game.tick(450);
-  assert.equal(game.api.state.phase, "question");
+  game.api.chooseAnswer(false); await game.tick(120000);
+  assert.equal(game.api.currentQuestion(), old);
+  game.element("Next").click();
   assert.notEqual(game.api.currentQuestion().form, old.form);
-  assert.equal(game.api.state.questionIndex, 0);
   const styles = await readFile(new URL("../../languages/czech/static/source/games/case-cosmos/case-cosmos.css", import.meta.url), "utf8");
-  assert.match(styles, /prefers-reduced-motion:[\s\S]*sentence mark \{ animation: none/u);
-  assert.match(styles, /data-state="mistake"[^}]+--case-feedback: var\(--case-wrong\)/u);
-  assert.match(styles, /case-cosmos-next\[hidden\]/u);
+  assert.doesNotMatch(styles, /data-state="rejecting"\] \.case-cosmos-sentence mark \{ animation:/u,
+    "a reviewed noun must not animate away before Continue");
 });
 
-test("candidate speech reads the whole displayed sentence, including an incorrect form", async () => {
+test("candidate speech reads the displayed sentence and review reads the authored correction", async () => {
   const game = await mountGame();
   const wrong = game.selectCandidate(false);
-  game.element("Speak").click();
-  await settle();
+  game.element("Speak").click(); await settle();
   assert.equal(game.preferences.calls[0].text, wrong.czech);
-  game.selectCandidate(true);
   game.api.chooseAnswer(true);
-  game.element("Speak").click();
-  await settle();
+  game.element("Speak").click(); await settle();
   assert.equal(game.preferences.calls[1].text, game.api.currentChallenge().czech);
 });
 
+test("review replay completion, failure and stop never dismiss a settled result", async () => {
+  for (const outcome of ["complete", "stop", "error"]) {
+    const game = await mountGame({ pendingSpeech: true });
+    game.api.chooseAnswer(true);
+    const question = game.api.currentQuestion();
+    if (outcome === "error") game.shell.CaatuuChrome.speakText = async () => { throw new Error("offline"); };
+    game.element("Speak").click(); await settle();
+    if (outcome === "stop") { game.element("Speak").click(); await settle(); }
+    game.preferences.calls[0]?.complete(); await settle(); await game.tick(120000);
+    assert.equal(game.api.currentQuestion(), question);
+    assert.equal(game.api.state.phase, "solved");
+    assert.equal(game.messages.length, 0);
+    assert.equal(game.records.length, 1);
+    game.element("Next").click(); game.element("Next").click();
+    assert.equal(game.api.state.phase, "question");
+    assert.equal(game.messages.length, 1);
+    assert.equal(game.records.length, 1);
+  }
+});
+
+test("Continue may stop active review speech and late completion cannot consume the next sentence", async () => {
+  const game = await mountGame({ pendingSpeech: true });
+  game.api.chooseAnswer(true);
+  game.element("Speak").click(); await settle();
+  game.element("Next").click();
+  const question = game.api.currentQuestion();
+  assert.equal(game.api.state.phase, "question");
+  game.preferences.calls[0].complete(); await settle(); await game.tick(120000);
+  assert.equal(game.api.currentQuestion(), question);
+  assert.equal(game.messages.length, 1);
+  assert.equal(game.records.length, 1);
+});
 test("difficulty changes rebuild eligible noun rounds and clear pending feedback without adding rewards", async () => {
   const game = await mountGame();
   const initialCount = game.api.state.rounds.length;
@@ -814,7 +806,9 @@ test("campaign advance is origin-checked, cannot skip mistakes, and cannot doubl
   }
   dispatch();
   dispatch();
-  assert.equal(game.api.state.phase, "loading");
+  assert.equal(game.api.state.phase, "solved", "even a valid shell message cannot bypass Continue");
+  game.element("Next").click();
+  dispatch();
   await game.tick(850);
   assert.equal(game.api.state.questionIndex, 2);
   assert.equal(game.api.state.phase, "question");
@@ -1018,7 +1012,7 @@ test("pace and voice controls cancel the current manual pronunciation and retain
 test("pending speech never starts late after an answer, navigation, preference change, or loss of visibility", async () => {
   const transitions = {
     answer: (game) => game.api.chooseAnswer(game.api.currentQuestion().matches),
-    next: (game) => game.api.nextRound(),
+    next: (game) => game.element("Next").click(),
     difficulty: (game) => game.difficulty(2),
     mute: (game) => game.shell.CaatuuChrome.setSpeechMuted(true),
     pace: (game) => game.shell.CaatuuChrome.setSpeechPacePreference("slower"),

@@ -41,6 +41,7 @@ test("legacy games receive music after their locale and saved mute preferences a
     assert.deepEqual(ready, [], "mounting music must not imply setup or page readiness");
   };
   options.importFeature = async () => {
+    assert.equal(typeof window.CaatuuPracticePacing?.createReviewContinuation, "function");
     assert.equal(window.CaatuuMusic, music, "the feature must see the installed player");
     assert.deepEqual(ready, []);
   };

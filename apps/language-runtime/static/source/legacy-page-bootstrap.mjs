@@ -2,6 +2,7 @@ import {
   installInterfaceContent,
   loadInterfaceContent
 } from "./interface-content.mjs?v=interface-runtime-2";
+import * as practicePacing from "./games/practice-pacing.mjs?v=practice-pacing-2";
 
 const BOOTSTRAP_PATH = "/language-runtime/static/source/legacy-page-bootstrap.mjs";
 const CHROME_SCRIPT = "/language-runtime/static/source/caatuu-chrome.js?v=chrome-178";
@@ -96,6 +97,7 @@ export async function bootstrapLegacyPage({
   const declared = featureModule ?? declaredFeatureModule(documentRef, new URL(locationHref).origin);
   const featureUrl = confinedLegacyFeatureUrl(declared, { course, locationHref });
   const interfaceContent = await loadInterface(course);
+  (documentRef.defaultView || globalThis).CaatuuPracticePacing = practicePacing;
   installInterface(interfaceContent);
   interfaceContent.apply(documentRef);
   documentRef.documentElement.lang = course.sourceLanguage?.locale || course.sourceLanguage?.id || "en";

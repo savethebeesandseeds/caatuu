@@ -63,6 +63,23 @@ test('a newer selection wins even when the old dictionary ignores cancellation',
   assert.deepEqual(f.reveals.map(entry => entry.word), ['druhý']);
 });
 
+test('open-state notifications hold review across word replacements and release once on close', async () => {
+  const states = [];
+  const f = fixture({ onOpenChange: open => states.push(open) });
+  assert.deepEqual(states, []);
+  await f.api.open('první');
+  await f.api.open('druhý');
+  assert.deepEqual(states, [true], 'replacing a word must not briefly release the current review');
+  f.slot.querySelector('.moon-dictionary-close').click();
+  f.api.reset();
+  assert.deepEqual(states, [true, false]);
+  await f.api.open('třetí');
+  f.api.setActive(false);
+  assert.deepEqual(states, [true, false, true, false]);
+  f.api.destroy();
+  assert.deepEqual(states, [true, false, true, false]);
+});
+
 for (const action of ['reset', 'inactive', 'destroy']) {
   test(`${action} aborts and hides a pending lookup without stale meaning or evidence`, async () => {
     const wait = deferred(); let signal;

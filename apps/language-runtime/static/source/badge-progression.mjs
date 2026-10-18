@@ -1,4 +1,4 @@
-import { createBadgeRecommendation } from "./badge-recommendation.mjs?v=badge-recommendation-4";
+import { createBadgeRecommendation } from "./badge-recommendation.mjs?v=badge-recommendation-5";
 
 /** Shared, advisory badge progression. Only an explicit learner action equips a badge. */
 export function installBadgeProgression({ scope = globalThis.window ?? globalThis,

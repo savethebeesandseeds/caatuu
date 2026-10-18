@@ -1,4 +1,5 @@
 import { createRewardSound } from "./reward-sound.mjs?v=reward-sound-2";
+import { preventRepeatedReviewKey } from "./games/practice-pacing.mjs?v=practice-pacing-2";
 
 const XP_ICON = "/language-runtime/static/assets/xp-gold.webp";
 const gameIds = Object.freeze({ "verb-lab": "verb-nebula", "word-net": "word-world" });
@@ -208,6 +209,7 @@ export function installGameDynamics({
     const skip = element("button", "caatuu-practice-celebration-skip",
       translate("practice.reward.skip", "Continue"));
     skip.type = "button";
+    skip.addEventListener("keydown", preventRepeatedReviewKey);
     skip.addEventListener("click", () => finish(state, true));
     card.append(sparkles, heading, message, rewards);
     const cycle = read()?.cycle;
@@ -356,15 +358,6 @@ export function installGameDynamics({
       });
       state.overlay.classList.add("is-paused");
     } else resumePresentation(state);
-  });
-  listen(document, "keydown", event => {
-    if (!current?.shown || event.defaultPrevented) return;
-    if (event.key === "Escape") {
-      const dialog = event.target?.closest?.('[role="dialog"]');
-      if (dialog && !current.overlay?.contains(dialog)) return;
-      event.preventDefault();
-      finish(current, true);
-    }
   });
   refresh();
   return Object.freeze({

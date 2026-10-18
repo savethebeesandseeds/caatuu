@@ -110,6 +110,7 @@ async function fixture({ directory = 'czech', catalogWait, selectionWait, realCo
     get controlsOptions() { return controlsOptions; }, get requestOptions() { return requestOptions; },
     choice(id) { return root.querySelector(`[data-choice-id="${id}"]`); },
     correct() { const item = host.snapshot().currentItem; this.choice(item.correctChoiceId).click(); },
+    continue() { root.querySelector('.moon-continue').click(); },
     visible(hidden) { frame.document.hidden = hidden; frame.document.dispatchEvent({ type: 'visibilitychange' }); }
   };
 }
@@ -154,7 +155,7 @@ test('every registered course renders its own target and learner-base choices in
   });
 });
 
-test('incorrect feedback shakes only the rejected alternative and a correction animates before advancing', async t => {
+test('incorrect feedback shakes only the rejected alternative and a correction waits for Continue', async t => {
   const app = await fixture(); t.after(() => app.host.destroy()); await app.host.ready;
   const wrong = app.host.snapshot().currentItem.choices.find(choice => choice.id !== 'correct').id;
   const shade = app.root.querySelector('.moon-shade'), initial = shade.getAttribute('d');
@@ -170,34 +171,42 @@ test('incorrect feedback shakes only the rejected alternative and a correction a
   assert.equal(app.host.snapshot().index, 0);
   app.time.tick(600);
   const finalPhase = shade.getAttribute('d');
-  app.time.tick(800);
+  app.time.tick(86400000);
+  assert.equal(app.host.snapshot().index, 0);
+  assert.equal(app.time.timers.size, 0);
+  app.continue(); app.continue();
   assert.equal(app.host.snapshot().index, 1);
   assert.equal(shade.getAttribute('d'), finalPhase, 'new question must not restart the previous phase animation');
 });
 
-test('pausing, hidden pages and controls retain feedback and require a fresh visible two-second delay', async t => {
+test('pausing, hidden pages and controls retain feedback until an eligible Continue click', async t => {
   const app = await fixture(); t.after(() => app.host.destroy()); await app.host.ready;
   app.correct(); app.time.tick(500);
   app.host.setPaused(true);
+  app.continue();
   const stoppedShade = app.root.querySelector('.moon-shade').getAttribute('d');
   app.time.tick(10000);
   assert.equal(app.host.snapshot().index, 0);
   assert.equal(app.root.querySelector('.moon-shade').getAttribute('d'), stoppedShade);
   app.host.setPaused(false); app.time.tick(1999);
   assert.equal(app.host.snapshot().index, 0);
-  app.time.tick(1); assert.equal(app.host.snapshot().index, 1);
+  app.time.tick(86400000); assert.equal(app.host.snapshot().index, 0);
+  app.continue(); assert.equal(app.host.snapshot().index, 1);
   app.correct(); app.visible(true); app.time.tick(10000);
   assert.equal(app.host.snapshot().index, 1);
   app.visible(false); app.controlsOptions.onOpenChange(true); app.time.tick(10000);
+  app.continue();
   assert.equal(app.host.snapshot().index, 1);
   app.controlsOptions.onOpenChange(false); app.time.tick(2000);
+  assert.equal(app.host.snapshot().index, 1);
+  app.continue();
   assert.equal(app.host.snapshot().index, 2);
 });
 
-test('final reward completes its animation before the single campaign completion message', async t => {
+test('final review and its animation do not hand off campaign until Continue', async t => {
   const app = await fixture(); t.after(() => app.host.destroy()); await app.host.ready;
   app.host.setCampaign(true);
-  for (let index = 0; index < 5; index++) { app.correct(); app.time.tick(2000); }
+  for (let index = 0; index < 5; index++) { app.correct(); app.continue(); }
   app.correct();
   assert.equal(app.host.snapshot().phase, 'complete');
   assert.equal(app.messages.length, 0);
@@ -205,7 +214,9 @@ test('final reward completes its animation before the single campaign completion
   app.time.tick(1200);
   assert.equal(app.root.querySelector('.moon-shade').getAttribute('d'), '');
   assert.equal(app.messages.length, 0);
-  app.time.tick(800);
+  app.time.tick(86400000);
+  assert.equal(app.messages.length, 0);
+  app.continue(); app.continue();
   assert.deepEqual(app.messages, [[{ source: 'caatuu-game', type: 'round-complete', gameId: 'memory-moon' }, app.frame.window.location.origin]]);
   app.host.setActive(false); app.host.setActive(true); app.host.setCampaign(false);
   assert.equal(app.messages.length, 1);
@@ -217,20 +228,20 @@ test('final reward completes its animation before the single campaign completion
 
 test('entering a new campaign restarts a previously completed free-play moon', async t => {
   const app = await fixture(); t.after(() => app.host.destroy()); await app.host.ready;
-  for (let index = 0; index < 6; index++) { app.correct(); app.time.tick(2000); }
+  for (let index = 0; index < 6; index++) { app.correct(); app.continue(); }
   assert.equal(app.host.snapshot().phase, 'complete');
   assert.equal(app.messages.length, 1);
   app.host.setActive(false); app.host.setCampaign(true); app.host.setActive(true); await flush();
   assert.equal(app.host.snapshot().phase, 'question');
   assert.equal(app.host.snapshot().progress, 0);
-  for (let index = 0; index < 6; index++) { app.correct(); app.time.tick(2000); }
+  for (let index = 0; index < 6; index++) { app.correct(); app.continue(); }
   assert.equal(app.messages.length, 2);
 });
 
 test('leaving during the final animation and reentering campaign cancels the obsolete completion', async t => {
   const app = await fixture(); t.after(() => app.host.destroy()); await app.host.ready;
   app.host.setCampaign(true);
-  for (let index = 0; index < 5; index++) { app.correct(); app.time.tick(2000); }
+  for (let index = 0; index < 5; index++) { app.correct(); app.continue(); }
   app.correct(); app.time.tick(500);
   app.host.setCampaign(false); app.host.setActive(false);
   app.host.setCampaign(true); app.host.setActive(true); await flush();
@@ -265,7 +276,7 @@ test('each new question automatically reads its target once across ready, advanc
   app.choice(wrong).click(); app.host.setCampaign(true);
   app.host.setPaused(true); app.host.setPaused(false); await flush();
   assert.equal(app.speechCalls.length, 1, 'feedback, rendering and resumed activity cannot replay a prompt');
-  app.correct(); app.time.tick(2000); await flush();
+  app.correct(); app.continue(); await flush();
   assert.equal(app.speechCalls.length, 2);
   assert.equal(app.speechCalls[1].text, app.host.snapshot().currentItem.targetText);
   app.speechCalls[0].options.onStart();
@@ -290,7 +301,7 @@ test('mute and the persisted autoplay preference suppress automatic audio while 
     else app.shell.CaatuuChrome.setSpeechAutoplay(true);
     await flush();
     assert.equal(app.speechCalls.length, 1, 'enabling audio cannot replay the current question');
-    app.correct(); app.time.tick(2000); await flush();
+    app.correct(); app.continue(); await flush();
     assert.equal(app.speechCalls.length, 2);
     assert.equal(app.speechCalls[1].options.allowWhileMuted, false);
   });
@@ -321,7 +332,7 @@ test('a queued automatic request cannot reach the speech backend after its quest
   const app = await fixture(); t.after(() => app.host.destroy()); await app.host.ready; await flush();
   const waiting = deferred();
   app.shell.CaatuuChrome.stopSpeech = () => waiting.promise;
-  app.correct(); app.time.tick(2000);
+  app.correct(); app.continue();
   app.visible(true); waiting.resolve(); await flush();
   assert.equal(app.speechCalls.length, 1);
   app.visible(false); await flush();
@@ -338,7 +349,7 @@ test('Memory Moon exposes the shared Audio autoplay switch and uses its persiste
   toggle.click();
   assert.equal(app.shell.CaatuuChrome.getSpeechAutoplay(), false);
   assert.equal(toggle.getAttribute('aria-checked'), 'false');
-  app.correct(); app.time.tick(2000); await flush();
+  app.correct(); app.continue(); await flush();
   assert.equal(app.speechCalls.length, 1);
   app.shell.CaatuuChrome.setSpeechMuted(true);
   assert.equal(toggle.disabled, true);
@@ -370,9 +381,15 @@ test('word help stays hidden until selected and only a visible meaning marks dic
   assert.equal(slot.querySelector('.dictionary-word-card').classList.contains('is-loading'), false);
   assert.deepEqual(app.assists, ['dictionary']);
   app.correct();
-  assert.equal(slot.hidden, true, 'answer feedback clears the old help immediately');
+  assert.equal(slot.hidden, false, 'the current meaning remains available during answer review');
+  assert.equal(word.classList.contains('is-dictionary-selected'), true);
+  app.time.tick(10000);
+  assert.equal(app.host.snapshot().currentItem, item, 'review remains until Continue');
+  slot.querySelector('.moon-dictionary-close').click();
   assert.equal(word.classList.contains('is-dictionary-selected'), false);
   app.time.tick(2000); await flush();
+  assert.equal(app.host.snapshot().currentItem, item);
+  app.continue(); await flush();
   assert.notEqual(app.host.snapshot().currentItem, item);
   assert.equal(slot.hidden, true);
   assert.equal(slot.querySelector('.dictionary-word-card__meaning').textContent, '');
@@ -385,7 +402,6 @@ test('pending word meanings cannot mark assistance after their question loses el
     inactive: app => app.host.setActive(false),
     paused: app => app.host.setPaused(true),
     menu: app => app.controlsOptions.onOpenChange(true),
-    answered: app => app.correct(),
     reset: app => app.shell.dispatchEvent({ type: 'caatuu:learning-change', detail: { reason: 'progress-reset' } }),
     destroy: app => app.host.destroy()
   };
@@ -410,6 +426,137 @@ test('pending word meanings cannot mark assistance after their question loses el
       assert.equal(app.wordLookups.length, 1, 'returning does not revive the cancelled help');
     }
   });
+});
+
+test('a pending meaning can finish after grading without changing independent answer evidence', async t => {
+  const waiting = deferred();
+  const app = await fixture({ autoplay: false, speechAvailable: false, resolveWord: () => waiting.promise });
+  t.after(() => app.host.destroy()); await app.host.ready;
+  const word = app.root.querySelector('.moon-word-token');
+  word.click(); await flush();
+  app.correct();
+  const graded = app.host.snapshot();
+  assert.equal(graded.independentCorrectCount, 1);
+  assert.deepEqual(app.assists, []);
+  waiting.resolve({ meaning: 'review meaning' }); await flush();
+  const slot = app.root.querySelector('.moon-dictionary-slot');
+  assert.equal(slot.hidden, false);
+  assert.equal(slot.querySelector('.dictionary-word-card__meaning').textContent, 'review meaning');
+  assert.deepEqual(app.assists, [], 'help discovered after grading does not rewrite the earned result');
+  assert.equal(app.host.snapshot(), graded);
+  app.time.tick(10000);
+  assert.equal(app.host.snapshot().index, 0);
+  slot.querySelector('.moon-dictionary-close').click();
+  app.time.tick(1999); assert.equal(app.host.snapshot().index, 0);
+  app.time.tick(86400000); assert.equal(app.host.snapshot().index, 0);
+  app.continue(); assert.equal(app.host.snapshot().index, 1);
+});
+
+test('answered sentences can open dictionary help without speech or changing the earned result', async t => {
+  const app = await fixture({ autoplay: false, speechAvailable: false,
+    resolveWord: async () => ({ meaning: 'review meaning' }) });
+  t.after(() => app.host.destroy()); await app.host.ready;
+  app.correct();
+  const graded = app.host.snapshot();
+  const word = app.root.querySelector('.moon-word-token');
+  assert.equal(word.disabled, false);
+  word.click(); await flush(); app.time.tick(10000);
+  assert.equal(app.root.querySelector('.moon-dictionary-slot').hidden, false);
+  assert.equal(app.host.snapshot(), graded);
+  assert.deepEqual(app.assists, []);
+  assert.equal(app.speechCalls.length, 0);
+  assert.ok(app.root.querySelectorAll('.moon-choice').every(choice => choice.disabled));
+});
+
+test('audio completion and failure leave answer review pending until Continue', async t => {
+  for (const outcome of ['completed', 'error']) await t.test(outcome, async t => {
+    const app = await fixture({ autoplay: false });
+    t.after(() => app.host.destroy()); await app.host.ready;
+    app.correct();
+    const graded = app.host.snapshot(), speak = app.root.querySelector('.moon-speak');
+    assert.equal(speak.disabled, false);
+    speak.click(); await flush();
+    assert.equal(app.speechCalls.length, 1);
+    app.time.tick(10000);
+    assert.equal(app.host.snapshot(), graded, 'queued speech holds the current answer');
+    app.speechCalls[0].options.onStart();
+    app.time.tick(10000);
+    assert.equal(app.host.snapshot(), graded, 'playing speech holds the current answer');
+    assert.deepEqual(app.assists, []);
+    app.speechCalls[0].resolve({ outcome, message: 'offline' }); await flush();
+    assert.equal(speak.disabled, false);
+    app.time.tick(1999); assert.equal(app.host.snapshot(), graded);
+    app.time.tick(86400000); assert.equal(app.host.snapshot(), graded);
+    app.continue(); assert.equal(app.host.snapshot().index, 1);
+  });
+});
+
+test('the final sentence and choices remain reviewable until Continue', async t => {
+  const app = await fixture({ autoplay: false });
+  t.after(() => app.host.destroy()); await app.host.ready;
+  app.host.setCampaign(true);
+  for (let index = 0; index < 5; index++) { app.correct(); app.continue(); }
+  const item = app.host.snapshot().currentItem;
+  app.correct();
+  assert.equal(surfaceText(app.root.querySelector('.moon-sentence')), item.targetText);
+  assert.equal(app.root.querySelector('.moon-speak').hidden, false);
+  assert.equal(app.root.querySelector('.moon-speak').disabled, false);
+  assert.deepEqual(app.root.querySelectorAll('.moon-choice').map(choice => choice.textContent), item.choices.map(choice => choice.text));
+  assert.ok(app.root.querySelectorAll('.moon-choice').every(choice => choice.disabled));
+  assert.equal(app.choice(item.correctChoiceId).classList.contains('is-correct'), true);
+  assert.equal(app.messages.length, 0);
+  app.root.querySelector('.moon-speak').click(); await flush();
+  app.time.tick(10000); assert.equal(app.messages.length, 0);
+  app.speechCalls[0].options.onStart();
+  app.speechCalls[0].resolve({ outcome: 'completed' }); await flush();
+  assert.deepEqual(app.assists, []);
+  app.time.tick(1999); assert.equal(app.messages.length, 0);
+  app.time.tick(86400000); assert.equal(app.messages.length, 0);
+  app.continue(); app.continue(); assert.equal(app.messages.length, 1);
+  assert.equal(app.root.querySelector('.moon-speak').hidden, true);
+  assert.equal(app.root.querySelectorAll('.moon-choice').length, 0);
+});
+
+test('reset during final review fences obsolete audio, meanings and a retained Continue control', async t => {
+  const waiting = deferred();
+  const app = await fixture({ autoplay: false, resolveWord: () => waiting.promise });
+  t.after(() => app.host.destroy()); await app.host.ready;
+  app.host.setCampaign(true);
+  for (let index = 0; index < 5; index++) { app.correct(); app.continue(); }
+  app.correct();
+  const continueButton = app.root.querySelector('.moon-continue');
+  assert.equal(app.time.timers.size, 0);
+  app.root.querySelector('.moon-word-token').click(); await flush();
+  assert.equal(app.messages.length, 0);
+  app.shell.dispatchEvent({ type: 'caatuu:learning-change', detail: { reason: 'progress-reset' } });
+  await flush();
+  waiting.resolve({ meaning: 'obsolete review' });
+  app.speechCalls[0].options.onStart(); app.speechCalls[0].resolve({ outcome: 'completed' });
+  continueButton.click(); await flush(); app.time.tick(86400000);
+  assert.equal(app.host.snapshot().phase, 'question');
+  assert.equal(app.host.snapshot().progress, 0);
+  assert.equal(app.root.querySelector('.moon-dictionary-slot').hidden, true);
+  assert.equal(app.messages.length, 0);
+  assert.deepEqual(app.assists, []);
+});
+
+test('explicit Continue closes help and stops pending replay before moving once', async t => {
+  const waiting = deferred();
+  const app = await fixture({ autoplay: false, resolveWord: () => waiting.promise });
+  t.after(() => app.host.destroy()); await app.host.ready;
+  app.correct();
+  const button = app.root.querySelector('.moon-continue');
+  app.root.querySelector('.moon-word-token').click(); await flush();
+  assert.equal(button.disabled, false);
+  button.click(); button.click();
+  assert.equal(app.host.snapshot().index, 1);
+  assert.equal(app.root.querySelector('.moon-dictionary-slot').hidden, true);
+  assert.equal(app.wordLookups[0].signal.aborted, true);
+  waiting.resolve({ meaning: 'old meaning' });
+  app.speechCalls[0].options.onStart(); app.speechCalls[0].resolve({ outcome: 'completed' }); await flush();
+  assert.deepEqual(app.assists, []);
+  assert.equal(app.host.snapshot().index, 1);
+  assert.equal(button.hidden, true);
 });
 
 test('missing dictionary meanings preserve an independent answer without claiming help was shown', async t => {

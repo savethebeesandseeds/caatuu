@@ -6,6 +6,7 @@ import * as contentProgression from "../../../language-runtime/static/source/gam
 import * as adaptivePractice from "../../../language-runtime/static/source/games/adaptive-practice.mjs";
 import { createBrowserHarness } from "../../../language-runtime/tests/helpers/fake-browser.mjs";
 import { mountRobotLoadingScreen } from "../../../language-runtime/static/source/games/embedded-game-controls.mjs";
+import { createReviewContinuation } from "../../../language-runtime/static/source/games/practice-pacing.mjs";
 import { createArabicReadingGuide } from "../../../language-runtime/static/source/arabic-reading-guide.mjs";
 import { projectMandarinNucleusContexts } from "../../../../tools/language-content/project-mandarin-nucleus-contexts.mjs";
 
@@ -107,6 +108,7 @@ test("Arabic matches both directions, isolates RTL words, speaks Arabic, and rec
   assert.equal(fixture.element("FeedbackPinyin").dir, "ltr");
   assert.ok(!Object.hasOwn(fixture.element("FeedbackReading").dataset, "tone"));
   assert.ok(spoken.every(text => arabicCatalog.challenges.some(item => item.target === text)));
+  fixture.element("Continue").click();
   await fixture.advance(10000);
   assert.ok(events.some(event => event.bankId === "recognize-target-reading"));
   assert.ok(events.filter(event => event.bankId === "recognize-target-reading").every(event => event.evidence === "assisted"));
@@ -118,6 +120,7 @@ test("Arabic matches both directions, isolates RTL words, speaks Arabic, and rec
   assert.equal(fixture.element("FeedbackPinyin").textContent, "");
   fixture.element("Deck").querySelector("button[data-naturalization-piece-id]").click();
   solveBoard(fixture);
+  fixture.element("Continue").click();
   await fixture.advance(10000);
   assert.ok(events.some(event => event.bankId === "recognize-reading-target"));
   fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
@@ -145,10 +148,12 @@ test("Arabic Nucleus reading aid can be disabled in place and stays off across r
   assert.equal(fixture.window.localStorage.getItem("caatuu.ar.naturalization-nucleus.romanization"), "false");
   fixture.element("Deck").querySelector("button[data-naturalization-piece-id]").click();
   solveBoard(fixture);
+  fixture.element("Continue").click();
   await fixture.advance(10000);
   assert.equal(fixture.element("Ring").querySelector("rt"), null);
   assert.equal(setting.getAttribute("aria-checked"), "false");
   solveBoard(fixture);
+  fixture.element("Continue").click();
   await fixture.advance(10000);
   const assessments = events.filter(event => event.bankId);
   assert.ok(assessments.filter(event => event.bankId === "recognize-target-reading").every(event => event.evidence === "assisted"));
@@ -170,6 +175,7 @@ function createLoadingHarness({ fetchImpl = async () => ({ ok: true, json: async
   const observers = [];
   const fetchCalls = [];
   const harness = createBrowserHarness({ window: {
+    CaatuuPracticePacing: { createReviewContinuation },
     Math,
     performance: { now: () => now },
     setTimeout(callback, delay) {
@@ -255,6 +261,9 @@ test("Campaign Nucleus reports one completion and waits for the shell to prepare
   solveBoard(fixture);
   assert.equal(messages.length, 0, "the solved board remains visible before the completion signal");
   await fixture.advance(10000);
+  assert.equal(messages.length, 0, "time alone cannot complete the review");
+  fixture.element("Continue").click();
+  fixture.element("Continue").click();
   assert.equal(messages.length, 1);
   assert.equal(messages[0].message.gameId, "naturalization-nucleus");
   assert.equal(messages[0].message.type, "round-success");
@@ -265,6 +274,7 @@ test("Campaign Nucleus reports one completion and waits for the shell to prepare
   assert.equal(fixture.api.advanceCampaignRound(), false, "duplicate advances do not replace a fresh round");
   await fixture.advance(1600);
   solveBoard(fixture);
+  fixture.element("Continue").click();
   await fixture.advance(10000);
   assert.equal(messages.length, 2, "the next visit also completes");
   fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
@@ -278,12 +288,13 @@ test("leaving Campaign resumes standalone Nucleus instead of stranding a complet
     await fixture.api.mount();
     await fixture.advance(1600);
     solveBoard(fixture);
-    if (leaveAfterSignal) await fixture.advance(10000);
+    if (leaveAfterSignal) fixture.element("Continue").click();
     fixture.panel.hidden = true;
     fixture.syncPanelVisibility();
     delete fixture.document.body.dataset.campaignActive;
     fixture.panel.hidden = false;
     fixture.syncPanelVisibility();
+    if (!leaveAfterSignal) fixture.element("Continue").click();
     await fixture.advance(1600);
     assert.ok(fixture.element("Deck").querySelectorAll("button[data-naturalization-piece-id]").length > 0);
     fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
@@ -320,6 +331,7 @@ test("Nucleus records each practiced character only after the board is completed
   assert.ok(exposures.every(event=>event.bankId==="recognize-hanzi-pinyin"));
   assert.equal(common.length,count);
   assert.ok(common.every(event=>event.evidence==="exposure" && event.correct===null));
+  fixture.element("Continue").click();
   await fixture.advance(10000);
   assert.ok(banks.includes("recognize-pinyin-hanzi"),"the reversed board reads its own recognition evidence");
   for(let index=0;index<count;index+=1){
@@ -504,87 +516,172 @@ test("retiring Nucleus before its shared module resolves hides the static robot 
   assert.ok(fixture.observers.every((observer) => observer.disconnected));
 });
 
-test("Nucleus uses the shared loader during content loading and retains its existing round interval", async () => {
+test("Nucleus loads only until its catalog and artwork are actually ready", async () => {
   let resolveContent;
-  const content = new Promise((resolve) => { resolveContent = resolve; });
+  const content = new Promise(resolve => { resolveContent = resolve; });
   const fixture = createLoadingHarness({ fetchImpl: () => content });
   const mounting = fixture.api.mount();
   await settle();
   assert.equal(fixture.element("Interstitial").hidden, false);
-  assert.equal(fixture.element("Interstitial").classList.contains("caatuu-game-robot-loading"), true);
-  assert.equal(fixture.element("InterstitialRobot").classList.contains("caatuu-game-robot-loading-art"), true);
-  assert.equal(fixture.element("Status").textContent, "");
-  assert.equal(fixture.timers.size, 0, "the catalog request gets no artificial timer");
+  assert.equal(fixture.timers.size, 0);
   resolveContent({ ok: true, json: async () => catalog });
   await mounting;
-  assert.equal(fixture.timers.size, 1);
-  await fixture.advance(1599);
-  assert.equal(fixture.element("Interstitial").hidden, false);
-  await fixture.advance(1);
+  assert.equal(fixture.timers.size, 0, "ready artwork adds no artificial loading interval");
   assert.equal(fixture.element("Interstitial").hidden, true);
-  assert.equal(fixture.element("Game").getAttribute("aria-hidden"), "false");
   assert.equal(fixture.element("Deck").children.length, 5);
-  assert.deepEqual(fixture.fetchCalls, ["data/games/naturalization-nucleus/content.json"]);
   fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
 });
 
 for (const reason of ["document", "panel", "page cache"]) {
-  test(`a hidden ${reason} pauses the Nucleus robot and round timer without moving focus`, async () => {
+  test(`Nucleus does not reveal decoded artwork or move focus while ${reason} is hidden`, async () => {
     const fixture = createLoadingHarness();
+    fixture.element("Artwork").complete = false;
     await fixture.api.mount();
-    await fixture.advance(600);
-    const timer = [...fixture.timers.values()][0];
     const originalFocus = fixture.document.activeElement;
     if (reason === "document") {
       fixture.document.visibilityState = "hidden";
       fixture.document.dispatchEvent({ type: "visibilitychange" });
     } else if (reason === "panel") {
-      fixture.panel.hidden = true;
-      fixture.syncPanelVisibility();
+      fixture.panel.hidden = true; fixture.syncPanelVisibility();
     } else fixture.window.dispatchEvent({ type: "pagehide", persisted: true });
-    assert.equal(fixture.element("Interstitial").dataset.active, "false");
-    timer.callback();
-    await fixture.advance(5000);
-    assert.equal(fixture.element("Deck").children.length, 0);
+    fixture.element("Artwork").dispatchEvent({ type: "load" });
+    await fixture.advance(10000);
+    assert.equal(fixture.element("Interstitial").hidden, false);
     assert.equal(fixture.document.activeElement, originalFocus);
     if (reason === "document") {
       fixture.document.visibilityState = "visible";
       fixture.document.dispatchEvent({ type: "visibilitychange" });
     } else if (reason === "panel") {
-      fixture.panel.hidden = false;
-      fixture.syncPanelVisibility();
+      fixture.panel.hidden = false; fixture.syncPanelVisibility();
     } else fixture.window.dispatchEvent({ type: "pageshow", persisted: true });
-    assert.equal(fixture.element("Interstitial").dataset.active, "true");
-    await fixture.advance(999);
-    assert.equal(fixture.element("Interstitial").hidden, false);
-    await fixture.advance(1);
+    await fixture.advance(0);
     assert.equal(fixture.element("Interstitial").hidden, true);
-    assert.equal(fixture.element("Deck").children.length, 5);
     fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
   });
 }
 
-test("subsequent Nucleus rounds reuse the shared robot and destruction cancels their callbacks", async () => {
+for (const [toggle, menu] of [["DisplayToggle", "DisplayMenu"], ["Sound", "AudioMenu"], ["OptionsToggle", "OptionsMenu"]]) {
+  test(`Nucleus completed-board Continue waits while ${menu} is open`, async () => {
+    const fixture = createLoadingHarness();
+    await fixture.api.mount();
+    solveBoard(fixture);
+    const button = fixture.element("Continue");
+    fixture.element(toggle).click();
+    assert.equal(button.disabled, true);
+    button.click();
+    await fixture.advance(60000);
+    assert.equal(fixture.element("Deck").querySelectorAll("button[data-naturalization-piece-id]").length, 0);
+    fixture.element(menu).dispatchEvent({ type: "keydown", key: "Escape" });
+    assert.equal(button.disabled, false);
+    await fixture.advance(60000);
+    assert.equal(button.hidden, false, "closing a menu never releases review by itself");
+    button.click(); button.click();
+    assert.equal(fixture.element("Deck").querySelectorAll("button[data-naturalization-piece-id]").length, 5);
+    assert.equal(button.hidden, true);
+    fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
+  });
+}
+
+test("Nucleus review survives pronunciation and contextual replay until Continue, without repeating rewards", async () => {
   const fixture = createLoadingHarness();
+  const speech = [], rewards = [];
+  fixture.window.CaatuuChrome = { speakText: text => new Promise(resolve => { speech.push({ text, resolve }); }), stopSpeech() {} };
+  fixture.window.CaatuuLearning = { record: (...args) => rewards.push(args) };
   await fixture.api.mount();
-  await fixture.advance(1600);
-  fixture.document.querySelector('[data-naturalization-piece-count="9"]').click();
-  assert.equal(fixture.element("Interstitial").hidden, false);
-  assert.equal(fixture.element("InterstitialRobot").getAttribute("src"), "/assets/robots/robot%20(1).png");
-  await fixture.advance(1600);
-  assert.equal(fixture.element("Deck").children.length, 9);
-  fixture.document.querySelector('[data-naturalization-piece-count="5"]').click();
-  const timer = [...fixture.timers.values()][0];
+  solveBoard(fixture);
+  const button = fixture.element("Continue");
+  await fixture.advance(60000);
+  speech.forEach(request => request.resolve()); await settle();
+  fixture.element("Feedback").querySelector(".naturalization-nucleus-context-play").click();
+  await fixture.advance(60000);
+  assert.equal(button.hidden, false);
+  assert.equal(button.disabled, false, "Continue can deliberately stop playback");
+  button.click(); button.click();
+  assert.equal(fixture.element("Deck").querySelectorAll("button[data-naturalization-piece-id]").length, 5);
+  speech.at(-1).resolve(); await fixture.advance(60000);
+  assert.equal(button.hidden, true, "obsolete speech cannot reopen a consumed review");
+  assert.equal(rewards.length, 1);
   fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
-  timer.callback();
-  await fixture.advance(5000);
-  assert.equal(fixture.element("Interstitial").hidden, true);
-  assert.equal(fixture.element("Deck").children.length, 9);
-  assert.equal(fixture.timers.size, 0);
-  assert.ok(fixture.observers.every((observer) => observer.disconnected));
-  assert.equal(fixture.fetchCalls.length, 1);
 });
 
+for (const speechFailure of [() => { throw new Error("voice unavailable"); }, () => Promise.reject(new Error("voice failed"))]) {
+  test("Nucleus speech failure leaves review waiting for its Continue button", async () => {
+    const fixture = createLoadingHarness();
+    fixture.window.CaatuuChrome = { speakText: speechFailure };
+    await fixture.api.mount(); solveBoard(fixture);
+    await fixture.advance(60000);
+    assert.equal(fixture.element("Continue").hidden, false);
+    fixture.element("Continue").click();
+    assert.equal(fixture.element("Deck").querySelectorAll("button[data-naturalization-piece-id]").length, 5);
+    fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
+  });
+}
+
+test("reward pauses disable Nucleus Continue and never emit Campaign completion automatically", async () => {
+  const fixture = createLoadingHarness();
+  const messages = [];
+  fixture.document.body.dataset.campaignActive = "true";
+  fixture.window.postMessage = message => messages.push(message);
+  const setPaused = value => {
+    fixture.document.body.toggleAttribute("data-caatuu-practice-paused", value);
+    fixture.window.dispatchEvent({ type: "caatuu:game-dynamics-change" });
+  };
+  await fixture.api.mount();
+  fixture.window.CaatuuLearning = { record() { setPaused(true); } };
+  solveBoard(fixture);
+  fixture.element("Continue").click(); await fixture.advance(60000);
+  assert.equal(messages.length, 0);
+  setPaused(false); await fixture.advance(60000);
+  assert.equal(messages.length, 0);
+  fixture.element("Continue").click(); fixture.element("Continue").click();
+  assert.equal(messages.length, 1);
+  fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
+});
+
+test("Nucleus cancels obsolete review on a settings reset and on final disposal", async () => {
+  const fixture = createLoadingHarness();
+  await fixture.api.mount(); solveBoard(fixture);
+  const button = fixture.element("Continue");
+  fixture.document.querySelector('[data-naturalization-piece-count="9"]').click();
+  assert.equal(button.hidden, true);
+  button.click();
+  assert.equal(fixture.element("Deck").querySelectorAll("button[data-naturalization-piece-id]").length, 9);
+  solveBoard(fixture);
+  fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
+  button.click(); await fixture.advance(60000);
+  assert.equal(button.hidden, true);
+  assert.equal(fixture.timers.size, 0);
+});
+
+test("Nucleus wrong placement remains visible until the learner makes another selection", async () => {
+  const fixture = createLoadingHarness();
+  await fixture.api.mount();
+  const tile = fixture.element("Deck").querySelector("button[data-naturalization-piece-id]");
+  const id = tile.dataset.naturalizationPieceId.split("--")[0];
+  tile.click();
+  fixture.element("Ring").querySelectorAll("[data-naturalization-challenge-id]")
+    .find(socket => socket.dataset.naturalizationChallengeId !== id).click();
+  const feedback = fixture.element("Status").textContent;
+  await fixture.advance(60000);
+  assert.equal(fixture.element("Status").textContent, feedback);
+  fixture.element("Deck").querySelector("button[data-naturalization-piece-id]").click();
+  assert.notEqual(fixture.element("Status").textContent, feedback);
+  fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
+});
+
+test("subsequent Nucleus rounds load only unresolved artwork and destruction cancels its callbacks", async () => {
+  const fixture = createLoadingHarness();
+  await fixture.api.mount();
+  fixture.element("Artwork").complete = false;
+  fixture.document.querySelector('[data-naturalization-piece-count="9"]').click();
+  assert.equal(fixture.element("Interstitial").hidden, false);
+  const timer = [...fixture.timers.values()][0];
+  fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
+  timer.callback(); await fixture.advance(10000);
+  assert.equal(fixture.element("Interstitial").hidden, true);
+  assert.equal(fixture.timers.size, 0);
+  assert.ok(fixture.observers.every(observer => observer.disconnected));
+});
 test("retiring Nucleus during catalog loading discards the late result", async () => {
   let resolveContent;
   const content = new Promise((resolve) => { resolveContent = resolve; });
@@ -743,7 +840,7 @@ test("Nucleus consumes a drop's trailing click without selecting the next socket
   fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
 });
 
-test("Nucleus owns one wrong placement until its feedback completes and then permits retry", async () => {
+test("Nucleus owns one wrong placement until a deliberate new selection permits retry", async () => {
   const fixture = createLoadingHarness();
   const exposures = [];
   let reenter;
@@ -765,6 +862,10 @@ test("Nucleus owns one wrong placement until its feedback completes and then per
   wrongSocket().click();
   assert.equal(exposures.filter(({ correct }) => correct === false).length, 1);
   await fixture.advance(900);
+  wrongSocket().click();
+  assert.equal(exposures.filter(({ correct }) => correct === false).length, 1, "time never releases a repeated wrong placement");
+  fixture.element("Deck").querySelector("button[data-naturalization-piece-id]").click();
+  fixture.element("Deck").querySelector("button[data-naturalization-piece-id]").click();
   wrongSocket().click();
   assert.equal(exposures.filter(({ correct }) => correct === false).length, 2);
   fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
@@ -856,7 +957,7 @@ test("target-first selection waits without error and submits the same pair as ti
     const target = { dataset: { naturalizationSocketIndex: "2" } };
     const context = vm.createContext({
       state, transitioning: false, errorTimer: 0,
-      global: { clearTimeout() {} },
+      global: { clearTimeout() {} }, cancelRoundTask() {},
       ring: { querySelector() { return { focus() {} }; } },
       listen(_target, _event, handler) { ringClick = handler; },
       eventSocketTarget() { return target; },
@@ -920,13 +1021,13 @@ test("the static audio menu mounts the shared voice and music controls", () => {
   assert.equal(menu.getAttribute("role"), "dialog");
 });
 
-test("matched tiles stay flat in both themes and completed rounds advance without a skip button", () => {
+test("matched tiles stay flat in both themes and completed rounds provide explicit Continue", () => {
   for (const block of stylesheet.matchAll(/(?:html\[data-theme="dark"\] )?\.naturalization-nucleus-fused-word\s*\{([^}]+)\}/gu)) {
     assert.doesNotMatch(block[1], /gradient|background-image/u);
   }
   assert.doesNotMatch(appEntry, /naturalizationNucleusNewRound/u);
   assert.doesNotMatch(controller, /naturalizationNucleusNewRound|listen\(newRound/u);
-  assert.match(controller, /prepareRound\(state\.pieceCount, \{ holdMillis: SOLVED_HOLD_MILLIS \}\)/u);
+  assert.match(controller, /createReviewContinuation/u);
 });
 
 test("word details follow the playable tiles so feedback cannot push the deck down", () => {

@@ -1,5 +1,5 @@
 import { readEmbeddedCourseProfile } from '../course-game-content.mjs';
-import { mountMemoryMoon } from './memory-moon-host.mjs';
+import { mountMemoryMoon } from './memory-moon-host.mjs?v=memory-moon-host-3';
 
 /** Keep shell authority and visibility messages confined to the same-origin parent. */
 export async function startMemoryMoon(scope = window, { mount = mountMemoryMoon } = {}) {

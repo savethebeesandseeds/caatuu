@@ -6,7 +6,7 @@ import {
   shuffledGrammarValues,
   validateGrammarFlight,
   validateGrammarStages
-} from "./adjective-flight-core.mjs?v=grammar-journey-3";
+} from "./adjective-flight-core.mjs?v=grammar-journey-4";
 
 export const GRAMMAR_GRAVITY_SCHEMA_VERSION = "caatuu-grammar-gravity-content-v3";
 

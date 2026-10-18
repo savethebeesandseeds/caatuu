@@ -12,14 +12,14 @@
     <script src="/language-runtime/static/source/learning-profile.js?v=learning-18"></script>
     <script src="/language-runtime/static/source/initial-theme.js?v=theme-3"></script>
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-theme.css?v=theme-8">
-    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-workspace.css?v=shell-102">
+    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-workspace.css?v=shell-103">
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-home.css?v=home-68">
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-146">
     <link rel="stylesheet" href="/language-runtime/static/styles/music-controls.css?v=music-controls-2">
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-developer-tools.css?v=developer-tools-2">
     <link rel="stylesheet" href="/language-runtime/static/styles/dictionary-word-card.css?v=dictionary-card-3">
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-target-text.css?v=target-text-4">
-    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-word-world.css?v=word-net-100">
+    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-word-world.css?v=word-net-102">
     <link rel="stylesheet" href="/language-runtime/static/styles/games/embedded-game-controls.css?v=embedded-game-controls-10">
     <link rel="stylesheet" href="/language-runtime/static/styles/game-dynamics.css?v=game-dynamics-8">
     <link rel="stylesheet" href="/language-runtime/static/styles/campaign-roadmap.css?v=campaign-roadmap-7">
@@ -484,6 +484,7 @@
                     Match each target-language verb with its source-language meaning.
                   </p>
                 </div>
+                <button type="button" id="verbContinue" class="verb-review-continue" hidden>Continue</button>
                 <div class="verb-match-status" aria-label="Round status" data-i18n-aria-label="verbnebula.round.status">
                   <span><b id="verbRoundProgress">0 / 4</b> <span data-i18n="verbnebula.status.matched">matched</span></span>
                   <span><b id="verbQueueRemaining">0</b> <span data-i18n="verbnebula.status.waiting">waiting</span></span>
@@ -695,10 +696,6 @@
                           </button>
                         </div>
                         <p class="word-net-translation" id="wordNetTranslation" aria-live="polite"></p>
-                        <section class="word-net-learning" id="wordNetLearning" hidden>
-                          <strong id="wordNetLearningTitle"></strong>
-                          <details id="wordNetLearningNote"><summary data-i18n="wordworld.learning.note">Pattern note</summary><p id="wordNetLearningExplanation"></p></details>
-                        </section>
                         <section class="word-net-reconstruction" id="wordNetReconstruction" aria-label="Rebuild the sentence" data-i18n-aria-label="wordworld.reconstruction.label" hidden>
                           <div class="word-net-reconstruction-play" id="wordNetReconstructionPlay">
                             <div class="word-net-reconstruction-composer">
@@ -738,6 +735,15 @@
                         </section>
                       </div>
                       <div class="word-net-feedback">
+                        <section class="word-net-learning" id="wordNetLearning" hidden>
+                          <details id="wordNetLearningNote">
+                            <summary data-i18n="wordworld.learning.note">Tips &amp; notes</summary>
+                            <div class="word-net-learning-content">
+                              <strong id="wordNetLearningTitle"></strong>
+                              <p id="wordNetLearningExplanation"></p>
+                            </div>
+                          </details>
+                        </section>
                         <button class="word-net-report-toggle" id="wordNetReportToggle" type="button" data-i18n="wordworld.report.open" hidden>Report this sentence</button>
                         <dialog class="word-net-feedback-dialog" id="wordNetFeedbackDialog" aria-label="Report this sentence" data-i18n-aria-label="wordworld.report.open">
                           <form class="word-net-feedback-form" id="wordNetFeedbackForm">
@@ -1180,6 +1186,6 @@
     <section class="print-book" id="printBook" aria-label="Generated pocket book" aria-hidden="true" data-i18n-aria-label="print.book.label"></section>
 
     <script src="/language-runtime/static/source/shell-policy.js?v=shell-policy-18"></script>
-    <script type="module" src="/language-runtime/static/source/app-bootstrap.mjs?v=app-132"></script>
+    <script type="module" src="/language-runtime/static/source/app-bootstrap.mjs?v=app-135"></script>
   </body>
 </html>

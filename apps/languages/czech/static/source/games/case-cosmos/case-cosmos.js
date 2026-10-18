@@ -40,7 +40,7 @@ const state = {
   speaking: false,
   pendingAutoplay: false,
   speechRequest: 0,
-  transition: null,
+  continuation: null,
   epoch: 0,
   menuOpen: false,
   error: ""
@@ -57,36 +57,15 @@ function engaged() {
   return state.active && !state.pageHidden && !state.destroyed && !document.hidden;
 }
 
-const now = () => window.performance?.now?.() ?? Date.now();
-const reducedMotion = () => window.matchMedia?.("(prefers-reduced-motion: reduce)").matches === true;
-
 function cancelTransition() {
   state.epoch += 1;
-  if (state.transition) window.clearTimeout(state.transition.timer);
-  state.transition = null;
+  state.continuation?.clear();
 }
 
 function syncTransition() {
   const active = engaged() && !state.menuOpen;
   $("#caseCosmosBoard").dataset.active = String(active);
-  const step = state.transition;
-  if (!step) return;
-  if (step.started !== null) step.remaining = Math.max(0, step.remaining - (now() - step.started));
-  window.clearTimeout(step.timer);
-  step.timer = null;
-  step.started = active ? now() : null;
-  if (!active) return;
-  step.timer = window.setTimeout(() => {
-    if (state.transition !== step || !engaged() || state.menuOpen) return;
-    state.transition = null;
-    step.callback();
-  }, step.remaining);
-}
-
-function scheduleStep(milliseconds, callback) {
-  if (state.transition) window.clearTimeout(state.transition.timer);
-  state.transition = { remaining: milliseconds, callback, timer: null, started: null };
-  syncTransition();
+  state.continuation?.sync();
 }
 
 function syncActivity() {
@@ -122,7 +101,7 @@ function syncSpeech() {
   const button = $("#caseCosmosSpeak");
   const supported = state.shell?.CaatuuCourse?.capabilities?.speech === true;
   button.hidden = !supported;
-  button.disabled = !supported || !engaged() || state.menuOpen || !["question", "solved"].includes(state.phase)
+  button.disabled = !supported || !engaged() || state.menuOpen || !["question", "solved", "mistake", "rejecting"].includes(state.phase)
     || Boolean(state.shell?.CaatuuChrome?.getSpeechMuted?.());
   button.replaceChildren(createSpeechIcon(document, { stop: state.speaking }));
   const label = state.shell?.CaatuuI18n?.t(`games.grammargravity.nouns.${state.speaking ? "stopsound" : "hear"}`,
@@ -132,7 +111,7 @@ function syncSpeech() {
 }
 
 function speechText() {
-  return currentQuestion()?.czech || "";
+  return (state.phase === "mistake" ? currentChallenge()?.czech : currentQuestion()?.czech) || "";
 }
 
 function stopSentence() {
@@ -145,11 +124,12 @@ function stopSentence() {
     catch { /* Speech availability never blocks the exercise. */ }
   }
   syncSpeech();
+  syncTransition();
 }
 
 async function speakSentence() {
   const api = state.shell?.CaatuuChrome;
-  if (!engaged() || state.menuOpen || !["question", "solved"].includes(state.phase)
+  if (!engaged() || state.menuOpen || !["question", "solved", "mistake", "rejecting"].includes(state.phase)
       || state.shell?.CaatuuCourse?.capabilities?.speech !== true
       || api?.getSpeechMuted?.() || !currentQuestion()?.czech) return;
   state.pendingAutoplay = false;
@@ -158,6 +138,7 @@ async function speakSentence() {
   const text = speechText();
   state.speaking = true;
   syncSpeech();
+  syncTransition();
   try {
     await api.stopSpeech();
     if (request !== state.speechRequest || !engaged() || api.getSpeechMuted()) return;
@@ -167,6 +148,7 @@ async function speakSentence() {
     if (request === state.speechRequest && !state.destroyed) {
       state.speaking = false;
       syncSpeech();
+      syncTransition();
     }
   }
 }
@@ -198,6 +180,21 @@ function mountControls() {
   }
   assertEnglishCzechCourse(shell.CaatuuCourse);
   state.shell = shell;
+  state.continuation = shell.CaatuuPracticePacing.createReviewContinuation({
+    button: $("#caseCosmosNext"), i18n: shell.CaatuuI18n,
+    canContinue: () => engaged() && !state.menuOpen,
+    onContinue() {
+      if (state.phase === "rejecting") {
+        stopSentence();
+        state.candidateIndex += 1;
+        if (!currentQuestion()) { showError(new Error("The noun alternatives ended without a solution.")); return; }
+        reopenQuestion();
+      } else {
+        if (state.phase === "solved") announceRoundSuccess();
+        void nextRound();
+      }
+    }
+  });
   state.loadingScreen = mountRobotLoadingScreen({
     container: $("#caseCosmosLoading"), label: shell.CaatuuI18n.t("verbnebula.round.preparing"), active: engaged()
   });
@@ -335,12 +332,13 @@ function renderRound() {
   }
   $("#caseCosmosFeedback").hidden = !reviewed;
   $("#caseCosmosFeedbackTitle").textContent = !reviewed ? "" : mistake ? "× Not quite" : solved ? "✓ Sentence solved!" : "✓ Good catch!";
-  $("#caseCosmosActualCase").textContent = !reviewed ? "" : mistake ? challenge.czech : solved ? `${challenge.case} · ${challenge.form}` : "Trying the next noun form…";
+  $("#caseCosmosActualCase").textContent = !reviewed ? "" : mistake ? challenge.czech : solved ? `${challenge.case} · ${challenge.form}` : `“${question.form}” does not fit here.`;
   $("#caseCosmosExplanation").textContent = !reviewed ? "" : solved
     ? `${challenge.form} fits here: ${challenge.meaning}.`
     : mistake ? `${question.matches ? "The sentence was already correct." : `The shown form “${question.form}” does not fit here.`} ${challenge.case}: ${challenge.form}. ${challenge.meaning}.`
-      : "The sentence stays — only the highlighted noun changes.";
-  $("#caseCosmosNext").hidden = !mistake;
+      : "Continue to try the next noun form in this sentence.";
+  if (reviewed && !state.continuation?.pending) state.continuation?.show();
+  else if (!reviewed) state.continuation?.clear();
   syncSpeech();
   syncTransition();
   maybeAutoplay();
@@ -379,18 +377,7 @@ function chooseAnswer(answer) {
   render();
   $("#caseCosmosExample").focus();
   record({ activities: 1, attempts: 1, successes: correct ? 1 : 0, rounds: !correct || answer ? 1 : 0, xp: correct && answer ? 1 : 0 });
-  if (!correct) { $("#caseCosmosNext").focus(); return; }
-  if (!answer) scheduleStep(reducedMotion() ? 450 : 650, () => {
-    state.candidateIndex += 1;
-    if (!currentQuestion()) { showError(new Error("The noun alternatives ended without a solution.")); return; }
-    state.phase = "entering";
-    render();
-    scheduleStep(reducedMotion() ? 0 : 300, reopenQuestion);
-  });
-  else scheduleStep(1800, () => {
-    announceRoundSuccess();
-    void nextRound();
-  });
+  $("#caseCosmosNext").focus();
 }
 
 function reopenQuestion() {
@@ -402,16 +389,11 @@ function reopenQuestion() {
 }
 
 async function nextRound() {
-  if (!engaged() || state.menuOpen || !["solved", "mistake"].includes(state.phase)) return;
+  if (!engaged() || state.menuOpen || state.continuation?.pending || !["solved", "mistake"].includes(state.phase)) return;
   cancelTransition();
-  const epoch = state.epoch;
   resetSwipe();
   stopSentence();
-  state.phase = "loading";
-  render();
   selectBoatArtwork();
-  await state.loadingScreen.minimumVisible(850);
-  if (state.destroyed || epoch !== state.epoch) return;
   state.questionIndex += 1;
   if (state.questionIndex === state.questions.length) {
     state.index += 1;
@@ -445,7 +427,6 @@ function bindUi() {
   if (boat.complete === true && boat.naturalWidth === 0) artworkFailed();
   listen($("#caseCosmosYes"), "click", () => chooseAnswer(true));
   listen($("#caseCosmosNo"), "click", () => chooseAnswer(false));
-  listen($("#caseCosmosNext"), "click", () => { void nextRound(); });
   listen($("#caseCosmosSpeak"), "click", () => { void speakSentence(); });
   listen($("#caseCosmosPanel"), "keydown", (event) => {
     if (event.defaultPrevented || event.isComposing || event.keyCode === 229
@@ -483,6 +464,7 @@ function bindUi() {
     if (!event.persisted) {
       cancelTransition();
       state.destroyed = true;
+      state.continuation?.destroy();
       state.controls?.destroy();
       state.loadingScreen?.destroy();
       listeners.forEach((dispose) => dispose());

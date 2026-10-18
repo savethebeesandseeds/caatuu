@@ -3,13 +3,13 @@ import {
   scopeGrammarGravityMeaningChoices,
   validateGrammarGravityCategories,
   normalizeGrammarGravityPack
-} from "./grammar-gravity-core.mjs?v=grammar-gravity-core-7";
+} from "./grammar-gravity-core.mjs?v=grammar-gravity-core-8";
 import {
   fetchDeclaredCourseGameJson,
   readEmbeddedCourseProfile
 } from "../course-game-content.mjs?v=course-game-content-1";
-import { mountNounLanding } from "./noun-landing-host.mjs?v=noun-landing-host-26";
-import { mountGrammarFlight } from "./adjective-flight-host.mjs?v=adjective-flight-host-21";
+import { mountNounLanding } from "./noun-landing-host.mjs?v=noun-landing-host-28";
+import { mountGrammarFlight } from "./adjective-flight-host.mjs?v=adjective-flight-host-23";
 import { mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-10";
 import { selectContentItems, newContentEncounterId } from "../adaptive-practice.mjs";
 import { createArabicReadingGuide } from "../../arabic-reading-guide.mjs?v=arabic-reading-guide-2";
@@ -17,7 +17,6 @@ import { createArabicReadingGuide } from "../../arabic-reading-guide.mjs?v=arabi
 const GAME_ID = "grammar-gravity";
 const RESOURCE_NAME = "grammarGravityCatalog";
 const NOUN_SEGMENT_SIZE = 6;
-const MODE_TRANSITION_MS = 900;
 const $ = (selector) => document.querySelector(selector);
 const FOCUS_SELECTORS = Object.freeze({ nouns: "#gravityNounArena", forms: "#gravityAdjectiveArena" });
 
@@ -26,8 +25,6 @@ const state = {
   practiceMode: "sequence",
   meaningOptionCount: 3,
   practiceOptions: [],
-  pendingMode: "",
-  restoreModeFocus: false,
   nounGame: null,
   adjectiveGame: null,
   course: null,
@@ -38,11 +35,8 @@ const state = {
   index: 0,
   phase: "loading",
   active: true,
-  timer: 0,
-  transitionKind: "",
-  transitionRemaining: 0,
-  lastTick: null,
   controls: null,
+  controlsOpen: false,
   durationMs: 10000,
   iconsVisible: true,
   destroyed: false,
@@ -65,54 +59,14 @@ function playingFocus() {
     || $("#grammarGravityPhraseMode").contains(focused);
 }
 
-function cancelTransitionFrame() {
-  if (state.timer) globalThis.cancelAnimationFrame(state.timer);
-  state.timer = 0;
-  state.lastTick = null;
-}
-
 function syncLoadingScreens() {
-  const active = !state.destroyed && state.active && !document.hidden && !state.pageHidden;
+  const active = !state.destroyed && state.active && !document.hidden && !state.pageHidden && !state.controlsOpen;
   state.modeLoadingScreen?.setActive(active);
   state.phraseLoadingScreen?.setActive(active && state.mode === "phrases");
 }
 
 function syncTransition() {
   syncLoadingScreens();
-  if (state.destroyed || !state.active || document.hidden || !["phrases", "transition"].includes(state.mode) || !state.transitionKind) {
-    cancelTransitionFrame();
-    return;
-  }
-  if (!state.timer) state.timer = globalThis.requestAnimationFrame(tickTransition);
-}
-
-function tickTransition(timestamp) {
-  state.timer = 0;
-  if (state.destroyed || !state.active || document.hidden || !["phrases", "transition"].includes(state.mode)) {
-    state.lastTick = null;
-    return;
-  }
-  const elapsed = state.lastTick === null ? 0 : Math.max(0, timestamp - state.lastTick);
-  state.lastTick = timestamp;
-  if (Number.isFinite(elapsed) && elapsed <= 1000) state.transitionRemaining -= elapsed;
-  if (state.transitionRemaining <= 0) {
-    const kind = state.transitionKind;
-    state.transitionKind = "";
-    cancelTransitionFrame();
-    if (kind === "mode") {
-      const mode = state.pendingMode;
-      state.pendingMode = "";
-      enterMode(mode, state.restoreModeFocus && playingFocus());
-    }
-
-  } else syncTransition();
-}
-
-function startTransition(kind, duration) {
-  cancelTransitionFrame();
-  state.transitionKind = kind;
-  state.transitionRemaining = duration;
-  syncTransition();
 }
 
 function currentRound() {
@@ -171,9 +125,6 @@ function initialDisplay() {
 }
 
 function resetRound() {
-  cancelTransitionFrame();
-  state.transitionKind = "";
-  state.transitionRemaining = 0;
   state.phase = "playing";
 }
 
@@ -223,14 +174,7 @@ function enterMode(mode, restoreFocus = false) {
 }
 
 function changeStage(mode, restoreFocus = playingFocus()) {
-  if (state.mode === mode || !state.nounGame?.ready()) {
-    enterMode(mode, restoreFocus);
-    return;
-  }
-  state.pendingMode = mode;
-  state.restoreModeFocus = restoreFocus;
-  selectMode("transition");
-  startTransition("mode", MODE_TRANSITION_MS);
+  enterMode(mode, restoreFocus);
 }
 
 function choosePracticeMode(value) {
@@ -257,7 +201,7 @@ function render() {
 }
 
 function nextRound() {
-  if (state.mode !== "phrases" || state.phase !== "complete" || !state.active || document.hidden) return;
+  if (state.mode !== "phrases" || state.phase !== "complete" || !state.active || document.hidden || state.pageHidden || state.controlsOpen) return;
   const restoreFocus = playingFocus();
   if (state.index === state.rounds.length - 1) {
     const previous = currentRound().flights[0].anchorEnglishAuditText;
@@ -325,9 +269,8 @@ function bindShellMessages() {
 function bindUi() {
   listen(state.shell, "caatuu:learning-change", (event) => {
     if (event.detail?.reason !== "difficulty" || !state.pack || state.phase === "error") return;
-    const destination = state.mode === "transition" ? state.pendingMode : state.mode;
+    const destination = state.mode;
     configureDifficulty();
-    state.pendingMode = "";
     if (destination === "phrases") enterMode("phrases", playingFocus());
     else if (destination === "nouns") enterMode("nouns");
     render();
@@ -337,7 +280,7 @@ function bindUi() {
   listen(globalThis, "pagehide", (event) => {
     state.pageHidden = true;
     syncLoadingScreens();
-    if (event.persisted) cancelTransitionFrame(); else destroy();
+    if (!event.persisted) destroy();
   });
   listen(globalThis, "pageshow", () => { state.pageHidden = false; syncTransition(); });
   bindShellMessages();
@@ -420,6 +363,12 @@ function configureControls() {
     container: $("#gravityNounControls"), shell: state.shell, course: state.course,
     readingGuide: state.readingGuide,
     autoplay: true,
+    onOpenChange(open) {
+      state.controlsOpen = Boolean(open);
+      state.nounGame?.setPaused(state.controlsOpen);
+      state.adjectiveGame?.setPaused(state.controlsOpen);
+      syncTransition();
+    },
     illustrations: {
       labelKey: "games.grammargravity.controls.illustrations", pressed: state.iconsVisible,
       onChange(value) {
@@ -437,7 +386,6 @@ function configureControls() {
 function destroy() {
   if (state.destroyed) return;
   state.destroyed = true;
-  cancelTransitionFrame();
   state.nounGame?.destroy();
   state.adjectiveGame?.destroy();
   state.controls?.destroy();
@@ -465,9 +413,6 @@ function showError(error) {
   console.error("Grammar Gravity failed", error);
   state.error = state.pack?.presentation?.errorDetail || state.shell?.CaatuuI18n?.t("games.grammargravity.unavailable") || "Grammar Gravity is unavailable.";
   state.phase = "error";
-  cancelTransitionFrame();
-  state.transitionKind = "";
-  state.pendingMode = "";
   state.adjectiveGame?.setActive(false);
   // A broken sequence never selects a different game. Nouns stay an explicit choice.
   selectMode(state.practiceMode === "nouns" && state.nounGame?.ready() ? "nouns" : "phrases");

@@ -6238,6 +6238,7 @@ html[data-theme] .verb-match-control-cluster > .theme-toggle:focus-visible {
 
 .verb-match-footer {
   display: flex;
+  flex-wrap: wrap;
   align-items: end;
   justify-content: space-between;
   gap: 12px;
@@ -6258,6 +6259,19 @@ html[data-theme] .verb-match-control-cluster > .theme-toggle:focus-visible {
 
 .verb-match-note p {
   margin: 0;
+}
+
+.verb-review-continue {
+  order: 3;
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 18px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--theme-green-filled);
+  color: #fffdf8;
+  font: inherit;
+  cursor: pointer;
 }
 
 #verbMeaningBoard[hidden],

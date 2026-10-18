@@ -32,6 +32,9 @@ test("reward audio plays once when visible, stops on pause/skip, and never repea
   assert.equal(played.length, 1, "resuming does not repeat the cue");
   await f.advance(60000);
   assert.equal(f.controller.active, true, "the finished sound does not dismiss its reward screen");
+  const repeat = { type: "keydown", key: "Enter", repeat: true };
+  f.skip().dispatchEvent(repeat);
+  assert.equal(repeat.defaultPrevented, true, "holding the answer key cannot dismiss the break");
   assert.equal(played.length, 1, "waiting for Continue does not repeat the cue");
   f.skip().dispatchEvent({ type: "click" });
   assert.equal(await gate, true);
@@ -330,7 +333,7 @@ test("an earned set pauses the game synchronously, waits for the claim, and pres
   f.controller.destroy();
 });
 
-test("Continue and Escape acknowledge without replay and restore meaningful game focus", async () => {
+test("Continue acknowledges without replay and preserves other controllers' input locks", async () => {
   const f = fixture({ pending: receipt() });
   f.controller.setActive(true);
   f.next.focus();
@@ -344,7 +347,7 @@ test("Continue and Escape acknowledge without replay and restore meaningful game
   f.content.setAttribute("inert", "");
   const second = f.controller.boundary();
   await settle();
-  f.document.dispatchEvent({ type: "keydown", key: "Escape" });
+  f.skip().click();
   assert.equal(await second, true);
   assert.equal(f.content.hasAttribute("inert"), true, "preexisting inert state belongs to another controller");
   assert.notEqual(f.document.activeElement, f.next, "do not focus content that remains inert");
@@ -352,7 +355,7 @@ test("Continue and Escape acknowledge without replay and restore meaningful game
   f.controller.destroy();
 });
 
-test("Escape from another dialog leaves the reward waiting for its own acknowledgement", async () => {
+test("Escape in the reward or another dialog leaves practice paused until Continue", async () => {
   const f = fixture({ pending: receipt() });
   f.controller.setActive(true);
   const gate = f.controller.boundary();
@@ -374,7 +377,13 @@ test("Escape from another dialog leaves the reward waiting for its own acknowled
   otherDialog.remove();
   f.skip().focus();
   f.document.dispatchEvent({ type: "keydown", key: "Escape", target: f.skip() });
-  assert.equal(await gate, true, "Escape in the reward dialog remains an explicit acknowledgement");
+  await settle();
+  await f.advance(60000);
+  assert.equal(completed, false, "Escape and elapsed time cannot resume practice");
+  assert.equal(f.controller.active, true);
+  assert.equal(f.content.hasAttribute("inert"), true);
+  f.skip().click();
+  assert.equal(await gate, true);
   assert.equal(f.content.hasAttribute("inert"), false);
   assert.deepEqual(f.claims, ["set-1"]);
   f.controller.destroy();

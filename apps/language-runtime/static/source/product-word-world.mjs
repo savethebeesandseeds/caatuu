@@ -548,6 +548,7 @@ const state = {
   nativeSpeechRequestedVoiceAvailable: true,
   nativeSpeechStatusPending: false,
   nativeSpeechStatusRequestId: 0,
+  nativeSpeechUnavailableVoiceReset: "",
   pendingSpeechAutoplayFingerprint: "",
   sceneCandidates: [],
   sceneRequestId: 0,
@@ -1466,9 +1467,22 @@ async function refreshAndroidSpeechStatus({ force = false } = {}) {
   state.nativeSpeechStatusPending = true;
   syncSpeechControl();
   try {
-    const status = await speech.status(targetSpeechLocale, { voice: preferredSpeechVoice() });
+    const requestedVoice = preferredSpeechVoice();
+    const status = await speech.status(targetSpeechLocale, { voice: requestedVoice });
     if (requestId !== state.nativeSpeechStatusRequestId) return;
+    if (requestedVoice && requestedVoice === preferredSpeechVoice()
+      && status?.requestedVoiceAvailable === false && status?.voices?.length
+      && state.nativeSpeechUnavailableVoiceReset !== requestedVoice
+      && typeof window.CaatuuChrome?.setSpeechVoicePreference === "function") {
+      // The shared setter synchronously starts a fresh check through the voice
+      // change listener below. Remember the attempt in case storage cannot clear
+      // the saved selection; that failure must not create a retry loop.
+      state.nativeSpeechUnavailableVoiceReset = requestedVoice;
+      window.CaatuuChrome.setSpeechVoicePreference("");
+      return;
+    }
     state.nativeSpeechAvailable = status?.available === true;
+    if (state.nativeSpeechAvailable || !requestedVoice) state.nativeSpeechUnavailableVoiceReset = "";
     state.nativeSpeechReason = String(status?.reason || "");
     state.nativeSpeechVoice = String(status?.voice || "");
     state.nativeSpeechVoiceLocal = status?.localService === true;

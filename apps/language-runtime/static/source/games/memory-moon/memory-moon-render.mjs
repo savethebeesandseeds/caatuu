@@ -11,7 +11,7 @@ export function moonLabels(course, i18n) {
     loading: 'Preparando recuerdos…', error: 'No se pudo cargar la práctica.',
     retry: 'Volver a intentar', replay: 'Otra luna', complete: 'Has iluminado la luna.',
     restored: 'Luna completa', round: (index, total) => `Recuerdo ${index} de ${total}`,
-    correct: 'Correcto. El siguiente recuerdo aparecerá en un momento.', wrong: 'Prueba otra traducción.',
+    correct: 'Correcto. Continúa cuando quieras.', wrong: 'Prueba otra traducción.',
     play: 'Escuchar la frase', stop: 'Detener audio', word: text => `Escuchar: ${text}`,
     selectWord: text => `Ver el significado de ${text}`,
     preparing: 'Preparando audio.', playing: 'Reproduciendo audio.', audioError: 'El audio no está disponible.',
@@ -21,7 +21,7 @@ export function moonLabels(course, i18n) {
     loading: 'Preparing memories…', error: 'Practice could not be loaded.',
     retry: 'Try again', replay: 'Another moon', complete: 'You brought the moon to light.',
     restored: 'Moon restored', round: (index, total) => `Memory ${index} of ${total}`,
-    correct: 'Correct. The next memory will appear shortly.', wrong: 'Try another translation.',
+    correct: 'Correct. Continue when you are ready.', wrong: 'Try another translation.',
     play: 'Play sentence audio', stop: 'Stop audio', word: text => `Play word: ${text}`,
     selectWord: text => `Show meaning: ${text}`,
     preparing: 'Preparing audio.', playing: 'Playing audio.', audioError: 'Audio is unavailable.',
@@ -163,8 +163,11 @@ export function createMoonRenderer({ root, course, i18n, onAnswer, onSpeak, onRe
   const replay = node('button', 'moon-restart', labels.replay);
   replay.type = 'button';
   replay.hidden = true;
+  const continueButton = node('button', 'moon-continue');
+  continueButton.type = 'button';
+  continueButton.hidden = true;
   sentenceRow.append(sentence, speak);
-  challenge.append(sentenceRow, audioStatus, choices, status, replay);
+  challenge.append(sentenceRow, audioStatus, choices, status, continueButton, replay);
   const footer = node('footer', 'moon-session-status'), round = node('span', 'moon-round');
   footer.append(round);
   board.append(overview, challenge, footer);
@@ -185,7 +188,7 @@ export function createMoonRenderer({ root, course, i18n, onAnswer, onSpeak, onRe
   root.classList.add('memory-moon-host');
   let session = null, busy = true, available = true, lastSentence = null, lastComplete = null;
   let lastItemId = null, lastReading = null;
-  let speechState = { status: 'idle' }, failed = false, campaign = false;
+  let speechState = { status: 'idle' }, failed = false, campaign = false, completedView = false;
 
   function renderWord(host, word, { item, tokenIndex, showGuide = false } = {}) {
     host.lang = target.locale || 'und';
@@ -235,8 +238,10 @@ export function createMoonRenderer({ root, course, i18n, onAnswer, onSpeak, onRe
     const item = session?.currentItem || session?.items?.[session.index];
     const active = ['loading', 'playing'].includes(speechState.status);
     const whole = active && speechState.text === item?.targetText;
-    speak.hidden = !speechAvailable || !item || session?.phase === 'complete';
-    speak.disabled = busy || !available || session?.phase !== 'question';
+    const reviewable = ['question', 'answered'].includes(session?.phase)
+      || (session?.phase === 'complete' && !completedView);
+    speak.hidden = !speechAvailable || !item || completedView;
+    speak.disabled = busy || !available || !reviewable;
     speak.setAttribute('aria-label', whole ? labels.stop : labels.play);
     speak.title = whole ? labels.stop : labels.play;
     speak.setAttribute('aria-pressed', String(whole));
@@ -244,7 +249,7 @@ export function createMoonRenderer({ root, course, i18n, onAnswer, onSpeak, onRe
     speak.replaceChildren(createSpeechIcon(document, { stop: whole }));
     sentence.querySelectorAll('[data-spoken-word]').forEach(button => {
       const selected = active && speechState.text === button.dataset.spokenWord;
-      button.disabled = busy || !available || session?.phase !== 'question';
+      button.disabled = busy || !available || !reviewable;
       button.classList.toggle('is-selected', selected);
       button.setAttribute('aria-pressed', String(selected));
     });
@@ -253,7 +258,7 @@ export function createMoonRenderer({ root, course, i18n, onAnswer, onSpeak, onRe
       : speechState.status === 'loading' ? labels.preparing : speechState.status === 'playing' ? labels.playing : '';
   }
   function render(snapshot, { wrongChoiceId, loading = false, error = false, interactive = true,
-    campaignMode = false, illumination = 0 } = {}) {
+    campaignMode = false, completionReady = true, illumination = 0 } = {}) {
     session = snapshot;
     busy = loading;
     failed = error;
@@ -261,7 +266,9 @@ export function createMoonRenderer({ root, course, i18n, onAnswer, onSpeak, onRe
     campaign = campaignMode;
     root.setAttribute('aria-busy', String(busy));
     board.setAttribute('aria-busy', String(busy));
-    const complete = session?.phase === 'complete';
+    const complete = session?.phase === 'complete' && completionReady;
+    const answered = session?.phase === 'answered' || (session?.phase === 'complete' && !completionReady);
+    completedView = complete;
     board.classList.toggle('is-complete', complete);
     globe.setAttribute('aria-label', labels.illumination(Math.round(illumination * 100)));
     round.textContent = complete ? labels.restored : session ? labels.round(session.index + 1, session.target) : '';
@@ -275,14 +282,14 @@ export function createMoonRenderer({ root, course, i18n, onAnswer, onSpeak, onRe
       button.dataset.choiceId = choice.id;
       button.disabled = busy || !available || wrong || session.phase !== 'question';
       button.classList.toggle('is-wrong', Boolean(wrong));
-      button.classList.toggle('is-correct', session.phase === 'answered' && choice.id === item.correctChoiceId);
+      button.classList.toggle('is-correct', answered && choice.id === item.correctChoiceId);
       button.classList.toggle('is-shaking', wrongChoiceId === choice.id);
       button.addEventListener('click', () => onAnswer?.(choice.id));
       choices.append(button);
     }
     status.classList.toggle('is-error', Boolean(error));
     status.textContent = loading ? labels.loading : error ? labels.error : complete ? labels.complete
-      : session?.phase === 'answered' ? labels.correct : session?.wrongChoiceIds?.length ? labels.wrong : '';
+      : answered ? labels.correct : session?.wrongChoiceIds?.length ? labels.wrong : '';
     replay.textContent = error ? labels.retry : labels.replay;
     replay.hidden = !error && (!complete || campaign);
     replay.disabled = loading || !available;
@@ -295,7 +302,7 @@ export function createMoonRenderer({ root, course, i18n, onAnswer, onSpeak, onRe
   const replayClick = () => { if (!replay.disabled && (failed || session?.phase === 'complete')) onReplay?.(); };
   speak.addEventListener('click', speakClick);
   replay.addEventListener('click', replayClick);
-  return { board, toolbar, dictionarySlot, globe, shade, ship, shipImage, choices, sentence, replay,
+  return { board, toolbar, dictionarySlot, globe, shade, ship, shipImage, choices, sentence, replay, continueButton,
     renderDictionaryWord(host, word, context) { return renderWord(host, word, { ...context, showGuide: true }); },
     render, syncSpeech,
     focusChoice() { choices.querySelector('button:not(:disabled)')?.focus({ preventScroll: true }); },

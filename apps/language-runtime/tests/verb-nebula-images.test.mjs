@@ -68,8 +68,8 @@ function harness({ catalog = keymap, search } = {}) {
   vm.runInContext([
     between('const verbStorageKey =', 'const verbHintKeymapUrl ='),
     between('function parseStoredVerbMemory(', 'function validVerbIds('),
-    between('const verbHintKeymapUrl =', 'const campaignTransitionMillis ='),
-    between('const verbHintLookupTimeoutMillis =', 'function verbSolutionRevealDuration'),
+    between('const verbHintKeymapUrl =', 'const campaignGameReadyTimeoutMillis ='),
+    between('const verbHintLookupTimeoutMillis =', 'const defaultPrintOptions ='),
     between('function verbHintTokens(', 'function loadVerbImageSearch()'),
     between('async function vectorVerbHintCandidates(', 'async function loadVerbHintsForRound()'),
     between('async function preloadVerbHintsForRound(', 'async function prepareVerbRound('),

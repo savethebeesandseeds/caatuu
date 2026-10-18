@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 import vm from "node:vm";
 import { newContentEncounterId } from "../static/source/games/content-progression.mjs";
+import { createReviewContinuation } from "../static/source/games/practice-pacing.mjs";
 
 import { createBrowserHarness } from "./helpers/fake-browser.mjs";
 import { createInterfaceContent } from "../static/source/interface-content.mjs";
@@ -156,6 +157,7 @@ async function mountGame({ language = "mandarin-simplified", muted = true, voice
   };
   harness.window.parent = shell;
   Object.assign(harness.context, {
+    createReviewContinuation,
     newContentEncounterId,
     createArabicReadingGuide,
     fetchDeclaredCourseGameJson, readEmbeddedCourseProfile, createSpeechIcon,
@@ -195,6 +197,7 @@ async function mountGame({ language = "mandarin-simplified", muted = true, voice
   return { ...harness, parent, shell, course, catalog, controller, element, choices, choice,
     current, click, listen, records, messages, speechCalls, fetchCalls, preferences, noCredit, noCampaign, reports,
     clock, advance: clock.advance,
+    async continue() { click(element("Continue")); await settle(); },
     setReportResult(value) { reportOutcome = value; },
     setVoiceState(value) { voices = value; }, setSpeechResult(value) { audioResult = value; } };
 }
@@ -269,7 +272,7 @@ test("a listening exercise shown before reset cannot add exposure to the new gen
   assert.notEqual(learning.contentGeneration(), before);
   game.click(game.choice(staleId));
   assert.equal(Object.keys(learning.contentHistory("sound-quasar", "words")).length, 0);
-  await game.clock.advance(1200);
+  await game.continue();
   await game.listen();
   const freshId = game.current().id;
   game.click(game.choice(freshId));
@@ -428,7 +431,7 @@ test("wrong answers keep the choices while correct answers show a result before 
   assert.ok(game.element("ResultTarget").querySelectorAll(".caatuu-target-tone").length > 0);
   assert.equal(game.speechCalls.length, 1, "solving never autoplays the next word");
   assert.equal(game.choice(game.current().id), correct, "solving never automatically changes the question");
-  await game.advance();
+  await game.continue();
   assert.ok(game.choices().every((button) => button.disabled));
   assert.equal(game.speechCalls.length, 1);
   assert.equal(correct.isConnected, false);
@@ -460,7 +463,7 @@ for (const mode of ["Words", "Sentences"]) for (const count of [4, 6]) {
     assert.ok(game.choices().every((button) => button.disabled));
     game.choice(item.id).click();
     assert.equal(game.records.length, 2);
-    await game.advance();
+    await game.continue();
     assert.equal(game.element("Result").hidden, true);
     assert.ok(game.choices().every((button) => !button.classList.contains("is-wrong")));
     assert.equal(game.records.reduce((sum, [, delta]) => sum + (delta.xp || 0), 0), 0);
@@ -476,15 +479,15 @@ test("an entirely missed session gives no XP, coin, or streak qualification", as
     const mistakes = game.choices().filter((button) => button.dataset.choiceId !== game.current().id);
     game.click(mistakes[0]);
     game.click(mistakes[1]);
-    await game.advance();
+    await game.continue();
   }
-  assert.equal(game.element("Transition").hidden, false);
+  assert.equal(game.element("Transition").hidden, true);
   assert.equal(game.records.length, 10);
   assert.ok(game.records.every(([, delta]) => delta.xp === 0 && !delta.rounds && !delta.streakEligible));
   game.controller.destroy();
 });
 
-test("five words earn answer XP and one completed round, then robots lead to the next batch without extra rewards", async () => {
+test("five manual continuations earn answer XP and one round, then start the next ready batch", async () => {
   const game = await mountGame();
   const answered = new Set();
   for (let index = 0; index < 5; index += 1) {
@@ -496,18 +499,18 @@ test("five words earn answer XP and one completed round, then robots lead to the
       game.click(game.choices().find((button) => button.dataset.choiceId !== item.id));
       game.click(game.choice(item.id));
     } else if (index === 1) {
-      game.click(game.element("Skip"));
+      game.click(game.element("Skip")); await game.continue();
       continue;
     } else game.click(game.choice(item.id));
-    await game.advance();
+    await game.continue();
   }
-  assert.equal(game.element("Transition").hidden, false);
+  assert.equal(game.element("Transition").hidden, true);
   assert.equal(game.element("Summary"), null);
   assert.equal(game.records.filter(([, delta]) => delta.attempts).length, 5);
   assert.equal(game.records.reduce((sum, [, delta]) => sum + (delta.xp || 0), 0), 4);
   assert.deepEqual(game.records.filter(([, delta]) => delta.rounds), [["sound-quasar", { rounds: 1, streakEligible: true }]]);
   const recordsBeforeRestart = structuredClone(game.records);
-  game.clock.latest().callback();
+  game.element("Continue").click();
   await game.advance(10000);
   assert.deepEqual(game.records, recordsBeforeRestart, "a duplicate Finish event cannot count the round twice");
   game.noCampaign();
@@ -520,19 +523,19 @@ test("five words earn answer XP and one completed round, then robots lead to the
   game.controller.destroy();
 });
 
-test("robot transitions retain sentence mode and six options, then resume automatically", async () => {
+test("the final Continue retains sentence mode and six options without a forced loader", async () => {
   const game = await mountGame();
   game.click(game.element("Sentences"));
   game.click(game.element("SixChoices"));
-  for (let index = 0; index < 5; index += 1) game.click(game.element("Skip"));
-  assert.equal(game.element("Transition").hidden, false);
+  for (let index = 0; index < 5; index += 1) { game.click(game.element("Skip")); await game.continue(); }
+  assert.equal(game.element("Transition").hidden, true);
   assert.match(game.element("Robot").src, /^\/assets\/robots\//u);
   assert.equal(game.element("Transition").classList.contains("caatuu-game-robot-loading"), true);
   assert.equal(game.element("Robot").classList.contains("caatuu-game-robot-loading-art"), true);
   assert.equal(game.element("Robot").src, game.element("Loading").querySelector("img").src);
   assert.equal(game.fetchCalls.length, 1, "the shared robot does not request a private asset catalog");
   await game.advance(1199);
-  assert.equal(game.element("Transition").hidden, false);
+  assert.equal(game.element("Transition").hidden, true);
   await game.advance(1);
   assert.equal(game.element("Transition").hidden, true);
   assert.equal(game.element("Game").dataset.mode, "sentences");
@@ -596,16 +599,14 @@ test("continued listening batches introduce fresh easy targets without earning s
           assert.equal(new Set(options.map(option => option.target)).size, choiceCount);
           assert.equal(options.filter(option => option.id === item.id).length, 1);
           game.click(game.choice(item.id));
-          await game.advance();
+          await game.continue();
         }
         const newIndexes = answers.flatMap((id, index) => before[id] ? [] : [index]);
         if (Object.keys(before).length >= 6) {
           assert.equal(newIndexes.length, 1, "continued play keeps one fresh target among practiced material");
           assert.equal((rotation + newIndexes[0]) % 5, 2, "the fresh target belongs in the new-material slot");
         }
-        assert.equal(game.element("Transition").hidden, false);
-        await game.advance();
-        assert.equal(game.element("Transition").hidden, true, "the next batch must start automatically");
+        assert.equal(game.element("Transition").hidden, true, "the final Continue starts the next ready batch");
         assert.equal(game.element("Game").dataset.mode, mode);
         assert.equal(game.choices().length, choiceCount);
       }
@@ -637,29 +638,29 @@ test("continued listening batches introduce fresh easy targets without earning s
 });
 
 for (const reason of ["hidden", "inactive", "destroyed"]) {
-  test(`a ${reason} game invalidates the robot transition timer`, async () => {
+  test(`a ${reason} game cannot consume its pending final Continue`, async () => {
     const game = await mountGame();
     const visibility = (active) => game.window.dispatchEvent({ type: "message", origin: "https://caatuu.test", source: game.shell,
       data: { source: "caatuu-app-shell", type: "visibility", active } });
-    for (let index = 0; index < 5; index += 1) game.click(game.element("Skip"));
-    const timer = game.clock.latest();
+    for (let index = 0; index < 4; index += 1) { game.click(game.element("Skip")); await game.continue(); }
+    game.click(game.element("Skip"));
+    const continuation = game.element("Continue");
     if (reason === "hidden") {
       game.shell.document.visibilityState = "hidden";
       game.shell.document.dispatchEvent({ type: "visibilitychange" });
     } else if (reason === "inactive") visibility(false);
     else game.controller.destroy();
-    timer.callback();
+    continuation.click();
     await game.advance(5000);
-    assert.equal(game.element("Transition").hidden, reason === "destroyed");
+    assert.equal(game.element("Transition").hidden, true);
     assert.equal(game.speechCalls.length, 0);
     if (reason !== "destroyed") {
-      assert.equal(game.element("Transition").dataset.active, "false");
       if (reason === "hidden") {
         game.shell.document.visibilityState = "visible";
         game.shell.document.dispatchEvent({ type: "visibilitychange" });
       } else { visibility(true); await settle(); }
-      assert.equal(game.element("Transition").dataset.active, "true");
-      await game.advance(1200);
+      assert.equal(game.element("Result").hidden, false);
+      await game.continue();
       assert.equal(game.element("Transition").hidden, true);
     }
     game.noCredit();
@@ -670,7 +671,7 @@ for (const reason of ["hidden", "inactive", "destroyed"]) {
 test("a campaign batch hands off once and accepts advance only from its own shell", async () => {
   const game = await mountGame();
   game.shell.document.body.dataset.campaignActive = "true";
-  for (let index = 0; index < 5; index += 1) game.click(game.element("Skip"));
+  for (let index = 0; index < 5; index += 1) { game.click(game.element("Skip")); await game.continue(); }
   assert.equal(game.messages.filter(({ message }) => message.type === "round-complete").length, 1);
   const advance = { source: "caatuu-app-shell", type: "campaign-advance" };
   game.window.dispatchEvent({ type: "message", origin: "https://other.test", source: game.shell, data: advance });
@@ -962,7 +963,7 @@ test("free game space replays audio once; answers, controls, and the information
   await settle();
   assert.equal(game.speechCalls.length, count);
   assert.equal(game.reports.length, 0, "opening and cancelling never saves a report");
-  await game.advance();
+  await game.continue();
   await game.listen();
   assert.equal(game.speechCalls.length, count + 1, "the accessible speaker button must not bubble into a second play");
   game.controller.destroy();
@@ -1063,7 +1064,7 @@ test("a late report save cannot replace the status of a different word", async (
   game.click(game.element("Report"));
   game.element("ReportForm").dispatchEvent({ type: "submit" });
   game.click(game.element("ReportCancel"));
-  game.click(game.element("Skip"));
+  game.click(game.element("Skip")); await game.continue();
   pending.resolve({ queued: true, persisted: true });
   await settle();
   assert.equal(game.element("ReportStatus").textContent, "");
@@ -1092,7 +1093,7 @@ test("replaying and skipping cannot award XP, and duplicate answers cannot award
   await game.listen();
   await game.listen();
   const skippedChoice = game.choice(game.current().id);
-  game.click(game.element("Skip"));
+  game.click(game.element("Skip")); await game.continue();
   skippedChoice.dispatchEvent({ type: "click" });
   game.noCredit();
   await game.listen();
@@ -1111,7 +1112,7 @@ test("learning change callbacks cannot reenter the same answer or completed roun
   let attemptedChoice;
   const game = await mountGame({ onRecord: ({ args, clock }) => {
     if (args[1].attempts) attemptedChoice?.dispatchEvent({ type: "click" });
-    if (args[1].rounds) clock.latest().callback();
+    if (args[1].rounds) game.element("Continue").click();
   } });
   for (let index = 0; index < 5; index += 1) {
     await game.listen();
@@ -1121,7 +1122,7 @@ test("learning change callbacks cannot reenter the same answer or completed roun
     }
     attemptedChoice = game.choice(game.current().id);
     game.click(attemptedChoice);
-    await game.advance();
+    await game.continue();
   }
   assert.equal(game.records.length, 7, "one wrong attempt, five successful attempts, and one finished session");
   assert.equal(game.records.reduce((sum, [, delta]) => sum + (delta.xp || 0), 0), 5);
@@ -1163,10 +1164,10 @@ for (const language of ["czech", "mandarin-simplified", "spanish"]) {
         }
       }
       game.click(game.choice(item.id));
-      await game.advance();
+      await game.continue();
     }
     assert.ok(artwork.size > 1, "successive questions choose different music artwork");
-    assert.equal(game.element("Transition").hidden, false);
+    assert.equal(game.element("Transition").hidden, true);
     assert.equal(game.records.reduce((sum, [, delta]) => sum + (delta.xp || 0), 0), 5);
     assert.deepEqual(game.records.filter(([, delta]) => delta.rounds), [["sound-quasar", { rounds: 1, streakEligible: true }]]);
     game.noCampaign();
@@ -1202,8 +1203,8 @@ test("switching modes cancels old audio and requires hearing the new question be
 
 test("skipping an entire session gives no XP, coin, or streak qualification", async () => {
   const game = await mountGame({ realLearning: true });
-  for (let index = 0; index < 5; index += 1) game.click(game.element("Skip"));
-  assert.equal(game.element("Transition").hidden, false);
+  for (let index = 0; index < 5; index += 1) { game.click(game.element("Skip")); await game.continue(); }
+  assert.equal(game.element("Transition").hidden, true);
   game.noCredit();
   assert.equal(game.shell.CaatuuLearning.snapshot().summary.xp, 0);
   assert.equal(game.shell.CaatuuLearning.snapshot().summary.rounds, 0);
@@ -1216,7 +1217,7 @@ test("earned Quasar XP and rounds persist through the shared learning profile an
   for (let index = 0; index < 5; index += 1) {
     await game.listen();
     game.click(game.choice(game.current().id));
-    await game.advance();
+    await game.continue();
   }
   const profile = game.shell.CaatuuLearning.snapshot();
   assert.equal(profile.performance.games["sound-quasar"].xp, 5);
@@ -1235,12 +1236,18 @@ test("earned Quasar XP and rounds persist through the shared learning profile an
   game.controller.destroy();
 });
 
-test("skip moves directly to another prompt without showing the answer", async () => {
+test("skip reveals its correction and waits for Continue without earning credit", async () => {
   const game = await mountGame();
   assert.equal(game.element("Reveal"), null);
   assert.equal(game.element("Next"), null);
   const choices = game.choices();
   game.click(game.element("Skip"));
+  assert.equal(game.element("Progress").textContent, "Word 1 of 5");
+  assert.equal(game.element("Result").hidden, false);
+  assert.ok(game.element("ResultTarget").textContent);
+  await game.advance(86400000);
+  assert.equal(game.element("Progress").textContent, "Word 1 of 5");
+  await game.continue();
   assert.equal(game.element("Progress").textContent, "Word 2 of 5");
   assert.equal(game.element("Result").hidden, true);
   assert.equal(game.element("AnswerArea").classList.contains("is-result"), false);
@@ -1257,7 +1264,7 @@ for (const { mode, meaning, delay } of [
   { mode: "words", meaning: "a".repeat(80), delay: 5400 },
   { mode: "sentences", meaning: "a".repeat(160), delay: 8000 }
 ]) {
-  test(`${mode} corrections keep ${meaning.length} translation characters visible for ${delay}ms`, async () => {
+  test(`${mode} corrections with ${meaning.length} translation characters wait indefinitely for Continue`, async () => {
     const game = await mountGame({ mutateCatalog: (catalog) => {
       for (const item of [...catalog.items, ...catalog.sentences]) item.meaning = meaning;
     } });
@@ -1266,13 +1273,14 @@ for (const { mode, meaning, delay } of [
     const wrongChoices = game.choices().filter(button => button.dataset.choiceId !== game.current().id);
     game.click(wrongChoices[0]);
     game.click(wrongChoices[1]);
-    assert.equal(game.clock.pending().length, 1);
-    assert.equal(game.clock.latest().delay, delay);
+    assert.equal(game.clock.pending().length, 0);
     const firstProgress = game.element("Progress").textContent;
     await game.advance(delay - 1);
     assert.equal(game.element("Progress").textContent, firstProgress);
     assert.equal(game.element("Result").hidden, false);
-    await game.advance(1);
+    await game.advance(86400000);
+    assert.equal(game.element("Progress").textContent, firstProgress);
+    await game.continue();
     assert.notEqual(game.element("Progress").textContent, firstProgress);
     assert.equal(game.element("Result").hidden, true);
     game.controller.destroy();
@@ -1280,11 +1288,10 @@ for (const { mode, meaning, delay } of [
 }
 
 for (const pauseReason of ["report", "controls", "hidden document", "inactive panel", "persisted pagehide"]) {
-  test(`${pauseReason} pauses the result and resumes a full reading interval`, async () => {
+  test(`${pauseReason} keeps result review pending until an eligible Continue`, async () => {
     const game = await mountGame();
     await game.listen();
     game.click(game.choice(game.current().id));
-    const timer = game.clock.latest();
     const progress = game.element("Progress").textContent;
     await game.advance(1000);
     const audioSettings = game.element("Controls").querySelector('[aria-label="Audio settings"]');
@@ -1298,7 +1305,7 @@ for (const pauseReason of ["report", "controls", "hidden document", "inactive pa
     } else if (pauseReason === "inactive panel") visibility(false);
     else game.window.dispatchEvent({ type: "pagehide", persisted: true });
     assert.equal(game.clock.pending().length, 0);
-    timer.callback();
+    game.element("Continue").dispatchEvent({ type: "click", bubbles: false });
     await game.advance(10000);
     assert.equal(game.element("Progress").textContent, progress, "an obsolete queued callback cannot advance the paused result");
     assert.equal(game.element("Result").hidden, false);
@@ -1310,40 +1317,60 @@ for (const pauseReason of ["report", "controls", "hidden document", "inactive pa
     } else if (pauseReason === "inactive panel") visibility(true);
     else game.window.dispatchEvent({ type: "pageshow", persisted: true });
     await settle();
-    assert.equal(game.clock.pending().length, 1);
-    assert.equal(game.clock.latest().delay, timer.delay);
-    await game.advance(timer.delay - 1);
+    assert.equal(game.clock.pending().length, 0);
+    await game.advance(86400000);
     assert.equal(game.element("Progress").textContent, progress);
-    await game.advance(1);
+    await game.continue();
     assert.notEqual(game.element("Progress").textContent, progress);
     assert.equal(game.records.length, 1, "pausing does not duplicate the successful answer's XP");
     game.controller.destroy();
   });
 }
 
-test("replaying a result pauses its transition until audio completes and then restarts the interval", async () => {
+test("replaying a result and finishing audio still require Continue", async () => {
   const game = await mountGame();
   await game.listen();
   game.click(game.choice(game.current().id));
-  const oldTimer = game.clock.latest();
   const progress = game.element("Progress").textContent;
   await game.advance(1000);
   const playback = deferred();
   game.setSpeechResult(playback.promise);
   await game.listen();
   assert.equal(game.clock.pending().length, 0);
-  oldTimer.callback();
   await game.advance(10000);
   assert.equal(game.element("Progress").textContent, progress);
   playback.resolve({ outcome: "completed" });
   await settle();
-  assert.equal(game.clock.latest().delay, oldTimer.delay);
-  assert.equal(game.clock.pending().length, 1);
-  await game.advance(oldTimer.delay - 1);
+  assert.equal(game.clock.pending().length, 0);
+  await game.advance(86400000);
   assert.equal(game.element("Progress").textContent, progress);
-  await game.advance(1);
+  await game.continue();
   assert.notEqual(game.element("Progress").textContent, progress);
   assert.equal(game.records.length, 1);
+  game.controller.destroy();
+});
+
+test("explicit Continue interrupts replay once and fences its late completion", async () => {
+  const game = await mountGame();
+  await game.listen();
+  game.click(game.choice(game.current().id));
+  const playback = deferred();
+  game.setSpeechResult(playback.promise);
+  await game.listen();
+  const progress = game.element("Progress").textContent;
+  const stops = game.preferences.stops;
+  const continuation = game.element("Continue");
+  assert.equal(continuation.disabled, false);
+  await game.continue(); continuation.click();
+  const nextProgress = game.element("Progress").textContent;
+  assert.notEqual(nextProgress, progress);
+  assert.ok(game.preferences.stops > stops);
+  playback.resolve({ outcome: "completed" }); await settle();
+  await game.advance(86400000);
+  assert.equal(game.element("Progress").textContent, nextProgress);
+  assert.ok(game.choices().every(choice => choice.disabled));
+  assert.equal(game.records.length, 1);
+  assert.equal(game.element("Continue").hidden, true);
   game.controller.destroy();
 });
 
@@ -1428,9 +1455,9 @@ test("changing answer count cancels result advancement without granting a comple
   const game = await mountGame();
   await game.listen();
   game.click(game.choice(game.current().id));
-  const oldTimer = game.clock.latest();
+  const previousContinue = game.element("Continue");
   game.click(game.element("SixChoices"));
-  oldTimer.callback();
+  previousContinue.click();
   await game.advance(10000);
   assert.equal(game.element("Result").hidden, true);
   assert.equal(game.choices().length, 6);
@@ -1506,32 +1533,30 @@ test("macaw mirroring is sampled per prompt and stays stable during playback", a
   sample = .75;
   await game.listen();
   assert.equal(game.element("Emblem").classList.contains("is-mirrored"), true);
-  game.click(game.element("Skip"));
+  game.click(game.element("Skip")); await game.continue();
   assert.equal(game.element("Emblem").classList.contains("is-mirrored"), false);
   game.noCredit();
   game.controller.destroy();
 });
 
-test("mode changes and destroy invalidate result callbacks without counting an unfinished session", async () => {
+test("mode changes and destroy invalidate pending Continue without counting an unfinished session", async () => {
   const game = await mountGame();
   await game.listen();
   game.click(game.choice(game.current().id));
-  const wordTimer = game.clock.latest();
+  const previousContinue = game.element("Continue");
   game.click(game.element("Sentences"));
   assert.equal(game.clock.pending().length, 0);
-  wordTimer.callback();
+  previousContinue.click();
   await game.advance(10000);
   assert.equal(game.element("Progress").textContent, interfaceContent.t("soundquasar.progress.sentences", { number: 1, count: 5 }));
   assert.equal(game.element("Result").hidden, true);
   assert.ok(game.choices().every((button) => button.disabled));
   await game.listen();
   game.click(game.choice(game.current().id));
-  const sentenceTimer = game.clock.latest();
   const progress = game.element("Progress").textContent;
   game.controller.destroy();
   assert.equal(game.clock.pending().length, 0);
-  sentenceTimer.callback();
-  wordTimer.callback();
+  previousContinue.click();
   await game.advance(10000);
   assert.equal(game.element("Progress").textContent, progress);
   assert.equal(game.records.filter(([, delta]) => delta.rounds).length, 0);
@@ -1548,7 +1573,7 @@ test("mode changes and destroy invalidate result callbacks without counting an u
   assert.equal(game.preferences.muted, true);
   assert.ok(game.choices().every((button) => !button.disabled));
   game.click(game.choice(game.current().id));
-  await game.advance();
+  await game.continue();
   assert.equal(game.speechCalls.length, 1);
   assert.ok(game.choices().every((button) => button.disabled));
   game.controller.destroy();
@@ -1566,7 +1591,7 @@ test("unmuted prompts autoplay once, hide skip, and autoplay the next prompt", a
   await settle();
   assert.equal(game.speechCalls.length, 1);
   game.click(game.choice(game.current().id));
-  await game.advance();
+  await game.continue();
   assert.equal(game.speechCalls.length, 2);
   game.controller.destroy();
 });
@@ -1582,11 +1607,14 @@ test("failed automatic audio exposes skip and a successful retry removes it", as
   game.controller.destroy();
 });
 
-test("a course with no voice can skip without exposing targets or earning credit", async () => {
+test("a course with no voice can review a skipped correction then Continue without earning credit", async () => {
   const game = await mountGame({ muted: false, voiceState: { available: false, voices: [] } });
   assert.equal(game.element("Listen").disabled, true);
   assert.equal(game.element("Skip").hidden, false);
   game.click(game.element("Skip"));
+  assert.equal(game.element("Result").hidden, false);
+  assert.ok(game.element("ResultTarget").textContent);
+  await game.continue();
   assert.equal(game.element("Progress").textContent, "Word 2 of 5");
   assert.equal(game.element("Result").hidden, true);
   game.noCredit();

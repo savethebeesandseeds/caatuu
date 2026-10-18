@@ -2,7 +2,7 @@ import { learnerItemState } from "./learner-state.mjs";
 import { fetchDeclaredCourseGameJson } from "./games/course-game-content.mjs?v=course-game-content-1";
 import { extractCoreVerbPairs } from "./games/verb-nebula/verb-nebula-core.mjs?v=verb-nebula-core-14";
 import { validateConjugationCometCatalog, buildConjugationHelixRound } from "./games/conjugation-comet/conjugation-comet-core.mjs?v=conjugation-comet-core-4";
-import { validateGrammarGravityPack, buildGrammarGravityRounds } from "./games/grammar-gravity/grammar-gravity-core.mjs?v=grammar-gravity-core-7";
+import { validateGrammarGravityPack, buildGrammarGravityRounds } from "./games/grammar-gravity/grammar-gravity-core.mjs?v=grammar-gravity-core-8";
 import { normalizeNounLandingPack, createNounLandingSession } from "./games/grammar-gravity/noun-landing-core.mjs?v=noun-landing-core-11";
 import { validateSoundQuasarCatalog, buildSoundQuasarRound } from "./games/sound-quasar/sound-quasar-core.mjs?v=sound-quasar-10";
 import { validateMemoryMoonCatalog } from "./games/memory-moon/memory-moon-core.mjs?v=memory-moon-2";

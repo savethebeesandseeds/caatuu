@@ -6,6 +6,7 @@ import { loadCourseCatalog } from "../../../tools/language-packs/lib/course-cont
 import { newContentEncounterId } from "../static/source/games/content-progression.mjs";
 
 import { mountRobotLoadingScreen } from "../static/source/games/embedded-game-controls.mjs";
+import { createReviewContinuation } from "../static/source/games/practice-pacing.mjs";
 import { createBrowserHarness } from "./helpers/fake-browser.mjs";
 import { createInterfaceContent } from "../static/source/interface-content.mjs";
 import { fetchDeclaredCourseGameJson } from "../static/source/games/course-game-content.mjs";
@@ -17,6 +18,9 @@ import { createTargetReadingGuide } from "../static/source/target-reading-guide.
 
 const hostSource = await readFile(new URL(
   "../static/source/games/grammar-gravity/noun-landing-host.mjs", import.meta.url
+), "utf8");
+const sharedHostSource = await readFile(new URL(
+  "../static/source/games/grammar-gravity/grammar-gravity-host.mjs", import.meta.url
 ), "utf8");
 const markup = await readFile(new URL("../static/games/grammar-gravity.html", import.meta.url), "utf8");
 const englishInterface = JSON.parse(await readFile(new URL(
@@ -125,6 +129,7 @@ async function mountGame({ language = "czech", syntheticBase = false, reducedMot
     postMessage: (message, origin) => messages.push({ message, origin })
   };
   Object.assign(harness.context, core, {
+    createReviewContinuation,
     newContentEncounterId,
     createNounVisual: options => createNounVisual({ ...options, searchImages: async (query, options) => {
       visualCalls.push({ query, options });
@@ -182,10 +187,14 @@ async function mountGame({ language = "czech", syntheticBase = false, reducedMot
   }
   function finishFeedback() {
     const before = controller.snapshot().item?.id;
-    for (let index = 0; index < 35 && controller.snapshot().phase === "feedback"; index += 1) {
+    for (let index = 0; index < 3 && frames.size; index += 1) {
       frame(now + 100);
     }
-    assert.notEqual(controller.snapshot().phase, "feedback", "feedback advances automatically");
+    assert.equal(controller.snapshot().phase, "feedback", "feedback remains until Continue");
+    const continuation = element("gravityNounContinue");
+    assert.equal(continuation.disabled, false);
+    continuation.click();
+    assert.notEqual(controller.snapshot().phase, "feedback", "Continue releases the review");
     if (controller.snapshot().phase !== "complete") assert.notEqual(controller.snapshot().item.id, before);
   }
   const lane = (id) => element("gravityNounLanes").querySelector('[data-lane-id="' + id + '"]');
@@ -203,6 +212,49 @@ async function mountGame({ language = "czech", syntheticBase = false, reducedMot
 async function settle() {
   for (let index = 0; index < 12; index += 1) await Promise.resolve();
 }
+
+test("the shared Grammar toolbar pauses both modes without a mode-transition delay", () => {
+  const harness = createBrowserHarness();
+  seedMarkup(harness);
+  const pauses = { nouns: [], phrases: [] };
+  const frames = new Map();
+  let nextId = 0;
+  let controlsOptions;
+  harness.context.requestAnimationFrame = callback => { frames.set(++nextId, callback); return nextId; };
+  harness.context.cancelAnimationFrame = id => frames.delete(id);
+  harness.window.CaatuuI18n = createInterfaceContent(englishInterface);
+  Object.assign(harness.context, {
+    mountEmbeddedGameControls(options) { controlsOptions = options; return { destroy() {} }; },
+    nounFixture: { ready: () => true, setPaused: value => pauses.nouns.push(value) },
+    adjectiveFixture: { setMeaningOptionCount() {}, setPaused: value => pauses.phrases.push(value) }
+  });
+  const executable = sharedHostSource
+    .replace(/^import\s+[\s\S]*?\sfrom\s+["'][^"']+["'];\r?\n/gmu, "")
+    .replace(/\bexport (?=(?:async )?function )/gu, "")
+    .replace(/if \(typeof document !== "undefined"\) \{[\s\S]*$/u, "");
+  vm.runInContext(executable, harness.context, { filename: "grammar-gravity-host.mjs" });
+  const sharedState = vm.runInContext(`
+    state.shell = window;
+    state.course = { id: "cz" };
+    state.nounGame = nounFixture;
+    state.adjectiveGame = adjectiveFixture;
+    configureControls();
+    state.mode = "phrases";
+    state;
+  `, harness.context);
+  function frame(timestamp) {
+    assert.equal(frames.size, 1);
+    const [id, callback] = [...frames][0];
+    frames.delete(id);
+    callback(timestamp);
+  }
+  assert.equal(frames.size, 0);
+  controlsOptions.onOpenChange(true);
+  assert.deepEqual(pauses, { nouns: [true], phrases: [true] });
+  controlsOptions.onOpenChange(false);
+  assert.deepEqual(pauses, { nouns: [true, false], phrases: [true, false] });
+  assert.equal(frames.size, 0);
+});
 
 for (const language of ["arabic-standard", "georgian"]) test(`${language} noun readings toggle in place without restarting the fall or changing the target`, async () => {
   const game = await mountGame({ language });
@@ -386,7 +438,8 @@ test("noun feedback acknowledges a selected authored alternative and shows every
   const before = game.controller.snapshot();
   const alternative = game.raw.lanes.find(({ id }) => id !== before.item.laneId);
   game.answer(alternative.id);
-  for (let index = 0; index < 8; index += 1) game.frame(index * 100);
+  game.frame(0);
+  game.frame(180);
   const after = game.controller.snapshot();
   assert.equal(after.phase, "feedback");
   assert.equal(after.correct, true);
@@ -436,7 +489,7 @@ test("the hidden noun host cannot steal the active grammar form game's clock or 
   adjective.start(round, round.flights, { practiceMode: "forms" });
   adjective.setActive(true);
   game.shell.CaatuuChrome.getSpeechAutoplay = () => true;
-  game.frame(0);
+  game.window.dispatchEvent({ type: "caatuu:speech-autoplay-change" });
   await settle();
   assert.equal(game.speechCalls.length, 1);
   assert.equal(game.speechCalls[0], adjective.snapshot().current.anchorText);
@@ -552,7 +605,7 @@ for (const language of ["czech", "spanish"]) {
     assert.equal(game.frames.size, 1);
     assert.equal(game.records.length, 0);
     assert.equal(game.controls.mounts, 1);
-    assert.equal(game.controls.options.onOpenChange, undefined);
+    assert.equal(typeof game.controls.options.onOpenChange, "function");
     assert.equal(game.controls.options.settings, undefined);
     assert.equal(game.element("gravityNounBlock").style.transform, "translateY(0px)");
     assert.equal(game.element("gravityNounLoading").hidden, true);
@@ -565,7 +618,7 @@ for (const language of ["czech", "spanish"]) {
   });
 }
 
-test("correct selection lands once, settles for180ms, and displays the result for900 active milliseconds", async () => {
+test("correct selection lands once and waits for Continue without a review deadline", async () => {
   const game = await mountGame();
   const first = game.controller.snapshot().item;
   game.answer();
@@ -586,12 +639,12 @@ test("correct selection lands once, settles for180ms, and displays the result fo
   assert.equal(game.element("gravityNounResultMark"), null);
   assert.ok(game.element("gravityNounFeedback").getAttribute("aria-label").includes("Correct"));
   assert.ok(game.lane(first.laneId).classList.contains("is-correct"));
-  game.frame(1000);
-  game.frame(1079);
+  assert.equal(game.frames.size, 0, "settled results schedule no background frames");
+  game.controller.next();
   assert.equal(game.controller.snapshot().item.id, first.id);
   const outsideControl = game.outsideControl;
   outsideControl.focus();
-  game.frame(1080);
+  game.element("gravityNounContinue").click();
   assert.equal(game.controller.snapshot().phase, "falling");
   assert.notEqual(game.controller.snapshot().item.id, first.id);
   assert.equal(game.controller.snapshot().selectedLane, null);
@@ -601,19 +654,72 @@ test("correct selection lands once, settles for180ms, and displays the result fo
   game.controller.destroy();
 });
 
-test("incorrect selection keeps the full2400ms review pause", async () => {
+test("incorrect selection waits for Continue with the correction still visible", async () => {
   const game = await mountGame();
   const first = game.controller.snapshot().item;
   game.answer(game.raw.lanes.find((lane) => lane.id !== first.laneId).id);
   assert.equal(game.controller.snapshot().correct, false);
   game.frame(0);
-  game.frame(1000);
-  game.frame(2000);
-  game.frame(2579);
+  game.frame(180);
+  assert.equal(game.frames.size, 0);
+  game.controller.next();
   assert.equal(game.controller.snapshot().item.id, first.id);
-  game.frame(2580);
+  game.element("gravityNounContinue").click();
   assert.equal(game.controller.snapshot().phase, "falling");
   assert.notEqual(game.controller.snapshot().item.id, first.id);
+  game.controller.destroy();
+});
+
+test("noun Continue survives pause and visibility and consumes a settled review once", async () => {
+  const game = await mountGame();
+  game.answer();
+  game.frame(0);
+  game.frame(180);
+  const reviewed = game.controller.snapshot();
+  const button = game.element("gravityNounContinue");
+  assert.equal(button.hidden, false);
+  assert.equal(game.frames.size, 0);
+  game.controller.setPaused(true);
+  assert.equal(button.disabled, true);
+  button.dispatchEvent({ type: "click", detail: 1 });
+  game.controller.setPaused(false);
+  game.controller.setActive(false);
+  button.dispatchEvent({ type: "click", detail: 1 });
+  game.controller.setActive(true);
+  game.document.hidden = true;
+  game.document.dispatchEvent({ type: "visibilitychange" });
+  button.dispatchEvent({ type: "click", detail: 1 });
+  game.document.hidden = false;
+  game.document.dispatchEvent({ type: "visibilitychange" });
+  assert.equal(game.controller.snapshot(), reviewed);
+  assert.equal(game.frames.size, 0, "returning never restarts a review deadline");
+  button.click();
+  const following = game.controller.snapshot();
+  button.click();
+  assert.equal(game.controller.snapshot(), following);
+  assert.notEqual(following.item.id, reviewed.item.id);
+  assert.equal(game.records.filter(record => record.attempts).length, 1);
+  game.controller.destroy();
+  button.dispatchEvent({ type: "click", detail: 1 });
+  assert.equal(game.frames.size, 0);
+});
+
+test("noun campaign completion is announced only after the final review Continue", async () => {
+  const game = await mountGame();
+  const count = game.controller.snapshot().total;
+  for (let index = 1; index < count; index += 1) { game.answer(); game.finishFeedback(); }
+  game.answer();
+  game.frame(0);
+  game.frame(180);
+  assert.equal(game.messages.length, 0);
+  assert.equal(game.records.some(record => record.rounds), false);
+  game.controller.next();
+  assert.equal(game.messages.length, 0);
+  game.element("gravityNounContinue").click();
+  assert.equal(game.messages.length, 1);
+  assert.equal(game.records.filter(record => record.rounds).length, 1);
+  game.element("gravityNounContinue").click();
+  assert.equal(game.messages.length, 1);
   game.controller.destroy();
 });
 
@@ -705,7 +811,7 @@ test("timeout gives a short correction and one second chance without adding teac
   assert.ok(feedback.includes(lane.label));
   assert.ok(feedback.length < 80);
   assert.doesNotMatch(feedback, /belongs in|grammatically|native review|undefined/i);
-  assert.equal(game.frames.size, 1);
+  assert.equal(game.frames.size, 0);
   game.finishFeedback();
   assert.equal(game.controller.snapshot().phase, "falling");
   game.controller.destroy();
@@ -760,23 +866,36 @@ test("hidden and inactive games freeze input and resume automatically without ba
   assert.equal(game.speechStops(), 0, "a game without pronunciation does not own shared speech");
 });
 
-test("display and audio menus cannot pause falling, selection, or visible results", async () => {
+test("display and audio menus hold falling, input, and visible results until closed", async () => {
   const game = await mountGame();
   game.frame(0);
   game.frame(500);
   game.controls.setOpen(true);
-  assert.equal(game.frames.size, 1);
+  assert.equal(game.frames.size, 0);
   assert.equal(game.controls.options.settings, undefined);
-  game.frame(1000);
-  assert.equal(game.controller.snapshot().elapsedMs, 1000);
-  game.answer();
-  assert.equal(game.records.length, 1, "an open display/audio menu does not block a lane answer");
-  game.frame(1100);
-  game.frame(1280);
-  assert.ok(game.element("gravityNounBlock").classList.contains("is-correct"));
+  game.lane(game.controller.snapshot().item.laneId).click();
+  game.element("gravityNounArena").dispatchEvent({ type: "keydown", key: "1" });
+  assert.equal(game.records.length, 0);
+  assert.equal(game.controller.snapshot().elapsedMs, 500);
   game.controls.setOpen(false);
+  game.frame(10000);
+  game.frame(10500);
+  assert.equal(game.controller.snapshot().elapsedMs, 1000, "menu time is never caught up");
+  game.answer();
+  assert.equal(game.records.length, 1);
+  game.frame(10500);
+  game.frame(10680);
+  assert.ok(game.element("gravityNounBlock").classList.contains("is-correct"));
   game.controls.setOpen(true);
-  assert.equal(game.frames.size, 1);
+  assert.equal(game.frames.size, 0);
+  game.controller.next();
+  assert.equal(game.controller.snapshot().phase, "feedback");
+  game.document.hidden = true;
+  game.document.dispatchEvent({ type: "visibilitychange" });
+  game.document.hidden = false;
+  game.document.dispatchEvent({ type: "visibilitychange" });
+  assert.equal(game.frames.size, 0, "visibility cannot resume an open menu");
+  game.controls.setOpen(false);
   game.finishFeedback();
   assert.equal(game.controller.snapshot().phase, "falling");
   assert.equal(game.records.length, 1);
@@ -954,18 +1073,17 @@ test("noun shortcuts do not consume keys inside editable content or dialogs", as
   game.controller.destroy();
 });
 
-test("pronunciation never pauses falling or selection and is stopped when the word lands", async () => {
+test("pronunciation holds falling and result clocks and is stopped when the word lands", async () => {
   const game = await mountGame({ speech: true, deferSpeech: true });
   assert.ok(game.element("gravityNounSpeak").querySelector('[data-speech-icon="play"]'));
   const word = game.controller.snapshot().item.targetText;
   game.frame(0);
   game.click(game.element("gravityNounSpeak"));
   await settle();
-  assert.equal(game.frames.size, 1);
+  assert.equal(game.frames.size, 0);
   assert.equal(game.speechCalls[0], word);
   assert.ok(game.element("gravityNounSpeak").querySelector('[data-speech-icon="stop"]'));
-  game.frame(500);
-  assert.equal(game.controller.snapshot().elapsedMs, 500);
+  assert.equal(game.controller.snapshot().elapsedMs, 0);
   const stops = game.speechStops();
   game.lane(game.controller.snapshot().item.laneId).click();
   assert.equal(game.records.length, 1);
@@ -975,6 +1093,18 @@ test("pronunciation never pauses falling or selection and is stopped when the wo
   await settle();
   assert.equal(game.controller.snapshot().phase, "feedback", "late speech completion cannot change a landed word");
   assert.equal(game.frames.size, 1);
+  game.frame(10000);
+  game.frame(10180);
+  const result = game.controller.snapshot();
+  const records = game.records.length;
+  game.click(game.element("gravityNounSpeak"));
+  await settle();
+  assert.equal(game.element("gravityNounSpeak").hidden, false);
+  assert.equal(game.frames.size, 0);
+  assert.equal(game.controller.snapshot(), result);
+  game.finishSpeech();
+  await settle();
+  assert.equal(game.records.length, records, "replay cannot award another attempt");
   game.finishFeedback();
   assert.ok(game.element("gravityNounSpeak").querySelector('[data-speech-icon="play"]'));
   game.controller.destroy();
@@ -988,6 +1118,33 @@ test("pronunciation never pauses falling or selection and is stopped when the wo
   failed.answer();
   assert.equal(failed.records[0].successes, 1);
   failed.controller.destroy();
+});
+
+for (const correct of [true, false]) test(`failed feedback replay preserves the noun ${correct ? "answer" : "correction"} and result announcement`, async () => {
+  const game = await mountGame({ speech: true, speechFails: true });
+  const lane = correct ? game.controller.snapshot().item.laneId
+    : game.raw.lanes.find(({ id }) => id !== game.controller.snapshot().item.laneId).id;
+  game.answer(lane);
+  game.frame(0);
+  game.frame(180);
+  const message = game.element("gravityNounFeedback");
+  const text = message.textContent;
+  const announcement = message.getAttribute("aria-label");
+  const state = game.controller.snapshot();
+  const records = game.records.length;
+  assert.ok(text && announcement);
+  game.click(game.element("gravityNounSpeak"));
+  await settle();
+  assert.equal(message.textContent, text);
+  assert.equal(message.getAttribute("aria-label"), announcement);
+  assert.equal(message.classList.contains("is-correct"), correct);
+  assert.equal(message.classList.contains("is-wrong"), !correct);
+  assert.match(game.element("gravityNounSpeak").title, /Audio unavailable/);
+  assert.equal(game.controller.snapshot(), state);
+  assert.equal(game.records.length, records);
+  assert.equal(game.frames.size, 0, "failed playback does not resume an automatic review deadline");
+  game.finishFeedback();
+  game.controller.destroy();
 });
 
 test("global mute disables noun pronunciation and restores only active controls", async () => {
@@ -1019,7 +1176,7 @@ test("global mute disables noun pronunciation and restores only active controls"
   game.controller.destroy();
 });
 
-test("pronunciation remains usable with an open menu but cannot interrupt a result animation", async () => {
+test("pronunciation is usable during menu and settled result review without skipping the landing", async () => {
   const game = await mountGame({ speech: true });
   const speak = game.element("gravityNounSpeak");
   game.controls.setOpen(true);
@@ -1027,12 +1184,19 @@ test("pronunciation remains usable with an open menu but cannot interrupt a resu
   await settle();
   assert.equal(game.speechCalls.length, 1);
   assert.equal(speak.hidden, false);
+  game.controls.setOpen(false);
   game.answer();
   assert.equal(speak.hidden, true);
   speak.click();
   await settle();
   assert.equal(game.speechCalls.length, 1);
   assert.equal(game.frames.size, 1);
+  game.frame(0);
+  game.frame(180);
+  assert.equal(speak.hidden, false);
+  speak.click();
+  await settle();
+  assert.equal(game.speechCalls.length, 2);
   game.finishFeedback();
   assert.equal(speak.hidden, false);
   game.controller.destroy();

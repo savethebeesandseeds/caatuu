@@ -77,6 +77,7 @@ async function mountSequence({ language = "spanish", nounReady = true, phraseFai
   const noun = { options: null, resumes: 0, destroys: 0, nexts: 0, active: true, durationMs: null, icons: null,
     ready: () => nounReady,
     setActive(value) { noun.active = value; },
+    setPaused(value) { noun.paused = value; },
     resumeSegment() { noun.resumes += 1; },
     setDurationMs(value) { noun.durationMs = value; },
     setIconsVisible(value) { noun.icons = value; },
@@ -165,12 +166,16 @@ async function mountSequence({ language = "spanish", nounReady = true, phraseFai
   }
   function answerStage(correct = true) {
     const snapshot=state.adjectiveGame.snapshot(), flight=snapshot.current;
-    if(snapshot.phase === "preview") advance(4000);
+    if(snapshot.phase === "preview") element("gravityAdjectiveNext").click();
     const field=snapshot.step === "meaning" ? "nounMeaning" : snapshot.step === "category" ? "grammarCategory" : "grammarForm";
     const answer=snapshot.step === "meaning" ? flight.anchorMeaning : snapshot.step === "category" ? flight.categoryId : flight.answer;
     const button=element("gravityAdjectiveChoices").querySelectorAll("button").find(button=>(button.dataset[field]===answer)===correct);
     assert.ok(button); assert.equal(button.disabled,false); button.focus(); button.click();
-    advance(180); advance(correct ? 900 : 3600);
+    advance(180);
+    const review = state.adjectiveGame.snapshot();
+    assert.ok(["feedback", "recap"].includes(review.phase), "every answer settles into manual review");
+    assert.equal(frames.size, 0, "settled review has no automatic deadline");
+    if (review.phase === "feedback") element("gravityAdjectiveNext").click();
   }
   function completeRound() {
     for(const step of [...state.adjectiveGame.snapshot().steps]) { assert.equal(state.adjectiveGame.snapshot().step,step); answerStage(); }
@@ -271,7 +276,7 @@ test("explicit noun practice continues independently and its controls affect bot
   const infinite=game.timingChoice(0); infinite.checked=true; infinite.dispatchEvent({type:"change"});
   assert.equal(game.noun.durationMs,0);
   assert.equal(game.state.adjectiveGame.snapshot().durationMs,0);
-  game.chooseMode("forms"); game.advance(900);
+  game.chooseMode("forms");
   assert.equal(game.state.mode,"phrases");
   assert.deepEqual(game.state.adjectiveGame.snapshot().steps,["form"]);
   assert.equal(game.state.adjectiveGame.snapshot().phase,"preview");
@@ -285,7 +290,7 @@ test("explicit noun practice continues independently and its controls affect bot
 test("an explicit noun choice remains available after a sequence error",async()=>{
   const game=await mountSequence({phraseFails:true});
   assert.equal(game.controller.ready(),false);
-  game.chooseMode("nouns"); game.advance(900);
+  game.chooseMode("nouns");
   assert.equal(game.controller.ready(),true);
   assert.equal(game.noun.active,true);
   game.noun.options.onComplete();
@@ -316,18 +321,21 @@ test("finishing a bank can reorder immutable core rounds without stopping the ga
   game.controller.destroy();
 });
 
-test("mode transitions pause while inactive and changing the destination preserves menu focus",async()=>{
+test("ready mode changes have no forced delay and preserve menu focus while respecting inactivity",async()=>{
   const game=await mountSequence();
   game.chooseMode("nouns");
-  game.advance(300);
+  assert.equal(game.state.mode,"nouns");
+  assert.equal(game.frames.size,0);
   game.window.dispatchEvent({type:"message",origin:game.context.location.origin,source:game.shell,data:{source:"caatuu-app-shell",type:"visibility",active:false}});
   assert.equal(game.frames.size,0);
-  const remaining=game.state.transitionRemaining;
+  assert.equal(game.noun.active,false);
   game.window.dispatchEvent({type:"message",origin:game.context.location.origin,source:game.shell,data:{source:"caatuu-app-shell",type:"visibility",active:true}});
-  assert.equal(game.state.transitionRemaining,remaining);
-  game.timingChoice().focus(); game.chooseMode("forms"); game.advance(900);
+  assert.equal(game.noun.active,true);
+  game.timingChoice().focus(); game.chooseMode("forms");
   assert.equal(game.state.mode,"phrases");
   assert.equal(game.state.adjectiveGame.snapshot().practiceMode,"forms");
+  assert.equal(game.state.adjectiveGame.snapshot().phase,"preview");
+  assert.equal(game.frames.size,0,"form reading waits for Continue rather than a mode or preview timer");
   assert.equal(game.document.activeElement,game.timingChoice());
   game.controller.destroy();
 });

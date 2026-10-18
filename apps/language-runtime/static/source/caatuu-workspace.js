@@ -513,7 +513,6 @@ const state = {
   verbRoundInterstitial: false,
   verbRoundRewardXp: 0,
   verbRoundTransitionId: 0,
-  verbSolutionAdvanceTimer: null,
   verbWrongIds: new Set(),
   verbWrongTimer: null,
   verbGuidedRequested: false,
@@ -1340,8 +1339,6 @@ const verbHintExactAssets = new Map([
     alt: "The robed macaw looks carefully through a magnifying glass."
   }]
 ]);
-const campaignTransitionMillis = 1600;
-const wordWorldResultHoldMillis = 4000;
 const campaignGameReadyTimeoutMillis = 8000;
 const verbSolutionRouteColors = [
   "#b84e45",
@@ -1353,18 +1350,9 @@ const verbSolutionRouteColors = [
   "#a64f78",
   "#627f45"
 ];
-const verbRoundInterstitialMillis = 1600;
-const verbRoundCompleteHoldMillis = 420;
-const verbSolutionRevealBaseMillis = 1400;
-const verbSolutionRevealMillisPerPair = 450;
 const verbHintLookupTimeoutMillis = 6000;
 const verbHintImageTimeoutMillis = 1800;
 const verbHintStopwords = new Set(["a", "an", "and", "be", "by", "for", "from", "in", "into", "of", "on", "or", "the", "to", "with"]);
-
-function verbSolutionRevealDuration(pairCount) {
-  const visiblePairs = Math.max(1, Number(pairCount) || 1);
-  return verbSolutionRevealBaseMillis + (visiblePairs * verbSolutionRevealMillisPerPair);
-}
 
 const defaultPrintOptions = {
   orientation: "landscape",
@@ -2099,7 +2087,7 @@ function planVerbRound() {
 }
 
 function applyVerbRound(plan, preloadedHints = null) {
-  clearVerbSolutionAdvance();
+  clearVerbReview();
   resetVerbSelections();
   state.verbHintRequestId += 1;
   state.verbRound = plan.round;
@@ -2396,7 +2384,7 @@ function speakVerbCzechOnTap(verbId) {
   const pair = state.verbRound.find((item) => item.id === verbId);
   const target = pair?.target ?? pair?.cz;
   if (!target || typeof window.CaatuuChrome?.speakText !== "function") return;
-  void window.CaatuuChrome.speakText(target).catch((error) => {
+  void Promise.resolve().then(() => window.CaatuuChrome.speakText(target)).catch((error) => {
     console.warn(`Could not speak the selected ${verbTargetLabel} verb.`, error);
   });
 }
@@ -2709,6 +2697,7 @@ function renderVerbNebula() {
   renderVerbGuidedStatus();
   renderVerbRoundInterstitial();
   renderVerbSolutionArrows();
+  renderVerbReviewContinuation();
   if (state.verbHintsEnabled && state.verbRound.length && !state.verbHintById.size) {
     void loadVerbHintsForRound();
   }
@@ -2717,10 +2706,94 @@ function renderVerbNebula() {
   }
 }
 
+let verbReviewContinuation = null;
+function renderVerbReviewContinuation() {
+  const button = $("#verbContinue");
+  if (!button) return;
+  verbReviewContinuation ||= window.CaatuuPracticePacing.createReviewContinuation({
+    button, i18n: window.CaatuuI18n,
+    canContinue: () => state.activeView === "verbs" && state.trainTab === "verb-lab"
+      && !document.hidden && !shellRobotPageHidden && !window.CaatuuGameDynamics?.active
+      && !practiceReviewMenusOpen("verb-lab")
+      && !state.verbRoundTransitioning && !state.campaignTransitioning,
+    onContinue() {
+      try { Promise.resolve(window.CaatuuChrome?.stopSpeech?.()).catch(() => {}); } catch { /* Review can continue without audio. */ }
+      if (state.verbSolutionRevealed && !verbRoundComplete()) {
+        state.verbRound.forEach(pair => recordVerbContentExposure(pair, null));
+      }
+      if (verbRoundComplete() && state.campaignActive) void completeCampaignRound("verb-lab", window);
+      else void transitionToNextVerbRound();
+    }
+  });
+  const reviewing = !state.verbGuidedMode && !state.verbRoundTransitioning
+    && !state.campaignTransitioning && (verbRoundComplete() || state.verbSolutionRevealed);
+  if (reviewing) verbReviewContinuation.show();
+  else verbReviewContinuation.clear();
+}
+
 
 function waitForVerbTransition(milliseconds) {
   return new Promise((resolve) => window.setTimeout(resolve, milliseconds));
 }
+
+const practicePresentationWaits = new Set();
+
+function hasPracticeReviewMenu(root) {
+  return Boolean(root && [...root.querySelectorAll('details[open], dialog[open], [aria-haspopup][aria-expanded="true"]')]
+    .some((node) => !node.closest("[hidden]")));
+}
+
+function practiceReviewMenusOpen(gameId) {
+  return Boolean(document.querySelector('#settingsPanel:not([hidden]), .home-menu-backdrop:not([hidden]), .games-menu-backdrop:not([hidden])')
+    || hasPracticeReviewMenu(document.querySelector(`[data-train-panel="${gameId}"]`)));
+}
+
+function practicePresentationActive(gameId) {
+  if (shellRobotPageHidden || document.hidden || document.visibilityState === "hidden"
+      || state.activeView !== "verbs" || state.trainTab !== gameId
+      || window.CaatuuGameDynamics?.active || practiceReviewMenusOpen(gameId)) return false;
+  const panel = document.querySelector(`[data-train-panel="${gameId}"]`);
+  try {
+    // Embedded games own their menus and replay controls in a local document.
+    const frame = panel?.querySelector("iframe");
+    return !hasPracticeReviewMenu(frame?.contentDocument);
+  } catch { return false; }
+}
+
+// Readiness may resolve in the background; presentation waits for an active game.
+// Learning review itself is released exclusively by Continue.
+function waitForPracticePresentation(gameId, owner = gameId) {
+  let frame = null;
+  let settled = false;
+  let resolve;
+  const promise = new Promise((accept) => { resolve = accept; });
+  const wait = { promise, gameId, owner, cancel: () => finish(false) };
+  function finish(completed) {
+    if (settled) return;
+    settled = true;
+    if (frame !== null) window.cancelAnimationFrame(frame);
+    practicePresentationWaits.delete(wait);
+    resolve(completed);
+  }
+  function tick() {
+    if (settled) return;
+    if (practicePresentationActive(gameId)) { finish(true); return; }
+    frame = window.requestAnimationFrame(tick);
+  }
+  practicePresentationWaits.add(wait);
+  frame = window.requestAnimationFrame(tick);
+  return wait;
+}
+
+function cancelPracticePresentationWaits(owner) {
+  for (const wait of practicePresentationWaits) {
+    if (!owner || wait.owner === owner) wait.cancel();
+  }
+}
+
+window.addEventListener("pagehide", (event) => {
+  if (!event.persisted) cancelPracticePresentationWaits();
+});
 
 async function preloadVerbHintsForRound(round) {
   const pairs = Array.from(round || []);
@@ -2749,13 +2822,10 @@ async function prepareVerbRound(nextRound, transitionId) {
     ? preloadVerbHintsForRound(nextRound.round)
     : Promise.resolve(null);
   let preloadedHints = null;
-  await Promise.all([
-    waitForVerbTransition(verbRoundInterstitialMillis),
-    hintPromise.then((hints) => {
-      preloadedHints = hints;
-    })
-  ]);
+  preloadedHints = await hintPromise;
   if (transitionId !== state.verbRoundTransitionId) return;
+  if (!await waitForPracticePresentation("verb-lab").promise
+      || transitionId !== state.verbRoundTransitionId) return;
   applyVerbRound(nextRound, preloadedHints);
 }
 
@@ -2784,7 +2854,7 @@ function preloadVerbHintAsset(assetPath) {
   });
 }
 
-async function transitionToNextVerbRound({ holdMillis = verbRoundCompleteHoldMillis } = {}) {
+async function transitionToNextVerbRound() {
   if (state.verbGuidedRequested) {
     state.verbGuidedStatus = "complete";
     state.verbRoundTransitioning = false;
@@ -2793,25 +2863,20 @@ async function transitionToNextVerbRound({ holdMillis = verbRoundCompleteHoldMil
     return;
   }
   if (state.verbRoundTransitioning || !state.verbRound.length) return;
-  clearVerbSolutionAdvance();
+  clearVerbReview();
   const transitionId = state.verbRoundTransitionId + 1;
   state.verbRoundTransitionId = transitionId;
   state.verbRoundTransitioning = true;
-  state.verbSolutionRevealed = false;
   state.verbHintRequestId += 1;
   resetVerbSelections();
 
   renderVerbNebula();
-  await waitForVerbTransition(Math.max(0, holdMillis));
-  if (transitionId !== state.verbRoundTransitionId) return;
+  state.verbSolutionRevealed = false;
   await prepareVerbRound(planVerbRound(), transitionId);
 }
 
-function clearVerbSolutionAdvance() {
-  if (state.verbSolutionAdvanceTimer !== null) {
-    window.clearTimeout(state.verbSolutionAdvanceTimer);
-    state.verbSolutionAdvanceTimer = null;
-  }
+function clearVerbReview() {
+  verbReviewContinuation?.clear();
 }
 
 async function toggleVerbSolution() {
@@ -2820,7 +2885,7 @@ async function toggleVerbSolution() {
       || state.verbGuidedEvidencePending
       || verbGuidedInteractionLocked()) return;
   resetVerbSelections();
-  clearVerbSolutionAdvance();
+  clearVerbReview();
   if (state.verbSolutionRevealed) {
     state.verbSolutionRevealed = false;
     setVerbMatchFeedback(verbMatchInstruction());
@@ -2853,15 +2918,6 @@ async function toggleVerbSolution() {
     "hint"
   );
   renderVerbNebula();
-  if (!state.verbGuidedMode) {
-    const revealDuration = verbSolutionRevealDuration(state.verbRound.length);
-    state.verbSolutionAdvanceTimer = window.setTimeout(() => {
-      state.verbSolutionAdvanceTimer = null;
-      if (!state.verbSolutionRevealed || state.verbRoundTransitioning) return;
-      state.verbRound.forEach(pair => recordVerbContentExposure(pair, null));
-      void transitionToNextVerbRound({ holdMillis: 0 });
-    }, revealDuration);
-  }
 }
 
 function recordVerbSemanticAttempt(pair, {
@@ -3026,10 +3082,6 @@ async function settleVerbMatch() {
       setVerbMatchFeedback("Developer Guided pilot complete. Unit 3 remains locked behind Units 1–2.", "correct");
     }
     renderVerbNebula();
-    if (roundComplete && !state.verbGuidedMode) {
-      if (state.campaignActive) void completeCampaignRound("verb-lab", window);
-      else void transitionToNextVerbRound();
-    }
     return;
   }
 
@@ -3312,7 +3364,8 @@ function toggleVerbHints() {
 }
 
 function cancelVerbRoundTransition() {
-  clearVerbSolutionAdvance();
+  cancelPracticePresentationWaits("verb-lab");
+  clearVerbReview();
   state.verbRoundTransitionId += 1;
   state.verbRoundTransitioning = false;
   state.verbRoundInterstitial = false;
@@ -3480,6 +3533,7 @@ function bindVerbNebulaControls() {
   });
   document.querySelectorAll("#verbMeaningBoard details.verb-toolbar-menu").forEach((menu) => {
     menu.addEventListener("toggle", () => {
+      verbReviewContinuation?.sync();
       const popover = verbToolbarPopover(menu);
       if (!menu.open) {
         window.CaatuuChrome?.releaseToolbarPopover?.(popover);
@@ -4534,6 +4588,7 @@ function syncActiveGameVisibility() {
   syncEmbeddedWordNetVisibility(activeTab === "word-net");
   syncEmbeddedGameVisibility(activeTab);
   syncShellRobotLoading();
+  verbReviewContinuation?.sync();
 }
 
 function syncEmbeddedWordNetVisibility(active) {
@@ -4755,7 +4810,7 @@ function hideCampaignTransition() {
 }
 function resetCompletedVerbRoundForCampaign() {
   if (!verbRoundComplete()) return false;
-  clearVerbSolutionAdvance();
+  clearVerbReview();
   resetVerbSelections();
   state.verbHintRequestId += 1;
   state.verbHintById.clear();
@@ -4790,11 +4845,9 @@ function advanceCompletedCampaignGame(gameId, sourceWindow) {
 function waitForWordWorldCampaignResult() {
   return new Promise((resolve) => {
     const finish = () => {
-      window.clearTimeout(timer);
       if (state.campaignContinueResult === finish) state.campaignContinueResult = null;
       resolve();
     };
-    const timer = window.setTimeout(finish, wordWorldResultHoldMillis);
     state.campaignContinueResult = finish;
   });
 }
@@ -4807,8 +4860,7 @@ function completeWordWorldCampaignRound() {
 
 function continueWordWorldCampaign() {
   if (!state.campaignActive || state.trainTab !== "word-net" || !state.campaignTransitioning) return false;
-  // The arrow and the timeout release the same result hold. Once released,
-  // further clicks belong to the in-progress campaign transition as well.
+  // Only the result's native Next action releases this review.
   state.campaignContinueResult?.();
   return true;
 }
@@ -4826,15 +4878,16 @@ async function completeCampaignRound(gameId, sourceWindow) {
     await waitForWordWorldCampaignResult();
     if (transitionId !== state.campaignTransitionId || !state.campaignActive) return;
   }
+  if (!await waitForPracticePresentation(gameId, "campaign").promise
+      || transitionId !== state.campaignTransitionId || !state.campaignActive) return;
   showCampaignTransition(transitionId);
   advanceCompletedCampaignGame(gameId, sourceWindow);
   ensureCampaignGameLoaded(nextGameId);
 
-  await Promise.all([
-    waitForVerbTransition(campaignTransitionMillis),
-    waitForCampaignGameReady(nextGameId, transitionId)
-  ]);
+  await waitForCampaignGameReady(nextGameId, transitionId);
   if (transitionId !== state.campaignTransitionId || !state.campaignActive) return;
+  if (!await waitForPracticePresentation(gameId, "campaign").promise
+      || transitionId !== state.campaignTransitionId || !state.campaignActive) return;
 
   setTrainTab(nextGameId);
   state.campaignPendingTab = "";
@@ -4860,17 +4913,17 @@ async function startCampaign() {
   showCampaignTransition(transitionId);
   ensureCampaignGameLoaded(firstGameId);
 
-  await Promise.all([
-    waitForVerbTransition(campaignTransitionMillis),
-    waitForCampaignGameReady(firstGameId, transitionId)
-  ]);
+  await waitForCampaignGameReady(firstGameId, transitionId);
   if (transitionId !== state.campaignTransitionId || !state.campaignActive) return;
+  if (!await waitForPracticePresentation(firstGameId, "campaign").promise
+      || transitionId !== state.campaignTransitionId || !state.campaignActive) return;
 
   state.campaignTransitioning = false;
   hideCampaignTransition();
 }
 
 function stopCampaign() {
+  cancelPracticePresentationWaits("campaign");
   // A cancelled transition has not visited its reserved destination yet.
   if (state.campaignPendingTab) state.campaignQueue.unshift(state.campaignPendingTab);
   state.campaignPendingTab = "";

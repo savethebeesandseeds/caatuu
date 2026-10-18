@@ -8,6 +8,7 @@ import { initializeWorkspaceAfterDictionaryProvider } from "../static/source/dic
 import { initializeHomeCourseSetup } from "../static/source/course-setup.mjs";
 import { installMusic } from "../static/source/music.mjs";
 import { installGameDynamics } from "../static/source/game-dynamics.mjs";
+import * as practicePacing from "../static/source/games/practice-pacing.mjs";
 import { installBadgeProgression } from "../static/source/badge-progression.mjs";
 import { installCampaignRoadmap } from "../static/source/campaign-roadmap.mjs";
 import { createPracticeCompass, sharedPracticeAxes } from "../static/source/practice-compass.mjs";
@@ -141,6 +142,7 @@ function startHarness({ dictionary = false, failScript = "", serviceWorker = nul
     };
   }
   Object.assign(context, {
+    practicePacing,
     CaatuuCourse: course,
     CaatuuLearning: harness.window.CaatuuLearning,
     CaatuuShellPolicy: {},

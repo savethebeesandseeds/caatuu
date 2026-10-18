@@ -28,6 +28,7 @@ test("Spanish has no copied English prose outside explicit shared terms and temp
     "app.title", "common.android", "common.audio", "common.normal",
     "courseselector.option.arialabel", "courseselector.option.status",
     "developer.audio.voiceoption", "developer.images.example",
+    "developer.images.robots", // “Robots” is also the Spanish plural.
     "games.grammargravity.journey.recapannouncement",
     "games.grammargravity.nouns.result", "home.social.title", "nav.gameoption",
     "nav.social", "progress.effort.visible", "settings.ai.chat", "settings.ai.tokens",

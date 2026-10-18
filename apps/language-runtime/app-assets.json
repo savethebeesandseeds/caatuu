@@ -199,6 +199,10 @@
       "output": "language-runtime/static/source/game-dynamics.mjs"
     },
     {
+      "source": "apps/language-runtime/static/source/games/practice-pacing.mjs",
+      "output": "language-runtime/static/source/games/practice-pacing.mjs"
+    },
+    {
       "source": "apps/language-runtime/static/styles/game-dynamics.css",
       "output": "language-runtime/static/styles/game-dynamics.css"
     },
@@ -1381,10 +1385,6 @@
     {
       "source": "apps/language-runtime/static/games/memory-moon.html",
       "output": "language-runtime/static/games/memory-moon.html"
-    },
-    {
-      "source": "apps/language-runtime/static/source/games/memory-moon/memory-moon-advance.mjs",
-      "output": "language-runtime/static/source/games/memory-moon/memory-moon-advance.mjs"
     },
     {
       "source": "apps/language-runtime/static/source/games/memory-moon/memory-moon-core.mjs",

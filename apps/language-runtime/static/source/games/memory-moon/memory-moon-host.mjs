@@ -2,12 +2,12 @@ import { fetchDeclaredCourseGameJson } from '../course-game-content.mjs';
 import { mountEmbeddedGameControls } from '../embedded-game-controls.mjs';
 import { createMemoryMoonPractice } from './memory-moon-practice.mjs';
 import { validateMemoryMoonCatalog, moonIllumination, moonShadePath } from './memory-moon-core.mjs';
-import { createMoonRenderer } from './memory-moon-render.mjs';
+import { createMoonRenderer } from './memory-moon-render.mjs?v=memory-moon-render-3';
 import { createMoonSpeech } from './memory-moon-speech.mjs';
 import { createMoonOrbit } from './memory-moon-orbit.mjs';
-import { createMoonAdvance } from './memory-moon-advance.mjs';
+import { createReviewContinuation } from '../practice-pacing.mjs?v=practice-pacing-2';
 import { createMoonPhase } from './memory-moon-phase.mjs';
-import { createMemoryMoonDictionary } from './memory-moon-dictionary.mjs';
+import { createMemoryMoonDictionary } from './memory-moon-dictionary.mjs?v=memory-moon-dictionary-2';
 import { createTargetReadingGuide } from '../../target-reading-guide.mjs?v=target-reading-guide-1';
 
 /** Mount in the frame's document; persisted learning and speech belong to its shell. */
@@ -26,8 +26,10 @@ export async function mountMemoryMoon({ root, shell = globalThis,
   let generation = 0, question = 0, abort = null, pending = false, needsStart = true;
   let loading = true, error = false, snapshot = null, practice = null, packPromise = null;
   let shipCatalog = null, completed = false, completionReady = false;
-  let dictionary = null, dictionaryQuestion = null;
+  let dictionary = null, dictionaryQuestion = null, continuation = null;
   const running = () => !destroyed && active && !paused && pageActive && !document.hidden && !controlsOpen;
+  const reviewable = () => ['question', 'answered'].includes(snapshot?.phase)
+    || (snapshot?.phase === 'complete' && !completionReady);
   const readingGuide = createTargetReadingGuide({ course, gameId: 'memory-moon', document, storage: shell.localStorage });
   const renderer = createMoonRenderer({ root, course, i18n: shell.CaatuuI18n, onAnswer: answer,
     readingGuide, onSelectWord: selectWord,
@@ -40,7 +42,11 @@ export async function mountMemoryMoon({ root, shell = globalThis,
     now: () => view.performance?.now?.() ?? Date.now()
   });
   const speech = (services.createSpeech || createMoonSpeech)({ api: shell.CaatuuChrome,
-    onState: state => { if (!destroyed) { renderer.syncSpeech(state); dictionary?.syncSpeech(state); } },
+    onState: state => {
+      if (destroyed) return;
+      renderer.syncSpeech(state);
+      dictionary?.syncSpeech(state);
+    },
     onStart: () => {
       if (running() && !loading && snapshot?.phase === 'question') {
         const next = practice?.assist('audio');
@@ -64,11 +70,12 @@ export async function mountMemoryMoon({ root, shell = globalThis,
   const orbit = (services.createOrbit || createMoonOrbit)({
     element: renderer.ship, image: renderer.shipImage, document, reducedMotion, random
   });
-  const advance = (services.createAdvance || createMoonAdvance)({
-    setTimer: view.setTimeout.bind(view), clearTimer: view.clearTimeout.bind(view),
-    onAdvance() {
-      if (!running() || !['answered', 'complete'].includes(snapshot?.phase)) return;
+  continuation = createReviewContinuation({
+    button: renderer.continueButton, i18n: shell.CaatuuI18n,
+    canContinue: () => running() && !loading && !error && ['answered', 'complete'].includes(snapshot?.phase),
+    onContinue() {
       void speech.stop();
+      dictionary.reset();
       if (snapshot.phase === 'complete') completionReady = true;
       else { snapshot = practice.advance(); question += 1; }
       render();
@@ -90,13 +97,13 @@ export async function mountMemoryMoon({ root, shell = globalThis,
   }
   function playPrompt(text, { automatic = false } = {}) {
     const current = generation, currentQuestion = question;
-    const canStart = () => running() && !loading && snapshot?.phase === 'question'
+    const canStart = () => running() && !loading && (automatic ? snapshot?.phase === 'question' : reviewable())
       && current === generation && currentQuestion === question;
     if (!canStart() || course.capabilities?.speech !== true) return;
     return speech.play(text, { automatic, canStart });
   }
   function selectWord(word, context) {
-    if (!running() || loading || snapshot?.phase !== 'question' || context.item !== snapshot.currentItem) return;
+    if (!running() || loading || !reviewable() || context.item !== snapshot.currentItem) return;
     void dictionary.open(word, context);
     void playPrompt(word);
   }
@@ -112,12 +119,16 @@ export async function mountMemoryMoon({ root, shell = globalThis,
   function render({ wrongChoiceId } = {}) {
     if (destroyed) return;
     const item = snapshot?.currentItem || snapshot?.items?.[snapshot.index];
-    const nextQuestion = !loading && !error && snapshot?.phase === 'question' ? `${generation}:${question}:${item?.id}` : null;
+    const nextQuestion = !loading && !error && reviewable() ? `${generation}:${question}:${item?.id}` : null;
     if (nextQuestion !== dictionaryQuestion) { dictionary?.reset(); dictionaryQuestion = nextQuestion; }
-    dictionary?.setActive(running() && !loading && !error && snapshot?.phase === 'question');
+    dictionary?.setActive(running() && !loading && !error && reviewable());
     renderer.render(snapshot, { wrongChoiceId, loading, error,
-      interactive: running() && (snapshot?.phase !== 'complete' || completionReady),
+      interactive: running(), completionReady,
       campaignMode: campaign, illumination: moonIllumination(snapshot?.progress || 0) });
+    if (!loading && !error && (snapshot?.phase === 'answered' || (snapshot?.phase === 'complete' && !completionReady))) {
+      if (!continuation?.pending) continuation?.show();
+      else continuation.sync();
+    } else continuation?.clear();
     phase.set(snapshot?.progress || 0);
     if (snapshot?.phase === 'complete' && completionReady && !completed && running()) {
       completed = true;
@@ -139,13 +150,11 @@ export async function mountMemoryMoon({ root, shell = globalThis,
     if (enabled) {
       orbit.resume();
       phase.resume();
-      advance.resume();
       if (needsStart && !pending) void begin();
     } else {
       cancelSelection();
       orbit.pause();
       phase.pause();
-      advance.pause();
       void speech.stop();
     }
     render();
@@ -163,7 +172,7 @@ export async function mountMemoryMoon({ root, shell = globalThis,
     const wrong = snapshot?.phase === 'question' && snapshot !== previous
       && snapshot.wrongChoiceIds?.includes(choiceId);
     render({ wrongChoiceId: wrong ? choiceId : null });
-    if (['answered', 'complete'].includes(snapshot?.phase)) advance.schedule();
+    if (['answered', 'complete'].includes(snapshot?.phase)) renderer.continueButton.focus({ preventScroll: true });
     else if (wrong) renderer.focusChoice();
   }
   async function loadPack() {
@@ -230,7 +239,7 @@ export async function mountMemoryMoon({ root, shell = globalThis,
     snapshot = null;
     completed = false;
     completionReady = false;
-    advance.cancel();
+    continuation.clear();
     void speech.stop();
     phase.set(0, { immediate: true });
     render();
@@ -242,7 +251,7 @@ export async function mountMemoryMoon({ root, shell = globalThis,
     generation += 1;
     abort?.abort();
     practice?.dispose();
-    advance.destroy();
+    continuation.destroy();
     phase.destroy();
     orbit.destroy();
     controls.destroy();

@@ -2412,17 +2412,52 @@ html[data-theme="dark"] .word-net-trail-head {
   }
 }
 .word-net-learning {
-  width: min(100%, 42rem);
-  margin: 0.5rem auto;
-  padding: 0.65rem 0.9rem;
-  border: 1px solid var(--caatuu-border, #d8ded8);
-  border-radius: 0.8rem;
+  min-width: 0;
+  margin: 0;
+  grid-column: 1 / -1;
+  grid-row: 1;
+  justify-self: stretch;
   text-align: start;
   font-size: 0.85rem;
 }
 .word-net-learning[hidden] { display: none; }
-.word-net-learning details { margin-top: 0.35rem; }
-.word-net-learning summary { cursor: pointer; }
+.word-net-learning summary {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  width: fit-content;
+  max-width: 50%;
+  min-height: var(--caatuu-control-target-size, 44px);
+  padding: 2px 6px;
+  border-radius: 6px;
+  color: var(--theme-quiet, #74817b);
+  font-size: 0.66rem;
+  font-weight: 650;
+  line-height: 1.2;
+  list-style: none;
+  opacity: 0.68;
+  cursor: pointer;
+}
+.word-net-learning summary::-webkit-details-marker { display: none; }
+.word-net-learning summary::before { content: "▸"; }
+.word-net-learning details[open] summary::before { content: "▾"; }
+.word-net-learning summary:hover,
+.word-net-learning summary:focus-visible {
+  color: var(--theme-green-strong, #1c4a40);
+  opacity: 1;
+}
+.word-net-learning summary:focus-visible {
+  outline: 2px solid var(--theme-green-strong, #1c4a40);
+  outline-offset: 2px;
+}
+.word-net-learning-content {
+  width: 100%;
+  margin-top: 0.35rem;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--caatuu-border, #d8ded8);
+  border-radius: 0.8rem;
+  background: rgb(128 128 128 / 14%);
+}
 .word-net-learning p { margin: 0.5rem 0 0; line-height: 1.5; }
 #wordNetLearningUnitOptions { display: contents; }
 .word-net-generation-menu button[data-learning-unit] {
@@ -2469,13 +2504,24 @@ html[data-theme="dark"] .word-net-trail-head {
   position: relative;
   inset: auto;
   display: grid;
-  justify-items: end;
-  gap: 4px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  margin-top: 8px;
+  gap: 4px 12px;
 }
 .word-net-sentence-panel:is(.has-learning, :has(.word-net-learning:not([hidden]))) .word-net-feedback .word-net-report-toggle,
 .word-net-sentence-panel:is(.has-learning, :has(.word-net-learning:not([hidden]))) .word-net-feedback .word-net-feedback-status {
   position: static;
   max-width: 100%;
+}
+.word-net-sentence-panel:is(.has-learning, :has(.word-net-learning:not([hidden]))) .word-net-report-toggle {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: end;
+}
+.word-net-sentence-panel:is(.has-learning, :has(.word-net-learning:not([hidden]))) .word-net-feedback-status {
+  grid-column: 1 / -1;
+  justify-self: end;
 }
 
 @media (min-width: 850px) {

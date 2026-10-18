@@ -1,5 +1,19 @@
 # Changelog
 
+## Android 186 / 0.1.34
+
+- Keep answers, corrections and revealed solutions visible until Continue.
+  Apply the same review rule to Campaign handoffs, retain timed gameplay and
+  remove forced loading delays. Guard repeated clicks and held keys.
+- Keep replay and dictionary help available during review. Pause gameplay for
+  menus, rewards and backgrounding, and preserve corrections when audio fails.
+- Recover a removed Android voice through the device default, preserving saved
+  speech pace and volume. Compact Word World's expandable Tips & notes.
+- Compact generated JSON metadata without changing its contents, preserving
+  the existing APK bootstrap asset budget and offline delivery contracts.
+- Physical-device installation, update, offline use and saved-data preservation
+  remain unverified for this candidate. Course review status is unchanged.
+
 ## Android 185 / 0.1.33
 
 - Keep Memory Moon sentences naturally spaced and words selectable. Add authored

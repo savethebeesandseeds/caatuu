@@ -735,6 +735,7 @@ button {
 .gravity-adjective-next { width: 100%; min-height: 44px; padding: 10px 16px; border: 1px solid var(--theme-green, #22594d); border-radius: 10px; background: var(--theme-green, #22594d); color: var(--theme-paper, var(--paper)); font: inherit; font-weight: 750; cursor: pointer; }
 .gravity-adjective-next:focus-visible { outline: 3px solid var(--theme-green, #22594d); outline-offset: 3px; }
 .gravity-adjective-next:disabled { opacity: 0.5; cursor: default; }
+.gravity-review-continue { flex: none; }
 .gravity-adjective-arena[data-step="meaning"][data-meaning-count="6"] { --adjective-choice-height: 140px; }
 .gravity-adjective-arena[data-step="meaning"][data-meaning-count="6"] .gravity-adjective-choices {
   grid-template-columns: repeat(3, minmax(0, 1fr));

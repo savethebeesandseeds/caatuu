@@ -274,6 +274,64 @@ function directChildIdentity(node) {
   ));
 }
 
+function normalizeSharedLearningExtensions(root) {
+  const byId = (id) => findOne(root, (node) => node.attributes.get("id") === id, `shared #${id}`);
+  const menu = byId("wordNetGenerationMenu");
+  const units = byId("wordNetLearningUnits");
+  const unitsLabel = byId("wordNetLearningUnitsLabel");
+  const options = byId("wordNetLearningUnitOptions");
+  assert.equal(units.parent, menu, "Teaching units belong to the existing generation menu.");
+  assert.equal(units.tag, "section");
+  assert.equal(units.attributes.get("role"), "group");
+  assert.equal(units.attributes.get("aria-labelledby"), unitsLabel.attributes.get("id"));
+  assert.equal(units.attributes.get("hidden"), "", "Courses opt in to authored teaching units at runtime.");
+  assert.deepEqual(units.children, [unitsLabel, options]);
+  assert.equal(unitsLabel.attributes.get("data-i18n"), "wordworld.learning.units");
+  assert.equal(options.tag, "div");
+  assert.equal(options.children.length, 0, "The renderer owns the course's authored unit choices.");
+
+  const modes = ["foundation", "patterns"].map((mode) => {
+    const button = findOne(menu, (node) => node.attributes.get("data-generation-mode") === mode, `${mode} mode`);
+    assert.equal(button.tag, "button");
+    assert.equal(button.attributes.get("type"), "button");
+    assert.equal(button.attributes.get("role"), "menuitemradio");
+    assert.equal(button.attributes.get("hidden"), "");
+    assert.equal(button.children.length, 1);
+    assert.equal(button.children[0].attributes.get("data-i18n"), `wordworld.learning.${mode}`);
+    assert.ok(button.children[0].attributes.has("data-generation-label"));
+    assert.equal(button.parent.attributes.get("aria-labelledby"), "wordNetGenerationModeLabel");
+    return button;
+  });
+
+  const learning = byId("wordNetLearning");
+  const note = byId("wordNetLearningNote");
+  const title = byId("wordNetLearningTitle");
+  const explanation = byId("wordNetLearningExplanation");
+  assert.equal(learning.tag, "section");
+  assert.equal(learning.attributes.get("hidden"), "");
+  assert.ok(hasClass(learning.parent, "word-net-feedback"), "Tips and notes have one placement in the feedback row.");
+  assert.equal(learning.parent.children[0], learning, "The notes precede the separate sentence-report control.");
+  assert.deepEqual(learning.children, [note]);
+  assert.equal(note.tag, "details", "Native details provide keyboard-accessible disclosure behavior.");
+  assert.equal(note.attributes.has("open"), false, "Notes start collapsed.");
+  assert.equal(note.children.length, 2);
+  const [summary, content] = note.children;
+  assert.equal(summary.tag, "summary");
+  assert.equal(summary.attributes.get("data-i18n"), "wordworld.learning.note");
+  assert.ok(normalizeSpace(summary.contentSource), "The disclosure has a visible accessible label.");
+  assert.equal(summary.children.length, 0);
+  assert.ok(hasClass(content, "word-net-learning-content"));
+  assert.deepEqual(content.children, [title, explanation]);
+  assert.equal(title.tag, "strong");
+  assert.equal(explanation.tag, "p");
+
+  // These verified, course-neutral teaching additions postdate the immutable
+  // 0.1.7 baseline. Normalize only them; every original component stays exact.
+  for (const extension of [units, ...modes, learning]) {
+    extension.parent.children = extension.parent.children.filter((child) => child !== extension);
+  }
+}
+
 function removeApprovedWordWorldExtensions(node) {
   if (node.attributes.get("id") === "wordNetAudioMenu") {
     const music = findAll(node, (child) => child.attributes.has("data-music-controls"));
@@ -518,6 +576,7 @@ test("the live shared Word World subtree exactly preserves the Czech component s
     "#wordWorldRoot must contain the authoritative game and generative dialog, in that order."
   );
 
+  normalizeSharedLearningExtensions(root);
   removeApprovedWordWorldExtensions(root);
   normalizeApprovedInterfaceAnnotations(root);
   normalizeSharedRobotLoading(root, goldenGame);
@@ -676,6 +735,7 @@ test("Word World activation targets cannot shrink below the shared comfort floor
     [".word-net-translation-menu button", "min-height"],
     [".word-net-translation-timers button", "min-height"],
     [".word-net-feedback-actions button", "min-height"],
+    [".word-net-learning summary", "min-height"],
     [".word-net-diagnostics summary", "min-height"]
   ];
   for (const [selector, ...properties] of dimensions) {

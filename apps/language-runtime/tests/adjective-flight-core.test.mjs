@@ -3,7 +3,6 @@ import test from "node:test";
 import {
   buildMeaningChoices,
   containsGrammarAnchor,
-  grammarFeedbackDuration,
   highlightedFormParts,
   shuffledGrammarValues,
   validateGrammarFlight,
@@ -95,9 +94,4 @@ test("form highlighting finds shared spelling without manufacturing morphology",
   assert.deepEqual(highlightedFormParts("these", ["this", "these"]), { stem: "th", ending: "ese" });
   assert.deepEqual(highlightedFormParts("e\u0301té", ["e\u0301té", "e\u0300tes"]), { stem: "", ending: "e\u0301té" });
   assert.deepEqual(highlightedFormParts("🦜a", ["🦜a", "🦜b"]), { stem: "🦜", ending: "a" });
-});
-
-test("success feedback remains 900 ms while errors allow 2400 ms review", () => {
-  assert.equal(grammarFeedbackDuration(true), 900);
-  assert.equal(grammarFeedbackDuration(false), 2400);
 });

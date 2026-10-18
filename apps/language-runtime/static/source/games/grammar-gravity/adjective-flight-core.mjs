@@ -95,10 +95,6 @@ export function validateGrammarFlight(flight) {
   return flight;
 }
 
-export function grammarFeedbackDuration(correct) {
-  return correct ? 900 : 2400;
-}
-
 export function highlightedFormParts(form, options) {
   const value = String(form ?? "");
   const forms = [...new Set([...(options || []), value])];

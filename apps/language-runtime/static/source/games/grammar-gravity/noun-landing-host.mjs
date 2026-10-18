@@ -6,10 +6,9 @@ import { fetchDeclaredCourseGameJson } from "../course-game-content.mjs?v=course
 import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-10";
 import { createNounVisual } from "./noun-visual.mjs?v=noun-visual-4";
 import { newContentEncounterId } from "../content-progression.mjs";
+import { createReviewContinuation } from "../practice-pacing.mjs?v=practice-pacing-2";
 
 const LANDING_MS = 180;
-const SUCCESS_FEEDBACK_MS = LANDING_MS + 900;
-const ERROR_FEEDBACK_MS = LANDING_MS + 2400;
 
 // Course JSON owns words, categories and artwork. This host owns input and active-time presentation.
 export async function mountNounLanding({ course, shell, scope = globalThis, document = scope.document,
@@ -30,6 +29,7 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
   let frame = 0;
   let lastTime = null;
   let active = Boolean(initialActive);
+  let paused = false;
   let destroyed = false;
   let speechRequest = 0;
   let speaking = false;
@@ -59,6 +59,13 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
   const loadingScreen = mountRobotLoadingScreen({
     container: element("gravityNounLoading"), label: t("loading"), active: active && !document.hidden
   });
+  const continueButton = document.createElement("button");
+  continueButton.id = "gravityNounContinue";
+  continueButton.className = "gravity-adjective-next gravity-review-continue";
+  continueButton.type = "button";
+  element("grammarGravityNounMode").append(continueButton);
+  const review = createReviewContinuation({ button: continueButton, i18n: shell.CaatuuI18n,
+    canContinue: () => engaged() && resultVisible(), onContinue: next });
 
   function listen(target, name, callback, options) {
     target?.addEventListener?.(name, callback, options);
@@ -74,11 +81,12 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
     frame = 0;
     lastTime = null;
   }
-  function engaged() {
-    return Boolean(session) && !destroyed && active && !document.hidden && !segmentWaiting && !visual.loading;
+  function visible() {
+    return Boolean(session) && !destroyed && active && !document.hidden && !loadingPageHidden && !segmentWaiting && !visual.loading;
   }
+  function engaged() { return visible() && !paused; }
   function canRun() {
-    return engaged() && (session?.phase === "feedback" || session?.phase === "falling");
+    return engaged() && !speaking && (session?.phase === "feedback" && !resultVisible() || session?.phase === "falling");
   }
   function schedule() {
     rememberSupport();
@@ -168,6 +176,8 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
     if (!session || destroyed) return;
     const playing = session.phase === "falling";
     const settled = resultVisible();
+    if (settled) { if (!review.pending) review.show(); else review.sync(); }
+    else review.clear();
     const arena = element("gravityNounArena");
     visual.setActive(!destroyed && active && !document.hidden && !segmentWaiting);
     visual.update(session.item);
@@ -204,16 +214,20 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
       id === (session.correct ? session.selectedLane : session.item.laneId)
     )) : null;
     const result = settled ? t("result", { word: session.item.targetText, lane: lane.label }) : "";
-    message.textContent = soundError ? t("soundunavailable") : result;
-    if (settled && !soundError) message.setAttribute("aria-label", `${t(session.correct ? "correct" : "incorrect")} · ${result}`);
+    message.textContent = result;
+    if (settled) message.setAttribute("aria-label", `${t(session.correct ? "correct" : "incorrect")} · ${result}`);
     else message.removeAttribute("aria-label");
-    message.classList.toggle("is-correct", settled && session.correct && !soundError);
-    message.classList.toggle("is-wrong", settled && !session.correct && !soundError);
-    element("gravityNounSpeak").hidden = course.capabilities?.speech !== true || !playing;
-    element("gravityNounSpeak").disabled = !active || Boolean(document.hidden) || Boolean(shell.CaatuuChrome?.getSpeechMuted?.());
+    message.classList.toggle("is-correct", settled && session.correct);
+    message.classList.toggle("is-wrong", settled && !session.correct);
+    element("gravityNounSpeak").hidden = course.capabilities?.speech !== true || !(playing || settled);
+    element("gravityNounSpeak").disabled = !visible() || Boolean(shell.CaatuuChrome?.getSpeechMuted?.());
     speechIcon();
     positionBlock();
     syncVisualState();
+    if (settled && engaged() && restorePlayFocus && !inControls(document.activeElement)
+        && (document.activeElement === document.body || arena.contains(document.activeElement))) {
+      continueButton.focus({ preventScroll: true });
+    }
   }
   function syncVisualState() {
     loadingScreen[visual.loading ? "show" : "hide"]();
@@ -222,6 +236,7 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
     arena.setAttribute("aria-busy", String(visual.loading));
     laneButtons.forEach((button) => { button.disabled = !engaged() || session?.phase !== "falling"; });
     updateClock();
+    review.sync();
   }
   function recordLanding(previous, fraction = fallFraction(previous), timedOut = false) {
     if (previous.phase !== "falling" || session.phase !== "feedback") return;
@@ -254,15 +269,14 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
     frame = 0;
     if (!canRun()) { lastTime = null; return; }
     maybeAutoplay();
+    if (!canRun()) { lastTime = null; return; }
     const elapsed = lastTime === null ? 0 : Math.max(0, timestamp - lastTime);
     lastTime = timestamp;
     // Ignore suspended-tab gaps: no word or result may disappear unseen.
     if (!Number.isFinite(elapsed) || elapsed > 1000) { schedule(); return; }
     if (session.phase === "feedback") {
       const wasVisible = resultVisible();
-      const feedbackMs = session.correct ? SUCCESS_FEEDBACK_MS : ERROR_FEEDBACK_MS;
-      feedbackElapsed = Math.min(feedbackMs, feedbackElapsed + elapsed);
-      if (feedbackElapsed >= feedbackMs) { next(); return; }
+      feedbackElapsed = Math.min(LANDING_MS, feedbackElapsed + elapsed);
       if (wasVisible !== resultVisible()) render();
       else positionBlock();
       schedule();
@@ -274,13 +288,14 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
     else { positionBlock(); schedule(); }
   }
   function next() {
-    if (!engaged() || session?.phase !== "feedback"
-      || feedbackElapsed < (session.correct ? SUCCESS_FEEDBACK_MS : ERROR_FEEDBACK_MS)) return;
+    // Only the shared button handler clears pending before entering here.
+    if (review.pending || !engaged() || !resultVisible()) return;
     const focusInPlay = !inControls(document.activeElement) && (document.activeElement === document.body
-      || element("gravityNounArena").contains(document.activeElement));
+      || element("gravityNounArena").contains(document.activeElement) || document.activeElement === continueButton);
     const restoreArena = restorePlayFocus && focusInPlay;
     restorePlayFocus = false;
     cancelFrame();
+    void stopSpeech();
     const lastItemId = session.item.id;
     session = nextNoun(session);
     feedbackElapsed = 0;
@@ -306,6 +321,7 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
     schedule();
   }
   function beginCycle(avoidFirstItemId) {
+    review.clear();
     lastAutoplayItem = "";
     creditedNouns.clear();
     recordedLandings.clear();
@@ -386,9 +402,15 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
     render();
     syncClock();
   }
+  function setPaused(value) {
+    if (destroyed) return;
+    paused = Boolean(value);
+    render();
+    syncClock();
+  }
   async function speak() {
-    if (!engaged() || shell.CaatuuChrome?.getSpeechMuted?.()
-        || session?.phase !== "falling" || !session.item || course.capabilities?.speech !== true) return;
+    if (!visible() || shell.CaatuuChrome?.getSpeechMuted?.()
+        || !(session?.phase === "falling" || resultVisible()) || !session.item || course.capabilities?.speech !== true) return;
     if (speaking) {
       void stopSpeech();
       render();
@@ -399,10 +421,11 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
     const word = session.item.targetText;
     speaking = true;
     soundError = false;
+    cancelFrame();
     render();
     try {
       await shell.CaatuuChrome?.stopSpeech?.();
-      if (request !== speechRequest || destroyed || !active || document.hidden || shell.CaatuuChrome?.getSpeechMuted?.()) return;
+      if (request !== speechRequest || !visible() || shell.CaatuuChrome?.getSpeechMuted?.()) return;
       await shell.CaatuuChrome.speakText(word);
     } catch {
       if (request === speechRequest && !destroyed) soundError = true;
@@ -425,6 +448,8 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
   function destroy() {
     if (destroyed) return;
     destroyed = true;
+    review.destroy();
+    continueButton.remove();
     visual.destroy();
     loadingScreen.destroy();
     if (active && element("gravityNounClock")) element("gravityNounClock").hidden = true;
@@ -435,7 +460,7 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
   }
 
   function syncLoadingScreen() {
-    loadingScreen.setActive(!destroyed && active && !document.hidden && !loadingPageHidden);
+    loadingScreen.setActive(!destroyed && active && !document.hidden && !loadingPageHidden && !paused);
   }
   // Keep the shared blink suspended even while the noun catalog is pending.
   listen(document, "visibilitychange", syncLoadingScreen);
@@ -488,16 +513,18 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
     });
     lanes.replaceChildren(...laneButtons);
     beginCycle();
-    if (mountControls) controls = mountEmbeddedGameControls({ container: element("gravityNounControls"), shell, course, autoplay: true, readingGuide });
+    if (mountControls) controls = mountEmbeddedGameControls({ container: element("gravityNounControls"), shell, course, autoplay: true, readingGuide, onOpenChange: setPaused });
     listen(reducedMotion, "change", () => { render(); });
     listen(element("gravityNounSpeak"), "click", () => { void speak(); });
     listen(shell, "caatuu:speech-mute-change", () => {
       if (shell.CaatuuChrome?.getSpeechMuted?.()) void stopSpeech();
       render();
+      syncClock();
     });
     listen(shell, "caatuu:speech-autoplay-change", () => {
       if (!shell.CaatuuChrome?.getSpeechAutoplay?.()) void stopSpeech();
       else { lastAutoplayItem = ""; maybeAutoplay(); }
+      syncClock();
     });
     listen(element("gravityNounArena"), "keydown", (event) => {
       if (event.defaultPrevented || event.isComposing
@@ -551,6 +578,6 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
   } finally {
     loadingScreen[visual.loading ? "show" : "hide"]();
   }
-  return Object.freeze({ next, setActive, destroy, resumeSegment, setDurationMs, setIconsVisible,
+  return Object.freeze({ next, setActive, setPaused, destroy, resumeSegment, setDurationMs, setIconsVisible,
     ready: () => Boolean(session) && !destroyed, snapshot: () => session });
 }

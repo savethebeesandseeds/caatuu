@@ -151,7 +151,7 @@ export function createMoonWordLookup({ course, runtime, fetchImpl = globalThis.f
 
 /** Owns only the shared word card and its request lifecycle. The host owns help evidence. */
 export function createMemoryMoonDictionary({ slot, course, runtime, i18n,
-  fetchImpl, runtimeHref, resolveWord, renderWord, onSpeak, onMeaningShown } = {}) {
+  fetchImpl, runtimeHref, resolveWord, renderWord, onSpeak, onMeaningShown, onOpenChange } = {}) {
   const document = slot?.ownerDocument;
   if (!document) throw new TypeError('A local dictionary slot is required.');
   const spanish = primary(course?.sourceLanguage?.locale) === 'es';
@@ -190,8 +190,13 @@ export function createMemoryMoonDictionary({ slot, course, runtime, i18n,
   close.setAttribute('aria-label', t('common.close', spanish ? 'Cerrar' : 'Close'));
   card.append(copy, speak, close);
   slot.replaceChildren(card);
-  let active = true, destroyed = false, generation = 0, controller = null, selected = null;
-  function reset() {
+  let active = true, destroyed = false, generation = 0, controller = null, selected = null, opened = false;
+  function setOpen(value) {
+    if (opened === value) return;
+    opened = value;
+    onOpenChange?.(opened);
+  }
+  function reset({ replacing = false } = {}) {
     generation += 1;
     controller?.abort();
     controller = null;
@@ -204,19 +209,21 @@ export function createMemoryMoonDictionary({ slot, course, runtime, i18n,
     speak.classList.remove('is-speaking');
     speak.setAttribute('aria-pressed', 'false');
     speak.disabled = true;
+    if (!replacing) setOpen(false);
   }
   reset();
   async function open(word, context = {}) {
     if (!active || destroyed) return false;
     const surface = normalizeWord(word);
     if (!surface) return false;
-    reset();
+    reset({ replacing: true });
     const request = generation;
     controller = new AbortController();
     const signal = controller.signal;
     selected = { ...context, word: surface };
     selected.button?.classList?.add('is-dictionary-selected');
     slot.hidden = false;
+    setOpen(true);
     card.setAttribute('aria-hidden', 'false');
     card.classList.add('is-loading');
     wordNode.lang = course?.targetLanguage?.locale || 'und';
