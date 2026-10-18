@@ -44,10 +44,11 @@ function deferred() {
 
 const flush = () => new Promise((resolve) => setImmediate(resolve));
 
-function startHarness({ dictionary = false, failScript = "", serviceWorker = null, interfaceGate = null, nativeSetup = null, homeSetup = null, speech = null } = {}) {
+function startHarness({ dictionary = false, failScript = "", serviceWorker = null, interfaceGate = null, nativeSetup = null, homeSetup = null, productHomeSetup = false, speech = null } = {}) {
   const course = {
-    id: "en-zh-Hans",
+    id: productHomeSetup ? "zh" : "en-zh-Hans",
     routePrefix: "/zh",
+    entryPath: "/zh/index.html",
     status: "active",
     storage: { namespace: "caatuu-readiness" },
     sourceLanguage: { id: "en", locale: "en", label: "English" },
@@ -63,8 +64,54 @@ function startHarness({ dictionary = false, failScript = "", serviceWorker = nul
       }
     } : {})
   };
-  const harness = createBrowserHarness({ course });
+  if (productHomeSetup) {
+    course.courseSelector = { schemaVersion: 1, courses: [{
+      id: course.id, status: course.status, routePrefix: course.routePrefix, entryPath: course.entryPath,
+      sourceLanguage: course.sourceLanguage, targetLanguage: course.targetLanguage
+    }] };
+  }
+  const harness = createBrowserHarness({
+    course,
+    ...(productHomeSetup ? {
+      localStorageValues: { "caatuu.setup.selected-course.v1": course.id },
+      location: { pathname: course.entryPath, href: `https://caatuu.test${course.entryPath}` }
+    } : {})
+  });
   const { context, document } = harness;
+  const productSetupRequests = [];
+  const receiveProductSetup = (request, message) => context.CaatuuNative.receive({ id: request.id, ...message });
+  if (productHomeSetup) {
+    const createElement = document.createElement.bind(document);
+    document.createElement = (tagName) => {
+      const node = createElement(tagName);
+      if (node.tagName === "AUDIO") {
+        node.paused = true;
+        node.currentTime = 0;
+        node.load = () => { node.currentTime = 0; };
+        node.play = () => {
+          node.paused = false;
+          node.dispatchEvent({ type: "playing" });
+          return Promise.resolve();
+        };
+        node.pause = () => {
+          if (node.paused) return;
+          node.paused = true;
+          node.dispatchEvent({ type: "pause" });
+        };
+      }
+      return node;
+    };
+    context.CaatuuAndroid = {
+      isCourseBundled: (id) => id === course.id,
+      postMessage(raw) {
+        const request = JSON.parse(raw);
+        productSetupRequests.push(request);
+        if (request.type === "setup_status") queueMicrotask(() => receiveProductSetup(request, {
+          kind: "done", result: { ready: false, staticAssets: { assets: [{ key: "course", expectedBytes: 100, bytes: 0 }] } }
+        }));
+      }
+    };
+  }
   if (speech) {
     context.CaatuuChrome = { listSpeechVoiceOptions: speech };
     harness.window.CaatuuChrome = context.CaatuuChrome;
@@ -111,6 +158,15 @@ function startHarness({ dictionary = false, failScript = "", serviceWorker = nul
   ]) element("div", id, card);
   for (const id of ["setupAction", "setupAbort", "setupReportBug", "setupDetailsToggle"]) {
     element("button", id, card);
+  }
+  if (productHomeSetup) {
+    element("p", "setupArtifact", document.getElementById("setupDetails"));
+    const selection = element("section", "setupLanguageSelection", card);
+    const form = element("form", "setupLanguageForm", selection);
+    element("div", "setupSourceLanguageOptions", form);
+    const targets = element("fieldset", "setupTargetLanguageQuestion", form);
+    element("div", "setupTargetLanguageOptions", targets);
+    element("button", "setupLanguageContinue", form);
   }
   element("span", "setupVoiceWarning", card).hidden = true;
   element("div", null, card).className = "setup-progress-meta";
@@ -206,6 +262,7 @@ function startHarness({ dictionary = false, failScript = "", serviceWorker = nul
   vm.runInContext(bootstrapSource, context, { filename: "app-bootstrap.mjs" });
   return {
     ...harness, card, nav, loading, shell, workspace, dictionaryMount, errors, scriptUrls, clickNavigation,
+    productSetupRequests, receiveProductSetup,
     get navigationCalls() { return navigationCalls; },
     get readyEvents() { return readyEvents; },
     get workerCalls() { return workerCalls; }
@@ -284,6 +341,50 @@ test("canonical Home loads before native setup, while game and workspace imports
   harness.workspace.resolve({ ready: true });
   await flush();
   assertReady(harness);
+});
+
+test("product first-install details toggle once during download and after native setup hands Home back", { timeout: 2_000 }, async t => {
+  const harness = startHarness({ productHomeSetup: true });
+  t.after(() => harness.window.dispatchEvent({ type: "pagehide" }));
+  await flush();
+  assert.deepEqual(harness.errors, []);
+  assert.deepEqual(harness.productSetupRequests.map(({ type }) => type), ["setup_status", "setup_download"]);
+  const download = harness.productSetupRequests.at(-1);
+  const details = harness.document.getElementById("setupDetails");
+  const toggle = harness.document.getElementById("setupDetailsToggle");
+  assert.equal(toggle.dataset.readyHomeBound, "true", "bootstrap has already installed the normal Home handler");
+  assert.equal(harness.card.classList.contains("is-native-course-setup"), true);
+  assert.equal(details.hidden, true);
+
+  toggle.click();
+  assert.equal(details.hidden, false, "a single click opens first-install diagnostics");
+  assert.equal(toggle.getAttribute("aria-expanded"), "true");
+  assert.equal(toggle.textContent, englishInterfaceContent.t("common.hidedetails"));
+  harness.receiveProductSetup(download, {
+    kind: "progress", phase: "asset_download", artifactIndex: 1, artifactCount: 1,
+    bytes: 42, totalBytes: 100, label: "Course illustrations"
+  });
+  assert.equal(details.hidden, false, "native progress keeps the learner's expanded state");
+  assert.equal(harness.document.getElementById("setupPercent").textContent, "42%");
+  toggle.click();
+  assert.equal(details.hidden, true, "a single click closes first-install diagnostics");
+  assert.equal(toggle.getAttribute("aria-expanded"), "false");
+  assert.equal(toggle.textContent, englishInterfaceContent.t("common.showdetails"));
+
+  harness.receiveProductSetup(download, { kind: "done", result: { ready: true } });
+  await flush();
+  assert.equal(harness.card.classList.contains("is-native-course-setup"), false);
+  harness.workspace.resolve({ ready: true });
+  assert.equal((await harness.context.CaatuuShellReady).ready, true);
+  assertReady(harness);
+  assert.equal(details.hidden, true);
+  toggle.click();
+  assert.equal(details.hidden, false, "the normal Home handler resumes after native cleanup");
+  assert.equal(toggle.getAttribute("aria-expanded"), "true");
+  toggle.click();
+  assert.equal(details.hidden, true, "no native listener remains to toggle the ready Home twice");
+  assert.equal(toggle.getAttribute("aria-expanded"), "false");
+  assert.deepEqual(harness.errors, []);
 });
 
 test("bootstrap locks navigation immediately and renders ready only after workspace initialization", { timeout: 2_000 }, async () => {

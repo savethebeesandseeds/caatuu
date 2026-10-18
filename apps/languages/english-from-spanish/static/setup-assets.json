@@ -40,7 +40,7 @@
       "/language-runtime/contract.mjs",
       "/language-runtime/embedding-runtimes.json",
       "/language-runtime/static/source/initial-theme.js?v=theme-3",
-      "/language-runtime/static/source/app-bootstrap.mjs?v=app-135",
+      "/language-runtime/static/source/app-bootstrap.mjs?v=app-136",
       "/language-runtime/static/source/interface-content.mjs?v=interface-runtime-2",
       "/language-runtime/static/source/legacy-page-bootstrap.mjs?v=legacy-page-10",
       "/language-runtime/static/source/dictionary-provider-loader.mjs",
@@ -337,7 +337,7 @@
       "url": "/es-en/index.html",
       "browserRequired": true,
       "bytes": 98246,
-      "sha256": "10ee71b5d059cf4f032e316d7ef743ba7ee0463998ccc36d160eb517da7facb8"
+      "sha256": "363408b1bc39d418b6e22e6b6d4b8f4573a4c65bac627e55a9f6ddbf01f7c02e"
     },
     {
       "key": "course-profile",
@@ -352,8 +352,8 @@
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/app-bootstrap.mjs",
       "browserRequired": true,
-      "bytes": 35825,
-      "sha256": "c615f242d2957bd0644bb976f69ab5769d14871ecd3ccc82fa4ad2e0c38b7896"
+      "bytes": 35974,
+      "sha256": "5206b50d6db9dc650d81ed54a9610310d5816b8c3a9a232e2e09d70b4e1ce17a"
     },
     {
       "key": "initial-theme",

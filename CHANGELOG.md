@@ -1,5 +1,12 @@
 # Changelog
 
+## Android 187 / 0.1.35
+
+- Fix Show/Hide details during first-install resource downloads. Native setup
+  owns the button until installation finishes, then normal Home takes over.
+- Physical-device installation, update, offline use and saved-data preservation
+  remain unverified for this candidate. Course review status is unchanged.
+
 ## Android 186 / 0.1.34
 
 - Keep answers, corrections and revealed solutions visible until Continue.

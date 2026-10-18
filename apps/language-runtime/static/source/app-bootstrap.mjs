@@ -558,6 +558,8 @@ function bindReadyHomeDetails(card) {
   if (!toggle || toggle.dataset.readyHomeBound === "true") return;
   toggle.dataset.readyHomeBound = "true";
   toggle.addEventListener("click", () => {
+    // Native setup owns this button until verified files unlock the normal Home.
+    if (card.classList.contains("is-native-course-setup")) return;
     const open = !card.classList.contains("details-open");
     card.classList.toggle("details-open", open);
     if (details) details.hidden = !open;
