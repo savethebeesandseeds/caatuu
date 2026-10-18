@@ -40,7 +40,7 @@
       "/language-runtime/contract.mjs",
       "/language-runtime/embedding-runtimes.json",
       "/language-runtime/static/source/initial-theme.js?v=theme-3",
-      "/language-runtime/static/source/app-bootstrap.mjs?v=app-136",
+      "/language-runtime/static/source/app-bootstrap.mjs?v=app-137",
       "/language-runtime/static/source/interface-content.mjs?v=interface-runtime-2",
       "/language-runtime/static/source/legacy-page-bootstrap.mjs?v=legacy-page-10",
       "/language-runtime/static/source/dictionary-provider-loader.mjs",
@@ -75,7 +75,7 @@
       "/language-runtime/static/source/browser-shell.mjs?v=browser-shell-2",
       "/language-runtime/static/source/shell-policy.js?v=shell-policy-18",
       "/language-runtime/static/source/shell-policy.mjs",
-      "/language-runtime/static/source/caatuu-chrome.js?v=chrome-185",
+      "/language-runtime/static/source/caatuu-chrome.js?v=chrome-186",
       "/language-runtime/static/source/learning-profile.js?v=learning-18",
       "/language-runtime/static/source/product-word-world.mjs?v=shared-renderer-38",
       "/language-runtime/static/source/word-net-core.mjs?v=word-net-core-22",
@@ -84,7 +84,7 @@
       "/language-runtime/static/source/english-minilm-ranker.mjs",
       "/language-runtime/static/styles/caatuu-theme.css?v=theme-8",
       "/language-runtime/static/styles/caatuu-workspace.css?v=shell-103",
-      "/language-runtime/static/styles/caatuu-home.css?v=home-68",
+      "/language-runtime/static/styles/caatuu-home.css?v=home-69",
       "/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-146",
       "/language-runtime/static/styles/caatuu-word-world.css?v=word-net-102",
       "/language-runtime/static/styles/dictionary-word-card.css?v=dictionary-card-3",
@@ -256,7 +256,7 @@
       "/language-runtime/static/source/word-world-learning.mjs",
       "/language-runtime/static/source/word-world-teaching.mjs",
       "/language-runtime/static/assets/aa-control.webp",
-      "/language-runtime/static/source/campaign-roadmap.mjs?v=campaign-roadmap-2",
+      "/language-runtime/static/source/campaign-roadmap.mjs?v=campaign-roadmap-3",
       "/language-runtime/static/styles/campaign-roadmap.css?v=campaign-roadmap-7",
       "/language-runtime/static/assets/campaign/robot-01.webp",
       "/language-runtime/static/assets/campaign/robot-02.webp",
@@ -335,7 +335,7 @@
       "url": "/la/index.html",
       "browserRequired": true,
       "bytes": 98246,
-      "sha256": "363408b1bc39d418b6e22e6b6d4b8f4573a4c65bac627e55a9f6ddbf01f7c02e"
+      "sha256": "9b9b0e1df523a597dc83ab37e726b590627f69f7b1e4e8ab35e09d8d95138334"
     },
     {
       "key": "course-profile",
@@ -351,7 +351,7 @@
       "url": "/language-runtime/static/source/app-bootstrap.mjs",
       "browserRequired": true,
       "bytes": 35974,
-      "sha256": "5206b50d6db9dc650d81ed54a9610310d5816b8c3a9a232e2e09d70b4e1ce17a"
+      "sha256": "3cbc2cece41a08472936c49594e878717d4737545a348eabc4491ef1558ab7a4"
     },
     {
       "key": "initial-theme",
@@ -462,8 +462,8 @@
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/caatuu-chrome.js",
       "browserRequired": true,
-      "bytes": 257725,
-      "sha256": "0303809657e2692816e78e9d579b2460a680a6b8eef2fb30403b56ba921bf396"
+      "bytes": 257734,
+      "sha256": "572b934b5793a8a2e461a8ce1eb7b37858c007b2d8f776e88d92c2e0c571ef52"
     },
     {
       "key": "learning-profile",
@@ -510,8 +510,8 @@
       "kind": "shared-embedding-runtime",
       "url": "/language-runtime/static/source/english-minilm-ranker.mjs",
       "browserRequired": true,
-      "bytes": 10309,
-      "sha256": "85ac85d49ddb395798c7b263fa951715a10eefa493c62b9bd9eb07280de6c619"
+      "bytes": 10563,
+      "sha256": "89c6872a5b27accf5a5e77f4a10a733c8a3dc531dd5cff2550b1b9f2d6707033"
     },
     {
       "key": "shared-theme",
@@ -534,8 +534,8 @@
       "kind": "shared-interface",
       "url": "/language-runtime/static/styles/caatuu-home.css",
       "browserRequired": true,
-      "bytes": 46931,
-      "sha256": "e19baa834cdbba25a8e6fb3ffae11fdf176de66a482fbea1a8c4831218fcfc51"
+      "bytes": 48099,
+      "sha256": "e42472d2848893506e3f1f014dec928bf8208dc41435ae729a4ca0407dab6cb7"
     },
     {
       "key": "shared-chrome-style",
@@ -622,8 +622,8 @@
       "kind": "shared-runtime",
       "url": "/language-runtime/static/source/course-service-worker.js",
       "browserRequired": true,
-      "bytes": 12422,
-      "sha256": "7716084fc9aa56efcf1f3550d621a5fb86ca4990ecc15371d692d5f7371717f3"
+      "bytes": 12433,
+      "sha256": "69c9fc46bfd108fd9ae03ed1243f0c85669530eab39531416a124654d879f977"
     },
     {
       "key": "course-flag",

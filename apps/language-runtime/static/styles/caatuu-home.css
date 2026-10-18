@@ -220,6 +220,35 @@ body.app-loading .app-shell { visibility: hidden; }
   display: none;
 }
 
+/* Ready Home keeps its disclosure beside the status; setup and recovery retain
+   their separate progress, action and message rows. */
+.native-setup-card.is-ready:not(.is-native-course-setup, .is-choosing-language, .is-updating, .is-app-update-lock, .is-error, .is-recovery) {
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0 12px;
+}
+
+.native-setup-card.is-ready:not(.is-native-course-setup, .is-choosing-language, .is-updating, .is-app-update-lock, .is-error, .is-recovery) > * {
+  grid-column: 1 / -1;
+}
+
+.native-setup-card.is-ready:not(.is-native-course-setup, .is-choosing-language, .is-updating, .is-app-update-lock, .is-error, .is-recovery) > .setup-head {
+  min-width: 0;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.native-setup-card.is-ready:not(.is-native-course-setup, .is-choosing-language, .is-updating, .is-app-update-lock, .is-error, .is-recovery) > .setup-detail-link {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: center;
+  justify-self: end;
+  text-align: end;
+}
+
+.native-setup-card.is-ready:not(.is-native-course-setup, .is-choosing-language, .is-updating, .is-app-update-lock, .is-error, .is-recovery) > .setup-detail-grid {
+  margin-top: 9px;
+}
+
 .home-language-card {
   width: min(900px, 100%);
   padding: 0;

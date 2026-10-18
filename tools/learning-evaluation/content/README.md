@@ -11,6 +11,15 @@ catalogs. It performs up to three bounded projection passes per course, retains
 errors, and captures a warm repeat. Reload the page for a fresh model realm.
 Earlier observations without saved histories are not exact historical snapshots.
 
+The same page offers **Compare one frozen compact topic wording**. It compares
+the current seven descriptions with one fixed, shorter alternative, using the
+existing course-owned browser WASM model and singleton encoding. Both projections
+use the same histories, cosine floor, squared kernel and saturation. The export
+retains per-item scores, explicit errors, eleven diagnostic meanings (including
+generic negatives), source/model provenance and a cached warm repeat. Increased
+matching alone does not establish better classification. This is a bounded
+manual comparison, not a full-inventory semantic benchmark or a release gate.
+
 ```powershell
 docker exec -w /workspace caatuu-dev node tools/learning-evaluation/content/run.mjs --mapping-audit --profiles artifacts/learning-evaluation/content/mapping-baseline-20260921/browser-capture.json --config tools/learning-evaluation/content/mapping-config.json --output artifacts/learning-evaluation/content/my-mapping-run
 ```

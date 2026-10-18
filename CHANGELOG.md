@@ -4,6 +4,11 @@
 
 - Fix Show/Hide details during first-install resource downloads. Native setup
   owns the button until installation finishes, then normal Home takes over.
+- Compact the Ready Home card, keeping its details control beside the heading.
+- Continue the active Campaign set directly from the top of its map.
+- Accept accented English loanwords in the shared embedding input and keep
+  completed Stats mapping counts visible. Topic mapping remains sparse;
+  further calibration is pending.
 - Physical-device installation, update, offline use and saved-data preservation
   remain unverified for this candidate. Course review status is unchanged.
 

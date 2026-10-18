@@ -71,6 +71,13 @@
 
 ## Android release publication practices
 
+- Only build or publish an APK when the user explicitly asks for that build or
+  release. This also applies to AAB builds and delegated or automated release
+  commands. Bug reports, fixes, UI changes, testing, commits and pushes do not
+  authorize an APK build or publication.
+- A completed release request is not standing authorization for later changes.
+  Batch fixes and run focused source tests; wait for a new explicit build or
+  publication request before starting another APK release.
 - Read `docs/ANDROID_RELEASE_OPERATIONS.md` before release or deployment repair.
   It owns the operation/resume decision table, test policy, incident handoff,
   and publication/CI/device status distinctions. Keep it and the adjacent

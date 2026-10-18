@@ -105,15 +105,18 @@ export function installCampaignRoadmap({ scope = globalThis.window ?? globalThis
     const copy = node("div", "");
     copy.append(node("h1", "", t("campaign.cycle.title", { cycle: model.cycle })),
       node("p", "", t("campaign.cycle.summary", { sets: model.target, effort: model.effortTarget })));
-    const jump = node("button", "campaign-jump", t("campaign.current"));
-    jump.type = "button";
-    jump.addEventListener("click", () => {
-      const current = root.querySelector('[aria-current="step"]');
-      current?.scrollIntoView?.({ block: "center", behavior: "instant" });
-      current?.focus?.({ preventScroll: true });
-    });
-    summary.append(copy, jump);
+    const start = node("button", "campaign-jump", t("campaign.continue"));
+    start.type = "button";
+    start.disabled = !model.available || !model.sets.some(set => set.status === "current");
+    start.addEventListener("click", continueCurrentSet);
+    summary.append(copy, start);
     return summary;
+  }
+  function continueCurrentSet() {
+    if (destroyed || !active) return;
+    const latest = campaignRoadmapModel(learning?.practiceSet?.());
+    if (!latest?.available || !latest.sets.some(set => set.status === "current")) return;
+    onContinue();
   }
   function route(model) {
     const map = node("div", "campaign-route");
@@ -145,11 +148,7 @@ export function installCampaignRoadmap({ scope = globalThis.window ?? globalThis
         stop.type = "button";
         stop.setAttribute("aria-current", "step");
         stop.disabled = !model.available;
-        stop.addEventListener("click", () => {
-          const latest = learning?.practiceSet?.();
-          if (!active || !latest || latest.progression?.available === false) return;
-          onContinue();
-        });
+        stop.addEventListener("click", continueCurrentSet);
       }
       const platform = node("span", "campaign-stop-platform");
       const image = art(set.robot, "campaign-robot");

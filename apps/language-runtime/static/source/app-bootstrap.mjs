@@ -4,7 +4,7 @@ import { installMusic } from "./music.mjs";
 import { installGameDynamics } from "./game-dynamics.mjs?v=game-dynamics-9";
 import * as practicePacing from "./games/practice-pacing.mjs?v=practice-pacing-2";
 import { installBadgeProgression } from "./badge-progression.mjs?v=badge-progression-5";
-import { installCampaignRoadmap } from "./campaign-roadmap.mjs?v=campaign-roadmap-2";
+import { installCampaignRoadmap } from "./campaign-roadmap.mjs?v=campaign-roadmap-3";
 import { createPracticeCompass, sharedPracticeAxes } from "./practice-compass.mjs?v=practice-compass-9";
 import {
   installInterfaceContent,
@@ -791,7 +791,7 @@ async function start() {
     axes: sharedPracticeAxes,
     ...createPracticeCompass({ course, learning: globalThis.CaatuuLearning })
   });
-  await loadSharedScript("/language-runtime/static/source/caatuu-chrome.js?v=chrome-185");
+  await loadSharedScript("/language-runtime/static/source/caatuu-chrome.js?v=chrome-186");
   globalThis.CaatuuGameDynamics = installGameDynamics({
     scope: globalThis,
     onPauseChange(paused) {

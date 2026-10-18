@@ -88,6 +88,47 @@ test("only the current set starts the existing campaign; inspection never equips
   app.roadmap.destroy();
 });
 
+test("the top Continue set starts the existing campaign without scrolling to the stop", () => {
+  const app = mount();
+  app.roadmap.show();
+  const current = app.root.querySelector('[aria-current="step"]');
+  current.scrollIntoView = () => assert.fail("continuing must not scroll to the set first");
+  const start = app.root.querySelector(".campaign-jump");
+  assert.equal(start.textContent, app.root.querySelector(".campaign-continue").textContent);
+  assert.equal(start.type, "button");
+  assert.equal(start.disabled, false);
+  start.click();
+  assert.equal(app.starts(), 1);
+  assert.equal(app.badgeDetails(), 0);
+  app.roadmap.show(false);
+  start.click();
+  current.click();
+  assert.equal(app.starts(), 1, "both entry points stop accepting input when the map is hidden");
+  app.roadmap.show();
+  app.roadmap.destroy();
+  start.click();
+  current.click();
+  assert.equal(app.starts(), 1, "detached controls cannot start a destroyed map");
+});
+
+test("both Continue set controls recheck the latest progress before starting", () => {
+  const app = mount();
+  app.roadmap.show();
+  const start = app.root.querySelector(".campaign-jump");
+  const current = app.root.querySelector('[aria-current="step"]');
+  for (const snapshot of [null, practice({ progression: { available: false } }),
+    practice({ cycle: { target: 16, sets: 16, completed: 36 } })]) {
+    app.update(snapshot);
+    start.click();
+    current.click();
+  }
+  assert.equal(app.starts(), 0, "stale visible controls cannot bypass a lock or completed cycle");
+  app.update(practice({ effort: 0, cycle: { target: 16, sets: 0, completed: 37 } }));
+  start.click();
+  assert.equal(app.starts(), 1, "the same action can start the next cycle once the ledger advances");
+  app.roadmap.destroy();
+});
+
 test("progress updates, resets and unreadable progress cannot offer stale set positions", () => {
   const app = mount();
   app.roadmap.show();
@@ -97,6 +138,8 @@ test("progress updates, resets and unreadable progress cannot offer stale set po
   app.update(practice({ progression: { available: false } }));
   app.window.dispatchEvent({ type: "storage" });
   assert.equal(app.root.querySelector('[aria-current="step"]').disabled, true);
+  assert.equal(app.root.querySelector(".campaign-jump").disabled, true);
+  app.root.querySelector(".campaign-jump").click();
   app.root.querySelector('[aria-current="step"]').click();
   assert.equal(app.starts(), 0);
   app.update(null);

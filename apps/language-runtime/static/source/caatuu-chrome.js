@@ -2574,7 +2574,7 @@
     if (compass) compass.dataset.state = state;
     if (body) body.setAttribute("aria-busy", String(state === "loading"));
     if (status) {
-      status.hidden = !["loading", "error", "partial", "unavailable"].includes(state);
+      status.hidden = !["loading", "error", "partial", "unavailable", "ready"].includes(state);
       status.textContent = status.hidden ? "" : message;
     }
     if (retry) retry.hidden = !["error", "partial", "unavailable"].includes(state);

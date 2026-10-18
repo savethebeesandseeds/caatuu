@@ -254,3 +254,43 @@ Durable first-response and support evidence remains necessary for future
 assessment work. The retained summaries cannot reconstruct all earlier assistance,
 first responses or independent-attempt denominators. This objective did not design
 or implement that storage system, calibrate proficiency, or demonstrate learning benefit.
+
+## Browser follow-up — 18 October 2026
+
+A fresh capture retained 116 distinct practiced identities across eight courses.
+Czech reproduced 3/60 contributing items, 56 completed nonmatches and one rejected
+authored input, “small café”. Its largest radius was 0.001728: about 0.14 SVG pixels
+at the renderer's 80-pixel radius, beneath the 2.5-pixel center marker. The SVG
+rendered the supplied values correctly; the topic projection remained too weak.
+
+The local capture page now compares one frozen set of compact descriptions with
+the existing probes, keeping the 0.3 floor, squared kernel and saturation fixed.
+The actual browser WASM comparison increased Czech matches to 8/60, but its
+largest radius was still only 0.021497. On eleven diagnostic review meanings,
+unexpected positive topic memberships rose from three to ten; “friend”, “weather”
+and “thank you” still missed their expected topics. These are developer review
+expectations, not validated educational labels. The compact candidate was not
+adopted, and no projection constant or production topic description was changed.
+
+Encoding completed without errors and the cached warm repeat agreed exactly.
+Reports and captures remain in ignored artifacts under
+`artifacts/learning-evaluation/content/browser-map-review-20261018-1792346069365/`.
+The CPU comparison could not run because the existing container lacked its
+documented Transformers dependency; no host tooling or dependency installation
+was substituted. Browser results are not claimed to equal CPU output.
+
+The separate input guard now admits conventional English Latin-1 loanwords such
+as “café” and “naïve”, preserving their accents and normalization. Other scripts,
+extended Latin letters outside that bounded set, and the declared English input
+contract retain their existing rejection checks. This fixes the captured input
+failure; it does not resolve the broader topic-calibration problem.
+
+A fresh browser replay after that guard fix completed all eight profiles with
+zero unavailable inputs or vectors. Czech then had 3/60 matches and 57 completed
+nonmatches. Captured per-item histories were byte-for-byte equal before and
+after inspection; no practice evidence was added or rewritten.
+
+Stats now keeps the completed mapping summary visible as well as partial/error
+messages. A successful computation with many nonmatches must still explain how
+few practiced items contribute; the summary no longer disappears when the last
+input failure is repaired.

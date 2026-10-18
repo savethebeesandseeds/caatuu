@@ -5,10 +5,16 @@
 <h1>Local practice mapping capture</h1>
 <p>Manual development diagnostic. Reads retained course histories and the shared projection. It does not record answers or change goals. Captured data stays in this browser until you export it. This page is excluded from release assets.</p>
 <button id="capture">Capture all course profiles</button>
+<button id="compare">Compare one frozen compact topic wording</button>
 <p id="status" role="status">Ready.</p>
 <pre id="summary"></pre>
 <a id="download" download="caatuu-practice-map-capture.json" hidden>Save captured JSON</a>
 <details><summary>Captured JSON</summary><pre id="output"></pre></details>
+<h2>Compact wording comparison</h2>
+<p>Uses the existing course-owned browser model and saved histories. The baseline and one frozen alternative use the same cosine floor, squared kernel and saturation. All items and unmapped errors remain visible; no progress is changed.</p>
+<pre id="comparisonSummary"></pre>
+<a id="comparisonDownload" download="caatuu-topic-probe-comparison.json" hidden>Save comparison JSON</a>
+<details><summary>Comparison JSON</summary><pre id="comparisonOutput"></pre></details>
 <div id="courses"></div>
-<script type="module" src="source/practice-map-capture.mjs"></script>
+<script type="module" src="source/practice-map-capture.mjs?v=compact-topic-probes-1"></script>
 </body></html>

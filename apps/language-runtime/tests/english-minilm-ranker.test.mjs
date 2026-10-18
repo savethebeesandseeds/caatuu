@@ -86,6 +86,31 @@ test("changed candidate text cannot reuse a stale cached vector", async () => {
   ]);
 });
 
+test("authored English loanwords reach the encoder with their accents intact", async () => {
+  const batches = [];
+  const ranker = createEnglishMiniLmRanker({
+    extractor: async (texts) => {
+      batches.push(texts.slice());
+      return tensor(texts.map(() => unitVector(0)));
+    }
+  });
+  const query = "Meet at the small café.";
+  const candidates = [
+    { conceptId: "ww.place.cafe", embeddingText: "A naïve student visits a small café." },
+    { conceptId: "ww.object.pinata", embeddingText: "A party with a piñata." }
+  ];
+  await ranker(payload(query, candidates));
+  assert.deepEqual(batches, [[query, ...candidates.map(candidate => candidate.embeddingText)]]);
+});
+
+test("English loanwords retain NFKC normalization without losing diacritics", () => {
+  const safe = validateEnglishEmbeddingPayload(payload("  small cafe\u0301  ", [
+    { conceptId: "ww.place.cafe", embeddingText: "A nai\u0308ve student at the cafe\u0301." }
+  ]));
+  assert.equal(safe.query.embeddingText, "small café");
+  assert.equal(safe.candidates[0].embeddingText, "A naïve student at the café.");
+});
+
 test("non-contract fields and target-language text are rejected before model execution", async () => {
   let modelCalls = 0;
   const ranker = createEnglishMiniLmRanker({
@@ -107,6 +132,26 @@ test("non-contract fields and target-language text are rejected before model exe
     payload("Find a book", [{ conceptId: "ww.object.book", embeddingText: "Česká kniha" }])
   ];
   for (const invalid of invalidPayloads) await assert.rejects(() => ranker(invalid), /English|only|inputLanguage/u);
+  assert.equal(modelCalls, 0);
+});
+
+test("loanword support still rejects other scripts and extended Latin letters before encoding", async () => {
+  let modelCalls = 0;
+  const ranker = createEnglishMiniLmRanker({
+    extractor: async () => {
+      modelCalls += 1;
+      return tensor([unitVector(0)]);
+    }
+  });
+  for (const text of ["Find 书", "Find كتاب", "Find книга", "Find Česká kniha", "Find a cǎfe"]) {
+    await assert.rejects(() => ranker(payload(text)), /English-only/u);
+    await assert.rejects(() => ranker(payload("Find a café", [
+      { conceptId: "ww.place.cafe", embeddingText: text }
+    ])), /English-only/u);
+  }
+  for (const text of ["é", "àéï", "123"]) {
+    assert.throws(() => validateEnglishEmbeddingPayload(payload(text)), /authored English/u);
+  }
   assert.equal(modelCalls, 0);
 });
 

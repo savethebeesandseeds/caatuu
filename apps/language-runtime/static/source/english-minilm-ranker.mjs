@@ -1,6 +1,7 @@
 const EMBEDDING_DIMENSION = 384;
 const CONCEPT_ID_PATTERN = /^[a-z0-9]+(?:[.-][a-z0-9]+)+$/u;
 const ASCII_LETTER_PATTERN = /[A-Za-z]/u;
+const ENGLISH_LETTER_PATTERN = /[A-Za-z\u00c0-\u00d6\u00d8-\u00f6\u00f8-\u00ff]/u;
 const TARGET_SCRIPT_PATTERN = /[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Hangul}]/u;
 const UNICODE_LETTER_PATTERN = /\p{Letter}/u;
 
@@ -40,7 +41,9 @@ function assertEnglishText(value, path) {
     throw new TypeError(`${path} must be English-only; target-language script was found.`);
   }
   for (const character of text) {
-    if (UNICODE_LETTER_PATTERN.test(character) && !ASCII_LETTER_PATTERN.test(character)) {
+    // Authored English includes loanwords such as café and naïve. This narrow
+    // script guard checks the declared English boundary; it is not language detection.
+    if (UNICODE_LETTER_PATTERN.test(character) && !ENGLISH_LETTER_PATTERN.test(character)) {
       throw new TypeError(`${path} must be English-only; a non-English letter was found.`);
     }
   }

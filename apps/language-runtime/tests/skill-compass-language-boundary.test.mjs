@@ -110,6 +110,28 @@ test("empty, partial, unavailable and failed mapping preserve the common polygon
   }
 });
 
+test("completed mapping keeps matched and unmatched item accounting visible", async t => {
+  const course = generateCourseProfileObject(catalog.courses[0].course);
+  const identity = itemId => ({ courseId: course.id, gameId: "word-world", bankId: "read", itemId });
+  const projection = projectPracticeCompass({ courseId: course.id,
+    axisVectors: Object.fromEntries(sharedPracticeAxes.map(axis => [axis.id, [1, 0]])),
+    items: [
+      { identity: identity("matched"), history: { exposures: 1 }, vector: [1, 0] },
+      { identity: identity("unmatched"), history: { exposures: 1 }, vector: [0, 1] }
+    ] });
+  assert.equal(projection.status, "ready", "a completed nonmatch is not a processing failure");
+  const app = mount(course, projection);
+  t.after(() => app.window.dispatchEvent({ type: "pagehide" }));
+  await flush();
+  const status = app.document.querySelector("#semanticSkillCompassStatus");
+  assert.equal(status.hidden, false, "the chart must explain incomplete topic coverage after processing finishes");
+  assert.equal(status.textContent, app.content.t("settings.compass.completemessage", {
+    mapped: 1, total: 2, unmatched: 1
+  }));
+  assert.equal(app.document.querySelector("#semanticSkillCompassRetry").hidden, true,
+    "completed topic nonmatches do not need a retry control");
+});
+
 test("reopening Stats refreshes without a learning event and failed refresh clears accessible evidence", async t => {
   const course = generateCourseProfileObject(catalog.courses[0].course);
   const projection = projectPracticeCompass({ courseId: course.id,
