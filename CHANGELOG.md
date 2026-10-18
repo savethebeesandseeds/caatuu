@@ -9,6 +9,8 @@
   manual continuation and credit only the practice actually completed.
 - Show Mandarin pinyin above Memory Moon's Hanzi. Add independent pinyin and
   tone-colour switches to Aa, with course-local saved preferences.
+- Compact packaged runtime metadata without changing its fields or download
+  identities, preserving the existing bootstrap asset budget.
 - Physical-device installation, update, offline use and saved-data preservation
   remain unverified for this candidate. Course review status is unchanged.
 

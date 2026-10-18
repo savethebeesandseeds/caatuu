@@ -273,6 +273,14 @@ pwsh -NoProfile -Command '$ErrorActionPreference = "Stop"; & ./apps/android/tool
 
 ## Close the loop after each incident
 
+Android 188's first attempt at source `8270d8cc4492707738e773163699fa59136ea4a9`
+stopped in asset preparation at 8,000,085 bootstrap bytes, before a candidate
+was sealed. The existing shared-asset transform now compacts the APK's embedding
+runtime JSON catalog while preserving every parsed field, pinned URL and digest.
+Authoring files, model objects and download identities remain unchanged. Focused
+contracts cover value preservation, idempotence and the actual packaged bytes.
+Retry the same unsealed version; keep the 8,000,000-byte budget intact.
+
 Android 183 packaging at source `7a2498b21` initially stopped at 8,214,167
 resident asset bytes, above the unchanged 8,000,000-byte limit; no signed
 candidate was sealed. Bootstrap setup catalogs now declare

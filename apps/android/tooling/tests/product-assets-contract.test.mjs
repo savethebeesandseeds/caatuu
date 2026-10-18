@@ -16,6 +16,7 @@ import {
   assertAndroidBundleSharedStorage,
   compileProductAssetBundle,
   compileProductAssets,
+  compactProductJson,
   exactWorkspaceSource,
   loadAndroidCourseBundleConfiguration,
   loadAndroidCourseConfiguration,
@@ -744,6 +745,7 @@ test("product assets compile from an exact capability-safe allowlist", async (t)
   }
   const application = loadAndroidCourseConfiguration({ workspaceRoot });
   for (const path of [
+    "language-runtime/embedding-runtimes.json",
     "language-runtime/static/source/app-bootstrap.mjs",
     "language-runtime/static/source/browser-shell.mjs",
     "language-runtime/static/source/caatuu-workspace.js",
@@ -784,6 +786,8 @@ test("product assets compile from an exact capability-safe allowlist", async (t)
     const original = readFileSync(source);
     const expected = path === "language-runtime/static/data/interface/en.v1.json"
       ? Buffer.from(transformProductInterfaceCatalog(original.toString("utf8")))
+      : path === "language-runtime/embedding-runtimes.json"
+        ? Buffer.from(compactProductJson(original.toString("utf8")))
       : original;
     assert.ok(readFileSync(join(outputDir, path)).equals(expected),
       `product package must retain the exact reviewed shared app bytes: ${path}`);
@@ -971,6 +975,17 @@ test("product transforms fail closed when an expected development anchor drifts"
     )),
     /chrome advanced summary: expected 1 exact source anchor/u,
   );
+});
+
+test("packaged runtime metadata omits indentation while preserving every value and download identity", () => {
+  const original = readFileSync(join(workspaceRoot, "apps/language-runtime/embedding-runtimes.json"), "utf8");
+  const compact = compactProductJson(original);
+  assert.deepEqual(JSON.parse(compact), JSON.parse(original));
+  assert.ok(Buffer.byteLength(compact) < Buffer.byteLength(original), "authoring whitespace stays out of APK residency");
+  assert.equal(compactProductJson(compact), compact, "package audits apply the same idempotent transform");
+  const text = { notes: "Preserve  spaces,\nnewlines, ü and 汉字", nested: [null, true, 42] };
+  assert.deepEqual(JSON.parse(compactProductJson(JSON.stringify(text, null, 2))), text);
+  assert.throws(() => compactProductJson('{invalid'), SyntaxError);
 });
 
 test("Android Word World packaging removes generation strategy without changing its runtime authority", () => {

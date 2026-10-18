@@ -1900,6 +1900,11 @@ export function transformProductInterfaceCatalog(input) {
   return `${JSON.stringify(catalog)}\n`;
 }
 
+/** Preserve metadata values and pinned identities without packaging indentation. */
+export function compactProductJson(input) {
+  return `${JSON.stringify(JSON.parse(normalizeText(input)))}\n`;
+}
+
 export function transformProductDeveloperTools(input) {
   let source = exactReplace(normalizeText(input),
     'import { mountEmbeddingImages, mountDebugChat } from "./model-tools.mjs?v=model-tools-2";',
@@ -1920,6 +1925,7 @@ export function transformProductModelTools(input) {
 }
 
 const SHARED_APP_TRANSFORMS = Object.freeze({
+  "language-runtime/embedding-runtimes.json": compactProductJson,
   "language-runtime/static/source/developer-tools/developer-tools.mjs": transformProductDeveloperTools,
   "language-runtime/static/source/developer-tools/model-tools.mjs": transformProductModelTools,
   "language-runtime/static/source/developer-tools/browser-model-service.mjs": transformDeveloperBrowserModelService,

@@ -36,6 +36,11 @@ once into shared app storage, while course content remains below
 union of packaged and downloaded content. Website/single-course exports select
 full delivery explicitly.
 
+The packaged shared embedding runtime catalog omits JSON indentation through
+the compiler's shared transform. Its fields, URLs and digests stay identical
+to the readable source catalog. The package audit uses the same transform;
+this does not regenerate models or change setup download identities.
+
 Background music follows that shared setup delivery: all three tracks and their
 credits/license texts are hash-pinned in each course's setup catalog and reuse
 one shared installed copy. No music audio is bundled in either the bootstrap
