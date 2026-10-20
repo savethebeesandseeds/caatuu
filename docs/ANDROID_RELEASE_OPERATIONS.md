@@ -115,16 +115,20 @@ or immutable release bytes cannot be overwritten. Pages still transports a
 complete site artifact; that transport is not a website rebuild.
 
 The owner-approved [`pages-storage-policy.json`](../apps/android/tooling/pages-storage-policy.json)
-archives only the six APK copies at `/android/releases/163/caatuu.apk` through
-`/android/releases/168/caatuu.apk`, reclaiming 216,904,912 bytes. Approval was
-given in this release chat on 5 October 2026: "Yes, archive those six Pages APK
-copies". Each policy entry pins the original byte count, digest and identical
-GitHub Release download. Those six old Pages APK URLs cease to work; their
-GitHub archives, Pages manifests/receipts, compatibility baseline, recent APKs
-and every course setup object remain. The immutable release-history descriptor
-is unchanged by archiving. Android retries, public verification and later
-website builds honor the policy; older website snapshots cannot reintroduce
-the archived APKs. Additional removals require a new explicit approval.
+archives only the APK copies at `/android/releases/163/caatuu.apk` through
+`/android/releases/184/caatuu.apk`, reclaiming 269,966,916 bytes in total. The
+original six copies (163–168, 216,904,912 bytes) were approved on 5 October 2026:
+"Yes, archive those six Pages APK copies". On 20 October 2026, the owner approved
+versions 169–184 and resuming Android 190, adding 16 copies and 53,062,004 bytes
+of capacity. Their GitHub Release asset sizes and SHA-256 digests were verified
+against the descriptor and published inventory before extending the policy.
+Each policy entry pins the original byte count, digest and identical GitHub
+Release download. Only those old Pages APK URLs cease to work; GitHub archives,
+Pages manifests/receipts, compatibility baseline, versions 185 onward and every
+course setup object remain. The immutable release-history descriptor is
+unchanged by archiving. Android retries, public verification and later website
+builds honor the policy; older website snapshots cannot reintroduce archived
+APKs. Additional removals require a new explicit approval.
 
 Website scope also verifies the live inventory's `websiteSnapshot.sourceRevision`
 after Pages reports deployment success. During version 177 publication, the live
