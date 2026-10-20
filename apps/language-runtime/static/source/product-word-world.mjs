@@ -493,6 +493,7 @@ const state = {
   busy: false,
   currentWord: "",
   selectedWord: "",
+  wordSelectionRequested: false,
   selectedWordMeaning: "",
   selectedWordDetails: null,
   selectedWordGapNotice: "",
@@ -917,8 +918,9 @@ function speechGloballyMuted() {
 
 function syncSpeechControl() {
   const sentenceButton = $("#wordNetPhraseSound");
+  const resultButton = $("#wordNetReconstructionResultSound");
   const wordButton = $("#wordNetSelectedWordSound");
-  if (!sentenceButton && !wordButton) return;
+  if (!sentenceButton && !resultButton && !wordButton) return;
 
   const speechPace = czechSpeechPace();
   const paceDescription = interfaceText("speech.speed.description", { speed: speechPaceLabel(speechPace) });
@@ -950,18 +952,19 @@ function syncSpeechControl() {
     sentenceTitle = sentenceLabel;
   }
 
-  if (sentenceButton) {
-    sentenceButton.dataset.speechPace = speechPace.label;
-    sentenceButton.dataset.speechPaceSource = speechPace.source;
-    sentenceButton.dataset.speechDifficulty = String(speechPace.difficulty);
-    sentenceButton.dataset.speechRate = String(speechPace.rate);
-    sentenceButton.disabled = muted || checking || state.busy || !supported || !hasSentence;
-    sentenceButton.classList.toggle("is-speaking", sentenceSpeaking);
-    sentenceButton.setAttribute("aria-pressed", String(sentenceSpeaking));
-    sentenceButton.setAttribute("aria-label", sentenceLabel);
-    sentenceButton.title = sentenceTitle;
-    sentenceButton.querySelector('[data-speech-icon="play"]')?.toggleAttribute("hidden", sentenceSpeaking);
-    sentenceButton.querySelector('[data-speech-icon="stop"]')?.toggleAttribute("hidden", !sentenceSpeaking);
+  for (const button of [sentenceButton, resultButton]) {
+    if (!button) continue;
+    button.dataset.speechPace = speechPace.label;
+    button.dataset.speechPaceSource = speechPace.source;
+    button.dataset.speechDifficulty = String(speechPace.difficulty);
+    button.dataset.speechRate = String(speechPace.rate);
+    button.disabled = muted || checking || state.busy || !supported || !hasSentence;
+    button.classList.toggle("is-speaking", sentenceSpeaking);
+    button.setAttribute("aria-pressed", String(sentenceSpeaking));
+    button.setAttribute("aria-label", sentenceLabel);
+    button.title = sentenceTitle;
+    button.querySelector('[data-speech-icon="play"]')?.toggleAttribute("hidden", sentenceSpeaking);
+    button.querySelector('[data-speech-icon="stop"]')?.toggleAttribute("hidden", !sentenceSpeaking);
   }
 
   const selectedWord = normalizeWord(state.selectedWord);
@@ -1085,6 +1088,7 @@ async function refreshAudioVoiceOptions() {
 
 function targetSentenceSpeechAllowed() {
   return state.translationMode !== "reconstruct"
+    || state.reconstruction?.submitted === true
     || state.reconstruction?.promptSide === "target";
 }
 
@@ -2243,15 +2247,17 @@ function markGuidedDictionaryHint() {
 
 function toggleWordCardPreference(key) {
   if (!Object.prototype.hasOwnProperty.call(state.wordCardPreferences, key)) return;
-  if (key === "showCard" && !state.wordCardPreferences.showCard && !markGuidedDictionaryHint()) return;
+  const revealsSelection = key === "showCard" && !state.wordCardPreferences.showCard
+    && state.wordSelectionRequested && state.translationMode !== "off"
+    && (state.translationMode !== "reconstruct" || state.reconstruction?.submitted === true
+      || state.reconstruction?.promptSide === "target");
+  if (revealsSelection && !state.reconstruction?.submitted && !markGuidedDictionaryHint()) return;
   state.wordCardPreferences[key] = !state.wordCardPreferences[key];
   saveWordCardPreferences();
   syncTranslationMenu();
   syncWordTranslation();
   if (
-    state.guidedMode
-    && key === "showCard"
-    && state.wordCardPreferences.showCard
+    revealsSelection
     && state.selectedWord
     && !state.selectedWordMeaning
     && !state.wordMeaningLoading
@@ -2898,8 +2904,7 @@ function generateFromConfiguredMode(mode = state.generationMode, { force = false
   if (state.busy) return;
   if (!force && shouldBlockReconstructionAdvance()) return;
   if (state.contentMode === "standard") {
-    void generateStandardFromConfiguredMode(mode);
-    return;
+    return generateStandardFromConfiguredMode(mode);
   }
   if (mode === "selected") {
     const selectedWord = normalizeWord(state.selectedWord);
@@ -2908,11 +2913,10 @@ function generateFromConfiguredMode(mode = state.generationMode, { force = false
       return;
     }
     state.generativeTurnActive = true;
-    void generateSentenceForWord(selectedWord, { source: "choice" });
-    return;
+    return generateSentenceForWord(selectedWord, { source: "choice" });
   }
   state.generativeTurnActive = true;
-  void generateRandomPhrase({ source: "seed" });
+  return generateRandomPhrase({ source: "seed" });
 }
 
 function recentStandardEntryIds() {
@@ -3494,12 +3498,46 @@ function replaceTargetSentence(host, text, record = preparedTargetRecord(), {
   return guided;
 }
 
+function reconstructionFeedbackOperations(round) {
+  const operations = alignWordReconstructionAttempt(
+    reconstructionSelectedOptions(round).map((option) => option.text),
+    round.challenge.answerTokens
+  );
+  return operations.map((operation) => ({
+    ...operation,
+    moved: ["missing", "extra"].includes(operation.type) && operations.some((other) => (
+      other.type === (operation.type === "missing" ? "extra" : "missing")
+      && isWordReconstructionCorrect(
+        [operation.entered || operation.expected], [other.entered || other.expected]
+      )
+    ))
+  }));
+}
+
+function reconstructionFeedbackLabel(operation) {
+  if (operation.moved) return interfaceText("wordworld.reconstruction.tokenmoved", {
+    word: operation.entered || operation.expected
+  });
+  if (operation.type === "replacement") return interfaceText("wordworld.reconstruction.tokenreplace", {
+    word: operation.entered, expected: operation.expected
+  });
+  return interfaceText({
+    match: "wordworld.reconstruction.tokencorrect",
+    missing: "wordworld.reconstruction.tokenmissing",
+    extra: "wordworld.reconstruction.tokenextra"
+  }[operation.type], { word: operation.entered || operation.expected });
+}
+
 function renderReconstructionAttempt(round, host) {
   const selected = reconstructionSelectedOptions(round);
   host.classList.toggle("is-complete-sentence", round.correct);
   if (round.correct) {
     const sentence = round.submittedText || reconstructionSelectedText(round);
-    if (round.answerSide === "target") replaceTargetSentence(host, sentence);
+    if (round.answerSide === "target") {
+      const authoredTokens = selected.every((option) => option.part?.prepared?.token)
+        ? selected.map((option) => option.part.prepared.token) : null;
+      renderCzechSentence(sentence, state.selectedWord, null, host, authoredTokens);
+    }
     else {
       host.classList.remove("has-target-text-guide", "has-target-text-colors");
       host.textContent = sentence;
@@ -3509,33 +3547,40 @@ function renderReconstructionAttempt(round, host) {
     return;
   }
 
-  const operations = alignWordReconstructionAttempt(
-    selected.map((option) => option.text),
-    round.challenge.answerTokens
-  );
+  const operations = reconstructionFeedbackOperations(round);
   const submittedSentence = reconstructionSelectedText(round);
   const submitted = document.createElement("span");
   submitted.className = "word-net-reconstruction-result-submitted";
+  submitted.classList.toggle("is-unspaced", round.challenge.layout?.defaultSeparator === "");
   const spokenFeedback = [];
   let enteredIndex = 0;
-  operations.filter((operation) => operation.entered).forEach((operation) => {
+  let expectedIndex = 0;
+  operations.forEach((operation) => {
     const token = document.createElement("span");
     const isCorrect = operation.type === "match";
-    token.className = `word-net-reconstruction-result-token ${isCorrect ? "is-correct" : "is-wrong"}`;
-    const option = selected[enteredIndex];
-    enteredIndex += 1;
-    if (round.answerSide === "target") {
+    token.className = `word-net-reconstruction-result-token ${isCorrect ? "is-correct" : "is-wrong"} is-${operation.type}`;
+    token.classList.toggle("is-moved", operation.moved);
+    const label = reconstructionFeedbackLabel(operation);
+    token.setAttribute("aria-label", label);
+    token.title = label;
+    const option = operation.entered ? selected[enteredIndex++] : null;
+    const expectedPart = operation.expected ? round.challenge.answerParts?.[expectedIndex++] : null;
+    if (operation.type === "missing") {
+      token.classList.add("is-missing");
+      const width = document.createElement("span");
+      width.className = "word-net-reconstruction-gap-width";
+      width.setAttribute("aria-hidden", "true");
+      if (round.answerSide === "target") {
+        replaceTargetText(width, operation.expected, expectedPart?.prepared || null);
+      } else width.textContent = operation.expected;
+      token.append(width);
+    } else if (round.answerSide === "target") {
       replaceTargetText(token, operation.entered, option?.part?.prepared || null);
     } else {
       token.textContent = operation.entered;
     }
     submitted.append(token);
-    spokenFeedback.push(interfaceText(
-      isCorrect
-        ? "wordworld.reconstruction.tokencorrect"
-        : "wordworld.reconstruction.tokenincorrect",
-      { word: operation.entered }
-    ));
+    spokenFeedback.push(label);
   });
   if (round.challenge.layout?.trailing) {
     const punctuation = document.createElement("span");
@@ -3555,9 +3600,65 @@ function renderReconstructionAttempt(round, host) {
   );
 }
 
+function renderReconstructionCorrection(round, host) {
+  if (round.answerSide === "target") {
+    renderCzechSentence(round.answerText, state.selectedWord, null, host);
+    const buttons = host.querySelectorAll(".cz-word-token");
+    let index = 0;
+    for (const operation of reconstructionFeedbackOperations(round)) {
+      if (!operation.expected) continue;
+      const button = buttons[index++];
+      if (!button) continue;
+      button.classList.add("word-net-reconstruction-result-token");
+      button.classList.toggle("is-correction", operation.type !== "match");
+      button.classList.toggle("is-moved", operation.moved);
+    }
+    return;
+  }
+  const layout = round.challenge.layout || { defaultSeparator: " " };
+  const fragment = document.createDocumentFragment();
+  let expectedIndex = 0;
+  for (const operation of reconstructionFeedbackOperations(round)) {
+    if (!operation.expected) continue;
+    const separator = layout.separators?.[expectedIndex]
+      ?? (expectedIndex ? layout.defaultSeparator : "");
+    if (separator) fragment.append(document.createTextNode(separator));
+    const token = document.createElement("span");
+    token.className = "word-net-reconstruction-result-token";
+    token.classList.toggle("is-correction", operation.type !== "match");
+    token.classList.toggle("is-moved", operation.moved);
+    token.textContent = operation.expected;
+    expectedIndex += 1;
+    fragment.append(token);
+  }
+  if (layout.trailing) fragment.append(document.createTextNode(layout.trailing));
+  host.replaceChildren(fragment);
+}
+
+function reconstructionDictionaryHost(round = state.reconstruction) {
+  if (state.translationMode !== "reconstruct" || !round?.submitted) return null;
+  return $(round.promptSide === "target"
+    ? "#wordNetReconstructionResultTitle"
+    : round.correct ? "#wordNetReconstructionResultAttemptText" : "#wordNetReconstructionResultCorrectText");
+}
+
+function initializeReconstructionDictionary(round) {
+  if (round.resultDictionaryInitialized) return;
+  round.resultDictionaryInitialized = true;
+  const first = segmentedSentence(state.currentSentence).find((token) => token.type === "word");
+  if (!first) return;
+  selectWord(first.text, {
+    lookup: state.wordCardPreferences.showCard,
+    render: false,
+    revealCard: true,
+    tokenIndex: 0
+  });
+}
+
 function renderReconstructionResult(round, result) {
   if (!round.submitted) {
     result.hidden = true;
+    result.classList.remove("is-entering-incorrect");
     $("#wordNetReconstructionResultPoints")?.classList.remove("is-xp-awarded");
     return;
   }
@@ -3566,34 +3667,52 @@ function renderReconstructionResult(round, result) {
   const outcomeContent = {
     correct: {
       mark: "\u2713",
-      message: "",
       points: interfaceText("wordworld.reconstruction.points", { count: round.awardedXp || 0 })
     },
     incorrect: {
       mark: "\u21ba",
-      message: interfaceText("wordworld.reconstruction.incorrectdetail"),
       points: interfaceText("wordworld.reconstruction.points", { count: 0 })
     }
   }[outcome];
 
+  const enteringIncorrect = outcome === "incorrect"
+    && (result.hidden || result.dataset.outcome !== outcome);
   result.hidden = false;
   result.dataset.outcome = outcome;
   result.classList.toggle("is-correct", outcome === "correct");
   result.classList.toggle("is-incorrect", outcome === "incorrect");
+  if (enteringIncorrect) result.classList.add("is-entering-incorrect");
+  else if (outcome !== "incorrect") result.classList.remove("is-entering-incorrect");
 
   const mark = $("#wordNetReconstructionResultMark");
   const title = $("#wordNetReconstructionResultTitle");
-  const message = $("#wordNetReconstructionResultMessage");
   const points = $("#wordNetReconstructionResultPoints");
   const attempt = $("#wordNetReconstructionResultAttempt");
   const attemptText = $("#wordNetReconstructionResultAttemptText");
   const correct = $("#wordNetReconstructionResultCorrect");
   const correctText = $("#wordNetReconstructionResultCorrectText");
+  const retry = $("#wordNetReconstructionRetry");
+  const continueButton = $("#wordNetReconstructionContinue");
+  const sound = $("#wordNetReconstructionResultSound");
+  const kicker = $("#wordNetReconstructionResultKicker");
 
   if (mark) mark.textContent = outcomeContent.mark;
-  const targetRecord = preparedTargetRecord();
+  if (kicker) kicker.textContent = interfaceText(outcome === "incorrect"
+    ? "wordworld.result.review" : "wordworld.result.kicker");
+  if (retry) {
+    retry.hidden = round.correct && !(state.guidedRequested && !round.guidedIndependentQualified);
+    retry.disabled = state.busy || state.guidedEvidencePending;
+  }
+  if (continueButton) {
+    continueButton.hidden = Boolean(state.guidedRequested && !round.guidedIndependentQualified);
+    continueButton.disabled = state.busy || state.guidedEvidencePending;
+    continueButton.textContent = interfaceText(state.guidedRequested
+      ? "wordworld.navigation.next.verbnebula" : "common.continue");
+  }
+  if (sound) sound.hidden = course.capabilities?.speech !== true;
+  initializeReconstructionDictionary(round);
   if (title) {
-    if (round.promptSide === "target") replaceTargetSentence(title, round.promptText, targetRecord);
+    if (round.promptSide === "target") renderCzechSentence(round.promptText, state.selectedWord, null, title);
     else {
       title.classList.remove("has-target-text-guide", "has-target-text-colors");
       title.textContent = round.promptText;
@@ -3603,6 +3722,7 @@ function renderReconstructionResult(round, result) {
     title.dir = promptLanguage?.direction === "rtl" ? "rtl" : "ltr";
   }
   if (points) {
+    points.hidden = outcome === "incorrect" || Boolean(round.isRetry);
     points.textContent = outcomeContent.points;
     points.classList.remove("is-xp-awarded");
     if (outcome === "correct") {
@@ -3610,11 +3730,6 @@ function renderReconstructionResult(round, result) {
       points.classList.add("is-xp-awarded");
     }
   }
-  if (message) {
-    message.textContent = outcomeContent.message;
-    message.hidden = !outcomeContent.message;
-  }
-
   if (attempt && attemptText) {
     attempt.hidden = false;
     attempt.classList.toggle("is-correct-attempt", outcome === "correct");
@@ -3622,19 +3737,12 @@ function renderReconstructionResult(round, result) {
   }
   if (correct && correctText) {
     correct.hidden = outcome === "correct";
-    if (round.answerSide === "target") {
-      replaceTargetSentence(correctText, round.answerText, targetRecord, {
-        prefix: "\u201c",
-        suffix: "\u201d"
-      });
-    } else {
-      correctText.classList.remove("has-target-text-guide", "has-target-text-colors");
-      correctText.textContent = `\u201c${round.answerText}\u201d`;
-    }
+    renderReconstructionCorrection(round, correctText);
     const answerLanguage = round.answerSide === "target" ? course.targetLanguage : course.sourceLanguage;
     correctText.lang = String(answerLanguage?.locale || answerLanguage?.id || "");
     correctText.dir = answerLanguage?.direction === "rtl" ? "rtl" : "ltr";
   }
+  syncSpeechControl();
 }
 
 function syncPreviousSentenceControl(round = null) {
@@ -3796,9 +3904,18 @@ function renderReconstruction() {
 }
 
 function stabilizeReconstructionResultViewport() {
+  const round = state.reconstruction;
+  const dictionary = round?.submitted ? $("#wordNetWordTranslation") : null;
   const scrollLeft = window.scrollX;
   const scrollTop = window.scrollY;
-  const restoreScroll = () => window.scrollTo(scrollLeft, scrollTop);
+  const restoreScroll = () => {
+    if (state.reconstruction !== round) return;
+    if (dictionary && !dictionary.hidden) {
+      dictionary.scrollIntoView?.({ block: "nearest", inline: "nearest", behavior: "instant" });
+    } else {
+      window.scrollTo(scrollLeft, scrollTop);
+    }
+  };
   window.requestAnimationFrame(() => {
     restoreScroll();
     window.requestAnimationFrame(restoreScroll);
@@ -3907,9 +4024,9 @@ async function submitReconstructionChallenge() {
     state.guidedEvidencePending = false;
   }
   round.correct = correct;
-  completeWordWorldExposure(correct, { round });
+  if (!round.isRetry) completeWordWorldExposure(correct, { round });
   const guidedRound = Boolean(round.guidedLifecycle);
-  const rewardAvailable = guidedRound ? false : claimSentenceReward(round.key);
+  const rewardAvailable = guidedRound || round.isRetry ? false : claimSentenceReward(round.key);
   round.awardedXp = round.correct && rewardAvailable ? 3 : 0;
   round.submitted = true;
   round.submittedText = reconstructionSelectedText(round);
@@ -3918,11 +4035,13 @@ async function submitReconstructionChallenge() {
       ? round.guidedIndependentQualified
         ? interfaceText("wordworld.reconstruction.correctcontinue")
         : interfaceText("wordworld.reconstruction.correctsupported")
-      : (round.awardedXp
+      : round.isRetry
+        ? interfaceText("wordworld.reconstruction.correctreview")
+        : (round.awardedXp
           ? interfaceText("wordworld.reconstruction.correctxp", { count: round.awardedXp })
           : interfaceText("wordworld.reconstruction.correctalreadyrewarded"))
     : interfaceText("wordworld.reconstruction.incorrect");
-  if (!guidedRound) {
+  if (!guidedRound && !round.isRetry) {
     window.CaatuuLearning?.record("word-world", {
       attempts: 1,
       successes: round.correct ? 1 : 0,
@@ -3930,15 +4049,42 @@ async function submitReconstructionChallenge() {
       rounds: 1
     });
     if (round.correct) announceCampaignRoundSuccess();
-  } else {
+  } else if (guidedRound) {
     state.guidedStatus = round.guidedIndependentQualified ? "complete" : "retry";
     renderWordGuidedStatus();
   }
+  if (!correct) state.contentEncounterSupported = true;
   renderReconstruction();
   stabilizeReconstructionResultViewport();
-  window.requestAnimationFrame(() => $("#wordNetNext")?.focus({ preventScroll: true }));
+  window.requestAnimationFrame(() => $(correct && (!state.guidedRequested || round.guidedIndependentQualified)
+    ? "#wordNetReconstructionContinue" : "#wordNetReconstructionRetry")?.focus({ preventScroll: true }));
 }
 
+function retryReconstructionChallenge() {
+  const round = ensureReconstructionChallenge();
+  if (!round?.submitted || state.busy || state.guidedEvidencePending) return;
+  if (state.guidedRequested) {
+    if (round.guidedIndependentQualified) return;
+    void activateNextSentence({ focusAnswer: true });
+    return;
+  }
+  if (round.correct) return;
+  cancelCzechSpeech();
+  round.isRetry = true;
+  round.submitted = false;
+  round.correct = false;
+  round.awardedXp = 0;
+  round.resultDictionaryInitialized = false;
+  state.wordSelectionRequested = false;
+  state.selectedTokenIndex = null;
+  abortWordLookup();
+  round.announcement = interfaceText("wordworld.reconstruction.retrydetail");
+  state.contentEncounterSupported = true;
+  renderReconstruction();
+  syncCzechSentenceSelection("");
+  stabilizeReconstructionResultViewport();
+  $("#wordNetReconstructionAnswer")?.querySelector("button")?.focus({ preventScroll: true });
+}
 function shouldBlockReconstructionAdvance() {
   if (state.translationMode !== "reconstruct") return false;
   const round = ensureReconstructionChallenge();
@@ -3949,7 +4095,7 @@ function shouldBlockReconstructionAdvance() {
   return true;
 }
 
-async function activateNextSentence({ campaignAdvance = false } = {}) {
+async function activateNextSentence({ campaignAdvance = false, focusAnswer = false } = {}) {
   if (state.guidedRequested) {
     const round = ensureReconstructionChallenge();
     if (!round?.submitted || state.busy || state.guidedEvidencePending) return;
@@ -3982,17 +4128,21 @@ async function activateNextSentence({ campaignAdvance = false } = {}) {
     } finally {
       if (state.busy) setBusy(false);
     }
+    if (focusAnswer) $("#wordNetReconstructionBank")?.querySelector("button:not(:disabled)")?.focus({ preventScroll: true });
     return;
   }
   if (state.busy) return;
   if (shouldBlockReconstructionAdvance()) return;
   if (!campaignAdvance && window.CaatuuWorkspaceShell?.continueWordWorld?.() === true) return;
   completeWordWorldExposure(null);
-  generateFromConfiguredMode(state.generationMode, { force: true });
+  await generateFromConfiguredMode(state.generationMode, { force: true });
+  if (focusAnswer) $("#wordNetReconstructionBank")?.querySelector("button:not(:disabled)")?.focus({ preventScroll: true });
 }
 
 function beginWordWorldEncounter() {
   state.reconstruction = null;
+  state.wordSelectionRequested = false;
+  state.selectedTokenIndex = null;
   state.contentEncounterId = state.currentContentMode === "standard" ? newContentEncounterId() : "";
   state.contentEncounterGeneration = window.CaatuuLearning?.contentGeneration?.() ?? null;
   state.contentEncounterCompleted = false;
@@ -4214,11 +4364,13 @@ function syncWordTranslation() {
   const translationEnabled = state.translationMode !== "off";
   // The selected target word would reveal part of a learner-base prompt's answer.
   const dictionaryAllowed = state.translationMode !== "reconstruct"
+    || state.reconstruction?.submitted === true
     || state.reconstruction?.promptSide === "target";
   const guidedState = state.guidedLifecycle?.state();
   const guidedCardAllowed = !state.guidedMode
     || Boolean(guidedState?.hintsUsed || guidedState?.firstResponseRecorded);
   const visible = Boolean(state.selectedWord)
+    && state.wordSelectionRequested
     && translationEnabled
     && dictionaryAllowed
     && state.wordCardPreferences.showCard
@@ -4243,6 +4395,7 @@ function syncWordTranslation() {
   }
   if (state.selectedWordGapNotice) metadata.push(state.selectedWordGapNotice);
   panel.hidden = !visible;
+  $(".word-net-sentence-panel")?.classList.toggle("has-result-dictionary", visible && state.reconstruction?.submitted === true);
   panel.setAttribute("aria-hidden", visible ? "false" : "true");
   panel.classList.toggle("is-loading", visible && state.wordMeaningLoading);
   replaceTargetText(
@@ -4495,7 +4648,7 @@ async function lookupSelectedWord(word) {
   }
 }
 
-function selectWord(word, { lookup = true, render = true, userInitiated = false, tokenIndex = null } = {}) {
+function selectWord(word, { lookup = true, render = true, userInitiated = false, revealCard = false, tokenIndex = null } = {}) {
   const selectedWord = normalizeWord(word);
   if (!selectedWord) return;
   state.cancelOptionSpeech?.();
@@ -4505,6 +4658,7 @@ function selectWord(word, { lookup = true, render = true, userInitiated = false,
   state.selectedTokenIndex = Number.isInteger(tokenIndex) && tokenIndex >= 0 ? tokenIndex : null;
   const nextMeaningKey = wordMeaningCacheKey(selectedWord);
   state.selectedWord = selectedWord;
+  state.wordSelectionRequested = userInitiated || revealCard;
   if (previousKey !== nextKey || state.selectedWordMeaningKey !== nextMeaningKey) {
     state.selectedWordMeaningKey = nextMeaningKey;
     if (state.speechSource === "word") cancelCzechSpeech();
@@ -4534,6 +4688,23 @@ function selectWord(word, { lookup = true, render = true, userInitiated = false,
   ) {
     queueSelectedWordSpeech();
   }
+}
+
+function handleWordWorldDictionarySelection(event) {
+  const button = event.target.closest(".cz-word-token");
+  if (!button || state.busy || guidedWordInteractionLocked()) return;
+  const resultReview = Boolean(state.reconstruction?.submitted && button.closest("#wordNetReconstructionResult"));
+  if (state.guidedMode && !resultReview) {
+    if (!markGuidedDictionaryHint()) return;
+    state.wordCardPreferences.showCard = true;
+  }
+  selectWord(button.dataset.word, {
+    userInitiated: true,
+    tokenIndex: Number(button.dataset.tokenIndex)
+  });
+  setStatus(state.guidedMode && !resultReview
+    ? interfaceText("wordworld.word.guidedsupport", { word: button.dataset.word })
+    : interfaceText("wordworld.word.selected", { word: button.dataset.word }), { tone: "muted" });
 }
 
 function queueSelectedWordSpeech() {
@@ -5296,14 +5467,15 @@ async function requestSentenceCandidate(target, { signal, speculative = false, o
   return { sentence: localSentence(target, generationAvoidList()), source: "validated-fallback" };
 }
 
-function segmentedSentence(sentence) {
+function segmentedSentence(sentence, authoredTokens = null) {
   const currentRecord = typeof providerContext?.sessionRecord === "function"
     ? providerContext.sessionRecord(state.currentEntryId)
     : null;
   if (typeof providerContext?.segment === "function") {
-    const learnerContent = currentRecord?.target?.text === String(sentence || "").normalize("NFC").trim()
-      ? currentRecord.target
-      : sentence;
+    const learnerContent = Array.isArray(authoredTokens)
+      ? { ...currentRecord?.target, text: sentence, tokens: authoredTokens }
+      : currentRecord?.target?.text === String(sentence || "").normalize("NFC").trim()
+        ? currentRecord.target : sentence;
     try {
       return providerContext.segment(learnerContent, { record: currentRecord });
     } catch (error) {
@@ -5314,15 +5486,16 @@ function segmentedSentence(sentence) {
 }
 
 function syncCzechSentenceSelection(selectedWord) {
-  const host = $("#wordNetSentence");
+  const resultHost = reconstructionDictionaryHost();
+  const host = resultHost || $("#wordNetSentence");
   const presentation = state.sentencePresentation;
-  if (!host || presentation?.host !== host || presentation.sentence !== state.currentSentence
+  if (!host || (!resultHost && (presentation?.host !== host || presentation.sentence !== state.currentSentence
     || presentation.entryId !== state.currentEntryId
-    || host.classList.contains("is-source-language-prompt")) return false;
+    || host.classList.contains("is-source-language-prompt")))) return false;
   const words = host.querySelectorAll(".cz-word-token");
   if (!words.length) return false;
   for (const button of words) {
-    const selected = wordMatchesTarget(button.dataset.word, selectedWord)
+    const selected = state.wordSelectionRequested && wordMatchesTarget(button.dataset.word, selectedWord)
       && (state.selectedTokenIndex === null
         || state.selectedTokenIndex === Number(button.dataset.tokenIndex));
     button.classList.toggle("is-selected", selected);
@@ -5334,18 +5507,20 @@ function syncCzechSentenceSelection(selectedWord) {
 function renderCzechSentence(
   sentence,
   selectedWord = "",
-  curriculumFocus = state.guidedMode ? state.guidedFocusTarget : null
+  curriculumFocus = state.guidedMode ? state.guidedFocusTarget : null,
+  host = $("#wordNetSentence"),
+  authoredTokens = null
 ) {
-  const host = $("#wordNetSentence");
   if (!host) return;
+  const mainPrompt = host === $("#wordNetSentence");
 
-  const tokens = segmentedSentence(sentence);
+  const tokens = segmentedSentence(sentence, authoredTokens);
   const currentRecord = typeof providerContext?.sessionRecord === "function"
     ? providerContext.sessionRecord(state.currentEntryId)
     : null;
   const preparedTokens = Array.isArray(currentRecord?.target?.tokens) ? currentRecord.target.tokens : [];
   if (!tokens.length) {
-    state.sentencePresentation = null;
+    if (mainPrompt) state.sentencePresentation = null;
     const empty = document.createElement("p");
     empty.className = "word-net-empty";
     empty.textContent = interfaceText("wordworld.sentence.preparing", {
@@ -5359,6 +5534,7 @@ function renderCzechSentence(
   const nodes = [];
   let openingPunctuation = [];
   let wordIndex = 0;
+  const usedPreparedIndices = new Set();
   const punctuationNode = (text) => {
     const span = document.createElement("span");
     span.className = "cz-punctuation-token";
@@ -5385,21 +5561,29 @@ function renderCzechSentence(
     const button = document.createElement("button");
     button.type = "button";
     button.className = "cz-word-token";
+    let tokenIndex = wordIndex;
+    if (!mainPrompt && sentence !== state.currentSentence && preparedTokens.length) {
+      const key = normalizeWord(token.text).toLocaleLowerCase(targetLocale);
+      const canonicalIndex = preparedTokens.findIndex((prepared, index) => !usedPreparedIndices.has(index)
+        && normalizeWord(prepared.surface || prepared.text).toLocaleLowerCase(targetLocale) === key);
+      if (canonicalIndex >= 0) tokenIndex = canonicalIndex;
+    }
+    usedPreparedIndices.add(tokenIndex);
     replaceTargetText(button, token.text, {
       record: currentRecord,
-      token: preparedTokens[wordIndex] || token,
-      tokenIndex: wordIndex
+      token: preparedTokens[tokenIndex] || token,
+      tokenIndex
     });
     button.dataset.word = normalizeWord(token.text);
-    button.dataset.tokenIndex = String(wordIndex);
+    button.dataset.tokenIndex = String(tokenIndex);
     const curriculumFocused = Number(curriculumFocus?.tokenIndex) === wordIndex
       && wordMatchesTarget(button.dataset.word, curriculumFocus?.normalized);
     const label = curriculumFocused
       ? interfaceText("wordworld.word.curriculumfocus", { word: token.text })
       : interfaceText("wordworld.word.selectmeaning", { word: token.text });
     button.setAttribute("aria-label", label);
-    const selected = wordMatchesTarget(button.dataset.word, selectedWord)
-      && (state.selectedTokenIndex === null || state.selectedTokenIndex === wordIndex);
+    const selected = state.wordSelectionRequested && wordMatchesTarget(button.dataset.word, selectedWord)
+      && (state.selectedTokenIndex === null || state.selectedTokenIndex === tokenIndex);
     button.setAttribute("aria-pressed", selected ? "true" : "false");
     if (selected) {
       button.classList.add("is-selected");
@@ -5414,7 +5598,7 @@ function renderCzechSentence(
   }
   nodes.push(...openingPunctuation);
   host.replaceChildren(...nodes);
-  state.sentencePresentation = { host, sentence, entryId: state.currentEntryId };
+  if (mainPrompt) state.sentencePresentation = { host, sentence, entryId: state.currentEntryId };
   syncGenerationControl();
   syncSpeechControl();
 }
@@ -5999,6 +6183,7 @@ function bindUi() {
     closeAudioMenu({ restoreFocus: true });
   });
   $("#wordNetPhraseSound")?.addEventListener("click", speakCurrentCzechSentence);
+  $("#wordNetReconstructionResultSound")?.addEventListener("click", speakCurrentCzechSentence);
   $("#wordNetSelectedWordSound")?.addEventListener("click", speakSelectedCzechWord);
   $("#wordNetReconstruction")?.addEventListener("click", (event) => {
     const option = event.target.closest("[data-reconstruction-option-id]");
@@ -6012,6 +6197,8 @@ function bindUi() {
     }
   });
   $("#wordNetReconstructionSubmit")?.addEventListener("click", submitReconstructionChallenge);
+  $("#wordNetReconstructionRetry")?.addEventListener("click", retryReconstructionChallenge);
+  $("#wordNetReconstructionContinue")?.addEventListener("click", () => void activateNextSentence({ focusAnswer: true }));
   document.addEventListener("click", (event) => {
     if (event.target.closest(".word-net-panel-actions")) return;
     closeDisplayMenu();
@@ -6028,21 +6215,8 @@ function bindUi() {
       closeGenerationMenu();
     }
   });
-  $("#wordNetSentence")?.addEventListener("click", (event) => {
-    const button = event.target.closest(".cz-word-token");
-    if (!button || state.busy || guidedWordInteractionLocked()) return;
-    if (state.guidedMode) {
-      if (!markGuidedDictionaryHint()) return;
-      state.wordCardPreferences.showCard = true;
-    }
-    selectWord(button.dataset.word, {
-      userInitiated: true,
-      tokenIndex: Number(button.dataset.tokenIndex)
-    });
-    setStatus(state.guidedMode
-      ? interfaceText("wordworld.word.guidedsupport", { word: button.dataset.word })
-      : interfaceText("wordworld.word.selected", { word: button.dataset.word }), { tone: "muted" });
-  });
+  $("#wordNetSentence")?.addEventListener("click", handleWordWorldDictionarySelection);
+  $("#wordNetReconstructionResult")?.addEventListener("click", handleWordWorldDictionarySelection);
   bindSentenceGestures();
   $("#wordNetReportToggle")?.addEventListener("click", openSentenceFeedback);
   $("#wordNetFeedbackCancel")?.addEventListener("click", closeSentenceFeedback);

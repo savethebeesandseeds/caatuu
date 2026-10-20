@@ -250,6 +250,119 @@ function solveBoard(fixture) {
   assert.equal(tiles().length, 0);
 }
 
+for (const courseCatalog of [catalog, arabicCatalog]) for (const difficulty of [0, 1, 2, 3]) {
+  test(`${courseCatalog.courseId} Nucleus difficulty ${difficulty} defaults to its supported orbit without a learning-settings API`, async () => {
+    const fixture = createLoadingHarness({ fetchImpl: async () => ({ ok: true, json: async () => courseCatalog }) });
+    fixture.window.CaatuuLearning = { difficulty: () => difficulty };
+    // An unscoped legacy setting cannot override a fresh difficulty default.
+    fixture.window.localStorage.setItem(`caatuu.${courseCatalog.courseId}.naturalizationNucleus.pieceCount.v1`,
+      difficulty < 2 ? "9" : "5");
+    await fixture.api.mount();
+    await fixture.advance(1600);
+    const expected = difficulty < 2 ? 5 : 9;
+    assert.equal(fixture.element("Board").dataset.pieceCount, String(expected));
+    assert.equal(fixture.element("Deck").querySelectorAll("button[data-naturalization-piece-id]").length, expected);
+    assert.ok(fixture.panel.querySelectorAll("[data-naturalization-piece-count]").every(button => !button.disabled));
+    solveBoard(fixture);
+    fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
+  });
+}
+
+for (const courseCatalog of [catalog, arabicCatalog]) {
+  test(`${courseCatalog.courseId} Nucleus applies a confirmed settings reset after a queued difficulty round trip`, async () => {
+    const fixture = createLoadingHarness({ fetchImpl: async () => ({ ok: true, json: async () => courseCatalog }) });
+    let setting = 5;
+    fixture.window.CaatuuLearning = {
+      difficulty: () => 0,
+      gameSetting: () => setting,
+      setGameSetting: (_name, value) => { setting = value; }
+    };
+    const count = () => Number(fixture.element("Board").dataset.pieceCount);
+    const chooseNine = async () => {
+      fixture.element("OptionsToggle").click();
+      fixture.panel.querySelector('[data-naturalization-piece-count="9"]').click();
+      await fixture.advance(1600);
+      assert.equal(count(), 9);
+    };
+    await fixture.api.mount();
+    await fixture.advance(1600);
+    await chooseNine();
+    // Another window selected a different badge and returned to zero before
+    // this mounted game processed its queued preference notifications.
+    setting = 5;
+    fixture.window.dispatchEvent({ type: "caatuu:learning-change",
+      detail: { reason: "difficulty", settingsReset: true } });
+    await fixture.advance(1600);
+    assert.equal(count(), 5, "a genuine reset applies even when the final badge is unchanged");
+    solveBoard(fixture);
+    fixture.element("Continue").click();
+    await fixture.advance(1600);
+    await chooseNine();
+    const currentTiles = fixture.element("Deck").querySelectorAll("button[data-naturalization-piece-id]");
+    fixture.window.dispatchEvent({ type: "caatuu:learning-change", detail: { reason: "difficulty" } });
+    await fixture.advance(1600);
+    assert.equal(count(), 9, "ordinary same-level notifications keep a subsequent manual choice");
+    assert.deepEqual(fixture.element("Deck").querySelectorAll("button[data-naturalization-piece-id]"), currentTiles);
+    fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
+  });
+
+  test(`${courseCatalog.courseId} Nucleus keeps manual orbit choices until a genuine difficulty change`, async () => {
+    const fixture = createLoadingHarness({ fetchImpl: async () => ({ ok: true, json: async () => courseCatalog }) });
+    let difficulty = 0;
+    let setting = 5;
+    const writes = [];
+    fixture.window.CaatuuLearning = {
+      difficulty: () => difficulty,
+      gameSetting(name) { assert.equal(name, "nucleusTiles"); return setting; },
+      setGameSetting(name, value) { assert.equal(name, "nucleusTiles"); setting = value; writes.push(value); }
+    };
+    const count = () => Number(fixture.element("Board").dataset.pieceCount);
+    const deckIds = () => fixture.element("Deck").querySelectorAll("button[data-naturalization-piece-id]")
+      .map(tile => tile.dataset.naturalizationPieceId);
+    const chooseCount = async value => {
+      fixture.element("OptionsToggle").click();
+      fixture.panel.querySelector(`[data-naturalization-piece-count="${value}"]`).click();
+      await fixture.advance(1600);
+      assert.equal(count(), value);
+    };
+    const changeDifficulty = async next => {
+      difficulty = next;
+      // The shared learning controller resets settings before notifying games.
+      setting = difficulty < 2 ? 5 : 9;
+      fixture.window.dispatchEvent({ type: "caatuu:learning-change", detail: { reason: "difficulty" } });
+      await fixture.advance(1600);
+      assert.equal(count(), setting);
+      assert.equal(fixture.element("Board").dataset.difficulty, String(difficulty));
+    };
+    await fixture.api.mount();
+    await fixture.advance(1600);
+    assert.equal(count(), 5);
+    await chooseCount(9);
+    assert.deepEqual(writes, [9]);
+    const currentIds = deckIds();
+    fixture.window.dispatchEvent({ type: "caatuu:learning-change", detail: { reason: "difficulty" } });
+    await fixture.advance(1600);
+    assert.equal(count(), 9);
+    assert.deepEqual(deckIds(), currentIds, "a repeated event for the same badge cannot replace the board or override");
+    solveBoard(fixture);
+    fixture.element("Continue").click();
+    await fixture.advance(1600);
+    assert.equal(count(), 9, "next rounds keep the learner's manual orbit");
+    await fixture.api.mount({ forceReload: true });
+    await fixture.advance(1600);
+    assert.equal(count(), 9, "remounts read the persisted same-level override");
+    await changeDifficulty(1);
+    await chooseCount(9);
+    await changeDifficulty(2);
+    await chooseCount(5);
+    await changeDifficulty(3);
+    await chooseCount(5);
+    await changeDifficulty(0);
+    assert.deepEqual(writes, [9, 9, 5, 5]);
+    fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
+  });
+}
+
 for (const courseCatalog of [catalog, arabicCatalog]) for (const count of courseCatalog.roundSettings.pieceCounts) {
   test(`${courseCatalog.courseId} level zero completes both reading directions with the normal ${count}-tile controls`, async () => {
     const fixture = createLoadingHarness({ fetchImpl: async () => ({ ok: true, json: async () => courseCatalog }) });
@@ -316,7 +429,7 @@ for (const courseCatalog of [catalog, arabicCatalog]) for (const count of course
       difficulty = nextDifficulty;
       fixture.window.dispatchEvent({ type: "caatuu:learning-change", detail: { reason: "difficulty" } });
       await fixture.advance(1600);
-      assert.equal(fixture.element("Board").dataset.pieceCount, String(count), "changing badges preserves the tile setting");
+      assert.equal(fixture.element("Board").dataset.pieceCount, "5", "changing badges restores their default orbit");
       assert.equal(fixture.element("Board").dataset.difficulty, String(difficulty));
       solveBoard(fixture);
     }

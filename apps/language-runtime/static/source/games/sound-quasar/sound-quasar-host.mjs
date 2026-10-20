@@ -64,8 +64,14 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
   }
   const choiceCountKey = `${course.storage?.namespace || course.id}.soundQuasar.choiceCount.v1`;
   const modeKey = `${course.storage?.namespace || course.id}.soundQuasar.mode.v1`;
-  try { if (shell.localStorage?.getItem(choiceCountKey) === "6") state.choiceCount = 6; } catch { /* Keep the session default when storage is unavailable. */ }
-  try { if (shell.localStorage?.getItem(modeKey) === "sentences") state.mode = "sentences"; } catch { /* Keep the session default when storage is unavailable. */ }
+  function applyDifficultySettings() {
+    const difficulty = Math.max(0, Math.min(3, Math.floor(Number(shell.CaatuuLearning?.difficulty?.() ?? 1))));
+    const choiceCount = shell.CaatuuLearning?.gameSetting?.("soundChoices");
+    const mode = shell.CaatuuLearning?.gameSetting?.("soundMode");
+    state.choiceCount = [4, 6].includes(choiceCount) ? choiceCount : [4, 4, 6, 6][difficulty];
+    state.mode = ["words", "sentences"].includes(mode) ? mode : difficulty === 0 ? "words" : "sentences";
+  }
+  applyDifficultySettings();
   const disposers = [];
   let dictionary = null;
   const readingGuide = createArabicReadingGuide({ course, gameId: GAME_ID, document: doc, storage: shell.localStorage });
@@ -565,6 +571,7 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     const mode = event.target?.closest?.("button[data-mode]")?.dataset.mode;
     if (!state.active || state.destroyed || !["words", "sentences"].includes(mode) || mode === state.mode) return;
     state.mode = mode;
+    shell.CaatuuLearning?.setGameSetting?.("soundMode", mode);
     try { shell.localStorage?.setItem(modeKey, mode); } catch { /* Keep the session choice when storage is unavailable. */ }
     state.pendingAutoplay = false;
     controls.close();
@@ -577,6 +584,7 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     const count = Number(button?.dataset.count);
     if (!state.active || state.destroyed || button?.disabled || ![4, 6].includes(count) || count === state.choiceCount) return;
     state.choiceCount = count;
+    shell.CaatuuLearning?.setGameSetting?.("soundChoices", count);
     try { shell.localStorage?.setItem(choiceCountKey, String(count)); } catch { /* Keep the session choice when storage is unavailable. */ }
     state.pendingAutoplay = false;
     controls.close();
@@ -585,7 +593,9 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
   });
   listen(node("quasarRetryAudio"), "click", () => { void checkAudio(); });
   listen(shell, "caatuu:learning-change", (event) => {
-    if (event.detail?.reason !== "difficulty" || !catalog || state.destroyed) return;
+    if (event.detail?.reason !== "difficulty" || state.destroyed) return;
+    applyDifficultySettings();
+    if (!catalog) return;
     controls.close();
     closeReport(false);
     stopSpeech();

@@ -736,7 +736,7 @@ async function loadCourseFeatureProviders() {
   if (naturalizationNucleus) {
     await Promise.all([
       loadStyle("/language-runtime/static/source/games/naturalization-nucleus/naturalization-nucleus.css?v=naturalization-nucleus-28"),
-      loadScript("/language-runtime/static/source/games/naturalization-nucleus/naturalization-nucleus.js?v=naturalization-nucleus-30")
+      loadScript("/language-runtime/static/source/games/naturalization-nucleus/naturalization-nucleus.js?v=naturalization-nucleus-31")
     ]);
   }
   const courseRuntime = declaredBrowserProvider("courseRuntime");
@@ -756,7 +756,7 @@ async function loadCourseFeatureProviders() {
     origin: location.origin,
     routeBase,
     async initializeWorkspace() {
-      await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-55");
+      await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-56");
       const workspace = await globalThis.CaatuuWorkspaceReady;
       if (workspace?.ready !== true) {
         throw workspace?.error instanceof Error
@@ -808,7 +808,7 @@ async function start() {
   await initializeHomeCourseSetup(globalThis, { onSetupRequired: revealApplication });
   configureGameRoutes();
   applyCapabilityBoundaries();
-  await import("./word-world-host.mjs?v=word-world-host-37");
+  await import("./word-world-host.mjs?v=word-world-host-41");
   await loadCourseFeatureProviders();
   // Publish the usable-controls and voice results together. Further voice
   // retries can recover a late engine without delaying entry to the app.

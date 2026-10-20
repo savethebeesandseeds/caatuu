@@ -1985,7 +1985,10 @@ function loadVerbMemory() {
   const pairById = new Map(state.verbPairs.map((pair) => [pair.id, pair]));
   const memory = readVerbMemory();
   const sameDifficulty = Number(memory?.difficulty) === state.verbDifficulty;
-  state.verbPairCount = verbNebulaCore.normalizeVerbPairCount(memory?.pairCount, 4);
+  const defaultPairCount = [2, 4, 6, 8][state.verbDifficulty] ?? 4;
+  state.verbPairCount = verbNebulaCore.normalizeVerbPairCount(
+    window.CaatuuLearning?.gameSetting?.("verbPairs"), defaultPairCount
+  );
   state.verbHintsEnabled = memory ? Boolean(memory.hintsEnabled) : true;
   state.verbRoundNumber = safeVerbStat(memory?.roundNumber);
   state.verbContentEncounterId = typeof memory?.contentEncounterId === "string" && memory.contentEncounterId
@@ -3175,6 +3178,7 @@ function changeVerbPairCount(event) {
   const nextCount = verbNebulaCore.normalizeVerbPairCount(button.dataset.verbPairCount, state.verbPairCount);
   if (nextCount === state.verbPairCount) return;
   state.verbPairCount = nextCount;
+  window.CaatuuLearning?.setGameSetting?.("verbPairs", nextCount);
   saveVerbMemory();
   setVerbMatchFeedback(interfaceText("verbnebula.pairs.next", { count: nextCount }), "hint");
   renderVerbNebula();
@@ -3395,8 +3399,9 @@ function cancelVerbRoundTransition() {
   state.verbSolutionRevealed = false;
 }
 
-function rebaseVerbDifficulty() {
+function rebaseVerbDifficulty({ resetSettings = false } = {}) {
   if (!state.verbMemoryLoaded || state.verbGuidedRequested) return;
+  if (!resetSettings && state.verbDifficulty === Number(window.CaatuuLearning?.difficulty?.() ?? 1)) return;
 
   // Persist the old pool before rebuilding. loadVerbMemory deliberately
   // refuses to restore that round when its recorded level differs from the
@@ -5150,7 +5155,7 @@ function bindUi() {
   if (courseGameAvailable("verb-lab")) {
     window.addEventListener("caatuu:learning-change", (event) => {
       if (event.detail?.reason === "progress-reset") clearVerbMemory({ confirmed: true });
-      else if (event.detail?.reason === "difficulty") rebaseVerbDifficulty();
+      else if (event.detail?.reason === "difficulty") rebaseVerbDifficulty({ resetSettings: event.detail.settingsReset === true });
     });
   }
   $("#clearCache")?.addEventListener("click", clearAppCache);

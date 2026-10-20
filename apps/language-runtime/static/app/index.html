@@ -9,7 +9,7 @@
     <link rel="icon" href="/language-runtime/static/assets/caatuu-shell-512.png">
     <link rel="apple-touch-icon" href="/language-runtime/static/assets/caatuu-shell-512.png">
     <script src="source/shared/course-profile.js?v=course-73"></script>
-    <script src="/language-runtime/static/source/learning-profile.js?v=learning-23"></script>
+    <script src="/language-runtime/static/source/learning-profile.js?v=learning-24"></script>
     <script src="/language-runtime/static/source/initial-theme.js?v=theme-3"></script>
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-theme.css?v=theme-8">
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-workspace.css?v=shell-105">
@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-developer-tools.css?v=developer-tools-2">
     <link rel="stylesheet" href="/language-runtime/static/styles/dictionary-word-card.css?v=dictionary-card-3">
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-target-text.css?v=target-text-4">
-    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-word-world.css?v=word-net-103">
+    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-word-world.css?v=word-net-109">
     <link rel="stylesheet" href="/language-runtime/static/styles/games/embedded-game-controls.css?v=embedded-game-controls-10">
     <link rel="stylesheet" href="/language-runtime/static/styles/game-dynamics.css?v=game-dynamics-8">
     <link rel="stylesheet" href="/language-runtime/static/styles/campaign-roadmap.css?v=campaign-roadmap-7">
@@ -714,13 +714,25 @@
                             <header class="word-net-reconstruction-result-head">
                               <span class="word-net-reconstruction-result-mark" id="wordNetReconstructionResultMark" aria-hidden="true"></span>
                               <span class="word-net-reconstruction-result-heading">
-                                <span class="word-net-reconstruction-result-kicker" data-i18n="wordworld.result.kicker">Challenge result</span>
-                                <h2 id="wordNetReconstructionResultTitle" tabindex="-1"></h2>
+                                <span class="word-net-reconstruction-result-kicker" id="wordNetReconstructionResultKicker" data-i18n="wordworld.result.kicker">Challenge result</span>
                               </span>
                               <strong class="word-net-reconstruction-result-points" id="wordNetReconstructionResultPoints"></strong>
+                              <button class="word-net-sound-toggle word-net-reconstruction-result-sound" id="wordNetReconstructionResultSound" type="button" aria-label="Play target-language sentence aloud" aria-pressed="false" data-i18n-aria-label="wordworld.sentence.play" hidden>
+                                <svg class="word-net-sound-icon" data-speech-icon="play" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                  <path d="M4.5 9.25v5.5h3.25l4.75 3.75v-13L7.75 9.25H4.5Z"></path>
+                                  <path d="M15.5 9.25c1.5 1.5 1.5 4 0 5.5"></path>
+                                  <path d="M18.25 6.75c3 3 3 7.5 0 10.5"></path>
+                                </svg>
+                                <svg class="word-net-sound-icon" data-speech-icon="stop" viewBox="0 0 24 24" aria-hidden="true" focusable="false" hidden>
+                                  <rect x="7" y="7" width="10" height="10" rx="1"></rect>
+                                </svg>
+                              </button>
                             </header>
-                            <p class="word-net-reconstruction-result-message" id="wordNetReconstructionResultMessage" hidden></p>
                             <div class="word-net-reconstruction-result-answers">
+                              <div class="word-net-reconstruction-result-answer is-challenge" id="wordNetReconstructionResultChallenge">
+                                <span data-i18n="wordworld.result.challenge">Challenge</span>
+                                <h2 id="wordNetReconstructionResultTitle" tabindex="-1"></h2>
+                              </div>
                               <div class="word-net-reconstruction-result-answer is-attempt" id="wordNetReconstructionResultAttempt" hidden>
                                 <span data-i18n="wordworld.result.youranswer">Your answer</span>
                                 <div class="word-net-reconstruction-result-diff" id="wordNetReconstructionResultAttemptText"></div>
@@ -729,6 +741,10 @@
                                 <span data-i18n="wordworld.result.correctanswer">Correct answer</span>
                                 <strong id="wordNetReconstructionResultCorrectText"></strong>
                               </div>
+                            </div>
+                            <div class="word-net-reconstruction-result-actions">
+                              <button class="word-net-reconstruction-retry" id="wordNetReconstructionRetry" type="button" data-i18n="common.retry">Try again</button>
+                              <button class="word-net-reconstruction-continue" id="wordNetReconstructionContinue" type="button" data-i18n="common.continue">Continue</button>
                             </div>
                           </section>
                           <p class="word-net-visually-hidden" id="wordNetReconstructionStatus" aria-live="polite" aria-atomic="true"></p>
@@ -1186,6 +1202,6 @@
     <section class="print-book" id="printBook" aria-label="Generated pocket book" aria-hidden="true" data-i18n-aria-label="print.book.label"></section>
 
     <script src="/language-runtime/static/source/shell-policy.js?v=shell-policy-18"></script>
-    <script type="module" src="/language-runtime/static/source/app-bootstrap.mjs?v=app-144"></script>
+    <script type="module" src="/language-runtime/static/source/app-bootstrap.mjs?v=app-149"></script>
   </body>
 </html>

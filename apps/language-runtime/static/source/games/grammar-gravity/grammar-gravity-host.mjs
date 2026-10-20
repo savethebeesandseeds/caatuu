@@ -24,6 +24,7 @@ const state = {
   mode: "loading",
   practiceMode: "sequence",
   meaningOptionCount: 3,
+  meaningCountButtons: [],
   practiceOptions: [],
   nounGame: null,
   adjectiveGame: null,
@@ -148,10 +149,20 @@ function makeRounds(previousAnchor = "") {
 
 function configureDifficulty() {
   state.difficulty = learningDifficulty();
+  syncMeaningOptionCount();
   state.rounds = [...makeRounds()];
   state.index = 0;
   resetRound();
   syncPracticeChoices();
+}
+
+function syncMeaningOptionCount() {
+  const savedCount = Number(state.shell?.CaatuuLearning?.gameSetting?.("grammarMeaningChoices"));
+  state.meaningOptionCount = [3, 6].includes(savedCount) ? savedCount : [3, 3, 6, 6][learningDifficulty()];
+  state.adjectiveGame?.setMeaningOptionCount(state.meaningOptionCount);
+  state.meaningCountButtons.forEach((button) => {
+    button.setAttribute("aria-pressed", String(Number(button.dataset.count) === state.meaningOptionCount));
+  });
 }
 
 function syncPracticeChoices() {
@@ -293,10 +304,9 @@ function bindUi() {
 function configureControls() {
   const t = (key, values) => state.shell.CaatuuI18n.t(`games.grammargravity.controls.${key}`, values);
   const countKey = `${state.course.storage?.namespace || state.course.id}.grammarGravity.meaningChoices.v1`;
-  try { if (state.shell.localStorage?.getItem(countKey) === "6") state.meaningOptionCount = 6; } catch { /* Session preference still works. */ }
-  state.adjectiveGame?.setMeaningOptionCount(state.meaningOptionCount);
+  syncMeaningOptionCount();
   $("#gravityMeaningCountLabel").textContent = t("meaningchoices");
-  const countButtons = [3, 6].map((count) => {
+  const countButtons = state.meaningCountButtons = [3, 6].map((count) => {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "caatuu-game-control-option";
@@ -306,6 +316,7 @@ function configureControls() {
     listen(button, "click", () => {
       state.meaningOptionCount = count;
       state.adjectiveGame?.setMeaningOptionCount(count);
+      state.shell?.CaatuuLearning?.setGameSetting?.("grammarMeaningChoices", count);
       try { state.shell.localStorage?.setItem(countKey, String(count)); } catch { /* Keep the session choice. */ }
       countButtons.forEach((option) => option.setAttribute("aria-pressed", String(option.dataset.count === String(count))));
     });

@@ -88,7 +88,8 @@ function createTestClock() {
 
 async function mountGame({ language = "mandarin-simplified", muted = true, voiceState,
   speechResult = { outcome: "completed" }, fetchFailure = false, reportResult = { queued: true, persisted: true },
-  realLearning = false, difficulty = 1, onRecord, mutateCatalog, random = () => 0, localStorageValues = {}, interfaceOverride, beforeContent, resolveWord } = {}) {
+  realLearning = false, difficulty = 1, modeOverride = "words", settingsApi = true,
+  onRecord, mutateCatalog, random = () => 0, localStorageValues = {}, interfaceOverride, beforeContent, resolveWord } = {}) {
   const raw = JSON.parse(await readFile(new URL(`../../languages/${language}/static/data/games/sound-quasar/content.json`, import.meta.url), "utf8"));
   mutateCatalog?.(raw);
   const catalog = validateSoundQuasarCatalog(raw);
@@ -137,7 +138,16 @@ async function mountGame({ language = "mandarin-simplified", muted = true, voice
   if (realLearning && !Object.hasOwn(localStorageValues, `${course.storage.namespace}.learning.preferences.v1`)) {
     learning.setDifficulty(difficulty);
   }
-  shell.CaatuuLearning = { ...learning, record: (...args) => {
+  // Existing listening scenarios explicitly exercise words. New default-setting
+  // scenarios leave this null and use the real learner preference API untouched.
+  if (realLearning && modeOverride) learning.setGameSetting("soundMode", modeOverride);
+  const fixtureSettings = { soundChoices: [4, 4, 6, 6][difficulty],
+    soundMode: modeOverride || (difficulty === 0 ? "words" : "sentences") };
+  const settingMethods = settingsApi ? {
+    gameSetting: learning?.gameSetting || (name => fixtureSettings[name]),
+    setGameSetting: learning?.setGameSetting || ((name, value) => { fixtureSettings[name] = value; })
+  } : {};
+  shell.CaatuuLearning = { ...learning, difficulty: learning?.difficulty || (() => difficulty), ...settingMethods, record: (...args) => {
     records.push(JSON.parse(JSON.stringify(args)));
     onRecord?.({ shell, harness, args, clock });
     return learning?.record(...args);
@@ -465,8 +475,10 @@ test("shell difficulty changes reset a hidden listening round and ignore stale a
 
 test("an insufficient listening band retires its board without a retry loop and recovers through another badge", async () => {
   const game = await mountGame({ realLearning: true, mutateCatalog(raw) {
-    const last = raw.items.find(item => item.difficulty === 3);
-    raw.items.forEach(item => { if (item.difficulty === 3 && item !== last) item.difficulty = 1; });
+    for (const bank of [raw.items, raw.sentences]) {
+      const last = bank.find(item => item.difficulty === 3);
+      bank.forEach(item => { if (item.difficulty === 3 && item !== last) item.difficulty = 1; });
+    }
   } });
   game.shell.CaatuuLearning.setDifficulty(3);
   await settle();
@@ -478,7 +490,7 @@ test("an insufficient listening band retires its board without a retry loop and 
   await settle();
   assert.equal(game.element("Game").hidden, false);
   assert.equal(game.element("Error").hidden, true);
-  const ids = new Set(game.catalog.items.filter(item => item.difficulty === 2).map(item => item.id));
+  const ids = new Set(game.catalog.sentences.filter(item => item.difficulty === 2).map(item => item.id));
   assert.ok(game.choices().length >= 2 && game.choices().every(button => ids.has(button.dataset.choiceId)));
   game.noCredit();
   game.controller.destroy();
@@ -489,7 +501,8 @@ test("the listening host uses the selected course difficulty for both answers an
   for (const difficulty of [1, 2, 3]) {
     game.shell.CaatuuLearning.setDifficulty(difficulty);
     await settle();
-    const eligible = new Set(game.catalog.items.filter(row => row.difficulty === difficulty).map(row => row.id));
+    const bank = game.element("Game").dataset.mode === "words" ? game.catalog.items : game.catalog.sentences;
+    const eligible = new Set(bank.filter(row => row.difficulty === difficulty).map(row => row.id));
     assert.ok(game.choices().every(button => eligible.has(button.dataset.choiceId)));
     await game.listen();
     assert.ok(eligible.has(game.current().id));
@@ -1524,12 +1537,12 @@ for (const language of ["czech", "mandarin-simplified", "spanish"]) {
 }
 
 test("listening mode survives closing and reopening, independently for each course", async () => {
-  const first = await mountGame();
+  const first = await mountGame({ realLearning: true, modeOverride: null });
   first.click(first.element("Sentences"));
   first.click(first.element("SixChoices"));
   const stored = first.parent.localStorage.snapshot();
   first.controller.destroy();
-  const reopened = await mountGame({ localStorageValues: stored });
+  const reopened = await mountGame({ realLearning: true, modeOverride: null, localStorageValues: stored });
   assert.equal(reopened.element("Game").dataset.mode, "sentences");
   assert.equal(reopened.element("Sentences").getAttribute("aria-pressed"), "true");
   assert.equal(reopened.choices().length, 6);
@@ -1538,30 +1551,34 @@ test("listening mode survives closing and reopening, independently for each cour
   reopened.click(reopened.element("Words"));
   const words = reopened.parent.localStorage.snapshot();
   reopened.controller.destroy();
-  for (const options of [{ localStorageValues: words }, { language: "czech", localStorageValues: stored }]) {
-    const game = await mountGame(options);
-    assert.equal(game.element("Game").dataset.mode, "words");
+  for (const options of [{ localStorageValues: words, expected: "words" },
+    { language: "czech", localStorageValues: stored, expected: "sentences" }]) {
+    const game = await mountGame({ ...options, realLearning: true, modeOverride: null });
+    // A different course has its own difficulty and defaults.
+    assert.equal(game.element("Game").dataset.mode, options.expected);
     game.noCredit();
     game.controller.destroy();
   }
 });
 
 test("invalid or inaccessible listening preferences keep a playable session", async () => {
-  const game = await mountGame({ localStorageValues: { "caatuu-zh.soundQuasar.mode.v1": "invalid" } });
-  assert.equal(game.element("Game").dataset.mode, "words");
-  game.shell.localStorage.setItem = () => { throw new Error("Storage unavailable"); };
-  game.click(game.element("Sentences"));
+  const game = await mountGame({ realLearning: true, modeOverride: null,
+    localStorageValues: { "caatuu-zh.soundQuasar.mode.v1": "invalid" } });
   assert.equal(game.element("Game").dataset.mode, "sentences");
+  game.shell.localStorage.setItem = () => { throw new Error("Storage unavailable"); };
+  game.click(game.element("Words"));
+  assert.equal(game.element("Game").dataset.mode, "words");
   game.noCredit();
   game.controller.destroy();
 });
 
 test("six-answer preference survives remounting and safely falls back for smaller catalogs", async () => {
-  const key = "caatuu-zh.soundQuasar.choiceCount.v1";
-  const game = await mountGame({ localStorageValues: { [key]: "6" } });
+  const game = await mountGame({ realLearning: true });
+  game.click(game.element("SixChoices"));
   assert.equal(game.choices().length, 6);
+  const stored = game.parent.localStorage.snapshot();
   game.controller.destroy();
-  const small = await mountGame({ localStorageValues: { [key]: "6" }, mutateCatalog(catalog) {
+  const small = await mountGame({ realLearning: true, modeOverride: null, localStorageValues: stored, mutateCatalog(catalog) {
     catalog.sentences = catalog.sentences.slice(0, 4).map(row => ({ ...row, difficulty: 1 }));
     catalog.sentenceProvenance.sourceItemIds = catalog.sentences.map((sentence) => sentence.sourceId);
   } });
@@ -1572,6 +1589,66 @@ test("six-answer preference survives remounting and safely falls back for smalle
   assert.equal(small.choices().length, 6);
   small.noCredit();
   small.controller.destroy();
+});
+
+for (const difficulty of [0, 1, 2, 3]) {
+  for (const settingsApi of [true, false]) {
+    test(`level ${difficulty} starts with its listening defaults ${settingsApi ? "from learning preferences" : "without the settings API"}`, async () => {
+      const game = await mountGame({ realLearning: settingsApi, settingsApi, difficulty, modeOverride: null,
+        localStorageValues: { "caatuu-zh.soundQuasar.choiceCount.v1": "6", "caatuu-zh.soundQuasar.mode.v1": "words" } });
+      const mode = difficulty === 0 ? "words" : "sentences";
+      const count = [4, 4, 6, 6][difficulty];
+      assert.equal(game.element("Game").dataset.mode, mode);
+      assert.equal(game.choices().length, count);
+      assert.equal(game.element(mode === "words" ? "Words" : "Sentences").getAttribute("aria-pressed"), "true");
+      assert.equal(game.element(count === 4 ? "FourChoices" : "SixChoices").getAttribute("aria-pressed"), "true");
+      assert.equal(game.element("Words").disabled, false);
+      assert.equal(game.element("Sentences").disabled, false);
+      assert.equal(game.element("FourChoices").disabled, false);
+      assert.equal(game.element("SixChoices").disabled, false);
+      game.noCredit();
+      game.controller.destroy();
+    });
+  }
+}
+
+test("manual listening settings survive rounds, sessions, same-level selection and reload, then reset with difficulty", async () => {
+  const game = await mountGame({ realLearning: true, difficulty: 0, modeOverride: null });
+  game.click(game.element("Sentences"));
+  game.click(game.element("SixChoices"));
+  for (let round = 0; round < SOUND_QUASAR_ROUND_COUNT; round += 1) {
+    await game.listen();
+    game.click(game.choice(game.current().id));
+    await game.continue();
+    assert.equal(game.element("Game").dataset.mode, "sentences");
+    assert.equal(game.choices().length, 6);
+  }
+  game.shell.CaatuuLearning.setDifficulty(0);
+  assert.equal(game.element("Game").dataset.mode, "sentences");
+  assert.equal(game.choices().length, 6);
+  const stored = game.parent.localStorage.snapshot();
+  game.controller.destroy();
+  const reopened = await mountGame({ realLearning: true, modeOverride: null, localStorageValues: stored });
+  assert.equal(reopened.shell.CaatuuLearning.difficulty(), 0);
+  assert.equal(reopened.element("Game").dataset.mode, "sentences");
+  assert.equal(reopened.choices().length, 6);
+  for (const difficulty of [1, 2, 3, 0]) {
+    reopened.shell.CaatuuLearning.setDifficulty(difficulty);
+    assert.equal(reopened.element("Game").dataset.mode, difficulty === 0 ? "words" : "sentences");
+    assert.equal(reopened.choices().length, [4, 4, 6, 6][difficulty]);
+    reopened.click(reopened.element(difficulty === 0 ? "Sentences" : "Words"));
+    reopened.click(reopened.element(difficulty < 2 ? "SixChoices" : "FourChoices"));
+  }
+  reopened.controller.destroy();
+});
+
+test("a difficulty change while the listening catalog loads uses the new defaults", async () => {
+  const game = await mountGame({ realLearning: true, difficulty: 0, modeOverride: null,
+    beforeContent({ shell }) { shell.CaatuuLearning.setDifficulty(2); } });
+  assert.equal(game.element("Game").dataset.mode, "sentences");
+  assert.equal(game.choices().length, 6);
+  game.noCredit();
+  game.controller.destroy();
 });
 
 test("changing answer count cancels result advancement without granting a completed round", async () => {

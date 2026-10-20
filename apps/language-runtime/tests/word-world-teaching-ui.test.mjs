@@ -79,7 +79,8 @@ function preparedContext(course, adapter, records) {
   };
 }
 
-async function game(t, { czech = false, saved = {}, difficulty = 1, records = recordsFixture(czech), dictionaryReporting = false, generationEnabled = false } = {}) {
+async function game(t, { czech = false, saved = {}, difficulty = 1, records = recordsFixture(czech), dictionaryReporting = false,
+  generationEnabled = false, lookupMeaning } = {}) {
   const course = courseFixture(czech);
   course.capabilities.generation = generationEnabled;
   course.capabilities.llm = generationEnabled;
@@ -113,6 +114,23 @@ async function game(t, { czech = false, saved = {}, difficulty = 1, records = re
   for (const id of ["wordNetReconstructionBank", "wordNetReconstructionAnswer", "wordNetReconstructionSubmit"]) {
     const node = browser.registry.element(id); node.flatQueryScope = false; reconstruction.append(node);
   }
+  const result = browser.registry.element("wordNetReconstructionResult");
+  result.flatQueryScope = false;
+  reconstruction.append(result);
+  for (const id of ["wordNetReconstructionRetry", "wordNetReconstructionContinue", "wordNetReconstructionResultAttempt",
+    "wordNetReconstructionResultCorrect"]) {
+    const node = browser.registry.element(id); node.flatQueryScope = false; result.append(node);
+  }
+  for (const [parentId, textId] of [["wordNetReconstructionResultAttempt", "wordNetReconstructionResultAttemptText"],
+    ["wordNetReconstructionResultCorrect", "wordNetReconstructionResultCorrectText"]]) {
+    const node = browser.registry.element(textId); node.flatQueryScope = false; browser.registry.element(parentId).append(node);
+  }
+  const challenge = browser.registry.element("wordNetReconstructionResultChallenge");
+  challenge.flatQueryScope = false;
+  result.append(challenge);
+  const resultTitle = browser.registry.element("wordNetReconstructionResultTitle");
+  resultTitle.flatQueryScope = false;
+  challenge.append(resultTitle);
   for (const attributes of markup.matchAll(/<button\b([^>]*\bdata-(?:generation-mode|challenge-prompt-mode)="[^"]+"[^>]*)>/gu)) {
     const button = browser.document.createElement("button");
     for (const attribute of attributes[1].matchAll(/([:\w-]+)(?:="([^"]*)")?/gu)) {
@@ -148,6 +166,7 @@ async function game(t, { czech = false, saved = {}, difficulty = 1, records = re
   learning.setDifficulty(difficulty);
   vm.runInContext(executable, browser.context, { filename: "product-word-world.mjs" });
   const context = preparedContext(course, adapter, records);
+  if (lookupMeaning) context.lookupMeaning = lookupMeaning;
   if (generationEnabled) context.generationStrategy = { id: 'fixture-word-world-v1' };
   browser.context.__prepared = context;
   browser.context.__root = root;
@@ -159,7 +178,7 @@ async function game(t, { czech = false, saved = {}, difficulty = 1, records = re
   async function settle() {
     for (let attempts = 0; attempts < 80; attempts += 1) {
       await Promise.resolve();
-      if (!state.busy) return;
+      if (!state.busy && !state.guidedEvidencePending && !state.reconstruction?.evidencePending) return;
     }
     assert.fail("the actual renderer did not settle");
   }
@@ -193,12 +212,27 @@ function assertDictionaryHidden(g) {
   }
 }
 
+async function submitReconstructionTokens(g, tokens) {
+  const round = g.run("ensureReconstructionChallenge()");
+  const remaining = Array.from(round.challenge.options);
+  round.selectedIds = tokens.map(text => {
+    const index = remaining.findIndex(option => option.text === text);
+    assert.ok(index >= 0, `${text} is available in the word bank`);
+    return remaining.splice(index, 1)[0].id;
+  });
+  g.run("renderReconstruction()");
+  g.node("wordNetReconstructionSubmit").click();
+  await g.settle();
+  assert.equal(round.submitted, true);
+  return round;
+}
+
 for (const czech of [false, true]) {
   const namespace = `caatuu-${czech ? "cz" : "annotated-test"}`;
   const cardKey = `${namespace}.wordNet.wordCardPreferences.v1`;
   const promptKey = `${namespace}.wordNet.challengePromptMode.v1`;
 
-  test(`${czech ? "Czech" : "Mandarin"} learner-base prompts keep dictionary answers hidden through lookup, preference changes, and submission`, async t => {
+  test(`${czech ? "Czech" : "Mandarin"} learner-base prompts hide dictionary answers until submission`, async t => {
     const g = await game(t, { czech, saved: {
       [cardKey]: JSON.stringify({ showCard: true, showMeta: true }), [promptKey]: "source"
     } });
@@ -206,6 +240,10 @@ for (const czech of [false, true]) {
     assert.equal(g.state.reconstruction.promptSide, "source");
     assertDictionaryHidden(g);
     assert.equal(g.state.contentEncounterSupported, false, "a hidden dictionary must not mark recall as assisted");
+
+    g.run('selectWord(state.selectedWord, { userInitiated: true, lookup: false })');
+    assert.equal(g.state.wordSelectionRequested, true);
+    assertDictionaryHidden(g);
 
     let finishLookup;
     g.state.wordMeaningCache.clear();
@@ -223,9 +261,14 @@ for (const czech of [false, true]) {
     assert.equal(g.state.wordCardPreferences.showCard, true);
     assert.equal(JSON.parse(g.localStorage.getItem(cardKey)).showCard, true);
     assertDictionaryHidden(g);
+    assert.equal(g.state.contentEncounterSupported, false, "hidden dictionary preferences cannot turn recall into assisted practice");
     await g.submitCorrect();
     assert.equal(g.state.reconstruction.submitted, true);
-    assertDictionaryHidden(g);
+    assert.equal(g.node("wordNetWordTranslation").hidden, false);
+    assert.equal(g.node("wordNetSelectedWord").textContent, g.run("preparedTargetRecord().target.tokens[0].surface"));
+    const evidence = g.learning.contentHistory("word-world", "reconstruct-target")[g.state.currentEntryId];
+    assert.equal(evidence.independentSuccesses, 1, "the dictionary opens after the independent first response is recorded");
+    assert.equal(evidence.assistedSuccesses, 0);
   });
 
   test(`${czech ? "Czech" : "Mandarin"} dictionary visibility follows the displayed prompt while preserving the learner preference`, async t => {
@@ -233,6 +276,12 @@ for (const czech of [false, true]) {
       [cardKey]: JSON.stringify({ showCard: true, showMeta: false }), [promptKey]: "target"
     } });
     await g.settle();
+    assert.equal(g.state.wordSelectionRequested, false);
+    assertDictionaryHidden(g);
+    const prompt = connectedPrompt(g);
+    assert.equal(prompt.querySelectorAll(".cz-word-token.is-selected").length, 0);
+    prompt.querySelector(".cz-word-token").click();
+    assert.equal(g.state.wordSelectionRequested, true);
     await g.run("lookupSelectedWord(state.selectedWord)");
     assert.equal(g.state.reconstruction.promptSide, "target");
     assert.equal(g.node("wordNetWordTranslation").hidden, false);
@@ -247,6 +296,8 @@ for (const czech of [false, true]) {
     assertDictionaryHidden(g);
 
     g.run('setTranslationMode("visible")');
+    assertDictionaryHidden(g);
+    connectedPrompt(g).querySelector(".cz-word-token").click();
     assert.equal(g.node("wordNetWordTranslation").hidden, false, "ordinary reading mode retains dictionary support");
     assert.ok(g.node("wordNetSelectedWord").textContent.includes(g.state.selectedWord));
     g.run('setTranslationMode("reconstruct")');
@@ -256,11 +307,339 @@ for (const czech of [false, true]) {
     g.run('setChallengePromptMode("target")');
     await g.controller.next(); await g.settle();
     assert.equal(g.state.reconstruction.promptSide, "target");
+    assert.equal(g.state.wordSelectionRequested, false);
+    assertDictionaryHidden(g);
+    connectedPrompt(g).querySelector(".cz-word-token").click();
     assert.equal(g.node("wordNetWordTranslation").hidden, false);
     assert.equal(g.state.wordCardPreferences.showCard, true);
     assert.equal(JSON.parse(g.localStorage.getItem(cardKey)).showCard, true);
   });
 }
+
+for (const promptSide of ["target", "source"]) {
+  test(`${promptSide} prompt results open the first target word and preserve evidence while another word is reviewed`, async t => {
+    const records = recordsFixture().slice(0, 1);
+    records[0].target.tokens.forEach((token, index) => { token.gloss = `contextual meaning ${index}`; });
+    const lookedUp = [];
+    const g = await game(t, { records,
+      lookupMeaning: async ({ token }) => { lookedUp.push(token.surface); return { meaning: token.gloss }; }, saved: {
+      "caatuu-annotated-test.wordNet.generationMode": "foundation",
+      "caatuu-annotated-test.wordNet.challengePromptMode.v1": promptSide,
+      "caatuu-annotated-test.wordNet.wordCardPreferences.v1": JSON.stringify({ showCard: true, showMeta: false })
+    } });
+    assertDictionaryHidden(g);
+    const answer = Array.from(g.state.reconstruction.challenge.answerTokens);
+    const round = await submitReconstructionTokens(g, answer.slice(0, 1));
+    for (let attempts = 0; attempts < 20 && g.state.wordMeaningLoading; attempts += 1) await Promise.resolve();
+    assert.equal(round.correct, false);
+    assert.equal(g.node("wordNetWordTranslation").hidden, false);
+    assert.equal(g.state.selectedWord, records[0].target.tokens[0].surface);
+    assert.equal(g.node("wordNetSelectedMeaning").textContent, "contextual meaning 0");
+    assert.equal(lookedUp[0], records[0].target.tokens[0].surface, "the result displays the first target word's authored meaning");
+    const bank = promptSide === "target" ? "reconstruct-source" : "reconstruct-target";
+    const evidence = structuredClone(g.learning.contentHistory("word-world", bank));
+    const performance = structuredClone(g.learning.performance());
+    assert.equal(evidence[g.state.currentEntryId].mistakes, 1);
+    const targetHost = g.node(promptSide === "target" ? "wordNetReconstructionResultTitle" : "wordNetReconstructionResultCorrectText");
+    const buttons = targetHost.querySelectorAll(".cz-word-token");
+    assert.equal(buttons.length, records[0].target.tokens.length);
+    buttons[1].click();
+    for (let attempts = 0; attempts < 20 && g.state.wordMeaningLoading; attempts += 1) await Promise.resolve();
+    assert.equal(g.state.selectedWord, records[0].target.tokens[1].surface);
+    assert.equal(g.state.selectedTokenIndex, 1);
+    assert.equal(g.node("wordNetSelectedMeaning").textContent, "contextual meaning 1");
+    assert.deepEqual(structuredClone(g.learning.contentHistory("word-world", bank)), evidence,
+      "dictionary review cannot rewrite the recorded first response");
+    assert.deepEqual(structuredClone(g.learning.performance()), performance);
+    assert.ok(lookedUp.every(word => records[0].target.tokens.some(token => token.surface === word)),
+      "only target-language words reach the dictionary");
+    const baseHost = g.node(promptSide === "target" ? "wordNetReconstructionResultCorrectText" : "wordNetReconstructionResultTitle");
+    assert.equal(baseHost.querySelectorAll(".cz-word-token").length, 0, "the base-language text has no target dictionary controls");
+  });
+}
+
+test("an accepted target-word order keeps its submitted order and original contextual dictionary indices", async t => {
+  const records = recordsFixture().slice(0, 1);
+  records[0].target.text = "甲乙。";
+  records[0].target.tokens = [
+    { surface: "甲", gloss: "first original meaning", playable: true },
+    { surface: "乙", gloss: "second original meaning", playable: true }
+  ];
+  records[0].target.acceptedTokenOrders = [["乙", "甲"]];
+  const g = await game(t, { records, lookupMeaning: async ({ token }) => ({ meaning: token.gloss }), saved: {
+    "caatuu-annotated-test.wordNet.generationMode": "foundation",
+    "caatuu-annotated-test.wordNet.challengePromptMode.v1": "source",
+    "caatuu-annotated-test.wordNet.wordCardPreferences.v1": JSON.stringify({ showCard: true, showMeta: false })
+  } });
+  const round = await submitReconstructionTokens(g, ["乙", "甲"]);
+  assert.equal(round.correct, true);
+  assert.equal(round.submittedText, "乙甲。");
+  const buttons = g.node("wordNetReconstructionResultAttemptText").querySelectorAll(".cz-word-token");
+  assert.deepEqual(buttons.map(button => button.dataset.word), ["乙", "甲"]);
+  assert.deepEqual(buttons.map(button => Number(button.dataset.tokenIndex)), [1, 0]);
+  const performance = structuredClone(g.learning.performance());
+  const evidence = structuredClone(g.learning.contentHistory("word-world", "reconstruct-target"));
+  buttons[0].click();
+  for (let attempts = 0; attempts < 20 && g.state.wordMeaningLoading; attempts += 1) await Promise.resolve();
+  assert.equal(g.state.selectedWord, "乙");
+  assert.equal(g.state.selectedTokenIndex, 1);
+  assert.equal(g.node("wordNetSelectedMeaning").textContent, "second original meaning");
+  assert.deepEqual(structuredClone(g.learning.performance()), performance);
+  assert.deepEqual(structuredClone(g.learning.contentHistory("word-world", "reconstruct-target")), evidence);
+});
+
+test("result dictionary selection respects a hidden-card preference", async t => {
+  const g = await game(t, { czech: true, saved: {
+    "caatuu-cz.wordNet.challengePromptMode.v1": "source"
+  } });
+  const answer = Array.from(g.state.reconstruction.challenge.answerTokens);
+  await submitReconstructionTokens(g, answer.slice(0, 1));
+  assertDictionaryHidden(g);
+  const buttons = g.node("wordNetReconstructionResultCorrectText").querySelectorAll(".cz-word-token");
+  assert.ok(buttons.length > 0);
+  buttons.at(-1).click();
+  assert.equal(g.state.wordCardPreferences.showCard, false);
+  assertDictionaryHidden(g);
+});
+
+test("retry closes a dictionary card opened automatically by the result", async t => {
+  const g = await game(t, { czech: true, saved: {
+    "caatuu-cz.wordNet.challengePromptMode.v1": "source",
+    "caatuu-cz.wordNet.wordCardPreferences.v1": JSON.stringify({ showCard: true, showMeta: false })
+  } });
+  assertDictionaryHidden(g);
+  const answer = Array.from(g.state.reconstruction.challenge.answerTokens);
+  await submitReconstructionTokens(g, answer.slice(0, 1));
+  assert.equal(g.node("wordNetWordTranslation").hidden, false);
+  g.node("wordNetReconstructionRetry").click();
+  await g.settle();
+  assert.equal(g.state.reconstruction.submitted, false);
+  assertDictionaryHidden(g);
+  assert.equal(g.state.wordSelectionRequested, false, "an automatic review selection does not carry into the editable retry");
+});
+
+test("enabling the dictionary before selecting a word keeps target-prompt recall independent", async t => {
+  const g = await game(t, { saved: {
+    "caatuu-annotated-test.wordNet.challengePromptMode.v1": "target",
+    "caatuu-annotated-test.wordNet.wordCardPreferences.v1": JSON.stringify({ showCard: true, showMeta: false })
+  } });
+  await g.settle();
+  assert.equal(g.state.reconstruction.promptSide, "target");
+  assert.equal(g.state.wordSelectionRequested, false);
+  assert.equal(g.state.contentEncounterSupported, false);
+  assertDictionaryHidden(g);
+  g.run('toggleWordCardPreference("showCard")');
+  g.run('toggleWordCardPreference("showCard")');
+  assert.equal(g.state.wordCardPreferences.showCard, true);
+  assert.equal(g.state.wordSelectionRequested, false);
+  assertDictionaryHidden(g);
+  assert.equal(g.state.contentEncounterSupported, false, "an enabled but unseen card supplies no support");
+});
+
+test("target-sentence playback follows error reveal and closes again for an in-place retry", async t => {
+  const g = await game(t, { czech: true, saved: {
+    "caatuu-cz.wordNet.challengePromptMode.v1": "source"
+  } });
+  assert.equal(g.state.reconstruction.promptSide, "source");
+  assert.equal(g.run("targetSentenceSpeechAllowed()"), false, "the full target answer stays silent before submission");
+  const answer = Array.from(g.state.reconstruction.challenge.answerTokens);
+  const round = await submitReconstructionTokens(g, answer.slice(0, 1));
+  assert.equal(round.correct, false);
+  assert.equal(g.run("targetSentenceSpeechAllowed()"), true, "the revealed correction can be pronounced during review");
+  g.node("wordNetReconstructionRetry").click();
+  await g.settle();
+  assert.equal(g.state.reconstruction, round);
+  assert.equal(round.submitted, false);
+  assert.equal(g.run("targetSentenceSpeechAllowed()"), false, "editing the retry restores the answer-playback boundary");
+});
+
+test("a supported correct Guided response focuses its visible retry action", async t => {
+  const g = await game(t, { czech: true, saved: {
+    "caatuu-cz.wordNet.challengePromptMode.v1": "source",
+    "caatuu-cz.wordNet.wordCardPreferences.v1": JSON.stringify({ showCard: true, showMeta: false })
+  } });
+  let recorded = false, hints = 0, responses = 0;
+  const lifecycle = {
+    state: () => ({ taskFingerprint: "supported-guided-task", firstResponseRecorded: recorded, hintsUsed: true }),
+    markHint() {
+      hints += 1;
+      if (recorded) throw new Error("A recorded Guided task cannot acquire a new hint.");
+    },
+    async recordFirstResponse() {
+      responses += 1;
+      recorded = true;
+      return { result: { qualifiesForIndependentAssessment: false } };
+    },
+    async abort() {}
+  };
+  Object.assign(g.state, { guidedMode: true, guidedRequested: true, guidedStatus: "ready", guidedLifecycle: lifecycle });
+  Object.assign(g.state.reconstruction, { guidedLifecycle: lifecycle, guidedTaskFingerprint: "supported-guided-task",
+    phraseRequestId: g.state.phraseRequestId });
+  const round = await g.submitCorrect();
+  assert.equal(round.guidedIndependentQualified, false);
+  assert.equal(g.node("wordNetReconstructionContinue").hidden, true);
+  assert.equal(g.node("wordNetReconstructionRetry").hidden, false);
+  assert.equal(g.document.activeElement, g.node("wordNetReconstructionRetry"), "keyboard focus remains on an available action");
+  const evidence = structuredClone(g.learning.contentHistory("word-world", "reconstruct-target"));
+  const resultWord = g.node("wordNetReconstructionResultAttemptText").querySelectorAll(".cz-word-token")[1];
+  assert.ok(resultWord);
+  resultWord.click();
+  for (let attempts = 0; attempts < 20 && g.state.wordMeaningLoading; attempts += 1) await Promise.resolve();
+  assert.equal(hints, 0, "review after submission does not mark a new Guided hint");
+  assert.equal(responses, 1, "review leaves the first Guided response unchanged");
+  assert.equal(g.state.guidedStatus, "retry");
+  assert.deepEqual(structuredClone(g.learning.contentHistory("word-world", "reconstruct-target")), evidence);
+});
+
+test("a new or restored sentence waits for a fresh dictionary word selection", async t => {
+  const g = await game(t, { saved: {
+    "caatuu-annotated-test.wordNet.generationMode": "foundation",
+    "caatuu-annotated-test.wordNet.wordCardPreferences.v1": JSON.stringify({ showCard: true, showMeta: true })
+  } });
+  g.run('setTranslationMode("visible")');
+  assertDictionaryHidden(g);
+  connectedPrompt(g).querySelector(".cz-word-token").click();
+  assert.equal(g.node("wordNetWordTranslation").hidden, false);
+  const firstId = g.state.currentEntryId;
+  await g.controller.next(); await g.settle();
+  assert.notEqual(g.state.currentEntryId, firstId);
+  assert.equal(g.state.wordSelectionRequested, false);
+  assertDictionaryHidden(g);
+  connectedPrompt(g).querySelector(".cz-word-token").click();
+  assert.equal(g.node("wordNetWordTranslation").hidden, false);
+  await g.run("showPreviousSentence()"); await g.settle();
+  assert.equal(g.state.currentEntryId, firstId);
+  assert.equal(g.state.wordSelectionRequested, false);
+  assertDictionaryHidden(g);
+  assert.equal(connectedPrompt(g).querySelectorAll(".cz-word-token.is-selected").length, 0);
+});
+
+test("an omission shows the missing word and its corresponding correction", async t => {
+  const g = await game(t, { czech: true, saved: {
+    "caatuu-cz.wordNet.challengePromptMode.v1": "source"
+  } });
+  const answer = Array.from(g.state.reconstruction.challenge.answerTokens);
+  const round = await submitReconstructionTokens(g, answer.slice(0, 1));
+  assert.equal(round.correct, false);
+  assert.equal(g.document.querySelector("#wordNetReconstructionResultMessage"), null,
+    "the answer comparison stands on its own without an extra instructional message");
+  assert.equal(g.node("wordNetReconstructionResultTitle").textContent, round.promptText);
+  assert.ok(g.node("wordNetReconstructionResultChallenge").textContent.includes(round.promptText),
+    "the original challenge remains visible beside the submitted and corrected answers");
+  assert.equal(g.node("wordNetReconstructionResultAttempt").hidden, false);
+  assert.equal(g.node("wordNetReconstructionResultCorrect").hidden, false);
+  const missing = g.node("wordNetReconstructionResultAttemptText").querySelectorAll(".is-missing");
+  assert.equal(missing.length, answer.length - 1);
+  assert.ok(missing.every((node, index) => node.getAttribute("aria-label")?.includes(answer[index + 1])),
+    "missing positions identify the omitted word without relying on color");
+  for (const [index, node] of missing.entries()) {
+    assert.equal(node.textContent.includes("…"), false, "an omission uses a word-sized gap instead of an ellipsis");
+    const width = node.querySelector(".word-net-reconstruction-gap-width");
+    assert.ok(width, "the omitted word supplies the gap's natural width");
+    assert.equal(width.textContent, answer[index + 1]);
+    assert.equal(width.getAttribute("aria-hidden"), "true", "the width guide does not duplicate the accessible missing-word label");
+  }
+  const corrections = g.node("wordNetReconstructionResultCorrectText").querySelectorAll(".is-correction");
+  assert.deepEqual(corrections.map(node => node.textContent), answer.slice(1));
+  assert.equal(g.node("wordNetReconstructionRetry").hidden, false);
+  assert.equal(g.node("wordNetReconstructionContinue").hidden, false);
+  assert.equal(g.node("wordNetReconstructionResultPoints").hidden, true, "a mistake does not emphasize a zero-XP badge");
+  const result = g.node("wordNetReconstructionResult");
+  assert.equal(result.classList.contains("is-entering-incorrect"), true, "the first mistake reveal receives its entry animation");
+  const addClass = result.classList.add;
+  let repeatedEntries = 0;
+  result.classList.add = (...classes) => {
+    if (classes.includes("is-entering-incorrect") && !result.classList.contains("is-entering-incorrect")) repeatedEntries += 1;
+    addClass.apply(result.classList, classes);
+  };
+  g.run("renderReconstruction()");
+  g.run("renderReconstruction()");
+  assert.equal(repeatedEntries, 0, "refreshing the existing feedback does not replay its entry animation");
+  result.classList.add = addClass;
+  g.node("wordNetReconstructionRetry").click();
+  await g.settle();
+  assert.equal(result.classList.contains("is-entering-incorrect"), false, "returning to the editable answer clears entry state");
+});
+
+for (const kind of ["replacement", "extra"]) {
+  test(`${kind} feedback distinguishes the entered word from the correction`, async t => {
+    const g = await game(t, { saved: {
+      "caatuu-annotated-test.wordNet.generationMode": "foundation",
+      "caatuu-annotated-test.wordNet.challengePromptMode.v1": "target"
+    } });
+    const challenge = g.state.reconstruction.challenge;
+    const answer = Array.from(challenge.answerTokens);
+    const distractor = challenge.options.find(option => !option.answer);
+    assert.ok(distractor, "the authored practice bank supplies a distractor");
+    const entered = kind === "extra"
+      ? [...answer, distractor.text]
+      : answer.map((word, index) => index === 1 ? distractor.text : word);
+    const round = await submitReconstructionTokens(g, entered);
+    assert.equal(round.correct, false);
+    const marked = g.node("wordNetReconstructionResultAttemptText")
+      .querySelector(kind === "extra" ? ".is-extra" : ".is-wrong");
+    assert.ok(marked);
+    assert.equal(marked.textContent, distractor.text);
+    assert.ok(marked.getAttribute("aria-label"), "the error type is explained without relying on color");
+    if (kind === "replacement") {
+      assert.ok(g.node("wordNetReconstructionResultCorrectText").querySelectorAll(".is-correction")
+        .some(node => node.textContent === answer[1]));
+    }
+  });
+}
+
+test("word-order feedback connects the misplaced word to its corrected position", async t => {
+  const g = await game(t, { czech: true, saved: {
+    "caatuu-cz.wordNet.challengePromptMode.v1": "source"
+  } });
+  const answer = Array.from(g.state.reconstruction.challenge.answerTokens);
+  const round = await submitReconstructionTokens(g, answer.slice().reverse());
+  assert.equal(round.correct, false);
+  const entered = g.node("wordNetReconstructionResultAttemptText").querySelectorAll(".is-moved");
+  const corrections = g.node("wordNetReconstructionResultCorrectText").querySelectorAll(".is-moved");
+  assert.ok(entered.length > 0);
+  assert.ok(entered.every(node => node.getAttribute("aria-label")), "moves have a non-color explanation");
+  assert.ok(corrections.length > 0);
+  assert.ok(corrections.some(node => entered.some(token => token.textContent === node.textContent)));
+});
+
+test("correcting a revealed answer keeps the first mistake and awards no repeated credit", async t => {
+  const g = await game(t, { czech: true, saved: {
+    "caatuu-cz.wordNet.challengePromptMode.v1": "source"
+  } });
+  const answer = Array.from(g.state.reconstruction.challenge.answerTokens);
+  const round = await submitReconstructionTokens(g, answer.slice(0, 1));
+  const selected = Array.from(round.selectedIds);
+  const encounter = g.state.contentEncounterId;
+  const performance = structuredClone(g.learning.performance());
+  const exposures = structuredClone(g.learning.contentHistory("word-world", "sentences"));
+  const recall = structuredClone(g.learning.contentHistory("word-world", "reconstruct-target"));
+  const rewards = Array.from(g.state.sentenceRewardKeys);
+  assert.equal(recall[g.state.currentEntryId].mistakes, 1);
+  g.node("wordNetReconstructionRetry").click();
+  await g.settle();
+  assert.equal(g.state.reconstruction, round);
+  assert.equal(g.state.contentEncounterId, encounter);
+  assert.deepEqual(Array.from(round.selectedIds), selected, "retry preserves the learner's editable answer");
+  assert.equal(round.submitted, false);
+  assert.equal(round.isRetry, true);
+  assert.equal(g.node("wordNetReconstructionResult").hidden, true);
+  g.node("wordNetReconstructionAnswer").querySelector("[data-reconstruction-option-id]").click();
+  assert.equal(round.selectedIds.length, 0, "the original selection can be edited immediately");
+  await g.submitCorrect();
+  assert.equal(round.correct, true);
+  assert.equal(round.awardedXp, 0);
+  assert.deepEqual(structuredClone(g.learning.performance()), performance, "review practice does not add attempts, success or XP");
+  assert.deepEqual(structuredClone(g.learning.contentHistory("word-world", "sentences")), exposures);
+  assert.deepEqual(structuredClone(g.learning.contentHistory("word-world", "reconstruct-target")), recall,
+    "the revealed correction cannot become independent or spaced recall evidence");
+  assert.deepEqual(Array.from(g.state.sentenceRewardKeys), rewards);
+  assert.equal(g.node("wordNetReconstructionRetry").hidden, true);
+  g.node("wordNetReconstructionContinue").click();
+  await g.settle();
+  assert.notEqual(g.state.contentEncounterId, encounter);
+  assert.deepEqual(structuredClone(g.learning.contentHistory("word-world", "reconstruct-target")), recall);
+});
 
 test("level-zero words retain normal distractors and the learner's translation direction", async t => {
   const records = [

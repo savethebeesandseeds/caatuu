@@ -29,6 +29,8 @@ test('listening difficulty restricts answers and distractors in both manually se
 });
 test('a smaller eligible listening pool reduces choices without borrowing another level',()=>{
   const raw=structuredClone(soundRaw);
+  raw.items=raw.items.filter(row=>row.difficulty!==0);
+  raw.provenance.sourceItemIds=raw.items.map(row=>row.sourceId);
   raw.items.forEach((row,i)=>{row.difficulty=i<3?2:i%2?1:3;});
   const rounds=createSoundQuasarSession(validateSoundQuasarCatalog(raw),{difficulty:2,choiceCount:8,roundLength:500});
   assert.equal(rounds.length,3);assert.ok(rounds.every(r=>r.choices.length===3));
@@ -45,16 +47,16 @@ test('standalone noun difficulty preserves wording and keeps every authored leve
   }
 });
 test('invalid authored levels fail explicitly; ungraded legacy items belong only to Explorer',()=>{
-  for(const difficulty of [0,4,1.5,'2',null]){
+  for(const difficulty of [-1,4,1.5,'2',null]){
     const sound=structuredClone(soundRaw);sound.items[0].difficulty=difficulty;
     assert.throws(()=>validateSoundQuasarCatalog(sound),/difficulty/);
     const noun=structuredClone(nounRaw);noun.items[0].difficulty=difficulty;
     assert.throws(()=>normalizeNounLandingPack(noun,{courseId:noun.courseId,learnerBaseLanguage:noun.learnerBaseLanguage,targetLanguage:noun.targetLanguage}),/difficulty/);
   }
-  const legacy=structuredClone(soundRaw);legacy.items.forEach(r=>delete r.difficulty);
+  const legacy=structuredClone(soundRaw);legacy.items=legacy.items.filter(row=>row.difficulty!==0);legacy.provenance.sourceItemIds=legacy.items.map(row=>row.sourceId);legacy.items.forEach(r=>delete r.difficulty);
   assert.equal(createSoundQuasarSession(validateSoundQuasarCatalog(legacy),{difficulty:1,roundLength:500}).length,legacy.items.length);
   for(const difficulty of [2,3])assert.throws(()=>createSoundQuasarSession(validateSoundQuasarCatalog(legacy),{difficulty}),/eligible/);
-  const nouns=structuredClone(nounRaw);nouns.items.forEach(row=>delete row.difficulty);
+  const nouns=structuredClone(nounRaw);nouns.items=nouns.items.filter(row=>row.difficulty!==0);nouns.items.forEach(row=>delete row.difficulty);
   assert.equal(createNounLandingSession(nouns,{difficulty:1}).total,nouns.items.length);
   for(const difficulty of [2,3])assert.throws(()=>createNounLandingSession(nouns,{difficulty}),/eligible/);
 });

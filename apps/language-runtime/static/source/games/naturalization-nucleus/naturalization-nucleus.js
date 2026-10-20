@@ -481,13 +481,14 @@
     }
   }
 
-  function storedPieceCount(root, catalog) {
-    const key = `caatuu.${catalog.courseId}.${STORAGE_KEY_SUFFIX}`;
-    const value = Number.parseInt(storageFor(root)?.getItem(key) || "", 10);
-    return catalog.roundSettings.pieceCounts.includes(value) ? value : catalog.roundSettings.defaultPieceCount;
+  function preferredPieceCount(catalog) {
+    const value = global.CaatuuLearning?.gameSetting?.("nucleusTiles");
+    if (catalog.roundSettings.pieceCounts.includes(value)) return value;
+    return currentLearningDifficulty() < 2 ? 5 : 9;
   }
 
   function savePieceCount(root, catalog, pieceCount) {
+    global.CaatuuLearning?.setGameSetting?.("nucleusTiles", pieceCount);
     try {
       storageFor(root)?.setItem(`caatuu.${catalog.courseId}.${STORAGE_KEY_SUFFIX}`, String(pieceCount));
     } catch (_error) {
@@ -833,7 +834,7 @@
       }
     });
     const state = {
-      pieceCount: storedPieceCount(root, catalog),
+      pieceCount: preferredPieceCount(catalog),
       difficulty: currentLearningDifficulty(),
       round: null,
       roundIndex: -1,
@@ -1368,7 +1369,7 @@
     }
 
     function startRound(pieceCount = state.pieceCount) {
-      if (!catalog.roundSettings.pieceCounts.includes(pieceCount)) pieceCount = storedPieceCount(root, catalog);
+      if (!catalog.roundSettings.pieceCounts.includes(pieceCount)) pieceCount = preferredPieceCount(catalog);
       const previousArtworkSrc = state.round?.artworkSrc || "";
       state.pieceCount = pieceCount;
       const presentation = roundPresentation(state.roundIndex + 1, catalog);
@@ -1625,10 +1626,10 @@
       listen(global, "caatuu:learning-change", (event) => {
         if (event.detail?.reason !== "difficulty") return;
         const difficulty = currentLearningDifficulty();
-        if (difficulty === state.difficulty) return;
+        if (difficulty === state.difficulty && event.detail?.settingsReset !== true) return;
         state.difficulty = difficulty;
         closeToolbarMenus();
-        prepareRound(state.pieceCount);
+        prepareRound(preferredPieceCount(catalog));
       });
     }
 

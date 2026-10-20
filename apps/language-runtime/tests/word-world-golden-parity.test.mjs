@@ -390,6 +390,74 @@ function normalizeSharedDictionaryCard(root) {
   }
 }
 
+function normalizeSharedReconstructionReview(root, goldenGame) {
+  const byId = id => findOne(root, node => node.attributes.get("id") === id, `shared #${id}`);
+  const result = byId("wordNetReconstructionResult");
+  const sound = byId("wordNetReconstructionResultSound");
+  assert.equal(sound.tag, "button");
+  assert.equal(sound.attributes.get("type"), "button");
+  assert.equal(sound.attributes.get("aria-pressed"), "false");
+  assert.equal(sound.attributes.get("hidden"), "");
+  assert.equal(sound.attributes.get("data-i18n-aria-label"), "wordworld.sentence.play");
+  assert.ok(sound.attributes.get("aria-label"), "Result playback has an accessible label.");
+  assert.deepEqual(findAll(sound, node => node.attributes.has("data-speech-icon"))
+    .map(node => node.attributes.get("data-speech-icon")), ["play", "stop"]);
+  assert.ok(hasClass(sound.parent, "word-net-reconstruction-result-head"));
+  sound.parent.children = sound.parent.children.filter(node => node !== sound);
+
+  const kicker = byId("wordNetReconstructionResultKicker");
+  assert.ok(hasClass(kicker, "word-net-reconstruction-result-kicker"));
+  assert.equal(kicker.attributes.get("data-i18n"), "wordworld.result.kicker");
+  kicker.attributes.delete("id");
+
+  const challenge = byId("wordNetReconstructionResultChallenge");
+  const title = byId("wordNetReconstructionResultTitle");
+  const answers = challenge.parent;
+  assert.ok(hasClass(challenge, "word-net-reconstruction-result-answer"));
+  assert.ok(hasClass(challenge, "is-challenge"));
+  assert.equal(challenge.attributes.has("hidden"), false);
+  assert.ok(hasClass(answers, "word-net-reconstruction-result-answers"));
+  assert.deepEqual(directChildIdentity(answers), [
+    "wordNetReconstructionResultChallenge", "wordNetReconstructionResultAttempt", "wordNetReconstructionResultCorrect"
+  ]);
+  assert.equal(title.parent, challenge);
+  assert.equal(title.tag, "h2");
+  assert.equal(title.attributes.get("tabindex"), "-1");
+  assert.deepEqual(directChildIdentity(challenge), ["span", "wordNetReconstructionResultTitle"]);
+  assert.equal(challenge.children[0].attributes.get("data-i18n"), "wordworld.result.challenge");
+  assert.equal(findAll(result, node => node.attributes.get("id") === "wordNetReconstructionResultMessage").length, 0,
+    "The comparison no longer has an additional message paragraph.");
+
+  const heading = kicker.parent;
+  assert.ok(hasClass(heading, "word-net-reconstruction-result-heading"));
+  assert.deepEqual(heading.children, [kicker], "The outcome header leaves the challenge prompt in its own answer row.");
+  // Compare the reviewed prompt relocation and paragraph removal against the
+  // immutable baseline without changing the pinned historical source itself.
+  heading.children.push(title);
+  title.parent = heading;
+  answers.children = answers.children.filter(node => node !== challenge);
+  const historicalMessage = findOne(goldenGame,
+    node => node.attributes.get("id") === "wordNetReconstructionResultMessage", "historical result message");
+  const message = { ...historicalMessage, attributes: new Map(historicalMessage.attributes), children: [], parent: result };
+  result.children.splice(result.children.indexOf(answers), 0, message);
+
+  const retry = byId("wordNetReconstructionRetry");
+  const continuation = byId("wordNetReconstructionContinue");
+  const actions = retry.parent;
+  assert.equal(continuation.parent, actions);
+  assert.equal(actions.parent, result);
+  assert.ok(hasClass(actions, "word-net-reconstruction-result-actions"));
+  assert.deepEqual(directChildIdentity(actions), ["wordNetReconstructionRetry", "wordNetReconstructionContinue"]);
+  for (const [button, messageId] of [[retry, "common.retry"], [continuation, "common.continue"]]) {
+    assert.equal(button.tag, "button");
+    assert.equal(button.attributes.get("type"), "button");
+    assert.equal(button.attributes.get("data-i18n"), messageId);
+  }
+  // Review actions and playback extend the maintained renderer; the historical
+  // fixture remains byte-pinned and the rest of its ordered tree stays checked.
+  result.children = result.children.filter(node => node !== actions);
+}
+
 function normalizeApprovedInterfaceAnnotations(root) {
   const labels = [
     {
@@ -581,6 +649,7 @@ test("the live shared Word World subtree exactly preserves the Czech component s
   normalizeApprovedInterfaceAnnotations(root);
   normalizeSharedRobotLoading(root, goldenGame);
   normalizeSharedDictionaryCard(root);
+  normalizeSharedReconstructionReview(root, goldenGame);
 
   // The shared volume menu replaces the historical voice picker; its hosts,
   // slider and translations are checked above and behavior has dedicated tests.

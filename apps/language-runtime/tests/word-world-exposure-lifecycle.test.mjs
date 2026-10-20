@@ -10,7 +10,7 @@ const controller = await readFile(new URL("../static/source/product-word-world.m
 const profile = await readFile(new URL("../static/source/learning-profile.js", import.meta.url), "utf8");
 const functions = ["beginWordWorldEncounter", "completeWordWorldExposure", "restartStandardWordWorldAfterReset",
   "showStandardPhrase", "showPreviousSentence", "currentReconstructionKey", "ensureReconstructionChallenge",
-  "shouldBlockReconstructionAdvance", "submitReconstructionChallenge", "activateNextSentence",
+  "shouldBlockReconstructionAdvance", "submitReconstructionChallenge", "retryReconstructionChallenge", "activateNextSentence",
   "awardTimedRevealXp", "currentGuidedPhraseToken", "applyTranslationMode",
   "markGuidedDictionaryHint", "syncWordTranslation", "renderWordMetadata"];
 const bodies = functions.map(name => {
@@ -33,7 +33,8 @@ function game(storage) {
   const learning = harness.window.CaatuuLearning;
   const state = { busy: false, contentMode: "standard", currentContentMode: "standard", phraseRequestId: 0,
     translationMode: "reconstruct", guidedMode: false, guidedRequested: false, reconstruction: null,
-    history: [], historyCursor: 0, generationMode: "random", branchQueue: { markUsed() {} } };
+    history: [], historyCursor: 0, generationMode: "random", wordSelectionRequested: false,
+    branchQueue: { markUsed() {} } };
   state.standardProvider = { corpusVersion: "test", primaryWord: () => "target", markUsed() {}, records: [] };
   const generated = [];
   const timers = [];
@@ -45,7 +46,8 @@ function game(storage) {
     sourcePrimaryLanguage: "en", newContentEncounterId: () => `visit-${++sequence}`, wordWorldEvidenceBank,
     learningDifficulty: () => 1, normalizeWord: value => String(value || ""), sentenceFingerprint: value => value,
     setBusy: value => { state.busy = value; }, setTranslation: value => { state.currentTranslation = value; },
-    selectWord() {}, renderCzechSentence() {}, renderWordGuidedStatus() {}, renderWordWorldLearning() {}, renderReconstruction() {},
+    selectWord() {}, abortWordLookup() {}, syncCzechSentenceSelection() {}, renderCzechSentence() {},
+    renderWordGuidedStatus() {}, renderWordWorldLearning() {}, renderReconstruction() {},
     setStatus() {}, setProgress() {}, cancelBackgroundWork() {}, hideSceneAsset() {},
     resetSentenceFeedback() {}, saveStandardUsage() {}, rememberStep() {}, recordStandardSemanticExposure() {},
     rememberSeenSentence() {}, savePreparedQueue() {}, holdSentenceTransition: async () => {},
@@ -56,9 +58,10 @@ function game(storage) {
     guidedWordInteractionLocked: () => false,
     reconstructionSelectedOptions: round => round.challenge.options.filter(option => round.selectedIds.includes(option.id)),
     reconstructionSelectedText: () => "answer", isWordReconstructionCorrect: selected => selected[0] === "target",
-    claimSentenceReward: () => true, stabilizeReconstructionResultViewport() {}, announceCampaignRoundSuccess() {},
+    claimSentenceReward: () => true, cancelCzechSpeech() {}, stabilizeReconstructionResultViewport() {}, announceCampaignRoundSuccess() {},
     generateFromConfiguredMode: (...args) => generated.push(args),
     generateStandardFromConfiguredMode: (...args) => generated.push(args),
+    generateGuidedStandardPhrase: async (...args) => generated.push(args),
     clearTranslationTimer: () => { state.translationTimerId = 0; }, syncTranslationToggle() {},
     hasTranslationMode: () => true, isTimedTranslationMode: mode => mode === "timed",
     translationModes: { timed: { delayMs: 1 }, reconstruct: {}, visible: {} }
@@ -83,6 +86,67 @@ test("a miss reveals correction and Next completes only the original encounter",
   a.run("awardTimedRevealXp()");
   const item = a.history()["item-a"];
   assert.equal(item.exposures, 1); assert.equal(item.mistakes, 1); assert.equal(item.successes, 0);
+});
+
+test("retrying a revealed regular answer retains the original first-response evidence", async () => {
+  const a = game(); await a.present();
+  const round = a.run("ensureReconstructionChallenge()"); round.selectedIds = ["wrong"];
+  await a.run("submitReconstructionChallenge()");
+  const encounter = a.state.contentEncounterId;
+  const performance = structuredClone(a.learning.performance());
+  const exposure = structuredClone(a.history());
+  const recall = structuredClone(a.learning.contentHistory("word-world", "reconstruct-target"));
+  let rewards = 0, campaignSuccesses = 0;
+  a.context.claimSentenceReward = () => { rewards += 1; return true; };
+  a.context.announceCampaignRoundSuccess = () => { campaignSuccesses += 1; };
+  await a.run("retryReconstructionChallenge()");
+  assert.equal(a.state.reconstruction, round);
+  assert.equal(a.state.contentEncounterId, encounter);
+  assert.deepEqual(Array.from(round.selectedIds), ["wrong"]);
+  assert.equal(round.submitted, false);
+  assert.equal(round.isRetry, true);
+  round.selectedIds = ["correct"];
+  await a.run("submitReconstructionChallenge()");
+  assert.equal(round.correct, true);
+  assert.equal(round.awardedXp, 0);
+  assert.equal(rewards, 0);
+  assert.equal(campaignSuccesses, 0);
+  assert.deepEqual(structuredClone(a.learning.performance()), performance);
+  assert.deepEqual(structuredClone(a.history()), exposure);
+  assert.deepEqual(structuredClone(a.learning.contentHistory("word-world", "reconstruct-target")), recall);
+});
+
+test("Guided retry retires the failed immutable task without rewriting its first response", async () => {
+  const a = game(); await a.present();
+  let recorded = false, revealed = false, aborted = 0;
+  const responses = [];
+  const lifecycle = {
+    state: () => ({ taskFingerprint: "immutable-failed-task", firstResponseRecorded: recorded,
+      solutionRevealed: revealed, hintsUsed: false }),
+    markSolutionRevealed() { revealed = true; },
+    async recordFirstResponse(response) {
+      responses.push(response); recorded = true;
+      return { result: { qualifiesForIndependentAssessment: false } };
+    },
+    async abort() { aborted += 1; }
+  };
+  Object.assign(a.state, { guidedRequested: true, guidedMode: true, guidedLifecycle: lifecycle });
+  const round = a.run("ensureReconstructionChallenge()"); round.selectedIds = ["wrong"];
+  await a.run("submitReconstructionChallenge()");
+  assert.equal(responses.length, 1);
+  assert.equal(responses[0].score, 0);
+  assert.equal(round.guidedIndependentQualified, false);
+  const performance = structuredClone(a.learning.performance());
+  const recall = structuredClone(a.learning.contentHistory("word-world", "reconstruct-target"));
+  await a.run("retryReconstructionChallenge()");
+  await Promise.resolve(); await Promise.resolve();
+  assert.equal(responses.length, 1, "retry must not replace the original score with revealed-answer practice");
+  assert.equal(aborted, 1);
+  assert.equal(a.state.reconstruction, null);
+  assert.equal(a.state.guidedLifecycle, null);
+  assert.equal(a.generated.length, 1, "the existing Guided advance starts a fresh task");
+  assert.deepEqual(structuredClone(a.learning.performance()), performance);
+  assert.deepEqual(structuredClone(a.learning.contentHistory("word-world", "reconstruct-target")), recall);
 });
 
 test("selecting the same record again creates a fresh unanswered reconstruction", async () => {
@@ -239,7 +303,8 @@ test("dictionary support remains assisted when its card is subsequently hidden",
   const a = game(); await a.present();
   const node = a.registry.element("wordNetWordTranslation");
   a.context.$ = selector => a.registry.element(selector.slice(1));
-  Object.assign(a.state, { selectedWord: "target", wordCardPreferences: { showCard: true }, selectedWordMeaning: "base" });
+  Object.assign(a.state, { selectedWord: "target", wordSelectionRequested: true,
+    wordCardPreferences: { showCard: true }, selectedWordMeaning: "base" });
   a.state.translationMode = "visible";
   a.run("syncWordTranslation()");
   assert.equal(node.hidden, false, "the support was actually displayed in ordinary reading mode");

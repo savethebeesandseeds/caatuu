@@ -36,7 +36,8 @@ test("authored grammar banks retain every example while separating repeated word
 });
 
 async function mountSequence({ language = "spanish", nounReady = true, phraseFails = false, deferPhrase = false,
-  distinctAudit = false, requestedPractice = "", invalidContent = false, progression = false, mutateContent, contentHistory } = {}) {
+  distinctAudit = false, requestedPractice = "", invalidContent = false, progression = false, mutateContent, contentHistory,
+  initialDifficulty = 1, gameSettings } = {}) {
   const spanishBase = language === "english-from-spanish";
   const course = { id: spanishBase ? "es-en" : language === "czech" ? "cz" : "es", routePrefix: spanishBase ? "/es-en" : language === "czech" ? "/cz" : "/es",
     sourceLanguage: { id: spanishBase ? "es" : "en", locale: spanishBase ? "es-ES" : "en" },
@@ -68,8 +69,12 @@ async function mountSequence({ language = "spanish", nounReady = true, phraseFai
   const records = [];
   const exposures = [];
   const messages = [];
-  let difficulty = 1;
+  let difficulty = initialDifficulty;
   shell.CaatuuLearning = { difficulty: () => difficulty, record: (id, delta) => records.push({ id, ...delta }) };
+  if (gameSettings) Object.assign(shell.CaatuuLearning, {
+    gameSetting: (name) => gameSettings[name] ?? [3, 3, 6, 6][difficulty],
+    setGameSetting: (name, value) => { gameSettings[name] = value; }
+  });
   if (progression) Object.assign(shell.CaatuuLearning, { contentHistory: contentHistory || (() => ({})),
     contentGeneration: () => "before-reset",
     recordExposure: (gameId, event) => exposures.push({ gameId, ...event }) });
@@ -186,6 +191,7 @@ async function mountSequence({ language = "spanish", nounReady = true, phraseFai
   return { ...browser, get controller() { return controller; }, state, shell, noun, controls, records, exposures, messages, errors,
     frames, frame, advance, answerStage, completeRound, chooseMode, element, timingChoice,
     setDifficulty(value) {
+      if (gameSettings && value !== difficulty) delete gameSettings.grammarMeaningChoices;
       difficulty = value;
       shell.dispatchEvent({ type: "caatuu:learning-change", detail: { reason: "difficulty" } });
     },
@@ -283,6 +289,47 @@ test("zero grammar retains the ordinary stages, full alternatives and learner ti
   snapshot = game.state.adjectiveGame.snapshot();
   assert.equal(snapshot.durationMs, 5000);
   assert.equal(snapshot.current.introductory, undefined);
+  game.controller.destroy();
+});
+
+for (const [difficulty, count] of [[0, 3], [1, 3], [2, 6], [3, 6]]) {
+  test(`grammar difficulty ${difficulty} starts with ${count} meaning choices without the shared settings API`, async () => {
+    const game = await mountSequence({ initialDifficulty: difficulty });
+    assert.equal(game.state.meaningOptionCount, count);
+    assert.equal(game.state.adjectiveGame.snapshot().current.meaningOptions.length, count);
+    const buttons = game.element("gravityMeaningCountChoices").querySelectorAll("button");
+    assert.equal(buttons.find(button => button.getAttribute("aria-pressed") === "true").dataset.count, String(count));
+    assert.ok(buttons.every(button => !button.disabled));
+    game.controller.destroy();
+  });
+}
+
+test("grammar meaning choices preserve manual settings within the level and reset before a new difficulty round", async () => {
+  const gameSettings = {};
+  let game = await mountSequence({ initialDifficulty: 0, gameSettings });
+  const chooseCount = (count) => game.element("gravityMeaningCountChoices").querySelectorAll("button")
+    .find(button => button.dataset.count === String(count)).click();
+  chooseCount(6);
+  assert.equal(gameSettings.grammarMeaningChoices, 6);
+  assert.equal(game.state.adjectiveGame.snapshot().current.meaningOptions.length, 6);
+  game.chooseMode("forms");
+  game.chooseMode("meaning");
+  assert.equal(game.state.meaningOptionCount, 6);
+  game.controller.destroy();
+
+  game = await mountSequence({ initialDifficulty: 0, gameSettings });
+  assert.equal(game.state.adjectiveGame.snapshot().current.meaningOptions.length, 6, "same-level reload keeps the central manual preference");
+  for (const [difficulty, count] of [[1, 3], [2, 6], [3, 6], [0, 3]]) {
+    chooseCount(count === 3 ? 6 : 3);
+    game.setDifficulty(difficulty);
+    assert.equal(game.state.meaningOptionCount, count);
+    assert.equal(game.state.adjectiveGame.snapshot().current.meaningOptions.length, count, "the restarted round already uses the new default");
+    const buttons = game.element("gravityMeaningCountChoices").querySelectorAll("button");
+    assert.equal(buttons.find(button => button.getAttribute("aria-pressed") === "true").dataset.count, String(count));
+  }
+  chooseCount(6);
+  game.setDifficulty(0);
+  assert.equal(game.state.meaningOptionCount, 6, "a same-level event does not reset the manual preference");
   game.controller.destroy();
 });
 

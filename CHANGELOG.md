@@ -1,5 +1,20 @@
 # Changelog
 
+## Android 191 / 0.1.39
+
+- Improve Word World corrections with aligned challenge, submitted-answer and
+  correct-answer rows, clearer missing-word markers, and a brief mistake animation.
+  Keep retry and pronunciation available without changing the first attempt's score.
+- Wait for word selection before showing the dictionary during a challenge.
+  After submission, open the first target word's meaning above the result and
+  make the target-language result words selectable for review.
+- Give each difficulty badge sensible initial game settings. Preserve manual
+  overrides across rounds and reloads, and reset them when the badge changes.
+- Center Memory Moon's sentence independently of its pronunciation button and
+  soften the moon's shadow.
+- Physical-device installation, update, offline use and saved-data preservation
+  remain unverified for this candidate. Course review status is unchanged.
+
 ## Android 190 / 0.1.38
 
 - Restore the established game rules and configurable settings at level zero:

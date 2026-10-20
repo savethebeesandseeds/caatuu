@@ -95,7 +95,7 @@ test("zero Verb Nebula restores saved settings and keeps every pair-count contro
       setText() {}, saveVerbMemory() {}, setVerbMatchFeedback() {}, renderVerbNebula() {},
       interfaceText: () => "changed"
     });
-    browser.window.CaatuuLearning = { difficulty: () => 0 };
+    browser.window.CaatuuLearning = { difficulty: () => 0, gameSetting: () => count ?? 2 };
     for (const value of verbs.VERB_NEBULA_PAIR_COUNTS) {
       const button = browser.document.createElement("button");
       button.setAttribute("data-verb-pair-count", String(value));
@@ -105,7 +105,7 @@ test("zero Verb Nebula restores saved settings and keeps every pair-count contro
       + between("function renderVerbPairCountControls()", "function loadVerbSpeakOnTap()")
       + between("function changeVerbPairCount(event)", "function verbHintTokens(value)"), browser.context);
     browser.context.loadVerbMemory();
-    assert.equal(state.verbPairCount, count ?? 4);
+    assert.equal(state.verbPairCount, count ?? 2);
     browser.context.renderVerbPairCountControls();
     for (const button of browser.document.querySelectorAll("[data-verb-pair-count]")) {
       assert.equal(button.disabled, false);
@@ -128,4 +128,70 @@ test("zero Case Cosmos retains normal randomized contrast counts with one correc
     if (sample === 0.999) assert.equal(question.candidates.length, Math.min(4, round.formPool.length));
   }
   assert.deepEqual([...counts].sort(), [2, 3, 4]);
+});
+
+test("Verb Nebula follows live badge defaults while preserving manual counts until the next change", async () => {
+  const course = await json("../../languages/czech/course.json");
+  const browser = createBrowserHarness({ course });
+  const profile = await readFile(new URL("../static/source/learning-profile.js", import.meta.url), "utf8");
+  vm.runInContext(profile, browser.context);
+  const state = { verbGuidedRequested: false, verbHintById: new Map(), verbHintCache: new Map() };
+  let memory = { difficulty: 0, pairCount: 8 };
+  let deals = 0;
+  Object.assign(browser.context, { state, verbNebulaCore: verbs,
+    countryDictionary: [0, 1, 2, 3].flatMap(difficulty => Array.from({ length: 12 }, (_, index) => ({
+      id: `band${difficulty}-${index}`, kind: "verb", target: `target${difficulty}item${index}`,
+      source: `source${difficulty}item${index}`, englishAuditText: `source${difficulty}item${index}`, difficulty
+    }))),
+    sourceLanguage: { id: "en", locale: "en" }, readVerbMemory: () => memory,
+    safeVerbStat: value => Number(value) || 0, setText() {}, setVerbMatchFeedback() {},
+    interfaceText: () => "changed", cancelVerbRoundTransition() {}, resetVerbSelections() {},
+    saveVerbMemory() { memory = { difficulty: state.verbDifficulty, pairCount: state.verbPairCount }; },
+    renderVerbNebula() { browser.context.renderVerbPairCountControls(); },
+    startVerbRound() {
+      deals += 1;
+      state.verbRound = verbs.dealVerbRound(state.verbPairs, state.verbPairs.map(pair => pair.id), state.verbPairCount, random()).round;
+    }
+  });
+  for (const count of verbs.VERB_NEBULA_PAIR_COUNTS) {
+    const button = browser.document.createElement("button");
+    button.setAttribute("data-verb-pair-count", String(count));
+    browser.document.body.append(button);
+  }
+  vm.runInContext(between("function validVerbIds(ids, pairById)", "function setVerbMatchFeedback(")
+    + between("function renderVerbPairCountControls()", "function loadVerbSpeakOnTap()")
+    + between("function changeVerbPairCount(event)", "function verbHintTokens(value)")
+    + between("function rebaseVerbDifficulty(", "function resetVerbProgress()"), browser.context);
+  browser.window.addEventListener("caatuu:learning-change", event => {
+    if (event.detail?.reason === "difficulty") browser.context.rebaseVerbDifficulty({ resetSettings: event.detail.settingsReset === true });
+  });
+  browser.context.loadVerbMemory();
+  browser.context.startVerbRound();
+  for (const difficulty of [0, 3, 1, 2, 0]) {
+    browser.window.CaatuuLearning.setDifficulty(difficulty);
+    assert.equal(state.verbPairCount, [2, 4, 6, 8][difficulty]);
+    assert.equal(state.verbRound.length, state.verbPairCount);
+    assert.ok(state.verbRound.every(pair => pair.difficulty === difficulty));
+    const override = difficulty === 3 ? 2 : 8;
+    const button = browser.document.querySelector(`[data-verb-pair-count="${override}"]`);
+    browser.context.changeVerbPairCount({ target: button });
+    assert.equal(browser.window.CaatuuLearning.gameSetting("verbPairs"), override);
+    browser.window.CaatuuLearning.setDifficulty(difficulty);
+    assert.equal(state.verbPairCount, override);
+    state.verbMemoryLoaded = false;
+    browser.context.loadVerbMemory();
+    browser.context.startVerbRound();
+    assert.equal(state.verbRound.length, override);
+    const before = deals;
+    browser.context.rebaseVerbDifficulty();
+    assert.equal(deals, before, "a repeated badge notification preserves the current round");
+  }
+  const { gameSettingsStorageKey, preferenceStorageKey } = browser.window.CaatuuLearning.storage;
+  const external = JSON.parse(browser.localStorage.getItem(gameSettingsStorageKey));
+  external.selectionRevision += 2;
+  external.values.verbPairs = 2;
+  browser.localStorage.setItem(gameSettingsStorageKey, JSON.stringify(external));
+  browser.window.dispatchEvent({ type: "storage", key: preferenceStorageKey });
+  assert.equal(state.verbPairCount, 2, "an external away/back change resets the mounted same-level board");
+  assert.equal(state.verbRound.length, 2);
 });

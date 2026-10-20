@@ -38,6 +38,19 @@ display or setup preferences alone do not count as practice. Advancing to
 Explorer remains an explicit learner choice. Review, fallback and continued
 sessions stay in the selected band, with no borrowed harder content.
 
+Games with adjustable alternative counts select an initial setting for the
+chosen badge. Changing the badge resets these controls, including games that
+are not currently open. Manual overrides persist across rounds and reloads
+until the next badge change; the available controls and game rules stay intact.
+
+| Setting | Starting out (0) | Explorer (1) | Traveler (2) | Navigator (3) |
+| --- | --- | --- | --- | --- |
+| Verb Nebula pairs | 2 | 4 | 6 | 8 |
+| Naturalization Nucleus tiles | 5 | 5 | 9 | 9 |
+| Sounds Quasar choices | 4 | 4 | 6 | 6 |
+| Sounds Quasar mode | Words | Sentences | Sentences | Sentences |
+| Grammar Gravity meaning choices | 3 | 3 | 6 | 6 |
+
 ## Learning evidence
 
 A completed encounter is recorded separately from its result and support:

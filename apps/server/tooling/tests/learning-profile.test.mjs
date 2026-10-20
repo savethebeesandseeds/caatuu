@@ -73,6 +73,7 @@ function createLearningContext(initial = {}, options = {}) {
     Date: options.now === undefined ? Date : ScenarioDate,
     window: {
       localStorage,
+      addEventListener(type, handler) { options.listeners?.set(type, handler); },
       navigator: options.navigator || { locks: { request: async (_name, action) => action() } },
       CustomEvent: TestCustomEvent,
       dispatchEvent(event) {
@@ -94,6 +95,7 @@ function createLearningContext(initial = {}, options = {}) {
   vm.runInNewContext(options.profileSource ?? learningProfileSource, context, { filename: "learning-profile.js" });
   return {
     learning: context.window.CaatuuLearning,
+    window: context.window,
     rows,
     events,
     setNow(value) {
@@ -176,6 +178,108 @@ test("a new learner remains at zero after practice, reload and a display change"
   assert.equal(reloaded.difficulty(), 0);
   assert.equal(reloaded.snapshot().summary.rounds, 1);
   assert.equal(reloaded.practiceSet().progression.stage.difficulty, 0);
+});
+
+test("game controls default to the selected difficulty in every course", async () => {
+  const { courses } = await loadCourseCatalog();
+  const expected = [
+    { verbPairs: 2, nucleusTiles: 5, soundChoices: 4, soundMode: "words", grammarMeaningChoices: 3 },
+    { verbPairs: 4, nucleusTiles: 5, soundChoices: 4, soundMode: "sentences", grammarMeaningChoices: 3 },
+    { verbPairs: 6, nucleusTiles: 9, soundChoices: 6, soundMode: "sentences", grammarMeaningChoices: 6 },
+    { verbPairs: 8, nucleusTiles: 9, soundChoices: 6, soundMode: "sentences", grammarMeaningChoices: 6 }
+  ];
+  for (const { course } of courses) for (const difficulty of [0, 1, 2, 3]) {
+    const key = course.storage.learningPreferences || `${course.storage.namespace}.learning.preferences.v1`;
+    const { learning } = createLearningContext({ [key]: JSON.stringify({ schemaVersion: 1, difficulty }) }, { course });
+    for (const [name, value] of Object.entries(expected[difficulty])) {
+      assert.equal(learning.gameSetting(name), value, `${course.id}/${difficulty}/${name}`);
+    }
+  }
+});
+
+test("manual game settings survive reload and selecting the same badge", () => {
+  const first = createLearningContext();
+  const overrides = { verbPairs: 8, nucleusTiles: 9, soundChoices: 6,
+    soundMode: "sentences", grammarMeaningChoices: 6 };
+  for (const [name, value] of Object.entries(overrides)) assert.equal(first.learning.setGameSetting(name, value), true);
+  first.learning.setDifficulty(0);
+  assert.equal(first.events.filter(event => event.detail?.reason === "difficulty").length, 0);
+  const reloaded = createLearningContext({}, { rows: first.rows });
+  for (const [name, value] of Object.entries(overrides)) assert.equal(reloaded.learning.gameSetting(name), value);
+  assert.equal(reloaded.learning.setGameSetting("soundChoices", 2), false);
+  assert.equal(reloaded.learning.gameSetting("soundChoices"), 6);
+});
+
+test("changing difficulty resets every game before notification, including unopened games and round trips", () => {
+  const { learning, window, rows } = createLearningContext();
+  learning.setGameSetting("verbPairs", 8);
+  learning.setGameSetting("nucleusTiles", 9);
+  learning.setGameSetting("soundChoices", 6);
+  learning.setGameSetting("soundMode", "sentences");
+  learning.setGameSetting("grammarMeaningChoices", 6);
+  const unchanged = [learning.storage.performanceStorageKey, learning.storage.practiceStorageKey,
+    learning.storage.contentStorageKey].map(key => [key, rows.get(key)]);
+  const seen = [];
+  window.dispatchEvent = event => {
+    if (event.detail?.reason !== "difficulty") return;
+    seen.push([event.detail.difficulty, learning.gameSetting("verbPairs"), learning.gameSetting("soundMode")]);
+  };
+  learning.setDifficulty(3);
+  learning.setGameSetting("verbPairs", 2);
+  learning.setGameSetting("soundMode", "words");
+  learning.setDifficulty(1);
+  learning.setDifficulty(0);
+  assert.deepEqual(seen, [[3, 8, "sentences"], [1, 4, "sentences"], [0, 2, "words"]]);
+  const reloaded = createLearningContext({}, { rows }).learning;
+  assert.deepEqual(["verbPairs", "nucleusTiles", "soundChoices", "soundMode", "grammarMeaningChoices"]
+    .map(name => reloaded.gameSetting(name)), [2, 5, 4, "words", 3]);
+  for (const [key, value] of unchanged) assert.equal(rows.get(key), value, `progress unchanged: ${key}`);
+});
+
+test("an external badge change resets defaults without overwriting a newer manual choice", () => {
+  const first = createLearningContext();
+  const listeners = new Map();
+  const second = createLearningContext({}, { rows: first.rows, listeners });
+  first.learning.setDifficulty(3);
+  first.learning.setGameSetting("nucleusTiles", 5);
+  listeners.get("storage")({ key: first.learning.storage.preferenceStorageKey });
+  assert.equal(second.learning.gameSetting("nucleusTiles"), 5);
+  first.rows.set(first.learning.storage.preferenceStorageKey, JSON.stringify({ schemaVersion: 1, difficulty: 1 }));
+  listeners.get("storage")({ key: first.learning.storage.preferenceStorageKey });
+  assert.equal(second.learning.gameSetting("verbPairs"), 4);
+  assert.equal(second.learning.gameSetting("soundMode"), "sentences");
+});
+
+test("game settings remain usable in memory when their storage is denied", () => {
+  const { learning } = createLearningContext({}, { beforeWrite(key) {
+    if (key.includes(".game-settings.")) throw new Error("Storage denied");
+  } });
+  assert.equal(learning.setGameSetting("soundChoices", 6), false);
+  assert.equal(learning.gameSetting("soundChoices"), 6);
+  learning.setDifficulty(3);
+  assert.equal(learning.gameSetting("verbPairs"), 8);
+  learning.setDifficulty(0);
+  assert.equal(learning.gameSetting("soundChoices"), 4);
+  assert.equal(learning.gameSetting("soundMode"), "words");
+});
+
+test("queued cross-window badge round trips notify mounted games even when the final badge is unchanged", () => {
+  const first = createLearningContext();
+  first.learning.setGameSetting("verbPairs", 8);
+  first.learning.setGameSetting("nucleusTiles", 9);
+  const listeners = new Map();
+  const second = createLearningContext({}, { rows: first.rows, listeners });
+  first.learning.setDifficulty(3);
+  first.learning.setDifficulty(0);
+  for (let index = 0; index < 2; index += 1) {
+    listeners.get("storage")({ key: first.learning.storage.preferenceStorageKey });
+  }
+  const notifications = second.events.filter(event => event.detail?.reason === "difficulty");
+  assert.equal(notifications.length, 1);
+  assert.equal(notifications[0].detail.difficulty, 0);
+  assert.equal(notifications[0].detail.settingsReset, true);
+  assert.equal(second.learning.gameSetting("verbPairs"), 2);
+  assert.equal(second.learning.gameSetting("nucleusTiles"), 5);
 });
 
 test("level zero has exactly 100 cycles in every course while later bands retain their corpus budgets", async () => {

@@ -17,7 +17,7 @@ const { createInterfaceContent, installInterfaceContent } = await import('../sou
 const response = await fetch('../data/interface/en.v1.json');
 if (!response.ok) throw new Error('Cannot load the review interface catalog.');
 installInterfaceContent(createInterfaceContent(await response.json()), window);
-await import('../source/learning-profile.js?v=learning-23');
+await import('../source/learning-profile.js?v=learning-24');
 await import('../source/caatuu-chrome.js?v=chrome-190');
 window.history.replaceState(window.history.state, '', reviewUrl.href);
 if (reviewOptions.get('game') === 'naturalization-nucleus') {
@@ -30,7 +30,7 @@ if (reviewOptions.get('game') === 'naturalization-nucleus') {
   mountedPanel.hidden = false;
   document.getElementById('memoryMoonRoot').replaceWith(mountedPanel);
   window.CaatuuPracticePacing = await import('../source/games/practice-pacing.mjs?v=practice-pacing-3');
-  await import('../source/games/naturalization-nucleus/naturalization-nucleus.js?v=naturalization-nucleus-30');
+  await import('../source/games/naturalization-nucleus/naturalization-nucleus.js?v=naturalization-nucleus-31');
   const controller = await window.CaatuuNaturalizationNucleus.mount({
     dataUrl: `/${courseId}/data/games/naturalization-nucleus/content.json`, root: document
   });
