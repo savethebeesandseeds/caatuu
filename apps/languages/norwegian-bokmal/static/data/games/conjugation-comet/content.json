@@ -10023,21 +10023,23 @@
     },
     {
       "id": "zero-nb-conjugation-01",
-      "revision": 1,
+      "revision": 2,
       "targetText": "spise",
       "learnerBaseText": "eat",
       "englishAuditText": "eat",
       "meaningChoiceBaseText": "eat",
       "difficulty": 0,
-      "family": "First infinitive and present forms",
+      "family": "Everyday action words",
       "lessonId": "zero-nb-present-foundations",
-      "teachingNoteBaseText": "Start with the action word and one present-time example. The present form stays the same for I and you.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "first-forms"
       ],
       "forms": [
         {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "infinitive",
           "revision": 1,
           "subjectTargetText": "Infinitiv",
@@ -10048,11 +10050,11 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to eat",
-          "englishAuditText": "to eat",
-          "usefulness": 98,
-          "complexity": 8
+          "englishAuditText": "to eat"
         },
         {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "present",
           "revision": 1,
           "subjectTargetText": "Presens",
@@ -10063,9 +10065,37 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I eat",
-          "englishAuditText": "I eat",
+          "englishAuditText": "I eat"
+        },
+        {
           "usefulness": 98,
-          "complexity": 8
+          "complexity": 8,
+          "id": "preterite",
+          "revision": 1,
+          "subjectTargetText": "Preteritum",
+          "subjectBaseText": "Past",
+          "targetText": "spiste",
+          "targetPhraseFrame": {
+            "beforeText": "jeg ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I ate",
+          "englishAuditText": "I ate"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "perfect",
+          "revision": 1,
+          "subjectTargetText": "Presens perfektum",
+          "subjectBaseText": "Present perfect",
+          "targetText": "spist",
+          "targetPhraseFrame": {
+            "beforeText": "jeg har ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I have eaten",
+          "englishAuditText": "I have eaten"
         }
       ],
       "usefulness": 98,
@@ -10073,21 +10103,23 @@
     },
     {
       "id": "zero-nb-conjugation-02",
-      "revision": 1,
+      "revision": 2,
       "targetText": "drikke",
       "learnerBaseText": "drink",
       "englishAuditText": "drink",
       "meaningChoiceBaseText": "drink",
       "difficulty": 0,
-      "family": "First infinitive and present forms",
+      "family": "Everyday action words",
       "lessonId": "zero-nb-present-foundations",
-      "teachingNoteBaseText": "Start with the action word and one present-time example. The present form stays the same for I and you.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "first-forms"
       ],
       "forms": [
         {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "infinitive",
           "revision": 1,
           "subjectTargetText": "Infinitiv",
@@ -10098,11 +10130,11 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to drink",
-          "englishAuditText": "to drink",
-          "usefulness": 98,
-          "complexity": 8
+          "englishAuditText": "to drink"
         },
         {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "present",
           "revision": 1,
           "subjectTargetText": "Presens",
@@ -10113,9 +10145,37 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I drink",
-          "englishAuditText": "I drink",
+          "englishAuditText": "I drink"
+        },
+        {
           "usefulness": 98,
-          "complexity": 8
+          "complexity": 8,
+          "id": "preterite",
+          "revision": 1,
+          "subjectTargetText": "Preteritum",
+          "subjectBaseText": "Past",
+          "targetText": "drakk",
+          "targetPhraseFrame": {
+            "beforeText": "jeg ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I drank",
+          "englishAuditText": "I drank"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "perfect",
+          "revision": 1,
+          "subjectTargetText": "Presens perfektum",
+          "subjectBaseText": "Present perfect",
+          "targetText": "drukket",
+          "targetPhraseFrame": {
+            "beforeText": "jeg har ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I have drunk",
+          "englishAuditText": "I have drunk"
         }
       ],
       "usefulness": 98,
@@ -10123,21 +10183,23 @@
     },
     {
       "id": "zero-nb-conjugation-03",
-      "revision": 1,
+      "revision": 2,
       "targetText": "sove",
       "learnerBaseText": "sleep",
       "englishAuditText": "sleep",
       "meaningChoiceBaseText": "sleep",
       "difficulty": 0,
-      "family": "First infinitive and present forms",
+      "family": "Everyday action words",
       "lessonId": "zero-nb-present-foundations",
-      "teachingNoteBaseText": "Start with the action word and one present-time example. The present form stays the same for I and you.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "first-forms"
       ],
       "forms": [
         {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "infinitive",
           "revision": 1,
           "subjectTargetText": "Infinitiv",
@@ -10148,11 +10210,11 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to sleep",
-          "englishAuditText": "to sleep",
-          "usefulness": 98,
-          "complexity": 8
+          "englishAuditText": "to sleep"
         },
         {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "present",
           "revision": 1,
           "subjectTargetText": "Presens",
@@ -10163,9 +10225,37 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I sleep",
-          "englishAuditText": "I sleep",
+          "englishAuditText": "I sleep"
+        },
+        {
           "usefulness": 98,
-          "complexity": 8
+          "complexity": 8,
+          "id": "preterite",
+          "revision": 1,
+          "subjectTargetText": "Preteritum",
+          "subjectBaseText": "Past",
+          "targetText": "sov",
+          "targetPhraseFrame": {
+            "beforeText": "jeg ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I slept",
+          "englishAuditText": "I slept"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "perfect",
+          "revision": 1,
+          "subjectTargetText": "Presens perfektum",
+          "subjectBaseText": "Present perfect",
+          "targetText": "sovet",
+          "targetPhraseFrame": {
+            "beforeText": "jeg har ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I have slept",
+          "englishAuditText": "I have slept"
         }
       ],
       "usefulness": 98,
@@ -10173,21 +10263,23 @@
     },
     {
       "id": "zero-nb-conjugation-04",
-      "revision": 1,
+      "revision": 2,
       "targetText": "lese",
       "learnerBaseText": "read",
       "englishAuditText": "read",
       "meaningChoiceBaseText": "read",
       "difficulty": 0,
-      "family": "First infinitive and present forms",
+      "family": "Everyday action words",
       "lessonId": "zero-nb-present-foundations",
-      "teachingNoteBaseText": "Start with the action word and one present-time example. The present form stays the same for I and you.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "first-forms"
       ],
       "forms": [
         {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "infinitive",
           "revision": 1,
           "subjectTargetText": "Infinitiv",
@@ -10198,11 +10290,11 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to read",
-          "englishAuditText": "to read",
-          "usefulness": 98,
-          "complexity": 8
+          "englishAuditText": "to read"
         },
         {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "present",
           "revision": 1,
           "subjectTargetText": "Presens",
@@ -10213,9 +10305,37 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I read",
-          "englishAuditText": "I read",
+          "englishAuditText": "I read"
+        },
+        {
           "usefulness": 98,
-          "complexity": 8
+          "complexity": 8,
+          "id": "preterite",
+          "revision": 1,
+          "subjectTargetText": "Preteritum",
+          "subjectBaseText": "Past",
+          "targetText": "leste",
+          "targetPhraseFrame": {
+            "beforeText": "jeg ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I read",
+          "englishAuditText": "I read"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "perfect",
+          "revision": 1,
+          "subjectTargetText": "Presens perfektum",
+          "subjectBaseText": "Present perfect",
+          "targetText": "lest",
+          "targetPhraseFrame": {
+            "beforeText": "jeg har ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I have read",
+          "englishAuditText": "I have read"
         }
       ],
       "usefulness": 98,
@@ -10223,21 +10343,23 @@
     },
     {
       "id": "zero-nb-conjugation-05",
-      "revision": 1,
+      "revision": 2,
       "targetText": "skrive",
       "learnerBaseText": "write",
       "englishAuditText": "write",
       "meaningChoiceBaseText": "write",
       "difficulty": 0,
-      "family": "First infinitive and present forms",
+      "family": "Everyday action words",
       "lessonId": "zero-nb-present-foundations",
-      "teachingNoteBaseText": "Start with the action word and one present-time example. The present form stays the same for I and you.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "first-forms"
       ],
       "forms": [
         {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "infinitive",
           "revision": 1,
           "subjectTargetText": "Infinitiv",
@@ -10248,11 +10370,11 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to write",
-          "englishAuditText": "to write",
-          "usefulness": 98,
-          "complexity": 8
+          "englishAuditText": "to write"
         },
         {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "present",
           "revision": 1,
           "subjectTargetText": "Presens",
@@ -10263,9 +10385,37 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I write",
-          "englishAuditText": "I write",
+          "englishAuditText": "I write"
+        },
+        {
           "usefulness": 98,
-          "complexity": 8
+          "complexity": 8,
+          "id": "preterite",
+          "revision": 1,
+          "subjectTargetText": "Preteritum",
+          "subjectBaseText": "Past",
+          "targetText": "skrev",
+          "targetPhraseFrame": {
+            "beforeText": "jeg ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I wrote",
+          "englishAuditText": "I wrote"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "perfect",
+          "revision": 1,
+          "subjectTargetText": "Presens perfektum",
+          "subjectBaseText": "Present perfect",
+          "targetText": "skrevet",
+          "targetPhraseFrame": {
+            "beforeText": "jeg har ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I have written",
+          "englishAuditText": "I have written"
         }
       ],
       "usefulness": 98,
@@ -10273,21 +10423,23 @@
     },
     {
       "id": "zero-nb-conjugation-06",
-      "revision": 1,
+      "revision": 2,
       "targetText": "se",
       "learnerBaseText": "see",
       "englishAuditText": "see",
       "meaningChoiceBaseText": "see",
       "difficulty": 0,
-      "family": "First infinitive and present forms",
+      "family": "Everyday action words",
       "lessonId": "zero-nb-present-foundations",
-      "teachingNoteBaseText": "Start with the action word and one present-time example. The present form stays the same for I and you.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "first-forms"
       ],
       "forms": [
         {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "infinitive",
           "revision": 1,
           "subjectTargetText": "Infinitiv",
@@ -10298,11 +10450,11 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to see",
-          "englishAuditText": "to see",
-          "usefulness": 98,
-          "complexity": 8
+          "englishAuditText": "to see"
         },
         {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "present",
           "revision": 1,
           "subjectTargetText": "Presens",
@@ -10313,9 +10465,37 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I see",
-          "englishAuditText": "I see",
+          "englishAuditText": "I see"
+        },
+        {
           "usefulness": 98,
-          "complexity": 8
+          "complexity": 8,
+          "id": "preterite",
+          "revision": 1,
+          "subjectTargetText": "Preteritum",
+          "subjectBaseText": "Past",
+          "targetText": "så",
+          "targetPhraseFrame": {
+            "beforeText": "jeg ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I saw",
+          "englishAuditText": "I saw"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "perfect",
+          "revision": 1,
+          "subjectTargetText": "Presens perfektum",
+          "subjectBaseText": "Present perfect",
+          "targetText": "sett",
+          "targetPhraseFrame": {
+            "beforeText": "jeg har ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I have seen",
+          "englishAuditText": "I have seen"
         }
       ],
       "usefulness": 98,
@@ -10323,21 +10503,23 @@
     },
     {
       "id": "zero-nb-conjugation-e2-nb-tense-001",
-      "revision": 1,
+      "revision": 2,
       "targetText": "være",
       "learnerBaseText": "be",
       "englishAuditText": "be",
       "meaningChoiceBaseText": "be",
       "difficulty": 0,
-      "family": "First infinitive and present forms",
+      "family": "Everyday action words",
       "lessonId": "zero-nb-first-forms-expanded",
-      "teachingNoteBaseText": "Read the action word and the short I example. The present form is the same for I and you.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "first-forms"
       ],
       "forms": [
         {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "infinitive",
           "revision": 1,
           "subjectTargetText": "Infinitiv",
@@ -10348,11 +10530,11 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to be",
-          "englishAuditText": "to be",
-          "usefulness": 96,
-          "complexity": 8
+          "englishAuditText": "to be"
         },
         {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "present",
           "revision": 1,
           "subjectTargetText": "Presens",
@@ -10363,9 +10545,37 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I am",
-          "englishAuditText": "I am",
+          "englishAuditText": "I am"
+        },
+        {
           "usefulness": 96,
-          "complexity": 8
+          "complexity": 8,
+          "id": "preterite",
+          "revision": 1,
+          "subjectTargetText": "Preteritum",
+          "subjectBaseText": "Past",
+          "targetText": "var",
+          "targetPhraseFrame": {
+            "beforeText": "jeg ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I was",
+          "englishAuditText": "I was"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "perfect",
+          "revision": 1,
+          "subjectTargetText": "Presens perfektum",
+          "subjectBaseText": "Present perfect",
+          "targetText": "vært",
+          "targetPhraseFrame": {
+            "beforeText": "jeg har ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I have been",
+          "englishAuditText": "I have been"
         }
       ],
       "usefulness": 96,
@@ -10373,21 +10583,23 @@
     },
     {
       "id": "zero-nb-conjugation-e2-nb-tense-002",
-      "revision": 1,
+      "revision": 2,
       "targetText": "ha",
       "learnerBaseText": "have",
       "englishAuditText": "have",
       "meaningChoiceBaseText": "have",
       "difficulty": 0,
-      "family": "First infinitive and present forms",
+      "family": "Everyday action words",
       "lessonId": "zero-nb-first-forms-expanded",
-      "teachingNoteBaseText": "Read the action word and the short I example. The present form is the same for I and you.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "first-forms"
       ],
       "forms": [
         {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "infinitive",
           "revision": 1,
           "subjectTargetText": "Infinitiv",
@@ -10398,11 +10610,11 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to have",
-          "englishAuditText": "to have",
-          "usefulness": 96,
-          "complexity": 8
+          "englishAuditText": "to have"
         },
         {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "present",
           "revision": 1,
           "subjectTargetText": "Presens",
@@ -10413,9 +10625,37 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I have",
-          "englishAuditText": "I have",
+          "englishAuditText": "I have"
+        },
+        {
           "usefulness": 96,
-          "complexity": 8
+          "complexity": 8,
+          "id": "preterite",
+          "revision": 1,
+          "subjectTargetText": "Preteritum",
+          "subjectBaseText": "Past",
+          "targetText": "hadde",
+          "targetPhraseFrame": {
+            "beforeText": "jeg ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I had",
+          "englishAuditText": "I had"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "perfect",
+          "revision": 1,
+          "subjectTargetText": "Presens perfektum",
+          "subjectBaseText": "Present perfect",
+          "targetText": "hatt",
+          "targetPhraseFrame": {
+            "beforeText": "jeg har ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I have had",
+          "englishAuditText": "I have had"
         }
       ],
       "usefulness": 96,
@@ -10423,21 +10663,23 @@
     },
     {
       "id": "zero-nb-conjugation-e2-nb-tense-004",
-      "revision": 1,
+      "revision": 2,
       "targetText": "gå",
       "learnerBaseText": "walk",
       "englishAuditText": "walk",
       "meaningChoiceBaseText": "walk",
       "difficulty": 0,
-      "family": "First infinitive and present forms",
+      "family": "Everyday action words",
       "lessonId": "zero-nb-first-forms-expanded",
-      "teachingNoteBaseText": "Read the action word and the short I example. The present form is the same for I and you.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "first-forms"
       ],
       "forms": [
         {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "infinitive",
           "revision": 1,
           "subjectTargetText": "Infinitiv",
@@ -10448,11 +10690,11 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to walk",
-          "englishAuditText": "to walk",
-          "usefulness": 96,
-          "complexity": 8
+          "englishAuditText": "to walk"
         },
         {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "present",
           "revision": 1,
           "subjectTargetText": "Presens",
@@ -10463,9 +10705,37 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I walk",
-          "englishAuditText": "I walk",
+          "englishAuditText": "I walk"
+        },
+        {
           "usefulness": 96,
-          "complexity": 8
+          "complexity": 8,
+          "id": "preterite",
+          "revision": 1,
+          "subjectTargetText": "Preteritum",
+          "subjectBaseText": "Past",
+          "targetText": "gikk",
+          "targetPhraseFrame": {
+            "beforeText": "jeg ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I walked",
+          "englishAuditText": "I walked"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "perfect",
+          "revision": 1,
+          "subjectTargetText": "Presens perfektum",
+          "subjectBaseText": "Present perfect",
+          "targetText": "gått",
+          "targetPhraseFrame": {
+            "beforeText": "jeg har ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I have walked",
+          "englishAuditText": "I have walked"
         }
       ],
       "usefulness": 96,
@@ -10473,21 +10743,23 @@
     },
     {
       "id": "zero-nb-conjugation-e2-nb-tense-005",
-      "revision": 1,
+      "revision": 2,
       "targetText": "komme",
       "learnerBaseText": "come",
       "englishAuditText": "come",
       "meaningChoiceBaseText": "come",
       "difficulty": 0,
-      "family": "First infinitive and present forms",
+      "family": "Everyday action words",
       "lessonId": "zero-nb-first-forms-expanded",
-      "teachingNoteBaseText": "Read the action word and the short I example. The present form is the same for I and you.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "first-forms"
       ],
       "forms": [
         {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "infinitive",
           "revision": 1,
           "subjectTargetText": "Infinitiv",
@@ -10498,11 +10770,11 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to come",
-          "englishAuditText": "to come",
-          "usefulness": 96,
-          "complexity": 8
+          "englishAuditText": "to come"
         },
         {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "present",
           "revision": 1,
           "subjectTargetText": "Presens",
@@ -10513,9 +10785,37 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I come",
-          "englishAuditText": "I come",
+          "englishAuditText": "I come"
+        },
+        {
           "usefulness": 96,
-          "complexity": 8
+          "complexity": 8,
+          "id": "preterite",
+          "revision": 1,
+          "subjectTargetText": "Preteritum",
+          "subjectBaseText": "Past",
+          "targetText": "kom",
+          "targetPhraseFrame": {
+            "beforeText": "jeg ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I came",
+          "englishAuditText": "I came"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "perfect",
+          "revision": 1,
+          "subjectTargetText": "Presens perfektum",
+          "subjectBaseText": "Present perfect",
+          "targetText": "kommet",
+          "targetPhraseFrame": {
+            "beforeText": "jeg har ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I have come",
+          "englishAuditText": "I have come"
         }
       ],
       "usefulness": 96,
@@ -10523,21 +10823,23 @@
     },
     {
       "id": "zero-nb-conjugation-e2-nb-tense-019",
-      "revision": 1,
+      "revision": 2,
       "targetText": "høre",
       "learnerBaseText": "hear",
       "englishAuditText": "hear",
       "meaningChoiceBaseText": "hear",
       "difficulty": 0,
-      "family": "First infinitive and present forms",
+      "family": "Everyday action words",
       "lessonId": "zero-nb-first-forms-expanded",
-      "teachingNoteBaseText": "Read the action word and the short I example. The present form is the same for I and you.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "first-forms"
       ],
       "forms": [
         {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "infinitive",
           "revision": 1,
           "subjectTargetText": "Infinitiv",
@@ -10548,11 +10850,11 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to hear",
-          "englishAuditText": "to hear",
-          "usefulness": 96,
-          "complexity": 8
+          "englishAuditText": "to hear"
         },
         {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "present",
           "revision": 1,
           "subjectTargetText": "Presens",
@@ -10563,9 +10865,37 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I hear",
-          "englishAuditText": "I hear",
+          "englishAuditText": "I hear"
+        },
+        {
           "usefulness": 96,
-          "complexity": 8
+          "complexity": 8,
+          "id": "preterite",
+          "revision": 1,
+          "subjectTargetText": "Preteritum",
+          "subjectBaseText": "Past",
+          "targetText": "hørte",
+          "targetPhraseFrame": {
+            "beforeText": "jeg ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I heard",
+          "englishAuditText": "I heard"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "perfect",
+          "revision": 1,
+          "subjectTargetText": "Presens perfektum",
+          "subjectBaseText": "Present perfect",
+          "targetText": "hørt",
+          "targetPhraseFrame": {
+            "beforeText": "jeg har ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I have heard",
+          "englishAuditText": "I have heard"
         }
       ],
       "usefulness": 96,
@@ -10573,21 +10903,23 @@
     },
     {
       "id": "zero-nb-conjugation-e2-nb-tense-016",
-      "revision": 1,
+      "revision": 2,
       "targetText": "bo",
       "learnerBaseText": "live (reside)",
       "englishAuditText": "live (reside)",
       "meaningChoiceBaseText": "live (reside)",
       "difficulty": 0,
-      "family": "First infinitive and present forms",
+      "family": "Everyday action words",
       "lessonId": "zero-nb-first-forms-expanded",
-      "teachingNoteBaseText": "Read the action word and the short I example. The present form is the same for I and you.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "first-forms"
       ],
       "forms": [
         {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "infinitive",
           "revision": 1,
           "subjectTargetText": "Infinitiv",
@@ -10598,11 +10930,11 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to live",
-          "englishAuditText": "to live",
-          "usefulness": 96,
-          "complexity": 8
+          "englishAuditText": "to live"
         },
         {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "present",
           "revision": 1,
           "subjectTargetText": "Presens",
@@ -10613,9 +10945,37 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I live",
-          "englishAuditText": "I live",
+          "englishAuditText": "I live"
+        },
+        {
           "usefulness": 96,
-          "complexity": 8
+          "complexity": 8,
+          "id": "preterite",
+          "revision": 1,
+          "subjectTargetText": "Preteritum",
+          "subjectBaseText": "Past",
+          "targetText": "bodde",
+          "targetPhraseFrame": {
+            "beforeText": "jeg ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I lived",
+          "englishAuditText": "I lived"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "perfect",
+          "revision": 1,
+          "subjectTargetText": "Presens perfektum",
+          "subjectBaseText": "Present perfect",
+          "targetText": "bodd",
+          "targetPhraseFrame": {
+            "beforeText": "jeg har ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I have lived",
+          "englishAuditText": "I have lived"
         }
       ],
       "usefulness": 96,
@@ -10623,21 +10983,23 @@
     },
     {
       "id": "zero-nb-conjugation-e2-nb-tense-013",
-      "revision": 1,
+      "revision": 2,
       "targetText": "leke",
       "learnerBaseText": "play (a children's game)",
       "englishAuditText": "play (a children's game)",
       "meaningChoiceBaseText": "play (a children's game)",
       "difficulty": 0,
-      "family": "First infinitive and present forms",
+      "family": "Everyday action words",
       "lessonId": "zero-nb-first-forms-expanded",
-      "teachingNoteBaseText": "Read the action word and the short I example. The present form is the same for I and you.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "first-forms"
       ],
       "forms": [
         {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "infinitive",
           "revision": 1,
           "subjectTargetText": "Infinitiv",
@@ -10648,11 +11010,11 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to play",
-          "englishAuditText": "to play",
-          "usefulness": 96,
-          "complexity": 8
+          "englishAuditText": "to play"
         },
         {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "present",
           "revision": 1,
           "subjectTargetText": "Presens",
@@ -10663,9 +11025,37 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I play",
-          "englishAuditText": "I play",
+          "englishAuditText": "I play"
+        },
+        {
           "usefulness": 96,
-          "complexity": 8
+          "complexity": 8,
+          "id": "preterite",
+          "revision": 1,
+          "subjectTargetText": "Preteritum",
+          "subjectBaseText": "Past",
+          "targetText": "lekte",
+          "targetPhraseFrame": {
+            "beforeText": "jeg ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I played",
+          "englishAuditText": "I played"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "perfect",
+          "revision": 1,
+          "subjectTargetText": "Presens perfektum",
+          "subjectBaseText": "Present perfect",
+          "targetText": "lekt",
+          "targetPhraseFrame": {
+            "beforeText": "jeg har ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I have played",
+          "englishAuditText": "I have played"
         }
       ],
       "usefulness": 96,
@@ -10673,21 +11063,23 @@
     },
     {
       "id": "zero-nb-conjugation-e2-nb-tense-021",
-      "revision": 1,
+      "revision": 2,
       "targetText": "tegne",
       "learnerBaseText": "draw",
       "englishAuditText": "draw",
       "meaningChoiceBaseText": "draw",
       "difficulty": 0,
-      "family": "First infinitive and present forms",
+      "family": "Everyday action words",
       "lessonId": "zero-nb-first-forms-expanded",
-      "teachingNoteBaseText": "Read the action word and the short I example. The present form is the same for I and you.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "first-forms"
       ],
       "forms": [
         {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "infinitive",
           "revision": 1,
           "subjectTargetText": "Infinitiv",
@@ -10698,11 +11090,11 @@
             "afterText": ""
           },
           "learnerBaseCueText": "to draw",
-          "englishAuditText": "to draw",
-          "usefulness": 96,
-          "complexity": 8
+          "englishAuditText": "to draw"
         },
         {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "present",
           "revision": 1,
           "subjectTargetText": "Presens",
@@ -10713,9 +11105,37 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I draw",
-          "englishAuditText": "I draw",
+          "englishAuditText": "I draw"
+        },
+        {
           "usefulness": 96,
-          "complexity": 8
+          "complexity": 8,
+          "id": "preterite",
+          "revision": 1,
+          "subjectTargetText": "Preteritum",
+          "subjectBaseText": "Past",
+          "targetText": "tegnet",
+          "targetPhraseFrame": {
+            "beforeText": "jeg ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I drew",
+          "englishAuditText": "I drew"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "perfect",
+          "revision": 1,
+          "subjectTargetText": "Presens perfektum",
+          "subjectBaseText": "Present perfect",
+          "targetText": "tegnet",
+          "targetPhraseFrame": {
+            "beforeText": "jeg har ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I have drawn",
+          "englishAuditText": "I have drawn"
         }
       ],
       "usefulness": 96,

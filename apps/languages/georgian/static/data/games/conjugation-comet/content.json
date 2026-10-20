@@ -5946,13 +5946,13 @@
     },
     {
       "id": "zero-ka-conjugation-01",
-      "revision": 1,
+      "revision": 2,
       "targetText": "ყოფნა",
       "learnerBaseText": "be at home",
       "englishAuditText": "be at home",
       "meaningChoiceBaseText": "be at home",
       "difficulty": 0,
-      "family": "First present-time forms",
+      "family": "Everyday actions",
       "lessonId": "zero-ka-present-foundations",
       "tags": [
         "level-zero",
@@ -5960,9 +5960,11 @@
       ],
       "usefulness": 98,
       "complexity": 8,
-      "teachingNoteBaseText": "Learn these two short forms with their subject cues. Practise one pair at a time.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "i",
           "revision": 1,
           "subjectTargetText": "მე",
@@ -5973,11 +5975,11 @@
             "afterText": " სახლში"
           },
           "learnerBaseCueText": "I am at home",
-          "englishAuditText": "I am at home",
-          "usefulness": 98,
-          "complexity": 8
+          "englishAuditText": "I am at home"
         },
         {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "you-sg",
           "revision": 1,
           "subjectTargetText": "შენ",
@@ -5987,22 +5989,80 @@
             "beforeText": "",
             "afterText": " სახლში"
           },
-          "learnerBaseCueText": "you (singular) are at home",
-          "englishAuditText": "you (singular) are at home",
+          "learnerBaseCueText": "you are at home",
+          "englishAuditText": "you are at home"
+        },
+        {
           "usefulness": 98,
-          "complexity": 8
+          "complexity": 8,
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "არის",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "he/she is at home",
+          "englishAuditText": "he/she is at home"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვართ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "we are at home",
+          "englishAuditText": "we are at home"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "ხართ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "you (plural/polite) are at home",
+          "englishAuditText": "you (plural/polite) are at home"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "არიან",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "they are at home",
+          "englishAuditText": "they are at home"
         }
       ]
     },
     {
       "id": "zero-ka-conjugation-02",
-      "revision": 1,
+      "revision": 2,
       "targetText": "ქონა",
       "learnerBaseText": "have a book",
       "englishAuditText": "have a book",
       "meaningChoiceBaseText": "have a book",
       "difficulty": 0,
-      "family": "First present-time forms",
+      "family": "Everyday actions",
       "lessonId": "zero-ka-present-foundations",
       "tags": [
         "level-zero",
@@ -6010,9 +6070,11 @@
       ],
       "usefulness": 98,
       "complexity": 8,
-      "teachingNoteBaseText": "Learn these two short forms with their subject cues. Practise one pair at a time.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "i",
           "revision": 1,
           "subjectTargetText": "მე",
@@ -6023,11 +6085,11 @@
             "afterText": " წიგნი"
           },
           "learnerBaseCueText": "I have a book",
-          "englishAuditText": "I have a book",
-          "usefulness": 98,
-          "complexity": 8
+          "englishAuditText": "I have a book"
         },
         {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "you-sg",
           "revision": 1,
           "subjectTargetText": "შენ",
@@ -6037,22 +6099,80 @@
             "beforeText": "",
             "afterText": " წიგნი"
           },
-          "learnerBaseCueText": "you (singular) have a book",
-          "englishAuditText": "you (singular) have a book",
+          "learnerBaseCueText": "you have a book",
+          "englishAuditText": "you have a book"
+        },
+        {
           "usefulness": 98,
-          "complexity": 8
+          "complexity": 8,
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "მას",
+          "subjectBaseText": "he / she",
+          "targetText": "აქვს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნი"
+          },
+          "learnerBaseCueText": "he/she has a book",
+          "englishAuditText": "he/she has a book"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "გვაქვს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნი"
+          },
+          "learnerBaseCueText": "we have a book",
+          "englishAuditText": "we have a book"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "გაქვთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნი"
+          },
+          "learnerBaseCueText": "you (plural/polite) have a book",
+          "englishAuditText": "you (plural/polite) have a book"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "მათ",
+          "subjectBaseText": "they",
+          "targetText": "აქვთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნი"
+          },
+          "learnerBaseCueText": "they have a book",
+          "englishAuditText": "they have a book"
         }
       ]
     },
     {
       "id": "zero-ka-conjugation-03",
-      "revision": 1,
+      "revision": 2,
       "targetText": "ნდომა",
       "learnerBaseText": "want water",
       "englishAuditText": "want water",
       "meaningChoiceBaseText": "want water",
       "difficulty": 0,
-      "family": "First present-time forms",
+      "family": "Everyday actions",
       "lessonId": "zero-ka-present-foundations",
       "tags": [
         "level-zero",
@@ -6060,9 +6180,11 @@
       ],
       "usefulness": 98,
       "complexity": 8,
-      "teachingNoteBaseText": "Learn these two short forms with their subject cues. Practise one pair at a time.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "i",
           "revision": 1,
           "subjectTargetText": "მე",
@@ -6073,11 +6195,11 @@
             "afterText": " წყალი"
           },
           "learnerBaseCueText": "I want water",
-          "englishAuditText": "I want water",
-          "usefulness": 98,
-          "complexity": 8
+          "englishAuditText": "I want water"
         },
         {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "you-sg",
           "revision": 1,
           "subjectTargetText": "შენ",
@@ -6087,22 +6209,80 @@
             "beforeText": "",
             "afterText": " წყალი"
           },
-          "learnerBaseCueText": "you (singular) want water",
-          "englishAuditText": "you (singular) want water",
+          "learnerBaseCueText": "you want water",
+          "englishAuditText": "you want water"
+        },
+        {
           "usefulness": 98,
-          "complexity": 8
+          "complexity": 8,
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "მას",
+          "subjectBaseText": "he / she",
+          "targetText": "უნდა",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წყალი"
+          },
+          "learnerBaseCueText": "he/she wants water",
+          "englishAuditText": "he/she wants water"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "გვინდა",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წყალი"
+          },
+          "learnerBaseCueText": "we want water",
+          "englishAuditText": "we want water"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "გინდათ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წყალი"
+          },
+          "learnerBaseCueText": "you (plural/polite) want water",
+          "englishAuditText": "you (plural/polite) want water"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "მათ",
+          "subjectBaseText": "they",
+          "targetText": "უნდათ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წყალი"
+          },
+          "learnerBaseCueText": "they want water",
+          "englishAuditText": "they want water"
         }
       ]
     },
     {
       "id": "zero-ka-conjugation-04",
-      "revision": 1,
+      "revision": 2,
       "targetText": "კითხვა",
       "learnerBaseText": "read",
       "englishAuditText": "read",
       "meaningChoiceBaseText": "read",
       "difficulty": 0,
-      "family": "First present-time forms",
+      "family": "Everyday actions",
       "lessonId": "zero-ka-present-foundations",
       "tags": [
         "level-zero",
@@ -6110,9 +6290,11 @@
       ],
       "usefulness": 98,
       "complexity": 8,
-      "teachingNoteBaseText": "Learn these two short forms with their subject cues. Practise one pair at a time.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "i",
           "revision": 1,
           "subjectTargetText": "მე",
@@ -6120,14 +6302,14 @@
           "targetText": "ვკითხულობ",
           "targetPhraseFrame": {
             "beforeText": "",
-            "afterText": ""
+            "afterText": " წიგნს"
           },
-          "learnerBaseCueText": "I read",
-          "englishAuditText": "I read",
-          "usefulness": 98,
-          "complexity": 8
+          "learnerBaseCueText": "I read a book",
+          "englishAuditText": "I read a book"
         },
         {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "you-sg",
           "revision": 1,
           "subjectTargetText": "შენ",
@@ -6135,24 +6317,82 @@
           "targetText": "კითხულობ",
           "targetPhraseFrame": {
             "beforeText": "",
-            "afterText": ""
+            "afterText": " წიგნს"
           },
-          "learnerBaseCueText": "you (singular) read",
-          "englishAuditText": "you (singular) read",
+          "learnerBaseCueText": "you read a book",
+          "englishAuditText": "you read a book"
+        },
+        {
           "usefulness": 98,
-          "complexity": 8
+          "complexity": 8,
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "კითხულობს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "he/she reads a book",
+          "englishAuditText": "he/she reads a book"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვკითხულობთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "we read a book",
+          "englishAuditText": "we read a book"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "კითხულობთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "you (plural/polite) read a book",
+          "englishAuditText": "you (plural/polite) read a book"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "კითხულობენ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "they read a book",
+          "englishAuditText": "they read a book"
         }
       ]
     },
     {
       "id": "zero-ka-conjugation-05",
-      "revision": 1,
+      "revision": 2,
       "targetText": "წერა",
       "learnerBaseText": "write",
       "englishAuditText": "write",
       "meaningChoiceBaseText": "write",
       "difficulty": 0,
-      "family": "First present-time forms",
+      "family": "Everyday actions",
       "lessonId": "zero-ka-present-foundations",
       "tags": [
         "level-zero",
@@ -6160,9 +6400,11 @@
       ],
       "usefulness": 98,
       "complexity": 8,
-      "teachingNoteBaseText": "Learn these two short forms with their subject cues. Practise one pair at a time.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "i",
           "revision": 1,
           "subjectTargetText": "მე",
@@ -6170,14 +6412,14 @@
           "targetText": "ვწერ",
           "targetPhraseFrame": {
             "beforeText": "",
-            "afterText": ""
+            "afterText": " წერილს"
           },
-          "learnerBaseCueText": "I write",
-          "englishAuditText": "I write",
-          "usefulness": 98,
-          "complexity": 8
+          "learnerBaseCueText": "I write a letter",
+          "englishAuditText": "I write a letter"
         },
         {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "you-sg",
           "revision": 1,
           "subjectTargetText": "შენ",
@@ -6185,24 +6427,82 @@
           "targetText": "წერ",
           "targetPhraseFrame": {
             "beforeText": "",
-            "afterText": ""
+            "afterText": " წერილს"
           },
-          "learnerBaseCueText": "you (singular) write",
-          "englishAuditText": "you (singular) write",
+          "learnerBaseCueText": "you write a letter",
+          "englishAuditText": "you write a letter"
+        },
+        {
           "usefulness": 98,
-          "complexity": 8
+          "complexity": 8,
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "წერს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წერილს"
+          },
+          "learnerBaseCueText": "he/she writes a letter",
+          "englishAuditText": "he/she writes a letter"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვწერთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წერილს"
+          },
+          "learnerBaseCueText": "we write a letter",
+          "englishAuditText": "we write a letter"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "წერთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წერილს"
+          },
+          "learnerBaseCueText": "you (plural/polite) write a letter",
+          "englishAuditText": "you (plural/polite) write a letter"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "წერენ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წერილს"
+          },
+          "learnerBaseCueText": "they write a letter",
+          "englishAuditText": "they write a letter"
         }
       ]
     },
     {
       "id": "zero-ka-conjugation-06",
-      "revision": 1,
+      "revision": 2,
       "targetText": "წასვლა",
       "learnerBaseText": "go home",
       "englishAuditText": "go home",
       "meaningChoiceBaseText": "go home",
       "difficulty": 0,
-      "family": "First present-time forms",
+      "family": "Everyday actions",
       "lessonId": "zero-ka-present-foundations",
       "tags": [
         "level-zero",
@@ -6210,9 +6510,11 @@
       ],
       "usefulness": 98,
       "complexity": 8,
-      "teachingNoteBaseText": "Learn these two short forms with their subject cues. Practise one pair at a time.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "i",
           "revision": 1,
           "subjectTargetText": "მე",
@@ -6223,11 +6525,11 @@
             "afterText": " სახლში"
           },
           "learnerBaseCueText": "I go home",
-          "englishAuditText": "I go home",
-          "usefulness": 98,
-          "complexity": 8
+          "englishAuditText": "I go home"
         },
         {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "you-sg",
           "revision": 1,
           "subjectTargetText": "შენ",
@@ -6237,22 +6539,80 @@
             "beforeText": "",
             "afterText": " სახლში"
           },
-          "learnerBaseCueText": "you (singular) go home",
-          "englishAuditText": "you (singular) go home",
+          "learnerBaseCueText": "you go home",
+          "englishAuditText": "you go home"
+        },
+        {
           "usefulness": 98,
-          "complexity": 8
+          "complexity": 8,
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "მიდის",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "he/she goes home",
+          "englishAuditText": "he/she goes home"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "მივდივართ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "we go home",
+          "englishAuditText": "we go home"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "მიდიხართ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "you (plural/polite) go home",
+          "englishAuditText": "you (plural/polite) go home"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "მიდიან",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "they go home",
+          "englishAuditText": "they go home"
         }
       ]
     },
     {
       "id": "zero-ka-conjugation-e2-ka-008-present",
-      "revision": 1,
+      "revision": 2,
       "targetText": "მუშაობა",
       "learnerBaseText": "work",
       "englishAuditText": "work",
       "meaningChoiceBaseText": "work",
       "difficulty": 0,
-      "family": "First I and you forms",
+      "family": "Everyday actions",
       "lessonId": "zero-ka-first-forms-expanded",
       "tags": [
         "level-zero",
@@ -6260,9 +6620,11 @@
       ],
       "usefulness": 96,
       "complexity": 8,
-      "teachingNoteBaseText": "Read the I example first, then match the you example. These two forms use the same familiar action.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "i",
           "revision": 1,
           "subjectTargetText": "მე",
@@ -6273,11 +6635,11 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I work",
-          "englishAuditText": "I work",
-          "usefulness": 96,
-          "complexity": 8
+          "englishAuditText": "I work"
         },
         {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "you-sg",
           "revision": 1,
           "subjectTargetText": "შენ",
@@ -6287,22 +6649,80 @@
             "beforeText": "",
             "afterText": ""
           },
-          "learnerBaseCueText": "you (singular) work",
-          "englishAuditText": "you (singular) work",
+          "learnerBaseCueText": "you work",
+          "englishAuditText": "you work"
+        },
+        {
           "usefulness": 96,
-          "complexity": 8
+          "complexity": 8,
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "მუშაობს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she works",
+          "englishAuditText": "he/she works"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვმუშაობთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we work",
+          "englishAuditText": "we work"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "მუშაობთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (plural/polite) work",
+          "englishAuditText": "you (plural/polite) work"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "მუშაობენ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they work",
+          "englishAuditText": "they work"
         }
       ]
     },
     {
       "id": "zero-ka-conjugation-e2-ka-010-present",
-      "revision": 1,
+      "revision": 2,
       "targetText": "მოსვლა",
       "learnerBaseText": "come home",
       "englishAuditText": "come home",
       "meaningChoiceBaseText": "come home",
       "difficulty": 0,
-      "family": "First I and you forms",
+      "family": "Everyday actions",
       "lessonId": "zero-ka-first-forms-expanded",
       "tags": [
         "level-zero",
@@ -6310,9 +6730,11 @@
       ],
       "usefulness": 96,
       "complexity": 8,
-      "teachingNoteBaseText": "Read the I example first, then match the you example. These two forms use the same familiar action.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "i",
           "revision": 1,
           "subjectTargetText": "მე",
@@ -6323,11 +6745,11 @@
             "afterText": " სახლში"
           },
           "learnerBaseCueText": "I come home",
-          "englishAuditText": "I come home",
-          "usefulness": 96,
-          "complexity": 8
+          "englishAuditText": "I come home"
         },
         {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "you-sg",
           "revision": 1,
           "subjectTargetText": "შენ",
@@ -6337,22 +6759,80 @@
             "beforeText": "",
             "afterText": " სახლში"
           },
-          "learnerBaseCueText": "you (singular) come home",
-          "englishAuditText": "you (singular) come home",
+          "learnerBaseCueText": "you come home",
+          "englishAuditText": "you come home"
+        },
+        {
           "usefulness": 96,
-          "complexity": 8
+          "complexity": 8,
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "მოდის",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "he/she comes home",
+          "englishAuditText": "he/she comes home"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "მოვდივართ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "we come home",
+          "englishAuditText": "we come home"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "მოდიხართ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "you (plural/polite) come home",
+          "englishAuditText": "you (plural/polite) come home"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "მოდიან",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "they come home",
+          "englishAuditText": "they come home"
         }
       ]
     },
     {
       "id": "zero-ka-conjugation-e2-ka-012-present",
-      "revision": 1,
+      "revision": 2,
       "targetText": "ცხოვრება",
       "learnerBaseText": "live",
       "englishAuditText": "live",
       "meaningChoiceBaseText": "live",
       "difficulty": 0,
-      "family": "First I and you forms",
+      "family": "Everyday actions",
       "lessonId": "zero-ka-first-forms-expanded",
       "tags": [
         "level-zero",
@@ -6360,9 +6840,11 @@
       ],
       "usefulness": 96,
       "complexity": 8,
-      "teachingNoteBaseText": "Read the I example first, then match the you example. These two forms use the same familiar action.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "i",
           "revision": 1,
           "subjectTargetText": "მე",
@@ -6373,11 +6855,11 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I live",
-          "englishAuditText": "I live",
-          "usefulness": 96,
-          "complexity": 8
+          "englishAuditText": "I live"
         },
         {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "you-sg",
           "revision": 1,
           "subjectTargetText": "შენ",
@@ -6387,22 +6869,80 @@
             "beforeText": "",
             "afterText": ""
           },
-          "learnerBaseCueText": "you (singular) live",
-          "englishAuditText": "you (singular) live",
+          "learnerBaseCueText": "you live",
+          "englishAuditText": "you live"
+        },
+        {
           "usefulness": 96,
-          "complexity": 8
+          "complexity": 8,
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "ცხოვრობს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she lives",
+          "englishAuditText": "he/she lives"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვცხოვრობთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we live",
+          "englishAuditText": "we live"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "ცხოვრობთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (plural/polite) live",
+          "englishAuditText": "you (plural/polite) live"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "ცხოვრობენ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they live",
+          "englishAuditText": "they live"
         }
       ]
     },
     {
       "id": "zero-ka-conjugation-e2-ka-015-present",
-      "revision": 1,
+      "revision": 2,
       "targetText": "ჭამა",
       "learnerBaseText": "eat bread",
       "englishAuditText": "eat bread",
       "meaningChoiceBaseText": "eat bread",
       "difficulty": 0,
-      "family": "First I and you forms",
+      "family": "Everyday actions",
       "lessonId": "zero-ka-first-forms-expanded",
       "tags": [
         "level-zero",
@@ -6410,9 +6950,11 @@
       ],
       "usefulness": 96,
       "complexity": 8,
-      "teachingNoteBaseText": "Read the I example first, then match the you example. These two forms use the same familiar action.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "i",
           "revision": 1,
           "subjectTargetText": "მე",
@@ -6423,11 +6965,11 @@
             "afterText": " პურს"
           },
           "learnerBaseCueText": "I eat bread",
-          "englishAuditText": "I eat bread",
-          "usefulness": 96,
-          "complexity": 8
+          "englishAuditText": "I eat bread"
         },
         {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "you-sg",
           "revision": 1,
           "subjectTargetText": "შენ",
@@ -6437,22 +6979,80 @@
             "beforeText": "",
             "afterText": " პურს"
           },
-          "learnerBaseCueText": "you (singular) eat bread",
-          "englishAuditText": "you (singular) eat bread",
+          "learnerBaseCueText": "you eat bread",
+          "englishAuditText": "you eat bread"
+        },
+        {
           "usefulness": 96,
-          "complexity": 8
+          "complexity": 8,
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "ჭამს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " პურს"
+          },
+          "learnerBaseCueText": "he/she eats bread",
+          "englishAuditText": "he/she eats bread"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვჭამთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " პურს"
+          },
+          "learnerBaseCueText": "we eat bread",
+          "englishAuditText": "we eat bread"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "ჭამთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " პურს"
+          },
+          "learnerBaseCueText": "you (plural/polite) eat bread",
+          "englishAuditText": "you (plural/polite) eat bread"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "ჭამენ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " პურს"
+          },
+          "learnerBaseCueText": "they eat bread",
+          "englishAuditText": "they eat bread"
         }
       ]
     },
     {
       "id": "zero-ka-conjugation-e2-ka-016-present",
-      "revision": 1,
+      "revision": 2,
       "targetText": "სმა",
       "learnerBaseText": "drink water",
       "englishAuditText": "drink water",
       "meaningChoiceBaseText": "drink water",
       "difficulty": 0,
-      "family": "First I and you forms",
+      "family": "Everyday actions",
       "lessonId": "zero-ka-first-forms-expanded",
       "tags": [
         "level-zero",
@@ -6460,9 +7060,11 @@
       ],
       "usefulness": 96,
       "complexity": 8,
-      "teachingNoteBaseText": "Read the I example first, then match the you example. These two forms use the same familiar action.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "i",
           "revision": 1,
           "subjectTargetText": "მე",
@@ -6473,11 +7075,11 @@
             "afterText": " წყალს"
           },
           "learnerBaseCueText": "I drink water",
-          "englishAuditText": "I drink water",
-          "usefulness": 96,
-          "complexity": 8
+          "englishAuditText": "I drink water"
         },
         {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "you-sg",
           "revision": 1,
           "subjectTargetText": "შენ",
@@ -6487,22 +7089,80 @@
             "beforeText": "",
             "afterText": " წყალს"
           },
-          "learnerBaseCueText": "you (singular) drink water",
-          "englishAuditText": "you (singular) drink water",
+          "learnerBaseCueText": "you drink water",
+          "englishAuditText": "you drink water"
+        },
+        {
           "usefulness": 96,
-          "complexity": 8
+          "complexity": 8,
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "სვამს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წყალს"
+          },
+          "learnerBaseCueText": "he/she drinks water",
+          "englishAuditText": "he/she drinks water"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვსვამთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წყალს"
+          },
+          "learnerBaseCueText": "we drink water",
+          "englishAuditText": "we drink water"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "სვამთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წყალს"
+          },
+          "learnerBaseCueText": "you (plural/polite) drink water",
+          "englishAuditText": "you (plural/polite) drink water"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "სვამენ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წყალს"
+          },
+          "learnerBaseCueText": "they drink water",
+          "englishAuditText": "they drink water"
         }
       ]
     },
     {
       "id": "zero-ka-conjugation-e2-ka-018-present",
-      "revision": 1,
+      "revision": 2,
       "targetText": "ნახვა",
       "learnerBaseText": "see a book",
       "englishAuditText": "see a book",
       "meaningChoiceBaseText": "see a book",
       "difficulty": 0,
-      "family": "First I and you forms",
+      "family": "Everyday actions",
       "lessonId": "zero-ka-first-forms-expanded",
       "tags": [
         "level-zero",
@@ -6510,9 +7170,11 @@
       ],
       "usefulness": 96,
       "complexity": 8,
-      "teachingNoteBaseText": "Read the I example first, then match the you example. These two forms use the same familiar action.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "i",
           "revision": 1,
           "subjectTargetText": "მე",
@@ -6523,11 +7185,11 @@
             "afterText": " წიგნს"
           },
           "learnerBaseCueText": "I see a book",
-          "englishAuditText": "I see a book",
-          "usefulness": 96,
-          "complexity": 8
+          "englishAuditText": "I see a book"
         },
         {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "you-sg",
           "revision": 1,
           "subjectTargetText": "შენ",
@@ -6537,22 +7199,80 @@
             "beforeText": "",
             "afterText": " წიგნს"
           },
-          "learnerBaseCueText": "you (singular) see a book",
-          "englishAuditText": "you (singular) see a book",
+          "learnerBaseCueText": "you see a book",
+          "englishAuditText": "you see a book"
+        },
+        {
           "usefulness": 96,
-          "complexity": 8
+          "complexity": 8,
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "ხედავს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "he/she sees a book",
+          "englishAuditText": "he/she sees a book"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვხედავთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "we see a book",
+          "englishAuditText": "we see a book"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "ხედავთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "you (plural/polite) see a book",
+          "englishAuditText": "you (plural/polite) see a book"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "ხედავენ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "they see a book",
+          "englishAuditText": "they see a book"
         }
       ]
     },
     {
       "id": "zero-ka-conjugation-e2-ka-019-present",
-      "revision": 1,
+      "revision": 2,
       "targetText": "სიმღერა",
       "learnerBaseText": "sing",
       "englishAuditText": "sing",
       "meaningChoiceBaseText": "sing",
       "difficulty": 0,
-      "family": "First I and you forms",
+      "family": "Everyday actions",
       "lessonId": "zero-ka-first-forms-expanded",
       "tags": [
         "level-zero",
@@ -6560,9 +7280,11 @@
       ],
       "usefulness": 96,
       "complexity": 8,
-      "teachingNoteBaseText": "Read the I example first, then match the you example. These two forms use the same familiar action.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "i",
           "revision": 1,
           "subjectTargetText": "მე",
@@ -6573,11 +7295,11 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I sing",
-          "englishAuditText": "I sing",
-          "usefulness": 96,
-          "complexity": 8
+          "englishAuditText": "I sing"
         },
         {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "you-sg",
           "revision": 1,
           "subjectTargetText": "შენ",
@@ -6587,22 +7309,80 @@
             "beforeText": "",
             "afterText": ""
           },
-          "learnerBaseCueText": "you (singular) sing",
-          "englishAuditText": "you (singular) sing",
+          "learnerBaseCueText": "you sing",
+          "englishAuditText": "you sing"
+        },
+        {
           "usefulness": 96,
-          "complexity": 8
+          "complexity": 8,
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "მღერის",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she sings",
+          "englishAuditText": "he/she sings"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვმღერით",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we sing",
+          "englishAuditText": "we sing"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "მღერით",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (plural/polite) sing",
+          "englishAuditText": "you (plural/polite) sing"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "მღერიან",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they sing",
+          "englishAuditText": "they sing"
         }
       ]
     },
     {
       "id": "zero-ka-conjugation-e2-ka-020-present",
-      "revision": 1,
+      "revision": 2,
       "targetText": "ცეკვა",
       "learnerBaseText": "dance",
       "englishAuditText": "dance",
       "meaningChoiceBaseText": "dance",
       "difficulty": 0,
-      "family": "First I and you forms",
+      "family": "Everyday actions",
       "lessonId": "zero-ka-first-forms-expanded",
       "tags": [
         "level-zero",
@@ -6610,9 +7390,11 @@
       ],
       "usefulness": 96,
       "complexity": 8,
-      "teachingNoteBaseText": "Read the I example first, then match the you example. These two forms use the same familiar action.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "i",
           "revision": 1,
           "subjectTargetText": "მე",
@@ -6623,11 +7405,11 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I dance",
-          "englishAuditText": "I dance",
-          "usefulness": 96,
-          "complexity": 8
+          "englishAuditText": "I dance"
         },
         {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "you-sg",
           "revision": 1,
           "subjectTargetText": "შენ",
@@ -6637,10 +7419,68 @@
             "beforeText": "",
             "afterText": ""
           },
-          "learnerBaseCueText": "you (singular) dance",
-          "englishAuditText": "you (singular) dance",
+          "learnerBaseCueText": "you dance",
+          "englishAuditText": "you dance"
+        },
+        {
           "usefulness": 96,
-          "complexity": 8
+          "complexity": 8,
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "ის",
+          "subjectBaseText": "he / she",
+          "targetText": "ცეკვავს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she dances",
+          "englishAuditText": "he/she dances"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "ჩვენ",
+          "subjectBaseText": "we",
+          "targetText": "ვცეკვავთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we dance",
+          "englishAuditText": "we dance"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "თქვენ",
+          "subjectBaseText": "you (plural / polite)",
+          "targetText": "ცეკვავთ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (plural/polite) dance",
+          "englishAuditText": "you (plural/polite) dance"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "ისინი",
+          "subjectBaseText": "they",
+          "targetText": "ცეკვავენ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they dance",
+          "englishAuditText": "they dance"
         }
       ]
     }

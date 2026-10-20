@@ -70,13 +70,14 @@ test("extracts unique learner verbs from the ordered Core dictionary", async () 
   assert.equal(pairs[0].sourceIndex, firstVerbIndex);
   for (const [index, pair] of pairs.entries()) {
     const source = dictionary[pair.sourceIndex];
-    assert.match(source.kind, /^V(?:\s|$)/u);
-    assert.equal(pair.cz, source.cs.split(" / ")[0].trim().normalize("NFC"));
-    assert.equal(pair.eng, source.en.split(" / ")[0].trim().normalize("NFC"));
+    if (pair.difficulty === 0) assert.ok(["verb", "word"].includes(source.kind));
+    else assert.match(source.kind, /^V(?:\s|$)/u);
+    assert.equal(pair.cz, (source.target ?? source.cs).split(" / ")[0].trim().normalize("NFC"));
+    assert.equal(pair.eng, (source.source ?? source.en).split(" / ")[0].trim().normalize("NFC"));
     assert.ok(index === 0 || pairs[index - 1].sourceIndex < pair.sourceIndex);
   }
-  assert.equal(new Set(pairs.map((pair) => pair.cz.toLowerCase())).size, pairs.length);
-  assert.equal(new Set(pairs.map((pair) => pair.eng.toLowerCase())).size, pairs.length);
+  assert.equal(new Set(pairs.map((pair) => `${pair.difficulty === 0 ? "zero:" : ""}${pair.cz.toLowerCase()}`)).size, pairs.length);
+  assert.equal(new Set(pairs.map((pair) => `${pair.difficulty === 0 ? "zero:" : ""}${pair.eng.toLowerCase()}`)).size, pairs.length);
   assert.ok(pairs.every((pair) => !pair.eng.includes(" / ")));
 });
 
@@ -102,10 +103,15 @@ test("the Mandarin Verb Nebula catalog is a complete, stable, runtime-playable c
     for (const field of requiredFields) {
       assert.ok(Object.hasOwn(row, field), `Mandarin verb row ${index + 1} requires ${field}`);
     }
-    assert.match(row.id, /^zh\.verb\.[a-z0-9]+(?:[.-][a-z0-9]+)*$/u);
-    assert.equal(row.kind, "verb");
+    if (row.difficulty === 0) {
+      assert.ok(typeof row.id === "string" && row.id.length > 0);
+      assert.ok(["verb", "word"].includes(row.kind));
+    } else {
+      assert.match(row.id, /^zh\.verb\.[a-z0-9]+(?:[.-][a-z0-9]+)*$/u);
+      assert.equal(row.kind, "verb");
+    }
     assert.match(row.target, /^\p{Script=Han}+$/u, `${row.id} must contain only authored Hanzi`);
-    assert.ok(Number.isInteger(row.difficulty) && row.difficulty >= 1 && row.difficulty <= 3);
+    assert.ok(Number.isInteger(row.difficulty) && row.difficulty >= 0 && row.difficulty <= 3);
     for (const field of ["usefulness", "complexity"]) {
       assert.ok(Number.isInteger(row[field]) && row[field] >= 1 && row[field] <= 100);
       assert.equal(pairs[index][field], row[field], `${row.id}.${field} must survive runtime projection`);
@@ -126,8 +132,8 @@ test("the Mandarin Verb Nebula catalog is a complete, stable, runtime-playable c
 
   for (const [field, values] of [
     ["id", dictionary.map((row) => row.id)],
-    ["target", dictionary.map((row) => row.target)],
-    ["source", dictionary.map((row) => row.source.toLocaleLowerCase("en"))],
+    ["target", dictionary.map((row) => `${row.difficulty === 0 ? "zero:" : ""}${row.target}`)],
+    ["source", dictionary.map((row) => `${row.difficulty === 0 ? "zero:" : ""}${row.source.toLocaleLowerCase("en")}`)],
   ]) {
     assert.equal(new Set(values).size, dictionary.length, `Mandarin ${field} values must be unique`);
   }
@@ -294,6 +300,19 @@ test("stable lookup rejects reviewed-label drift and ambiguity", async () => {
     () => resolveStableVerbPair(ambiguous, reviewedReadReference),
     { code: "VERB_STABLE_AMBIGUOUS" }
   );
+});
+
+test("reviewed difficulty keeps duplicate zero words from breaking Explorer references", () => {
+  const legacy = { kind: "V", cs: "číst", en: "read", difficulty: 1 };
+  const zero = { id: "zero-read", kind: "verb", target: "číst", source: "read", difficulty: 0 };
+  const dictionary = [legacy, zero];
+  const reference = { id: "reviewed-read", cz: "číst", eng: "read", difficulty: 1 };
+  assert.equal(resolveStableVerbPair(dictionary, reference).id, "core-verb-0");
+  assert.equal(resolveStableVerbPair(dictionary, { ...reference, difficulty: 0 }).id, "zero-read");
+  assert.throws(() => resolveStableVerbPair([zero], reference), { code: "VERB_STABLE_SOURCE_DRIFT" });
+  assert.throws(() => resolveStableVerbPair([legacy, { ...legacy }, zero], reference), { code: "VERB_STABLE_AMBIGUOUS" });
+  assert.throws(() => resolveStableVerbPair([legacy, zero, { ...zero, id: "duplicate-zero" }],
+    { ...reference, difficulty: 0 }), { code: "VERB_STABLE_AMBIGUOUS" });
 });
 
 test("strict runtime lookup verifies the exact dictionary bytes before resolving", async () => {

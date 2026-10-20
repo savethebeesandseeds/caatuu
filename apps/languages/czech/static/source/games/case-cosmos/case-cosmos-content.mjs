@@ -236,7 +236,7 @@ export function buildQuestions(round, random = Math.random) {
     const accepted = new Set([item.form, ...item.acceptedForms]);
     // Accepted syncretic/alternative forms never become false answers.
     const alternatives = shuffled(round.formPool.filter((form) => !accepted.has(form)), random)
-      .slice(0, round.difficulty === 0 ? 1 : 1 + randomIndex(3, random));
+      .slice(0, 1 + randomIndex(3, random));
     const candidates = shuffled([...alternatives, item.form], random).map((form) => {
       const visible = target.start === 0 ? form[0].toLocaleUpperCase("cs-CZ") + form.slice(1) : form;
       const czech = item.czech.slice(0, target.start) + visible + item.czech.slice(target.end);
@@ -260,7 +260,7 @@ export function buildQuestions(round, random = Math.random) {
     const preferred = CASE_CONTRASTS[example.case].map((name) => round.matches.find((entry) => entry.case === name).form);
     const forms = [...new Set([...preferred, ...shuffled(round.matches, random).map((entry) => entry.form)])]
       .filter((form) => form !== example.form);
-    const alternatives = forms.slice(0, round.difficulty === 0 ? 1 : 1 + randomIndex(3, random));
+    const alternatives = forms.slice(0, 1 + randomIndex(3, random));
     const candidates = shuffled([...alternatives, example.form], random).map((form) => {
       const visible = target.start === 0 ? form[0].toLocaleUpperCase("cs-CZ") + form.slice(1) : form;
       const czech = example.czech.slice(0, target.start) + visible + example.czech.slice(target.end);

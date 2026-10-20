@@ -230,13 +230,13 @@ async function mountGame({ difficulty = 1, pack = catalog, status = 200, duringL
   return game;
 }
 
-test("level zero starts with one familiar case context and one contrasting form", async () => {
+test("level zero keeps familiar case contexts, normal alternatives and a solvable round", async () => {
   const game = await mountGame({ difficulty: 0 });
   assert.equal(game.api.state.phase, "question");
   assert.equal(game.api.state.difficulty, 0);
   assert.ok(game.api.state.rounds.every(round => round.difficulty === 0));
   assert.equal(game.api.state.questions.length, 1);
-  assert.equal(game.api.currentChallenge().candidates.length, 2);
+  assert.ok(game.api.currentChallenge().candidates.length >= 2 && game.api.currentChallenge().candidates.length <= 4);
   assert.equal(game.api.currentChallenge().candidates.filter(candidate => candidate.matches).length, 1);
   game.selectCandidate(true);
   game.api.chooseAnswer(true);
@@ -630,8 +630,8 @@ test("a correct No keeps the same noun form visible until Continue replaces only
   assert.equal(game.messages.length, 0);
 });
 
-test("all sentence alternatives and seven cases advance only through deliberate Continue clicks", async () => {
-  const game = await mountGame();
+for (const difficulty of [0, 1]) test(`band ${difficulty} sentence alternatives advance only through deliberate Continue clicks`, async () => {
+  const game = await mountGame({ difficulty });
   const count = game.api.state.rounds.length;
   const total = game.api.state.rounds.reduce((sum, round) => sum + (round.contextItem ? 1 : 7), 0);
   for (let noun = 0; noun < count; noun++) {

@@ -238,7 +238,6 @@ export function createNounLandingSession(pack, { random = Math.random, limit, av
   if (typeof random !== "function") throw new Error("random must be a function.");
   if (!Number.isInteger(difficulty) || difficulty < 0 || difficulty > 3) throw new Error("difficulty must be 0, 1, 2, or 3.");
   if (![0, 5000, 10000, 15000, 20000].includes(durationMs)) throw new Error("durationMs must be 0 (infinite), 5000, 10000, 15000, or 20000.");
-  if (difficulty === 0) durationMs = 0;
   const requestedLimit = limit === undefined ? content.items.length : limit;
   if (!Number.isInteger(requestedLimit) || requestedLimit < 1) throw new Error("limit must be a positive integer.");
   if (avoidFirstItemId !== null && typeof avoidFirstItemId !== "string") {
@@ -255,7 +254,6 @@ export function createNounLandingSession(pack, { random = Math.random, limit, av
   const [item, ...queue] = candidates.slice(0, requestedLimit);
   return deepFreeze({
     phase: "ready", item, queue, lanes: content.lanes, selectedLane: null,
-    ...(difficulty === 0 ? { introductory: true } : {}),
     elapsedMs: 0, durationMs, correct: null,
     attempts: 0, attemptsByItem: {}, correctCount: 0, streak: 0, bestStreak: 0,
     completed: 0, total: queue.length + 1, review: false
@@ -268,7 +266,6 @@ export function startNounLanding(session) {
 
 export function setNounFallDuration(session, durationMs) {
   if (![0, 5000, 10000, 15000, 20000].includes(durationMs)) throw new Error("durationMs must be 0 (infinite), 5000, 10000, 15000, or 20000.");
-  if (session.introductory) durationMs = 0;
   if (session.durationMs === durationMs) return session;
   return deepFreeze({ ...session, durationMs,
     elapsedMs: session.durationMs && durationMs ? session.elapsedMs / session.durationMs * durationMs : 0 });

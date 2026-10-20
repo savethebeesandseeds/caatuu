@@ -1,5 +1,16 @@
 # Changelog
 
+## Android 190 / 0.1.38
+
+- Restore the established game rules and configurable settings at level zero:
+  full matching boards and answer choices, complete conjugation paradigms,
+  grammar stages, timers and translation directions. Keep the beginner words
+  and short phrases within those normal game contracts.
+- Fix Naturalization Nucleus's overlapping matching positions by retaining its
+  supported five- and nine-card boards at every difficulty.
+- Keep Explorer's reviewed verb lookup working when beginner content reuses
+  the same vocabulary. Preserve existing progress and the 100-cycle zero target.
+
 ## Android 189 / 0.1.37
 
 - Add Starting out (level zero) across all eight courses, with first words,

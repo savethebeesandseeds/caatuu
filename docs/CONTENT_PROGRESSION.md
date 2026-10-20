@@ -24,12 +24,13 @@ records, IDs, grades and mechanics. Use concrete familiar meanings, explicit
 translations and short contexts. Novel scripts have authored reading support;
 new pronunciation and language drafts retain their pending review status.
 
-Word World starts with two-choice recognition, including single words. Matching,
-listening, translation and case rounds use two options; conjugation uses two
-forms. Agreement introduces two scoped forms with two meaning choices, noun
-sorting is untimed, and reading dominoes use three tiles. Larger settings remain
-available in levels 1–3. Czech generative Word World cannot bypass the authored
-zero band.
+Level zero changes authored vocabulary and phrase complexity only. Every game
+retains its existing rules, answer alternatives, matching board sizes, full
+conjugation forms, grammar stages, timers and settings. Reading dominoes use
+the same supported five- and nine-piece boards as the other bands. Keep prompts
+short and concrete within those contracts; do not simplify the game itself.
+Optional modes retain their ordinary capability checks. Exact difficulty bands
+apply to authored content; generated content retains its existing ungraded behavior.
 
 An unpracticed course profile starts at zero and saves that selection before
 practice. Existing saved selections and histories retain their previous badge;

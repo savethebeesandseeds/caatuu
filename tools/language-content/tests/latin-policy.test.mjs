@@ -54,13 +54,15 @@ test("Latin projection keeps English retrieval and supports standard device spee
   assert.throws(()=>policy.buildManifest({concepts,realizations,paths:{...policy.defaultPaths,realizationsRuntime:"apps/languages/spanish/static/other.json"}}),/beneath/);
 });
 
-test("Latin authored paradigms retain solvable full boards, introductory pairs and syncretic gender forms", async () => {
+test("Latin authored paradigms retain solvable full boards at every level and syncretic gender forms", async () => {
   const prefix="apps/languages/latin-scientific/static/data/games/";
   const raw=await json(prefix+"conjugation-comet/content.json");
   const catalog=validateConjugationCometCatalog(raw);
+  const ordinarySize=catalog.verbs.find(verb=>verb.difficulty===1).forms.length;
   for(const verb of catalog.verbs){
     const round=buildConjugationHelixRound(catalog,verb.id,{rng:()=>.37});
-    assert.equal(round.subjects.length,verb.difficulty===0?2:6);
+    assert.equal(verb.forms.length,ordinarySize);
+    assert.equal(round.subjects.length,verb.forms.length);
     for(const subject of round.subjects)assert.ok(round.options.some(option=>judgeConjugationHelixPair(round,subject.id,option.id)),verb.id+subject.id);
   }
   const grammar=normalizeGrammarGravityPack(await json(prefix+"grammar-gravity/content.json"),{courseId:"la",targetLanguage:"la",learnerBaseLanguage:"en"});

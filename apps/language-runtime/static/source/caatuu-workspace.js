@@ -453,7 +453,7 @@ async function loadContentData() {
 
   if (verbsEnabled) {
     [verbNebulaCore, verbExerciseFamilyCore, childFacingAssets] = await Promise.all([
-      import("/language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs?v=verb-nebula-core-15"),
+      import("/language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs?v=verb-nebula-core-16"),
       import("/language-runtime/static/source/games/verb-nebula/verb-exercise-family-core.mjs?v=verb-exercise-family-core-3"),
       import("/language-runtime/static/source/child-facing-assets.mjs?v=child-facing-assets-2")
     ]);
@@ -1985,7 +1985,7 @@ function loadVerbMemory() {
   const pairById = new Map(state.verbPairs.map((pair) => [pair.id, pair]));
   const memory = readVerbMemory();
   const sameDifficulty = Number(memory?.difficulty) === state.verbDifficulty;
-  state.verbPairCount = state.verbDifficulty === 0 ? 2 : verbNebulaCore.normalizeVerbPairCount(memory?.pairCount, 4);
+  state.verbPairCount = verbNebulaCore.normalizeVerbPairCount(memory?.pairCount, 4);
   state.verbHintsEnabled = memory ? Boolean(memory.hintsEnabled) : true;
   state.verbRoundNumber = safeVerbStat(memory?.roundNumber);
   state.verbContentEncounterId = typeof memory?.contentEncounterId === "string" && memory.contentEncounterId
@@ -2148,7 +2148,7 @@ function renderVerbPairCountControls() {
     const selected = Number(button.dataset.verbPairCount) === state.verbPairCount;
     button.setAttribute("aria-pressed", String(selected));
     button.classList.toggle("is-active", selected);
-    button.disabled = state.verbGuidedRequested || (state.verbDifficulty === 0 && Number(button.dataset.verbPairCount) !== 2);
+    button.disabled = state.verbGuidedRequested;
   });
   setText("#verbPairCurrent", String(state.verbPairCount));
 }
@@ -3170,7 +3170,7 @@ function syncVerbSelectedCards() {
 
 function changeVerbPairCount(event) {
   const button = event.target.closest("[data-verb-pair-count]");
-  if (!button || state.verbRoundTransitioning || state.verbGuidedRequested || state.verbDifficulty === 0) return;
+  if (!button || state.verbRoundTransitioning || state.verbGuidedRequested) return;
   button.closest("details")?.removeAttribute("open");
   const nextCount = verbNebulaCore.normalizeVerbPairCount(button.dataset.verbPairCount, state.verbPairCount);
   if (nextCount === state.verbPairCount) return;

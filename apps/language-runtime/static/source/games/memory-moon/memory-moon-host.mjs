@@ -1,7 +1,7 @@
 import { fetchDeclaredCourseGameJson } from '../course-game-content.mjs';
 import { mountEmbeddedGameControls } from '../embedded-game-controls.mjs';
-import { createMemoryMoonPractice } from './memory-moon-practice.mjs?v=memory-moon-practice-2';
-import { validateMemoryMoonCatalog, moonIllumination, moonShadePath } from './memory-moon-core.mjs?v=memory-moon-4';
+import { createMemoryMoonPractice } from './memory-moon-practice.mjs?v=memory-moon-practice-3';
+import { validateMemoryMoonCatalog, moonIllumination, moonShadePath } from './memory-moon-core.mjs?v=memory-moon-5';
 import { createMoonRenderer } from './memory-moon-render.mjs?v=memory-moon-render-4';
 import { createMoonSpeech } from './memory-moon-speech.mjs';
 import { createMoonOrbit } from './memory-moon-orbit.mjs';

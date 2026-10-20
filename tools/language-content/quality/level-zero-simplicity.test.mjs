@@ -20,13 +20,12 @@ const plainCue = (value, label) => assert.doesNotMatch(value,
 
 for (const course of courses) {
   const resource = name => json(course.resources[name].path);
-  if (course.games.includes('conjugation-comet')) test(`${course.id}: zero conjugation has two short, distinguishable forms`, async () => {
+  if (course.games.includes('conjugation-comet')) test(`${course.id}: zero conjugation keeps short cues within complete supported paradigms`, async () => {
     const bank = await resource('conjugationCometCatalog');
+    const standardFormCounts = new Set(bank.verbs.filter(row => row.difficulty !== 0).map(row => row.forms.length));
     for (const verb of zero(bank.verbs)) {
       for (const field of ['learnerBaseText', 'englishAuditText', 'meaningChoiceBaseText']) plainCue(verb[field], `${verb.id}/${field}`);
-      assert.equal(verb.forms.length, 2, `${verb.id}: introduce only a pair of forms`);
-      assert.equal(new Set(verb.forms.map(form => key(form.targetText))).size, 2,
-        `${verb.id}: a matching board needs two visible alternatives`);
+      assert.ok(standardFormCounts.has(verb.forms.length), `${verb.id}: retain a full supported paradigm`);
       for (const form of verb.forms) {
         short(form.targetText, 3, `${verb.id}/${form.id} form`);
         short(form.englishAuditText, 6, `${verb.id}/${form.id} meaning`);
@@ -41,8 +40,7 @@ for (const course of courses) {
     const bank = await resource('grammarGravityCatalog');
     const phrases = new Set();
     for (const family of zero(bank.challenges)) {
-      assert.equal(family.axes.length, 2, `${family.id}: introduce one two-way distinction`);
-      assert.equal(Object.keys(family.forms).length, 2, `${family.id}: only the scoped pair of forms`);
+      assert.equal(Object.keys(family.forms).length, (family.axes || bank.axes).length, `${family.id}: every authored axis retains its form`);
       // A phrase can legitimately return in another lesson, for example
       // "a / two" versus "one / two". Count its actual form contrast as well.
       const contrast = Object.values(family.forms).map(form => key(form.displayForm)).sort().join('\0');

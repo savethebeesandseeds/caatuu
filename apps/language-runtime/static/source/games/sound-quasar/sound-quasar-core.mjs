@@ -356,7 +356,6 @@ export function soundQuasarItemsForDifficulty(catalog, { mode = "words", difficu
 export function buildSoundQuasarRound(catalog, { index = 0, random = Math.random, choiceCount = 4, mode = "words", difficulty = 3 } = {}) {
   const validated = asCatalog(catalog);
   integer(choiceCount, "choiceCount", 2, modeItems(validated, mode).length);
-  if (difficulty === 0) choiceCount = 2;
   const items = soundQuasarItemsForDifficulty(validated, { mode, difficulty });
   requireCondition(items.length >= 2, "difficulty needs at least two eligible listening items.");
   integer(index, "index", 0, Number.MAX_SAFE_INTEGER);
@@ -366,7 +365,6 @@ export function buildSoundQuasarRound(catalog, { index = 0, random = Math.random
 /** A finite session never repeats an answer. The host owns playback and progress. */
 export function createSoundQuasarSession(catalog, { random = Math.random, roundLength = SOUND_QUASAR_ROUND_COUNT, choiceCount = 4, mode = "words", difficulty = 3, history, policy = null } = {}) {
   const validated = asCatalog(catalog);
-  if (difficulty === 0) choiceCount = 2;
   const items = soundQuasarItemsForDifficulty(validated, { mode, difficulty });
   requireCondition(items.length >= 2, "difficulty needs at least two eligible listening items.");
   integer(choiceCount, "choiceCount", 2, modeItems(validated, mode).length);

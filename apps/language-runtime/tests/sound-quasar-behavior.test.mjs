@@ -88,7 +88,7 @@ function createTestClock() {
 
 async function mountGame({ language = "mandarin-simplified", muted = true, voiceState,
   speechResult = { outcome: "completed" }, fetchFailure = false, reportResult = { queued: true, persisted: true },
-  realLearning = false, onRecord, mutateCatalog, random = () => 0, localStorageValues = {}, interfaceOverride, beforeContent, resolveWord } = {}) {
+  realLearning = false, difficulty = 1, onRecord, mutateCatalog, random = () => 0, localStorageValues = {}, interfaceOverride, beforeContent, resolveWord } = {}) {
   const raw = JSON.parse(await readFile(new URL(`../../languages/${language}/static/data/games/sound-quasar/content.json`, import.meta.url), "utf8"));
   mutateCatalog?.(raw);
   const catalog = validateSoundQuasarCatalog(raw);
@@ -133,10 +133,9 @@ async function mountGame({ language = "mandarin-simplified", muted = true, voice
   } } };
   if (realLearning) vm.runInContext(learningProfileSource, parent.context, { filename: "learning-profile.js" });
   const learning = shell.CaatuuLearning;
-  // These scenarios exercise the existing Explorer controls and larger boards.
-  // The production first-run default is covered independently by profile/zero tests.
+  // Most scenarios retain Explorer; callers can exercise the same controls at zero.
   if (realLearning && !Object.hasOwn(localStorageValues, `${course.storage.namespace}.learning.preferences.v1`)) {
-    learning.setDifficulty(1);
+    learning.setDifficulty(difficulty);
   }
   shell.CaatuuLearning = { ...learning, record: (...args) => {
     records.push(JSON.parse(JSON.stringify(args)));
@@ -1470,6 +1469,35 @@ test("explicit Continue interrupts replay once and fences its late completion", 
 });
 
 for (const language of ["czech", "mandarin-simplified", "spanish"]) {
+  test(`${language} level zero keeps selectable listening alternatives and solves a complete session`, async () => {
+    const game = await mountGame({ language, realLearning: true, difficulty: 0 });
+    assert.equal(game.shell.CaatuuLearning.difficulty(), 0);
+    assert.equal(game.choices().length, 4, "zero keeps the normal default");
+    const toggle = game.element("Controls").querySelector('[aria-label="Answer options"]');
+    for (const mode of ["Words", "Sentences"]) {
+      game.click(game.element(mode));
+      for (const count of [6, 4]) {
+        game.click(toggle);
+        const option = game.element(count === 6 ? "SixChoices" : "FourChoices");
+        assert.equal(option.disabled, false, "zero keeps both normal answer settings");
+        game.click(option);
+        for (let round = 0; round < SOUND_QUASAR_ROUND_COUNT; round++) {
+          assert.equal(game.choices().length, count);
+          await game.listen();
+          const item = (mode === "Words" ? game.catalog.items : game.catalog.sentences).find(candidate =>
+            candidate.difficulty === 0 && candidate.target === game.speechCalls.at(-1)?.text);
+          assert.ok(item, "the spoken prompt belongs to the zero bank");
+          assert.equal(item.difficulty, 0, "simple content stays in its own band");
+          game.click(game.choice(item.id));
+          assert.equal(game.element("Result").hidden, false);
+          await game.continue();
+        }
+      }
+    }
+    assert.equal(game.records.filter(([, delta]) => delta.attempts).length, 4 * SOUND_QUASAR_ROUND_COUNT);
+    game.controller.destroy();
+  });
+
   test(`${language} offers four or six distinct answers for words and sentences`, async () => {
     const game = await mountGame({ language });
     const toggle = game.element("Controls").querySelector('[aria-label="Answer options"]');

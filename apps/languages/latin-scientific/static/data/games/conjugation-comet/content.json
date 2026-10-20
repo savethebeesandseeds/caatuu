@@ -10719,13 +10719,13 @@
     },
     {
       "id": "zero-la-conjugation-01",
-      "revision": 1,
+      "revision": 2,
       "targetText": "numerāre",
       "learnerBaseText": "count",
       "englishAuditText": "count",
       "meaningChoiceBaseText": "count",
       "difficulty": 0,
-      "family": "First present-time forms",
+      "family": "Everyday actions",
       "lessonId": "zero-la-present-foundations",
       "tags": [
         "level-zero",
@@ -10733,9 +10733,11 @@
       ],
       "usefulness": 98,
       "complexity": 8,
-      "teachingNoteBaseText": "Learn these two short forms with their subject cues. Practise one pair at a time.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "i",
           "revision": 1,
           "subjectTargetText": "ego",
@@ -10746,11 +10748,11 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I count",
-          "englishAuditText": "I count",
-          "usefulness": 98,
-          "complexity": 8
+          "englishAuditText": "I count"
         },
         {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "you-sg",
           "revision": 1,
           "subjectTargetText": "tū",
@@ -10761,21 +10763,79 @@
             "afterText": ""
           },
           "learnerBaseCueText": "you (singular) count",
-          "englishAuditText": "you (singular) count",
+          "englishAuditText": "you (singular) count"
+        },
+        {
           "usefulness": 98,
-          "complexity": 8
+          "complexity": 8,
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "is / ea / id",
+          "subjectBaseText": "he / she / it",
+          "targetText": "numerat",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she/it counts",
+          "englishAuditText": "he/she/it counts"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "nōs",
+          "subjectBaseText": "we",
+          "targetText": "numerāmus",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we count",
+          "englishAuditText": "we count"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "vōs",
+          "subjectBaseText": "you (plural)",
+          "targetText": "numerātis",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (plural) count",
+          "englishAuditText": "you (plural) count"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "eī / eae / ea",
+          "subjectBaseText": "they",
+          "targetText": "numerant",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they count",
+          "englishAuditText": "they count"
         }
       ]
     },
     {
       "id": "zero-la-conjugation-02",
-      "revision": 1,
+      "revision": 2,
       "targetText": "movēre",
       "learnerBaseText": "move",
       "englishAuditText": "move",
       "meaningChoiceBaseText": "move",
       "difficulty": 0,
-      "family": "First present-time forms",
+      "family": "Everyday actions",
       "lessonId": "zero-la-present-foundations",
       "tags": [
         "level-zero",
@@ -10783,9 +10843,11 @@
       ],
       "usefulness": 98,
       "complexity": 8,
-      "teachingNoteBaseText": "Learn these two short forms with their subject cues. Practise one pair at a time.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "i",
           "revision": 1,
           "subjectTargetText": "ego",
@@ -10796,11 +10858,11 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I move",
-          "englishAuditText": "I move",
-          "usefulness": 98,
-          "complexity": 8
+          "englishAuditText": "I move"
         },
         {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "you-sg",
           "revision": 1,
           "subjectTargetText": "tū",
@@ -10811,21 +10873,79 @@
             "afterText": ""
           },
           "learnerBaseCueText": "you (singular) move",
-          "englishAuditText": "you (singular) move",
+          "englishAuditText": "you (singular) move"
+        },
+        {
           "usefulness": 98,
-          "complexity": 8
+          "complexity": 8,
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "is / ea / id",
+          "subjectBaseText": "he / she / it",
+          "targetText": "movet",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she/it moves",
+          "englishAuditText": "he/she/it moves"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "nōs",
+          "subjectBaseText": "we",
+          "targetText": "movēmus",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we move",
+          "englishAuditText": "we move"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "vōs",
+          "subjectBaseText": "you (plural)",
+          "targetText": "movētis",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (plural) move",
+          "englishAuditText": "you (plural) move"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "eī / eae / ea",
+          "subjectBaseText": "they",
+          "targetText": "movent",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they move",
+          "englishAuditText": "they move"
         }
       ]
     },
     {
       "id": "zero-la-conjugation-03",
-      "revision": 1,
+      "revision": 2,
       "targetText": "vidēre",
       "learnerBaseText": "see",
       "englishAuditText": "see",
       "meaningChoiceBaseText": "see",
       "difficulty": 0,
-      "family": "First present-time forms",
+      "family": "Everyday actions",
       "lessonId": "zero-la-present-foundations",
       "tags": [
         "level-zero",
@@ -10833,9 +10953,11 @@
       ],
       "usefulness": 98,
       "complexity": 8,
-      "teachingNoteBaseText": "Learn these two short forms with their subject cues. Practise one pair at a time.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "i",
           "revision": 1,
           "subjectTargetText": "ego",
@@ -10846,11 +10968,11 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I see",
-          "englishAuditText": "I see",
-          "usefulness": 98,
-          "complexity": 8
+          "englishAuditText": "I see"
         },
         {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "you-sg",
           "revision": 1,
           "subjectTargetText": "tū",
@@ -10861,21 +10983,79 @@
             "afterText": ""
           },
           "learnerBaseCueText": "you (singular) see",
-          "englishAuditText": "you (singular) see",
+          "englishAuditText": "you (singular) see"
+        },
+        {
           "usefulness": 98,
-          "complexity": 8
+          "complexity": 8,
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "is / ea / id",
+          "subjectBaseText": "he / she / it",
+          "targetText": "videt",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she/it sees",
+          "englishAuditText": "he/she/it sees"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "nōs",
+          "subjectBaseText": "we",
+          "targetText": "vidēmus",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we see",
+          "englishAuditText": "we see"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "vōs",
+          "subjectBaseText": "you (plural)",
+          "targetText": "vidētis",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (plural) see",
+          "englishAuditText": "you (plural) see"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "eī / eae / ea",
+          "subjectBaseText": "they",
+          "targetText": "vident",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they see",
+          "englishAuditText": "they see"
         }
       ]
     },
     {
       "id": "zero-la-conjugation-04",
-      "revision": 1,
+      "revision": 2,
       "targetText": "legere",
       "learnerBaseText": "read",
       "englishAuditText": "read",
       "meaningChoiceBaseText": "read",
       "difficulty": 0,
-      "family": "First present-time forms",
+      "family": "Everyday actions",
       "lessonId": "zero-la-present-foundations",
       "tags": [
         "level-zero",
@@ -10883,9 +11063,11 @@
       ],
       "usefulness": 98,
       "complexity": 8,
-      "teachingNoteBaseText": "Learn these two short forms with their subject cues. Practise one pair at a time.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "i",
           "revision": 1,
           "subjectTargetText": "ego",
@@ -10896,11 +11078,11 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I read",
-          "englishAuditText": "I read",
-          "usefulness": 98,
-          "complexity": 8
+          "englishAuditText": "I read"
         },
         {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "you-sg",
           "revision": 1,
           "subjectTargetText": "tū",
@@ -10911,21 +11093,79 @@
             "afterText": ""
           },
           "learnerBaseCueText": "you (singular) read",
-          "englishAuditText": "you (singular) read",
+          "englishAuditText": "you (singular) read"
+        },
+        {
           "usefulness": 98,
-          "complexity": 8
+          "complexity": 8,
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "is / ea / id",
+          "subjectBaseText": "he / she / it",
+          "targetText": "legit",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she/it reads",
+          "englishAuditText": "he/she/it reads"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "nōs",
+          "subjectBaseText": "we",
+          "targetText": "legimus",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we read",
+          "englishAuditText": "we read"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "vōs",
+          "subjectBaseText": "you (plural)",
+          "targetText": "legitis",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (plural) read",
+          "englishAuditText": "you (plural) read"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "eī / eae / ea",
+          "subjectBaseText": "they",
+          "targetText": "legunt",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they read",
+          "englishAuditText": "they read"
         }
       ]
     },
     {
       "id": "zero-la-conjugation-05",
-      "revision": 1,
+      "revision": 2,
       "targetText": "scrībere",
       "learnerBaseText": "write",
       "englishAuditText": "write",
       "meaningChoiceBaseText": "write",
       "difficulty": 0,
-      "family": "First present-time forms",
+      "family": "Everyday actions",
       "lessonId": "zero-la-present-foundations",
       "tags": [
         "level-zero",
@@ -10933,9 +11173,11 @@
       ],
       "usefulness": 98,
       "complexity": 8,
-      "teachingNoteBaseText": "Learn these two short forms with their subject cues. Practise one pair at a time.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "i",
           "revision": 1,
           "subjectTargetText": "ego",
@@ -10946,11 +11188,11 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I write",
-          "englishAuditText": "I write",
-          "usefulness": 98,
-          "complexity": 8
+          "englishAuditText": "I write"
         },
         {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "you-sg",
           "revision": 1,
           "subjectTargetText": "tū",
@@ -10961,21 +11203,79 @@
             "afterText": ""
           },
           "learnerBaseCueText": "you (singular) write",
-          "englishAuditText": "you (singular) write",
+          "englishAuditText": "you (singular) write"
+        },
+        {
           "usefulness": 98,
-          "complexity": 8
+          "complexity": 8,
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "is / ea / id",
+          "subjectBaseText": "he / she / it",
+          "targetText": "scrībit",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she/it writes",
+          "englishAuditText": "he/she/it writes"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "nōs",
+          "subjectBaseText": "we",
+          "targetText": "scrībimus",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we write",
+          "englishAuditText": "we write"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "vōs",
+          "subjectBaseText": "you (plural)",
+          "targetText": "scrībitis",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (plural) write",
+          "englishAuditText": "you (plural) write"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "eī / eae / ea",
+          "subjectBaseText": "they",
+          "targetText": "scrībunt",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they write",
+          "englishAuditText": "they write"
         }
       ]
     },
     {
       "id": "zero-la-conjugation-06",
-      "revision": 1,
+      "revision": 2,
       "targetText": "audīre",
       "learnerBaseText": "hear",
       "englishAuditText": "hear",
       "meaningChoiceBaseText": "hear",
       "difficulty": 0,
-      "family": "First present-time forms",
+      "family": "Everyday actions",
       "lessonId": "zero-la-present-foundations",
       "tags": [
         "level-zero",
@@ -10983,9 +11283,11 @@
       ],
       "usefulness": 98,
       "complexity": 8,
-      "teachingNoteBaseText": "Learn these two short forms with their subject cues. Practise one pair at a time.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "i",
           "revision": 1,
           "subjectTargetText": "ego",
@@ -10996,11 +11298,11 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I hear",
-          "englishAuditText": "I hear",
-          "usefulness": 98,
-          "complexity": 8
+          "englishAuditText": "I hear"
         },
         {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "you-sg",
           "revision": 1,
           "subjectTargetText": "tū",
@@ -11011,21 +11313,79 @@
             "afterText": ""
           },
           "learnerBaseCueText": "you (singular) hear",
-          "englishAuditText": "you (singular) hear",
+          "englishAuditText": "you (singular) hear"
+        },
+        {
           "usefulness": 98,
-          "complexity": 8
+          "complexity": 8,
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "is / ea / id",
+          "subjectBaseText": "he / she / it",
+          "targetText": "audit",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she/it hears",
+          "englishAuditText": "he/she/it hears"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "nōs",
+          "subjectBaseText": "we",
+          "targetText": "audīmus",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we hear",
+          "englishAuditText": "we hear"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "vōs",
+          "subjectBaseText": "you (plural)",
+          "targetText": "audītis",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (plural) hear",
+          "englishAuditText": "you (plural) hear"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "eī / eae / ea",
+          "subjectBaseText": "they",
+          "targetText": "audiunt",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they hear",
+          "englishAuditText": "they hear"
         }
       ]
     },
     {
       "id": "zero-la-conjugation-e2-la-013-present-active",
-      "revision": 1,
+      "revision": 2,
       "targetText": "tenēre",
       "learnerBaseText": "hold",
       "englishAuditText": "hold",
       "meaningChoiceBaseText": "hold",
       "difficulty": 0,
-      "family": "First I and you forms",
+      "family": "Everyday actions",
       "lessonId": "zero-la-first-forms-expanded",
       "tags": [
         "level-zero",
@@ -11033,9 +11393,11 @@
       ],
       "usefulness": 96,
       "complexity": 8,
-      "teachingNoteBaseText": "Read the I example first, then match the you example. These two forms use the same familiar action.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "i",
           "revision": 1,
           "subjectTargetText": "ego",
@@ -11046,11 +11408,11 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I hold",
-          "englishAuditText": "I hold",
-          "usefulness": 96,
-          "complexity": 8
+          "englishAuditText": "I hold"
         },
         {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "you-sg",
           "revision": 1,
           "subjectTargetText": "tū",
@@ -11061,21 +11423,79 @@
             "afterText": ""
           },
           "learnerBaseCueText": "you (singular) hold",
-          "englishAuditText": "you (singular) hold",
+          "englishAuditText": "you (singular) hold"
+        },
+        {
           "usefulness": 96,
-          "complexity": 8
+          "complexity": 8,
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "is / ea / id",
+          "subjectBaseText": "he / she / it",
+          "targetText": "tenet",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she/it holds",
+          "englishAuditText": "he/she/it holds"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "nōs",
+          "subjectBaseText": "we",
+          "targetText": "tenēmus",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we hold",
+          "englishAuditText": "we hold"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "vōs",
+          "subjectBaseText": "you (plural)",
+          "targetText": "tenētis",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (plural) hold",
+          "englishAuditText": "you (plural) hold"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "eī / eae / ea",
+          "subjectBaseText": "they",
+          "targetText": "tenent",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they hold",
+          "englishAuditText": "they hold"
         }
       ]
     },
     {
       "id": "zero-la-conjugation-e2-la-020-present-active",
-      "revision": 1,
+      "revision": 2,
       "targetText": "pōnere",
       "learnerBaseText": "place",
       "englishAuditText": "place",
       "meaningChoiceBaseText": "place",
       "difficulty": 0,
-      "family": "First I and you forms",
+      "family": "Everyday actions",
       "lessonId": "zero-la-first-forms-expanded",
       "tags": [
         "level-zero",
@@ -11083,9 +11503,11 @@
       ],
       "usefulness": 96,
       "complexity": 8,
-      "teachingNoteBaseText": "Read the I example first, then match the you example. These two forms use the same familiar action.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "i",
           "revision": 1,
           "subjectTargetText": "ego",
@@ -11096,11 +11518,11 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I place",
-          "englishAuditText": "I place",
-          "usefulness": 96,
-          "complexity": 8
+          "englishAuditText": "I place"
         },
         {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "you-sg",
           "revision": 1,
           "subjectTargetText": "tū",
@@ -11111,21 +11533,79 @@
             "afterText": ""
           },
           "learnerBaseCueText": "you (singular) place",
-          "englishAuditText": "you (singular) place",
+          "englishAuditText": "you (singular) place"
+        },
+        {
           "usefulness": 96,
-          "complexity": 8
+          "complexity": 8,
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "is / ea / id",
+          "subjectBaseText": "he / she / it",
+          "targetText": "pōnit",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she/it places",
+          "englishAuditText": "he/she/it places"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "nōs",
+          "subjectBaseText": "we",
+          "targetText": "pōnimus",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we place",
+          "englishAuditText": "we place"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "vōs",
+          "subjectBaseText": "you (plural)",
+          "targetText": "pōnitis",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (plural) place",
+          "englishAuditText": "you (plural) place"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "eī / eae / ea",
+          "subjectBaseText": "they",
+          "targetText": "pōnunt",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they place",
+          "englishAuditText": "they place"
         }
       ]
     },
     {
       "id": "zero-la-conjugation-e2-la-021-present-active",
-      "revision": 1,
+      "revision": 2,
       "targetText": "trahere",
       "learnerBaseText": "pull",
       "englishAuditText": "pull",
       "meaningChoiceBaseText": "pull",
       "difficulty": 0,
-      "family": "First I and you forms",
+      "family": "Everyday actions",
       "lessonId": "zero-la-first-forms-expanded",
       "tags": [
         "level-zero",
@@ -11133,9 +11613,11 @@
       ],
       "usefulness": 96,
       "complexity": 8,
-      "teachingNoteBaseText": "Read the I example first, then match the you example. These two forms use the same familiar action.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "i",
           "revision": 1,
           "subjectTargetText": "ego",
@@ -11146,11 +11628,11 @@
             "afterText": ""
           },
           "learnerBaseCueText": "I pull",
-          "englishAuditText": "I pull",
-          "usefulness": 96,
-          "complexity": 8
+          "englishAuditText": "I pull"
         },
         {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "you-sg",
           "revision": 1,
           "subjectTargetText": "tū",
@@ -11161,21 +11643,79 @@
             "afterText": ""
           },
           "learnerBaseCueText": "you (singular) pull",
-          "englishAuditText": "you (singular) pull",
+          "englishAuditText": "you (singular) pull"
+        },
+        {
           "usefulness": 96,
-          "complexity": 8
+          "complexity": 8,
+          "id": "third-sg",
+          "revision": 1,
+          "subjectTargetText": "is / ea / id",
+          "subjectBaseText": "he / she / it",
+          "targetText": "trahit",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she/it pulls",
+          "englishAuditText": "he/she/it pulls"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "nōs",
+          "subjectBaseText": "we",
+          "targetText": "trahimus",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we pull",
+          "englishAuditText": "we pull"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "you-pl",
+          "revision": 1,
+          "subjectTargetText": "vōs",
+          "subjectBaseText": "you (plural)",
+          "targetText": "trahitis",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (plural) pull",
+          "englishAuditText": "you (plural) pull"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "third-pl",
+          "revision": 1,
+          "subjectTargetText": "eī / eae / ea",
+          "subjectBaseText": "they",
+          "targetText": "trahunt",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they pull",
+          "englishAuditText": "they pull"
         }
       ]
     },
     {
       "id": "zero-la-conjugation-e2-be",
-      "revision": 1,
+      "revision": 2,
       "targetText": "esse",
       "learnerBaseText": "be",
       "englishAuditText": "be",
       "meaningChoiceBaseText": "be",
       "difficulty": 0,
-      "family": "First I and you forms",
+      "family": "Everyday actions",
       "lessonId": "zero-la-first-forms-expanded",
       "tags": [
         "level-zero",
@@ -11183,7 +11723,7 @@
       ],
       "usefulness": 96,
       "complexity": 8,
-      "teachingNoteBaseText": "Read I and you with one simple physical action or state. Only these two present-time forms are used here.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
           "id": "first-singular",
@@ -11191,6 +11731,10 @@
           "subjectTargetText": "ego",
           "subjectBaseText": "I",
           "targetText": "sum",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "I am",
           "englishAuditText": "I am",
           "usefulness": 96,
@@ -11200,10 +11744,74 @@
           "id": "second-singular",
           "revision": 1,
           "subjectTargetText": "tū",
-          "subjectBaseText": "you",
+          "subjectBaseText": "you (singular)",
           "targetText": "es",
-          "learnerBaseCueText": "you are",
-          "englishAuditText": "you are",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (singular) are",
+          "englishAuditText": "you (singular) are",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "third-singular",
+          "revision": 1,
+          "subjectTargetText": "is / ea / id",
+          "subjectBaseText": "he / she / it",
+          "targetText": "est",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she/it is",
+          "englishAuditText": "he/she/it is",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "first-plural",
+          "revision": 1,
+          "subjectTargetText": "nōs",
+          "subjectBaseText": "we",
+          "targetText": "sumus",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we are",
+          "englishAuditText": "we are",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "second-plural",
+          "revision": 1,
+          "subjectTargetText": "vōs",
+          "subjectBaseText": "you (plural)",
+          "targetText": "estis",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (plural) are",
+          "englishAuditText": "you (plural) are",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "third-plural",
+          "revision": 1,
+          "subjectTargetText": "eī / eae / ea",
+          "subjectBaseText": "they",
+          "targetText": "sunt",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they are",
+          "englishAuditText": "they are",
           "usefulness": 96,
           "complexity": 8
         }
@@ -11211,13 +11819,13 @@
     },
     {
       "id": "zero-la-conjugation-e2-rest",
-      "revision": 1,
+      "revision": 2,
       "targetText": "quiēscere",
       "learnerBaseText": "be at rest",
       "englishAuditText": "be at rest",
       "meaningChoiceBaseText": "be at rest",
       "difficulty": 0,
-      "family": "First I and you forms",
+      "family": "Everyday actions",
       "lessonId": "zero-la-first-forms-expanded",
       "tags": [
         "level-zero",
@@ -11225,7 +11833,7 @@
       ],
       "usefulness": 96,
       "complexity": 8,
-      "teachingNoteBaseText": "Read I and you with one simple physical action or state. Only these two present-time forms are used here.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
           "id": "first-singular",
@@ -11233,6 +11841,10 @@
           "subjectTargetText": "ego",
           "subjectBaseText": "I",
           "targetText": "quiēscō",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "I am at rest",
           "englishAuditText": "I am at rest",
           "usefulness": 96,
@@ -11242,10 +11854,74 @@
           "id": "second-singular",
           "revision": 1,
           "subjectTargetText": "tū",
-          "subjectBaseText": "you",
+          "subjectBaseText": "you (singular)",
           "targetText": "quiēscis",
-          "learnerBaseCueText": "you are at rest",
-          "englishAuditText": "you are at rest",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (singular) are at rest",
+          "englishAuditText": "you (singular) are at rest",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "third-singular",
+          "revision": 1,
+          "subjectTargetText": "is / ea / id",
+          "subjectBaseText": "he / she / it",
+          "targetText": "quiēscit",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she/it is at rest",
+          "englishAuditText": "he/she/it is at rest",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "first-plural",
+          "revision": 1,
+          "subjectTargetText": "nōs",
+          "subjectBaseText": "we",
+          "targetText": "quiēscimus",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we are at rest",
+          "englishAuditText": "we are at rest",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "second-plural",
+          "revision": 1,
+          "subjectTargetText": "vōs",
+          "subjectBaseText": "you (plural)",
+          "targetText": "quiēscitis",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (plural) are at rest",
+          "englishAuditText": "you (plural) are at rest",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "third-plural",
+          "revision": 1,
+          "subjectTargetText": "eī / eae / ea",
+          "subjectBaseText": "they",
+          "targetText": "quiēscunt",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they are at rest",
+          "englishAuditText": "they are at rest",
           "usefulness": 96,
           "complexity": 8
         }
@@ -11253,13 +11929,13 @@
     },
     {
       "id": "zero-la-conjugation-e2-touch",
-      "revision": 1,
+      "revision": 2,
       "targetText": "tangere",
       "learnerBaseText": "touch",
       "englishAuditText": "touch",
       "meaningChoiceBaseText": "touch",
       "difficulty": 0,
-      "family": "First I and you forms",
+      "family": "Everyday actions",
       "lessonId": "zero-la-first-forms-expanded",
       "tags": [
         "level-zero",
@@ -11267,7 +11943,7 @@
       ],
       "usefulness": 96,
       "complexity": 8,
-      "teachingNoteBaseText": "Read I and you with one simple physical action or state. Only these two present-time forms are used here.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
           "id": "first-singular",
@@ -11275,6 +11951,10 @@
           "subjectTargetText": "ego",
           "subjectBaseText": "I",
           "targetText": "tangō",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "I touch",
           "englishAuditText": "I touch",
           "usefulness": 96,
@@ -11284,10 +11964,74 @@
           "id": "second-singular",
           "revision": 1,
           "subjectTargetText": "tū",
-          "subjectBaseText": "you",
+          "subjectBaseText": "you (singular)",
           "targetText": "tangis",
-          "learnerBaseCueText": "you touch",
-          "englishAuditText": "you touch",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (singular) touch",
+          "englishAuditText": "you (singular) touch",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "third-singular",
+          "revision": 1,
+          "subjectTargetText": "is / ea / id",
+          "subjectBaseText": "he / she / it",
+          "targetText": "tangit",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she/it touches",
+          "englishAuditText": "he/she/it touches",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "first-plural",
+          "revision": 1,
+          "subjectTargetText": "nōs",
+          "subjectBaseText": "we",
+          "targetText": "tangimus",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we touch",
+          "englishAuditText": "we touch",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "second-plural",
+          "revision": 1,
+          "subjectTargetText": "vōs",
+          "subjectBaseText": "you (plural)",
+          "targetText": "tangitis",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (plural) touch",
+          "englishAuditText": "you (plural) touch",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "third-plural",
+          "revision": 1,
+          "subjectTargetText": "eī / eae / ea",
+          "subjectBaseText": "they",
+          "targetText": "tangunt",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they touch",
+          "englishAuditText": "they touch",
           "usefulness": 96,
           "complexity": 8
         }
@@ -11295,13 +12039,13 @@
     },
     {
       "id": "zero-la-conjugation-e2-lift",
-      "revision": 1,
+      "revision": 2,
       "targetText": "levāre",
       "learnerBaseText": "lift",
       "englishAuditText": "lift",
       "meaningChoiceBaseText": "lift",
       "difficulty": 0,
-      "family": "First I and you forms",
+      "family": "Everyday actions",
       "lessonId": "zero-la-first-forms-expanded",
       "tags": [
         "level-zero",
@@ -11309,7 +12053,7 @@
       ],
       "usefulness": 96,
       "complexity": 8,
-      "teachingNoteBaseText": "Read I and you with one simple physical action or state. Only these two present-time forms are used here.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
           "id": "first-singular",
@@ -11317,6 +12061,10 @@
           "subjectTargetText": "ego",
           "subjectBaseText": "I",
           "targetText": "levō",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "I lift",
           "englishAuditText": "I lift",
           "usefulness": 96,
@@ -11326,10 +12074,74 @@
           "id": "second-singular",
           "revision": 1,
           "subjectTargetText": "tū",
-          "subjectBaseText": "you",
+          "subjectBaseText": "you (singular)",
           "targetText": "levās",
-          "learnerBaseCueText": "you lift",
-          "englishAuditText": "you lift",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (singular) lift",
+          "englishAuditText": "you (singular) lift",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "third-singular",
+          "revision": 1,
+          "subjectTargetText": "is / ea / id",
+          "subjectBaseText": "he / she / it",
+          "targetText": "levat",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she/it lifts",
+          "englishAuditText": "he/she/it lifts",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "first-plural",
+          "revision": 1,
+          "subjectTargetText": "nōs",
+          "subjectBaseText": "we",
+          "targetText": "levāmus",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we lift",
+          "englishAuditText": "we lift",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "second-plural",
+          "revision": 1,
+          "subjectTargetText": "vōs",
+          "subjectBaseText": "you (plural)",
+          "targetText": "levātis",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (plural) lift",
+          "englishAuditText": "you (plural) lift",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "third-plural",
+          "revision": 1,
+          "subjectTargetText": "eī / eae / ea",
+          "subjectBaseText": "they",
+          "targetText": "levant",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they lift",
+          "englishAuditText": "they lift",
           "usefulness": 96,
           "complexity": 8
         }
@@ -11337,13 +12149,13 @@
     },
     {
       "id": "zero-la-conjugation-e2-fall",
-      "revision": 1,
+      "revision": 2,
       "targetText": "cadere",
       "learnerBaseText": "fall",
       "englishAuditText": "fall",
       "meaningChoiceBaseText": "fall",
       "difficulty": 0,
-      "family": "First I and you forms",
+      "family": "Everyday actions",
       "lessonId": "zero-la-first-forms-expanded",
       "tags": [
         "level-zero",
@@ -11351,7 +12163,7 @@
       ],
       "usefulness": 96,
       "complexity": 8,
-      "teachingNoteBaseText": "Read I and you with one simple physical action or state. Only these two present-time forms are used here.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
           "id": "first-singular",
@@ -11359,6 +12171,10 @@
           "subjectTargetText": "ego",
           "subjectBaseText": "I",
           "targetText": "cadō",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "I fall",
           "englishAuditText": "I fall",
           "usefulness": 96,
@@ -11368,10 +12184,74 @@
           "id": "second-singular",
           "revision": 1,
           "subjectTargetText": "tū",
-          "subjectBaseText": "you",
+          "subjectBaseText": "you (singular)",
           "targetText": "cadis",
-          "learnerBaseCueText": "you fall",
-          "englishAuditText": "you fall",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (singular) fall",
+          "englishAuditText": "you (singular) fall",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "third-singular",
+          "revision": 1,
+          "subjectTargetText": "is / ea / id",
+          "subjectBaseText": "he / she / it",
+          "targetText": "cadit",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she/it falls",
+          "englishAuditText": "he/she/it falls",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "first-plural",
+          "revision": 1,
+          "subjectTargetText": "nōs",
+          "subjectBaseText": "we",
+          "targetText": "cadimus",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we fall",
+          "englishAuditText": "we fall",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "second-plural",
+          "revision": 1,
+          "subjectTargetText": "vōs",
+          "subjectBaseText": "you (plural)",
+          "targetText": "caditis",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (plural) fall",
+          "englishAuditText": "you (plural) fall",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "third-plural",
+          "revision": 1,
+          "subjectTargetText": "eī / eae / ea",
+          "subjectBaseText": "they",
+          "targetText": "cadunt",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they fall",
+          "englishAuditText": "they fall",
           "usefulness": 96,
           "complexity": 8
         }

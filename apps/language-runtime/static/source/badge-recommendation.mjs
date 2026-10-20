@@ -1,11 +1,11 @@
 import { learnerItemState } from "./learner-state.mjs";
 import { fetchDeclaredCourseGameJson } from "./games/course-game-content.mjs?v=course-game-content-1";
-import { extractCoreVerbPairs } from "./games/verb-nebula/verb-nebula-core.mjs?v=verb-nebula-core-15";
-import { validateConjugationCometCatalog, buildConjugationHelixRound } from "./games/conjugation-comet/conjugation-comet-core.mjs?v=conjugation-comet-core-5";
-import { validateGrammarGravityPack, buildGrammarGravityRounds } from "./games/grammar-gravity/grammar-gravity-core.mjs?v=grammar-gravity-core-9";
-import { normalizeNounLandingPack, createNounLandingSession } from "./games/grammar-gravity/noun-landing-core.mjs?v=noun-landing-core-12";
-import { validateSoundQuasarCatalog, buildSoundQuasarRound } from "./games/sound-quasar/sound-quasar-core.mjs?v=sound-quasar-12";
-import { validateMemoryMoonCatalog } from "./games/memory-moon/memory-moon-core.mjs?v=memory-moon-4";
+import { extractCoreVerbPairs } from "./games/verb-nebula/verb-nebula-core.mjs?v=verb-nebula-core-16";
+import { validateConjugationCometCatalog, buildConjugationHelixRound } from "./games/conjugation-comet/conjugation-comet-core.mjs?v=conjugation-comet-core-6";
+import { validateGrammarGravityPack, buildGrammarGravityRounds } from "./games/grammar-gravity/grammar-gravity-core.mjs?v=grammar-gravity-core-10";
+import { normalizeNounLandingPack, createNounLandingSession } from "./games/grammar-gravity/noun-landing-core.mjs?v=noun-landing-core-13";
+import { validateSoundQuasarCatalog, buildSoundQuasarRound } from "./games/sound-quasar/sound-quasar-core.mjs?v=sound-quasar-13";
+import { validateMemoryMoonCatalog } from "./games/memory-moon/memory-moon-core.mjs?v=memory-moon-5";
 import { joinConceptCatalogs } from "./catalog-runtime.mjs";
 import "./shell-policy.js?v=shell-policy-18";
 
@@ -197,7 +197,7 @@ function nucleusCatalog(document) {
   const index = indexRows(document.challenges);
   const readingKey = row => `${(row.reading ?? row.pinyin).normalize("NFC").toLowerCase()}:${row.tone ?? "word"}`;
   const required = Math.max(...settings.pieceCounts);
-  const playable = level => new Set(document.challenges.filter(row => row.difficulty === level).map(readingKey)).size >= (level === 0 ? 3 : required);
+  const playable = level => new Set(document.challenges.filter(row => row.difficulty === level).map(readingKey)).size >= required;
   if ([0, 1, 2, 3].some(level => !playable(level))) throw new Error("Domino pack cannot form its supported boards at every difficulty.");
   return { banks: { default: index }, playable };
 }

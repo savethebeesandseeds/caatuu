@@ -28,7 +28,8 @@ test('Georgian preserves English retrieval and supports standard device speech w
 });
 test('Georgian screeve boards distinguish ergative, intransitive and experiencer subjects',async()=>{
  const raw=await json('apps/languages/georgian/static/data/games/conjugation-comet/content.json'),catalog=validateConjugationCometCatalog(raw);
- for(const verb of catalog.verbs){const round=buildConjugationHelixRound(catalog,verb.id,{rng:()=>.37});assert.equal(round.subjects.length,verb.difficulty===0?2:6);for(const subject of round.subjects)assert.ok(round.options.some(option=>judgeConjugationHelixPair(round,subject.id,option.id)),verb.id+subject.id);}
+ const ordinarySize=catalog.verbs.find(verb=>verb.difficulty===1).forms.length;
+ for(const verb of catalog.verbs){const round=buildConjugationHelixRound(catalog,verb.id,{rng:()=>.37});assert.equal(verb.forms.length,ordinarySize);assert.equal(round.subjects.length,verb.forms.length);for(const subject of round.subjects)assert.ok(round.options.some(option=>judgeConjugationHelixPair(round,subject.id,option.id)),verb.id+subject.id);}
  const find=(masdar,tense)=>raw.verbs.find(v=>v.targetText===masdar&&v.tags.includes(tense)).forms.find(v=>v.id==='third-sg');
  assert.equal(find('წერა','present').subjectTargetText,'ის');assert.equal(find('წერა','aorist').subjectTargetText,'მან');assert.equal(find('წერა','present').targetPhraseFrame.afterText,' წერილს');assert.equal(find('წერა','aorist').targetPhraseFrame.afterText,' წერილი');
  assert.equal(find('მოსვლა','aorist').subjectTargetText,'ის');assert.equal(find('ქონა','present').subjectTargetText,'მას');assert.equal(find('ყოლა','present').targetText,'ჰყავს');
@@ -39,7 +40,7 @@ test('Georgian number journeys have playable rounds and matching noun lanes with
  const pack=normalizeGrammarGravityPack(await json(prefix+'content.json'),{courseId:'ka',targetLanguage:'ka',learnerBaseLanguage:'en'}),nouns=normalizeNounLandingPack(await json(prefix+'nouns.json'),{courseId:'ka',targetLanguage:'ka',learnerBaseLanguage:'en'});
  validateGrammarGravityCategories(pack,nouns.lanes);
  for(const level of [0,1,2,3])assert.ok(buildGrammarGravityRounds(pack,level,()=>.37).length);
- assert.equal(pack.gameplay.categoryFeature,'number');for(const challenge of pack.challenges)for(const axis of challenge.axes)assert.equal(Object.hasOwn(axis.features,'gender'),false);
+ assert.equal(pack.gameplay.categoryFeature,'number');for(const challenge of pack.challenges)for(const axis of challenge.axes||pack.axes)assert.equal(Object.hasOwn(axis.features,'gender'),false);
 });
 test('Georgian source has contextual case hints and numeral singular forms',async()=>{
  const source=await json('apps/languages/georgian/content/word-world/content.json');

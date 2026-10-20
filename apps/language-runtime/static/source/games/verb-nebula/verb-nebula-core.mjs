@@ -141,6 +141,9 @@ export function resolveStableVerbPair(dictionary, reference) {
   const matchingRows = [];
   dictionary.forEach((row, sourceIndex) => {
     const pair = projectCoreVerbPair(row, sourceIndex);
+    // Reviewed references identify a band as well as their exact labels. The
+    // same beginner word can appear in zero without making Explorer ambiguous.
+    if (Object.hasOwn(reference, "difficulty") && pair?.difficulty !== Number(reference.difficulty)) return;
     if (pair?.cz === expectedCzech && pair.eng === expectedEnglish) matchingRows.push(pair);
   });
 

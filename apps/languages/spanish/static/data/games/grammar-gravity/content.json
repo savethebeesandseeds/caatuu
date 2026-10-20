@@ -9768,14 +9768,14 @@
     },
     {
       "id": "zero-es-grammar-red",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective",
         "label": "red",
-        "targetText": "rojo · roja",
-        "resultTitle": "Two tiny forms",
-        "summary": "One familiar noun and one describing word. Machine-assisted draft; native review pending."
+        "targetText": "rojo · roja · rojos · rojas",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "masculine-singular": {
@@ -9863,60 +9863,107 @@
           ],
           "usefulness": 92,
           "complexity": 5
-        }
-      },
-      "axes": [
-        {
-          "id": "masculine-singular",
-          "label": "Masculine singular",
-          "features": {
-            "gender": "masculine",
-            "number": "singular"
-          }
         },
-        {
-          "id": "feminine-singular",
-          "label": "Feminine singular",
-          "features": {
-            "gender": "feminine",
-            "number": "singular"
-          }
+        "masculine-plural": {
+          "displayForm": "rojos",
+          "examples": [
+            {
+              "id": "zero-es-grammar-red-masculine-plural-restored-1",
+              "revision": 1,
+              "learnerBaseText": "red books",
+              "englishAuditText": "red books",
+              "targetText": "libros rojos",
+              "anchor": {
+                "targetText": "libros",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "libros ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 6
+            },
+            {
+              "id": "zero-es-grammar-red-masculine-plural-restored-2",
+              "revision": 1,
+              "learnerBaseText": "red dogs",
+              "englishAuditText": "red dogs",
+              "targetText": "perros rojos",
+              "anchor": {
+                "targetText": "perros",
+                "learnerBaseText": "dogs",
+                "englishAuditText": "dogs"
+              },
+              "slot": {
+                "beforeText": "perros ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 6
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 6
+        },
+        "feminine-plural": {
+          "displayForm": "rojas",
+          "examples": [
+            {
+              "id": "zero-es-grammar-red-feminine-plural-restored-1",
+              "revision": 1,
+              "learnerBaseText": "red bags",
+              "englishAuditText": "red bags",
+              "targetText": "bolsas rojas",
+              "anchor": {
+                "targetText": "bolsas",
+                "learnerBaseText": "bags",
+                "englishAuditText": "bags"
+              },
+              "slot": {
+                "beforeText": "bolsas ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 6
+            },
+            {
+              "id": "zero-es-grammar-red-feminine-plural-restored-2",
+              "revision": 1,
+              "learnerBaseText": "red balls",
+              "englishAuditText": "red balls",
+              "targetText": "pelotas rojas",
+              "anchor": {
+                "targetText": "pelotas",
+                "learnerBaseText": "balls",
+                "englishAuditText": "balls"
+              },
+              "slot": {
+                "beforeText": "pelotas ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 6
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 6
         }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "category",
-          "form"
-        ],
-        "categoryFeature": "gender",
-        "categoryOptions": [
-          {
-            "id": "masculine",
-            "label": "Masculine",
-            "image": "/assets/micelaneous/male_gender.png"
-          },
-          {
-            "id": "feminine",
-            "label": "Feminine",
-            "image": "/assets/micelaneous/female_gender.png"
-          }
-        ]
       },
       "usefulness": 92,
       "complexity": 6
     },
     {
       "id": "zero-es-grammar-small",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective",
         "label": "small",
-        "targetText": "pequeño · pequeña",
-        "resultTitle": "Two tiny forms",
-        "summary": "One familiar noun and one describing word. Machine-assisted draft; native review pending."
+        "targetText": "pequeño · pequeña · pequeños · pequeñas",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "masculine-singular": {
@@ -10004,60 +10051,107 @@
           ],
           "usefulness": 92,
           "complexity": 5
-        }
-      },
-      "axes": [
-        {
-          "id": "masculine-singular",
-          "label": "Masculine singular",
-          "features": {
-            "gender": "masculine",
-            "number": "singular"
-          }
         },
-        {
-          "id": "feminine-singular",
-          "label": "Feminine singular",
-          "features": {
-            "gender": "feminine",
-            "number": "singular"
-          }
+        "masculine-plural": {
+          "displayForm": "pequeños",
+          "examples": [
+            {
+              "id": "zero-es-grammar-small-masculine-plural-restored-1",
+              "revision": 1,
+              "learnerBaseText": "small books",
+              "englishAuditText": "small books",
+              "targetText": "libros pequeños",
+              "anchor": {
+                "targetText": "libros",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "libros ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 6
+            },
+            {
+              "id": "zero-es-grammar-small-masculine-plural-restored-2",
+              "revision": 1,
+              "learnerBaseText": "small dogs",
+              "englishAuditText": "small dogs",
+              "targetText": "perros pequeños",
+              "anchor": {
+                "targetText": "perros",
+                "learnerBaseText": "dogs",
+                "englishAuditText": "dogs"
+              },
+              "slot": {
+                "beforeText": "perros ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 6
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 6
+        },
+        "feminine-plural": {
+          "displayForm": "pequeñas",
+          "examples": [
+            {
+              "id": "zero-es-grammar-small-feminine-plural-restored-1",
+              "revision": 1,
+              "learnerBaseText": "small bags",
+              "englishAuditText": "small bags",
+              "targetText": "bolsas pequeñas",
+              "anchor": {
+                "targetText": "bolsas",
+                "learnerBaseText": "bags",
+                "englishAuditText": "bags"
+              },
+              "slot": {
+                "beforeText": "bolsas ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 6
+            },
+            {
+              "id": "zero-es-grammar-small-feminine-plural-restored-2",
+              "revision": 1,
+              "learnerBaseText": "small balls",
+              "englishAuditText": "small balls",
+              "targetText": "pelotas pequeñas",
+              "anchor": {
+                "targetText": "pelotas",
+                "learnerBaseText": "balls",
+                "englishAuditText": "balls"
+              },
+              "slot": {
+                "beforeText": "pelotas ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 6
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 6
         }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "category",
-          "form"
-        ],
-        "categoryFeature": "gender",
-        "categoryOptions": [
-          {
-            "id": "masculine",
-            "label": "Masculine",
-            "image": "/assets/micelaneous/male_gender.png"
-          },
-          {
-            "id": "feminine",
-            "label": "Feminine",
-            "image": "/assets/micelaneous/female_gender.png"
-          }
-        ]
       },
       "usefulness": 92,
       "complexity": 6
     },
     {
       "id": "zero-es-grammar-white",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective",
         "label": "white",
-        "targetText": "blanco · blanca",
-        "resultTitle": "Two tiny forms",
-        "summary": "One familiar noun and one describing word. Machine-assisted draft; native review pending."
+        "targetText": "blanco · blanca · blancos · blancas",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "masculine-singular": {
@@ -10145,60 +10239,107 @@
           ],
           "usefulness": 92,
           "complexity": 5
-        }
-      },
-      "axes": [
-        {
-          "id": "masculine-singular",
-          "label": "Masculine singular",
-          "features": {
-            "gender": "masculine",
-            "number": "singular"
-          }
         },
-        {
-          "id": "feminine-singular",
-          "label": "Feminine singular",
-          "features": {
-            "gender": "feminine",
-            "number": "singular"
-          }
+        "masculine-plural": {
+          "displayForm": "blancos",
+          "examples": [
+            {
+              "id": "zero-es-grammar-white-masculine-plural-restored-1",
+              "revision": 1,
+              "learnerBaseText": "white books",
+              "englishAuditText": "white books",
+              "targetText": "libros blancos",
+              "anchor": {
+                "targetText": "libros",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "libros ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 6
+            },
+            {
+              "id": "zero-es-grammar-white-masculine-plural-restored-2",
+              "revision": 1,
+              "learnerBaseText": "white dogs",
+              "englishAuditText": "white dogs",
+              "targetText": "perros blancos",
+              "anchor": {
+                "targetText": "perros",
+                "learnerBaseText": "dogs",
+                "englishAuditText": "dogs"
+              },
+              "slot": {
+                "beforeText": "perros ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 6
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 6
+        },
+        "feminine-plural": {
+          "displayForm": "blancas",
+          "examples": [
+            {
+              "id": "zero-es-grammar-white-feminine-plural-restored-1",
+              "revision": 1,
+              "learnerBaseText": "white bags",
+              "englishAuditText": "white bags",
+              "targetText": "bolsas blancas",
+              "anchor": {
+                "targetText": "bolsas",
+                "learnerBaseText": "bags",
+                "englishAuditText": "bags"
+              },
+              "slot": {
+                "beforeText": "bolsas ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 6
+            },
+            {
+              "id": "zero-es-grammar-white-feminine-plural-restored-2",
+              "revision": 1,
+              "learnerBaseText": "white balls",
+              "englishAuditText": "white balls",
+              "targetText": "pelotas blancas",
+              "anchor": {
+                "targetText": "pelotas",
+                "learnerBaseText": "balls",
+                "englishAuditText": "balls"
+              },
+              "slot": {
+                "beforeText": "pelotas ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 6
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 6
         }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "category",
-          "form"
-        ],
-        "categoryFeature": "gender",
-        "categoryOptions": [
-          {
-            "id": "masculine",
-            "label": "Masculine",
-            "image": "/assets/micelaneous/male_gender.png"
-          },
-          {
-            "id": "feminine",
-            "label": "Feminine",
-            "image": "/assets/micelaneous/female_gender.png"
-          }
-        ]
       },
       "usefulness": 92,
       "complexity": 6
     },
     {
       "id": "zero-es-grammar-black",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective",
         "label": "black",
-        "targetText": "negro · negra",
-        "resultTitle": "Two tiny forms",
-        "summary": "One familiar noun and one describing word. Machine-assisted draft; native review pending."
+        "targetText": "negro · negra · negros · negras",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "masculine-singular": {
@@ -10286,60 +10427,107 @@
           ],
           "usefulness": 92,
           "complexity": 5
-        }
-      },
-      "axes": [
-        {
-          "id": "masculine-singular",
-          "label": "Masculine singular",
-          "features": {
-            "gender": "masculine",
-            "number": "singular"
-          }
         },
-        {
-          "id": "feminine-singular",
-          "label": "Feminine singular",
-          "features": {
-            "gender": "feminine",
-            "number": "singular"
-          }
+        "masculine-plural": {
+          "displayForm": "negros",
+          "examples": [
+            {
+              "id": "zero-es-grammar-black-masculine-plural-restored-1",
+              "revision": 1,
+              "learnerBaseText": "black books",
+              "englishAuditText": "black books",
+              "targetText": "libros negros",
+              "anchor": {
+                "targetText": "libros",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "libros ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 6
+            },
+            {
+              "id": "zero-es-grammar-black-masculine-plural-restored-2",
+              "revision": 1,
+              "learnerBaseText": "black dogs",
+              "englishAuditText": "black dogs",
+              "targetText": "perros negros",
+              "anchor": {
+                "targetText": "perros",
+                "learnerBaseText": "dogs",
+                "englishAuditText": "dogs"
+              },
+              "slot": {
+                "beforeText": "perros ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 6
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 6
+        },
+        "feminine-plural": {
+          "displayForm": "negras",
+          "examples": [
+            {
+              "id": "zero-es-grammar-black-feminine-plural-restored-1",
+              "revision": 1,
+              "learnerBaseText": "black bags",
+              "englishAuditText": "black bags",
+              "targetText": "bolsas negras",
+              "anchor": {
+                "targetText": "bolsas",
+                "learnerBaseText": "bags",
+                "englishAuditText": "bags"
+              },
+              "slot": {
+                "beforeText": "bolsas ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 6
+            },
+            {
+              "id": "zero-es-grammar-black-feminine-plural-restored-2",
+              "revision": 1,
+              "learnerBaseText": "black balls",
+              "englishAuditText": "black balls",
+              "targetText": "pelotas negras",
+              "anchor": {
+                "targetText": "pelotas",
+                "learnerBaseText": "balls",
+                "englishAuditText": "balls"
+              },
+              "slot": {
+                "beforeText": "pelotas ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 6
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 6
         }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "category",
-          "form"
-        ],
-        "categoryFeature": "gender",
-        "categoryOptions": [
-          {
-            "id": "masculine",
-            "label": "Masculine",
-            "image": "/assets/micelaneous/male_gender.png"
-          },
-          {
-            "id": "feminine",
-            "label": "Feminine",
-            "image": "/assets/micelaneous/female_gender.png"
-          }
-        ]
       },
       "usefulness": 92,
       "complexity": 6
     },
     {
       "id": "zero-es-grammar-expand-new",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective",
         "label": "new",
-        "targetText": "nuevo · nueva",
-        "resultTitle": "Two tiny forms",
-        "summary": "One familiar thing and one describing word. Machine-assisted draft; native review is pending."
+        "targetText": "nuevo · nueva · nuevos · nuevas",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "masculine-singular": {
@@ -10499,60 +10687,107 @@
           ],
           "usefulness": 92,
           "complexity": 6
-        }
-      },
-      "axes": [
-        {
-          "id": "masculine-singular",
-          "label": "Masculine singular",
-          "features": {
-            "gender": "masculine",
-            "number": "singular"
-          }
         },
-        {
-          "id": "feminine-singular",
-          "label": "Feminine singular",
-          "features": {
-            "gender": "feminine",
-            "number": "singular"
-          }
+        "masculine-plural": {
+          "displayForm": "nuevos",
+          "examples": [
+            {
+              "id": "zero-es-grammar-expand-new-masculine-plural-restored-1",
+              "revision": 1,
+              "learnerBaseText": "new books",
+              "englishAuditText": "new books",
+              "targetText": "libros nuevos",
+              "anchor": {
+                "targetText": "libros",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "libros ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-grammar-expand-new-masculine-plural-restored-2",
+              "revision": 1,
+              "learnerBaseText": "new dogs",
+              "englishAuditText": "new dogs",
+              "targetText": "perros nuevos",
+              "anchor": {
+                "targetText": "perros",
+                "learnerBaseText": "dogs",
+                "englishAuditText": "dogs"
+              },
+              "slot": {
+                "beforeText": "perros ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 7
+        },
+        "feminine-plural": {
+          "displayForm": "nuevas",
+          "examples": [
+            {
+              "id": "zero-es-grammar-expand-new-feminine-plural-restored-1",
+              "revision": 1,
+              "learnerBaseText": "new bags",
+              "englishAuditText": "new bags",
+              "targetText": "bolsas nuevas",
+              "anchor": {
+                "targetText": "bolsas",
+                "learnerBaseText": "bags",
+                "englishAuditText": "bags"
+              },
+              "slot": {
+                "beforeText": "bolsas ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-grammar-expand-new-feminine-plural-restored-2",
+              "revision": 1,
+              "learnerBaseText": "new balls",
+              "englishAuditText": "new balls",
+              "targetText": "pelotas nuevas",
+              "anchor": {
+                "targetText": "pelotas",
+                "learnerBaseText": "balls",
+                "englishAuditText": "balls"
+              },
+              "slot": {
+                "beforeText": "pelotas ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 7
         }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "category",
-          "form"
-        ],
-        "categoryFeature": "gender",
-        "categoryOptions": [
-          {
-            "id": "masculine",
-            "label": "Masculine",
-            "image": "/assets/micelaneous/male_gender.png"
-          },
-          {
-            "id": "feminine",
-            "label": "Feminine",
-            "image": "/assets/micelaneous/female_gender.png"
-          }
-        ]
       },
       "usefulness": 92,
       "complexity": 7
     },
     {
       "id": "zero-es-grammar-expand-old",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective",
         "label": "old",
-        "targetText": "viejo · vieja",
-        "resultTitle": "Two tiny forms",
-        "summary": "One familiar thing and one describing word. Machine-assisted draft; native review is pending."
+        "targetText": "viejo · vieja · viejos · viejas",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "masculine-singular": {
@@ -10712,60 +10947,107 @@
           ],
           "usefulness": 92,
           "complexity": 6
-        }
-      },
-      "axes": [
-        {
-          "id": "masculine-singular",
-          "label": "Masculine singular",
-          "features": {
-            "gender": "masculine",
-            "number": "singular"
-          }
         },
-        {
-          "id": "feminine-singular",
-          "label": "Feminine singular",
-          "features": {
-            "gender": "feminine",
-            "number": "singular"
-          }
+        "masculine-plural": {
+          "displayForm": "viejos",
+          "examples": [
+            {
+              "id": "zero-es-grammar-expand-old-masculine-plural-restored-1",
+              "revision": 1,
+              "learnerBaseText": "old books",
+              "englishAuditText": "old books",
+              "targetText": "libros viejos",
+              "anchor": {
+                "targetText": "libros",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "libros ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-grammar-expand-old-masculine-plural-restored-2",
+              "revision": 1,
+              "learnerBaseText": "old dogs",
+              "englishAuditText": "old dogs",
+              "targetText": "perros viejos",
+              "anchor": {
+                "targetText": "perros",
+                "learnerBaseText": "dogs",
+                "englishAuditText": "dogs"
+              },
+              "slot": {
+                "beforeText": "perros ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 7
+        },
+        "feminine-plural": {
+          "displayForm": "viejas",
+          "examples": [
+            {
+              "id": "zero-es-grammar-expand-old-feminine-plural-restored-1",
+              "revision": 1,
+              "learnerBaseText": "old bags",
+              "englishAuditText": "old bags",
+              "targetText": "bolsas viejas",
+              "anchor": {
+                "targetText": "bolsas",
+                "learnerBaseText": "bags",
+                "englishAuditText": "bags"
+              },
+              "slot": {
+                "beforeText": "bolsas ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-grammar-expand-old-feminine-plural-restored-2",
+              "revision": 1,
+              "learnerBaseText": "old balls",
+              "englishAuditText": "old balls",
+              "targetText": "pelotas viejas",
+              "anchor": {
+                "targetText": "pelotas",
+                "learnerBaseText": "balls",
+                "englishAuditText": "balls"
+              },
+              "slot": {
+                "beforeText": "pelotas ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 7
         }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "category",
-          "form"
-        ],
-        "categoryFeature": "gender",
-        "categoryOptions": [
-          {
-            "id": "masculine",
-            "label": "Masculine",
-            "image": "/assets/micelaneous/male_gender.png"
-          },
-          {
-            "id": "feminine",
-            "label": "Feminine",
-            "image": "/assets/micelaneous/female_gender.png"
-          }
-        ]
       },
       "usefulness": 92,
       "complexity": 7
     },
     {
       "id": "zero-es-grammar-expand-pretty",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective",
         "label": "pretty",
-        "targetText": "bonito · bonita",
-        "resultTitle": "Two tiny forms",
-        "summary": "One familiar thing and one describing word. Machine-assisted draft; native review is pending."
+        "targetText": "bonito · bonita · bonitos · bonitas",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "masculine-singular": {
@@ -10925,60 +11207,107 @@
           ],
           "usefulness": 92,
           "complexity": 6
-        }
-      },
-      "axes": [
-        {
-          "id": "masculine-singular",
-          "label": "Masculine singular",
-          "features": {
-            "gender": "masculine",
-            "number": "singular"
-          }
         },
-        {
-          "id": "feminine-singular",
-          "label": "Feminine singular",
-          "features": {
-            "gender": "feminine",
-            "number": "singular"
-          }
+        "masculine-plural": {
+          "displayForm": "bonitos",
+          "examples": [
+            {
+              "id": "zero-es-grammar-expand-pretty-masculine-plural-restored-1",
+              "revision": 1,
+              "learnerBaseText": "pretty books",
+              "englishAuditText": "pretty books",
+              "targetText": "libros bonitos",
+              "anchor": {
+                "targetText": "libros",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "libros ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-grammar-expand-pretty-masculine-plural-restored-2",
+              "revision": 1,
+              "learnerBaseText": "pretty dogs",
+              "englishAuditText": "pretty dogs",
+              "targetText": "perros bonitos",
+              "anchor": {
+                "targetText": "perros",
+                "learnerBaseText": "dogs",
+                "englishAuditText": "dogs"
+              },
+              "slot": {
+                "beforeText": "perros ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 7
+        },
+        "feminine-plural": {
+          "displayForm": "bonitas",
+          "examples": [
+            {
+              "id": "zero-es-grammar-expand-pretty-feminine-plural-restored-1",
+              "revision": 1,
+              "learnerBaseText": "pretty bags",
+              "englishAuditText": "pretty bags",
+              "targetText": "bolsas bonitas",
+              "anchor": {
+                "targetText": "bolsas",
+                "learnerBaseText": "bags",
+                "englishAuditText": "bags"
+              },
+              "slot": {
+                "beforeText": "bolsas ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-grammar-expand-pretty-feminine-plural-restored-2",
+              "revision": 1,
+              "learnerBaseText": "pretty balls",
+              "englishAuditText": "pretty balls",
+              "targetText": "pelotas bonitas",
+              "anchor": {
+                "targetText": "pelotas",
+                "learnerBaseText": "balls",
+                "englishAuditText": "balls"
+              },
+              "slot": {
+                "beforeText": "pelotas ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 7
         }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "category",
-          "form"
-        ],
-        "categoryFeature": "gender",
-        "categoryOptions": [
-          {
-            "id": "masculine",
-            "label": "Masculine",
-            "image": "/assets/micelaneous/male_gender.png"
-          },
-          {
-            "id": "feminine",
-            "label": "Feminine",
-            "image": "/assets/micelaneous/female_gender.png"
-          }
-        ]
       },
       "usefulness": 92,
       "complexity": 7
     },
     {
       "id": "zero-es-grammar-expand-clean",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective",
         "label": "clean",
-        "targetText": "limpio · limpia",
-        "resultTitle": "Two tiny forms",
-        "summary": "One familiar thing and one describing word. Machine-assisted draft; native review is pending."
+        "targetText": "limpio · limpia · limpios · limpias",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "masculine-singular": {
@@ -11138,46 +11467,93 @@
           ],
           "usefulness": 92,
           "complexity": 6
-        }
-      },
-      "axes": [
-        {
-          "id": "masculine-singular",
-          "label": "Masculine singular",
-          "features": {
-            "gender": "masculine",
-            "number": "singular"
-          }
         },
-        {
-          "id": "feminine-singular",
-          "label": "Feminine singular",
-          "features": {
-            "gender": "feminine",
-            "number": "singular"
-          }
+        "masculine-plural": {
+          "displayForm": "limpios",
+          "examples": [
+            {
+              "id": "zero-es-grammar-expand-clean-masculine-plural-restored-1",
+              "revision": 1,
+              "learnerBaseText": "clean books",
+              "englishAuditText": "clean books",
+              "targetText": "libros limpios",
+              "anchor": {
+                "targetText": "libros",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "libros ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-grammar-expand-clean-masculine-plural-restored-2",
+              "revision": 1,
+              "learnerBaseText": "clean dogs",
+              "englishAuditText": "clean dogs",
+              "targetText": "perros limpios",
+              "anchor": {
+                "targetText": "perros",
+                "learnerBaseText": "dogs",
+                "englishAuditText": "dogs"
+              },
+              "slot": {
+                "beforeText": "perros ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 7
+        },
+        "feminine-plural": {
+          "displayForm": "limpias",
+          "examples": [
+            {
+              "id": "zero-es-grammar-expand-clean-feminine-plural-restored-1",
+              "revision": 1,
+              "learnerBaseText": "clean bags",
+              "englishAuditText": "clean bags",
+              "targetText": "bolsas limpias",
+              "anchor": {
+                "targetText": "bolsas",
+                "learnerBaseText": "bags",
+                "englishAuditText": "bags"
+              },
+              "slot": {
+                "beforeText": "bolsas ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-grammar-expand-clean-feminine-plural-restored-2",
+              "revision": 1,
+              "learnerBaseText": "clean balls",
+              "englishAuditText": "clean balls",
+              "targetText": "pelotas limpias",
+              "anchor": {
+                "targetText": "pelotas",
+                "learnerBaseText": "balls",
+                "englishAuditText": "balls"
+              },
+              "slot": {
+                "beforeText": "pelotas ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 7
         }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "category",
-          "form"
-        ],
-        "categoryFeature": "gender",
-        "categoryOptions": [
-          {
-            "id": "masculine",
-            "label": "Masculine",
-            "image": "/assets/micelaneous/male_gender.png"
-          },
-          {
-            "id": "feminine",
-            "label": "Feminine",
-            "image": "/assets/micelaneous/female_gender.png"
-          }
-        ]
       },
       "usefulness": 92,
       "complexity": 7

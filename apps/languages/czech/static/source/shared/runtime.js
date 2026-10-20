@@ -863,7 +863,7 @@
           difficulty: payload.feedback.difficulty != null
             && payload.feedback.difficulty !== ""
             && Number.isFinite(Number(payload.feedback.difficulty))
-            ? Math.max(1, Math.min(3, Math.floor(Number(payload.feedback.difficulty))))
+            ? Math.max(0, Math.min(3, Math.floor(Number(payload.feedback.difficulty))))
             : null,
           generationSource: clampReportText(payload.feedback.generationSource || "", 80),
           translationMode: clampReportText(payload.feedback.translationMode || "", 40),

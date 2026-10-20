@@ -262,12 +262,13 @@ for (const czech of [false, true]) {
   });
 }
 
-test("level-zero single words are real two-option recognition with an exact-band contrast", async t => {
+test("level-zero words retain normal distractors and the learner's translation direction", async t => {
   const records = [
-    ['book', 'kniha', 'Book'], ['water', 'voda', 'Water'], ['advanced', 'neznámý', 'Unfamiliar']
+    ['book', 'kniha', 'Book'], ['water', 'voda', 'Water'], ['cat', 'kočka', 'Cat'],
+    ['house', 'dům', 'House'], ['sun', 'slunce', 'Sun'], ['advanced', 'neznámý', 'Unfamiliar']
   ].map(([id, target, englishText], index) => ({
     conceptId: `ww.test.${id}`, englishText, sceneQuery: englishText,
-    difficulty: index === 2 ? 1 : 0, topic: 'objects',
+    difficulty: id === 'advanced' ? 1 : 0, topic: 'objects',
     target: { text: target, tokens: [{ surface: target, gloss: englishText, playable: true }] }
   }));
   const g = await game(t, { czech: true, difficulty: 0, records, saved: {
@@ -276,17 +277,22 @@ test("level-zero single words are real two-option recognition with an exact-band
   await g.settle();
   const round = g.run('ensureReconstructionChallenge()');
   assert.equal(g.state.currentDifficulty, 0);
-  assert.equal(round.promptSide, 'source', 'a familiar-language prompt introduces target recognition');
+  assert.equal(round.promptSide, 'target', 'the saved direction applies to zero just as to the other bands');
   assert.equal(round.challenge.answerTokens.length, 1);
-  assert.equal(round.challenge.options.length, 2);
-  assert.deepEqual(new Set(round.challenge.options.map(option => option.text)), new Set(['kniha', 'voda']));
+  assert.equal(round.challenge.options.length, 1 + g.run('RECONSTRUCTION_DISTRACTOR_COUNT'));
+  assert.deepEqual(new Set(round.challenge.options.map(option => option.text)), new Set(['Book', 'Water', 'Cat', 'House', 'Sun']));
   assert.equal(round.submitted, false, 'a one-word answer still requires the learner to choose and submit');
   await g.submitCorrect();
   assert.equal(g.state.reconstruction.correct, true);
   assert.equal(g.learning.difficulty(), 0);
+  g.run('setChallengePromptMode("source")');
+  await g.controller.next(); await g.settle();
+  assert.equal(g.state.reconstruction.promptSide, 'source');
+  assert.equal(g.state.reconstruction.challenge.options.length, 1 + g.run('RECONSTRUCTION_DISTRACTOR_COUNT'));
+  assert.ok(g.state.reconstruction.challenge.options.every(option => option.text !== 'neznámý'));
 });
 
-test("zero Word World confines a saved generative preference to the authored bank without erasing it", async t => {
+test("zero Word World retains the ordinary optional-mode capability checks", async t => {
   const records = [
     ['book', 'kniha', 'Book', 0], ['water', 'voda', 'Water', 0], ['cat', 'kočka', 'Cat', 1]
   ].map(([id, target, englishText, difficulty]) => ({
@@ -295,18 +301,16 @@ test("zero Word World confines a saved generative preference to the authored ban
   }));
   const key = 'caatuu-cz.wordNet.contentMode.v1';
   const g = await game(t, { czech: true, records, difficulty: 0, generationEnabled: true,
-    saved: { [key]: 'generative' } });
+    saved: { [key]: 'standard' } });
   await g.settle();
   assert.equal(g.state.contentMode, 'standard');
   assert.equal(g.state.currentDifficulty, 0);
-  assert.equal(g.run('supportsContentMode("generative")'), false);
-  await g.run('setContentMode("generative")');
-  assert.equal(g.state.contentMode, 'standard');
-  assert.equal(g.localStorage.getItem(key), 'generative');
+  assert.equal(g.run('supportsContentMode("generative")'), true);
+  assert.equal(g.localStorage.getItem(key), 'standard');
   g.setDifficulty(1);
   await g.settle();
   assert.equal(g.run('supportsContentMode("generative")'), true);
-  assert.equal(g.localStorage.getItem(key), 'generative');
+  assert.equal(g.localStorage.getItem(key), 'standard');
 });
 
 test("annotated courses default to full-course practice while keeping focused modes available", async t => {

@@ -8649,52 +8649,14 @@
     },
     {
       "id": "zero-la-grammar-01",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective",
         "label": "large: nominative singular",
-        "targetText": "magnus",
-        "resultTitle": "large agreement",
-        "summary": "Match a familiar short example to its form. Start with one example and its meaning, then compare the two forms."
-      },
-      "axes": [
-        {
-          "id": "masculine-singular",
-          "label": "masculine singular",
-          "features": {
-            "gender": "masculine",
-            "number": "singular",
-            "case": "nominative"
-          }
-        },
-        {
-          "id": "feminine-singular",
-          "label": "feminine singular",
-          "features": {
-            "gender": "feminine",
-            "number": "singular",
-            "case": "nominative"
-          }
-        }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "form"
-        ],
-        "categoryFeature": "gender",
-        "categoryOptions": [
-          {
-            "id": "masculine",
-            "label": "Masculine"
-          },
-          {
-            "id": "feminine",
-            "label": "Feminine"
-          }
-        ]
+        "targetText": "magnus · magna · magnum",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "masculine-singular": {
@@ -8818,6 +8780,49 @@
               "complexity": 8
             }
           ]
+        },
+        "neuter-singular": {
+          "displayForm": "magnum",
+          "examples": [
+            {
+              "id": "zero-la-grammar-01-neuter-singular-restored-1",
+              "revision": 1,
+              "learnerBaseText": "big egg",
+              "englishAuditText": "big egg",
+              "targetText": "ōvum magnum",
+              "anchor": {
+                "targetText": "ōvum",
+                "learnerBaseText": "egg",
+                "englishAuditText": "egg"
+              },
+              "slot": {
+                "beforeText": "ōvum ",
+                "afterText": ""
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-la-grammar-01-neuter-singular-restored-2",
+              "revision": 1,
+              "learnerBaseText": "big leaf",
+              "englishAuditText": "big leaf",
+              "targetText": "folium magnum",
+              "anchor": {
+                "targetText": "folium",
+                "learnerBaseText": "leaf",
+                "englishAuditText": "leaf"
+              },
+              "slot": {
+                "beforeText": "folium ",
+                "afterText": ""
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ],
+          "usefulness": 98,
+          "complexity": 8
         }
       },
       "usefulness": 98,
@@ -8825,52 +8830,14 @@
     },
     {
       "id": "zero-la-grammar-02",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective",
         "label": "small: nominative singular",
-        "targetText": "parvus",
-        "resultTitle": "small agreement",
-        "summary": "Match a familiar short example to its form. Start with one example and its meaning, then compare the two forms."
-      },
-      "axes": [
-        {
-          "id": "masculine-singular",
-          "label": "masculine singular",
-          "features": {
-            "gender": "masculine",
-            "number": "singular",
-            "case": "nominative"
-          }
-        },
-        {
-          "id": "feminine-singular",
-          "label": "feminine singular",
-          "features": {
-            "gender": "feminine",
-            "number": "singular",
-            "case": "nominative"
-          }
-        }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "form"
-        ],
-        "categoryFeature": "gender",
-        "categoryOptions": [
-          {
-            "id": "masculine",
-            "label": "Masculine"
-          },
-          {
-            "id": "feminine",
-            "label": "Feminine"
-          }
-        ]
+        "targetText": "parvus · parva · parvum",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "masculine-singular": {
@@ -8994,6 +8961,49 @@
               "complexity": 8
             }
           ]
+        },
+        "neuter-singular": {
+          "displayForm": "parvum",
+          "examples": [
+            {
+              "id": "zero-la-grammar-02-neuter-singular-restored-1",
+              "revision": 1,
+              "learnerBaseText": "small egg",
+              "englishAuditText": "small egg",
+              "targetText": "ōvum parvum",
+              "anchor": {
+                "targetText": "ōvum",
+                "learnerBaseText": "egg",
+                "englishAuditText": "egg"
+              },
+              "slot": {
+                "beforeText": "ōvum ",
+                "afterText": ""
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-la-grammar-02-neuter-singular-restored-2",
+              "revision": 1,
+              "learnerBaseText": "small leaf",
+              "englishAuditText": "small leaf",
+              "targetText": "folium parvum",
+              "anchor": {
+                "targetText": "folium",
+                "learnerBaseText": "leaf",
+                "englishAuditText": "leaf"
+              },
+              "slot": {
+                "beforeText": "folium ",
+                "afterText": ""
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ],
+          "usefulness": 98,
+          "complexity": 8
         }
       },
       "usefulness": 98,
@@ -9001,52 +9011,14 @@
     },
     {
       "id": "zero-la-grammar-03",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective",
         "label": "new: nominative singular",
-        "targetText": "novus",
-        "resultTitle": "new agreement",
-        "summary": "Match a familiar short example to its form. Start with one example and its meaning, then compare the two forms."
-      },
-      "axes": [
-        {
-          "id": "masculine-singular",
-          "label": "masculine singular",
-          "features": {
-            "gender": "masculine",
-            "number": "singular",
-            "case": "nominative"
-          }
-        },
-        {
-          "id": "feminine-singular",
-          "label": "feminine singular",
-          "features": {
-            "gender": "feminine",
-            "number": "singular",
-            "case": "nominative"
-          }
-        }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "form"
-        ],
-        "categoryFeature": "gender",
-        "categoryOptions": [
-          {
-            "id": "masculine",
-            "label": "Masculine"
-          },
-          {
-            "id": "feminine",
-            "label": "Feminine"
-          }
-        ]
+        "targetText": "novus · nova · novum",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "masculine-singular": {
@@ -9170,6 +9142,49 @@
               "complexity": 8
             }
           ]
+        },
+        "neuter-singular": {
+          "displayForm": "novum",
+          "examples": [
+            {
+              "id": "zero-la-grammar-03-neuter-singular-restored-1",
+              "revision": 1,
+              "learnerBaseText": "new egg",
+              "englishAuditText": "new egg",
+              "targetText": "ōvum novum",
+              "anchor": {
+                "targetText": "ōvum",
+                "learnerBaseText": "egg",
+                "englishAuditText": "egg"
+              },
+              "slot": {
+                "beforeText": "ōvum ",
+                "afterText": ""
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-la-grammar-03-neuter-singular-restored-2",
+              "revision": 1,
+              "learnerBaseText": "new leaf",
+              "englishAuditText": "new leaf",
+              "targetText": "folium novum",
+              "anchor": {
+                "targetText": "folium",
+                "learnerBaseText": "leaf",
+                "englishAuditText": "leaf"
+              },
+              "slot": {
+                "beforeText": "folium ",
+                "afterText": ""
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ],
+          "usefulness": 98,
+          "complexity": 8
         }
       },
       "usefulness": 98,
@@ -9177,52 +9192,14 @@
     },
     {
       "id": "zero-la-grammar-e2-red",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective",
         "label": "Red objects",
-        "targetText": "ruber",
-        "resultTitle": "Red objects",
-        "summary": "Read the familiar object with its colour. Compare just these two singular endings, one phrase at a time."
-      },
-      "axes": [
-        {
-          "id": "masculine-singular",
-          "label": "masculine singular",
-          "features": {
-            "gender": "masculine",
-            "number": "singular",
-            "case": "nominative"
-          }
-        },
-        {
-          "id": "neuter-singular",
-          "label": "neuter singular",
-          "features": {
-            "gender": "neuter",
-            "number": "singular",
-            "case": "nominative"
-          }
-        }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "form"
-        ],
-        "categoryFeature": "gender",
-        "categoryOptions": [
-          {
-            "id": "masculine",
-            "label": "Masculine"
-          },
-          {
-            "id": "neuter",
-            "label": "Neuter"
-          }
-        ]
+        "targetText": "ruber · rubrum · rubra",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "masculine-singular": {
@@ -9346,6 +9323,49 @@
               "complexity": 8
             }
           ]
+        },
+        "feminine-singular": {
+          "displayForm": "rubra",
+          "examples": [
+            {
+              "id": "zero-la-grammar-e2-red-feminine-singular-restored-1",
+              "revision": 1,
+              "learnerBaseText": "red star",
+              "englishAuditText": "red star",
+              "targetText": "stella rubra",
+              "anchor": {
+                "targetText": "stella",
+                "learnerBaseText": "star",
+                "englishAuditText": "star"
+              },
+              "slot": {
+                "beforeText": "stella ",
+                "afterText": ""
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-la-grammar-e2-red-feminine-singular-restored-2",
+              "revision": 1,
+              "learnerBaseText": "red rose",
+              "englishAuditText": "red rose",
+              "targetText": "rosa rubra",
+              "anchor": {
+                "targetText": "rosa",
+                "learnerBaseText": "rose",
+                "englishAuditText": "rose"
+              },
+              "slot": {
+                "beforeText": "rosa ",
+                "afterText": ""
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ],
+          "usefulness": 96,
+          "complexity": 8
         }
       },
       "usefulness": 96,
@@ -9353,52 +9373,14 @@
     },
     {
       "id": "zero-la-grammar-e2-white",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective",
         "label": "White objects",
-        "targetText": "albus",
-        "resultTitle": "White objects",
-        "summary": "Read the familiar object with its colour. Compare just these two singular endings, one phrase at a time."
-      },
-      "axes": [
-        {
-          "id": "masculine-singular",
-          "label": "masculine singular",
-          "features": {
-            "gender": "masculine",
-            "number": "singular",
-            "case": "nominative"
-          }
-        },
-        {
-          "id": "neuter-singular",
-          "label": "neuter singular",
-          "features": {
-            "gender": "neuter",
-            "number": "singular",
-            "case": "nominative"
-          }
-        }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "form"
-        ],
-        "categoryFeature": "gender",
-        "categoryOptions": [
-          {
-            "id": "masculine",
-            "label": "Masculine"
-          },
-          {
-            "id": "neuter",
-            "label": "Neuter"
-          }
-        ]
+        "targetText": "albus · album · alba",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "masculine-singular": {
@@ -9522,6 +9504,49 @@
               "complexity": 8
             }
           ]
+        },
+        "feminine-singular": {
+          "displayForm": "alba",
+          "examples": [
+            {
+              "id": "zero-la-grammar-e2-white-feminine-singular-restored-1",
+              "revision": 1,
+              "learnerBaseText": "white star",
+              "englishAuditText": "white star",
+              "targetText": "stella alba",
+              "anchor": {
+                "targetText": "stella",
+                "learnerBaseText": "star",
+                "englishAuditText": "star"
+              },
+              "slot": {
+                "beforeText": "stella ",
+                "afterText": ""
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-la-grammar-e2-white-feminine-singular-restored-2",
+              "revision": 1,
+              "learnerBaseText": "white rose",
+              "englishAuditText": "white rose",
+              "targetText": "rosa alba",
+              "anchor": {
+                "targetText": "rosa",
+                "learnerBaseText": "rose",
+                "englishAuditText": "rose"
+              },
+              "slot": {
+                "beforeText": "rosa ",
+                "afterText": ""
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ],
+          "usefulness": 96,
+          "complexity": 8
         }
       },
       "usefulness": 96,
@@ -9529,52 +9554,14 @@
     },
     {
       "id": "zero-la-grammar-e2-black",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective",
         "label": "Black objects",
-        "targetText": "niger",
-        "resultTitle": "Black objects",
-        "summary": "Read the familiar object with its colour. Compare just these two singular endings, one phrase at a time."
-      },
-      "axes": [
-        {
-          "id": "masculine-singular",
-          "label": "masculine singular",
-          "features": {
-            "gender": "masculine",
-            "number": "singular",
-            "case": "nominative"
-          }
-        },
-        {
-          "id": "neuter-singular",
-          "label": "neuter singular",
-          "features": {
-            "gender": "neuter",
-            "number": "singular",
-            "case": "nominative"
-          }
-        }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "form"
-        ],
-        "categoryFeature": "gender",
-        "categoryOptions": [
-          {
-            "id": "masculine",
-            "label": "Masculine"
-          },
-          {
-            "id": "neuter",
-            "label": "Neuter"
-          }
-        ]
+        "targetText": "niger · nigrum · nigra",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "masculine-singular": {
@@ -9698,6 +9685,49 @@
               "complexity": 8
             }
           ]
+        },
+        "feminine-singular": {
+          "displayForm": "nigra",
+          "examples": [
+            {
+              "id": "zero-la-grammar-e2-black-feminine-singular-restored-1",
+              "revision": 1,
+              "learnerBaseText": "black star",
+              "englishAuditText": "black star",
+              "targetText": "stella nigra",
+              "anchor": {
+                "targetText": "stella",
+                "learnerBaseText": "star",
+                "englishAuditText": "star"
+              },
+              "slot": {
+                "beforeText": "stella ",
+                "afterText": ""
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-la-grammar-e2-black-feminine-singular-restored-2",
+              "revision": 1,
+              "learnerBaseText": "black rose",
+              "englishAuditText": "black rose",
+              "targetText": "rosa nigra",
+              "anchor": {
+                "targetText": "rosa",
+                "learnerBaseText": "rose",
+                "englishAuditText": "rose"
+              },
+              "slot": {
+                "beforeText": "rosa ",
+                "afterText": ""
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ],
+          "usefulness": 96,
+          "complexity": 8
         }
       },
       "usefulness": 96,
@@ -9705,52 +9735,14 @@
     },
     {
       "id": "zero-la-grammar-e2-hot",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective",
         "label": "Hot materials",
-        "targetText": "calida",
-        "resultTitle": "Hot materials",
-        "summary": "Use water, earth, wood and glass to learn one simple temperature word. Read the model before comparing the two endings."
-      },
-      "axes": [
-        {
-          "id": "feminine-singular",
-          "label": "feminine singular",
-          "features": {
-            "gender": "feminine",
-            "number": "singular",
-            "case": "nominative"
-          }
-        },
-        {
-          "id": "neuter-singular",
-          "label": "neuter singular",
-          "features": {
-            "gender": "neuter",
-            "number": "singular",
-            "case": "nominative"
-          }
-        }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "form"
-        ],
-        "categoryFeature": "gender",
-        "categoryOptions": [
-          {
-            "id": "feminine",
-            "label": "Feminine"
-          },
-          {
-            "id": "neuter",
-            "label": "Neuter"
-          }
-        ]
+        "targetText": "calida · calidum · calidus",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "feminine-singular": {
@@ -9838,6 +9830,49 @@
               "complexity": 8
             }
           ]
+        },
+        "masculine-singular": {
+          "displayForm": "calidus",
+          "examples": [
+            {
+              "id": "zero-la-grammar-e2-hot-masculine-singular-restored-1",
+              "revision": 1,
+              "learnerBaseText": "hot stone",
+              "englishAuditText": "hot stone",
+              "targetText": "lapis calidus",
+              "anchor": {
+                "targetText": "lapis",
+                "learnerBaseText": "stone",
+                "englishAuditText": "stone"
+              },
+              "slot": {
+                "beforeText": "lapis ",
+                "afterText": ""
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-la-grammar-e2-hot-masculine-singular-restored-2",
+              "revision": 1,
+              "learnerBaseText": "hot ball",
+              "englishAuditText": "hot ball",
+              "targetText": "globus calidus",
+              "anchor": {
+                "targetText": "globus",
+                "learnerBaseText": "ball",
+                "englishAuditText": "ball"
+              },
+              "slot": {
+                "beforeText": "globus ",
+                "afterText": ""
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ],
+          "usefulness": 96,
+          "complexity": 8
         }
       },
       "usefulness": 96,
@@ -9845,52 +9880,14 @@
     },
     {
       "id": "zero-la-grammar-e2-cold",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective",
         "label": "Cold materials",
-        "targetText": "frīgida",
-        "resultTitle": "Cold materials",
-        "summary": "Use water, earth, wood and glass to learn one simple temperature word. Read the model before comparing the two endings."
-      },
-      "axes": [
-        {
-          "id": "feminine-singular",
-          "label": "feminine singular",
-          "features": {
-            "gender": "feminine",
-            "number": "singular",
-            "case": "nominative"
-          }
-        },
-        {
-          "id": "neuter-singular",
-          "label": "neuter singular",
-          "features": {
-            "gender": "neuter",
-            "number": "singular",
-            "case": "nominative"
-          }
-        }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "form"
-        ],
-        "categoryFeature": "gender",
-        "categoryOptions": [
-          {
-            "id": "feminine",
-            "label": "Feminine"
-          },
-          {
-            "id": "neuter",
-            "label": "Neuter"
-          }
-        ]
+        "targetText": "frīgida · frīgidum · frīgidus",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "feminine-singular": {
@@ -9978,6 +9975,49 @@
               "complexity": 8
             }
           ]
+        },
+        "masculine-singular": {
+          "displayForm": "frīgidus",
+          "examples": [
+            {
+              "id": "zero-la-grammar-e2-cold-masculine-singular-restored-1",
+              "revision": 1,
+              "learnerBaseText": "cold stone",
+              "englishAuditText": "cold stone",
+              "targetText": "lapis frīgidus",
+              "anchor": {
+                "targetText": "lapis",
+                "learnerBaseText": "stone",
+                "englishAuditText": "stone"
+              },
+              "slot": {
+                "beforeText": "lapis ",
+                "afterText": ""
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-la-grammar-e2-cold-masculine-singular-restored-2",
+              "revision": 1,
+              "learnerBaseText": "cold ball",
+              "englishAuditText": "cold ball",
+              "targetText": "globus frīgidus",
+              "anchor": {
+                "targetText": "globus",
+                "learnerBaseText": "ball",
+                "englishAuditText": "ball"
+              },
+              "slot": {
+                "beforeText": "globus ",
+                "afterText": ""
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ],
+          "usefulness": 96,
+          "complexity": 8
         }
       },
       "usefulness": 96,

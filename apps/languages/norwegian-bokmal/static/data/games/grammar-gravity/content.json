@@ -11710,14 +11710,14 @@
     },
     {
       "id": "zero-nb-grammar-01",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective",
         "label": "stor: Big things",
-        "targetText": "stor",
-        "resultTitle": "Big things",
-        "summary": "Match a familiar short example to its form. Start with one example and its meaning, then compare the two forms."
+        "targetText": "stor · stort · store · store",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "common-singular": {
@@ -11841,57 +11841,107 @@
           ],
           "usefulness": 98,
           "complexity": 8
+        },
+        "common-plural": {
+          "displayForm": "store",
+          "examples": [
+            {
+              "id": "zero-nb-grammar-01-common-plural-restored-1",
+              "revision": 1,
+              "learnerBaseText": "big cars",
+              "englishAuditText": "big cars",
+              "targetText": "store biler",
+              "anchor": {
+                "targetText": "biler",
+                "learnerBaseText": "cars",
+                "englishAuditText": "cars"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " biler"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-01-common-plural-restored-2",
+              "revision": 1,
+              "learnerBaseText": "big books",
+              "englishAuditText": "big books",
+              "targetText": "store bøker",
+              "anchor": {
+                "targetText": "bøker",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " bøker"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ],
+          "usefulness": 98,
+          "complexity": 8
+        },
+        "neuter-plural": {
+          "displayForm": "store",
+          "examples": [
+            {
+              "id": "zero-nb-grammar-01-neuter-plural-restored-1",
+              "revision": 1,
+              "learnerBaseText": "big houses",
+              "englishAuditText": "big houses",
+              "targetText": "store hus",
+              "anchor": {
+                "targetText": "hus",
+                "learnerBaseText": "houses",
+                "englishAuditText": "houses"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " hus"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-01-neuter-plural-restored-2",
+              "revision": 1,
+              "learnerBaseText": "big apples",
+              "englishAuditText": "big apples",
+              "targetText": "store epler",
+              "anchor": {
+                "targetText": "epler",
+                "learnerBaseText": "apples",
+                "englishAuditText": "apples"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " epler"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ],
+          "usefulness": 98,
+          "complexity": 8
         }
       },
       "usefulness": 98,
-      "complexity": 8,
-      "axes": [
-        {
-          "id": "common-singular",
-          "label": "Common singular",
-          "features": {
-            "gender": "common",
-            "number": "singular"
-          }
-        },
-        {
-          "id": "neuter-singular",
-          "label": "Neuter singular",
-          "features": {
-            "gender": "neuter",
-            "number": "singular"
-          }
-        }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "form"
-        ],
-        "categoryFeature": "gender",
-        "categoryOptions": [
-          {
-            "id": "common",
-            "label": "Common (en)"
-          },
-          {
-            "id": "neuter",
-            "label": "Neuter (et)"
-          }
-        ]
-      }
+      "complexity": 8
     },
     {
       "id": "zero-nb-grammar-02",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective",
         "label": "ny: New beginnings",
-        "targetText": "ny",
-        "resultTitle": "New beginnings",
-        "summary": "Match a familiar short example to its form. Start with one example and its meaning, then compare the two forms."
+        "targetText": "ny · nytt · nye · nye",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "common-singular": {
@@ -12015,57 +12065,107 @@
           ],
           "usefulness": 98,
           "complexity": 8
+        },
+        "common-plural": {
+          "displayForm": "nye",
+          "examples": [
+            {
+              "id": "zero-nb-grammar-02-common-plural-restored-1",
+              "revision": 1,
+              "learnerBaseText": "new cars",
+              "englishAuditText": "new cars",
+              "targetText": "nye biler",
+              "anchor": {
+                "targetText": "biler",
+                "learnerBaseText": "cars",
+                "englishAuditText": "cars"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " biler"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-02-common-plural-restored-2",
+              "revision": 1,
+              "learnerBaseText": "new books",
+              "englishAuditText": "new books",
+              "targetText": "nye bøker",
+              "anchor": {
+                "targetText": "bøker",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " bøker"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ],
+          "usefulness": 98,
+          "complexity": 8
+        },
+        "neuter-plural": {
+          "displayForm": "nye",
+          "examples": [
+            {
+              "id": "zero-nb-grammar-02-neuter-plural-restored-1",
+              "revision": 1,
+              "learnerBaseText": "new houses",
+              "englishAuditText": "new houses",
+              "targetText": "nye hus",
+              "anchor": {
+                "targetText": "hus",
+                "learnerBaseText": "houses",
+                "englishAuditText": "houses"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " hus"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-02-neuter-plural-restored-2",
+              "revision": 1,
+              "learnerBaseText": "new apples",
+              "englishAuditText": "new apples",
+              "targetText": "nye epler",
+              "anchor": {
+                "targetText": "epler",
+                "learnerBaseText": "apples",
+                "englishAuditText": "apples"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " epler"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ],
+          "usefulness": 98,
+          "complexity": 8
         }
       },
       "usefulness": 98,
-      "complexity": 8,
-      "axes": [
-        {
-          "id": "common-singular",
-          "label": "Common singular",
-          "features": {
-            "gender": "common",
-            "number": "singular"
-          }
-        },
-        {
-          "id": "neuter-singular",
-          "label": "Neuter singular",
-          "features": {
-            "gender": "neuter",
-            "number": "singular"
-          }
-        }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "form"
-        ],
-        "categoryFeature": "gender",
-        "categoryOptions": [
-          {
-            "id": "common",
-            "label": "Common (en)"
-          },
-          {
-            "id": "neuter",
-            "label": "Neuter (et)"
-          }
-        ]
-      }
+      "complexity": 8
     },
     {
       "id": "zero-nb-grammar-03",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective",
         "label": "rød: Colors in the world",
-        "targetText": "rød",
-        "resultTitle": "Colors in the world",
-        "summary": "Match a familiar short example to its form. Start with one example and its meaning, then compare the two forms."
+        "targetText": "rød · rødt · røde · røde",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "common-singular": {
@@ -12189,57 +12289,107 @@
           ],
           "usefulness": 98,
           "complexity": 8
+        },
+        "common-plural": {
+          "displayForm": "røde",
+          "examples": [
+            {
+              "id": "zero-nb-grammar-03-common-plural-restored-1",
+              "revision": 1,
+              "learnerBaseText": "red cars",
+              "englishAuditText": "red cars",
+              "targetText": "røde biler",
+              "anchor": {
+                "targetText": "biler",
+                "learnerBaseText": "cars",
+                "englishAuditText": "cars"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " biler"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-03-common-plural-restored-2",
+              "revision": 1,
+              "learnerBaseText": "red books",
+              "englishAuditText": "red books",
+              "targetText": "røde bøker",
+              "anchor": {
+                "targetText": "bøker",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " bøker"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ],
+          "usefulness": 98,
+          "complexity": 8
+        },
+        "neuter-plural": {
+          "displayForm": "røde",
+          "examples": [
+            {
+              "id": "zero-nb-grammar-03-neuter-plural-restored-1",
+              "revision": 1,
+              "learnerBaseText": "red houses",
+              "englishAuditText": "red houses",
+              "targetText": "røde hus",
+              "anchor": {
+                "targetText": "hus",
+                "learnerBaseText": "houses",
+                "englishAuditText": "houses"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " hus"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-03-neuter-plural-restored-2",
+              "revision": 1,
+              "learnerBaseText": "red apples",
+              "englishAuditText": "red apples",
+              "targetText": "røde epler",
+              "anchor": {
+                "targetText": "epler",
+                "learnerBaseText": "apples",
+                "englishAuditText": "apples"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " epler"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ],
+          "usefulness": 98,
+          "complexity": 8
         }
       },
       "usefulness": 98,
-      "complexity": 8,
-      "axes": [
-        {
-          "id": "common-singular",
-          "label": "Common singular",
-          "features": {
-            "gender": "common",
-            "number": "singular"
-          }
-        },
-        {
-          "id": "neuter-singular",
-          "label": "Neuter singular",
-          "features": {
-            "gender": "neuter",
-            "number": "singular"
-          }
-        }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "form"
-        ],
-        "categoryFeature": "gender",
-        "categoryOptions": [
-          {
-            "id": "common",
-            "label": "Common (en)"
-          },
-          {
-            "id": "neuter",
-            "label": "Neuter (et)"
-          }
-        ]
-      }
+      "complexity": 8
     },
     {
       "id": "zero-nb-grammar-04",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective",
         "label": "grønn: Growing and exploring",
-        "targetText": "grønn",
-        "resultTitle": "Growing and exploring",
-        "summary": "Match a familiar short example to its form. Start with one example and its meaning, then compare the two forms."
+        "targetText": "grønn · grønt · grønne · grønne",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "common-singular": {
@@ -12363,57 +12513,107 @@
           ],
           "usefulness": 98,
           "complexity": 8
+        },
+        "common-plural": {
+          "displayForm": "grønne",
+          "examples": [
+            {
+              "id": "zero-nb-grammar-04-common-plural-restored-1",
+              "revision": 1,
+              "learnerBaseText": "green cars",
+              "englishAuditText": "green cars",
+              "targetText": "grønne biler",
+              "anchor": {
+                "targetText": "biler",
+                "learnerBaseText": "cars",
+                "englishAuditText": "cars"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " biler"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-04-common-plural-restored-2",
+              "revision": 1,
+              "learnerBaseText": "green books",
+              "englishAuditText": "green books",
+              "targetText": "grønne bøker",
+              "anchor": {
+                "targetText": "bøker",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " bøker"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ],
+          "usefulness": 98,
+          "complexity": 8
+        },
+        "neuter-plural": {
+          "displayForm": "grønne",
+          "examples": [
+            {
+              "id": "zero-nb-grammar-04-neuter-plural-restored-1",
+              "revision": 1,
+              "learnerBaseText": "green houses",
+              "englishAuditText": "green houses",
+              "targetText": "grønne hus",
+              "anchor": {
+                "targetText": "hus",
+                "learnerBaseText": "houses",
+                "englishAuditText": "houses"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " hus"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-04-neuter-plural-restored-2",
+              "revision": 1,
+              "learnerBaseText": "green apples",
+              "englishAuditText": "green apples",
+              "targetText": "grønne epler",
+              "anchor": {
+                "targetText": "epler",
+                "learnerBaseText": "apples",
+                "englishAuditText": "apples"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " epler"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ],
+          "usefulness": 98,
+          "complexity": 8
         }
       },
       "usefulness": 98,
-      "complexity": 8,
-      "axes": [
-        {
-          "id": "common-singular",
-          "label": "Common singular",
-          "features": {
-            "gender": "common",
-            "number": "singular"
-          }
-        },
-        {
-          "id": "neuter-singular",
-          "label": "Neuter singular",
-          "features": {
-            "gender": "neuter",
-            "number": "singular"
-          }
-        }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "form"
-        ],
-        "categoryFeature": "gender",
-        "categoryOptions": [
-          {
-            "id": "common",
-            "label": "Common (en)"
-          },
-          {
-            "id": "neuter",
-            "label": "Neuter (et)"
-          }
-        ]
-      }
+      "complexity": 8
     },
     {
       "id": "zero-nb-grammar-e2-small",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective",
         "label": "Small things",
-        "targetText": "liten",
-        "resultTitle": "Small things",
-        "summary": "Read the short phrase first. Compare one en-word form with one et-word form; use the familiar noun as your clue."
+        "targetText": "liten · lite · små · små",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "common-singular": {
@@ -12537,57 +12737,107 @@
               "complexity": 8
             }
           ]
+        },
+        "common-plural": {
+          "displayForm": "små",
+          "examples": [
+            {
+              "id": "zero-nb-grammar-e2-small-common-plural-restored-1",
+              "revision": 1,
+              "learnerBaseText": "small cars",
+              "englishAuditText": "small cars",
+              "targetText": "små biler",
+              "anchor": {
+                "targetText": "biler",
+                "learnerBaseText": "cars",
+                "englishAuditText": "cars"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " biler"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-e2-small-common-plural-restored-2",
+              "revision": 1,
+              "learnerBaseText": "small books",
+              "englishAuditText": "small books",
+              "targetText": "små bøker",
+              "anchor": {
+                "targetText": "bøker",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " bøker"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ],
+          "usefulness": 96,
+          "complexity": 8
+        },
+        "neuter-plural": {
+          "displayForm": "små",
+          "examples": [
+            {
+              "id": "zero-nb-grammar-e2-small-neuter-plural-restored-1",
+              "revision": 1,
+              "learnerBaseText": "small houses",
+              "englishAuditText": "small houses",
+              "targetText": "små hus",
+              "anchor": {
+                "targetText": "hus",
+                "learnerBaseText": "houses",
+                "englishAuditText": "houses"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " hus"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-e2-small-neuter-plural-restored-2",
+              "revision": 1,
+              "learnerBaseText": "small apples",
+              "englishAuditText": "small apples",
+              "targetText": "små epler",
+              "anchor": {
+                "targetText": "epler",
+                "learnerBaseText": "apples",
+                "englishAuditText": "apples"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " epler"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ],
+          "usefulness": 96,
+          "complexity": 8
         }
       },
       "usefulness": 96,
-      "complexity": 8,
-      "axes": [
-        {
-          "id": "common-singular",
-          "label": "Common singular",
-          "features": {
-            "gender": "common",
-            "number": "singular"
-          }
-        },
-        {
-          "id": "neuter-singular",
-          "label": "Neuter singular",
-          "features": {
-            "gender": "neuter",
-            "number": "singular"
-          }
-        }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "form"
-        ],
-        "categoryFeature": "gender",
-        "categoryOptions": [
-          {
-            "id": "common",
-            "label": "Common (en)"
-          },
-          {
-            "id": "neuter",
-            "label": "Neuter (et)"
-          }
-        ]
-      }
+      "complexity": 8
     },
     {
       "id": "zero-nb-grammar-e2-warm",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective",
         "label": "Warm things",
-        "targetText": "varm",
-        "resultTitle": "Warm things",
-        "summary": "Read the short phrase first. Compare one en-word form with one et-word form; use the familiar noun as your clue."
+        "targetText": "varm · varmt · varme · varme",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "common-singular": {
@@ -12711,57 +12961,107 @@
               "complexity": 8
             }
           ]
+        },
+        "common-plural": {
+          "displayForm": "varme",
+          "examples": [
+            {
+              "id": "zero-nb-grammar-e2-warm-common-plural-restored-1",
+              "revision": 1,
+              "learnerBaseText": "warm cars",
+              "englishAuditText": "warm cars",
+              "targetText": "varme biler",
+              "anchor": {
+                "targetText": "biler",
+                "learnerBaseText": "cars",
+                "englishAuditText": "cars"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " biler"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-e2-warm-common-plural-restored-2",
+              "revision": 1,
+              "learnerBaseText": "warm books",
+              "englishAuditText": "warm books",
+              "targetText": "varme bøker",
+              "anchor": {
+                "targetText": "bøker",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " bøker"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ],
+          "usefulness": 96,
+          "complexity": 8
+        },
+        "neuter-plural": {
+          "displayForm": "varme",
+          "examples": [
+            {
+              "id": "zero-nb-grammar-e2-warm-neuter-plural-restored-1",
+              "revision": 1,
+              "learnerBaseText": "warm houses",
+              "englishAuditText": "warm houses",
+              "targetText": "varme hus",
+              "anchor": {
+                "targetText": "hus",
+                "learnerBaseText": "houses",
+                "englishAuditText": "houses"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " hus"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-e2-warm-neuter-plural-restored-2",
+              "revision": 1,
+              "learnerBaseText": "warm apples",
+              "englishAuditText": "warm apples",
+              "targetText": "varme epler",
+              "anchor": {
+                "targetText": "epler",
+                "learnerBaseText": "apples",
+                "englishAuditText": "apples"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " epler"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ],
+          "usefulness": 96,
+          "complexity": 8
         }
       },
       "usefulness": 96,
-      "complexity": 8,
-      "axes": [
-        {
-          "id": "common-singular",
-          "label": "Common singular",
-          "features": {
-            "gender": "common",
-            "number": "singular"
-          }
-        },
-        {
-          "id": "neuter-singular",
-          "label": "Neuter singular",
-          "features": {
-            "gender": "neuter",
-            "number": "singular"
-          }
-        }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "form"
-        ],
-        "categoryFeature": "gender",
-        "categoryOptions": [
-          {
-            "id": "common",
-            "label": "Common (en)"
-          },
-          {
-            "id": "neuter",
-            "label": "Neuter (et)"
-          }
-        ]
-      }
+      "complexity": 8
     },
     {
       "id": "zero-nb-grammar-e2-cold",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective",
         "label": "Cold things",
-        "targetText": "kald",
-        "resultTitle": "Cold things",
-        "summary": "Read the short phrase first. Compare one en-word form with one et-word form; use the familiar noun as your clue."
+        "targetText": "kald · kaldt · kalde · kalde",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "common-singular": {
@@ -12885,57 +13185,107 @@
               "complexity": 8
             }
           ]
+        },
+        "common-plural": {
+          "displayForm": "kalde",
+          "examples": [
+            {
+              "id": "zero-nb-grammar-e2-cold-common-plural-restored-1",
+              "revision": 1,
+              "learnerBaseText": "cold cars",
+              "englishAuditText": "cold cars",
+              "targetText": "kalde biler",
+              "anchor": {
+                "targetText": "biler",
+                "learnerBaseText": "cars",
+                "englishAuditText": "cars"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " biler"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-e2-cold-common-plural-restored-2",
+              "revision": 1,
+              "learnerBaseText": "cold books",
+              "englishAuditText": "cold books",
+              "targetText": "kalde bøker",
+              "anchor": {
+                "targetText": "bøker",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " bøker"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ],
+          "usefulness": 96,
+          "complexity": 8
+        },
+        "neuter-plural": {
+          "displayForm": "kalde",
+          "examples": [
+            {
+              "id": "zero-nb-grammar-e2-cold-neuter-plural-restored-1",
+              "revision": 1,
+              "learnerBaseText": "cold houses",
+              "englishAuditText": "cold houses",
+              "targetText": "kalde hus",
+              "anchor": {
+                "targetText": "hus",
+                "learnerBaseText": "houses",
+                "englishAuditText": "houses"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " hus"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-e2-cold-neuter-plural-restored-2",
+              "revision": 1,
+              "learnerBaseText": "cold apples",
+              "englishAuditText": "cold apples",
+              "targetText": "kalde epler",
+              "anchor": {
+                "targetText": "epler",
+                "learnerBaseText": "apples",
+                "englishAuditText": "apples"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " epler"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ],
+          "usefulness": 96,
+          "complexity": 8
         }
       },
       "usefulness": 96,
-      "complexity": 8,
-      "axes": [
-        {
-          "id": "common-singular",
-          "label": "Common singular",
-          "features": {
-            "gender": "common",
-            "number": "singular"
-          }
-        },
-        {
-          "id": "neuter-singular",
-          "label": "Neuter singular",
-          "features": {
-            "gender": "neuter",
-            "number": "singular"
-          }
-        }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "form"
-        ],
-        "categoryFeature": "gender",
-        "categoryOptions": [
-          {
-            "id": "common",
-            "label": "Common (en)"
-          },
-          {
-            "id": "neuter",
-            "label": "Neuter (et)"
-          }
-        ]
-      }
+      "complexity": 8
     },
     {
       "id": "zero-nb-grammar-e2-good",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective",
         "label": "Good things",
-        "targetText": "god",
-        "resultTitle": "Good things",
-        "summary": "Read the short phrase first. Compare one en-word form with one et-word form; use the familiar noun as your clue."
+        "targetText": "god · godt · gode · gode",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "common-singular": {
@@ -13059,46 +13409,96 @@
               "complexity": 8
             }
           ]
+        },
+        "common-plural": {
+          "displayForm": "gode",
+          "examples": [
+            {
+              "id": "zero-nb-grammar-e2-good-common-plural-restored-1",
+              "revision": 1,
+              "learnerBaseText": "good cars",
+              "englishAuditText": "good cars",
+              "targetText": "gode biler",
+              "anchor": {
+                "targetText": "biler",
+                "learnerBaseText": "cars",
+                "englishAuditText": "cars"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " biler"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-e2-good-common-plural-restored-2",
+              "revision": 1,
+              "learnerBaseText": "good books",
+              "englishAuditText": "good books",
+              "targetText": "gode bøker",
+              "anchor": {
+                "targetText": "bøker",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " bøker"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ],
+          "usefulness": 96,
+          "complexity": 8
+        },
+        "neuter-plural": {
+          "displayForm": "gode",
+          "examples": [
+            {
+              "id": "zero-nb-grammar-e2-good-neuter-plural-restored-1",
+              "revision": 1,
+              "learnerBaseText": "good houses",
+              "englishAuditText": "good houses",
+              "targetText": "gode hus",
+              "anchor": {
+                "targetText": "hus",
+                "learnerBaseText": "houses",
+                "englishAuditText": "houses"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " hus"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-e2-good-neuter-plural-restored-2",
+              "revision": 1,
+              "learnerBaseText": "good apples",
+              "englishAuditText": "good apples",
+              "targetText": "gode epler",
+              "anchor": {
+                "targetText": "epler",
+                "learnerBaseText": "apples",
+                "englishAuditText": "apples"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " epler"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ],
+          "usefulness": 96,
+          "complexity": 8
         }
       },
       "usefulness": 96,
-      "complexity": 8,
-      "axes": [
-        {
-          "id": "common-singular",
-          "label": "Common singular",
-          "features": {
-            "gender": "common",
-            "number": "singular"
-          }
-        },
-        {
-          "id": "neuter-singular",
-          "label": "Neuter singular",
-          "features": {
-            "gender": "neuter",
-            "number": "singular"
-          }
-        }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "form"
-        ],
-        "categoryFeature": "gender",
-        "categoryOptions": [
-          {
-            "id": "common",
-            "label": "Common (en)"
-          },
-          {
-            "id": "neuter",
-            "label": "Neuter (et)"
-          }
-        ]
-      }
+      "complexity": 8
     }
   ],
   "gameplay": {

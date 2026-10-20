@@ -126,9 +126,9 @@ export function aggregatePracticeCorpusWorkloads(corpus, { courseProfiles, catal
       assert.equal(unit.recordIds.length, 1, "Domino identity must resolve one exact authored challenge");
       const row = records.get(unit.recordIds[0]), document = documents.get(row.source?.path);
       assert.ok(document && document.gameId === "naturalization-nucleus" && document.courseId === unit.courseId, "Domino catalog authority unavailable");
-      const pieces = unit.metadata.difficulty === 0 ? 3 : document.roundSettings?.defaultPieceCount;
+      const pieces = document.roundSettings?.defaultPieceCount;
       assert.ok(Number.isSafeInteger(pieces) && pieces >= 3
-        && (unit.metadata.difficulty === 0 || document.roundSettings.pieceCounts?.includes(pieces)), "Invalid default domino board size");
+        && document.roundSettings.pieceCounts?.includes(pieces), "Invalid default domino board size");
       if (defaultPieces !== undefined) assert.equal(pieces, defaultPieces, "Mixed domino board settings");
       defaultPieces = pieces;
       const location = /^challenges\[(\d+)\]$/u.exec(row.source.location);

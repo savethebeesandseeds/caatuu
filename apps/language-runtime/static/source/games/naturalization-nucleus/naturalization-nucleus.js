@@ -327,8 +327,8 @@
     for (let difficulty = challenges.some(challenge => challenge.difficulty === 0) ? 0 : 1; difficulty <= 3; difficulty += 1) {
       const eligible = filterChallengesForDifficulty(challenges, difficulty);
       assert(
-        new Set(eligible.map(readingKey)).size >= (difficulty === 0 ? 3 : requiredCount),
-        `Level ${difficulty} must provide at least ${difficulty === 0 ? 3 : requiredCount} distinct pinyin readings.`
+        new Set(eligible.map(readingKey)).size >= requiredCount,
+        `Level ${difficulty} must provide at least ${requiredCount} distinct pinyin readings.`
       );
     }
     return Object.freeze({
@@ -436,8 +436,7 @@
 
   function createRound(catalog, pieceCount, random = global.Math.random, previousArtworkSrc = "", difficulty = 3, progression = {}) {
     const normalizedDifficulty = normalizeDifficulty(difficulty, 1);
-    if (normalizedDifficulty === 0) pieceCount = 3;
-    assert((normalizedDifficulty === 0 && pieceCount === 3) || catalog?.roundSettings?.pieceCounts?.includes(pieceCount), `piece count ${pieceCount} is not available.`);
+    assert(catalog?.roundSettings?.pieceCounts?.includes(pieceCount), `piece count ${pieceCount} is not available.`);
     const selected = selectChallenges(catalog.challenges, pieceCount, random, normalizedDifficulty, progression);
     const solution = selected.map((left, index) => {
       const right = selected[(index + 1) % selected.length];
@@ -1186,7 +1185,6 @@
       optionsToggle.title = "Tile settings";
       optionsMenu.setAttribute("aria-label", "Tile settings");
       countButtons.forEach((button) => {
-        button.disabled = state.difficulty === 0;
         const selected = Number.parseInt(button.dataset.naturalizationPieceCount || "", 10) === state.pieceCount;
         button.setAttribute("aria-checked", String(selected));
       });
@@ -1370,8 +1368,7 @@
     }
 
     function startRound(pieceCount = state.pieceCount) {
-      if (state.difficulty === 0) pieceCount = 3;
-      else if (!catalog.roundSettings.pieceCounts.includes(pieceCount)) pieceCount = storedPieceCount(root, catalog);
+      if (!catalog.roundSettings.pieceCounts.includes(pieceCount)) pieceCount = storedPieceCount(root, catalog);
       const previousArtworkSrc = state.round?.artworkSrc || "";
       state.pieceCount = pieceCount;
       const presentation = roundPresentation(state.roundIndex + 1, catalog);
@@ -1617,7 +1614,7 @@
     countButtons.forEach((button) => {
       listen(button, "click", () => {
         const pieceCount = Number.parseInt(button.dataset.naturalizationPieceCount || "", 10);
-        if (state.difficulty === 0 || !catalog.roundSettings.pieceCounts.includes(pieceCount)) return;
+        if (!catalog.roundSettings.pieceCounts.includes(pieceCount)) return;
         closeToolbarMenu({ toggle: optionsToggle, menu: optionsMenu }, { restoreFocus: true });
         if (pieceCount === state.pieceCount) return;
         savePieceCount(root, catalog, pieceCount);

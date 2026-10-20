@@ -10736,14 +10736,14 @@
     },
     {
       "id": "zero-es-en-grammar-one-many",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "determiner",
         "label": "Una cosa y varias",
         "targetText": "a · two",
-        "resultTitle": "Dos formas básicas",
-        "summary": "Mira una cosa y dos cosas. Practica una palabra cada vez."
+        "resultTitle": "Palabras sencillas",
+        "summary": "Lee la frase corta y relaciona la palabra con su significado y su forma."
       },
       "forms": {
         "singular": {
@@ -10833,54 +10833,19 @@
           "complexity": 5
         }
       },
-      "axes": [
-        {
-          "id": "singular",
-          "label": "Singular",
-          "features": {
-            "number": "singular"
-          }
-        },
-        {
-          "id": "plural",
-          "label": "Plural",
-          "features": {
-            "number": "plural"
-          }
-        }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "category",
-          "form"
-        ],
-        "categoryFeature": "number",
-        "categoryOptions": [
-          {
-            "id": "singular",
-            "label": "Singular"
-          },
-          {
-            "id": "plural",
-            "label": "Plural"
-          }
-        ]
-      },
       "usefulness": 92,
       "complexity": 6
     },
     {
       "id": "zero-es-en-grammar-near",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "determiner",
         "label": "Una cosa y varias",
         "targetText": "this · these",
-        "resultTitle": "Dos formas básicas",
-        "summary": "Mira una cosa y dos cosas. Practica una palabra cada vez."
+        "resultTitle": "Palabras sencillas",
+        "summary": "Lee la frase corta y relaciona la palabra con su significado y su forma."
       },
       "forms": {
         "singular": {
@@ -10970,54 +10935,19 @@
           "complexity": 5
         }
       },
-      "axes": [
-        {
-          "id": "singular",
-          "label": "Singular",
-          "features": {
-            "number": "singular"
-          }
-        },
-        {
-          "id": "plural",
-          "label": "Plural",
-          "features": {
-            "number": "plural"
-          }
-        }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "category",
-          "form"
-        ],
-        "categoryFeature": "number",
-        "categoryOptions": [
-          {
-            "id": "singular",
-            "label": "Singular"
-          },
-          {
-            "id": "plural",
-            "label": "Plural"
-          }
-        ]
-      },
       "usefulness": 92,
       "complexity": 6
     },
     {
       "id": "zero-es-en-grammar-far",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "determiner",
         "label": "Una cosa y varias",
         "targetText": "that · those",
-        "resultTitle": "Dos formas básicas",
-        "summary": "Mira una cosa y dos cosas. Practica una palabra cada vez."
+        "resultTitle": "Palabras sencillas",
+        "summary": "Lee la frase corta y relaciona la palabra con su significado y su forma."
       },
       "forms": {
         "singular": {
@@ -11107,54 +11037,19 @@
           "complexity": 5
         }
       },
-      "axes": [
-        {
-          "id": "singular",
-          "label": "Singular",
-          "features": {
-            "number": "singular"
-          }
-        },
-        {
-          "id": "plural",
-          "label": "Plural",
-          "features": {
-            "number": "plural"
-          }
-        }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "category",
-          "form"
-        ],
-        "categoryFeature": "number",
-        "categoryOptions": [
-          {
-            "id": "singular",
-            "label": "Singular"
-          },
-          {
-            "id": "plural",
-            "label": "Plural"
-          }
-        ]
-      },
       "usefulness": 92,
       "complexity": 6
     },
     {
       "id": "zero-es-en-grammar-one-two",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "determiner",
         "label": "Una cosa y varias",
         "targetText": "one · two",
-        "resultTitle": "Dos formas básicas",
-        "summary": "Mira una cosa y dos cosas. Practica una palabra cada vez."
+        "resultTitle": "Palabras sencillas",
+        "summary": "Lee la frase corta y relaciona la palabra con su significado y su forma."
       },
       "forms": {
         "singular": {
@@ -11244,54 +11139,19 @@
           "complexity": 5
         }
       },
-      "axes": [
-        {
-          "id": "singular",
-          "label": "Singular",
-          "features": {
-            "number": "singular"
-          }
-        },
-        {
-          "id": "plural",
-          "label": "Plural",
-          "features": {
-            "number": "plural"
-          }
-        }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "category",
-          "form"
-        ],
-        "categoryFeature": "number",
-        "categoryOptions": [
-          {
-            "id": "singular",
-            "label": "Singular"
-          },
-          {
-            "id": "plural",
-            "label": "Plural"
-          }
-        ]
-      },
       "usefulness": 92,
       "complexity": 6
     },
     {
       "id": "zero-es-en-grammar-expand-big",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective-number-frame",
         "label": "Una cosa y dos: big",
         "targetText": "a big · two big",
-        "resultTitle": "big no cambia",
-        "summary": "Con una cosa usa a big. Con dos cosas usa two big. El adjetivo no cambia. Revisión nativa pendiente."
+        "resultTitle": "Palabras sencillas",
+        "summary": "Lee la frase corta y relaciona la palabra con su significado y su forma."
       },
       "forms": {
         "singular": {
@@ -11453,54 +11313,19 @@
           "complexity": 6
         }
       },
-      "axes": [
-        {
-          "id": "singular",
-          "label": "Singular",
-          "features": {
-            "number": "singular"
-          }
-        },
-        {
-          "id": "plural",
-          "label": "Plural",
-          "features": {
-            "number": "plural"
-          }
-        }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "category",
-          "form"
-        ],
-        "categoryFeature": "number",
-        "categoryOptions": [
-          {
-            "id": "singular",
-            "label": "Singular"
-          },
-          {
-            "id": "plural",
-            "label": "Plural"
-          }
-        ]
-      },
       "usefulness": 92,
       "complexity": 7
     },
     {
       "id": "zero-es-en-grammar-expand-small",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective-number-frame",
         "label": "Una cosa y dos: small",
         "targetText": "a small · two small",
-        "resultTitle": "small no cambia",
-        "summary": "Con una cosa usa a small. Con dos cosas usa two small. El adjetivo no cambia. Revisión nativa pendiente."
+        "resultTitle": "Palabras sencillas",
+        "summary": "Lee la frase corta y relaciona la palabra con su significado y su forma."
       },
       "forms": {
         "singular": {
@@ -11662,54 +11487,19 @@
           "complexity": 6
         }
       },
-      "axes": [
-        {
-          "id": "singular",
-          "label": "Singular",
-          "features": {
-            "number": "singular"
-          }
-        },
-        {
-          "id": "plural",
-          "label": "Plural",
-          "features": {
-            "number": "plural"
-          }
-        }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "category",
-          "form"
-        ],
-        "categoryFeature": "number",
-        "categoryOptions": [
-          {
-            "id": "singular",
-            "label": "Singular"
-          },
-          {
-            "id": "plural",
-            "label": "Plural"
-          }
-        ]
-      },
       "usefulness": 92,
       "complexity": 7
     },
     {
       "id": "zero-es-en-grammar-expand-red",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective-number-frame",
         "label": "Una cosa y dos: red",
         "targetText": "a red · two red",
-        "resultTitle": "red no cambia",
-        "summary": "Con una cosa usa a red. Con dos cosas usa two red. El adjetivo no cambia. Revisión nativa pendiente."
+        "resultTitle": "Palabras sencillas",
+        "summary": "Lee la frase corta y relaciona la palabra con su significado y su forma."
       },
       "forms": {
         "singular": {
@@ -11871,54 +11661,19 @@
           "complexity": 6
         }
       },
-      "axes": [
-        {
-          "id": "singular",
-          "label": "Singular",
-          "features": {
-            "number": "singular"
-          }
-        },
-        {
-          "id": "plural",
-          "label": "Plural",
-          "features": {
-            "number": "plural"
-          }
-        }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "category",
-          "form"
-        ],
-        "categoryFeature": "number",
-        "categoryOptions": [
-          {
-            "id": "singular",
-            "label": "Singular"
-          },
-          {
-            "id": "plural",
-            "label": "Plural"
-          }
-        ]
-      },
       "usefulness": 92,
       "complexity": 7
     },
     {
       "id": "zero-es-en-grammar-expand-green",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective-number-frame",
         "label": "Una cosa y dos: green",
         "targetText": "a green · two green",
-        "resultTitle": "green no cambia",
-        "summary": "Con una cosa usa a green. Con dos cosas usa two green. El adjetivo no cambia. Revisión nativa pendiente."
+        "resultTitle": "Palabras sencillas",
+        "summary": "Lee la frase corta y relaciona la palabra con su significado y su forma."
       },
       "forms": {
         "singular": {
@@ -12079,41 +11834,6 @@
           "usefulness": 92,
           "complexity": 6
         }
-      },
-      "axes": [
-        {
-          "id": "singular",
-          "label": "Singular",
-          "features": {
-            "number": "singular"
-          }
-        },
-        {
-          "id": "plural",
-          "label": "Plural",
-          "features": {
-            "number": "plural"
-          }
-        }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "category",
-          "form"
-        ],
-        "categoryFeature": "number",
-        "categoryOptions": [
-          {
-            "id": "singular",
-            "label": "Singular"
-          },
-          {
-            "id": "plural",
-            "label": "Plural"
-          }
-        ]
       },
       "usefulness": 92,
       "complexity": 7

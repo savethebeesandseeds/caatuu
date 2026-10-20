@@ -1,7 +1,7 @@
 import {
   normalizeNounLandingPack, createNounLandingSession, startNounLanding,
   selectNounLane, advanceNounFall, landNoun, nextNoun, setNounFallDuration
-} from "./noun-landing-core.mjs?v=noun-landing-core-12";
+} from "./noun-landing-core.mjs?v=noun-landing-core-13";
 import { fetchDeclaredCourseGameJson } from "../course-game-content.mjs?v=course-game-content-1";
 import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-10";
 import { createNounVisual } from "./noun-visual.mjs?v=noun-visual-4";

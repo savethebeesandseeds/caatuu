@@ -10869,14 +10869,14 @@
     },
     {
       "id": "zero-cz-grammar-big",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective",
         "label": "big",
-        "targetText": "velký · velká",
-        "resultTitle": "Two tiny forms",
-        "summary": "One familiar noun and one describing word. Machine-assisted draft; native review pending."
+        "targetText": "velký · velká · velké",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "masculine": {
@@ -10964,58 +10964,64 @@
           ],
           "usefulness": 92,
           "complexity": 5
-        }
-      },
-      "axes": [
-        {
-          "id": "masculine",
-          "label": "Masculine",
-          "features": {
-            "gender": "masculine"
-          }
         },
-        {
-          "id": "feminine",
-          "label": "Feminine",
-          "features": {
-            "gender": "feminine"
-          }
+        "neuter": {
+          "displayForm": "velké",
+          "examples": [
+            {
+              "id": "zero-cz-grammar-big-neuter-restored-1",
+              "revision": 1,
+              "learnerBaseText": "big apple",
+              "englishAuditText": "big apple",
+              "targetText": "velké jablko",
+              "anchor": {
+                "targetText": "jablko",
+                "learnerBaseText": "apple",
+                "englishAuditText": "apple"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " jablko"
+              },
+              "usefulness": 92,
+              "complexity": 6
+            },
+            {
+              "id": "zero-cz-grammar-big-neuter-restored-2",
+              "revision": 1,
+              "learnerBaseText": "big car",
+              "englishAuditText": "big car",
+              "targetText": "velké auto",
+              "anchor": {
+                "targetText": "auto",
+                "learnerBaseText": "car",
+                "englishAuditText": "car"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " auto"
+              },
+              "usefulness": 92,
+              "complexity": 6
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 6
         }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "category",
-          "form"
-        ],
-        "categoryFeature": "gender",
-        "categoryOptions": [
-          {
-            "id": "masculine",
-            "label": "Masculine",
-            "image": "/assets/micelaneous/male_gender.png"
-          },
-          {
-            "id": "feminine",
-            "label": "Feminine",
-            "image": "/assets/micelaneous/female_gender.png"
-          }
-        ]
       },
       "usefulness": 92,
       "complexity": 6
     },
     {
       "id": "zero-cz-grammar-small",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective",
         "label": "small",
-        "targetText": "malý · malá",
-        "resultTitle": "Two tiny forms",
-        "summary": "One familiar noun and one describing word. Machine-assisted draft; native review pending."
+        "targetText": "malý · malá · malé",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "masculine": {
@@ -11103,58 +11109,64 @@
           ],
           "usefulness": 92,
           "complexity": 5
-        }
-      },
-      "axes": [
-        {
-          "id": "masculine",
-          "label": "Masculine",
-          "features": {
-            "gender": "masculine"
-          }
         },
-        {
-          "id": "feminine",
-          "label": "Feminine",
-          "features": {
-            "gender": "feminine"
-          }
+        "neuter": {
+          "displayForm": "malé",
+          "examples": [
+            {
+              "id": "zero-cz-grammar-small-neuter-restored-1",
+              "revision": 1,
+              "learnerBaseText": "small apple",
+              "englishAuditText": "small apple",
+              "targetText": "malé jablko",
+              "anchor": {
+                "targetText": "jablko",
+                "learnerBaseText": "apple",
+                "englishAuditText": "apple"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " jablko"
+              },
+              "usefulness": 92,
+              "complexity": 6
+            },
+            {
+              "id": "zero-cz-grammar-small-neuter-restored-2",
+              "revision": 1,
+              "learnerBaseText": "small car",
+              "englishAuditText": "small car",
+              "targetText": "malé auto",
+              "anchor": {
+                "targetText": "auto",
+                "learnerBaseText": "car",
+                "englishAuditText": "car"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " auto"
+              },
+              "usefulness": 92,
+              "complexity": 6
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 6
         }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "category",
-          "form"
-        ],
-        "categoryFeature": "gender",
-        "categoryOptions": [
-          {
-            "id": "masculine",
-            "label": "Masculine",
-            "image": "/assets/micelaneous/male_gender.png"
-          },
-          {
-            "id": "feminine",
-            "label": "Feminine",
-            "image": "/assets/micelaneous/female_gender.png"
-          }
-        ]
       },
       "usefulness": 92,
       "complexity": 6
     },
     {
       "id": "zero-cz-grammar-red",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective",
         "label": "red",
-        "targetText": "červený · červená",
-        "resultTitle": "Two tiny forms",
-        "summary": "One familiar noun and one describing word. Machine-assisted draft; native review pending."
+        "targetText": "červený · červená · červené",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "masculine": {
@@ -11242,58 +11254,64 @@
           ],
           "usefulness": 92,
           "complexity": 5
-        }
-      },
-      "axes": [
-        {
-          "id": "masculine",
-          "label": "Masculine",
-          "features": {
-            "gender": "masculine"
-          }
         },
-        {
-          "id": "feminine",
-          "label": "Feminine",
-          "features": {
-            "gender": "feminine"
-          }
+        "neuter": {
+          "displayForm": "červené",
+          "examples": [
+            {
+              "id": "zero-cz-grammar-red-neuter-restored-1",
+              "revision": 1,
+              "learnerBaseText": "red apple",
+              "englishAuditText": "red apple",
+              "targetText": "červené jablko",
+              "anchor": {
+                "targetText": "jablko",
+                "learnerBaseText": "apple",
+                "englishAuditText": "apple"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " jablko"
+              },
+              "usefulness": 92,
+              "complexity": 6
+            },
+            {
+              "id": "zero-cz-grammar-red-neuter-restored-2",
+              "revision": 1,
+              "learnerBaseText": "red car",
+              "englishAuditText": "red car",
+              "targetText": "červené auto",
+              "anchor": {
+                "targetText": "auto",
+                "learnerBaseText": "car",
+                "englishAuditText": "car"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " auto"
+              },
+              "usefulness": 92,
+              "complexity": 6
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 6
         }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "category",
-          "form"
-        ],
-        "categoryFeature": "gender",
-        "categoryOptions": [
-          {
-            "id": "masculine",
-            "label": "Masculine",
-            "image": "/assets/micelaneous/male_gender.png"
-          },
-          {
-            "id": "feminine",
-            "label": "Feminine",
-            "image": "/assets/micelaneous/female_gender.png"
-          }
-        ]
       },
       "usefulness": 92,
       "complexity": 6
     },
     {
       "id": "zero-cz-grammar-green",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective",
         "label": "green",
-        "targetText": "zelený · zelená",
-        "resultTitle": "Two tiny forms",
-        "summary": "One familiar noun and one describing word. Machine-assisted draft; native review pending."
+        "targetText": "zelený · zelená · zelené",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "masculine": {
@@ -11381,58 +11399,64 @@
           ],
           "usefulness": 92,
           "complexity": 5
-        }
-      },
-      "axes": [
-        {
-          "id": "masculine",
-          "label": "Masculine",
-          "features": {
-            "gender": "masculine"
-          }
         },
-        {
-          "id": "feminine",
-          "label": "Feminine",
-          "features": {
-            "gender": "feminine"
-          }
+        "neuter": {
+          "displayForm": "zelené",
+          "examples": [
+            {
+              "id": "zero-cz-grammar-green-neuter-restored-1",
+              "revision": 1,
+              "learnerBaseText": "green apple",
+              "englishAuditText": "green apple",
+              "targetText": "zelené jablko",
+              "anchor": {
+                "targetText": "jablko",
+                "learnerBaseText": "apple",
+                "englishAuditText": "apple"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " jablko"
+              },
+              "usefulness": 92,
+              "complexity": 6
+            },
+            {
+              "id": "zero-cz-grammar-green-neuter-restored-2",
+              "revision": 1,
+              "learnerBaseText": "green car",
+              "englishAuditText": "green car",
+              "targetText": "zelené auto",
+              "anchor": {
+                "targetText": "auto",
+                "learnerBaseText": "car",
+                "englishAuditText": "car"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " auto"
+              },
+              "usefulness": 92,
+              "complexity": 6
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 6
         }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "category",
-          "form"
-        ],
-        "categoryFeature": "gender",
-        "categoryOptions": [
-          {
-            "id": "masculine",
-            "label": "Masculine",
-            "image": "/assets/micelaneous/male_gender.png"
-          },
-          {
-            "id": "feminine",
-            "label": "Feminine",
-            "image": "/assets/micelaneous/female_gender.png"
-          }
-        ]
       },
       "usefulness": 92,
       "complexity": 6
     },
     {
       "id": "zero-cz-grammar-expand-white",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective",
         "label": "white",
-        "targetText": "bílý · bílá",
-        "resultTitle": "Two tiny forms",
-        "summary": "One familiar thing and one describing word. Machine-assisted draft; native review is pending."
+        "targetText": "bílý · bílá · bílé",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "masculine": {
@@ -11592,58 +11616,64 @@
           ],
           "usefulness": 92,
           "complexity": 6
-        }
-      },
-      "axes": [
-        {
-          "id": "masculine",
-          "label": "Masculine",
-          "features": {
-            "gender": "masculine"
-          }
         },
-        {
-          "id": "feminine",
-          "label": "Feminine",
-          "features": {
-            "gender": "feminine"
-          }
+        "neuter": {
+          "displayForm": "bílé",
+          "examples": [
+            {
+              "id": "zero-cz-grammar-expand-white-neuter-restored-1",
+              "revision": 1,
+              "learnerBaseText": "white apple",
+              "englishAuditText": "white apple",
+              "targetText": "bílé jablko",
+              "anchor": {
+                "targetText": "jablko",
+                "learnerBaseText": "apple",
+                "englishAuditText": "apple"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " jablko"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-cz-grammar-expand-white-neuter-restored-2",
+              "revision": 1,
+              "learnerBaseText": "white car",
+              "englishAuditText": "white car",
+              "targetText": "bílé auto",
+              "anchor": {
+                "targetText": "auto",
+                "learnerBaseText": "car",
+                "englishAuditText": "car"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " auto"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 7
         }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "category",
-          "form"
-        ],
-        "categoryFeature": "gender",
-        "categoryOptions": [
-          {
-            "id": "masculine",
-            "label": "Masculine",
-            "image": "/assets/micelaneous/male_gender.png"
-          },
-          {
-            "id": "feminine",
-            "label": "Feminine",
-            "image": "/assets/micelaneous/female_gender.png"
-          }
-        ]
       },
       "usefulness": 92,
       "complexity": 7
     },
     {
       "id": "zero-cz-grammar-expand-black",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective",
         "label": "black",
-        "targetText": "černý · černá",
-        "resultTitle": "Two tiny forms",
-        "summary": "One familiar thing and one describing word. Machine-assisted draft; native review is pending."
+        "targetText": "černý · černá · černé",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "masculine": {
@@ -11803,58 +11833,64 @@
           ],
           "usefulness": 92,
           "complexity": 6
-        }
-      },
-      "axes": [
-        {
-          "id": "masculine",
-          "label": "Masculine",
-          "features": {
-            "gender": "masculine"
-          }
         },
-        {
-          "id": "feminine",
-          "label": "Feminine",
-          "features": {
-            "gender": "feminine"
-          }
+        "neuter": {
+          "displayForm": "černé",
+          "examples": [
+            {
+              "id": "zero-cz-grammar-expand-black-neuter-restored-1",
+              "revision": 1,
+              "learnerBaseText": "black apple",
+              "englishAuditText": "black apple",
+              "targetText": "černé jablko",
+              "anchor": {
+                "targetText": "jablko",
+                "learnerBaseText": "apple",
+                "englishAuditText": "apple"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " jablko"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-cz-grammar-expand-black-neuter-restored-2",
+              "revision": 1,
+              "learnerBaseText": "black car",
+              "englishAuditText": "black car",
+              "targetText": "černé auto",
+              "anchor": {
+                "targetText": "auto",
+                "learnerBaseText": "car",
+                "englishAuditText": "car"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " auto"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 7
         }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "category",
-          "form"
-        ],
-        "categoryFeature": "gender",
-        "categoryOptions": [
-          {
-            "id": "masculine",
-            "label": "Masculine",
-            "image": "/assets/micelaneous/male_gender.png"
-          },
-          {
-            "id": "feminine",
-            "label": "Feminine",
-            "image": "/assets/micelaneous/female_gender.png"
-          }
-        ]
       },
       "usefulness": 92,
       "complexity": 7
     },
     {
       "id": "zero-cz-grammar-expand-new",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective",
         "label": "new",
-        "targetText": "nový · nová",
-        "resultTitle": "Two tiny forms",
-        "summary": "One familiar thing and one describing word. Machine-assisted draft; native review is pending."
+        "targetText": "nový · nová · nové",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "masculine": {
@@ -12014,58 +12050,64 @@
           ],
           "usefulness": 92,
           "complexity": 6
-        }
-      },
-      "axes": [
-        {
-          "id": "masculine",
-          "label": "Masculine",
-          "features": {
-            "gender": "masculine"
-          }
         },
-        {
-          "id": "feminine",
-          "label": "Feminine",
-          "features": {
-            "gender": "feminine"
-          }
+        "neuter": {
+          "displayForm": "nové",
+          "examples": [
+            {
+              "id": "zero-cz-grammar-expand-new-neuter-restored-1",
+              "revision": 1,
+              "learnerBaseText": "new apple",
+              "englishAuditText": "new apple",
+              "targetText": "nové jablko",
+              "anchor": {
+                "targetText": "jablko",
+                "learnerBaseText": "apple",
+                "englishAuditText": "apple"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " jablko"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-cz-grammar-expand-new-neuter-restored-2",
+              "revision": 1,
+              "learnerBaseText": "new car",
+              "englishAuditText": "new car",
+              "targetText": "nové auto",
+              "anchor": {
+                "targetText": "auto",
+                "learnerBaseText": "car",
+                "englishAuditText": "car"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " auto"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 7
         }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "category",
-          "form"
-        ],
-        "categoryFeature": "gender",
-        "categoryOptions": [
-          {
-            "id": "masculine",
-            "label": "Masculine",
-            "image": "/assets/micelaneous/male_gender.png"
-          },
-          {
-            "id": "feminine",
-            "label": "Feminine",
-            "image": "/assets/micelaneous/female_gender.png"
-          }
-        ]
       },
       "usefulness": 92,
       "complexity": 7
     },
     {
       "id": "zero-cz-grammar-expand-old",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective",
         "label": "old",
-        "targetText": "starý · stará",
-        "resultTitle": "Two tiny forms",
-        "summary": "One familiar thing and one describing word. Machine-assisted draft; native review is pending."
+        "targetText": "starý · stará · staré",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "masculine": {
@@ -12225,44 +12267,50 @@
           ],
           "usefulness": 92,
           "complexity": 6
-        }
-      },
-      "axes": [
-        {
-          "id": "masculine",
-          "label": "Masculine",
-          "features": {
-            "gender": "masculine"
-          }
         },
-        {
-          "id": "feminine",
-          "label": "Feminine",
-          "features": {
-            "gender": "feminine"
-          }
+        "neuter": {
+          "displayForm": "staré",
+          "examples": [
+            {
+              "id": "zero-cz-grammar-expand-old-neuter-restored-1",
+              "revision": 1,
+              "learnerBaseText": "old apple",
+              "englishAuditText": "old apple",
+              "targetText": "staré jablko",
+              "anchor": {
+                "targetText": "jablko",
+                "learnerBaseText": "apple",
+                "englishAuditText": "apple"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " jablko"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-cz-grammar-expand-old-neuter-restored-2",
+              "revision": 1,
+              "learnerBaseText": "old car",
+              "englishAuditText": "old car",
+              "targetText": "staré auto",
+              "anchor": {
+                "targetText": "auto",
+                "learnerBaseText": "car",
+                "englishAuditText": "car"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " auto"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 7
         }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "category",
-          "form"
-        ],
-        "categoryFeature": "gender",
-        "categoryOptions": [
-          {
-            "id": "masculine",
-            "label": "Masculine",
-            "image": "/assets/micelaneous/male_gender.png"
-          },
-          {
-            "id": "feminine",
-            "label": "Feminine",
-            "image": "/assets/micelaneous/female_gender.png"
-          }
-        ]
       },
       "usefulness": 92,
       "complexity": 7

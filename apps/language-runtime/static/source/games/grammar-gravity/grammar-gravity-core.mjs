@@ -6,7 +6,7 @@ import {
   shuffledGrammarValues,
   validateGrammarFlight,
   validateGrammarStages
-} from "./adjective-flight-core.mjs?v=grammar-journey-5";
+} from "./adjective-flight-core.mjs?v=grammar-journey-6";
 
 export const GRAMMAR_GRAVITY_SCHEMA_VERSION = "caatuu-grammar-gravity-content-v3";
 
@@ -416,10 +416,7 @@ export function buildGrammarGravityRounds(pack, difficulty, random = Math.random
     form.examples.map((example) => example.anchor.learnerBaseText))))];
   const rounds = challenges.flatMap((challenge) => {
     const axes = challenge.axes || pack.axes;
-    const authoredGameplay = challenge.gameplay || pack.gameplay;
-    const gameplay = level === 0
-      ? { ...authoredGameplay, stages: authoredGameplay.stages.filter(stage => stage !== "category") }
-      : authoredGameplay;
+    const gameplay = challenge.gameplay || pack.gameplay;
     const options = [...new Set(axes.map((axis) => challenge.forms[axis.id].displayForm))];
     return axes.flatMap((axis) => {
       const form = challenge.forms[axis.id];
@@ -434,16 +431,13 @@ export function buildGrammarGravityRounds(pack, difficulty, random = Math.random
           beforeText: example.slot.beforeText,
           afterText: example.slot.afterText,
           answer: form.displayForm,
-          options: shuffledGrammarValues(level === 0
-            ? [form.displayForm, shuffledGrammarValues(options.filter(value => value !== form.displayForm), random)[0]]
-            : options, random),
-          ...(level === 0 ? { introductory: true } : {}),
+          options: shuffledGrammarValues(options, random),
           categoryId: axis.features[gameplay.categoryFeature],
           categoryOptions: gameplay.categoryOptions,
           stages: gameplay.stages,
           meaningPool,
           meaningOptions: gameplay.stages.includes("meaning")
-            ? buildMeaningChoices(example.anchor.learnerBaseText, meaningPool, level === 0 ? 2 : 3, random) : []
+            ? buildMeaningChoices(example.anchor.learnerBaseText, meaningPool, 3, random) : []
         });
         return {
           id: example.id,
@@ -513,6 +507,6 @@ export function scopeGrammarGravityMeaningChoices(rounds, candidates = rounds, r
     const pool = meaningPool.map(meaning => normalizedText(meaning) === normalizedText(flight.anchorMeaning)
       ? flight.anchorMeaning : meaning);
     return validateGrammarFlight({ ...flight, meaningPool: pool,
-      meaningOptions: buildMeaningChoices(flight.anchorMeaning, pool, flight.introductory ? 2 : 3, random) });
+      meaningOptions: buildMeaningChoices(flight.anchorMeaning, pool, 3, random) });
   }) })));
 }

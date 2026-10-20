@@ -9878,41 +9878,109 @@
     },
     {
       "id": "zero-es-conj-eat",
-      "revision": 1,
+      "revision": 2,
       "targetText": "comer",
       "learnerBaseText": "eat",
       "englishAuditText": "eat",
       "meaningChoiceBaseText": "eat",
       "difficulty": 0,
-      "family": "I and you: two forms",
+      "family": "Everyday actions",
       "lessonId": "zero-es-first-actions",
-      "teachingNoteBaseText": "Practise only I and you (one person). Listen and match one form at a time.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "machine-assisted-draft"
       ],
       "forms": [
         {
+          "usefulness": 92,
+          "complexity": 6,
           "id": "first",
           "revision": 1,
           "subjectTargetText": "yo",
           "subjectBaseText": "I",
           "targetText": "como",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "I eat",
-          "englishAuditText": "I eat",
-          "usefulness": 92,
-          "complexity": 6
+          "englishAuditText": "I eat"
         },
         {
+          "usefulness": 92,
+          "complexity": 6,
           "id": "second",
           "revision": 1,
           "subjectTargetText": "tú",
-          "subjectBaseText": "you",
+          "subjectBaseText": "you (informal)",
           "targetText": "comes",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "you eat",
-          "englishAuditText": "you eat",
+          "englishAuditText": "you eat"
+        },
+        {
           "usefulness": 92,
-          "complexity": 6
+          "complexity": 6,
+          "id": "third-singular-formal",
+          "revision": 1,
+          "subjectTargetText": "él / ella / usted",
+          "subjectBaseText": "he/she/you (formal)",
+          "targetText": "come",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she eats",
+          "englishAuditText": "he/she eats"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "first-plural",
+          "revision": 1,
+          "subjectTargetText": "nosotros / nosotras",
+          "subjectBaseText": "we",
+          "targetText": "comemos",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we eat",
+          "englishAuditText": "we eat"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "second-plural-informal-spain",
+          "revision": 1,
+          "subjectTargetText": "vosotros / vosotras",
+          "subjectBaseText": "you all (informal)",
+          "targetText": "coméis",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you all eat",
+          "englishAuditText": "you all eat"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "third-plural-formal",
+          "revision": 1,
+          "subjectTargetText": "ellos / ellas / ustedes",
+          "subjectBaseText": "they/you all (formal)",
+          "targetText": "comen",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they eat",
+          "englishAuditText": "they eat"
         }
       ],
       "usefulness": 92,
@@ -9920,41 +9988,109 @@
     },
     {
       "id": "zero-es-conj-drink",
-      "revision": 1,
+      "revision": 2,
       "targetText": "beber",
       "learnerBaseText": "drink",
       "englishAuditText": "drink",
       "meaningChoiceBaseText": "drink",
       "difficulty": 0,
-      "family": "I and you: two forms",
+      "family": "Everyday actions",
       "lessonId": "zero-es-first-actions",
-      "teachingNoteBaseText": "Practise only I and you (one person). Listen and match one form at a time.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "machine-assisted-draft"
       ],
       "forms": [
         {
+          "usefulness": 92,
+          "complexity": 6,
           "id": "first",
           "revision": 1,
           "subjectTargetText": "yo",
           "subjectBaseText": "I",
           "targetText": "bebo",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "I drink",
-          "englishAuditText": "I drink",
-          "usefulness": 92,
-          "complexity": 6
+          "englishAuditText": "I drink"
         },
         {
+          "usefulness": 92,
+          "complexity": 6,
           "id": "second",
           "revision": 1,
           "subjectTargetText": "tú",
-          "subjectBaseText": "you",
+          "subjectBaseText": "you (informal)",
           "targetText": "bebes",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "you drink",
-          "englishAuditText": "you drink",
+          "englishAuditText": "you drink"
+        },
+        {
           "usefulness": 92,
-          "complexity": 6
+          "complexity": 6,
+          "id": "third-singular-formal",
+          "revision": 1,
+          "subjectTargetText": "él / ella / usted",
+          "subjectBaseText": "he/she/you (formal)",
+          "targetText": "bebe",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she drinks",
+          "englishAuditText": "he/she drinks"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "first-plural",
+          "revision": 1,
+          "subjectTargetText": "nosotros / nosotras",
+          "subjectBaseText": "we",
+          "targetText": "bebemos",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we drink",
+          "englishAuditText": "we drink"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "second-plural-informal-spain",
+          "revision": 1,
+          "subjectTargetText": "vosotros / vosotras",
+          "subjectBaseText": "you all (informal)",
+          "targetText": "bebéis",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you all drink",
+          "englishAuditText": "you all drink"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "third-plural-formal",
+          "revision": 1,
+          "subjectTargetText": "ellos / ellas / ustedes",
+          "subjectBaseText": "they/you all (formal)",
+          "targetText": "beben",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they drink",
+          "englishAuditText": "they drink"
         }
       ],
       "usefulness": 92,
@@ -9962,41 +10098,109 @@
     },
     {
       "id": "zero-es-conj-speak",
-      "revision": 1,
+      "revision": 2,
       "targetText": "hablar",
       "learnerBaseText": "speak",
       "englishAuditText": "speak",
       "meaningChoiceBaseText": "speak",
       "difficulty": 0,
-      "family": "I and you: two forms",
+      "family": "Everyday actions",
       "lessonId": "zero-es-first-actions",
-      "teachingNoteBaseText": "Practise only I and you (one person). Listen and match one form at a time.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "machine-assisted-draft"
       ],
       "forms": [
         {
+          "usefulness": 92,
+          "complexity": 6,
           "id": "first",
           "revision": 1,
           "subjectTargetText": "yo",
           "subjectBaseText": "I",
           "targetText": "hablo",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "I speak",
-          "englishAuditText": "I speak",
-          "usefulness": 92,
-          "complexity": 6
+          "englishAuditText": "I speak"
         },
         {
+          "usefulness": 92,
+          "complexity": 6,
           "id": "second",
           "revision": 1,
           "subjectTargetText": "tú",
-          "subjectBaseText": "you",
+          "subjectBaseText": "you (informal)",
           "targetText": "hablas",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "you speak",
-          "englishAuditText": "you speak",
+          "englishAuditText": "you speak"
+        },
+        {
           "usefulness": 92,
-          "complexity": 6
+          "complexity": 6,
+          "id": "third-singular-formal",
+          "revision": 1,
+          "subjectTargetText": "él / ella / usted",
+          "subjectBaseText": "he/she/you (formal)",
+          "targetText": "habla",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she speaks",
+          "englishAuditText": "he/she speaks"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "first-plural",
+          "revision": 1,
+          "subjectTargetText": "nosotros / nosotras",
+          "subjectBaseText": "we",
+          "targetText": "hablamos",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we speak",
+          "englishAuditText": "we speak"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "second-plural-informal-spain",
+          "revision": 1,
+          "subjectTargetText": "vosotros / vosotras",
+          "subjectBaseText": "you all (informal)",
+          "targetText": "habláis",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you all speak",
+          "englishAuditText": "you all speak"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "third-plural-formal",
+          "revision": 1,
+          "subjectTargetText": "ellos / ellas / ustedes",
+          "subjectBaseText": "they/you all (formal)",
+          "targetText": "hablan",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they speak",
+          "englishAuditText": "they speak"
         }
       ],
       "usefulness": 92,
@@ -10004,41 +10208,109 @@
     },
     {
       "id": "zero-es-conj-have",
-      "revision": 1,
+      "revision": 2,
       "targetText": "tener",
       "learnerBaseText": "have",
       "englishAuditText": "have",
       "meaningChoiceBaseText": "have",
       "difficulty": 0,
-      "family": "I and you: two forms",
+      "family": "Everyday actions",
       "lessonId": "zero-es-first-actions",
-      "teachingNoteBaseText": "Practise only I and you (one person). Listen and match one form at a time.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "machine-assisted-draft"
       ],
       "forms": [
         {
+          "usefulness": 92,
+          "complexity": 6,
           "id": "first",
           "revision": 1,
           "subjectTargetText": "yo",
           "subjectBaseText": "I",
           "targetText": "tengo",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "I have",
-          "englishAuditText": "I have",
-          "usefulness": 92,
-          "complexity": 6
+          "englishAuditText": "I have"
         },
         {
+          "usefulness": 92,
+          "complexity": 6,
           "id": "second",
           "revision": 1,
           "subjectTargetText": "tú",
-          "subjectBaseText": "you",
+          "subjectBaseText": "you (informal)",
           "targetText": "tienes",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "you have",
-          "englishAuditText": "you have",
+          "englishAuditText": "you have"
+        },
+        {
           "usefulness": 92,
-          "complexity": 6
+          "complexity": 6,
+          "id": "third-singular-formal",
+          "revision": 1,
+          "subjectTargetText": "él / ella / usted",
+          "subjectBaseText": "he/she/you (formal)",
+          "targetText": "tiene",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she has",
+          "englishAuditText": "he/she has"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "first-plural",
+          "revision": 1,
+          "subjectTargetText": "nosotros / nosotras",
+          "subjectBaseText": "we",
+          "targetText": "tenemos",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we have",
+          "englishAuditText": "we have"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "second-plural-informal-spain",
+          "revision": 1,
+          "subjectTargetText": "vosotros / vosotras",
+          "subjectBaseText": "you all (informal)",
+          "targetText": "tenéis",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you all have",
+          "englishAuditText": "you all have"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "third-plural-formal",
+          "revision": 1,
+          "subjectTargetText": "ellos / ellas / ustedes",
+          "subjectBaseText": "they/you all (formal)",
+          "targetText": "tienen",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they have",
+          "englishAuditText": "they have"
         }
       ],
       "usefulness": 92,
@@ -10046,41 +10318,109 @@
     },
     {
       "id": "zero-es-conj-read",
-      "revision": 1,
+      "revision": 2,
       "targetText": "leer",
       "learnerBaseText": "read",
       "englishAuditText": "read",
       "meaningChoiceBaseText": "read",
       "difficulty": 0,
-      "family": "I and you: two forms",
+      "family": "Everyday actions",
       "lessonId": "zero-es-first-actions",
-      "teachingNoteBaseText": "Practise only I and you (one person). Listen and match one form at a time.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "machine-assisted-draft"
       ],
       "forms": [
         {
+          "usefulness": 92,
+          "complexity": 6,
           "id": "first",
           "revision": 1,
           "subjectTargetText": "yo",
           "subjectBaseText": "I",
           "targetText": "leo",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "I read",
-          "englishAuditText": "I read",
-          "usefulness": 92,
-          "complexity": 6
+          "englishAuditText": "I read"
         },
         {
+          "usefulness": 92,
+          "complexity": 6,
           "id": "second",
           "revision": 1,
           "subjectTargetText": "tú",
-          "subjectBaseText": "you",
+          "subjectBaseText": "you (informal)",
           "targetText": "lees",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "you read",
-          "englishAuditText": "you read",
+          "englishAuditText": "you read"
+        },
+        {
           "usefulness": 92,
-          "complexity": 6
+          "complexity": 6,
+          "id": "third-singular-formal",
+          "revision": 1,
+          "subjectTargetText": "él / ella / usted",
+          "subjectBaseText": "he/she/you (formal)",
+          "targetText": "lee",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she reads",
+          "englishAuditText": "he/she reads"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "first-plural",
+          "revision": 1,
+          "subjectTargetText": "nosotros / nosotras",
+          "subjectBaseText": "we",
+          "targetText": "leemos",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we read",
+          "englishAuditText": "we read"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "second-plural-informal-spain",
+          "revision": 1,
+          "subjectTargetText": "vosotros / vosotras",
+          "subjectBaseText": "you all (informal)",
+          "targetText": "leéis",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you all read",
+          "englishAuditText": "you all read"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "third-plural-formal",
+          "revision": 1,
+          "subjectTargetText": "ellos / ellas / ustedes",
+          "subjectBaseText": "they/you all (formal)",
+          "targetText": "leen",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they read",
+          "englishAuditText": "they read"
         }
       ],
       "usefulness": 92,
@@ -10088,41 +10428,109 @@
     },
     {
       "id": "zero-es-conj-want",
-      "revision": 1,
+      "revision": 2,
       "targetText": "querer",
       "learnerBaseText": "want",
       "englishAuditText": "want",
       "meaningChoiceBaseText": "want",
       "difficulty": 0,
-      "family": "I and you: two forms",
+      "family": "Everyday actions",
       "lessonId": "zero-es-first-actions",
-      "teachingNoteBaseText": "Practise only I and you (one person). Listen and match one form at a time.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "machine-assisted-draft"
       ],
       "forms": [
         {
+          "usefulness": 92,
+          "complexity": 6,
           "id": "first",
           "revision": 1,
           "subjectTargetText": "yo",
           "subjectBaseText": "I",
           "targetText": "quiero",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "I want",
-          "englishAuditText": "I want",
-          "usefulness": 92,
-          "complexity": 6
+          "englishAuditText": "I want"
         },
         {
+          "usefulness": 92,
+          "complexity": 6,
           "id": "second",
           "revision": 1,
           "subjectTargetText": "tú",
-          "subjectBaseText": "you",
+          "subjectBaseText": "you (informal)",
           "targetText": "quieres",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "you want",
-          "englishAuditText": "you want",
+          "englishAuditText": "you want"
+        },
+        {
           "usefulness": 92,
-          "complexity": 6
+          "complexity": 6,
+          "id": "third-singular-formal",
+          "revision": 1,
+          "subjectTargetText": "él / ella / usted",
+          "subjectBaseText": "he/she/you (formal)",
+          "targetText": "quiere",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she wants",
+          "englishAuditText": "he/she wants"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "first-plural",
+          "revision": 1,
+          "subjectTargetText": "nosotros / nosotras",
+          "subjectBaseText": "we",
+          "targetText": "queremos",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we want",
+          "englishAuditText": "we want"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "second-plural-informal-spain",
+          "revision": 1,
+          "subjectTargetText": "vosotros / vosotras",
+          "subjectBaseText": "you all (informal)",
+          "targetText": "queréis",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you all want",
+          "englishAuditText": "you all want"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "third-plural-formal",
+          "revision": 1,
+          "subjectTargetText": "ellos / ellas / ustedes",
+          "subjectBaseText": "they/you all (formal)",
+          "targetText": "quieren",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they want",
+          "englishAuditText": "they want"
         }
       ],
       "usefulness": 92,
@@ -10130,15 +10538,15 @@
     },
     {
       "id": "zero-es-conj-expand-go",
-      "revision": 1,
+      "revision": 2,
       "targetText": "ir",
       "learnerBaseText": "go",
       "englishAuditText": "go",
       "meaningChoiceBaseText": "go",
       "difficulty": 0,
-      "family": "Two forms: I and you",
+      "family": "Everyday actions",
       "lessonId": "zero-es-more-first-actions",
-      "teachingNoteBaseText": "Practise only I and you (one person). Listen and match one form at a time. Native review is pending.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "first-forms",
@@ -10146,26 +10554,94 @@
       ],
       "forms": [
         {
+          "usefulness": 92,
+          "complexity": 6,
           "id": "first",
           "revision": 1,
           "subjectTargetText": "yo",
           "subjectBaseText": "I",
           "targetText": "voy",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "I go",
-          "englishAuditText": "I go",
-          "usefulness": 92,
-          "complexity": 6
+          "englishAuditText": "I go"
         },
         {
+          "usefulness": 92,
+          "complexity": 6,
           "id": "second",
           "revision": 1,
           "subjectTargetText": "tú",
-          "subjectBaseText": "you",
+          "subjectBaseText": "you (informal)",
           "targetText": "vas",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "you go",
-          "englishAuditText": "you go",
+          "englishAuditText": "you go"
+        },
+        {
           "usefulness": 92,
-          "complexity": 6
+          "complexity": 6,
+          "id": "third-singular-formal",
+          "revision": 1,
+          "subjectTargetText": "él / ella / usted",
+          "subjectBaseText": "he/she/you (formal)",
+          "targetText": "va",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she goes",
+          "englishAuditText": "he/she goes"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "first-plural",
+          "revision": 1,
+          "subjectTargetText": "nosotros / nosotras",
+          "subjectBaseText": "we",
+          "targetText": "vamos",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we go",
+          "englishAuditText": "we go"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "second-plural-informal-spain",
+          "revision": 1,
+          "subjectTargetText": "vosotros / vosotras",
+          "subjectBaseText": "you all (informal)",
+          "targetText": "vais",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you all go",
+          "englishAuditText": "you all go"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "third-plural-formal",
+          "revision": 1,
+          "subjectTargetText": "ellos / ellas / ustedes",
+          "subjectBaseText": "they/you all (formal)",
+          "targetText": "van",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they go",
+          "englishAuditText": "they go"
         }
       ],
       "usefulness": 92,
@@ -10173,15 +10649,15 @@
     },
     {
       "id": "zero-es-conj-expand-see",
-      "revision": 1,
+      "revision": 2,
       "targetText": "ver",
       "learnerBaseText": "see",
       "englishAuditText": "see",
       "meaningChoiceBaseText": "see",
       "difficulty": 0,
-      "family": "Two forms: I and you",
+      "family": "Everyday actions",
       "lessonId": "zero-es-more-first-actions",
-      "teachingNoteBaseText": "Practise only I and you (one person). Listen and match one form at a time. Native review is pending.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "first-forms",
@@ -10194,6 +10670,10 @@
           "subjectTargetText": "yo",
           "subjectBaseText": "I",
           "targetText": "veo",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "I see",
           "englishAuditText": "I see",
           "usefulness": 92,
@@ -10205,8 +10685,72 @@
           "subjectTargetText": "tú",
           "subjectBaseText": "you",
           "targetText": "ves",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "you see",
           "englishAuditText": "you see",
+          "usefulness": 92,
+          "complexity": 6
+        },
+        {
+          "id": "third-singular",
+          "revision": 1,
+          "subjectTargetText": "él / ella / usted",
+          "subjectBaseText": "he / she / you (formal)",
+          "targetText": "ve",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she sees",
+          "englishAuditText": "he/she sees",
+          "usefulness": 92,
+          "complexity": 6
+        },
+        {
+          "id": "first-plural",
+          "revision": 1,
+          "subjectTargetText": "nosotros / nosotras",
+          "subjectBaseText": "we",
+          "targetText": "vemos",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we see",
+          "englishAuditText": "we see",
+          "usefulness": 92,
+          "complexity": 6
+        },
+        {
+          "id": "second-plural",
+          "revision": 1,
+          "subjectTargetText": "vosotros / vosotras",
+          "subjectBaseText": "you all",
+          "targetText": "veis",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you all see",
+          "englishAuditText": "you all see",
+          "usefulness": 92,
+          "complexity": 6
+        },
+        {
+          "id": "third-plural",
+          "revision": 1,
+          "subjectTargetText": "ellos / ellas / ustedes",
+          "subjectBaseText": "they / you all",
+          "targetText": "ven",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they see",
+          "englishAuditText": "they see",
           "usefulness": 92,
           "complexity": 6
         }
@@ -10216,15 +10760,15 @@
     },
     {
       "id": "zero-es-conj-expand-sleep",
-      "revision": 1,
+      "revision": 2,
       "targetText": "dormir",
       "learnerBaseText": "sleep",
       "englishAuditText": "sleep",
       "meaningChoiceBaseText": "sleep",
       "difficulty": 0,
-      "family": "Two forms: I and you",
+      "family": "Everyday actions",
       "lessonId": "zero-es-more-first-actions",
-      "teachingNoteBaseText": "Practise only I and you (one person). Listen and match one form at a time. Native review is pending.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "first-forms",
@@ -10232,26 +10776,94 @@
       ],
       "forms": [
         {
+          "usefulness": 92,
+          "complexity": 6,
           "id": "first",
           "revision": 1,
           "subjectTargetText": "yo",
           "subjectBaseText": "I",
           "targetText": "duermo",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "I sleep",
-          "englishAuditText": "I sleep",
-          "usefulness": 92,
-          "complexity": 6
+          "englishAuditText": "I sleep"
         },
         {
+          "usefulness": 92,
+          "complexity": 6,
           "id": "second",
           "revision": 1,
           "subjectTargetText": "tú",
-          "subjectBaseText": "you",
+          "subjectBaseText": "you (informal)",
           "targetText": "duermes",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "you sleep",
-          "englishAuditText": "you sleep",
+          "englishAuditText": "you sleep"
+        },
+        {
           "usefulness": 92,
-          "complexity": 6
+          "complexity": 6,
+          "id": "third-singular-formal",
+          "revision": 1,
+          "subjectTargetText": "él / ella / usted",
+          "subjectBaseText": "he/she/you (formal)",
+          "targetText": "duerme",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she sleeps",
+          "englishAuditText": "he/she sleeps"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "first-plural",
+          "revision": 1,
+          "subjectTargetText": "nosotros / nosotras",
+          "subjectBaseText": "we",
+          "targetText": "dormimos",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we sleep",
+          "englishAuditText": "we sleep"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "second-plural-informal-spain",
+          "revision": 1,
+          "subjectTargetText": "vosotros / vosotras",
+          "subjectBaseText": "you all (informal)",
+          "targetText": "dormís",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you all sleep",
+          "englishAuditText": "you all sleep"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "third-plural-formal",
+          "revision": 1,
+          "subjectTargetText": "ellos / ellas / ustedes",
+          "subjectBaseText": "they/you all (formal)",
+          "targetText": "duermen",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they sleep",
+          "englishAuditText": "they sleep"
         }
       ],
       "usefulness": 92,
@@ -10259,15 +10871,15 @@
     },
     {
       "id": "zero-es-conj-expand-write",
-      "revision": 1,
+      "revision": 2,
       "targetText": "escribir",
       "learnerBaseText": "write",
       "englishAuditText": "write",
       "meaningChoiceBaseText": "write",
       "difficulty": 0,
-      "family": "Two forms: I and you",
+      "family": "Everyday actions",
       "lessonId": "zero-es-more-first-actions",
-      "teachingNoteBaseText": "Practise only I and you (one person). Listen and match one form at a time. Native review is pending.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "first-forms",
@@ -10275,26 +10887,94 @@
       ],
       "forms": [
         {
+          "usefulness": 92,
+          "complexity": 6,
           "id": "first",
           "revision": 1,
           "subjectTargetText": "yo",
           "subjectBaseText": "I",
           "targetText": "escribo",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "I write",
-          "englishAuditText": "I write",
-          "usefulness": 92,
-          "complexity": 6
+          "englishAuditText": "I write"
         },
         {
+          "usefulness": 92,
+          "complexity": 6,
           "id": "second",
           "revision": 1,
           "subjectTargetText": "tú",
-          "subjectBaseText": "you",
+          "subjectBaseText": "you (informal)",
           "targetText": "escribes",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "you write",
-          "englishAuditText": "you write",
+          "englishAuditText": "you write"
+        },
+        {
           "usefulness": 92,
-          "complexity": 6
+          "complexity": 6,
+          "id": "third-singular-formal",
+          "revision": 1,
+          "subjectTargetText": "él / ella / usted",
+          "subjectBaseText": "he/she/you (formal)",
+          "targetText": "escribe",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she writes",
+          "englishAuditText": "he/she writes"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "first-plural",
+          "revision": 1,
+          "subjectTargetText": "nosotros / nosotras",
+          "subjectBaseText": "we",
+          "targetText": "escribimos",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we write",
+          "englishAuditText": "we write"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "second-plural-informal-spain",
+          "revision": 1,
+          "subjectTargetText": "vosotros / vosotras",
+          "subjectBaseText": "you all (informal)",
+          "targetText": "escribís",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you all write",
+          "englishAuditText": "you all write"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "third-plural-formal",
+          "revision": 1,
+          "subjectTargetText": "ellos / ellas / ustedes",
+          "subjectBaseText": "they/you all (formal)",
+          "targetText": "escriben",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they write",
+          "englishAuditText": "they write"
         }
       ],
       "usefulness": 92,
@@ -10302,15 +10982,15 @@
     },
     {
       "id": "zero-es-conj-expand-hear",
-      "revision": 1,
+      "revision": 2,
       "targetText": "oír",
       "learnerBaseText": "hear",
       "englishAuditText": "hear",
       "meaningChoiceBaseText": "hear",
       "difficulty": 0,
-      "family": "Two forms: I and you",
+      "family": "Everyday actions",
       "lessonId": "zero-es-more-first-actions",
-      "teachingNoteBaseText": "Practise only I and you (one person). Listen and match one form at a time. Native review is pending.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "first-forms",
@@ -10323,6 +11003,10 @@
           "subjectTargetText": "yo",
           "subjectBaseText": "I",
           "targetText": "oigo",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "I hear",
           "englishAuditText": "I hear",
           "usefulness": 92,
@@ -10334,8 +11018,72 @@
           "subjectTargetText": "tú",
           "subjectBaseText": "you",
           "targetText": "oyes",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "you hear",
           "englishAuditText": "you hear",
+          "usefulness": 92,
+          "complexity": 6
+        },
+        {
+          "id": "third-singular",
+          "revision": 1,
+          "subjectTargetText": "él / ella / usted",
+          "subjectBaseText": "he / she / you (formal)",
+          "targetText": "oye",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she hears",
+          "englishAuditText": "he/she hears",
+          "usefulness": 92,
+          "complexity": 6
+        },
+        {
+          "id": "first-plural",
+          "revision": 1,
+          "subjectTargetText": "nosotros / nosotras",
+          "subjectBaseText": "we",
+          "targetText": "oímos",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we hear",
+          "englishAuditText": "we hear",
+          "usefulness": 92,
+          "complexity": 6
+        },
+        {
+          "id": "second-plural",
+          "revision": 1,
+          "subjectTargetText": "vosotros / vosotras",
+          "subjectBaseText": "you all",
+          "targetText": "oís",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you all hear",
+          "englishAuditText": "you all hear",
+          "usefulness": 92,
+          "complexity": 6
+        },
+        {
+          "id": "third-plural",
+          "revision": 1,
+          "subjectTargetText": "ellos / ellas / ustedes",
+          "subjectBaseText": "they / you all",
+          "targetText": "oyen",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they hear",
+          "englishAuditText": "they hear",
           "usefulness": 92,
           "complexity": 6
         }
@@ -10345,15 +11093,15 @@
     },
     {
       "id": "zero-es-conj-expand-walk",
-      "revision": 1,
+      "revision": 2,
       "targetText": "andar",
       "learnerBaseText": "walk",
       "englishAuditText": "walk",
       "meaningChoiceBaseText": "walk",
       "difficulty": 0,
-      "family": "Two forms: I and you",
+      "family": "Everyday actions",
       "lessonId": "zero-es-more-first-actions",
-      "teachingNoteBaseText": "Practise only I and you (one person). Listen and match one form at a time. Native review is pending.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "first-forms",
@@ -10366,6 +11114,10 @@
           "subjectTargetText": "yo",
           "subjectBaseText": "I",
           "targetText": "ando",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "I walk",
           "englishAuditText": "I walk",
           "usefulness": 92,
@@ -10377,8 +11129,72 @@
           "subjectTargetText": "tú",
           "subjectBaseText": "you",
           "targetText": "andas",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "you walk",
           "englishAuditText": "you walk",
+          "usefulness": 92,
+          "complexity": 6
+        },
+        {
+          "id": "third-singular",
+          "revision": 1,
+          "subjectTargetText": "él / ella / usted",
+          "subjectBaseText": "he / she / you (formal)",
+          "targetText": "anda",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she walks",
+          "englishAuditText": "he/she walks",
+          "usefulness": 92,
+          "complexity": 6
+        },
+        {
+          "id": "first-plural",
+          "revision": 1,
+          "subjectTargetText": "nosotros / nosotras",
+          "subjectBaseText": "we",
+          "targetText": "andamos",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we walk",
+          "englishAuditText": "we walk",
+          "usefulness": 92,
+          "complexity": 6
+        },
+        {
+          "id": "second-plural",
+          "revision": 1,
+          "subjectTargetText": "vosotros / vosotras",
+          "subjectBaseText": "you all",
+          "targetText": "andáis",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you all walk",
+          "englishAuditText": "you all walk",
+          "usefulness": 92,
+          "complexity": 6
+        },
+        {
+          "id": "third-plural",
+          "revision": 1,
+          "subjectTargetText": "ellos / ellas / ustedes",
+          "subjectBaseText": "they / you all",
+          "targetText": "andan",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they walk",
+          "englishAuditText": "they walk",
           "usefulness": 92,
           "complexity": 6
         }

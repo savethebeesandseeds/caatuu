@@ -93,12 +93,13 @@ test("exact difficulty and canonical game availability apply to dynamically regi
   assert.deepEqual(f.aggregate(), { "new-language": { 0: { units: 0, effort: 0 }, 1: { units: 1, effort: 3 }, 2: { units: 1, effort: 3 }, 3: { units: 1, effort: 3 } } });
 });
 
-test("zero workloads use two-form helices and three-tile reading boards independently of higher-band settings", () => {
+test("zero workloads retain complete helices and the catalog's normal reading board size", () => {
   const f = corpusFixture();
-  f.add("conjugation-form", "starter/I", { difficulty: 0, parentItemId: "starter" });
-  f.add("conjugation-form", "starter/you", { difficulty: 0, parentItemId: "starter" });
-  f.domino(["a", "b", "c", "d"], 9, 0);
-  assert.deepEqual(f.aggregate()["future-course"][0], { units: 5, effort: 12 });
+  for (const person of ["I", "you", "he", "we", "you-plural", "they"]) {
+    f.add("conjugation-form", `starter/${person}`, { difficulty: 0, parentItemId: "starter" });
+  }
+  f.domino(["a", "b", "c", "d", "e", "f", "g", "h", "i"], 9, 0);
+  assert.deepEqual(f.aggregate()["future-course"][0], { units: 10, effort: 11 });
   assert.deepEqual(f.aggregate()["future-course"][1], { units: 0, effort: 0 });
 });
 

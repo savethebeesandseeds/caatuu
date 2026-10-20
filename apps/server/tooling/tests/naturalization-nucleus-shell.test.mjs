@@ -61,7 +61,7 @@ test("Arabic uses authored whole-word readings with exact vocabulary provenance"
   assert.equal(pack.challenges.find(item => item.target === "كَانَ").reading, "kāna");
   assert.equal(pack.challenges.find(item => item.target === "جَاءَ").reading, "jāʾa");
   assert.equal(pack.challenges.find(item => item.target === "فَعَلَ").reading, "faʿala");
-  for (const difficulty of [1, 2, 3]) for (const count of [5, 9]) {
+  for (const difficulty of [0, 1, 2, 3]) for (const count of [5, 9]) {
     const round = game.createRound(pack, count, () => 0.4, "", difficulty);
     assert.equal(round.pieces.length, count);
     assert.ok(round.pieces.every(piece => piece.left.difficulty === difficulty));
@@ -248,6 +248,80 @@ function solveBoard(fixture) {
     fixture.element("Ring").querySelector(`[data-naturalization-challenge-id="${id}"]`).click();
   }
   assert.equal(tiles().length, 0);
+}
+
+for (const courseCatalog of [catalog, arabicCatalog]) for (const count of courseCatalog.roundSettings.pieceCounts) {
+  test(`${courseCatalog.courseId} level zero completes both reading directions with the normal ${count}-tile controls`, async () => {
+    const fixture = createLoadingHarness({ fetchImpl: async () => ({ ok: true, json: async () => courseCatalog }) });
+    const assessments = [];
+    let difficulty = 0;
+    fixture.window.CaatuuCourse = { id: courseCatalog.courseId, targetLanguage: { id: courseCatalog.courseId } };
+    fixture.window.CaatuuLearning = { difficulty: () => difficulty, contentHistory: () => ({}),
+      recordExposure: (_gameId, event) => { if (event.bankId) assessments.push(event); } };
+    await fixture.api.mount();
+    await fixture.advance(1600);
+    const controls = fixture.panel.querySelectorAll("[data-naturalization-piece-count]");
+    assert.ok(controls.every(button => !button.disabled), "content difficulty does not disable tile settings");
+    fixture.element("OptionsToggle").click();
+    fixture.panel.querySelector(`[data-naturalization-piece-count="${count}"]`).click();
+    await fixture.advance(1600);
+    for (let direction = 0; direction < 2; direction += 1) {
+      const board = fixture.element("Board"), deck = fixture.element("Deck"), ring = fixture.element("Ring");
+      assert.equal(board.dataset.pieceCount, String(count));
+      assert.equal(board.dataset.difficulty, "0");
+      const tiles = deck.querySelectorAll("button[data-naturalization-piece-id]");
+      const sockets = ring.querySelectorAll("[data-naturalization-socket-index]");
+      assert.equal(tiles.length, count);
+      assert.equal(sockets.length, count);
+      const angles = sockets.map((_socket, index) => {
+        const selector = `[data-piece-count="${count}"] .naturalization-nucleus-socket:nth-child(${index + 1})`;
+        const escaped = selector.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&");
+        const match = new RegExp(`${escaped}[^{}]*\\{\\s*--angle: (-?\\d+)deg;`, "u").exec(stylesheet);
+        assert.ok(match, "every socket has an authored visible orbit position");
+        return Number(match[1]);
+      });
+      assert.equal(new Set(angles).size, count, "socket hit targets cannot overlap at a default angle");
+      const first = tiles[0];
+      first.click();
+      first.dispatchEvent({ type: "keydown", key: "ArrowRight", bubbles: true });
+      assert.equal(fixture.document.activeElement, tiles[1]);
+      first.dispatchEvent({ type: "keydown", key: "Escape", bubbles: true, isComposing: true });
+      assert.equal(first.getAttribute("aria-pressed"), "true");
+      first.dispatchEvent({ type: "keydown", key: "Escape", bubbles: true });
+      assert.equal(first.getAttribute("aria-pressed"), "false");
+      const firstId = first.dataset.naturalizationPieceId.split("--")[0];
+      first.click();
+      sockets.find(socket => socket.dataset.naturalizationChallengeId !== firstId).click();
+      assert.equal(assessments.filter(event => event.correct === false).length, direction + 1);
+      assert.equal(deck.querySelectorAll("button[data-naturalization-piece-id]").length, count,
+        "a wrong answer cannot consume a tile or finish the board");
+      first.click();
+      for (let index = 0; index < count; index += 1) {
+        const tile = deck.querySelectorAll("button[data-naturalization-piece-id]")[0];
+        const id = tile.dataset.naturalizationPieceId.split("--")[0];
+        assert.equal(courseCatalog.challenges.find(challenge => challenge.id === id).difficulty, 0);
+        const socket = ring.querySelector(`[data-naturalization-challenge-id="${id}"]`);
+        if (index % 2) { socket.click(); tile.click(); }
+        else { tile.click(); socket.click(); }
+        assert.equal(deck.querySelectorAll("button[data-naturalization-piece-id]").length, count - index - 1);
+      }
+      assert.equal(board.dataset.solved, "true");
+      assert.equal(fixture.element("Continue").hidden, false);
+      assert.equal(assessments.filter(event => event.correct === true).length, count * (direction + 1));
+      fixture.element("Continue").click();
+      await fixture.advance(1600);
+    }
+    assert.equal(new Set(assessments.map(event => event.bankId)).size, 2, "both reading directions remain in the game");
+    for (const nextDifficulty of [1, 0]) {
+      difficulty = nextDifficulty;
+      fixture.window.dispatchEvent({ type: "caatuu:learning-change", detail: { reason: "difficulty" } });
+      await fixture.advance(1600);
+      assert.equal(fixture.element("Board").dataset.pieceCount, String(count), "changing badges preserves the tile setting");
+      assert.equal(fixture.element("Board").dataset.difficulty, String(difficulty));
+      solveBoard(fixture);
+    }
+    fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
+  });
 }
 
 test("Campaign Nucleus reports one completion and waits for the shell to prepare its next board", async () => {
@@ -1142,7 +1216,7 @@ test("the matched-word dictionary card keeps intrinsic shared sizing", () => {
   );
 });
 
-test("the catalog supplies every round size at each exact badge and mirrors the authored ship collection", () => {
+test("the catalog supplies every round size at each exact badge and uses available ship artwork", () => {
   assert.equal(catalog.$schema, NUCLEUS_SCHEMA_URL);
   assert.equal(validatedCatalog.$schema, NUCLEUS_SCHEMA_URL);
   assert.equal(catalog.schemaVersion, 1);
@@ -1154,10 +1228,10 @@ test("the catalog supplies every round size at each exact badge and mirrors the 
   assert.equal(catalog.roundSettings.defaultPieceCount, 5);
   assert.ok(catalog.challenges.length >= Math.max(...catalog.roundSettings.pieceCounts));
   assert.equal(new Set(catalog.challenges.map(({ id }) => id)).size, catalog.challenges.length);
-  assert.equal(new Set(catalog.challenges.map(({ hanzi }) => hanzi)).size, catalog.challenges.length);
+  assert.equal(new Set(catalog.challenges.map(({ hanzi, difficulty }) => `${difficulty === 0 ? "zero:" : ""}${hanzi}`)).size, catalog.challenges.length);
   assert.ok(catalog.challenges.every(({ translation }) => typeof translation === "string" && translation.length > 0));
   assert.ok(catalog.challenges.every((challenge) => Object.hasOwn(challenge, "difficulty")));
-  for (const difficulty of [1, 2, 3]) {
+  for (const difficulty of [0, 1, 2, 3]) {
     assert.ok(catalog.challenges.some(challenge => challenge.difficulty === difficulty));
     const eligible = game.filterChallengesForDifficulty(validatedCatalog.challenges, difficulty);
     assert.deepEqual(new Set(eligible.map(item => item.id)), new Set(catalog.challenges.filter(item => item.difficulty === difficulty).map(item => item.id)));
@@ -1175,7 +1249,8 @@ test("the catalog supplies every round size at each exact badge and mirrors the 
   const expectedShipFiles = shipFiles.filter((file) => file.endsWith(".png")).sort((left, right) => left.localeCompare(right, "en", { numeric: true }));
   const catalogShipFiles = catalog.roundSettings.artwork.map((src) => decodeURIComponent(src.split("/").at(-1))).sort((left, right) => left.localeCompare(right, "en", { numeric: true }));
   assert.ok(expectedShipFiles.length > 0);
-  assert.deepEqual(catalogShipFiles, expectedShipFiles);
+  assert.equal(new Set(catalogShipFiles).size, catalogShipFiles.length);
+  assert.ok(catalogShipFiles.every(file => expectedShipFiles.includes(file)), "every configured artwork file exists");
 });
 
 test("large content catalogs preserve validation, difficulty filtering and both round sizes", () => {
@@ -1192,7 +1267,7 @@ test("large content catalogs preserve validation, difficulty filtering and both 
   const validated = game.validateCatalog(expanded);
   assert.equal(validated.challenges.length, expanded.challenges.length);
   assert.equal(validated.challenges.at(-1).id, expanded.challenges.at(-1).id);
-  for (const difficulty of [1, 2, 3]) {
+  for (const difficulty of [0, 1, 2, 3]) {
     for (const pieceCount of catalog.roundSettings.pieceCounts) {
       const round = game.createRound(validated, pieceCount, seededRandom(difficulty * 100 + pieceCount), "", difficulty);
       assert.equal(round.pieces.length, pieceCount);
@@ -1204,7 +1279,7 @@ test("large content catalogs preserve validation, difficulty filtering and both 
 
   const malformedTail = structuredClone(expanded);
   malformedTail.challenges.at(-1).difficulty = 4;
-  assert.throws(() => game.validateCatalog(malformedTail), /difficulty must be an integer from 1 to 3/u);
+  assert.throws(() => game.validateCatalog(malformedTail), /difficulty must be an integer/u);
 
   const duplicateId = structuredClone(expanded);
   duplicateId.challenges.at(-1).id = duplicateId.challenges[0].id;
@@ -1451,6 +1526,7 @@ test("context is revealed only by a match and its playback remains separate from
 
 test("difficulty metadata selects one exact band and keeps each band playable", () => {
   const leveledCatalog = structuredClone(catalog);
+  leveledCatalog.challenges = leveledCatalog.challenges.filter(challenge => challenge.difficulty !== 0);
   leveledCatalog.challenges.forEach((challenge, index) => {
     challenge.difficulty = index < 12 ? 1 : (index < 24 ? 2 : 3);
   });
@@ -1473,7 +1549,7 @@ test("difficulty metadata selects one exact band and keeps each band playable", 
 
   const invalidDifficulty = structuredClone(leveledCatalog);
   invalidDifficulty.challenges[0].difficulty = 4;
-  assert.throws(() => game.validateCatalog(invalidDifficulty), /difficulty must be an integer from 1 to 3/u);
+  assert.throws(() => game.validateCatalog(invalidDifficulty), /difficulty must be an integer/u);
 
   const insufficientLevelOne = structuredClone(leveledCatalog);
   insufficientLevelOne.challenges.forEach((challenge) => { challenge.difficulty = 2; });

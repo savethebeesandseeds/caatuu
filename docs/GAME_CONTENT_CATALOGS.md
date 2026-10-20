@@ -42,8 +42,8 @@ Every declared game has an independent level-zero pool. Add new zero IDs in
 these same authoring banks; do not regrade or replace levels 1–3 to make room.
 `difficulty` accepts 0–3 while `usefulness` and `complexity` remain 1–100.
 The [progression guide](CONTENT_PROGRESSION.md#starting-out-level-zero) describes
-the beginner content and reduced game settings. Word World starts with
-recognition so a one-word answer is still a meaningful assessed choice.
+the beginner content. Existing game rules and configurable settings apply to
+every band; short words and phrases provide the simpler learning material.
 
 Each record holds its stable `id`, `difficulty`, `usefulness`, `complexity`, `topic`, `englishText`,
 `embeddingText`, `targetText`, `tokens`, pronunciation, scene query and any

@@ -15216,52 +15216,14 @@
     },
     {
       "id": "zero-ar-grammar-01",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective",
         "label": "big: singular",
-        "targetText": "كَبِيرٌ",
-        "resultTitle": "big: singular",
-        "summary": "Match a familiar short example to its form. Start with one example and its meaning, then compare the two forms."
-      },
-      "axes": [
-        {
-          "id": "masculine-singular",
-          "label": "masculine singular nonhuman",
-          "features": {
-            "gender": "masculine",
-            "number": "singular",
-            "humanness": "nonhuman"
-          }
-        },
-        {
-          "id": "feminine-singular",
-          "label": "feminine singular nonhuman",
-          "features": {
-            "gender": "feminine",
-            "number": "singular",
-            "humanness": "nonhuman"
-          }
-        }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "form"
-        ],
-        "categoryFeature": "gender",
-        "categoryOptions": [
-          {
-            "id": "masculine",
-            "label": "Masculine"
-          },
-          {
-            "id": "feminine",
-            "label": "Feminine"
-          }
-        ]
+        "targetText": "كَبِيرٌ · كَبِيرَةٌ",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "masculine-singular": {
@@ -15392,52 +15354,14 @@
     },
     {
       "id": "zero-ar-grammar-02",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective",
         "label": "small: singular",
-        "targetText": "صَغِيرٌ",
-        "resultTitle": "small: singular",
-        "summary": "Match a familiar short example to its form. Start with one example and its meaning, then compare the two forms."
-      },
-      "axes": [
-        {
-          "id": "masculine-singular",
-          "label": "masculine singular nonhuman",
-          "features": {
-            "gender": "masculine",
-            "number": "singular",
-            "humanness": "nonhuman"
-          }
-        },
-        {
-          "id": "feminine-singular",
-          "label": "feminine singular nonhuman",
-          "features": {
-            "gender": "feminine",
-            "number": "singular",
-            "humanness": "nonhuman"
-          }
-        }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "form"
-        ],
-        "categoryFeature": "gender",
-        "categoryOptions": [
-          {
-            "id": "masculine",
-            "label": "Masculine"
-          },
-          {
-            "id": "feminine",
-            "label": "Feminine"
-          }
-        ]
+        "targetText": "صَغِيرٌ · صَغِيرَةٌ",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "masculine-singular": {
@@ -15568,52 +15492,14 @@
     },
     {
       "id": "zero-ar-grammar-03",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective",
         "label": "new: singular",
-        "targetText": "جَدِيدٌ",
-        "resultTitle": "new: singular",
-        "summary": "Match a familiar short example to its form. Start with one example and its meaning, then compare the two forms."
-      },
-      "axes": [
-        {
-          "id": "masculine-singular",
-          "label": "masculine singular nonhuman",
-          "features": {
-            "gender": "masculine",
-            "number": "singular",
-            "humanness": "nonhuman"
-          }
-        },
-        {
-          "id": "feminine-singular",
-          "label": "feminine singular nonhuman",
-          "features": {
-            "gender": "feminine",
-            "number": "singular",
-            "humanness": "nonhuman"
-          }
-        }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "form"
-        ],
-        "categoryFeature": "gender",
-        "categoryOptions": [
-          {
-            "id": "masculine",
-            "label": "Masculine"
-          },
-          {
-            "id": "feminine",
-            "label": "Feminine"
-          }
-        ]
+        "targetText": "جَدِيدٌ · جَدِيدَةٌ",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "masculine-singular": {
@@ -15744,52 +15630,14 @@
     },
     {
       "id": "zero-ar-grammar-04",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective",
         "label": "old: singular",
-        "targetText": "قَدِيمٌ",
-        "resultTitle": "old: singular",
-        "summary": "Match a familiar short example to its form. Start with one example and its meaning, then compare the two forms."
-      },
-      "axes": [
-        {
-          "id": "masculine-singular",
-          "label": "masculine singular nonhuman",
-          "features": {
-            "gender": "masculine",
-            "number": "singular",
-            "humanness": "nonhuman"
-          }
-        },
-        {
-          "id": "feminine-singular",
-          "label": "feminine singular nonhuman",
-          "features": {
-            "gender": "feminine",
-            "number": "singular",
-            "humanness": "nonhuman"
-          }
-        }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "form"
-        ],
-        "categoryFeature": "gender",
-        "categoryOptions": [
-          {
-            "id": "masculine",
-            "label": "Masculine"
-          },
-          {
-            "id": "feminine",
-            "label": "Feminine"
-          }
-        ]
+        "targetText": "قَدِيمٌ · قَدِيمَةٌ",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "masculine-singular": {
@@ -15920,52 +15768,14 @@
     },
     {
       "id": "zero-ar-grammar-e2-beautiful",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective",
         "label": "Beautiful things",
-        "targetText": "جَمِيلٌ",
-        "resultTitle": "Beautiful things",
-        "summary": "Start with the short noun and quality. A familiar feminine noun uses the quality ending ـةٌ. Only these two singular forms are compared."
-      },
-      "axes": [
-        {
-          "id": "masculine-singular",
-          "label": "masculine singular nonhuman",
-          "features": {
-            "gender": "masculine",
-            "number": "singular",
-            "humanness": "nonhuman"
-          }
-        },
-        {
-          "id": "feminine-singular",
-          "label": "feminine singular nonhuman",
-          "features": {
-            "gender": "feminine",
-            "number": "singular",
-            "humanness": "nonhuman"
-          }
-        }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "form"
-        ],
-        "categoryFeature": "gender",
-        "categoryOptions": [
-          {
-            "id": "masculine",
-            "label": "Masculine"
-          },
-          {
-            "id": "feminine",
-            "label": "Feminine"
-          }
-        ]
+        "targetText": "جَمِيلٌ · جَمِيلَةٌ",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "masculine-singular": {
@@ -16096,52 +15906,14 @@
     },
     {
       "id": "zero-ar-grammar-e2-clean",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective",
         "label": "Clean things",
-        "targetText": "نَظِيفٌ",
-        "resultTitle": "Clean things",
-        "summary": "Start with the short noun and quality. A familiar feminine noun uses the quality ending ـةٌ. Only these two singular forms are compared."
-      },
-      "axes": [
-        {
-          "id": "masculine-singular",
-          "label": "masculine singular nonhuman",
-          "features": {
-            "gender": "masculine",
-            "number": "singular",
-            "humanness": "nonhuman"
-          }
-        },
-        {
-          "id": "feminine-singular",
-          "label": "feminine singular nonhuman",
-          "features": {
-            "gender": "feminine",
-            "number": "singular",
-            "humanness": "nonhuman"
-          }
-        }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "form"
-        ],
-        "categoryFeature": "gender",
-        "categoryOptions": [
-          {
-            "id": "masculine",
-            "label": "Masculine"
-          },
-          {
-            "id": "feminine",
-            "label": "Feminine"
-          }
-        ]
+        "targetText": "نَظِيفٌ · نَظِيفَةٌ",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "masculine-singular": {
@@ -16272,52 +16044,14 @@
     },
     {
       "id": "zero-ar-grammar-e2-hot",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective",
         "label": "Hot drinks and food",
-        "targetText": "سَاخِنٌ",
-        "resultTitle": "Hot drinks and food",
-        "summary": "Start with the short noun and quality. A familiar feminine noun uses the quality ending ـةٌ. Only these two singular forms are compared."
-      },
-      "axes": [
-        {
-          "id": "masculine-singular",
-          "label": "masculine singular nonhuman",
-          "features": {
-            "gender": "masculine",
-            "number": "singular",
-            "humanness": "nonhuman"
-          }
-        },
-        {
-          "id": "feminine-singular",
-          "label": "feminine singular nonhuman",
-          "features": {
-            "gender": "feminine",
-            "number": "singular",
-            "humanness": "nonhuman"
-          }
-        }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "form"
-        ],
-        "categoryFeature": "gender",
-        "categoryOptions": [
-          {
-            "id": "masculine",
-            "label": "Masculine"
-          },
-          {
-            "id": "feminine",
-            "label": "Feminine"
-          }
-        ]
+        "targetText": "سَاخِنٌ · سَاخِنَةٌ",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "masculine-singular": {
@@ -16430,52 +16164,14 @@
     },
     {
       "id": "zero-ar-grammar-e2-cold",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "adjective",
         "label": "Cold drinks and food",
-        "targetText": "بَارِدٌ",
-        "resultTitle": "Cold drinks and food",
-        "summary": "Start with the short noun and quality. A familiar feminine noun uses the quality ending ـةٌ. Only these two singular forms are compared."
-      },
-      "axes": [
-        {
-          "id": "masculine-singular",
-          "label": "masculine singular nonhuman",
-          "features": {
-            "gender": "masculine",
-            "number": "singular",
-            "humanness": "nonhuman"
-          }
-        },
-        {
-          "id": "feminine-singular",
-          "label": "feminine singular nonhuman",
-          "features": {
-            "gender": "feminine",
-            "number": "singular",
-            "humanness": "nonhuman"
-          }
-        }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "form"
-        ],
-        "categoryFeature": "gender",
-        "categoryOptions": [
-          {
-            "id": "masculine",
-            "label": "Masculine"
-          },
-          {
-            "id": "feminine",
-            "label": "Feminine"
-          }
-        ]
+        "targetText": "بَارِدٌ · بَارِدَةٌ",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "masculine-singular": {

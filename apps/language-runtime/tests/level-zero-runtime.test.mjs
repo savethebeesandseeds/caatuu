@@ -84,22 +84,22 @@ test('basic verbs survive alongside their original difficulty without weakening 
   assert.equal(extractCoreVerbPairs([...bank, { ...row, id: 'duplicate-explorer' }]).length, original.length);
 });
 
-test('zero Conjugation presents two forms and two same-band meanings while Explorer keeps all forms', async () => {
+test('zero Conjugation retains full paradigms and the normal same-band meaning choices', async () => {
   const bank = await resource(spanish, 'conjugationCometCatalog');
   const old = bank.verbs.find(row => row.difficulty === 1);
-  const copies = bank.verbs.filter(row => row.difficulty === 1).slice(0, 2).map(row => zeroCopy(row));
+  const copies = bank.verbs.filter(row => row.difficulty === 1).slice(0, 4).map(row => zeroCopy(row));
   bank.verbs.push(...copies);
   const pack = validateConjugationCometCatalog(bank);
   const round = buildConjugationHelixRound(pack, copies[0].id, { rng: () => .37 });
-  assert.equal(round.subjects.length, 2);
-  assert.equal(round.options.length, 2);
+  assert.equal(round.subjects.length, old.forms.length);
+  assert.equal(round.options.length, old.forms.length);
   assert.equal(buildConjugationHelixRound(pack, old.id).subjects.length, old.forms.length);
   const meaning = buildConjugationMeaningRound(pack, copies[0].id, { random: () => .37 });
-  assert.equal(meaning.options.length, 2);
+  assert.equal(meaning.options.length, 4);
   assert.ok(meaning.options.every(option => pack.verbs.find(row => row.id === option.id).difficulty === 0));
 });
 
-test('zero Grammar uses two answers and omits category recall, preserving Explorer stages and options', async () => {
+test('zero Grammar retains the standard stages, form alternatives and meaning choices', async () => {
   const bank = await resource(spanish, 'grammarGravityCatalog');
   const before = buildGrammarGravityRounds(structuredClone(bank), 1, () => .37);
   const copies = bank.challenges.filter(row => row.difficulty === 1).slice(0, 2).map(row => {
@@ -111,29 +111,32 @@ test('zero Grammar uses two answers and omits category recall, preserving Explor
   const rounds = buildGrammarGravityRounds(bank, 0, () => .37);
   assert.ok(rounds.length > 0);
   for (const round of rounds) for (const flight of round.flights) {
-    assert.equal(flight.options.length, 2);
+    const challenge = bank.challenges.find(row => row.forms && Object.values(row.forms)
+      .some(form => form.examples.some(example => example.id === flight.id)));
+    const normal = before.find(row => row.challengeId === challenge.id.replace(/-zero-fixture$/u, '')).flights[0];
+    assert.equal(flight.options.length, normal.options.length);
     assert.ok(flight.options.includes(flight.answer));
-    assert.ok(!flight.stages.includes('category'));
-    if (flight.stages.includes('meaning')) assert.equal(flight.meaningOptions.length, 2);
+    assert.deepEqual(flight.stages, normal.stages);
+    if (flight.stages.includes('meaning')) assert.equal(flight.meaningOptions.length, normal.meaningOptions.length);
   }
   assert.deepEqual(buildGrammarGravityRounds(bank, 1, () => .37), before);
 });
 
-test('introductory noun practice holds until an answer, including after changing the timer', async () => {
+test('introductory noun practice honors the selected timer and normal landing rules', async () => {
   const bank = await resource(spanish, 'grammarGravityNouns');
   const copy = zeroCopy(bank.items[0]);
   bank.items.push(copy);
   let session = createNounLandingSession(bank, { difficulty: 0, durationMs: 5000 });
-  assert.equal(session.durationMs, 0);
+  assert.equal(session.durationMs, 5000);
   session = startNounLanding(setNounFallDuration(session, 10000));
-  assert.equal(session.durationMs, 0);
-  assert.equal(advanceNounFall(session, 100000), session);
+  assert.equal(session.durationMs, 10000);
+  assert.equal(advanceNounFall(session, 100000).phase, 'feedback');
   assert.equal(createNounLandingSession(bank, { difficulty: 1, durationMs: 5000 }).durationMs, 5000);
 });
 
-test('zero listening and Memory use one authored contrast and retain the correct answer', async () => {
+test('zero listening and Memory retain normal configured and authored alternatives', async () => {
   const sound = await resource(spanish, 'soundQuasarCatalog');
-  const copies = sound.items.filter(row => row.difficulty === 1).slice(0, 4).map(row => {
+  const copies = sound.items.filter(row => row.difficulty === 1).slice(0, 8).map(row => {
     const copy = zeroCopy(row, `${row.id}-zero-fixture`);
     copy.sourceId += '-zero-fixture';
     return copy;
@@ -144,7 +147,7 @@ test('zero listening and Memory use one authored contrast and retain the correct
   const rounds = createSoundQuasarSession(pack, { difficulty: 0, choiceCount: 8, random: () => .37 });
   assert.ok(rounds.length > 0);
   for (const round of rounds) {
-    assert.equal(round.choices.length, 2);
+    assert.equal(round.choices.length, 8);
     assert.ok(round.choices.every(item => pack.items.find(row => row.id === item.id).difficulty === 0));
     assert.ok(round.choices.some(item => item.id === round.answerId));
   }
@@ -153,12 +156,12 @@ test('zero listening and Memory use one authored contrast and retain the correct
   const selected = selectMemoryMoonChallenges(moon, { difficulty: 0, random: () => .37 }).items;
   assert.equal(selected.length, 3);
   for (const item of selected) {
-    assert.equal(item.choices.length, 2);
+    assert.equal(item.choices.length, moon.challenges.find(row => row.id === item.id).choices.length);
     assert.equal(item.choices.filter(choice => choice.id === item.correctChoiceId).length, 1);
   }
 });
 
-test('zero Naturalization uses three distinct readings without borrowing a higher level', async () => {
+test('zero Naturalization honors both normal board sizes without borrowing a higher level', async () => {
   const course = courses.find(row => row.id === 'zh');
   const bank = await resource(course, 'naturalizationNucleusCatalog');
   const source = await readFile(new URL('../static/source/games/naturalization-nucleus/naturalization-nucleus.js', import.meta.url), 'utf8');
@@ -170,15 +173,17 @@ test('zero Naturalization uses three distinct readings without borrowing a highe
     const key = api.readingKey(row);
     if (readings.has(key)) return false;
     readings.add(key);
-    return readings.size <= 3;
+    return readings.size <= Math.max(...bank.roundSettings.pieceCounts);
   }).map(row => zeroCopy(row, `${row.id}-zero-fixture`));
   bank.challenges.push(...copies);
   const pack = api.validateCatalog(bank);
-  const round = api.createRound(pack, 9, () => .37, '', 0);
-  assert.equal(round.pieceCount, 3);
-  assert.equal(round.pieces.length, 3);
-  assert.equal(new Set(round.pieces.map(piece => api.readingKey(piece.left))).size, 3);
-  assert.ok(round.pieces.every(piece => piece.left.difficulty === 0 && piece.right.difficulty === 0));
+  for (const count of pack.roundSettings.pieceCounts) {
+    const round = api.createRound(pack, count, () => .37, '', 0);
+    assert.equal(round.pieceCount, count);
+    assert.equal(round.pieces.length, count);
+    assert.equal(new Set(round.pieces.map(piece => api.readingKey(piece.left))).size, count);
+    assert.ok(round.pieces.every(piece => piece.left.difficulty === 0 && piece.right.difficulty === 0));
+  }
 });
 
 test('legacy Czech Word World preserves zero and existing basic-sentence versions', async () => {

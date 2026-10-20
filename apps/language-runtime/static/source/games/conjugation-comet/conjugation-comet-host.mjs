@@ -2,7 +2,7 @@ import { fetchDeclaredCourseGameJson, readEmbeddedCourseProfile } from "../cours
 import {
   buildConjugationHelixRound, judgeConjugationHelixRound, splitConjugationDisplay,
   buildConjugationVerbQueue, validateConjugationCometCatalog, selectConjugationPracticeVerbs
-} from "./conjugation-comet-core.mjs?v=conjugation-comet-core-5";
+} from "./conjugation-comet-core.mjs?v=conjugation-comet-core-6";
 import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-10";
 import { newContentEncounterId, matchesContentDifficulty } from "../content-progression.mjs";
 import { createArabicReadingGuide } from "../../arabic-reading-guide.mjs?v=arabic-reading-guide-2";
@@ -10,7 +10,7 @@ import { createReviewContinuation, preventRepeatedReviewKey } from "../practice-
 
 const GAME_ID = "conjugation-comet";
 const RESOURCE_NAME = "conjugationCometCatalog";
-const PHASE_DELAYS = Object.freeze({ moving: 160 });
+const PHASE_DELAYS = Object.freeze({ moving: 420 });
 const ILLUSTRATIONS_KEY = "caatuu.conjugation-comet.illustrations";
 const element = (id) => document.getElementById(id);
 const targetReadingMeasurements = new WeakMap();

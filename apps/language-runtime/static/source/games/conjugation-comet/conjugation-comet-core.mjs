@@ -699,7 +699,7 @@ export function buildConjugationMeaningRound(catalog, verbId, {
     if (usedMeaningKeys.has(key)) continue;
     usedMeaningKeys.add(key);
     distractors.push(candidate);
-    if (distractors.length === (current.difficulty === 0 ? 1 : count - 1)) break;
+    if (distractors.length === count - 1) break;
   }
   if (!distractors.length) {
     throw catalogError(
@@ -730,7 +730,7 @@ export function buildConjugationFormRound(catalog, verbId, {
       `Unknown Conjugation Comet verb: ${String(verbId || "<missing>")}.`
     );
   }
-  const playableForms = (current.difficulty === 0 ? current.forms.slice(0, 2) : current.forms).map((form) => ({
+  const playableForms = current.forms.map((form) => ({
     id: form.id,
     revision: form.revision,
     subjectTargetText: form.subjectTargetText,
@@ -822,8 +822,7 @@ export function buildConjugationHelixRound(catalog, verbId, { rng = Math.random 
       `Unknown Conjugation Comet verb: ${String(verbId || "<missing>")}.`
     );
   }
-  const forms = current.difficulty === 0 ? current.forms.slice(0, 2) : current.forms;
-  const entries = shuffleConjugationItems(forms.map((form, index) => {
+  const entries = shuffleConjugationItems(current.forms.map((form, index) => {
     const acceptedTargetTexts = [...(form.acceptedTargetTexts || [])];
     const { beforeText, afterText } = normalizeTargetPhraseFrame(form.targetPhraseFrame, `forms.${form.id}.targetPhraseFrame`);
     return {

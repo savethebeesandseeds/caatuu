@@ -277,7 +277,7 @@ async function mountGame({ language = "czech", difficulty = 3, syntheticBase = f
     }
     assert.equal(element("conjugationCometGame").dataset.phase, "moving");
     const delay = [...timers.values()][0]?.delay;
-    assert.ok(delay > 0 && delay <= 180, "strand motion stays short");
+    assert.equal(delay, 420, "strand motion retains its ordinary pace at every difficulty");
     advance(delay);
   }
   const round = () => builtRounds.at(-1);
@@ -347,15 +347,17 @@ function finishBatch(game) {
   game.click(game.element("conjugationCometSummaryNext"));
 }
 
-test("level zero renders a two-form helix and credits only its two displayed forms", async () => {
+test("level zero renders the full authored helix and credits every displayed form", async () => {
   const game = await mountGame({ language: "spanish", difficulty: 0 });
-  assert.equal(game.strandButtons("target").length, 2);
-  assert.equal(game.strandButtons("subject").length, 2);
+  const formCount = game.round().verb.forms.length;
+  assert.equal(formCount, game.catalog.verbs.find(verb => verb.difficulty === 1).forms.length);
+  assert.equal(game.strandButtons("target").length, formCount);
+  assert.equal(game.strandButtons("subject").length, formCount);
   assert.equal(game.round().verb.difficulty, 0);
   game.submit();
   assert.equal(game.element("conjugationCometGame").dataset.phase, "summary");
   assert.equal(game.attempts().length, 1);
-  assert.equal(game.attempts()[0].xp, 2);
+  assert.equal(game.attempts()[0].xp, formCount);
   game.controller.destroy();
 });
 
@@ -1482,7 +1484,7 @@ const wheelTimes = new WeakMap();
 function scrollBoard(game, overrides = {}, bounds = {}) {
   const board = game.element("conjugationCometBoard");
   board.getBoundingClientRect = () => ({ left: 10, top: 10, width: 700, height: 640, ...bounds });
-  const timeStamp = overrides.timeStamp ?? (wheelTimes.get(game) ?? 750) + 250;
+  const timeStamp = overrides.timeStamp ?? (wheelTimes.get(game) ?? 500) + 500;
   wheelTimes.set(game, timeStamp);
   const event = { type: "wheel", clientX: 600, clientY: 400, deltaY: 100, deltaX: 0,
     deltaMode: 0, timeStamp, bubbles: true, cancelable: true, ...overrides };
@@ -1504,7 +1506,7 @@ test("reduced motion suppresses wheel momentum without locking deliberate arrow 
   assert.equal(game.offset("subject"), (start + 1 + Number(next.dataset.step) + count) % count);
   assert.equal(game.timers.size, 0);
   assert.equal(game.element("conjugationCometSubmit").disabled, false);
-  scrollBoard(game, { timeStamp: 1250 });
+  scrollBoard(game, { timeStamp: 1500 });
   assert.equal(game.offset("subject"), (start + 2 + Number(next.dataset.step) + count) % count);
   assert.equal(game.records.length, 0);
   game.controller.destroy();

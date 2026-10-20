@@ -5144,49 +5144,14 @@
     },
     {
       "id": "zero-ka-grammar-01",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "verb",
         "label": "Human subject: is here",
-        "targetText": "არის",
-        "resultTitle": "One person and more than one person",
-        "summary": "Match a familiar short example to its form. Start with one example and its meaning, then compare the two forms."
-      },
-      "axes": [
-        {
-          "id": "singular",
-          "label": "Singular",
-          "features": {
-            "number": "singular"
-          }
-        },
-        {
-          "id": "plural",
-          "label": "Plural",
-          "features": {
-            "number": "plural"
-          }
-        }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "category",
-          "form"
-        ],
-        "categoryFeature": "number",
-        "categoryOptions": [
-          {
-            "id": "singular",
-            "label": "Singular"
-          },
-          {
-            "id": "plural",
-            "label": "Plural"
-          }
-        ]
+        "targetText": "არის · არიან",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "singular": {
@@ -5353,49 +5318,14 @@
     },
     {
       "id": "zero-ka-grammar-02",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "verb",
         "label": "Human subject: works",
-        "targetText": "მუშაობს",
-        "resultTitle": "Human subject and verb number",
-        "summary": "Match a familiar short example to its form. Start with one example and its meaning, then compare the two forms."
-      },
-      "axes": [
-        {
-          "id": "singular",
-          "label": "Singular",
-          "features": {
-            "number": "singular"
-          }
-        },
-        {
-          "id": "plural",
-          "label": "Plural",
-          "features": {
-            "number": "plural"
-          }
-        }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "category",
-          "form"
-        ],
-        "categoryFeature": "number",
-        "categoryOptions": [
-          {
-            "id": "singular",
-            "label": "Singular"
-          },
-          {
-            "id": "plural",
-            "label": "Plural"
-          }
-        ]
+        "targetText": "მუშაობს · მუშაობენ",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "singular": {
@@ -5562,49 +5492,14 @@
     },
     {
       "id": "zero-ka-grammar-03",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "verb",
         "label": "Human subject: reads",
-        "targetText": "კითხულობს",
-        "resultTitle": "Human subject and verb number",
-        "summary": "Match a familiar short example to its form. Start with one example and its meaning, then compare the two forms."
-      },
-      "axes": [
-        {
-          "id": "singular",
-          "label": "Singular",
-          "features": {
-            "number": "singular"
-          }
-        },
-        {
-          "id": "plural",
-          "label": "Plural",
-          "features": {
-            "number": "plural"
-          }
-        }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "category",
-          "form"
-        ],
-        "categoryFeature": "number",
-        "categoryOptions": [
-          {
-            "id": "singular",
-            "label": "Singular"
-          },
-          {
-            "id": "plural",
-            "label": "Plural"
-          }
-        ]
+        "targetText": "კითხულობს · კითხულობენ",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "singular": {
@@ -5771,49 +5666,14 @@
     },
     {
       "id": "zero-ka-grammar-04",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "verb",
         "label": "Human subject: writes",
-        "targetText": "წერს",
-        "resultTitle": "Human subject and verb number",
-        "summary": "Match a familiar short example to its form. Start with one example and its meaning, then compare the two forms."
-      },
-      "axes": [
-        {
-          "id": "singular",
-          "label": "Singular",
-          "features": {
-            "number": "singular"
-          }
-        },
-        {
-          "id": "plural",
-          "label": "Plural",
-          "features": {
-            "number": "plural"
-          }
-        }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "category",
-          "form"
-        ],
-        "categoryFeature": "number",
-        "categoryOptions": [
-          {
-            "id": "singular",
-            "label": "Singular"
-          },
-          {
-            "id": "plural",
-            "label": "Plural"
-          }
-        ]
+        "targetText": "წერს · წერენ",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "singular": {
@@ -5980,48 +5840,14 @@
     },
     {
       "id": "zero-ka-grammar-e2-study",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "verb",
         "label": "Study",
-        "targetText": "სწავლობს",
-        "resultTitle": "Study",
-        "summary": "First read the model for one familiar person. Then read the model for more than one person. Use the visible subject and the English meaning as clues."
-      },
-      "axes": [
-        {
-          "id": "singular",
-          "label": "Singular",
-          "features": {
-            "number": "singular"
-          }
-        },
-        {
-          "id": "plural",
-          "label": "Plural",
-          "features": {
-            "number": "plural"
-          }
-        }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "form"
-        ],
-        "categoryFeature": "number",
-        "categoryOptions": [
-          {
-            "id": "singular",
-            "label": "Singular"
-          },
-          {
-            "id": "plural",
-            "label": "Plural"
-          }
-        ]
+        "targetText": "სწავლობს · სწავლობენ",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "singular": {
@@ -6188,48 +6014,14 @@
     },
     {
       "id": "zero-ka-grammar-e2-speak",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "verb",
         "label": "Speak",
-        "targetText": "ლაპარაკობს",
-        "resultTitle": "Speak",
-        "summary": "First read the model for one familiar person. Then read the model for more than one person. Use the visible subject and the English meaning as clues."
-      },
-      "axes": [
-        {
-          "id": "singular",
-          "label": "Singular",
-          "features": {
-            "number": "singular"
-          }
-        },
-        {
-          "id": "plural",
-          "label": "Plural",
-          "features": {
-            "number": "plural"
-          }
-        }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "form"
-        ],
-        "categoryFeature": "number",
-        "categoryOptions": [
-          {
-            "id": "singular",
-            "label": "Singular"
-          },
-          {
-            "id": "plural",
-            "label": "Plural"
-          }
-        ]
+        "targetText": "ლაპარაკობს · ლაპარაკობენ",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "singular": {
@@ -6396,48 +6188,14 @@
     },
     {
       "id": "zero-ka-grammar-e2-come",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "verb",
         "label": "Come",
-        "targetText": "მოდის",
-        "resultTitle": "Come",
-        "summary": "First read the model for one familiar person. Then read the model for more than one person. Use the visible subject and the English meaning as clues."
-      },
-      "axes": [
-        {
-          "id": "singular",
-          "label": "Singular",
-          "features": {
-            "number": "singular"
-          }
-        },
-        {
-          "id": "plural",
-          "label": "Plural",
-          "features": {
-            "number": "plural"
-          }
-        }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "form"
-        ],
-        "categoryFeature": "number",
-        "categoryOptions": [
-          {
-            "id": "singular",
-            "label": "Singular"
-          },
-          {
-            "id": "plural",
-            "label": "Plural"
-          }
-        ]
+        "targetText": "მოდის · მოდიან",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "singular": {
@@ -6604,48 +6362,14 @@
     },
     {
       "id": "zero-ka-grammar-e2-sing",
-      "revision": 1,
+      "revision": 2,
       "difficulty": 0,
       "focus": {
         "kind": "verb",
         "label": "Sing",
-        "targetText": "მღერის",
-        "resultTitle": "Sing",
-        "summary": "First read the model for one familiar person. Then read the model for more than one person. Use the visible subject and the English meaning as clues."
-      },
-      "axes": [
-        {
-          "id": "singular",
-          "label": "Singular",
-          "features": {
-            "number": "singular"
-          }
-        },
-        {
-          "id": "plural",
-          "label": "Plural",
-          "features": {
-            "number": "plural"
-          }
-        }
-      ],
-      "gameplay": {
-        "contract": "caatuu-grammar-gravity-journey-v1",
-        "stages": [
-          "meaning",
-          "form"
-        ],
-        "categoryFeature": "number",
-        "categoryOptions": [
-          {
-            "id": "singular",
-            "label": "Singular"
-          },
-          {
-            "id": "plural",
-            "label": "Plural"
-          }
-        ]
+        "targetText": "მღერის · მღერიან",
+        "resultTitle": "Everyday descriptions",
+        "summary": "Read the short phrase and match the word to its meaning and form."
       },
       "forms": {
         "singular": {

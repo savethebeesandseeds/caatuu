@@ -3911,41 +3911,109 @@
     },
     {
       "id": "zero-cz-conj-eat",
-      "revision": 1,
+      "revision": 2,
       "targetText": "jíst",
       "learnerBaseText": "eat",
       "englishAuditText": "eat",
       "meaningChoiceBaseText": "eat",
       "difficulty": 0,
-      "family": "I and you: two forms",
+      "family": "Everyday actions",
       "lessonId": "zero-cz-first-actions",
-      "teachingNoteBaseText": "Practise only I and you (one person). Listen and match one form at a time.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "machine-assisted-draft"
       ],
       "forms": [
         {
+          "usefulness": 92,
+          "complexity": 6,
           "id": "first",
           "revision": 1,
           "subjectTargetText": "já",
           "subjectBaseText": "I",
           "targetText": "jím",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "I eat",
-          "englishAuditText": "I eat",
-          "usefulness": 92,
-          "complexity": 6
+          "englishAuditText": "I eat"
         },
         {
+          "usefulness": 92,
+          "complexity": 6,
           "id": "second",
           "revision": 1,
           "subjectTargetText": "ty",
           "subjectBaseText": "you",
           "targetText": "jíš",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "you eat",
-          "englishAuditText": "you eat",
+          "englishAuditText": "you eat"
+        },
+        {
           "usefulness": 92,
-          "complexity": 6
+          "complexity": 6,
+          "id": "s3",
+          "revision": 1,
+          "subjectTargetText": "on / ona / ono",
+          "subjectBaseText": "he / she / it",
+          "targetText": "jí",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she eats",
+          "englishAuditText": "he/she eats"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "p1",
+          "revision": 1,
+          "subjectTargetText": "my",
+          "subjectBaseText": "we",
+          "targetText": "jíme",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we eat",
+          "englishAuditText": "we eat"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "p2",
+          "revision": 1,
+          "subjectTargetText": "vy",
+          "subjectBaseText": "you all",
+          "targetText": "jíte",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you all eat",
+          "englishAuditText": "you all eat"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "p3",
+          "revision": 1,
+          "subjectTargetText": "oni / ony / ona",
+          "subjectBaseText": "they",
+          "targetText": "jedí",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they eat",
+          "englishAuditText": "they eat"
         }
       ],
       "usefulness": 92,
@@ -3953,41 +4021,115 @@
     },
     {
       "id": "zero-cz-conj-drink",
-      "revision": 1,
+      "revision": 2,
       "targetText": "pít",
       "learnerBaseText": "drink",
       "englishAuditText": "drink",
       "meaningChoiceBaseText": "drink",
       "difficulty": 0,
-      "family": "I and you: two forms",
+      "family": "Everyday actions",
       "lessonId": "zero-cz-first-actions",
-      "teachingNoteBaseText": "Practise only I and you (one person). Listen and match one form at a time.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "machine-assisted-draft"
       ],
       "forms": [
         {
+          "usefulness": 92,
+          "complexity": 6,
           "id": "first",
           "revision": 1,
           "subjectTargetText": "já",
           "subjectBaseText": "I",
           "targetText": "piju",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "I drink",
           "englishAuditText": "I drink",
-          "usefulness": 92,
-          "complexity": 6
+          "acceptedTargetTexts": [
+            "piji"
+          ]
         },
         {
+          "usefulness": 92,
+          "complexity": 6,
           "id": "second",
           "revision": 1,
           "subjectTargetText": "ty",
           "subjectBaseText": "you",
           "targetText": "piješ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "you drink",
-          "englishAuditText": "you drink",
+          "englishAuditText": "you drink"
+        },
+        {
           "usefulness": 92,
-          "complexity": 6
+          "complexity": 6,
+          "id": "s3",
+          "revision": 1,
+          "subjectTargetText": "on / ona / ono",
+          "subjectBaseText": "he / she / it",
+          "targetText": "pije",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she drinks",
+          "englishAuditText": "he/she drinks"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "p1",
+          "revision": 1,
+          "subjectTargetText": "my",
+          "subjectBaseText": "we",
+          "targetText": "pijeme",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we drink",
+          "englishAuditText": "we drink"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "p2",
+          "revision": 1,
+          "subjectTargetText": "vy",
+          "subjectBaseText": "you all",
+          "targetText": "pijete",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you all drink",
+          "englishAuditText": "you all drink"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "p3",
+          "revision": 1,
+          "subjectTargetText": "oni / ony / ona",
+          "subjectBaseText": "they",
+          "targetText": "pijou",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they drink",
+          "englishAuditText": "they drink",
+          "acceptedTargetTexts": [
+            "pijí"
+          ]
         }
       ],
       "usefulness": 92,
@@ -3995,41 +4137,109 @@
     },
     {
       "id": "zero-cz-conj-have",
-      "revision": 1,
+      "revision": 2,
       "targetText": "mít",
       "learnerBaseText": "have",
       "englishAuditText": "have",
       "meaningChoiceBaseText": "have",
       "difficulty": 0,
-      "family": "I and you: two forms",
+      "family": "Everyday actions",
       "lessonId": "zero-cz-first-actions",
-      "teachingNoteBaseText": "Practise only I and you (one person). Listen and match one form at a time.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "machine-assisted-draft"
       ],
       "forms": [
         {
+          "usefulness": 92,
+          "complexity": 6,
           "id": "first",
           "revision": 1,
           "subjectTargetText": "já",
           "subjectBaseText": "I",
           "targetText": "mám",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "I have",
-          "englishAuditText": "I have",
-          "usefulness": 92,
-          "complexity": 6
+          "englishAuditText": "I have"
         },
         {
+          "usefulness": 92,
+          "complexity": 6,
           "id": "second",
           "revision": 1,
           "subjectTargetText": "ty",
           "subjectBaseText": "you",
           "targetText": "máš",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "you have",
-          "englishAuditText": "you have",
+          "englishAuditText": "you have"
+        },
+        {
           "usefulness": 92,
-          "complexity": 6
+          "complexity": 6,
+          "id": "s3",
+          "revision": 1,
+          "subjectTargetText": "on / ona / ono",
+          "subjectBaseText": "he / she / it",
+          "targetText": "má",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she has",
+          "englishAuditText": "he/she has"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "p1",
+          "revision": 1,
+          "subjectTargetText": "my",
+          "subjectBaseText": "we",
+          "targetText": "máme",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we have",
+          "englishAuditText": "we have"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "p2",
+          "revision": 1,
+          "subjectTargetText": "vy",
+          "subjectBaseText": "you all",
+          "targetText": "máte",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you all have",
+          "englishAuditText": "you all have"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "p3",
+          "revision": 1,
+          "subjectTargetText": "oni / ony / ona",
+          "subjectBaseText": "they",
+          "targetText": "mají",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they have",
+          "englishAuditText": "they have"
         }
       ],
       "usefulness": 92,
@@ -4037,41 +4247,109 @@
     },
     {
       "id": "zero-cz-conj-want",
-      "revision": 1,
+      "revision": 2,
       "targetText": "chtít",
       "learnerBaseText": "want",
       "englishAuditText": "want",
       "meaningChoiceBaseText": "want",
       "difficulty": 0,
-      "family": "I and you: two forms",
+      "family": "Everyday actions",
       "lessonId": "zero-cz-first-actions",
-      "teachingNoteBaseText": "Practise only I and you (one person). Listen and match one form at a time.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "machine-assisted-draft"
       ],
       "forms": [
         {
+          "usefulness": 92,
+          "complexity": 6,
           "id": "first",
           "revision": 1,
           "subjectTargetText": "já",
           "subjectBaseText": "I",
           "targetText": "chci",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "I want",
-          "englishAuditText": "I want",
-          "usefulness": 92,
-          "complexity": 6
+          "englishAuditText": "I want"
         },
         {
+          "usefulness": 92,
+          "complexity": 6,
           "id": "second",
           "revision": 1,
           "subjectTargetText": "ty",
           "subjectBaseText": "you",
           "targetText": "chceš",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "you want",
-          "englishAuditText": "you want",
+          "englishAuditText": "you want"
+        },
+        {
           "usefulness": 92,
-          "complexity": 6
+          "complexity": 6,
+          "id": "s3",
+          "revision": 1,
+          "subjectTargetText": "on / ona / ono",
+          "subjectBaseText": "he / she / it",
+          "targetText": "chce",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she wants",
+          "englishAuditText": "he/she wants"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "p1",
+          "revision": 1,
+          "subjectTargetText": "my",
+          "subjectBaseText": "we",
+          "targetText": "chceme",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we want",
+          "englishAuditText": "we want"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "p2",
+          "revision": 1,
+          "subjectTargetText": "vy",
+          "subjectBaseText": "you all",
+          "targetText": "chcete",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you all want",
+          "englishAuditText": "you all want"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "p3",
+          "revision": 1,
+          "subjectTargetText": "oni / ony / ona",
+          "subjectBaseText": "they",
+          "targetText": "chtějí",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they want",
+          "englishAuditText": "they want"
         }
       ],
       "usefulness": 92,
@@ -4079,41 +4357,109 @@
     },
     {
       "id": "zero-cz-conj-read",
-      "revision": 1,
+      "revision": 2,
       "targetText": "číst",
       "learnerBaseText": "read",
       "englishAuditText": "read",
       "meaningChoiceBaseText": "read",
       "difficulty": 0,
-      "family": "I and you: two forms",
+      "family": "Everyday actions",
       "lessonId": "zero-cz-first-actions",
-      "teachingNoteBaseText": "Practise only I and you (one person). Listen and match one form at a time.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "machine-assisted-draft"
       ],
       "forms": [
         {
+          "usefulness": 92,
+          "complexity": 6,
           "id": "first",
           "revision": 1,
           "subjectTargetText": "já",
           "subjectBaseText": "I",
           "targetText": "čtu",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "I read",
-          "englishAuditText": "I read",
-          "usefulness": 92,
-          "complexity": 6
+          "englishAuditText": "I read"
         },
         {
+          "usefulness": 92,
+          "complexity": 6,
           "id": "second",
           "revision": 1,
           "subjectTargetText": "ty",
           "subjectBaseText": "you",
           "targetText": "čteš",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "you read",
-          "englishAuditText": "you read",
+          "englishAuditText": "you read"
+        },
+        {
           "usefulness": 92,
-          "complexity": 6
+          "complexity": 6,
+          "id": "s3",
+          "revision": 1,
+          "subjectTargetText": "on / ona / ono",
+          "subjectBaseText": "he / she / it",
+          "targetText": "čte",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she reads",
+          "englishAuditText": "he/she reads"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "p1",
+          "revision": 1,
+          "subjectTargetText": "my",
+          "subjectBaseText": "we",
+          "targetText": "čteme",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we read",
+          "englishAuditText": "we read"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "p2",
+          "revision": 1,
+          "subjectTargetText": "vy",
+          "subjectBaseText": "you all",
+          "targetText": "čtete",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you all read",
+          "englishAuditText": "you all read"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "p3",
+          "revision": 1,
+          "subjectTargetText": "oni / ony / ona",
+          "subjectBaseText": "they",
+          "targetText": "čtou",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they read",
+          "englishAuditText": "they read"
         }
       ],
       "usefulness": 92,
@@ -4121,41 +4467,109 @@
     },
     {
       "id": "zero-cz-conj-sleep",
-      "revision": 1,
+      "revision": 2,
       "targetText": "spát",
       "learnerBaseText": "sleep",
       "englishAuditText": "sleep",
       "meaningChoiceBaseText": "sleep",
       "difficulty": 0,
-      "family": "I and you: two forms",
+      "family": "Everyday actions",
       "lessonId": "zero-cz-first-actions",
-      "teachingNoteBaseText": "Practise only I and you (one person). Listen and match one form at a time.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "machine-assisted-draft"
       ],
       "forms": [
         {
+          "usefulness": 92,
+          "complexity": 6,
           "id": "first",
           "revision": 1,
           "subjectTargetText": "já",
           "subjectBaseText": "I",
           "targetText": "spím",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "I sleep",
-          "englishAuditText": "I sleep",
-          "usefulness": 92,
-          "complexity": 6
+          "englishAuditText": "I sleep"
         },
         {
+          "usefulness": 92,
+          "complexity": 6,
           "id": "second",
           "revision": 1,
           "subjectTargetText": "ty",
           "subjectBaseText": "you",
           "targetText": "spíš",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "you sleep",
-          "englishAuditText": "you sleep",
+          "englishAuditText": "you sleep"
+        },
+        {
           "usefulness": 92,
-          "complexity": 6
+          "complexity": 6,
+          "id": "s3",
+          "revision": 1,
+          "subjectTargetText": "on / ona / ono",
+          "subjectBaseText": "he / she / it",
+          "targetText": "spí",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she sleeps",
+          "englishAuditText": "he/she sleeps"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "p1",
+          "revision": 1,
+          "subjectTargetText": "my",
+          "subjectBaseText": "we",
+          "targetText": "spíme",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we sleep",
+          "englishAuditText": "we sleep"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "p2",
+          "revision": 1,
+          "subjectTargetText": "vy",
+          "subjectBaseText": "you all",
+          "targetText": "spíte",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you all sleep",
+          "englishAuditText": "you all sleep"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "p3",
+          "revision": 1,
+          "subjectTargetText": "oni / ony / ona",
+          "subjectBaseText": "they",
+          "targetText": "spí",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they sleep",
+          "englishAuditText": "they sleep"
         }
       ],
       "usefulness": 92,
@@ -4163,15 +4577,15 @@
     },
     {
       "id": "zero-cz-conj-expand-go",
-      "revision": 1,
+      "revision": 2,
       "targetText": "jít",
       "learnerBaseText": "go",
       "englishAuditText": "go",
       "meaningChoiceBaseText": "go",
       "difficulty": 0,
-      "family": "Two forms: I and you",
+      "family": "Everyday actions",
       "lessonId": "zero-cz-more-first-actions",
-      "teachingNoteBaseText": "Practise only I and you (one person). Listen and match one form at a time. Native review is pending.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "first-forms",
@@ -4179,26 +4593,94 @@
       ],
       "forms": [
         {
+          "usefulness": 92,
+          "complexity": 6,
           "id": "first",
           "revision": 1,
           "subjectTargetText": "já",
           "subjectBaseText": "I",
           "targetText": "jdu",
-          "learnerBaseCueText": "I go",
-          "englishAuditText": "I go",
-          "usefulness": 92,
-          "complexity": 6
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I go by foot",
+          "englishAuditText": "I go by foot"
         },
         {
+          "usefulness": 92,
+          "complexity": 6,
           "id": "second",
           "revision": 1,
           "subjectTargetText": "ty",
           "subjectBaseText": "you",
           "targetText": "jdeš",
-          "learnerBaseCueText": "you go",
-          "englishAuditText": "you go",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you go by foot",
+          "englishAuditText": "you go by foot"
+        },
+        {
           "usefulness": 92,
-          "complexity": 6
+          "complexity": 6,
+          "id": "s3",
+          "revision": 1,
+          "subjectTargetText": "on / ona / ono",
+          "subjectBaseText": "he / she / it",
+          "targetText": "jde",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she goes by foot",
+          "englishAuditText": "he/she goes by foot"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "p1",
+          "revision": 1,
+          "subjectTargetText": "my",
+          "subjectBaseText": "we",
+          "targetText": "jdeme",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we go by foot",
+          "englishAuditText": "we go by foot"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "p2",
+          "revision": 1,
+          "subjectTargetText": "vy",
+          "subjectBaseText": "you all",
+          "targetText": "jdete",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you all go by foot",
+          "englishAuditText": "you all go by foot"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "p3",
+          "revision": 1,
+          "subjectTargetText": "oni / ony / ona",
+          "subjectBaseText": "they",
+          "targetText": "jdou",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they go by foot",
+          "englishAuditText": "they go by foot"
         }
       ],
       "usefulness": 92,
@@ -4206,15 +4688,15 @@
     },
     {
       "id": "zero-cz-conj-expand-see",
-      "revision": 1,
+      "revision": 2,
       "targetText": "vidět",
       "learnerBaseText": "see",
       "englishAuditText": "see",
       "meaningChoiceBaseText": "see",
       "difficulty": 0,
-      "family": "Two forms: I and you",
+      "family": "Everyday actions",
       "lessonId": "zero-cz-more-first-actions",
-      "teachingNoteBaseText": "Practise only I and you (one person). Listen and match one form at a time. Native review is pending.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "first-forms",
@@ -4222,26 +4704,94 @@
       ],
       "forms": [
         {
+          "usefulness": 92,
+          "complexity": 6,
           "id": "first",
           "revision": 1,
           "subjectTargetText": "já",
           "subjectBaseText": "I",
           "targetText": "vidím",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "I see",
-          "englishAuditText": "I see",
-          "usefulness": 92,
-          "complexity": 6
+          "englishAuditText": "I see"
         },
         {
+          "usefulness": 92,
+          "complexity": 6,
           "id": "second",
           "revision": 1,
           "subjectTargetText": "ty",
           "subjectBaseText": "you",
           "targetText": "vidíš",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "you see",
-          "englishAuditText": "you see",
+          "englishAuditText": "you see"
+        },
+        {
           "usefulness": 92,
-          "complexity": 6
+          "complexity": 6,
+          "id": "s3",
+          "revision": 1,
+          "subjectTargetText": "on / ona / ono",
+          "subjectBaseText": "he / she / it",
+          "targetText": "vidí",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she sees",
+          "englishAuditText": "he/she sees"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "p1",
+          "revision": 1,
+          "subjectTargetText": "my",
+          "subjectBaseText": "we",
+          "targetText": "vidíme",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we see",
+          "englishAuditText": "we see"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "p2",
+          "revision": 1,
+          "subjectTargetText": "vy",
+          "subjectBaseText": "you all",
+          "targetText": "vidíte",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you all see",
+          "englishAuditText": "you all see"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "p3",
+          "revision": 1,
+          "subjectTargetText": "oni / ony / ona",
+          "subjectBaseText": "they",
+          "targetText": "vidí",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they see",
+          "englishAuditText": "they see"
         }
       ],
       "usefulness": 92,
@@ -4249,15 +4799,15 @@
     },
     {
       "id": "zero-cz-conj-expand-sit",
-      "revision": 1,
+      "revision": 2,
       "targetText": "sedět",
       "learnerBaseText": "sit",
       "englishAuditText": "sit",
       "meaningChoiceBaseText": "sit",
       "difficulty": 0,
-      "family": "Two forms: I and you",
+      "family": "Everyday actions",
       "lessonId": "zero-cz-more-first-actions",
-      "teachingNoteBaseText": "Practise only I and you (one person). Listen and match one form at a time. Native review is pending.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "first-forms",
@@ -4270,6 +4820,10 @@
           "subjectTargetText": "já",
           "subjectBaseText": "I",
           "targetText": "sedím",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "I sit",
           "englishAuditText": "I sit",
           "usefulness": 92,
@@ -4281,8 +4835,72 @@
           "subjectTargetText": "ty",
           "subjectBaseText": "you",
           "targetText": "sedíš",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "you sit",
           "englishAuditText": "you sit",
+          "usefulness": 92,
+          "complexity": 6
+        },
+        {
+          "id": "third-singular",
+          "revision": 1,
+          "subjectTargetText": "on / ona / ono",
+          "subjectBaseText": "he / she / it",
+          "targetText": "sedí",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she/it sits",
+          "englishAuditText": "he/she/it sits",
+          "usefulness": 92,
+          "complexity": 6
+        },
+        {
+          "id": "first-plural",
+          "revision": 1,
+          "subjectTargetText": "my",
+          "subjectBaseText": "we",
+          "targetText": "sedíme",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we sit",
+          "englishAuditText": "we sit",
+          "usefulness": 92,
+          "complexity": 6
+        },
+        {
+          "id": "second-plural",
+          "revision": 1,
+          "subjectTargetText": "vy",
+          "subjectBaseText": "you all",
+          "targetText": "sedíte",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you all sit",
+          "englishAuditText": "you all sit",
+          "usefulness": 92,
+          "complexity": 6
+        },
+        {
+          "id": "third-plural",
+          "revision": 1,
+          "subjectTargetText": "oni / ony / ona",
+          "subjectBaseText": "they",
+          "targetText": "sedí",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they sit",
+          "englishAuditText": "they sit",
           "usefulness": 92,
           "complexity": 6
         }
@@ -4292,15 +4910,15 @@
     },
     {
       "id": "zero-cz-conj-expand-write",
-      "revision": 1,
+      "revision": 2,
       "targetText": "psát",
       "learnerBaseText": "write",
       "englishAuditText": "write",
       "meaningChoiceBaseText": "write",
       "difficulty": 0,
-      "family": "Two forms: I and you",
+      "family": "Everyday actions",
       "lessonId": "zero-cz-more-first-actions",
-      "teachingNoteBaseText": "Practise only I and you (one person). Listen and match one form at a time. Native review is pending.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "first-forms",
@@ -4308,26 +4926,100 @@
       ],
       "forms": [
         {
+          "usefulness": 92,
+          "complexity": 6,
           "id": "first",
           "revision": 1,
           "subjectTargetText": "já",
           "subjectBaseText": "I",
           "targetText": "píšu",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "I write",
           "englishAuditText": "I write",
-          "usefulness": 92,
-          "complexity": 6
+          "acceptedTargetTexts": [
+            "píši"
+          ]
         },
         {
+          "usefulness": 92,
+          "complexity": 6,
           "id": "second",
           "revision": 1,
           "subjectTargetText": "ty",
           "subjectBaseText": "you",
           "targetText": "píšeš",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "you write",
-          "englishAuditText": "you write",
+          "englishAuditText": "you write"
+        },
+        {
           "usefulness": 92,
-          "complexity": 6
+          "complexity": 6,
+          "id": "s3",
+          "revision": 1,
+          "subjectTargetText": "on / ona / ono",
+          "subjectBaseText": "he / she / it",
+          "targetText": "píše",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she writes",
+          "englishAuditText": "he/she writes"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "p1",
+          "revision": 1,
+          "subjectTargetText": "my",
+          "subjectBaseText": "we",
+          "targetText": "píšeme",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we write",
+          "englishAuditText": "we write"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "p2",
+          "revision": 1,
+          "subjectTargetText": "vy",
+          "subjectBaseText": "you all",
+          "targetText": "píšete",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you all write",
+          "englishAuditText": "you all write"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "p3",
+          "revision": 1,
+          "subjectTargetText": "oni / ony / ona",
+          "subjectBaseText": "they",
+          "targetText": "píšou",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they write",
+          "englishAuditText": "they write",
+          "acceptedTargetTexts": [
+            "píší"
+          ]
         }
       ],
       "usefulness": 92,
@@ -4335,15 +5027,15 @@
     },
     {
       "id": "zero-cz-conj-expand-hear",
-      "revision": 1,
+      "revision": 2,
       "targetText": "slyšet",
       "learnerBaseText": "hear",
       "englishAuditText": "hear",
       "meaningChoiceBaseText": "hear",
       "difficulty": 0,
-      "family": "Two forms: I and you",
+      "family": "Everyday actions",
       "lessonId": "zero-cz-more-first-actions",
-      "teachingNoteBaseText": "Practise only I and you (one person). Listen and match one form at a time. Native review is pending.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "first-forms",
@@ -4351,26 +5043,94 @@
       ],
       "forms": [
         {
+          "usefulness": 92,
+          "complexity": 6,
           "id": "first",
           "revision": 1,
           "subjectTargetText": "já",
           "subjectBaseText": "I",
           "targetText": "slyším",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "I hear",
-          "englishAuditText": "I hear",
-          "usefulness": 92,
-          "complexity": 6
+          "englishAuditText": "I hear"
         },
         {
+          "usefulness": 92,
+          "complexity": 6,
           "id": "second",
           "revision": 1,
           "subjectTargetText": "ty",
           "subjectBaseText": "you",
           "targetText": "slyšíš",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "you hear",
-          "englishAuditText": "you hear",
+          "englishAuditText": "you hear"
+        },
+        {
           "usefulness": 92,
-          "complexity": 6
+          "complexity": 6,
+          "id": "s3",
+          "revision": 1,
+          "subjectTargetText": "on / ona / ono",
+          "subjectBaseText": "he / she / it",
+          "targetText": "slyší",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she hears",
+          "englishAuditText": "he/she hears"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "p1",
+          "revision": 1,
+          "subjectTargetText": "my",
+          "subjectBaseText": "we",
+          "targetText": "slyšíme",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we hear",
+          "englishAuditText": "we hear"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "p2",
+          "revision": 1,
+          "subjectTargetText": "vy",
+          "subjectBaseText": "you all",
+          "targetText": "slyšíte",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you all hear",
+          "englishAuditText": "you all hear"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "p3",
+          "revision": 1,
+          "subjectTargetText": "oni / ony / ona",
+          "subjectBaseText": "they",
+          "targetText": "slyší",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they hear",
+          "englishAuditText": "they hear"
         }
       ],
       "usefulness": 92,
@@ -4378,15 +5138,15 @@
     },
     {
       "id": "zero-cz-conj-expand-speak",
-      "revision": 1,
+      "revision": 2,
       "targetText": "mluvit",
       "learnerBaseText": "speak",
       "englishAuditText": "speak",
       "meaningChoiceBaseText": "speak",
       "difficulty": 0,
-      "family": "Two forms: I and you",
+      "family": "Everyday actions",
       "lessonId": "zero-cz-more-first-actions",
-      "teachingNoteBaseText": "Practise only I and you (one person). Listen and match one form at a time. Native review is pending.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "first-forms",
@@ -4394,26 +5154,94 @@
       ],
       "forms": [
         {
+          "usefulness": 92,
+          "complexity": 6,
           "id": "first",
           "revision": 1,
           "subjectTargetText": "já",
           "subjectBaseText": "I",
           "targetText": "mluvím",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "I speak",
-          "englishAuditText": "I speak",
-          "usefulness": 92,
-          "complexity": 6
+          "englishAuditText": "I speak"
         },
         {
+          "usefulness": 92,
+          "complexity": 6,
           "id": "second",
           "revision": 1,
           "subjectTargetText": "ty",
           "subjectBaseText": "you",
           "targetText": "mluvíš",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
           "learnerBaseCueText": "you speak",
-          "englishAuditText": "you speak",
+          "englishAuditText": "you speak"
+        },
+        {
           "usefulness": 92,
-          "complexity": 6
+          "complexity": 6,
+          "id": "s3",
+          "revision": 1,
+          "subjectTargetText": "on / ona / ono",
+          "subjectBaseText": "he / she / it",
+          "targetText": "mluví",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "he/she speaks",
+          "englishAuditText": "he/she speaks"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "p1",
+          "revision": 1,
+          "subjectTargetText": "my",
+          "subjectBaseText": "we",
+          "targetText": "mluvíme",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we speak",
+          "englishAuditText": "we speak"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "p2",
+          "revision": 1,
+          "subjectTargetText": "vy",
+          "subjectBaseText": "you all",
+          "targetText": "mluvíte",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you all speak",
+          "englishAuditText": "you all speak"
+        },
+        {
+          "usefulness": 92,
+          "complexity": 6,
+          "id": "p3",
+          "revision": 1,
+          "subjectTargetText": "oni / ony / ona",
+          "subjectBaseText": "they",
+          "targetText": "mluví",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they speak",
+          "englishAuditText": "they speak"
         }
       ],
       "usefulness": 92,

@@ -3,13 +3,13 @@ import {
   scopeGrammarGravityMeaningChoices,
   validateGrammarGravityCategories,
   normalizeGrammarGravityPack
-} from "./grammar-gravity-core.mjs?v=grammar-gravity-core-9";
+} from "./grammar-gravity-core.mjs?v=grammar-gravity-core-10";
 import {
   fetchDeclaredCourseGameJson,
   readEmbeddedCourseProfile
 } from "../course-game-content.mjs?v=course-game-content-1";
-import { mountNounLanding } from "./noun-landing-host.mjs?v=noun-landing-host-31";
-import { mountGrammarFlight } from "./adjective-flight-host.mjs?v=adjective-flight-host-25";
+import { mountNounLanding } from "./noun-landing-host.mjs?v=noun-landing-host-32";
+import { mountGrammarFlight } from "./adjective-flight-host.mjs?v=adjective-flight-host-26";
 import { mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-10";
 import { selectContentItems, newContentEncounterId } from "../adaptive-practice.mjs";
 import { createArabicReadingGuide } from "../../arabic-reading-guide.mjs?v=arabic-reading-guide-2";
@@ -133,7 +133,7 @@ function startGrammarRound() {
   if (!round) throw new Error("Grammar Gravity has no modern round for this difficulty.");
   state.encounterId = newContentEncounterId();
   state.contentGeneration = state.shell?.CaatuuLearning?.contentGeneration?.() ?? null;
-  state.adjectiveGame.setDurationMs(state.difficulty === 0 ? 0 : state.durationMs);
+  state.adjectiveGame.setDurationMs(state.durationMs);
   state.adjectiveGame.start(round, round.flights, { practiceMode: state.practiceMode });
 }
 
@@ -353,7 +353,7 @@ function configureControls() {
       if (option.checked && [0, 5000, 10000, 15000, 20000].includes(selected)) {
         state.durationMs = selected;
         state.nounGame?.setDurationMs(selected);
-        state.adjectiveGame?.setDurationMs(state.difficulty === 0 ? 0 : selected);
+        state.adjectiveGame?.setDurationMs(selected);
         if (state.mode === "nouns") $("#gravityNounHelp").textContent = state.shell.CaatuuI18n.t(`games.grammargravity.nouns.${selected === 0 ? "untimedhelp" : "help"}`);
       }
       durationOptions.forEach((choice) => {

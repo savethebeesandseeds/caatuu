@@ -263,20 +263,22 @@ for(const failure of [{phraseFails:true},{invalidContent:true},{nounReady:false}
   });
 }
 
-test("zero grammar holds its two-choice task untimed and switching back restores Explorer timing", async () => {
+test("zero grammar retains the ordinary stages, full alternatives and learner timer settings", async () => {
   const game = await mountSequence();
+  const initialDuration = game.state.adjectiveGame.snapshot().durationMs;
   game.setDifficulty(0);
   let snapshot = game.state.adjectiveGame.snapshot();
   assert.equal(game.state.difficulty, 0);
-  assert.equal(snapshot.durationMs, 0);
-  assert.equal(snapshot.current.options.length, 2);
-  assert.ok(!snapshot.steps.includes("category"));
+  assert.equal(snapshot.durationMs, initialDuration);
+  const raw = await json(new URL('../../languages/spanish/static/data/games/grammar-gravity/content.json', import.meta.url));
+  assert.equal(snapshot.current.options.length, raw.axes.length);
+  assert.deepEqual(snapshot.steps, raw.gameplay.stages);
   game.state.adjectiveGame.setMeaningOptionCount(6);
-  assert.equal(game.state.adjectiveGame.snapshot().current.meaningOptions.length, 2);
+  assert.equal(game.state.adjectiveGame.snapshot().current.meaningOptions.length, 6);
   const timed = game.timingChoice(5000);
   timed.checked = true;
   timed.dispatchEvent({ type: "change" });
-  assert.equal(game.state.adjectiveGame.snapshot().durationMs, 0);
+  assert.equal(game.state.adjectiveGame.snapshot().durationMs, 5000);
   game.setDifficulty(1);
   snapshot = game.state.adjectiveGame.snapshot();
   assert.equal(snapshot.durationMs, 5000);

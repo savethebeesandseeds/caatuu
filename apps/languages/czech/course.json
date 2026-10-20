@@ -316,7 +316,7 @@
       "path": "apps/languages/czech/static/source/shared/runtime.js",
       "scope": "course",
       "state": "present",
-      "revision": "runtime-42"
+      "revision": "runtime-43"
     },
     "setupProgressProvider": {
       "kind": "file",

@@ -2176,10 +2176,6 @@ function generationAvailability() {
 
 function supportsContentMode(mode) {
   if (!Object.prototype.hasOwnProperty.call(contentModes, mode)) return false;
-  // Level zero practices its authored introductory bank, including when an
-  // older session saved a generative preference. Keep that preference stored
-  // so the optional mode remains available at the existing difficulties.
-  if (mode === "generative" && learningDifficulty() === 0) return false;
   if (mode === "generative") return generationAvailability().supported;
   return true;
 }
@@ -3285,7 +3281,7 @@ function buildTargetReconstructionChallenge() {
   const challenge = buildTokenReconstructionChallenge(
     answerParts,
     targetReconstructionCandidateParts(),
-    { distractorCount: learningDifficulty() === 0 ? 1 : RECONSTRUCTION_DISTRACTOR_COUNT, normalize,
+    { distractorCount: RECONSTRUCTION_DISTRACTOR_COUNT, normalize,
       ...(record?.target?.text === state.currentSentence && record.target.acceptedTokenOrders
         ? { acceptedTokenOrders: record.target.acceptedTokenOrders }
         : {}) }
@@ -3303,7 +3299,7 @@ function buildSourceReconstructionChallenge() {
   const challenge = buildWordReconstructionChallenge(
     state.currentTranslation,
     reconstructionCandidateTexts(),
-    { distractorCount: learningDifficulty() === 0 ? 1 : RECONSTRUCTION_DISTRACTOR_COUNT }
+    { distractorCount: RECONSTRUCTION_DISTRACTOR_COUNT }
   );
   return {
     ...challenge,
@@ -3312,9 +3308,6 @@ function buildSourceReconstructionChallenge() {
 }
 
 function resolvedChallengePromptSide() {
-  // A single-word zero challenge is recognition between an answer and one authored contrast.
-  // Keep the familiar learner-language prompt instead of alternating translation directions.
-  if (learningDifficulty() === 0) return "source";
   if (sourcePrimaryLanguage !== "en") return "source";
   if (state.guidedMode) return "target";
   if (state.challengePromptMode === "source" || state.challengePromptMode === "target") {

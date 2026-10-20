@@ -169,11 +169,7 @@ export function selectMemoryMoonChallenges(pack, { difficulty = 1, weaknesses = 
     },random);
     if (!chosen) break;
     if (region) region.hits++;
-    const choices = difficulty === 0
-      ? [chosen.choices.find(choice => choice.id === chosen.correctChoiceId),
-        shuffleMoonChoices(chosen.choices.filter(choice => choice.id !== chosen.correctChoiceId),random)[0]]
-      : chosen.choices;
-    selected.push({...chosen,choices:shuffleMoonChoices(choices,random),
+    selected.push({...chosen,choices:shuffleMoonChoices(chosen.choices,random),
       selectionReason:region ? 'related-practice' : exploration && weaknesses.length ? 'exploration' : 'balanced-practice'});
     available = available.filter(item => item.id !== chosen.id && item.familyId !== chosen.familyId);
     if (available.length < count-selected.length) {

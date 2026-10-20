@@ -33063,15 +33063,15 @@
     },
     {
       "id": "zero-ar-conjugation-01",
-      "revision": 1,
-      "targetText": "أَكْتُبُ",
-      "learnerBaseText": "I write",
-      "englishAuditText": "I write",
-      "meaningChoiceBaseText": "I write",
+      "revision": 2,
+      "targetText": "كَتَبَ",
+      "learnerBaseText": "write",
+      "englishAuditText": "write",
+      "meaningChoiceBaseText": "write",
       "difficulty": 0,
-      "family": "First present-time forms",
+      "family": "Everyday actions",
       "lessonId": "zero-ar-present-foundations",
-      "teachingNoteBaseText": "Learn these two short forms with their subject cues. Practise one pair at a time.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "first-forms"
@@ -33080,21 +33080,98 @@
       "complexity": 8,
       "forms": [
         {
-          "id": "i",
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "he",
           "revision": 1,
-          "subjectTargetText": "أَنَا",
-          "subjectBaseText": "I",
-          "targetText": "أَكْتُبُ",
+          "subjectTargetText": "هُوَ",
+          "subjectBaseText": "he",
+          "targetText": "يَكْتُبُ",
           "targetPhraseFrame": {
-            "beforeText": "أَنَا ",
+            "beforeText": "هُوَ ",
             "afterText": ""
           },
-          "learnerBaseCueText": "I write",
-          "englishAuditText": "I write",
-          "usefulness": 98,
-          "complexity": 8
+          "learnerBaseCueText": "he writes",
+          "englishAuditText": "he writes"
         },
         {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "she",
+          "revision": 1,
+          "subjectTargetText": "هِيَ",
+          "subjectBaseText": "she",
+          "targetText": "تَكْتُبُ",
+          "targetPhraseFrame": {
+            "beforeText": "هِيَ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "she writes",
+          "englishAuditText": "she writes"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "they-dual-m",
+          "revision": 1,
+          "subjectTargetText": "هُمَا",
+          "subjectBaseText": "they (two men)",
+          "targetText": "يَكْتُبَانِ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (two men) write",
+          "englishAuditText": "they (two men) write"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "they-dual-f",
+          "revision": 1,
+          "subjectTargetText": "هُمَا",
+          "subjectBaseText": "they (two women)",
+          "targetText": "تَكْتُبَانِ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (two women) write",
+          "englishAuditText": "they (two women) write"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "they-plural-m",
+          "revision": 1,
+          "subjectTargetText": "هُمْ",
+          "subjectBaseText": "they (men or a mixed group)",
+          "targetText": "يَكْتُبُونَ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمْ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (men/mixed) write",
+          "englishAuditText": "they (men/mixed) write"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "they-plural-f",
+          "revision": 1,
+          "subjectTargetText": "هُنَّ",
+          "subjectBaseText": "they (women)",
+          "targetText": "يَكْتُبْنَ",
+          "targetPhraseFrame": {
+            "beforeText": "هُنَّ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (women) write",
+          "englishAuditText": "they (women) write"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "you-singular-m",
           "revision": 1,
           "subjectTargetText": "أَنْتَ",
@@ -33105,23 +33182,111 @@
             "afterText": ""
           },
           "learnerBaseCueText": "you (one man) write",
-          "englishAuditText": "you (one man) write",
+          "englishAuditText": "you (one man) write"
+        },
+        {
           "usefulness": 98,
-          "complexity": 8
+          "complexity": 8,
+          "id": "you-singular-f",
+          "revision": 1,
+          "subjectTargetText": "أَنْتِ",
+          "subjectBaseText": "you (one woman)",
+          "targetText": "تَكْتُبِينَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتِ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (one woman) write",
+          "englishAuditText": "you (one woman) write"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "you-dual",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُمَا",
+          "subjectBaseText": "you (two people)",
+          "targetText": "تَكْتُبَانِ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (two people) write",
+          "englishAuditText": "you (two people) write"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "you-plural-m",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُمْ",
+          "subjectBaseText": "you (men or a mixed group)",
+          "targetText": "تَكْتُبُونَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُمْ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (men/mixed) write",
+          "englishAuditText": "you (men/mixed) write"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "you-plural-f",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُنَّ",
+          "subjectBaseText": "you (women)",
+          "targetText": "تَكْتُبْنَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُنَّ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (women) write",
+          "englishAuditText": "you (women) write"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "أَنَا",
+          "subjectBaseText": "I",
+          "targetText": "أَكْتُبُ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I write",
+          "englishAuditText": "I write"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "نَحْنُ",
+          "subjectBaseText": "we",
+          "targetText": "نَكْتُبُ",
+          "targetPhraseFrame": {
+            "beforeText": "نَحْنُ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we write",
+          "englishAuditText": "we write"
         }
       ]
     },
     {
       "id": "zero-ar-conjugation-02",
-      "revision": 1,
-      "targetText": "أَدْرُسُ",
-      "learnerBaseText": "I study",
-      "englishAuditText": "I study",
-      "meaningChoiceBaseText": "I study",
+      "revision": 2,
+      "targetText": "دَرَسَ",
+      "learnerBaseText": "study",
+      "englishAuditText": "study",
+      "meaningChoiceBaseText": "study",
       "difficulty": 0,
-      "family": "First present-time forms",
+      "family": "Everyday actions",
       "lessonId": "zero-ar-present-foundations",
-      "teachingNoteBaseText": "Learn these two short forms with their subject cues. Practise one pair at a time.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "first-forms"
@@ -33130,21 +33295,98 @@
       "complexity": 8,
       "forms": [
         {
-          "id": "i",
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "he",
           "revision": 1,
-          "subjectTargetText": "أَنَا",
-          "subjectBaseText": "I",
-          "targetText": "أَدْرُسُ",
+          "subjectTargetText": "هُوَ",
+          "subjectBaseText": "he",
+          "targetText": "يَدْرُسُ",
           "targetPhraseFrame": {
-            "beforeText": "أَنَا ",
+            "beforeText": "هُوَ ",
             "afterText": ""
           },
-          "learnerBaseCueText": "I study",
-          "englishAuditText": "I study",
-          "usefulness": 98,
-          "complexity": 8
+          "learnerBaseCueText": "he studies",
+          "englishAuditText": "he studies"
         },
         {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "she",
+          "revision": 1,
+          "subjectTargetText": "هِيَ",
+          "subjectBaseText": "she",
+          "targetText": "تَدْرُسُ",
+          "targetPhraseFrame": {
+            "beforeText": "هِيَ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "she studies",
+          "englishAuditText": "she studies"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "they-dual-m",
+          "revision": 1,
+          "subjectTargetText": "هُمَا",
+          "subjectBaseText": "they (two men)",
+          "targetText": "يَدْرُسَانِ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (two men) study",
+          "englishAuditText": "they (two men) study"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "they-dual-f",
+          "revision": 1,
+          "subjectTargetText": "هُمَا",
+          "subjectBaseText": "they (two women)",
+          "targetText": "تَدْرُسَانِ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (two women) study",
+          "englishAuditText": "they (two women) study"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "they-plural-m",
+          "revision": 1,
+          "subjectTargetText": "هُمْ",
+          "subjectBaseText": "they (men or a mixed group)",
+          "targetText": "يَدْرُسُونَ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمْ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (men/mixed) study",
+          "englishAuditText": "they (men/mixed) study"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "they-plural-f",
+          "revision": 1,
+          "subjectTargetText": "هُنَّ",
+          "subjectBaseText": "they (women)",
+          "targetText": "يَدْرُسْنَ",
+          "targetPhraseFrame": {
+            "beforeText": "هُنَّ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (women) study",
+          "englishAuditText": "they (women) study"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "you-singular-m",
           "revision": 1,
           "subjectTargetText": "أَنْتَ",
@@ -33155,23 +33397,111 @@
             "afterText": ""
           },
           "learnerBaseCueText": "you (one man) study",
-          "englishAuditText": "you (one man) study",
+          "englishAuditText": "you (one man) study"
+        },
+        {
           "usefulness": 98,
-          "complexity": 8
+          "complexity": 8,
+          "id": "you-singular-f",
+          "revision": 1,
+          "subjectTargetText": "أَنْتِ",
+          "subjectBaseText": "you (one woman)",
+          "targetText": "تَدْرُسِينَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتِ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (one woman) study",
+          "englishAuditText": "you (one woman) study"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "you-dual",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُمَا",
+          "subjectBaseText": "you (two people)",
+          "targetText": "تَدْرُسَانِ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (two people) study",
+          "englishAuditText": "you (two people) study"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "you-plural-m",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُمْ",
+          "subjectBaseText": "you (men or a mixed group)",
+          "targetText": "تَدْرُسُونَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُمْ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (men/mixed) study",
+          "englishAuditText": "you (men/mixed) study"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "you-plural-f",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُنَّ",
+          "subjectBaseText": "you (women)",
+          "targetText": "تَدْرُسْنَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُنَّ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (women) study",
+          "englishAuditText": "you (women) study"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "أَنَا",
+          "subjectBaseText": "I",
+          "targetText": "أَدْرُسُ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I study",
+          "englishAuditText": "I study"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "نَحْنُ",
+          "subjectBaseText": "we",
+          "targetText": "نَدْرُسُ",
+          "targetPhraseFrame": {
+            "beforeText": "نَحْنُ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we study",
+          "englishAuditText": "we study"
         }
       ]
     },
     {
       "id": "zero-ar-conjugation-03",
-      "revision": 1,
-      "targetText": "أَفْتَحُ",
-      "learnerBaseText": "I open",
-      "englishAuditText": "I open",
-      "meaningChoiceBaseText": "I open",
+      "revision": 2,
+      "targetText": "فَتَحَ",
+      "learnerBaseText": "open",
+      "englishAuditText": "open",
+      "meaningChoiceBaseText": "open",
       "difficulty": 0,
-      "family": "First present-time forms",
+      "family": "Everyday actions",
       "lessonId": "zero-ar-present-foundations",
-      "teachingNoteBaseText": "Learn these two short forms with their subject cues. Practise one pair at a time.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "first-forms"
@@ -33180,21 +33510,98 @@
       "complexity": 8,
       "forms": [
         {
-          "id": "i",
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "he",
           "revision": 1,
-          "subjectTargetText": "أَنَا",
-          "subjectBaseText": "I",
-          "targetText": "أَفْتَحُ",
+          "subjectTargetText": "هُوَ",
+          "subjectBaseText": "he",
+          "targetText": "يَفْتَحُ",
           "targetPhraseFrame": {
-            "beforeText": "أَنَا ",
+            "beforeText": "هُوَ ",
             "afterText": ""
           },
-          "learnerBaseCueText": "I open",
-          "englishAuditText": "I open",
-          "usefulness": 98,
-          "complexity": 8
+          "learnerBaseCueText": "he opens",
+          "englishAuditText": "he opens"
         },
         {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "she",
+          "revision": 1,
+          "subjectTargetText": "هِيَ",
+          "subjectBaseText": "she",
+          "targetText": "تَفْتَحُ",
+          "targetPhraseFrame": {
+            "beforeText": "هِيَ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "she opens",
+          "englishAuditText": "she opens"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "they-dual-m",
+          "revision": 1,
+          "subjectTargetText": "هُمَا",
+          "subjectBaseText": "they (two men)",
+          "targetText": "يَفْتَحَانِ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (two men) open",
+          "englishAuditText": "they (two men) open"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "they-dual-f",
+          "revision": 1,
+          "subjectTargetText": "هُمَا",
+          "subjectBaseText": "they (two women)",
+          "targetText": "تَفْتَحَانِ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (two women) open",
+          "englishAuditText": "they (two women) open"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "they-plural-m",
+          "revision": 1,
+          "subjectTargetText": "هُمْ",
+          "subjectBaseText": "they (men or a mixed group)",
+          "targetText": "يَفْتَحُونَ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمْ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (men/mixed) open",
+          "englishAuditText": "they (men/mixed) open"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "they-plural-f",
+          "revision": 1,
+          "subjectTargetText": "هُنَّ",
+          "subjectBaseText": "they (women)",
+          "targetText": "يَفْتَحْنَ",
+          "targetPhraseFrame": {
+            "beforeText": "هُنَّ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (women) open",
+          "englishAuditText": "they (women) open"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "you-singular-m",
           "revision": 1,
           "subjectTargetText": "أَنْتَ",
@@ -33205,23 +33612,111 @@
             "afterText": ""
           },
           "learnerBaseCueText": "you (one man) open",
-          "englishAuditText": "you (one man) open",
+          "englishAuditText": "you (one man) open"
+        },
+        {
           "usefulness": 98,
-          "complexity": 8
+          "complexity": 8,
+          "id": "you-singular-f",
+          "revision": 1,
+          "subjectTargetText": "أَنْتِ",
+          "subjectBaseText": "you (one woman)",
+          "targetText": "تَفْتَحِينَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتِ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (one woman) open",
+          "englishAuditText": "you (one woman) open"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "you-dual",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُمَا",
+          "subjectBaseText": "you (two people)",
+          "targetText": "تَفْتَحَانِ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (two people) open",
+          "englishAuditText": "you (two people) open"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "you-plural-m",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُمْ",
+          "subjectBaseText": "you (men or a mixed group)",
+          "targetText": "تَفْتَحُونَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُمْ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (men/mixed) open",
+          "englishAuditText": "you (men/mixed) open"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "you-plural-f",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُنَّ",
+          "subjectBaseText": "you (women)",
+          "targetText": "تَفْتَحْنَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُنَّ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (women) open",
+          "englishAuditText": "you (women) open"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "أَنَا",
+          "subjectBaseText": "I",
+          "targetText": "أَفْتَحُ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I open",
+          "englishAuditText": "I open"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "نَحْنُ",
+          "subjectBaseText": "we",
+          "targetText": "نَفْتَحُ",
+          "targetPhraseFrame": {
+            "beforeText": "نَحْنُ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we open",
+          "englishAuditText": "we open"
         }
       ]
     },
     {
       "id": "zero-ar-conjugation-04",
-      "revision": 1,
-      "targetText": "أَجْلِسُ",
-      "learnerBaseText": "I sit",
-      "englishAuditText": "I sit",
-      "meaningChoiceBaseText": "I sit",
+      "revision": 2,
+      "targetText": "جَلَسَ",
+      "learnerBaseText": "sit",
+      "englishAuditText": "sit",
+      "meaningChoiceBaseText": "sit",
       "difficulty": 0,
-      "family": "First present-time forms",
+      "family": "Everyday actions",
       "lessonId": "zero-ar-present-foundations",
-      "teachingNoteBaseText": "Learn these two short forms with their subject cues. Practise one pair at a time.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "first-forms"
@@ -33230,21 +33725,98 @@
       "complexity": 8,
       "forms": [
         {
-          "id": "i",
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "he",
           "revision": 1,
-          "subjectTargetText": "أَنَا",
-          "subjectBaseText": "I",
-          "targetText": "أَجْلِسُ",
+          "subjectTargetText": "هُوَ",
+          "subjectBaseText": "he",
+          "targetText": "يَجْلِسُ",
           "targetPhraseFrame": {
-            "beforeText": "أَنَا ",
+            "beforeText": "هُوَ ",
             "afterText": ""
           },
-          "learnerBaseCueText": "I sit",
-          "englishAuditText": "I sit",
-          "usefulness": 98,
-          "complexity": 8
+          "learnerBaseCueText": "he sits",
+          "englishAuditText": "he sits"
         },
         {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "she",
+          "revision": 1,
+          "subjectTargetText": "هِيَ",
+          "subjectBaseText": "she",
+          "targetText": "تَجْلِسُ",
+          "targetPhraseFrame": {
+            "beforeText": "هِيَ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "she sits",
+          "englishAuditText": "she sits"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "they-dual-m",
+          "revision": 1,
+          "subjectTargetText": "هُمَا",
+          "subjectBaseText": "they (two men)",
+          "targetText": "يَجْلِسَانِ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (two men) sit",
+          "englishAuditText": "they (two men) sit"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "they-dual-f",
+          "revision": 1,
+          "subjectTargetText": "هُمَا",
+          "subjectBaseText": "they (two women)",
+          "targetText": "تَجْلِسَانِ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (two women) sit",
+          "englishAuditText": "they (two women) sit"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "they-plural-m",
+          "revision": 1,
+          "subjectTargetText": "هُمْ",
+          "subjectBaseText": "they (men or a mixed group)",
+          "targetText": "يَجْلِسُونَ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمْ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (men/mixed) sit",
+          "englishAuditText": "they (men/mixed) sit"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "they-plural-f",
+          "revision": 1,
+          "subjectTargetText": "هُنَّ",
+          "subjectBaseText": "they (women)",
+          "targetText": "يَجْلِسْنَ",
+          "targetPhraseFrame": {
+            "beforeText": "هُنَّ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (women) sit",
+          "englishAuditText": "they (women) sit"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "you-singular-m",
           "revision": 1,
           "subjectTargetText": "أَنْتَ",
@@ -33255,23 +33827,111 @@
             "afterText": ""
           },
           "learnerBaseCueText": "you (one man) sit",
-          "englishAuditText": "you (one man) sit",
+          "englishAuditText": "you (one man) sit"
+        },
+        {
           "usefulness": 98,
-          "complexity": 8
+          "complexity": 8,
+          "id": "you-singular-f",
+          "revision": 1,
+          "subjectTargetText": "أَنْتِ",
+          "subjectBaseText": "you (one woman)",
+          "targetText": "تَجْلِسِينَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتِ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (one woman) sit",
+          "englishAuditText": "you (one woman) sit"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "you-dual",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُمَا",
+          "subjectBaseText": "you (two people)",
+          "targetText": "تَجْلِسَانِ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (two people) sit",
+          "englishAuditText": "you (two people) sit"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "you-plural-m",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُمْ",
+          "subjectBaseText": "you (men or a mixed group)",
+          "targetText": "تَجْلِسُونَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُمْ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (men/mixed) sit",
+          "englishAuditText": "you (men/mixed) sit"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "you-plural-f",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُنَّ",
+          "subjectBaseText": "you (women)",
+          "targetText": "تَجْلِسْنَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُنَّ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (women) sit",
+          "englishAuditText": "you (women) sit"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "أَنَا",
+          "subjectBaseText": "I",
+          "targetText": "أَجْلِسُ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I sit",
+          "englishAuditText": "I sit"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "نَحْنُ",
+          "subjectBaseText": "we",
+          "targetText": "نَجْلِسُ",
+          "targetPhraseFrame": {
+            "beforeText": "نَحْنُ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we sit",
+          "englishAuditText": "we sit"
         }
       ]
     },
     {
       "id": "zero-ar-conjugation-05",
-      "revision": 1,
-      "targetText": "أَشْرَبُ",
-      "learnerBaseText": "I drink",
-      "englishAuditText": "I drink",
-      "meaningChoiceBaseText": "I drink",
+      "revision": 2,
+      "targetText": "شَرِبَ",
+      "learnerBaseText": "drink",
+      "englishAuditText": "drink",
+      "meaningChoiceBaseText": "drink",
       "difficulty": 0,
-      "family": "First present-time forms",
+      "family": "Everyday actions",
       "lessonId": "zero-ar-present-foundations",
-      "teachingNoteBaseText": "Learn these two short forms with their subject cues. Practise one pair at a time.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "first-forms"
@@ -33280,21 +33940,98 @@
       "complexity": 8,
       "forms": [
         {
-          "id": "i",
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "he",
           "revision": 1,
-          "subjectTargetText": "أَنَا",
-          "subjectBaseText": "I",
-          "targetText": "أَشْرَبُ",
+          "subjectTargetText": "هُوَ",
+          "subjectBaseText": "he",
+          "targetText": "يَشْرَبُ",
           "targetPhraseFrame": {
-            "beforeText": "أَنَا ",
+            "beforeText": "هُوَ ",
             "afterText": ""
           },
-          "learnerBaseCueText": "I drink",
-          "englishAuditText": "I drink",
-          "usefulness": 98,
-          "complexity": 8
+          "learnerBaseCueText": "he drinks",
+          "englishAuditText": "he drinks"
         },
         {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "she",
+          "revision": 1,
+          "subjectTargetText": "هِيَ",
+          "subjectBaseText": "she",
+          "targetText": "تَشْرَبُ",
+          "targetPhraseFrame": {
+            "beforeText": "هِيَ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "she drinks",
+          "englishAuditText": "she drinks"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "they-dual-m",
+          "revision": 1,
+          "subjectTargetText": "هُمَا",
+          "subjectBaseText": "they (two men)",
+          "targetText": "يَشْرَبَانِ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (two men) drink",
+          "englishAuditText": "they (two men) drink"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "they-dual-f",
+          "revision": 1,
+          "subjectTargetText": "هُمَا",
+          "subjectBaseText": "they (two women)",
+          "targetText": "تَشْرَبَانِ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (two women) drink",
+          "englishAuditText": "they (two women) drink"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "they-plural-m",
+          "revision": 1,
+          "subjectTargetText": "هُمْ",
+          "subjectBaseText": "they (men or a mixed group)",
+          "targetText": "يَشْرَبُونَ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمْ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (men/mixed) drink",
+          "englishAuditText": "they (men/mixed) drink"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "they-plural-f",
+          "revision": 1,
+          "subjectTargetText": "هُنَّ",
+          "subjectBaseText": "they (women)",
+          "targetText": "يَشْرَبْنَ",
+          "targetPhraseFrame": {
+            "beforeText": "هُنَّ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (women) drink",
+          "englishAuditText": "they (women) drink"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "you-singular-m",
           "revision": 1,
           "subjectTargetText": "أَنْتَ",
@@ -33305,23 +34042,111 @@
             "afterText": ""
           },
           "learnerBaseCueText": "you (one man) drink",
-          "englishAuditText": "you (one man) drink",
+          "englishAuditText": "you (one man) drink"
+        },
+        {
           "usefulness": 98,
-          "complexity": 8
+          "complexity": 8,
+          "id": "you-singular-f",
+          "revision": 1,
+          "subjectTargetText": "أَنْتِ",
+          "subjectBaseText": "you (one woman)",
+          "targetText": "تَشْرَبِينَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتِ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (one woman) drink",
+          "englishAuditText": "you (one woman) drink"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "you-dual",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُمَا",
+          "subjectBaseText": "you (two people)",
+          "targetText": "تَشْرَبَانِ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (two people) drink",
+          "englishAuditText": "you (two people) drink"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "you-plural-m",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُمْ",
+          "subjectBaseText": "you (men or a mixed group)",
+          "targetText": "تَشْرَبُونَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُمْ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (men/mixed) drink",
+          "englishAuditText": "you (men/mixed) drink"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "you-plural-f",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُنَّ",
+          "subjectBaseText": "you (women)",
+          "targetText": "تَشْرَبْنَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُنَّ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (women) drink",
+          "englishAuditText": "you (women) drink"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "أَنَا",
+          "subjectBaseText": "I",
+          "targetText": "أَشْرَبُ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I drink",
+          "englishAuditText": "I drink"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "نَحْنُ",
+          "subjectBaseText": "we",
+          "targetText": "نَشْرَبُ",
+          "targetPhraseFrame": {
+            "beforeText": "نَحْنُ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we drink",
+          "englishAuditText": "we drink"
         }
       ]
     },
     {
       "id": "zero-ar-conjugation-06",
-      "revision": 1,
-      "targetText": "أَلْعَبُ",
-      "learnerBaseText": "I play",
-      "englishAuditText": "I play",
-      "meaningChoiceBaseText": "I play",
+      "revision": 2,
+      "targetText": "لَعِبَ",
+      "learnerBaseText": "play",
+      "englishAuditText": "play",
+      "meaningChoiceBaseText": "play",
       "difficulty": 0,
-      "family": "First present-time forms",
+      "family": "Everyday actions",
       "lessonId": "zero-ar-present-foundations",
-      "teachingNoteBaseText": "Learn these two short forms with their subject cues. Practise one pair at a time.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "first-forms"
@@ -33330,21 +34155,98 @@
       "complexity": 8,
       "forms": [
         {
-          "id": "i",
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "he",
           "revision": 1,
-          "subjectTargetText": "أَنَا",
-          "subjectBaseText": "I",
-          "targetText": "أَلْعَبُ",
+          "subjectTargetText": "هُوَ",
+          "subjectBaseText": "he",
+          "targetText": "يَلْعَبُ",
           "targetPhraseFrame": {
-            "beforeText": "أَنَا ",
+            "beforeText": "هُوَ ",
             "afterText": ""
           },
-          "learnerBaseCueText": "I play",
-          "englishAuditText": "I play",
-          "usefulness": 98,
-          "complexity": 8
+          "learnerBaseCueText": "he plays",
+          "englishAuditText": "he plays"
         },
         {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "she",
+          "revision": 1,
+          "subjectTargetText": "هِيَ",
+          "subjectBaseText": "she",
+          "targetText": "تَلْعَبُ",
+          "targetPhraseFrame": {
+            "beforeText": "هِيَ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "she plays",
+          "englishAuditText": "she plays"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "they-dual-m",
+          "revision": 1,
+          "subjectTargetText": "هُمَا",
+          "subjectBaseText": "they (two men)",
+          "targetText": "يَلْعَبَانِ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (two men) play",
+          "englishAuditText": "they (two men) play"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "they-dual-f",
+          "revision": 1,
+          "subjectTargetText": "هُمَا",
+          "subjectBaseText": "they (two women)",
+          "targetText": "تَلْعَبَانِ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (two women) play",
+          "englishAuditText": "they (two women) play"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "they-plural-m",
+          "revision": 1,
+          "subjectTargetText": "هُمْ",
+          "subjectBaseText": "they (men or a mixed group)",
+          "targetText": "يَلْعَبُونَ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمْ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (men/mixed) play",
+          "englishAuditText": "they (men/mixed) play"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "they-plural-f",
+          "revision": 1,
+          "subjectTargetText": "هُنَّ",
+          "subjectBaseText": "they (women)",
+          "targetText": "يَلْعَبْنَ",
+          "targetPhraseFrame": {
+            "beforeText": "هُنَّ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (women) play",
+          "englishAuditText": "they (women) play"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
           "id": "you-singular-m",
           "revision": 1,
           "subjectTargetText": "أَنْتَ",
@@ -33355,23 +34257,111 @@
             "afterText": ""
           },
           "learnerBaseCueText": "you (one man) play",
-          "englishAuditText": "you (one man) play",
+          "englishAuditText": "you (one man) play"
+        },
+        {
           "usefulness": 98,
-          "complexity": 8
+          "complexity": 8,
+          "id": "you-singular-f",
+          "revision": 1,
+          "subjectTargetText": "أَنْتِ",
+          "subjectBaseText": "you (one woman)",
+          "targetText": "تَلْعَبِينَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتِ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (one woman) play",
+          "englishAuditText": "you (one woman) play"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "you-dual",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُمَا",
+          "subjectBaseText": "you (two people)",
+          "targetText": "تَلْعَبَانِ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (two people) play",
+          "englishAuditText": "you (two people) play"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "you-plural-m",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُمْ",
+          "subjectBaseText": "you (men or a mixed group)",
+          "targetText": "تَلْعَبُونَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُمْ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (men/mixed) play",
+          "englishAuditText": "you (men/mixed) play"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "you-plural-f",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُنَّ",
+          "subjectBaseText": "you (women)",
+          "targetText": "تَلْعَبْنَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُنَّ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (women) play",
+          "englishAuditText": "you (women) play"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "أَنَا",
+          "subjectBaseText": "I",
+          "targetText": "أَلْعَبُ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I play",
+          "englishAuditText": "I play"
+        },
+        {
+          "usefulness": 98,
+          "complexity": 8,
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "نَحْنُ",
+          "subjectBaseText": "we",
+          "targetText": "نَلْعَبُ",
+          "targetPhraseFrame": {
+            "beforeText": "نَحْنُ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we play",
+          "englishAuditText": "we play"
         }
       ]
     },
     {
       "id": "zero-ar-conjugation-e2-ar-004-present",
-      "revision": 1,
-      "targetText": "أُغْلِقُ",
-      "learnerBaseText": "I close",
-      "englishAuditText": "I close",
-      "meaningChoiceBaseText": "I close",
+      "revision": 2,
+      "targetText": "أَغْلَقَ",
+      "learnerBaseText": "close",
+      "englishAuditText": "close",
+      "meaningChoiceBaseText": "close",
       "difficulty": 0,
-      "family": "First I and you forms",
+      "family": "Everyday actions",
       "lessonId": "zero-ar-first-forms-expanded",
-      "teachingNoteBaseText": "Read the I example first, then match the you example. These two forms use the same familiar action.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "first-forms"
@@ -33380,21 +34370,98 @@
       "complexity": 8,
       "forms": [
         {
-          "id": "i",
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "he",
           "revision": 1,
-          "subjectTargetText": "أَنَا",
-          "subjectBaseText": "I",
-          "targetText": "أُغْلِقُ",
+          "subjectTargetText": "هُوَ",
+          "subjectBaseText": "he",
+          "targetText": "يُغْلِقُ",
           "targetPhraseFrame": {
-            "beforeText": "أَنَا ",
+            "beforeText": "هُوَ ",
             "afterText": ""
           },
-          "learnerBaseCueText": "I close",
-          "englishAuditText": "I close",
-          "usefulness": 96,
-          "complexity": 8
+          "learnerBaseCueText": "he closes",
+          "englishAuditText": "he closes"
         },
         {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "she",
+          "revision": 1,
+          "subjectTargetText": "هِيَ",
+          "subjectBaseText": "she",
+          "targetText": "تُغْلِقُ",
+          "targetPhraseFrame": {
+            "beforeText": "هِيَ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "she closes",
+          "englishAuditText": "she closes"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "they-dual-m",
+          "revision": 1,
+          "subjectTargetText": "هُمَا",
+          "subjectBaseText": "they (two men)",
+          "targetText": "يُغْلِقَانِ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (two men) close",
+          "englishAuditText": "they (two men) close"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "they-dual-f",
+          "revision": 1,
+          "subjectTargetText": "هُمَا",
+          "subjectBaseText": "they (two women)",
+          "targetText": "تُغْلِقَانِ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (two women) close",
+          "englishAuditText": "they (two women) close"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "they-plural-m",
+          "revision": 1,
+          "subjectTargetText": "هُمْ",
+          "subjectBaseText": "they (men or a mixed group)",
+          "targetText": "يُغْلِقُونَ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمْ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (men/mixed) close",
+          "englishAuditText": "they (men/mixed) close"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "they-plural-f",
+          "revision": 1,
+          "subjectTargetText": "هُنَّ",
+          "subjectBaseText": "they (women)",
+          "targetText": "يُغْلِقْنَ",
+          "targetPhraseFrame": {
+            "beforeText": "هُنَّ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (women) close",
+          "englishAuditText": "they (women) close"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "you-singular-m",
           "revision": 1,
           "subjectTargetText": "أَنْتَ",
@@ -33405,23 +34472,111 @@
             "afterText": ""
           },
           "learnerBaseCueText": "you (one man) close",
-          "englishAuditText": "you (one man) close",
+          "englishAuditText": "you (one man) close"
+        },
+        {
           "usefulness": 96,
-          "complexity": 8
+          "complexity": 8,
+          "id": "you-singular-f",
+          "revision": 1,
+          "subjectTargetText": "أَنْتِ",
+          "subjectBaseText": "you (one woman)",
+          "targetText": "تُغْلِقِينَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتِ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (one woman) close",
+          "englishAuditText": "you (one woman) close"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "you-dual",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُمَا",
+          "subjectBaseText": "you (two people)",
+          "targetText": "تُغْلِقَانِ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (two people) close",
+          "englishAuditText": "you (two people) close"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "you-plural-m",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُمْ",
+          "subjectBaseText": "you (men or a mixed group)",
+          "targetText": "تُغْلِقُونَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُمْ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (men/mixed) close",
+          "englishAuditText": "you (men/mixed) close"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "you-plural-f",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُنَّ",
+          "subjectBaseText": "you (women)",
+          "targetText": "تُغْلِقْنَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُنَّ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (women) close",
+          "englishAuditText": "you (women) close"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "أَنَا",
+          "subjectBaseText": "I",
+          "targetText": "أُغْلِقُ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I close",
+          "englishAuditText": "I close"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "نَحْنُ",
+          "subjectBaseText": "we",
+          "targetText": "نُغْلِقُ",
+          "targetPhraseFrame": {
+            "beforeText": "نَحْنُ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we close",
+          "englishAuditText": "we close"
         }
       ]
     },
     {
       "id": "zero-ar-conjugation-e2-ar-011-present",
-      "revision": 1,
-      "targetText": "أَسْمَعُ",
-      "learnerBaseText": "I hear",
-      "englishAuditText": "I hear",
-      "meaningChoiceBaseText": "I hear",
+      "revision": 2,
+      "targetText": "سَمِعَ",
+      "learnerBaseText": "hear",
+      "englishAuditText": "hear",
+      "meaningChoiceBaseText": "hear",
       "difficulty": 0,
-      "family": "First I and you forms",
+      "family": "Everyday actions",
       "lessonId": "zero-ar-first-forms-expanded",
-      "teachingNoteBaseText": "Read the I example first, then match the you example. These two forms use the same familiar action.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "first-forms"
@@ -33430,21 +34585,98 @@
       "complexity": 8,
       "forms": [
         {
-          "id": "i",
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "he",
           "revision": 1,
-          "subjectTargetText": "أَنَا",
-          "subjectBaseText": "I",
-          "targetText": "أَسْمَعُ",
+          "subjectTargetText": "هُوَ",
+          "subjectBaseText": "he",
+          "targetText": "يَسْمَعُ",
           "targetPhraseFrame": {
-            "beforeText": "أَنَا ",
+            "beforeText": "هُوَ ",
             "afterText": ""
           },
-          "learnerBaseCueText": "I hear",
-          "englishAuditText": "I hear",
-          "usefulness": 96,
-          "complexity": 8
+          "learnerBaseCueText": "he hears",
+          "englishAuditText": "he hears"
         },
         {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "she",
+          "revision": 1,
+          "subjectTargetText": "هِيَ",
+          "subjectBaseText": "she",
+          "targetText": "تَسْمَعُ",
+          "targetPhraseFrame": {
+            "beforeText": "هِيَ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "she hears",
+          "englishAuditText": "she hears"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "they-dual-m",
+          "revision": 1,
+          "subjectTargetText": "هُمَا",
+          "subjectBaseText": "they (two men)",
+          "targetText": "يَسْمَعَانِ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (two men) hear",
+          "englishAuditText": "they (two men) hear"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "they-dual-f",
+          "revision": 1,
+          "subjectTargetText": "هُمَا",
+          "subjectBaseText": "they (two women)",
+          "targetText": "تَسْمَعَانِ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (two women) hear",
+          "englishAuditText": "they (two women) hear"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "they-plural-m",
+          "revision": 1,
+          "subjectTargetText": "هُمْ",
+          "subjectBaseText": "they (men or a mixed group)",
+          "targetText": "يَسْمَعُونَ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمْ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (men/mixed) hear",
+          "englishAuditText": "they (men/mixed) hear"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "they-plural-f",
+          "revision": 1,
+          "subjectTargetText": "هُنَّ",
+          "subjectBaseText": "they (women)",
+          "targetText": "يَسْمَعْنَ",
+          "targetPhraseFrame": {
+            "beforeText": "هُنَّ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (women) hear",
+          "englishAuditText": "they (women) hear"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "you-singular-m",
           "revision": 1,
           "subjectTargetText": "أَنْتَ",
@@ -33455,23 +34687,111 @@
             "afterText": ""
           },
           "learnerBaseCueText": "you (one man) hear",
-          "englishAuditText": "you (one man) hear",
+          "englishAuditText": "you (one man) hear"
+        },
+        {
           "usefulness": 96,
-          "complexity": 8
+          "complexity": 8,
+          "id": "you-singular-f",
+          "revision": 1,
+          "subjectTargetText": "أَنْتِ",
+          "subjectBaseText": "you (one woman)",
+          "targetText": "تَسْمَعِينَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتِ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (one woman) hear",
+          "englishAuditText": "you (one woman) hear"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "you-dual",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُمَا",
+          "subjectBaseText": "you (two people)",
+          "targetText": "تَسْمَعَانِ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (two people) hear",
+          "englishAuditText": "you (two people) hear"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "you-plural-m",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُمْ",
+          "subjectBaseText": "you (men or a mixed group)",
+          "targetText": "تَسْمَعُونَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُمْ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (men/mixed) hear",
+          "englishAuditText": "you (men/mixed) hear"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "you-plural-f",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُنَّ",
+          "subjectBaseText": "you (women)",
+          "targetText": "تَسْمَعْنَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُنَّ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (women) hear",
+          "englishAuditText": "you (women) hear"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "أَنَا",
+          "subjectBaseText": "I",
+          "targetText": "أَسْمَعُ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I hear",
+          "englishAuditText": "I hear"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "نَحْنُ",
+          "subjectBaseText": "we",
+          "targetText": "نَسْمَعُ",
+          "targetPhraseFrame": {
+            "beforeText": "نَحْنُ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we hear",
+          "englishAuditText": "we hear"
         }
       ]
     },
     {
       "id": "zero-ar-conjugation-e2-ar-018-present",
-      "revision": 1,
-      "targetText": "أَذْهَبُ",
-      "learnerBaseText": "I go",
-      "englishAuditText": "I go",
-      "meaningChoiceBaseText": "I go",
+      "revision": 2,
+      "targetText": "ذَهَبَ",
+      "learnerBaseText": "go",
+      "englishAuditText": "go",
+      "meaningChoiceBaseText": "go",
       "difficulty": 0,
-      "family": "First I and you forms",
+      "family": "Everyday actions",
       "lessonId": "zero-ar-first-forms-expanded",
-      "teachingNoteBaseText": "Read the I example first, then match the you example. These two forms use the same familiar action.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "first-forms"
@@ -33480,21 +34800,98 @@
       "complexity": 8,
       "forms": [
         {
-          "id": "i",
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "he",
           "revision": 1,
-          "subjectTargetText": "أَنَا",
-          "subjectBaseText": "I",
-          "targetText": "أَذْهَبُ",
+          "subjectTargetText": "هُوَ",
+          "subjectBaseText": "he",
+          "targetText": "يَذْهَبُ",
           "targetPhraseFrame": {
-            "beforeText": "أَنَا ",
+            "beforeText": "هُوَ ",
             "afterText": ""
           },
-          "learnerBaseCueText": "I go",
-          "englishAuditText": "I go",
-          "usefulness": 96,
-          "complexity": 8
+          "learnerBaseCueText": "he goes",
+          "englishAuditText": "he goes"
         },
         {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "she",
+          "revision": 1,
+          "subjectTargetText": "هِيَ",
+          "subjectBaseText": "she",
+          "targetText": "تَذْهَبُ",
+          "targetPhraseFrame": {
+            "beforeText": "هِيَ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "she goes",
+          "englishAuditText": "she goes"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "they-dual-m",
+          "revision": 1,
+          "subjectTargetText": "هُمَا",
+          "subjectBaseText": "they (two men)",
+          "targetText": "يَذْهَبَانِ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (two men) go",
+          "englishAuditText": "they (two men) go"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "they-dual-f",
+          "revision": 1,
+          "subjectTargetText": "هُمَا",
+          "subjectBaseText": "they (two women)",
+          "targetText": "تَذْهَبَانِ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (two women) go",
+          "englishAuditText": "they (two women) go"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "they-plural-m",
+          "revision": 1,
+          "subjectTargetText": "هُمْ",
+          "subjectBaseText": "they (men or a mixed group)",
+          "targetText": "يَذْهَبُونَ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمْ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (men/mixed) go",
+          "englishAuditText": "they (men/mixed) go"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "they-plural-f",
+          "revision": 1,
+          "subjectTargetText": "هُنَّ",
+          "subjectBaseText": "they (women)",
+          "targetText": "يَذْهَبْنَ",
+          "targetPhraseFrame": {
+            "beforeText": "هُنَّ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (women) go",
+          "englishAuditText": "they (women) go"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "you-singular-m",
           "revision": 1,
           "subjectTargetText": "أَنْتَ",
@@ -33505,23 +34902,111 @@
             "afterText": ""
           },
           "learnerBaseCueText": "you (one man) go",
-          "englishAuditText": "you (one man) go",
+          "englishAuditText": "you (one man) go"
+        },
+        {
           "usefulness": 96,
-          "complexity": 8
+          "complexity": 8,
+          "id": "you-singular-f",
+          "revision": 1,
+          "subjectTargetText": "أَنْتِ",
+          "subjectBaseText": "you (one woman)",
+          "targetText": "تَذْهَبِينَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتِ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (one woman) go",
+          "englishAuditText": "you (one woman) go"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "you-dual",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُمَا",
+          "subjectBaseText": "you (two people)",
+          "targetText": "تَذْهَبَانِ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (two people) go",
+          "englishAuditText": "you (two people) go"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "you-plural-m",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُمْ",
+          "subjectBaseText": "you (men or a mixed group)",
+          "targetText": "تَذْهَبُونَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُمْ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (men/mixed) go",
+          "englishAuditText": "you (men/mixed) go"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "you-plural-f",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُنَّ",
+          "subjectBaseText": "you (women)",
+          "targetText": "تَذْهَبْنَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُنَّ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (women) go",
+          "englishAuditText": "you (women) go"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "أَنَا",
+          "subjectBaseText": "I",
+          "targetText": "أَذْهَبُ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I go",
+          "englishAuditText": "I go"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "نَحْنُ",
+          "subjectBaseText": "we",
+          "targetText": "نَذْهَبُ",
+          "targetPhraseFrame": {
+            "beforeText": "نَحْنُ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we go",
+          "englishAuditText": "we go"
         }
       ]
     },
     {
       "id": "zero-ar-conjugation-e2-ar-060-present",
-      "revision": 1,
-      "targetText": "أَقْرَأُ",
-      "learnerBaseText": "I read",
-      "englishAuditText": "I read",
-      "meaningChoiceBaseText": "I read",
+      "revision": 2,
+      "targetText": "قَرَأَ",
+      "learnerBaseText": "read",
+      "englishAuditText": "read",
+      "meaningChoiceBaseText": "read",
       "difficulty": 0,
-      "family": "First I and you forms",
+      "family": "Everyday actions",
       "lessonId": "zero-ar-first-forms-expanded",
-      "teachingNoteBaseText": "Read the I example first, then match the you example. These two forms use the same familiar action.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "first-forms"
@@ -33530,21 +35015,98 @@
       "complexity": 8,
       "forms": [
         {
-          "id": "i",
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "he",
           "revision": 1,
-          "subjectTargetText": "أَنَا",
-          "subjectBaseText": "I",
-          "targetText": "أَقْرَأُ",
+          "subjectTargetText": "هُوَ",
+          "subjectBaseText": "he",
+          "targetText": "يَقْرَأُ",
           "targetPhraseFrame": {
-            "beforeText": "أَنَا ",
+            "beforeText": "هُوَ ",
             "afterText": ""
           },
-          "learnerBaseCueText": "I read",
-          "englishAuditText": "I read",
-          "usefulness": 96,
-          "complexity": 8
+          "learnerBaseCueText": "he reads",
+          "englishAuditText": "he reads"
         },
         {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "she",
+          "revision": 1,
+          "subjectTargetText": "هِيَ",
+          "subjectBaseText": "she",
+          "targetText": "تَقْرَأُ",
+          "targetPhraseFrame": {
+            "beforeText": "هِيَ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "she reads",
+          "englishAuditText": "she reads"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "they-dual-m",
+          "revision": 1,
+          "subjectTargetText": "هُمَا",
+          "subjectBaseText": "they (two men)",
+          "targetText": "يَقْرَآنِ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (two men) read",
+          "englishAuditText": "they (two men) read"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "they-dual-f",
+          "revision": 1,
+          "subjectTargetText": "هُمَا",
+          "subjectBaseText": "they (two women)",
+          "targetText": "تَقْرَآنِ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (two women) read",
+          "englishAuditText": "they (two women) read"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "they-plural-m",
+          "revision": 1,
+          "subjectTargetText": "هُمْ",
+          "subjectBaseText": "they (men or a mixed group)",
+          "targetText": "يَقْرَؤُونَ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمْ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (men/mixed) read",
+          "englishAuditText": "they (men/mixed) read"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "they-plural-f",
+          "revision": 1,
+          "subjectTargetText": "هُنَّ",
+          "subjectBaseText": "they (women)",
+          "targetText": "يَقْرَأْنَ",
+          "targetPhraseFrame": {
+            "beforeText": "هُنَّ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (women) read",
+          "englishAuditText": "they (women) read"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "you-singular-m",
           "revision": 1,
           "subjectTargetText": "أَنْتَ",
@@ -33555,23 +35117,111 @@
             "afterText": ""
           },
           "learnerBaseCueText": "you (one man) read",
-          "englishAuditText": "you (one man) read",
+          "englishAuditText": "you (one man) read"
+        },
+        {
           "usefulness": 96,
-          "complexity": 8
+          "complexity": 8,
+          "id": "you-singular-f",
+          "revision": 1,
+          "subjectTargetText": "أَنْتِ",
+          "subjectBaseText": "you (one woman)",
+          "targetText": "تَقْرَئِينَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتِ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (one woman) read",
+          "englishAuditText": "you (one woman) read"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "you-dual",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُمَا",
+          "subjectBaseText": "you (two people)",
+          "targetText": "تَقْرَآنِ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (two people) read",
+          "englishAuditText": "you (two people) read"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "you-plural-m",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُمْ",
+          "subjectBaseText": "you (men or a mixed group)",
+          "targetText": "تَقْرَؤُونَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُمْ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (men/mixed) read",
+          "englishAuditText": "you (men/mixed) read"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "you-plural-f",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُنَّ",
+          "subjectBaseText": "you (women)",
+          "targetText": "تَقْرَأْنَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُنَّ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (women) read",
+          "englishAuditText": "you (women) read"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "أَنَا",
+          "subjectBaseText": "I",
+          "targetText": "أَقْرَأُ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I read",
+          "englishAuditText": "I read"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "نَحْنُ",
+          "subjectBaseText": "we",
+          "targetText": "نَقْرَأُ",
+          "targetPhraseFrame": {
+            "beforeText": "نَحْنُ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we read",
+          "englishAuditText": "we read"
         }
       ]
     },
     {
       "id": "zero-ar-conjugation-e2-ar-063-present",
-      "revision": 1,
-      "targetText": "أَجِيءُ",
-      "learnerBaseText": "I come",
-      "englishAuditText": "I come",
-      "meaningChoiceBaseText": "I come",
+      "revision": 2,
+      "targetText": "جَاءَ",
+      "learnerBaseText": "come",
+      "englishAuditText": "come",
+      "meaningChoiceBaseText": "come",
       "difficulty": 0,
-      "family": "First I and you forms",
+      "family": "Everyday actions",
       "lessonId": "zero-ar-first-forms-expanded",
-      "teachingNoteBaseText": "Read the I example first, then match the you example. These two forms use the same familiar action.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "first-forms"
@@ -33580,21 +35230,98 @@
       "complexity": 8,
       "forms": [
         {
-          "id": "i",
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "he",
           "revision": 1,
-          "subjectTargetText": "أَنَا",
-          "subjectBaseText": "I",
-          "targetText": "أَجِيءُ",
+          "subjectTargetText": "هُوَ",
+          "subjectBaseText": "he",
+          "targetText": "يَجِيءُ",
           "targetPhraseFrame": {
-            "beforeText": "أَنَا ",
+            "beforeText": "هُوَ ",
             "afterText": ""
           },
-          "learnerBaseCueText": "I come",
-          "englishAuditText": "I come",
-          "usefulness": 96,
-          "complexity": 8
+          "learnerBaseCueText": "he comes",
+          "englishAuditText": "he comes"
         },
         {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "she",
+          "revision": 1,
+          "subjectTargetText": "هِيَ",
+          "subjectBaseText": "she",
+          "targetText": "تَجِيءُ",
+          "targetPhraseFrame": {
+            "beforeText": "هِيَ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "she comes",
+          "englishAuditText": "she comes"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "they-dual-m",
+          "revision": 1,
+          "subjectTargetText": "هُمَا",
+          "subjectBaseText": "they (two men)",
+          "targetText": "يَجِيئَانِ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (two men) come",
+          "englishAuditText": "they (two men) come"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "they-dual-f",
+          "revision": 1,
+          "subjectTargetText": "هُمَا",
+          "subjectBaseText": "they (two women)",
+          "targetText": "تَجِيئَانِ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (two women) come",
+          "englishAuditText": "they (two women) come"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "they-plural-m",
+          "revision": 1,
+          "subjectTargetText": "هُمْ",
+          "subjectBaseText": "they (men or a mixed group)",
+          "targetText": "يَجِيئُونَ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمْ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (men/mixed) come",
+          "englishAuditText": "they (men/mixed) come"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "they-plural-f",
+          "revision": 1,
+          "subjectTargetText": "هُنَّ",
+          "subjectBaseText": "they (women)",
+          "targetText": "يَجِئْنَ",
+          "targetPhraseFrame": {
+            "beforeText": "هُنَّ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (women) come",
+          "englishAuditText": "they (women) come"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "you-singular-m",
           "revision": 1,
           "subjectTargetText": "أَنْتَ",
@@ -33605,23 +35332,111 @@
             "afterText": ""
           },
           "learnerBaseCueText": "you (one man) come",
-          "englishAuditText": "you (one man) come",
+          "englishAuditText": "you (one man) come"
+        },
+        {
           "usefulness": 96,
-          "complexity": 8
+          "complexity": 8,
+          "id": "you-singular-f",
+          "revision": 1,
+          "subjectTargetText": "أَنْتِ",
+          "subjectBaseText": "you (one woman)",
+          "targetText": "تَجِيئِينَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتِ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (one woman) come",
+          "englishAuditText": "you (one woman) come"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "you-dual",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُمَا",
+          "subjectBaseText": "you (two people)",
+          "targetText": "تَجِيئَانِ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (two people) come",
+          "englishAuditText": "you (two people) come"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "you-plural-m",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُمْ",
+          "subjectBaseText": "you (men or a mixed group)",
+          "targetText": "تَجِيئُونَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُمْ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (men/mixed) come",
+          "englishAuditText": "you (men/mixed) come"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "you-plural-f",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُنَّ",
+          "subjectBaseText": "you (women)",
+          "targetText": "تَجِئْنَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُنَّ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (women) come",
+          "englishAuditText": "you (women) come"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "أَنَا",
+          "subjectBaseText": "I",
+          "targetText": "أَجِيءُ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I come",
+          "englishAuditText": "I come"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "نَحْنُ",
+          "subjectBaseText": "we",
+          "targetText": "نَجِيءُ",
+          "targetPhraseFrame": {
+            "beforeText": "نَحْنُ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we come",
+          "englishAuditText": "we come"
         }
       ]
     },
     {
       "id": "zero-ar-conjugation-e2-ar-065-present",
-      "revision": 1,
-      "targetText": "آكُلُ",
-      "learnerBaseText": "I eat",
-      "englishAuditText": "I eat",
-      "meaningChoiceBaseText": "I eat",
+      "revision": 2,
+      "targetText": "أَكَلَ",
+      "learnerBaseText": "eat",
+      "englishAuditText": "eat",
+      "meaningChoiceBaseText": "eat",
       "difficulty": 0,
-      "family": "First I and you forms",
+      "family": "Everyday actions",
       "lessonId": "zero-ar-first-forms-expanded",
-      "teachingNoteBaseText": "Read the I example first, then match the you example. These two forms use the same familiar action.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "first-forms"
@@ -33630,21 +35445,98 @@
       "complexity": 8,
       "forms": [
         {
-          "id": "i",
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "he",
           "revision": 1,
-          "subjectTargetText": "أَنَا",
-          "subjectBaseText": "I",
-          "targetText": "آكُلُ",
+          "subjectTargetText": "هُوَ",
+          "subjectBaseText": "he",
+          "targetText": "يَأْكُلُ",
           "targetPhraseFrame": {
-            "beforeText": "أَنَا ",
+            "beforeText": "هُوَ ",
             "afterText": ""
           },
-          "learnerBaseCueText": "I eat",
-          "englishAuditText": "I eat",
-          "usefulness": 96,
-          "complexity": 8
+          "learnerBaseCueText": "he eats",
+          "englishAuditText": "he eats"
         },
         {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "she",
+          "revision": 1,
+          "subjectTargetText": "هِيَ",
+          "subjectBaseText": "she",
+          "targetText": "تَأْكُلُ",
+          "targetPhraseFrame": {
+            "beforeText": "هِيَ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "she eats",
+          "englishAuditText": "she eats"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "they-dual-m",
+          "revision": 1,
+          "subjectTargetText": "هُمَا",
+          "subjectBaseText": "they (two men)",
+          "targetText": "يَأْكُلَانِ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (two men) eat",
+          "englishAuditText": "they (two men) eat"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "they-dual-f",
+          "revision": 1,
+          "subjectTargetText": "هُمَا",
+          "subjectBaseText": "they (two women)",
+          "targetText": "تَأْكُلَانِ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (two women) eat",
+          "englishAuditText": "they (two women) eat"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "they-plural-m",
+          "revision": 1,
+          "subjectTargetText": "هُمْ",
+          "subjectBaseText": "they (men or a mixed group)",
+          "targetText": "يَأْكُلُونَ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمْ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (men/mixed) eat",
+          "englishAuditText": "they (men/mixed) eat"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "they-plural-f",
+          "revision": 1,
+          "subjectTargetText": "هُنَّ",
+          "subjectBaseText": "they (women)",
+          "targetText": "يَأْكُلْنَ",
+          "targetPhraseFrame": {
+            "beforeText": "هُنَّ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (women) eat",
+          "englishAuditText": "they (women) eat"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "you-singular-m",
           "revision": 1,
           "subjectTargetText": "أَنْتَ",
@@ -33655,23 +35547,111 @@
             "afterText": ""
           },
           "learnerBaseCueText": "you (one man) eat",
-          "englishAuditText": "you (one man) eat",
+          "englishAuditText": "you (one man) eat"
+        },
+        {
           "usefulness": 96,
-          "complexity": 8
+          "complexity": 8,
+          "id": "you-singular-f",
+          "revision": 1,
+          "subjectTargetText": "أَنْتِ",
+          "subjectBaseText": "you (one woman)",
+          "targetText": "تَأْكُلِينَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتِ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (one woman) eat",
+          "englishAuditText": "you (one woman) eat"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "you-dual",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُمَا",
+          "subjectBaseText": "you (two people)",
+          "targetText": "تَأْكُلَانِ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (two people) eat",
+          "englishAuditText": "you (two people) eat"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "you-plural-m",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُمْ",
+          "subjectBaseText": "you (men or a mixed group)",
+          "targetText": "تَأْكُلُونَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُمْ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (men/mixed) eat",
+          "englishAuditText": "you (men/mixed) eat"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "you-plural-f",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُنَّ",
+          "subjectBaseText": "you (women)",
+          "targetText": "تَأْكُلْنَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُنَّ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (women) eat",
+          "englishAuditText": "you (women) eat"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "أَنَا",
+          "subjectBaseText": "I",
+          "targetText": "آكُلُ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I eat",
+          "englishAuditText": "I eat"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "نَحْنُ",
+          "subjectBaseText": "we",
+          "targetText": "نَأْكُلُ",
+          "targetPhraseFrame": {
+            "beforeText": "نَحْنُ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we eat",
+          "englishAuditText": "we eat"
         }
       ]
     },
     {
       "id": "zero-ar-conjugation-e2-ar-066-present",
-      "revision": 1,
-      "targetText": "أَرَى",
-      "learnerBaseText": "I see",
-      "englishAuditText": "I see",
-      "meaningChoiceBaseText": "I see",
+      "revision": 2,
+      "targetText": "رَأَى",
+      "learnerBaseText": "see",
+      "englishAuditText": "see",
+      "meaningChoiceBaseText": "see",
       "difficulty": 0,
-      "family": "First I and you forms",
+      "family": "Everyday actions",
       "lessonId": "zero-ar-first-forms-expanded",
-      "teachingNoteBaseText": "Read the I example first, then match the you example. These two forms use the same familiar action.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "first-forms"
@@ -33680,21 +35660,98 @@
       "complexity": 8,
       "forms": [
         {
-          "id": "i",
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "he",
           "revision": 1,
-          "subjectTargetText": "أَنَا",
-          "subjectBaseText": "I",
-          "targetText": "أَرَى",
+          "subjectTargetText": "هُوَ",
+          "subjectBaseText": "he",
+          "targetText": "يَرَى",
           "targetPhraseFrame": {
-            "beforeText": "أَنَا ",
+            "beforeText": "هُوَ ",
             "afterText": ""
           },
-          "learnerBaseCueText": "I see",
-          "englishAuditText": "I see",
-          "usefulness": 96,
-          "complexity": 8
+          "learnerBaseCueText": "he sees",
+          "englishAuditText": "he sees"
         },
         {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "she",
+          "revision": 1,
+          "subjectTargetText": "هِيَ",
+          "subjectBaseText": "she",
+          "targetText": "تَرَى",
+          "targetPhraseFrame": {
+            "beforeText": "هِيَ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "she sees",
+          "englishAuditText": "she sees"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "they-dual-m",
+          "revision": 1,
+          "subjectTargetText": "هُمَا",
+          "subjectBaseText": "they (two men)",
+          "targetText": "يَرَيَانِ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (two men) see",
+          "englishAuditText": "they (two men) see"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "they-dual-f",
+          "revision": 1,
+          "subjectTargetText": "هُمَا",
+          "subjectBaseText": "they (two women)",
+          "targetText": "تَرَيَانِ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (two women) see",
+          "englishAuditText": "they (two women) see"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "they-plural-m",
+          "revision": 1,
+          "subjectTargetText": "هُمْ",
+          "subjectBaseText": "they (men or a mixed group)",
+          "targetText": "يَرَوْنَ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمْ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (men/mixed) see",
+          "englishAuditText": "they (men/mixed) see"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "they-plural-f",
+          "revision": 1,
+          "subjectTargetText": "هُنَّ",
+          "subjectBaseText": "they (women)",
+          "targetText": "يَرَيْنَ",
+          "targetPhraseFrame": {
+            "beforeText": "هُنَّ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (women) see",
+          "englishAuditText": "they (women) see"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "you-singular-m",
           "revision": 1,
           "subjectTargetText": "أَنْتَ",
@@ -33705,23 +35762,111 @@
             "afterText": ""
           },
           "learnerBaseCueText": "you (one man) see",
-          "englishAuditText": "you (one man) see",
+          "englishAuditText": "you (one man) see"
+        },
+        {
           "usefulness": 96,
-          "complexity": 8
+          "complexity": 8,
+          "id": "you-singular-f",
+          "revision": 1,
+          "subjectTargetText": "أَنْتِ",
+          "subjectBaseText": "you (one woman)",
+          "targetText": "تَرَيْنَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتِ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (one woman) see",
+          "englishAuditText": "you (one woman) see"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "you-dual",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُمَا",
+          "subjectBaseText": "you (two people)",
+          "targetText": "تَرَيَانِ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (two people) see",
+          "englishAuditText": "you (two people) see"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "you-plural-m",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُمْ",
+          "subjectBaseText": "you (men or a mixed group)",
+          "targetText": "تَرَوْنَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُمْ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (men/mixed) see",
+          "englishAuditText": "you (men/mixed) see"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "you-plural-f",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُنَّ",
+          "subjectBaseText": "you (women)",
+          "targetText": "تَرَيْنَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُنَّ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (women) see",
+          "englishAuditText": "you (women) see"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "أَنَا",
+          "subjectBaseText": "I",
+          "targetText": "أَرَى",
+          "targetPhraseFrame": {
+            "beforeText": "أَنَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I see",
+          "englishAuditText": "I see"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "نَحْنُ",
+          "subjectBaseText": "we",
+          "targetText": "نَرَى",
+          "targetPhraseFrame": {
+            "beforeText": "نَحْنُ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we see",
+          "englishAuditText": "we see"
         }
       ]
     },
     {
       "id": "zero-ar-conjugation-e2-ar-071-present",
-      "revision": 1,
-      "targetText": "أَنَامُ",
-      "learnerBaseText": "I sleep",
-      "englishAuditText": "I sleep",
-      "meaningChoiceBaseText": "I sleep",
+      "revision": 2,
+      "targetText": "نَامَ",
+      "learnerBaseText": "sleep",
+      "englishAuditText": "sleep",
+      "meaningChoiceBaseText": "sleep",
       "difficulty": 0,
-      "family": "First I and you forms",
+      "family": "Everyday actions",
       "lessonId": "zero-ar-first-forms-expanded",
-      "teachingNoteBaseText": "Read the I example first, then match the you example. These two forms use the same familiar action.",
+      "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "tags": [
         "level-zero",
         "first-forms"
@@ -33730,21 +35875,98 @@
       "complexity": 8,
       "forms": [
         {
-          "id": "i",
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "he",
           "revision": 1,
-          "subjectTargetText": "أَنَا",
-          "subjectBaseText": "I",
-          "targetText": "أَنَامُ",
+          "subjectTargetText": "هُوَ",
+          "subjectBaseText": "he",
+          "targetText": "يَنَامُ",
           "targetPhraseFrame": {
-            "beforeText": "أَنَا ",
+            "beforeText": "هُوَ ",
             "afterText": ""
           },
-          "learnerBaseCueText": "I sleep",
-          "englishAuditText": "I sleep",
-          "usefulness": 96,
-          "complexity": 8
+          "learnerBaseCueText": "he sleeps",
+          "englishAuditText": "he sleeps"
         },
         {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "she",
+          "revision": 1,
+          "subjectTargetText": "هِيَ",
+          "subjectBaseText": "she",
+          "targetText": "تَنَامُ",
+          "targetPhraseFrame": {
+            "beforeText": "هِيَ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "she sleeps",
+          "englishAuditText": "she sleeps"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "they-dual-m",
+          "revision": 1,
+          "subjectTargetText": "هُمَا",
+          "subjectBaseText": "they (two men)",
+          "targetText": "يَنَامَانِ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (two men) sleep",
+          "englishAuditText": "they (two men) sleep"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "they-dual-f",
+          "revision": 1,
+          "subjectTargetText": "هُمَا",
+          "subjectBaseText": "they (two women)",
+          "targetText": "تَنَامَانِ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (two women) sleep",
+          "englishAuditText": "they (two women) sleep"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "they-plural-m",
+          "revision": 1,
+          "subjectTargetText": "هُمْ",
+          "subjectBaseText": "they (men or a mixed group)",
+          "targetText": "يَنَامُونَ",
+          "targetPhraseFrame": {
+            "beforeText": "هُمْ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (men/mixed) sleep",
+          "englishAuditText": "they (men/mixed) sleep"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "they-plural-f",
+          "revision": 1,
+          "subjectTargetText": "هُنَّ",
+          "subjectBaseText": "they (women)",
+          "targetText": "يَنَمْنَ",
+          "targetPhraseFrame": {
+            "beforeText": "هُنَّ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "they (women) sleep",
+          "englishAuditText": "they (women) sleep"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
           "id": "you-singular-m",
           "revision": 1,
           "subjectTargetText": "أَنْتَ",
@@ -33755,9 +35977,97 @@
             "afterText": ""
           },
           "learnerBaseCueText": "you (one man) sleep",
-          "englishAuditText": "you (one man) sleep",
+          "englishAuditText": "you (one man) sleep"
+        },
+        {
           "usefulness": 96,
-          "complexity": 8
+          "complexity": 8,
+          "id": "you-singular-f",
+          "revision": 1,
+          "subjectTargetText": "أَنْتِ",
+          "subjectBaseText": "you (one woman)",
+          "targetText": "تَنَامِينَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتِ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (one woman) sleep",
+          "englishAuditText": "you (one woman) sleep"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "you-dual",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُمَا",
+          "subjectBaseText": "you (two people)",
+          "targetText": "تَنَامَانِ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُمَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (two people) sleep",
+          "englishAuditText": "you (two people) sleep"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "you-plural-m",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُمْ",
+          "subjectBaseText": "you (men or a mixed group)",
+          "targetText": "تَنَامُونَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُمْ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (men/mixed) sleep",
+          "englishAuditText": "you (men/mixed) sleep"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "you-plural-f",
+          "revision": 1,
+          "subjectTargetText": "أَنْتُنَّ",
+          "subjectBaseText": "you (women)",
+          "targetText": "تَنَمْنَ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتُنَّ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (women) sleep",
+          "englishAuditText": "you (women) sleep"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "أَنَا",
+          "subjectBaseText": "I",
+          "targetText": "أَنَامُ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I sleep",
+          "englishAuditText": "I sleep"
+        },
+        {
+          "usefulness": 96,
+          "complexity": 8,
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "نَحْنُ",
+          "subjectBaseText": "we",
+          "targetText": "نَنَامُ",
+          "targetPhraseFrame": {
+            "beforeText": "نَحْنُ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "we sleep",
+          "englishAuditText": "we sleep"
         }
       ]
     }

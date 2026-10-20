@@ -2,7 +2,7 @@ import { createPracticeCompass } from '../../practice-compass.mjs';
 import { embedSharedEnglishTexts, normalizeSharedEnglishText, sharedEnglishEmbeddingOwner } from '../../english-image-search.mjs?v=english-image-search-5';
 import { newContentEncounterId } from '../content-progression.mjs';
 import { MEMORY_MOON_GAME, MEMORY_MOON_BANK, MEMORY_MOON_ROUND_COUNT, validateMemoryMoonCatalog, memoryMoonWeaknesses,
-  selectMemoryMoonChallenges, createMoonSession, answerMoonChallenge, assistMoonChallenge, advanceMoonChallenge } from './memory-moon-core.mjs?v=memory-moon-4';
+  selectMemoryMoonChallenges, createMoonSession, answerMoonChallenge, assistMoonChallenge, advanceMoonChallenge } from './memory-moon-core.mjs?v=memory-moon-5';
 
 function aborted(signal) {
   if (signal?.aborted) { const error=new Error('Memory Moon selection cancelled.');error.name='AbortError';throw error; }

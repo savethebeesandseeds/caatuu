@@ -1,7 +1,7 @@
 import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "/language-runtime/static/source/games/embedded-game-controls.mjs?v=embedded-game-controls-9";
 import { bindHorizontalGesture } from "/language-runtime/static/source/horizontal-gesture.mjs";
 
-import { CZECH_CASES, validatePack, buildRounds, buildQuestions, buildCasePracticeRounds } from "./case-cosmos-content.mjs?v=case-cosmos-content-5";
+import { CZECH_CASES, validatePack, buildRounds, buildQuestions, buildCasePracticeRounds } from "./case-cosmos-content.mjs?v=case-cosmos-content-6";
 import { newContentEncounterId } from "../../../../../../language-runtime/static/source/games/content-progression.mjs";
 import { assertEnglishCzechCourse } from "./case-cosmos-cs-policy.mjs?v=case-cosmos-policy-2";
 

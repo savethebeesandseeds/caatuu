@@ -163,6 +163,6 @@ test('each Nucleus reading has exact source evidence within its badge and enough
   for (const level of [0, 1, 2, 3]) {
     const eligible = nucleus.challenges.filter(row => row.difficulty === level);
     const readings = new Set(eligible.map(row => `${compositionKey(row.pinyin)}:${row.tone}`));
-    for (const pieceCount of level === 0 ? [3] : nucleus.roundSettings.pieceCounts) assert.ok(readings.size >= pieceCount);
+    for (const pieceCount of nucleus.roundSettings.pieceCounts) assert.ok(readings.size >= pieceCount);
   }
 });

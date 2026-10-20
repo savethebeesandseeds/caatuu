@@ -1381,7 +1381,11 @@
       "number": "singular",
       "forms": [
         "kočka",
-        "kočku"
+        "kočky",
+        "kočce",
+        "kočku",
+        "kočko",
+        "kočkou"
       ],
       "usefulness": 92,
       "complexity": 5
@@ -1392,7 +1396,11 @@
       "number": "singular",
       "forms": [
         "pes",
-        "psa"
+        "psa",
+        "psovi",
+        "psu",
+        "psem",
+        "pse"
       ],
       "usefulness": 92,
       "complexity": 5
@@ -1403,7 +1411,10 @@
       "number": "singular",
       "forms": [
         "kniha",
-        "knihu"
+        "knihy",
+        "knize",
+        "knihu",
+        "knihou"
       ],
       "usefulness": 92,
       "complexity": 5
@@ -1414,7 +1425,11 @@
       "number": "singular",
       "forms": [
         "voda",
-        "vodu"
+        "vody",
+        "vodě",
+        "vodu",
+        "vodo",
+        "vodou"
       ],
       "usefulness": 92,
       "complexity": 5
@@ -1425,7 +1440,11 @@
       "number": "singular",
       "forms": [
         "taška",
-        "tašku"
+        "tašky",
+        "tašce",
+        "tašku",
+        "taško",
+        "taškou"
       ],
       "usefulness": 92,
       "complexity": 5
@@ -1436,7 +1455,8 @@
       "number": "singular",
       "forms": [
         "židle",
-        "židli"
+        "židli",
+        "židlí"
       ],
       "usefulness": 92,
       "complexity": 5
@@ -1447,7 +1467,8 @@
       "number": "singular",
       "forms": [
         "rýže",
-        "rýži"
+        "rýži",
+        "rýží"
       ],
       "usefulness": 92,
       "complexity": 6
@@ -1458,7 +1479,11 @@
       "number": "singular",
       "forms": [
         "ruka",
-        "ruku"
+        "ruky",
+        "ruce",
+        "ruku",
+        "ruko",
+        "rukou"
       ],
       "usefulness": 92,
       "complexity": 6
@@ -1469,7 +1494,11 @@
       "number": "singular",
       "forms": [
         "máma",
-        "mámu"
+        "mámy",
+        "mámě",
+        "mámu",
+        "mámo",
+        "mámou"
       ],
       "usefulness": 92,
       "complexity": 6
@@ -1480,7 +1509,11 @@
       "number": "singular",
       "forms": [
         "táta",
-        "tátu"
+        "táty",
+        "tátovi",
+        "tátu",
+        "táto",
+        "tátou"
       ],
       "usefulness": 92,
       "complexity": 6
@@ -1491,7 +1524,11 @@
       "number": "singular",
       "forms": [
         "bratr",
-        "bratra"
+        "bratra",
+        "bratrovi",
+        "bratru",
+        "bratře",
+        "bratrem"
       ],
       "usefulness": 92,
       "complexity": 6
@@ -1502,7 +1539,11 @@
       "number": "singular",
       "forms": [
         "sestra",
-        "sestru"
+        "sestry",
+        "sestře",
+        "sestru",
+        "sestro",
+        "sestrou"
       ],
       "usefulness": 92,
       "complexity": 6
@@ -1513,7 +1554,11 @@
       "number": "singular",
       "forms": [
         "polévka",
-        "polévku"
+        "polévky",
+        "polévce",
+        "polévku",
+        "polévko",
+        "polévkou"
       ],
       "usefulness": 92,
       "complexity": 6
@@ -1524,7 +1569,11 @@
       "number": "singular",
       "forms": [
         "bota",
-        "botu"
+        "boty",
+        "botě",
+        "botu",
+        "boto",
+        "botou"
       ],
       "usefulness": 92,
       "complexity": 6

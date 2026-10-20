@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
+import { runInNewContext } from "node:vm";
 import test from "node:test";
 
 import {
@@ -219,6 +220,21 @@ test("Standard feedback provenance survives the compact runtime report boundary"
   const runtimeSource = await readFile(new URL("../../../languages/czech/static/source/shared/runtime.js", import.meta.url), "utf8");
   for (const field of ["entryId", "contentMode", "corpusVersion", "difficulty"]) {
     assert.match(runtimeSource, new RegExp(`payload\\.feedback\\.${field}`));
+  }
+  const boundary = runtimeSource.slice(runtimeSource.indexOf("  function clampReportText("),
+    runtimeSource.indexOf("  function rejectRemoteFeedbackDelivery("));
+  const serialize = runInNewContext(`${boundary}\ncompactBugReport;`, {
+    env: "browser", window: { location: { href: "http://127.0.0.1:8765/cz/" } }
+  });
+  for (const [difficulty, expected] of [[0, 0], ["0", 0], [1, 1], [2, 2], [3, 3],
+    [null, null], [undefined, null], ["", null], ["invalid", null]]) {
+    const report = serialize({ kind: "sentence_feedback", feedback: {
+      entryId: "beginner-word", contentMode: "standard", corpusVersion: "test", difficulty
+    } });
+    assert.equal(report.feedback.difficulty, expected, `feedback difficulty ${String(difficulty)}`);
+    assert.equal(report.feedback.entryId, "beginner-word");
+    assert.equal(report.feedback.contentMode, "standard");
+    assert.equal(report.feedback.corpusVersion, "test");
   }
 });
 
