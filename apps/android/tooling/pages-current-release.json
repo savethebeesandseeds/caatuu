@@ -549,6 +549,27 @@
         "bytes": 90849280,
         "sha256": "1cdabbb383f3837e84f2f17664460e98add2edb09b64dc83f0f3860f1f021234"
       }
+    },
+    {
+      "versionCode": 190,
+      "versionName": "0.1.38",
+      "sourceRevision": "964810808046de2a6828c5082a8269d4520237d3",
+      "manifest": {
+        "bytes": 1041,
+        "sha256": "e0e97e6199af0e3476818ce13467ba28758c48e1d0ba6e16c4b6bdd9f0111434"
+      },
+      "apk": {
+        "bytes": 3513834,
+        "sha256": "141e43e9ce9ba4ab0c687cebbf693b8654b37a15a8a6986f1f71eb8c247e7636"
+      },
+      "receipt": {
+        "bytes": 1360,
+        "sha256": "f6e5b0166a6bd7e6a32253d2994971f389f4d2177eab4021f8185b43b56ce17c"
+      },
+      "setup": {
+        "bytes": 91084800,
+        "sha256": "5918a34851c0a01f5691d4190117b4e645a03e91b0e90941e08b068982bb4ba1"
+      }
     }
   ],
   "setupEntries": [
