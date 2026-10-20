@@ -570,6 +570,27 @@
         "bytes": 91084800,
         "sha256": "5918a34851c0a01f5691d4190117b4e645a03e91b0e90941e08b068982bb4ba1"
       }
+    },
+    {
+      "versionCode": 191,
+      "versionName": "0.1.39",
+      "sourceRevision": "ebb205e50bf6f4ab4a11fae4b6134ae7461635c9",
+      "manifest": {
+        "bytes": 1041,
+        "sha256": "73b93b97de07018b281bd890be27873215ebef1f7ad6020a34bbaca219852a78"
+      },
+      "apk": {
+        "bytes": 3517930,
+        "sha256": "35dc20132122ea50d4526895531fcc54ae7a1dc89278bfab1a7affe56b24a41e"
+      },
+      "receipt": {
+        "bytes": 1360,
+        "sha256": "fcf637dc5e597a3889777bb0c5cf888841bf3b07a977c78ad910bbca5deb5ebc"
+      },
+      "setup": {
+        "bytes": 91084800,
+        "sha256": "5918a34851c0a01f5691d4190117b4e645a03e91b0e90941e08b068982bb4ba1"
+      }
     }
   ],
   "setupEntries": [
