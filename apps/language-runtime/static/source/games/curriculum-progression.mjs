@@ -24,7 +24,7 @@ function identifier(value, label) {
 }
 
 function level(value, label) {
-  requireValue([1, 2, 3].includes(value), `${label} must be 1, 2, or 3.`);
+  requireValue([0, 1, 2, 3].includes(value), `${label} must be 0, 1, 2, or 3.`);
   return value;
 }
 

@@ -169,7 +169,7 @@
 
   function normalizeDifficulty(value, fallback = 1) {
     const level = Number(value);
-    return Number.isInteger(level) && level >= 1 && level <= 3 ? level : fallback;
+    return Number.isInteger(level) && value !== null && value !== "" && level >= 0 && level <= 3 ? level : fallback;
   }
 
   function englishAuditText(value, label) {
@@ -238,7 +238,7 @@
     assertLearnerSafe(translation, `${label}.translation`);
     assert(Object.hasOwn(value, "difficulty"), `${label}.difficulty is required.`);
     const difficulty = value.difficulty;
-    assert(Number.isInteger(difficulty) && difficulty >= 1 && difficulty <= 3, `${label}.difficulty must be an integer from 1 to 3.`);
+    assert(Number.isInteger(difficulty) && difficulty >= 0 && difficulty <= 3, `${label}.difficulty must be an integer from 0 to 3.`);
     const progression = {};
     for (const [key, legacyKey] of [["usefulness", "urgency"], ["complexity", "subdifficulty"]]) {
       let grade = value[key];
@@ -322,13 +322,13 @@
     assert(value.challenges.length >= requiredCount, `challenges must contain at least ${requiredCount} entries.`);
     const challenges = value.challenges.map((challenge, index) => validateChallenge(challenge, index, wordNotation));
     assert(new Set(challenges.map(({ id }) => id)).size === challenges.length, "challenge ids must be unique.");
-    assert(new Set(challenges.map(targetText)).size === challenges.length, wordNotation ? "challenge target words must be unique." : "challenge Hanzi must be unique.");
+    assert(new Set(challenges.map(challenge => `${challenge.difficulty === 0 ? "zero:" : ""}${targetText(challenge)}`)).size === challenges.length, wordNotation ? "challenge target words must be unique." : "challenge Hanzi must be unique.");
     assert(new Set(challenges.map(readingKey)).size >= requiredCount, `challenges must provide at least ${requiredCount} distinct pinyin readings.`);
-    for (let difficulty = 1; difficulty <= 3; difficulty += 1) {
+    for (let difficulty = challenges.some(challenge => challenge.difficulty === 0) ? 0 : 1; difficulty <= 3; difficulty += 1) {
       const eligible = filterChallengesForDifficulty(challenges, difficulty);
       assert(
-        new Set(eligible.map(readingKey)).size >= requiredCount,
-        `Level ${difficulty} must provide at least ${requiredCount} distinct pinyin readings.`
+        new Set(eligible.map(readingKey)).size >= (difficulty === 0 ? 3 : requiredCount),
+        `Level ${difficulty} must provide at least ${difficulty === 0 ? 3 : requiredCount} distinct pinyin readings.`
       );
     }
     return Object.freeze({
@@ -435,8 +435,9 @@
   }
 
   function createRound(catalog, pieceCount, random = global.Math.random, previousArtworkSrc = "", difficulty = 3, progression = {}) {
-    assert(catalog?.roundSettings?.pieceCounts?.includes(pieceCount), `piece count ${pieceCount} is not available.`);
     const normalizedDifficulty = normalizeDifficulty(difficulty, 1);
+    if (normalizedDifficulty === 0) pieceCount = 3;
+    assert((normalizedDifficulty === 0 && pieceCount === 3) || catalog?.roundSettings?.pieceCounts?.includes(pieceCount), `piece count ${pieceCount} is not available.`);
     const selected = selectChallenges(catalog.challenges, pieceCount, random, normalizedDifficulty, progression);
     const solution = selected.map((left, index) => {
       const right = selected[(index + 1) % selected.length];
@@ -798,6 +799,7 @@
     let destroyed = false;
     let active = isActive();
     let speechRequest = null;
+    let cancelMatchAnnouncement = () => {};
     let cancelArtworkLoad = () => {};
     const roundTimers = new Set();
     const listen = (target, type, handler) => {
@@ -850,6 +852,9 @@
       errorMessage: "",
       feedbackSequence: 0
     };
+    let renderedRound = null;
+    let renderedSockets = [];
+    let renderedDeckItems = [];
 
     function syncImageControl() {
       core.hidden = !state.imagesEnabled;
@@ -1110,35 +1115,46 @@
       const isSolved = solved();
       deck.hidden = isSolved;
       if (isSolved) deck.parentElement.removeAttribute("aria-label");
-      const available = deckPieces();
-      ring.replaceChildren(...targets.map((challenge, index) => (
-        orbitSocket(
-          documentRef,
-          index,
-          challenge,
-          pieceForId(state.placements[index]),
-          state.newMatchSlots,
-          state.errorSlot,
-          presentation
-        )
-      )));
-      ring.querySelectorAll("[data-naturalization-socket-index]").forEach((target) => {
-        target.setAttribute("aria-pressed", String(Number(target.dataset.naturalizationSocketIndex) === state.selectedSocketIndex));
+      // Selection changes only attributes. Keep untouched controls connected so
+      // rapid taps retain their targets and previous matches do not animate again.
+      if (renderedRound !== state.round) {
+        renderedRound = state.round;
+        renderedSockets = targets.map((challenge, index) => orbitSocket(
+          documentRef, index, challenge, null, [], -1, presentation
+        ));
+        renderedDeckItems = state.round.pieces.map((piece, index) => deckHanziTile(
+          documentRef, piece, index, false, false, false, presentation
+        ));
+        ring.replaceChildren(...renderedSockets);
+        deck.replaceChildren(...renderedDeckItems);
+      }
+      renderedSockets.forEach((socket, index) => {
+        socket.dataset.invalid = String(state.errorSlot === index);
+        if (state.placements[index] && socket.dataset.socketState !== "matched") {
+          socket.dataset.socketState = "matched";
+          socket.replaceChildren(fusedWord(documentRef, targets[index], true, readingGuide));
+        }
+        const target = socket.querySelector("[data-naturalization-socket-index]");
+        target?.setAttribute("aria-pressed", String(index === state.selectedSocketIndex));
+        const matched = socket.querySelector("[data-naturalization-review-id]");
+        if (matched) matched.dataset.new = String(state.newMatchSlots.includes(index));
       });
-      const availableIds = new Set(available.map(({ id }) => id));
-      deck.replaceChildren(...state.round.pieces.map((piece, index) => (
-        availableIds.has(piece.id)
-          ? deckHanziTile(
-            documentRef,
-            piece,
-            index,
-            state.selectedPieceId === piece.id,
-            state.draggingPieceId === piece.id,
-            state.errorPieceId === piece.id,
-            presentation
-          )
-          : placedDeckWell(documentRef, piece, index)
-      )));
+      const placedIds = new Set(state.placements.filter(Boolean));
+      state.round.pieces.forEach((piece, index) => {
+        const item = renderedDeckItems[index];
+        if (placedIds.has(piece.id)) {
+          if (item.dataset.state !== "placed") {
+            const well = placedDeckWell(documentRef, piece, index);
+            item.replaceWith(well);
+            renderedDeckItems[index] = well;
+          }
+          return;
+        }
+        const tile = item.querySelector("[data-naturalization-piece-id]");
+        tile.setAttribute("aria-pressed", String(state.selectedPieceId === piece.id));
+        tile.dataset.invalid = String(state.errorPieceId === piece.id);
+        tile.dataset.dragging = String(state.draggingPieceId === piece.id);
+      });
       board.dataset.pieceCount = String(state.pieceCount);
       board.dataset.difficulty = String(state.difficulty);
       board.dataset.solved = String(isSolved);
@@ -1170,6 +1186,7 @@
       optionsToggle.title = "Tile settings";
       optionsMenu.setAttribute("aria-label", "Tile settings");
       countButtons.forEach((button) => {
+        button.disabled = state.difficulty === 0;
         const selected = Number.parseInt(button.dataset.naturalizationPieceCount || "", 10) === state.pieceCount;
         button.setAttribute("aria-checked", String(selected));
       });
@@ -1185,6 +1202,8 @@
     }
 
     function cancelSpeech() {
+      cancelMatchAnnouncement();
+      cancelMatchAnnouncement = () => {};
       if (!speechRequest) return;
       speechRequest = null;
       try {
@@ -1195,6 +1214,8 @@
     }
 
     function trackSpeech(play) {
+      cancelMatchAnnouncement();
+      cancelMatchAnnouncement = () => {};
       const request = {};
       speechRequest = request;
       syncRoundTasks();
@@ -1237,16 +1258,20 @@
       return trackSpeech(() => speakText(challenge.context.text));
     }
 
-    async function announceMatches(matches) {
+    function announceMatches(matches) {
       const sequence = state.feedbackSequence + 1;
       state.feedbackSequence = sequence;
-      for (const challenge of matches) {
-        if (state.feedbackSequence !== sequence) return;
-        state.feedbackChallenge = challenge;
-        state.feedbackRevealed = true;
-        renderFeedback();
-        await speak(challenge);
-      }
+      cancelMatchAnnouncement();
+      cancelMatchAnnouncement = global.CaatuuPracticePacing.afterInteractionPaint(global, async () => {
+        cancelMatchAnnouncement = () => {};
+        for (const challenge of matches) {
+          if (state.feedbackSequence !== sequence || !active || !isActive() || destroyed) return;
+          state.feedbackChallenge = challenge;
+          state.feedbackRevealed = true;
+          renderFeedback();
+          await speak(challenge);
+        }
+      });
     }
 
     function recordPractice(challenge, correct, evidence) {
@@ -1345,6 +1370,8 @@
     }
 
     function startRound(pieceCount = state.pieceCount) {
+      if (state.difficulty === 0) pieceCount = 3;
+      else if (!catalog.roundSettings.pieceCounts.includes(pieceCount)) pieceCount = storedPieceCount(root, catalog);
       const previousArtworkSrc = state.round?.artworkSrc || "";
       state.pieceCount = pieceCount;
       const presentation = roundPresentation(state.roundIndex + 1, catalog);
@@ -1590,7 +1617,7 @@
     countButtons.forEach((button) => {
       listen(button, "click", () => {
         const pieceCount = Number.parseInt(button.dataset.naturalizationPieceCount || "", 10);
-        if (!catalog.roundSettings.pieceCounts.includes(pieceCount)) return;
+        if (state.difficulty === 0 || !catalog.roundSettings.pieceCounts.includes(pieceCount)) return;
         closeToolbarMenu({ toggle: optionsToggle, menu: optionsMenu }, { restoreFocus: true });
         if (pieceCount === state.pieceCount) return;
         savePieceCount(root, catalog, pieceCount);

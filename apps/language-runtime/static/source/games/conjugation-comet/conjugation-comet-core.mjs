@@ -119,10 +119,10 @@ function positiveInteger(value, location) {
 
 function boundedDifficulty(value, location) {
   const number = Number(value);
-  if (!Number.isInteger(number) || number < 1 || number > 3) {
+  if (value === null || value === "" || !Number.isInteger(number) || number < 0 || number > 3) {
     throw catalogError(
       "CONJUGATION_COMET_CONTENT_INVALID",
-      `${location} must be an integer from 1 to 3.`
+      `${location} must be an integer from 0 to 3.`
     );
   }
   return number;
@@ -551,7 +551,7 @@ export function validateConjugationCometCatalog(value, {
       "Conjugation Comet verb ids must be unique."
     );
   }
-  const meaningChoices = verbs.map((verb) => meaningKey(verb.meaningChoiceBaseText));
+  const meaningChoices = verbs.map((verb) => `${verb.difficulty === 0 ? "zero:" : ""}${meaningKey(verb.meaningChoiceBaseText)}`);
   if (!legacy && new Set(meaningChoices).size !== meaningChoices.length) {
     throw catalogError(
       "CONJUGATION_COMET_CONTENT_INVALID",
@@ -699,7 +699,7 @@ export function buildConjugationMeaningRound(catalog, verbId, {
     if (usedMeaningKeys.has(key)) continue;
     usedMeaningKeys.add(key);
     distractors.push(candidate);
-    if (distractors.length === count - 1) break;
+    if (distractors.length === (current.difficulty === 0 ? 1 : count - 1)) break;
   }
   if (!distractors.length) {
     throw catalogError(
@@ -730,7 +730,7 @@ export function buildConjugationFormRound(catalog, verbId, {
       `Unknown Conjugation Comet verb: ${String(verbId || "<missing>")}.`
     );
   }
-  const playableForms = current.forms.map((form) => ({
+  const playableForms = (current.difficulty === 0 ? current.forms.slice(0, 2) : current.forms).map((form) => ({
     id: form.id,
     revision: form.revision,
     subjectTargetText: form.subjectTargetText,
@@ -822,7 +822,8 @@ export function buildConjugationHelixRound(catalog, verbId, { rng = Math.random 
       `Unknown Conjugation Comet verb: ${String(verbId || "<missing>")}.`
     );
   }
-  const entries = shuffleConjugationItems(current.forms.map((form, index) => {
+  const forms = current.difficulty === 0 ? current.forms.slice(0, 2) : current.forms;
+  const entries = shuffleConjugationItems(forms.map((form, index) => {
     const acceptedTargetTexts = [...(form.acceptedTargetTexts || [])];
     const { beforeText, afterText } = normalizeTargetPhraseFrame(form.targetPhraseFrame, `forms.${form.id}.targetPhraseFrame`);
     return {

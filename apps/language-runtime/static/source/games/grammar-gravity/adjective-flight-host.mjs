@@ -1,7 +1,7 @@
-import { highlightedFormParts, buildMeaningChoices, validateGrammarFlight, validateGrammarStages } from "./adjective-flight-core.mjs?v=grammar-journey-4";
+import { highlightedFormParts, buildMeaningChoices, validateGrammarFlight, validateGrammarStages } from "./adjective-flight-core.mjs?v=grammar-journey-5";
 import { createNounVisual } from "./noun-visual.mjs?v=noun-visual-4";
 import { createSpeechIcon, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-10";
-import { createReviewContinuation } from "../practice-pacing.mjs?v=practice-pacing-2";
+import { createReviewContinuation } from "../practice-pacing.mjs?v=practice-pacing-3";
 
 const LANDING_MS = 180;
 const FORM_TIME_MULTIPLIER = 2;
@@ -523,7 +523,7 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
       roundRevision = round.revision;
       flights = nextFlights.map((flight) => ({ ...flight,
         meaningOptions: flight.stages.includes("meaning")
-          ? buildMeaningChoices(flight.anchorMeaning, flight.meaningPool, meaningOptionCount) : []
+          ? buildMeaningChoices(flight.anchorMeaning, flight.meaningPool, flight.introductory ? 2 : meaningOptionCount) : []
       }));
       index = 0;
       correctCount = 0;
@@ -555,7 +555,7 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
       meaningOptionCount = value;
       flights = flights.map((flight) => ({ ...flight,
         meaningOptions: flight.stages.includes("meaning")
-          ? buildMeaningChoices(flight.anchorMeaning, flight.meaningPool, value) : []
+          ? buildMeaningChoices(flight.anchorMeaning, flight.meaningPool, flight.introductory ? 2 : value) : []
       }));
       if (current() && step === "meaning" && phase === "falling") {
         cancelFrame();

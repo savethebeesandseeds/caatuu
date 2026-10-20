@@ -4163,6 +4163,2166 @@
           }
         }
       ]
+    },
+    {
+      "id": "mm-la-zero-hello",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "greetings",
+      "familyId": "mm-la-zero-hello",
+      "targetText": "Salvē!",
+      "learnerBaseText": "Hello!",
+      "englishText": "Hello!",
+      "embeddingText": "Hello!",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "Hello!"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Hello!",
+          "englishAuditText": "Hello!"
+        },
+        {
+          "id": "contrast-1",
+          "text": "two",
+          "englishAuditText": "two",
+          "contrast": {
+            "kind": "action",
+            "explanation": "This means “Hello!”, rather than “two”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "point",
+          "englishAuditText": "point",
+          "contrast": {
+            "kind": "action",
+            "explanation": "This means “Hello!”, rather than “point”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-goodbye",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "greetings",
+      "familyId": "mm-la-zero-goodbye",
+      "targetText": "Valē!",
+      "learnerBaseText": "Goodbye!",
+      "englishText": "Goodbye!",
+      "embeddingText": "Goodbye!",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "Goodbye!"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Goodbye!",
+          "englishAuditText": "Goodbye!"
+        },
+        {
+          "id": "contrast-1",
+          "text": "three",
+          "englishAuditText": "three",
+          "contrast": {
+            "kind": "action",
+            "explanation": "This means “Goodbye!”, rather than “three”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "circle",
+          "englishAuditText": "circle",
+          "contrast": {
+            "kind": "action",
+            "explanation": "This means “Goodbye!”, rather than “circle”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-thanks",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "greetings",
+      "familyId": "mm-la-zero-thanks",
+      "targetText": "Grātiās!",
+      "learnerBaseText": "Thank you!",
+      "englishText": "Thank you!",
+      "embeddingText": "Thank you!",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "Thank you!"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Thank you!",
+          "englishAuditText": "Thank you!"
+        },
+        {
+          "id": "contrast-1",
+          "text": "four",
+          "englishAuditText": "four",
+          "contrast": {
+            "kind": "action",
+            "explanation": "This means “Thank you!”, rather than “four”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "star",
+          "englishAuditText": "star",
+          "contrast": {
+            "kind": "action",
+            "explanation": "This means “Thank you!”, rather than “star”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-yes",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "greetings",
+      "familyId": "mm-la-zero-yes",
+      "targetText": "Ita.",
+      "learnerBaseText": "Yes.",
+      "englishText": "Yes.",
+      "embeddingText": "Yes.",
+      "focus": {
+        "kind": "polarity",
+        "englishConcepts": [
+          "Yes."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Yes.",
+          "englishAuditText": "Yes."
+        },
+        {
+          "id": "contrast-1",
+          "text": "five",
+          "englishAuditText": "five",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "This means “Yes.”, rather than “five”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "sun",
+          "englishAuditText": "sun",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "This means “Yes.”, rather than “sun”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-no",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "greetings",
+      "familyId": "mm-la-zero-no",
+      "targetText": "Minimē.",
+      "learnerBaseText": "No.",
+      "englishText": "No.",
+      "embeddingText": "No.",
+      "focus": {
+        "kind": "polarity",
+        "englishConcepts": [
+          "No."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "No.",
+          "englishAuditText": "No."
+        },
+        {
+          "id": "contrast-1",
+          "text": "water",
+          "englishAuditText": "water",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "This means “No.”, rather than “water”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "moon",
+          "englishAuditText": "moon",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "This means “No.”, rather than “moon”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-please",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "greetings",
+      "familyId": "mm-la-zero-please",
+      "targetText": "Quaesō.",
+      "learnerBaseText": "Please.",
+      "englishText": "Please.",
+      "embeddingText": "Please.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "Please."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Please.",
+          "englishAuditText": "Please."
+        },
+        {
+          "id": "contrast-1",
+          "text": "stone",
+          "englishAuditText": "stone",
+          "contrast": {
+            "kind": "action",
+            "explanation": "This means “Please.”, rather than “stone”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "earth",
+          "englishAuditText": "earth",
+          "contrast": {
+            "kind": "action",
+            "explanation": "This means “Please.”, rather than “earth”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-one",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "numbers",
+      "familyId": "mm-la-zero-one",
+      "targetText": "ūnus",
+      "learnerBaseText": "one",
+      "englishText": "one",
+      "embeddingText": "one",
+      "focus": {
+        "kind": "number",
+        "englishConcepts": [
+          "one"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "one",
+          "englishAuditText": "one"
+        },
+        {
+          "id": "contrast-1",
+          "text": "body",
+          "englishAuditText": "body",
+          "contrast": {
+            "kind": "number",
+            "explanation": "This means “one”, rather than “body”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "light",
+          "englishAuditText": "light",
+          "contrast": {
+            "kind": "number",
+            "explanation": "This means “one”, rather than “light”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-two",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "numbers",
+      "familyId": "mm-la-zero-two",
+      "targetText": "duo",
+      "learnerBaseText": "two",
+      "englishText": "two",
+      "embeddingText": "two",
+      "focus": {
+        "kind": "number",
+        "englishConcepts": [
+          "two"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "two",
+          "englishAuditText": "two"
+        },
+        {
+          "id": "contrast-1",
+          "text": "ball",
+          "englishAuditText": "ball",
+          "contrast": {
+            "kind": "number",
+            "explanation": "This means “two”, rather than “ball”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Hello, friend!",
+          "englishAuditText": "Hello, friend!",
+          "contrast": {
+            "kind": "number",
+            "explanation": "This means “two”, rather than “Hello, friend!”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-three",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "numbers",
+      "familyId": "mm-la-zero-three",
+      "targetText": "trēs",
+      "learnerBaseText": "three",
+      "englishText": "three",
+      "embeddingText": "three",
+      "focus": {
+        "kind": "number",
+        "englishConcepts": [
+          "three"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "three",
+          "englishAuditText": "three"
+        },
+        {
+          "id": "contrast-1",
+          "text": "sphere",
+          "englishAuditText": "sphere",
+          "contrast": {
+            "kind": "number",
+            "explanation": "This means “three”, rather than “sphere”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Yes, thank you.",
+          "englishAuditText": "Yes, thank you.",
+          "contrast": {
+            "kind": "number",
+            "explanation": "This means “three”, rather than “Yes, thank you.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-four",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "numbers",
+      "familyId": "mm-la-zero-four",
+      "targetText": "quattuor",
+      "learnerBaseText": "four",
+      "englishText": "four",
+      "embeddingText": "four",
+      "focus": {
+        "kind": "number",
+        "englishConcepts": [
+          "four"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "four",
+          "englishAuditText": "four"
+        },
+        {
+          "id": "contrast-1",
+          "text": "line",
+          "englishAuditText": "line",
+          "contrast": {
+            "kind": "number",
+            "explanation": "This means “four”, rather than “line”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "No, thank you.",
+          "englishAuditText": "No, thank you.",
+          "contrast": {
+            "kind": "number",
+            "explanation": "This means “four”, rather than “No, thank you.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-five",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "numbers",
+      "familyId": "mm-la-zero-five",
+      "targetText": "quīnque",
+      "learnerBaseText": "five",
+      "englishText": "five",
+      "embeddingText": "five",
+      "focus": {
+        "kind": "number",
+        "englishConcepts": [
+          "five"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "five",
+          "englishAuditText": "five"
+        },
+        {
+          "id": "contrast-1",
+          "text": "point",
+          "englishAuditText": "point",
+          "contrast": {
+            "kind": "number",
+            "explanation": "This means “five”, rather than “point”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "One stone.",
+          "englishAuditText": "One stone.",
+          "contrast": {
+            "kind": "number",
+            "explanation": "This means “five”, rather than “One stone.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-water",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "matter",
+      "familyId": "mm-la-zero-water",
+      "targetText": "aqua",
+      "learnerBaseText": "water",
+      "englishText": "water",
+      "embeddingText": "water",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "water"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "water",
+          "englishAuditText": "water"
+        },
+        {
+          "id": "contrast-1",
+          "text": "circle",
+          "englishAuditText": "circle",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “water”, rather than “circle”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "One line.",
+          "englishAuditText": "One line.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “water”, rather than “One line.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-stone",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "matter",
+      "familyId": "mm-la-zero-stone",
+      "targetText": "lapis",
+      "learnerBaseText": "stone",
+      "englishText": "stone",
+      "embeddingText": "stone",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "stone"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "stone",
+          "englishAuditText": "stone"
+        },
+        {
+          "id": "contrast-1",
+          "text": "star",
+          "englishAuditText": "star",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “stone”, rather than “star”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "One body.",
+          "englishAuditText": "One body.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “stone”, rather than “One body.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-body",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "matter",
+      "familyId": "mm-la-zero-body",
+      "targetText": "corpus",
+      "learnerBaseText": "body",
+      "englishText": "body",
+      "embeddingText": "body",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "body"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "body",
+          "englishAuditText": "body"
+        },
+        {
+          "id": "contrast-1",
+          "text": "sun",
+          "englishAuditText": "sun",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “body”, rather than “sun”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Two stones.",
+          "englishAuditText": "Two stones.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “body”, rather than “Two stones.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-ball",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "matter",
+      "familyId": "mm-la-zero-ball",
+      "targetText": "globus",
+      "learnerBaseText": "ball",
+      "englishText": "ball",
+      "embeddingText": "ball",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "ball"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "ball",
+          "englishAuditText": "ball"
+        },
+        {
+          "id": "contrast-1",
+          "text": "moon",
+          "englishAuditText": "moon",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “ball”, rather than “moon”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Two lines.",
+          "englishAuditText": "Two lines.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “ball”, rather than “Two lines.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-sphere",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "shapes",
+      "familyId": "mm-la-zero-sphere",
+      "targetText": "sphaera",
+      "learnerBaseText": "sphere",
+      "englishText": "sphere",
+      "embeddingText": "sphere",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "sphere"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "sphere",
+          "englishAuditText": "sphere"
+        },
+        {
+          "id": "contrast-1",
+          "text": "earth",
+          "englishAuditText": "earth",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “sphere”, rather than “earth”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Two bodies.",
+          "englishAuditText": "Two bodies.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “sphere”, rather than “Two bodies.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-line",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "shapes",
+      "familyId": "mm-la-zero-line",
+      "targetText": "līnea",
+      "learnerBaseText": "line",
+      "englishText": "line",
+      "embeddingText": "line",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "line"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "line",
+          "englishAuditText": "line"
+        },
+        {
+          "id": "contrast-1",
+          "text": "light",
+          "englishAuditText": "light",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “line”, rather than “light”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Three points.",
+          "englishAuditText": "Three points.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “line”, rather than “Three points.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-point",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "shapes",
+      "familyId": "mm-la-zero-point",
+      "targetText": "punctum",
+      "learnerBaseText": "point",
+      "englishText": "point",
+      "embeddingText": "point",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "point"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "point",
+          "englishAuditText": "point"
+        },
+        {
+          "id": "contrast-1",
+          "text": "Hello, friend!",
+          "englishAuditText": "Hello, friend!",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “point”, rather than “Hello, friend!”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "A big stone.",
+          "englishAuditText": "A big stone.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “point”, rather than “A big stone.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-circle",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "shapes",
+      "familyId": "mm-la-zero-circle",
+      "targetText": "circulus",
+      "learnerBaseText": "circle",
+      "englishText": "circle",
+      "embeddingText": "circle",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "circle"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "circle",
+          "englishAuditText": "circle"
+        },
+        {
+          "id": "contrast-1",
+          "text": "Yes, thank you.",
+          "englishAuditText": "Yes, thank you.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “circle”, rather than “Yes, thank you.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "A small stone.",
+          "englishAuditText": "A small stone.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “circle”, rather than “A small stone.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-star",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "nature",
+      "familyId": "mm-la-zero-star",
+      "targetText": "stella",
+      "learnerBaseText": "star",
+      "englishText": "star",
+      "embeddingText": "star",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "star"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "star",
+          "englishAuditText": "star"
+        },
+        {
+          "id": "contrast-1",
+          "text": "No, thank you.",
+          "englishAuditText": "No, thank you.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “star”, rather than “No, thank you.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "A big line.",
+          "englishAuditText": "A big line.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “star”, rather than “A big line.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-sun",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "nature",
+      "familyId": "mm-la-zero-sun",
+      "targetText": "sōl",
+      "learnerBaseText": "sun",
+      "englishText": "sun",
+      "embeddingText": "sun",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "sun"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "sun",
+          "englishAuditText": "sun"
+        },
+        {
+          "id": "contrast-1",
+          "text": "One stone.",
+          "englishAuditText": "One stone.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “sun”, rather than “One stone.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "A small line.",
+          "englishAuditText": "A small line.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “sun”, rather than “A small line.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-moon",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "nature",
+      "familyId": "mm-la-zero-moon",
+      "targetText": "lūna",
+      "learnerBaseText": "moon",
+      "englishText": "moon",
+      "embeddingText": "moon",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "moon"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "moon",
+          "englishAuditText": "moon"
+        },
+        {
+          "id": "contrast-1",
+          "text": "One line.",
+          "englishAuditText": "One line.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “moon”, rather than “One line.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "A big body.",
+          "englishAuditText": "A big body.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “moon”, rather than “A big body.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-earth",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "nature",
+      "familyId": "mm-la-zero-earth",
+      "targetText": "terra",
+      "learnerBaseText": "earth",
+      "englishText": "earth",
+      "embeddingText": "earth",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "earth"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "earth",
+          "englishAuditText": "earth"
+        },
+        {
+          "id": "contrast-1",
+          "text": "One body.",
+          "englishAuditText": "One body.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “earth”, rather than “One body.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "A small body.",
+          "englishAuditText": "A small body.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “earth”, rather than “A small body.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-light",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "nature",
+      "familyId": "mm-la-zero-light",
+      "targetText": "lūx",
+      "learnerBaseText": "light",
+      "englishText": "light",
+      "embeddingText": "light",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "light"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "light",
+          "englishAuditText": "light"
+        },
+        {
+          "id": "contrast-1",
+          "text": "Two stones.",
+          "englishAuditText": "Two stones.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “light”, rather than “Two stones.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "A new book.",
+          "englishAuditText": "A new book.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “light”, rather than “A new book.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-phrase-001",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-la-zero-phrase-001",
+      "targetText": "Salvē, amīce!",
+      "learnerBaseText": "Hello, friend!",
+      "englishText": "Hello, friend!",
+      "embeddingText": "Hello, friend!",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "Hello, friend!"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Hello, friend!",
+          "englishAuditText": "Hello, friend!"
+        },
+        {
+          "id": "contrast-1",
+          "text": "Two lines.",
+          "englishAuditText": "Two lines.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “Hello, friend!”, rather than “Two lines.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Cold water.",
+          "englishAuditText": "Cold water.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “Hello, friend!”, rather than “Cold water.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-phrase-002",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-la-zero-phrase-002",
+      "targetText": "Ita, grātiās.",
+      "learnerBaseText": "Yes, thank you.",
+      "englishText": "Yes, thank you.",
+      "embeddingText": "Yes, thank you.",
+      "focus": {
+        "kind": "polarity",
+        "englishConcepts": [
+          "Yes, thank you."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Yes, thank you.",
+          "englishAuditText": "Yes, thank you."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Two bodies.",
+          "englishAuditText": "Two bodies.",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "This means “Yes, thank you.”, rather than “Two bodies.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Hot water.",
+          "englishAuditText": "Hot water.",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "This means “Yes, thank you.”, rather than “Hot water.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-phrase-003",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-la-zero-phrase-003",
+      "targetText": "Minimē, grātiās.",
+      "learnerBaseText": "No, thank you.",
+      "englishText": "No, thank you.",
+      "embeddingText": "No, thank you.",
+      "focus": {
+        "kind": "polarity",
+        "englishConcepts": [
+          "No, thank you."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "No, thank you.",
+          "englishAuditText": "No, thank you."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Three points.",
+          "englishAuditText": "Three points.",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "This means “No, thank you.”, rather than “Three points.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "A small star.",
+          "englishAuditText": "A small star.",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "This means “No, thank you.”, rather than “A small star.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-phrase-004",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-la-zero-phrase-004",
+      "targetText": "Ūnus lapis.",
+      "learnerBaseText": "One stone.",
+      "englishText": "One stone.",
+      "embeddingText": "One stone.",
+      "focus": {
+        "kind": "number",
+        "englishConcepts": [
+          "One stone."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "One stone.",
+          "englishAuditText": "One stone."
+        },
+        {
+          "id": "contrast-1",
+          "text": "A big stone.",
+          "englishAuditText": "A big stone.",
+          "contrast": {
+            "kind": "number",
+            "explanation": "This means “One stone.”, rather than “A big stone.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "A big sphere.",
+          "englishAuditText": "A big sphere.",
+          "contrast": {
+            "kind": "number",
+            "explanation": "This means “One stone.”, rather than “A big sphere.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-phrase-005",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-la-zero-phrase-005",
+      "targetText": "Ūna līnea.",
+      "learnerBaseText": "One line.",
+      "englishText": "One line.",
+      "embeddingText": "One line.",
+      "focus": {
+        "kind": "number",
+        "englishConcepts": [
+          "One line."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "One line.",
+          "englishAuditText": "One line."
+        },
+        {
+          "id": "contrast-1",
+          "text": "A small stone.",
+          "englishAuditText": "A small stone.",
+          "contrast": {
+            "kind": "number",
+            "explanation": "This means “One line.”, rather than “A small stone.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "A small circle.",
+          "englishAuditText": "A small circle.",
+          "contrast": {
+            "kind": "number",
+            "explanation": "This means “One line.”, rather than “A small circle.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-phrase-006",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-la-zero-phrase-006",
+      "targetText": "Ūnum corpus.",
+      "learnerBaseText": "One body.",
+      "englishText": "One body.",
+      "embeddingText": "One body.",
+      "focus": {
+        "kind": "number",
+        "englishConcepts": [
+          "One body."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "One body.",
+          "englishAuditText": "One body."
+        },
+        {
+          "id": "contrast-1",
+          "text": "A big line.",
+          "englishAuditText": "A big line.",
+          "contrast": {
+            "kind": "number",
+            "explanation": "This means “One body.”, rather than “A big line.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The stone is here.",
+          "englishAuditText": "The stone is here.",
+          "contrast": {
+            "kind": "number",
+            "explanation": "This means “One body.”, rather than “The stone is here.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-phrase-007",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-la-zero-phrase-007",
+      "targetText": "Duo lapidēs.",
+      "learnerBaseText": "Two stones.",
+      "englishText": "Two stones.",
+      "embeddingText": "Two stones.",
+      "focus": {
+        "kind": "number",
+        "englishConcepts": [
+          "Two stones."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Two stones.",
+          "englishAuditText": "Two stones."
+        },
+        {
+          "id": "contrast-1",
+          "text": "A small line.",
+          "englishAuditText": "A small line.",
+          "contrast": {
+            "kind": "number",
+            "explanation": "This means “Two stones.”, rather than “A small line.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The book is here.",
+          "englishAuditText": "The book is here.",
+          "contrast": {
+            "kind": "number",
+            "explanation": "This means “Two stones.”, rather than “The book is here.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-phrase-008",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-la-zero-phrase-008",
+      "targetText": "Duae līneae.",
+      "learnerBaseText": "Two lines.",
+      "englishText": "Two lines.",
+      "embeddingText": "Two lines.",
+      "focus": {
+        "kind": "number",
+        "englishConcepts": [
+          "Two lines."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Two lines.",
+          "englishAuditText": "Two lines."
+        },
+        {
+          "id": "contrast-1",
+          "text": "A big body.",
+          "englishAuditText": "A big body.",
+          "contrast": {
+            "kind": "number",
+            "explanation": "This means “Two lines.”, rather than “A big body.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Hello!",
+          "englishAuditText": "Hello!",
+          "contrast": {
+            "kind": "number",
+            "explanation": "This means “Two lines.”, rather than “Hello!”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-phrase-009",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-la-zero-phrase-009",
+      "targetText": "Duo corpora.",
+      "learnerBaseText": "Two bodies.",
+      "englishText": "Two bodies.",
+      "embeddingText": "Two bodies.",
+      "focus": {
+        "kind": "number",
+        "englishConcepts": [
+          "Two bodies."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Two bodies.",
+          "englishAuditText": "Two bodies."
+        },
+        {
+          "id": "contrast-1",
+          "text": "A small body.",
+          "englishAuditText": "A small body.",
+          "contrast": {
+            "kind": "number",
+            "explanation": "This means “Two bodies.”, rather than “A small body.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Goodbye!",
+          "englishAuditText": "Goodbye!",
+          "contrast": {
+            "kind": "number",
+            "explanation": "This means “Two bodies.”, rather than “Goodbye!”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-phrase-010",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-la-zero-phrase-010",
+      "targetText": "Tria puncta.",
+      "learnerBaseText": "Three points.",
+      "englishText": "Three points.",
+      "embeddingText": "Three points.",
+      "focus": {
+        "kind": "number",
+        "englishConcepts": [
+          "Three points."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Three points.",
+          "englishAuditText": "Three points."
+        },
+        {
+          "id": "contrast-1",
+          "text": "A new book.",
+          "englishAuditText": "A new book.",
+          "contrast": {
+            "kind": "number",
+            "explanation": "This means “Three points.”, rather than “A new book.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Thank you!",
+          "englishAuditText": "Thank you!",
+          "contrast": {
+            "kind": "number",
+            "explanation": "This means “Three points.”, rather than “Thank you!”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-phrase-011",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-la-zero-phrase-011",
+      "targetText": "Lapis magnus.",
+      "learnerBaseText": "A big stone.",
+      "englishText": "A big stone.",
+      "embeddingText": "A big stone.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "A big stone."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "A big stone.",
+          "englishAuditText": "A big stone."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Cold water.",
+          "englishAuditText": "Cold water.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "This means “A big stone.”, rather than “Cold water.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Yes.",
+          "englishAuditText": "Yes.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "This means “A big stone.”, rather than “Yes.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-phrase-012",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-la-zero-phrase-012",
+      "targetText": "Lapis parvus.",
+      "learnerBaseText": "A small stone.",
+      "englishText": "A small stone.",
+      "embeddingText": "A small stone.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "A small stone."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "A small stone.",
+          "englishAuditText": "A small stone."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Hot water.",
+          "englishAuditText": "Hot water.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "This means “A small stone.”, rather than “Hot water.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "No.",
+          "englishAuditText": "No.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "This means “A small stone.”, rather than “No.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-phrase-013",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-la-zero-phrase-013",
+      "targetText": "Līnea magna.",
+      "learnerBaseText": "A big line.",
+      "englishText": "A big line.",
+      "embeddingText": "A big line.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "A big line."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "A big line.",
+          "englishAuditText": "A big line."
+        },
+        {
+          "id": "contrast-1",
+          "text": "A small star.",
+          "englishAuditText": "A small star.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "This means “A big line.”, rather than “A small star.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Please.",
+          "englishAuditText": "Please.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "This means “A big line.”, rather than “Please.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-phrase-014",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-la-zero-phrase-014",
+      "targetText": "Līnea parva.",
+      "learnerBaseText": "A small line.",
+      "englishText": "A small line.",
+      "embeddingText": "A small line.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "A small line."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "A small line.",
+          "englishAuditText": "A small line."
+        },
+        {
+          "id": "contrast-1",
+          "text": "A big sphere.",
+          "englishAuditText": "A big sphere.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "This means “A small line.”, rather than “A big sphere.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "one",
+          "englishAuditText": "one",
+          "contrast": {
+            "kind": "state",
+            "explanation": "This means “A small line.”, rather than “one”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-phrase-015",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-la-zero-phrase-015",
+      "targetText": "Corpus magnum.",
+      "learnerBaseText": "A big body.",
+      "englishText": "A big body.",
+      "embeddingText": "A big body.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "A big body."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "A big body.",
+          "englishAuditText": "A big body."
+        },
+        {
+          "id": "contrast-1",
+          "text": "A small circle.",
+          "englishAuditText": "A small circle.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "This means “A big body.”, rather than “A small circle.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "two",
+          "englishAuditText": "two",
+          "contrast": {
+            "kind": "state",
+            "explanation": "This means “A big body.”, rather than “two”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-phrase-016",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-la-zero-phrase-016",
+      "targetText": "Corpus parvum.",
+      "learnerBaseText": "A small body.",
+      "englishText": "A small body.",
+      "embeddingText": "A small body.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "A small body."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "A small body.",
+          "englishAuditText": "A small body."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The stone is here.",
+          "englishAuditText": "The stone is here.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "This means “A small body.”, rather than “The stone is here.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "three",
+          "englishAuditText": "three",
+          "contrast": {
+            "kind": "state",
+            "explanation": "This means “A small body.”, rather than “three”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-phrase-017",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-la-zero-phrase-017",
+      "targetText": "Liber novus.",
+      "learnerBaseText": "A new book.",
+      "englishText": "A new book.",
+      "embeddingText": "A new book.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "A new book."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "A new book.",
+          "englishAuditText": "A new book."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The book is here.",
+          "englishAuditText": "The book is here.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "This means “A new book.”, rather than “The book is here.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "four",
+          "englishAuditText": "four",
+          "contrast": {
+            "kind": "state",
+            "explanation": "This means “A new book.”, rather than “four”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-phrase-018",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-la-zero-phrase-018",
+      "targetText": "Aqua frīgida.",
+      "learnerBaseText": "Cold water.",
+      "englishText": "Cold water.",
+      "embeddingText": "Cold water.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "Cold water."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Cold water.",
+          "englishAuditText": "Cold water."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Hello!",
+          "englishAuditText": "Hello!",
+          "contrast": {
+            "kind": "state",
+            "explanation": "This means “Cold water.”, rather than “Hello!”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "five",
+          "englishAuditText": "five",
+          "contrast": {
+            "kind": "state",
+            "explanation": "This means “Cold water.”, rather than “five”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-phrase-019",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-la-zero-phrase-019",
+      "targetText": "Aqua calida.",
+      "learnerBaseText": "Hot water.",
+      "englishText": "Hot water.",
+      "embeddingText": "Hot water.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "Hot water."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Hot water.",
+          "englishAuditText": "Hot water."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Goodbye!",
+          "englishAuditText": "Goodbye!",
+          "contrast": {
+            "kind": "state",
+            "explanation": "This means “Hot water.”, rather than “Goodbye!”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "water",
+          "englishAuditText": "water",
+          "contrast": {
+            "kind": "state",
+            "explanation": "This means “Hot water.”, rather than “water”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-phrase-020",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-la-zero-phrase-020",
+      "targetText": "Stella parva.",
+      "learnerBaseText": "A small star.",
+      "englishText": "A small star.",
+      "embeddingText": "A small star.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "A small star."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "A small star.",
+          "englishAuditText": "A small star."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Thank you!",
+          "englishAuditText": "Thank you!",
+          "contrast": {
+            "kind": "state",
+            "explanation": "This means “A small star.”, rather than “Thank you!”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "stone",
+          "englishAuditText": "stone",
+          "contrast": {
+            "kind": "state",
+            "explanation": "This means “A small star.”, rather than “stone”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-phrase-021",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-la-zero-phrase-021",
+      "targetText": "Sphaera magna.",
+      "learnerBaseText": "A big sphere.",
+      "englishText": "A big sphere.",
+      "embeddingText": "A big sphere.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "A big sphere."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "A big sphere.",
+          "englishAuditText": "A big sphere."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Yes.",
+          "englishAuditText": "Yes.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "This means “A big sphere.”, rather than “Yes.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "body",
+          "englishAuditText": "body",
+          "contrast": {
+            "kind": "state",
+            "explanation": "This means “A big sphere.”, rather than “body”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-phrase-022",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-la-zero-phrase-022",
+      "targetText": "Circulus parvus.",
+      "learnerBaseText": "A small circle.",
+      "englishText": "A small circle.",
+      "embeddingText": "A small circle.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "A small circle."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "A small circle.",
+          "englishAuditText": "A small circle."
+        },
+        {
+          "id": "contrast-1",
+          "text": "No.",
+          "englishAuditText": "No.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "This means “A small circle.”, rather than “No.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "ball",
+          "englishAuditText": "ball",
+          "contrast": {
+            "kind": "state",
+            "explanation": "This means “A small circle.”, rather than “ball”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-phrase-023",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "familyId": "mm-la-zero-phrase-023",
+      "targetText": "Lapis hīc est.",
+      "learnerBaseText": "The stone is here.",
+      "englishText": "The stone is here.",
+      "embeddingText": "The stone is here.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "The stone is here."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The stone is here.",
+          "englishAuditText": "The stone is here."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Please.",
+          "englishAuditText": "Please.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "This means “The stone is here.”, rather than “Please.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "sphere",
+          "englishAuditText": "sphere",
+          "contrast": {
+            "kind": "location",
+            "explanation": "This means “The stone is here.”, rather than “sphere”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-la-zero-phrase-024",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "familyId": "mm-la-zero-phrase-024",
+      "targetText": "Liber hīc est.",
+      "learnerBaseText": "The book is here.",
+      "englishText": "The book is here.",
+      "embeddingText": "The book is here.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "The book is here."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The book is here.",
+          "englishAuditText": "The book is here."
+        },
+        {
+          "id": "contrast-1",
+          "text": "one",
+          "englishAuditText": "one",
+          "contrast": {
+            "kind": "location",
+            "explanation": "This means “The book is here.”, rather than “one”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "line",
+          "englishAuditText": "line",
+          "contrast": {
+            "kind": "location",
+            "explanation": "This means “The book is here.”, rather than “line”."
+          }
+        }
+      ]
     }
   ]
 }

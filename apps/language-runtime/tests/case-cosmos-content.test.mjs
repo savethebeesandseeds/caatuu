@@ -51,7 +51,7 @@ test("malformed targets, markup, duplicates and incomplete records are rejected"
     (p) => { for (const example of Object.values(p[0].cases)) { example.form = "Petr"; example.czech = example.czech.replace(/\p{L}+/u, "Petr"); } },
     (p) => { delete p[0].cases.Genitive; },
     (p) => { p.push(structuredClone(p[0])); },
-    (p) => { p[0].difficulty = 0; },
+    (p) => { p[0].difficulty = -1; },
     (p) => { p[0].cases.Dative.matches = true; }
   ];
   for (const mutate of mutations) assert.throws(() => validatePack(change(mutate)), undefined, mutate.toString());

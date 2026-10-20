@@ -7,44 +7,58 @@
   "validation": {
     "valid": true,
     "errors": [],
-    "warnings": [],
-    "recordCount": 833,
+    "warnings": [
+      "6 English meaning group(s) occur in more than one record; allowed for Czech variants and minimal contrasts"
+    ],
+    "recordCount": 927,
     "level2Share": 0.702281,
-    "duplicateEnglishGroups": 0
+    "duplicateEnglishGroups": 6
   },
   "records": {
-    "total": 833,
+    "total": 927,
     "byDifficulty": {
+      "0": 94,
       "1": 188,
       "2": 585,
       "3": 60
     },
     "difficultyShare": {
-      "1": 0.22569,
-      "2": 0.702281,
-      "3": 0.072029
+      "0": 0.101402,
+      "1": 0.202805,
+      "2": 0.631068,
+      "3": 0.064725
     },
     "byCefr": {
       "A1": 598,
       "A1/A2": 34,
       "A2": 26,
+      "Pre-A1": 94,
       "Pre-A1/A1": 175
     },
     "byTopic": {
+      "actions": 12,
       "animals": 3,
       "conversation": 144,
       "creativity": 4,
       "daily-life": 4,
+      "describing": 4,
+      "doing": 8,
       "feelings": 5,
+      "first-contact": 6,
       "food": 50,
       "friendship": 7,
       "home": 55,
+      "identify": 20,
       "location": 51,
       "music": 3,
       "nature": 15,
-      "people": 81,
+      "notice": 8,
+      "numbers": 5,
+      "objects": 20,
+      "people": 84,
       "plans": 4,
       "play": 60,
+      "request": 8,
       "routine": 49,
       "school": 67,
       "shopping": 26,
@@ -55,7 +69,8 @@
       "weather": 52
     },
     "byReviewStatus": {
-      "codex_reviewed": 833
+      "codex_reviewed": 833,
+      "machine-assisted-preview": 94
     }
   },
   "guidance": {
@@ -118,6 +133,7 @@
       "negative possessive": 1,
       "negative present": 2,
       "nested relative clause": 1,
+      "one tiny meaning": 94,
       "past": 2,
       "past feminine": 1,
       "past masculine": 4,
@@ -150,6 +166,7 @@
       "routine present": 3,
       "sentence-comprehension": 31,
       "short formula": 207,
+      "supported first encounter": 94,
       "time clause": 17,
       "time expression": 6,
       "time present": 2,
@@ -160,6 +177,7 @@
       "word order in context": 32
     },
     "grammarTags": {
+      "actions": 12,
       "adjective_agreement": 1,
       "animals": 3,
       "be_present": 129,
@@ -200,6 +218,8 @@
       "creativity": 4,
       "dative_experiencer": 2,
       "dative_object": 1,
+      "describing": 4,
+      "doing": 8,
       "event": 5,
       "family_bat-se": 4,
       "family_divat-se": 4,
@@ -209,6 +229,7 @@
       "family_tesit-se": 4,
       "family_ucit-se": 4,
       "family_vracet-se": 4,
+      "first-contact": 6,
       "food": 2,
       "friendship": 7,
       "function_ask_and_give_directions": 25,
@@ -242,6 +263,7 @@
       "future_weather": 2,
       "have_expression": 6,
       "hortative_imperative": 1,
+      "identify": 20,
       "imperative": 103,
       "imperative_clothing": 2,
       "imperative_dative": 3,
@@ -258,9 +280,11 @@
       "imperative_time": 1,
       "impersonal_location": 1,
       "indirect_question": 1,
+      "level-zero": 94,
       "lexical_se": 32,
       "location_copular": 8,
       "location_present": 12,
+      "machine-assisted-draft": 94,
       "modal": 37,
       "modal_infinitive": 3,
       "modal_present": 1,
@@ -273,10 +297,14 @@
       "negative_possessive": 1,
       "negative_present": 2,
       "nested_relative_clause": 1,
+      "notice": 8,
+      "numbers": 5,
+      "objects": 20,
       "past": 2,
       "past_feminine": 1,
       "past_masculine": 4,
       "past_neuter": 1,
+      "people": 3,
       "play": 6,
       "possessive": 65,
       "possessive_copular": 3,
@@ -302,6 +330,7 @@
       "reflexive_present": 3,
       "relative_clause": 3,
       "relative_location_clause": 1,
+      "request": 8,
       "result_clause": 3,
       "routine_present": 3,
       "school": 7,
@@ -330,24 +359,24 @@
       "weather_present": 2
     },
     "support": {
-      "translationAvailable": 833,
-      "imageSuitable": 760,
-      "audioSuitable": 833,
-      "dictionarySuitable": 829
+      "translationAvailable": 927,
+      "imageSuitable": 854,
+      "audioSuitable": 927,
+      "dictionarySuitable": 923
     }
   },
   "targets": {
-    "uniquePlayable": 753,
-    "singleton": 359,
+    "uniquePlayable": 791,
+    "singleton": 378,
     "branchable": {
       "minimumRecords": 2,
-      "targetCount": 394,
-      "share": 0.52324
+      "targetCount": 413,
+      "share": 0.522124
     },
     "strong": {
       "minimumRecords": 5,
-      "targetCount": 27,
-      "share": 0.035857
+      "targetCount": 37,
+      "share": 0.046776
     },
     "perTarget": [
       {
@@ -356,16 +385,35 @@
           "ahoj",
           "Ahoj"
         ],
-        "recordCount": 2,
+        "recordCount": 3,
         "recordIds": [
           "ww-cp-000001",
-          "ww-cp-000025"
+          "ww-cp-000025",
+          "ww-cz-zero-hello"
         ],
         "difficulties": [
+          0,
           1
         ],
         "topics": [
-          "conversation"
+          "conversation",
+          "first-contact"
+        ]
+      },
+      {
+        "normalized": "ano",
+        "surfaces": [
+          "Ano"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-zero-yes"
+        ],
+        "difficulties": [
+          0
+        ],
+        "topics": [
+          "first-contact"
         ]
       },
       {
@@ -962,6 +1010,26 @@
         ]
       },
       {
+        "normalized": "čaj",
+        "surfaces": [
+          "čaj"
+        ],
+        "recordCount": 3,
+        "recordIds": [
+          "ww-cz-zero-tea",
+          "ww-cz-zero-this-tea",
+          "ww-cz-zero-want-tea"
+        ],
+        "difficulties": [
+          0
+        ],
+        "topics": [
+          "identify",
+          "objects",
+          "request"
+        ]
+      },
+      {
         "normalized": "čas",
         "surfaces": [
           "čas"
@@ -1076,6 +1144,22 @@
         ]
       },
       {
+        "normalized": "červený",
+        "surfaces": [
+          "červený"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-zero-red"
+        ],
+        "difficulties": [
+          0
+        ],
+        "topics": [
+          "describing"
+        ]
+      },
+      {
         "normalized": "češu",
         "surfaces": [
           "Češu"
@@ -1096,14 +1180,17 @@
         "surfaces": [
           "číst"
         ],
-        "recordCount": 1,
+        "recordCount": 2,
         "recordIds": [
-          "ww-cp-000463"
+          "ww-cp-000463",
+          "ww-cz-zero-read"
         ],
         "difficulties": [
+          0,
           2
         ],
         "topics": [
+          "actions",
           "conversation"
         ]
       },
@@ -1155,6 +1242,38 @@
         ],
         "topics": [
           "people"
+        ]
+      },
+      {
+        "normalized": "čtu",
+        "surfaces": [
+          "Čtu"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-zero-i-read"
+        ],
+        "difficulties": [
+          0
+        ],
+        "topics": [
+          "doing"
+        ]
+      },
+      {
+        "normalized": "čtyři",
+        "surfaces": [
+          "čtyři"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-zero-four"
+        ],
+        "difficulties": [
+          0
+        ],
+        "topics": [
+          "numbers"
         ]
       },
       {
@@ -1307,21 +1426,24 @@
           "děkuji",
           "Děkuji"
         ],
-        "recordCount": 6,
+        "recordCount": 7,
         "recordIds": [
           "ww-cp-000027",
           "ww-cp-000028",
           "ww-cp-000050",
           "ww-cp-000247",
           "ww-cp-000275",
-          "ww-cp-000421"
+          "ww-cp-000421",
+          "ww-cz-zero-thanks"
         ],
         "difficulties": [
+          0,
           1,
           2
         ],
         "topics": [
           "conversation",
+          "first-contact",
           "food",
           "shopping"
         ]
@@ -1939,19 +2061,42 @@
         ]
       },
       {
+        "normalized": "dům",
+        "surfaces": [
+          "dům"
+        ],
+        "recordCount": 3,
+        "recordIds": [
+          "ww-cz-zero-house",
+          "ww-cz-zero-see-house",
+          "ww-cz-zero-this-house"
+        ],
+        "difficulties": [
+          0
+        ],
+        "topics": [
+          "identify",
+          "notice",
+          "objects"
+        ]
+      },
+      {
         "normalized": "dva",
         "surfaces": [
           "dva"
         ],
-        "recordCount": 2,
+        "recordCount": 3,
         "recordIds": [
           "ww-cp-000252",
-          "ww-cz-exp260908-028"
+          "ww-cz-exp260908-028",
+          "ww-cz-zero-two"
         ],
         "difficulties": [
+          0,
           2
         ],
         "topics": [
+          "numbers",
           "school",
           "shopping"
         ]
@@ -1980,16 +2125,23 @@
           "dveře",
           "Dveře"
         ],
-        "recordCount": 2,
+        "recordCount": 5,
         "recordIds": [
           "ww-cp-000175",
-          "ww-cp-000346"
+          "ww-cp-000346",
+          "ww-cz-zero-door",
+          "ww-cz-zero-see-door",
+          "ww-cz-zero-this-door"
         ],
         "difficulties": [
+          0,
           1,
           2
         ],
         "topics": [
+          "identify",
+          "notice",
+          "objects",
           "routine"
         ]
       },
@@ -2604,7 +2756,7 @@
         "surfaces": [
           "Chci"
         ],
-        "recordCount": 7,
+        "recordCount": 15,
         "recordIds": [
           "ww-cp-000118",
           "ww-cp-000119",
@@ -2612,9 +2764,18 @@
           "ww-cp-000235",
           "ww-cp-000253",
           "ww-cp-000405",
-          "ww-cp-000406"
+          "ww-cp-000406",
+          "ww-cz-zero-want-apple",
+          "ww-cz-zero-want-book",
+          "ww-cz-zero-want-bread",
+          "ww-cz-zero-want-milk",
+          "ww-cz-zero-want-pen",
+          "ww-cz-zero-want-rice",
+          "ww-cz-zero-want-tea",
+          "ww-cz-zero-want-water"
         ],
         "difficulties": [
+          0,
           1,
           2
         ],
@@ -2622,6 +2783,7 @@
           "conversation",
           "food",
           "people",
+          "request",
           "shopping"
         ]
       },
@@ -2631,17 +2793,40 @@
           "chléb",
           "Chléb"
         ],
-        "recordCount": 2,
+        "recordCount": 5,
         "recordIds": [
           "ww-cp-000240",
-          "ww-cp-000271"
+          "ww-cp-000271",
+          "ww-cz-zero-bread",
+          "ww-cz-zero-this-bread",
+          "ww-cz-zero-want-bread"
         ],
         "difficulties": [
+          0,
           2
         ],
         "topics": [
           "food",
+          "identify",
+          "objects",
+          "request",
           "shopping"
+        ]
+      },
+      {
+        "normalized": "chtít",
+        "surfaces": [
+          "chtít"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-zero-want"
+        ],
+        "difficulties": [
+          0
+        ],
+        "topics": [
+          "actions"
         ]
       },
       {
@@ -2798,6 +2983,22 @@
         ]
       },
       {
+        "normalized": "já",
+        "surfaces": [
+          "já"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-zero-i"
+        ],
+        "difficulties": [
+          0
+        ],
+        "topics": [
+          "people"
+        ]
+      },
+      {
         "normalized": "jablka",
         "surfaces": [
           "jablka",
@@ -2815,6 +3016,26 @@
         ],
         "topics": [
           "food"
+        ]
+      },
+      {
+        "normalized": "jablko",
+        "surfaces": [
+          "jablko"
+        ],
+        "recordCount": 3,
+        "recordIds": [
+          "ww-cz-zero-apple",
+          "ww-cz-zero-this-apple",
+          "ww-cz-zero-want-apple"
+        ],
+        "difficulties": [
+          0
+        ],
+        "topics": [
+          "identify",
+          "objects",
+          "request"
         ]
       },
       {
@@ -2930,20 +3151,23 @@
         "surfaces": [
           "Jdu"
         ],
-        "recordCount": 5,
+        "recordCount": 6,
         "recordIds": [
           "ww-cp-000157",
           "ww-cp-000162",
           "ww-cp-000462",
           "ww-cp-000463",
-          "ww-cp-000464"
+          "ww-cp-000464",
+          "ww-cz-zero-i-go"
         ],
         "difficulties": [
+          0,
           1,
           2
         ],
         "topics": [
           "conversation",
+          "doing",
           "routine"
         ]
       },
@@ -2952,17 +3176,38 @@
         "surfaces": [
           "je"
         ],
-        "recordCount": 3,
+        "recordCount": 22,
         "recordIds": [
           "ww-cz-exp260908-003",
           "ww-cz-exp260908-005",
-          "ww-cz-exp260908-034"
+          "ww-cz-exp260908-034",
+          "ww-cz-zero-this-apple",
+          "ww-cz-zero-this-bag",
+          "ww-cz-zero-this-ball",
+          "ww-cz-zero-this-bed",
+          "ww-cz-zero-this-book",
+          "ww-cz-zero-this-bread",
+          "ww-cz-zero-this-cat",
+          "ww-cz-zero-this-chair",
+          "ww-cz-zero-this-dog",
+          "ww-cz-zero-this-eye",
+          "ww-cz-zero-this-hand",
+          "ww-cz-zero-this-house",
+          "ww-cz-zero-this-milk",
+          "ww-cz-zero-this-pen",
+          "ww-cz-zero-this-rice",
+          "ww-cz-zero-this-sun",
+          "ww-cz-zero-this-table",
+          "ww-cz-zero-this-tea",
+          "ww-cz-zero-this-water"
         ],
         "difficulties": [
+          0,
           1,
           3
         ],
         "topics": [
+          "identify",
           "nature",
           "play",
           "school"
@@ -2983,6 +3228,22 @@
         ],
         "topics": [
           "transport"
+        ]
+      },
+      {
+        "normalized": "jedna",
+        "surfaces": [
+          "jedna"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-zero-one"
+        ],
+        "difficulties": [
+          0
+        ],
+        "topics": [
+          "numbers"
         ]
       },
       {
@@ -3058,6 +3319,22 @@
         ]
       },
       {
+        "normalized": "jím",
+        "surfaces": [
+          "Jím"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-zero-i-eat"
+        ],
+        "difficulties": [
+          0
+        ],
+        "topics": [
+          "doing"
+        ]
+      },
+      {
         "normalized": "jinou",
         "surfaces": [
           "jinou"
@@ -3078,16 +3355,19 @@
         "surfaces": [
           "jíst"
         ],
-        "recordCount": 3,
+        "recordCount": 4,
         "recordIds": [
           "ww-cp-000164",
           "ww-cp-000226",
-          "ww-cp-000464"
+          "ww-cp-000464",
+          "ww-cz-zero-eat"
         ],
         "difficulties": [
+          0,
           2
         ],
         "topics": [
+          "actions",
           "conversation",
           "food",
           "routine"
@@ -3116,14 +3396,17 @@
         "surfaces": [
           "jít"
         ],
-        "recordCount": 1,
+        "recordCount": 2,
         "recordIds": [
-          "ww-cp-000120"
+          "ww-cp-000120",
+          "ww-cz-zero-go"
         ],
         "difficulties": [
+          0,
           2
         ],
         "topics": [
+          "actions",
           "people"
         ]
       },
@@ -3192,6 +3475,22 @@
         ],
         "topics": [
           "conversation"
+        ]
+      },
+      {
+        "normalized": "jsou",
+        "surfaces": [
+          "jsou"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-zero-this-door"
+        ],
+        "difficulties": [
+          0
+        ],
+        "topics": [
+          "identify"
         ]
       },
       {
@@ -3478,23 +3777,48 @@
         ]
       },
       {
+        "normalized": "kniha",
+        "surfaces": [
+          "kniha"
+        ],
+        "recordCount": 2,
+        "recordIds": [
+          "ww-cz-zero-book",
+          "ww-cz-zero-this-book"
+        ],
+        "difficulties": [
+          0
+        ],
+        "topics": [
+          "identify",
+          "objects"
+        ]
+      },
+      {
         "normalized": "knihu",
         "surfaces": [
           "knihu"
         ],
-        "recordCount": 4,
+        "recordCount": 7,
         "recordIds": [
           "ww-codex-exp-0001-0020",
           "ww-cp-000051",
           "ww-cp-000052",
-          "ww-cp-000060"
+          "ww-cp-000060",
+          "ww-cz-zero-i-read",
+          "ww-cz-zero-see-book",
+          "ww-cz-zero-want-book"
         ],
         "difficulties": [
+          0,
           1,
           2
         ],
         "topics": [
+          "doing",
+          "notice",
           "people",
+          "request",
           "school"
         ]
       },
@@ -3515,20 +3839,41 @@
         ]
       },
       {
+        "normalized": "kočka",
+        "surfaces": [
+          "kočka"
+        ],
+        "recordCount": 2,
+        "recordIds": [
+          "ww-cz-zero-cat",
+          "ww-cz-zero-this-cat"
+        ],
+        "difficulties": [
+          0
+        ],
+        "topics": [
+          "identify",
+          "objects"
+        ]
+      },
+      {
         "normalized": "kočku",
         "surfaces": [
           "kočku"
         ],
-        "recordCount": 2,
+        "recordCount": 3,
         "recordIds": [
           "ww-codex-exp-0001-0034",
-          "ww-cp-000361"
+          "ww-cp-000361",
+          "ww-cz-zero-see-cat"
         ],
         "difficulties": [
+          0,
           2
         ],
         "topics": [
-          "home"
+          "home",
+          "notice"
         ]
       },
       {
@@ -4330,15 +4675,18 @@
         "surfaces": [
           "malý"
         ],
-        "recordCount": 2,
+        "recordCount": 3,
         "recordIds": [
           "ww-codex-exp-0001-0008",
-          "ww-cp-000141"
+          "ww-cp-000141",
+          "ww-cz-zero-small"
         ],
         "difficulties": [
+          0,
           2
         ],
         "topics": [
+          "describing",
           "people"
         ]
       },
@@ -4348,7 +4696,7 @@
           "mám",
           "Mám"
         ],
-        "recordCount": 15,
+        "recordCount": 16,
         "recordIds": [
           "ww-cp-000007",
           "ww-cp-000023",
@@ -4364,14 +4712,17 @@
           "ww-cp-000193",
           "ww-cp-000288",
           "ww-cp-000289",
-          "ww-cz-exp260908-029"
+          "ww-cz-exp260908-029",
+          "ww-cz-zero-i-have-pen"
         ],
         "difficulties": [
+          0,
           1,
           2
         ],
         "topics": [
           "conversation",
+          "doing",
           "friendship",
           "people",
           "time",
@@ -4568,15 +4919,22 @@
         "surfaces": [
           "míč"
         ],
-        "recordCount": 2,
+        "recordCount": 5,
         "recordIds": [
           "ww-cp-000309",
-          "ww-cp-000310"
+          "ww-cp-000310",
+          "ww-cz-zero-ball",
+          "ww-cz-zero-see-ball",
+          "ww-cz-zero-this-ball"
         ],
         "difficulties": [
+          0,
           2
         ],
         "topics": [
+          "identify",
+          "notice",
+          "objects",
           "play"
         ]
       },
@@ -4721,20 +5079,44 @@
         ]
       },
       {
+        "normalized": "mít",
+        "surfaces": [
+          "mít"
+        ],
+        "recordCount": 2,
+        "recordIds": [
+          "ww-cz-zero-have",
+          "ww-cz-zero-like"
+        ],
+        "difficulties": [
+          0
+        ],
+        "topics": [
+          "actions"
+        ]
+      },
+      {
         "normalized": "mléko",
         "surfaces": [
           "mléko"
         ],
-        "recordCount": 2,
+        "recordCount": 5,
         "recordIds": [
           "ww-cp-000234",
-          "ww-cp-000272"
+          "ww-cp-000272",
+          "ww-cz-zero-milk",
+          "ww-cz-zero-this-milk",
+          "ww-cz-zero-want-milk"
         ],
         "difficulties": [
+          0,
           2
         ],
         "topics": [
           "food",
+          "identify",
+          "objects",
+          "request",
           "shopping"
         ]
       },
@@ -5120,6 +5502,22 @@
         ]
       },
       {
+        "normalized": "my",
+        "surfaces": [
+          "my"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-zero-we"
+        ],
+        "difficulties": [
+          0
+        ],
+        "topics": [
+          "people"
+        ]
+      },
+      {
         "normalized": "myju",
         "surfaces": [
           "Myju"
@@ -5150,6 +5548,22 @@
         ],
         "topics": [
           "conversation"
+        ]
+      },
+      {
+        "normalized": "na",
+        "surfaces": [
+          "Na"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-zero-goodbye"
+        ],
+        "difficulties": [
+          0
+        ],
+        "topics": [
+          "first-contact"
         ]
       },
       {
@@ -5572,6 +5986,22 @@
         ],
         "topics": [
           "people"
+        ]
+      },
+      {
+        "normalized": "ne",
+        "surfaces": [
+          "Ne"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-zero-no"
+        ],
+        "difficulties": [
+          0
+        ],
+        "topics": [
+          "first-contact"
         ]
       },
       {
@@ -6613,6 +7043,24 @@
         ]
       },
       {
+        "normalized": "oko",
+        "surfaces": [
+          "oko"
+        ],
+        "recordCount": 2,
+        "recordIds": [
+          "ww-cz-zero-eye",
+          "ww-cz-zero-this-eye"
+        ],
+        "difficulties": [
+          0
+        ],
+        "topics": [
+          "identify",
+          "objects"
+        ]
+      },
+      {
         "normalized": "omyj",
         "surfaces": [
           "Omyj"
@@ -6889,6 +7337,30 @@
         ]
       },
       {
+        "normalized": "pero",
+        "surfaces": [
+          "pero"
+        ],
+        "recordCount": 5,
+        "recordIds": [
+          "ww-cz-zero-i-have-pen",
+          "ww-cz-zero-pen",
+          "ww-cz-zero-see-pen",
+          "ww-cz-zero-this-pen",
+          "ww-cz-zero-want-pen"
+        ],
+        "difficulties": [
+          0
+        ],
+        "topics": [
+          "doing",
+          "identify",
+          "notice",
+          "objects",
+          "request"
+        ]
+      },
+      {
         "normalized": "peříčko",
         "surfaces": [
           "Peříčko"
@@ -6905,22 +7377,59 @@
         ]
       },
       {
+        "normalized": "pes",
+        "surfaces": [
+          "pes"
+        ],
+        "recordCount": 2,
+        "recordIds": [
+          "ww-cz-zero-dog",
+          "ww-cz-zero-this-dog"
+        ],
+        "difficulties": [
+          0
+        ],
+        "topics": [
+          "identify",
+          "objects"
+        ]
+      },
+      {
         "normalized": "pět",
         "surfaces": [
           "pět"
         ],
-        "recordCount": 3,
+        "recordCount": 4,
         "recordIds": [
           "ww-cp-000192",
           "ww-cp-000198",
-          "ww-cz-exp260908-032"
+          "ww-cz-exp260908-032",
+          "ww-cz-zero-five"
         ],
         "difficulties": [
+          0,
           2
         ],
         "topics": [
+          "numbers",
           "play",
           "time"
+        ]
+      },
+      {
+        "normalized": "piju",
+        "surfaces": [
+          "Piju"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-zero-i-drink"
+        ],
+        "difficulties": [
+          0
+        ],
+        "topics": [
+          "doing"
         ]
       },
       {
@@ -6955,6 +7464,38 @@
         ],
         "topics": [
           "play"
+        ]
+      },
+      {
+        "normalized": "píšu",
+        "surfaces": [
+          "Píšu"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-zero-i-write"
+        ],
+        "difficulties": [
+          0
+        ],
+        "topics": [
+          "doing"
+        ]
+      },
+      {
+        "normalized": "pít",
+        "surfaces": [
+          "pít"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-zero-drink"
+        ],
+        "difficulties": [
+          0
+        ],
+        "topics": [
+          "actions"
         ]
       },
       {
@@ -7758,17 +8299,22 @@
           "postel",
           "Postel"
         ],
-        "recordCount": 2,
+        "recordCount": 4,
         "recordIds": [
           "ww-cp-000172",
-          "ww-cp-000368"
+          "ww-cp-000368",
+          "ww-cz-zero-bed",
+          "ww-cz-zero-this-bed"
         ],
         "difficulties": [
+          0,
           1,
           2
         ],
         "topics": [
           "home",
+          "identify",
+          "objects",
           "routine"
         ]
       },
@@ -8115,7 +8661,7 @@
           "prosím",
           "Prosím"
         ],
-        "recordCount": 13,
+        "recordCount": 14,
         "recordIds": [
           "ww-cp-000026",
           "ww-cp-000040",
@@ -8129,14 +8675,17 @@
           "ww-cp-000337",
           "ww-cp-000420",
           "ww-cz-exp260908-007",
-          "ww-cz-exp260908-023"
+          "ww-cz-exp260908-023",
+          "ww-cz-zero-please"
         ],
         "difficulties": [
+          0,
           1,
           2
         ],
         "topics": [
           "conversation",
+          "first-contact",
           "food",
           "friendship",
           "location",
@@ -8493,17 +9042,36 @@
         "surfaces": [
           "psa"
         ],
-        "recordCount": 2,
+        "recordCount": 3,
         "recordIds": [
           "ww-codex-exp-0001-0174",
-          "ww-cp-000362"
+          "ww-cp-000362",
+          "ww-cz-zero-see-dog"
         ],
         "difficulties": [
+          0,
           2
         ],
         "topics": [
           "home",
-          "location"
+          "location",
+          "notice"
+        ]
+      },
+      {
+        "normalized": "psát",
+        "surfaces": [
+          "psát"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-zero-write"
+        ],
+        "difficulties": [
+          0
+        ],
+        "topics": [
+          "actions"
         ]
       },
       {
@@ -8587,6 +9155,22 @@
         ],
         "topics": [
           "nature"
+        ]
+      },
+      {
+        "normalized": "rád",
+        "surfaces": [
+          "rád"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-zero-like"
+        ],
+        "difficulties": [
+          0
+        ],
+        "topics": [
+          "actions"
         ]
       },
       {
@@ -8874,14 +9458,19 @@
         "surfaces": [
           "ruka"
         ],
-        "recordCount": 1,
+        "recordCount": 3,
         "recordIds": [
-          "ww-cp-000340"
+          "ww-cp-000340",
+          "ww-cz-zero-hand",
+          "ww-cz-zero-this-hand"
         ],
         "difficulties": [
+          0,
           2
         ],
         "topics": [
+          "identify",
+          "objects",
           "routine"
         ]
       },
@@ -8967,6 +9556,40 @@
         ],
         "topics": [
           "music"
+        ]
+      },
+      {
+        "normalized": "rýže",
+        "surfaces": [
+          "rýže"
+        ],
+        "recordCount": 2,
+        "recordIds": [
+          "ww-cz-zero-rice",
+          "ww-cz-zero-this-rice"
+        ],
+        "difficulties": [
+          0
+        ],
+        "topics": [
+          "identify",
+          "objects"
+        ]
+      },
+      {
+        "normalized": "rýži",
+        "surfaces": [
+          "rýži"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-zero-want-rice"
+        ],
+        "difficulties": [
+          0
+        ],
+        "topics": [
+          "request"
         ]
       },
       {
@@ -9205,6 +9828,22 @@
         ]
       },
       {
+        "normalized": "sedět",
+        "surfaces": [
+          "sedět"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-zero-sit"
+        ],
+        "difficulties": [
+          0
+        ],
+        "topics": [
+          "actions"
+        ]
+      },
+      {
         "normalized": "sedí",
         "surfaces": [
           "sedí"
@@ -9218,6 +9857,22 @@
         ],
         "topics": [
           "weather"
+        ]
+      },
+      {
+        "normalized": "sedím",
+        "surfaces": [
+          "Sedím"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-zero-i-sit"
+        ],
+        "difficulties": [
+          0
+        ],
+        "topics": [
+          "doing"
         ]
       },
       {
@@ -9377,17 +10032,20 @@
         "surfaces": [
           "shledanou"
         ],
-        "recordCount": 2,
+        "recordCount": 3,
         "recordIds": [
           "ww-cp-000018",
-          "ww-cp-000275"
+          "ww-cp-000275",
+          "ww-cz-zero-goodbye"
         ],
         "difficulties": [
+          0,
           1,
           2
         ],
         "topics": [
           "conversation",
+          "first-contact",
           "shopping"
         ]
       },
@@ -9549,15 +10207,20 @@
         "surfaces": [
           "slunce"
         ],
-        "recordCount": 1,
+        "recordCount": 3,
         "recordIds": [
-          "ww-cz-exp260908-038"
+          "ww-cz-exp260908-038",
+          "ww-cz-zero-sun",
+          "ww-cz-zero-this-sun"
         ],
         "difficulties": [
+          0,
           3
         ],
         "topics": [
-          "nature"
+          "identify",
+          "nature",
+          "objects"
         ]
       },
       {
@@ -9591,6 +10254,22 @@
         ],
         "topics": [
           "weather"
+        ]
+      },
+      {
+        "normalized": "slyšet",
+        "surfaces": [
+          "slyšet"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-zero-hear"
+        ],
+        "difficulties": [
+          0
+        ],
+        "topics": [
+          "actions"
         ]
       },
       {
@@ -9835,17 +10514,20 @@
         "surfaces": [
           "spát"
         ],
-        "recordCount": 3,
+        "recordCount": 4,
         "recordIds": [
           "ww-cp-000118",
           "ww-cp-000162",
-          "ww-cp-000167"
+          "ww-cp-000167",
+          "ww-cz-zero-sleep"
         ],
         "difficulties": [
+          0,
           1,
           2
         ],
         "topics": [
+          "actions",
           "people",
           "routine"
         ]
@@ -9868,6 +10550,22 @@
         "topics": [
           "animals",
           "people"
+        ]
+      },
+      {
+        "normalized": "spím",
+        "surfaces": [
+          "Spím"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-zero-i-sleep"
+        ],
+        "difficulties": [
+          0
+        ],
+        "topics": [
+          "doing"
         ]
       },
       {
@@ -10195,19 +10893,26 @@
           "stůl",
           "Stůl"
         ],
-        "recordCount": 3,
+        "recordCount": 6,
         "recordIds": [
           "ww-codex-exp-0001-0028",
           "ww-codex-exp-0001-0068",
-          "ww-cp-000358"
+          "ww-cp-000358",
+          "ww-cz-zero-see-table",
+          "ww-cz-zero-table",
+          "ww-cz-zero-this-table"
         ],
         "difficulties": [
+          0,
           1,
           2
         ],
         "topics": [
           "food",
-          "home"
+          "home",
+          "identify",
+          "notice",
+          "objects"
         ]
       },
       {
@@ -10674,17 +11379,22 @@
           "taška",
           "Taška"
         ],
-        "recordCount": 2,
+        "recordCount": 4,
         "recordIds": [
           "ww-codex-exp-0001-0027",
-          "ww-cp-000371"
+          "ww-cp-000371",
+          "ww-cz-zero-bag",
+          "ww-cz-zero-this-bag"
         ],
         "difficulties": [
+          0,
           1,
           2
         ],
         "topics": [
-          "home"
+          "home",
+          "identify",
+          "objects"
         ]
       },
       {
@@ -11046,6 +11756,41 @@
         ]
       },
       {
+        "normalized": "to",
+        "surfaces": [
+          "To"
+        ],
+        "recordCount": 20,
+        "recordIds": [
+          "ww-cz-zero-this-apple",
+          "ww-cz-zero-this-bag",
+          "ww-cz-zero-this-ball",
+          "ww-cz-zero-this-bed",
+          "ww-cz-zero-this-book",
+          "ww-cz-zero-this-bread",
+          "ww-cz-zero-this-cat",
+          "ww-cz-zero-this-chair",
+          "ww-cz-zero-this-dog",
+          "ww-cz-zero-this-door",
+          "ww-cz-zero-this-eye",
+          "ww-cz-zero-this-hand",
+          "ww-cz-zero-this-house",
+          "ww-cz-zero-this-milk",
+          "ww-cz-zero-this-pen",
+          "ww-cz-zero-this-rice",
+          "ww-cz-zero-this-sun",
+          "ww-cz-zero-this-table",
+          "ww-cz-zero-this-tea",
+          "ww-cz-zero-this-water"
+        ],
+        "difficulties": [
+          0
+        ],
+        "topics": [
+          "identify"
+        ]
+      },
+      {
         "normalized": "tobě",
         "surfaces": [
           "tobě"
@@ -11138,15 +11883,18 @@
         "surfaces": [
           "tři"
         ],
-        "recordCount": 1,
+        "recordCount": 2,
         "recordIds": [
-          "ww-cz-exp260908-010"
+          "ww-cz-exp260908-010",
+          "ww-cz-zero-three"
         ],
         "difficulties": [
+          0,
           2
         ],
         "topics": [
-          "creativity"
+          "creativity",
+          "numbers"
         ]
       },
       {
@@ -11230,6 +11978,22 @@
         ],
         "topics": [
           "friendship"
+        ]
+      },
+      {
+        "normalized": "ty",
+        "surfaces": [
+          "ty"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-zero-you"
+        ],
+        "difficulties": [
+          0
+        ],
+        "topics": [
+          "people"
         ]
       },
       {
@@ -11928,6 +12692,22 @@
         ]
       },
       {
+        "normalized": "velký",
+        "surfaces": [
+          "velký"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-zero-big"
+        ],
+        "difficulties": [
+          0
+        ],
+        "topics": [
+          "describing"
+        ]
+      },
+      {
         "normalized": "ven",
         "surfaces": [
           "ven"
@@ -12093,14 +12873,17 @@
         "surfaces": [
           "vidět"
         ],
-        "recordCount": 1,
+        "recordCount": 2,
         "recordIds": [
-          "ww-cp-000010"
+          "ww-cp-000010",
+          "ww-cz-zero-see"
         ],
         "difficulties": [
+          0,
           1
         ],
         "topics": [
+          "actions",
           "conversation"
         ]
       },
@@ -12110,16 +12893,26 @@
           "vidím",
           "Vidím"
         ],
-        "recordCount": 2,
+        "recordCount": 10,
         "recordIds": [
           "ww-cp-000023",
-          "ww-cp-000398"
+          "ww-cp-000398",
+          "ww-cz-zero-see-ball",
+          "ww-cz-zero-see-book",
+          "ww-cz-zero-see-cat",
+          "ww-cz-zero-see-dog",
+          "ww-cz-zero-see-door",
+          "ww-cz-zero-see-house",
+          "ww-cz-zero-see-pen",
+          "ww-cz-zero-see-table"
         ],
         "difficulties": [
+          0,
           2
         ],
         "topics": [
           "conversation",
+          "notice",
           "transport"
         ]
       },
@@ -12210,22 +13003,43 @@
         ]
       },
       {
+        "normalized": "voda",
+        "surfaces": [
+          "voda"
+        ],
+        "recordCount": 2,
+        "recordIds": [
+          "ww-cz-zero-this-water",
+          "ww-cz-zero-water"
+        ],
+        "difficulties": [
+          0
+        ],
+        "topics": [
+          "identify",
+          "objects"
+        ]
+      },
+      {
         "normalized": "vodu",
         "surfaces": [
           "vodu"
         ],
-        "recordCount": 2,
+        "recordCount": 3,
         "recordIds": [
           "ww-cp-000115",
-          "ww-cp-000233"
+          "ww-cp-000233",
+          "ww-cz-zero-want-water"
         ],
         "difficulties": [
+          0,
           1,
           2
         ],
         "topics": [
           "food",
-          "people"
+          "people",
+          "request"
         ]
       },
       {
@@ -13175,6 +13989,22 @@
         ]
       },
       {
+        "normalized": "zelený",
+        "surfaces": [
+          "zelený"
+        ],
+        "recordCount": 1,
+        "recordIds": [
+          "ww-cz-zero-green"
+        ],
+        "difficulties": [
+          0
+        ],
+        "topics": [
+          "describing"
+        ]
+      },
+      {
         "normalized": "zeptáme",
         "surfaces": [
           "zeptáme"
@@ -13647,6 +14477,24 @@
         ],
         "topics": [
           "animals"
+        ]
+      },
+      {
+        "normalized": "židle",
+        "surfaces": [
+          "židle"
+        ],
+        "recordCount": 2,
+        "recordIds": [
+          "ww-cz-zero-chair",
+          "ww-cz-zero-this-chair"
+        ],
+        "difficulties": [
+          0
+        ],
+        "topics": [
+          "identify",
+          "objects"
         ]
       },
       {

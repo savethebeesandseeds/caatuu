@@ -3,7 +3,7 @@
   "courseId": "zh",
   "gameId": "memory-moon",
   "contentId": "zh.memory-moon.v1",
-  "contentRevision": 2,
+  "contentRevision": 3,
   "status": "machine-assisted-preview",
   "learnerBaseLanguage": "en",
   "targetLanguage": "zh-Hans",
@@ -10050,6 +10050,3405 @@
               {
                 "surface": "里",
                 "notation": "lǐ"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-this-cat",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7,
+      "topic": "first-objects",
+      "familyId": "mm-zh-zero-first-objects",
+      "targetText": "这是猫。",
+      "learnerBaseText": "This is a cat.",
+      "englishText": "This is a cat.",
+      "embeddingText": "This is a cat.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "cat"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This is a cat.",
+          "englishAuditText": "This is a cat."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This is a dog.",
+          "englishAuditText": "This is a dog.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This is bread.",
+          "englishAuditText": "This is bread.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "猫",
+            "units": [
+              {
+                "surface": "猫",
+                "notation": "māo"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-this-dog",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7,
+      "topic": "first-objects",
+      "familyId": "mm-zh-zero-first-objects",
+      "targetText": "这是狗。",
+      "learnerBaseText": "This is a dog.",
+      "englishText": "This is a dog.",
+      "embeddingText": "This is a dog.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "dog"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This is a dog.",
+          "englishAuditText": "This is a dog."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This is water.",
+          "englishAuditText": "This is water.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This is milk.",
+          "englishAuditText": "This is milk.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "狗",
+            "units": [
+              {
+                "surface": "狗",
+                "notation": "gǒu"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-this-water",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7,
+      "topic": "first-objects",
+      "familyId": "mm-zh-zero-first-objects",
+      "targetText": "这是水。",
+      "learnerBaseText": "This is water.",
+      "englishText": "This is water.",
+      "embeddingText": "This is water.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "water"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This is water.",
+          "englishAuditText": "This is water."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This is bread.",
+          "englishAuditText": "This is bread.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This is an apple.",
+          "englishAuditText": "This is an apple.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "水",
+            "units": [
+              {
+                "surface": "水",
+                "notation": "shuǐ"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-this-bread",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7,
+      "topic": "first-objects",
+      "familyId": "mm-zh-zero-first-objects",
+      "targetText": "这是面包。",
+      "learnerBaseText": "This is bread.",
+      "englishText": "This is bread.",
+      "embeddingText": "This is bread.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "bread"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This is bread.",
+          "englishAuditText": "This is bread."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This is milk.",
+          "englishAuditText": "This is milk.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This is rice.",
+          "englishAuditText": "This is rice.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "面包",
+            "units": [
+              {
+                "surface": "面",
+                "notation": "miàn"
+              },
+              {
+                "surface": "包",
+                "notation": "bāo"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-this-milk",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7,
+      "topic": "first-objects",
+      "familyId": "mm-zh-zero-first-objects",
+      "targetText": "这是牛奶。",
+      "learnerBaseText": "This is milk.",
+      "englishText": "This is milk.",
+      "embeddingText": "This is milk.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "milk"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This is milk.",
+          "englishAuditText": "This is milk."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This is an apple.",
+          "englishAuditText": "This is an apple.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This is tea.",
+          "englishAuditText": "This is tea.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "牛奶",
+            "units": [
+              {
+                "surface": "牛",
+                "notation": "niú"
+              },
+              {
+                "surface": "奶",
+                "notation": "nǎi"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-this-apple",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7,
+      "topic": "first-objects",
+      "familyId": "mm-zh-zero-first-objects",
+      "targetText": "这是苹果。",
+      "learnerBaseText": "This is an apple.",
+      "englishText": "This is an apple.",
+      "embeddingText": "This is an apple.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "apple"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This is an apple.",
+          "englishAuditText": "This is an apple."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This is rice.",
+          "englishAuditText": "This is rice.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This is a book.",
+          "englishAuditText": "This is a book.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "苹果",
+            "units": [
+              {
+                "surface": "苹",
+                "notation": "píng"
+              },
+              {
+                "surface": "果",
+                "notation": "guǒ"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-this-rice",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7,
+      "topic": "first-objects",
+      "familyId": "mm-zh-zero-first-objects",
+      "targetText": "这是米饭。",
+      "learnerBaseText": "This is rice.",
+      "englishText": "This is rice.",
+      "embeddingText": "This is rice.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "rice"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This is rice.",
+          "englishAuditText": "This is rice."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This is tea.",
+          "englishAuditText": "This is tea.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This is a pen.",
+          "englishAuditText": "This is a pen.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "米饭",
+            "units": [
+              {
+                "surface": "米",
+                "notation": "mǐ"
+              },
+              {
+                "surface": "饭",
+                "notation": "fàn"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-this-tea",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7,
+      "topic": "first-objects",
+      "familyId": "mm-zh-zero-first-objects",
+      "targetText": "这是茶。",
+      "learnerBaseText": "This is tea.",
+      "englishText": "This is tea.",
+      "embeddingText": "This is tea.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "tea"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This is tea.",
+          "englishAuditText": "This is tea."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This is a book.",
+          "englishAuditText": "This is a book.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This is a house.",
+          "englishAuditText": "This is a house.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "茶",
+            "units": [
+              {
+                "surface": "茶",
+                "notation": "chá"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-this-book",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7,
+      "topic": "first-objects",
+      "familyId": "mm-zh-zero-first-objects",
+      "targetText": "这是书。",
+      "learnerBaseText": "This is a book.",
+      "englishText": "This is a book.",
+      "embeddingText": "This is a book.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "book"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This is a book.",
+          "englishAuditText": "This is a book."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This is a pen.",
+          "englishAuditText": "This is a pen.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This is a door.",
+          "englishAuditText": "This is a door.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "书",
+            "units": [
+              {
+                "surface": "书",
+                "notation": "shū"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-this-pen",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7,
+      "topic": "first-objects",
+      "familyId": "mm-zh-zero-first-objects",
+      "targetText": "这是笔。",
+      "learnerBaseText": "This is a pen.",
+      "englishText": "This is a pen.",
+      "embeddingText": "This is a pen.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "pen"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This is a pen.",
+          "englishAuditText": "This is a pen."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This is a house.",
+          "englishAuditText": "This is a house.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This is a table.",
+          "englishAuditText": "This is a table.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "笔",
+            "units": [
+              {
+                "surface": "笔",
+                "notation": "bǐ"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-this-house",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7,
+      "topic": "first-objects",
+      "familyId": "mm-zh-zero-first-objects",
+      "targetText": "这是房子。",
+      "learnerBaseText": "This is a house.",
+      "englishText": "This is a house.",
+      "embeddingText": "This is a house.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "house"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This is a house.",
+          "englishAuditText": "This is a house."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This is a door.",
+          "englishAuditText": "This is a door.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This is a chair.",
+          "englishAuditText": "This is a chair.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "房子",
+            "units": [
+              {
+                "surface": "房",
+                "notation": "fáng"
+              },
+              {
+                "surface": "子",
+                "notation": "zi"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-this-door",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7,
+      "topic": "first-objects",
+      "familyId": "mm-zh-zero-first-objects",
+      "targetText": "这是门。",
+      "learnerBaseText": "This is a door.",
+      "englishText": "This is a door.",
+      "embeddingText": "This is a door.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "door"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This is a door.",
+          "englishAuditText": "This is a door."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This is a table.",
+          "englishAuditText": "This is a table.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This is a bed.",
+          "englishAuditText": "This is a bed.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "门",
+            "units": [
+              {
+                "surface": "门",
+                "notation": "mén"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-this-table",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7,
+      "topic": "first-objects",
+      "familyId": "mm-zh-zero-first-objects",
+      "targetText": "这是桌子。",
+      "learnerBaseText": "This is a table.",
+      "englishText": "This is a table.",
+      "embeddingText": "This is a table.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "table"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This is a table.",
+          "englishAuditText": "This is a table."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This is a chair.",
+          "englishAuditText": "This is a chair.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This is a bag.",
+          "englishAuditText": "This is a bag.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "桌子",
+            "units": [
+              {
+                "surface": "桌",
+                "notation": "zhuō"
+              },
+              {
+                "surface": "子",
+                "notation": "zi"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-this-chair",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7,
+      "topic": "first-objects",
+      "familyId": "mm-zh-zero-first-objects",
+      "targetText": "这是椅子。",
+      "learnerBaseText": "This is a chair.",
+      "englishText": "This is a chair.",
+      "embeddingText": "This is a chair.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "chair"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This is a chair.",
+          "englishAuditText": "This is a chair."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This is a bed.",
+          "englishAuditText": "This is a bed.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This is a ball.",
+          "englishAuditText": "This is a ball.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "椅子",
+            "units": [
+              {
+                "surface": "椅",
+                "notation": "yǐ"
+              },
+              {
+                "surface": "子",
+                "notation": "zi"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-this-bed",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7,
+      "topic": "first-objects",
+      "familyId": "mm-zh-zero-first-objects",
+      "targetText": "这是床。",
+      "learnerBaseText": "This is a bed.",
+      "englishText": "This is a bed.",
+      "embeddingText": "This is a bed.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "bed"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This is a bed.",
+          "englishAuditText": "This is a bed."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This is a bag.",
+          "englishAuditText": "This is a bag.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This is the sun.",
+          "englishAuditText": "This is the sun.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "床",
+            "units": [
+              {
+                "surface": "床",
+                "notation": "chuáng"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-this-bag",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7,
+      "topic": "first-objects",
+      "familyId": "mm-zh-zero-first-objects",
+      "targetText": "这是包。",
+      "learnerBaseText": "This is a bag.",
+      "englishText": "This is a bag.",
+      "embeddingText": "This is a bag.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "bag"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This is a bag.",
+          "englishAuditText": "This is a bag."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This is a ball.",
+          "englishAuditText": "This is a ball.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This is a hand.",
+          "englishAuditText": "This is a hand.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "包",
+            "units": [
+              {
+                "surface": "包",
+                "notation": "bāo"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-this-ball",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7,
+      "topic": "first-objects",
+      "familyId": "mm-zh-zero-first-objects",
+      "targetText": "这是球。",
+      "learnerBaseText": "This is a ball.",
+      "englishText": "This is a ball.",
+      "embeddingText": "This is a ball.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "ball"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This is a ball.",
+          "englishAuditText": "This is a ball."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This is the sun.",
+          "englishAuditText": "This is the sun.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This is an eye.",
+          "englishAuditText": "This is an eye.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "球",
+            "units": [
+              {
+                "surface": "球",
+                "notation": "qiú"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-this-sun",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7,
+      "topic": "first-objects",
+      "familyId": "mm-zh-zero-first-objects",
+      "targetText": "这是太阳。",
+      "learnerBaseText": "This is the sun.",
+      "englishText": "This is the sun.",
+      "embeddingText": "This is the sun.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "sun"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This is the sun.",
+          "englishAuditText": "This is the sun."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This is a hand.",
+          "englishAuditText": "This is a hand.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This is a cat.",
+          "englishAuditText": "This is a cat.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "太阳",
+            "units": [
+              {
+                "surface": "太",
+                "notation": "tài"
+              },
+              {
+                "surface": "阳",
+                "notation": "yáng"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-this-hand",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7,
+      "topic": "first-objects",
+      "familyId": "mm-zh-zero-first-objects",
+      "targetText": "这是手。",
+      "learnerBaseText": "This is a hand.",
+      "englishText": "This is a hand.",
+      "embeddingText": "This is a hand.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "hand"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This is a hand.",
+          "englishAuditText": "This is a hand."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This is an eye.",
+          "englishAuditText": "This is an eye.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This is a dog.",
+          "englishAuditText": "This is a dog.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "手",
+            "units": [
+              {
+                "surface": "手",
+                "notation": "shǒu"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-this-eye",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7,
+      "topic": "first-objects",
+      "familyId": "mm-zh-zero-first-objects",
+      "targetText": "这是眼睛。",
+      "learnerBaseText": "This is an eye.",
+      "englishText": "This is an eye.",
+      "embeddingText": "This is an eye.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "eye"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This is an eye.",
+          "englishAuditText": "This is an eye."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This is a cat.",
+          "englishAuditText": "This is a cat.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This is water.",
+          "englishAuditText": "This is water.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "眼睛",
+            "units": [
+              {
+                "surface": "眼",
+                "notation": "yǎn"
+              },
+              {
+                "surface": "睛",
+                "notation": "jing"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-expand-hello",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 3,
+      "topic": "first-contact",
+      "familyId": "mm-zh-zero-expand-greeting",
+      "targetText": "你好！",
+      "learnerBaseText": "Hello!",
+      "englishText": "Hello!",
+      "embeddingText": "Hello!",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "Hello!"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Hello!",
+          "englishAuditText": "Hello!"
+        },
+        {
+          "id": "contrast-1",
+          "text": "Goodbye!",
+          "englishAuditText": "Goodbye!",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The social message changes between greeting, farewell and thanks."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Thank you.",
+          "englishAuditText": "Thank you.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The social message changes between greeting, farewell and thanks."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "你好",
+            "units": [
+              {
+                "surface": "你",
+                "notation": "nǐ"
+              },
+              {
+                "surface": "好",
+                "notation": "hǎo"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-expand-goodbye",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 3,
+      "topic": "first-contact",
+      "familyId": "mm-zh-zero-expand-greeting",
+      "targetText": "再见！",
+      "learnerBaseText": "Goodbye!",
+      "englishText": "Goodbye!",
+      "embeddingText": "Goodbye!",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "Goodbye!"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Goodbye!",
+          "englishAuditText": "Goodbye!"
+        },
+        {
+          "id": "contrast-1",
+          "text": "Thank you.",
+          "englishAuditText": "Thank you.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The social message changes between greeting, farewell and thanks."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Hello!",
+          "englishAuditText": "Hello!",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The social message changes between greeting, farewell and thanks."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "再见",
+            "units": [
+              {
+                "surface": "再",
+                "notation": "zài"
+              },
+              {
+                "surface": "见",
+                "notation": "jiàn"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-expand-thanks",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 3,
+      "topic": "first-contact",
+      "familyId": "mm-zh-zero-expand-greeting",
+      "targetText": "谢谢。",
+      "learnerBaseText": "Thank you.",
+      "englishText": "Thank you.",
+      "embeddingText": "Thank you.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "Thank you."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Thank you.",
+          "englishAuditText": "Thank you."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Hello!",
+          "englishAuditText": "Hello!",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The social message changes between greeting, farewell and thanks."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Goodbye!",
+          "englishAuditText": "Goodbye!",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The social message changes between greeting, farewell and thanks."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "谢谢",
+            "units": [
+              {
+                "surface": "谢",
+                "notation": "xiè"
+              },
+              {
+                "surface": "谢",
+                "notation": "xie"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-expand-want-water",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8,
+      "topic": "simple-needs",
+      "familyId": "mm-zh-zero-expand-request",
+      "targetText": "我要水。",
+      "learnerBaseText": "I want water.",
+      "englishText": "I want water.",
+      "embeddingText": "I want water.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "water"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I want water.",
+          "englishAuditText": "I want water."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I want bread.",
+          "englishAuditText": "I want bread.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I want changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I want milk.",
+          "englishAuditText": "I want milk.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I want changes."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "要",
+            "units": [
+              {
+                "surface": "要",
+                "notation": "yào"
+              }
+            ]
+          },
+          {
+            "surface": "水",
+            "units": [
+              {
+                "surface": "水",
+                "notation": "shuǐ"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-expand-want-bread",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8,
+      "topic": "simple-needs",
+      "familyId": "mm-zh-zero-expand-request",
+      "targetText": "我要面包。",
+      "learnerBaseText": "I want bread.",
+      "englishText": "I want bread.",
+      "embeddingText": "I want bread.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "bread"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I want bread.",
+          "englishAuditText": "I want bread."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I want milk.",
+          "englishAuditText": "I want milk.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I want changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I want an apple.",
+          "englishAuditText": "I want an apple.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I want changes."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "要",
+            "units": [
+              {
+                "surface": "要",
+                "notation": "yào"
+              }
+            ]
+          },
+          {
+            "surface": "面包",
+            "units": [
+              {
+                "surface": "面",
+                "notation": "miàn"
+              },
+              {
+                "surface": "包",
+                "notation": "bāo"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-expand-want-milk",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8,
+      "topic": "simple-needs",
+      "familyId": "mm-zh-zero-expand-request",
+      "targetText": "我要牛奶。",
+      "learnerBaseText": "I want milk.",
+      "englishText": "I want milk.",
+      "embeddingText": "I want milk.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "milk"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I want milk.",
+          "englishAuditText": "I want milk."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I want an apple.",
+          "englishAuditText": "I want an apple.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I want changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I want rice.",
+          "englishAuditText": "I want rice.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I want changes."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "要",
+            "units": [
+              {
+                "surface": "要",
+                "notation": "yào"
+              }
+            ]
+          },
+          {
+            "surface": "牛奶",
+            "units": [
+              {
+                "surface": "牛",
+                "notation": "niú"
+              },
+              {
+                "surface": "奶",
+                "notation": "nǎi"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-expand-want-apple",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8,
+      "topic": "simple-needs",
+      "familyId": "mm-zh-zero-expand-request",
+      "targetText": "我要苹果。",
+      "learnerBaseText": "I want an apple.",
+      "englishText": "I want an apple.",
+      "embeddingText": "I want an apple.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "apple"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I want an apple.",
+          "englishAuditText": "I want an apple."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I want rice.",
+          "englishAuditText": "I want rice.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I want changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I want tea.",
+          "englishAuditText": "I want tea.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I want changes."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "要",
+            "units": [
+              {
+                "surface": "要",
+                "notation": "yào"
+              }
+            ]
+          },
+          {
+            "surface": "苹果",
+            "units": [
+              {
+                "surface": "苹",
+                "notation": "píng"
+              },
+              {
+                "surface": "果",
+                "notation": "guǒ"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-expand-want-rice",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8,
+      "topic": "simple-needs",
+      "familyId": "mm-zh-zero-expand-request",
+      "targetText": "我要米饭。",
+      "learnerBaseText": "I want rice.",
+      "englishText": "I want rice.",
+      "embeddingText": "I want rice.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "rice"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I want rice.",
+          "englishAuditText": "I want rice."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I want tea.",
+          "englishAuditText": "I want tea.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I want changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I want a book.",
+          "englishAuditText": "I want a book.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I want changes."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "要",
+            "units": [
+              {
+                "surface": "要",
+                "notation": "yào"
+              }
+            ]
+          },
+          {
+            "surface": "米饭",
+            "units": [
+              {
+                "surface": "米",
+                "notation": "mǐ"
+              },
+              {
+                "surface": "饭",
+                "notation": "fàn"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-expand-want-tea",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8,
+      "topic": "simple-needs",
+      "familyId": "mm-zh-zero-expand-request",
+      "targetText": "我要茶。",
+      "learnerBaseText": "I want tea.",
+      "englishText": "I want tea.",
+      "embeddingText": "I want tea.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "tea"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I want tea.",
+          "englishAuditText": "I want tea."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I want a book.",
+          "englishAuditText": "I want a book.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I want changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I want a pen.",
+          "englishAuditText": "I want a pen.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I want changes."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "要",
+            "units": [
+              {
+                "surface": "要",
+                "notation": "yào"
+              }
+            ]
+          },
+          {
+            "surface": "茶",
+            "units": [
+              {
+                "surface": "茶",
+                "notation": "chá"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-expand-want-book",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8,
+      "topic": "simple-needs",
+      "familyId": "mm-zh-zero-expand-request",
+      "targetText": "我要书。",
+      "learnerBaseText": "I want a book.",
+      "englishText": "I want a book.",
+      "embeddingText": "I want a book.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "book"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I want a book.",
+          "englishAuditText": "I want a book."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I want a pen.",
+          "englishAuditText": "I want a pen.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I want changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I want water.",
+          "englishAuditText": "I want water.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I want changes."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "要",
+            "units": [
+              {
+                "surface": "要",
+                "notation": "yào"
+              }
+            ]
+          },
+          {
+            "surface": "书",
+            "units": [
+              {
+                "surface": "书",
+                "notation": "shū"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-expand-want-pen",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8,
+      "topic": "simple-needs",
+      "familyId": "mm-zh-zero-expand-request",
+      "targetText": "我要笔。",
+      "learnerBaseText": "I want a pen.",
+      "englishText": "I want a pen.",
+      "embeddingText": "I want a pen.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "pen"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I want a pen.",
+          "englishAuditText": "I want a pen."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I want water.",
+          "englishAuditText": "I want water.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I want changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I want bread.",
+          "englishAuditText": "I want bread.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I want changes."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "要",
+            "units": [
+              {
+                "surface": "要",
+                "notation": "yào"
+              }
+            ]
+          },
+          {
+            "surface": "笔",
+            "units": [
+              {
+                "surface": "笔",
+                "notation": "bǐ"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-expand-see-cat",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8,
+      "topic": "familiar-objects",
+      "familyId": "mm-zh-zero-expand-notice",
+      "targetText": "我看见猫。",
+      "learnerBaseText": "I see a cat.",
+      "englishText": "I see a cat.",
+      "embeddingText": "I see a cat.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "cat"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I see a cat.",
+          "englishAuditText": "I see a cat."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I see a dog.",
+          "englishAuditText": "I see a dog.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I see changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I see a book.",
+          "englishAuditText": "I see a book.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I see changes."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "看见",
+            "units": [
+              {
+                "surface": "看",
+                "notation": "kàn"
+              },
+              {
+                "surface": "见",
+                "notation": "jiàn"
+              }
+            ]
+          },
+          {
+            "surface": "猫",
+            "units": [
+              {
+                "surface": "猫",
+                "notation": "māo"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-expand-see-dog",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8,
+      "topic": "familiar-objects",
+      "familyId": "mm-zh-zero-expand-notice",
+      "targetText": "我看见狗。",
+      "learnerBaseText": "I see a dog.",
+      "englishText": "I see a dog.",
+      "embeddingText": "I see a dog.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "dog"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I see a dog.",
+          "englishAuditText": "I see a dog."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I see a book.",
+          "englishAuditText": "I see a book.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I see changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I see a pen.",
+          "englishAuditText": "I see a pen.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I see changes."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "看见",
+            "units": [
+              {
+                "surface": "看",
+                "notation": "kàn"
+              },
+              {
+                "surface": "见",
+                "notation": "jiàn"
+              }
+            ]
+          },
+          {
+            "surface": "狗",
+            "units": [
+              {
+                "surface": "狗",
+                "notation": "gǒu"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-expand-see-book",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8,
+      "topic": "familiar-objects",
+      "familyId": "mm-zh-zero-expand-notice",
+      "targetText": "我看见书。",
+      "learnerBaseText": "I see a book.",
+      "englishText": "I see a book.",
+      "embeddingText": "I see a book.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "book"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I see a book.",
+          "englishAuditText": "I see a book."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I see a pen.",
+          "englishAuditText": "I see a pen.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I see changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I see a house.",
+          "englishAuditText": "I see a house.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I see changes."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "看见",
+            "units": [
+              {
+                "surface": "看",
+                "notation": "kàn"
+              },
+              {
+                "surface": "见",
+                "notation": "jiàn"
+              }
+            ]
+          },
+          {
+            "surface": "书",
+            "units": [
+              {
+                "surface": "书",
+                "notation": "shū"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-expand-see-pen",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8,
+      "topic": "familiar-objects",
+      "familyId": "mm-zh-zero-expand-notice",
+      "targetText": "我看见笔。",
+      "learnerBaseText": "I see a pen.",
+      "englishText": "I see a pen.",
+      "embeddingText": "I see a pen.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "pen"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I see a pen.",
+          "englishAuditText": "I see a pen."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I see a house.",
+          "englishAuditText": "I see a house.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I see changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I see a door.",
+          "englishAuditText": "I see a door.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I see changes."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "看见",
+            "units": [
+              {
+                "surface": "看",
+                "notation": "kàn"
+              },
+              {
+                "surface": "见",
+                "notation": "jiàn"
+              }
+            ]
+          },
+          {
+            "surface": "笔",
+            "units": [
+              {
+                "surface": "笔",
+                "notation": "bǐ"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-expand-see-house",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8,
+      "topic": "familiar-objects",
+      "familyId": "mm-zh-zero-expand-notice",
+      "targetText": "我看见房子。",
+      "learnerBaseText": "I see a house.",
+      "englishText": "I see a house.",
+      "embeddingText": "I see a house.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "house"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I see a house.",
+          "englishAuditText": "I see a house."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I see a door.",
+          "englishAuditText": "I see a door.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I see changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I see a table.",
+          "englishAuditText": "I see a table.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I see changes."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "看见",
+            "units": [
+              {
+                "surface": "看",
+                "notation": "kàn"
+              },
+              {
+                "surface": "见",
+                "notation": "jiàn"
+              }
+            ]
+          },
+          {
+            "surface": "房子",
+            "units": [
+              {
+                "surface": "房",
+                "notation": "fáng"
+              },
+              {
+                "surface": "子",
+                "notation": "zi"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-expand-see-door",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8,
+      "topic": "familiar-objects",
+      "familyId": "mm-zh-zero-expand-notice",
+      "targetText": "我看见门。",
+      "learnerBaseText": "I see a door.",
+      "englishText": "I see a door.",
+      "embeddingText": "I see a door.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "door"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I see a door.",
+          "englishAuditText": "I see a door."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I see a table.",
+          "englishAuditText": "I see a table.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I see changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I see a ball.",
+          "englishAuditText": "I see a ball.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I see changes."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "看见",
+            "units": [
+              {
+                "surface": "看",
+                "notation": "kàn"
+              },
+              {
+                "surface": "见",
+                "notation": "jiàn"
+              }
+            ]
+          },
+          {
+            "surface": "门",
+            "units": [
+              {
+                "surface": "门",
+                "notation": "mén"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-expand-see-table",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8,
+      "topic": "familiar-objects",
+      "familyId": "mm-zh-zero-expand-notice",
+      "targetText": "我看见桌子。",
+      "learnerBaseText": "I see a table.",
+      "englishText": "I see a table.",
+      "embeddingText": "I see a table.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "table"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I see a table.",
+          "englishAuditText": "I see a table."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I see a ball.",
+          "englishAuditText": "I see a ball.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I see changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I see a cat.",
+          "englishAuditText": "I see a cat.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I see changes."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "看见",
+            "units": [
+              {
+                "surface": "看",
+                "notation": "kàn"
+              },
+              {
+                "surface": "见",
+                "notation": "jiàn"
+              }
+            ]
+          },
+          {
+            "surface": "桌子",
+            "units": [
+              {
+                "surface": "桌",
+                "notation": "zhuō"
+              },
+              {
+                "surface": "子",
+                "notation": "zi"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-expand-see-ball",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8,
+      "topic": "familiar-objects",
+      "familyId": "mm-zh-zero-expand-notice",
+      "targetText": "我看见球。",
+      "learnerBaseText": "I see a ball.",
+      "englishText": "I see a ball.",
+      "embeddingText": "I see a ball.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "ball"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I see a ball.",
+          "englishAuditText": "I see a ball."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I see a cat.",
+          "englishAuditText": "I see a cat.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I see changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I see a dog.",
+          "englishAuditText": "I see a dog.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I see changes."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "看见",
+            "units": [
+              {
+                "surface": "看",
+                "notation": "kàn"
+              },
+              {
+                "surface": "见",
+                "notation": "jiàn"
+              }
+            ]
+          },
+          {
+            "surface": "球",
+            "units": [
+              {
+                "surface": "球",
+                "notation": "qiú"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-expand-i-read",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8,
+      "topic": "first-actions",
+      "familyId": "mm-zh-zero-expand-action",
+      "targetText": "我读书。",
+      "learnerBaseText": "I read a book.",
+      "englishText": "I read a book.",
+      "embeddingText": "I read a book.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "read"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I read a book.",
+          "englishAuditText": "I read a book."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I write.",
+          "englishAuditText": "I write.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The action or possession changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I sleep.",
+          "englishAuditText": "I sleep.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The action or possession changes."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "读",
+            "units": [
+              {
+                "surface": "读",
+                "notation": "dú"
+              }
+            ]
+          },
+          {
+            "surface": "书",
+            "units": [
+              {
+                "surface": "书",
+                "notation": "shū"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-expand-i-write",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8,
+      "topic": "first-actions",
+      "familyId": "mm-zh-zero-expand-action",
+      "targetText": "我写字。",
+      "learnerBaseText": "I write.",
+      "englishText": "I write.",
+      "embeddingText": "I write.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "write"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I write.",
+          "englishAuditText": "I write."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I sleep.",
+          "englishAuditText": "I sleep.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The action or possession changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I have a pen.",
+          "englishAuditText": "I have a pen.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The action or possession changes."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "写",
+            "units": [
+              {
+                "surface": "写",
+                "notation": "xiě"
+              }
+            ]
+          },
+          {
+            "surface": "字",
+            "units": [
+              {
+                "surface": "字",
+                "notation": "zì"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-expand-i-sleep",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8,
+      "topic": "first-actions",
+      "familyId": "mm-zh-zero-expand-action",
+      "targetText": "我睡觉。",
+      "learnerBaseText": "I sleep.",
+      "englishText": "I sleep.",
+      "embeddingText": "I sleep.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "sleep"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I sleep.",
+          "englishAuditText": "I sleep."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I have a pen.",
+          "englishAuditText": "I have a pen.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The action or possession changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I read a book.",
+          "englishAuditText": "I read a book.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The action or possession changes."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "睡觉",
+            "units": [
+              {
+                "surface": "睡",
+                "notation": "shuì"
+              },
+              {
+                "surface": "觉",
+                "notation": "jiào"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mm-zh-zero-expand-i-have-pen",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8,
+      "topic": "first-actions",
+      "familyId": "mm-zh-zero-expand-action",
+      "targetText": "我有笔。",
+      "learnerBaseText": "I have a pen.",
+      "englishText": "I have a pen.",
+      "embeddingText": "I have a pen.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "have a pen"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I have a pen.",
+          "englishAuditText": "I have a pen."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I read a book.",
+          "englishAuditText": "I read a book.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The action or possession changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I write.",
+          "englishAuditText": "I write.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The action or possession changes."
+          }
+        }
+      ],
+      "targetReading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "有",
+            "units": [
+              {
+                "surface": "有",
+                "notation": "yǒu"
+              }
+            ]
+          },
+          {
+            "surface": "笔",
+            "units": [
+              {
+                "surface": "笔",
+                "notation": "bǐ"
               }
             ]
           }

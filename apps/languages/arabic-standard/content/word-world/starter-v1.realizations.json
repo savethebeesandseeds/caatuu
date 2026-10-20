@@ -95258,6 +95258,1413 @@
           "playable": true
         }
       ]
+    },
+    {
+      "conceptId": "zero-ar-ww-hello",
+      "text": "مَرْحَبًا!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "مَرْحَبًا",
+          "pronunciation": null,
+          "gloss": "Hello",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-goodbye",
+      "text": "إِلَى اللِّقَاءِ!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "إِلَى",
+          "pronunciation": null,
+          "gloss": "until",
+          "playable": true
+        },
+        {
+          "surface": "اللِّقَاءِ",
+          "pronunciation": null,
+          "gloss": "the meeting (goodbye)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-thanks",
+      "text": "شُكْرًا!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "شُكْرًا",
+          "pronunciation": null,
+          "gloss": "Thank you",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-yes",
+      "text": "نَعَمْ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "نَعَمْ",
+          "pronunciation": null,
+          "gloss": "Yes",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-no",
+      "text": "لَا.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "لَا",
+          "pronunciation": null,
+          "gloss": "No",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-please",
+      "text": "مِنْ فَضْلِكَ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "مِنْ",
+          "pronunciation": null,
+          "gloss": "from",
+          "playable": true
+        },
+        {
+          "surface": "فَضْلِكَ",
+          "pronunciation": null,
+          "gloss": "your favour (please)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-sorry",
+      "text": "عَفْوًا!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "عَفْوًا",
+          "pronunciation": null,
+          "gloss": "Sorry",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-help",
+      "text": "النَّجْدَةَ!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "النَّجْدَةَ",
+          "pronunciation": null,
+          "gloss": "Help",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-i",
+      "text": "أَنَا",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَنَا",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-you",
+      "text": "أَنْتَ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَنْتَ",
+          "pronunciation": null,
+          "gloss": "you (one man)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-mother",
+      "text": "أُمٌّ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أُمٌّ",
+          "pronunciation": null,
+          "gloss": "mother",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-father",
+      "text": "أَبٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَبٌ",
+          "pronunciation": null,
+          "gloss": "father",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-friend",
+      "text": "صَدِيقٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "صَدِيقٌ",
+          "pronunciation": null,
+          "gloss": "friend (male)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-child",
+      "text": "طِفْلٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "طِفْلٌ",
+          "pronunciation": null,
+          "gloss": "child (male)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-one",
+      "text": "وَاحِدٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "وَاحِدٌ",
+          "pronunciation": null,
+          "gloss": "one",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-two",
+      "text": "اِثْنَانِ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "اِثْنَانِ",
+          "pronunciation": null,
+          "gloss": "two",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-three",
+      "text": "ثَلَاثَةٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ثَلَاثَةٌ",
+          "pronunciation": null,
+          "gloss": "three",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-four",
+      "text": "أَرْبَعَةٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَرْبَعَةٌ",
+          "pronunciation": null,
+          "gloss": "four",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-five",
+      "text": "خَمْسَةٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "خَمْسَةٌ",
+          "pronunciation": null,
+          "gloss": "five",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-water",
+      "text": "مَاءٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "مَاءٌ",
+          "pronunciation": null,
+          "gloss": "water",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-bread",
+      "text": "خُبْزٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "خُبْزٌ",
+          "pronunciation": null,
+          "gloss": "bread",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-milk",
+      "text": "حَلِيبٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "حَلِيبٌ",
+          "pronunciation": null,
+          "gloss": "milk",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-apple",
+      "text": "تُفَّاحَةٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "تُفَّاحَةٌ",
+          "pronunciation": null,
+          "gloss": "apple",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-tea",
+      "text": "شَايٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "شَايٌ",
+          "pronunciation": null,
+          "gloss": "tea",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-house",
+      "text": "بَيْتٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "بَيْتٌ",
+          "pronunciation": null,
+          "gloss": "house",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-book",
+      "text": "كِتَابٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "كِتَابٌ",
+          "pronunciation": null,
+          "gloss": "book",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-door",
+      "text": "بَابٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "بَابٌ",
+          "pronunciation": null,
+          "gloss": "door",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-car",
+      "text": "سَيَّارَةٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "سَيَّارَةٌ",
+          "pronunciation": null,
+          "gloss": "car",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-cat",
+      "text": "قِطَّةٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "قِطَّةٌ",
+          "pronunciation": null,
+          "gloss": "cat",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-dog",
+      "text": "كَلْبٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "كَلْبٌ",
+          "pronunciation": null,
+          "gloss": "dog",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-big",
+      "text": "كَبِيرٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "كَبِيرٌ",
+          "pronunciation": null,
+          "gloss": "big (masculine)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-small",
+      "text": "صَغِيرٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "صَغِيرٌ",
+          "pronunciation": null,
+          "gloss": "small (masculine)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-good",
+      "text": "جَيِّدٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "جَيِّدٌ",
+          "pronunciation": null,
+          "gloss": "good (masculine)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-new",
+      "text": "جَدِيدٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "جَدِيدٌ",
+          "pronunciation": null,
+          "gloss": "new (masculine)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-red",
+      "text": "أَحْمَرُ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَحْمَرُ",
+          "pronunciation": null,
+          "gloss": "red (masculine)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-green",
+      "text": "أَخْضَرُ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَخْضَرُ",
+          "pronunciation": null,
+          "gloss": "green (masculine)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-hot",
+      "text": "سَاخِنٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "سَاخِنٌ",
+          "pronunciation": null,
+          "gloss": "hot (masculine)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-cold",
+      "text": "بَارِدٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "بَارِدٌ",
+          "pronunciation": null,
+          "gloss": "cold (masculine)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-old",
+      "text": "قَدِيمٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "قَدِيمٌ",
+          "pronunciation": null,
+          "gloss": "old (masculine)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-eat",
+      "text": "آكُلُ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "آكُلُ",
+          "pronunciation": null,
+          "gloss": "I eat",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-drink",
+      "text": "أَشْرَبُ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَشْرَبُ",
+          "pronunciation": null,
+          "gloss": "I drink",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-go",
+      "text": "أَذْهَبُ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَذْهَبُ",
+          "pronunciation": null,
+          "gloss": "I go",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-come",
+      "text": "آتِي",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "آتِي",
+          "pronunciation": null,
+          "gloss": "I come",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-sleep",
+      "text": "أَنَامُ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَنَامُ",
+          "pronunciation": null,
+          "gloss": "I sleep",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-read",
+      "text": "أَقْرَأُ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَقْرَأُ",
+          "pronunciation": null,
+          "gloss": "I read",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-write",
+      "text": "أَكْتُبُ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَكْتُبُ",
+          "pronunciation": null,
+          "gloss": "I write",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-see",
+      "text": "أَرَى",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَرَى",
+          "pronunciation": null,
+          "gloss": "I see",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-phrase-001",
+      "text": "مَرْحَبًا يَا أُمِّي!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "مَرْحَبًا",
+          "pronunciation": null,
+          "gloss": "hello",
+          "playable": true
+        },
+        {
+          "surface": "يَا",
+          "pronunciation": null,
+          "gloss": "O (address)",
+          "playable": true
+        },
+        {
+          "surface": "أُمِّي",
+          "pronunciation": null,
+          "gloss": "my mother",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-phrase-002",
+      "text": "مَرْحَبًا يَا أَبِي!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "مَرْحَبًا",
+          "pronunciation": null,
+          "gloss": "hello",
+          "playable": true
+        },
+        {
+          "surface": "يَا",
+          "pronunciation": null,
+          "gloss": "O (address)",
+          "playable": true
+        },
+        {
+          "surface": "أَبِي",
+          "pronunciation": null,
+          "gloss": "my father",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-phrase-003",
+      "text": "نَعَمْ، شُكْرًا.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "نَعَمْ",
+          "pronunciation": null,
+          "gloss": "yes",
+          "playable": true
+        },
+        {
+          "surface": "شُكْرًا",
+          "pronunciation": null,
+          "gloss": "thank you",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-phrase-004",
+      "text": "لَا، شُكْرًا.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "لَا",
+          "pronunciation": null,
+          "gloss": "no",
+          "playable": true
+        },
+        {
+          "surface": "شُكْرًا",
+          "pronunciation": null,
+          "gloss": "thank you",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-phrase-005",
+      "text": "صَبَاحُ الْخَيْرِ!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "صَبَاحُ",
+          "pronunciation": null,
+          "gloss": "morning",
+          "playable": true
+        },
+        {
+          "surface": "الْخَيْرِ",
+          "pronunciation": null,
+          "gloss": "goodness (greeting)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-phrase-006",
+      "text": "مَسَاءُ الْخَيْرِ!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "مَسَاءُ",
+          "pronunciation": null,
+          "gloss": "evening",
+          "playable": true
+        },
+        {
+          "surface": "الْخَيْرِ",
+          "pronunciation": null,
+          "gloss": "goodness (greeting)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-phrase-007",
+      "text": "أَنَا هُنَا.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَنَا",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "هُنَا",
+          "pronunciation": null,
+          "gloss": "here",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-phrase-008",
+      "text": "أَنْتَ هُنَا.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَنْتَ",
+          "pronunciation": null,
+          "gloss": "you (one man)",
+          "playable": true
+        },
+        {
+          "surface": "هُنَا",
+          "pronunciation": null,
+          "gloss": "here",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-phrase-009",
+      "text": "أَنَا فِي الْبَيْتِ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَنَا",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "فِي",
+          "pronunciation": null,
+          "gloss": "in",
+          "playable": true
+        },
+        {
+          "surface": "الْبَيْتِ",
+          "pronunciation": null,
+          "gloss": "the house",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-phrase-010",
+      "text": "أَنْتَ فِي الْبَيْتِ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَنْتَ",
+          "pronunciation": null,
+          "gloss": "you (one man)",
+          "playable": true
+        },
+        {
+          "surface": "فِي",
+          "pronunciation": null,
+          "gloss": "in",
+          "playable": true
+        },
+        {
+          "surface": "الْبَيْتِ",
+          "pronunciation": null,
+          "gloss": "the house",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-phrase-011",
+      "text": "أَنَا بِخَيْرٍ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَنَا",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "بِخَيْرٍ",
+          "pronunciation": null,
+          "gloss": "well",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-phrase-012",
+      "text": "هٰذَا مَاءٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "هٰذَا",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "مَاءٌ",
+          "pronunciation": null,
+          "gloss": "water",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-phrase-013",
+      "text": "هٰذَا خُبْزٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "هٰذَا",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "خُبْزٌ",
+          "pronunciation": null,
+          "gloss": "bread",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-phrase-014",
+      "text": "هٰذَا حَلِيبٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "هٰذَا",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "حَلِيبٌ",
+          "pronunciation": null,
+          "gloss": "milk",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-phrase-015",
+      "text": "هٰذَا شَايٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "هٰذَا",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "شَايٌ",
+          "pronunciation": null,
+          "gloss": "tea",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-phrase-016",
+      "text": "هٰذَا كِتَابٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "هٰذَا",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "كِتَابٌ",
+          "pronunciation": null,
+          "gloss": "book",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-phrase-017",
+      "text": "هٰذَا بَيْتٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "هٰذَا",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "بَيْتٌ",
+          "pronunciation": null,
+          "gloss": "house",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-phrase-018",
+      "text": "هٰذِهِ تُفَّاحَةٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "هٰذِهِ",
+          "pronunciation": null,
+          "gloss": "this (feminine)",
+          "playable": true
+        },
+        {
+          "surface": "تُفَّاحَةٌ",
+          "pronunciation": null,
+          "gloss": "apple",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-phrase-019",
+      "text": "هٰذِهِ قِطَّةٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "هٰذِهِ",
+          "pronunciation": null,
+          "gloss": "this (feminine)",
+          "playable": true
+        },
+        {
+          "surface": "قِطَّةٌ",
+          "pronunciation": null,
+          "gloss": "cat",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-phrase-020",
+      "text": "هٰذِهِ سَيَّارَةٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "هٰذِهِ",
+          "pronunciation": null,
+          "gloss": "this (feminine)",
+          "playable": true
+        },
+        {
+          "surface": "سَيَّارَةٌ",
+          "pronunciation": null,
+          "gloss": "car",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-phrase-021",
+      "text": "بَيْتٌ كَبِيرٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "بَيْتٌ",
+          "pronunciation": null,
+          "gloss": "house",
+          "playable": true
+        },
+        {
+          "surface": "كَبِيرٌ",
+          "pronunciation": null,
+          "gloss": "big",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-phrase-022",
+      "text": "كِتَابٌ صَغِيرٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "كِتَابٌ",
+          "pronunciation": null,
+          "gloss": "book",
+          "playable": true
+        },
+        {
+          "surface": "صَغِيرٌ",
+          "pronunciation": null,
+          "gloss": "small",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-phrase-023",
+      "text": "كِتَابٌ جَدِيدٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "كِتَابٌ",
+          "pronunciation": null,
+          "gloss": "book",
+          "playable": true
+        },
+        {
+          "surface": "جَدِيدٌ",
+          "pronunciation": null,
+          "gloss": "new",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-phrase-024",
+      "text": "سَيَّارَةٌ كَبِيرَةٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "سَيَّارَةٌ",
+          "pronunciation": null,
+          "gloss": "car",
+          "playable": true
+        },
+        {
+          "surface": "كَبِيرَةٌ",
+          "pronunciation": null,
+          "gloss": "big (feminine)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-phrase-025",
+      "text": "قِطَّةٌ صَغِيرَةٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "قِطَّةٌ",
+          "pronunciation": null,
+          "gloss": "cat",
+          "playable": true
+        },
+        {
+          "surface": "صَغِيرَةٌ",
+          "pronunciation": null,
+          "gloss": "small (feminine)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-phrase-026",
+      "text": "سَيَّارَةٌ جَدِيدَةٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "سَيَّارَةٌ",
+          "pronunciation": null,
+          "gloss": "car",
+          "playable": true
+        },
+        {
+          "surface": "جَدِيدَةٌ",
+          "pronunciation": null,
+          "gloss": "new (feminine)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-phrase-027",
+      "text": "مَاءٌ بَارِدٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "مَاءٌ",
+          "pronunciation": null,
+          "gloss": "water",
+          "playable": true
+        },
+        {
+          "surface": "بَارِدٌ",
+          "pronunciation": null,
+          "gloss": "cold",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-phrase-028",
+      "text": "حَلِيبٌ سَاخِنٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "حَلِيبٌ",
+          "pronunciation": null,
+          "gloss": "milk",
+          "playable": true
+        },
+        {
+          "surface": "سَاخِنٌ",
+          "pronunciation": null,
+          "gloss": "hot",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-phrase-029",
+      "text": "شَايٌ سَاخِنٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "شَايٌ",
+          "pronunciation": null,
+          "gloss": "tea",
+          "playable": true
+        },
+        {
+          "surface": "سَاخِنٌ",
+          "pronunciation": null,
+          "gloss": "hot",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-phrase-030",
+      "text": "آكُلُ خُبْزًا.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "آكُلُ",
+          "pronunciation": null,
+          "gloss": "I eat",
+          "playable": true
+        },
+        {
+          "surface": "خُبْزًا",
+          "pronunciation": null,
+          "gloss": "bread (object)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-phrase-031",
+      "text": "أَشْرَبُ مَاءً.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَشْرَبُ",
+          "pronunciation": null,
+          "gloss": "I drink",
+          "playable": true
+        },
+        {
+          "surface": "مَاءً",
+          "pronunciation": null,
+          "gloss": "water (object)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-phrase-032",
+      "text": "أَشْرَبُ حَلِيبًا.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَشْرَبُ",
+          "pronunciation": null,
+          "gloss": "I drink",
+          "playable": true
+        },
+        {
+          "surface": "حَلِيبًا",
+          "pronunciation": null,
+          "gloss": "milk (object)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-phrase-033",
+      "text": "أَقْرَأُ كِتَابًا.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَقْرَأُ",
+          "pronunciation": null,
+          "gloss": "I read",
+          "playable": true
+        },
+        {
+          "surface": "كِتَابًا",
+          "pronunciation": null,
+          "gloss": "book (object)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-phrase-034",
+      "text": "أَرَى كَلْبًا.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَرَى",
+          "pronunciation": null,
+          "gloss": "I see",
+          "playable": true
+        },
+        {
+          "surface": "كَلْبًا",
+          "pronunciation": null,
+          "gloss": "dog (object)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-phrase-035",
+      "text": "أَرَى قِطَّةً.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَرَى",
+          "pronunciation": null,
+          "gloss": "I see",
+          "playable": true
+        },
+        {
+          "surface": "قِطَّةً",
+          "pronunciation": null,
+          "gloss": "cat (object)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-phrase-036",
+      "text": "عِنْدِي كِتَابٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "عِنْدِي",
+          "pronunciation": null,
+          "gloss": "I have",
+          "playable": true
+        },
+        {
+          "surface": "كِتَابٌ",
+          "pronunciation": null,
+          "gloss": "book",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-phrase-037",
+      "text": "عِنْدِي تُفَّاحَةٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "عِنْدِي",
+          "pronunciation": null,
+          "gloss": "I have",
+          "playable": true
+        },
+        {
+          "surface": "تُفَّاحَةٌ",
+          "pronunciation": null,
+          "gloss": "apple",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-phrase-038",
+      "text": "الْبَابُ هُنَا.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "الْبَابُ",
+          "pronunciation": null,
+          "gloss": "the door",
+          "playable": true
+        },
+        {
+          "surface": "هُنَا",
+          "pronunciation": null,
+          "gloss": "here",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-phrase-039",
+      "text": "الْكِتَابُ هُنَا.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "الْكِتَابُ",
+          "pronunciation": null,
+          "gloss": "the book",
+          "playable": true
+        },
+        {
+          "surface": "هُنَا",
+          "pronunciation": null,
+          "gloss": "here",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ar-ww-phrase-040",
+      "text": "الْمَاءُ بَارِدٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "الْمَاءُ",
+          "pronunciation": null,
+          "gloss": "the water",
+          "playable": true
+        },
+        {
+          "surface": "بَارِدٌ",
+          "pronunciation": null,
+          "gloss": "cold",
+          "playable": true
+        }
+      ]
     }
   ]
 }

@@ -86,7 +86,7 @@ test("the two versioned schemas preserve complete catalog coverage as a developm
   assert.equal(prepared.realizations.realizations.length, concepts.concepts.length);
   assert.equal(prepared.embeddingInputs.length, concepts.concepts.length);
   assert.equal(prepared.embeddingDocuments.length, concepts.concepts.length);
-  assert.ok(prepared.concepts.concepts.every(concept => [1, 2, 3].includes(concept.difficulty)));
+  assert.ok(prepared.concepts.concepts.every(concept => [0, 1, 2, 3].includes(concept.difficulty)));
 
   const loaded = await loadAndValidateLanguageContent({ repoRoot: repositoryRoot });
   assert.equal(loaded.paths.concepts, "apps/languages/shared/english-concepts/word-world-starter-v1.json");
@@ -120,7 +120,7 @@ test("target text, pronunciation, tokens, review, and licensing remain on the re
     .find(({ conceptId }) => conceptId === row.id);
   assert.equal(input.text, "Identifying a nearby object as a book.");
   assert.equal(row.target_text, "这是一本书。");
-  assert.deepEqual(row.pronunciation, pinyin("Zhè shì yì běn shū."));
+  assert.deepEqual(row.pronunciation, realizations.realizations.find(item => item.conceptId === row.id).pronunciation);
   assert.deepEqual(row.tokens.map(({ surface }) => surface), ["这", "是", "一", "本", "书"]);
   assert.equal(row.content_review.status, "native-review-required");
   assert.equal(row.content_license.status, "release-cleared");

@@ -34,7 +34,7 @@ export function validateInputs(config, fixture) {
   }
   uniqueIds(fixture.items, 'item'); uniqueIds(fixture.profiles, 'profile'); uniqueIds(fixture.goals, 'goal');
   for (const item of fixture.items) {
-    if (![1, 2, 3].includes(item.difficulty) || typeof item.validTask !== 'boolean') throw new TypeError('Invalid hard eligibility.');
+    if (![0, 1, 2, 3].includes(item.difficulty) || typeof item.validTask !== 'boolean') throw new TypeError('Invalid hard eligibility.');
     for (const field of ['usefulness', 'complexity']) {
       if (!Number.isInteger(item[field]) || !finite(item[field], 1, 100)) throw new TypeError(`Invalid ${field}.`);
     }
@@ -42,7 +42,7 @@ export function validateInputs(config, fixture) {
   for (const field of ['interactions', 'interactionsPerDay', 'minimumPool', 'recentWindow']) {
     if (!Number.isSafeInteger(config[field]) || config[field] < 1) throw new TypeError(`Invalid ${field}.`);
   }
-  if (![1, 2, 3].includes(config.difficulty)) throw new TypeError('Invalid difficulty.');
+  if (![0, 1, 2, 3].includes(config.difficulty)) throw new TypeError('Invalid difficulty.');
   if (!finite(config.stepMinutes, 0.001, 1440)
       || (config.interactionsPerDay - 1) * config.stepMinutes >= 1440) throw new TypeError('Invalid within-day timing.');
   if (!finite(config.delayDays, 0, 36500) || typeof config.startTime !== 'string'

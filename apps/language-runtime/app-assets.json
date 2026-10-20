@@ -751,16 +751,20 @@
       "output": "assets/icons/dark_mode_ui.png"
     },
     {
-      "source": "apps/launcher/static/assets/icons/difficulty_medal_1_ui.png",
-      "output": "assets/icons/difficulty_medal_1_ui.png"
+      "source": "apps/launcher/static/assets/icons/difficulty_flag_0_ui.png",
+      "output": "assets/icons/difficulty_flag_0_ui.png"
     },
     {
-      "source": "apps/launcher/static/assets/icons/difficulty_medal_2_ui.png",
-      "output": "assets/icons/difficulty_medal_2_ui.png"
+      "source": "apps/launcher/static/assets/icons/difficulty_flag_1_ui.png",
+      "output": "assets/icons/difficulty_flag_1_ui.png"
     },
     {
-      "source": "apps/launcher/static/assets/icons/difficulty_medal_3_ui.png",
-      "output": "assets/icons/difficulty_medal_3_ui.png"
+      "source": "apps/launcher/static/assets/icons/difficulty_flag_2_ui.png",
+      "output": "assets/icons/difficulty_flag_2_ui.png"
+    },
+    {
+      "source": "apps/launcher/static/assets/icons/difficulty_flag_3_ui.png",
+      "output": "assets/icons/difficulty_flag_3_ui.png"
     },
     {
       "source": "apps/language-runtime/static/assets/home/games_icon.png",
@@ -1073,6 +1077,18 @@
     {
       "source": "apps/launcher/static/assets/ships/ship (28).png",
       "output": "assets/ships/ship (28).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/ships/ship (29).png",
+      "output": "assets/ships/ship (29).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/ships/ship (30).png",
+      "output": "assets/ships/ship (30).png"
+    },
+    {
+      "source": "apps/launcher/static/assets/ships/ship (31).png",
+      "output": "assets/ships/ship (31).png"
     },
     {
       "source": "apps/launcher/static/assets/planets/verb-nebula.png",

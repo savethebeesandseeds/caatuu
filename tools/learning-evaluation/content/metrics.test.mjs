@@ -25,6 +25,28 @@ test('grade summaries separate missing and invalid authoring; no numeric-string 
   assert.equal(numericSummary([]).mean, null);
 });
 
+test('content inspection counts the new zero band without changing retained grade ranges', () => {
+  const values = [0, 1, 2, 3, null, '0', -1, 4, .5, true];
+  const rows = values.map(difficulty => ({ metadata: { difficulty } }));
+  const result = gradeDistribution(rows, 'difficulty');
+  assert.equal(result.count, 4);
+  assert.equal(result.missing, 1);
+  assert.equal(result.invalid, 5);
+  assert.equal(result.min, 0);
+  assert.equal(result.mean, 1.5);
+  assert.deepEqual(result.histogram, { 0: 1, 1: 1, 2: 1, 3: 1 });
+  const retained = gradeDistribution(rows.slice(1, 4), 'difficulty');
+  assert.equal(retained.count, 3);
+  assert.equal(retained.invalid, 0);
+  assert.equal(retained.mean, 2);
+  assert.deepEqual(retained.histogram, { 0: 0, 1: 1, 2: 1, 3: 1 });
+  for (const key of ['usefulness', 'complexity']) {
+    const grading = gradeDistribution([0, 1, 100, 101].map(value => ({ metadata: { [key]: value } })), key);
+    assert.equal(grading.count, 2, `${key} retains its 1–100 range`);
+    assert.equal(grading.invalid, 2);
+  }
+});
+
 test('category concentration uses explicit tag occurrences and does not count duplicate tags twice', () => {
   const result = categoryDistribution([
     { categories: { topic: ['cat', 'cat', 'dog'] } }, { categories: { topic: ['cat'] } }, { categories: { topic: ['cat'] } }, { categories: {} }

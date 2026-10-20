@@ -33060,6 +33060,706 @@
           "complexity": 60
         }
       ]
+    },
+    {
+      "id": "zero-ar-conjugation-01",
+      "revision": 1,
+      "targetText": "أَكْتُبُ",
+      "learnerBaseText": "I write",
+      "englishAuditText": "I write",
+      "meaningChoiceBaseText": "I write",
+      "difficulty": 0,
+      "family": "First present-time forms",
+      "lessonId": "zero-ar-present-foundations",
+      "teachingNoteBaseText": "Learn these two short forms with their subject cues. Practise one pair at a time.",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 98,
+      "complexity": 8,
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "أَنَا",
+          "subjectBaseText": "I",
+          "targetText": "أَكْتُبُ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I write",
+          "englishAuditText": "I write",
+          "usefulness": 98,
+          "complexity": 8
+        },
+        {
+          "id": "you-singular-m",
+          "revision": 1,
+          "subjectTargetText": "أَنْتَ",
+          "subjectBaseText": "you (one man)",
+          "targetText": "تَكْتُبُ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتَ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (one man) write",
+          "englishAuditText": "you (one man) write",
+          "usefulness": 98,
+          "complexity": 8
+        }
+      ]
+    },
+    {
+      "id": "zero-ar-conjugation-02",
+      "revision": 1,
+      "targetText": "أَدْرُسُ",
+      "learnerBaseText": "I study",
+      "englishAuditText": "I study",
+      "meaningChoiceBaseText": "I study",
+      "difficulty": 0,
+      "family": "First present-time forms",
+      "lessonId": "zero-ar-present-foundations",
+      "teachingNoteBaseText": "Learn these two short forms with their subject cues. Practise one pair at a time.",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 98,
+      "complexity": 8,
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "أَنَا",
+          "subjectBaseText": "I",
+          "targetText": "أَدْرُسُ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I study",
+          "englishAuditText": "I study",
+          "usefulness": 98,
+          "complexity": 8
+        },
+        {
+          "id": "you-singular-m",
+          "revision": 1,
+          "subjectTargetText": "أَنْتَ",
+          "subjectBaseText": "you (one man)",
+          "targetText": "تَدْرُسُ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتَ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (one man) study",
+          "englishAuditText": "you (one man) study",
+          "usefulness": 98,
+          "complexity": 8
+        }
+      ]
+    },
+    {
+      "id": "zero-ar-conjugation-03",
+      "revision": 1,
+      "targetText": "أَفْتَحُ",
+      "learnerBaseText": "I open",
+      "englishAuditText": "I open",
+      "meaningChoiceBaseText": "I open",
+      "difficulty": 0,
+      "family": "First present-time forms",
+      "lessonId": "zero-ar-present-foundations",
+      "teachingNoteBaseText": "Learn these two short forms with their subject cues. Practise one pair at a time.",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 98,
+      "complexity": 8,
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "أَنَا",
+          "subjectBaseText": "I",
+          "targetText": "أَفْتَحُ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I open",
+          "englishAuditText": "I open",
+          "usefulness": 98,
+          "complexity": 8
+        },
+        {
+          "id": "you-singular-m",
+          "revision": 1,
+          "subjectTargetText": "أَنْتَ",
+          "subjectBaseText": "you (one man)",
+          "targetText": "تَفْتَحُ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتَ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (one man) open",
+          "englishAuditText": "you (one man) open",
+          "usefulness": 98,
+          "complexity": 8
+        }
+      ]
+    },
+    {
+      "id": "zero-ar-conjugation-04",
+      "revision": 1,
+      "targetText": "أَجْلِسُ",
+      "learnerBaseText": "I sit",
+      "englishAuditText": "I sit",
+      "meaningChoiceBaseText": "I sit",
+      "difficulty": 0,
+      "family": "First present-time forms",
+      "lessonId": "zero-ar-present-foundations",
+      "teachingNoteBaseText": "Learn these two short forms with their subject cues. Practise one pair at a time.",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 98,
+      "complexity": 8,
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "أَنَا",
+          "subjectBaseText": "I",
+          "targetText": "أَجْلِسُ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I sit",
+          "englishAuditText": "I sit",
+          "usefulness": 98,
+          "complexity": 8
+        },
+        {
+          "id": "you-singular-m",
+          "revision": 1,
+          "subjectTargetText": "أَنْتَ",
+          "subjectBaseText": "you (one man)",
+          "targetText": "تَجْلِسُ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتَ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (one man) sit",
+          "englishAuditText": "you (one man) sit",
+          "usefulness": 98,
+          "complexity": 8
+        }
+      ]
+    },
+    {
+      "id": "zero-ar-conjugation-05",
+      "revision": 1,
+      "targetText": "أَشْرَبُ",
+      "learnerBaseText": "I drink",
+      "englishAuditText": "I drink",
+      "meaningChoiceBaseText": "I drink",
+      "difficulty": 0,
+      "family": "First present-time forms",
+      "lessonId": "zero-ar-present-foundations",
+      "teachingNoteBaseText": "Learn these two short forms with their subject cues. Practise one pair at a time.",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 98,
+      "complexity": 8,
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "أَنَا",
+          "subjectBaseText": "I",
+          "targetText": "أَشْرَبُ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I drink",
+          "englishAuditText": "I drink",
+          "usefulness": 98,
+          "complexity": 8
+        },
+        {
+          "id": "you-singular-m",
+          "revision": 1,
+          "subjectTargetText": "أَنْتَ",
+          "subjectBaseText": "you (one man)",
+          "targetText": "تَشْرَبُ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتَ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (one man) drink",
+          "englishAuditText": "you (one man) drink",
+          "usefulness": 98,
+          "complexity": 8
+        }
+      ]
+    },
+    {
+      "id": "zero-ar-conjugation-06",
+      "revision": 1,
+      "targetText": "أَلْعَبُ",
+      "learnerBaseText": "I play",
+      "englishAuditText": "I play",
+      "meaningChoiceBaseText": "I play",
+      "difficulty": 0,
+      "family": "First present-time forms",
+      "lessonId": "zero-ar-present-foundations",
+      "teachingNoteBaseText": "Learn these two short forms with their subject cues. Practise one pair at a time.",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 98,
+      "complexity": 8,
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "أَنَا",
+          "subjectBaseText": "I",
+          "targetText": "أَلْعَبُ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I play",
+          "englishAuditText": "I play",
+          "usefulness": 98,
+          "complexity": 8
+        },
+        {
+          "id": "you-singular-m",
+          "revision": 1,
+          "subjectTargetText": "أَنْتَ",
+          "subjectBaseText": "you (one man)",
+          "targetText": "تَلْعَبُ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتَ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (one man) play",
+          "englishAuditText": "you (one man) play",
+          "usefulness": 98,
+          "complexity": 8
+        }
+      ]
+    },
+    {
+      "id": "zero-ar-conjugation-e2-ar-004-present",
+      "revision": 1,
+      "targetText": "أُغْلِقُ",
+      "learnerBaseText": "I close",
+      "englishAuditText": "I close",
+      "meaningChoiceBaseText": "I close",
+      "difficulty": 0,
+      "family": "First I and you forms",
+      "lessonId": "zero-ar-first-forms-expanded",
+      "teachingNoteBaseText": "Read the I example first, then match the you example. These two forms use the same familiar action.",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 96,
+      "complexity": 8,
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "أَنَا",
+          "subjectBaseText": "I",
+          "targetText": "أُغْلِقُ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I close",
+          "englishAuditText": "I close",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "you-singular-m",
+          "revision": 1,
+          "subjectTargetText": "أَنْتَ",
+          "subjectBaseText": "you (one man)",
+          "targetText": "تُغْلِقُ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتَ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (one man) close",
+          "englishAuditText": "you (one man) close",
+          "usefulness": 96,
+          "complexity": 8
+        }
+      ]
+    },
+    {
+      "id": "zero-ar-conjugation-e2-ar-011-present",
+      "revision": 1,
+      "targetText": "أَسْمَعُ",
+      "learnerBaseText": "I hear",
+      "englishAuditText": "I hear",
+      "meaningChoiceBaseText": "I hear",
+      "difficulty": 0,
+      "family": "First I and you forms",
+      "lessonId": "zero-ar-first-forms-expanded",
+      "teachingNoteBaseText": "Read the I example first, then match the you example. These two forms use the same familiar action.",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 96,
+      "complexity": 8,
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "أَنَا",
+          "subjectBaseText": "I",
+          "targetText": "أَسْمَعُ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I hear",
+          "englishAuditText": "I hear",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "you-singular-m",
+          "revision": 1,
+          "subjectTargetText": "أَنْتَ",
+          "subjectBaseText": "you (one man)",
+          "targetText": "تَسْمَعُ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتَ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (one man) hear",
+          "englishAuditText": "you (one man) hear",
+          "usefulness": 96,
+          "complexity": 8
+        }
+      ]
+    },
+    {
+      "id": "zero-ar-conjugation-e2-ar-018-present",
+      "revision": 1,
+      "targetText": "أَذْهَبُ",
+      "learnerBaseText": "I go",
+      "englishAuditText": "I go",
+      "meaningChoiceBaseText": "I go",
+      "difficulty": 0,
+      "family": "First I and you forms",
+      "lessonId": "zero-ar-first-forms-expanded",
+      "teachingNoteBaseText": "Read the I example first, then match the you example. These two forms use the same familiar action.",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 96,
+      "complexity": 8,
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "أَنَا",
+          "subjectBaseText": "I",
+          "targetText": "أَذْهَبُ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I go",
+          "englishAuditText": "I go",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "you-singular-m",
+          "revision": 1,
+          "subjectTargetText": "أَنْتَ",
+          "subjectBaseText": "you (one man)",
+          "targetText": "تَذْهَبُ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتَ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (one man) go",
+          "englishAuditText": "you (one man) go",
+          "usefulness": 96,
+          "complexity": 8
+        }
+      ]
+    },
+    {
+      "id": "zero-ar-conjugation-e2-ar-060-present",
+      "revision": 1,
+      "targetText": "أَقْرَأُ",
+      "learnerBaseText": "I read",
+      "englishAuditText": "I read",
+      "meaningChoiceBaseText": "I read",
+      "difficulty": 0,
+      "family": "First I and you forms",
+      "lessonId": "zero-ar-first-forms-expanded",
+      "teachingNoteBaseText": "Read the I example first, then match the you example. These two forms use the same familiar action.",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 96,
+      "complexity": 8,
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "أَنَا",
+          "subjectBaseText": "I",
+          "targetText": "أَقْرَأُ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I read",
+          "englishAuditText": "I read",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "you-singular-m",
+          "revision": 1,
+          "subjectTargetText": "أَنْتَ",
+          "subjectBaseText": "you (one man)",
+          "targetText": "تَقْرَأُ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتَ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (one man) read",
+          "englishAuditText": "you (one man) read",
+          "usefulness": 96,
+          "complexity": 8
+        }
+      ]
+    },
+    {
+      "id": "zero-ar-conjugation-e2-ar-063-present",
+      "revision": 1,
+      "targetText": "أَجِيءُ",
+      "learnerBaseText": "I come",
+      "englishAuditText": "I come",
+      "meaningChoiceBaseText": "I come",
+      "difficulty": 0,
+      "family": "First I and you forms",
+      "lessonId": "zero-ar-first-forms-expanded",
+      "teachingNoteBaseText": "Read the I example first, then match the you example. These two forms use the same familiar action.",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 96,
+      "complexity": 8,
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "أَنَا",
+          "subjectBaseText": "I",
+          "targetText": "أَجِيءُ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I come",
+          "englishAuditText": "I come",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "you-singular-m",
+          "revision": 1,
+          "subjectTargetText": "أَنْتَ",
+          "subjectBaseText": "you (one man)",
+          "targetText": "تَجِيءُ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتَ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (one man) come",
+          "englishAuditText": "you (one man) come",
+          "usefulness": 96,
+          "complexity": 8
+        }
+      ]
+    },
+    {
+      "id": "zero-ar-conjugation-e2-ar-065-present",
+      "revision": 1,
+      "targetText": "آكُلُ",
+      "learnerBaseText": "I eat",
+      "englishAuditText": "I eat",
+      "meaningChoiceBaseText": "I eat",
+      "difficulty": 0,
+      "family": "First I and you forms",
+      "lessonId": "zero-ar-first-forms-expanded",
+      "teachingNoteBaseText": "Read the I example first, then match the you example. These two forms use the same familiar action.",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 96,
+      "complexity": 8,
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "أَنَا",
+          "subjectBaseText": "I",
+          "targetText": "آكُلُ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I eat",
+          "englishAuditText": "I eat",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "you-singular-m",
+          "revision": 1,
+          "subjectTargetText": "أَنْتَ",
+          "subjectBaseText": "you (one man)",
+          "targetText": "تَأْكُلُ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتَ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (one man) eat",
+          "englishAuditText": "you (one man) eat",
+          "usefulness": 96,
+          "complexity": 8
+        }
+      ]
+    },
+    {
+      "id": "zero-ar-conjugation-e2-ar-066-present",
+      "revision": 1,
+      "targetText": "أَرَى",
+      "learnerBaseText": "I see",
+      "englishAuditText": "I see",
+      "meaningChoiceBaseText": "I see",
+      "difficulty": 0,
+      "family": "First I and you forms",
+      "lessonId": "zero-ar-first-forms-expanded",
+      "teachingNoteBaseText": "Read the I example first, then match the you example. These two forms use the same familiar action.",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 96,
+      "complexity": 8,
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "أَنَا",
+          "subjectBaseText": "I",
+          "targetText": "أَرَى",
+          "targetPhraseFrame": {
+            "beforeText": "أَنَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I see",
+          "englishAuditText": "I see",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "you-singular-m",
+          "revision": 1,
+          "subjectTargetText": "أَنْتَ",
+          "subjectBaseText": "you (one man)",
+          "targetText": "تَرَى",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتَ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (one man) see",
+          "englishAuditText": "you (one man) see",
+          "usefulness": 96,
+          "complexity": 8
+        }
+      ]
+    },
+    {
+      "id": "zero-ar-conjugation-e2-ar-071-present",
+      "revision": 1,
+      "targetText": "أَنَامُ",
+      "learnerBaseText": "I sleep",
+      "englishAuditText": "I sleep",
+      "meaningChoiceBaseText": "I sleep",
+      "difficulty": 0,
+      "family": "First I and you forms",
+      "lessonId": "zero-ar-first-forms-expanded",
+      "teachingNoteBaseText": "Read the I example first, then match the you example. These two forms use the same familiar action.",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 96,
+      "complexity": 8,
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "أَنَا",
+          "subjectBaseText": "I",
+          "targetText": "أَنَامُ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنَا ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I sleep",
+          "englishAuditText": "I sleep",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "you-singular-m",
+          "revision": 1,
+          "subjectTargetText": "أَنْتَ",
+          "subjectBaseText": "you (one man)",
+          "targetText": "تَنَامُ",
+          "targetPhraseFrame": {
+            "beforeText": "أَنْتَ ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (one man) sleep",
+          "englishAuditText": "you (one man) sleep",
+          "usefulness": 96,
+          "complexity": 8
+        }
+      ]
     }
   ]
 }

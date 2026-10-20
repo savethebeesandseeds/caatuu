@@ -20,7 +20,7 @@ test('every registered course owns a complete standalone Memory Moon bank with b
     assert.equal(path, course.resources.memoryMoonCatalog.path);
     assert.ok((course.games || []).includes('memory-moon') || (course.upcomingGames || []).includes('memory-moon'));
     const summary = memoryMoonContentSummary(document);
-    for (const level of [1, 2, 3]) assert.ok(summary.difficulty[level] >= 6);
+    for (const level of [0, 1, 2, 3]) assert.ok(summary.difficulty[level] >= 6);
     assert.ok(summary.topics.length >= 6, `${course.id}: broad semantic coverage`);
     assert.ok(summary.contrasts.length >= 6, `${course.id}: varied meaning contrasts`);
     assert.ok(summary.families > 1);
@@ -90,7 +90,7 @@ test('selected difficulty has enough unique questions and full progression metad
   for (const key of ['complexity', 'usefulness']) assert.throws(() => validateMemoryMoonContent(mutate(pack => {
     delete pack.challenges[0][key];
   })), /authored integer/);
-  assert.throws(() => validateMemoryMoonContent(mutate(pack => { pack.challenges[0].difficulty = 4; })), /one of 1, 2, 3/);
+  assert.throws(() => validateMemoryMoonContent(mutate(pack => { pack.challenges[0].difficulty = 4; })), /one of 0, 1, 2, 3/);
 });
 
 test('metadata preserves the new banks as authored drafts with outstanding native review', () => {

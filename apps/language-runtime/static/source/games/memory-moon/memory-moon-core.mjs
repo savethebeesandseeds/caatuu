@@ -26,7 +26,7 @@ export function validateMemoryMoonCatalog(pack, { course } = {}) {
   const ids = new Set();
   for (const item of pack.challenges) {
     if (!text(item?.id) || item.id.length > 256 || !item.id.startsWith(`mm-${pack.courseId}-`) || ids.has(item.id)
-        || !Number.isSafeInteger(item.revision) || item.revision < 1 || ![1,2,3].includes(item.difficulty)
+        || !Number.isSafeInteger(item.revision) || item.revision < 1 || ![0,1,2,3].includes(item.difficulty)
         || !text(item.targetText) || !text(item.learnerBaseText) || !text(item.familyId) || !text(item.topic)
         || !kinds.has(item.focus?.kind) || !Array.isArray(item.focus?.englishConcepts)
         || !item.focus.englishConcepts.length || item.focus.englishConcepts.some(value => !text(value))) fail(item?.id || 'question');
@@ -128,7 +128,7 @@ const affinity = (candidate, region, vectors) => {
 export function selectMemoryMoonChallenges(pack, { difficulty = 1, weaknesses = [], vectorsByText = new Map(),
   history = {}, recentIds = [], recentFamilies = [], random = Math.random, limit = MEMORY_MOON_ROUND_COUNT, now = Date.now() } = {}) {
   validateMemoryMoonCatalog(pack);
-  if (![1,2,3].includes(difficulty) || !Number.isSafeInteger(limit) || limit < 1) throw new TypeError('Invalid Moon badge or round size.');
+  if (![0,1,2,3].includes(difficulty) || !Number.isSafeInteger(limit) || limit < 1) throw new TypeError('Invalid Moon badge or round size.');
   const eligible = pack.challenges.filter(item => item.difficulty === difficulty);
   const count = Math.min(limit,eligible.length), excluded = new Set(recentIds), families = new Set(recentFamilies);
   for (const item of eligible) if (now - Date.parse(history[item.id]?.lastSeenAt) < 300000) {
@@ -169,7 +169,11 @@ export function selectMemoryMoonChallenges(pack, { difficulty = 1, weaknesses = 
     },random);
     if (!chosen) break;
     if (region) region.hits++;
-    selected.push({...chosen,choices:shuffleMoonChoices(chosen.choices,random),
+    const choices = difficulty === 0
+      ? [chosen.choices.find(choice => choice.id === chosen.correctChoiceId),
+        shuffleMoonChoices(chosen.choices.filter(choice => choice.id !== chosen.correctChoiceId),random)[0]]
+      : chosen.choices;
+    selected.push({...chosen,choices:shuffleMoonChoices(choices,random),
       selectionReason:region ? 'related-practice' : exploration && weaknesses.length ? 'exploration' : 'balanced-practice'});
     available = available.filter(item => item.id !== chosen.id && item.familyId !== chosen.familyId);
     if (available.length < count-selected.length) {

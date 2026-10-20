@@ -77,6 +77,7 @@
   let progressSaveFailed = false;
   let browserSpeechVoiceEventsBound = false;
   let activeBrowserSpeechSession = null;
+  let speechRequest = 0;
   let lastSpeechPlayback = null;
   const defaultSpeechVolume = 0.5;
   let speechVolumeFallback = defaultSpeechVolume;
@@ -103,7 +104,7 @@
     normal: Object.freeze({ label: interfaceMessage("speech.pace.normal"), rate: 1 })
   });
   const speechPaceOrder = Object.freeze(["slower", "slow", "normal"]);
-  const speechPaceByDifficulty = Object.freeze({ 1: "slower", 2: "slow", 3: "normal" });
+  const speechPaceByDifficulty = Object.freeze({ 0: "slower", 1: "slower", 2: "slow", 3: "normal" });
   const activeToolbarPopovers = new Set();
   const toolbarPopoverFrames = new WeakMap();
   const backpackViewOptions = Object.freeze({
@@ -1616,7 +1617,7 @@
     }
   }
 
-  async function stopSpeech() {
+  async function cancelSpeechPlayback() {
     if (speechVoiceBackend() === "android") {
       return window.CaatuuRuntime?.speech?.stop?.();
     }
@@ -1625,6 +1626,16 @@
     }
     window.speechSynthesis?.cancel?.();
     return { runtime: "browser-web-speech", stopped: true };
+  }
+
+  async function stopSpeech() {
+    // Invalidate requests still awaiting cancellation, before stopping playback.
+    speechRequest += 1;
+    return cancelSpeechPlayback();
+  }
+
+  function stoppedSpeechResult() {
+    return { runtime: "caatuu-shared-speech", outcome: "stopped", stopped: true };
   }
 
   async function speakText(text, options = {}) {
@@ -1637,10 +1648,11 @@
     }
     const backend = speechVoiceBackend();
     const preference = readStoredSpeechVoice();
+    const request = ++speechRequest;
     const record = (status) => {
       // Keep evidence local to this course, backend and current voice selection.
       // A late completion from a previous selection must not validate the new one.
-      if (backend !== speechVoiceBackend() || preference !== readStoredSpeechVoice()) return;
+      if (request !== speechRequest || backend !== speechVoiceBackend() || preference !== readStoredSpeechVoice()) return;
       if (options.voice != null && String(options.voice).trim() !== getSpeechVoicePreference()) return;
       lastSpeechPlayback = { backend, preference, status };
       window.dispatchEvent(new CustomEvent("caatuu:speech-playback-state", {
@@ -1648,7 +1660,7 @@
       }));
     };
     try {
-      const result = await performSpeech(normalizedText, options);
+      const result = await performSpeech(normalizedText, options, request);
       if (result?.outcome === "completed") record("confirmed");
       else if (result?.outcome === "error") record("failed");
       return result;
@@ -1660,13 +1672,19 @@
     }
   }
 
-  async function performSpeech(normalizedText, options) {
+  async function performSpeech(normalizedText, options, request) {
     const locale = speechLocale;
     const rate = clampSpeechControl(options.rate, 0.5, 1.5, resolveSpeechPace().rate);
     const pitch = clampSpeechControl(options.pitch, 0.5, 1.5, 1);
     const voice = String(options.voice ?? getSpeechVoicePreference()).trim().slice(0, 256);
 
-    await stopSpeech();
+    // Replacing playback must not invalidate this request or a newer one.
+    await cancelSpeechPlayback();
+    if (request !== speechRequest) {
+      const result = stoppedSpeechResult();
+      callSpeechCallback(options.onEnd, result);
+      return result;
+    }
     if (getSpeechMuted() && options.allowWhileMuted !== true) {
       const result = {
         runtime: "caatuu-shared-speech",
@@ -1686,17 +1704,18 @@
           language: targetLanguageName
         }));
       }
-      const result = await speech.speak(
+      const playback = await speech.speak(
         normalizedText,
         { locale, rate, pitch, voice, volume: gain },
         {
           onEvent(event) {
-            if (event?.kind === "speech" && event?.phase === "started") {
+            if (request === speechRequest && event?.kind === "speech" && event?.phase === "started") {
               callSpeechCallback(options.onStart, event);
             }
           }
         }
       );
+      const result = request === speechRequest ? playback : stoppedSpeechResult();
       callSpeechCallback(options.onEnd, result);
       return result;
     }
@@ -1761,7 +1780,9 @@
         finish(new Error(interfaceMessage("speech.test.timeout")));
         synthesis.cancel();
       }, 20_000);
-      utterance.onstart = (event) => callSpeechCallback(options.onStart, event);
+      utterance.onstart = (event) => {
+        if (request === speechRequest) callSpeechCallback(options.onStart, event);
+      };
       utterance.onend = () => {
         finish();
       };
@@ -2024,7 +2045,7 @@
         level: option.level
       })}">
         <b aria-hidden="true">
-          <img src="/assets/icons/difficulty_medal_${option.level}_ui.png?v=ui-1" alt="" loading="lazy" decoding="async">
+          <img src="/assets/icons/difficulty_flag_${option.level}_ui.png?v=flags-1" alt="" loading="lazy" decoding="async">
         </b>
         <span>${escapeHtmlText(option.label)}</span>
       </button>
@@ -2062,6 +2083,9 @@
     const view = root.querySelector("#statsViewPanel");
     const list = root.querySelector("#coursePracticeGames");
     if (!list || view?.hidden) return;
+    // Answer events should not rebuild a closed Backpack's practice history.
+    // Opening a section renders it explicitly with the panel as its root.
+    if (root === document && view?.closest("#settingsPanel, [data-caatuu-settings-panel]")?.hidden) return;
     let summary = null;
     try { summary = learning?.practiceSummary?.(); } catch { /* Keep goals usable if history cannot be read. */ }
     const valid = summary?.courseId === course.id && summary.totals && Array.isArray(summary.games);
@@ -2145,9 +2169,12 @@
     });
   }
 
-  function renderLearningControls(root = document) {
+  function renderLearningControls(root = document, suppliedProfile = null) {
     if (!learning) return;
-    const profile = learning.snapshot();
+    // Learning-change already carries the complete profile. Avoid replaying
+    // every course's journals again inside the game's answer handler.
+    const profile = suppliedProfile?.summary && suppliedProfile.difficultyOption
+      ? suppliedProfile : learning.snapshot();
     const journey = profile.journey?.summary || profile.summary;
     const rewards = {
       xp: journey.xp,
@@ -2168,6 +2195,8 @@
     if (level) level.textContent = interfaceMessage("progress.level", { level: profile.difficulty });
     const badgeName = root.querySelector("#difficultyBadgeName");
     if (badgeName) badgeName.textContent = profile.difficultyOption.label;
+    const badgeArt = root.querySelector("#difficultyBadgeArt");
+    if (badgeArt) badgeArt.src = `/assets/icons/difficulty_flag_${profile.difficulty}_ui.png?v=flags-1`;
     const goalSelect = root.querySelector("#learningGoal");
     if (goalSelect) goalSelect.value = profile.goal?.id || "balanced";
     renderLearningDirection(root);
@@ -2976,11 +3005,13 @@
       if (status) status.textContent = interfaceMessage("progress.restart.completed");
     });
 
-    window.addEventListener("caatuu:learning-change", () => {
-      renderLearningControls(document);
+    window.addEventListener("caatuu:learning-change", (event) => {
+      renderLearningControls(document, event.detail);
       scheduleStreakReminderCheck({ immediate: true });
-      document.querySelectorAll("#settingsPanel, [data-caatuu-settings-panel]")
-        .forEach((panel) => updateSpeechPaceControls(panel));
+      if (event.detail?.reason !== "performance") {
+        document.querySelectorAll("#settingsPanel, [data-caatuu-settings-panel]")
+          .forEach((panel) => updateSpeechPaceControls(panel));
+      }
     });
 
     window.addEventListener("storage", (event) => {
@@ -4510,7 +4541,7 @@
                 <div class="traveler-badge" aria-label="${interfaceHtml("settings.backpack.currentbadge")}">
                   <span class="traveler-badge-level" id="difficultyLevelSummary">${interfaceHtml("progress.level", { level: 2 })}</span>
                   <span class="traveler-badge-emblem" aria-hidden="true">
-                    <img src="/assets/icons/backpack_icon.png" alt="" decoding="async">
+                    <img id="difficultyBadgeArt" src="/assets/icons/difficulty_flag_1_ui.png?v=flags-1" alt="" decoding="async">
                   </span>
                   <strong id="difficultyBadgeName">${interfaceHtml("settings.backpack.traveler")}</strong>
                 </div>

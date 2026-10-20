@@ -15318,5 +15318,1431 @@
         }
       ]
     }
+  },
+  {
+    "id": "zero-zh-verb-eat",
+    "target": "吃",
+    "source": "eat",
+    "englishAuditText": "eat",
+    "kind": "verb",
+    "difficulty": 0,
+    "category": "zero-basic-actions",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 4,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "吃",
+          "units": [
+            {
+              "surface": "吃",
+              "notation": "chī"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-verb-drink",
+    "target": "喝",
+    "source": "drink",
+    "englishAuditText": "drink",
+    "kind": "verb",
+    "difficulty": 0,
+    "category": "zero-basic-actions",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 4,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "喝",
+          "units": [
+            {
+              "surface": "喝",
+              "notation": "hē"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-verb-go",
+    "target": "去",
+    "source": "go",
+    "englishAuditText": "go",
+    "kind": "verb",
+    "difficulty": 0,
+    "category": "zero-basic-actions",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 4,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "去",
+          "units": [
+            {
+              "surface": "去",
+              "notation": "qù"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-verb-see",
+    "target": "看见",
+    "source": "see",
+    "englishAuditText": "see",
+    "kind": "verb",
+    "difficulty": 0,
+    "category": "zero-basic-actions",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 4,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "看见",
+          "units": [
+            {
+              "surface": "看",
+              "notation": "kàn"
+            },
+            {
+              "surface": "见",
+              "notation": "jiàn"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-verb-want",
+    "target": "要",
+    "source": "want",
+    "englishAuditText": "want",
+    "kind": "verb",
+    "difficulty": 0,
+    "category": "zero-basic-actions",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 4,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "要",
+          "units": [
+            {
+              "surface": "要",
+              "notation": "yào"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-verb-have",
+    "target": "有",
+    "source": "have",
+    "englishAuditText": "have",
+    "kind": "verb",
+    "difficulty": 0,
+    "category": "zero-basic-actions",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 4,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "有",
+          "units": [
+            {
+              "surface": "有",
+              "notation": "yǒu"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-verb-like",
+    "target": "喜欢",
+    "source": "like",
+    "englishAuditText": "like",
+    "kind": "verb",
+    "difficulty": 0,
+    "category": "zero-basic-actions",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 4,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "喜欢",
+          "units": [
+            {
+              "surface": "喜",
+              "notation": "xǐ"
+            },
+            {
+              "surface": "欢",
+              "notation": "huan"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-verb-sleep",
+    "target": "睡觉",
+    "source": "sleep",
+    "englishAuditText": "sleep",
+    "kind": "verb",
+    "difficulty": 0,
+    "category": "zero-basic-actions",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 4,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "睡觉",
+          "units": [
+            {
+              "surface": "睡",
+              "notation": "shuì"
+            },
+            {
+              "surface": "觉",
+              "notation": "jiào"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-verb-sit",
+    "target": "坐",
+    "source": "sit",
+    "englishAuditText": "sit",
+    "kind": "verb",
+    "difficulty": 0,
+    "category": "zero-basic-actions",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 4,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "坐",
+          "units": [
+            {
+              "surface": "坐",
+              "notation": "zuò"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-verb-read",
+    "target": "读",
+    "source": "read",
+    "englishAuditText": "read",
+    "kind": "verb",
+    "difficulty": 0,
+    "category": "zero-basic-actions",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 4,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "读",
+          "units": [
+            {
+              "surface": "读",
+              "notation": "dú"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-verb-write",
+    "target": "写",
+    "source": "write",
+    "englishAuditText": "write",
+    "kind": "verb",
+    "difficulty": 0,
+    "category": "zero-basic-actions",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 4,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "写",
+          "units": [
+            {
+              "surface": "写",
+              "notation": "xiě"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-verb-hear",
+    "target": "听见",
+    "source": "hear",
+    "englishAuditText": "hear",
+    "kind": "verb",
+    "difficulty": 0,
+    "category": "zero-basic-actions",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 4,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "听见",
+          "units": [
+            {
+              "surface": "听",
+              "notation": "tīng"
+            },
+            {
+              "surface": "见",
+              "notation": "jiàn"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-word-cat",
+    "target": "猫",
+    "source": "cat",
+    "englishAuditText": "cat",
+    "kind": "word",
+    "difficulty": 0,
+    "category": "zero-first-words",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 2,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "猫",
+          "units": [
+            {
+              "surface": "猫",
+              "notation": "māo"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-word-dog",
+    "target": "狗",
+    "source": "dog",
+    "englishAuditText": "dog",
+    "kind": "word",
+    "difficulty": 0,
+    "category": "zero-first-words",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 2,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "狗",
+          "units": [
+            {
+              "surface": "狗",
+              "notation": "gǒu"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-word-water",
+    "target": "水",
+    "source": "water",
+    "englishAuditText": "water",
+    "kind": "word",
+    "difficulty": 0,
+    "category": "zero-first-words",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 2,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "水",
+          "units": [
+            {
+              "surface": "水",
+              "notation": "shuǐ"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-word-bread",
+    "target": "面包",
+    "source": "bread",
+    "englishAuditText": "bread",
+    "kind": "word",
+    "difficulty": 0,
+    "category": "zero-first-words",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 2,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "面包",
+          "units": [
+            {
+              "surface": "面",
+              "notation": "miàn"
+            },
+            {
+              "surface": "包",
+              "notation": "bāo"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-word-milk",
+    "target": "牛奶",
+    "source": "milk",
+    "englishAuditText": "milk",
+    "kind": "word",
+    "difficulty": 0,
+    "category": "zero-first-words",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 2,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "牛奶",
+          "units": [
+            {
+              "surface": "牛",
+              "notation": "niú"
+            },
+            {
+              "surface": "奶",
+              "notation": "nǎi"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-word-apple",
+    "target": "苹果",
+    "source": "apple",
+    "englishAuditText": "apple",
+    "kind": "word",
+    "difficulty": 0,
+    "category": "zero-first-words",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 2,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "苹果",
+          "units": [
+            {
+              "surface": "苹",
+              "notation": "píng"
+            },
+            {
+              "surface": "果",
+              "notation": "guǒ"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-word-rice",
+    "target": "米饭",
+    "source": "rice",
+    "englishAuditText": "rice",
+    "kind": "word",
+    "difficulty": 0,
+    "category": "zero-first-words",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 2,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "米饭",
+          "units": [
+            {
+              "surface": "米",
+              "notation": "mǐ"
+            },
+            {
+              "surface": "饭",
+              "notation": "fàn"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-word-tea",
+    "target": "茶",
+    "source": "tea",
+    "englishAuditText": "tea",
+    "kind": "word",
+    "difficulty": 0,
+    "category": "zero-first-words",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 2,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "茶",
+          "units": [
+            {
+              "surface": "茶",
+              "notation": "chá"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-word-book",
+    "target": "书",
+    "source": "book",
+    "englishAuditText": "book",
+    "kind": "word",
+    "difficulty": 0,
+    "category": "zero-first-words",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 2,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "书",
+          "units": [
+            {
+              "surface": "书",
+              "notation": "shū"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-word-pen",
+    "target": "笔",
+    "source": "pen",
+    "englishAuditText": "pen",
+    "kind": "word",
+    "difficulty": 0,
+    "category": "zero-first-words",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 2,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "笔",
+          "units": [
+            {
+              "surface": "笔",
+              "notation": "bǐ"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-word-house",
+    "target": "房子",
+    "source": "house",
+    "englishAuditText": "house",
+    "kind": "word",
+    "difficulty": 0,
+    "category": "zero-first-words",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 2,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "房子",
+          "units": [
+            {
+              "surface": "房",
+              "notation": "fáng"
+            },
+            {
+              "surface": "子",
+              "notation": "zi"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-word-door",
+    "target": "门",
+    "source": "door",
+    "englishAuditText": "door",
+    "kind": "word",
+    "difficulty": 0,
+    "category": "zero-first-words",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 2,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "门",
+          "units": [
+            {
+              "surface": "门",
+              "notation": "mén"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-word-table",
+    "target": "桌子",
+    "source": "table",
+    "englishAuditText": "table",
+    "kind": "word",
+    "difficulty": 0,
+    "category": "zero-first-words",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 2,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "桌子",
+          "units": [
+            {
+              "surface": "桌",
+              "notation": "zhuō"
+            },
+            {
+              "surface": "子",
+              "notation": "zi"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-word-chair",
+    "target": "椅子",
+    "source": "chair",
+    "englishAuditText": "chair",
+    "kind": "word",
+    "difficulty": 0,
+    "category": "zero-first-words",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 2,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "椅子",
+          "units": [
+            {
+              "surface": "椅",
+              "notation": "yǐ"
+            },
+            {
+              "surface": "子",
+              "notation": "zi"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-word-bed",
+    "target": "床",
+    "source": "bed",
+    "englishAuditText": "bed",
+    "kind": "word",
+    "difficulty": 0,
+    "category": "zero-first-words",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 2,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "床",
+          "units": [
+            {
+              "surface": "床",
+              "notation": "chuáng"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-word-bag",
+    "target": "包",
+    "source": "bag",
+    "englishAuditText": "bag",
+    "kind": "word",
+    "difficulty": 0,
+    "category": "zero-first-words",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 2,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "包",
+          "units": [
+            {
+              "surface": "包",
+              "notation": "bāo"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-word-ball",
+    "target": "球",
+    "source": "ball",
+    "englishAuditText": "ball",
+    "kind": "word",
+    "difficulty": 0,
+    "category": "zero-first-words",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 2,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "球",
+          "units": [
+            {
+              "surface": "球",
+              "notation": "qiú"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-word-sun",
+    "target": "太阳",
+    "source": "sun",
+    "englishAuditText": "sun",
+    "kind": "word",
+    "difficulty": 0,
+    "category": "zero-first-words",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 2,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "太阳",
+          "units": [
+            {
+              "surface": "太",
+              "notation": "tài"
+            },
+            {
+              "surface": "阳",
+              "notation": "yáng"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-word-hand",
+    "target": "手",
+    "source": "hand",
+    "englishAuditText": "hand",
+    "kind": "word",
+    "difficulty": 0,
+    "category": "zero-first-words",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 2,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "手",
+          "units": [
+            {
+              "surface": "手",
+              "notation": "shǒu"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-word-eye",
+    "target": "眼睛",
+    "source": "eye",
+    "englishAuditText": "eye",
+    "kind": "word",
+    "difficulty": 0,
+    "category": "zero-first-words",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 2,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "眼睛",
+          "units": [
+            {
+              "surface": "眼",
+              "notation": "yǎn"
+            },
+            {
+              "surface": "睛",
+              "notation": "jing"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-word-i",
+    "target": "我",
+    "source": "I",
+    "englishAuditText": "I",
+    "kind": "word",
+    "difficulty": 0,
+    "category": "zero-first-words",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 3,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-word-you",
+    "target": "你",
+    "source": "you",
+    "englishAuditText": "you",
+    "kind": "word",
+    "difficulty": 0,
+    "category": "zero-first-words",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 3,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "你",
+          "units": [
+            {
+              "surface": "你",
+              "notation": "nǐ"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-word-we",
+    "target": "我们",
+    "source": "we",
+    "englishAuditText": "we",
+    "kind": "word",
+    "difficulty": 0,
+    "category": "zero-first-words",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 3,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "我们",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            },
+            {
+              "surface": "们",
+              "notation": "men"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-word-hello",
+    "target": "你好",
+    "source": "Hello!",
+    "englishAuditText": "Hello!",
+    "kind": "word",
+    "difficulty": 0,
+    "category": "zero-first-words",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 1,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "你好",
+          "units": [
+            {
+              "surface": "你",
+              "notation": "nǐ"
+            },
+            {
+              "surface": "好",
+              "notation": "hǎo"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-word-goodbye",
+    "target": "再见",
+    "source": "Goodbye!",
+    "englishAuditText": "Goodbye!",
+    "kind": "word",
+    "difficulty": 0,
+    "category": "zero-first-words",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 1,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "再见",
+          "units": [
+            {
+              "surface": "再",
+              "notation": "zài"
+            },
+            {
+              "surface": "见",
+              "notation": "jiàn"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-word-yes",
+    "target": "对",
+    "source": "Yes.",
+    "englishAuditText": "Yes.",
+    "kind": "word",
+    "difficulty": 0,
+    "category": "zero-first-words",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 1,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "对",
+          "units": [
+            {
+              "surface": "对",
+              "notation": "duì"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-word-no",
+    "target": "不",
+    "source": "No.",
+    "englishAuditText": "No.",
+    "kind": "word",
+    "difficulty": 0,
+    "category": "zero-first-words",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 1,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "不",
+          "units": [
+            {
+              "surface": "不",
+              "notation": "bù"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-word-please",
+    "target": "请",
+    "source": "Please.",
+    "englishAuditText": "Please.",
+    "kind": "word",
+    "difficulty": 0,
+    "category": "zero-first-words",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 1,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "请",
+          "units": [
+            {
+              "surface": "请",
+              "notation": "qǐng"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-word-thanks",
+    "target": "谢谢",
+    "source": "Thank you.",
+    "englishAuditText": "Thank you.",
+    "kind": "word",
+    "difficulty": 0,
+    "category": "zero-first-words",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 1,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "谢谢",
+          "units": [
+            {
+              "surface": "谢",
+              "notation": "xiè"
+            },
+            {
+              "surface": "谢",
+              "notation": "xie"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-word-one",
+    "target": "一",
+    "source": "one",
+    "englishAuditText": "one",
+    "kind": "word",
+    "difficulty": 0,
+    "category": "zero-first-words",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 4,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "一",
+          "units": [
+            {
+              "surface": "一",
+              "notation": "yī"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-word-two",
+    "target": "二",
+    "source": "two",
+    "englishAuditText": "two",
+    "kind": "word",
+    "difficulty": 0,
+    "category": "zero-first-words",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 4,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "二",
+          "units": [
+            {
+              "surface": "二",
+              "notation": "èr"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-word-three",
+    "target": "三",
+    "source": "three",
+    "englishAuditText": "three",
+    "kind": "word",
+    "difficulty": 0,
+    "category": "zero-first-words",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 4,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "三",
+          "units": [
+            {
+              "surface": "三",
+              "notation": "sān"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-word-four",
+    "target": "四",
+    "source": "four",
+    "englishAuditText": "four",
+    "kind": "word",
+    "difficulty": 0,
+    "category": "zero-first-words",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 4,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "四",
+          "units": [
+            {
+              "surface": "四",
+              "notation": "sì"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-word-five",
+    "target": "五",
+    "source": "five",
+    "englishAuditText": "five",
+    "kind": "word",
+    "difficulty": 0,
+    "category": "zero-first-words",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 4,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "五",
+          "units": [
+            {
+              "surface": "五",
+              "notation": "wǔ"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-word-big",
+    "target": "大",
+    "source": "big",
+    "englishAuditText": "big",
+    "kind": "word",
+    "difficulty": 0,
+    "category": "zero-first-words",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 4,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "大",
+          "units": [
+            {
+              "surface": "大",
+              "notation": "dà"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-word-small",
+    "target": "小",
+    "source": "small",
+    "englishAuditText": "small",
+    "kind": "word",
+    "difficulty": 0,
+    "category": "zero-first-words",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 4,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "小",
+          "units": [
+            {
+              "surface": "小",
+              "notation": "xiǎo"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-word-red",
+    "target": "红色",
+    "source": "red",
+    "englishAuditText": "red",
+    "kind": "word",
+    "difficulty": 0,
+    "category": "zero-first-words",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 4,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "红色",
+          "units": [
+            {
+              "surface": "红",
+              "notation": "hóng"
+            },
+            {
+              "surface": "色",
+              "notation": "sè"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-zh-word-green",
+    "target": "绿色",
+    "source": "green",
+    "englishAuditText": "green",
+    "kind": "word",
+    "difficulty": 0,
+    "category": "zero-first-words",
+    "reviewStatus": "native-review-required",
+    "usefulness": 92,
+    "complexity": 4,
+    "reading": {
+      "system": "pinyin",
+      "status": "machine-assisted-preview",
+      "tokens": [
+        {
+          "surface": "绿色",
+          "units": [
+            {
+              "surface": "绿",
+              "notation": "lǜ"
+            },
+            {
+              "surface": "色",
+              "notation": "sè"
+            }
+          ]
+        }
+      ]
+    }
   }
 ]

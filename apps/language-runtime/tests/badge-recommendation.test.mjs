@@ -52,6 +52,14 @@ test("cycles alone, same-session repetitions, errors, assistance, and legacy suc
   assert.equal(evaluateBadgeRecommendation(input({ items: rows().map((row, index) => ({ ...row, history: history(index < 5) })) })).recommended, false);
 });
 
+test("zero evidence supports an advisory invitation to Explorer without changing other bands", () => {
+  const result = evaluateBadgeRecommendation(input({ difficulty: 0,
+    items: rows().map(row => ({ ...row, difficulty: 0 })) }));
+  assert.equal(result.status, "ready");
+  assert.equal(result.suggestedDifficulty, 1);
+  assert.equal(evaluateBadgeRecommendation(input({ difficulty: 0 })).recommended, false);
+});
+
 test("recency boundary is exact and future timestamps or invalid counts remain unknown", () => {
   const boundary = new Date(now - 30 * 86400000).toISOString();
   const atBoundary = rows().map(row => ({ ...row, history: history(true, {

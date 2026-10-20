@@ -159,7 +159,7 @@ export async function mountVerbDifficulty({ root, course, host = globalThis, t, 
     const difficulty = ui.control(toolbar, t("devtools.catalog.difficulty"), node("select"));
     difficulty.dataset.verbDifficulty = "";
     ui.option(difficulty, "all", t("devtools.catalog.alllevels"));
-    for (const level of [1, 2, 3]) ui.option(difficulty, String(level), t(`devtools.catalog.level${level}`));
+    for (const level of [0, 1, 2, 3]) ui.option(difficulty, String(level), t("progress.level", { level }));
     ui.option(difficulty, "unassigned", t("devtools.catalog.unassigned"));
     difficulty.value = "all";
     const groups = node("div", "developer-tool-catalog-groups");

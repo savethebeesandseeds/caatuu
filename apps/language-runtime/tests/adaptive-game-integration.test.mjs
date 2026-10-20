@@ -13,6 +13,7 @@ import { validateConjugationCometCatalog, selectConjugationPracticeVerbs, buildC
 import { buildGrammarGravityRounds } from '../static/source/games/grammar-gravity/grammar-gravity-core.mjs';
 import { createNounLandingSession } from '../static/source/games/grammar-gravity/noun-landing-core.mjs';
 import { createSoundQuasarSession } from '../static/source/games/sound-quasar/sound-quasar-core.mjs';
+import { MEMORY_MOON_GAME, MEMORY_MOON_ROUND_COUNT, selectMemoryMoonChallenges, validateMemoryMoonCatalog } from '../static/source/games/memory-moon/memory-moon-core.mjs';
 import { buildCasePracticeRounds } from '../../languages/czech/static/source/games/case-cosmos/case-cosmos-content.mjs';
 import { progressiveWordWorldSelection, wordWorldPracticeHistory } from '../static/source/word-world-progression.mjs';
 
@@ -25,6 +26,9 @@ const gameplayVariants = [
   { id: 'cross-category-recency', controls: { crossCategoryRecency: true } }
 ];
 const catalogsPromise = loadProgressionCatalogs();
+// Memory Moon owns its weakness-guided selector; shared adaptive policy variants
+// and their conditional draw traces do not apply to its practice sessions.
+const sharedAdaptiveCatalogsPromise = catalogsPromise.then(catalogs => catalogs.filter(({ game }) => game !== MEMORY_MOON_GAME));
 const nucleusPromise = (async () => {
   const context = { window: {} };
   vm.runInNewContext(await readFile(new URL('../static/source/games/naturalization-nucleus/naturalization-nucleus.js', import.meta.url), 'utf8'), context);
@@ -98,8 +102,8 @@ test('one Word World decision is one draw and recent exclusions have an inspecta
   assert.ok(!trace.draws[0].distribution.some(row => row.id === 'item-0'));
 });
 
-for (const variant of gameplayVariants) test(`every authored game bank builds playable adaptive selections at its exact selected difficulty (${variant.id})`, async () => {
-  const catalogs = await catalogsPromise;
+for (const variant of gameplayVariants) test(`every authored shared-adaptive game bank builds playable selections at its exact selected difficulty (${variant.id})`, async () => {
+  const catalogs = await sharedAdaptiveCatalogsPromise;
   const nucleus = await nucleusPromise;
   const seen = new Set();
   for (const { game, document, course } of catalogs) for (const difficulty of [1, 2, 3]) {
@@ -182,6 +186,48 @@ for (const variant of gameplayVariants) test(`every authored game bank builds pl
     seen.add(`${course.id}/${game}`);
   }
   assert.deepEqual(seen, new Set(catalogs.map(({ course, game }) => `${course.id}/${game}`)));
+});
+
+test('every registered Memory Moon bank uses its own selector at the exact badge without changing history or authored content', async () => {
+  const catalogs = (await catalogsPromise).filter(({ game }) => game === MEMORY_MOON_GAME);
+  const registered = await loadCourseCatalog({ repoRoot: new URL('../../../', import.meta.url) });
+  const expectedCourses = registered.courses.filter(({ course }) => course.games.includes(MEMORY_MOON_GAME))
+    .map(({ course }) => course.id);
+  assert.ok(expectedCourses.length, 'the course registry declares Memory Moon practice');
+  const seen = new Set();
+  for (const { course, document } of catalogs) {
+    const original = structuredClone(document);
+    const pack = validateMemoryMoonCatalog(document, { course });
+    for (const difficulty of [1, 2, 3]) {
+      const eligible = pack.challenges.filter(item => item.difficulty === difficulty);
+      assert.ok(eligible.length >= MEMORY_MOON_ROUND_COUNT, `${course.id} has a complete Moon at badge ${difficulty}`);
+      const byId = new Map(eligible.map(item => [item.id, item]));
+      const history = { [eligible[0].id]: {
+        exposures: 1, firstSeenAt: new Date(now).toISOString(), lastSeenAt: new Date(now).toISOString(), practiceDays: 1
+      } };
+      const previousHistory = structuredClone(history);
+      const selection = selectMemoryMoonChallenges(pack, { difficulty, history, random, now });
+      assert.equal(selection.items.length, MEMORY_MOON_ROUND_COUNT);
+      assert.equal(new Set(selection.items.map(item => item.id)).size, MEMORY_MOON_ROUND_COUNT);
+      assert.equal(selection.trace.difficulty, difficulty);
+      assert.equal(selection.trace.eligibleCount, eligible.length);
+      for (const item of selection.items) {
+        const authored = byId.get(item.id);
+        assert.ok(authored, `${course.id} selects only the requested badge`);
+        assert.notEqual(item, authored, 'a session receives its own challenge copy');
+        assert.notEqual(item.choices, authored.choices, 'choice shuffling uses a separate array');
+        assert.equal(item.targetText, authored.targetText);
+        assert.equal(item.learnerBaseText, authored.learnerBaseText);
+        assert.equal(item.englishText, authored.englishText);
+        assert.deepEqual(new Map(item.choices.map(choice => [choice.id, choice])),
+          new Map(authored.choices.map(choice => [choice.id, choice])));
+      }
+      assert.deepEqual(history, previousHistory, 'selection never writes practice evidence');
+      assert.deepEqual(document, original, 'selection preserves the authored challenge and choice order');
+    }
+    seen.add(course.id);
+  }
+  assert.deepEqual(seen, new Set(expectedCourses), 'every registered Moon course is exercised');
 });
 
 for (const variant of gameplayVariants) test(`listening words and sentences use separate adaptive evidence banks on every available course (${variant.id})`, async () => {

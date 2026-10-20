@@ -76,8 +76,8 @@ export function validateEnglishConceptRuntimeProjection(projection, {
       for (const field of ["englishText", "embeddingText", "sceneQuery", "topic"]) {
         if (!nonEmpty(concept?.[field])) issues.push(`${label}.${field} must be non-empty.`);
       }
-      if (!Number.isInteger(concept?.difficulty) || concept.difficulty < 1 || concept.difficulty > 3) {
-        issues.push(`${label}.difficulty must be an integer from 1 to 3.`);
+      if (!Number.isInteger(concept?.difficulty) || concept.difficulty < 0 || concept.difficulty > 3) {
+        issues.push(`${label}.difficulty must be an integer from 0 to 3.`);
       }
       for (const field of ["usefulness", "complexity"]) if (concept[field] !== undefined
         && (!Number.isInteger(concept[field]) || concept[field] < 1 || concept[field] > 100)) {

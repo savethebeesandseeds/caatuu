@@ -3908,6 +3908,516 @@
       ],
       "usefulness": 55,
       "complexity": 26
+    },
+    {
+      "id": "zero-cz-conj-eat",
+      "revision": 1,
+      "targetText": "jíst",
+      "learnerBaseText": "eat",
+      "englishAuditText": "eat",
+      "meaningChoiceBaseText": "eat",
+      "difficulty": 0,
+      "family": "I and you: two forms",
+      "lessonId": "zero-cz-first-actions",
+      "teachingNoteBaseText": "Practise only I and you (one person). Listen and match one form at a time.",
+      "tags": [
+        "level-zero",
+        "machine-assisted-draft"
+      ],
+      "forms": [
+        {
+          "id": "first",
+          "revision": 1,
+          "subjectTargetText": "já",
+          "subjectBaseText": "I",
+          "targetText": "jím",
+          "learnerBaseCueText": "I eat",
+          "englishAuditText": "I eat",
+          "usefulness": 92,
+          "complexity": 6
+        },
+        {
+          "id": "second",
+          "revision": 1,
+          "subjectTargetText": "ty",
+          "subjectBaseText": "you",
+          "targetText": "jíš",
+          "learnerBaseCueText": "you eat",
+          "englishAuditText": "you eat",
+          "usefulness": 92,
+          "complexity": 6
+        }
+      ],
+      "usefulness": 92,
+      "complexity": 6
+    },
+    {
+      "id": "zero-cz-conj-drink",
+      "revision": 1,
+      "targetText": "pít",
+      "learnerBaseText": "drink",
+      "englishAuditText": "drink",
+      "meaningChoiceBaseText": "drink",
+      "difficulty": 0,
+      "family": "I and you: two forms",
+      "lessonId": "zero-cz-first-actions",
+      "teachingNoteBaseText": "Practise only I and you (one person). Listen and match one form at a time.",
+      "tags": [
+        "level-zero",
+        "machine-assisted-draft"
+      ],
+      "forms": [
+        {
+          "id": "first",
+          "revision": 1,
+          "subjectTargetText": "já",
+          "subjectBaseText": "I",
+          "targetText": "piju",
+          "learnerBaseCueText": "I drink",
+          "englishAuditText": "I drink",
+          "usefulness": 92,
+          "complexity": 6
+        },
+        {
+          "id": "second",
+          "revision": 1,
+          "subjectTargetText": "ty",
+          "subjectBaseText": "you",
+          "targetText": "piješ",
+          "learnerBaseCueText": "you drink",
+          "englishAuditText": "you drink",
+          "usefulness": 92,
+          "complexity": 6
+        }
+      ],
+      "usefulness": 92,
+      "complexity": 6
+    },
+    {
+      "id": "zero-cz-conj-have",
+      "revision": 1,
+      "targetText": "mít",
+      "learnerBaseText": "have",
+      "englishAuditText": "have",
+      "meaningChoiceBaseText": "have",
+      "difficulty": 0,
+      "family": "I and you: two forms",
+      "lessonId": "zero-cz-first-actions",
+      "teachingNoteBaseText": "Practise only I and you (one person). Listen and match one form at a time.",
+      "tags": [
+        "level-zero",
+        "machine-assisted-draft"
+      ],
+      "forms": [
+        {
+          "id": "first",
+          "revision": 1,
+          "subjectTargetText": "já",
+          "subjectBaseText": "I",
+          "targetText": "mám",
+          "learnerBaseCueText": "I have",
+          "englishAuditText": "I have",
+          "usefulness": 92,
+          "complexity": 6
+        },
+        {
+          "id": "second",
+          "revision": 1,
+          "subjectTargetText": "ty",
+          "subjectBaseText": "you",
+          "targetText": "máš",
+          "learnerBaseCueText": "you have",
+          "englishAuditText": "you have",
+          "usefulness": 92,
+          "complexity": 6
+        }
+      ],
+      "usefulness": 92,
+      "complexity": 6
+    },
+    {
+      "id": "zero-cz-conj-want",
+      "revision": 1,
+      "targetText": "chtít",
+      "learnerBaseText": "want",
+      "englishAuditText": "want",
+      "meaningChoiceBaseText": "want",
+      "difficulty": 0,
+      "family": "I and you: two forms",
+      "lessonId": "zero-cz-first-actions",
+      "teachingNoteBaseText": "Practise only I and you (one person). Listen and match one form at a time.",
+      "tags": [
+        "level-zero",
+        "machine-assisted-draft"
+      ],
+      "forms": [
+        {
+          "id": "first",
+          "revision": 1,
+          "subjectTargetText": "já",
+          "subjectBaseText": "I",
+          "targetText": "chci",
+          "learnerBaseCueText": "I want",
+          "englishAuditText": "I want",
+          "usefulness": 92,
+          "complexity": 6
+        },
+        {
+          "id": "second",
+          "revision": 1,
+          "subjectTargetText": "ty",
+          "subjectBaseText": "you",
+          "targetText": "chceš",
+          "learnerBaseCueText": "you want",
+          "englishAuditText": "you want",
+          "usefulness": 92,
+          "complexity": 6
+        }
+      ],
+      "usefulness": 92,
+      "complexity": 6
+    },
+    {
+      "id": "zero-cz-conj-read",
+      "revision": 1,
+      "targetText": "číst",
+      "learnerBaseText": "read",
+      "englishAuditText": "read",
+      "meaningChoiceBaseText": "read",
+      "difficulty": 0,
+      "family": "I and you: two forms",
+      "lessonId": "zero-cz-first-actions",
+      "teachingNoteBaseText": "Practise only I and you (one person). Listen and match one form at a time.",
+      "tags": [
+        "level-zero",
+        "machine-assisted-draft"
+      ],
+      "forms": [
+        {
+          "id": "first",
+          "revision": 1,
+          "subjectTargetText": "já",
+          "subjectBaseText": "I",
+          "targetText": "čtu",
+          "learnerBaseCueText": "I read",
+          "englishAuditText": "I read",
+          "usefulness": 92,
+          "complexity": 6
+        },
+        {
+          "id": "second",
+          "revision": 1,
+          "subjectTargetText": "ty",
+          "subjectBaseText": "you",
+          "targetText": "čteš",
+          "learnerBaseCueText": "you read",
+          "englishAuditText": "you read",
+          "usefulness": 92,
+          "complexity": 6
+        }
+      ],
+      "usefulness": 92,
+      "complexity": 6
+    },
+    {
+      "id": "zero-cz-conj-sleep",
+      "revision": 1,
+      "targetText": "spát",
+      "learnerBaseText": "sleep",
+      "englishAuditText": "sleep",
+      "meaningChoiceBaseText": "sleep",
+      "difficulty": 0,
+      "family": "I and you: two forms",
+      "lessonId": "zero-cz-first-actions",
+      "teachingNoteBaseText": "Practise only I and you (one person). Listen and match one form at a time.",
+      "tags": [
+        "level-zero",
+        "machine-assisted-draft"
+      ],
+      "forms": [
+        {
+          "id": "first",
+          "revision": 1,
+          "subjectTargetText": "já",
+          "subjectBaseText": "I",
+          "targetText": "spím",
+          "learnerBaseCueText": "I sleep",
+          "englishAuditText": "I sleep",
+          "usefulness": 92,
+          "complexity": 6
+        },
+        {
+          "id": "second",
+          "revision": 1,
+          "subjectTargetText": "ty",
+          "subjectBaseText": "you",
+          "targetText": "spíš",
+          "learnerBaseCueText": "you sleep",
+          "englishAuditText": "you sleep",
+          "usefulness": 92,
+          "complexity": 6
+        }
+      ],
+      "usefulness": 92,
+      "complexity": 6
+    },
+    {
+      "id": "zero-cz-conj-expand-go",
+      "revision": 1,
+      "targetText": "jít",
+      "learnerBaseText": "go",
+      "englishAuditText": "go",
+      "meaningChoiceBaseText": "go",
+      "difficulty": 0,
+      "family": "Two forms: I and you",
+      "lessonId": "zero-cz-more-first-actions",
+      "teachingNoteBaseText": "Practise only I and you (one person). Listen and match one form at a time. Native review is pending.",
+      "tags": [
+        "level-zero",
+        "first-forms",
+        "machine-assisted-draft"
+      ],
+      "forms": [
+        {
+          "id": "first",
+          "revision": 1,
+          "subjectTargetText": "já",
+          "subjectBaseText": "I",
+          "targetText": "jdu",
+          "learnerBaseCueText": "I go",
+          "englishAuditText": "I go",
+          "usefulness": 92,
+          "complexity": 6
+        },
+        {
+          "id": "second",
+          "revision": 1,
+          "subjectTargetText": "ty",
+          "subjectBaseText": "you",
+          "targetText": "jdeš",
+          "learnerBaseCueText": "you go",
+          "englishAuditText": "you go",
+          "usefulness": 92,
+          "complexity": 6
+        }
+      ],
+      "usefulness": 92,
+      "complexity": 6
+    },
+    {
+      "id": "zero-cz-conj-expand-see",
+      "revision": 1,
+      "targetText": "vidět",
+      "learnerBaseText": "see",
+      "englishAuditText": "see",
+      "meaningChoiceBaseText": "see",
+      "difficulty": 0,
+      "family": "Two forms: I and you",
+      "lessonId": "zero-cz-more-first-actions",
+      "teachingNoteBaseText": "Practise only I and you (one person). Listen and match one form at a time. Native review is pending.",
+      "tags": [
+        "level-zero",
+        "first-forms",
+        "machine-assisted-draft"
+      ],
+      "forms": [
+        {
+          "id": "first",
+          "revision": 1,
+          "subjectTargetText": "já",
+          "subjectBaseText": "I",
+          "targetText": "vidím",
+          "learnerBaseCueText": "I see",
+          "englishAuditText": "I see",
+          "usefulness": 92,
+          "complexity": 6
+        },
+        {
+          "id": "second",
+          "revision": 1,
+          "subjectTargetText": "ty",
+          "subjectBaseText": "you",
+          "targetText": "vidíš",
+          "learnerBaseCueText": "you see",
+          "englishAuditText": "you see",
+          "usefulness": 92,
+          "complexity": 6
+        }
+      ],
+      "usefulness": 92,
+      "complexity": 6
+    },
+    {
+      "id": "zero-cz-conj-expand-sit",
+      "revision": 1,
+      "targetText": "sedět",
+      "learnerBaseText": "sit",
+      "englishAuditText": "sit",
+      "meaningChoiceBaseText": "sit",
+      "difficulty": 0,
+      "family": "Two forms: I and you",
+      "lessonId": "zero-cz-more-first-actions",
+      "teachingNoteBaseText": "Practise only I and you (one person). Listen and match one form at a time. Native review is pending.",
+      "tags": [
+        "level-zero",
+        "first-forms",
+        "machine-assisted-draft"
+      ],
+      "forms": [
+        {
+          "id": "first",
+          "revision": 1,
+          "subjectTargetText": "já",
+          "subjectBaseText": "I",
+          "targetText": "sedím",
+          "learnerBaseCueText": "I sit",
+          "englishAuditText": "I sit",
+          "usefulness": 92,
+          "complexity": 6
+        },
+        {
+          "id": "second",
+          "revision": 1,
+          "subjectTargetText": "ty",
+          "subjectBaseText": "you",
+          "targetText": "sedíš",
+          "learnerBaseCueText": "you sit",
+          "englishAuditText": "you sit",
+          "usefulness": 92,
+          "complexity": 6
+        }
+      ],
+      "usefulness": 92,
+      "complexity": 6
+    },
+    {
+      "id": "zero-cz-conj-expand-write",
+      "revision": 1,
+      "targetText": "psát",
+      "learnerBaseText": "write",
+      "englishAuditText": "write",
+      "meaningChoiceBaseText": "write",
+      "difficulty": 0,
+      "family": "Two forms: I and you",
+      "lessonId": "zero-cz-more-first-actions",
+      "teachingNoteBaseText": "Practise only I and you (one person). Listen and match one form at a time. Native review is pending.",
+      "tags": [
+        "level-zero",
+        "first-forms",
+        "machine-assisted-draft"
+      ],
+      "forms": [
+        {
+          "id": "first",
+          "revision": 1,
+          "subjectTargetText": "já",
+          "subjectBaseText": "I",
+          "targetText": "píšu",
+          "learnerBaseCueText": "I write",
+          "englishAuditText": "I write",
+          "usefulness": 92,
+          "complexity": 6
+        },
+        {
+          "id": "second",
+          "revision": 1,
+          "subjectTargetText": "ty",
+          "subjectBaseText": "you",
+          "targetText": "píšeš",
+          "learnerBaseCueText": "you write",
+          "englishAuditText": "you write",
+          "usefulness": 92,
+          "complexity": 6
+        }
+      ],
+      "usefulness": 92,
+      "complexity": 6
+    },
+    {
+      "id": "zero-cz-conj-expand-hear",
+      "revision": 1,
+      "targetText": "slyšet",
+      "learnerBaseText": "hear",
+      "englishAuditText": "hear",
+      "meaningChoiceBaseText": "hear",
+      "difficulty": 0,
+      "family": "Two forms: I and you",
+      "lessonId": "zero-cz-more-first-actions",
+      "teachingNoteBaseText": "Practise only I and you (one person). Listen and match one form at a time. Native review is pending.",
+      "tags": [
+        "level-zero",
+        "first-forms",
+        "machine-assisted-draft"
+      ],
+      "forms": [
+        {
+          "id": "first",
+          "revision": 1,
+          "subjectTargetText": "já",
+          "subjectBaseText": "I",
+          "targetText": "slyším",
+          "learnerBaseCueText": "I hear",
+          "englishAuditText": "I hear",
+          "usefulness": 92,
+          "complexity": 6
+        },
+        {
+          "id": "second",
+          "revision": 1,
+          "subjectTargetText": "ty",
+          "subjectBaseText": "you",
+          "targetText": "slyšíš",
+          "learnerBaseCueText": "you hear",
+          "englishAuditText": "you hear",
+          "usefulness": 92,
+          "complexity": 6
+        }
+      ],
+      "usefulness": 92,
+      "complexity": 6
+    },
+    {
+      "id": "zero-cz-conj-expand-speak",
+      "revision": 1,
+      "targetText": "mluvit",
+      "learnerBaseText": "speak",
+      "englishAuditText": "speak",
+      "meaningChoiceBaseText": "speak",
+      "difficulty": 0,
+      "family": "Two forms: I and you",
+      "lessonId": "zero-cz-more-first-actions",
+      "teachingNoteBaseText": "Practise only I and you (one person). Listen and match one form at a time. Native review is pending.",
+      "tags": [
+        "level-zero",
+        "first-forms",
+        "machine-assisted-draft"
+      ],
+      "forms": [
+        {
+          "id": "first",
+          "revision": 1,
+          "subjectTargetText": "já",
+          "subjectBaseText": "I",
+          "targetText": "mluvím",
+          "learnerBaseCueText": "I speak",
+          "englishAuditText": "I speak",
+          "usefulness": 92,
+          "complexity": 6
+        },
+        {
+          "id": "second",
+          "revision": 1,
+          "subjectTargetText": "ty",
+          "subjectBaseText": "you",
+          "targetText": "mluvíš",
+          "learnerBaseCueText": "you speak",
+          "englishAuditText": "you speak",
+          "usefulness": 92,
+          "complexity": 6
+        }
+      ],
+      "usefulness": 92,
+      "complexity": 6
     }
   ]
 }

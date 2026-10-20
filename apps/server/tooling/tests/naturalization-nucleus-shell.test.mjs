@@ -6,7 +6,7 @@ import * as contentProgression from "../../../language-runtime/static/source/gam
 import * as adaptivePractice from "../../../language-runtime/static/source/games/adaptive-practice.mjs";
 import { createBrowserHarness } from "../../../language-runtime/tests/helpers/fake-browser.mjs";
 import { mountRobotLoadingScreen } from "../../../language-runtime/static/source/games/embedded-game-controls.mjs";
-import { createReviewContinuation } from "../../../language-runtime/static/source/games/practice-pacing.mjs";
+import { afterInteractionPaint, createReviewContinuation } from "../../../language-runtime/static/source/games/practice-pacing.mjs";
 import { createArabicReadingGuide } from "../../../language-runtime/static/source/arabic-reading-guide.mjs";
 import { projectMandarinNucleusContexts } from "../../../../tools/language-content/project-mandarin-nucleus-contexts.mjs";
 
@@ -175,7 +175,7 @@ function createLoadingHarness({ fetchImpl = async () => ({ ok: true, json: async
   const observers = [];
   const fetchCalls = [];
   const harness = createBrowserHarness({ window: {
-    CaatuuPracticePacing: { createReviewContinuation },
+    CaatuuPracticePacing: { afterInteractionPaint, createReviewContinuation },
     Math,
     performance: { now: () => now },
     setTimeout(callback, delay) {
@@ -1039,7 +1039,74 @@ test("word details follow the playable tiles so feedback cannot push the deck do
   assert.ok(feedback > deck);
 });
 
+for (const action of ["selection", "hide", "reset", "manual playback", "dispose"]) {
+  test(`Nucleus discards deferred match audio after ${action}`, async () => {
+    const fixture = createLoadingHarness();
+    const spoken = [];
+    fixture.window.CaatuuChrome = { speakText: async text => { spoken.push(text); } };
+    await fixture.api.mount();
+    const tiles = () => fixture.element("Deck").querySelectorAll("button[data-naturalization-piece-id]");
+    const tile = tiles()[0], id = tile.dataset.naturalizationPieceId.split("--")[0];
+    tile.click();
+    fixture.element("Ring").querySelector(`[data-naturalization-challenge-id="${id}"]`).click();
+    assert.equal(spoken.length, 0, "assignment renders before optional pronunciation starts");
+    if (action === "selection") tiles()[0].click();
+    else if (action === "hide") { fixture.panel.hidden = true; fixture.syncPanelVisibility(); }
+    else if (action === "reset") fixture.panel.querySelector('[data-naturalization-piece-count="9"]').click();
+    else if (action === "manual playback") fixture.element("FeedbackSound").click();
+    else fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
+    await fixture.advance(0);
+    assert.equal(spoken.length, action === "manual playback" ? 1 : 0,
+      "an obsolete scheduled announcement cannot start or duplicate intentional playback");
+    fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
+  });
+}
+
 for (const pieceCount of [5, 9]) {
+  test(`Nucleus retains controls for rapid ${pieceCount}-tile matches while speech stays pending`, async () => {
+    const fixture = createLoadingHarness();
+    const speech = [];
+    fixture.window.CaatuuChrome = { speakText: text => {
+      speech.push(text);
+      return new Promise(() => {});
+    } };
+    await fixture.api.mount();
+    if (pieceCount !== 5) fixture.panel.querySelector(`[data-naturalization-piece-count="${pieceCount}"]`).click();
+    const deck = fixture.element("Deck"), ring = fixture.element("Ring");
+    const tiles = deck.querySelectorAll("button[data-naturalization-piece-id]");
+    const sockets = tiles.map(tile => ring.querySelector(
+      `[data-naturalization-challenge-id="${tile.dataset.naturalizationPieceId.split("--")[0]}"]`
+    ));
+    const firstId = tiles[0].dataset.naturalizationPieceId.split("--")[0];
+    let firstMatch;
+    for (let index = 0; index < tiles.length; index += 1) {
+      const tile = tiles[index], socket = sockets[index];
+      assert.equal(tile.isConnected, true, "unmatched tiles survive earlier assignments");
+      assert.equal(socket.isConnected, true, "unmatched sockets survive earlier selections");
+      if (index % 2) {
+        socket.click();
+        assert.equal(socket.getAttribute("aria-pressed"), "true");
+        assert.equal(socket.isConnected, true, "socket selection preserves the active control");
+        tile.click();
+      } else {
+        tile.click();
+        assert.equal(tile.getAttribute("aria-pressed"), "true");
+        assert.equal(tile.isConnected, true, "tile selection preserves the active control");
+        socket.click();
+      }
+      assert.equal(deck.querySelectorAll("button[data-naturalization-piece-id]").length, pieceCount - index - 1,
+        "each valid placement is visible in its click handler without advancing a clock");
+      const firstReview = ring.querySelector(`[data-naturalization-review-id="${firstId}"]`);
+      firstMatch ??= firstReview;
+      assert.equal(firstReview, firstMatch, "completed matches are not reconstructed for later taps");
+      assert.equal(speech.length, index, "visual placement precedes optional audio work");
+      await fixture.advance(0);
+    }
+    assert.equal(fixture.element("Continue").hidden, false);
+    assert.equal(speech.length, pieceCount, "pending speech never locks further matching");
+    fixture.window.dispatchEvent({ type: "pagehide", persisted: false });
+  });
+
   test(`a completed ${pieceCount}-tile board replaces the card area with Continue until the learner advances`, async () => {
     const fixture = createLoadingHarness();
     await fixture.api.mount();
@@ -1364,6 +1431,7 @@ test("context is revealed only by a match and its playback remains separate from
   assert.equal(example.textContent, challenge.context.text);
   assert.equal(feedback.querySelector(".naturalization-nucleus-context-notation").textContent, challenge.context.notation);
   assert.equal(feedback.querySelector(".naturalization-nucleus-context-meaning").textContent, challenge.context.meaning);
+  await fixture.advance(0);
   assert.equal(spoken.at(-1), challenge.hanzi, "automatic match pronunciation retains the isolated cue");
   play.click();
   await settle();

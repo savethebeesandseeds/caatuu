@@ -28664,6 +28664,3824 @@
       "annotations": {},
       "usefulness": 92,
       "complexity": 17
+    },
+    {
+      "id": "ww-zero-cat",
+      "difficulty": 0,
+      "topic": "objects",
+      "englishText": "cat",
+      "embeddingText": "First words: cat",
+      "englishAlternates": [],
+      "targetText": "gato",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "gato",
+          "pronunciation": null,
+          "gloss": "cat",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "cat",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.objects",
+          "order": 1,
+          "title": "Things around you",
+          "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "objects"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-dog",
+      "difficulty": 0,
+      "topic": "objects",
+      "englishText": "dog",
+      "embeddingText": "First words: dog",
+      "englishAlternates": [],
+      "targetText": "perro",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "perro",
+          "pronunciation": null,
+          "gloss": "dog",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "dog",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.objects",
+          "order": 2,
+          "title": "Things around you",
+          "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "objects"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-water",
+      "difficulty": 0,
+      "topic": "objects",
+      "englishText": "water",
+      "embeddingText": "First words: water",
+      "englishAlternates": [],
+      "targetText": "agua",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "agua",
+          "pronunciation": null,
+          "gloss": "water",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "water",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.objects",
+          "order": 3,
+          "title": "Things around you",
+          "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "objects"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-bread",
+      "difficulty": 0,
+      "topic": "objects",
+      "englishText": "bread",
+      "embeddingText": "First words: bread",
+      "englishAlternates": [],
+      "targetText": "pan",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "pan",
+          "pronunciation": null,
+          "gloss": "bread",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "bread",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.objects",
+          "order": 4,
+          "title": "Things around you",
+          "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "objects"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-milk",
+      "difficulty": 0,
+      "topic": "objects",
+      "englishText": "milk",
+      "embeddingText": "First words: milk",
+      "englishAlternates": [],
+      "targetText": "leche",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "leche",
+          "pronunciation": null,
+          "gloss": "milk",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "milk",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.objects",
+          "order": 5,
+          "title": "Things around you",
+          "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "objects"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-apple",
+      "difficulty": 0,
+      "topic": "objects",
+      "englishText": "apple",
+      "embeddingText": "First words: apple",
+      "englishAlternates": [],
+      "targetText": "manzana",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "manzana",
+          "pronunciation": null,
+          "gloss": "apple",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "apple",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.objects",
+          "order": 6,
+          "title": "Things around you",
+          "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "objects"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-rice",
+      "difficulty": 0,
+      "topic": "objects",
+      "englishText": "rice",
+      "embeddingText": "First words: rice",
+      "englishAlternates": [],
+      "targetText": "arroz",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "arroz",
+          "pronunciation": null,
+          "gloss": "rice",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "rice",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.objects",
+          "order": 7,
+          "title": "Things around you",
+          "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "objects"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-tea",
+      "difficulty": 0,
+      "topic": "objects",
+      "englishText": "tea",
+      "embeddingText": "First words: tea",
+      "englishAlternates": [],
+      "targetText": "té",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "té",
+          "pronunciation": null,
+          "gloss": "tea",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "tea",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.objects",
+          "order": 8,
+          "title": "Things around you",
+          "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "objects"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-book",
+      "difficulty": 0,
+      "topic": "objects",
+      "englishText": "book",
+      "embeddingText": "First words: book",
+      "englishAlternates": [],
+      "targetText": "libro",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "libro",
+          "pronunciation": null,
+          "gloss": "book",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "book",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.objects",
+          "order": 9,
+          "title": "Things around you",
+          "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "objects"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-pen",
+      "difficulty": 0,
+      "topic": "objects",
+      "englishText": "pen",
+      "embeddingText": "First words: pen",
+      "englishAlternates": [],
+      "targetText": "bolígrafo",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "bolígrafo",
+          "pronunciation": null,
+          "gloss": "pen",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "pen",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.objects",
+          "order": 10,
+          "title": "Things around you",
+          "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "objects"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-house",
+      "difficulty": 0,
+      "topic": "objects",
+      "englishText": "house",
+      "embeddingText": "First words: house",
+      "englishAlternates": [],
+      "targetText": "casa",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "casa",
+          "pronunciation": null,
+          "gloss": "house",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "house",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.objects",
+          "order": 11,
+          "title": "Things around you",
+          "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "objects"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-door",
+      "difficulty": 0,
+      "topic": "objects",
+      "englishText": "door",
+      "embeddingText": "First words: door",
+      "englishAlternates": [],
+      "targetText": "puerta",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "puerta",
+          "pronunciation": null,
+          "gloss": "door",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "door",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.objects",
+          "order": 12,
+          "title": "Things around you",
+          "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "objects"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-table",
+      "difficulty": 0,
+      "topic": "objects",
+      "englishText": "table",
+      "embeddingText": "First words: table",
+      "englishAlternates": [],
+      "targetText": "mesa",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "mesa",
+          "pronunciation": null,
+          "gloss": "table",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "table",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.objects",
+          "order": 13,
+          "title": "Things around you",
+          "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "objects"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-chair",
+      "difficulty": 0,
+      "topic": "objects",
+      "englishText": "chair",
+      "embeddingText": "First words: chair",
+      "englishAlternates": [],
+      "targetText": "silla",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "silla",
+          "pronunciation": null,
+          "gloss": "chair",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "chair",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.objects",
+          "order": 14,
+          "title": "Things around you",
+          "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "objects"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-bed",
+      "difficulty": 0,
+      "topic": "objects",
+      "englishText": "bed",
+      "embeddingText": "First words: bed",
+      "englishAlternates": [],
+      "targetText": "cama",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "cama",
+          "pronunciation": null,
+          "gloss": "bed",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "bed",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.objects",
+          "order": 15,
+          "title": "Things around you",
+          "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "objects"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-bag",
+      "difficulty": 0,
+      "topic": "objects",
+      "englishText": "bag",
+      "embeddingText": "First words: bag",
+      "englishAlternates": [],
+      "targetText": "bolsa",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "bolsa",
+          "pronunciation": null,
+          "gloss": "bag",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "bag",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.objects",
+          "order": 16,
+          "title": "Things around you",
+          "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "objects"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-ball",
+      "difficulty": 0,
+      "topic": "objects",
+      "englishText": "ball",
+      "embeddingText": "First words: ball",
+      "englishAlternates": [],
+      "targetText": "pelota",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "pelota",
+          "pronunciation": null,
+          "gloss": "ball",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "ball",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.objects",
+          "order": 17,
+          "title": "Things around you",
+          "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "objects"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-sun",
+      "difficulty": 0,
+      "topic": "objects",
+      "englishText": "sun",
+      "embeddingText": "First words: sun",
+      "englishAlternates": [],
+      "targetText": "sol",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "sol",
+          "pronunciation": null,
+          "gloss": "sun",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "sun",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.objects",
+          "order": 18,
+          "title": "Things around you",
+          "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "objects"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-hand",
+      "difficulty": 0,
+      "topic": "objects",
+      "englishText": "hand",
+      "embeddingText": "First words: hand",
+      "englishAlternates": [],
+      "targetText": "mano",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "mano",
+          "pronunciation": null,
+          "gloss": "hand",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "hand",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.objects",
+          "order": 19,
+          "title": "Things around you",
+          "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "objects"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-eye",
+      "difficulty": 0,
+      "topic": "objects",
+      "englishText": "eye",
+      "embeddingText": "First words: eye",
+      "englishAlternates": [],
+      "targetText": "ojo",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ojo",
+          "pronunciation": null,
+          "gloss": "eye",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "eye",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.objects",
+          "order": 20,
+          "title": "Things around you",
+          "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "objects"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-eat",
+      "difficulty": 0,
+      "topic": "actions",
+      "englishText": "eat",
+      "embeddingText": "First words: eat",
+      "englishAlternates": [],
+      "targetText": "comer",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "comer",
+          "pronunciation": null,
+          "gloss": "eat",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "eat",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.actions",
+          "order": 21,
+          "title": "Tiny actions",
+          "explanation": "Meet a useful action in its dictionary form. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "actions"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-drink",
+      "difficulty": 0,
+      "topic": "actions",
+      "englishText": "drink",
+      "embeddingText": "First words: drink",
+      "englishAlternates": [],
+      "targetText": "beber",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "beber",
+          "pronunciation": null,
+          "gloss": "drink",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "drink",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.actions",
+          "order": 22,
+          "title": "Tiny actions",
+          "explanation": "Meet a useful action in its dictionary form. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "actions"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-go",
+      "difficulty": 0,
+      "topic": "actions",
+      "englishText": "go",
+      "embeddingText": "First words: go",
+      "englishAlternates": [],
+      "targetText": "ir",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ir",
+          "pronunciation": null,
+          "gloss": "go",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "go",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.actions",
+          "order": 23,
+          "title": "Tiny actions",
+          "explanation": "Meet a useful action in its dictionary form. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "actions"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-see",
+      "difficulty": 0,
+      "topic": "actions",
+      "englishText": "see",
+      "embeddingText": "First words: see",
+      "englishAlternates": [],
+      "targetText": "ver",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ver",
+          "pronunciation": null,
+          "gloss": "see",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "see",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.actions",
+          "order": 24,
+          "title": "Tiny actions",
+          "explanation": "Meet a useful action in its dictionary form. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "actions"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-want",
+      "difficulty": 0,
+      "topic": "actions",
+      "englishText": "want",
+      "embeddingText": "First words: want",
+      "englishAlternates": [],
+      "targetText": "querer",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "querer",
+          "pronunciation": null,
+          "gloss": "want",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "want",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.actions",
+          "order": 25,
+          "title": "Tiny actions",
+          "explanation": "Meet a useful action in its dictionary form. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "actions"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-have",
+      "difficulty": 0,
+      "topic": "actions",
+      "englishText": "have",
+      "embeddingText": "First words: have",
+      "englishAlternates": [],
+      "targetText": "tener",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "tener",
+          "pronunciation": null,
+          "gloss": "have",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "have",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.actions",
+          "order": 26,
+          "title": "Tiny actions",
+          "explanation": "Meet a useful action in its dictionary form. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "actions"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-like",
+      "difficulty": 0,
+      "topic": "actions",
+      "englishText": "like",
+      "embeddingText": "First words: like",
+      "englishAlternates": [],
+      "targetText": "gustar",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "gustar",
+          "pronunciation": null,
+          "gloss": "like",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "like",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.actions",
+          "order": 27,
+          "title": "Tiny actions",
+          "explanation": "Meet a useful action in its dictionary form. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "actions"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-sleep",
+      "difficulty": 0,
+      "topic": "actions",
+      "englishText": "sleep",
+      "embeddingText": "First words: sleep",
+      "englishAlternates": [],
+      "targetText": "dormir",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "dormir",
+          "pronunciation": null,
+          "gloss": "sleep",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "sleep",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.actions",
+          "order": 28,
+          "title": "Tiny actions",
+          "explanation": "Meet a useful action in its dictionary form. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "actions"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-sit",
+      "difficulty": 0,
+      "topic": "actions",
+      "englishText": "sit",
+      "embeddingText": "First words: sit",
+      "englishAlternates": [],
+      "targetText": "sentarse",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "sentarse",
+          "pronunciation": null,
+          "gloss": "sit",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "sit",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.actions",
+          "order": 29,
+          "title": "Tiny actions",
+          "explanation": "Meet a useful action in its dictionary form. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "actions"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-read",
+      "difficulty": 0,
+      "topic": "actions",
+      "englishText": "read",
+      "embeddingText": "First words: read",
+      "englishAlternates": [],
+      "targetText": "leer",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "leer",
+          "pronunciation": null,
+          "gloss": "read",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "read",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.actions",
+          "order": 30,
+          "title": "Tiny actions",
+          "explanation": "Meet a useful action in its dictionary form. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "actions"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-write",
+      "difficulty": 0,
+      "topic": "actions",
+      "englishText": "write",
+      "embeddingText": "First words: write",
+      "englishAlternates": [],
+      "targetText": "escribir",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "escribir",
+          "pronunciation": null,
+          "gloss": "write",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "write",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.actions",
+          "order": 31,
+          "title": "Tiny actions",
+          "explanation": "Meet a useful action in its dictionary form. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "actions"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-hear",
+      "difficulty": 0,
+      "topic": "actions",
+      "englishText": "hear",
+      "embeddingText": "First words: hear",
+      "englishAlternates": [],
+      "targetText": "oír",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "oír",
+          "pronunciation": null,
+          "gloss": "hear",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "hear",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.actions",
+          "order": 32,
+          "title": "Tiny actions",
+          "explanation": "Meet a useful action in its dictionary form. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "actions"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-i",
+      "difficulty": 0,
+      "topic": "people",
+      "englishText": "I",
+      "embeddingText": "First words: I",
+      "englishAlternates": [],
+      "targetText": "yo",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "yo",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.people",
+          "order": 33,
+          "title": "I, you and we",
+          "explanation": "Meet the three people words used in these tiny patterns. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "people"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-you",
+      "difficulty": 0,
+      "topic": "people",
+      "englishText": "you",
+      "embeddingText": "First words: you",
+      "englishAlternates": [],
+      "targetText": "tú",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "tú",
+          "pronunciation": null,
+          "gloss": "you",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "you",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.people",
+          "order": 34,
+          "title": "I, you and we",
+          "explanation": "Meet the three people words used in these tiny patterns. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "people"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-we",
+      "difficulty": 0,
+      "topic": "people",
+      "englishText": "we",
+      "embeddingText": "First words: we",
+      "englishAlternates": [],
+      "targetText": "nosotros",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "nosotros",
+          "pronunciation": null,
+          "gloss": "we",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "we",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.people",
+          "order": 35,
+          "title": "I, you and we",
+          "explanation": "Meet the three people words used in these tiny patterns. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "people"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-hello",
+      "difficulty": 0,
+      "topic": "first-contact",
+      "englishText": "Hello!",
+      "embeddingText": "First words: Hello!",
+      "englishAlternates": [],
+      "targetText": "¡Hola!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Hola",
+          "pronunciation": null,
+          "gloss": "Hello",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Hello",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.first-contact",
+          "order": 36,
+          "title": "First contact",
+          "explanation": "Practise one greeting or reply at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "first-contact"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 1
+    },
+    {
+      "id": "ww-zero-goodbye",
+      "difficulty": 0,
+      "topic": "first-contact",
+      "englishText": "Goodbye!",
+      "embeddingText": "First words: Goodbye!",
+      "englishAlternates": [],
+      "targetText": "¡Adiós!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Adiós",
+          "pronunciation": null,
+          "gloss": "Goodbye",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Goodbye",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.first-contact",
+          "order": 37,
+          "title": "First contact",
+          "explanation": "Practise one greeting or reply at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "first-contact"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 1
+    },
+    {
+      "id": "ww-zero-yes",
+      "difficulty": 0,
+      "topic": "first-contact",
+      "englishText": "Yes.",
+      "embeddingText": "First words: Yes.",
+      "englishAlternates": [],
+      "targetText": "Sí.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Sí",
+          "pronunciation": null,
+          "gloss": "Yes",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Yes",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.first-contact",
+          "order": 38,
+          "title": "First contact",
+          "explanation": "Practise one greeting or reply at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "first-contact"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 1
+    },
+    {
+      "id": "ww-zero-no",
+      "difficulty": 0,
+      "topic": "first-contact",
+      "englishText": "No.",
+      "embeddingText": "First words: No.",
+      "englishAlternates": [],
+      "targetText": "No.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "No",
+          "pronunciation": null,
+          "gloss": "No",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "No",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.first-contact",
+          "order": 39,
+          "title": "First contact",
+          "explanation": "Practise one greeting or reply at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "first-contact"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 1
+    },
+    {
+      "id": "ww-zero-please",
+      "difficulty": 0,
+      "topic": "first-contact",
+      "englishText": "Please.",
+      "embeddingText": "First words: Please.",
+      "englishAlternates": [],
+      "targetText": "Por favor.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Por",
+          "pronunciation": null,
+          "gloss": "in the please expression",
+          "playable": true
+        },
+        {
+          "surface": "favor",
+          "pronunciation": null,
+          "gloss": "please",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Please",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.first-contact",
+          "order": 40,
+          "title": "First contact",
+          "explanation": "Practise one greeting or reply at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "first-contact"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 1
+    },
+    {
+      "id": "ww-zero-thanks",
+      "difficulty": 0,
+      "topic": "first-contact",
+      "englishText": "Thank you.",
+      "embeddingText": "First words: Thank you.",
+      "englishAlternates": [],
+      "targetText": "Gracias.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Gracias",
+          "pronunciation": null,
+          "gloss": "Thank you",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Thank you",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.first-contact",
+          "order": 41,
+          "title": "First contact",
+          "explanation": "Practise one greeting or reply at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "first-contact"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 1
+    },
+    {
+      "id": "ww-zero-one",
+      "difficulty": 0,
+      "topic": "numbers",
+      "englishText": "one",
+      "embeddingText": "First words: one",
+      "englishAlternates": [],
+      "targetText": "uno",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "uno",
+          "pronunciation": null,
+          "gloss": "one",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "one",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.numbers",
+          "order": 42,
+          "title": "One to five",
+          "explanation": "Recognize one number at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "numbers"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 4
+    },
+    {
+      "id": "ww-zero-two",
+      "difficulty": 0,
+      "topic": "numbers",
+      "englishText": "two",
+      "embeddingText": "First words: two",
+      "englishAlternates": [],
+      "targetText": "dos",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "dos",
+          "pronunciation": null,
+          "gloss": "two",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "two",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.numbers",
+          "order": 43,
+          "title": "One to five",
+          "explanation": "Recognize one number at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "numbers"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 4
+    },
+    {
+      "id": "ww-zero-three",
+      "difficulty": 0,
+      "topic": "numbers",
+      "englishText": "three",
+      "embeddingText": "First words: three",
+      "englishAlternates": [],
+      "targetText": "tres",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "tres",
+          "pronunciation": null,
+          "gloss": "three",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "three",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.numbers",
+          "order": 44,
+          "title": "One to five",
+          "explanation": "Recognize one number at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "numbers"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 4
+    },
+    {
+      "id": "ww-zero-four",
+      "difficulty": 0,
+      "topic": "numbers",
+      "englishText": "four",
+      "embeddingText": "First words: four",
+      "englishAlternates": [],
+      "targetText": "cuatro",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "cuatro",
+          "pronunciation": null,
+          "gloss": "four",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "four",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.numbers",
+          "order": 45,
+          "title": "One to five",
+          "explanation": "Recognize one number at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "numbers"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 4
+    },
+    {
+      "id": "ww-zero-five",
+      "difficulty": 0,
+      "topic": "numbers",
+      "englishText": "five",
+      "embeddingText": "First words: five",
+      "englishAlternates": [],
+      "targetText": "cinco",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "cinco",
+          "pronunciation": null,
+          "gloss": "five",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "five",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.numbers",
+          "order": 46,
+          "title": "One to five",
+          "explanation": "Recognize one number at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "numbers"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 4
+    },
+    {
+      "id": "ww-zero-big",
+      "difficulty": 0,
+      "topic": "describing",
+      "englishText": "big",
+      "embeddingText": "First words: big",
+      "englishAlternates": [],
+      "targetText": "grande",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "grande",
+          "pronunciation": null,
+          "gloss": "big",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "big",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.describing",
+          "order": 47,
+          "title": "Big, small and color",
+          "explanation": "Meet one descriptive word at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "describing"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 4
+    },
+    {
+      "id": "ww-zero-small",
+      "difficulty": 0,
+      "topic": "describing",
+      "englishText": "small",
+      "embeddingText": "First words: small",
+      "englishAlternates": [],
+      "targetText": "pequeño",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "pequeño",
+          "pronunciation": null,
+          "gloss": "small",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "small",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.describing",
+          "order": 48,
+          "title": "Big, small and color",
+          "explanation": "Meet one descriptive word at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "describing"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 4
+    },
+    {
+      "id": "ww-zero-red",
+      "difficulty": 0,
+      "topic": "describing",
+      "englishText": "red",
+      "embeddingText": "First words: red",
+      "englishAlternates": [],
+      "targetText": "rojo",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "rojo",
+          "pronunciation": null,
+          "gloss": "red",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "red",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.describing",
+          "order": 49,
+          "title": "Big, small and color",
+          "explanation": "Meet one descriptive word at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "describing"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 4
+    },
+    {
+      "id": "ww-zero-green",
+      "difficulty": 0,
+      "topic": "describing",
+      "englishText": "green",
+      "embeddingText": "First words: green",
+      "englishAlternates": [],
+      "targetText": "verde",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "verde",
+          "pronunciation": null,
+          "gloss": "green",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "green",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.describing",
+          "order": 50,
+          "title": "Big, small and color",
+          "explanation": "Meet one descriptive word at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "describing"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 4
+    },
+    {
+      "id": "ww-zero-this-cat",
+      "difficulty": 0,
+      "topic": "identify",
+      "englishText": "This is a cat.",
+      "embeddingText": "First words: This is a cat.",
+      "englishAlternates": [],
+      "targetText": "Esto es un gato.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Esto",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "gato",
+          "pronunciation": null,
+          "gloss": "cat",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is a cat",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.identify",
+          "order": 51,
+          "title": "This is…",
+          "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "identify"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-dog",
+      "difficulty": 0,
+      "topic": "identify",
+      "englishText": "This is a dog.",
+      "embeddingText": "First words: This is a dog.",
+      "englishAlternates": [],
+      "targetText": "Esto es un perro.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Esto",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "perro",
+          "pronunciation": null,
+          "gloss": "dog",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is a dog",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.identify",
+          "order": 52,
+          "title": "This is…",
+          "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "identify"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-water",
+      "difficulty": 0,
+      "topic": "identify",
+      "englishText": "This is water.",
+      "embeddingText": "First words: This is water.",
+      "englishAlternates": [],
+      "targetText": "Esto es agua.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Esto",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "agua",
+          "pronunciation": null,
+          "gloss": "water",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is water",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.identify",
+          "order": 53,
+          "title": "This is…",
+          "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "identify"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-bread",
+      "difficulty": 0,
+      "topic": "identify",
+      "englishText": "This is bread.",
+      "embeddingText": "First words: This is bread.",
+      "englishAlternates": [],
+      "targetText": "Esto es pan.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Esto",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "pan",
+          "pronunciation": null,
+          "gloss": "bread",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is bread",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.identify",
+          "order": 54,
+          "title": "This is…",
+          "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "identify"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-milk",
+      "difficulty": 0,
+      "topic": "identify",
+      "englishText": "This is milk.",
+      "embeddingText": "First words: This is milk.",
+      "englishAlternates": [],
+      "targetText": "Esto es leche.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Esto",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "leche",
+          "pronunciation": null,
+          "gloss": "milk",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is milk",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.identify",
+          "order": 55,
+          "title": "This is…",
+          "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "identify"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-apple",
+      "difficulty": 0,
+      "topic": "identify",
+      "englishText": "This is an apple.",
+      "embeddingText": "First words: This is an apple.",
+      "englishAlternates": [],
+      "targetText": "Esto es una manzana.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Esto",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "una",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "manzana",
+          "pronunciation": null,
+          "gloss": "apple",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is an apple",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.identify",
+          "order": 56,
+          "title": "This is…",
+          "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "identify"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-rice",
+      "difficulty": 0,
+      "topic": "identify",
+      "englishText": "This is rice.",
+      "embeddingText": "First words: This is rice.",
+      "englishAlternates": [],
+      "targetText": "Esto es arroz.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Esto",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "arroz",
+          "pronunciation": null,
+          "gloss": "rice",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is rice",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.identify",
+          "order": 57,
+          "title": "This is…",
+          "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "identify"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-tea",
+      "difficulty": 0,
+      "topic": "identify",
+      "englishText": "This is tea.",
+      "embeddingText": "First words: This is tea.",
+      "englishAlternates": [],
+      "targetText": "Esto es té.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Esto",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "té",
+          "pronunciation": null,
+          "gloss": "tea",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is tea",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.identify",
+          "order": 58,
+          "title": "This is…",
+          "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "identify"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-book",
+      "difficulty": 0,
+      "topic": "identify",
+      "englishText": "This is a book.",
+      "embeddingText": "First words: This is a book.",
+      "englishAlternates": [],
+      "targetText": "Esto es un libro.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Esto",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "libro",
+          "pronunciation": null,
+          "gloss": "book",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is a book",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.identify",
+          "order": 59,
+          "title": "This is…",
+          "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "identify"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-pen",
+      "difficulty": 0,
+      "topic": "identify",
+      "englishText": "This is a pen.",
+      "embeddingText": "First words: This is a pen.",
+      "englishAlternates": [],
+      "targetText": "Esto es un bolígrafo.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Esto",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "bolígrafo",
+          "pronunciation": null,
+          "gloss": "pen",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is a pen",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.identify",
+          "order": 60,
+          "title": "This is…",
+          "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "identify"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-house",
+      "difficulty": 0,
+      "topic": "identify",
+      "englishText": "This is a house.",
+      "embeddingText": "First words: This is a house.",
+      "englishAlternates": [],
+      "targetText": "Esto es una casa.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Esto",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "una",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "casa",
+          "pronunciation": null,
+          "gloss": "house",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is a house",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.identify",
+          "order": 61,
+          "title": "This is…",
+          "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "identify"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-door",
+      "difficulty": 0,
+      "topic": "identify",
+      "englishText": "This is a door.",
+      "embeddingText": "First words: This is a door.",
+      "englishAlternates": [],
+      "targetText": "Esto es una puerta.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Esto",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "una",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "puerta",
+          "pronunciation": null,
+          "gloss": "door",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is a door",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.identify",
+          "order": 62,
+          "title": "This is…",
+          "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "identify"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-table",
+      "difficulty": 0,
+      "topic": "identify",
+      "englishText": "This is a table.",
+      "embeddingText": "First words: This is a table.",
+      "englishAlternates": [],
+      "targetText": "Esto es una mesa.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Esto",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "una",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "mesa",
+          "pronunciation": null,
+          "gloss": "table",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is a table",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.identify",
+          "order": 63,
+          "title": "This is…",
+          "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "identify"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-chair",
+      "difficulty": 0,
+      "topic": "identify",
+      "englishText": "This is a chair.",
+      "embeddingText": "First words: This is a chair.",
+      "englishAlternates": [],
+      "targetText": "Esto es una silla.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Esto",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "una",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "silla",
+          "pronunciation": null,
+          "gloss": "chair",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is a chair",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.identify",
+          "order": 64,
+          "title": "This is…",
+          "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "identify"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-bed",
+      "difficulty": 0,
+      "topic": "identify",
+      "englishText": "This is a bed.",
+      "embeddingText": "First words: This is a bed.",
+      "englishAlternates": [],
+      "targetText": "Esto es una cama.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Esto",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "una",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "cama",
+          "pronunciation": null,
+          "gloss": "bed",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is a bed",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.identify",
+          "order": 65,
+          "title": "This is…",
+          "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "identify"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-bag",
+      "difficulty": 0,
+      "topic": "identify",
+      "englishText": "This is a bag.",
+      "embeddingText": "First words: This is a bag.",
+      "englishAlternates": [],
+      "targetText": "Esto es una bolsa.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Esto",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "una",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "bolsa",
+          "pronunciation": null,
+          "gloss": "bag",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is a bag",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.identify",
+          "order": 66,
+          "title": "This is…",
+          "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "identify"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-ball",
+      "difficulty": 0,
+      "topic": "identify",
+      "englishText": "This is a ball.",
+      "embeddingText": "First words: This is a ball.",
+      "englishAlternates": [],
+      "targetText": "Esto es una pelota.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Esto",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "una",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "pelota",
+          "pronunciation": null,
+          "gloss": "ball",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is a ball",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.identify",
+          "order": 67,
+          "title": "This is…",
+          "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "identify"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-sun",
+      "difficulty": 0,
+      "topic": "identify",
+      "englishText": "This is the sun.",
+      "embeddingText": "First words: This is the sun.",
+      "englishAlternates": [],
+      "targetText": "Esto es el sol.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Esto",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "el",
+          "pronunciation": null,
+          "gloss": "the",
+          "playable": true
+        },
+        {
+          "surface": "sol",
+          "pronunciation": null,
+          "gloss": "sun",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is the sun",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.identify",
+          "order": 68,
+          "title": "This is…",
+          "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "identify"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-hand",
+      "difficulty": 0,
+      "topic": "identify",
+      "englishText": "This is a hand.",
+      "embeddingText": "First words: This is a hand.",
+      "englishAlternates": [],
+      "targetText": "Esto es una mano.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Esto",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "una",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "mano",
+          "pronunciation": null,
+          "gloss": "hand",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is a hand",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.identify",
+          "order": 69,
+          "title": "This is…",
+          "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "identify"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-eye",
+      "difficulty": 0,
+      "topic": "identify",
+      "englishText": "This is an eye.",
+      "embeddingText": "First words: This is an eye.",
+      "englishAlternates": [],
+      "targetText": "Esto es un ojo.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Esto",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "ojo",
+          "pronunciation": null,
+          "gloss": "eye",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is an eye",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.identify",
+          "order": 70,
+          "title": "This is…",
+          "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "identify"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-want-water",
+      "difficulty": 0,
+      "topic": "request",
+      "englishText": "I want water.",
+      "embeddingText": "First words: I want water.",
+      "englishAlternates": [],
+      "targetText": "Quiero agua.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Quiero",
+          "pronunciation": null,
+          "gloss": "I want",
+          "playable": true
+        },
+        {
+          "surface": "agua",
+          "pronunciation": null,
+          "gloss": "water",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I want water",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.request",
+          "order": 71,
+          "title": "I want…",
+          "explanation": "Reuse I want with one familiar thing. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "request"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 9
+    },
+    {
+      "id": "ww-zero-want-bread",
+      "difficulty": 0,
+      "topic": "request",
+      "englishText": "I want bread.",
+      "embeddingText": "First words: I want bread.",
+      "englishAlternates": [],
+      "targetText": "Quiero pan.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Quiero",
+          "pronunciation": null,
+          "gloss": "I want",
+          "playable": true
+        },
+        {
+          "surface": "pan",
+          "pronunciation": null,
+          "gloss": "bread",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I want bread",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.request",
+          "order": 72,
+          "title": "I want…",
+          "explanation": "Reuse I want with one familiar thing. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "request"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 9
+    },
+    {
+      "id": "ww-zero-want-milk",
+      "difficulty": 0,
+      "topic": "request",
+      "englishText": "I want milk.",
+      "embeddingText": "First words: I want milk.",
+      "englishAlternates": [],
+      "targetText": "Quiero leche.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Quiero",
+          "pronunciation": null,
+          "gloss": "I want",
+          "playable": true
+        },
+        {
+          "surface": "leche",
+          "pronunciation": null,
+          "gloss": "milk",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I want milk",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.request",
+          "order": 73,
+          "title": "I want…",
+          "explanation": "Reuse I want with one familiar thing. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "request"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 9
+    },
+    {
+      "id": "ww-zero-want-apple",
+      "difficulty": 0,
+      "topic": "request",
+      "englishText": "I want an apple.",
+      "embeddingText": "First words: I want an apple.",
+      "englishAlternates": [],
+      "targetText": "Quiero una manzana.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Quiero",
+          "pronunciation": null,
+          "gloss": "I want",
+          "playable": true
+        },
+        {
+          "surface": "una",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "manzana",
+          "pronunciation": null,
+          "gloss": "apple",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I want an apple",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.request",
+          "order": 74,
+          "title": "I want…",
+          "explanation": "Reuse I want with one familiar thing. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "request"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 9
+    },
+    {
+      "id": "ww-zero-want-rice",
+      "difficulty": 0,
+      "topic": "request",
+      "englishText": "I want rice.",
+      "embeddingText": "First words: I want rice.",
+      "englishAlternates": [],
+      "targetText": "Quiero arroz.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Quiero",
+          "pronunciation": null,
+          "gloss": "I want",
+          "playable": true
+        },
+        {
+          "surface": "arroz",
+          "pronunciation": null,
+          "gloss": "rice",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I want rice",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.request",
+          "order": 75,
+          "title": "I want…",
+          "explanation": "Reuse I want with one familiar thing. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "request"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 9
+    },
+    {
+      "id": "ww-zero-want-tea",
+      "difficulty": 0,
+      "topic": "request",
+      "englishText": "I want tea.",
+      "embeddingText": "First words: I want tea.",
+      "englishAlternates": [],
+      "targetText": "Quiero té.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Quiero",
+          "pronunciation": null,
+          "gloss": "I want",
+          "playable": true
+        },
+        {
+          "surface": "té",
+          "pronunciation": null,
+          "gloss": "tea",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I want tea",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.request",
+          "order": 76,
+          "title": "I want…",
+          "explanation": "Reuse I want with one familiar thing. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "request"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 9
+    },
+    {
+      "id": "ww-zero-want-book",
+      "difficulty": 0,
+      "topic": "request",
+      "englishText": "I want a book.",
+      "embeddingText": "First words: I want a book.",
+      "englishAlternates": [],
+      "targetText": "Quiero un libro.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Quiero",
+          "pronunciation": null,
+          "gloss": "I want",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "libro",
+          "pronunciation": null,
+          "gloss": "book",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I want a book",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.request",
+          "order": 77,
+          "title": "I want…",
+          "explanation": "Reuse I want with one familiar thing. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "request"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 9
+    },
+    {
+      "id": "ww-zero-want-pen",
+      "difficulty": 0,
+      "topic": "request",
+      "englishText": "I want a pen.",
+      "embeddingText": "First words: I want a pen.",
+      "englishAlternates": [],
+      "targetText": "Quiero un bolígrafo.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Quiero",
+          "pronunciation": null,
+          "gloss": "I want",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "bolígrafo",
+          "pronunciation": null,
+          "gloss": "pen",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I want a pen",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.request",
+          "order": 78,
+          "title": "I want…",
+          "explanation": "Reuse I want with one familiar thing. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "request"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 9
+    },
+    {
+      "id": "ww-zero-see-cat",
+      "difficulty": 0,
+      "topic": "notice",
+      "englishText": "I see a cat.",
+      "embeddingText": "First words: I see a cat.",
+      "englishAlternates": [],
+      "targetText": "Veo un gato.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Veo",
+          "pronunciation": null,
+          "gloss": "I see",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "gato",
+          "pronunciation": null,
+          "gloss": "cat",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I see a cat",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.notice",
+          "order": 79,
+          "title": "I see…",
+          "explanation": "Reuse I see with one familiar thing. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "notice"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 10
+    },
+    {
+      "id": "ww-zero-see-dog",
+      "difficulty": 0,
+      "topic": "notice",
+      "englishText": "I see a dog.",
+      "embeddingText": "First words: I see a dog.",
+      "englishAlternates": [],
+      "targetText": "Veo un perro.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Veo",
+          "pronunciation": null,
+          "gloss": "I see",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "perro",
+          "pronunciation": null,
+          "gloss": "dog",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I see a dog",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.notice",
+          "order": 80,
+          "title": "I see…",
+          "explanation": "Reuse I see with one familiar thing. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "notice"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 10
+    },
+    {
+      "id": "ww-zero-see-book",
+      "difficulty": 0,
+      "topic": "notice",
+      "englishText": "I see a book.",
+      "embeddingText": "First words: I see a book.",
+      "englishAlternates": [],
+      "targetText": "Veo un libro.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Veo",
+          "pronunciation": null,
+          "gloss": "I see",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "libro",
+          "pronunciation": null,
+          "gloss": "book",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I see a book",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.notice",
+          "order": 81,
+          "title": "I see…",
+          "explanation": "Reuse I see with one familiar thing. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "notice"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 10
+    },
+    {
+      "id": "ww-zero-see-pen",
+      "difficulty": 0,
+      "topic": "notice",
+      "englishText": "I see a pen.",
+      "embeddingText": "First words: I see a pen.",
+      "englishAlternates": [],
+      "targetText": "Veo un bolígrafo.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Veo",
+          "pronunciation": null,
+          "gloss": "I see",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "bolígrafo",
+          "pronunciation": null,
+          "gloss": "pen",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I see a pen",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.notice",
+          "order": 82,
+          "title": "I see…",
+          "explanation": "Reuse I see with one familiar thing. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "notice"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 10
+    },
+    {
+      "id": "ww-zero-see-house",
+      "difficulty": 0,
+      "topic": "notice",
+      "englishText": "I see a house.",
+      "embeddingText": "First words: I see a house.",
+      "englishAlternates": [],
+      "targetText": "Veo una casa.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Veo",
+          "pronunciation": null,
+          "gloss": "I see",
+          "playable": true
+        },
+        {
+          "surface": "una",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "casa",
+          "pronunciation": null,
+          "gloss": "house",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I see a house",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.notice",
+          "order": 83,
+          "title": "I see…",
+          "explanation": "Reuse I see with one familiar thing. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "notice"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 10
+    },
+    {
+      "id": "ww-zero-see-door",
+      "difficulty": 0,
+      "topic": "notice",
+      "englishText": "I see a door.",
+      "embeddingText": "First words: I see a door.",
+      "englishAlternates": [],
+      "targetText": "Veo una puerta.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Veo",
+          "pronunciation": null,
+          "gloss": "I see",
+          "playable": true
+        },
+        {
+          "surface": "una",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "puerta",
+          "pronunciation": null,
+          "gloss": "door",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I see a door",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.notice",
+          "order": 84,
+          "title": "I see…",
+          "explanation": "Reuse I see with one familiar thing. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "notice"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 10
+    },
+    {
+      "id": "ww-zero-see-table",
+      "difficulty": 0,
+      "topic": "notice",
+      "englishText": "I see a table.",
+      "embeddingText": "First words: I see a table.",
+      "englishAlternates": [],
+      "targetText": "Veo una mesa.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Veo",
+          "pronunciation": null,
+          "gloss": "I see",
+          "playable": true
+        },
+        {
+          "surface": "una",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "mesa",
+          "pronunciation": null,
+          "gloss": "table",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I see a table",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.notice",
+          "order": 85,
+          "title": "I see…",
+          "explanation": "Reuse I see with one familiar thing. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "notice"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 10
+    },
+    {
+      "id": "ww-zero-see-ball",
+      "difficulty": 0,
+      "topic": "notice",
+      "englishText": "I see a ball.",
+      "embeddingText": "First words: I see a ball.",
+      "englishAlternates": [],
+      "targetText": "Veo una pelota.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Veo",
+          "pronunciation": null,
+          "gloss": "I see",
+          "playable": true
+        },
+        {
+          "surface": "una",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "pelota",
+          "pronunciation": null,
+          "gloss": "ball",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I see a ball",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.notice",
+          "order": 86,
+          "title": "I see…",
+          "explanation": "Reuse I see with one familiar thing. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "notice"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 10
+    },
+    {
+      "id": "ww-zero-i-eat",
+      "difficulty": 0,
+      "topic": "doing",
+      "englishText": "I eat.",
+      "embeddingText": "First words: I eat.",
+      "englishAlternates": [],
+      "targetText": "Como.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Como",
+          "pronunciation": null,
+          "gloss": "I eat",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I eat",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.doing",
+          "order": 87,
+          "title": "I do…",
+          "explanation": "Meet one short first-person action at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "doing"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 8
+    },
+    {
+      "id": "ww-zero-i-drink",
+      "difficulty": 0,
+      "topic": "doing",
+      "englishText": "I drink.",
+      "embeddingText": "First words: I drink.",
+      "englishAlternates": [],
+      "targetText": "Bebo.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Bebo",
+          "pronunciation": null,
+          "gloss": "I drink",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I drink",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.doing",
+          "order": 88,
+          "title": "I do…",
+          "explanation": "Meet one short first-person action at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "doing"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 8
+    },
+    {
+      "id": "ww-zero-i-go",
+      "difficulty": 0,
+      "topic": "doing",
+      "englishText": "I go.",
+      "embeddingText": "First words: I go.",
+      "englishAlternates": [],
+      "targetText": "Voy.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Voy",
+          "pronunciation": null,
+          "gloss": "I go",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I go",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.doing",
+          "order": 89,
+          "title": "I do…",
+          "explanation": "Meet one short first-person action at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "doing"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 8
+    },
+    {
+      "id": "ww-zero-i-sit",
+      "difficulty": 0,
+      "topic": "doing",
+      "englishText": "I sit.",
+      "embeddingText": "First words: I sit.",
+      "englishAlternates": [],
+      "targetText": "Me siento.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Me",
+          "pronunciation": null,
+          "gloss": "myself",
+          "playable": true
+        },
+        {
+          "surface": "siento",
+          "pronunciation": null,
+          "gloss": "sit",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I sit",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.doing",
+          "order": 90,
+          "title": "I do…",
+          "explanation": "Meet one short first-person action at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "doing"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 8
+    },
+    {
+      "id": "ww-zero-i-read",
+      "difficulty": 0,
+      "topic": "doing",
+      "englishText": "I read a book.",
+      "embeddingText": "First words: I read a book.",
+      "englishAlternates": [],
+      "targetText": "Leo un libro.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Leo",
+          "pronunciation": null,
+          "gloss": "I read",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "libro",
+          "pronunciation": null,
+          "gloss": "book",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I read a book",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.doing",
+          "order": 91,
+          "title": "I do…",
+          "explanation": "Meet one short first-person action at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "doing"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 8
+    },
+    {
+      "id": "ww-zero-i-write",
+      "difficulty": 0,
+      "topic": "doing",
+      "englishText": "I write.",
+      "embeddingText": "First words: I write.",
+      "englishAlternates": [],
+      "targetText": "Escribo.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Escribo",
+          "pronunciation": null,
+          "gloss": "I write",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I write",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.doing",
+          "order": 92,
+          "title": "I do…",
+          "explanation": "Meet one short first-person action at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "doing"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 8
+    },
+    {
+      "id": "ww-zero-i-sleep",
+      "difficulty": 0,
+      "topic": "doing",
+      "englishText": "I sleep.",
+      "embeddingText": "First words: I sleep.",
+      "englishAlternates": [],
+      "targetText": "Duermo.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Duermo",
+          "pronunciation": null,
+          "gloss": "I sleep",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I sleep",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.doing",
+          "order": 93,
+          "title": "I do…",
+          "explanation": "Meet one short first-person action at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "doing"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 8
+    },
+    {
+      "id": "ww-zero-i-have-pen",
+      "difficulty": 0,
+      "topic": "doing",
+      "englishText": "I have a pen.",
+      "embeddingText": "First words: I have a pen.",
+      "englishAlternates": [],
+      "targetText": "Tengo un bolígrafo.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Tengo",
+          "pronunciation": null,
+          "gloss": "I have",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "bolígrafo",
+          "pronunciation": null,
+          "gloss": "pen",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I have a pen",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es.doing",
+          "order": 94,
+          "title": "I do…",
+          "explanation": "Meet one short first-person action at a time. Machine-assisted draft; native review is pending.",
+          "focus": [
+            "level-zero",
+            "doing"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 8
     }
   ]
 }

@@ -233,6 +233,90 @@ test("mute, cancellation, and invalid input do not validate or invalidate voice 
   assert.equal((await speech.listSpeechVoiceOptions()).playbackStatus, "confirmed");
 });
 
+test("stopping browser speech before its cancellation await settles prevents stale playback", async () => {
+  const browser = browserSpeechContext();
+  vm.runInNewContext(chromeSource, browser.context);
+  const speech = browser.context.CaatuuChrome;
+  const outcomes = [];
+  const pending = speech.speakText("旧问题", { onEnd: result => outcomes.push(result.outcome) });
+  await speech.stopSpeech();
+  assert.equal((await pending).outcome, "stopped");
+  assert.equal(browser.synthesisSpeakCount(), 0, "a retired game's pending prompt must never start");
+  assert.deepEqual(outcomes, ["stopped"]);
+});
+
+test("concurrent browser speech starts only the latest prompt", async () => {
+  const browser = browserSpeechContext();
+  vm.runInNewContext(chromeSource, browser.context);
+  const speech = browser.context.CaatuuChrome;
+  const previous = speech.speakText("旧问题");
+  const next = speech.speakText("新问题");
+  assert.equal((await previous).outcome, "stopped");
+  assert.equal((await next).outcome, "completed");
+  assert.equal(browser.synthesisSpeakCount(), 1);
+  assert.equal(browser.spokenUtterance().text, "新问题");
+});
+
+function deferredNativeSpeech() {
+  const browser = browserSpeechContext();
+  const stops = [];
+  const calls = [];
+  browser.context.CaatuuRuntime = { env: "android", speech: {
+    stop() {
+      return new Promise(resolve => stops.push(resolve));
+    },
+    speak(text, options, callbacks) {
+      return new Promise(resolve => calls.push({ text, options, callbacks, resolve }));
+    }
+  } };
+  vm.runInNewContext(chromeSource, browser.context);
+  return { ...browser, stops, calls, speech: browser.context.CaatuuChrome };
+}
+
+test("external native stop invalidates a prompt still awaiting an earlier stop", async () => {
+  const native = deferredNativeSpeech();
+  const pending = native.speech.speakText("旧问题");
+  const stopped = native.speech.stopSpeech();
+  assert.equal(native.stops.length, 2);
+  native.stops[1]({ stopped: true });
+  await stopped;
+  native.stops[0]({ stopped: true });
+  assert.equal((await pending).outcome, "stopped");
+  assert.equal(native.calls.length, 0, "late stop completion must not restart a retired prompt");
+});
+
+test("native cancellation completion order cannot revive the previous prompt or cancel the latest", async () => {
+  const native = deferredNativeSpeech();
+  const previous = native.speech.speakText("旧问题");
+  const next = native.speech.speakText("新问题");
+  native.stops[1]({ stopped: true });
+  await new Promise(setImmediate);
+  assert.equal(native.calls.length, 1);
+  assert.equal(native.calls[0].text, "新问题");
+  native.stops[0]({ stopped: true });
+  assert.equal((await previous).outcome, "stopped");
+  assert.equal(native.stops.length, 2, "the obsolete request must not issue a late stop against the new prompt");
+  assert.equal(native.calls.length, 1);
+  native.calls[0].resolve({ outcome: "completed" });
+  assert.equal((await next).outcome, "completed");
+});
+
+test("late native speech events after cancellation cannot mark the old prompt as started or confirmed", async () => {
+  const native = deferredNativeSpeech();
+  let starts = 0;
+  const pending = native.speech.speakText("旧问题", { onStart: () => { starts += 1; } });
+  native.stops[0]({ stopped: true });
+  await new Promise(setImmediate);
+  const stopped = native.speech.stopSpeech();
+  native.stops[1]({ stopped: true });
+  await stopped;
+  native.calls[0].callbacks.onEvent({ kind: "speech", phase: "started" });
+  native.calls[0].resolve({ outcome: "completed" });
+  assert.equal((await pending).outcome, "stopped");
+  assert.equal(starts, 0);
+  assert.equal((await native.speech.listSpeechVoiceOptions()).playbackStatus, "unchecked");
+});
+
 test("voice selection changes invalidate evidence and reject a late completion for the old voice", async () => {
   const browser = browserSpeechContext();
   vm.runInNewContext(chromeSource, browser.context);

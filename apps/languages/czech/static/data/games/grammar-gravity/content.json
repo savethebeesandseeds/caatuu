@@ -10866,6 +10866,1406 @@
       },
       "usefulness": 77,
       "complexity": 34
+    },
+    {
+      "id": "zero-cz-grammar-big",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective",
+        "label": "big",
+        "targetText": "velký · velká",
+        "resultTitle": "Two tiny forms",
+        "summary": "One familiar noun and one describing word. Machine-assisted draft; native review pending."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "velký",
+          "examples": [
+            {
+              "id": "zero-cz-grammar-big-masculine-dog",
+              "revision": 1,
+              "learnerBaseText": "big dog",
+              "englishAuditText": "big dog",
+              "targetText": "velký pes",
+              "anchor": {
+                "targetText": "pes",
+                "learnerBaseText": "dog",
+                "englishAuditText": "dog"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " pes"
+              },
+              "usefulness": 92,
+              "complexity": 6
+            },
+            {
+              "id": "zero-cz-grammar-big-masculine-house",
+              "revision": 1,
+              "learnerBaseText": "big house",
+              "englishAuditText": "big house",
+              "targetText": "velký dům",
+              "anchor": {
+                "targetText": "dům",
+                "learnerBaseText": "house",
+                "englishAuditText": "house"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " dům"
+              },
+              "usefulness": 92,
+              "complexity": 6
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 5
+        },
+        "feminine": {
+          "displayForm": "velká",
+          "examples": [
+            {
+              "id": "zero-cz-grammar-big-feminine-cat",
+              "revision": 1,
+              "learnerBaseText": "big cat",
+              "englishAuditText": "big cat",
+              "targetText": "velká kočka",
+              "anchor": {
+                "targetText": "kočka",
+                "learnerBaseText": "cat",
+                "englishAuditText": "cat"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " kočka"
+              },
+              "usefulness": 92,
+              "complexity": 6
+            },
+            {
+              "id": "zero-cz-grammar-big-feminine-bag",
+              "revision": 1,
+              "learnerBaseText": "big bag",
+              "englishAuditText": "big bag",
+              "targetText": "velká taška",
+              "anchor": {
+                "targetText": "taška",
+                "learnerBaseText": "bag",
+                "englishAuditText": "bag"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " taška"
+              },
+              "usefulness": 92,
+              "complexity": 6
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 5
+        }
+      },
+      "axes": [
+        {
+          "id": "masculine",
+          "label": "Masculine",
+          "features": {
+            "gender": "masculine"
+          }
+        },
+        {
+          "id": "feminine",
+          "label": "Feminine",
+          "features": {
+            "gender": "feminine"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "gender",
+        "categoryOptions": [
+          {
+            "id": "masculine",
+            "label": "Masculine",
+            "image": "/assets/micelaneous/male_gender.png"
+          },
+          {
+            "id": "feminine",
+            "label": "Feminine",
+            "image": "/assets/micelaneous/female_gender.png"
+          }
+        ]
+      },
+      "usefulness": 92,
+      "complexity": 6
+    },
+    {
+      "id": "zero-cz-grammar-small",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective",
+        "label": "small",
+        "targetText": "malý · malá",
+        "resultTitle": "Two tiny forms",
+        "summary": "One familiar noun and one describing word. Machine-assisted draft; native review pending."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "malý",
+          "examples": [
+            {
+              "id": "zero-cz-grammar-small-masculine-dog",
+              "revision": 1,
+              "learnerBaseText": "small dog",
+              "englishAuditText": "small dog",
+              "targetText": "malý pes",
+              "anchor": {
+                "targetText": "pes",
+                "learnerBaseText": "dog",
+                "englishAuditText": "dog"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " pes"
+              },
+              "usefulness": 92,
+              "complexity": 6
+            },
+            {
+              "id": "zero-cz-grammar-small-masculine-house",
+              "revision": 1,
+              "learnerBaseText": "small house",
+              "englishAuditText": "small house",
+              "targetText": "malý dům",
+              "anchor": {
+                "targetText": "dům",
+                "learnerBaseText": "house",
+                "englishAuditText": "house"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " dům"
+              },
+              "usefulness": 92,
+              "complexity": 6
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 5
+        },
+        "feminine": {
+          "displayForm": "malá",
+          "examples": [
+            {
+              "id": "zero-cz-grammar-small-feminine-cat",
+              "revision": 1,
+              "learnerBaseText": "small cat",
+              "englishAuditText": "small cat",
+              "targetText": "malá kočka",
+              "anchor": {
+                "targetText": "kočka",
+                "learnerBaseText": "cat",
+                "englishAuditText": "cat"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " kočka"
+              },
+              "usefulness": 92,
+              "complexity": 6
+            },
+            {
+              "id": "zero-cz-grammar-small-feminine-bag",
+              "revision": 1,
+              "learnerBaseText": "small bag",
+              "englishAuditText": "small bag",
+              "targetText": "malá taška",
+              "anchor": {
+                "targetText": "taška",
+                "learnerBaseText": "bag",
+                "englishAuditText": "bag"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " taška"
+              },
+              "usefulness": 92,
+              "complexity": 6
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 5
+        }
+      },
+      "axes": [
+        {
+          "id": "masculine",
+          "label": "Masculine",
+          "features": {
+            "gender": "masculine"
+          }
+        },
+        {
+          "id": "feminine",
+          "label": "Feminine",
+          "features": {
+            "gender": "feminine"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "gender",
+        "categoryOptions": [
+          {
+            "id": "masculine",
+            "label": "Masculine",
+            "image": "/assets/micelaneous/male_gender.png"
+          },
+          {
+            "id": "feminine",
+            "label": "Feminine",
+            "image": "/assets/micelaneous/female_gender.png"
+          }
+        ]
+      },
+      "usefulness": 92,
+      "complexity": 6
+    },
+    {
+      "id": "zero-cz-grammar-red",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective",
+        "label": "red",
+        "targetText": "červený · červená",
+        "resultTitle": "Two tiny forms",
+        "summary": "One familiar noun and one describing word. Machine-assisted draft; native review pending."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "červený",
+          "examples": [
+            {
+              "id": "zero-cz-grammar-red-masculine-ball",
+              "revision": 1,
+              "learnerBaseText": "red ball",
+              "englishAuditText": "red ball",
+              "targetText": "červený míč",
+              "anchor": {
+                "targetText": "míč",
+                "learnerBaseText": "ball",
+                "englishAuditText": "ball"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " míč"
+              },
+              "usefulness": 92,
+              "complexity": 6
+            },
+            {
+              "id": "zero-cz-grammar-red-masculine-house",
+              "revision": 1,
+              "learnerBaseText": "red house",
+              "englishAuditText": "red house",
+              "targetText": "červený dům",
+              "anchor": {
+                "targetText": "dům",
+                "learnerBaseText": "house",
+                "englishAuditText": "house"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " dům"
+              },
+              "usefulness": 92,
+              "complexity": 6
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 5
+        },
+        "feminine": {
+          "displayForm": "červená",
+          "examples": [
+            {
+              "id": "zero-cz-grammar-red-feminine-book",
+              "revision": 1,
+              "learnerBaseText": "red book",
+              "englishAuditText": "red book",
+              "targetText": "červená kniha",
+              "anchor": {
+                "targetText": "kniha",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " kniha"
+              },
+              "usefulness": 92,
+              "complexity": 6
+            },
+            {
+              "id": "zero-cz-grammar-red-feminine-bag",
+              "revision": 1,
+              "learnerBaseText": "red bag",
+              "englishAuditText": "red bag",
+              "targetText": "červená taška",
+              "anchor": {
+                "targetText": "taška",
+                "learnerBaseText": "bag",
+                "englishAuditText": "bag"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " taška"
+              },
+              "usefulness": 92,
+              "complexity": 6
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 5
+        }
+      },
+      "axes": [
+        {
+          "id": "masculine",
+          "label": "Masculine",
+          "features": {
+            "gender": "masculine"
+          }
+        },
+        {
+          "id": "feminine",
+          "label": "Feminine",
+          "features": {
+            "gender": "feminine"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "gender",
+        "categoryOptions": [
+          {
+            "id": "masculine",
+            "label": "Masculine",
+            "image": "/assets/micelaneous/male_gender.png"
+          },
+          {
+            "id": "feminine",
+            "label": "Feminine",
+            "image": "/assets/micelaneous/female_gender.png"
+          }
+        ]
+      },
+      "usefulness": 92,
+      "complexity": 6
+    },
+    {
+      "id": "zero-cz-grammar-green",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective",
+        "label": "green",
+        "targetText": "zelený · zelená",
+        "resultTitle": "Two tiny forms",
+        "summary": "One familiar noun and one describing word. Machine-assisted draft; native review pending."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "zelený",
+          "examples": [
+            {
+              "id": "zero-cz-grammar-green-masculine-ball",
+              "revision": 1,
+              "learnerBaseText": "green ball",
+              "englishAuditText": "green ball",
+              "targetText": "zelený míč",
+              "anchor": {
+                "targetText": "míč",
+                "learnerBaseText": "ball",
+                "englishAuditText": "ball"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " míč"
+              },
+              "usefulness": 92,
+              "complexity": 6
+            },
+            {
+              "id": "zero-cz-grammar-green-masculine-house",
+              "revision": 1,
+              "learnerBaseText": "green house",
+              "englishAuditText": "green house",
+              "targetText": "zelený dům",
+              "anchor": {
+                "targetText": "dům",
+                "learnerBaseText": "house",
+                "englishAuditText": "house"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " dům"
+              },
+              "usefulness": 92,
+              "complexity": 6
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 5
+        },
+        "feminine": {
+          "displayForm": "zelená",
+          "examples": [
+            {
+              "id": "zero-cz-grammar-green-feminine-book",
+              "revision": 1,
+              "learnerBaseText": "green book",
+              "englishAuditText": "green book",
+              "targetText": "zelená kniha",
+              "anchor": {
+                "targetText": "kniha",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " kniha"
+              },
+              "usefulness": 92,
+              "complexity": 6
+            },
+            {
+              "id": "zero-cz-grammar-green-feminine-bag",
+              "revision": 1,
+              "learnerBaseText": "green bag",
+              "englishAuditText": "green bag",
+              "targetText": "zelená taška",
+              "anchor": {
+                "targetText": "taška",
+                "learnerBaseText": "bag",
+                "englishAuditText": "bag"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " taška"
+              },
+              "usefulness": 92,
+              "complexity": 6
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 5
+        }
+      },
+      "axes": [
+        {
+          "id": "masculine",
+          "label": "Masculine",
+          "features": {
+            "gender": "masculine"
+          }
+        },
+        {
+          "id": "feminine",
+          "label": "Feminine",
+          "features": {
+            "gender": "feminine"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "gender",
+        "categoryOptions": [
+          {
+            "id": "masculine",
+            "label": "Masculine",
+            "image": "/assets/micelaneous/male_gender.png"
+          },
+          {
+            "id": "feminine",
+            "label": "Feminine",
+            "image": "/assets/micelaneous/female_gender.png"
+          }
+        ]
+      },
+      "usefulness": 92,
+      "complexity": 6
+    },
+    {
+      "id": "zero-cz-grammar-expand-white",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective",
+        "label": "white",
+        "targetText": "bílý · bílá",
+        "resultTitle": "Two tiny forms",
+        "summary": "One familiar thing and one describing word. Machine-assisted draft; native review is pending."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "bílý",
+          "examples": [
+            {
+              "id": "zero-cz-grammar-expand-white-masculine-1",
+              "revision": 1,
+              "learnerBaseText": "white dog",
+              "englishAuditText": "white dog",
+              "targetText": "bílý pes",
+              "anchor": {
+                "targetText": "pes",
+                "learnerBaseText": "dog",
+                "englishAuditText": "dog"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " pes"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-cz-grammar-expand-white-masculine-2",
+              "revision": 1,
+              "learnerBaseText": "white house",
+              "englishAuditText": "white house",
+              "targetText": "bílý dům",
+              "anchor": {
+                "targetText": "dům",
+                "learnerBaseText": "house",
+                "englishAuditText": "house"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " dům"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-cz-grammar-expand-white-masculine-3",
+              "revision": 1,
+              "learnerBaseText": "white ball",
+              "englishAuditText": "white ball",
+              "targetText": "bílý míč",
+              "anchor": {
+                "targetText": "míč",
+                "learnerBaseText": "ball",
+                "englishAuditText": "ball"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " míč"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-cz-grammar-expand-white-masculine-4",
+              "revision": 1,
+              "learnerBaseText": "white cup",
+              "englishAuditText": "white cup",
+              "targetText": "bílý hrnek",
+              "anchor": {
+                "targetText": "hrnek",
+                "learnerBaseText": "cup",
+                "englishAuditText": "cup"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " hrnek"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 6
+        },
+        "feminine": {
+          "displayForm": "bílá",
+          "examples": [
+            {
+              "id": "zero-cz-grammar-expand-white-feminine-1",
+              "revision": 1,
+              "learnerBaseText": "white cat",
+              "englishAuditText": "white cat",
+              "targetText": "bílá kočka",
+              "anchor": {
+                "targetText": "kočka",
+                "learnerBaseText": "cat",
+                "englishAuditText": "cat"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " kočka"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-cz-grammar-expand-white-feminine-2",
+              "revision": 1,
+              "learnerBaseText": "white chair",
+              "englishAuditText": "white chair",
+              "targetText": "bílá židle",
+              "anchor": {
+                "targetText": "židle",
+                "learnerBaseText": "chair",
+                "englishAuditText": "chair"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " židle"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-cz-grammar-expand-white-feminine-3",
+              "revision": 1,
+              "learnerBaseText": "white bag",
+              "englishAuditText": "white bag",
+              "targetText": "bílá taška",
+              "anchor": {
+                "targetText": "taška",
+                "learnerBaseText": "bag",
+                "englishAuditText": "bag"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " taška"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-cz-grammar-expand-white-feminine-4",
+              "revision": 1,
+              "learnerBaseText": "white shoe",
+              "englishAuditText": "white shoe",
+              "targetText": "bílá bota",
+              "anchor": {
+                "targetText": "bota",
+                "learnerBaseText": "shoe",
+                "englishAuditText": "shoe"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " bota"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 6
+        }
+      },
+      "axes": [
+        {
+          "id": "masculine",
+          "label": "Masculine",
+          "features": {
+            "gender": "masculine"
+          }
+        },
+        {
+          "id": "feminine",
+          "label": "Feminine",
+          "features": {
+            "gender": "feminine"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "gender",
+        "categoryOptions": [
+          {
+            "id": "masculine",
+            "label": "Masculine",
+            "image": "/assets/micelaneous/male_gender.png"
+          },
+          {
+            "id": "feminine",
+            "label": "Feminine",
+            "image": "/assets/micelaneous/female_gender.png"
+          }
+        ]
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "zero-cz-grammar-expand-black",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective",
+        "label": "black",
+        "targetText": "černý · černá",
+        "resultTitle": "Two tiny forms",
+        "summary": "One familiar thing and one describing word. Machine-assisted draft; native review is pending."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "černý",
+          "examples": [
+            {
+              "id": "zero-cz-grammar-expand-black-masculine-1",
+              "revision": 1,
+              "learnerBaseText": "black dog",
+              "englishAuditText": "black dog",
+              "targetText": "černý pes",
+              "anchor": {
+                "targetText": "pes",
+                "learnerBaseText": "dog",
+                "englishAuditText": "dog"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " pes"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-cz-grammar-expand-black-masculine-2",
+              "revision": 1,
+              "learnerBaseText": "black house",
+              "englishAuditText": "black house",
+              "targetText": "černý dům",
+              "anchor": {
+                "targetText": "dům",
+                "learnerBaseText": "house",
+                "englishAuditText": "house"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " dům"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-cz-grammar-expand-black-masculine-3",
+              "revision": 1,
+              "learnerBaseText": "black table",
+              "englishAuditText": "black table",
+              "targetText": "černý stůl",
+              "anchor": {
+                "targetText": "stůl",
+                "learnerBaseText": "table",
+                "englishAuditText": "table"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " stůl"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-cz-grammar-expand-black-masculine-4",
+              "revision": 1,
+              "learnerBaseText": "black cup",
+              "englishAuditText": "black cup",
+              "targetText": "černý hrnek",
+              "anchor": {
+                "targetText": "hrnek",
+                "learnerBaseText": "cup",
+                "englishAuditText": "cup"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " hrnek"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 6
+        },
+        "feminine": {
+          "displayForm": "černá",
+          "examples": [
+            {
+              "id": "zero-cz-grammar-expand-black-feminine-1",
+              "revision": 1,
+              "learnerBaseText": "black cat",
+              "englishAuditText": "black cat",
+              "targetText": "černá kočka",
+              "anchor": {
+                "targetText": "kočka",
+                "learnerBaseText": "cat",
+                "englishAuditText": "cat"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " kočka"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-cz-grammar-expand-black-feminine-2",
+              "revision": 1,
+              "learnerBaseText": "black book",
+              "englishAuditText": "black book",
+              "targetText": "černá kniha",
+              "anchor": {
+                "targetText": "kniha",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " kniha"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-cz-grammar-expand-black-feminine-3",
+              "revision": 1,
+              "learnerBaseText": "black bag",
+              "englishAuditText": "black bag",
+              "targetText": "černá taška",
+              "anchor": {
+                "targetText": "taška",
+                "learnerBaseText": "bag",
+                "englishAuditText": "bag"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " taška"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-cz-grammar-expand-black-feminine-4",
+              "revision": 1,
+              "learnerBaseText": "black shoe",
+              "englishAuditText": "black shoe",
+              "targetText": "černá bota",
+              "anchor": {
+                "targetText": "bota",
+                "learnerBaseText": "shoe",
+                "englishAuditText": "shoe"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " bota"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 6
+        }
+      },
+      "axes": [
+        {
+          "id": "masculine",
+          "label": "Masculine",
+          "features": {
+            "gender": "masculine"
+          }
+        },
+        {
+          "id": "feminine",
+          "label": "Feminine",
+          "features": {
+            "gender": "feminine"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "gender",
+        "categoryOptions": [
+          {
+            "id": "masculine",
+            "label": "Masculine",
+            "image": "/assets/micelaneous/male_gender.png"
+          },
+          {
+            "id": "feminine",
+            "label": "Feminine",
+            "image": "/assets/micelaneous/female_gender.png"
+          }
+        ]
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "zero-cz-grammar-expand-new",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective",
+        "label": "new",
+        "targetText": "nový · nová",
+        "resultTitle": "Two tiny forms",
+        "summary": "One familiar thing and one describing word. Machine-assisted draft; native review is pending."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "nový",
+          "examples": [
+            {
+              "id": "zero-cz-grammar-expand-new-masculine-1",
+              "revision": 1,
+              "learnerBaseText": "new house",
+              "englishAuditText": "new house",
+              "targetText": "nový dům",
+              "anchor": {
+                "targetText": "dům",
+                "learnerBaseText": "house",
+                "englishAuditText": "house"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " dům"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-cz-grammar-expand-new-masculine-2",
+              "revision": 1,
+              "learnerBaseText": "new ball",
+              "englishAuditText": "new ball",
+              "targetText": "nový míč",
+              "anchor": {
+                "targetText": "míč",
+                "learnerBaseText": "ball",
+                "englishAuditText": "ball"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " míč"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-cz-grammar-expand-new-masculine-3",
+              "revision": 1,
+              "learnerBaseText": "new table",
+              "englishAuditText": "new table",
+              "targetText": "nový stůl",
+              "anchor": {
+                "targetText": "stůl",
+                "learnerBaseText": "table",
+                "englishAuditText": "table"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " stůl"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-cz-grammar-expand-new-masculine-4",
+              "revision": 1,
+              "learnerBaseText": "new cup",
+              "englishAuditText": "new cup",
+              "targetText": "nový hrnek",
+              "anchor": {
+                "targetText": "hrnek",
+                "learnerBaseText": "cup",
+                "englishAuditText": "cup"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " hrnek"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 6
+        },
+        "feminine": {
+          "displayForm": "nová",
+          "examples": [
+            {
+              "id": "zero-cz-grammar-expand-new-feminine-1",
+              "revision": 1,
+              "learnerBaseText": "new book",
+              "englishAuditText": "new book",
+              "targetText": "nová kniha",
+              "anchor": {
+                "targetText": "kniha",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " kniha"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-cz-grammar-expand-new-feminine-2",
+              "revision": 1,
+              "learnerBaseText": "new chair",
+              "englishAuditText": "new chair",
+              "targetText": "nová židle",
+              "anchor": {
+                "targetText": "židle",
+                "learnerBaseText": "chair",
+                "englishAuditText": "chair"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " židle"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-cz-grammar-expand-new-feminine-3",
+              "revision": 1,
+              "learnerBaseText": "new bag",
+              "englishAuditText": "new bag",
+              "targetText": "nová taška",
+              "anchor": {
+                "targetText": "taška",
+                "learnerBaseText": "bag",
+                "englishAuditText": "bag"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " taška"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-cz-grammar-expand-new-feminine-4",
+              "revision": 1,
+              "learnerBaseText": "new shoe",
+              "englishAuditText": "new shoe",
+              "targetText": "nová bota",
+              "anchor": {
+                "targetText": "bota",
+                "learnerBaseText": "shoe",
+                "englishAuditText": "shoe"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " bota"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 6
+        }
+      },
+      "axes": [
+        {
+          "id": "masculine",
+          "label": "Masculine",
+          "features": {
+            "gender": "masculine"
+          }
+        },
+        {
+          "id": "feminine",
+          "label": "Feminine",
+          "features": {
+            "gender": "feminine"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "gender",
+        "categoryOptions": [
+          {
+            "id": "masculine",
+            "label": "Masculine",
+            "image": "/assets/micelaneous/male_gender.png"
+          },
+          {
+            "id": "feminine",
+            "label": "Feminine",
+            "image": "/assets/micelaneous/female_gender.png"
+          }
+        ]
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "zero-cz-grammar-expand-old",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective",
+        "label": "old",
+        "targetText": "starý · stará",
+        "resultTitle": "Two tiny forms",
+        "summary": "One familiar thing and one describing word. Machine-assisted draft; native review is pending."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "starý",
+          "examples": [
+            {
+              "id": "zero-cz-grammar-expand-old-masculine-1",
+              "revision": 1,
+              "learnerBaseText": "old house",
+              "englishAuditText": "old house",
+              "targetText": "starý dům",
+              "anchor": {
+                "targetText": "dům",
+                "learnerBaseText": "house",
+                "englishAuditText": "house"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " dům"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-cz-grammar-expand-old-masculine-2",
+              "revision": 1,
+              "learnerBaseText": "old table",
+              "englishAuditText": "old table",
+              "targetText": "starý stůl",
+              "anchor": {
+                "targetText": "stůl",
+                "learnerBaseText": "table",
+                "englishAuditText": "table"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " stůl"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-cz-grammar-expand-old-masculine-3",
+              "revision": 1,
+              "learnerBaseText": "old cup",
+              "englishAuditText": "old cup",
+              "targetText": "starý hrnek",
+              "anchor": {
+                "targetText": "hrnek",
+                "learnerBaseText": "cup",
+                "englishAuditText": "cup"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " hrnek"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-cz-grammar-expand-old-masculine-4",
+              "revision": 1,
+              "learnerBaseText": "old dog",
+              "englishAuditText": "old dog",
+              "targetText": "starý pes",
+              "anchor": {
+                "targetText": "pes",
+                "learnerBaseText": "dog",
+                "englishAuditText": "dog"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " pes"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 6
+        },
+        "feminine": {
+          "displayForm": "stará",
+          "examples": [
+            {
+              "id": "zero-cz-grammar-expand-old-feminine-1",
+              "revision": 1,
+              "learnerBaseText": "old book",
+              "englishAuditText": "old book",
+              "targetText": "stará kniha",
+              "anchor": {
+                "targetText": "kniha",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " kniha"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-cz-grammar-expand-old-feminine-2",
+              "revision": 1,
+              "learnerBaseText": "old chair",
+              "englishAuditText": "old chair",
+              "targetText": "stará židle",
+              "anchor": {
+                "targetText": "židle",
+                "learnerBaseText": "chair",
+                "englishAuditText": "chair"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " židle"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-cz-grammar-expand-old-feminine-3",
+              "revision": 1,
+              "learnerBaseText": "old bag",
+              "englishAuditText": "old bag",
+              "targetText": "stará taška",
+              "anchor": {
+                "targetText": "taška",
+                "learnerBaseText": "bag",
+                "englishAuditText": "bag"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " taška"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-cz-grammar-expand-old-feminine-4",
+              "revision": 1,
+              "learnerBaseText": "old shoe",
+              "englishAuditText": "old shoe",
+              "targetText": "stará bota",
+              "anchor": {
+                "targetText": "bota",
+                "learnerBaseText": "shoe",
+                "englishAuditText": "shoe"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " bota"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 6
+        }
+      },
+      "axes": [
+        {
+          "id": "masculine",
+          "label": "Masculine",
+          "features": {
+            "gender": "masculine"
+          }
+        },
+        {
+          "id": "feminine",
+          "label": "Feminine",
+          "features": {
+            "gender": "feminine"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "gender",
+        "categoryOptions": [
+          {
+            "id": "masculine",
+            "label": "Masculine",
+            "image": "/assets/micelaneous/male_gender.png"
+          },
+          {
+            "id": "feminine",
+            "label": "Feminine",
+            "image": "/assets/micelaneous/female_gender.png"
+          }
+        ]
+      },
+      "usefulness": 92,
+      "complexity": 7
     }
   ],
   "gameplay": {

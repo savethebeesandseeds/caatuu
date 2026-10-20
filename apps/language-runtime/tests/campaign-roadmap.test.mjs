@@ -11,7 +11,7 @@ function practice(overrides = {}) {
       completedSets: 195, targetCycles: 425 } }, ...overrides };
 }
 
-test("set positions use shared cycle effort while badge progress stays difficulty-specific", () => {
+test("legacy snapshots without a stage position still use shared cycle effort", () => {
   const snapshot = practice(), before = JSON.stringify(snapshot);
   const model = campaignRoadmapModel(snapshot);
   assert.equal(model.cycle, 37);
@@ -23,6 +23,34 @@ test("set positions use shared cycle effort while badge progress stays difficult
   assert.equal(model.stage.completedCycles, 12);
   assert.equal(model.stage.targetCycles, 425, "read the real corpus-derived budget");
   assert.equal(JSON.stringify(snapshot), before, "viewing cannot journal practice or award rewards");
+});
+
+test("set positions and effort use the selected difficulty rather than currency totals", () => {
+  const snapshot = practice();
+  snapshot.progression.stage = { ...snapshot.progression.stage, target: 24, effort: 7,
+    cycle: { target: 16, completed: 12, sets: 3 } };
+  const before = JSON.stringify(snapshot);
+  const model = campaignRoadmapModel(snapshot);
+  assert.equal(model.cycle, 13);
+  assert.equal(model.completed, 3);
+  assert.equal(model.sets.find(set => set.status === "current").number, 4);
+  assert.equal(model.effort, 7);
+  assert.equal(model.effortTarget, 24);
+  assert.equal(JSON.stringify(snapshot), before, "drawing the position is read-only");
+});
+
+test("a completed difficulty stays on its final full cycle while currency counters continue", () => {
+  const stage = { difficulty: 2, target: 24, effort: 24, completedSets: 32, completedCycles: 2,
+    targetCycles: 2, stageComplete: true, cycle: { target: 16, completed: 2, sets: 16 } };
+  const before = campaignRoadmapModel(practice({ progression: { available: true, stage } }));
+  const after = campaignRoadmapModel(practice({ effort: 4, cycle: { target: 16, completed: 100, sets: 7 },
+    progression: { available: true, stage } }));
+  assert.equal(before.cycle, 2);
+  assert.equal(before.completed, 16);
+  assert.equal(before.effort, 24);
+  assert.equal(before.stageComplete, true);
+  assert.equal(before.sets.every(set => set.status === "complete"), true);
+  assert.deepEqual(after, before);
 });
 
 test("every cycle has distinct stable robots, and later cycles rotate through the full catalog", async () => {
@@ -155,5 +183,48 @@ test("Navigator continues without inventing a further badge", () => {
   app.roadmap.show();
   assert.equal(app.root.querySelectorAll(".campaign-medal").length, 1);
   assert.equal(app.root.querySelectorAll(".campaign-stage-progress").length, 0);
+  app.roadmap.destroy();
+});
+
+test("completed finite stages can replay without advancing the displayed cycle or inventing a fourth badge", () => {
+  const app = mount();
+  const stage = { difficulty: 3, target: 24, effort: 24, completedSets: 32, completedCycles: 2,
+    targetCycles: 2, stageComplete: true, cycle: { target: 16, sets: 16, completed: 2 } };
+  app.update(practice({ progression: { available: true, stage } }));
+  app.roadmap.show();
+  assert.equal(app.root.querySelectorAll(".campaign-medal").length, 1);
+  assert.equal(app.root.querySelector(".campaign-stage-progress").value, 32);
+  assert.equal(app.root.querySelector("h1").textContent,
+    app.window.CaatuuI18n.t("campaign.cycle.title", { cycle: 2 }));
+  assert.equal(app.root.querySelectorAll('[aria-current="step"]').length, 0);
+  assert.equal(app.root.querySelectorAll(".campaign-stop-complete").length, 16);
+  assert.equal(app.root.querySelector(".campaign-cycle-reward small").textContent,
+    app.window.CaatuuI18n.t("campaign.stage.final"));
+  const start = app.root.querySelector(".campaign-jump");
+  assert.equal(start.disabled, false);
+  start.click();
+  assert.equal(app.starts(), 1, "the finished route still permits practice");
+  app.update(practice({ progression: { available: false, stage } }));
+  start.click();
+  assert.equal(app.starts(), 1, "an old replay button rechecks save availability");
+  app.roadmap.destroy();
+});
+
+test("difficulty changes and restoration move the route to each remembered position", () => {
+  const app = mount();
+  const first = { difficulty: 1, target: 24, effort: 9, completedSets: 19, completedCycles: 1,
+    targetCycles: 200, stageComplete: false, cycle: { target: 16, sets: 3, completed: 1 } };
+  const second = { difficulty: 2, target: 24, effort: 0, completedSets: 0, completedCycles: 0,
+    targetCycles: 200, stageComplete: false, cycle: { target: 16, sets: 0, completed: 0 } };
+  app.roadmap.show();
+  for (const stage of [first, second, first]) {
+    app.update(practice({ progression: { available: true, stage } }));
+    app.window.dispatchEvent({ type: "caatuu:learning-change", detail: { reason: "difficulty" } });
+    assert.equal(app.root.querySelector("h1").textContent,
+      app.window.CaatuuI18n.t("campaign.cycle.title", { cycle: stage.cycle.completed + 1 }));
+    assert.equal(app.root.querySelector('[aria-current="step"]').getAttribute("aria-label"),
+      app.window.CaatuuI18n.t("campaign.set.current", { set: stage.cycle.sets + 1 }));
+    assert.equal(app.root.querySelector(".campaign-set-progress").value, stage.effort);
+  }
   app.roadmap.destroy();
 });

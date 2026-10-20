@@ -20,19 +20,20 @@ function firstLearnerLabel(value) {
 
 function normalizeVerbDifficulty(value, fallback = defaultVerbDifficulty) {
   const level = Number(value);
-  return Number.isInteger(level) && level >= 1 && level <= 3 ? level : fallback;
+  return Number.isInteger(level) && value !== null && value !== "" && level >= 0 && level <= 3 ? level : fallback;
 }
 
 function hasVerbDifficultyMetadata(value) {
   const level = Number(value);
-  return Number.isInteger(level) && level >= 1 && level <= 3;
+  return Number.isInteger(level) && value !== null && value !== "" && level >= 0 && level <= 3;
 }
 
 function projectCoreVerbPair(row, sourceIndex, { learnerBaseLanguage = "en" } = {}) {
   const canonicalPair = normalizedLabel(row?.target) && normalizedLabel(row?.source);
   const kind = normalizedLabel(row?.kind);
   if (!canonicalPair && !verbKindPattern.test(kind)) return null;
-  if (canonicalPair && kind && kind !== "verb" && !verbKindPattern.test(kind)) return null;
+  if (canonicalPair && kind && kind !== "verb" && !verbKindPattern.test(kind)
+      && !(row.difficulty === 0 && kind === "word")) return null;
   const target = firstLearnerLabel(row.target ?? row.cs);
   const source = firstLearnerLabel(row.source ?? row.en);
   if (!labelKey(target) || !labelKey(source)) return null;
@@ -81,8 +82,10 @@ export function extractCoreVerbPairs(dictionary, options = {}) {
   dictionary.forEach((row, sourceIndex) => {
     const pair = projectCoreVerbPair(row, sourceIndex, options);
     if (!pair) return;
-    const targetKey = labelKey(pair.target);
-    const sourceKey = labelKey(pair.source);
+    // Introductory versions can reuse a familiar word without erasing either course band.
+    const bandKey = pair.difficulty === 0 ? "zero:" : "";
+    const targetKey = bandKey + labelKey(pair.target);
+    const sourceKey = bandKey + labelKey(pair.source);
     if (!targetKey || !sourceKey || seenIds.has(pair.id) || seenTarget.has(targetKey) || seenSource.has(sourceKey)) return;
 
     seenIds.add(pair.id);

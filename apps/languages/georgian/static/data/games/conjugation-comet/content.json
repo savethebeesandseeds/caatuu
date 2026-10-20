@@ -5943,6 +5943,706 @@
           "complexity": 24
         }
       ]
+    },
+    {
+      "id": "zero-ka-conjugation-01",
+      "revision": 1,
+      "targetText": "ყოფნა",
+      "learnerBaseText": "be at home",
+      "englishAuditText": "be at home",
+      "meaningChoiceBaseText": "be at home",
+      "difficulty": 0,
+      "family": "First present-time forms",
+      "lessonId": "zero-ka-present-foundations",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 98,
+      "complexity": 8,
+      "teachingNoteBaseText": "Learn these two short forms with their subject cues. Practise one pair at a time.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვარ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "I am at home",
+          "englishAuditText": "I am at home",
+          "usefulness": 98,
+          "complexity": 8
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "ხარ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "you (singular) are at home",
+          "englishAuditText": "you (singular) are at home",
+          "usefulness": 98,
+          "complexity": 8
+        }
+      ]
+    },
+    {
+      "id": "zero-ka-conjugation-02",
+      "revision": 1,
+      "targetText": "ქონა",
+      "learnerBaseText": "have a book",
+      "englishAuditText": "have a book",
+      "meaningChoiceBaseText": "have a book",
+      "difficulty": 0,
+      "family": "First present-time forms",
+      "lessonId": "zero-ka-present-foundations",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 98,
+      "complexity": 8,
+      "teachingNoteBaseText": "Learn these two short forms with their subject cues. Practise one pair at a time.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "მაქვს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნი"
+          },
+          "learnerBaseCueText": "I have a book",
+          "englishAuditText": "I have a book",
+          "usefulness": 98,
+          "complexity": 8
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "გაქვს",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნი"
+          },
+          "learnerBaseCueText": "you (singular) have a book",
+          "englishAuditText": "you (singular) have a book",
+          "usefulness": 98,
+          "complexity": 8
+        }
+      ]
+    },
+    {
+      "id": "zero-ka-conjugation-03",
+      "revision": 1,
+      "targetText": "ნდომა",
+      "learnerBaseText": "want water",
+      "englishAuditText": "want water",
+      "meaningChoiceBaseText": "want water",
+      "difficulty": 0,
+      "family": "First present-time forms",
+      "lessonId": "zero-ka-present-foundations",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 98,
+      "complexity": 8,
+      "teachingNoteBaseText": "Learn these two short forms with their subject cues. Practise one pair at a time.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "მინდა",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წყალი"
+          },
+          "learnerBaseCueText": "I want water",
+          "englishAuditText": "I want water",
+          "usefulness": 98,
+          "complexity": 8
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "გინდა",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წყალი"
+          },
+          "learnerBaseCueText": "you (singular) want water",
+          "englishAuditText": "you (singular) want water",
+          "usefulness": 98,
+          "complexity": 8
+        }
+      ]
+    },
+    {
+      "id": "zero-ka-conjugation-04",
+      "revision": 1,
+      "targetText": "კითხვა",
+      "learnerBaseText": "read",
+      "englishAuditText": "read",
+      "meaningChoiceBaseText": "read",
+      "difficulty": 0,
+      "family": "First present-time forms",
+      "lessonId": "zero-ka-present-foundations",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 98,
+      "complexity": 8,
+      "teachingNoteBaseText": "Learn these two short forms with their subject cues. Practise one pair at a time.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვკითხულობ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I read",
+          "englishAuditText": "I read",
+          "usefulness": 98,
+          "complexity": 8
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "კითხულობ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (singular) read",
+          "englishAuditText": "you (singular) read",
+          "usefulness": 98,
+          "complexity": 8
+        }
+      ]
+    },
+    {
+      "id": "zero-ka-conjugation-05",
+      "revision": 1,
+      "targetText": "წერა",
+      "learnerBaseText": "write",
+      "englishAuditText": "write",
+      "meaningChoiceBaseText": "write",
+      "difficulty": 0,
+      "family": "First present-time forms",
+      "lessonId": "zero-ka-present-foundations",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 98,
+      "complexity": 8,
+      "teachingNoteBaseText": "Learn these two short forms with their subject cues. Practise one pair at a time.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვწერ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I write",
+          "englishAuditText": "I write",
+          "usefulness": 98,
+          "complexity": 8
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "წერ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (singular) write",
+          "englishAuditText": "you (singular) write",
+          "usefulness": 98,
+          "complexity": 8
+        }
+      ]
+    },
+    {
+      "id": "zero-ka-conjugation-06",
+      "revision": 1,
+      "targetText": "წასვლა",
+      "learnerBaseText": "go home",
+      "englishAuditText": "go home",
+      "meaningChoiceBaseText": "go home",
+      "difficulty": 0,
+      "family": "First present-time forms",
+      "lessonId": "zero-ka-present-foundations",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 98,
+      "complexity": 8,
+      "teachingNoteBaseText": "Learn these two short forms with their subject cues. Practise one pair at a time.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "მივდივარ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "I go home",
+          "englishAuditText": "I go home",
+          "usefulness": 98,
+          "complexity": 8
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "მიდიხარ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "you (singular) go home",
+          "englishAuditText": "you (singular) go home",
+          "usefulness": 98,
+          "complexity": 8
+        }
+      ]
+    },
+    {
+      "id": "zero-ka-conjugation-e2-ka-008-present",
+      "revision": 1,
+      "targetText": "მუშაობა",
+      "learnerBaseText": "work",
+      "englishAuditText": "work",
+      "meaningChoiceBaseText": "work",
+      "difficulty": 0,
+      "family": "First I and you forms",
+      "lessonId": "zero-ka-first-forms-expanded",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 96,
+      "complexity": 8,
+      "teachingNoteBaseText": "Read the I example first, then match the you example. These two forms use the same familiar action.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვმუშაობ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I work",
+          "englishAuditText": "I work",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "მუშაობ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (singular) work",
+          "englishAuditText": "you (singular) work",
+          "usefulness": 96,
+          "complexity": 8
+        }
+      ]
+    },
+    {
+      "id": "zero-ka-conjugation-e2-ka-010-present",
+      "revision": 1,
+      "targetText": "მოსვლა",
+      "learnerBaseText": "come home",
+      "englishAuditText": "come home",
+      "meaningChoiceBaseText": "come home",
+      "difficulty": 0,
+      "family": "First I and you forms",
+      "lessonId": "zero-ka-first-forms-expanded",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 96,
+      "complexity": 8,
+      "teachingNoteBaseText": "Read the I example first, then match the you example. These two forms use the same familiar action.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "მოვდივარ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "I come home",
+          "englishAuditText": "I come home",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "მოდიხარ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " სახლში"
+          },
+          "learnerBaseCueText": "you (singular) come home",
+          "englishAuditText": "you (singular) come home",
+          "usefulness": 96,
+          "complexity": 8
+        }
+      ]
+    },
+    {
+      "id": "zero-ka-conjugation-e2-ka-012-present",
+      "revision": 1,
+      "targetText": "ცხოვრება",
+      "learnerBaseText": "live",
+      "englishAuditText": "live",
+      "meaningChoiceBaseText": "live",
+      "difficulty": 0,
+      "family": "First I and you forms",
+      "lessonId": "zero-ka-first-forms-expanded",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 96,
+      "complexity": 8,
+      "teachingNoteBaseText": "Read the I example first, then match the you example. These two forms use the same familiar action.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვცხოვრობ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I live",
+          "englishAuditText": "I live",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "ცხოვრობ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (singular) live",
+          "englishAuditText": "you (singular) live",
+          "usefulness": 96,
+          "complexity": 8
+        }
+      ]
+    },
+    {
+      "id": "zero-ka-conjugation-e2-ka-015-present",
+      "revision": 1,
+      "targetText": "ჭამა",
+      "learnerBaseText": "eat bread",
+      "englishAuditText": "eat bread",
+      "meaningChoiceBaseText": "eat bread",
+      "difficulty": 0,
+      "family": "First I and you forms",
+      "lessonId": "zero-ka-first-forms-expanded",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 96,
+      "complexity": 8,
+      "teachingNoteBaseText": "Read the I example first, then match the you example. These two forms use the same familiar action.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვჭამ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " პურს"
+          },
+          "learnerBaseCueText": "I eat bread",
+          "englishAuditText": "I eat bread",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "ჭამ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " პურს"
+          },
+          "learnerBaseCueText": "you (singular) eat bread",
+          "englishAuditText": "you (singular) eat bread",
+          "usefulness": 96,
+          "complexity": 8
+        }
+      ]
+    },
+    {
+      "id": "zero-ka-conjugation-e2-ka-016-present",
+      "revision": 1,
+      "targetText": "სმა",
+      "learnerBaseText": "drink water",
+      "englishAuditText": "drink water",
+      "meaningChoiceBaseText": "drink water",
+      "difficulty": 0,
+      "family": "First I and you forms",
+      "lessonId": "zero-ka-first-forms-expanded",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 96,
+      "complexity": 8,
+      "teachingNoteBaseText": "Read the I example first, then match the you example. These two forms use the same familiar action.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვსვამ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წყალს"
+          },
+          "learnerBaseCueText": "I drink water",
+          "englishAuditText": "I drink water",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "სვამ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წყალს"
+          },
+          "learnerBaseCueText": "you (singular) drink water",
+          "englishAuditText": "you (singular) drink water",
+          "usefulness": 96,
+          "complexity": 8
+        }
+      ]
+    },
+    {
+      "id": "zero-ka-conjugation-e2-ka-018-present",
+      "revision": 1,
+      "targetText": "ნახვა",
+      "learnerBaseText": "see a book",
+      "englishAuditText": "see a book",
+      "meaningChoiceBaseText": "see a book",
+      "difficulty": 0,
+      "family": "First I and you forms",
+      "lessonId": "zero-ka-first-forms-expanded",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 96,
+      "complexity": 8,
+      "teachingNoteBaseText": "Read the I example first, then match the you example. These two forms use the same familiar action.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვხედავ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "I see a book",
+          "englishAuditText": "I see a book",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "ხედავ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " წიგნს"
+          },
+          "learnerBaseCueText": "you (singular) see a book",
+          "englishAuditText": "you (singular) see a book",
+          "usefulness": 96,
+          "complexity": 8
+        }
+      ]
+    },
+    {
+      "id": "zero-ka-conjugation-e2-ka-019-present",
+      "revision": 1,
+      "targetText": "სიმღერა",
+      "learnerBaseText": "sing",
+      "englishAuditText": "sing",
+      "meaningChoiceBaseText": "sing",
+      "difficulty": 0,
+      "family": "First I and you forms",
+      "lessonId": "zero-ka-first-forms-expanded",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 96,
+      "complexity": 8,
+      "teachingNoteBaseText": "Read the I example first, then match the you example. These two forms use the same familiar action.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვმღერი",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I sing",
+          "englishAuditText": "I sing",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "მღერი",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (singular) sing",
+          "englishAuditText": "you (singular) sing",
+          "usefulness": 96,
+          "complexity": 8
+        }
+      ]
+    },
+    {
+      "id": "zero-ka-conjugation-e2-ka-020-present",
+      "revision": 1,
+      "targetText": "ცეკვა",
+      "learnerBaseText": "dance",
+      "englishAuditText": "dance",
+      "meaningChoiceBaseText": "dance",
+      "difficulty": 0,
+      "family": "First I and you forms",
+      "lessonId": "zero-ka-first-forms-expanded",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 96,
+      "complexity": 8,
+      "teachingNoteBaseText": "Read the I example first, then match the you example. These two forms use the same familiar action.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "მე",
+          "subjectBaseText": "I",
+          "targetText": "ვცეკვავ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I dance",
+          "englishAuditText": "I dance",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "შენ",
+          "subjectBaseText": "you (singular)",
+          "targetText": "ცეკვავ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (singular) dance",
+          "englishAuditText": "you (singular) dance",
+          "usefulness": 96,
+          "complexity": 8
+        }
+      ]
     }
   ]
 }

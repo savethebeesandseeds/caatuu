@@ -10020,6 +10020,706 @@
       ],
       "usefulness": 44,
       "complexity": 26
+    },
+    {
+      "id": "zero-nb-conjugation-01",
+      "revision": 1,
+      "targetText": "spise",
+      "learnerBaseText": "eat",
+      "englishAuditText": "eat",
+      "meaningChoiceBaseText": "eat",
+      "difficulty": 0,
+      "family": "First infinitive and present forms",
+      "lessonId": "zero-nb-present-foundations",
+      "teachingNoteBaseText": "Start with the action word and one present-time example. The present form stays the same for I and you.",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "forms": [
+        {
+          "id": "infinitive",
+          "revision": 1,
+          "subjectTargetText": "Infinitiv",
+          "subjectBaseText": "Infinitive",
+          "targetText": "spise",
+          "targetPhraseFrame": {
+            "beforeText": "å ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "to eat",
+          "englishAuditText": "to eat",
+          "usefulness": 98,
+          "complexity": 8
+        },
+        {
+          "id": "present",
+          "revision": 1,
+          "subjectTargetText": "Presens",
+          "subjectBaseText": "Present",
+          "targetText": "spiser",
+          "targetPhraseFrame": {
+            "beforeText": "jeg ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I eat",
+          "englishAuditText": "I eat",
+          "usefulness": 98,
+          "complexity": 8
+        }
+      ],
+      "usefulness": 98,
+      "complexity": 8
+    },
+    {
+      "id": "zero-nb-conjugation-02",
+      "revision": 1,
+      "targetText": "drikke",
+      "learnerBaseText": "drink",
+      "englishAuditText": "drink",
+      "meaningChoiceBaseText": "drink",
+      "difficulty": 0,
+      "family": "First infinitive and present forms",
+      "lessonId": "zero-nb-present-foundations",
+      "teachingNoteBaseText": "Start with the action word and one present-time example. The present form stays the same for I and you.",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "forms": [
+        {
+          "id": "infinitive",
+          "revision": 1,
+          "subjectTargetText": "Infinitiv",
+          "subjectBaseText": "Infinitive",
+          "targetText": "drikke",
+          "targetPhraseFrame": {
+            "beforeText": "å ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "to drink",
+          "englishAuditText": "to drink",
+          "usefulness": 98,
+          "complexity": 8
+        },
+        {
+          "id": "present",
+          "revision": 1,
+          "subjectTargetText": "Presens",
+          "subjectBaseText": "Present",
+          "targetText": "drikker",
+          "targetPhraseFrame": {
+            "beforeText": "jeg ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I drink",
+          "englishAuditText": "I drink",
+          "usefulness": 98,
+          "complexity": 8
+        }
+      ],
+      "usefulness": 98,
+      "complexity": 8
+    },
+    {
+      "id": "zero-nb-conjugation-03",
+      "revision": 1,
+      "targetText": "sove",
+      "learnerBaseText": "sleep",
+      "englishAuditText": "sleep",
+      "meaningChoiceBaseText": "sleep",
+      "difficulty": 0,
+      "family": "First infinitive and present forms",
+      "lessonId": "zero-nb-present-foundations",
+      "teachingNoteBaseText": "Start with the action word and one present-time example. The present form stays the same for I and you.",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "forms": [
+        {
+          "id": "infinitive",
+          "revision": 1,
+          "subjectTargetText": "Infinitiv",
+          "subjectBaseText": "Infinitive",
+          "targetText": "sove",
+          "targetPhraseFrame": {
+            "beforeText": "å ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "to sleep",
+          "englishAuditText": "to sleep",
+          "usefulness": 98,
+          "complexity": 8
+        },
+        {
+          "id": "present",
+          "revision": 1,
+          "subjectTargetText": "Presens",
+          "subjectBaseText": "Present",
+          "targetText": "sover",
+          "targetPhraseFrame": {
+            "beforeText": "jeg ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I sleep",
+          "englishAuditText": "I sleep",
+          "usefulness": 98,
+          "complexity": 8
+        }
+      ],
+      "usefulness": 98,
+      "complexity": 8
+    },
+    {
+      "id": "zero-nb-conjugation-04",
+      "revision": 1,
+      "targetText": "lese",
+      "learnerBaseText": "read",
+      "englishAuditText": "read",
+      "meaningChoiceBaseText": "read",
+      "difficulty": 0,
+      "family": "First infinitive and present forms",
+      "lessonId": "zero-nb-present-foundations",
+      "teachingNoteBaseText": "Start with the action word and one present-time example. The present form stays the same for I and you.",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "forms": [
+        {
+          "id": "infinitive",
+          "revision": 1,
+          "subjectTargetText": "Infinitiv",
+          "subjectBaseText": "Infinitive",
+          "targetText": "lese",
+          "targetPhraseFrame": {
+            "beforeText": "å ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "to read",
+          "englishAuditText": "to read",
+          "usefulness": 98,
+          "complexity": 8
+        },
+        {
+          "id": "present",
+          "revision": 1,
+          "subjectTargetText": "Presens",
+          "subjectBaseText": "Present",
+          "targetText": "leser",
+          "targetPhraseFrame": {
+            "beforeText": "jeg ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I read",
+          "englishAuditText": "I read",
+          "usefulness": 98,
+          "complexity": 8
+        }
+      ],
+      "usefulness": 98,
+      "complexity": 8
+    },
+    {
+      "id": "zero-nb-conjugation-05",
+      "revision": 1,
+      "targetText": "skrive",
+      "learnerBaseText": "write",
+      "englishAuditText": "write",
+      "meaningChoiceBaseText": "write",
+      "difficulty": 0,
+      "family": "First infinitive and present forms",
+      "lessonId": "zero-nb-present-foundations",
+      "teachingNoteBaseText": "Start with the action word and one present-time example. The present form stays the same for I and you.",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "forms": [
+        {
+          "id": "infinitive",
+          "revision": 1,
+          "subjectTargetText": "Infinitiv",
+          "subjectBaseText": "Infinitive",
+          "targetText": "skrive",
+          "targetPhraseFrame": {
+            "beforeText": "å ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "to write",
+          "englishAuditText": "to write",
+          "usefulness": 98,
+          "complexity": 8
+        },
+        {
+          "id": "present",
+          "revision": 1,
+          "subjectTargetText": "Presens",
+          "subjectBaseText": "Present",
+          "targetText": "skriver",
+          "targetPhraseFrame": {
+            "beforeText": "jeg ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I write",
+          "englishAuditText": "I write",
+          "usefulness": 98,
+          "complexity": 8
+        }
+      ],
+      "usefulness": 98,
+      "complexity": 8
+    },
+    {
+      "id": "zero-nb-conjugation-06",
+      "revision": 1,
+      "targetText": "se",
+      "learnerBaseText": "see",
+      "englishAuditText": "see",
+      "meaningChoiceBaseText": "see",
+      "difficulty": 0,
+      "family": "First infinitive and present forms",
+      "lessonId": "zero-nb-present-foundations",
+      "teachingNoteBaseText": "Start with the action word and one present-time example. The present form stays the same for I and you.",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "forms": [
+        {
+          "id": "infinitive",
+          "revision": 1,
+          "subjectTargetText": "Infinitiv",
+          "subjectBaseText": "Infinitive",
+          "targetText": "se",
+          "targetPhraseFrame": {
+            "beforeText": "å ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "to see",
+          "englishAuditText": "to see",
+          "usefulness": 98,
+          "complexity": 8
+        },
+        {
+          "id": "present",
+          "revision": 1,
+          "subjectTargetText": "Presens",
+          "subjectBaseText": "Present",
+          "targetText": "ser",
+          "targetPhraseFrame": {
+            "beforeText": "jeg ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I see",
+          "englishAuditText": "I see",
+          "usefulness": 98,
+          "complexity": 8
+        }
+      ],
+      "usefulness": 98,
+      "complexity": 8
+    },
+    {
+      "id": "zero-nb-conjugation-e2-nb-tense-001",
+      "revision": 1,
+      "targetText": "være",
+      "learnerBaseText": "be",
+      "englishAuditText": "be",
+      "meaningChoiceBaseText": "be",
+      "difficulty": 0,
+      "family": "First infinitive and present forms",
+      "lessonId": "zero-nb-first-forms-expanded",
+      "teachingNoteBaseText": "Read the action word and the short I example. The present form is the same for I and you.",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "forms": [
+        {
+          "id": "infinitive",
+          "revision": 1,
+          "subjectTargetText": "Infinitiv",
+          "subjectBaseText": "Infinitive",
+          "targetText": "være",
+          "targetPhraseFrame": {
+            "beforeText": "å ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "to be",
+          "englishAuditText": "to be",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "present",
+          "revision": 1,
+          "subjectTargetText": "Presens",
+          "subjectBaseText": "Present",
+          "targetText": "er",
+          "targetPhraseFrame": {
+            "beforeText": "jeg ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I am",
+          "englishAuditText": "I am",
+          "usefulness": 96,
+          "complexity": 8
+        }
+      ],
+      "usefulness": 96,
+      "complexity": 8
+    },
+    {
+      "id": "zero-nb-conjugation-e2-nb-tense-002",
+      "revision": 1,
+      "targetText": "ha",
+      "learnerBaseText": "have",
+      "englishAuditText": "have",
+      "meaningChoiceBaseText": "have",
+      "difficulty": 0,
+      "family": "First infinitive and present forms",
+      "lessonId": "zero-nb-first-forms-expanded",
+      "teachingNoteBaseText": "Read the action word and the short I example. The present form is the same for I and you.",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "forms": [
+        {
+          "id": "infinitive",
+          "revision": 1,
+          "subjectTargetText": "Infinitiv",
+          "subjectBaseText": "Infinitive",
+          "targetText": "ha",
+          "targetPhraseFrame": {
+            "beforeText": "å ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "to have",
+          "englishAuditText": "to have",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "present",
+          "revision": 1,
+          "subjectTargetText": "Presens",
+          "subjectBaseText": "Present",
+          "targetText": "har",
+          "targetPhraseFrame": {
+            "beforeText": "jeg ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I have",
+          "englishAuditText": "I have",
+          "usefulness": 96,
+          "complexity": 8
+        }
+      ],
+      "usefulness": 96,
+      "complexity": 8
+    },
+    {
+      "id": "zero-nb-conjugation-e2-nb-tense-004",
+      "revision": 1,
+      "targetText": "gå",
+      "learnerBaseText": "walk",
+      "englishAuditText": "walk",
+      "meaningChoiceBaseText": "walk",
+      "difficulty": 0,
+      "family": "First infinitive and present forms",
+      "lessonId": "zero-nb-first-forms-expanded",
+      "teachingNoteBaseText": "Read the action word and the short I example. The present form is the same for I and you.",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "forms": [
+        {
+          "id": "infinitive",
+          "revision": 1,
+          "subjectTargetText": "Infinitiv",
+          "subjectBaseText": "Infinitive",
+          "targetText": "gå",
+          "targetPhraseFrame": {
+            "beforeText": "å ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "to walk",
+          "englishAuditText": "to walk",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "present",
+          "revision": 1,
+          "subjectTargetText": "Presens",
+          "subjectBaseText": "Present",
+          "targetText": "går",
+          "targetPhraseFrame": {
+            "beforeText": "jeg ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I walk",
+          "englishAuditText": "I walk",
+          "usefulness": 96,
+          "complexity": 8
+        }
+      ],
+      "usefulness": 96,
+      "complexity": 8
+    },
+    {
+      "id": "zero-nb-conjugation-e2-nb-tense-005",
+      "revision": 1,
+      "targetText": "komme",
+      "learnerBaseText": "come",
+      "englishAuditText": "come",
+      "meaningChoiceBaseText": "come",
+      "difficulty": 0,
+      "family": "First infinitive and present forms",
+      "lessonId": "zero-nb-first-forms-expanded",
+      "teachingNoteBaseText": "Read the action word and the short I example. The present form is the same for I and you.",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "forms": [
+        {
+          "id": "infinitive",
+          "revision": 1,
+          "subjectTargetText": "Infinitiv",
+          "subjectBaseText": "Infinitive",
+          "targetText": "komme",
+          "targetPhraseFrame": {
+            "beforeText": "å ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "to come",
+          "englishAuditText": "to come",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "present",
+          "revision": 1,
+          "subjectTargetText": "Presens",
+          "subjectBaseText": "Present",
+          "targetText": "kommer",
+          "targetPhraseFrame": {
+            "beforeText": "jeg ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I come",
+          "englishAuditText": "I come",
+          "usefulness": 96,
+          "complexity": 8
+        }
+      ],
+      "usefulness": 96,
+      "complexity": 8
+    },
+    {
+      "id": "zero-nb-conjugation-e2-nb-tense-019",
+      "revision": 1,
+      "targetText": "høre",
+      "learnerBaseText": "hear",
+      "englishAuditText": "hear",
+      "meaningChoiceBaseText": "hear",
+      "difficulty": 0,
+      "family": "First infinitive and present forms",
+      "lessonId": "zero-nb-first-forms-expanded",
+      "teachingNoteBaseText": "Read the action word and the short I example. The present form is the same for I and you.",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "forms": [
+        {
+          "id": "infinitive",
+          "revision": 1,
+          "subjectTargetText": "Infinitiv",
+          "subjectBaseText": "Infinitive",
+          "targetText": "høre",
+          "targetPhraseFrame": {
+            "beforeText": "å ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "to hear",
+          "englishAuditText": "to hear",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "present",
+          "revision": 1,
+          "subjectTargetText": "Presens",
+          "subjectBaseText": "Present",
+          "targetText": "hører",
+          "targetPhraseFrame": {
+            "beforeText": "jeg ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I hear",
+          "englishAuditText": "I hear",
+          "usefulness": 96,
+          "complexity": 8
+        }
+      ],
+      "usefulness": 96,
+      "complexity": 8
+    },
+    {
+      "id": "zero-nb-conjugation-e2-nb-tense-016",
+      "revision": 1,
+      "targetText": "bo",
+      "learnerBaseText": "live (reside)",
+      "englishAuditText": "live (reside)",
+      "meaningChoiceBaseText": "live (reside)",
+      "difficulty": 0,
+      "family": "First infinitive and present forms",
+      "lessonId": "zero-nb-first-forms-expanded",
+      "teachingNoteBaseText": "Read the action word and the short I example. The present form is the same for I and you.",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "forms": [
+        {
+          "id": "infinitive",
+          "revision": 1,
+          "subjectTargetText": "Infinitiv",
+          "subjectBaseText": "Infinitive",
+          "targetText": "bo",
+          "targetPhraseFrame": {
+            "beforeText": "å ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "to live",
+          "englishAuditText": "to live",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "present",
+          "revision": 1,
+          "subjectTargetText": "Presens",
+          "subjectBaseText": "Present",
+          "targetText": "bor",
+          "targetPhraseFrame": {
+            "beforeText": "jeg ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I live",
+          "englishAuditText": "I live",
+          "usefulness": 96,
+          "complexity": 8
+        }
+      ],
+      "usefulness": 96,
+      "complexity": 8
+    },
+    {
+      "id": "zero-nb-conjugation-e2-nb-tense-013",
+      "revision": 1,
+      "targetText": "leke",
+      "learnerBaseText": "play (a children's game)",
+      "englishAuditText": "play (a children's game)",
+      "meaningChoiceBaseText": "play (a children's game)",
+      "difficulty": 0,
+      "family": "First infinitive and present forms",
+      "lessonId": "zero-nb-first-forms-expanded",
+      "teachingNoteBaseText": "Read the action word and the short I example. The present form is the same for I and you.",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "forms": [
+        {
+          "id": "infinitive",
+          "revision": 1,
+          "subjectTargetText": "Infinitiv",
+          "subjectBaseText": "Infinitive",
+          "targetText": "leke",
+          "targetPhraseFrame": {
+            "beforeText": "å ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "to play",
+          "englishAuditText": "to play",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "present",
+          "revision": 1,
+          "subjectTargetText": "Presens",
+          "subjectBaseText": "Present",
+          "targetText": "leker",
+          "targetPhraseFrame": {
+            "beforeText": "jeg ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I play",
+          "englishAuditText": "I play",
+          "usefulness": 96,
+          "complexity": 8
+        }
+      ],
+      "usefulness": 96,
+      "complexity": 8
+    },
+    {
+      "id": "zero-nb-conjugation-e2-nb-tense-021",
+      "revision": 1,
+      "targetText": "tegne",
+      "learnerBaseText": "draw",
+      "englishAuditText": "draw",
+      "meaningChoiceBaseText": "draw",
+      "difficulty": 0,
+      "family": "First infinitive and present forms",
+      "lessonId": "zero-nb-first-forms-expanded",
+      "teachingNoteBaseText": "Read the action word and the short I example. The present form is the same for I and you.",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "forms": [
+        {
+          "id": "infinitive",
+          "revision": 1,
+          "subjectTargetText": "Infinitiv",
+          "subjectBaseText": "Infinitive",
+          "targetText": "tegne",
+          "targetPhraseFrame": {
+            "beforeText": "å ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "to draw",
+          "englishAuditText": "to draw",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "present",
+          "revision": 1,
+          "subjectTargetText": "Presens",
+          "subjectBaseText": "Present",
+          "targetText": "tegner",
+          "targetPhraseFrame": {
+            "beforeText": "jeg ",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I draw",
+          "englishAuditText": "I draw",
+          "usefulness": 96,
+          "complexity": 8
+        }
+      ],
+      "usefulness": 96,
+      "complexity": 8
     }
   ]
 }

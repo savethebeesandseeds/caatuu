@@ -606,7 +606,57 @@
       "zh-m260908-word-589",
       "zh-m260908-word-590",
       "zh-m260908-word-591",
-      "zh-m260908-word-592"
+      "zh-m260908-word-592",
+      "zero-zh-word-cat",
+      "zero-zh-word-dog",
+      "zero-zh-word-water",
+      "zero-zh-word-bread",
+      "zero-zh-word-milk",
+      "zero-zh-word-apple",
+      "zero-zh-word-rice",
+      "zero-zh-word-tea",
+      "zero-zh-word-book",
+      "zero-zh-word-pen",
+      "zero-zh-word-house",
+      "zero-zh-word-door",
+      "zero-zh-word-table",
+      "zero-zh-word-chair",
+      "zero-zh-word-bed",
+      "zero-zh-word-bag",
+      "zero-zh-word-ball",
+      "zero-zh-word-sun",
+      "zero-zh-word-hand",
+      "zero-zh-word-eye",
+      "zero-zh-verb-eat",
+      "zero-zh-verb-drink",
+      "zero-zh-verb-go",
+      "zero-zh-verb-see",
+      "zero-zh-verb-want",
+      "zero-zh-verb-have",
+      "zero-zh-verb-like",
+      "zero-zh-verb-sleep",
+      "zero-zh-verb-sit",
+      "zero-zh-verb-read",
+      "zero-zh-verb-write",
+      "zero-zh-verb-hear",
+      "zero-zh-word-i",
+      "zero-zh-word-you",
+      "zero-zh-word-we",
+      "zero-zh-word-hello",
+      "zero-zh-word-goodbye",
+      "zero-zh-word-yes",
+      "zero-zh-word-no",
+      "zero-zh-word-please",
+      "zero-zh-word-thanks",
+      "zero-zh-word-one",
+      "zero-zh-word-two",
+      "zero-zh-word-three",
+      "zero-zh-word-four",
+      "zero-zh-word-five",
+      "zero-zh-word-big",
+      "zero-zh-word-small",
+      "zero-zh-word-red",
+      "zero-zh-word-green"
     ],
     "selection": "Existing vocabulary; target text and meanings copied without linguistic edits."
   },
@@ -20417,6 +20467,1532 @@
       },
       "usefulness": 54,
       "complexity": 37
+    },
+    {
+      "id": "zero-zh-sound-word-cat",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "猫",
+      "meaning": "cat",
+      "sourceId": "zero-zh-word-cat",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "cat",
+      "usefulness": 92,
+      "complexity": 2,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-cat",
+        "tokens": [
+          {
+            "surface": "猫",
+            "units": [
+              {
+                "surface": "猫",
+                "notation": "māo"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-dog",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "狗",
+      "meaning": "dog",
+      "sourceId": "zero-zh-word-dog",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "dog",
+      "usefulness": 92,
+      "complexity": 2,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-dog",
+        "tokens": [
+          {
+            "surface": "狗",
+            "units": [
+              {
+                "surface": "狗",
+                "notation": "gǒu"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-water",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "水",
+      "meaning": "water",
+      "sourceId": "zero-zh-word-water",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "water",
+      "usefulness": 92,
+      "complexity": 2,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-water",
+        "tokens": [
+          {
+            "surface": "水",
+            "units": [
+              {
+                "surface": "水",
+                "notation": "shuǐ"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-bread",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "面包",
+      "meaning": "bread",
+      "sourceId": "zero-zh-word-bread",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "bread",
+      "usefulness": 92,
+      "complexity": 2,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-bread",
+        "tokens": [
+          {
+            "surface": "面包",
+            "units": [
+              {
+                "surface": "面",
+                "notation": "miàn"
+              },
+              {
+                "surface": "包",
+                "notation": "bāo"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-milk",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "牛奶",
+      "meaning": "milk",
+      "sourceId": "zero-zh-word-milk",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "milk",
+      "usefulness": 92,
+      "complexity": 2,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-milk",
+        "tokens": [
+          {
+            "surface": "牛奶",
+            "units": [
+              {
+                "surface": "牛",
+                "notation": "niú"
+              },
+              {
+                "surface": "奶",
+                "notation": "nǎi"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-apple",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "苹果",
+      "meaning": "apple",
+      "sourceId": "zero-zh-word-apple",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "apple",
+      "usefulness": 92,
+      "complexity": 2,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-apple",
+        "tokens": [
+          {
+            "surface": "苹果",
+            "units": [
+              {
+                "surface": "苹",
+                "notation": "píng"
+              },
+              {
+                "surface": "果",
+                "notation": "guǒ"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-rice",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "米饭",
+      "meaning": "rice",
+      "sourceId": "zero-zh-word-rice",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "rice",
+      "usefulness": 92,
+      "complexity": 2,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-rice",
+        "tokens": [
+          {
+            "surface": "米饭",
+            "units": [
+              {
+                "surface": "米",
+                "notation": "mǐ"
+              },
+              {
+                "surface": "饭",
+                "notation": "fàn"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-tea",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "茶",
+      "meaning": "tea",
+      "sourceId": "zero-zh-word-tea",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "tea",
+      "usefulness": 92,
+      "complexity": 2,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-tea",
+        "tokens": [
+          {
+            "surface": "茶",
+            "units": [
+              {
+                "surface": "茶",
+                "notation": "chá"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-book",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "书",
+      "meaning": "book",
+      "sourceId": "zero-zh-word-book",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "book",
+      "usefulness": 92,
+      "complexity": 2,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-book",
+        "tokens": [
+          {
+            "surface": "书",
+            "units": [
+              {
+                "surface": "书",
+                "notation": "shū"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-pen",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "笔",
+      "meaning": "pen",
+      "sourceId": "zero-zh-word-pen",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "pen",
+      "usefulness": 92,
+      "complexity": 2,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-pen",
+        "tokens": [
+          {
+            "surface": "笔",
+            "units": [
+              {
+                "surface": "笔",
+                "notation": "bǐ"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-house",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "房子",
+      "meaning": "house",
+      "sourceId": "zero-zh-word-house",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "house",
+      "usefulness": 92,
+      "complexity": 2,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-house",
+        "tokens": [
+          {
+            "surface": "房子",
+            "units": [
+              {
+                "surface": "房",
+                "notation": "fáng"
+              },
+              {
+                "surface": "子",
+                "notation": "zi"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-door",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "门",
+      "meaning": "door",
+      "sourceId": "zero-zh-word-door",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "door",
+      "usefulness": 92,
+      "complexity": 2,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-door",
+        "tokens": [
+          {
+            "surface": "门",
+            "units": [
+              {
+                "surface": "门",
+                "notation": "mén"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-table",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "桌子",
+      "meaning": "table",
+      "sourceId": "zero-zh-word-table",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "table",
+      "usefulness": 92,
+      "complexity": 2,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-table",
+        "tokens": [
+          {
+            "surface": "桌子",
+            "units": [
+              {
+                "surface": "桌",
+                "notation": "zhuō"
+              },
+              {
+                "surface": "子",
+                "notation": "zi"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-chair",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "椅子",
+      "meaning": "chair",
+      "sourceId": "zero-zh-word-chair",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "chair",
+      "usefulness": 92,
+      "complexity": 2,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-chair",
+        "tokens": [
+          {
+            "surface": "椅子",
+            "units": [
+              {
+                "surface": "椅",
+                "notation": "yǐ"
+              },
+              {
+                "surface": "子",
+                "notation": "zi"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-bed",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "床",
+      "meaning": "bed",
+      "sourceId": "zero-zh-word-bed",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "bed",
+      "usefulness": 92,
+      "complexity": 2,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-bed",
+        "tokens": [
+          {
+            "surface": "床",
+            "units": [
+              {
+                "surface": "床",
+                "notation": "chuáng"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-bag",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "包",
+      "meaning": "bag",
+      "sourceId": "zero-zh-word-bag",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "bag",
+      "usefulness": 92,
+      "complexity": 2,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-bag",
+        "tokens": [
+          {
+            "surface": "包",
+            "units": [
+              {
+                "surface": "包",
+                "notation": "bāo"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-ball",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "球",
+      "meaning": "ball",
+      "sourceId": "zero-zh-word-ball",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "ball",
+      "usefulness": 92,
+      "complexity": 2,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-ball",
+        "tokens": [
+          {
+            "surface": "球",
+            "units": [
+              {
+                "surface": "球",
+                "notation": "qiú"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-sun",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "太阳",
+      "meaning": "sun",
+      "sourceId": "zero-zh-word-sun",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "sun",
+      "usefulness": 92,
+      "complexity": 2,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-sun",
+        "tokens": [
+          {
+            "surface": "太阳",
+            "units": [
+              {
+                "surface": "太",
+                "notation": "tài"
+              },
+              {
+                "surface": "阳",
+                "notation": "yáng"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-hand",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "手",
+      "meaning": "hand",
+      "sourceId": "zero-zh-word-hand",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "hand",
+      "usefulness": 92,
+      "complexity": 2,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-hand",
+        "tokens": [
+          {
+            "surface": "手",
+            "units": [
+              {
+                "surface": "手",
+                "notation": "shǒu"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-eye",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "眼睛",
+      "meaning": "eye",
+      "sourceId": "zero-zh-word-eye",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "eye",
+      "usefulness": 92,
+      "complexity": 2,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-eye",
+        "tokens": [
+          {
+            "surface": "眼睛",
+            "units": [
+              {
+                "surface": "眼",
+                "notation": "yǎn"
+              },
+              {
+                "surface": "睛",
+                "notation": "jing"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-eat",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "吃",
+      "meaning": "eat",
+      "sourceId": "zero-zh-verb-eat",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "eat",
+      "usefulness": 92,
+      "complexity": 4,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-eat",
+        "tokens": [
+          {
+            "surface": "吃",
+            "units": [
+              {
+                "surface": "吃",
+                "notation": "chī"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-drink",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "喝",
+      "meaning": "drink",
+      "sourceId": "zero-zh-verb-drink",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "drink",
+      "usefulness": 92,
+      "complexity": 4,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-drink",
+        "tokens": [
+          {
+            "surface": "喝",
+            "units": [
+              {
+                "surface": "喝",
+                "notation": "hē"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-go",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "去",
+      "meaning": "go",
+      "sourceId": "zero-zh-verb-go",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "go",
+      "usefulness": 92,
+      "complexity": 4,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-go",
+        "tokens": [
+          {
+            "surface": "去",
+            "units": [
+              {
+                "surface": "去",
+                "notation": "qù"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-see",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "看见",
+      "meaning": "see",
+      "sourceId": "zero-zh-verb-see",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "see",
+      "usefulness": 92,
+      "complexity": 4,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-see",
+        "tokens": [
+          {
+            "surface": "看见",
+            "units": [
+              {
+                "surface": "看",
+                "notation": "kàn"
+              },
+              {
+                "surface": "见",
+                "notation": "jiàn"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-want",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "要",
+      "meaning": "want",
+      "sourceId": "zero-zh-verb-want",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "want",
+      "usefulness": 92,
+      "complexity": 4,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-want",
+        "tokens": [
+          {
+            "surface": "要",
+            "units": [
+              {
+                "surface": "要",
+                "notation": "yào"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-have",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "有",
+      "meaning": "have",
+      "sourceId": "zero-zh-verb-have",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "have",
+      "usefulness": 92,
+      "complexity": 4,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-have",
+        "tokens": [
+          {
+            "surface": "有",
+            "units": [
+              {
+                "surface": "有",
+                "notation": "yǒu"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-like",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "喜欢",
+      "meaning": "like",
+      "sourceId": "zero-zh-verb-like",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "like",
+      "usefulness": 92,
+      "complexity": 4,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-like",
+        "tokens": [
+          {
+            "surface": "喜欢",
+            "units": [
+              {
+                "surface": "喜",
+                "notation": "xǐ"
+              },
+              {
+                "surface": "欢",
+                "notation": "huan"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-sleep",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "睡觉",
+      "meaning": "sleep",
+      "sourceId": "zero-zh-verb-sleep",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "sleep",
+      "usefulness": 92,
+      "complexity": 4,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-sleep",
+        "tokens": [
+          {
+            "surface": "睡觉",
+            "units": [
+              {
+                "surface": "睡",
+                "notation": "shuì"
+              },
+              {
+                "surface": "觉",
+                "notation": "jiào"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-sit",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "坐",
+      "meaning": "sit",
+      "sourceId": "zero-zh-verb-sit",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "sit",
+      "usefulness": 92,
+      "complexity": 4,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-sit",
+        "tokens": [
+          {
+            "surface": "坐",
+            "units": [
+              {
+                "surface": "坐",
+                "notation": "zuò"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-read",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "读",
+      "meaning": "read",
+      "sourceId": "zero-zh-verb-read",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "read",
+      "usefulness": 92,
+      "complexity": 4,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-read",
+        "tokens": [
+          {
+            "surface": "读",
+            "units": [
+              {
+                "surface": "读",
+                "notation": "dú"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-write",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "写",
+      "meaning": "write",
+      "sourceId": "zero-zh-verb-write",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "write",
+      "usefulness": 92,
+      "complexity": 4,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-write",
+        "tokens": [
+          {
+            "surface": "写",
+            "units": [
+              {
+                "surface": "写",
+                "notation": "xiě"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-hear",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "听见",
+      "meaning": "hear",
+      "sourceId": "zero-zh-verb-hear",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "hear",
+      "usefulness": 92,
+      "complexity": 4,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-hear",
+        "tokens": [
+          {
+            "surface": "听见",
+            "units": [
+              {
+                "surface": "听",
+                "notation": "tīng"
+              },
+              {
+                "surface": "见",
+                "notation": "jiàn"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-i",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "我",
+      "meaning": "I",
+      "sourceId": "zero-zh-word-i",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I",
+      "usefulness": 92,
+      "complexity": 4,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-i",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-you",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "你",
+      "meaning": "you",
+      "sourceId": "zero-zh-word-you",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "you",
+      "usefulness": 92,
+      "complexity": 4,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-you",
+        "tokens": [
+          {
+            "surface": "你",
+            "units": [
+              {
+                "surface": "你",
+                "notation": "nǐ"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-we",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "我们",
+      "meaning": "we",
+      "sourceId": "zero-zh-word-we",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "we",
+      "usefulness": 92,
+      "complexity": 4,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-we",
+        "tokens": [
+          {
+            "surface": "我们",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              },
+              {
+                "surface": "们",
+                "notation": "men"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-hello",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "你好",
+      "meaning": "Hello!",
+      "sourceId": "zero-zh-word-hello",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "Hello!",
+      "usefulness": 92,
+      "complexity": 4,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-hello",
+        "tokens": [
+          {
+            "surface": "你好",
+            "units": [
+              {
+                "surface": "你",
+                "notation": "nǐ"
+              },
+              {
+                "surface": "好",
+                "notation": "hǎo"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-goodbye",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "再见",
+      "meaning": "Goodbye!",
+      "sourceId": "zero-zh-word-goodbye",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "Goodbye!",
+      "usefulness": 92,
+      "complexity": 4,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-goodbye",
+        "tokens": [
+          {
+            "surface": "再见",
+            "units": [
+              {
+                "surface": "再",
+                "notation": "zài"
+              },
+              {
+                "surface": "见",
+                "notation": "jiàn"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-yes",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "对",
+      "meaning": "Yes.",
+      "sourceId": "zero-zh-word-yes",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "Yes.",
+      "usefulness": 92,
+      "complexity": 4,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-yes",
+        "tokens": [
+          {
+            "surface": "对",
+            "units": [
+              {
+                "surface": "对",
+                "notation": "duì"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-no",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "不",
+      "meaning": "No.",
+      "sourceId": "zero-zh-word-no",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "No.",
+      "usefulness": 92,
+      "complexity": 4,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-no",
+        "tokens": [
+          {
+            "surface": "不",
+            "units": [
+              {
+                "surface": "不",
+                "notation": "bù"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-please",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "请",
+      "meaning": "Please.",
+      "sourceId": "zero-zh-word-please",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "Please.",
+      "usefulness": 92,
+      "complexity": 4,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-please",
+        "tokens": [
+          {
+            "surface": "请",
+            "units": [
+              {
+                "surface": "请",
+                "notation": "qǐng"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-thanks",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "谢谢",
+      "meaning": "Thank you.",
+      "sourceId": "zero-zh-word-thanks",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "Thank you.",
+      "usefulness": 92,
+      "complexity": 4,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-thanks",
+        "tokens": [
+          {
+            "surface": "谢谢",
+            "units": [
+              {
+                "surface": "谢",
+                "notation": "xiè"
+              },
+              {
+                "surface": "谢",
+                "notation": "xie"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-one",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "一",
+      "meaning": "one",
+      "sourceId": "zero-zh-word-one",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "one",
+      "usefulness": 92,
+      "complexity": 4,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-one",
+        "tokens": [
+          {
+            "surface": "一",
+            "units": [
+              {
+                "surface": "一",
+                "notation": "yī"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-two",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "二",
+      "meaning": "two",
+      "sourceId": "zero-zh-word-two",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "two",
+      "usefulness": 92,
+      "complexity": 4,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-two",
+        "tokens": [
+          {
+            "surface": "二",
+            "units": [
+              {
+                "surface": "二",
+                "notation": "èr"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-three",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "三",
+      "meaning": "three",
+      "sourceId": "zero-zh-word-three",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "three",
+      "usefulness": 92,
+      "complexity": 4,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-three",
+        "tokens": [
+          {
+            "surface": "三",
+            "units": [
+              {
+                "surface": "三",
+                "notation": "sān"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-four",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "四",
+      "meaning": "four",
+      "sourceId": "zero-zh-word-four",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "four",
+      "usefulness": 92,
+      "complexity": 4,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-four",
+        "tokens": [
+          {
+            "surface": "四",
+            "units": [
+              {
+                "surface": "四",
+                "notation": "sì"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-five",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "五",
+      "meaning": "five",
+      "sourceId": "zero-zh-word-five",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "five",
+      "usefulness": 92,
+      "complexity": 4,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-five",
+        "tokens": [
+          {
+            "surface": "五",
+            "units": [
+              {
+                "surface": "五",
+                "notation": "wǔ"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-big",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "大",
+      "meaning": "big",
+      "sourceId": "zero-zh-word-big",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "big",
+      "usefulness": 92,
+      "complexity": 4,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-big",
+        "tokens": [
+          {
+            "surface": "大",
+            "units": [
+              {
+                "surface": "大",
+                "notation": "dà"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-small",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "小",
+      "meaning": "small",
+      "sourceId": "zero-zh-word-small",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "small",
+      "usefulness": 92,
+      "complexity": 4,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-small",
+        "tokens": [
+          {
+            "surface": "小",
+            "units": [
+              {
+                "surface": "小",
+                "notation": "xiǎo"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-red",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "红色",
+      "meaning": "red",
+      "sourceId": "zero-zh-word-red",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "red",
+      "usefulness": 92,
+      "complexity": 4,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-red",
+        "tokens": [
+          {
+            "surface": "红色",
+            "units": [
+              {
+                "surface": "红",
+                "notation": "hóng"
+              },
+              {
+                "surface": "色",
+                "notation": "sè"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-word-green",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "绿色",
+      "meaning": "green",
+      "sourceId": "zero-zh-word-green",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "green",
+      "usefulness": 92,
+      "complexity": 4,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-green",
+        "tokens": [
+          {
+            "surface": "绿色",
+            "units": [
+              {
+                "surface": "绿",
+                "notation": "lǜ"
+              },
+              {
+                "surface": "色",
+                "notation": "sè"
+              }
+            ]
+          }
+        ]
+      }
     }
   ],
   "sentenceProvenance": {
@@ -20839,7 +22415,51 @@
       "ww.zh.pilot-v1.experience-beijing",
       "ww.zh.pilot-v1.completed-apple",
       "ww.zh.pilot-v1.open-window",
-      "ww.zh.pilot-v1.push-door"
+      "ww.zh.pilot-v1.push-door",
+      "ww-zero-this-cat",
+      "ww-zero-this-dog",
+      "ww-zero-this-water",
+      "ww-zero-this-bread",
+      "ww-zero-this-milk",
+      "ww-zero-this-apple",
+      "ww-zero-this-rice",
+      "ww-zero-this-tea",
+      "ww-zero-this-book",
+      "ww-zero-this-pen",
+      "ww-zero-this-house",
+      "ww-zero-this-door",
+      "ww-zero-this-table",
+      "ww-zero-this-chair",
+      "ww-zero-this-bed",
+      "ww-zero-this-bag",
+      "ww-zero-this-ball",
+      "ww-zero-this-sun",
+      "ww-zero-this-hand",
+      "ww-zero-this-eye",
+      "ww-zero-want-water",
+      "ww-zero-want-bread",
+      "ww-zero-want-milk",
+      "ww-zero-want-apple",
+      "ww-zero-want-rice",
+      "ww-zero-want-tea",
+      "ww-zero-want-book",
+      "ww-zero-want-pen",
+      "ww-zero-see-cat",
+      "ww-zero-see-dog",
+      "ww-zero-see-book",
+      "ww-zero-see-pen",
+      "ww-zero-see-house",
+      "ww-zero-see-door",
+      "ww-zero-see-table",
+      "ww-zero-see-ball",
+      "ww-zero-i-eat",
+      "ww-zero-i-drink",
+      "ww-zero-i-go",
+      "ww-zero-i-sit",
+      "ww-zero-i-read",
+      "ww-zero-i-write",
+      "ww-zero-i-sleep",
+      "ww-zero-i-have-pen"
     ],
     "selection": "Retained sentence selections plus 39 Mandarin beginner pilot sentences; exact source-linked text and preview readings preserve pending native review."
   },
@@ -60407,6 +62027,2125 @@
       },
       "usefulness": 96,
       "complexity": 17
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-this-cat",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "这是猫。",
+      "meaning": "This is a cat.",
+      "sourceId": "ww-zero-this-cat",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "This is a cat.",
+      "usefulness": 92,
+      "complexity": 7,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-this-cat",
+        "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "猫",
+            "units": [
+              {
+                "surface": "猫",
+                "notation": "māo"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-this-dog",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "这是狗。",
+      "meaning": "This is a dog.",
+      "sourceId": "ww-zero-this-dog",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "This is a dog.",
+      "usefulness": 92,
+      "complexity": 7,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-this-dog",
+        "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "狗",
+            "units": [
+              {
+                "surface": "狗",
+                "notation": "gǒu"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-this-water",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "这是水。",
+      "meaning": "This is water.",
+      "sourceId": "ww-zero-this-water",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "This is water.",
+      "usefulness": 92,
+      "complexity": 7,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-this-water",
+        "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "水",
+            "units": [
+              {
+                "surface": "水",
+                "notation": "shuǐ"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-this-bread",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "这是面包。",
+      "meaning": "This is bread.",
+      "sourceId": "ww-zero-this-bread",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "This is bread.",
+      "usefulness": 92,
+      "complexity": 7,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-this-bread",
+        "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "面包",
+            "units": [
+              {
+                "surface": "面",
+                "notation": "miàn"
+              },
+              {
+                "surface": "包",
+                "notation": "bāo"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-this-milk",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "这是牛奶。",
+      "meaning": "This is milk.",
+      "sourceId": "ww-zero-this-milk",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "This is milk.",
+      "usefulness": 92,
+      "complexity": 7,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-this-milk",
+        "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "牛奶",
+            "units": [
+              {
+                "surface": "牛",
+                "notation": "niú"
+              },
+              {
+                "surface": "奶",
+                "notation": "nǎi"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-this-apple",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "这是苹果。",
+      "meaning": "This is an apple.",
+      "sourceId": "ww-zero-this-apple",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "This is an apple.",
+      "usefulness": 92,
+      "complexity": 7,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-this-apple",
+        "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "苹果",
+            "units": [
+              {
+                "surface": "苹",
+                "notation": "píng"
+              },
+              {
+                "surface": "果",
+                "notation": "guǒ"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-this-rice",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "这是米饭。",
+      "meaning": "This is rice.",
+      "sourceId": "ww-zero-this-rice",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "This is rice.",
+      "usefulness": 92,
+      "complexity": 7,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-this-rice",
+        "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "米饭",
+            "units": [
+              {
+                "surface": "米",
+                "notation": "mǐ"
+              },
+              {
+                "surface": "饭",
+                "notation": "fàn"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-this-tea",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "这是茶。",
+      "meaning": "This is tea.",
+      "sourceId": "ww-zero-this-tea",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "This is tea.",
+      "usefulness": 92,
+      "complexity": 7,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-this-tea",
+        "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "茶",
+            "units": [
+              {
+                "surface": "茶",
+                "notation": "chá"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-this-book",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "这是书。",
+      "meaning": "This is a book.",
+      "sourceId": "ww-zero-this-book",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "This is a book.",
+      "usefulness": 92,
+      "complexity": 7,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-this-book",
+        "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "书",
+            "units": [
+              {
+                "surface": "书",
+                "notation": "shū"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-this-pen",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "这是笔。",
+      "meaning": "This is a pen.",
+      "sourceId": "ww-zero-this-pen",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "This is a pen.",
+      "usefulness": 92,
+      "complexity": 7,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-this-pen",
+        "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "笔",
+            "units": [
+              {
+                "surface": "笔",
+                "notation": "bǐ"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-this-house",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "这是房子。",
+      "meaning": "This is a house.",
+      "sourceId": "ww-zero-this-house",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "This is a house.",
+      "usefulness": 92,
+      "complexity": 7,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-this-house",
+        "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "房子",
+            "units": [
+              {
+                "surface": "房",
+                "notation": "fáng"
+              },
+              {
+                "surface": "子",
+                "notation": "zi"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-this-door",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "这是门。",
+      "meaning": "This is a door.",
+      "sourceId": "ww-zero-this-door",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "This is a door.",
+      "usefulness": 92,
+      "complexity": 7,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-this-door",
+        "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "门",
+            "units": [
+              {
+                "surface": "门",
+                "notation": "mén"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-this-table",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "这是桌子。",
+      "meaning": "This is a table.",
+      "sourceId": "ww-zero-this-table",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "This is a table.",
+      "usefulness": 92,
+      "complexity": 7,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-this-table",
+        "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "桌子",
+            "units": [
+              {
+                "surface": "桌",
+                "notation": "zhuō"
+              },
+              {
+                "surface": "子",
+                "notation": "zi"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-this-chair",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "这是椅子。",
+      "meaning": "This is a chair.",
+      "sourceId": "ww-zero-this-chair",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "This is a chair.",
+      "usefulness": 92,
+      "complexity": 7,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-this-chair",
+        "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "椅子",
+            "units": [
+              {
+                "surface": "椅",
+                "notation": "yǐ"
+              },
+              {
+                "surface": "子",
+                "notation": "zi"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-this-bed",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "这是床。",
+      "meaning": "This is a bed.",
+      "sourceId": "ww-zero-this-bed",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "This is a bed.",
+      "usefulness": 92,
+      "complexity": 7,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-this-bed",
+        "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "床",
+            "units": [
+              {
+                "surface": "床",
+                "notation": "chuáng"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-this-bag",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "这是包。",
+      "meaning": "This is a bag.",
+      "sourceId": "ww-zero-this-bag",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "This is a bag.",
+      "usefulness": 92,
+      "complexity": 7,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-this-bag",
+        "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "包",
+            "units": [
+              {
+                "surface": "包",
+                "notation": "bāo"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-this-ball",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "这是球。",
+      "meaning": "This is a ball.",
+      "sourceId": "ww-zero-this-ball",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "This is a ball.",
+      "usefulness": 92,
+      "complexity": 7,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-this-ball",
+        "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "球",
+            "units": [
+              {
+                "surface": "球",
+                "notation": "qiú"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-this-sun",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "这是太阳。",
+      "meaning": "This is the sun.",
+      "sourceId": "ww-zero-this-sun",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "This is the sun.",
+      "usefulness": 92,
+      "complexity": 7,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-this-sun",
+        "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "太阳",
+            "units": [
+              {
+                "surface": "太",
+                "notation": "tài"
+              },
+              {
+                "surface": "阳",
+                "notation": "yáng"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-this-hand",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "这是手。",
+      "meaning": "This is a hand.",
+      "sourceId": "ww-zero-this-hand",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "This is a hand.",
+      "usefulness": 92,
+      "complexity": 7,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-this-hand",
+        "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "手",
+            "units": [
+              {
+                "surface": "手",
+                "notation": "shǒu"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-this-eye",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "这是眼睛。",
+      "meaning": "This is an eye.",
+      "sourceId": "ww-zero-this-eye",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "This is an eye.",
+      "usefulness": 92,
+      "complexity": 7,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-this-eye",
+        "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "是",
+            "units": [
+              {
+                "surface": "是",
+                "notation": "shì"
+              }
+            ]
+          },
+          {
+            "surface": "眼睛",
+            "units": [
+              {
+                "surface": "眼",
+                "notation": "yǎn"
+              },
+              {
+                "surface": "睛",
+                "notation": "jing"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-want-water",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "我要水。",
+      "meaning": "I want water.",
+      "sourceId": "ww-zero-want-water",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I want water.",
+      "usefulness": 92,
+      "complexity": 9,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-want-water",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "要",
+            "units": [
+              {
+                "surface": "要",
+                "notation": "yào"
+              }
+            ]
+          },
+          {
+            "surface": "水",
+            "units": [
+              {
+                "surface": "水",
+                "notation": "shuǐ"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-want-bread",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "我要面包。",
+      "meaning": "I want bread.",
+      "sourceId": "ww-zero-want-bread",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I want bread.",
+      "usefulness": 92,
+      "complexity": 9,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-want-bread",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "要",
+            "units": [
+              {
+                "surface": "要",
+                "notation": "yào"
+              }
+            ]
+          },
+          {
+            "surface": "面包",
+            "units": [
+              {
+                "surface": "面",
+                "notation": "miàn"
+              },
+              {
+                "surface": "包",
+                "notation": "bāo"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-want-milk",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "我要牛奶。",
+      "meaning": "I want milk.",
+      "sourceId": "ww-zero-want-milk",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I want milk.",
+      "usefulness": 92,
+      "complexity": 9,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-want-milk",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "要",
+            "units": [
+              {
+                "surface": "要",
+                "notation": "yào"
+              }
+            ]
+          },
+          {
+            "surface": "牛奶",
+            "units": [
+              {
+                "surface": "牛",
+                "notation": "niú"
+              },
+              {
+                "surface": "奶",
+                "notation": "nǎi"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-want-apple",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "我要苹果。",
+      "meaning": "I want an apple.",
+      "sourceId": "ww-zero-want-apple",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I want an apple.",
+      "usefulness": 92,
+      "complexity": 9,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-want-apple",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "要",
+            "units": [
+              {
+                "surface": "要",
+                "notation": "yào"
+              }
+            ]
+          },
+          {
+            "surface": "苹果",
+            "units": [
+              {
+                "surface": "苹",
+                "notation": "píng"
+              },
+              {
+                "surface": "果",
+                "notation": "guǒ"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-want-rice",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "我要米饭。",
+      "meaning": "I want rice.",
+      "sourceId": "ww-zero-want-rice",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I want rice.",
+      "usefulness": 92,
+      "complexity": 9,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-want-rice",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "要",
+            "units": [
+              {
+                "surface": "要",
+                "notation": "yào"
+              }
+            ]
+          },
+          {
+            "surface": "米饭",
+            "units": [
+              {
+                "surface": "米",
+                "notation": "mǐ"
+              },
+              {
+                "surface": "饭",
+                "notation": "fàn"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-want-tea",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "我要茶。",
+      "meaning": "I want tea.",
+      "sourceId": "ww-zero-want-tea",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I want tea.",
+      "usefulness": 92,
+      "complexity": 9,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-want-tea",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "要",
+            "units": [
+              {
+                "surface": "要",
+                "notation": "yào"
+              }
+            ]
+          },
+          {
+            "surface": "茶",
+            "units": [
+              {
+                "surface": "茶",
+                "notation": "chá"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-want-book",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "我要书。",
+      "meaning": "I want a book.",
+      "sourceId": "ww-zero-want-book",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I want a book.",
+      "usefulness": 92,
+      "complexity": 9,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-want-book",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "要",
+            "units": [
+              {
+                "surface": "要",
+                "notation": "yào"
+              }
+            ]
+          },
+          {
+            "surface": "书",
+            "units": [
+              {
+                "surface": "书",
+                "notation": "shū"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-want-pen",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "我要笔。",
+      "meaning": "I want a pen.",
+      "sourceId": "ww-zero-want-pen",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I want a pen.",
+      "usefulness": 92,
+      "complexity": 9,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-want-pen",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "要",
+            "units": [
+              {
+                "surface": "要",
+                "notation": "yào"
+              }
+            ]
+          },
+          {
+            "surface": "笔",
+            "units": [
+              {
+                "surface": "笔",
+                "notation": "bǐ"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-see-cat",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "我看见猫。",
+      "meaning": "I see a cat.",
+      "sourceId": "ww-zero-see-cat",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I see a cat.",
+      "usefulness": 92,
+      "complexity": 10,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-see-cat",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "看见",
+            "units": [
+              {
+                "surface": "看",
+                "notation": "kàn"
+              },
+              {
+                "surface": "见",
+                "notation": "jiàn"
+              }
+            ]
+          },
+          {
+            "surface": "猫",
+            "units": [
+              {
+                "surface": "猫",
+                "notation": "māo"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-see-dog",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "我看见狗。",
+      "meaning": "I see a dog.",
+      "sourceId": "ww-zero-see-dog",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I see a dog.",
+      "usefulness": 92,
+      "complexity": 10,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-see-dog",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "看见",
+            "units": [
+              {
+                "surface": "看",
+                "notation": "kàn"
+              },
+              {
+                "surface": "见",
+                "notation": "jiàn"
+              }
+            ]
+          },
+          {
+            "surface": "狗",
+            "units": [
+              {
+                "surface": "狗",
+                "notation": "gǒu"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-see-book",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "我看见书。",
+      "meaning": "I see a book.",
+      "sourceId": "ww-zero-see-book",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I see a book.",
+      "usefulness": 92,
+      "complexity": 10,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-see-book",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "看见",
+            "units": [
+              {
+                "surface": "看",
+                "notation": "kàn"
+              },
+              {
+                "surface": "见",
+                "notation": "jiàn"
+              }
+            ]
+          },
+          {
+            "surface": "书",
+            "units": [
+              {
+                "surface": "书",
+                "notation": "shū"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-see-pen",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "我看见笔。",
+      "meaning": "I see a pen.",
+      "sourceId": "ww-zero-see-pen",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I see a pen.",
+      "usefulness": 92,
+      "complexity": 10,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-see-pen",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "看见",
+            "units": [
+              {
+                "surface": "看",
+                "notation": "kàn"
+              },
+              {
+                "surface": "见",
+                "notation": "jiàn"
+              }
+            ]
+          },
+          {
+            "surface": "笔",
+            "units": [
+              {
+                "surface": "笔",
+                "notation": "bǐ"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-see-house",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "我看见房子。",
+      "meaning": "I see a house.",
+      "sourceId": "ww-zero-see-house",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I see a house.",
+      "usefulness": 92,
+      "complexity": 10,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-see-house",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "看见",
+            "units": [
+              {
+                "surface": "看",
+                "notation": "kàn"
+              },
+              {
+                "surface": "见",
+                "notation": "jiàn"
+              }
+            ]
+          },
+          {
+            "surface": "房子",
+            "units": [
+              {
+                "surface": "房",
+                "notation": "fáng"
+              },
+              {
+                "surface": "子",
+                "notation": "zi"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-see-door",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "我看见门。",
+      "meaning": "I see a door.",
+      "sourceId": "ww-zero-see-door",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I see a door.",
+      "usefulness": 92,
+      "complexity": 10,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-see-door",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "看见",
+            "units": [
+              {
+                "surface": "看",
+                "notation": "kàn"
+              },
+              {
+                "surface": "见",
+                "notation": "jiàn"
+              }
+            ]
+          },
+          {
+            "surface": "门",
+            "units": [
+              {
+                "surface": "门",
+                "notation": "mén"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-see-table",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "我看见桌子。",
+      "meaning": "I see a table.",
+      "sourceId": "ww-zero-see-table",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I see a table.",
+      "usefulness": 92,
+      "complexity": 10,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-see-table",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "看见",
+            "units": [
+              {
+                "surface": "看",
+                "notation": "kàn"
+              },
+              {
+                "surface": "见",
+                "notation": "jiàn"
+              }
+            ]
+          },
+          {
+            "surface": "桌子",
+            "units": [
+              {
+                "surface": "桌",
+                "notation": "zhuō"
+              },
+              {
+                "surface": "子",
+                "notation": "zi"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-see-ball",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "我看见球。",
+      "meaning": "I see a ball.",
+      "sourceId": "ww-zero-see-ball",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I see a ball.",
+      "usefulness": 92,
+      "complexity": 10,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-see-ball",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "看见",
+            "units": [
+              {
+                "surface": "看",
+                "notation": "kàn"
+              },
+              {
+                "surface": "见",
+                "notation": "jiàn"
+              }
+            ]
+          },
+          {
+            "surface": "球",
+            "units": [
+              {
+                "surface": "球",
+                "notation": "qiú"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-i-eat",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "我吃。",
+      "meaning": "I eat.",
+      "sourceId": "ww-zero-i-eat",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I eat.",
+      "usefulness": 92,
+      "complexity": 8,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-i-eat",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "吃",
+            "units": [
+              {
+                "surface": "吃",
+                "notation": "chī"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-i-drink",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "我喝。",
+      "meaning": "I drink.",
+      "sourceId": "ww-zero-i-drink",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I drink.",
+      "usefulness": 92,
+      "complexity": 8,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-i-drink",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "喝",
+            "units": [
+              {
+                "surface": "喝",
+                "notation": "hē"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-i-go",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "我去。",
+      "meaning": "I go.",
+      "sourceId": "ww-zero-i-go",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I go.",
+      "usefulness": 92,
+      "complexity": 8,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-i-go",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "去",
+            "units": [
+              {
+                "surface": "去",
+                "notation": "qù"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-i-sit",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "我坐。",
+      "meaning": "I sit.",
+      "sourceId": "ww-zero-i-sit",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I sit.",
+      "usefulness": 92,
+      "complexity": 8,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-i-sit",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "坐",
+            "units": [
+              {
+                "surface": "坐",
+                "notation": "zuò"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-i-read",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "我读书。",
+      "meaning": "I read a book.",
+      "sourceId": "ww-zero-i-read",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I read a book.",
+      "usefulness": 92,
+      "complexity": 8,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-i-read",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "读",
+            "units": [
+              {
+                "surface": "读",
+                "notation": "dú"
+              }
+            ]
+          },
+          {
+            "surface": "书",
+            "units": [
+              {
+                "surface": "书",
+                "notation": "shū"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-i-write",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "我写字。",
+      "meaning": "I write.",
+      "sourceId": "ww-zero-i-write",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I write.",
+      "usefulness": 92,
+      "complexity": 8,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-i-write",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "写",
+            "units": [
+              {
+                "surface": "写",
+                "notation": "xiě"
+              }
+            ]
+          },
+          {
+            "surface": "字",
+            "units": [
+              {
+                "surface": "字",
+                "notation": "zì"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-i-sleep",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "我睡觉。",
+      "meaning": "I sleep.",
+      "sourceId": "ww-zero-i-sleep",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I sleep.",
+      "usefulness": 92,
+      "complexity": 8,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-i-sleep",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "睡觉",
+            "units": [
+              {
+                "surface": "睡",
+                "notation": "shuì"
+              },
+              {
+                "surface": "觉",
+                "notation": "jiào"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-zh-sound-ww-zero-i-hear",
+      "difficulty": 0,
+      "revision": "1",
+      "target": "我有笔。",
+      "meaning": "I have a pen.",
+      "sourceId": "ww-zero-i-have-pen",
+      "sourceReviewStatus": "native-review-required",
+      "englishAuditText": "I have a pen.",
+      "usefulness": 92,
+      "complexity": 8,
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-i-have-pen",
+        "tokens": [
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "有",
+            "units": [
+              {
+                "surface": "有",
+                "notation": "yǒu"
+              }
+            ]
+          },
+          {
+            "surface": "笔",
+            "units": [
+              {
+                "surface": "笔",
+                "notation": "bǐ"
+              }
+            ]
+          }
+        ]
+      }
     }
   ],
   "authoredProvenance": {

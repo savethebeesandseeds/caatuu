@@ -1,11 +1,11 @@
 import { learnerItemState } from "./learner-state.mjs";
 import { fetchDeclaredCourseGameJson } from "./games/course-game-content.mjs?v=course-game-content-1";
-import { extractCoreVerbPairs } from "./games/verb-nebula/verb-nebula-core.mjs?v=verb-nebula-core-14";
-import { validateConjugationCometCatalog, buildConjugationHelixRound } from "./games/conjugation-comet/conjugation-comet-core.mjs?v=conjugation-comet-core-4";
-import { validateGrammarGravityPack, buildGrammarGravityRounds } from "./games/grammar-gravity/grammar-gravity-core.mjs?v=grammar-gravity-core-8";
-import { normalizeNounLandingPack, createNounLandingSession } from "./games/grammar-gravity/noun-landing-core.mjs?v=noun-landing-core-11";
-import { validateSoundQuasarCatalog, buildSoundQuasarRound } from "./games/sound-quasar/sound-quasar-core.mjs?v=sound-quasar-11";
-import { validateMemoryMoonCatalog } from "./games/memory-moon/memory-moon-core.mjs?v=memory-moon-3";
+import { extractCoreVerbPairs } from "./games/verb-nebula/verb-nebula-core.mjs?v=verb-nebula-core-15";
+import { validateConjugationCometCatalog, buildConjugationHelixRound } from "./games/conjugation-comet/conjugation-comet-core.mjs?v=conjugation-comet-core-5";
+import { validateGrammarGravityPack, buildGrammarGravityRounds } from "./games/grammar-gravity/grammar-gravity-core.mjs?v=grammar-gravity-core-9";
+import { normalizeNounLandingPack, createNounLandingSession } from "./games/grammar-gravity/noun-landing-core.mjs?v=noun-landing-core-12";
+import { validateSoundQuasarCatalog, buildSoundQuasarRound } from "./games/sound-quasar/sound-quasar-core.mjs?v=sound-quasar-12";
+import { validateMemoryMoonCatalog } from "./games/memory-moon/memory-moon-core.mjs?v=memory-moon-4";
 import { joinConceptCatalogs } from "./catalog-runtime.mjs";
 import "./shell-policy.js?v=shell-policy-18";
 
@@ -31,7 +31,7 @@ export const BADGE_RECOMMENDATION_POLICY = Object.freeze({
 export function evaluateBadgeRecommendation({ courseId, difficulty, stageComplete = false,
   items = [], nextPlayable = [], partial = false, issues = [], now = Date.now(),
   policy = BADGE_RECOMMENDATION_POLICY } = {}) {
-  if (!text(courseId) || ![1, 2, 3].includes(difficulty) || !Number.isFinite(now)
+  if (!text(courseId) || ![0, 1, 2, 3].includes(difficulty) || !Number.isFinite(now)
     || !Number.isFinite(new Date(now).getTime()) || !Array.isArray(items) || !Array.isArray(nextPlayable)) {
     throw new TypeError("A course, exact difficulty, valid time, and resolved evidence arrays are required.");
   }
@@ -49,7 +49,7 @@ export function evaluateBadgeRecommendation({ courseId, difficulty, stageComplet
   for (const item of items) {
     const identity = item?.identity;
     if (!identity || identity.courseId !== courseId || ["gameId", "bankId", "itemId"].some(field => !text(identity[field]))
-      || ![1, 2, 3].includes(item.difficulty)) {
+      || ![0, 1, 2, 3].includes(item.difficulty)) {
       result.counts.unresolvedItems++; result.issues.push("identity-or-difficulty-unresolved"); continue;
     }
     if (item.difficulty !== difficulty) continue;
@@ -102,7 +102,7 @@ function indexRows(rows, groupId = row => row.id) {
   if (!Array.isArray(rows)) throw new Error("Catalog rows are unavailable.");
   const indexed = new Map();
   for (const row of rows) {
-    if (!text(row?.id) || indexed.has(row.id) || ![1, 2, 3].includes(row.difficulty ?? 1)) throw new Error("Catalog identity or difficulty is invalid.");
+    if (!text(row?.id) || indexed.has(row.id) || ![0, 1, 2, 3].includes(row.difficulty ?? 1)) throw new Error("Catalog identity or difficulty is invalid.");
     indexed.set(row.id, { difficulty: row.difficulty ?? 1, groupId: groupId(row) });
   }
   return indexed;
@@ -177,8 +177,9 @@ function nucleusCatalog(document) {
   const word = document.schemaVersion === 2, targets = new Set();
   for (const row of document.challenges) {
     const target = word ? row.target : row.hanzi, reading = word ? row.reading : row.pinyin;
-    if (!text(target) || !text(reading) || !text(row.translation) || targets.has(target)) throw new Error("Invalid or duplicate domino target.");
-    targets.add(target);
+    const targetKey = `${row.difficulty === 0 ? "zero:" : ""}${target}`;
+    if (!text(target) || !text(reading) || !text(row.translation) || targets.has(targetKey)) throw new Error("Invalid or duplicate domino target.");
+    targets.add(targetKey);
     if (word) {
       if (!/^ar\.reading\.[a-z0-9-]+$/u.test(row.id) || !text(row.englishAuditText)
         || !/^[\u0621-\u063a\u0641-\u0652\u0670]+$/u.test(target) || !/[\u064b-\u0652]/u.test(target)
@@ -196,8 +197,8 @@ function nucleusCatalog(document) {
   const index = indexRows(document.challenges);
   const readingKey = row => `${(row.reading ?? row.pinyin).normalize("NFC").toLowerCase()}:${row.tone ?? "word"}`;
   const required = Math.max(...settings.pieceCounts);
-  const playable = level => new Set(document.challenges.filter(row => row.difficulty === level).map(readingKey)).size >= required;
-  if ([1, 2, 3].some(level => !playable(level))) throw new Error("Domino pack cannot form its supported boards at every difficulty.");
+  const playable = level => new Set(document.challenges.filter(row => row.difficulty === level).map(readingKey)).size >= (level === 0 ? 3 : required);
+  if ([0, 1, 2, 3].some(level => !playable(level))) throw new Error("Domino pack cannot form its supported boards at every difficulty.");
   return { banks: { default: index }, playable };
 }
 
@@ -276,7 +277,7 @@ export function createBadgeRecommendation({ course, learning, runtimeHref = glob
     if (gameId === "grammar-gravity") {
       const pack = validateGrammarGravityPack(document, { courseId: course.id, targetLanguage: course.targetLanguage.locale,
         learnerBaseLanguage: course.sourceLanguage.locale });
-      const rounds = new Map([1, 2, 3].map(level => [level, pack.challenges.some(row => row.difficulty === level)
+      const rounds = new Map([0, 1, 2, 3].map(level => [level, pack.challenges.some(row => row.difficulty === level)
         ? buildGrammarGravityRounds(pack, level, () => .5) : []]));
       return { banks: { phrases: indexRows([...rounds.values()].flat()) }, playable: level => rounds.get(level).length > 0 };
     }

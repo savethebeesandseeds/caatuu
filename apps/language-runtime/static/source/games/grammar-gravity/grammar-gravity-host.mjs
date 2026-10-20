@@ -3,13 +3,13 @@ import {
   scopeGrammarGravityMeaningChoices,
   validateGrammarGravityCategories,
   normalizeGrammarGravityPack
-} from "./grammar-gravity-core.mjs?v=grammar-gravity-core-8";
+} from "./grammar-gravity-core.mjs?v=grammar-gravity-core-9";
 import {
   fetchDeclaredCourseGameJson,
   readEmbeddedCourseProfile
 } from "../course-game-content.mjs?v=course-game-content-1";
-import { mountNounLanding } from "./noun-landing-host.mjs?v=noun-landing-host-28";
-import { mountGrammarFlight } from "./adjective-flight-host.mjs?v=adjective-flight-host-23";
+import { mountNounLanding } from "./noun-landing-host.mjs?v=noun-landing-host-31";
+import { mountGrammarFlight } from "./adjective-flight-host.mjs?v=adjective-flight-host-25";
 import { mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-10";
 import { selectContentItems, newContentEncounterId } from "../adaptive-practice.mjs";
 import { createArabicReadingGuide } from "../../arabic-reading-guide.mjs?v=arabic-reading-guide-2";
@@ -82,8 +82,8 @@ export function focusGrammarGravityElement(destination, root = globalThis.docume
 }
 
 function learningDifficulty() {
-  const value = Number(state.shell?.CaatuuLearning?.difficulty?.() || 1);
-  return Number.isInteger(value) && value >= 1 && value <= 3 ? value : 1;
+  const value = Number(state.shell?.CaatuuLearning?.difficulty?.() ?? 1);
+  return Number.isInteger(value) && value >= 0 && value <= 3 ? value : 1;
 }
 
 function recordLearning(delta) {
@@ -133,6 +133,7 @@ function startGrammarRound() {
   if (!round) throw new Error("Grammar Gravity has no modern round for this difficulty.");
   state.encounterId = newContentEncounterId();
   state.contentGeneration = state.shell?.CaatuuLearning?.contentGeneration?.() ?? null;
+  state.adjectiveGame.setDurationMs(state.difficulty === 0 ? 0 : state.durationMs);
   state.adjectiveGame.start(round, round.flights, { practiceMode: state.practiceMode });
 }
 
@@ -200,9 +201,10 @@ function render() {
   if (error) $("#grammarGravityErrorCopy").textContent = state.error;
 }
 
-function nextRound() {
-  if (state.mode !== "phrases" || state.phase !== "complete" || !state.active || document.hidden || state.pageHidden || state.controlsOpen) return;
-  const restoreFocus = playingFocus();
+function nextRound({ campaignAdvance = false } = {}) {
+  if (state.mode !== "phrases" || state.phase !== "complete"
+      || (!campaignAdvance && (!state.active || document.hidden || state.pageHidden || state.controlsOpen))) return;
+  const restoreFocus = !campaignAdvance && playingFocus();
   if (state.index === state.rounds.length - 1) {
     const previous = currentRound().flights[0].anchorEnglishAuditText;
     state.rounds = [...makeRounds(previous)];
@@ -259,9 +261,11 @@ function bindShellMessages() {
       document.body.toggleAttribute("inert", !state.active);
       document.documentElement.dataset.active = String(state.active);
       syncTransition();
+      if (state.active && state.mode === "phrases" && state.phase === "complete"
+          && state.shell.document.body?.dataset.campaignActive !== "true") nextRound();
     } else if (event.data.type === "campaign-advance") {
-      if (state.mode === "nouns") state.nounGame?.next();
-      else nextRound();
+      if (state.mode === "nouns") state.nounGame?.next({ campaignAdvance: true });
+      else nextRound({ campaignAdvance: true });
     }
   });
 }
@@ -349,7 +353,7 @@ function configureControls() {
       if (option.checked && [0, 5000, 10000, 15000, 20000].includes(selected)) {
         state.durationMs = selected;
         state.nounGame?.setDurationMs(selected);
-        state.adjectiveGame?.setDurationMs(selected);
+        state.adjectiveGame?.setDurationMs(state.difficulty === 0 ? 0 : selected);
         if (state.mode === "nouns") $("#gravityNounHelp").textContent = state.shell.CaatuuI18n.t(`games.grammargravity.nouns.${selected === 0 ? "untimedhelp" : "help"}`);
       }
       durationOptions.forEach((choice) => {
@@ -452,7 +456,7 @@ export async function mountGrammarGravity() {
       state.phase = "complete";
       recordLearning({ rounds: 1, xp: correctCount === total ? 1 : 0 });
       if (correctCount === total) announceRoundSuccess(currentRound());
-      nextRound();
+      if (state.shell.document.body?.dataset.campaignActive !== "true" || correctCount !== total) nextRound();
     }
   });
   configureCoursePresentation();

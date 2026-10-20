@@ -263,6 +263,27 @@ for(const failure of [{phraseFails:true},{invalidContent:true},{nounReady:false}
   });
 }
 
+test("zero grammar holds its two-choice task untimed and switching back restores Explorer timing", async () => {
+  const game = await mountSequence();
+  game.setDifficulty(0);
+  let snapshot = game.state.adjectiveGame.snapshot();
+  assert.equal(game.state.difficulty, 0);
+  assert.equal(snapshot.durationMs, 0);
+  assert.equal(snapshot.current.options.length, 2);
+  assert.ok(!snapshot.steps.includes("category"));
+  game.state.adjectiveGame.setMeaningOptionCount(6);
+  assert.equal(game.state.adjectiveGame.snapshot().current.meaningOptions.length, 2);
+  const timed = game.timingChoice(5000);
+  timed.checked = true;
+  timed.dispatchEvent({ type: "change" });
+  assert.equal(game.state.adjectiveGame.snapshot().durationMs, 0);
+  game.setDifficulty(1);
+  snapshot = game.state.adjectiveGame.snapshot();
+  assert.equal(snapshot.durationMs, 5000);
+  assert.equal(snapshot.current.introductory, undefined);
+  game.controller.destroy();
+});
+
 test("explicit noun practice continues independently and its controls affect both renderers",async()=>{
   const game=await mountSequence({requestedPractice:"nouns"});
   assert.equal(game.state.mode,"nouns");

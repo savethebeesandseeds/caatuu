@@ -453,7 +453,7 @@ async function loadContentData() {
 
   if (verbsEnabled) {
     [verbNebulaCore, verbExerciseFamilyCore, childFacingAssets] = await Promise.all([
-      import("/language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs?v=verb-nebula-core-14"),
+      import("/language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs?v=verb-nebula-core-15"),
       import("/language-runtime/static/source/games/verb-nebula/verb-exercise-family-core.mjs?v=verb-exercise-family-core-3"),
       import("/language-runtime/static/source/child-facing-assets.mjs?v=child-facing-assets-2")
     ]);
@@ -487,6 +487,7 @@ const state = {
   campaignQueue: [],
   campaignPendingTab: "",
   campaignTransitioning: false,
+  campaignHandoffPending: false,
   campaignTransitionId: 0,
   campaignContinueResult: null,
   verbDifficulty: 1,
@@ -1957,7 +1958,7 @@ function loadVerbMemory() {
 
   if (state.verbGuidedRequested) {
     const plan = state.verbGuidedPlan;
-    state.verbDifficulty = Number(plan?.round?.[0]?.difficulty) || 1;
+    state.verbDifficulty = Number(plan?.round?.[0]?.difficulty ?? 1);
     state.verbPairs = plan ? [...plan.round] : [];
     state.verbQueueIds = [];
     state.verbRound = plan ? [...plan.round] : [];
@@ -1974,7 +1975,7 @@ function loadVerbMemory() {
     return;
   }
 
-  state.verbDifficulty = Number(window.CaatuuLearning?.difficulty?.()) || 1;
+  state.verbDifficulty = Number(window.CaatuuLearning?.difficulty?.() ?? 1);
   state.verbPairs = verbNebulaCore.filterVerbPairsForDifficulty(
     verbNebulaCore.validateVerbNebulaCatalog(countryDictionary, {
       learnerBaseLanguage: sourceLanguage.locale || sourceLanguage.id
@@ -1984,7 +1985,7 @@ function loadVerbMemory() {
   const pairById = new Map(state.verbPairs.map((pair) => [pair.id, pair]));
   const memory = readVerbMemory();
   const sameDifficulty = Number(memory?.difficulty) === state.verbDifficulty;
-  state.verbPairCount = verbNebulaCore.normalizeVerbPairCount(memory?.pairCount, 4);
+  state.verbPairCount = state.verbDifficulty === 0 ? 2 : verbNebulaCore.normalizeVerbPairCount(memory?.pairCount, 4);
   state.verbHintsEnabled = memory ? Boolean(memory.hintsEnabled) : true;
   state.verbRoundNumber = safeVerbStat(memory?.roundNumber);
   state.verbContentEncounterId = typeof memory?.contentEncounterId === "string" && memory.contentEncounterId
@@ -2147,7 +2148,7 @@ function renderVerbPairCountControls() {
     const selected = Number(button.dataset.verbPairCount) === state.verbPairCount;
     button.setAttribute("aria-pressed", String(selected));
     button.classList.toggle("is-active", selected);
-    button.disabled = state.verbGuidedRequested;
+    button.disabled = state.verbGuidedRequested || (state.verbDifficulty === 0 && Number(button.dataset.verbPairCount) !== 2);
   });
   setText("#verbPairCurrent", String(state.verbPairCount));
 }
@@ -2380,13 +2381,34 @@ function verbToolbarPopover(menu) {
 }
 
 function speakVerbCzechOnTap(verbId) {
+  cancelVerbTapSpeech();
   if (course.capabilities?.speech !== true || !state.verbSpeakOnTap) return;
   const pair = state.verbRound.find((item) => item.id === verbId);
   const target = pair?.target ?? pair?.cz;
   if (!target || typeof window.CaatuuChrome?.speakText !== "function") return;
-  void Promise.resolve().then(() => window.CaatuuChrome.speakText(target)).catch((error) => {
-    console.warn(`Could not speak the selected ${verbTargetLabel} verb.`, error);
+  const round = state.verbRound;
+  const transitionId = state.verbRoundTransitionId;
+  const request = state.verbTapSpeechRequest;
+  // A microtask still runs before painting. Give the selected card one frame
+  // before optional voice discovery or the native speech bridge can do work.
+  state.verbTapSpeechCancel = window.CaatuuPracticePacing.afterInteractionPaint(window, () => {
+    state.verbTapSpeechCancel = null;
+    if (request !== state.verbTapSpeechRequest || round !== state.verbRound
+        || transitionId !== state.verbRoundTransitionId || !state.verbSpeakOnTap
+        || state.activeView !== "verbs" || state.trainTab !== "verb-lab"
+        || document.hidden || document.visibilityState === "hidden"
+        || state.verbRoundTransitioning || state.campaignTransitioning
+        || state.campaignHandoffPending || window.CaatuuGameDynamics?.active) return;
+    void Promise.resolve().then(() => window.CaatuuChrome.speakText(target)).catch((error) => {
+      console.warn(`Could not speak the selected ${verbTargetLabel} verb.`, error);
+    });
   });
+}
+
+function cancelVerbTapSpeech() {
+  state.verbTapSpeechRequest = (state.verbTapSpeechRequest || 0) + 1;
+  state.verbTapSpeechCancel?.();
+  state.verbTapSpeechCancel = null;
 }
 
 function renderVerbMatchStats() {
@@ -3124,13 +3146,13 @@ function chooseVerbMatchCard(event) {
   const id = card.dataset.verbId;
 
   if (card.dataset.verbSide === "cz") {
-    speakVerbCzechOnTap(id);
     state.verbSelectedCzechId = state.verbSelectedCzechId === id ? "" : id;
   } else {
     state.verbSelectedEnglishId = state.verbSelectedEnglishId === id ? "" : id;
   }
 
   syncVerbSelectedCards();
+  if (card.dataset.verbSide === "cz") speakVerbCzechOnTap(id);
   if (state.verbSelectedCzechId && state.verbSelectedEnglishId) {
     void trackVerbGuidedOperation(settleVerbMatch);
   }
@@ -3148,7 +3170,7 @@ function syncVerbSelectedCards() {
 
 function changeVerbPairCount(event) {
   const button = event.target.closest("[data-verb-pair-count]");
-  if (!button || state.verbRoundTransitioning || state.verbGuidedRequested) return;
+  if (!button || state.verbRoundTransitioning || state.verbGuidedRequested || state.verbDifficulty === 0) return;
   button.closest("details")?.removeAttribute("open");
   const nextCount = verbNebulaCore.normalizeVerbPairCount(button.dataset.verbPairCount, state.verbPairCount);
   if (nextCount === state.verbPairCount) return;
@@ -3579,9 +3601,13 @@ function bindVerbNebulaControls() {
     if (state.verbSolutionRevealed) renderVerbSolutionArrows();
   });
   document.addEventListener("visibilitychange", () => {
-    if (document.visibilityState === "hidden") deferVerbGuidedActivation();
+    if (document.visibilityState === "hidden") {
+      cancelVerbTapSpeech();
+      deferVerbGuidedActivation();
+    }
     else if (state.trainTab === "verb-lab") renderVerbNebula();
   });
+  window.addEventListener("pagehide", cancelVerbTapSpeech);
   window.addEventListener("caatuu:speech-pace-change", renderVerbAudioControls);
   window.addEventListener("caatuu:speech-voice-change", () => {
     if (state.verbSpeakOnTap && document.querySelector("#verbMeaningBoard .verb-audio-menu")?.open) {
@@ -4582,7 +4608,8 @@ function syncActiveGameVisibility() {
   const selectedTab = state.activeView === "verbs" ? state.trainTab : "";
   window.CaatuuGameDynamics?.setActive?.(Boolean(selectedTab && !["galaxy", "campaign"].includes(selectedTab)));
   window.CaatuuCampaignRoadmap?.show?.(selectedTab === "campaign");
-  const activeTab = window.CaatuuGameDynamics?.active ? "" : selectedTab;
+  const activeTab = window.CaatuuGameDynamics?.active || state.campaignHandoffPending ? "" : selectedTab;
+  if (activeTab !== "verb-lab") cancelVerbTapSpeech();
   document.body.classList.toggle("word-net-active", selectedTab === "word-net");
   document.body.classList.toggle("embedded-game-active", selectedTab === "word-net" || Object.hasOwn(embeddedGameTabs, selectedTab));
   syncEmbeddedWordNetVisibility(activeTab === "word-net");
@@ -4699,7 +4726,8 @@ function syncEmbeddedGameVisibility(activeTab) {
     frame.contentWindow.postMessage({
       source: "caatuu-app-shell",
       type: "visibility",
-      active: state.activeView === "verbs" && activeTab === gameId && !window.CaatuuGameDynamics?.active,
+      active: state.activeView === "verbs" && activeTab === gameId
+        && !state.campaignHandoffPending && !window.CaatuuGameDynamics?.active,
       theme: document.documentElement.dataset.theme || "light",
       fontSize: document.documentElement.dataset.fontSize || "largest"
     }, window.location.origin);
@@ -4881,6 +4909,10 @@ async function completeCampaignRound(gameId, sourceWindow) {
   if (!await waitForPracticePresentation(gameId, "campaign").promise
       || transitionId !== state.campaignTransitionId || !state.campaignActive) return;
   showCampaignTransition(transitionId);
+  // Retire the outgoing presentation before preparing its next challenge. A
+  // loading destination may resync visibility while this handoff is pending.
+  state.campaignHandoffPending = true;
+  syncActiveGameVisibility();
   advanceCompletedCampaignGame(gameId, sourceWindow);
   ensureCampaignGameLoaded(nextGameId);
 
@@ -4889,6 +4921,7 @@ async function completeCampaignRound(gameId, sourceWindow) {
   if (!await waitForPracticePresentation(gameId, "campaign").promise
       || transitionId !== state.campaignTransitionId || !state.campaignActive) return;
 
+  state.campaignHandoffPending = false;
   setTrainTab(nextGameId);
   state.campaignPendingTab = "";
   state.campaignTransitioning = false;
@@ -4930,6 +4963,7 @@ function stopCampaign() {
   state.campaignTransitionId += 1;
   state.campaignActive = false;
   state.campaignTransitioning = false;
+  state.campaignHandoffPending = false;
   state.campaignContinueResult?.();
   delete document.body.dataset.campaignActive;
   hideCampaignTransition();

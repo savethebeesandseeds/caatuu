@@ -67,7 +67,7 @@ export function validateWordWorldContent(document, course) {
     text(item.id, "Record ID");
     assert.ok(!ids.has(item.id), `Duplicate Word World ID ${item.id}`);
     ids.add(item.id);
-    assert.ok([1, 2, 3].includes(item.difficulty), `${item.id}: difficulty must be 1, 2 or 3`);
+    assert.ok([0, 1, 2, 3].includes(item.difficulty), `${item.id}: difficulty must be 0, 1, 2 or 3`);
     normalizeContentProgression(item, item.id);
     for (const key of ["topic", "englishText", "embeddingText", "targetText", "sceneQuery"]) text(item[key], `${item.id}.${key}`);
     assert.ok(Array.isArray(item.englishAlternates) && Array.isArray(item.sceneAssetIds) && Array.isArray(item.tokens), `${item.id}: invalid lists`);

@@ -230,6 +230,23 @@ async function mountGame({ difficulty = 1, pack = catalog, status = 200, duringL
   return game;
 }
 
+test("level zero starts with one familiar case context and one contrasting form", async () => {
+  const game = await mountGame({ difficulty: 0 });
+  assert.equal(game.api.state.phase, "question");
+  assert.equal(game.api.state.difficulty, 0);
+  assert.ok(game.api.state.rounds.every(round => round.difficulty === 0));
+  assert.equal(game.api.state.questions.length, 1);
+  assert.equal(game.api.currentChallenge().candidates.length, 2);
+  assert.equal(game.api.currentChallenge().candidates.filter(candidate => candidate.matches).length, 1);
+  game.selectCandidate(true);
+  game.api.chooseAnswer(true);
+  assert.equal(game.api.state.phase, "solved");
+  game.difficulty(1);
+  assert.equal(game.api.state.phase, "question");
+  assert.equal(game.api.state.difficulty, 1);
+  game.window.dispatchEvent({ type: "pagehide", persisted: false });
+});
+
 test("case progression schedules individual sentences and credits only the completed answer", async () => {
   const exposures = [];
   let generation = "before-reset";
@@ -961,6 +978,50 @@ test("manual pronunciation reads the whole sentence and offers stop and replay",
   await settle();
   assert.equal(game.api.state.speaking, false);
   assert.equal(speaker.querySelector("svg").dataset.speechIcon, "play");
+});
+
+test("a verified Adventure reset prepares Case Cosmos silently after suspension", async () => {
+  const game = await mountGame();
+  game.shell.document.body.dataset.campaignActive = "true";
+  game.api.chooseAnswer(game.api.currentQuestion().matches);
+  game.element("Next").click();
+  assert.equal(game.api.state.phase, "solved");
+  const send = (data, overrides = {}) => game.window.dispatchEvent({ type: "message",
+    origin: game.window.location.origin, source: game.window.parent,
+    data: { source: "caatuu-app-shell", ...data }, ...overrides });
+  send({ type: "visibility", active: false });
+  game.api.nextRound();
+  assert.equal(game.api.state.phase, "solved", "an inactive manual call cannot advance");
+  send({ type: "campaign-advance" }, { source: {} });
+  send({ type: "campaign-advance" }, { origin: "https://other.test" });
+  assert.equal(game.api.state.phase, "solved");
+  game.document.body.focus();
+  send({ type: "campaign-advance" });
+  await settle();
+  assert.equal(game.api.state.phase, "question");
+  assert.equal(game.api.state.active, false);
+  assert.equal(game.preferences.calls.length, 0);
+  assert.equal(game.document.activeElement, game.document.body, "silent preparation does not steal focus");
+});
+
+test("returning to free play recovers a consumed Case Cosmos handoff without skipping unreviewed answers", async () => {
+  const game = await mountGame();
+  const send = active => game.window.dispatchEvent({ type: "message", origin: game.window.location.origin,
+    source: game.window.parent, data: { source: "caatuu-app-shell", type: "visibility", active } });
+  game.shell.document.body.dataset.campaignActive = "true";
+  game.api.chooseAnswer(game.api.currentQuestion().matches);
+  send(false);
+  game.shell.document.body.dataset.campaignActive = "false";
+  send(true);
+  assert.equal(game.api.state.phase, "solved", "an unconsumed review still waits for Continue");
+  game.shell.document.body.dataset.campaignActive = "true";
+  game.element("Next").click();
+  assert.equal(game.api.state.phase, "solved");
+  send(false);
+  game.shell.document.body.dataset.campaignActive = "false";
+  send(true);
+  assert.equal(game.api.state.phase, "question");
+  assert.equal(game.records.length, 1);
 });
 
 test("mute is shared and prevents manual speech until the user unmutes", async () => {

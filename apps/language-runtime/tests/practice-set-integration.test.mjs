@@ -37,7 +37,8 @@ async function fixture(courseName) {
   window.CaatuuWordWorldHost = { setActive: value => speechActivity.push(value) };
   const state = { activeView: "verbs", trainTab: "word-net" };
   Object.assign(browser.context, { state, embeddedGameTabs: { "sound-quasar": {} },
-    syncEmbeddedGameVisibility: tab => embeddedActivity.push(tab), syncShellRobotLoading() {} });
+    syncEmbeddedGameVisibility: tab => embeddedActivity.push(tab), syncShellRobotLoading() {},
+    cancelVerbTapSpeech() {}, verbReviewContinuation: null });
   vm.runInContext(visibility, browser.context);
   const sync = vm.runInContext("syncActiveGameVisibility", browser.context);
   window.CaatuuGameDynamics = installGameDynamics({ scope: window, onPauseChange: sync });

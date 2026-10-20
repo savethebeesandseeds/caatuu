@@ -4886,6 +4886,946 @@
       "difficulty": 1,
       "usefulness": 92,
       "complexity": 23
+    },
+    {
+      "id": "ww-zero-cat",
+      "englishText": "cat",
+      "embeddingText": "First words: cat",
+      "sceneQuery": "cat",
+      "topic": "objects",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-dog",
+      "englishText": "dog",
+      "embeddingText": "First words: dog",
+      "sceneQuery": "dog",
+      "topic": "objects",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-water",
+      "englishText": "water",
+      "embeddingText": "First words: water",
+      "sceneQuery": "water",
+      "topic": "objects",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-bread",
+      "englishText": "bread",
+      "embeddingText": "First words: bread",
+      "sceneQuery": "bread",
+      "topic": "objects",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-milk",
+      "englishText": "milk",
+      "embeddingText": "First words: milk",
+      "sceneQuery": "milk",
+      "topic": "objects",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-apple",
+      "englishText": "apple",
+      "embeddingText": "First words: apple",
+      "sceneQuery": "apple",
+      "topic": "objects",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-rice",
+      "englishText": "rice",
+      "embeddingText": "First words: rice",
+      "sceneQuery": "rice",
+      "topic": "objects",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-tea",
+      "englishText": "tea",
+      "embeddingText": "First words: tea",
+      "sceneQuery": "tea",
+      "topic": "objects",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-book",
+      "englishText": "book",
+      "embeddingText": "First words: book",
+      "sceneQuery": "book",
+      "topic": "objects",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-pen",
+      "englishText": "pen",
+      "embeddingText": "First words: pen",
+      "sceneQuery": "pen",
+      "topic": "objects",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-house",
+      "englishText": "house",
+      "embeddingText": "First words: house",
+      "sceneQuery": "house",
+      "topic": "objects",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-door",
+      "englishText": "door",
+      "embeddingText": "First words: door",
+      "sceneQuery": "door",
+      "topic": "objects",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-table",
+      "englishText": "table",
+      "embeddingText": "First words: table",
+      "sceneQuery": "table",
+      "topic": "objects",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-chair",
+      "englishText": "chair",
+      "embeddingText": "First words: chair",
+      "sceneQuery": "chair",
+      "topic": "objects",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-bed",
+      "englishText": "bed",
+      "embeddingText": "First words: bed",
+      "sceneQuery": "bed",
+      "topic": "objects",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-bag",
+      "englishText": "bag",
+      "embeddingText": "First words: bag",
+      "sceneQuery": "bag",
+      "topic": "objects",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-ball",
+      "englishText": "ball",
+      "embeddingText": "First words: ball",
+      "sceneQuery": "ball",
+      "topic": "objects",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-sun",
+      "englishText": "sun",
+      "embeddingText": "First words: sun",
+      "sceneQuery": "sun",
+      "topic": "objects",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-hand",
+      "englishText": "hand",
+      "embeddingText": "First words: hand",
+      "sceneQuery": "hand",
+      "topic": "objects",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-eye",
+      "englishText": "eye",
+      "embeddingText": "First words: eye",
+      "sceneQuery": "eye",
+      "topic": "objects",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-eat",
+      "englishText": "eat",
+      "embeddingText": "First words: eat",
+      "sceneQuery": "eat",
+      "topic": "actions",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-drink",
+      "englishText": "drink",
+      "embeddingText": "First words: drink",
+      "sceneQuery": "drink",
+      "topic": "actions",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-go",
+      "englishText": "go",
+      "embeddingText": "First words: go",
+      "sceneQuery": "go",
+      "topic": "actions",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-see",
+      "englishText": "see",
+      "embeddingText": "First words: see",
+      "sceneQuery": "see",
+      "topic": "actions",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-want",
+      "englishText": "want",
+      "embeddingText": "First words: want",
+      "sceneQuery": "want",
+      "topic": "actions",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-have",
+      "englishText": "have",
+      "embeddingText": "First words: have",
+      "sceneQuery": "have",
+      "topic": "actions",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-like",
+      "englishText": "like",
+      "embeddingText": "First words: like",
+      "sceneQuery": "like",
+      "topic": "actions",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-sleep",
+      "englishText": "sleep",
+      "embeddingText": "First words: sleep",
+      "sceneQuery": "sleep",
+      "topic": "actions",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-sit",
+      "englishText": "sit",
+      "embeddingText": "First words: sit",
+      "sceneQuery": "sit",
+      "topic": "actions",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-read",
+      "englishText": "read",
+      "embeddingText": "First words: read",
+      "sceneQuery": "read",
+      "topic": "actions",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-write",
+      "englishText": "write",
+      "embeddingText": "First words: write",
+      "sceneQuery": "write",
+      "topic": "actions",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-hear",
+      "englishText": "hear",
+      "embeddingText": "First words: hear",
+      "sceneQuery": "hear",
+      "topic": "actions",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-i",
+      "englishText": "I",
+      "embeddingText": "First words: I",
+      "sceneQuery": "I",
+      "topic": "people",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-you",
+      "englishText": "you",
+      "embeddingText": "First words: you",
+      "sceneQuery": "you",
+      "topic": "people",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-we",
+      "englishText": "we",
+      "embeddingText": "First words: we",
+      "sceneQuery": "we",
+      "topic": "people",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-hello",
+      "englishText": "Hello!",
+      "embeddingText": "First words: Hello!",
+      "sceneQuery": "Hello",
+      "topic": "first-contact",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 1
+    },
+    {
+      "id": "ww-zero-goodbye",
+      "englishText": "Goodbye!",
+      "embeddingText": "First words: Goodbye!",
+      "sceneQuery": "Goodbye",
+      "topic": "first-contact",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 1
+    },
+    {
+      "id": "ww-zero-yes",
+      "englishText": "Yes.",
+      "embeddingText": "First words: Yes.",
+      "sceneQuery": "Yes",
+      "topic": "first-contact",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 1
+    },
+    {
+      "id": "ww-zero-no",
+      "englishText": "No.",
+      "embeddingText": "First words: No.",
+      "sceneQuery": "No",
+      "topic": "first-contact",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 1
+    },
+    {
+      "id": "ww-zero-please",
+      "englishText": "Please.",
+      "embeddingText": "First words: Please.",
+      "sceneQuery": "Please",
+      "topic": "first-contact",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 1
+    },
+    {
+      "id": "ww-zero-thanks",
+      "englishText": "Thank you.",
+      "embeddingText": "First words: Thank you.",
+      "sceneQuery": "Thank you",
+      "topic": "first-contact",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 1
+    },
+    {
+      "id": "ww-zero-one",
+      "englishText": "one",
+      "embeddingText": "First words: one",
+      "sceneQuery": "one",
+      "topic": "numbers",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 4
+    },
+    {
+      "id": "ww-zero-two",
+      "englishText": "two",
+      "embeddingText": "First words: two",
+      "sceneQuery": "two",
+      "topic": "numbers",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 4
+    },
+    {
+      "id": "ww-zero-three",
+      "englishText": "three",
+      "embeddingText": "First words: three",
+      "sceneQuery": "three",
+      "topic": "numbers",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 4
+    },
+    {
+      "id": "ww-zero-four",
+      "englishText": "four",
+      "embeddingText": "First words: four",
+      "sceneQuery": "four",
+      "topic": "numbers",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 4
+    },
+    {
+      "id": "ww-zero-five",
+      "englishText": "five",
+      "embeddingText": "First words: five",
+      "sceneQuery": "five",
+      "topic": "numbers",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 4
+    },
+    {
+      "id": "ww-zero-big",
+      "englishText": "big",
+      "embeddingText": "First words: big",
+      "sceneQuery": "big",
+      "topic": "describing",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 4
+    },
+    {
+      "id": "ww-zero-small",
+      "englishText": "small",
+      "embeddingText": "First words: small",
+      "sceneQuery": "small",
+      "topic": "describing",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 4
+    },
+    {
+      "id": "ww-zero-red",
+      "englishText": "red",
+      "embeddingText": "First words: red",
+      "sceneQuery": "red",
+      "topic": "describing",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 4
+    },
+    {
+      "id": "ww-zero-green",
+      "englishText": "green",
+      "embeddingText": "First words: green",
+      "sceneQuery": "green",
+      "topic": "describing",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 4
+    },
+    {
+      "id": "ww-zero-this-cat",
+      "englishText": "This is a cat.",
+      "embeddingText": "First words: This is a cat.",
+      "sceneQuery": "This is a cat",
+      "topic": "identify",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-dog",
+      "englishText": "This is a dog.",
+      "embeddingText": "First words: This is a dog.",
+      "sceneQuery": "This is a dog",
+      "topic": "identify",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-water",
+      "englishText": "This is water.",
+      "embeddingText": "First words: This is water.",
+      "sceneQuery": "This is water",
+      "topic": "identify",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-bread",
+      "englishText": "This is bread.",
+      "embeddingText": "First words: This is bread.",
+      "sceneQuery": "This is bread",
+      "topic": "identify",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-milk",
+      "englishText": "This is milk.",
+      "embeddingText": "First words: This is milk.",
+      "sceneQuery": "This is milk",
+      "topic": "identify",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-apple",
+      "englishText": "This is an apple.",
+      "embeddingText": "First words: This is an apple.",
+      "sceneQuery": "This is an apple",
+      "topic": "identify",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-rice",
+      "englishText": "This is rice.",
+      "embeddingText": "First words: This is rice.",
+      "sceneQuery": "This is rice",
+      "topic": "identify",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-tea",
+      "englishText": "This is tea.",
+      "embeddingText": "First words: This is tea.",
+      "sceneQuery": "This is tea",
+      "topic": "identify",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-book",
+      "englishText": "This is a book.",
+      "embeddingText": "First words: This is a book.",
+      "sceneQuery": "This is a book",
+      "topic": "identify",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-pen",
+      "englishText": "This is a pen.",
+      "embeddingText": "First words: This is a pen.",
+      "sceneQuery": "This is a pen",
+      "topic": "identify",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-house",
+      "englishText": "This is a house.",
+      "embeddingText": "First words: This is a house.",
+      "sceneQuery": "This is a house",
+      "topic": "identify",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-door",
+      "englishText": "This is a door.",
+      "embeddingText": "First words: This is a door.",
+      "sceneQuery": "This is a door",
+      "topic": "identify",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-table",
+      "englishText": "This is a table.",
+      "embeddingText": "First words: This is a table.",
+      "sceneQuery": "This is a table",
+      "topic": "identify",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-chair",
+      "englishText": "This is a chair.",
+      "embeddingText": "First words: This is a chair.",
+      "sceneQuery": "This is a chair",
+      "topic": "identify",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-bed",
+      "englishText": "This is a bed.",
+      "embeddingText": "First words: This is a bed.",
+      "sceneQuery": "This is a bed",
+      "topic": "identify",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-bag",
+      "englishText": "This is a bag.",
+      "embeddingText": "First words: This is a bag.",
+      "sceneQuery": "This is a bag",
+      "topic": "identify",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-ball",
+      "englishText": "This is a ball.",
+      "embeddingText": "First words: This is a ball.",
+      "sceneQuery": "This is a ball",
+      "topic": "identify",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-sun",
+      "englishText": "This is the sun.",
+      "embeddingText": "First words: This is the sun.",
+      "sceneQuery": "This is the sun",
+      "topic": "identify",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-hand",
+      "englishText": "This is a hand.",
+      "embeddingText": "First words: This is a hand.",
+      "sceneQuery": "This is a hand",
+      "topic": "identify",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-eye",
+      "englishText": "This is an eye.",
+      "embeddingText": "First words: This is an eye.",
+      "sceneQuery": "This is an eye",
+      "topic": "identify",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-want-water",
+      "englishText": "I want water.",
+      "embeddingText": "First words: I want water.",
+      "sceneQuery": "I want water",
+      "topic": "request",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 9
+    },
+    {
+      "id": "ww-zero-want-bread",
+      "englishText": "I want bread.",
+      "embeddingText": "First words: I want bread.",
+      "sceneQuery": "I want bread",
+      "topic": "request",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 9
+    },
+    {
+      "id": "ww-zero-want-milk",
+      "englishText": "I want milk.",
+      "embeddingText": "First words: I want milk.",
+      "sceneQuery": "I want milk",
+      "topic": "request",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 9
+    },
+    {
+      "id": "ww-zero-want-apple",
+      "englishText": "I want an apple.",
+      "embeddingText": "First words: I want an apple.",
+      "sceneQuery": "I want an apple",
+      "topic": "request",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 9
+    },
+    {
+      "id": "ww-zero-want-rice",
+      "englishText": "I want rice.",
+      "embeddingText": "First words: I want rice.",
+      "sceneQuery": "I want rice",
+      "topic": "request",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 9
+    },
+    {
+      "id": "ww-zero-want-tea",
+      "englishText": "I want tea.",
+      "embeddingText": "First words: I want tea.",
+      "sceneQuery": "I want tea",
+      "topic": "request",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 9
+    },
+    {
+      "id": "ww-zero-want-book",
+      "englishText": "I want a book.",
+      "embeddingText": "First words: I want a book.",
+      "sceneQuery": "I want a book",
+      "topic": "request",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 9
+    },
+    {
+      "id": "ww-zero-want-pen",
+      "englishText": "I want a pen.",
+      "embeddingText": "First words: I want a pen.",
+      "sceneQuery": "I want a pen",
+      "topic": "request",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 9
+    },
+    {
+      "id": "ww-zero-see-cat",
+      "englishText": "I see a cat.",
+      "embeddingText": "First words: I see a cat.",
+      "sceneQuery": "I see a cat",
+      "topic": "notice",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 10
+    },
+    {
+      "id": "ww-zero-see-dog",
+      "englishText": "I see a dog.",
+      "embeddingText": "First words: I see a dog.",
+      "sceneQuery": "I see a dog",
+      "topic": "notice",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 10
+    },
+    {
+      "id": "ww-zero-see-book",
+      "englishText": "I see a book.",
+      "embeddingText": "First words: I see a book.",
+      "sceneQuery": "I see a book",
+      "topic": "notice",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 10
+    },
+    {
+      "id": "ww-zero-see-pen",
+      "englishText": "I see a pen.",
+      "embeddingText": "First words: I see a pen.",
+      "sceneQuery": "I see a pen",
+      "topic": "notice",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 10
+    },
+    {
+      "id": "ww-zero-see-house",
+      "englishText": "I see a house.",
+      "embeddingText": "First words: I see a house.",
+      "sceneQuery": "I see a house",
+      "topic": "notice",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 10
+    },
+    {
+      "id": "ww-zero-see-door",
+      "englishText": "I see a door.",
+      "embeddingText": "First words: I see a door.",
+      "sceneQuery": "I see a door",
+      "topic": "notice",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 10
+    },
+    {
+      "id": "ww-zero-see-table",
+      "englishText": "I see a table.",
+      "embeddingText": "First words: I see a table.",
+      "sceneQuery": "I see a table",
+      "topic": "notice",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 10
+    },
+    {
+      "id": "ww-zero-see-ball",
+      "englishText": "I see a ball.",
+      "embeddingText": "First words: I see a ball.",
+      "sceneQuery": "I see a ball",
+      "topic": "notice",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 10
+    },
+    {
+      "id": "ww-zero-i-eat",
+      "englishText": "I eat.",
+      "embeddingText": "First words: I eat.",
+      "sceneQuery": "I eat",
+      "topic": "doing",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8
+    },
+    {
+      "id": "ww-zero-i-drink",
+      "englishText": "I drink.",
+      "embeddingText": "First words: I drink.",
+      "sceneQuery": "I drink",
+      "topic": "doing",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8
+    },
+    {
+      "id": "ww-zero-i-go",
+      "englishText": "I go.",
+      "embeddingText": "First words: I go.",
+      "sceneQuery": "I go",
+      "topic": "doing",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8
+    },
+    {
+      "id": "ww-zero-i-sit",
+      "englishText": "I sit.",
+      "embeddingText": "First words: I sit.",
+      "sceneQuery": "I sit",
+      "topic": "doing",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8
+    },
+    {
+      "id": "ww-zero-i-read",
+      "englishText": "I read a book.",
+      "embeddingText": "First words: I read a book.",
+      "sceneQuery": "I read a book",
+      "topic": "doing",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8
+    },
+    {
+      "id": "ww-zero-i-write",
+      "englishText": "I write.",
+      "embeddingText": "First words: I write.",
+      "sceneQuery": "I write",
+      "topic": "doing",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8
+    },
+    {
+      "id": "ww-zero-i-sleep",
+      "englishText": "I sleep.",
+      "embeddingText": "First words: I sleep.",
+      "sceneQuery": "I sleep",
+      "topic": "doing",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8
+    },
+    {
+      "id": "ww-zero-i-have-pen",
+      "englishText": "I have a pen.",
+      "embeddingText": "First words: I have a pen.",
+      "sceneQuery": "I have a pen",
+      "topic": "doing",
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8
     }
   ]
 }

@@ -225,7 +225,7 @@ function sentenceComplexity(text, item, courseId, reasons) {
   if (item.contrastGroupId) { score += 13; reasons.push('authored listening contrast'); }
   // Relative to the retained badge's assumed background. Formulaic phrases
   // stay easy; unfamiliar marked operations still contribute independently.
-  if (!fixed && !needFormula) score -= 3 * Math.max(0, Number(item.difficulty || 1) - 1);
+  if (!fixed && !needFormula) score -= 3 * Math.max(0, Number(item.difficulty ?? 1) - 1);
   return score;
 }
 

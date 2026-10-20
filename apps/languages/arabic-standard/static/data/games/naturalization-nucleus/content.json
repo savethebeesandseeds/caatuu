@@ -835,6 +835,578 @@
       "difficulty": 3,
       "usefulness": 75,
       "complexity": 55
+    },
+    {
+      "id": "ar.reading.zero-hello",
+      "target": "مَرْحَبًا",
+      "reading": "marḥaban",
+      "translation": "Hello",
+      "englishAuditText": "Hello",
+      "sourceItemIds": [
+        "zero-ar-lex-hello"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-thanks",
+      "target": "شُكْرًا",
+      "reading": "shukran",
+      "translation": "Thank you",
+      "englishAuditText": "Thank you",
+      "sourceItemIds": [
+        "zero-ar-lex-thanks"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-yes",
+      "target": "نَعَمْ",
+      "reading": "naʿam",
+      "translation": "Yes",
+      "englishAuditText": "Yes",
+      "sourceItemIds": [
+        "zero-ar-lex-yes"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-no",
+      "target": "لَا",
+      "reading": "lā",
+      "translation": "No",
+      "englishAuditText": "No",
+      "sourceItemIds": [
+        "zero-ar-lex-no"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-sorry",
+      "target": "عَفْوًا",
+      "reading": "ʿafwan",
+      "translation": "Sorry",
+      "englishAuditText": "Sorry",
+      "sourceItemIds": [
+        "zero-ar-lex-sorry"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-i",
+      "target": "أَنَا",
+      "reading": "anā",
+      "translation": "I",
+      "englishAuditText": "I",
+      "sourceItemIds": [
+        "zero-ar-lex-i"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-you",
+      "target": "أَنْتَ",
+      "reading": "anta",
+      "translation": "you (one man)",
+      "englishAuditText": "you (one man)",
+      "sourceItemIds": [
+        "zero-ar-lex-you"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-mother",
+      "target": "أُمٌّ",
+      "reading": "ummun",
+      "translation": "mother",
+      "englishAuditText": "mother",
+      "sourceItemIds": [
+        "zero-ar-lex-mother"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-father",
+      "target": "أَبٌ",
+      "reading": "abun",
+      "translation": "father",
+      "englishAuditText": "father",
+      "sourceItemIds": [
+        "zero-ar-lex-father"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-friend",
+      "target": "صَدِيقٌ",
+      "reading": "ṣadīqun",
+      "translation": "friend (male)",
+      "englishAuditText": "friend (male)",
+      "sourceItemIds": [
+        "zero-ar-lex-friend"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-child",
+      "target": "طِفْلٌ",
+      "reading": "ṭiflun",
+      "translation": "child (male)",
+      "englishAuditText": "child (male)",
+      "sourceItemIds": [
+        "zero-ar-lex-child"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-one",
+      "target": "وَاحِدٌ",
+      "reading": "wāḥidun",
+      "translation": "one",
+      "englishAuditText": "one",
+      "sourceItemIds": [
+        "zero-ar-lex-one"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-two",
+      "target": "اِثْنَانِ",
+      "reading": "ithnāni",
+      "translation": "two",
+      "englishAuditText": "two",
+      "sourceItemIds": [
+        "zero-ar-lex-two"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-three",
+      "target": "ثَلَاثَةٌ",
+      "reading": "thalāthatun",
+      "translation": "three",
+      "englishAuditText": "three",
+      "sourceItemIds": [
+        "zero-ar-lex-three"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-four",
+      "target": "أَرْبَعَةٌ",
+      "reading": "arbaʿatun",
+      "translation": "four",
+      "englishAuditText": "four",
+      "sourceItemIds": [
+        "zero-ar-lex-four"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-five",
+      "target": "خَمْسَةٌ",
+      "reading": "khamsatun",
+      "translation": "five",
+      "englishAuditText": "five",
+      "sourceItemIds": [
+        "zero-ar-lex-five"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-water",
+      "target": "مَاءٌ",
+      "reading": "māʾun",
+      "translation": "water",
+      "englishAuditText": "water",
+      "sourceItemIds": [
+        "zero-ar-lex-water"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-bread",
+      "target": "خُبْزٌ",
+      "reading": "khubzun",
+      "translation": "bread",
+      "englishAuditText": "bread",
+      "sourceItemIds": [
+        "zero-ar-lex-bread"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-milk",
+      "target": "حَلِيبٌ",
+      "reading": "ḥalībun",
+      "translation": "milk",
+      "englishAuditText": "milk",
+      "sourceItemIds": [
+        "zero-ar-lex-milk"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-apple",
+      "target": "تُفَّاحَةٌ",
+      "reading": "tuffāḥatun",
+      "translation": "apple",
+      "englishAuditText": "apple",
+      "sourceItemIds": [
+        "zero-ar-lex-apple"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-tea",
+      "target": "شَايٌ",
+      "reading": "shāyun",
+      "translation": "tea",
+      "englishAuditText": "tea",
+      "sourceItemIds": [
+        "zero-ar-lex-tea"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-house",
+      "target": "بَيْتٌ",
+      "reading": "baytun",
+      "translation": "house",
+      "englishAuditText": "house",
+      "sourceItemIds": [
+        "zero-ar-lex-house"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-book",
+      "target": "كِتَابٌ",
+      "reading": "kitābun",
+      "translation": "book",
+      "englishAuditText": "book",
+      "sourceItemIds": [
+        "zero-ar-lex-book"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-door",
+      "target": "بَابٌ",
+      "reading": "bābun",
+      "translation": "door",
+      "englishAuditText": "door",
+      "sourceItemIds": [
+        "zero-ar-lex-door"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-car",
+      "target": "سَيَّارَةٌ",
+      "reading": "sayyāratun",
+      "translation": "car",
+      "englishAuditText": "car",
+      "sourceItemIds": [
+        "zero-ar-lex-car"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-cat",
+      "target": "قِطَّةٌ",
+      "reading": "qiṭṭatun",
+      "translation": "cat",
+      "englishAuditText": "cat",
+      "sourceItemIds": [
+        "zero-ar-lex-cat"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-dog",
+      "target": "كَلْبٌ",
+      "reading": "kalbun",
+      "translation": "dog",
+      "englishAuditText": "dog",
+      "sourceItemIds": [
+        "zero-ar-lex-dog"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-big",
+      "target": "كَبِيرٌ",
+      "reading": "kabīrun",
+      "translation": "big (masculine)",
+      "englishAuditText": "big (masculine)",
+      "sourceItemIds": [
+        "zero-ar-lex-big"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-small",
+      "target": "صَغِيرٌ",
+      "reading": "ṣaghīrun",
+      "translation": "small (masculine)",
+      "englishAuditText": "small (masculine)",
+      "sourceItemIds": [
+        "zero-ar-lex-small"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-good",
+      "target": "جَيِّدٌ",
+      "reading": "jayyidun",
+      "translation": "good (masculine)",
+      "englishAuditText": "good (masculine)",
+      "sourceItemIds": [
+        "zero-ar-lex-good"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-new",
+      "target": "جَدِيدٌ",
+      "reading": "jadīdun",
+      "translation": "new (masculine)",
+      "englishAuditText": "new (masculine)",
+      "sourceItemIds": [
+        "zero-ar-lex-new"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-red",
+      "target": "أَحْمَرُ",
+      "reading": "aḥmaru",
+      "translation": "red (masculine)",
+      "englishAuditText": "red (masculine)",
+      "sourceItemIds": [
+        "zero-ar-lex-red"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-green",
+      "target": "أَخْضَرُ",
+      "reading": "akhḍaru",
+      "translation": "green (masculine)",
+      "englishAuditText": "green (masculine)",
+      "sourceItemIds": [
+        "zero-ar-lex-green"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-hot",
+      "target": "سَاخِنٌ",
+      "reading": "sākhinun",
+      "translation": "hot (masculine)",
+      "englishAuditText": "hot (masculine)",
+      "sourceItemIds": [
+        "zero-ar-lex-hot"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-cold",
+      "target": "بَارِدٌ",
+      "reading": "bāridun",
+      "translation": "cold (masculine)",
+      "englishAuditText": "cold (masculine)",
+      "sourceItemIds": [
+        "zero-ar-lex-cold"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-old",
+      "target": "قَدِيمٌ",
+      "reading": "qadīmun",
+      "translation": "old (masculine)",
+      "englishAuditText": "old (masculine)",
+      "sourceItemIds": [
+        "zero-ar-lex-old"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-eat",
+      "target": "آكُلُ",
+      "reading": "ākulu",
+      "translation": "I eat",
+      "englishAuditText": "I eat",
+      "sourceItemIds": [
+        "zero-ar-lex-eat"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-drink",
+      "target": "أَشْرَبُ",
+      "reading": "ashrabu",
+      "translation": "I drink",
+      "englishAuditText": "I drink",
+      "sourceItemIds": [
+        "zero-ar-lex-drink"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-go",
+      "target": "أَذْهَبُ",
+      "reading": "adhhabu",
+      "translation": "I go",
+      "englishAuditText": "I go",
+      "sourceItemIds": [
+        "zero-ar-lex-go"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-come",
+      "target": "آتِي",
+      "reading": "ātī",
+      "translation": "I come",
+      "englishAuditText": "I come",
+      "sourceItemIds": [
+        "zero-ar-lex-come"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-sleep",
+      "target": "أَنَامُ",
+      "reading": "anāmu",
+      "translation": "I sleep",
+      "englishAuditText": "I sleep",
+      "sourceItemIds": [
+        "zero-ar-lex-sleep"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-read",
+      "target": "أَقْرَأُ",
+      "reading": "aqraʾu",
+      "translation": "I read",
+      "englishAuditText": "I read",
+      "sourceItemIds": [
+        "zero-ar-lex-read"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-write",
+      "target": "أَكْتُبُ",
+      "reading": "aktubu",
+      "translation": "I write",
+      "englishAuditText": "I write",
+      "sourceItemIds": [
+        "zero-ar-lex-write"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
+    },
+    {
+      "id": "ar.reading.zero-see",
+      "target": "أَرَى",
+      "reading": "arā",
+      "translation": "I see",
+      "englishAuditText": "I see",
+      "sourceItemIds": [
+        "zero-ar-lex-see"
+      ],
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 3
     }
   ]
 }

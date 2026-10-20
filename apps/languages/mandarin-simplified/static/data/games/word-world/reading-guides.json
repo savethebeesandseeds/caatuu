@@ -46557,6 +46557,2241 @@
           ]
         }
       ]
+    },
+    {
+      "conceptId": "ww-zero-cat",
+      "tokens": [
+        {
+          "surface": "猫",
+          "units": [
+            {
+              "surface": "猫",
+              "notation": "māo"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-dog",
+      "tokens": [
+        {
+          "surface": "狗",
+          "units": [
+            {
+              "surface": "狗",
+              "notation": "gǒu"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-water",
+      "tokens": [
+        {
+          "surface": "水",
+          "units": [
+            {
+              "surface": "水",
+              "notation": "shuǐ"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-bread",
+      "tokens": [
+        {
+          "surface": "面包",
+          "units": [
+            {
+              "surface": "面",
+              "notation": "miàn"
+            },
+            {
+              "surface": "包",
+              "notation": "bāo"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-milk",
+      "tokens": [
+        {
+          "surface": "牛奶",
+          "units": [
+            {
+              "surface": "牛",
+              "notation": "niú"
+            },
+            {
+              "surface": "奶",
+              "notation": "nǎi"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-apple",
+      "tokens": [
+        {
+          "surface": "苹果",
+          "units": [
+            {
+              "surface": "苹",
+              "notation": "píng"
+            },
+            {
+              "surface": "果",
+              "notation": "guǒ"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-rice",
+      "tokens": [
+        {
+          "surface": "米饭",
+          "units": [
+            {
+              "surface": "米",
+              "notation": "mǐ"
+            },
+            {
+              "surface": "饭",
+              "notation": "fàn"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-tea",
+      "tokens": [
+        {
+          "surface": "茶",
+          "units": [
+            {
+              "surface": "茶",
+              "notation": "chá"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-book",
+      "tokens": [
+        {
+          "surface": "书",
+          "units": [
+            {
+              "surface": "书",
+              "notation": "shū"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-pen",
+      "tokens": [
+        {
+          "surface": "笔",
+          "units": [
+            {
+              "surface": "笔",
+              "notation": "bǐ"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-house",
+      "tokens": [
+        {
+          "surface": "房子",
+          "units": [
+            {
+              "surface": "房",
+              "notation": "fáng"
+            },
+            {
+              "surface": "子",
+              "notation": "zi"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-door",
+      "tokens": [
+        {
+          "surface": "门",
+          "units": [
+            {
+              "surface": "门",
+              "notation": "mén"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-table",
+      "tokens": [
+        {
+          "surface": "桌子",
+          "units": [
+            {
+              "surface": "桌",
+              "notation": "zhuō"
+            },
+            {
+              "surface": "子",
+              "notation": "zi"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-chair",
+      "tokens": [
+        {
+          "surface": "椅子",
+          "units": [
+            {
+              "surface": "椅",
+              "notation": "yǐ"
+            },
+            {
+              "surface": "子",
+              "notation": "zi"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-bed",
+      "tokens": [
+        {
+          "surface": "床",
+          "units": [
+            {
+              "surface": "床",
+              "notation": "chuáng"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-bag",
+      "tokens": [
+        {
+          "surface": "包",
+          "units": [
+            {
+              "surface": "包",
+              "notation": "bāo"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-ball",
+      "tokens": [
+        {
+          "surface": "球",
+          "units": [
+            {
+              "surface": "球",
+              "notation": "qiú"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-sun",
+      "tokens": [
+        {
+          "surface": "太阳",
+          "units": [
+            {
+              "surface": "太",
+              "notation": "tài"
+            },
+            {
+              "surface": "阳",
+              "notation": "yáng"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-hand",
+      "tokens": [
+        {
+          "surface": "手",
+          "units": [
+            {
+              "surface": "手",
+              "notation": "shǒu"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-eye",
+      "tokens": [
+        {
+          "surface": "眼睛",
+          "units": [
+            {
+              "surface": "眼",
+              "notation": "yǎn"
+            },
+            {
+              "surface": "睛",
+              "notation": "jing"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-eat",
+      "tokens": [
+        {
+          "surface": "吃",
+          "units": [
+            {
+              "surface": "吃",
+              "notation": "chī"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-drink",
+      "tokens": [
+        {
+          "surface": "喝",
+          "units": [
+            {
+              "surface": "喝",
+              "notation": "hē"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-go",
+      "tokens": [
+        {
+          "surface": "去",
+          "units": [
+            {
+              "surface": "去",
+              "notation": "qù"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-see",
+      "tokens": [
+        {
+          "surface": "看见",
+          "units": [
+            {
+              "surface": "看",
+              "notation": "kàn"
+            },
+            {
+              "surface": "见",
+              "notation": "jiàn"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-want",
+      "tokens": [
+        {
+          "surface": "要",
+          "units": [
+            {
+              "surface": "要",
+              "notation": "yào"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-have",
+      "tokens": [
+        {
+          "surface": "有",
+          "units": [
+            {
+              "surface": "有",
+              "notation": "yǒu"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-like",
+      "tokens": [
+        {
+          "surface": "喜欢",
+          "units": [
+            {
+              "surface": "喜",
+              "notation": "xǐ"
+            },
+            {
+              "surface": "欢",
+              "notation": "huan"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-sleep",
+      "tokens": [
+        {
+          "surface": "睡觉",
+          "units": [
+            {
+              "surface": "睡",
+              "notation": "shuì"
+            },
+            {
+              "surface": "觉",
+              "notation": "jiào"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-sit",
+      "tokens": [
+        {
+          "surface": "坐",
+          "units": [
+            {
+              "surface": "坐",
+              "notation": "zuò"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-read",
+      "tokens": [
+        {
+          "surface": "读",
+          "units": [
+            {
+              "surface": "读",
+              "notation": "dú"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-write",
+      "tokens": [
+        {
+          "surface": "写",
+          "units": [
+            {
+              "surface": "写",
+              "notation": "xiě"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-hear",
+      "tokens": [
+        {
+          "surface": "听见",
+          "units": [
+            {
+              "surface": "听",
+              "notation": "tīng"
+            },
+            {
+              "surface": "见",
+              "notation": "jiàn"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-i",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-you",
+      "tokens": [
+        {
+          "surface": "你",
+          "units": [
+            {
+              "surface": "你",
+              "notation": "nǐ"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-we",
+      "tokens": [
+        {
+          "surface": "我们",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            },
+            {
+              "surface": "们",
+              "notation": "men"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-hello",
+      "tokens": [
+        {
+          "surface": "你好",
+          "units": [
+            {
+              "surface": "你",
+              "notation": "nǐ"
+            },
+            {
+              "surface": "好",
+              "notation": "hǎo"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-goodbye",
+      "tokens": [
+        {
+          "surface": "再见",
+          "units": [
+            {
+              "surface": "再",
+              "notation": "zài"
+            },
+            {
+              "surface": "见",
+              "notation": "jiàn"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-yes",
+      "tokens": [
+        {
+          "surface": "对",
+          "units": [
+            {
+              "surface": "对",
+              "notation": "duì"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-no",
+      "tokens": [
+        {
+          "surface": "不",
+          "units": [
+            {
+              "surface": "不",
+              "notation": "bù"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-please",
+      "tokens": [
+        {
+          "surface": "请",
+          "units": [
+            {
+              "surface": "请",
+              "notation": "qǐng"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-thanks",
+      "tokens": [
+        {
+          "surface": "谢谢",
+          "units": [
+            {
+              "surface": "谢",
+              "notation": "xiè"
+            },
+            {
+              "surface": "谢",
+              "notation": "xie"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-one",
+      "tokens": [
+        {
+          "surface": "一",
+          "units": [
+            {
+              "surface": "一",
+              "notation": "yī"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-two",
+      "tokens": [
+        {
+          "surface": "二",
+          "units": [
+            {
+              "surface": "二",
+              "notation": "èr"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-three",
+      "tokens": [
+        {
+          "surface": "三",
+          "units": [
+            {
+              "surface": "三",
+              "notation": "sān"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-four",
+      "tokens": [
+        {
+          "surface": "四",
+          "units": [
+            {
+              "surface": "四",
+              "notation": "sì"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-five",
+      "tokens": [
+        {
+          "surface": "五",
+          "units": [
+            {
+              "surface": "五",
+              "notation": "wǔ"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-big",
+      "tokens": [
+        {
+          "surface": "大",
+          "units": [
+            {
+              "surface": "大",
+              "notation": "dà"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-small",
+      "tokens": [
+        {
+          "surface": "小",
+          "units": [
+            {
+              "surface": "小",
+              "notation": "xiǎo"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-red",
+      "tokens": [
+        {
+          "surface": "红色",
+          "units": [
+            {
+              "surface": "红",
+              "notation": "hóng"
+            },
+            {
+              "surface": "色",
+              "notation": "sè"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-green",
+      "tokens": [
+        {
+          "surface": "绿色",
+          "units": [
+            {
+              "surface": "绿",
+              "notation": "lǜ"
+            },
+            {
+              "surface": "色",
+              "notation": "sè"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-cat",
+      "tokens": [
+        {
+          "surface": "这",
+          "units": [
+            {
+              "surface": "这",
+              "notation": "zhè"
+            }
+          ]
+        },
+        {
+          "surface": "是",
+          "units": [
+            {
+              "surface": "是",
+              "notation": "shì"
+            }
+          ]
+        },
+        {
+          "surface": "猫",
+          "units": [
+            {
+              "surface": "猫",
+              "notation": "māo"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-dog",
+      "tokens": [
+        {
+          "surface": "这",
+          "units": [
+            {
+              "surface": "这",
+              "notation": "zhè"
+            }
+          ]
+        },
+        {
+          "surface": "是",
+          "units": [
+            {
+              "surface": "是",
+              "notation": "shì"
+            }
+          ]
+        },
+        {
+          "surface": "狗",
+          "units": [
+            {
+              "surface": "狗",
+              "notation": "gǒu"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-water",
+      "tokens": [
+        {
+          "surface": "这",
+          "units": [
+            {
+              "surface": "这",
+              "notation": "zhè"
+            }
+          ]
+        },
+        {
+          "surface": "是",
+          "units": [
+            {
+              "surface": "是",
+              "notation": "shì"
+            }
+          ]
+        },
+        {
+          "surface": "水",
+          "units": [
+            {
+              "surface": "水",
+              "notation": "shuǐ"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-bread",
+      "tokens": [
+        {
+          "surface": "这",
+          "units": [
+            {
+              "surface": "这",
+              "notation": "zhè"
+            }
+          ]
+        },
+        {
+          "surface": "是",
+          "units": [
+            {
+              "surface": "是",
+              "notation": "shì"
+            }
+          ]
+        },
+        {
+          "surface": "面包",
+          "units": [
+            {
+              "surface": "面",
+              "notation": "miàn"
+            },
+            {
+              "surface": "包",
+              "notation": "bāo"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-milk",
+      "tokens": [
+        {
+          "surface": "这",
+          "units": [
+            {
+              "surface": "这",
+              "notation": "zhè"
+            }
+          ]
+        },
+        {
+          "surface": "是",
+          "units": [
+            {
+              "surface": "是",
+              "notation": "shì"
+            }
+          ]
+        },
+        {
+          "surface": "牛奶",
+          "units": [
+            {
+              "surface": "牛",
+              "notation": "niú"
+            },
+            {
+              "surface": "奶",
+              "notation": "nǎi"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-apple",
+      "tokens": [
+        {
+          "surface": "这",
+          "units": [
+            {
+              "surface": "这",
+              "notation": "zhè"
+            }
+          ]
+        },
+        {
+          "surface": "是",
+          "units": [
+            {
+              "surface": "是",
+              "notation": "shì"
+            }
+          ]
+        },
+        {
+          "surface": "苹果",
+          "units": [
+            {
+              "surface": "苹",
+              "notation": "píng"
+            },
+            {
+              "surface": "果",
+              "notation": "guǒ"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-rice",
+      "tokens": [
+        {
+          "surface": "这",
+          "units": [
+            {
+              "surface": "这",
+              "notation": "zhè"
+            }
+          ]
+        },
+        {
+          "surface": "是",
+          "units": [
+            {
+              "surface": "是",
+              "notation": "shì"
+            }
+          ]
+        },
+        {
+          "surface": "米饭",
+          "units": [
+            {
+              "surface": "米",
+              "notation": "mǐ"
+            },
+            {
+              "surface": "饭",
+              "notation": "fàn"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-tea",
+      "tokens": [
+        {
+          "surface": "这",
+          "units": [
+            {
+              "surface": "这",
+              "notation": "zhè"
+            }
+          ]
+        },
+        {
+          "surface": "是",
+          "units": [
+            {
+              "surface": "是",
+              "notation": "shì"
+            }
+          ]
+        },
+        {
+          "surface": "茶",
+          "units": [
+            {
+              "surface": "茶",
+              "notation": "chá"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-book",
+      "tokens": [
+        {
+          "surface": "这",
+          "units": [
+            {
+              "surface": "这",
+              "notation": "zhè"
+            }
+          ]
+        },
+        {
+          "surface": "是",
+          "units": [
+            {
+              "surface": "是",
+              "notation": "shì"
+            }
+          ]
+        },
+        {
+          "surface": "书",
+          "units": [
+            {
+              "surface": "书",
+              "notation": "shū"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-pen",
+      "tokens": [
+        {
+          "surface": "这",
+          "units": [
+            {
+              "surface": "这",
+              "notation": "zhè"
+            }
+          ]
+        },
+        {
+          "surface": "是",
+          "units": [
+            {
+              "surface": "是",
+              "notation": "shì"
+            }
+          ]
+        },
+        {
+          "surface": "笔",
+          "units": [
+            {
+              "surface": "笔",
+              "notation": "bǐ"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-house",
+      "tokens": [
+        {
+          "surface": "这",
+          "units": [
+            {
+              "surface": "这",
+              "notation": "zhè"
+            }
+          ]
+        },
+        {
+          "surface": "是",
+          "units": [
+            {
+              "surface": "是",
+              "notation": "shì"
+            }
+          ]
+        },
+        {
+          "surface": "房子",
+          "units": [
+            {
+              "surface": "房",
+              "notation": "fáng"
+            },
+            {
+              "surface": "子",
+              "notation": "zi"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-door",
+      "tokens": [
+        {
+          "surface": "这",
+          "units": [
+            {
+              "surface": "这",
+              "notation": "zhè"
+            }
+          ]
+        },
+        {
+          "surface": "是",
+          "units": [
+            {
+              "surface": "是",
+              "notation": "shì"
+            }
+          ]
+        },
+        {
+          "surface": "门",
+          "units": [
+            {
+              "surface": "门",
+              "notation": "mén"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-table",
+      "tokens": [
+        {
+          "surface": "这",
+          "units": [
+            {
+              "surface": "这",
+              "notation": "zhè"
+            }
+          ]
+        },
+        {
+          "surface": "是",
+          "units": [
+            {
+              "surface": "是",
+              "notation": "shì"
+            }
+          ]
+        },
+        {
+          "surface": "桌子",
+          "units": [
+            {
+              "surface": "桌",
+              "notation": "zhuō"
+            },
+            {
+              "surface": "子",
+              "notation": "zi"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-chair",
+      "tokens": [
+        {
+          "surface": "这",
+          "units": [
+            {
+              "surface": "这",
+              "notation": "zhè"
+            }
+          ]
+        },
+        {
+          "surface": "是",
+          "units": [
+            {
+              "surface": "是",
+              "notation": "shì"
+            }
+          ]
+        },
+        {
+          "surface": "椅子",
+          "units": [
+            {
+              "surface": "椅",
+              "notation": "yǐ"
+            },
+            {
+              "surface": "子",
+              "notation": "zi"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-bed",
+      "tokens": [
+        {
+          "surface": "这",
+          "units": [
+            {
+              "surface": "这",
+              "notation": "zhè"
+            }
+          ]
+        },
+        {
+          "surface": "是",
+          "units": [
+            {
+              "surface": "是",
+              "notation": "shì"
+            }
+          ]
+        },
+        {
+          "surface": "床",
+          "units": [
+            {
+              "surface": "床",
+              "notation": "chuáng"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-bag",
+      "tokens": [
+        {
+          "surface": "这",
+          "units": [
+            {
+              "surface": "这",
+              "notation": "zhè"
+            }
+          ]
+        },
+        {
+          "surface": "是",
+          "units": [
+            {
+              "surface": "是",
+              "notation": "shì"
+            }
+          ]
+        },
+        {
+          "surface": "包",
+          "units": [
+            {
+              "surface": "包",
+              "notation": "bāo"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-ball",
+      "tokens": [
+        {
+          "surface": "这",
+          "units": [
+            {
+              "surface": "这",
+              "notation": "zhè"
+            }
+          ]
+        },
+        {
+          "surface": "是",
+          "units": [
+            {
+              "surface": "是",
+              "notation": "shì"
+            }
+          ]
+        },
+        {
+          "surface": "球",
+          "units": [
+            {
+              "surface": "球",
+              "notation": "qiú"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-sun",
+      "tokens": [
+        {
+          "surface": "这",
+          "units": [
+            {
+              "surface": "这",
+              "notation": "zhè"
+            }
+          ]
+        },
+        {
+          "surface": "是",
+          "units": [
+            {
+              "surface": "是",
+              "notation": "shì"
+            }
+          ]
+        },
+        {
+          "surface": "太阳",
+          "units": [
+            {
+              "surface": "太",
+              "notation": "tài"
+            },
+            {
+              "surface": "阳",
+              "notation": "yáng"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-hand",
+      "tokens": [
+        {
+          "surface": "这",
+          "units": [
+            {
+              "surface": "这",
+              "notation": "zhè"
+            }
+          ]
+        },
+        {
+          "surface": "是",
+          "units": [
+            {
+              "surface": "是",
+              "notation": "shì"
+            }
+          ]
+        },
+        {
+          "surface": "手",
+          "units": [
+            {
+              "surface": "手",
+              "notation": "shǒu"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-eye",
+      "tokens": [
+        {
+          "surface": "这",
+          "units": [
+            {
+              "surface": "这",
+              "notation": "zhè"
+            }
+          ]
+        },
+        {
+          "surface": "是",
+          "units": [
+            {
+              "surface": "是",
+              "notation": "shì"
+            }
+          ]
+        },
+        {
+          "surface": "眼睛",
+          "units": [
+            {
+              "surface": "眼",
+              "notation": "yǎn"
+            },
+            {
+              "surface": "睛",
+              "notation": "jing"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-want-water",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "要",
+          "units": [
+            {
+              "surface": "要",
+              "notation": "yào"
+            }
+          ]
+        },
+        {
+          "surface": "水",
+          "units": [
+            {
+              "surface": "水",
+              "notation": "shuǐ"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-want-bread",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "要",
+          "units": [
+            {
+              "surface": "要",
+              "notation": "yào"
+            }
+          ]
+        },
+        {
+          "surface": "面包",
+          "units": [
+            {
+              "surface": "面",
+              "notation": "miàn"
+            },
+            {
+              "surface": "包",
+              "notation": "bāo"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-want-milk",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "要",
+          "units": [
+            {
+              "surface": "要",
+              "notation": "yào"
+            }
+          ]
+        },
+        {
+          "surface": "牛奶",
+          "units": [
+            {
+              "surface": "牛",
+              "notation": "niú"
+            },
+            {
+              "surface": "奶",
+              "notation": "nǎi"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-want-apple",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "要",
+          "units": [
+            {
+              "surface": "要",
+              "notation": "yào"
+            }
+          ]
+        },
+        {
+          "surface": "苹果",
+          "units": [
+            {
+              "surface": "苹",
+              "notation": "píng"
+            },
+            {
+              "surface": "果",
+              "notation": "guǒ"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-want-rice",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "要",
+          "units": [
+            {
+              "surface": "要",
+              "notation": "yào"
+            }
+          ]
+        },
+        {
+          "surface": "米饭",
+          "units": [
+            {
+              "surface": "米",
+              "notation": "mǐ"
+            },
+            {
+              "surface": "饭",
+              "notation": "fàn"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-want-tea",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "要",
+          "units": [
+            {
+              "surface": "要",
+              "notation": "yào"
+            }
+          ]
+        },
+        {
+          "surface": "茶",
+          "units": [
+            {
+              "surface": "茶",
+              "notation": "chá"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-want-book",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "要",
+          "units": [
+            {
+              "surface": "要",
+              "notation": "yào"
+            }
+          ]
+        },
+        {
+          "surface": "书",
+          "units": [
+            {
+              "surface": "书",
+              "notation": "shū"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-want-pen",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "要",
+          "units": [
+            {
+              "surface": "要",
+              "notation": "yào"
+            }
+          ]
+        },
+        {
+          "surface": "笔",
+          "units": [
+            {
+              "surface": "笔",
+              "notation": "bǐ"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-see-cat",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "看见",
+          "units": [
+            {
+              "surface": "看",
+              "notation": "kàn"
+            },
+            {
+              "surface": "见",
+              "notation": "jiàn"
+            }
+          ]
+        },
+        {
+          "surface": "猫",
+          "units": [
+            {
+              "surface": "猫",
+              "notation": "māo"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-see-dog",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "看见",
+          "units": [
+            {
+              "surface": "看",
+              "notation": "kàn"
+            },
+            {
+              "surface": "见",
+              "notation": "jiàn"
+            }
+          ]
+        },
+        {
+          "surface": "狗",
+          "units": [
+            {
+              "surface": "狗",
+              "notation": "gǒu"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-see-book",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "看见",
+          "units": [
+            {
+              "surface": "看",
+              "notation": "kàn"
+            },
+            {
+              "surface": "见",
+              "notation": "jiàn"
+            }
+          ]
+        },
+        {
+          "surface": "书",
+          "units": [
+            {
+              "surface": "书",
+              "notation": "shū"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-see-pen",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "看见",
+          "units": [
+            {
+              "surface": "看",
+              "notation": "kàn"
+            },
+            {
+              "surface": "见",
+              "notation": "jiàn"
+            }
+          ]
+        },
+        {
+          "surface": "笔",
+          "units": [
+            {
+              "surface": "笔",
+              "notation": "bǐ"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-see-house",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "看见",
+          "units": [
+            {
+              "surface": "看",
+              "notation": "kàn"
+            },
+            {
+              "surface": "见",
+              "notation": "jiàn"
+            }
+          ]
+        },
+        {
+          "surface": "房子",
+          "units": [
+            {
+              "surface": "房",
+              "notation": "fáng"
+            },
+            {
+              "surface": "子",
+              "notation": "zi"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-see-door",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "看见",
+          "units": [
+            {
+              "surface": "看",
+              "notation": "kàn"
+            },
+            {
+              "surface": "见",
+              "notation": "jiàn"
+            }
+          ]
+        },
+        {
+          "surface": "门",
+          "units": [
+            {
+              "surface": "门",
+              "notation": "mén"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-see-table",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "看见",
+          "units": [
+            {
+              "surface": "看",
+              "notation": "kàn"
+            },
+            {
+              "surface": "见",
+              "notation": "jiàn"
+            }
+          ]
+        },
+        {
+          "surface": "桌子",
+          "units": [
+            {
+              "surface": "桌",
+              "notation": "zhuō"
+            },
+            {
+              "surface": "子",
+              "notation": "zi"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-see-ball",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "看见",
+          "units": [
+            {
+              "surface": "看",
+              "notation": "kàn"
+            },
+            {
+              "surface": "见",
+              "notation": "jiàn"
+            }
+          ]
+        },
+        {
+          "surface": "球",
+          "units": [
+            {
+              "surface": "球",
+              "notation": "qiú"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-i-eat",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "吃",
+          "units": [
+            {
+              "surface": "吃",
+              "notation": "chī"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-i-drink",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "喝",
+          "units": [
+            {
+              "surface": "喝",
+              "notation": "hē"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-i-go",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "去",
+          "units": [
+            {
+              "surface": "去",
+              "notation": "qù"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-i-sit",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "坐",
+          "units": [
+            {
+              "surface": "坐",
+              "notation": "zuò"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-i-read",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "读",
+          "units": [
+            {
+              "surface": "读",
+              "notation": "dú"
+            }
+          ]
+        },
+        {
+          "surface": "书",
+          "units": [
+            {
+              "surface": "书",
+              "notation": "shū"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-i-write",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "写",
+          "units": [
+            {
+              "surface": "写",
+              "notation": "xiě"
+            }
+          ]
+        },
+        {
+          "surface": "字",
+          "units": [
+            {
+              "surface": "字",
+              "notation": "zì"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-i-sleep",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "睡觉",
+          "units": [
+            {
+              "surface": "睡",
+              "notation": "shuì"
+            },
+            {
+              "surface": "觉",
+              "notation": "jiào"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-i-have-pen",
+      "tokens": [
+        {
+          "surface": "我",
+          "units": [
+            {
+              "surface": "我",
+              "notation": "wǒ"
+            }
+          ]
+        },
+        {
+          "surface": "有",
+          "units": [
+            {
+              "surface": "有",
+              "notation": "yǒu"
+            }
+          ]
+        },
+        {
+          "surface": "笔",
+          "units": [
+            {
+              "surface": "笔",
+              "notation": "bǐ"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

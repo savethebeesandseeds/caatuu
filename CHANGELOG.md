@@ -1,5 +1,21 @@
 # Changelog
 
+## Android 189 / 0.1.37
+
+- Add Starting out (level zero) across all eight courses, with first words,
+  short patterns and two-choice support. New learners start here; existing
+  difficulty choices, progress and the three later content bands are preserved.
+- Add 2,892 introductory exercises across the supported course games. Set the
+  level-zero practice milestone to exactly 100 cycles (1,600 sets) per course.
+- Replace the difficulty flags with a playful four-stage progression and add
+  the new flag and ship artwork to the shared asset catalogs.
+- Vary repeated practice beyond the initial small phrase pools while keeping
+  recent items and already familiar families from dominating selection.
+- Compact generated Android course profiles while preserving their values and
+  frozen runtime behavior within the existing bootstrap asset budget.
+- Physical-device installation, update, offline use and saved-data preservation
+  remain unverified for this candidate. Course review status is unchanged.
+
 ## Android 188 / 0.1.36
 
 - Hide Word World's vertical scrollbar while preserving scrolling.

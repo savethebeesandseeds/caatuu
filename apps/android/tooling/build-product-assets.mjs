@@ -45,6 +45,7 @@ import {
   setupStorageRecord,
 } from "./android-artifact-contract.mjs";
 import { validateInterfaceCatalog } from "../../language-runtime/static/source/interface-content.mjs";
+import { evaluateCourseProfile } from "../../../tools/language-packs/lib/course-contract.mjs";
 
 const scriptPath = fileURLToPath(import.meta.url);
 const defaultWorkspaceRoot = resolve(dirname(scriptPath), "../../..");
@@ -1420,7 +1421,35 @@ export function transformCourseProfile(input, course = null) {
     "storage",
     (key) => productCapabilities.chat === false && key === "chatSettings",
   );
-  return transformProfileAndroidPublication(source);
+  return compactProductCourseProfile(transformProfileAndroidPublication(source));
+}
+
+/** Compact only the generated data literal, retaining its recursive freeze wrapper. */
+export function compactProductCourseProfile(input) {
+  const source = normalizeText(input);
+  const anchor = "window.CaatuuCourse = deepFreeze(";
+  if (!source.includes(anchor)) return source;
+  assert.equal(countOccurrences(source, anchor), 1, "Expected one generated course profile assignment");
+  const opening = source.indexOf(anchor) + anchor.length;
+  assert.equal(source[opening], "{", "Generated course profile must contain an object literal");
+  const closing = matchingBraceIndex(source, opening, "generated course profile");
+  const profile = evaluateCourseProfile(source);
+  const expected = structuredClone(profile);
+  const compact = source.slice(0, opening) + JSON.stringify(profile) + source.slice(closing + 1);
+  assert.deepEqual(structuredClone(evaluateCourseProfile(compact)), expected,
+    "Compacting a generated course profile must preserve every value");
+  return compact;
+}
+
+/** Inspect capability values independently of the generated JavaScript's formatting. */
+export function assertProductCourseProfileCapabilities(source, { embeddings = false } = {}) {
+  const course = evaluateCourseProfile(`${source}\nwindow.CaatuuCourse ||= globalThis.CaatuuCourse;\n`);
+  for (const name of STANDARD_ONLY_CAPABILITY_NAMES) {
+    assert.equal(course.capabilities?.[name], false, `Android course profile must disable ${name}`);
+  }
+  if (embeddings) assert.equal(course.capabilities?.semanticSearch, true,
+    "Android embedding course profile must retain semantic search");
+  return course;
 }
 
 export function transformManifest(input, { packagedFiles = null } = {}) {
@@ -2776,7 +2805,7 @@ function validateFullProductAssetBundle({
     assertLearnerContentSafety(courseRoot);
     if (courseFiles.includes("source/shared/course-profile.js")) {
       const courseProfileSource = readSourceText(join(courseRoot, "source/shared/course-profile.js"));
-      assert.doesNotMatch(courseProfileSource, /llm: true|generation: true|chat: true|offlineModels: true/);
+      assertProductCourseProfileCapabilities(courseProfileSource, courseProfile.capabilities);
     }
     if (courseFiles.includes("sw.js")) {
       const worker = readSourceText(join(courseRoot, "sw.js"));
@@ -2870,13 +2899,7 @@ export function validateProductAssets({
 
   if (files.includes("source/shared/course-profile.js")) {
     const course = readSourceText(join(resolvedOutput, "source/shared/course-profile.js"));
-    assert.doesNotMatch(course, /llm: true/);
-    assert.doesNotMatch(course, /generation: true/);
-    assert.match(course, /llm: false/);
-    assert.match(course, /generation: false/);
-    assert.match(course, /chat: false/);
-    assert.match(course, /offlineModels: false/);
-    if (profile.capabilities.embeddings) assert.match(course, /semanticSearch: true/);
+    assertProductCourseProfileCapabilities(course, profile.capabilities);
   }
   if (files.includes("manifest.webmanifest")) {
     const manifest = JSON.parse(readFileSync(join(resolvedOutput, "manifest.webmanifest"), "utf8"));

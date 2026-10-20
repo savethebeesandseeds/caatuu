@@ -21,7 +21,7 @@ function createVerifiedRuntimeSource({ corpusVersion, catalogRevision, catalogDi
 
 function boundedDifficulty(value) {
   const level = Math.floor(Number(value));
-  return level >= 1 && level <= 3 ? level : 1;
+  return value !== null && value !== "" && level >= 0 && level <= 3 ? level : 1;
 }
 
 // This legacy provider is also packaged as a standalone course module. Keep
@@ -122,7 +122,7 @@ export function normalizeStandardRecord(record = {}, index = 0) {
   const cs = String(record.cs || "").normalize("NFC").replace(/\s+/g, " ").trim();
   const en = String(record.en || "").normalize("NFC").replace(/\s+/g, " ").trim();
   const difficulty = Math.floor(Number(record.difficulty));
-  if (!id || !cs || !en || difficulty < 1 || difficulty > 3) return null;
+  if (!id || !cs || !en || record.difficulty === null || record.difficulty === "" || difficulty < 0 || difficulty > 3) return null;
   const alternateSeen = new Set([en.toLocaleLowerCase("en-US")]);
   const enAlternates = (Array.isArray(record.enAlternates) ? record.enAlternates : [])
     .map((value) => String(value || "").normalize("NFC").replace(/\s+/g, " ").trim())
@@ -235,7 +235,7 @@ export class WordWorldUsageLedger {
 }
 
 function weightedTier(level, availableTiers, random) {
-  const weights = level === 1
+  const weights = level === 0 ? [[0, 1]] : level === 1
     ? [[1, 1]]
     : level === 2
       ? [[2, 0.82], [1, 0.18]]
@@ -271,7 +271,7 @@ export class StandardWordWorldProvider {
       .map(normalizeStandardRecord)
       .filter((record) => {
         if (!record) return false;
-        const sentenceKey = record.cs.toLocaleLowerCase("cs-CZ");
+        const sentenceKey = `${record.difficulty === 0 ? "zero:" : ""}${record.cs.toLocaleLowerCase("cs-CZ")}`;
         if (seenIds.has(record.id) || seenSentences.has(sentenceKey)) return false;
         seenIds.add(record.id);
         seenSentences.add(sentenceKey);
@@ -494,7 +494,7 @@ export function normalizeWordWorldHistoryEntry(entry = {}) {
     contentMode,
     source: String(entry.source || (contentMode === "standard" ? "standard-corpus" : "history")).trim().slice(0, 64),
     corpusVersion: String(entry.corpusVersion || "").trim().slice(0, 64),
-    difficulty: difficulty >= 1 && difficulty <= 3 ? Math.floor(difficulty) : null,
+    difficulty: entry.difficulty !== null && entry.difficulty !== "" && difficulty >= 0 && difficulty <= 3 ? Math.floor(difficulty) : null,
     sceneQuery: String(entry.sceneQuery || entry.en || entry.translation || "").normalize("NFC").replace(/\s+/g, " ").trim().slice(0, 220)
   };
 }

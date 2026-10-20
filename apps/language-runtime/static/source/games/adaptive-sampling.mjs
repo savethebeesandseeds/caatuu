@@ -110,7 +110,7 @@ function samplingDecision(items, {
   identity = null, learner = null, goal = {}, semantic = null, recentIds = [], excludeIds = [], config = {}, accessDiagnostics = false
 } = {}, access = NORMAL_ACCESS) {
   if (!Array.isArray(items)) throw new TypeError('Content selection needs an array.');
-  if (![1, 2, 3].includes(difficulty)) throw new TypeError('difficulty must be 1, 2, or 3.');
+  if (![0, 1, 2, 3].includes(difficulty)) throw new TypeError('difficulty must be 0, 1, 2, or 3.');
   if (!Number.isInteger(minimumPool) || minimumPool < 1) throw new TypeError('minimumPool must be positive.');
   if (limit !== Infinity && (!Number.isInteger(limit) || limit < 1)) throw new TypeError('limit must be positive.');
   if (!Number.isFinite(now) || now < 0) throw new TypeError('now must be a nonnegative timestamp.');
@@ -135,7 +135,8 @@ function samplingDecision(items, {
     const progress = own(history, id) || {};
     const state = identity ? learnerItemState({ ...identity, itemId: id, history: learner?.evidenceByItem || history, now }) : null;
     rows.push({ item, id, groupKey, badge, ...grades, progress, state,
-      position: (badge - 1) * 100 + grades.complexity,
+      // Level zero has its own exact band; keep its frontier positive without changing levels 1–3.
+      position: Math.max(0, badge - 1) * 100 + grades.complexity,
       visits: count(progress.exposures), readiness: contentPracticeReadiness(progress),
       lastSeen: Math.min(now, timestamp(progress.lastSeenAt)) });
   }
@@ -188,6 +189,14 @@ function samplingDecision(items, {
     if (!novel.includes(row)) novel.push(row);
     playable.add(row.id);
   }
+  // Exhausting the current window must not turn its first cohort into a gate.
+  // This separate pool is offered only in a scheduled new-material slot; it
+  // never widens the ordinary frontier or supplies unearned readiness.
+  const exhaustedFrontierBand = hardFrontier && introducedGroups.size >= minimumGroups
+    && !novel.length && unseen.length ? Math.min(...unseen.map(row => band(row.position))) : null;
+  const frontierContinuation = exhaustedFrontierBand === null ? []
+    : unseen.filter(row => band(row.position) === exhaustedFrontierBand);
+  const frontierContinuationIds = new Set(frontierContinuation.map(row => row.id));
   const categories = Array.isArray(goal.categories) ? goal.categories : [];
   const explicitWeights = goal.weights && typeof goal.weights === 'object' ? goal.weights : null;
   const rawWeights = rows.map(row => explicitWeights ? bounded(own(explicitWeights, row.id) ?? 0, `goal.weights.${row.id}`, 0, Number.MAX_VALUE) : 0);
@@ -245,6 +254,7 @@ function samplingDecision(items, {
   Object.assign(trace.constraints, { difficulty, minimumPool, frontier, dailyBudget, introducedToday: todayCount,
     distinctGroups: distinctGroups.size, minimumGroups, introducedGroups: introducedGroups.size,
     ordinaryIntroductionLimit, introductionLimit, continuedIntroductions: continued, nextChallengeBand: nextBand,
+    exhaustedFrontierBand,
     playabilityFallbackIds: [...playable] });
   const due = introduced.filter(row => row.deadline <= now && now - row.lastSeen >= GAP);
   const rested = introduced.filter(row => now - row.lastSeen >= GAP);
@@ -254,8 +264,20 @@ function samplingDecision(items, {
   const rotation = introduced.reduce((sum, row) => (sum + row.visits) % DEFAULT_PATTERN.length, 0);
   const pattern = goal.kind === 'review' ? ['review', 'review', 'new', 'review', 'practice']
     : goal.kind === 'explore' && allowance > 0 ? ['new', 'practice', 'new', 'review', 'practice'] : DEFAULT_PATTERN;
+  const firstNewSlot = Array.from({ length: size }, (_, index) => index)
+    .find(index => pattern[(rotation + index) % pattern.length] === 'new');
+  // A nearest-band homophone can share a group with an earlier practice draw.
+  // Preserve one such group for the new slot when the remaining known groups
+  // can fill its prefix. Otherwise the completed board advances the phase.
+  const reserveContinuationGroup = frontierContinuation.length && firstNewSlot !== undefined
+    && firstNewSlot < introducedGroups.size
+    && frontierContinuation.every(row => introducedGroups.has(row.groupKey));
+  const reservedContinuation = reserveContinuationGroup ? frontierContinuation.find(row => !excluded.has(row.id) && !recent.has(row.id))
+    || frontierContinuation.find(row => !excluded.has(row.id)) || frontierContinuation[0] : null;
+  const reservedContinuationGroup = reservedContinuation?.groupKey ?? null;
+  trace.constraints.exhaustedFrontierReservedGroup = reservedContinuationGroup;
   trace.pattern = [...pattern];
-  let introductions = 0, challengeChosen = false;
+  let introductions = 0, challengeChosen = false, frontierContinuationChosen = false;
   const novelIds = accessDiagnostics ? new Set(novel.map(row => row.id)) : null;
   const hardIds = accessDiagnostics ? rows.map(row => row.id) : null;
   while (selected.length < size) {
@@ -278,14 +300,19 @@ function samplingDecision(items, {
       stage('hard-remaining', hardRemaining);
     }
     const requestedCategory = pattern[(rotation + selected.length) % pattern.length];
+    const reservationActive = reservedContinuationGroup !== null && !frontierContinuationChosen
+      && selected.length < firstNewSlot;
     const remainingIntroducedGroups = [...introducedGroups].filter(key => !selectedGroups.has(key)).length;
     const requiredNewGroups = Math.max(0, requiredSize - selected.length - remainingIntroducedGroups);
-    const availableNew = introductions < introductionLimit ? novel.filter(row =>
+    const newPool = requestedCategory === 'new' && !frontierContinuationChosen
+      ? [...novel, ...frontierContinuation] : novel;
+    const availableNew = introductions < introductionLimit ? newPool.filter(row =>
       (!hardFrontier || playable.has(row.id) || row.position <= frontier || !challengeChosen)
       // Reserve scarce introduction slots for genuinely missing answer groups,
       // instead of spending them on unseen homophones of already known groups.
       && (introductionLimit - introductions > requiredNewGroups || !introducedGroups.has(row.groupKey))) : [];
-    const pools = { new: availableNew, review: due, rested, practice: introduced };
+    const reservable = pool => reservationActive ? pool.filter(row => row.groupKey !== reservedContinuationGroup) : pool;
+    const pools = { new: availableNew, review: reservable(due), rested: reservable(rested), practice: reservable(introduced) };
     const order = requestedCategory === 'new' ? ['new', 'review', 'rested', 'practice']
       : continued ? (requestedCategory === 'review' ? ['review', 'rested', 'practice'] : ['rested', 'review', 'practice'])
         : requestedCategory === 'review' ? ['review', 'rested', 'new', 'practice'] : ['rested', 'review', 'new', 'practice'];
@@ -303,6 +330,8 @@ function samplingDecision(items, {
     if (accessDiagnostics) {
       const poolIds = new Set(candidates.map(row => row.id));
       restriction('slot-allocation', 'soft', access.slots ? hardRemaining.filter(row => !poolIds.has(row.id)) : []);
+      restriction('exhausted-frontier-group-reservation', 'soft', reservationActive
+        ? hardRemaining.filter(row => row.groupKey === reservedContinuationGroup) : []);
       restriction('pacing-reservation-for-missing-groups', 'soft', introductionLimit - introductions <= requiredNewGroups
         ? hardRemaining.filter(row => !row.visits && introducedGroups.has(row.groupKey)) : []);
       stage('scheduled-pool', candidates);
@@ -395,6 +424,11 @@ function samplingDecision(items, {
     if (!chosen.visits) {
       introductions++;
       if (nextBand !== null && band(chosen.position) === nextBand && !playable.has(chosen.id)) challengeChosen = true;
+    }
+    if (requestedCategory === 'new' && category === 'new' && frontierContinuationIds.has(chosen.id)
+        && availableNew.some(row => row.id === chosen.id)) {
+      frontierContinuationChosen = true;
+      reasons.push('exhausted-frontier-continuation');
     }
     if (playable.has(chosen.id)) reasons.push('distinct-answer-minimum-exceeds-frontier');
     selected.push(chosen.item); selectedGroups.add(chosen.groupKey);

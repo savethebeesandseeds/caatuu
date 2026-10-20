@@ -23977,6 +23977,2395 @@
           "playable": true
         }
       ]
+    },
+    {
+      "conceptId": "ww-zero-cat",
+      "text": "猫",
+      "learning": {
+        "unitId": "zero.zh.objects",
+        "order": 1,
+        "title": "Things around you",
+        "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "objects"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "猫",
+          "gloss": "cat",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-dog",
+      "text": "狗",
+      "learning": {
+        "unitId": "zero.zh.objects",
+        "order": 2,
+        "title": "Things around you",
+        "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "objects"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "狗",
+          "gloss": "dog",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-water",
+      "text": "水",
+      "learning": {
+        "unitId": "zero.zh.objects",
+        "order": 3,
+        "title": "Things around you",
+        "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "objects"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "水",
+          "gloss": "water",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-bread",
+      "text": "面包",
+      "learning": {
+        "unitId": "zero.zh.objects",
+        "order": 4,
+        "title": "Things around you",
+        "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "objects"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "面包",
+          "gloss": "bread",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-milk",
+      "text": "牛奶",
+      "learning": {
+        "unitId": "zero.zh.objects",
+        "order": 5,
+        "title": "Things around you",
+        "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "objects"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "牛奶",
+          "gloss": "milk",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-apple",
+      "text": "苹果",
+      "learning": {
+        "unitId": "zero.zh.objects",
+        "order": 6,
+        "title": "Things around you",
+        "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "objects"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "苹果",
+          "gloss": "apple",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-rice",
+      "text": "米饭",
+      "learning": {
+        "unitId": "zero.zh.objects",
+        "order": 7,
+        "title": "Things around you",
+        "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "objects"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "米饭",
+          "gloss": "rice",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-tea",
+      "text": "茶",
+      "learning": {
+        "unitId": "zero.zh.objects",
+        "order": 8,
+        "title": "Things around you",
+        "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "objects"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "茶",
+          "gloss": "tea",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-book",
+      "text": "书",
+      "learning": {
+        "unitId": "zero.zh.objects",
+        "order": 9,
+        "title": "Things around you",
+        "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "objects"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "书",
+          "gloss": "book",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-pen",
+      "text": "笔",
+      "learning": {
+        "unitId": "zero.zh.objects",
+        "order": 10,
+        "title": "Things around you",
+        "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "objects"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "笔",
+          "gloss": "pen",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-house",
+      "text": "房子",
+      "learning": {
+        "unitId": "zero.zh.objects",
+        "order": 11,
+        "title": "Things around you",
+        "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "objects"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "房子",
+          "gloss": "house",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-door",
+      "text": "门",
+      "learning": {
+        "unitId": "zero.zh.objects",
+        "order": 12,
+        "title": "Things around you",
+        "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "objects"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "门",
+          "gloss": "door",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-table",
+      "text": "桌子",
+      "learning": {
+        "unitId": "zero.zh.objects",
+        "order": 13,
+        "title": "Things around you",
+        "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "objects"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "桌子",
+          "gloss": "table",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-chair",
+      "text": "椅子",
+      "learning": {
+        "unitId": "zero.zh.objects",
+        "order": 14,
+        "title": "Things around you",
+        "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "objects"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "椅子",
+          "gloss": "chair",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-bed",
+      "text": "床",
+      "learning": {
+        "unitId": "zero.zh.objects",
+        "order": 15,
+        "title": "Things around you",
+        "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "objects"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "床",
+          "gloss": "bed",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-bag",
+      "text": "包",
+      "learning": {
+        "unitId": "zero.zh.objects",
+        "order": 16,
+        "title": "Things around you",
+        "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "objects"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "包",
+          "gloss": "bag",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-ball",
+      "text": "球",
+      "learning": {
+        "unitId": "zero.zh.objects",
+        "order": 17,
+        "title": "Things around you",
+        "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "objects"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "球",
+          "gloss": "ball",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-sun",
+      "text": "太阳",
+      "learning": {
+        "unitId": "zero.zh.objects",
+        "order": 18,
+        "title": "Things around you",
+        "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "objects"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "太阳",
+          "gloss": "sun",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-hand",
+      "text": "手",
+      "learning": {
+        "unitId": "zero.zh.objects",
+        "order": 19,
+        "title": "Things around you",
+        "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "objects"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "手",
+          "gloss": "hand",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-eye",
+      "text": "眼睛",
+      "learning": {
+        "unitId": "zero.zh.objects",
+        "order": 20,
+        "title": "Things around you",
+        "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "objects"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "眼睛",
+          "gloss": "eye",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-eat",
+      "text": "吃",
+      "learning": {
+        "unitId": "zero.zh.actions",
+        "order": 21,
+        "title": "Tiny actions",
+        "explanation": "Meet a useful action in its dictionary form. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "actions"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "吃",
+          "gloss": "eat",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-drink",
+      "text": "喝",
+      "learning": {
+        "unitId": "zero.zh.actions",
+        "order": 22,
+        "title": "Tiny actions",
+        "explanation": "Meet a useful action in its dictionary form. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "actions"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "喝",
+          "gloss": "drink",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-go",
+      "text": "去",
+      "learning": {
+        "unitId": "zero.zh.actions",
+        "order": 23,
+        "title": "Tiny actions",
+        "explanation": "Meet a useful action in its dictionary form. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "actions"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "去",
+          "gloss": "go",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-see",
+      "text": "看见",
+      "learning": {
+        "unitId": "zero.zh.actions",
+        "order": 24,
+        "title": "Tiny actions",
+        "explanation": "Meet a useful action in its dictionary form. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "actions"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "看见",
+          "gloss": "see",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-want",
+      "text": "要",
+      "learning": {
+        "unitId": "zero.zh.actions",
+        "order": 25,
+        "title": "Tiny actions",
+        "explanation": "Meet a useful action in its dictionary form. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "actions"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "要",
+          "gloss": "want",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-have",
+      "text": "有",
+      "learning": {
+        "unitId": "zero.zh.actions",
+        "order": 26,
+        "title": "Tiny actions",
+        "explanation": "Meet a useful action in its dictionary form. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "actions"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "有",
+          "gloss": "have",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-like",
+      "text": "喜欢",
+      "learning": {
+        "unitId": "zero.zh.actions",
+        "order": 27,
+        "title": "Tiny actions",
+        "explanation": "Meet a useful action in its dictionary form. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "actions"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "喜欢",
+          "gloss": "like",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-sleep",
+      "text": "睡觉",
+      "learning": {
+        "unitId": "zero.zh.actions",
+        "order": 28,
+        "title": "Tiny actions",
+        "explanation": "Meet a useful action in its dictionary form. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "actions"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "睡觉",
+          "gloss": "sleep",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-sit",
+      "text": "坐",
+      "learning": {
+        "unitId": "zero.zh.actions",
+        "order": 29,
+        "title": "Tiny actions",
+        "explanation": "Meet a useful action in its dictionary form. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "actions"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "坐",
+          "gloss": "sit",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-read",
+      "text": "读",
+      "learning": {
+        "unitId": "zero.zh.actions",
+        "order": 30,
+        "title": "Tiny actions",
+        "explanation": "Meet a useful action in its dictionary form. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "actions"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "读",
+          "gloss": "read",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-write",
+      "text": "写",
+      "learning": {
+        "unitId": "zero.zh.actions",
+        "order": 31,
+        "title": "Tiny actions",
+        "explanation": "Meet a useful action in its dictionary form. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "actions"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "写",
+          "gloss": "write",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-hear",
+      "text": "听见",
+      "learning": {
+        "unitId": "zero.zh.actions",
+        "order": 32,
+        "title": "Tiny actions",
+        "explanation": "Meet a useful action in its dictionary form. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "actions"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "听见",
+          "gloss": "hear",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-i",
+      "text": "我",
+      "learning": {
+        "unitId": "zero.zh.people",
+        "order": 33,
+        "title": "I, you and we",
+        "explanation": "Meet the three people words used in these tiny patterns. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "people"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-you",
+      "text": "你",
+      "learning": {
+        "unitId": "zero.zh.people",
+        "order": 34,
+        "title": "I, you and we",
+        "explanation": "Meet the three people words used in these tiny patterns. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "people"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "你",
+          "gloss": "you",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-we",
+      "text": "我们",
+      "learning": {
+        "unitId": "zero.zh.people",
+        "order": 35,
+        "title": "I, you and we",
+        "explanation": "Meet the three people words used in these tiny patterns. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "people"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我们",
+          "gloss": "we",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-hello",
+      "text": "你好！",
+      "learning": {
+        "unitId": "zero.zh.first-contact",
+        "order": 36,
+        "title": "First contact",
+        "explanation": "Practise one greeting or reply at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "first-contact"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "你好",
+          "gloss": "Hello",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-goodbye",
+      "text": "再见！",
+      "learning": {
+        "unitId": "zero.zh.first-contact",
+        "order": 37,
+        "title": "First contact",
+        "explanation": "Practise one greeting or reply at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "first-contact"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "再见",
+          "gloss": "Goodbye",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-yes",
+      "text": "对。",
+      "learning": {
+        "unitId": "zero.zh.first-contact",
+        "order": 38,
+        "title": "First contact",
+        "explanation": "Practise one greeting or reply at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "first-contact"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "对",
+          "gloss": "Yes",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-no",
+      "text": "不。",
+      "learning": {
+        "unitId": "zero.zh.first-contact",
+        "order": 39,
+        "title": "First contact",
+        "explanation": "Practise one greeting or reply at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "first-contact"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "不",
+          "gloss": "No",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-please",
+      "text": "请。",
+      "learning": {
+        "unitId": "zero.zh.first-contact",
+        "order": 40,
+        "title": "First contact",
+        "explanation": "Practise one greeting or reply at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "first-contact"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "请",
+          "gloss": "Please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-thanks",
+      "text": "谢谢。",
+      "learning": {
+        "unitId": "zero.zh.first-contact",
+        "order": 41,
+        "title": "First contact",
+        "explanation": "Practise one greeting or reply at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "first-contact"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "谢谢",
+          "gloss": "Thank you",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-one",
+      "text": "一",
+      "learning": {
+        "unitId": "zero.zh.numbers",
+        "order": 42,
+        "title": "One to five",
+        "explanation": "Recognize one number at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "numbers"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "一",
+          "gloss": "one",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-two",
+      "text": "二",
+      "learning": {
+        "unitId": "zero.zh.numbers",
+        "order": 43,
+        "title": "One to five",
+        "explanation": "Recognize one number at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "numbers"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "二",
+          "gloss": "two",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-three",
+      "text": "三",
+      "learning": {
+        "unitId": "zero.zh.numbers",
+        "order": 44,
+        "title": "One to five",
+        "explanation": "Recognize one number at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "numbers"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "三",
+          "gloss": "three",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-four",
+      "text": "四",
+      "learning": {
+        "unitId": "zero.zh.numbers",
+        "order": 45,
+        "title": "One to five",
+        "explanation": "Recognize one number at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "numbers"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "四",
+          "gloss": "four",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-five",
+      "text": "五",
+      "learning": {
+        "unitId": "zero.zh.numbers",
+        "order": 46,
+        "title": "One to five",
+        "explanation": "Recognize one number at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "numbers"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "五",
+          "gloss": "five",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-big",
+      "text": "大",
+      "learning": {
+        "unitId": "zero.zh.describing",
+        "order": 47,
+        "title": "Big, small and color",
+        "explanation": "Meet one descriptive word at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "describing"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "大",
+          "gloss": "big",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-small",
+      "text": "小",
+      "learning": {
+        "unitId": "zero.zh.describing",
+        "order": 48,
+        "title": "Big, small and color",
+        "explanation": "Meet one descriptive word at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "describing"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "小",
+          "gloss": "small",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-red",
+      "text": "红色",
+      "learning": {
+        "unitId": "zero.zh.describing",
+        "order": 49,
+        "title": "Big, small and color",
+        "explanation": "Meet one descriptive word at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "describing"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "红色",
+          "gloss": "red",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-green",
+      "text": "绿色",
+      "learning": {
+        "unitId": "zero.zh.describing",
+        "order": 50,
+        "title": "Big, small and color",
+        "explanation": "Meet one descriptive word at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "describing"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "绿色",
+          "gloss": "green",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-cat",
+      "text": "这是猫。",
+      "learning": {
+        "unitId": "zero.zh.identify",
+        "order": 51,
+        "title": "This is…",
+        "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "identify"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "这",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "是",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "猫",
+          "gloss": "cat",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-dog",
+      "text": "这是狗。",
+      "learning": {
+        "unitId": "zero.zh.identify",
+        "order": 52,
+        "title": "This is…",
+        "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "identify"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "这",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "是",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "狗",
+          "gloss": "dog",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-water",
+      "text": "这是水。",
+      "learning": {
+        "unitId": "zero.zh.identify",
+        "order": 53,
+        "title": "This is…",
+        "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "identify"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "这",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "是",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "水",
+          "gloss": "water",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-bread",
+      "text": "这是面包。",
+      "learning": {
+        "unitId": "zero.zh.identify",
+        "order": 54,
+        "title": "This is…",
+        "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "identify"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "这",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "是",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "面包",
+          "gloss": "bread",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-milk",
+      "text": "这是牛奶。",
+      "learning": {
+        "unitId": "zero.zh.identify",
+        "order": 55,
+        "title": "This is…",
+        "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "identify"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "这",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "是",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "牛奶",
+          "gloss": "milk",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-apple",
+      "text": "这是苹果。",
+      "learning": {
+        "unitId": "zero.zh.identify",
+        "order": 56,
+        "title": "This is…",
+        "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "identify"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "这",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "是",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "苹果",
+          "gloss": "apple",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-rice",
+      "text": "这是米饭。",
+      "learning": {
+        "unitId": "zero.zh.identify",
+        "order": 57,
+        "title": "This is…",
+        "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "identify"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "这",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "是",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "米饭",
+          "gloss": "rice",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-tea",
+      "text": "这是茶。",
+      "learning": {
+        "unitId": "zero.zh.identify",
+        "order": 58,
+        "title": "This is…",
+        "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "identify"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "这",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "是",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "茶",
+          "gloss": "tea",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-book",
+      "text": "这是书。",
+      "learning": {
+        "unitId": "zero.zh.identify",
+        "order": 59,
+        "title": "This is…",
+        "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "identify"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "这",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "是",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "书",
+          "gloss": "book",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-pen",
+      "text": "这是笔。",
+      "learning": {
+        "unitId": "zero.zh.identify",
+        "order": 60,
+        "title": "This is…",
+        "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "identify"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "这",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "是",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "笔",
+          "gloss": "pen",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-house",
+      "text": "这是房子。",
+      "learning": {
+        "unitId": "zero.zh.identify",
+        "order": 61,
+        "title": "This is…",
+        "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "identify"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "这",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "是",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "房子",
+          "gloss": "house",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-door",
+      "text": "这是门。",
+      "learning": {
+        "unitId": "zero.zh.identify",
+        "order": 62,
+        "title": "This is…",
+        "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "identify"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "这",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "是",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "门",
+          "gloss": "door",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-table",
+      "text": "这是桌子。",
+      "learning": {
+        "unitId": "zero.zh.identify",
+        "order": 63,
+        "title": "This is…",
+        "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "identify"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "这",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "是",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "桌子",
+          "gloss": "table",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-chair",
+      "text": "这是椅子。",
+      "learning": {
+        "unitId": "zero.zh.identify",
+        "order": 64,
+        "title": "This is…",
+        "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "identify"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "这",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "是",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "椅子",
+          "gloss": "chair",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-bed",
+      "text": "这是床。",
+      "learning": {
+        "unitId": "zero.zh.identify",
+        "order": 65,
+        "title": "This is…",
+        "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "identify"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "这",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "是",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "床",
+          "gloss": "bed",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-bag",
+      "text": "这是包。",
+      "learning": {
+        "unitId": "zero.zh.identify",
+        "order": 66,
+        "title": "This is…",
+        "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "identify"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "这",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "是",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "包",
+          "gloss": "bag",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-ball",
+      "text": "这是球。",
+      "learning": {
+        "unitId": "zero.zh.identify",
+        "order": 67,
+        "title": "This is…",
+        "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "identify"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "这",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "是",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "球",
+          "gloss": "ball",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-sun",
+      "text": "这是太阳。",
+      "learning": {
+        "unitId": "zero.zh.identify",
+        "order": 68,
+        "title": "This is…",
+        "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "identify"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "这",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "是",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "太阳",
+          "gloss": "sun",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-hand",
+      "text": "这是手。",
+      "learning": {
+        "unitId": "zero.zh.identify",
+        "order": 69,
+        "title": "This is…",
+        "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "identify"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "这",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "是",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "手",
+          "gloss": "hand",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-eye",
+      "text": "这是眼睛。",
+      "learning": {
+        "unitId": "zero.zh.identify",
+        "order": 70,
+        "title": "This is…",
+        "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "identify"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "这",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "是",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "眼睛",
+          "gloss": "eye",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-want-water",
+      "text": "我要水。",
+      "learning": {
+        "unitId": "zero.zh.request",
+        "order": 71,
+        "title": "I want…",
+        "explanation": "Reuse I want with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "request"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "要",
+          "gloss": "want",
+          "playable": true
+        },
+        {
+          "surface": "水",
+          "gloss": "water",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-want-bread",
+      "text": "我要面包。",
+      "learning": {
+        "unitId": "zero.zh.request",
+        "order": 72,
+        "title": "I want…",
+        "explanation": "Reuse I want with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "request"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "要",
+          "gloss": "want",
+          "playable": true
+        },
+        {
+          "surface": "面包",
+          "gloss": "bread",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-want-milk",
+      "text": "我要牛奶。",
+      "learning": {
+        "unitId": "zero.zh.request",
+        "order": 73,
+        "title": "I want…",
+        "explanation": "Reuse I want with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "request"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "要",
+          "gloss": "want",
+          "playable": true
+        },
+        {
+          "surface": "牛奶",
+          "gloss": "milk",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-want-apple",
+      "text": "我要苹果。",
+      "learning": {
+        "unitId": "zero.zh.request",
+        "order": 74,
+        "title": "I want…",
+        "explanation": "Reuse I want with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "request"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "要",
+          "gloss": "want",
+          "playable": true
+        },
+        {
+          "surface": "苹果",
+          "gloss": "apple",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-want-rice",
+      "text": "我要米饭。",
+      "learning": {
+        "unitId": "zero.zh.request",
+        "order": 75,
+        "title": "I want…",
+        "explanation": "Reuse I want with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "request"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "要",
+          "gloss": "want",
+          "playable": true
+        },
+        {
+          "surface": "米饭",
+          "gloss": "rice",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-want-tea",
+      "text": "我要茶。",
+      "learning": {
+        "unitId": "zero.zh.request",
+        "order": 76,
+        "title": "I want…",
+        "explanation": "Reuse I want with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "request"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "要",
+          "gloss": "want",
+          "playable": true
+        },
+        {
+          "surface": "茶",
+          "gloss": "tea",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-want-book",
+      "text": "我要书。",
+      "learning": {
+        "unitId": "zero.zh.request",
+        "order": 77,
+        "title": "I want…",
+        "explanation": "Reuse I want with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "request"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "要",
+          "gloss": "want",
+          "playable": true
+        },
+        {
+          "surface": "书",
+          "gloss": "book",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-want-pen",
+      "text": "我要笔。",
+      "learning": {
+        "unitId": "zero.zh.request",
+        "order": 78,
+        "title": "I want…",
+        "explanation": "Reuse I want with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "request"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "要",
+          "gloss": "want",
+          "playable": true
+        },
+        {
+          "surface": "笔",
+          "gloss": "pen",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-see-cat",
+      "text": "我看见猫。",
+      "learning": {
+        "unitId": "zero.zh.notice",
+        "order": 79,
+        "title": "I see…",
+        "explanation": "Reuse I see with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "notice"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "看见",
+          "gloss": "see",
+          "playable": true
+        },
+        {
+          "surface": "猫",
+          "gloss": "cat",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-see-dog",
+      "text": "我看见狗。",
+      "learning": {
+        "unitId": "zero.zh.notice",
+        "order": 80,
+        "title": "I see…",
+        "explanation": "Reuse I see with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "notice"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "看见",
+          "gloss": "see",
+          "playable": true
+        },
+        {
+          "surface": "狗",
+          "gloss": "dog",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-see-book",
+      "text": "我看见书。",
+      "learning": {
+        "unitId": "zero.zh.notice",
+        "order": 81,
+        "title": "I see…",
+        "explanation": "Reuse I see with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "notice"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "看见",
+          "gloss": "see",
+          "playable": true
+        },
+        {
+          "surface": "书",
+          "gloss": "book",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-see-pen",
+      "text": "我看见笔。",
+      "learning": {
+        "unitId": "zero.zh.notice",
+        "order": 82,
+        "title": "I see…",
+        "explanation": "Reuse I see with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "notice"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "看见",
+          "gloss": "see",
+          "playable": true
+        },
+        {
+          "surface": "笔",
+          "gloss": "pen",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-see-house",
+      "text": "我看见房子。",
+      "learning": {
+        "unitId": "zero.zh.notice",
+        "order": 83,
+        "title": "I see…",
+        "explanation": "Reuse I see with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "notice"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "看见",
+          "gloss": "see",
+          "playable": true
+        },
+        {
+          "surface": "房子",
+          "gloss": "house",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-see-door",
+      "text": "我看见门。",
+      "learning": {
+        "unitId": "zero.zh.notice",
+        "order": 84,
+        "title": "I see…",
+        "explanation": "Reuse I see with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "notice"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "看见",
+          "gloss": "see",
+          "playable": true
+        },
+        {
+          "surface": "门",
+          "gloss": "door",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-see-table",
+      "text": "我看见桌子。",
+      "learning": {
+        "unitId": "zero.zh.notice",
+        "order": 85,
+        "title": "I see…",
+        "explanation": "Reuse I see with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "notice"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "看见",
+          "gloss": "see",
+          "playable": true
+        },
+        {
+          "surface": "桌子",
+          "gloss": "table",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-see-ball",
+      "text": "我看见球。",
+      "learning": {
+        "unitId": "zero.zh.notice",
+        "order": 86,
+        "title": "I see…",
+        "explanation": "Reuse I see with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "notice"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "看见",
+          "gloss": "see",
+          "playable": true
+        },
+        {
+          "surface": "球",
+          "gloss": "ball",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-i-eat",
+      "text": "我吃。",
+      "learning": {
+        "unitId": "zero.zh.doing",
+        "order": 87,
+        "title": "I do…",
+        "explanation": "Meet one short first-person action at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "doing"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "吃",
+          "gloss": "eat",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-i-drink",
+      "text": "我喝。",
+      "learning": {
+        "unitId": "zero.zh.doing",
+        "order": 88,
+        "title": "I do…",
+        "explanation": "Meet one short first-person action at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "doing"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "喝",
+          "gloss": "drink",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-i-go",
+      "text": "我去。",
+      "learning": {
+        "unitId": "zero.zh.doing",
+        "order": 89,
+        "title": "I do…",
+        "explanation": "Meet one short first-person action at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "doing"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "去",
+          "gloss": "go",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-i-sit",
+      "text": "我坐。",
+      "learning": {
+        "unitId": "zero.zh.doing",
+        "order": 90,
+        "title": "I do…",
+        "explanation": "Meet one short first-person action at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "doing"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "坐",
+          "gloss": "sit",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-i-read",
+      "text": "我读书。",
+      "learning": {
+        "unitId": "zero.zh.doing",
+        "order": 91,
+        "title": "I do…",
+        "explanation": "Meet one short first-person action at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "doing"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "读",
+          "gloss": "read",
+          "playable": true
+        },
+        {
+          "surface": "书",
+          "gloss": "book",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-i-write",
+      "text": "我写字。",
+      "learning": {
+        "unitId": "zero.zh.doing",
+        "order": 92,
+        "title": "I do…",
+        "explanation": "Meet one short first-person action at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "doing"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "写",
+          "gloss": "write",
+          "playable": true
+        },
+        {
+          "surface": "字",
+          "gloss": "characters",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-i-sleep",
+      "text": "我睡觉。",
+      "learning": {
+        "unitId": "zero.zh.doing",
+        "order": 93,
+        "title": "I do…",
+        "explanation": "Meet one short first-person action at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "doing"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "睡觉",
+          "gloss": "sleep",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-i-have-pen",
+      "text": "我有笔。",
+      "learning": {
+        "unitId": "zero.zh.doing",
+        "order": 94,
+        "title": "I do…",
+        "explanation": "Meet one short first-person action at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "doing"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "我",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "有",
+          "gloss": "have",
+          "playable": true
+        },
+        {
+          "surface": "笔",
+          "gloss": "pen",
+          "playable": true
+        }
+      ]
     }
   ]
 }

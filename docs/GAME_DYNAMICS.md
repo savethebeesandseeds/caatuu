@@ -67,15 +67,18 @@ including the full XP from a challenge whose surplus effort carries forward.
 ## Cycles, difficulty stages, and badge recommendations
 
 Campaign Mode opens a shared, vertically winding roadmap before starting a
-challenge. Its 16 robot stops display the current course's practice cycle;
-completed, current and upcoming sets come directly from the existing ledger.
+challenge. Its 16 robot stops display the selected difficulty's saved practice
+cycle; completed, current and upcoming sets come directly from its existing
+difficulty-tagged counters.
 Practice in individual games advances the same map. A trophy marks
 the cycle boundary without changing reward rules, while the badge strip reads the current
 difficulty's corpus-derived stage budget. Badge details open the existing
 readiness-based recommendation. Viewing the map never grants rewards, records
 effort or equips a badge.
 
-Only the current set starts Campaign's existing mixed-game rotation. The game
+The current set starts Campaign's existing mixed-game rotation. After clearing
+a difficulty, the map stays on its final full cycle and Continue still starts
+the same rotation for repeat practice. The game
 header's back control and Campaign's chooser entry return to the map. The
 Games dock button and game chooser remain available. Each cycle uses 16 distinct
 robots, rotating deterministically through the existing 33-robot catalog. A
@@ -98,6 +101,7 @@ selection remains available.
 | --- | --- |
 | Effort units per set | 24 |
 | Sets per cycle | 16 |
+| Level-zero cycles before considering Explorer | Exactly 100 |
 | Minimum Explorer cycles before considering Traveler | 200 |
 | Minimum further Traveler cycles before considering Navigator | 200 |
 | Corpus workload budget | 6 clean passes through the current difficulty band |
@@ -107,15 +111,19 @@ At 24 units per set and 16 sets per cycle, one cycle represents 384 effort units
 With the current Word World weight, that is 128 reconstruction submissions.
 A 200-cycle stage represents 3,200 sets and 76,800 effort units. Navigator can
 therefore be recommended after at least 400 cycles across Explorer and Traveler,
-with each stage earned at its own captured difficulty. Navigator keeps ongoing
-practice cycles without inventing a fourth authored difficulty.
+with each stage earned at its own captured difficulty. Navigator uses the same
+finite workload formula and remains playable after its final cycle.
 
-For each course and difficulty, the shared target is
+Level zero has a fixed target of 100 cycles in every course: 1,600 sets and
+38,400 effort units. Existing earned work and rewards remain intact when its
+displayed progress reaches this target.
+
+For each course at difficulties 1–3, the shared target is
 `max(200, 25 × ceil(6 × clean-pass effort / (384 × 25)))`.
 The 200-cycle minimum is a deliberate pacing choice. Six estimated passes through
 the present Explorer and Traveler inventories require roughly 16–103 cycles;
 the minimum therefore budgets more replay than six passes in these packs. All
-current courses use 200 cycles per stage. A larger authored corpus can raise the
+current courses use 200 cycles per stage at difficulties 1–3. A larger authored corpus can raise the
 target automatically. The estimate does not assert that the learner actually
 covered every item six times or completed six spaced passes: adaptive selection
 can repeat some items and omit others. Supported spaced, independent learning
@@ -160,10 +168,21 @@ It changes when a future recommendation can be offered; it does not demote an
 already chosen badge or reinterpret historical rewards.
 
 The shared runtime captures the difficulty of new work when it occurs, including
-staged board decisions. Course-wide sets and currency cycles carry across manual
-difficulty switches; badge-stage units accrue only at their captured difficulty.
-Existing untagged work remains eligible for monetary carryover and cannot
-establish difficulty-stage progress retroactively.
+staged board decisions. Each playable difficulty remembers its completed sets,
+cycle position and partial effort across switches and reloads. The map and
+header practice meter read `practiceSet().progression.stage`, including its
+`target`, `effort` and `cycle`. A cleared stage displays the maximum cycle,
+16/16 sets and a full effort bar; repeat practice does not roll that display
+past the maximum. Stored counters retain their exact values.
+
+The top-level practice fields remain the independent course-wide currency
+ledger. Its sets, cycle and accumulated XP continue across difficulty switches
+and after stage completion, so repeat practice still earns coins, gems and XP.
+Reward celebrations use that ledger's gem cycle. Existing untagged work remains
+eligible for monetary carryover and cannot establish difficulty-stage progress
+retroactively. Older v2 checkpoints remain readable without rewriting or
+resetting their existing balances. A reserved level-zero storage bucket does
+not enable level-zero content or change the current playable difficulties.
 
 [`badge-progression.mjs`](../apps/language-runtime/static/source/badge-progression.mjs)
 shows stage progress and recommendations in Backpack. A ready invitation also

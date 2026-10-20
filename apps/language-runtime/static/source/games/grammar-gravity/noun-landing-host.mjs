@@ -1,12 +1,12 @@
 import {
   normalizeNounLandingPack, createNounLandingSession, startNounLanding,
   selectNounLane, advanceNounFall, landNoun, nextNoun, setNounFallDuration
-} from "./noun-landing-core.mjs?v=noun-landing-core-11";
+} from "./noun-landing-core.mjs?v=noun-landing-core-12";
 import { fetchDeclaredCourseGameJson } from "../course-game-content.mjs?v=course-game-content-1";
 import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-10";
 import { createNounVisual } from "./noun-visual.mjs?v=noun-visual-4";
 import { newContentEncounterId } from "../content-progression.mjs";
-import { createReviewContinuation } from "../practice-pacing.mjs?v=practice-pacing-2";
+import { createReviewContinuation } from "../practice-pacing.mjs?v=practice-pacing-3";
 
 const LANDING_MS = 180;
 
@@ -45,6 +45,7 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
   let iconsVisible = true;
   let segmentCount = 0;
   let segmentWaiting = false;
+  let waitingCampaignItemId = "";
   let clockItem = "";
   let clockTurns = 0;
   let loadingPageHidden = false;
@@ -82,7 +83,8 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
     lastTime = null;
   }
   function visible() {
-    return Boolean(session) && !destroyed && active && !document.hidden && !loadingPageHidden && !segmentWaiting && !visual.loading;
+    return Boolean(session) && !destroyed && active && !document.hidden && !loadingPageHidden
+      && !segmentWaiting && !waitingCampaignItemId && !visual.loading;
   }
   function engaged() { return visible() && !paused; }
   function canRun() {
@@ -287,7 +289,17 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
     if (session.phase === "feedback") recordLanding(previous, 1, true);
     else { positionBlock(); schedule(); }
   }
-  function next() {
+  function next({ campaignAdvance = false } = {}) {
+    if (campaignAdvance && waitingCampaignItemId && !destroyed) {
+      const previousItemId = waitingCampaignItemId;
+      waitingCampaignItemId = "";
+      segmentWaiting = false;
+      segmentCount = 0;
+      beginCycle(previousItemId);
+      render();
+      syncClock();
+      return;
+    }
     // Only the shared button handler clears pending before entering here.
     if (review.pending || !engaged() || !resultVisible()) return;
     const focusInPlay = !inControls(document.activeElement) && (document.activeElement === document.body
@@ -303,12 +315,19 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
     if (session.phase === "complete" && !roundRecorded) {
       roundRecorded = true;
       shell.CaatuuLearning?.record?.("grammar-gravity", { rounds: 1 });
-      if (session.correctCount === session.total && shell !== scope) shell.postMessage({
-        source: "caatuu-game", type: "round-success", gameId: "grammar-gravity",
-        evidence: { contentId: pack.contentId, contentRevision: pack.contentRevision,
-          challengeId: pack.contentId, challengeRevision: pack.contentRevision,
-          exampleIds: Object.keys(session.attemptsByItem) }
-      }, scope.location.origin);
+      if (session.correctCount === session.total && shell !== scope) {
+        shell.postMessage({
+          source: "caatuu-game", type: "round-success", gameId: "grammar-gravity",
+          evidence: { contentId: pack.contentId, contentRevision: pack.contentRevision,
+            challengeId: pack.contentId, challengeRevision: pack.contentRevision,
+            exampleIds: Object.keys(session.attemptsByItem) }
+        }, scope.location.origin);
+        if (shell.document?.body?.dataset.campaignActive === "true") {
+          waitingCampaignItemId = lastItemId;
+          render();
+          return;
+        }
+      }
       beginCycle(lastItemId);
     }
     if (segmentSize > 0 && segmentCount >= segmentSize) {
@@ -321,6 +340,7 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
     schedule();
   }
   function beginCycle(avoidFirstItemId) {
+    waitingCampaignItemId = "";
     review.clear();
     lastAutoplayItem = "";
     creditedNouns.clear();
@@ -331,7 +351,7 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
     feedbackElapsed = 0;
     restorePlayFocus = false;
     soundError = false;
-    const difficulty = Math.max(1, Math.min(3, Math.floor(Number(shell.CaatuuLearning?.difficulty?.()) || 1)));
+    const difficulty = Math.max(0, Math.min(3, Math.floor(Number(shell.CaatuuLearning?.difficulty?.() ?? 1))));
     cycleEncounterId = newContentEncounterId();
     try {
       session = startNounLanding(createNounLandingSession(pack, { avoidFirstItemId, durationMs, difficulty,
@@ -392,6 +412,9 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
   }
   function setActive(value) {
     if (destroyed) return;
+    if (value && waitingCampaignItemId && shell.document?.body?.dataset.campaignActive !== "true") {
+      next({ campaignAdvance: true });
+    }
     if (active && !value && element("gravityNounClock")) element("gravityNounClock").hidden = true;
     active = Boolean(value);
     if (!active) {

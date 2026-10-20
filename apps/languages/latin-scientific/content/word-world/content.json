@@ -120236,6 +120236,2382 @@
       "sceneQuery": "Let us suppose that the acceleration has been defined; therefore the name is certain.",
       "sceneAssetIds": [],
       "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-hello",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "greetings",
+      "englishText": "Hello!",
+      "embeddingText": "Hello!",
+      "englishAlternates": [],
+      "targetText": "Salvē!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Salvē",
+          "pronunciation": null,
+          "gloss": "Hello",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Hello!",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-goodbye",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "greetings",
+      "englishText": "Goodbye!",
+      "embeddingText": "Goodbye!",
+      "englishAlternates": [],
+      "targetText": "Valē!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Valē",
+          "pronunciation": null,
+          "gloss": "Goodbye",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Goodbye!",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-thanks",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "greetings",
+      "englishText": "Thank you!",
+      "embeddingText": "Thank you!",
+      "englishAlternates": [],
+      "targetText": "Grātiās!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Grātiās",
+          "pronunciation": null,
+          "gloss": "Thank you",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Thank you!",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-yes",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "greetings",
+      "englishText": "Yes.",
+      "embeddingText": "Yes.",
+      "englishAlternates": [],
+      "targetText": "Ita.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Ita",
+          "pronunciation": null,
+          "gloss": "Yes",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Yes.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-no",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "greetings",
+      "englishText": "No.",
+      "embeddingText": "No.",
+      "englishAlternates": [],
+      "targetText": "Minimē.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Minimē",
+          "pronunciation": null,
+          "gloss": "No",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "No.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-please",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "greetings",
+      "englishText": "Please.",
+      "embeddingText": "Please.",
+      "englishAlternates": [],
+      "targetText": "Quaesō.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Quaesō",
+          "pronunciation": null,
+          "gloss": "Please",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Please.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-i",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "people",
+      "englishText": "I",
+      "embeddingText": "I",
+      "englishAlternates": [],
+      "targetText": "ego",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ego",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-you",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "people",
+      "englishText": "you (one person)",
+      "embeddingText": "you (one person)",
+      "englishAlternates": [],
+      "targetText": "tū",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "tū",
+          "pronunciation": null,
+          "gloss": "you (one person)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "you (one person)",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-one",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "numbers",
+      "englishText": "one",
+      "embeddingText": "one",
+      "englishAlternates": [],
+      "targetText": "ūnus",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ūnus",
+          "pronunciation": null,
+          "gloss": "one",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "one",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-two",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "numbers",
+      "englishText": "two",
+      "embeddingText": "two",
+      "englishAlternates": [],
+      "targetText": "duo",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "duo",
+          "pronunciation": null,
+          "gloss": "two",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "two",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-three",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "numbers",
+      "englishText": "three",
+      "embeddingText": "three",
+      "englishAlternates": [],
+      "targetText": "trēs",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "trēs",
+          "pronunciation": null,
+          "gloss": "three",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "three",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-four",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "numbers",
+      "englishText": "four",
+      "embeddingText": "four",
+      "englishAlternates": [],
+      "targetText": "quattuor",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "quattuor",
+          "pronunciation": null,
+          "gloss": "four",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "four",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-five",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "numbers",
+      "englishText": "five",
+      "embeddingText": "five",
+      "englishAlternates": [],
+      "targetText": "quīnque",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "quīnque",
+          "pronunciation": null,
+          "gloss": "five",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "five",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-water",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "matter",
+      "englishText": "water",
+      "embeddingText": "water",
+      "englishAlternates": [],
+      "targetText": "aqua",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "aqua",
+          "pronunciation": null,
+          "gloss": "water",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "water",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-stone",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "matter",
+      "englishText": "stone",
+      "embeddingText": "stone",
+      "englishAlternates": [],
+      "targetText": "lapis",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "lapis",
+          "pronunciation": null,
+          "gloss": "stone",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "stone",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-body",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "matter",
+      "englishText": "body",
+      "embeddingText": "body",
+      "englishAlternates": [],
+      "targetText": "corpus",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "corpus",
+          "pronunciation": null,
+          "gloss": "body",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "body",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-ball",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "matter",
+      "englishText": "ball",
+      "embeddingText": "ball",
+      "englishAlternates": [],
+      "targetText": "globus",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "globus",
+          "pronunciation": null,
+          "gloss": "ball",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "ball",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-sphere",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "shapes",
+      "englishText": "sphere",
+      "embeddingText": "sphere",
+      "englishAlternates": [],
+      "targetText": "sphaera",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "sphaera",
+          "pronunciation": null,
+          "gloss": "sphere",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "sphere",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-line",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "shapes",
+      "englishText": "line",
+      "embeddingText": "line",
+      "englishAlternates": [],
+      "targetText": "līnea",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "līnea",
+          "pronunciation": null,
+          "gloss": "line",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "line",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-point",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "shapes",
+      "englishText": "point",
+      "embeddingText": "point",
+      "englishAlternates": [],
+      "targetText": "punctum",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "punctum",
+          "pronunciation": null,
+          "gloss": "point",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "point",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-circle",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "shapes",
+      "englishText": "circle",
+      "embeddingText": "circle",
+      "englishAlternates": [],
+      "targetText": "circulus",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "circulus",
+          "pronunciation": null,
+          "gloss": "circle",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "circle",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-star",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "nature",
+      "englishText": "star",
+      "embeddingText": "star",
+      "englishAlternates": [],
+      "targetText": "stella",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "stella",
+          "pronunciation": null,
+          "gloss": "star",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "star",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-sun",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "nature",
+      "englishText": "sun",
+      "embeddingText": "sun",
+      "englishAlternates": [],
+      "targetText": "sōl",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "sōl",
+          "pronunciation": null,
+          "gloss": "sun",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "sun",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-moon",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "nature",
+      "englishText": "moon",
+      "embeddingText": "moon",
+      "englishAlternates": [],
+      "targetText": "lūna",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "lūna",
+          "pronunciation": null,
+          "gloss": "moon",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "moon",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-earth",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "nature",
+      "englishText": "earth",
+      "embeddingText": "earth",
+      "englishAlternates": [],
+      "targetText": "terra",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "terra",
+          "pronunciation": null,
+          "gloss": "earth",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "earth",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-light",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "nature",
+      "englishText": "light",
+      "embeddingText": "light",
+      "englishAlternates": [],
+      "targetText": "lūx",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "lūx",
+          "pronunciation": null,
+          "gloss": "light",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "light",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-heat",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "nature",
+      "englishText": "heat",
+      "embeddingText": "heat",
+      "englishAlternates": [],
+      "targetText": "calor",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "calor",
+          "pronunciation": null,
+          "gloss": "heat",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "heat",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-book",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "objects",
+      "englishText": "book",
+      "embeddingText": "book",
+      "englishAlternates": [],
+      "targetText": "liber",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "liber",
+          "pronunciation": null,
+          "gloss": "book",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "book",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-table",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "objects",
+      "englishText": "board",
+      "embeddingText": "board",
+      "englishAlternates": [],
+      "targetText": "tabula",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "tabula",
+          "pronunciation": null,
+          "gloss": "board",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "board",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-big",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "properties",
+      "englishText": "big (masculine)",
+      "embeddingText": "big (masculine)",
+      "englishAlternates": [],
+      "targetText": "magnus",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "magnus",
+          "pronunciation": null,
+          "gloss": "big (masculine)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "big (masculine)",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-small",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "properties",
+      "englishText": "small (masculine)",
+      "embeddingText": "small (masculine)",
+      "englishAlternates": [],
+      "targetText": "parvus",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "parvus",
+          "pronunciation": null,
+          "gloss": "small (masculine)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "small (masculine)",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-new",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "properties",
+      "englishText": "new (masculine)",
+      "embeddingText": "new (masculine)",
+      "englishAlternates": [],
+      "targetText": "novus",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "novus",
+          "pronunciation": null,
+          "gloss": "new (masculine)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "new (masculine)",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-hot",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "properties",
+      "englishText": "hot (masculine)",
+      "embeddingText": "hot (masculine)",
+      "englishAlternates": [],
+      "targetText": "calidus",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "calidus",
+          "pronunciation": null,
+          "gloss": "hot (masculine)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "hot (masculine)",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-cold",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "properties",
+      "englishText": "cold (masculine)",
+      "embeddingText": "cold (masculine)",
+      "englishAlternates": [],
+      "targetText": "frīgidus",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "frīgidus",
+          "pronunciation": null,
+          "gloss": "cold (masculine)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "cold (masculine)",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-here",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "location",
+      "englishText": "here",
+      "embeddingText": "here",
+      "englishAlternates": [],
+      "targetText": "hīc",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "hīc",
+          "pronunciation": null,
+          "gloss": "here",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "here",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-there",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "location",
+      "englishText": "there",
+      "embeddingText": "there",
+      "englishAlternates": [],
+      "targetText": "ibi",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ibi",
+          "pronunciation": null,
+          "gloss": "there",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "there",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-see",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "actions",
+      "englishText": "see",
+      "embeddingText": "see",
+      "englishAlternates": [],
+      "targetText": "vidēre",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "vidēre",
+          "pronunciation": null,
+          "gloss": "see",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "see",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-hear",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "actions",
+      "englishText": "hear",
+      "embeddingText": "hear",
+      "englishAlternates": [],
+      "targetText": "audīre",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "audīre",
+          "pronunciation": null,
+          "gloss": "hear",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "hear",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-read",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "actions",
+      "englishText": "read",
+      "embeddingText": "read",
+      "englishAlternates": [],
+      "targetText": "legere",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "legere",
+          "pronunciation": null,
+          "gloss": "read",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "read",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-write",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "actions",
+      "englishText": "write",
+      "embeddingText": "write",
+      "englishAlternates": [],
+      "targetText": "scrībere",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "scrībere",
+          "pronunciation": null,
+          "gloss": "write",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "write",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-count",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "actions",
+      "englishText": "count",
+      "embeddingText": "count",
+      "englishAlternates": [],
+      "targetText": "numerāre",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "numerāre",
+          "pronunciation": null,
+          "gloss": "count",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "count",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-move",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "actions",
+      "englishText": "move something",
+      "embeddingText": "move something",
+      "englishAlternates": [],
+      "targetText": "movēre",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "movēre",
+          "pronunciation": null,
+          "gloss": "move something",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "move something",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-rest",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "actions",
+      "englishText": "be at rest",
+      "embeddingText": "be at rest",
+      "englishAlternates": [],
+      "targetText": "quiēscere",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "quiēscere",
+          "pronunciation": null,
+          "gloss": "be at rest",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "be at rest",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-be",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "actions",
+      "englishText": "be",
+      "embeddingText": "be",
+      "englishAlternates": [],
+      "targetText": "esse",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "esse",
+          "pronunciation": null,
+          "gloss": "be",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "be",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-001",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "Hello, friend!",
+      "embeddingText": "Hello, friend!",
+      "englishAlternates": [],
+      "targetText": "Salvē, amīce!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Salvē",
+          "pronunciation": null,
+          "gloss": "hello",
+          "playable": true
+        },
+        {
+          "surface": "amīce",
+          "pronunciation": null,
+          "gloss": "friend (address)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Hello, friend!",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-002",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "Yes, thank you.",
+      "embeddingText": "Yes, thank you.",
+      "englishAlternates": [],
+      "targetText": "Ita, grātiās.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Ita",
+          "pronunciation": null,
+          "gloss": "yes",
+          "playable": true
+        },
+        {
+          "surface": "grātiās",
+          "pronunciation": null,
+          "gloss": "thank you",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Yes, thank you.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-003",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "No, thank you.",
+      "embeddingText": "No, thank you.",
+      "englishAlternates": [],
+      "targetText": "Minimē, grātiās.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Minimē",
+          "pronunciation": null,
+          "gloss": "no",
+          "playable": true
+        },
+        {
+          "surface": "grātiās",
+          "pronunciation": null,
+          "gloss": "thank you",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "No, thank you.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-004",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "One stone.",
+      "embeddingText": "One stone.",
+      "englishAlternates": [],
+      "targetText": "Ūnus lapis.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Ūnus",
+          "pronunciation": null,
+          "gloss": "one",
+          "playable": true
+        },
+        {
+          "surface": "lapis",
+          "pronunciation": null,
+          "gloss": "stone",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "One stone.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-005",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "One line.",
+      "embeddingText": "One line.",
+      "englishAlternates": [],
+      "targetText": "Ūna līnea.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Ūna",
+          "pronunciation": null,
+          "gloss": "one (feminine)",
+          "playable": true
+        },
+        {
+          "surface": "līnea",
+          "pronunciation": null,
+          "gloss": "line",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "One line.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-006",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "One body.",
+      "embeddingText": "One body.",
+      "englishAlternates": [],
+      "targetText": "Ūnum corpus.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Ūnum",
+          "pronunciation": null,
+          "gloss": "one (neuter)",
+          "playable": true
+        },
+        {
+          "surface": "corpus",
+          "pronunciation": null,
+          "gloss": "body",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "One body.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-007",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "Two stones.",
+      "embeddingText": "Two stones.",
+      "englishAlternates": [],
+      "targetText": "Duo lapidēs.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Duo",
+          "pronunciation": null,
+          "gloss": "two",
+          "playable": true
+        },
+        {
+          "surface": "lapidēs",
+          "pronunciation": null,
+          "gloss": "stones",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Two stones.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-008",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "Two lines.",
+      "embeddingText": "Two lines.",
+      "englishAlternates": [],
+      "targetText": "Duae līneae.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Duae",
+          "pronunciation": null,
+          "gloss": "two (feminine)",
+          "playable": true
+        },
+        {
+          "surface": "līneae",
+          "pronunciation": null,
+          "gloss": "lines",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Two lines.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-009",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "Two bodies.",
+      "embeddingText": "Two bodies.",
+      "englishAlternates": [],
+      "targetText": "Duo corpora.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Duo",
+          "pronunciation": null,
+          "gloss": "two (neuter)",
+          "playable": true
+        },
+        {
+          "surface": "corpora",
+          "pronunciation": null,
+          "gloss": "bodies",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Two bodies.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-010",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "Three points.",
+      "embeddingText": "Three points.",
+      "englishAlternates": [],
+      "targetText": "Tria puncta.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Tria",
+          "pronunciation": null,
+          "gloss": "three (neuter)",
+          "playable": true
+        },
+        {
+          "surface": "puncta",
+          "pronunciation": null,
+          "gloss": "points",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Three points.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-011",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "A big stone.",
+      "embeddingText": "A big stone.",
+      "englishAlternates": [],
+      "targetText": "Lapis magnus.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Lapis",
+          "pronunciation": null,
+          "gloss": "stone",
+          "playable": true
+        },
+        {
+          "surface": "magnus",
+          "pronunciation": null,
+          "gloss": "big",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A big stone.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-012",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "A small stone.",
+      "embeddingText": "A small stone.",
+      "englishAlternates": [],
+      "targetText": "Lapis parvus.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Lapis",
+          "pronunciation": null,
+          "gloss": "stone",
+          "playable": true
+        },
+        {
+          "surface": "parvus",
+          "pronunciation": null,
+          "gloss": "small",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A small stone.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-013",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "A big line.",
+      "embeddingText": "A big line.",
+      "englishAlternates": [],
+      "targetText": "Līnea magna.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Līnea",
+          "pronunciation": null,
+          "gloss": "line",
+          "playable": true
+        },
+        {
+          "surface": "magna",
+          "pronunciation": null,
+          "gloss": "big (feminine)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A big line.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-014",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "A small line.",
+      "embeddingText": "A small line.",
+      "englishAlternates": [],
+      "targetText": "Līnea parva.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Līnea",
+          "pronunciation": null,
+          "gloss": "line",
+          "playable": true
+        },
+        {
+          "surface": "parva",
+          "pronunciation": null,
+          "gloss": "small (feminine)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A small line.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-015",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "A big body.",
+      "embeddingText": "A big body.",
+      "englishAlternates": [],
+      "targetText": "Corpus magnum.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Corpus",
+          "pronunciation": null,
+          "gloss": "body",
+          "playable": true
+        },
+        {
+          "surface": "magnum",
+          "pronunciation": null,
+          "gloss": "big (neuter)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A big body.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-016",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "A small body.",
+      "embeddingText": "A small body.",
+      "englishAlternates": [],
+      "targetText": "Corpus parvum.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Corpus",
+          "pronunciation": null,
+          "gloss": "body",
+          "playable": true
+        },
+        {
+          "surface": "parvum",
+          "pronunciation": null,
+          "gloss": "small (neuter)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A small body.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-017",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "A new book.",
+      "embeddingText": "A new book.",
+      "englishAlternates": [],
+      "targetText": "Liber novus.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Liber",
+          "pronunciation": null,
+          "gloss": "book",
+          "playable": true
+        },
+        {
+          "surface": "novus",
+          "pronunciation": null,
+          "gloss": "new",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A new book.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-018",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "Cold water.",
+      "embeddingText": "Cold water.",
+      "englishAlternates": [],
+      "targetText": "Aqua frīgida.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Aqua",
+          "pronunciation": null,
+          "gloss": "water",
+          "playable": true
+        },
+        {
+          "surface": "frīgida",
+          "pronunciation": null,
+          "gloss": "cold (feminine)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Cold water.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-019",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "Hot water.",
+      "embeddingText": "Hot water.",
+      "englishAlternates": [],
+      "targetText": "Aqua calida.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Aqua",
+          "pronunciation": null,
+          "gloss": "water",
+          "playable": true
+        },
+        {
+          "surface": "calida",
+          "pronunciation": null,
+          "gloss": "hot (feminine)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Hot water.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-020",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "A small star.",
+      "embeddingText": "A small star.",
+      "englishAlternates": [],
+      "targetText": "Stella parva.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Stella",
+          "pronunciation": null,
+          "gloss": "star",
+          "playable": true
+        },
+        {
+          "surface": "parva",
+          "pronunciation": null,
+          "gloss": "small (feminine)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A small star.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-021",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "A big sphere.",
+      "embeddingText": "A big sphere.",
+      "englishAlternates": [],
+      "targetText": "Sphaera magna.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Sphaera",
+          "pronunciation": null,
+          "gloss": "sphere",
+          "playable": true
+        },
+        {
+          "surface": "magna",
+          "pronunciation": null,
+          "gloss": "big (feminine)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A big sphere.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-022",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "A small circle.",
+      "embeddingText": "A small circle.",
+      "englishAlternates": [],
+      "targetText": "Circulus parvus.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Circulus",
+          "pronunciation": null,
+          "gloss": "circle",
+          "playable": true
+        },
+        {
+          "surface": "parvus",
+          "pronunciation": null,
+          "gloss": "small",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A small circle.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-023",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "englishText": "The stone is here.",
+      "embeddingText": "The stone is here.",
+      "englishAlternates": [],
+      "targetText": "Lapis hīc est.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Lapis",
+          "pronunciation": null,
+          "gloss": "stone",
+          "playable": true
+        },
+        {
+          "surface": "hīc",
+          "pronunciation": null,
+          "gloss": "here",
+          "playable": true
+        },
+        {
+          "surface": "est",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "The stone is here.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-024",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "englishText": "The book is here.",
+      "embeddingText": "The book is here.",
+      "englishAlternates": [],
+      "targetText": "Liber hīc est.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Liber",
+          "pronunciation": null,
+          "gloss": "book",
+          "playable": true
+        },
+        {
+          "surface": "hīc",
+          "pronunciation": null,
+          "gloss": "here",
+          "playable": true
+        },
+        {
+          "surface": "est",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "The book is here.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-025",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "englishText": "The line is here.",
+      "embeddingText": "The line is here.",
+      "englishAlternates": [],
+      "targetText": "Līnea hīc est.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Līnea",
+          "pronunciation": null,
+          "gloss": "line",
+          "playable": true
+        },
+        {
+          "surface": "hīc",
+          "pronunciation": null,
+          "gloss": "here",
+          "playable": true
+        },
+        {
+          "surface": "est",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "The line is here.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-026",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "englishText": "The water is here.",
+      "embeddingText": "The water is here.",
+      "englishAlternates": [],
+      "targetText": "Aqua hīc est.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Aqua",
+          "pronunciation": null,
+          "gloss": "water",
+          "playable": true
+        },
+        {
+          "surface": "hīc",
+          "pronunciation": null,
+          "gloss": "here",
+          "playable": true
+        },
+        {
+          "surface": "est",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "The water is here.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-027",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "englishText": "The stone is there.",
+      "embeddingText": "The stone is there.",
+      "englishAlternates": [],
+      "targetText": "Lapis ibi est.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Lapis",
+          "pronunciation": null,
+          "gloss": "stone",
+          "playable": true
+        },
+        {
+          "surface": "ibi",
+          "pronunciation": null,
+          "gloss": "there",
+          "playable": true
+        },
+        {
+          "surface": "est",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "The stone is there.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-028",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "englishText": "The body is there.",
+      "embeddingText": "The body is there.",
+      "englishAlternates": [],
+      "targetText": "Corpus ibi est.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Corpus",
+          "pronunciation": null,
+          "gloss": "body",
+          "playable": true
+        },
+        {
+          "surface": "ibi",
+          "pronunciation": null,
+          "gloss": "there",
+          "playable": true
+        },
+        {
+          "surface": "est",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "The body is there.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-029",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "I see.",
+      "embeddingText": "I see.",
+      "englishAlternates": [],
+      "targetText": "Ego videō.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Ego",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "videō",
+          "pronunciation": null,
+          "gloss": "see",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I see.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-030",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "You see.",
+      "embeddingText": "You see.",
+      "englishAlternates": [],
+      "targetText": "Tū vidēs.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Tū",
+          "pronunciation": null,
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "vidēs",
+          "pronunciation": null,
+          "gloss": "see",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "You see.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-031",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "I read.",
+      "embeddingText": "I read.",
+      "englishAlternates": [],
+      "targetText": "Ego legō.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Ego",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "legō",
+          "pronunciation": null,
+          "gloss": "read",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I read.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-032",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "You read.",
+      "embeddingText": "You read.",
+      "englishAlternates": [],
+      "targetText": "Tū legis.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Tū",
+          "pronunciation": null,
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "legis",
+          "pronunciation": null,
+          "gloss": "read",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "You read.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-033",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "I write.",
+      "embeddingText": "I write.",
+      "englishAlternates": [],
+      "targetText": "Ego scrībō.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Ego",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "scrībō",
+          "pronunciation": null,
+          "gloss": "write",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I write.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-034",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "You write.",
+      "embeddingText": "You write.",
+      "englishAlternates": [],
+      "targetText": "Tū scrībis.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Tū",
+          "pronunciation": null,
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "scrībis",
+          "pronunciation": null,
+          "gloss": "write",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "You write.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-035",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "I count.",
+      "embeddingText": "I count.",
+      "englishAlternates": [],
+      "targetText": "Ego numerō.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Ego",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "numerō",
+          "pronunciation": null,
+          "gloss": "count",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I count.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-036",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "You count.",
+      "embeddingText": "You count.",
+      "englishAlternates": [],
+      "targetText": "Tū numerās.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Tū",
+          "pronunciation": null,
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "numerās",
+          "pronunciation": null,
+          "gloss": "count",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "You count.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-037",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "The stone is at rest.",
+      "embeddingText": "The stone is at rest.",
+      "englishAlternates": [],
+      "targetText": "Lapis quiēscit.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Lapis",
+          "pronunciation": null,
+          "gloss": "stone",
+          "playable": true
+        },
+        {
+          "surface": "quiēscit",
+          "pronunciation": null,
+          "gloss": "is at rest",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "The stone is at rest.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-038",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "The ball is at rest.",
+      "embeddingText": "The ball is at rest.",
+      "englishAlternates": [],
+      "targetText": "Globus quiēscit.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Globus",
+          "pronunciation": null,
+          "gloss": "ball",
+          "playable": true
+        },
+        {
+          "surface": "quiēscit",
+          "pronunciation": null,
+          "gloss": "is at rest",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "The ball is at rest.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-039",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "englishText": "The water is cold.",
+      "embeddingText": "The water is cold.",
+      "englishAlternates": [],
+      "targetText": "Aqua frīgida est.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Aqua",
+          "pronunciation": null,
+          "gloss": "water",
+          "playable": true
+        },
+        {
+          "surface": "frīgida",
+          "pronunciation": null,
+          "gloss": "cold (feminine)",
+          "playable": true
+        },
+        {
+          "surface": "est",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "The water is cold.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-040",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "englishText": "The water is hot.",
+      "embeddingText": "The water is hot.",
+      "englishAlternates": [],
+      "targetText": "Aqua calida est.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Aqua",
+          "pronunciation": null,
+          "gloss": "water",
+          "playable": true
+        },
+        {
+          "surface": "calida",
+          "pronunciation": null,
+          "gloss": "hot (feminine)",
+          "playable": true
+        },
+        {
+          "surface": "est",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "The water is hot.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-041",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "englishText": "I see a stone.",
+      "embeddingText": "I see a stone.",
+      "englishAlternates": [],
+      "targetText": "Ego lapidem videō.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Ego",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "lapidem",
+          "pronunciation": null,
+          "gloss": "stone (object)",
+          "playable": true
+        },
+        {
+          "surface": "videō",
+          "pronunciation": null,
+          "gloss": "see",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I see a stone.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-la-ww-phrase-042",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "englishText": "I see a star.",
+      "embeddingText": "I see a star.",
+      "englishAlternates": [],
+      "targetText": "Ego stellam videō.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Ego",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "stellam",
+          "pronunciation": null,
+          "gloss": "star (object)",
+          "playable": true
+        },
+        {
+          "surface": "videō",
+          "pronunciation": null,
+          "gloss": "see",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I see a star.",
+      "sceneAssetIds": [],
+      "annotations": {}
     }
   ]
 }

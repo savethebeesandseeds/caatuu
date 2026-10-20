@@ -24,8 +24,8 @@ those declarations. The filename contract is checked by
 
 ## Word World: one editable JSON per course
 
-All five courses use `caatuu-word-world-course-content-v1`, with one complete
-record per sentence. Edit only the corresponding authoring file:
+All eight courses use `caatuu-word-world-course-content-v1`, with one complete
+record per word or sentence. Edit only the corresponding authoring file:
 
 | Course | Editable file | Records at migration |
 | --- | --- | ---: |
@@ -34,6 +34,16 @@ record per sentence. Edit only the corresponding authoring file:
 | English → Spanish | [content.json](../apps/languages/spanish/content/word-world/content.json) | 250 |
 | Spanish → English | [content.json](../apps/languages/english-from-spanish/content/word-world/content.json) | 250 |
 | English → Norwegian Bokmål | [content.json](../apps/languages/norwegian-bokmal/content/word-world/content.json) | New course; see its [onboarding report](NORWEGIAN_BOKMAL_COURSE_20260909.md) |
+| English → Arabic | [content.json](../apps/languages/arabic-standard/content/word-world/content.json) | See the course catalog |
+| English → Scientific Latin | [content.json](../apps/languages/latin-scientific/content/word-world/content.json) | See the course catalog |
+| English → Georgian | [content.json](../apps/languages/georgian/content/word-world/content.json) | See the course catalog |
+
+Every declared game has an independent level-zero pool. Add new zero IDs in
+these same authoring banks; do not regrade or replace levels 1–3 to make room.
+`difficulty` accepts 0–3 while `usefulness` and `complexity` remain 1–100.
+The [progression guide](CONTENT_PROGRESSION.md#starting-out-level-zero) describes
+the beginner content and reduced game settings. Word World starts with
+recognition so a one-word answer is still a meaningful assessed choice.
 
 Each record holds its stable `id`, `difficulty`, `usefulness`, `complexity`, `topic`, `englishText`,
 `embeddingText`, `targetText`, `tokens`, pronunciation, scene query and any
@@ -68,7 +78,7 @@ docker exec -w /workspace caatuu-dev node apps/server/tooling/refresh-setup-asse
 docker exec -w /workspace caatuu-dev node tools/language-content/build-word-world-content.mjs --all --check
 ```
 
-Use `--course cz`, `zh`, `es`, `es-en`, or `nb` instead of `--all` to build one course.
+Use `--course cz`, `zh`, `es`, `es-en`, `nb`, `ar`, `la`, or `ka` instead of `--all` to build one course.
 The builder validates before writing, preserves the existing game formats,
 refreshes changed course cache markers, and maintains Czech's content-addressed
 offline URL. Setup refresh updates existing integrity metadata. No APK build or
@@ -97,7 +107,7 @@ Every registered course owns an editable
 `resources.memoryMoonCatalog`. The shared
 `caatuu-memory-moon-content-v1` contract contains original target sentences,
 three authored learner-base answer choices, English audit/retrieval text,
-meaning contrasts, stable semantic-family IDs, and all three difficulty badges.
+meaning contrasts, stable semantic-family IDs, and all four difficulty badges.
 It has no runtime dependency on another game's content. English-base courses
 show English choices; Spanish-to-English shows Spanish choices while retaining
 independent English embedding text.
@@ -129,7 +139,7 @@ fixtures, not new teaching content or device-performance certification.
 ## Difficulty behavior
 
 All current learning banks now use the shared [content progression](CONTENT_PROGRESSION.md):
-three badges, authored usefulness/complexity on 1–100 scales, and gradual
+four badges, authored usefulness/complexity on 1–100 scales, and gradual
 introductions balanced with supported practice and spaced independent review. The [catalog review](CONTENT_PROGRESSION_CATALOG_REVIEW.md)
 documents all courses and nested records; the [beginner review](CONTENT_PROGRESSION_BEGINNER_REVIEW.md)
 documents short starter phrases. The historical badge-only repair below remains

@@ -6,7 +6,7 @@ import * as verbNebulaCore from "../static/source/games/verb-nebula/verb-nebula-
 import * as verbExerciseFamilyCore from "../static/source/games/verb-nebula/verb-exercise-family-core.mjs";
 import { createInterfaceContent } from "../static/source/interface-content.mjs";
 import { createBrowserHarness } from "./helpers/fake-browser.mjs";
-import { createReviewContinuation } from "../static/source/games/practice-pacing.mjs";
+import { afterInteractionPaint, createReviewContinuation } from "../static/source/games/practice-pacing.mjs";
 
 const workspace = await readFile(new URL("../static/source/caatuu-workspace.js", import.meta.url), "utf8");
 const learningProfile = await readFile(new URL("../static/source/learning-profile.js", import.meta.url), "utf8");
@@ -25,7 +25,7 @@ const between = (startMarker, endMarker) => {
 
 function harness() {
   const browser = createBrowserHarness({ course });
-  const attempts = [], searches = [], feedback = [], speech = [];
+  const attempts = [], searches = [], feedback = [], speech = [], speechTasks = [];
   const state = {
     activeView: "verbs", trainTab: "verb-lab",
     verbRound: pairs.slice(0, 4), verbEnglishRound: pairs.slice(0, 4),
@@ -51,7 +51,8 @@ function harness() {
   });
   browser.window.CaatuuSemanticLearning = { recordAttempt: async (attempt) => { attempts.push(attempt); } };
   browser.window.CaatuuChrome = { speakText: async (text) => { speech.push(text); } };
-  browser.window.setTimeout = () => 1;
+  browser.window.CaatuuPracticePacing = { afterInteractionPaint, createReviewContinuation };
+  browser.window.setTimeout = (callback, delay) => { if (delay === 0) speechTasks.push(callback); return 1; };
   vm.runInContext([
     between("function verbMatchInstruction()", "// This controller"),
     between("function createVerbMatchCard(pair, side)", "function verbMatchCardForId"),
@@ -61,7 +62,8 @@ function harness() {
     between("async function vectorVerbHintCandidates(pair)", "async function loadVerbHintKeymap"),
     between("function speakVerbCzechOnTap(verbId)", "function renderVerbMatchStats")
   ].join("\n"), browser.context);
-  return { ...browser, state, attempts, searches, feedback, speech };
+  return { ...browser, state, attempts, searches, feedback, speech,
+    flushSpeech: () => speechTasks.splice(0).forEach(callback => callback()) };
 }
 
 for (const assisted of [false, true]) {
@@ -70,7 +72,7 @@ for (const assisted of [false, true]) {
     const continueButton = game.document.createElement("button");
     continueButton.id = "verbContinue";
     game.document.body.append(continueButton);
-    game.window.CaatuuPracticePacing = { createReviewContinuation };
+    game.window.CaatuuPracticePacing = { afterInteractionPaint, createReviewContinuation };
     Object.assign(game.context, { practiceReviewMenusOpen: () => false, shellRobotPageHidden: false, $: selector => game.document.querySelector(selector) });
     vm.runInContext(between("let verbReviewContinuation =", "function waitForVerbTransition"), game.context);
     const clock = { now: Date.UTC(2026, 8, 19, 12) };
@@ -219,7 +221,7 @@ test("Spanish-base Verb Nebula renders target/base cards and localized reveal la
 });
 
 test("Spanish-base matching feedback uses Spanish while English alone feeds image search and audit signals", async () => {
-  const { context, state, attempts, searches, feedback, speech } = harness();
+  const { context, state, attempts, searches, feedback, speech, flushSpeech } = harness();
   const pair = pairs[0];
   state.verbHintsEnabled = true;
   state.verbHintById.set(pair.id, { status: "unavailable" });
@@ -227,6 +229,7 @@ test("Spanish-base matching feedback uses Spanish while English alone feeds imag
   assert.deepEqual(searches, [pair.englishAuditText]);
   state.verbSpeakOnTap = true;
   context.speakVerbCzechOnTap(pair.id);
+  flushSpeech();
   await new Promise(resolve => setImmediate(resolve));
   assert.deepEqual(speech, [pair.target]);
   state.verbSelectedCzechId = pair.id; state.verbSelectedEnglishId = pairs[1].id;
@@ -322,6 +325,41 @@ test("Nebula ignores inactive, hidden, pending and consumed clicks but keeps int
   assert.equal(state.verbSelectedCzechId, "");
   assert.equal(state.verbStats.attempts, 0);
 });
+
+test("leaving and returning to Verb Nebula cancels speech queued before the game switch", async () => {
+  const game = harness();
+  Object.assign(game.context, { embeddedGameTabs: {}, syncEmbeddedWordNetVisibility() {},
+    syncEmbeddedGameVisibility() {}, syncShellRobotLoading() {}, verbReviewContinuation: null });
+  vm.runInContext(between("function syncActiveGameVisibility()", "function syncEmbeddedWordNetVisibility("), game.context);
+  game.state.verbSpeakOnTap = true;
+  game.context.speakVerbCzechOnTap(pairs[0].id);
+  game.state.trainTab = "word-net";
+  game.context.syncActiveGameVisibility();
+  game.state.trainTab = "verb-lab";
+  game.context.syncActiveGameVisibility();
+  game.flushSpeech(); await Promise.resolve();
+  assert.deepEqual(game.speech, [], "returning to the same round cannot revive an old tap");
+});
+
+for (const pause of ["visibilitychange", "pagehide"]) {
+  test(`a ${pause} pause cancels pending verb speech before the same round resumes`, async () => {
+    const game = harness();
+    Object.assign(game.context, { $: selector => game.document.querySelector(selector),
+      renderVerbAudioControls() {}, deferVerbGuidedActivation() {} });
+    vm.runInContext(between("function bindVerbNebulaControls()", "function printOptions()"), game.context);
+    game.context.bindVerbNebulaControls();
+    game.state.verbSpeakOnTap = true;
+    game.context.speakVerbCzechOnTap(pairs[0].id);
+    if (pause === "visibilitychange") {
+      game.document.visibilityState = "hidden";
+      game.document.dispatchEvent({ type: pause });
+      game.document.visibilityState = "visible";
+      game.document.dispatchEvent({ type: pause });
+    } else game.window.dispatchEvent({ type: pause, persisted: true });
+    game.flushSpeech(); await Promise.resolve();
+    assert.deepEqual(game.speech, [], "a paused tap must stay retired after resume");
+  });
+}
 
 test("unsupported verb clues stay empty instead of showing unrelated actions or incidental description matches", async () => {
   const { context, state } = harness();

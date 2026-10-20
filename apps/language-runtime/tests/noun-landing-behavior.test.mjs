@@ -49,7 +49,8 @@ function seedMarkup(harness) {
 async function mountGame({ language = "czech", syntheticBase = false, reducedMotion = false,
   fetchFails = false, unsafePath = false, invalidContent = false, speech = false,
   speechFails = false, deferSpeech = false, deferFetch = false, segmentSize = 0, mountControls = true,
-  visuals = false, visualFails = false, initialActive = true, beforeMount, difficulty = 1, mutateContent } = {}) {
+  visuals = false, visualFails = false, initialActive = true, beforeMount, difficulty = 1, mutateContent,
+  campaign = false, autoplay = false } = {}) {
   const raw = JSON.parse(await readFile(new URL(
     "../../languages/" + language + "/static/data/games/grammar-gravity/nouns.json", import.meta.url
   ), "utf8"));
@@ -112,6 +113,7 @@ async function mountGame({ language = "czech", syntheticBase = false, reducedMot
     controls.options?.onOpenChange?.(controls.open);
   };
   const shell = {
+    document: harness.document,
     addEventListener: harness.window.addEventListener.bind(harness.window),
     removeEventListener: harness.window.removeEventListener.bind(harness.window),
     location: harness.window.location,
@@ -119,6 +121,8 @@ async function mountGame({ language = "czech", syntheticBase = false, reducedMot
     CaatuuRuntime: { vector: { search() { assert.fail("Noun images use shared artwork retrieval."); } } },
     CaatuuLearning: { difficulty: () => difficulty, record: (gameId, delta) => records.push({ gameId, ...delta }) },
     CaatuuChrome: {
+      getSpeechAutoplay: () => autoplay,
+      getSpeechMuted: () => false,
       stopSpeech: async () => { speechStops += 1; },
       speakText: async (word) => {
         speechCalls.push(word);
@@ -128,6 +132,7 @@ async function mountGame({ language = "czech", syntheticBase = false, reducedMot
     },
     postMessage: (message, origin) => messages.push({ message, origin })
   };
+  if (campaign) shell.document.body.dataset.campaignActive = "true";
   Object.assign(harness.context, core, {
     createReviewContinuation,
     newContentEncounterId,
@@ -705,7 +710,7 @@ test("noun Continue survives pause and visibility and consumes a settled review 
 });
 
 test("noun campaign completion is announced only after the final review Continue", async () => {
-  const game = await mountGame();
+  const game = await mountGame({ campaign: true, speech: true, autoplay: true });
   const count = game.controller.snapshot().total;
   for (let index = 1; index < count; index += 1) { game.answer(); game.finishFeedback(); }
   game.answer();
@@ -718,9 +723,84 @@ test("noun campaign completion is announced only after the final review Continue
   game.element("gravityNounContinue").click();
   assert.equal(game.messages.length, 1);
   assert.equal(game.records.filter(record => record.rounds).length, 1);
+  assert.equal(game.controller.snapshot().phase, "complete");
+  assert.equal(game.frames.size, 0, "no new noun can start before the shell handoff");
   game.element("gravityNounContinue").click();
   assert.equal(game.messages.length, 1);
+  const speechCount = game.speechCalls.length;
+  game.controller.setActive(false);
+  game.controller.next({ campaignAdvance: true });
+  assert.equal(game.controller.snapshot().phase, "falling");
+  assert.equal(game.frames.size, 0, "the next cycle is prepared without a running presentation");
+  await settle();
+  assert.equal(game.speechCalls.length, speechCount);
+  game.controller.setActive(true);
+  game.frame(1000); await settle();
+  assert.equal(game.speechCalls.length, speechCount + 1, "autoplay belongs to the next visible visit");
   game.controller.destroy();
+});
+
+test("leaving Adventure before noun handoff starts the next cycle only when reactivated", async () => {
+  const game = await mountGame({ campaign: true });
+  const count = game.controller.snapshot().total;
+  for (let index = 1; index <= count; index += 1) { game.answer(); game.finishFeedback(); }
+  assert.equal(game.controller.snapshot().phase, "complete");
+  game.controller.setActive(false);
+  game.shell.document.body.dataset.campaignActive = "false";
+  game.controller.setActive(true);
+  assert.equal(game.controller.snapshot().phase, "falling");
+  assert.equal(game.records.filter(record => record.rounds).length, 1);
+  game.controller.destroy();
+});
+
+test("Grammar phrases preserve an Adventure completion and accept a silent verified parent reset", () => {
+  const harness = createBrowserHarness();
+  const shell = { document: harness.document };
+  shell.document.body.dataset.campaignActive = "true";
+  const calls = [];
+  const state = { mode: "phrases", phase: "complete", active: true, shell,
+    index: 0, rounds: [{ flights: [{ anchorEnglishAuditText: "old" }] }] };
+  const nextStart = sharedHostSource.indexOf("function nextRound(");
+  const nextEnd = sharedHostSource.indexOf("function finishNounSegment()", nextStart);
+  const bridgeStart = sharedHostSource.indexOf("function bindShellMessages()");
+  const bridgeEnd = sharedHostSource.indexOf("function bindUi()", bridgeStart);
+  const completeStart = sharedHostSource.indexOf("    onComplete({ correctCount, total })");
+  const completeEnd = sharedHostSource.indexOf("\n  });", completeStart);
+  assert.ok([nextStart, nextEnd, bridgeStart, bridgeEnd, completeStart, completeEnd].every(index => index >= 0));
+  const completion = sharedHostSource.slice(completeStart, completeEnd).trim().replace(/^onComplete/u, "function");
+  Object.assign(harness.context, { state, shell, calls,
+    addEventListener: harness.window.addEventListener.bind(harness.window),
+    recordLearning: value => calls.push(["record", value.rounds]),
+    currentRound: () => state.rounds[state.index],
+    announceRoundSuccess: () => calls.push(["success"]),
+    playingFocus: () => true,
+    makeRounds: () => [{ flights: [{ anchorEnglishAuditText: "next" }] }],
+    resetRound: () => { state.phase = "playing"; },
+    enterMode: (_mode, restoreFocus) => calls.push(["prepare", state.active, restoreFocus]),
+    applyDisplay() {}, syncTransition() {},
+    listen: (target, type, callback) => target.addEventListener(type, callback)
+  });
+  vm.runInContext(sharedHostSource.slice(nextStart, nextEnd)
+    + sharedHostSource.slice(bridgeStart, bridgeEnd)
+    + `\nglobalThis.finish = ${completion}; bindShellMessages();`, harness.context);
+  harness.context.finish({ correctCount: 1, total: 1 });
+  assert.equal(state.phase, "complete");
+  assert.deepEqual(calls.map(call => call[0]), ["record", "success"]);
+  state.active = false;
+  harness.context.nextRound();
+  assert.equal(state.phase, "complete", "an inactive manual call cannot advance");
+  const send = overrides => harness.window.dispatchEvent({ type: "message", source: shell,
+    origin: harness.window.location.origin, data: { source: "caatuu-app-shell", type: "campaign-advance" }, ...overrides });
+  send({ source: {} }); send({ origin: "https://other.test" });
+  assert.equal(state.phase, "complete");
+  send({});
+  assert.equal(state.phase, "playing");
+  assert.deepEqual(calls.at(-1), ["prepare", false, false]);
+  state.phase = "complete";
+  shell.document.body.dataset.campaignActive = "false";
+  send({ data: { source: "caatuu-app-shell", type: "visibility", active: true } });
+  assert.equal(state.phase, "playing", "a cancelled consumed handoff recovers in free play");
+  assert.deepEqual(calls.at(-1), ["prepare", true, true]);
 });
 
 test("automatic advancement restores play focus after a native disabled lane drops it to body", async () => {

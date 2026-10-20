@@ -11707,6 +11707,1398 @@
       },
       "usefulness": 86,
       "complexity": 45
+    },
+    {
+      "id": "zero-nb-grammar-01",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective",
+        "label": "stor: Big things",
+        "targetText": "stor",
+        "resultTitle": "Big things",
+        "summary": "Match a familiar short example to its form. Start with one example and its meaning, then compare the two forms."
+      },
+      "forms": {
+        "common-singular": {
+          "displayForm": "stor",
+          "examples": [
+            {
+              "id": "zero-nb-grammar-01-common-singular-1",
+              "revision": 1,
+              "learnerBaseText": "a big car",
+              "englishAuditText": "a big car",
+              "targetText": "en stor bil",
+              "slot": {
+                "beforeText": "en ",
+                "afterText": " bil"
+              },
+              "anchor": {
+                "targetText": "bil",
+                "learnerBaseText": "car",
+                "englishAuditText": "car"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-01-common-singular-2",
+              "revision": 1,
+              "learnerBaseText": "a big book",
+              "englishAuditText": "a big book",
+              "targetText": "en stor bok",
+              "slot": {
+                "beforeText": "en ",
+                "afterText": " bok"
+              },
+              "anchor": {
+                "targetText": "bok",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-01-common-singular-3",
+              "revision": 1,
+              "learnerBaseText": "a big dog",
+              "englishAuditText": "a big dog",
+              "targetText": "en stor hund",
+              "slot": {
+                "beforeText": "en ",
+                "afterText": " hund"
+              },
+              "anchor": {
+                "targetText": "hund",
+                "learnerBaseText": "dog",
+                "englishAuditText": "dog"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ],
+          "usefulness": 98,
+          "complexity": 8
+        },
+        "neuter-singular": {
+          "displayForm": "stort",
+          "examples": [
+            {
+              "id": "zero-nb-grammar-01-neuter-singular-1",
+              "revision": 1,
+              "learnerBaseText": "a big house",
+              "englishAuditText": "a big house",
+              "targetText": "et stort hus",
+              "slot": {
+                "beforeText": "et ",
+                "afterText": " hus"
+              },
+              "anchor": {
+                "targetText": "hus",
+                "learnerBaseText": "house",
+                "englishAuditText": "house"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-01-neuter-singular-2",
+              "revision": 1,
+              "learnerBaseText": "a big apple",
+              "englishAuditText": "a big apple",
+              "targetText": "et stort eple",
+              "slot": {
+                "beforeText": "et ",
+                "afterText": " eple"
+              },
+              "anchor": {
+                "targetText": "eple",
+                "learnerBaseText": "apple",
+                "englishAuditText": "apple"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-01-neuter-singular-3",
+              "revision": 1,
+              "learnerBaseText": "a big loaf of bread",
+              "englishAuditText": "a big loaf of bread",
+              "targetText": "et stort brød",
+              "slot": {
+                "beforeText": "et ",
+                "afterText": " brød"
+              },
+              "anchor": {
+                "targetText": "brød",
+                "learnerBaseText": "loaf of bread",
+                "englishAuditText": "loaf of bread"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ],
+          "usefulness": 98,
+          "complexity": 8
+        }
+      },
+      "usefulness": 98,
+      "complexity": 8,
+      "axes": [
+        {
+          "id": "common-singular",
+          "label": "Common singular",
+          "features": {
+            "gender": "common",
+            "number": "singular"
+          }
+        },
+        {
+          "id": "neuter-singular",
+          "label": "Neuter singular",
+          "features": {
+            "gender": "neuter",
+            "number": "singular"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "form"
+        ],
+        "categoryFeature": "gender",
+        "categoryOptions": [
+          {
+            "id": "common",
+            "label": "Common (en)"
+          },
+          {
+            "id": "neuter",
+            "label": "Neuter (et)"
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-nb-grammar-02",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective",
+        "label": "ny: New beginnings",
+        "targetText": "ny",
+        "resultTitle": "New beginnings",
+        "summary": "Match a familiar short example to its form. Start with one example and its meaning, then compare the two forms."
+      },
+      "forms": {
+        "common-singular": {
+          "displayForm": "ny",
+          "examples": [
+            {
+              "id": "zero-nb-grammar-02-common-singular-1",
+              "revision": 1,
+              "learnerBaseText": "a new car",
+              "englishAuditText": "a new car",
+              "targetText": "en ny bil",
+              "slot": {
+                "beforeText": "en ",
+                "afterText": " bil"
+              },
+              "anchor": {
+                "targetText": "bil",
+                "learnerBaseText": "car",
+                "englishAuditText": "car"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-02-common-singular-2",
+              "revision": 1,
+              "learnerBaseText": "a new book",
+              "englishAuditText": "a new book",
+              "targetText": "en ny bok",
+              "slot": {
+                "beforeText": "en ",
+                "afterText": " bok"
+              },
+              "anchor": {
+                "targetText": "bok",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-02-common-singular-3",
+              "revision": 1,
+              "learnerBaseText": "a new dog",
+              "englishAuditText": "a new dog",
+              "targetText": "en ny hund",
+              "slot": {
+                "beforeText": "en ",
+                "afterText": " hund"
+              },
+              "anchor": {
+                "targetText": "hund",
+                "learnerBaseText": "dog",
+                "englishAuditText": "dog"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ],
+          "usefulness": 98,
+          "complexity": 8
+        },
+        "neuter-singular": {
+          "displayForm": "nytt",
+          "examples": [
+            {
+              "id": "zero-nb-grammar-02-neuter-singular-1",
+              "revision": 1,
+              "learnerBaseText": "a new house",
+              "englishAuditText": "a new house",
+              "targetText": "et nytt hus",
+              "slot": {
+                "beforeText": "et ",
+                "afterText": " hus"
+              },
+              "anchor": {
+                "targetText": "hus",
+                "learnerBaseText": "house",
+                "englishAuditText": "house"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-02-neuter-singular-2",
+              "revision": 1,
+              "learnerBaseText": "a new apple",
+              "englishAuditText": "a new apple",
+              "targetText": "et nytt eple",
+              "slot": {
+                "beforeText": "et ",
+                "afterText": " eple"
+              },
+              "anchor": {
+                "targetText": "eple",
+                "learnerBaseText": "apple",
+                "englishAuditText": "apple"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-02-neuter-singular-3",
+              "revision": 1,
+              "learnerBaseText": "a new loaf of bread",
+              "englishAuditText": "a new loaf of bread",
+              "targetText": "et nytt brød",
+              "slot": {
+                "beforeText": "et ",
+                "afterText": " brød"
+              },
+              "anchor": {
+                "targetText": "brød",
+                "learnerBaseText": "loaf of bread",
+                "englishAuditText": "loaf of bread"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ],
+          "usefulness": 98,
+          "complexity": 8
+        }
+      },
+      "usefulness": 98,
+      "complexity": 8,
+      "axes": [
+        {
+          "id": "common-singular",
+          "label": "Common singular",
+          "features": {
+            "gender": "common",
+            "number": "singular"
+          }
+        },
+        {
+          "id": "neuter-singular",
+          "label": "Neuter singular",
+          "features": {
+            "gender": "neuter",
+            "number": "singular"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "form"
+        ],
+        "categoryFeature": "gender",
+        "categoryOptions": [
+          {
+            "id": "common",
+            "label": "Common (en)"
+          },
+          {
+            "id": "neuter",
+            "label": "Neuter (et)"
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-nb-grammar-03",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective",
+        "label": "rød: Colors in the world",
+        "targetText": "rød",
+        "resultTitle": "Colors in the world",
+        "summary": "Match a familiar short example to its form. Start with one example and its meaning, then compare the two forms."
+      },
+      "forms": {
+        "common-singular": {
+          "displayForm": "rød",
+          "examples": [
+            {
+              "id": "zero-nb-grammar-03-common-singular-1",
+              "revision": 1,
+              "learnerBaseText": "a red car",
+              "englishAuditText": "a red car",
+              "targetText": "en rød bil",
+              "slot": {
+                "beforeText": "en ",
+                "afterText": " bil"
+              },
+              "anchor": {
+                "targetText": "bil",
+                "learnerBaseText": "car",
+                "englishAuditText": "car"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-03-common-singular-2",
+              "revision": 1,
+              "learnerBaseText": "a red book",
+              "englishAuditText": "a red book",
+              "targetText": "en rød bok",
+              "slot": {
+                "beforeText": "en ",
+                "afterText": " bok"
+              },
+              "anchor": {
+                "targetText": "bok",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-03-common-singular-3",
+              "revision": 1,
+              "learnerBaseText": "a red dog",
+              "englishAuditText": "a red dog",
+              "targetText": "en rød hund",
+              "slot": {
+                "beforeText": "en ",
+                "afterText": " hund"
+              },
+              "anchor": {
+                "targetText": "hund",
+                "learnerBaseText": "dog",
+                "englishAuditText": "dog"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ],
+          "usefulness": 98,
+          "complexity": 8
+        },
+        "neuter-singular": {
+          "displayForm": "rødt",
+          "examples": [
+            {
+              "id": "zero-nb-grammar-03-neuter-singular-1",
+              "revision": 1,
+              "learnerBaseText": "a red house",
+              "englishAuditText": "a red house",
+              "targetText": "et rødt hus",
+              "slot": {
+                "beforeText": "et ",
+                "afterText": " hus"
+              },
+              "anchor": {
+                "targetText": "hus",
+                "learnerBaseText": "house",
+                "englishAuditText": "house"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-03-neuter-singular-2",
+              "revision": 1,
+              "learnerBaseText": "a red apple",
+              "englishAuditText": "a red apple",
+              "targetText": "et rødt eple",
+              "slot": {
+                "beforeText": "et ",
+                "afterText": " eple"
+              },
+              "anchor": {
+                "targetText": "eple",
+                "learnerBaseText": "apple",
+                "englishAuditText": "apple"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-03-neuter-singular-3",
+              "revision": 1,
+              "learnerBaseText": "a red loaf of bread",
+              "englishAuditText": "a red loaf of bread",
+              "targetText": "et rødt brød",
+              "slot": {
+                "beforeText": "et ",
+                "afterText": " brød"
+              },
+              "anchor": {
+                "targetText": "brød",
+                "learnerBaseText": "loaf of bread",
+                "englishAuditText": "loaf of bread"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ],
+          "usefulness": 98,
+          "complexity": 8
+        }
+      },
+      "usefulness": 98,
+      "complexity": 8,
+      "axes": [
+        {
+          "id": "common-singular",
+          "label": "Common singular",
+          "features": {
+            "gender": "common",
+            "number": "singular"
+          }
+        },
+        {
+          "id": "neuter-singular",
+          "label": "Neuter singular",
+          "features": {
+            "gender": "neuter",
+            "number": "singular"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "form"
+        ],
+        "categoryFeature": "gender",
+        "categoryOptions": [
+          {
+            "id": "common",
+            "label": "Common (en)"
+          },
+          {
+            "id": "neuter",
+            "label": "Neuter (et)"
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-nb-grammar-04",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective",
+        "label": "grønn: Growing and exploring",
+        "targetText": "grønn",
+        "resultTitle": "Growing and exploring",
+        "summary": "Match a familiar short example to its form. Start with one example and its meaning, then compare the two forms."
+      },
+      "forms": {
+        "common-singular": {
+          "displayForm": "grønn",
+          "examples": [
+            {
+              "id": "zero-nb-grammar-04-common-singular-1",
+              "revision": 1,
+              "learnerBaseText": "a green car",
+              "englishAuditText": "a green car",
+              "targetText": "en grønn bil",
+              "slot": {
+                "beforeText": "en ",
+                "afterText": " bil"
+              },
+              "anchor": {
+                "targetText": "bil",
+                "learnerBaseText": "car",
+                "englishAuditText": "car"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-04-common-singular-2",
+              "revision": 1,
+              "learnerBaseText": "a green book",
+              "englishAuditText": "a green book",
+              "targetText": "en grønn bok",
+              "slot": {
+                "beforeText": "en ",
+                "afterText": " bok"
+              },
+              "anchor": {
+                "targetText": "bok",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-04-common-singular-3",
+              "revision": 1,
+              "learnerBaseText": "a green dog",
+              "englishAuditText": "a green dog",
+              "targetText": "en grønn hund",
+              "slot": {
+                "beforeText": "en ",
+                "afterText": " hund"
+              },
+              "anchor": {
+                "targetText": "hund",
+                "learnerBaseText": "dog",
+                "englishAuditText": "dog"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ],
+          "usefulness": 98,
+          "complexity": 8
+        },
+        "neuter-singular": {
+          "displayForm": "grønt",
+          "examples": [
+            {
+              "id": "zero-nb-grammar-04-neuter-singular-1",
+              "revision": 1,
+              "learnerBaseText": "a green house",
+              "englishAuditText": "a green house",
+              "targetText": "et grønt hus",
+              "slot": {
+                "beforeText": "et ",
+                "afterText": " hus"
+              },
+              "anchor": {
+                "targetText": "hus",
+                "learnerBaseText": "house",
+                "englishAuditText": "house"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-04-neuter-singular-2",
+              "revision": 1,
+              "learnerBaseText": "a green apple",
+              "englishAuditText": "a green apple",
+              "targetText": "et grønt eple",
+              "slot": {
+                "beforeText": "et ",
+                "afterText": " eple"
+              },
+              "anchor": {
+                "targetText": "eple",
+                "learnerBaseText": "apple",
+                "englishAuditText": "apple"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-04-neuter-singular-3",
+              "revision": 1,
+              "learnerBaseText": "a green loaf of bread",
+              "englishAuditText": "a green loaf of bread",
+              "targetText": "et grønt brød",
+              "slot": {
+                "beforeText": "et ",
+                "afterText": " brød"
+              },
+              "anchor": {
+                "targetText": "brød",
+                "learnerBaseText": "loaf of bread",
+                "englishAuditText": "loaf of bread"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ],
+          "usefulness": 98,
+          "complexity": 8
+        }
+      },
+      "usefulness": 98,
+      "complexity": 8,
+      "axes": [
+        {
+          "id": "common-singular",
+          "label": "Common singular",
+          "features": {
+            "gender": "common",
+            "number": "singular"
+          }
+        },
+        {
+          "id": "neuter-singular",
+          "label": "Neuter singular",
+          "features": {
+            "gender": "neuter",
+            "number": "singular"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "form"
+        ],
+        "categoryFeature": "gender",
+        "categoryOptions": [
+          {
+            "id": "common",
+            "label": "Common (en)"
+          },
+          {
+            "id": "neuter",
+            "label": "Neuter (et)"
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-nb-grammar-e2-small",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective",
+        "label": "Small things",
+        "targetText": "liten",
+        "resultTitle": "Small things",
+        "summary": "Read the short phrase first. Compare one en-word form with one et-word form; use the familiar noun as your clue."
+      },
+      "forms": {
+        "common-singular": {
+          "displayForm": "liten",
+          "usefulness": 96,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-nb-grammar-e2-small-common-singular-1",
+              "revision": 1,
+              "learnerBaseText": "a small dog",
+              "englishAuditText": "a small dog",
+              "targetText": "en liten hund",
+              "slot": {
+                "beforeText": "en ",
+                "afterText": " hund"
+              },
+              "anchor": {
+                "targetText": "hund",
+                "learnerBaseText": "dog",
+                "englishAuditText": "dog"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-e2-small-common-singular-2",
+              "revision": 1,
+              "learnerBaseText": "a small cat",
+              "englishAuditText": "a small cat",
+              "targetText": "en liten katt",
+              "slot": {
+                "beforeText": "en ",
+                "afterText": " katt"
+              },
+              "anchor": {
+                "targetText": "katt",
+                "learnerBaseText": "cat",
+                "englishAuditText": "cat"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-e2-small-common-singular-3",
+              "revision": 1,
+              "learnerBaseText": "a small book",
+              "englishAuditText": "a small book",
+              "targetText": "en liten bok",
+              "slot": {
+                "beforeText": "en ",
+                "afterText": " bok"
+              },
+              "anchor": {
+                "targetText": "bok",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ]
+        },
+        "neuter-singular": {
+          "displayForm": "lite",
+          "usefulness": 96,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-nb-grammar-e2-small-neuter-singular-1",
+              "revision": 1,
+              "learnerBaseText": "a small house",
+              "englishAuditText": "a small house",
+              "targetText": "et lite hus",
+              "slot": {
+                "beforeText": "et ",
+                "afterText": " hus"
+              },
+              "anchor": {
+                "targetText": "hus",
+                "learnerBaseText": "house",
+                "englishAuditText": "house"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-e2-small-neuter-singular-2",
+              "revision": 1,
+              "learnerBaseText": "a small apple",
+              "englishAuditText": "a small apple",
+              "targetText": "et lite eple",
+              "slot": {
+                "beforeText": "et ",
+                "afterText": " eple"
+              },
+              "anchor": {
+                "targetText": "eple",
+                "learnerBaseText": "apple",
+                "englishAuditText": "apple"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-e2-small-neuter-singular-3",
+              "revision": 1,
+              "learnerBaseText": "a small table",
+              "englishAuditText": "a small table",
+              "targetText": "et lite bord",
+              "slot": {
+                "beforeText": "et ",
+                "afterText": " bord"
+              },
+              "anchor": {
+                "targetText": "bord",
+                "learnerBaseText": "table",
+                "englishAuditText": "table"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ]
+        }
+      },
+      "usefulness": 96,
+      "complexity": 8,
+      "axes": [
+        {
+          "id": "common-singular",
+          "label": "Common singular",
+          "features": {
+            "gender": "common",
+            "number": "singular"
+          }
+        },
+        {
+          "id": "neuter-singular",
+          "label": "Neuter singular",
+          "features": {
+            "gender": "neuter",
+            "number": "singular"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "form"
+        ],
+        "categoryFeature": "gender",
+        "categoryOptions": [
+          {
+            "id": "common",
+            "label": "Common (en)"
+          },
+          {
+            "id": "neuter",
+            "label": "Neuter (et)"
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-nb-grammar-e2-warm",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective",
+        "label": "Warm things",
+        "targetText": "varm",
+        "resultTitle": "Warm things",
+        "summary": "Read the short phrase first. Compare one en-word form with one et-word form; use the familiar noun as your clue."
+      },
+      "forms": {
+        "common-singular": {
+          "displayForm": "varm",
+          "usefulness": 96,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-nb-grammar-e2-warm-common-singular-1",
+              "revision": 1,
+              "learnerBaseText": "warm milk",
+              "englishAuditText": "warm milk",
+              "targetText": "varm melk",
+              "slot": {
+                "beforeText": "",
+                "afterText": " melk"
+              },
+              "anchor": {
+                "targetText": "melk",
+                "learnerBaseText": "milk",
+                "englishAuditText": "milk"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-e2-warm-common-singular-2",
+              "revision": 1,
+              "learnerBaseText": "warm tea",
+              "englishAuditText": "warm tea",
+              "targetText": "varm te",
+              "slot": {
+                "beforeText": "",
+                "afterText": " te"
+              },
+              "anchor": {
+                "targetText": "te",
+                "learnerBaseText": "tea",
+                "englishAuditText": "tea"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-e2-warm-common-singular-3",
+              "revision": 1,
+              "learnerBaseText": "a warm cup",
+              "englishAuditText": "a warm cup",
+              "targetText": "en varm kopp",
+              "slot": {
+                "beforeText": "en ",
+                "afterText": " kopp"
+              },
+              "anchor": {
+                "targetText": "kopp",
+                "learnerBaseText": "cup",
+                "englishAuditText": "cup"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ]
+        },
+        "neuter-singular": {
+          "displayForm": "varmt",
+          "usefulness": 96,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-nb-grammar-e2-warm-neuter-singular-1",
+              "revision": 1,
+              "learnerBaseText": "warm water",
+              "englishAuditText": "warm water",
+              "targetText": "varmt vann",
+              "slot": {
+                "beforeText": "",
+                "afterText": " vann"
+              },
+              "anchor": {
+                "targetText": "vann",
+                "learnerBaseText": "water",
+                "englishAuditText": "water"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-e2-warm-neuter-singular-2",
+              "revision": 1,
+              "learnerBaseText": "warm bread",
+              "englishAuditText": "warm bread",
+              "targetText": "varmt brød",
+              "slot": {
+                "beforeText": "",
+                "afterText": " brød"
+              },
+              "anchor": {
+                "targetText": "brød",
+                "learnerBaseText": "bread",
+                "englishAuditText": "bread"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-e2-warm-neuter-singular-3",
+              "revision": 1,
+              "learnerBaseText": "a warm house",
+              "englishAuditText": "a warm house",
+              "targetText": "et varmt hus",
+              "slot": {
+                "beforeText": "et ",
+                "afterText": " hus"
+              },
+              "anchor": {
+                "targetText": "hus",
+                "learnerBaseText": "house",
+                "englishAuditText": "house"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ]
+        }
+      },
+      "usefulness": 96,
+      "complexity": 8,
+      "axes": [
+        {
+          "id": "common-singular",
+          "label": "Common singular",
+          "features": {
+            "gender": "common",
+            "number": "singular"
+          }
+        },
+        {
+          "id": "neuter-singular",
+          "label": "Neuter singular",
+          "features": {
+            "gender": "neuter",
+            "number": "singular"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "form"
+        ],
+        "categoryFeature": "gender",
+        "categoryOptions": [
+          {
+            "id": "common",
+            "label": "Common (en)"
+          },
+          {
+            "id": "neuter",
+            "label": "Neuter (et)"
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-nb-grammar-e2-cold",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective",
+        "label": "Cold things",
+        "targetText": "kald",
+        "resultTitle": "Cold things",
+        "summary": "Read the short phrase first. Compare one en-word form with one et-word form; use the familiar noun as your clue."
+      },
+      "forms": {
+        "common-singular": {
+          "displayForm": "kald",
+          "usefulness": 96,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-nb-grammar-e2-cold-common-singular-1",
+              "revision": 1,
+              "learnerBaseText": "cold milk",
+              "englishAuditText": "cold milk",
+              "targetText": "kald melk",
+              "slot": {
+                "beforeText": "",
+                "afterText": " melk"
+              },
+              "anchor": {
+                "targetText": "melk",
+                "learnerBaseText": "milk",
+                "englishAuditText": "milk"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-e2-cold-common-singular-2",
+              "revision": 1,
+              "learnerBaseText": "cold tea",
+              "englishAuditText": "cold tea",
+              "targetText": "kald te",
+              "slot": {
+                "beforeText": "",
+                "afterText": " te"
+              },
+              "anchor": {
+                "targetText": "te",
+                "learnerBaseText": "tea",
+                "englishAuditText": "tea"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-e2-cold-common-singular-3",
+              "revision": 1,
+              "learnerBaseText": "a cold cup",
+              "englishAuditText": "a cold cup",
+              "targetText": "en kald kopp",
+              "slot": {
+                "beforeText": "en ",
+                "afterText": " kopp"
+              },
+              "anchor": {
+                "targetText": "kopp",
+                "learnerBaseText": "cup",
+                "englishAuditText": "cup"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ]
+        },
+        "neuter-singular": {
+          "displayForm": "kaldt",
+          "usefulness": 96,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-nb-grammar-e2-cold-neuter-singular-1",
+              "revision": 1,
+              "learnerBaseText": "cold water",
+              "englishAuditText": "cold water",
+              "targetText": "kaldt vann",
+              "slot": {
+                "beforeText": "",
+                "afterText": " vann"
+              },
+              "anchor": {
+                "targetText": "vann",
+                "learnerBaseText": "water",
+                "englishAuditText": "water"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-e2-cold-neuter-singular-2",
+              "revision": 1,
+              "learnerBaseText": "cold bread",
+              "englishAuditText": "cold bread",
+              "targetText": "kaldt brød",
+              "slot": {
+                "beforeText": "",
+                "afterText": " brød"
+              },
+              "anchor": {
+                "targetText": "brød",
+                "learnerBaseText": "bread",
+                "englishAuditText": "bread"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-e2-cold-neuter-singular-3",
+              "revision": 1,
+              "learnerBaseText": "a cold house",
+              "englishAuditText": "a cold house",
+              "targetText": "et kaldt hus",
+              "slot": {
+                "beforeText": "et ",
+                "afterText": " hus"
+              },
+              "anchor": {
+                "targetText": "hus",
+                "learnerBaseText": "house",
+                "englishAuditText": "house"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ]
+        }
+      },
+      "usefulness": 96,
+      "complexity": 8,
+      "axes": [
+        {
+          "id": "common-singular",
+          "label": "Common singular",
+          "features": {
+            "gender": "common",
+            "number": "singular"
+          }
+        },
+        {
+          "id": "neuter-singular",
+          "label": "Neuter singular",
+          "features": {
+            "gender": "neuter",
+            "number": "singular"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "form"
+        ],
+        "categoryFeature": "gender",
+        "categoryOptions": [
+          {
+            "id": "common",
+            "label": "Common (en)"
+          },
+          {
+            "id": "neuter",
+            "label": "Neuter (et)"
+          }
+        ]
+      }
+    },
+    {
+      "id": "zero-nb-grammar-e2-good",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective",
+        "label": "Good things",
+        "targetText": "god",
+        "resultTitle": "Good things",
+        "summary": "Read the short phrase first. Compare one en-word form with one et-word form; use the familiar noun as your clue."
+      },
+      "forms": {
+        "common-singular": {
+          "displayForm": "god",
+          "usefulness": 96,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-nb-grammar-e2-good-common-singular-1",
+              "revision": 1,
+              "learnerBaseText": "a good dog",
+              "englishAuditText": "a good dog",
+              "targetText": "en god hund",
+              "slot": {
+                "beforeText": "en ",
+                "afterText": " hund"
+              },
+              "anchor": {
+                "targetText": "hund",
+                "learnerBaseText": "dog",
+                "englishAuditText": "dog"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-e2-good-common-singular-2",
+              "revision": 1,
+              "learnerBaseText": "a good book",
+              "englishAuditText": "a good book",
+              "targetText": "en god bok",
+              "slot": {
+                "beforeText": "en ",
+                "afterText": " bok"
+              },
+              "anchor": {
+                "targetText": "bok",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-e2-good-common-singular-3",
+              "revision": 1,
+              "learnerBaseText": "good tea",
+              "englishAuditText": "good tea",
+              "targetText": "god te",
+              "slot": {
+                "beforeText": "",
+                "afterText": " te"
+              },
+              "anchor": {
+                "targetText": "te",
+                "learnerBaseText": "tea",
+                "englishAuditText": "tea"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ]
+        },
+        "neuter-singular": {
+          "displayForm": "godt",
+          "usefulness": 96,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-nb-grammar-e2-good-neuter-singular-1",
+              "revision": 1,
+              "learnerBaseText": "good bread",
+              "englishAuditText": "good bread",
+              "targetText": "godt brød",
+              "slot": {
+                "beforeText": "",
+                "afterText": " brød"
+              },
+              "anchor": {
+                "targetText": "brød",
+                "learnerBaseText": "bread",
+                "englishAuditText": "bread"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-e2-good-neuter-singular-2",
+              "revision": 1,
+              "learnerBaseText": "good water",
+              "englishAuditText": "good water",
+              "targetText": "godt vann",
+              "slot": {
+                "beforeText": "",
+                "afterText": " vann"
+              },
+              "anchor": {
+                "targetText": "vann",
+                "learnerBaseText": "water",
+                "englishAuditText": "water"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-nb-grammar-e2-good-neuter-singular-3",
+              "revision": 1,
+              "learnerBaseText": "a good apple",
+              "englishAuditText": "a good apple",
+              "targetText": "et godt eple",
+              "slot": {
+                "beforeText": "et ",
+                "afterText": " eple"
+              },
+              "anchor": {
+                "targetText": "eple",
+                "learnerBaseText": "apple",
+                "englishAuditText": "apple"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ]
+        }
+      },
+      "usefulness": 96,
+      "complexity": 8,
+      "axes": [
+        {
+          "id": "common-singular",
+          "label": "Common singular",
+          "features": {
+            "gender": "common",
+            "number": "singular"
+          }
+        },
+        {
+          "id": "neuter-singular",
+          "label": "Neuter singular",
+          "features": {
+            "gender": "neuter",
+            "number": "singular"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "form"
+        ],
+        "categoryFeature": "gender",
+        "categoryOptions": [
+          {
+            "id": "common",
+            "label": "Common (en)"
+          },
+          {
+            "id": "neuter",
+            "label": "Neuter (et)"
+          }
+        ]
+      }
     }
   ],
   "gameplay": {

@@ -19495,6 +19495,2420 @@
           "playable": true
         }
       ]
+    },
+    {
+      "conceptId": "ww-zero-cat",
+      "text": "gato",
+      "learning": {
+        "unitId": "zero.es.objects",
+        "order": 1,
+        "title": "Things around you",
+        "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "objects"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "gato",
+          "gloss": "cat",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-dog",
+      "text": "perro",
+      "learning": {
+        "unitId": "zero.es.objects",
+        "order": 2,
+        "title": "Things around you",
+        "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "objects"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "perro",
+          "gloss": "dog",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-water",
+      "text": "agua",
+      "learning": {
+        "unitId": "zero.es.objects",
+        "order": 3,
+        "title": "Things around you",
+        "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "objects"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "agua",
+          "gloss": "water",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-bread",
+      "text": "pan",
+      "learning": {
+        "unitId": "zero.es.objects",
+        "order": 4,
+        "title": "Things around you",
+        "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "objects"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "pan",
+          "gloss": "bread",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-milk",
+      "text": "leche",
+      "learning": {
+        "unitId": "zero.es.objects",
+        "order": 5,
+        "title": "Things around you",
+        "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "objects"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "leche",
+          "gloss": "milk",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-apple",
+      "text": "manzana",
+      "learning": {
+        "unitId": "zero.es.objects",
+        "order": 6,
+        "title": "Things around you",
+        "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "objects"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "manzana",
+          "gloss": "apple",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-rice",
+      "text": "arroz",
+      "learning": {
+        "unitId": "zero.es.objects",
+        "order": 7,
+        "title": "Things around you",
+        "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "objects"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "arroz",
+          "gloss": "rice",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-tea",
+      "text": "té",
+      "learning": {
+        "unitId": "zero.es.objects",
+        "order": 8,
+        "title": "Things around you",
+        "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "objects"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "té",
+          "gloss": "tea",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-book",
+      "text": "libro",
+      "learning": {
+        "unitId": "zero.es.objects",
+        "order": 9,
+        "title": "Things around you",
+        "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "objects"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "libro",
+          "gloss": "book",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-pen",
+      "text": "bolígrafo",
+      "learning": {
+        "unitId": "zero.es.objects",
+        "order": 10,
+        "title": "Things around you",
+        "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "objects"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "bolígrafo",
+          "gloss": "pen",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-house",
+      "text": "casa",
+      "learning": {
+        "unitId": "zero.es.objects",
+        "order": 11,
+        "title": "Things around you",
+        "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "objects"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "casa",
+          "gloss": "house",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-door",
+      "text": "puerta",
+      "learning": {
+        "unitId": "zero.es.objects",
+        "order": 12,
+        "title": "Things around you",
+        "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "objects"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "puerta",
+          "gloss": "door",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-table",
+      "text": "mesa",
+      "learning": {
+        "unitId": "zero.es.objects",
+        "order": 13,
+        "title": "Things around you",
+        "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "objects"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "mesa",
+          "gloss": "table",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-chair",
+      "text": "silla",
+      "learning": {
+        "unitId": "zero.es.objects",
+        "order": 14,
+        "title": "Things around you",
+        "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "objects"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "silla",
+          "gloss": "chair",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-bed",
+      "text": "cama",
+      "learning": {
+        "unitId": "zero.es.objects",
+        "order": 15,
+        "title": "Things around you",
+        "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "objects"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "cama",
+          "gloss": "bed",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-bag",
+      "text": "bolsa",
+      "learning": {
+        "unitId": "zero.es.objects",
+        "order": 16,
+        "title": "Things around you",
+        "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "objects"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "bolsa",
+          "gloss": "bag",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-ball",
+      "text": "pelota",
+      "learning": {
+        "unitId": "zero.es.objects",
+        "order": 17,
+        "title": "Things around you",
+        "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "objects"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "pelota",
+          "gloss": "ball",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-sun",
+      "text": "sol",
+      "learning": {
+        "unitId": "zero.es.objects",
+        "order": 18,
+        "title": "Things around you",
+        "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "objects"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "sol",
+          "gloss": "sun",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-hand",
+      "text": "mano",
+      "learning": {
+        "unitId": "zero.es.objects",
+        "order": 19,
+        "title": "Things around you",
+        "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "objects"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "mano",
+          "gloss": "hand",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-eye",
+      "text": "ojo",
+      "learning": {
+        "unitId": "zero.es.objects",
+        "order": 20,
+        "title": "Things around you",
+        "explanation": "Meet one everyday thing at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "objects"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "ojo",
+          "gloss": "eye",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-eat",
+      "text": "comer",
+      "learning": {
+        "unitId": "zero.es.actions",
+        "order": 21,
+        "title": "Tiny actions",
+        "explanation": "Meet a useful action in its dictionary form. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "actions"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "comer",
+          "gloss": "eat",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-drink",
+      "text": "beber",
+      "learning": {
+        "unitId": "zero.es.actions",
+        "order": 22,
+        "title": "Tiny actions",
+        "explanation": "Meet a useful action in its dictionary form. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "actions"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "beber",
+          "gloss": "drink",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-go",
+      "text": "ir",
+      "learning": {
+        "unitId": "zero.es.actions",
+        "order": 23,
+        "title": "Tiny actions",
+        "explanation": "Meet a useful action in its dictionary form. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "actions"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "ir",
+          "gloss": "go",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-see",
+      "text": "ver",
+      "learning": {
+        "unitId": "zero.es.actions",
+        "order": 24,
+        "title": "Tiny actions",
+        "explanation": "Meet a useful action in its dictionary form. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "actions"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "ver",
+          "gloss": "see",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-want",
+      "text": "querer",
+      "learning": {
+        "unitId": "zero.es.actions",
+        "order": 25,
+        "title": "Tiny actions",
+        "explanation": "Meet a useful action in its dictionary form. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "actions"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "querer",
+          "gloss": "want",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-have",
+      "text": "tener",
+      "learning": {
+        "unitId": "zero.es.actions",
+        "order": 26,
+        "title": "Tiny actions",
+        "explanation": "Meet a useful action in its dictionary form. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "actions"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "tener",
+          "gloss": "have",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-like",
+      "text": "gustar",
+      "learning": {
+        "unitId": "zero.es.actions",
+        "order": 27,
+        "title": "Tiny actions",
+        "explanation": "Meet a useful action in its dictionary form. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "actions"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "gustar",
+          "gloss": "like",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-sleep",
+      "text": "dormir",
+      "learning": {
+        "unitId": "zero.es.actions",
+        "order": 28,
+        "title": "Tiny actions",
+        "explanation": "Meet a useful action in its dictionary form. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "actions"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "dormir",
+          "gloss": "sleep",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-sit",
+      "text": "sentarse",
+      "learning": {
+        "unitId": "zero.es.actions",
+        "order": 29,
+        "title": "Tiny actions",
+        "explanation": "Meet a useful action in its dictionary form. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "actions"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "sentarse",
+          "gloss": "sit",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-read",
+      "text": "leer",
+      "learning": {
+        "unitId": "zero.es.actions",
+        "order": 30,
+        "title": "Tiny actions",
+        "explanation": "Meet a useful action in its dictionary form. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "actions"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "leer",
+          "gloss": "read",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-write",
+      "text": "escribir",
+      "learning": {
+        "unitId": "zero.es.actions",
+        "order": 31,
+        "title": "Tiny actions",
+        "explanation": "Meet a useful action in its dictionary form. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "actions"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "escribir",
+          "gloss": "write",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-hear",
+      "text": "oír",
+      "learning": {
+        "unitId": "zero.es.actions",
+        "order": 32,
+        "title": "Tiny actions",
+        "explanation": "Meet a useful action in its dictionary form. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "actions"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "oír",
+          "gloss": "hear",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-i",
+      "text": "yo",
+      "learning": {
+        "unitId": "zero.es.people",
+        "order": 33,
+        "title": "I, you and we",
+        "explanation": "Meet the three people words used in these tiny patterns. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "people"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "yo",
+          "gloss": "I",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-you",
+      "text": "tú",
+      "learning": {
+        "unitId": "zero.es.people",
+        "order": 34,
+        "title": "I, you and we",
+        "explanation": "Meet the three people words used in these tiny patterns. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "people"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "tú",
+          "gloss": "you",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-we",
+      "text": "nosotros",
+      "learning": {
+        "unitId": "zero.es.people",
+        "order": 35,
+        "title": "I, you and we",
+        "explanation": "Meet the three people words used in these tiny patterns. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "people"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "nosotros",
+          "gloss": "we",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-hello",
+      "text": "¡Hola!",
+      "learning": {
+        "unitId": "zero.es.first-contact",
+        "order": 36,
+        "title": "First contact",
+        "explanation": "Practise one greeting or reply at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "first-contact"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Hola",
+          "gloss": "Hello",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-goodbye",
+      "text": "¡Adiós!",
+      "learning": {
+        "unitId": "zero.es.first-contact",
+        "order": 37,
+        "title": "First contact",
+        "explanation": "Practise one greeting or reply at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "first-contact"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Adiós",
+          "gloss": "Goodbye",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-yes",
+      "text": "Sí.",
+      "learning": {
+        "unitId": "zero.es.first-contact",
+        "order": 38,
+        "title": "First contact",
+        "explanation": "Practise one greeting or reply at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "first-contact"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Sí",
+          "gloss": "Yes",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-no",
+      "text": "No.",
+      "learning": {
+        "unitId": "zero.es.first-contact",
+        "order": 39,
+        "title": "First contact",
+        "explanation": "Practise one greeting or reply at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "first-contact"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "No",
+          "gloss": "No",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-please",
+      "text": "Por favor.",
+      "learning": {
+        "unitId": "zero.es.first-contact",
+        "order": 40,
+        "title": "First contact",
+        "explanation": "Practise one greeting or reply at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "first-contact"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Por",
+          "gloss": "in the please expression",
+          "playable": true
+        },
+        {
+          "surface": "favor",
+          "gloss": "please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-thanks",
+      "text": "Gracias.",
+      "learning": {
+        "unitId": "zero.es.first-contact",
+        "order": 41,
+        "title": "First contact",
+        "explanation": "Practise one greeting or reply at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "first-contact"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Gracias",
+          "gloss": "Thank you",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-one",
+      "text": "uno",
+      "learning": {
+        "unitId": "zero.es.numbers",
+        "order": 42,
+        "title": "One to five",
+        "explanation": "Recognize one number at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "numbers"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "uno",
+          "gloss": "one",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-two",
+      "text": "dos",
+      "learning": {
+        "unitId": "zero.es.numbers",
+        "order": 43,
+        "title": "One to five",
+        "explanation": "Recognize one number at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "numbers"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "dos",
+          "gloss": "two",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-three",
+      "text": "tres",
+      "learning": {
+        "unitId": "zero.es.numbers",
+        "order": 44,
+        "title": "One to five",
+        "explanation": "Recognize one number at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "numbers"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "tres",
+          "gloss": "three",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-four",
+      "text": "cuatro",
+      "learning": {
+        "unitId": "zero.es.numbers",
+        "order": 45,
+        "title": "One to five",
+        "explanation": "Recognize one number at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "numbers"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "cuatro",
+          "gloss": "four",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-five",
+      "text": "cinco",
+      "learning": {
+        "unitId": "zero.es.numbers",
+        "order": 46,
+        "title": "One to five",
+        "explanation": "Recognize one number at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "numbers"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "cinco",
+          "gloss": "five",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-big",
+      "text": "grande",
+      "learning": {
+        "unitId": "zero.es.describing",
+        "order": 47,
+        "title": "Big, small and color",
+        "explanation": "Meet one descriptive word at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "describing"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "grande",
+          "gloss": "big",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-small",
+      "text": "pequeño",
+      "learning": {
+        "unitId": "zero.es.describing",
+        "order": 48,
+        "title": "Big, small and color",
+        "explanation": "Meet one descriptive word at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "describing"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "pequeño",
+          "gloss": "small",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-red",
+      "text": "rojo",
+      "learning": {
+        "unitId": "zero.es.describing",
+        "order": 49,
+        "title": "Big, small and color",
+        "explanation": "Meet one descriptive word at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "describing"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "rojo",
+          "gloss": "red",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-green",
+      "text": "verde",
+      "learning": {
+        "unitId": "zero.es.describing",
+        "order": 50,
+        "title": "Big, small and color",
+        "explanation": "Meet one descriptive word at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "describing"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "verde",
+          "gloss": "green",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-cat",
+      "text": "Esto es un gato.",
+      "learning": {
+        "unitId": "zero.es.identify",
+        "order": 51,
+        "title": "This is…",
+        "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "identify"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Esto",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "gato",
+          "gloss": "cat",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-dog",
+      "text": "Esto es un perro.",
+      "learning": {
+        "unitId": "zero.es.identify",
+        "order": 52,
+        "title": "This is…",
+        "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "identify"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Esto",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "perro",
+          "gloss": "dog",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-water",
+      "text": "Esto es agua.",
+      "learning": {
+        "unitId": "zero.es.identify",
+        "order": 53,
+        "title": "This is…",
+        "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "identify"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Esto",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "agua",
+          "gloss": "water",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-bread",
+      "text": "Esto es pan.",
+      "learning": {
+        "unitId": "zero.es.identify",
+        "order": 54,
+        "title": "This is…",
+        "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "identify"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Esto",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "pan",
+          "gloss": "bread",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-milk",
+      "text": "Esto es leche.",
+      "learning": {
+        "unitId": "zero.es.identify",
+        "order": 55,
+        "title": "This is…",
+        "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "identify"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Esto",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "leche",
+          "gloss": "milk",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-apple",
+      "text": "Esto es una manzana.",
+      "learning": {
+        "unitId": "zero.es.identify",
+        "order": 56,
+        "title": "This is…",
+        "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "identify"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Esto",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "una",
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "manzana",
+          "gloss": "apple",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-rice",
+      "text": "Esto es arroz.",
+      "learning": {
+        "unitId": "zero.es.identify",
+        "order": 57,
+        "title": "This is…",
+        "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "identify"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Esto",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "arroz",
+          "gloss": "rice",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-tea",
+      "text": "Esto es té.",
+      "learning": {
+        "unitId": "zero.es.identify",
+        "order": 58,
+        "title": "This is…",
+        "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "identify"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Esto",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "té",
+          "gloss": "tea",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-book",
+      "text": "Esto es un libro.",
+      "learning": {
+        "unitId": "zero.es.identify",
+        "order": 59,
+        "title": "This is…",
+        "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "identify"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Esto",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "libro",
+          "gloss": "book",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-pen",
+      "text": "Esto es un bolígrafo.",
+      "learning": {
+        "unitId": "zero.es.identify",
+        "order": 60,
+        "title": "This is…",
+        "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "identify"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Esto",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "bolígrafo",
+          "gloss": "pen",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-house",
+      "text": "Esto es una casa.",
+      "learning": {
+        "unitId": "zero.es.identify",
+        "order": 61,
+        "title": "This is…",
+        "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "identify"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Esto",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "una",
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "casa",
+          "gloss": "house",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-door",
+      "text": "Esto es una puerta.",
+      "learning": {
+        "unitId": "zero.es.identify",
+        "order": 62,
+        "title": "This is…",
+        "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "identify"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Esto",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "una",
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "puerta",
+          "gloss": "door",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-table",
+      "text": "Esto es una mesa.",
+      "learning": {
+        "unitId": "zero.es.identify",
+        "order": 63,
+        "title": "This is…",
+        "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "identify"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Esto",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "una",
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "mesa",
+          "gloss": "table",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-chair",
+      "text": "Esto es una silla.",
+      "learning": {
+        "unitId": "zero.es.identify",
+        "order": 64,
+        "title": "This is…",
+        "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "identify"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Esto",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "una",
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "silla",
+          "gloss": "chair",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-bed",
+      "text": "Esto es una cama.",
+      "learning": {
+        "unitId": "zero.es.identify",
+        "order": 65,
+        "title": "This is…",
+        "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "identify"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Esto",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "una",
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "cama",
+          "gloss": "bed",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-bag",
+      "text": "Esto es una bolsa.",
+      "learning": {
+        "unitId": "zero.es.identify",
+        "order": 66,
+        "title": "This is…",
+        "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "identify"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Esto",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "una",
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "bolsa",
+          "gloss": "bag",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-ball",
+      "text": "Esto es una pelota.",
+      "learning": {
+        "unitId": "zero.es.identify",
+        "order": 67,
+        "title": "This is…",
+        "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "identify"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Esto",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "una",
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "pelota",
+          "gloss": "ball",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-sun",
+      "text": "Esto es el sol.",
+      "learning": {
+        "unitId": "zero.es.identify",
+        "order": 68,
+        "title": "This is…",
+        "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "identify"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Esto",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "el",
+          "gloss": "the",
+          "playable": true
+        },
+        {
+          "surface": "sol",
+          "gloss": "sun",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-hand",
+      "text": "Esto es una mano.",
+      "learning": {
+        "unitId": "zero.es.identify",
+        "order": 69,
+        "title": "This is…",
+        "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "identify"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Esto",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "una",
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "mano",
+          "gloss": "hand",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-eye",
+      "text": "Esto es un ojo.",
+      "learning": {
+        "unitId": "zero.es.identify",
+        "order": 70,
+        "title": "This is…",
+        "explanation": "Reuse this is with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "identify"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Esto",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "es",
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "ojo",
+          "gloss": "eye",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-want-water",
+      "text": "Quiero agua.",
+      "learning": {
+        "unitId": "zero.es.request",
+        "order": 71,
+        "title": "I want…",
+        "explanation": "Reuse I want with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "request"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Quiero",
+          "gloss": "I want",
+          "playable": true
+        },
+        {
+          "surface": "agua",
+          "gloss": "water",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-want-bread",
+      "text": "Quiero pan.",
+      "learning": {
+        "unitId": "zero.es.request",
+        "order": 72,
+        "title": "I want…",
+        "explanation": "Reuse I want with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "request"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Quiero",
+          "gloss": "I want",
+          "playable": true
+        },
+        {
+          "surface": "pan",
+          "gloss": "bread",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-want-milk",
+      "text": "Quiero leche.",
+      "learning": {
+        "unitId": "zero.es.request",
+        "order": 73,
+        "title": "I want…",
+        "explanation": "Reuse I want with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "request"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Quiero",
+          "gloss": "I want",
+          "playable": true
+        },
+        {
+          "surface": "leche",
+          "gloss": "milk",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-want-apple",
+      "text": "Quiero una manzana.",
+      "learning": {
+        "unitId": "zero.es.request",
+        "order": 74,
+        "title": "I want…",
+        "explanation": "Reuse I want with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "request"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Quiero",
+          "gloss": "I want",
+          "playable": true
+        },
+        {
+          "surface": "una",
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "manzana",
+          "gloss": "apple",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-want-rice",
+      "text": "Quiero arroz.",
+      "learning": {
+        "unitId": "zero.es.request",
+        "order": 75,
+        "title": "I want…",
+        "explanation": "Reuse I want with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "request"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Quiero",
+          "gloss": "I want",
+          "playable": true
+        },
+        {
+          "surface": "arroz",
+          "gloss": "rice",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-want-tea",
+      "text": "Quiero té.",
+      "learning": {
+        "unitId": "zero.es.request",
+        "order": 76,
+        "title": "I want…",
+        "explanation": "Reuse I want with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "request"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Quiero",
+          "gloss": "I want",
+          "playable": true
+        },
+        {
+          "surface": "té",
+          "gloss": "tea",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-want-book",
+      "text": "Quiero un libro.",
+      "learning": {
+        "unitId": "zero.es.request",
+        "order": 77,
+        "title": "I want…",
+        "explanation": "Reuse I want with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "request"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Quiero",
+          "gloss": "I want",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "libro",
+          "gloss": "book",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-want-pen",
+      "text": "Quiero un bolígrafo.",
+      "learning": {
+        "unitId": "zero.es.request",
+        "order": 78,
+        "title": "I want…",
+        "explanation": "Reuse I want with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "request"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Quiero",
+          "gloss": "I want",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "bolígrafo",
+          "gloss": "pen",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-see-cat",
+      "text": "Veo un gato.",
+      "learning": {
+        "unitId": "zero.es.notice",
+        "order": 79,
+        "title": "I see…",
+        "explanation": "Reuse I see with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "notice"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Veo",
+          "gloss": "I see",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "gato",
+          "gloss": "cat",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-see-dog",
+      "text": "Veo un perro.",
+      "learning": {
+        "unitId": "zero.es.notice",
+        "order": 80,
+        "title": "I see…",
+        "explanation": "Reuse I see with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "notice"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Veo",
+          "gloss": "I see",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "perro",
+          "gloss": "dog",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-see-book",
+      "text": "Veo un libro.",
+      "learning": {
+        "unitId": "zero.es.notice",
+        "order": 81,
+        "title": "I see…",
+        "explanation": "Reuse I see with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "notice"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Veo",
+          "gloss": "I see",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "libro",
+          "gloss": "book",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-see-pen",
+      "text": "Veo un bolígrafo.",
+      "learning": {
+        "unitId": "zero.es.notice",
+        "order": 82,
+        "title": "I see…",
+        "explanation": "Reuse I see with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "notice"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Veo",
+          "gloss": "I see",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "bolígrafo",
+          "gloss": "pen",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-see-house",
+      "text": "Veo una casa.",
+      "learning": {
+        "unitId": "zero.es.notice",
+        "order": 83,
+        "title": "I see…",
+        "explanation": "Reuse I see with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "notice"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Veo",
+          "gloss": "I see",
+          "playable": true
+        },
+        {
+          "surface": "una",
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "casa",
+          "gloss": "house",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-see-door",
+      "text": "Veo una puerta.",
+      "learning": {
+        "unitId": "zero.es.notice",
+        "order": 84,
+        "title": "I see…",
+        "explanation": "Reuse I see with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "notice"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Veo",
+          "gloss": "I see",
+          "playable": true
+        },
+        {
+          "surface": "una",
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "puerta",
+          "gloss": "door",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-see-table",
+      "text": "Veo una mesa.",
+      "learning": {
+        "unitId": "zero.es.notice",
+        "order": 85,
+        "title": "I see…",
+        "explanation": "Reuse I see with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "notice"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Veo",
+          "gloss": "I see",
+          "playable": true
+        },
+        {
+          "surface": "una",
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "mesa",
+          "gloss": "table",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-see-ball",
+      "text": "Veo una pelota.",
+      "learning": {
+        "unitId": "zero.es.notice",
+        "order": 86,
+        "title": "I see…",
+        "explanation": "Reuse I see with one familiar thing. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "notice"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Veo",
+          "gloss": "I see",
+          "playable": true
+        },
+        {
+          "surface": "una",
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "pelota",
+          "gloss": "ball",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-i-eat",
+      "text": "Como.",
+      "learning": {
+        "unitId": "zero.es.doing",
+        "order": 87,
+        "title": "I do…",
+        "explanation": "Meet one short first-person action at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "doing"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Como",
+          "gloss": "I eat",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-i-drink",
+      "text": "Bebo.",
+      "learning": {
+        "unitId": "zero.es.doing",
+        "order": 88,
+        "title": "I do…",
+        "explanation": "Meet one short first-person action at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "doing"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Bebo",
+          "gloss": "I drink",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-i-go",
+      "text": "Voy.",
+      "learning": {
+        "unitId": "zero.es.doing",
+        "order": 89,
+        "title": "I do…",
+        "explanation": "Meet one short first-person action at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "doing"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Voy",
+          "gloss": "I go",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-i-sit",
+      "text": "Me siento.",
+      "learning": {
+        "unitId": "zero.es.doing",
+        "order": 90,
+        "title": "I do…",
+        "explanation": "Meet one short first-person action at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "doing"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Me",
+          "gloss": "myself",
+          "playable": true
+        },
+        {
+          "surface": "siento",
+          "gloss": "sit",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-i-read",
+      "text": "Leo un libro.",
+      "learning": {
+        "unitId": "zero.es.doing",
+        "order": 91,
+        "title": "I do…",
+        "explanation": "Meet one short first-person action at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "doing"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Leo",
+          "gloss": "I read",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "libro",
+          "gloss": "book",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-i-write",
+      "text": "Escribo.",
+      "learning": {
+        "unitId": "zero.es.doing",
+        "order": 92,
+        "title": "I do…",
+        "explanation": "Meet one short first-person action at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "doing"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Escribo",
+          "gloss": "I write",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-i-sleep",
+      "text": "Duermo.",
+      "learning": {
+        "unitId": "zero.es.doing",
+        "order": 93,
+        "title": "I do…",
+        "explanation": "Meet one short first-person action at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "doing"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Duermo",
+          "gloss": "I sleep",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-i-have-pen",
+      "text": "Tengo un bolígrafo.",
+      "learning": {
+        "unitId": "zero.es.doing",
+        "order": 94,
+        "title": "I do…",
+        "explanation": "Meet one short first-person action at a time. Machine-assisted draft; native review is pending.",
+        "focus": [
+          "level-zero",
+          "doing"
+        ]
+      },
+      "tokens": [
+        {
+          "surface": "Tengo",
+          "gloss": "I have",
+          "playable": true
+        },
+        {
+          "surface": "un",
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "bolígrafo",
+          "gloss": "pen",
+          "playable": true
+        }
+      ]
     }
   ]
 }

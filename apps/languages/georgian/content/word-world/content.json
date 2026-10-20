@@ -91202,6 +91202,2556 @@
       "sceneQuery": "If the number changes, I will tell you.",
       "sceneAssetIds": [],
       "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-hello",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "greetings",
+      "englishText": "Hello!",
+      "embeddingText": "Hello!",
+      "englishAlternates": [],
+      "targetText": "გამარჯობა!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "გამარჯობა",
+          "pronunciation": null,
+          "gloss": "Hello",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Hello!",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-goodbye",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "greetings",
+      "englishText": "Goodbye!",
+      "embeddingText": "Goodbye!",
+      "englishAlternates": [],
+      "targetText": "ნახვამდის!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ნახვამდის",
+          "pronunciation": null,
+          "gloss": "Goodbye",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Goodbye!",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-thanks",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "greetings",
+      "englishText": "Thank you!",
+      "embeddingText": "Thank you!",
+      "englishAlternates": [],
+      "targetText": "მადლობა!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "მადლობა",
+          "pronunciation": null,
+          "gloss": "Thank you",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Thank you!",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-yes",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "greetings",
+      "englishText": "Yes.",
+      "embeddingText": "Yes.",
+      "englishAlternates": [],
+      "targetText": "დიახ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "დიახ",
+          "pronunciation": null,
+          "gloss": "Yes",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Yes.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-no",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "greetings",
+      "englishText": "No.",
+      "embeddingText": "No.",
+      "englishAlternates": [],
+      "targetText": "არა.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "არა",
+          "pronunciation": null,
+          "gloss": "No",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "No.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-please",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "greetings",
+      "englishText": "Please (to one familiar person).",
+      "embeddingText": "Please (to one familiar person).",
+      "englishAlternates": [],
+      "targetText": "გთხოვ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "გთხოვ",
+          "pronunciation": null,
+          "gloss": "Please (to one familiar person)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Please (to one familiar person).",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-sorry",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "greetings",
+      "englishText": "Sorry!",
+      "embeddingText": "Sorry!",
+      "englishAlternates": [],
+      "targetText": "ბოდიში!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ბოდიში",
+          "pronunciation": null,
+          "gloss": "Sorry",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Sorry!",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-help",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "greetings",
+      "englishText": "Help!",
+      "embeddingText": "Help!",
+      "englishAlternates": [],
+      "targetText": "მიშველეთ!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "მიშველეთ",
+          "pronunciation": null,
+          "gloss": "Help",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Help!",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-i",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "people",
+      "englishText": "I",
+      "embeddingText": "I",
+      "englishAlternates": [],
+      "targetText": "მე",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "მე",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-you",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "people",
+      "englishText": "you (one familiar person)",
+      "embeddingText": "you (one familiar person)",
+      "englishAlternates": [],
+      "targetText": "შენ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "შენ",
+          "pronunciation": null,
+          "gloss": "you (one familiar person)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "you (one familiar person)",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-mother",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "people",
+      "englishText": "mother",
+      "embeddingText": "mother",
+      "englishAlternates": [],
+      "targetText": "დედა",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "დედა",
+          "pronunciation": null,
+          "gloss": "mother",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "mother",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-father",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "people",
+      "englishText": "father",
+      "embeddingText": "father",
+      "englishAlternates": [],
+      "targetText": "მამა",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "მამა",
+          "pronunciation": null,
+          "gloss": "father",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "father",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-friend",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "people",
+      "englishText": "friend",
+      "embeddingText": "friend",
+      "englishAlternates": [],
+      "targetText": "მეგობარი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "მეგობარი",
+          "pronunciation": null,
+          "gloss": "friend",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "friend",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-child",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "people",
+      "englishText": "child",
+      "embeddingText": "child",
+      "englishAlternates": [],
+      "targetText": "ბავშვი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ბავშვი",
+          "pronunciation": null,
+          "gloss": "child",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "child",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-one",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "numbers",
+      "englishText": "one",
+      "embeddingText": "one",
+      "englishAlternates": [],
+      "targetText": "ერთი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ერთი",
+          "pronunciation": null,
+          "gloss": "one",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "one",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-two",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "numbers",
+      "englishText": "two",
+      "embeddingText": "two",
+      "englishAlternates": [],
+      "targetText": "ორი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ორი",
+          "pronunciation": null,
+          "gloss": "two",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "two",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-three",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "numbers",
+      "englishText": "three",
+      "embeddingText": "three",
+      "englishAlternates": [],
+      "targetText": "სამი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "სამი",
+          "pronunciation": null,
+          "gloss": "three",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "three",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-four",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "numbers",
+      "englishText": "four",
+      "embeddingText": "four",
+      "englishAlternates": [],
+      "targetText": "ოთხი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ოთხი",
+          "pronunciation": null,
+          "gloss": "four",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "four",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-five",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "numbers",
+      "englishText": "five",
+      "embeddingText": "five",
+      "englishAlternates": [],
+      "targetText": "ხუთი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ხუთი",
+          "pronunciation": null,
+          "gloss": "five",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "five",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-water",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "food-and-drink",
+      "englishText": "water",
+      "embeddingText": "water",
+      "englishAlternates": [],
+      "targetText": "წყალი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "წყალი",
+          "pronunciation": null,
+          "gloss": "water",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "water",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-bread",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "food-and-drink",
+      "englishText": "bread",
+      "embeddingText": "bread",
+      "englishAlternates": [],
+      "targetText": "პური",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "პური",
+          "pronunciation": null,
+          "gloss": "bread",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "bread",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-milk",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "food-and-drink",
+      "englishText": "milk",
+      "embeddingText": "milk",
+      "englishAlternates": [],
+      "targetText": "რძე",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "რძე",
+          "pronunciation": null,
+          "gloss": "milk",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "milk",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-apple",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "food-and-drink",
+      "englishText": "apple",
+      "embeddingText": "apple",
+      "englishAlternates": [],
+      "targetText": "ვაშლი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ვაშლი",
+          "pronunciation": null,
+          "gloss": "apple",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "apple",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-tea",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "food-and-drink",
+      "englishText": "tea",
+      "embeddingText": "tea",
+      "englishAlternates": [],
+      "targetText": "ჩაი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ჩაი",
+          "pronunciation": null,
+          "gloss": "tea",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "tea",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-house",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "home",
+      "englishText": "house",
+      "embeddingText": "house",
+      "englishAlternates": [],
+      "targetText": "სახლი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "სახლი",
+          "pronunciation": null,
+          "gloss": "house",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "house",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-book",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "home",
+      "englishText": "book",
+      "embeddingText": "book",
+      "englishAlternates": [],
+      "targetText": "წიგნი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "წიგნი",
+          "pronunciation": null,
+          "gloss": "book",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "book",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-door",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "home",
+      "englishText": "door",
+      "embeddingText": "door",
+      "englishAlternates": [],
+      "targetText": "კარი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "კარი",
+          "pronunciation": null,
+          "gloss": "door",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "door",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-car",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "objects",
+      "englishText": "car",
+      "embeddingText": "car",
+      "englishAlternates": [],
+      "targetText": "მანქანა",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "მანქანა",
+          "pronunciation": null,
+          "gloss": "car",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "car",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-cat",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "animals",
+      "englishText": "cat",
+      "embeddingText": "cat",
+      "englishAlternates": [],
+      "targetText": "კატა",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "კატა",
+          "pronunciation": null,
+          "gloss": "cat",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "cat",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-dog",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "animals",
+      "englishText": "dog",
+      "embeddingText": "dog",
+      "englishAlternates": [],
+      "targetText": "ძაღლი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ძაღლი",
+          "pronunciation": null,
+          "gloss": "dog",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "dog",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-big",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "properties",
+      "englishText": "big",
+      "embeddingText": "big",
+      "englishAlternates": [],
+      "targetText": "დიდი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "დიდი",
+          "pronunciation": null,
+          "gloss": "big",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "big",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-small",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "properties",
+      "englishText": "small",
+      "embeddingText": "small",
+      "englishAlternates": [],
+      "targetText": "პატარა",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "პატარა",
+          "pronunciation": null,
+          "gloss": "small",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "small",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-good",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "properties",
+      "englishText": "good",
+      "embeddingText": "good",
+      "englishAlternates": [],
+      "targetText": "კარგი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "კარგი",
+          "pronunciation": null,
+          "gloss": "good",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "good",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-new",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "properties",
+      "englishText": "new",
+      "embeddingText": "new",
+      "englishAlternates": [],
+      "targetText": "ახალი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ახალი",
+          "pronunciation": null,
+          "gloss": "new",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "new",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-red",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "properties",
+      "englishText": "red",
+      "embeddingText": "red",
+      "englishAlternates": [],
+      "targetText": "წითელი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "წითელი",
+          "pronunciation": null,
+          "gloss": "red",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "red",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-green",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "properties",
+      "englishText": "green",
+      "embeddingText": "green",
+      "englishAlternates": [],
+      "targetText": "მწვანე",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "მწვანე",
+          "pronunciation": null,
+          "gloss": "green",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "green",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-hot",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "properties",
+      "englishText": "hot",
+      "embeddingText": "hot",
+      "englishAlternates": [],
+      "targetText": "ცხელი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ცხელი",
+          "pronunciation": null,
+          "gloss": "hot",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "hot",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-cold",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "properties",
+      "englishText": "cold",
+      "embeddingText": "cold",
+      "englishAlternates": [],
+      "targetText": "ცივი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ცივი",
+          "pronunciation": null,
+          "gloss": "cold",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "cold",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-eat",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "actions",
+      "englishText": "eating (verbal noun)",
+      "embeddingText": "eating (verbal noun)",
+      "englishAlternates": [],
+      "targetText": "ჭამა",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ჭამა",
+          "pronunciation": null,
+          "gloss": "eating (verbal noun)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "eating (verbal noun)",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-drink",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "actions",
+      "englishText": "drinking (verbal noun)",
+      "embeddingText": "drinking (verbal noun)",
+      "englishAlternates": [],
+      "targetText": "სმა",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "სმა",
+          "pronunciation": null,
+          "gloss": "drinking (verbal noun)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "drinking (verbal noun)",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-go",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "actions",
+      "englishText": "going (verbal noun)",
+      "embeddingText": "going (verbal noun)",
+      "englishAlternates": [],
+      "targetText": "წასვლა",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "წასვლა",
+          "pronunciation": null,
+          "gloss": "going (verbal noun)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "going (verbal noun)",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-come",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "actions",
+      "englishText": "coming (verbal noun)",
+      "embeddingText": "coming (verbal noun)",
+      "englishAlternates": [],
+      "targetText": "მოსვლა",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "მოსვლა",
+          "pronunciation": null,
+          "gloss": "coming (verbal noun)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "coming (verbal noun)",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-sleep",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "actions",
+      "englishText": "sleeping (verbal noun)",
+      "embeddingText": "sleeping (verbal noun)",
+      "englishAlternates": [],
+      "targetText": "ძილი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ძილი",
+          "pronunciation": null,
+          "gloss": "sleeping (verbal noun)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "sleeping (verbal noun)",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-read",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "actions",
+      "englishText": "reading (verbal noun)",
+      "embeddingText": "reading (verbal noun)",
+      "englishAlternates": [],
+      "targetText": "კითხვა",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "კითხვა",
+          "pronunciation": null,
+          "gloss": "reading (verbal noun)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "reading (verbal noun)",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-write",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "actions",
+      "englishText": "writing (verbal noun)",
+      "embeddingText": "writing (verbal noun)",
+      "englishAlternates": [],
+      "targetText": "წერა",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "წერა",
+          "pronunciation": null,
+          "gloss": "writing (verbal noun)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "writing (verbal noun)",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-see",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "actions",
+      "englishText": "seeing (verbal noun)",
+      "embeddingText": "seeing (verbal noun)",
+      "englishAlternates": [],
+      "targetText": "დანახვა",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "დანახვა",
+          "pronunciation": null,
+          "gloss": "seeing (verbal noun)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "seeing (verbal noun)",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-letter-a",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "script",
+      "englishText": "Georgian letter ani",
+      "embeddingText": "Georgian letter ani",
+      "englishAlternates": [],
+      "targetText": "ა",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ა",
+          "pronunciation": null,
+          "gloss": "Georgian letter ani",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Georgian letter ani",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-letter-m",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "script",
+      "englishText": "Georgian letter mani",
+      "embeddingText": "Georgian letter mani",
+      "englishAlternates": [],
+      "targetText": "მ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "მ",
+          "pronunciation": null,
+          "gloss": "Georgian letter mani",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Georgian letter mani",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-letter-i",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "script",
+      "englishText": "Georgian letter ini",
+      "embeddingText": "Georgian letter ini",
+      "englishAlternates": [],
+      "targetText": "ი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ი",
+          "pronunciation": null,
+          "gloss": "Georgian letter ini",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Georgian letter ini",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-letter-n",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "script",
+      "englishText": "Georgian letter nari",
+      "embeddingText": "Georgian letter nari",
+      "englishAlternates": [],
+      "targetText": "ნ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ნ",
+          "pronunciation": null,
+          "gloss": "Georgian letter nari",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Georgian letter nari",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-letter-d",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "script",
+      "englishText": "Georgian letter doni",
+      "embeddingText": "Georgian letter doni",
+      "englishAlternates": [],
+      "targetText": "დ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "დ",
+          "pronunciation": null,
+          "gloss": "Georgian letter doni",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Georgian letter doni",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-letter-s",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "script",
+      "englishText": "Georgian letter sani",
+      "embeddingText": "Georgian letter sani",
+      "englishAlternates": [],
+      "targetText": "ს",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ს",
+          "pronunciation": null,
+          "gloss": "Georgian letter sani",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Georgian letter sani",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-001",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "Hello, mother!",
+      "embeddingText": "Hello, mother!",
+      "englishAlternates": [],
+      "targetText": "გამარჯობა, დედა!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "გამარჯობა",
+          "pronunciation": null,
+          "gloss": "hello",
+          "playable": true
+        },
+        {
+          "surface": "დედა",
+          "pronunciation": null,
+          "gloss": "mother",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Hello, mother!",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-002",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "Hello, father!",
+      "embeddingText": "Hello, father!",
+      "englishAlternates": [],
+      "targetText": "გამარჯობა, მამა!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "გამარჯობა",
+          "pronunciation": null,
+          "gloss": "hello",
+          "playable": true
+        },
+        {
+          "surface": "მამა",
+          "pronunciation": null,
+          "gloss": "father",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Hello, father!",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-003",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "Yes, thank you.",
+      "embeddingText": "Yes, thank you.",
+      "englishAlternates": [],
+      "targetText": "დიახ, მადლობა.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "დიახ",
+          "pronunciation": null,
+          "gloss": "yes",
+          "playable": true
+        },
+        {
+          "surface": "მადლობა",
+          "pronunciation": null,
+          "gloss": "thank you",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Yes, thank you.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-004",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "No, thank you.",
+      "embeddingText": "No, thank you.",
+      "englishAlternates": [],
+      "targetText": "არა, მადლობა.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "არა",
+          "pronunciation": null,
+          "gloss": "no",
+          "playable": true
+        },
+        {
+          "surface": "მადლობა",
+          "pronunciation": null,
+          "gloss": "thank you",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "No, thank you.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-005",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "Good morning!",
+      "embeddingText": "Good morning!",
+      "englishAlternates": [],
+      "targetText": "დილა მშვიდობისა!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "დილა",
+          "pronunciation": null,
+          "gloss": "morning",
+          "playable": true
+        },
+        {
+          "surface": "მშვიდობისა",
+          "pronunciation": null,
+          "gloss": "peace (greeting)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Good morning!",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-006",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "Good evening!",
+      "embeddingText": "Good evening!",
+      "englishAlternates": [],
+      "targetText": "საღამო მშვიდობისა!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "საღამო",
+          "pronunciation": null,
+          "gloss": "evening",
+          "playable": true
+        },
+        {
+          "surface": "მშვიდობისა",
+          "pronunciation": null,
+          "gloss": "peace (greeting)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Good evening!",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-007",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "englishText": "I am here.",
+      "embeddingText": "I am here.",
+      "englishAlternates": [],
+      "targetText": "მე აქ ვარ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "მე",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "აქ",
+          "pronunciation": null,
+          "gloss": "here",
+          "playable": true
+        },
+        {
+          "surface": "ვარ",
+          "pronunciation": null,
+          "gloss": "am",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I am here.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-008",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "englishText": "You are here.",
+      "embeddingText": "You are here.",
+      "englishAlternates": [],
+      "targetText": "შენ აქ ხარ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "შენ",
+          "pronunciation": null,
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "აქ",
+          "pronunciation": null,
+          "gloss": "here",
+          "playable": true
+        },
+        {
+          "surface": "ხარ",
+          "pronunciation": null,
+          "gloss": "are",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "You are here.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-009",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "englishText": "I am at home.",
+      "embeddingText": "I am at home.",
+      "englishAlternates": [],
+      "targetText": "მე სახლში ვარ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "მე",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "სახლში",
+          "pronunciation": null,
+          "gloss": "at home",
+          "playable": true
+        },
+        {
+          "surface": "ვარ",
+          "pronunciation": null,
+          "gloss": "am",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I am at home.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-010",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "englishText": "You are at home.",
+      "embeddingText": "You are at home.",
+      "englishAlternates": [],
+      "targetText": "შენ სახლში ხარ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "შენ",
+          "pronunciation": null,
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "სახლში",
+          "pronunciation": null,
+          "gloss": "at home",
+          "playable": true
+        },
+        {
+          "surface": "ხარ",
+          "pronunciation": null,
+          "gloss": "are",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "You are at home.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-011",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "englishText": "I am fine.",
+      "embeddingText": "I am fine.",
+      "englishAlternates": [],
+      "targetText": "მე კარგად ვარ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "მე",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "კარგად",
+          "pronunciation": null,
+          "gloss": "well",
+          "playable": true
+        },
+        {
+          "surface": "ვარ",
+          "pronunciation": null,
+          "gloss": "am",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I am fine.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-012",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "This is water.",
+      "embeddingText": "This is water.",
+      "englishAlternates": [],
+      "targetText": "ეს წყალია.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ეს",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "წყალია",
+          "pronunciation": null,
+          "gloss": "is water",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is water.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-013",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "This is bread.",
+      "embeddingText": "This is bread.",
+      "englishAlternates": [],
+      "targetText": "ეს პურია.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ეს",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "პურია",
+          "pronunciation": null,
+          "gloss": "is bread",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is bread.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-014",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "This is milk.",
+      "embeddingText": "This is milk.",
+      "englishAlternates": [],
+      "targetText": "ეს რძეა.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ეს",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "რძეა",
+          "pronunciation": null,
+          "gloss": "is milk",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is milk.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-015",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "This is tea.",
+      "embeddingText": "This is tea.",
+      "englishAlternates": [],
+      "targetText": "ეს ჩაია.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ეს",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "ჩაია",
+          "pronunciation": null,
+          "gloss": "is tea",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is tea.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-016",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "This is a book.",
+      "embeddingText": "This is a book.",
+      "englishAlternates": [],
+      "targetText": "ეს წიგნია.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ეს",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "წიგნია",
+          "pronunciation": null,
+          "gloss": "is a book",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is a book.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-017",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "This is a house.",
+      "embeddingText": "This is a house.",
+      "englishAlternates": [],
+      "targetText": "ეს სახლია.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ეს",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "სახლია",
+          "pronunciation": null,
+          "gloss": "is a house",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is a house.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-018",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "This is a cat.",
+      "embeddingText": "This is a cat.",
+      "englishAlternates": [],
+      "targetText": "ეს კატაა.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ეს",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "კატაა",
+          "pronunciation": null,
+          "gloss": "is a cat",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is a cat.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-019",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "This is a dog.",
+      "embeddingText": "This is a dog.",
+      "englishAlternates": [],
+      "targetText": "ეს ძაღლია.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ეს",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "ძაღლია",
+          "pronunciation": null,
+          "gloss": "is a dog",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is a dog.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-020",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "This is an apple.",
+      "embeddingText": "This is an apple.",
+      "englishAlternates": [],
+      "targetText": "ეს ვაშლია.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ეს",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "ვაშლია",
+          "pronunciation": null,
+          "gloss": "is an apple",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is an apple.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-021",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "A red car.",
+      "embeddingText": "A red car.",
+      "englishAlternates": [],
+      "targetText": "წითელი მანქანა.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "წითელი",
+          "pronunciation": null,
+          "gloss": "red",
+          "playable": true
+        },
+        {
+          "surface": "მანქანა",
+          "pronunciation": null,
+          "gloss": "car",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A red car.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-022",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "A green book.",
+      "embeddingText": "A green book.",
+      "englishAlternates": [],
+      "targetText": "მწვანე წიგნი.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "მწვანე",
+          "pronunciation": null,
+          "gloss": "green",
+          "playable": true
+        },
+        {
+          "surface": "წიგნი",
+          "pronunciation": null,
+          "gloss": "book",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A green book.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-023",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "A big dog.",
+      "embeddingText": "A big dog.",
+      "englishAlternates": [],
+      "targetText": "დიდი ძაღლი.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "დიდი",
+          "pronunciation": null,
+          "gloss": "big",
+          "playable": true
+        },
+        {
+          "surface": "ძაღლი",
+          "pronunciation": null,
+          "gloss": "dog",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A big dog.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-024",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "A small cat.",
+      "embeddingText": "A small cat.",
+      "englishAlternates": [],
+      "targetText": "პატარა კატა.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "პატარა",
+          "pronunciation": null,
+          "gloss": "small",
+          "playable": true
+        },
+        {
+          "surface": "კატა",
+          "pronunciation": null,
+          "gloss": "cat",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A small cat.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-025",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "A new book.",
+      "embeddingText": "A new book.",
+      "englishAlternates": [],
+      "targetText": "ახალი წიგნი.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ახალი",
+          "pronunciation": null,
+          "gloss": "new",
+          "playable": true
+        },
+        {
+          "surface": "წიგნი",
+          "pronunciation": null,
+          "gloss": "book",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A new book.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-026",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "Cold water.",
+      "embeddingText": "Cold water.",
+      "englishAlternates": [],
+      "targetText": "ცივი წყალი.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ცივი",
+          "pronunciation": null,
+          "gloss": "cold",
+          "playable": true
+        },
+        {
+          "surface": "წყალი",
+          "pronunciation": null,
+          "gloss": "water",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Cold water.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-027",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "Hot milk.",
+      "embeddingText": "Hot milk.",
+      "englishAlternates": [],
+      "targetText": "ცხელი რძე.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ცხელი",
+          "pronunciation": null,
+          "gloss": "hot",
+          "playable": true
+        },
+        {
+          "surface": "რძე",
+          "pronunciation": null,
+          "gloss": "milk",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Hot milk.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-028",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "Hot tea.",
+      "embeddingText": "Hot tea.",
+      "englishAlternates": [],
+      "targetText": "ცხელი ჩაი.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ცხელი",
+          "pronunciation": null,
+          "gloss": "hot",
+          "playable": true
+        },
+        {
+          "surface": "ჩაი",
+          "pronunciation": null,
+          "gloss": "tea",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Hot tea.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-029",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "Two cats.",
+      "embeddingText": "Two cats.",
+      "englishAlternates": [],
+      "targetText": "ორი კატა.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ორი",
+          "pronunciation": null,
+          "gloss": "two",
+          "playable": true
+        },
+        {
+          "surface": "კატა",
+          "pronunciation": null,
+          "gloss": "cat (after a number)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Two cats.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-030",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "Three books.",
+      "embeddingText": "Three books.",
+      "englishAlternates": [],
+      "targetText": "სამი წიგნი.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "სამი",
+          "pronunciation": null,
+          "gloss": "three",
+          "playable": true
+        },
+        {
+          "surface": "წიგნი",
+          "pronunciation": null,
+          "gloss": "book (after a number)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Three books.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-031",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "I eat.",
+      "embeddingText": "I eat.",
+      "englishAlternates": [],
+      "targetText": "მე ვჭამ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "მე",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "ვჭამ",
+          "pronunciation": null,
+          "gloss": "eat",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I eat.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-032",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "You eat.",
+      "embeddingText": "You eat.",
+      "englishAlternates": [],
+      "targetText": "შენ ჭამ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "შენ",
+          "pronunciation": null,
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "ჭამ",
+          "pronunciation": null,
+          "gloss": "eat",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "You eat.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-033",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "I drink.",
+      "embeddingText": "I drink.",
+      "englishAlternates": [],
+      "targetText": "მე ვსვამ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "მე",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "ვსვამ",
+          "pronunciation": null,
+          "gloss": "drink",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I drink.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-034",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "You drink.",
+      "embeddingText": "You drink.",
+      "englishAlternates": [],
+      "targetText": "შენ სვამ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "შენ",
+          "pronunciation": null,
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "სვამ",
+          "pronunciation": null,
+          "gloss": "drink",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "You drink.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-035",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "englishText": "I drink water.",
+      "embeddingText": "I drink water.",
+      "englishAlternates": [],
+      "targetText": "მე წყალს ვსვამ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "მე",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "წყალს",
+          "pronunciation": null,
+          "gloss": "water (object)",
+          "playable": true
+        },
+        {
+          "surface": "ვსვამ",
+          "pronunciation": null,
+          "gloss": "drink",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I drink water.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-036",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "englishText": "You drink milk.",
+      "embeddingText": "You drink milk.",
+      "englishAlternates": [],
+      "targetText": "შენ რძეს სვამ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "შენ",
+          "pronunciation": null,
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "რძეს",
+          "pronunciation": null,
+          "gloss": "milk (object)",
+          "playable": true
+        },
+        {
+          "surface": "სვამ",
+          "pronunciation": null,
+          "gloss": "drink",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "You drink milk.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-037",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "I read.",
+      "embeddingText": "I read.",
+      "englishAlternates": [],
+      "targetText": "მე ვკითხულობ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "მე",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "ვკითხულობ",
+          "pronunciation": null,
+          "gloss": "read",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I read.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-038",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "You read.",
+      "embeddingText": "You read.",
+      "englishAlternates": [],
+      "targetText": "შენ კითხულობ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "შენ",
+          "pronunciation": null,
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "კითხულობ",
+          "pronunciation": null,
+          "gloss": "read",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "You read.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-039",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "I sleep.",
+      "embeddingText": "I sleep.",
+      "englishAlternates": [],
+      "targetText": "მე მძინავს.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "მე",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "მძინავს",
+          "pronunciation": null,
+          "gloss": "am sleeping",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I sleep.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-040",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "The water is cold.",
+      "embeddingText": "The water is cold.",
+      "englishAlternates": [],
+      "targetText": "წყალი ცივია.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "წყალი",
+          "pronunciation": null,
+          "gloss": "water",
+          "playable": true
+        },
+        {
+          "surface": "ცივია",
+          "pronunciation": null,
+          "gloss": "is cold",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "The water is cold.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-041",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "The cat is small.",
+      "embeddingText": "The cat is small.",
+      "englishAlternates": [],
+      "targetText": "კატა პატარაა.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "კატა",
+          "pronunciation": null,
+          "gloss": "cat",
+          "playable": true
+        },
+        {
+          "surface": "პატარაა",
+          "pronunciation": null,
+          "gloss": "is small",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "The cat is small.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ka-ww-phrase-042",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "The dog is big.",
+      "embeddingText": "The dog is big.",
+      "englishAlternates": [],
+      "targetText": "ძაღლი დიდია.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ძაღლი",
+          "pronunciation": null,
+          "gloss": "dog",
+          "playable": true
+        },
+        {
+          "surface": "დიდია",
+          "pronunciation": null,
+          "gloss": "is big",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "The dog is big.",
+      "sceneAssetIds": [],
+      "annotations": {}
     }
   ]
 }

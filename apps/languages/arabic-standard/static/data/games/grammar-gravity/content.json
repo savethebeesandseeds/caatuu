@@ -15213,6 +15213,1378 @@
       },
       "usefulness": 90,
       "complexity": 34
+    },
+    {
+      "id": "zero-ar-grammar-01",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective",
+        "label": "big: singular",
+        "targetText": "كَبِيرٌ",
+        "resultTitle": "big: singular",
+        "summary": "Match a familiar short example to its form. Start with one example and its meaning, then compare the two forms."
+      },
+      "axes": [
+        {
+          "id": "masculine-singular",
+          "label": "masculine singular nonhuman",
+          "features": {
+            "gender": "masculine",
+            "number": "singular",
+            "humanness": "nonhuman"
+          }
+        },
+        {
+          "id": "feminine-singular",
+          "label": "feminine singular nonhuman",
+          "features": {
+            "gender": "feminine",
+            "number": "singular",
+            "humanness": "nonhuman"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "form"
+        ],
+        "categoryFeature": "gender",
+        "categoryOptions": [
+          {
+            "id": "masculine",
+            "label": "Masculine"
+          },
+          {
+            "id": "feminine",
+            "label": "Feminine"
+          }
+        ]
+      },
+      "forms": {
+        "masculine-singular": {
+          "displayForm": "كَبِيرٌ",
+          "examples": [
+            {
+              "id": "zero-ar-grammar-01-masculine-singular-1",
+              "revision": 1,
+              "learnerBaseText": "a big house",
+              "englishAuditText": "a big house",
+              "targetText": "بَيْتٌ كَبِيرٌ",
+              "slot": {
+                "beforeText": "بَيْتٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "بَيْتٌ",
+                "learnerBaseText": "house",
+                "englishAuditText": "house"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ar-grammar-01-masculine-singular-2",
+              "revision": 1,
+              "learnerBaseText": "a big book",
+              "englishAuditText": "a big book",
+              "targetText": "كِتَابٌ كَبِيرٌ",
+              "slot": {
+                "beforeText": "كِتَابٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "كِتَابٌ",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ar-grammar-01-masculine-singular-3",
+              "revision": 1,
+              "learnerBaseText": "a big door",
+              "englishAuditText": "a big door",
+              "targetText": "بَابٌ كَبِيرٌ",
+              "slot": {
+                "beforeText": "بَابٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "بَابٌ",
+                "learnerBaseText": "door",
+                "englishAuditText": "door"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ],
+          "usefulness": 98,
+          "complexity": 8
+        },
+        "feminine-singular": {
+          "displayForm": "كَبِيرَةٌ",
+          "examples": [
+            {
+              "id": "zero-ar-grammar-01-feminine-singular-1",
+              "revision": 1,
+              "learnerBaseText": "a big car",
+              "englishAuditText": "a big car",
+              "targetText": "سَيَّارَةٌ كَبِيرَةٌ",
+              "slot": {
+                "beforeText": "سَيَّارَةٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "سَيَّارَةٌ",
+                "learnerBaseText": "car",
+                "englishAuditText": "car"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ar-grammar-01-feminine-singular-2",
+              "revision": 1,
+              "learnerBaseText": "a big cat",
+              "englishAuditText": "a big cat",
+              "targetText": "قِطَّةٌ كَبِيرَةٌ",
+              "slot": {
+                "beforeText": "قِطَّةٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "قِطَّةٌ",
+                "learnerBaseText": "cat",
+                "englishAuditText": "cat"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ar-grammar-01-feminine-singular-3",
+              "revision": 1,
+              "learnerBaseText": "a big apple",
+              "englishAuditText": "a big apple",
+              "targetText": "تُفَّاحَةٌ كَبِيرَةٌ",
+              "slot": {
+                "beforeText": "تُفَّاحَةٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "تُفَّاحَةٌ",
+                "learnerBaseText": "apple",
+                "englishAuditText": "apple"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ],
+          "usefulness": 98,
+          "complexity": 8
+        }
+      },
+      "usefulness": 98,
+      "complexity": 8
+    },
+    {
+      "id": "zero-ar-grammar-02",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective",
+        "label": "small: singular",
+        "targetText": "صَغِيرٌ",
+        "resultTitle": "small: singular",
+        "summary": "Match a familiar short example to its form. Start with one example and its meaning, then compare the two forms."
+      },
+      "axes": [
+        {
+          "id": "masculine-singular",
+          "label": "masculine singular nonhuman",
+          "features": {
+            "gender": "masculine",
+            "number": "singular",
+            "humanness": "nonhuman"
+          }
+        },
+        {
+          "id": "feminine-singular",
+          "label": "feminine singular nonhuman",
+          "features": {
+            "gender": "feminine",
+            "number": "singular",
+            "humanness": "nonhuman"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "form"
+        ],
+        "categoryFeature": "gender",
+        "categoryOptions": [
+          {
+            "id": "masculine",
+            "label": "Masculine"
+          },
+          {
+            "id": "feminine",
+            "label": "Feminine"
+          }
+        ]
+      },
+      "forms": {
+        "masculine-singular": {
+          "displayForm": "صَغِيرٌ",
+          "examples": [
+            {
+              "id": "zero-ar-grammar-02-masculine-singular-1",
+              "revision": 1,
+              "learnerBaseText": "a small house",
+              "englishAuditText": "a small house",
+              "targetText": "بَيْتٌ صَغِيرٌ",
+              "slot": {
+                "beforeText": "بَيْتٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "بَيْتٌ",
+                "learnerBaseText": "house",
+                "englishAuditText": "house"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ar-grammar-02-masculine-singular-2",
+              "revision": 1,
+              "learnerBaseText": "a small book",
+              "englishAuditText": "a small book",
+              "targetText": "كِتَابٌ صَغِيرٌ",
+              "slot": {
+                "beforeText": "كِتَابٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "كِتَابٌ",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ar-grammar-02-masculine-singular-3",
+              "revision": 1,
+              "learnerBaseText": "a small door",
+              "englishAuditText": "a small door",
+              "targetText": "بَابٌ صَغِيرٌ",
+              "slot": {
+                "beforeText": "بَابٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "بَابٌ",
+                "learnerBaseText": "door",
+                "englishAuditText": "door"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ],
+          "usefulness": 98,
+          "complexity": 8
+        },
+        "feminine-singular": {
+          "displayForm": "صَغِيرَةٌ",
+          "examples": [
+            {
+              "id": "zero-ar-grammar-02-feminine-singular-1",
+              "revision": 1,
+              "learnerBaseText": "a small car",
+              "englishAuditText": "a small car",
+              "targetText": "سَيَّارَةٌ صَغِيرَةٌ",
+              "slot": {
+                "beforeText": "سَيَّارَةٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "سَيَّارَةٌ",
+                "learnerBaseText": "car",
+                "englishAuditText": "car"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ar-grammar-02-feminine-singular-2",
+              "revision": 1,
+              "learnerBaseText": "a small cat",
+              "englishAuditText": "a small cat",
+              "targetText": "قِطَّةٌ صَغِيرَةٌ",
+              "slot": {
+                "beforeText": "قِطَّةٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "قِطَّةٌ",
+                "learnerBaseText": "cat",
+                "englishAuditText": "cat"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ar-grammar-02-feminine-singular-3",
+              "revision": 1,
+              "learnerBaseText": "a small apple",
+              "englishAuditText": "a small apple",
+              "targetText": "تُفَّاحَةٌ صَغِيرَةٌ",
+              "slot": {
+                "beforeText": "تُفَّاحَةٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "تُفَّاحَةٌ",
+                "learnerBaseText": "apple",
+                "englishAuditText": "apple"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ],
+          "usefulness": 98,
+          "complexity": 8
+        }
+      },
+      "usefulness": 98,
+      "complexity": 8
+    },
+    {
+      "id": "zero-ar-grammar-03",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective",
+        "label": "new: singular",
+        "targetText": "جَدِيدٌ",
+        "resultTitle": "new: singular",
+        "summary": "Match a familiar short example to its form. Start with one example and its meaning, then compare the two forms."
+      },
+      "axes": [
+        {
+          "id": "masculine-singular",
+          "label": "masculine singular nonhuman",
+          "features": {
+            "gender": "masculine",
+            "number": "singular",
+            "humanness": "nonhuman"
+          }
+        },
+        {
+          "id": "feminine-singular",
+          "label": "feminine singular nonhuman",
+          "features": {
+            "gender": "feminine",
+            "number": "singular",
+            "humanness": "nonhuman"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "form"
+        ],
+        "categoryFeature": "gender",
+        "categoryOptions": [
+          {
+            "id": "masculine",
+            "label": "Masculine"
+          },
+          {
+            "id": "feminine",
+            "label": "Feminine"
+          }
+        ]
+      },
+      "forms": {
+        "masculine-singular": {
+          "displayForm": "جَدِيدٌ",
+          "examples": [
+            {
+              "id": "zero-ar-grammar-03-masculine-singular-1",
+              "revision": 1,
+              "learnerBaseText": "a new house",
+              "englishAuditText": "a new house",
+              "targetText": "بَيْتٌ جَدِيدٌ",
+              "slot": {
+                "beforeText": "بَيْتٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "بَيْتٌ",
+                "learnerBaseText": "house",
+                "englishAuditText": "house"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ar-grammar-03-masculine-singular-2",
+              "revision": 1,
+              "learnerBaseText": "a new book",
+              "englishAuditText": "a new book",
+              "targetText": "كِتَابٌ جَدِيدٌ",
+              "slot": {
+                "beforeText": "كِتَابٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "كِتَابٌ",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ar-grammar-03-masculine-singular-3",
+              "revision": 1,
+              "learnerBaseText": "a new door",
+              "englishAuditText": "a new door",
+              "targetText": "بَابٌ جَدِيدٌ",
+              "slot": {
+                "beforeText": "بَابٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "بَابٌ",
+                "learnerBaseText": "door",
+                "englishAuditText": "door"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ],
+          "usefulness": 98,
+          "complexity": 8
+        },
+        "feminine-singular": {
+          "displayForm": "جَدِيدَةٌ",
+          "examples": [
+            {
+              "id": "zero-ar-grammar-03-feminine-singular-1",
+              "revision": 1,
+              "learnerBaseText": "a new car",
+              "englishAuditText": "a new car",
+              "targetText": "سَيَّارَةٌ جَدِيدَةٌ",
+              "slot": {
+                "beforeText": "سَيَّارَةٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "سَيَّارَةٌ",
+                "learnerBaseText": "car",
+                "englishAuditText": "car"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ar-grammar-03-feminine-singular-2",
+              "revision": 1,
+              "learnerBaseText": "a new cat",
+              "englishAuditText": "a new cat",
+              "targetText": "قِطَّةٌ جَدِيدَةٌ",
+              "slot": {
+                "beforeText": "قِطَّةٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "قِطَّةٌ",
+                "learnerBaseText": "cat",
+                "englishAuditText": "cat"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ar-grammar-03-feminine-singular-3",
+              "revision": 1,
+              "learnerBaseText": "a new apple",
+              "englishAuditText": "a new apple",
+              "targetText": "تُفَّاحَةٌ جَدِيدَةٌ",
+              "slot": {
+                "beforeText": "تُفَّاحَةٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "تُفَّاحَةٌ",
+                "learnerBaseText": "apple",
+                "englishAuditText": "apple"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ],
+          "usefulness": 98,
+          "complexity": 8
+        }
+      },
+      "usefulness": 98,
+      "complexity": 8
+    },
+    {
+      "id": "zero-ar-grammar-04",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective",
+        "label": "old: singular",
+        "targetText": "قَدِيمٌ",
+        "resultTitle": "old: singular",
+        "summary": "Match a familiar short example to its form. Start with one example and its meaning, then compare the two forms."
+      },
+      "axes": [
+        {
+          "id": "masculine-singular",
+          "label": "masculine singular nonhuman",
+          "features": {
+            "gender": "masculine",
+            "number": "singular",
+            "humanness": "nonhuman"
+          }
+        },
+        {
+          "id": "feminine-singular",
+          "label": "feminine singular nonhuman",
+          "features": {
+            "gender": "feminine",
+            "number": "singular",
+            "humanness": "nonhuman"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "form"
+        ],
+        "categoryFeature": "gender",
+        "categoryOptions": [
+          {
+            "id": "masculine",
+            "label": "Masculine"
+          },
+          {
+            "id": "feminine",
+            "label": "Feminine"
+          }
+        ]
+      },
+      "forms": {
+        "masculine-singular": {
+          "displayForm": "قَدِيمٌ",
+          "examples": [
+            {
+              "id": "zero-ar-grammar-04-masculine-singular-1",
+              "revision": 1,
+              "learnerBaseText": "an old house",
+              "englishAuditText": "an old house",
+              "targetText": "بَيْتٌ قَدِيمٌ",
+              "slot": {
+                "beforeText": "بَيْتٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "بَيْتٌ",
+                "learnerBaseText": "house",
+                "englishAuditText": "house"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ar-grammar-04-masculine-singular-2",
+              "revision": 1,
+              "learnerBaseText": "an old book",
+              "englishAuditText": "an old book",
+              "targetText": "كِتَابٌ قَدِيمٌ",
+              "slot": {
+                "beforeText": "كِتَابٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "كِتَابٌ",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ar-grammar-04-masculine-singular-3",
+              "revision": 1,
+              "learnerBaseText": "an old door",
+              "englishAuditText": "an old door",
+              "targetText": "بَابٌ قَدِيمٌ",
+              "slot": {
+                "beforeText": "بَابٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "بَابٌ",
+                "learnerBaseText": "door",
+                "englishAuditText": "door"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ],
+          "usefulness": 98,
+          "complexity": 8
+        },
+        "feminine-singular": {
+          "displayForm": "قَدِيمَةٌ",
+          "examples": [
+            {
+              "id": "zero-ar-grammar-04-feminine-singular-1",
+              "revision": 1,
+              "learnerBaseText": "an old car",
+              "englishAuditText": "an old car",
+              "targetText": "سَيَّارَةٌ قَدِيمَةٌ",
+              "slot": {
+                "beforeText": "سَيَّارَةٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "سَيَّارَةٌ",
+                "learnerBaseText": "car",
+                "englishAuditText": "car"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ar-grammar-04-feminine-singular-2",
+              "revision": 1,
+              "learnerBaseText": "an old cat",
+              "englishAuditText": "an old cat",
+              "targetText": "قِطَّةٌ قَدِيمَةٌ",
+              "slot": {
+                "beforeText": "قِطَّةٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "قِطَّةٌ",
+                "learnerBaseText": "cat",
+                "englishAuditText": "cat"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ar-grammar-04-feminine-singular-3",
+              "revision": 1,
+              "learnerBaseText": "an old apple",
+              "englishAuditText": "an old apple",
+              "targetText": "تُفَّاحَةٌ قَدِيمَةٌ",
+              "slot": {
+                "beforeText": "تُفَّاحَةٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "تُفَّاحَةٌ",
+                "learnerBaseText": "apple",
+                "englishAuditText": "apple"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ],
+          "usefulness": 98,
+          "complexity": 8
+        }
+      },
+      "usefulness": 98,
+      "complexity": 8
+    },
+    {
+      "id": "zero-ar-grammar-e2-beautiful",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective",
+        "label": "Beautiful things",
+        "targetText": "جَمِيلٌ",
+        "resultTitle": "Beautiful things",
+        "summary": "Start with the short noun and quality. A familiar feminine noun uses the quality ending ـةٌ. Only these two singular forms are compared."
+      },
+      "axes": [
+        {
+          "id": "masculine-singular",
+          "label": "masculine singular nonhuman",
+          "features": {
+            "gender": "masculine",
+            "number": "singular",
+            "humanness": "nonhuman"
+          }
+        },
+        {
+          "id": "feminine-singular",
+          "label": "feminine singular nonhuman",
+          "features": {
+            "gender": "feminine",
+            "number": "singular",
+            "humanness": "nonhuman"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "form"
+        ],
+        "categoryFeature": "gender",
+        "categoryOptions": [
+          {
+            "id": "masculine",
+            "label": "Masculine"
+          },
+          {
+            "id": "feminine",
+            "label": "Feminine"
+          }
+        ]
+      },
+      "forms": {
+        "masculine-singular": {
+          "displayForm": "جَمِيلٌ",
+          "usefulness": 96,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-ar-grammar-e2-beautiful-masculine-singular-1",
+              "revision": 1,
+              "learnerBaseText": "beautiful house",
+              "englishAuditText": "beautiful house",
+              "targetText": "بَيْتٌ جَمِيلٌ",
+              "slot": {
+                "beforeText": "بَيْتٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "بَيْتٌ",
+                "learnerBaseText": "house",
+                "englishAuditText": "house"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ar-grammar-e2-beautiful-masculine-singular-2",
+              "revision": 1,
+              "learnerBaseText": "beautiful book",
+              "englishAuditText": "beautiful book",
+              "targetText": "كِتَابٌ جَمِيلٌ",
+              "slot": {
+                "beforeText": "كِتَابٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "كِتَابٌ",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ar-grammar-e2-beautiful-masculine-singular-3",
+              "revision": 1,
+              "learnerBaseText": "beautiful cup",
+              "englishAuditText": "beautiful cup",
+              "targetText": "كُوبٌ جَمِيلٌ",
+              "slot": {
+                "beforeText": "كُوبٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "كُوبٌ",
+                "learnerBaseText": "cup",
+                "englishAuditText": "cup"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ]
+        },
+        "feminine-singular": {
+          "displayForm": "جَمِيلَةٌ",
+          "usefulness": 96,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-ar-grammar-e2-beautiful-feminine-singular-1",
+              "revision": 1,
+              "learnerBaseText": "beautiful car",
+              "englishAuditText": "beautiful car",
+              "targetText": "سَيَّارَةٌ جَمِيلَةٌ",
+              "slot": {
+                "beforeText": "سَيَّارَةٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "سَيَّارَةٌ",
+                "learnerBaseText": "car",
+                "englishAuditText": "car"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ar-grammar-e2-beautiful-feminine-singular-2",
+              "revision": 1,
+              "learnerBaseText": "beautiful table",
+              "englishAuditText": "beautiful table",
+              "targetText": "طَاوِلَةٌ جَمِيلَةٌ",
+              "slot": {
+                "beforeText": "طَاوِلَةٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "طَاوِلَةٌ",
+                "learnerBaseText": "table",
+                "englishAuditText": "table"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ar-grammar-e2-beautiful-feminine-singular-3",
+              "revision": 1,
+              "learnerBaseText": "beautiful ball",
+              "englishAuditText": "beautiful ball",
+              "targetText": "كُرَةٌ جَمِيلَةٌ",
+              "slot": {
+                "beforeText": "كُرَةٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "كُرَةٌ",
+                "learnerBaseText": "ball",
+                "englishAuditText": "ball"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ]
+        }
+      },
+      "usefulness": 96,
+      "complexity": 8
+    },
+    {
+      "id": "zero-ar-grammar-e2-clean",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective",
+        "label": "Clean things",
+        "targetText": "نَظِيفٌ",
+        "resultTitle": "Clean things",
+        "summary": "Start with the short noun and quality. A familiar feminine noun uses the quality ending ـةٌ. Only these two singular forms are compared."
+      },
+      "axes": [
+        {
+          "id": "masculine-singular",
+          "label": "masculine singular nonhuman",
+          "features": {
+            "gender": "masculine",
+            "number": "singular",
+            "humanness": "nonhuman"
+          }
+        },
+        {
+          "id": "feminine-singular",
+          "label": "feminine singular nonhuman",
+          "features": {
+            "gender": "feminine",
+            "number": "singular",
+            "humanness": "nonhuman"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "form"
+        ],
+        "categoryFeature": "gender",
+        "categoryOptions": [
+          {
+            "id": "masculine",
+            "label": "Masculine"
+          },
+          {
+            "id": "feminine",
+            "label": "Feminine"
+          }
+        ]
+      },
+      "forms": {
+        "masculine-singular": {
+          "displayForm": "نَظِيفٌ",
+          "usefulness": 96,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-ar-grammar-e2-clean-masculine-singular-1",
+              "revision": 1,
+              "learnerBaseText": "clean house",
+              "englishAuditText": "clean house",
+              "targetText": "بَيْتٌ نَظِيفٌ",
+              "slot": {
+                "beforeText": "بَيْتٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "بَيْتٌ",
+                "learnerBaseText": "house",
+                "englishAuditText": "house"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ar-grammar-e2-clean-masculine-singular-2",
+              "revision": 1,
+              "learnerBaseText": "clean book",
+              "englishAuditText": "clean book",
+              "targetText": "كِتَابٌ نَظِيفٌ",
+              "slot": {
+                "beforeText": "كِتَابٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "كِتَابٌ",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ar-grammar-e2-clean-masculine-singular-3",
+              "revision": 1,
+              "learnerBaseText": "clean cup",
+              "englishAuditText": "clean cup",
+              "targetText": "كُوبٌ نَظِيفٌ",
+              "slot": {
+                "beforeText": "كُوبٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "كُوبٌ",
+                "learnerBaseText": "cup",
+                "englishAuditText": "cup"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ]
+        },
+        "feminine-singular": {
+          "displayForm": "نَظِيفَةٌ",
+          "usefulness": 96,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-ar-grammar-e2-clean-feminine-singular-1",
+              "revision": 1,
+              "learnerBaseText": "clean car",
+              "englishAuditText": "clean car",
+              "targetText": "سَيَّارَةٌ نَظِيفَةٌ",
+              "slot": {
+                "beforeText": "سَيَّارَةٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "سَيَّارَةٌ",
+                "learnerBaseText": "car",
+                "englishAuditText": "car"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ar-grammar-e2-clean-feminine-singular-2",
+              "revision": 1,
+              "learnerBaseText": "clean table",
+              "englishAuditText": "clean table",
+              "targetText": "طَاوِلَةٌ نَظِيفَةٌ",
+              "slot": {
+                "beforeText": "طَاوِلَةٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "طَاوِلَةٌ",
+                "learnerBaseText": "table",
+                "englishAuditText": "table"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ar-grammar-e2-clean-feminine-singular-3",
+              "revision": 1,
+              "learnerBaseText": "clean ball",
+              "englishAuditText": "clean ball",
+              "targetText": "كُرَةٌ نَظِيفَةٌ",
+              "slot": {
+                "beforeText": "كُرَةٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "كُرَةٌ",
+                "learnerBaseText": "ball",
+                "englishAuditText": "ball"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ]
+        }
+      },
+      "usefulness": 96,
+      "complexity": 8
+    },
+    {
+      "id": "zero-ar-grammar-e2-hot",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective",
+        "label": "Hot drinks and food",
+        "targetText": "سَاخِنٌ",
+        "resultTitle": "Hot drinks and food",
+        "summary": "Start with the short noun and quality. A familiar feminine noun uses the quality ending ـةٌ. Only these two singular forms are compared."
+      },
+      "axes": [
+        {
+          "id": "masculine-singular",
+          "label": "masculine singular nonhuman",
+          "features": {
+            "gender": "masculine",
+            "number": "singular",
+            "humanness": "nonhuman"
+          }
+        },
+        {
+          "id": "feminine-singular",
+          "label": "feminine singular nonhuman",
+          "features": {
+            "gender": "feminine",
+            "number": "singular",
+            "humanness": "nonhuman"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "form"
+        ],
+        "categoryFeature": "gender",
+        "categoryOptions": [
+          {
+            "id": "masculine",
+            "label": "Masculine"
+          },
+          {
+            "id": "feminine",
+            "label": "Feminine"
+          }
+        ]
+      },
+      "forms": {
+        "masculine-singular": {
+          "displayForm": "سَاخِنٌ",
+          "usefulness": 96,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-ar-grammar-e2-hot-masculine-singular-1",
+              "revision": 1,
+              "learnerBaseText": "hot water",
+              "englishAuditText": "hot water",
+              "targetText": "مَاءٌ سَاخِنٌ",
+              "slot": {
+                "beforeText": "مَاءٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "مَاءٌ",
+                "learnerBaseText": "water",
+                "englishAuditText": "water"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ar-grammar-e2-hot-masculine-singular-2",
+              "revision": 1,
+              "learnerBaseText": "hot milk",
+              "englishAuditText": "hot milk",
+              "targetText": "حَلِيبٌ سَاخِنٌ",
+              "slot": {
+                "beforeText": "حَلِيبٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "حَلِيبٌ",
+                "learnerBaseText": "milk",
+                "englishAuditText": "milk"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ar-grammar-e2-hot-masculine-singular-3",
+              "revision": 1,
+              "learnerBaseText": "hot tea",
+              "englishAuditText": "hot tea",
+              "targetText": "شَايٌ سَاخِنٌ",
+              "slot": {
+                "beforeText": "شَايٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "شَايٌ",
+                "learnerBaseText": "tea",
+                "englishAuditText": "tea"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ]
+        },
+        "feminine-singular": {
+          "displayForm": "سَاخِنَةٌ",
+          "usefulness": 96,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-ar-grammar-e2-hot-feminine-singular-1",
+              "revision": 1,
+              "learnerBaseText": "hot coffee",
+              "englishAuditText": "hot coffee",
+              "targetText": "قَهْوَةٌ سَاخِنَةٌ",
+              "slot": {
+                "beforeText": "قَهْوَةٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "قَهْوَةٌ",
+                "learnerBaseText": "coffee",
+                "englishAuditText": "coffee"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ar-grammar-e2-hot-feminine-singular-2",
+              "revision": 1,
+              "learnerBaseText": "hot meal",
+              "englishAuditText": "hot meal",
+              "targetText": "وَجْبَةٌ سَاخِنَةٌ",
+              "slot": {
+                "beforeText": "وَجْبَةٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "وَجْبَةٌ",
+                "learnerBaseText": "meal",
+                "englishAuditText": "meal"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ]
+        }
+      },
+      "usefulness": 96,
+      "complexity": 8
+    },
+    {
+      "id": "zero-ar-grammar-e2-cold",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective",
+        "label": "Cold drinks and food",
+        "targetText": "بَارِدٌ",
+        "resultTitle": "Cold drinks and food",
+        "summary": "Start with the short noun and quality. A familiar feminine noun uses the quality ending ـةٌ. Only these two singular forms are compared."
+      },
+      "axes": [
+        {
+          "id": "masculine-singular",
+          "label": "masculine singular nonhuman",
+          "features": {
+            "gender": "masculine",
+            "number": "singular",
+            "humanness": "nonhuman"
+          }
+        },
+        {
+          "id": "feminine-singular",
+          "label": "feminine singular nonhuman",
+          "features": {
+            "gender": "feminine",
+            "number": "singular",
+            "humanness": "nonhuman"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "form"
+        ],
+        "categoryFeature": "gender",
+        "categoryOptions": [
+          {
+            "id": "masculine",
+            "label": "Masculine"
+          },
+          {
+            "id": "feminine",
+            "label": "Feminine"
+          }
+        ]
+      },
+      "forms": {
+        "masculine-singular": {
+          "displayForm": "بَارِدٌ",
+          "usefulness": 96,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-ar-grammar-e2-cold-masculine-singular-1",
+              "revision": 1,
+              "learnerBaseText": "cold water",
+              "englishAuditText": "cold water",
+              "targetText": "مَاءٌ بَارِدٌ",
+              "slot": {
+                "beforeText": "مَاءٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "مَاءٌ",
+                "learnerBaseText": "water",
+                "englishAuditText": "water"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ar-grammar-e2-cold-masculine-singular-2",
+              "revision": 1,
+              "learnerBaseText": "cold milk",
+              "englishAuditText": "cold milk",
+              "targetText": "حَلِيبٌ بَارِدٌ",
+              "slot": {
+                "beforeText": "حَلِيبٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "حَلِيبٌ",
+                "learnerBaseText": "milk",
+                "englishAuditText": "milk"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ar-grammar-e2-cold-masculine-singular-3",
+              "revision": 1,
+              "learnerBaseText": "cold tea",
+              "englishAuditText": "cold tea",
+              "targetText": "شَايٌ بَارِدٌ",
+              "slot": {
+                "beforeText": "شَايٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "شَايٌ",
+                "learnerBaseText": "tea",
+                "englishAuditText": "tea"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ]
+        },
+        "feminine-singular": {
+          "displayForm": "بَارِدَةٌ",
+          "usefulness": 96,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-ar-grammar-e2-cold-feminine-singular-1",
+              "revision": 1,
+              "learnerBaseText": "cold coffee",
+              "englishAuditText": "cold coffee",
+              "targetText": "قَهْوَةٌ بَارِدَةٌ",
+              "slot": {
+                "beforeText": "قَهْوَةٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "قَهْوَةٌ",
+                "learnerBaseText": "coffee",
+                "englishAuditText": "coffee"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ar-grammar-e2-cold-feminine-singular-2",
+              "revision": 1,
+              "learnerBaseText": "cold meal",
+              "englishAuditText": "cold meal",
+              "targetText": "وَجْبَةٌ بَارِدَةٌ",
+              "slot": {
+                "beforeText": "وَجْبَةٌ ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "وَجْبَةٌ",
+                "learnerBaseText": "meal",
+                "englishAuditText": "meal"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ]
+        }
+      },
+      "usefulness": 96,
+      "complexity": 8
     }
   ],
   "gameplay": {

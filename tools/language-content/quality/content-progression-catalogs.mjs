@@ -104,7 +104,7 @@ export function validateProgressionCatalog(game, document, label = game) {
       assert.ok(Number.isInteger(item[key]) && item[key] >= 1 && item[key] <= 100,
         `${label} ${location} ${key} must be an integer from 1 to 100`);
     }
-    if (Object.hasOwn(item, 'difficulty')) assert.ok([1, 2, 3].includes(item.difficulty), `${label} ${location}: invalid badge`);
+    if (Object.hasOwn(item, 'difficulty')) assert.ok([0, 1, 2, 3].includes(item.difficulty), `${label} ${location}: invalid badge`);
   }
   return rows;
 }

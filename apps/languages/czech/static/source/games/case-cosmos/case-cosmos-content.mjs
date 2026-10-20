@@ -107,7 +107,7 @@ function validateLegacyPack(value) {
     const nounKey = entry.noun.toLocaleLowerCase("cs-CZ");
     if (nouns.has(nounKey)) throw new Error(`The noun bank repeats ${entry.noun}.`);
     nouns.add(nounKey);
-    if (!Number.isInteger(entry.difficulty) || entry.difficulty < 1 || entry.difficulty > 3) throw new Error(`${entry.noun} needs difficulty 1, 2, or 3.`);
+    if (!Number.isInteger(entry.difficulty) || entry.difficulty < 0 || entry.difficulty > 3) throw new Error(`${entry.noun} needs difficulty 0, 1, 2, or 3.`);
     difficulties.add(entry.difficulty);
     exactKeys(entry.cases, CZECH_CASES.map(({ case: name }) => name), entry.noun);
     const cases = Object.fromEntries(CZECH_CASES.map(({ case: name }) => {
@@ -124,7 +124,7 @@ function validateLegacyPack(value) {
     if (new Set(Object.values(cases).map(({ form }) => form)).size < 2) throw new Error(`${entry.noun} needs a genuine contrast form.`);
     return Object.freeze({ noun: entry.noun, difficulty: entry.difficulty, ...normalizeContentProgression(entry), cases: Object.freeze(cases) });
   });
-  if (difficulties.size !== 3) throw new Error("The noun bank must support all three difficulty levels.");
+  if (![1, 2, 3].every(level => difficulties.has(level))) throw new Error("The noun bank must support all three difficulty levels.");
   return Object.freeze(result);
 }
 
@@ -178,7 +178,7 @@ export function validatePack(value) {
 }
 
 export function buildRounds(pack, difficulty) {
-  if (!Number.isInteger(difficulty) || difficulty < 1 || difficulty > 3) throw new Error("Invalid Case Cosmos difficulty.");
+  if (!Number.isInteger(difficulty) || difficulty < 0 || difficulty > 3) throw new Error("Invalid Case Cosmos difficulty.");
   const checked = validatePack(pack);
   if (!Array.isArray(checked)) {
     const paradigms = new Map(checked.paradigms.map((paradigm) => [paradigm.id, paradigm]));
@@ -236,7 +236,7 @@ export function buildQuestions(round, random = Math.random) {
     const accepted = new Set([item.form, ...item.acceptedForms]);
     // Accepted syncretic/alternative forms never become false answers.
     const alternatives = shuffled(round.formPool.filter((form) => !accepted.has(form)), random)
-      .slice(0, 1 + randomIndex(3, random));
+      .slice(0, round.difficulty === 0 ? 1 : 1 + randomIndex(3, random));
     const candidates = shuffled([...alternatives, item.form], random).map((form) => {
       const visible = target.start === 0 ? form[0].toLocaleUpperCase("cs-CZ") + form.slice(1) : form;
       const czech = item.czech.slice(0, target.start) + visible + item.czech.slice(target.end);
@@ -260,7 +260,7 @@ export function buildQuestions(round, random = Math.random) {
     const preferred = CASE_CONTRASTS[example.case].map((name) => round.matches.find((entry) => entry.case === name).form);
     const forms = [...new Set([...preferred, ...shuffled(round.matches, random).map((entry) => entry.form)])]
       .filter((form) => form !== example.form);
-    const alternatives = forms.slice(0, 1 + randomIndex(3, random));
+    const alternatives = forms.slice(0, round.difficulty === 0 ? 1 : 1 + randomIndex(3, random));
     const candidates = shuffled([...alternatives, example.form], random).map((form) => {
       const visible = target.start === 0 ? form[0].toLocaleUpperCase("cs-CZ") + form.slice(1) : form;
       const czech = example.czech.slice(0, target.start) + visible + example.czech.slice(target.end);

@@ -3,7 +3,7 @@
   "courseId": "es-en",
   "gameId": "memory-moon",
   "contentId": "es-en.memory-moon.v1",
-  "contentRevision": 1,
+  "contentRevision": 2,
   "status": "machine-assisted-preview",
   "learnerBaseLanguage": "es-ES",
   "targetLanguage": "en-US",
@@ -4224,6 +4224,1941 @@
           "contrast": {
             "kind": "object",
             "explanation": "A signature replaces a stamp as the item checked."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-this-cat",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7,
+      "topic": "first-objects",
+      "familyId": "mm-es-en-zero-first-objects",
+      "targetText": "This is a cat.",
+      "learnerBaseText": "Esto es un gato.",
+      "englishText": "This is a cat.",
+      "embeddingText": "This is a cat.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "cat"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Esto es un gato.",
+          "englishAuditText": "This is a cat."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Esto es un perro.",
+          "englishAuditText": "This is a dog.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Esto es pan.",
+          "englishAuditText": "This is bread.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-this-dog",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7,
+      "topic": "first-objects",
+      "familyId": "mm-es-en-zero-first-objects",
+      "targetText": "This is a dog.",
+      "learnerBaseText": "Esto es un perro.",
+      "englishText": "This is a dog.",
+      "embeddingText": "This is a dog.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "dog"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Esto es un perro.",
+          "englishAuditText": "This is a dog."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Esto es agua.",
+          "englishAuditText": "This is water.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Esto es leche.",
+          "englishAuditText": "This is milk.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-this-water",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7,
+      "topic": "first-objects",
+      "familyId": "mm-es-en-zero-first-objects",
+      "targetText": "This is water.",
+      "learnerBaseText": "Esto es agua.",
+      "englishText": "This is water.",
+      "embeddingText": "This is water.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "water"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Esto es agua.",
+          "englishAuditText": "This is water."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Esto es pan.",
+          "englishAuditText": "This is bread.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Esto es una manzana.",
+          "englishAuditText": "This is an apple.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-this-bread",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7,
+      "topic": "first-objects",
+      "familyId": "mm-es-en-zero-first-objects",
+      "targetText": "This is bread.",
+      "learnerBaseText": "Esto es pan.",
+      "englishText": "This is bread.",
+      "embeddingText": "This is bread.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "bread"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Esto es pan.",
+          "englishAuditText": "This is bread."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Esto es leche.",
+          "englishAuditText": "This is milk.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Esto es arroz.",
+          "englishAuditText": "This is rice.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-this-milk",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7,
+      "topic": "first-objects",
+      "familyId": "mm-es-en-zero-first-objects",
+      "targetText": "This is milk.",
+      "learnerBaseText": "Esto es leche.",
+      "englishText": "This is milk.",
+      "embeddingText": "This is milk.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "milk"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Esto es leche.",
+          "englishAuditText": "This is milk."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Esto es una manzana.",
+          "englishAuditText": "This is an apple.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Esto es té.",
+          "englishAuditText": "This is tea.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-this-apple",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7,
+      "topic": "first-objects",
+      "familyId": "mm-es-en-zero-first-objects",
+      "targetText": "This is an apple.",
+      "learnerBaseText": "Esto es una manzana.",
+      "englishText": "This is an apple.",
+      "embeddingText": "This is an apple.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "apple"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Esto es una manzana.",
+          "englishAuditText": "This is an apple."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Esto es arroz.",
+          "englishAuditText": "This is rice.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Esto es un libro.",
+          "englishAuditText": "This is a book.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-this-rice",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7,
+      "topic": "first-objects",
+      "familyId": "mm-es-en-zero-first-objects",
+      "targetText": "This is rice.",
+      "learnerBaseText": "Esto es arroz.",
+      "englishText": "This is rice.",
+      "embeddingText": "This is rice.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "rice"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Esto es arroz.",
+          "englishAuditText": "This is rice."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Esto es té.",
+          "englishAuditText": "This is tea.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Esto es un bolígrafo.",
+          "englishAuditText": "This is a pen.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-this-tea",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7,
+      "topic": "first-objects",
+      "familyId": "mm-es-en-zero-first-objects",
+      "targetText": "This is tea.",
+      "learnerBaseText": "Esto es té.",
+      "englishText": "This is tea.",
+      "embeddingText": "This is tea.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "tea"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Esto es té.",
+          "englishAuditText": "This is tea."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Esto es un libro.",
+          "englishAuditText": "This is a book.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Esto es una casa.",
+          "englishAuditText": "This is a house.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-this-book",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7,
+      "topic": "first-objects",
+      "familyId": "mm-es-en-zero-first-objects",
+      "targetText": "This is a book.",
+      "learnerBaseText": "Esto es un libro.",
+      "englishText": "This is a book.",
+      "embeddingText": "This is a book.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "book"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Esto es un libro.",
+          "englishAuditText": "This is a book."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Esto es un bolígrafo.",
+          "englishAuditText": "This is a pen.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Esto es una puerta.",
+          "englishAuditText": "This is a door.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-this-pen",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7,
+      "topic": "first-objects",
+      "familyId": "mm-es-en-zero-first-objects",
+      "targetText": "This is a pen.",
+      "learnerBaseText": "Esto es un bolígrafo.",
+      "englishText": "This is a pen.",
+      "embeddingText": "This is a pen.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "pen"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Esto es un bolígrafo.",
+          "englishAuditText": "This is a pen."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Esto es una casa.",
+          "englishAuditText": "This is a house.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Esto es una mesa.",
+          "englishAuditText": "This is a table.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-this-house",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7,
+      "topic": "first-objects",
+      "familyId": "mm-es-en-zero-first-objects",
+      "targetText": "This is a house.",
+      "learnerBaseText": "Esto es una casa.",
+      "englishText": "This is a house.",
+      "embeddingText": "This is a house.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "house"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Esto es una casa.",
+          "englishAuditText": "This is a house."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Esto es una puerta.",
+          "englishAuditText": "This is a door.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Esto es una silla.",
+          "englishAuditText": "This is a chair.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-this-door",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7,
+      "topic": "first-objects",
+      "familyId": "mm-es-en-zero-first-objects",
+      "targetText": "This is a door.",
+      "learnerBaseText": "Esto es una puerta.",
+      "englishText": "This is a door.",
+      "embeddingText": "This is a door.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "door"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Esto es una puerta.",
+          "englishAuditText": "This is a door."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Esto es una mesa.",
+          "englishAuditText": "This is a table.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Esto es una cama.",
+          "englishAuditText": "This is a bed.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-this-table",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7,
+      "topic": "first-objects",
+      "familyId": "mm-es-en-zero-first-objects",
+      "targetText": "This is a table.",
+      "learnerBaseText": "Esto es una mesa.",
+      "englishText": "This is a table.",
+      "embeddingText": "This is a table.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "table"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Esto es una mesa.",
+          "englishAuditText": "This is a table."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Esto es una silla.",
+          "englishAuditText": "This is a chair.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Esto es una bolsa.",
+          "englishAuditText": "This is a bag.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-this-chair",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7,
+      "topic": "first-objects",
+      "familyId": "mm-es-en-zero-first-objects",
+      "targetText": "This is a chair.",
+      "learnerBaseText": "Esto es una silla.",
+      "englishText": "This is a chair.",
+      "embeddingText": "This is a chair.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "chair"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Esto es una silla.",
+          "englishAuditText": "This is a chair."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Esto es una cama.",
+          "englishAuditText": "This is a bed.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Esto es una pelota.",
+          "englishAuditText": "This is a ball.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-this-bed",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7,
+      "topic": "first-objects",
+      "familyId": "mm-es-en-zero-first-objects",
+      "targetText": "This is a bed.",
+      "learnerBaseText": "Esto es una cama.",
+      "englishText": "This is a bed.",
+      "embeddingText": "This is a bed.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "bed"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Esto es una cama.",
+          "englishAuditText": "This is a bed."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Esto es una bolsa.",
+          "englishAuditText": "This is a bag.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Esto es el sol.",
+          "englishAuditText": "This is the sun.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-this-bag",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7,
+      "topic": "first-objects",
+      "familyId": "mm-es-en-zero-first-objects",
+      "targetText": "This is a bag.",
+      "learnerBaseText": "Esto es una bolsa.",
+      "englishText": "This is a bag.",
+      "embeddingText": "This is a bag.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "bag"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Esto es una bolsa.",
+          "englishAuditText": "This is a bag."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Esto es una pelota.",
+          "englishAuditText": "This is a ball.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Esto es una mano.",
+          "englishAuditText": "This is a hand.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-this-ball",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7,
+      "topic": "first-objects",
+      "familyId": "mm-es-en-zero-first-objects",
+      "targetText": "This is a ball.",
+      "learnerBaseText": "Esto es una pelota.",
+      "englishText": "This is a ball.",
+      "embeddingText": "This is a ball.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "ball"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Esto es una pelota.",
+          "englishAuditText": "This is a ball."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Esto es el sol.",
+          "englishAuditText": "This is the sun.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Esto es un ojo.",
+          "englishAuditText": "This is an eye.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-this-sun",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7,
+      "topic": "first-objects",
+      "familyId": "mm-es-en-zero-first-objects",
+      "targetText": "This is the sun.",
+      "learnerBaseText": "Esto es el sol.",
+      "englishText": "This is the sun.",
+      "embeddingText": "This is the sun.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "sun"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Esto es el sol.",
+          "englishAuditText": "This is the sun."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Esto es una mano.",
+          "englishAuditText": "This is a hand.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Esto es un gato.",
+          "englishAuditText": "This is a cat.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-this-hand",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7,
+      "topic": "first-objects",
+      "familyId": "mm-es-en-zero-first-objects",
+      "targetText": "This is a hand.",
+      "learnerBaseText": "Esto es una mano.",
+      "englishText": "This is a hand.",
+      "embeddingText": "This is a hand.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "hand"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Esto es una mano.",
+          "englishAuditText": "This is a hand."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Esto es un ojo.",
+          "englishAuditText": "This is an eye.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Esto es un perro.",
+          "englishAuditText": "This is a dog.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-this-eye",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 7,
+      "topic": "first-objects",
+      "familyId": "mm-es-en-zero-first-objects",
+      "targetText": "This is an eye.",
+      "learnerBaseText": "Esto es un ojo.",
+      "englishText": "This is an eye.",
+      "embeddingText": "This is an eye.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "eye"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Esto es un ojo.",
+          "englishAuditText": "This is an eye."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Esto es un gato.",
+          "englishAuditText": "This is a cat.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Esto es agua.",
+          "englishAuditText": "This is water.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The everyday object changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-expand-hello",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 3,
+      "topic": "first-contact",
+      "familyId": "mm-es-en-zero-expand-greeting",
+      "targetText": "Hello!",
+      "learnerBaseText": "¡Hola!",
+      "englishText": "Hello!",
+      "embeddingText": "Hello!",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "Hello!"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "¡Hola!",
+          "englishAuditText": "Hello!"
+        },
+        {
+          "id": "contrast-1",
+          "text": "¡Adiós!",
+          "englishAuditText": "Goodbye!",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The social message changes between greeting, farewell and thanks."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Gracias.",
+          "englishAuditText": "Thank you.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The social message changes between greeting, farewell and thanks."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-expand-goodbye",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 3,
+      "topic": "first-contact",
+      "familyId": "mm-es-en-zero-expand-greeting",
+      "targetText": "Goodbye!",
+      "learnerBaseText": "¡Adiós!",
+      "englishText": "Goodbye!",
+      "embeddingText": "Goodbye!",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "Goodbye!"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "¡Adiós!",
+          "englishAuditText": "Goodbye!"
+        },
+        {
+          "id": "contrast-1",
+          "text": "Gracias.",
+          "englishAuditText": "Thank you.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The social message changes between greeting, farewell and thanks."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "¡Hola!",
+          "englishAuditText": "Hello!",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The social message changes between greeting, farewell and thanks."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-expand-thanks",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 3,
+      "topic": "first-contact",
+      "familyId": "mm-es-en-zero-expand-greeting",
+      "targetText": "Thank you.",
+      "learnerBaseText": "Gracias.",
+      "englishText": "Thank you.",
+      "embeddingText": "Thank you.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "Thank you."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Gracias.",
+          "englishAuditText": "Thank you."
+        },
+        {
+          "id": "contrast-1",
+          "text": "¡Hola!",
+          "englishAuditText": "Hello!",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The social message changes between greeting, farewell and thanks."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "¡Adiós!",
+          "englishAuditText": "Goodbye!",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The social message changes between greeting, farewell and thanks."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-expand-want-water",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8,
+      "topic": "simple-needs",
+      "familyId": "mm-es-en-zero-expand-request",
+      "targetText": "I want water.",
+      "learnerBaseText": "Quiero agua.",
+      "englishText": "I want water.",
+      "embeddingText": "I want water.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "water"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Quiero agua.",
+          "englishAuditText": "I want water."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Quiero pan.",
+          "englishAuditText": "I want bread.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I want changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Quiero leche.",
+          "englishAuditText": "I want milk.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I want changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-expand-want-bread",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8,
+      "topic": "simple-needs",
+      "familyId": "mm-es-en-zero-expand-request",
+      "targetText": "I want bread.",
+      "learnerBaseText": "Quiero pan.",
+      "englishText": "I want bread.",
+      "embeddingText": "I want bread.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "bread"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Quiero pan.",
+          "englishAuditText": "I want bread."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Quiero leche.",
+          "englishAuditText": "I want milk.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I want changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Quiero una manzana.",
+          "englishAuditText": "I want an apple.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I want changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-expand-want-milk",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8,
+      "topic": "simple-needs",
+      "familyId": "mm-es-en-zero-expand-request",
+      "targetText": "I want milk.",
+      "learnerBaseText": "Quiero leche.",
+      "englishText": "I want milk.",
+      "embeddingText": "I want milk.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "milk"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Quiero leche.",
+          "englishAuditText": "I want milk."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Quiero una manzana.",
+          "englishAuditText": "I want an apple.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I want changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Quiero arroz.",
+          "englishAuditText": "I want rice.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I want changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-expand-want-apple",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8,
+      "topic": "simple-needs",
+      "familyId": "mm-es-en-zero-expand-request",
+      "targetText": "I want an apple.",
+      "learnerBaseText": "Quiero una manzana.",
+      "englishText": "I want an apple.",
+      "embeddingText": "I want an apple.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "apple"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Quiero una manzana.",
+          "englishAuditText": "I want an apple."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Quiero arroz.",
+          "englishAuditText": "I want rice.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I want changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Quiero té.",
+          "englishAuditText": "I want tea.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I want changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-expand-want-rice",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8,
+      "topic": "simple-needs",
+      "familyId": "mm-es-en-zero-expand-request",
+      "targetText": "I want rice.",
+      "learnerBaseText": "Quiero arroz.",
+      "englishText": "I want rice.",
+      "embeddingText": "I want rice.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "rice"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Quiero arroz.",
+          "englishAuditText": "I want rice."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Quiero té.",
+          "englishAuditText": "I want tea.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I want changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Quiero un libro.",
+          "englishAuditText": "I want a book.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I want changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-expand-want-tea",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8,
+      "topic": "simple-needs",
+      "familyId": "mm-es-en-zero-expand-request",
+      "targetText": "I want tea.",
+      "learnerBaseText": "Quiero té.",
+      "englishText": "I want tea.",
+      "embeddingText": "I want tea.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "tea"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Quiero té.",
+          "englishAuditText": "I want tea."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Quiero un libro.",
+          "englishAuditText": "I want a book.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I want changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Quiero un bolígrafo.",
+          "englishAuditText": "I want a pen.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I want changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-expand-want-book",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8,
+      "topic": "simple-needs",
+      "familyId": "mm-es-en-zero-expand-request",
+      "targetText": "I want a book.",
+      "learnerBaseText": "Quiero un libro.",
+      "englishText": "I want a book.",
+      "embeddingText": "I want a book.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "book"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Quiero un libro.",
+          "englishAuditText": "I want a book."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Quiero un bolígrafo.",
+          "englishAuditText": "I want a pen.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I want changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Quiero agua.",
+          "englishAuditText": "I want water.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I want changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-expand-want-pen",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8,
+      "topic": "simple-needs",
+      "familyId": "mm-es-en-zero-expand-request",
+      "targetText": "I want a pen.",
+      "learnerBaseText": "Quiero un bolígrafo.",
+      "englishText": "I want a pen.",
+      "embeddingText": "I want a pen.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "pen"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Quiero un bolígrafo.",
+          "englishAuditText": "I want a pen."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Quiero agua.",
+          "englishAuditText": "I want water.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I want changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Quiero pan.",
+          "englishAuditText": "I want bread.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I want changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-expand-see-cat",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8,
+      "topic": "familiar-objects",
+      "familyId": "mm-es-en-zero-expand-notice",
+      "targetText": "I see a cat.",
+      "learnerBaseText": "Veo un gato.",
+      "englishText": "I see a cat.",
+      "embeddingText": "I see a cat.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "cat"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Veo un gato.",
+          "englishAuditText": "I see a cat."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Veo un perro.",
+          "englishAuditText": "I see a dog.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I see changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Veo un libro.",
+          "englishAuditText": "I see a book.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I see changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-expand-see-dog",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8,
+      "topic": "familiar-objects",
+      "familyId": "mm-es-en-zero-expand-notice",
+      "targetText": "I see a dog.",
+      "learnerBaseText": "Veo un perro.",
+      "englishText": "I see a dog.",
+      "embeddingText": "I see a dog.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "dog"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Veo un perro.",
+          "englishAuditText": "I see a dog."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Veo un libro.",
+          "englishAuditText": "I see a book.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I see changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Veo un bolígrafo.",
+          "englishAuditText": "I see a pen.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I see changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-expand-see-book",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8,
+      "topic": "familiar-objects",
+      "familyId": "mm-es-en-zero-expand-notice",
+      "targetText": "I see a book.",
+      "learnerBaseText": "Veo un libro.",
+      "englishText": "I see a book.",
+      "embeddingText": "I see a book.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "book"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Veo un libro.",
+          "englishAuditText": "I see a book."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Veo un bolígrafo.",
+          "englishAuditText": "I see a pen.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I see changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Veo una casa.",
+          "englishAuditText": "I see a house.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I see changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-expand-see-pen",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8,
+      "topic": "familiar-objects",
+      "familyId": "mm-es-en-zero-expand-notice",
+      "targetText": "I see a pen.",
+      "learnerBaseText": "Veo un bolígrafo.",
+      "englishText": "I see a pen.",
+      "embeddingText": "I see a pen.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "pen"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Veo un bolígrafo.",
+          "englishAuditText": "I see a pen."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Veo una casa.",
+          "englishAuditText": "I see a house.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I see changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Veo una puerta.",
+          "englishAuditText": "I see a door.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I see changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-expand-see-house",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8,
+      "topic": "familiar-objects",
+      "familyId": "mm-es-en-zero-expand-notice",
+      "targetText": "I see a house.",
+      "learnerBaseText": "Veo una casa.",
+      "englishText": "I see a house.",
+      "embeddingText": "I see a house.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "house"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Veo una casa.",
+          "englishAuditText": "I see a house."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Veo una puerta.",
+          "englishAuditText": "I see a door.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I see changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Veo una mesa.",
+          "englishAuditText": "I see a table.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I see changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-expand-see-door",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8,
+      "topic": "familiar-objects",
+      "familyId": "mm-es-en-zero-expand-notice",
+      "targetText": "I see a door.",
+      "learnerBaseText": "Veo una puerta.",
+      "englishText": "I see a door.",
+      "embeddingText": "I see a door.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "door"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Veo una puerta.",
+          "englishAuditText": "I see a door."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Veo una mesa.",
+          "englishAuditText": "I see a table.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I see changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Veo una pelota.",
+          "englishAuditText": "I see a ball.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I see changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-expand-see-table",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8,
+      "topic": "familiar-objects",
+      "familyId": "mm-es-en-zero-expand-notice",
+      "targetText": "I see a table.",
+      "learnerBaseText": "Veo una mesa.",
+      "englishText": "I see a table.",
+      "embeddingText": "I see a table.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "table"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Veo una mesa.",
+          "englishAuditText": "I see a table."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Veo una pelota.",
+          "englishAuditText": "I see a ball.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I see changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Veo un gato.",
+          "englishAuditText": "I see a cat.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I see changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-expand-see-ball",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8,
+      "topic": "familiar-objects",
+      "familyId": "mm-es-en-zero-expand-notice",
+      "targetText": "I see a ball.",
+      "learnerBaseText": "Veo una pelota.",
+      "englishText": "I see a ball.",
+      "embeddingText": "I see a ball.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "ball"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Veo una pelota.",
+          "englishAuditText": "I see a ball."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Veo un gato.",
+          "englishAuditText": "I see a cat.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I see changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Veo un perro.",
+          "englishAuditText": "I see a dog.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The thing I see changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-expand-i-read",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8,
+      "topic": "first-actions",
+      "familyId": "mm-es-en-zero-expand-action",
+      "targetText": "I read a book.",
+      "learnerBaseText": "Leo un libro.",
+      "englishText": "I read a book.",
+      "embeddingText": "I read a book.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "read"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Leo un libro.",
+          "englishAuditText": "I read a book."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Escribo.",
+          "englishAuditText": "I write.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The action or possession changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Duermo.",
+          "englishAuditText": "I sleep.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The action or possession changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-expand-i-write",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8,
+      "topic": "first-actions",
+      "familyId": "mm-es-en-zero-expand-action",
+      "targetText": "I write.",
+      "learnerBaseText": "Escribo.",
+      "englishText": "I write.",
+      "embeddingText": "I write.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "write"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Escribo.",
+          "englishAuditText": "I write."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Duermo.",
+          "englishAuditText": "I sleep.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The action or possession changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Tengo un bolígrafo.",
+          "englishAuditText": "I have a pen.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The action or possession changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-expand-i-sleep",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8,
+      "topic": "first-actions",
+      "familyId": "mm-es-en-zero-expand-action",
+      "targetText": "I sleep.",
+      "learnerBaseText": "Duermo.",
+      "englishText": "I sleep.",
+      "embeddingText": "I sleep.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "sleep"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Duermo.",
+          "englishAuditText": "I sleep."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Tengo un bolígrafo.",
+          "englishAuditText": "I have a pen.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The action or possession changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Leo un libro.",
+          "englishAuditText": "I read a book.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The action or possession changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-es-en-zero-expand-i-have-pen",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 92,
+      "complexity": 8,
+      "topic": "first-actions",
+      "familyId": "mm-es-en-zero-expand-action",
+      "targetText": "I have a pen.",
+      "learnerBaseText": "Tengo un bolígrafo.",
+      "englishText": "I have a pen.",
+      "embeddingText": "I have a pen.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "have a pen"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Tengo un bolígrafo.",
+          "englishAuditText": "I have a pen."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Leo un libro.",
+          "englishAuditText": "I read a book.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The action or possession changes."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Escribo.",
+          "englishAuditText": "I write.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The action or possession changes."
           }
         }
       ]

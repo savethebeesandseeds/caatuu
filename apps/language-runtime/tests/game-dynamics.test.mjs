@@ -229,6 +229,27 @@ test("set progress stays in the header without visible labels or an always-visib
   f.controller.destroy();
 });
 
+test("the header restores selected difficulty effort while reward cycles retain currency progress", async () => {
+  const f = fixture({ pending: receipt(), reduced: true });
+  f.controller.setActive(true);
+  const meter = f.document.querySelector(".caatuu-practice-meter-progress");
+  const stage = effort => ({ target: 24, effort, cycle: { target: 16, completed: 2, sets: 3 } });
+  for (const effort of [9, 0, 9, 24]) {
+    f.update({ effort: 2, cycle: { target: 16, completed: 10, sets: 7 },
+      progression: { stage: stage(effort) } });
+    assert.equal(meter.max, 24);
+    assert.equal(meter.value, effort);
+  }
+  const gate = f.controller.boundary();
+  await settle();
+  assert.equal(f.overlay().querySelector(".caatuu-practice-cycle-progress progress").value, 7,
+    "the next gem follows the earning ledger even when the selected stage is full");
+  assert.equal(meter.value, 24, "claiming the reward does not reset a cleared difficulty");
+  f.skip().click();
+  assert.equal(await gate, true);
+  f.controller.destroy();
+});
+
 test("set completion shows the cycle bar and uses the same XP emblem for the card and flights", async () => {
   const f = fixture({ pending: receipt() });
   f.update({ effort: 2, cycle: { sets: 7, target: 16 } }, false);

@@ -4,6 +4,7 @@ import test from "node:test";
 import vm from "node:vm";
 import { newContentEncounterId } from "../static/source/games/content-progression.mjs";
 import { createReviewContinuation } from "../static/source/games/practice-pacing.mjs";
+import { createMemoryMoonDictionary as createResultDictionary } from "../static/source/games/memory-moon/memory-moon-dictionary.mjs";
 
 import { createBrowserHarness } from "./helpers/fake-browser.mjs";
 import { createInterfaceContent } from "../static/source/interface-content.mjs";
@@ -87,7 +88,7 @@ function createTestClock() {
 
 async function mountGame({ language = "mandarin-simplified", muted = true, voiceState,
   speechResult = { outcome: "completed" }, fetchFailure = false, reportResult = { queued: true, persisted: true },
-  realLearning = false, onRecord, mutateCatalog, random = () => 0, localStorageValues = {}, interfaceOverride, beforeContent } = {}) {
+  realLearning = false, onRecord, mutateCatalog, random = () => 0, localStorageValues = {}, interfaceOverride, beforeContent, resolveWord } = {}) {
   const raw = JSON.parse(await readFile(new URL(`../../languages/${language}/static/data/games/sound-quasar/content.json`, import.meta.url), "utf8"));
   mutateCatalog?.(raw);
   const catalog = validateSoundQuasarCatalog(raw);
@@ -132,6 +133,11 @@ async function mountGame({ language = "mandarin-simplified", muted = true, voice
   } } };
   if (realLearning) vm.runInContext(learningProfileSource, parent.context, { filename: "learning-profile.js" });
   const learning = shell.CaatuuLearning;
+  // These scenarios exercise the existing Explorer controls and larger boards.
+  // The production first-run default is covered independently by profile/zero tests.
+  if (realLearning && !Object.hasOwn(localStorageValues, `${course.storage.namespace}.learning.preferences.v1`)) {
+    learning.setDifficulty(1);
+  }
   shell.CaatuuLearning = { ...learning, record: (...args) => {
     records.push(JSON.parse(JSON.stringify(args)));
     onRecord?.({ shell, harness, args, clock });
@@ -158,6 +164,7 @@ async function mountGame({ language = "mandarin-simplified", muted = true, voice
   harness.window.parent = shell;
   Object.assign(harness.context, {
     createReviewContinuation,
+    createResultDictionary, testServices: { resolveWord },
     newContentEncounterId,
     createArabicReadingGuide,
     fetchDeclaredCourseGameJson, readEmbeddedCourseProfile, createSpeechIcon,
@@ -174,7 +181,7 @@ async function mountGame({ language = "mandarin-simplified", muted = true, voice
     .replace(/\bexport async function /gu, "async function ")
     .replace(/if \(typeof document !== "undefined"\) mountSharedSoundQuasar\(\)\.catch\(showError\);/u, "");
   vm.runInContext(executable, harness.context, { filename: "sound-quasar-host.mjs" });
-  const controller = await vm.runInContext("mountSharedSoundQuasar({ scope: window, fetchImpl: fetch, random: testRandom })", harness.context);
+  const controller = await vm.runInContext("mountSharedSoundQuasar({ scope: window, fetchImpl: fetch, random: testRandom, services: testServices })", harness.context);
   await settle();
   const element = (name) => harness.document.getElementById(`quasar${name}`);
   const choices = () => element("Choices").querySelectorAll("button[data-choice-id]");
@@ -335,6 +342,10 @@ test("speech must finish before choices unlock and stopping prevents a stale com
   await game.listen();
   assert.equal(game.speechCalls.length, 1);
   assert.ok(game.choices().every((button) => button.disabled));
+  game.choices()[0].click();
+  game.document.dispatchEvent({ type: "keydown", key: "1" });
+  game.noCredit();
+  assert.equal(game.element("Result").hidden, true, "an unfinished first listen cannot accept an answer");
   assert.equal(game.element("Listen").getAttribute("aria-pressed"), "true");
   const stops = game.preferences.stops;
   game.click(game.element("Listen"));
@@ -350,6 +361,90 @@ test("speech must finish before choices unlock and stopping prevents a stale com
   game.noCredit();
   game.controller.destroy();
 });
+
+for (const lateOutcome of ["completed", "rejected"]) {
+  test(`answering during replay stops it once and ignores its late ${lateOutcome} outcome`, async () => {
+    const game = await mountGame({ realLearning: true });
+    await game.listen();
+    const item = game.current();
+    const replay = deferred();
+    game.setSpeechResult(replay.promise);
+    await game.listen();
+    assert.equal(game.element("Listen").getAttribute("aria-pressed"), "true");
+    assert.ok(game.choices().every(button => !button.disabled), "replay cannot relock an already heard question");
+    const stops = game.preferences.stops;
+    const correct = game.choice(item.id);
+    game.click(correct);
+    assert.equal(game.preferences.stops, stops + 1, "accepting the answer stops replay synchronously");
+    assert.equal(game.element("Result").hidden, false);
+    assert.equal(game.element("Continue").disabled, false);
+    assert.equal(game.element("Listen").getAttribute("aria-pressed"), "false");
+    correct.click();
+    game.document.dispatchEvent({ type: "keydown", key: String(game.choices().indexOf(correct) + 1) });
+    assert.equal(game.records.length, 1, "a duplicate click cannot record the answer twice");
+    assert.equal(game.shell.CaatuuLearning.contentHistory("sound-quasar", "words")[item.id].exposures, 1);
+    const progress = game.element("Progress").textContent;
+    if (lateOutcome === "rejected") replay.reject(new Error("Obsolete replay failure"));
+    else replay.resolve({ outcome: "completed" });
+    await settle();
+    assert.equal(game.records.length, 1);
+    assert.equal(game.preferences.stops, stops + 1);
+    assert.equal(game.element("Result").hidden, false);
+    assert.equal(game.element("Listen").getAttribute("aria-pressed"), "false");
+    assert.equal(game.element("Progress").textContent, progress, "the answer still waits for Continue");
+    assert.equal(game.element("AudioStatus").textContent, "");
+    game.controller.destroy();
+  });
+}
+
+test("a wrong answer interrupts replay and leaves the correction immediately available", async () => {
+  const game = await mountGame({ realLearning: true });
+  await game.listen();
+  const item = game.current();
+  const replay = deferred();
+  game.setSpeechResult(replay.promise);
+  await game.listen();
+  const wrong = game.choices().find(button => button.dataset.choiceId !== item.id);
+  const stops = game.preferences.stops;
+  game.click(wrong);
+  assert.equal(game.preferences.stops, stops + 1);
+  assert.equal(wrong.disabled, true);
+  assert.equal(game.choice(item.id).disabled, false);
+  wrong.click();
+  assert.equal(game.records.length, 1);
+  game.click(game.choice(item.id));
+  assert.equal(game.records.length, 2, "correction does not wait for a never-settled replay");
+  assert.equal(game.shell.CaatuuLearning.contentHistory("sound-quasar", "words")[item.id].exposures, 1);
+  replay.resolve({ outcome: "completed" });
+  await settle();
+  assert.equal(game.element("Result").hidden, false);
+  assert.ok(game.choices().every(button => button.disabled));
+  game.controller.destroy();
+});
+
+for (const blockedBy of ["report", "controls", "hidden document", "inactive panel", "pagehide", "game dynamics"]) {
+  test(`replay cannot accept answers while blocked by ${blockedBy}`, async () => {
+    const game = await mountGame();
+    await game.listen();
+    const correct = game.choice(game.current().id);
+    const replay = deferred();
+    game.setSpeechResult(replay.promise);
+    await game.listen();
+    if (blockedBy === "report") game.click(game.element("Report"));
+    else if (blockedBy === "controls") game.click(game.element("Controls").querySelector('[aria-label="Audio settings"]'));
+    else if (blockedBy === "hidden document") game.shell.document.visibilityState = "hidden";
+    else if (blockedBy === "inactive panel") game.window.dispatchEvent({ type: "message", origin: game.window.location.origin, source: game.shell,
+      data: { source: "caatuu-app-shell", type: "visibility", active: false } });
+    else if (blockedBy === "pagehide") game.window.dispatchEvent({ type: "pagehide", persisted: true });
+    else game.shell.CaatuuGameDynamics = { active: true };
+    correct.click();
+    replay.resolve({ outcome: "completed" });
+    await settle();
+    game.noCredit();
+    assert.equal(game.element("Result").hidden, true);
+    game.controller.destroy();
+  });
+}
 
 test("shell difficulty changes reset a hidden listening round and ignore stale audio", async () => {
   const playback = deferred();
@@ -1618,5 +1713,202 @@ test("a course with no voice can review a skipped correction then Continue witho
   assert.equal(game.element("Progress").textContent, "Word 2 of 3");
   assert.equal(game.element("Result").hidden, true);
   game.noCredit();
+  game.controller.destroy();
+});
+
+for (const outcome of ["correct", "revealed", "skipped"]) {
+  test(`${outcome} sentence review offers individual dictionary words without changing assessment credit`, async () => {
+    const requests = [];
+    const game = await mountGame({ language: "czech", resolveWord: async (word, context) => {
+      requests.push({ word, context });
+      return { meaning: `Meaning of ${word}`, languageTag: "en" };
+    } });
+    game.click(game.element("Sentences"));
+    assert.equal(requests.length, 0, "opening a question must not load word meanings");
+    let item;
+    if (outcome === "skipped") {
+      game.click(game.element("Skip"));
+      item = game.catalog.sentences.find(row => row.target === game.element("ResultTarget").textContent);
+    } else {
+      await game.listen();
+      item = game.current();
+      if (outcome === "correct") game.click(game.choice(item.id));
+      else {
+        const wrong = game.choices().filter(button => button.dataset.choiceId !== item.id);
+        game.click(wrong[0]);
+        game.click(wrong[1]);
+      }
+    }
+    assert.ok(item, "the correction must retain the actual listening item");
+    assert.equal(requests.length, 0, "showing a correction alone must not perform a lookup");
+    const tokens = game.element("ResultTarget").querySelectorAll("button.quasar-result-word");
+    const expected = [...new Intl.Segmenter(game.course.targetLanguage.locale, { granularity: "word" }).segment(item.target)]
+      .filter(part => part.isWordLike).map(part => part.segment);
+    assert.ok(expected.length > 1, "the authored sentence exercises individual-word selection");
+    assert.deepEqual(tokens.map(button => button.dataset.word), expected);
+    assert.equal(game.element("ResultTarget").textContent, item.target, "word controls preserve punctuation and authored spacing");
+    for (const button of tokens) {
+      assert.equal(button.tagName, "BUTTON");
+      assert.equal(button.type, "button", "native button semantics provide keyboard activation");
+      assert.equal(button.disabled, false);
+    }
+    const credit = JSON.stringify(game.records);
+    tokens[1].focus();
+    tokens[1].dispatchEvent({ type: "click", detail: 0, bubbles: true });
+    await settle();
+    assert.equal(requests.length, 1);
+    assert.equal(requests[0].word, expected[1]);
+    assert.equal(requests[0].context.tokenIndex, 1);
+    assert.equal(requests[0].context.item.targetText, item.target);
+    assert.equal(game.element("Dictionary").hidden, false);
+    assert.equal(game.element("Dictionary").querySelector(".dictionary-word-card__meaning").textContent, `Meaning of ${expected[1]}`);
+    assert.equal(JSON.stringify(game.records), credit, "review help cannot add or rewrite listening rewards");
+    const progress = game.element("Progress").textContent;
+    await game.advance(86400000);
+    assert.equal(game.element("Progress").textContent, progress, "dictionary review still waits for explicit Continue");
+    game.controller.destroy();
+  });
+}
+
+test("dictionary card clicks do not replay the whole sentence, and its speaker uses only the selected word", async () => {
+  const game = await mountGame({ language: "czech", resolveWord: async () => ({ meaning: "selected meaning" }) });
+  game.click(game.element("Sentences"));
+  await game.listen();
+  const item = game.current();
+  game.click(game.choice(item.id));
+  const token = game.element("ResultTarget").querySelectorAll("button.quasar-result-word")[1];
+  game.click(token);
+  await settle();
+  const dictionary = game.element("Dictionary");
+  const previousSpeech = game.speechCalls.length;
+  dictionary.querySelector(".dictionary-word-card__meaning").click();
+  dictionary.querySelector(".dictionary-word-card").click();
+  await settle();
+  assert.equal(game.speechCalls.length, previousSpeech, "the word card is excluded from free-space sentence replay");
+  game.click(dictionary.querySelector(".dictionary-word-card__pronounce"));
+  await settle();
+  assert.equal(game.speechCalls.length, previousSpeech + 1);
+  assert.equal(game.speechCalls.at(-1).text, token.dataset.word);
+  assert.notEqual(game.speechCalls.at(-1).text, item.target);
+  game.click(dictionary.querySelector(".moon-dictionary-close"));
+  assert.equal(dictionary.hidden, true);
+  assert.equal(game.document.activeElement, token, "closing the card restores keyboard focus to the selected word");
+  assert.equal(game.records.length, 1);
+  game.controller.destroy();
+});
+
+for (const action of ["Continue", "inactive panel", "hidden document", "controls", "report", "pagehide", "destroy"]) {
+  test(`${action} aborts a pending review lookup and prevents its late meaning from appearing`, async () => {
+    const pending = deferred(), requests = [];
+    const game = await mountGame({ language: "czech", resolveWord: (word, context) => {
+      requests.push({ word, context });
+      return pending.promise;
+    } });
+    await game.listen();
+    game.click(game.choice(game.current().id));
+    const token = game.element("ResultTarget").querySelector("button.quasar-result-word");
+    game.click(token);
+    assert.equal(requests.length, 1);
+    assert.equal(requests[0].context.signal.aborted, false);
+    const credit = JSON.stringify(game.records);
+    if (action === "Continue") await game.continue();
+    else if (action === "inactive panel") game.window.dispatchEvent({ type: "message", origin: game.window.location.origin, source: game.shell,
+      data: { source: "caatuu-app-shell", type: "visibility", active: false } });
+    else if (action === "hidden document") {
+      game.parent.document.visibilityState = "hidden";
+      game.parent.document.dispatchEvent({ type: "visibilitychange" });
+    } else if (action === "controls") game.click(game.element("Controls").querySelector('[aria-label="Audio settings"]'));
+    else if (action === "report") game.click(game.element("Report"));
+    else if (action === "pagehide") game.window.dispatchEvent({ type: "pagehide", persisted: true });
+    else game.controller.destroy();
+    assert.equal(requests[0].context.signal.aborted, true);
+    pending.resolve({ meaning: "obsolete meaning" });
+    await settle();
+    assert.equal(game.element("Dictionary").hidden, true);
+    assert.ok(!game.element("Dictionary").textContent.includes("obsolete meaning"));
+    token.click();
+    await settle();
+    assert.equal(requests.length, 1, "an obsolete or paused word button cannot restart a lookup");
+    assert.equal(JSON.stringify(game.records), credit);
+    game.controller.destroy();
+  });
+}
+
+test("a replacement word selection wins when an older review lookup ignores cancellation", async () => {
+  const first = deferred(), second = deferred(), requests = [];
+  const game = await mountGame({ language: "czech", resolveWord: (word, context) => {
+    requests.push({ word, context });
+    return requests.length === 1 ? first.promise : second.promise;
+  } });
+  game.click(game.element("Sentences"));
+  await game.listen();
+  game.click(game.choice(game.current().id));
+  const tokens = game.element("ResultTarget").querySelectorAll("button.quasar-result-word");
+  game.click(tokens[0]);
+  game.click(tokens[1]);
+  assert.equal(requests.length, 2);
+  assert.equal(requests[0].context.signal.aborted, true);
+  second.resolve({ meaning: "current meaning" });
+  await settle();
+  first.resolve({ meaning: "obsolete meaning" });
+  await settle();
+  assert.equal(game.element("Dictionary").querySelector(".dictionary-word-card__word").textContent, tokens[1].dataset.word);
+  assert.equal(game.element("Dictionary").querySelector(".dictionary-word-card__meaning").textContent, "current meaning");
+  assert.equal(game.records.length, 1);
+  game.controller.destroy();
+});
+
+test("Chinese dictionary words preserve authored Hanzi tone spans and the correction's pinyin", async () => {
+  const requests = [];
+  const game = await mountGame({ resolveWord: async (word, context) => {
+    requests.push({ word, context });
+    return { meaning: "authored word meaning" };
+  } });
+  game.click(game.element("Sentences"));
+  await game.listen();
+  const item = game.current();
+  game.click(game.choice(item.id));
+  const target = game.element("ResultTarget"), reading = game.element("ResultReading");
+  const tokens = target.querySelectorAll("button.quasar-result-word");
+  assert.ok(tokens.length > 1, "an unspaced Chinese sentence still offers individual lexical words");
+  assert.equal(target.textContent, item.target);
+  assert.equal(target.querySelectorAll(".caatuu-target-tone").map(node => node.textContent).join(""),
+    item.reading.tokens.flatMap(token => token.units).map(unit => unit.surface).join(""));
+  const pinyin = item.reading.tokens.flatMap(token => token.units.map(unit => unit.notation)).join(" ");
+  assert.equal(reading.textContent, pinyin);
+  game.click(tokens[0]);
+  await settle();
+  assert.equal(requests[0].word, tokens[0].dataset.word);
+  assert.deepEqual(requests[0].context.item.targetReading, item.reading);
+  assert.equal(reading.textContent, pinyin);
+  assert.equal(target.textContent, item.target);
+  game.controller.destroy();
+});
+
+test("Arabic dictionary selection keeps complete vowel-marked words and their reading guide", async () => {
+  const requests = [];
+  const game = await mountGame({ language: "arabic-standard", resolveWord: async (word, context) => {
+    requests.push({ word, context });
+    return { meaning: "authored Arabic word meaning" };
+  } });
+  game.click(game.element("Sentences"));
+  await game.listen();
+  const item = game.current();
+  game.click(game.choice(item.id));
+  const target = game.element("ResultTarget");
+  const tokens = target.querySelectorAll("button.quasar-result-word");
+  const expected = [...new Intl.Segmenter(game.course.targetLanguage.locale, { granularity: "word" }).segment(item.target)]
+    .filter(part => part.isWordLike).map(part => part.segment);
+  assert.deepEqual(tokens.map(button => button.dataset.word), expected, "Arabic shaping must not be divided into character controls");
+  assert.equal(target.dir, "rtl");
+  assert.ok(target.querySelector("rt"));
+  game.click(tokens[0]);
+  await settle();
+  assert.equal(requests[0].word, expected[0]);
+  assert.equal(target.dir, "rtl");
+  assert.ok(target.querySelector("rt"));
+  game.document.querySelector('[data-arabic-romanization-setting="sound-quasar"]').click();
+  assert.equal(target.textContent, item.target);
+  assert.deepEqual(target.querySelectorAll("button.quasar-result-word").map(button => button.dataset.word), expected);
   game.controller.destroy();
 });

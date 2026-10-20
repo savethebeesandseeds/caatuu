@@ -1,11 +1,11 @@
 import { fetchDeclaredCourseGameJson } from '../course-game-content.mjs';
 import { mountEmbeddedGameControls } from '../embedded-game-controls.mjs';
 import { createMemoryMoonPractice } from './memory-moon-practice.mjs?v=memory-moon-practice-2';
-import { validateMemoryMoonCatalog, moonIllumination, moonShadePath } from './memory-moon-core.mjs?v=memory-moon-3';
+import { validateMemoryMoonCatalog, moonIllumination, moonShadePath } from './memory-moon-core.mjs?v=memory-moon-4';
 import { createMoonRenderer } from './memory-moon-render.mjs?v=memory-moon-render-4';
 import { createMoonSpeech } from './memory-moon-speech.mjs';
 import { createMoonOrbit } from './memory-moon-orbit.mjs';
-import { createReviewContinuation } from '../practice-pacing.mjs?v=practice-pacing-2';
+import { createReviewContinuation } from '../practice-pacing.mjs?v=practice-pacing-3';
 import { createMoonPhase } from './memory-moon-phase.mjs';
 import { createMemoryMoonDictionary } from './memory-moon-dictionary.mjs?v=memory-moon-dictionary-2';
 import { createTargetReadingGuide } from '../../target-reading-guide.mjs?v=target-reading-guide-1';

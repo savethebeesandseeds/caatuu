@@ -1,6 +1,6 @@
 # Content progression
 
-Every registered course keeps its three difficulty badges and two authored
+Every registered course has four difficulty badges (0–3) and two authored
 integer scores from **1 through 100**:
 
 - `usefulness`: how valuable the material is for practical communication. Higher
@@ -15,6 +15,27 @@ The [catalog review](CONTENT_PROGRESSION_CATALOG_REVIEW.md) documents the full
 regrading and its limitations; the [beginner review](CONTENT_PROGRESSION_BEGINNER_REVIEW.md)
 documents short starter phrases. Existing native-review and licensing states
 remain authoritative.
+
+## Starting out: level zero
+
+Level zero adds first words and tiny patterns across all declared games in all
+eight courses. It is a separate authored band; existing levels 1–3 retain their
+records, IDs, grades and mechanics. Use concrete familiar meanings, explicit
+translations and short contexts. Novel scripts have authored reading support;
+new pronunciation and language drafts retain their pending review status.
+
+Word World starts with two-choice recognition, including single words. Matching,
+listening, translation and case rounds use two options; conjugation uses two
+forms. Agreement introduces two scoped forms with two meaning choices, noun
+sorting is untimed, and reading dominoes use three tiles. Larger settings remain
+available in levels 1–3. Czech generative Word World cannot bypass the authored
+zero band.
+
+An unpracticed course profile starts at zero and saves that selection before
+practice. Existing saved selections and histories retain their previous badge;
+display or setup preferences alone do not count as practice. Advancing to
+Explorer remains an explicit learner choice. Review, fallback and continued
+sessions stay in the selected band, with no borrowed harder content.
 
 ## Learning evidence
 
@@ -40,7 +61,7 @@ successes or lengthening the review interval.
 
 ## Review and gradual introductions
 
-The selected badge is an exact content filter: level 1 for Explorer, level 2
+The selected badge is an exact content filter: level 0 for Starting out, level 1 for Explorer, level 2
 for Traveler, and level 3 for Navigator. Apply it before using history or
 progression; review and fallback selections stay within that level. There are no authored record-to-record
 prerequisites and no dependency graph. The shared selector mixes due review,
@@ -79,7 +100,7 @@ Current conservative defaults are explicit product heuristics:
   increase it modestly. A large unresolved practice backlog reduces it to about
   a third, with at least one introduction possible. This is a pacing target,
   not a daily lock: once reached, continued play may include one fresh item
-  within the existing challenge window, only in an introduction slot. A board
+  normally within the existing challenge window, only in an introduction slot. A board
   or listening batch can therefore mix one fresh item with familiar practice;
   single-task queues leave four practice turns between further introductions.
   Rebuilding a queue without completing anything cannot advance this rotation.
@@ -88,6 +109,12 @@ Current conservative defaults are explicit product heuristics:
   readiness signal uses spaced successes, independent practice days and the
   current interval together, opening at most 24 points beyond a practiced item.
   It is neither a recall probability nor a learner-facing mastery percentage.
+  When that window has no unseen material left and the minimum practice pool
+  has been introduced, an ordinary introduction slot may instead offer one item
+  from the nearest unseen complexity band at the selected difficulty. This
+  prevents a small exhausted window from becoming a permanent repetition loop.
+  It leaves the frontier and evidence unchanged and reserves review/practice
+  slots for their existing queues.
 - `practiceDays` counts fresh completed encounters at least 24 hours apart on
   different UTC days. After the first three such days, each further day can
   widen supported exploration by four points, capped at 24. After eight practice

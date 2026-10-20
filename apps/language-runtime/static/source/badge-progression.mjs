@@ -1,4 +1,4 @@
-import { createBadgeRecommendation } from "./badge-recommendation.mjs?v=badge-recommendation-5";
+import { createBadgeRecommendation } from "./badge-recommendation.mjs?v=badge-recommendation-6";
 
 /** Shared, advisory badge progression. Only an explicit learner action equips a badge. */
 export function installBadgeProgression({ scope = globalThis.window ?? globalThis,
@@ -24,7 +24,7 @@ export function installBadgeProgression({ scope = globalThis.window ?? globalThi
     listeners.push(() => target?.removeEventListener?.(type, callback));
   };
   const validPreference = value => value?.schemaVersion === 1 && typeof value.generation === "string"
-    && Array.isArray(value.dismissed) && value.dismissed.every(level => level === 2 || level === 3);
+    && Array.isArray(value.dismissed) && value.dismissed.every(level => level === 1 || level === 2 || level === 3);
   function preferences() {
     try {
       const value = learning?.readGameState?.(key, { maxSchemaVersion: 1, validate: validPreference });
@@ -42,9 +42,10 @@ export function installBadgeProgression({ scope = globalThis.window ?? globalThi
   function render(root = document) {
     if (destroyed || !document?.body) return;
     const practice = learning?.practiceSet?.(), stage = practice?.progression?.stage;
-    const setsPerCycle = practice?.cycle?.target;
+    const setsPerCycle = stage?.cycle?.target ?? practice?.cycle?.target;
     const currentDifficulty = difficulty();
-    const ready = state?.status === "ready" && state.difficulty === currentDifficulty
+    const hasNextBadge = currentDifficulty < 3;
+    const ready = hasNextBadge && state?.status === "ready" && state.difficulty === currentDifficulty
       && stage?.stageComplete === true && practice.progression.available !== false
       && !preferences().dismissed.includes(currentDifficulty + 1);
     for (const slot of root.querySelectorAll?.("[data-caatuu-badge-progression]") || []) {
@@ -61,7 +62,7 @@ export function installBadgeProgression({ scope = globalThis.window ?? globalThi
           cycles: Math.min(stage.completedCycles, stage.targetCycles), target: stage.targetCycles });
       const progress = node("p", "caatuu-badge-stage-count", count);
       const sets = node("small", "caatuu-badge-stage-sets", t("practice.stage.sets", {
-        sets: stage.completedSets % setsPerCycle, target: setsPerCycle }));
+        sets: stage.stageComplete ? setsPerCycle : stage.cycle?.sets ?? stage.completedSets % setsPerCycle, target: setsPerCycle }));
       slot.append(heading, progress, sets);
       if (stage.targetCycles !== null) {
         const meter = node("progress", "caatuu-badge-stage-meter");
@@ -74,7 +75,7 @@ export function installBadgeProgression({ scope = globalThis.window ?? globalThi
       result.setAttribute("data-badge-status", state?.status || "practice-needed");
       if (ready) {
         const image = node("img", "caatuu-badge-recommendation-art");
-        image.src = `/assets/icons/difficulty_medal_${currentDifficulty + 1}_ui.png?v=ui-1`;
+        image.src = `/assets/icons/difficulty_flag_${currentDifficulty + 1}_ui.png?v=flags-1`;
         image.alt = "";
         const message = node("p", "caatuu-badge-recommendation-message", t("practice.badge.ready", { badge: badge(currentDifficulty + 1) }));
         result.append(image, message, node("small", "", t("practice.badge.explanation")));
@@ -99,13 +100,13 @@ export function installBadgeProgression({ scope = globalThis.window ?? globalThi
         dismiss.addEventListener("click", () => { if (remember(currentDifficulty + 1, true)) render(); });
         actions.append(equip, dismiss);
         result.append(actions);
-      } else if (stage.stageComplete && preferences().dismissed.includes(currentDifficulty + 1)) {
+      } else if (hasNextBadge && stage.stageComplete && preferences().dismissed.includes(currentDifficulty + 1)) {
         result.append(node("p", "", t("practice.badge.dismissed", { badge: badge(currentDifficulty) })));
         const review = node("button", "caatuu-badge-review", t("practice.badge.review"));
         review.type = "button";
         review.addEventListener("click", () => { if (remember(currentDifficulty + 1, false)) void refresh(); });
         result.append(review);
-      } else if (stage.targetCycles !== null) {
+      } else if (hasNextBadge && stage.targetCycles !== null) {
         const messageId = !stage.stageComplete ? "practice.badge.practice"
           : state?.status === "checking" ? "practice.badge.checking"
           : state?.status === "evidence-needed" ? "practice.badge.evidence" : "practice.badge.unavailable";

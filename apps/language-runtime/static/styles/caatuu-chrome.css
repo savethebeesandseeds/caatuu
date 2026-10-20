@@ -1365,7 +1365,6 @@ body.games-menu-open {
   touch-action: pan-y pinch-zoom;
 }
 
-.settings-sheet-body,
 .model-license-list,
 .chat-log,
 .print-menu,
@@ -1375,6 +1374,20 @@ body.games-menu-open {
 .diagnostic-output,
 .command-box {
   scrollbar-gutter: stable;
+}
+
+/* Keep every Backpack page and nested settings panel scrollable without a bar. */
+#settingsPanel,
+#settingsPanel * {
+  scrollbar-width: none;
+  scrollbar-gutter: auto;
+}
+
+#settingsPanel::-webkit-scrollbar,
+#settingsPanel *::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 .settings-card {
@@ -1837,7 +1850,7 @@ html[data-theme="dark"] .theme-control button:not(.is-active):not(:disabled):hov
 
 .difficulty-control {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 4px;
 }
 
@@ -2349,7 +2362,7 @@ body.settings-open {
 
 .backpack-wallet {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 7px;
 }
 
@@ -3080,8 +3093,8 @@ body.settings-open {
 }
 
 .badge-collection .difficulty-control button b {
-  width: 42px;
-  height: 42px;
+  width: min(52px, 100%);
+  height: 52px;
   border: 0;
   border-radius: 0;
   background: transparent;
@@ -3092,6 +3105,23 @@ body.settings-open {
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+
+.badge-collection .difficulty-control button > span {
+  max-width: 100%;
+}
+
+.badge-collection .difficulty-control .difficulty-preview {
+  cursor: default;
+  border-style: dashed;
+  opacity: 1;
+}
+
+.badge-collection .difficulty-control .difficulty-preview small {
+  color: var(--muted);
+  font-size: 0.56rem;
+  line-height: 1.15;
+  text-align: center;
 }
 
 .badge-collection .difficulty-control button.is-active {
@@ -4665,14 +4695,6 @@ html[data-caatuu-runtime="android"] .settings-section-switcher {
     padding: 11px;
   }
 
-  .backpack-wallet {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .backpack-wallet-streak {
-    grid-column: 1 / -1;
-  }
-
   .streak-reminder-notice {
     grid-template-columns: 54px minmax(0, 1fr);
   }
@@ -4812,12 +4834,11 @@ html[data-caatuu-runtime="android"] .settings-section-switcher {
     font-size: 0.98rem;
   }
 
-  .backpack-wallet {
-    grid-template-columns: 1fr;
-  }
-
-  .backpack-wallet-streak {
-    grid-column: auto;
+  .backpack-wallet-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 8px;
   }
 
 }

@@ -164,9 +164,10 @@ test("authored preparation exposes the complete renderer-neutral provider seam",
     "markUsed",
     "getRecordById"
   ]) assert.equal(typeof context.selectionProvider[method], "function", method);
-  assert.deepEqual(context.selectionProvider.difficultyCounts(), Object.fromEntries([1, 2, 3]
+  const authoredDifficulties = [...new Set(englishCatalog.concepts.map(item => item.difficulty))];
+  assert.deepEqual(context.selectionProvider.difficultyCounts(), Object.fromEntries(authoredDifficulties
     .map(level => [level, englishCatalog.concepts.filter(item => item.difficulty === level).length])));
-  for (const difficulty of [1, 2, 3]) {
+  for (const difficulty of authoredDifficulties) {
     const eligible = context.selectionProvider.records.filter(record => record.difficulty === difficulty);
     const selected = context.selectionProvider.nextRandom({ difficulty,
       excludeIds: eligible.map(record => record.id) });

@@ -22353,6 +22353,1800 @@
           "text": "nombre"
         }
       ]
+    },
+    {
+      "conceptId": "ww-zero-cat",
+      "text": "gato",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "cat",
+          "text": "gato"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-dog",
+      "text": "perro",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "dog",
+          "text": "perro"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-water",
+      "text": "agua",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "water",
+          "text": "agua"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-bread",
+      "text": "pan",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "bread",
+          "text": "pan"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-milk",
+      "text": "leche",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "milk",
+          "text": "leche"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-apple",
+      "text": "manzana",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "apple",
+          "text": "manzana"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-rice",
+      "text": "arroz",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "rice",
+          "text": "arroz"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-tea",
+      "text": "té",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "tea",
+          "text": "té"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-book",
+      "text": "libro",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "book",
+          "text": "libro"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-pen",
+      "text": "bolígrafo",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "pen",
+          "text": "bolígrafo"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-house",
+      "text": "casa",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "house",
+          "text": "casa"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-door",
+      "text": "puerta",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "door",
+          "text": "puerta"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-table",
+      "text": "mesa",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "table",
+          "text": "mesa"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-chair",
+      "text": "silla",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "chair",
+          "text": "silla"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-bed",
+      "text": "cama",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "bed",
+          "text": "cama"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-bag",
+      "text": "bolsa",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "bag",
+          "text": "bolsa"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-ball",
+      "text": "pelota",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "ball",
+          "text": "pelota"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-sun",
+      "text": "sol",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "sun",
+          "text": "sol"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-hand",
+      "text": "mano",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "hand",
+          "text": "mano"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-eye",
+      "text": "ojo",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "eye",
+          "text": "ojo"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-eat",
+      "text": "comer",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "eat",
+          "text": "comer"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-drink",
+      "text": "beber",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "drink",
+          "text": "beber"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-go",
+      "text": "ir",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "go",
+          "text": "ir"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-see",
+      "text": "ver",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "see",
+          "text": "ver"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-want",
+      "text": "querer",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "want",
+          "text": "querer"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-have",
+      "text": "tener",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "have",
+          "text": "tener"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-like",
+      "text": "gustar",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "like",
+          "text": "gustar"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-sleep",
+      "text": "dormir",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "sleep",
+          "text": "dormir"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-sit",
+      "text": "sentarse",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "sit",
+          "text": "sentarse"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-read",
+      "text": "leer",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "read",
+          "text": "leer"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-write",
+      "text": "escribir",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "write",
+          "text": "escribir"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-hear",
+      "text": "oír",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "hear",
+          "text": "oír"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-i",
+      "text": "yo",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "I",
+          "text": "yo"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-you",
+      "text": "tú",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "you",
+          "text": "tú"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-we",
+      "text": "nosotros",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "we",
+          "text": "nosotros"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-hello",
+      "text": "¡Hola!",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "Hello",
+          "text": "Hola"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-goodbye",
+      "text": "¡Adiós!",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "Goodbye",
+          "text": "Adiós"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-yes",
+      "text": "Sí.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "Yes",
+          "text": "Sí"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-no",
+      "text": "No.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "No",
+          "text": "No"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-please",
+      "text": "Por favor.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "Please",
+          "text": "Por favor"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-thanks",
+      "text": "Gracias.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "Thank",
+          "text": "Gracias."
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "you",
+          "text": "tú"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-one",
+      "text": "uno",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "one",
+          "text": "uno"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-two",
+      "text": "dos",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "two",
+          "text": "dos"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-three",
+      "text": "tres",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "three",
+          "text": "tres"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-four",
+      "text": "cuatro",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "four",
+          "text": "cuatro"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-five",
+      "text": "cinco",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "five",
+          "text": "cinco"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-big",
+      "text": "grande",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "big",
+          "text": "grande"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-small",
+      "text": "pequeño",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "small",
+          "text": "pequeño"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-red",
+      "text": "rojo",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "red",
+          "text": "rojo"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-green",
+      "text": "verde",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "green",
+          "text": "verde"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-cat",
+      "text": "Esto es un gato.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "This",
+          "text": "esto"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "is",
+          "text": "es"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "a",
+          "text": "un; una"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 3,
+          "surface": "cat",
+          "text": "gato"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-dog",
+      "text": "Esto es un perro.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "This",
+          "text": "esto"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "is",
+          "text": "es"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "a",
+          "text": "un; una"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 3,
+          "surface": "dog",
+          "text": "perro"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-water",
+      "text": "Esto es agua.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "This",
+          "text": "esto"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "is",
+          "text": "es"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "water",
+          "text": "agua"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-bread",
+      "text": "Esto es pan.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "This",
+          "text": "esto"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "is",
+          "text": "es"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "bread",
+          "text": "pan"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-milk",
+      "text": "Esto es leche.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "This",
+          "text": "esto"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "is",
+          "text": "es"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "milk",
+          "text": "leche"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-apple",
+      "text": "Esto es una manzana.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "This",
+          "text": "esto"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "is",
+          "text": "es"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "an",
+          "text": "Esto es una manzana."
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 3,
+          "surface": "apple",
+          "text": "manzana"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-rice",
+      "text": "Esto es arroz.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "This",
+          "text": "esto"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "is",
+          "text": "es"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "rice",
+          "text": "arroz"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-tea",
+      "text": "Esto es té.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "This",
+          "text": "esto"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "is",
+          "text": "es"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "tea",
+          "text": "té"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-book",
+      "text": "Esto es un libro.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "This",
+          "text": "esto"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "is",
+          "text": "es"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "a",
+          "text": "un; una"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 3,
+          "surface": "book",
+          "text": "libro"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-pen",
+      "text": "Esto es un bolígrafo.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "This",
+          "text": "esto"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "is",
+          "text": "es"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "a",
+          "text": "un; una"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 3,
+          "surface": "pen",
+          "text": "bolígrafo"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-house",
+      "text": "Esto es una casa.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "This",
+          "text": "esto"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "is",
+          "text": "es"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "a",
+          "text": "un; una"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 3,
+          "surface": "house",
+          "text": "casa"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-door",
+      "text": "Esto es una puerta.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "This",
+          "text": "esto"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "is",
+          "text": "es"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "a",
+          "text": "un; una"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 3,
+          "surface": "door",
+          "text": "puerta"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-table",
+      "text": "Esto es una mesa.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "This",
+          "text": "esto"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "is",
+          "text": "es"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "a",
+          "text": "un; una"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 3,
+          "surface": "table",
+          "text": "mesa"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-chair",
+      "text": "Esto es una silla.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "This",
+          "text": "esto"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "is",
+          "text": "es"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "a",
+          "text": "un; una"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 3,
+          "surface": "chair",
+          "text": "silla"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-bed",
+      "text": "Esto es una cama.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "This",
+          "text": "esto"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "is",
+          "text": "es"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "a",
+          "text": "un; una"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 3,
+          "surface": "bed",
+          "text": "cama"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-bag",
+      "text": "Esto es una bolsa.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "This",
+          "text": "esto"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "is",
+          "text": "es"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "a",
+          "text": "un; una"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 3,
+          "surface": "bag",
+          "text": "bolsa"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-ball",
+      "text": "Esto es una pelota.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "This",
+          "text": "esto"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "is",
+          "text": "es"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "a",
+          "text": "un; una"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 3,
+          "surface": "ball",
+          "text": "pelota"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-sun",
+      "text": "Esto es el sol.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "This",
+          "text": "esto"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "is",
+          "text": "es"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "the",
+          "text": "el"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 3,
+          "surface": "sun",
+          "text": "sol"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-hand",
+      "text": "Esto es una mano.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "This",
+          "text": "esto"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "is",
+          "text": "es"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "a",
+          "text": "un; una"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 3,
+          "surface": "hand",
+          "text": "mano"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-this-eye",
+      "text": "Esto es un ojo.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "This",
+          "text": "esto"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "is",
+          "text": "es"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "an",
+          "text": "Esto es un ojo."
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 3,
+          "surface": "eye",
+          "text": "ojo"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-want-water",
+      "text": "Quiero agua.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "I",
+          "text": "yo"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "want",
+          "text": "querer"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "water",
+          "text": "agua"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-want-bread",
+      "text": "Quiero pan.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "I",
+          "text": "yo"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "want",
+          "text": "querer"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "bread",
+          "text": "pan"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-want-milk",
+      "text": "Quiero leche.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "I",
+          "text": "yo"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "want",
+          "text": "querer"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "milk",
+          "text": "leche"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-want-apple",
+      "text": "Quiero una manzana.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "I",
+          "text": "yo"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "want",
+          "text": "querer"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "an",
+          "text": "Quiero una manzana."
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 3,
+          "surface": "apple",
+          "text": "manzana"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-want-rice",
+      "text": "Quiero arroz.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "I",
+          "text": "yo"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "want",
+          "text": "querer"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "rice",
+          "text": "arroz"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-want-tea",
+      "text": "Quiero té.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "I",
+          "text": "yo"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "want",
+          "text": "querer"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "tea",
+          "text": "té"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-want-book",
+      "text": "Quiero un libro.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "I",
+          "text": "yo"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "want",
+          "text": "querer"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "a",
+          "text": "un; una"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 3,
+          "surface": "book",
+          "text": "libro"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-want-pen",
+      "text": "Quiero un bolígrafo.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "I",
+          "text": "yo"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "want",
+          "text": "querer"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "a",
+          "text": "un; una"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 3,
+          "surface": "pen",
+          "text": "bolígrafo"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-see-cat",
+      "text": "Veo un gato.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "I",
+          "text": "yo"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "see",
+          "text": "ver"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "a",
+          "text": "un; una"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 3,
+          "surface": "cat",
+          "text": "gato"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-see-dog",
+      "text": "Veo un perro.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "I",
+          "text": "yo"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "see",
+          "text": "ver"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "a",
+          "text": "un; una"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 3,
+          "surface": "dog",
+          "text": "perro"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-see-book",
+      "text": "Veo un libro.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "I",
+          "text": "yo"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "see",
+          "text": "ver"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "a",
+          "text": "un; una"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 3,
+          "surface": "book",
+          "text": "libro"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-see-pen",
+      "text": "Veo un bolígrafo.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "I",
+          "text": "yo"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "see",
+          "text": "ver"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "a",
+          "text": "un; una"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 3,
+          "surface": "pen",
+          "text": "bolígrafo"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-see-house",
+      "text": "Veo una casa.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "I",
+          "text": "yo"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "see",
+          "text": "ver"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "a",
+          "text": "un; una"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 3,
+          "surface": "house",
+          "text": "casa"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-see-door",
+      "text": "Veo una puerta.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "I",
+          "text": "yo"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "see",
+          "text": "ver"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "a",
+          "text": "un; una"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 3,
+          "surface": "door",
+          "text": "puerta"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-see-table",
+      "text": "Veo una mesa.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "I",
+          "text": "yo"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "see",
+          "text": "ver"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "a",
+          "text": "un; una"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 3,
+          "surface": "table",
+          "text": "mesa"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-see-ball",
+      "text": "Veo una pelota.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "I",
+          "text": "yo"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "see",
+          "text": "ver"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "a",
+          "text": "un; una"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 3,
+          "surface": "ball",
+          "text": "pelota"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-i-eat",
+      "text": "Como.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "I",
+          "text": "yo"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "eat",
+          "text": "comer"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-i-drink",
+      "text": "Bebo.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "I",
+          "text": "yo"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "drink",
+          "text": "beber"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-i-go",
+      "text": "Voy.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "I",
+          "text": "yo"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "go",
+          "text": "ir"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-i-sit",
+      "text": "Me siento.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "I",
+          "text": "yo"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "sit",
+          "text": "sentarse"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-i-read",
+      "text": "Leo un libro.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "I",
+          "text": "yo"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "read",
+          "text": "leo"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "a",
+          "text": "un"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 3,
+          "surface": "book",
+          "text": "libro"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-i-write",
+      "text": "Escribo.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "I",
+          "text": "yo"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "write",
+          "text": "escribir"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-i-sleep",
+      "text": "Duermo.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "I",
+          "text": "yo"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "sleep",
+          "text": "dormir"
+        }
+      ]
+    },
+    {
+      "conceptId": "ww-zero-i-have-pen",
+      "text": "Tengo un bolígrafo.",
+      "tokenMeanings": [
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 0,
+          "surface": "I",
+          "text": "yo"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 1,
+          "surface": "have",
+          "text": "tengo"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 2,
+          "surface": "a",
+          "text": "un"
+        },
+        {
+          "targetLanguage": "en-US",
+          "tokenIndex": 3,
+          "surface": "pen",
+          "text": "bolígrafo"
+        }
+      ]
     }
   ]
 }

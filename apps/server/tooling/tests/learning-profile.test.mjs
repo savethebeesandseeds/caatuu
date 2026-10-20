@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 import vm from "node:vm";
+import { loadCourseCatalog } from "../../../../tools/language-packs/lib/course-contract.mjs";
 
 const staticRoot = new URL("../../../../apps/languages/czech/static/", import.meta.url);
 const languageRuntimeStatic = new URL("../../../../apps/language-runtime/static/", import.meta.url);
@@ -80,6 +81,7 @@ function createLearningContext(initial = {}, options = {}) {
     }
   };
   vm.runInNewContext(courseProfileSource, context, { filename: "course-profile.js" });
+  if (options.course) context.window.CaatuuCourse = options.course;
   if (options.selectorCourses) {
     context.window.CaatuuCourse = {
       ...context.window.CaatuuCourse,
@@ -89,7 +91,7 @@ function createLearningContext(initial = {}, options = {}) {
       }
     };
   }
-  vm.runInNewContext(learningProfileSource, context, { filename: "learning-profile.js" });
+  vm.runInNewContext(options.profileSource ?? learningProfileSource, context, { filename: "learning-profile.js" });
   return {
     learning: context.window.CaatuuLearning,
     rows,
@@ -101,10 +103,11 @@ function createLearningContext(initial = {}, options = {}) {
   };
 }
 
-test("difficulty is course-scoped, constrained to levels 1-3, and saved independently", () => {
+test("new learners start at zero and difficulty is constrained to levels 0-3", () => {
   const { learning, rows, events } = createLearningContext();
-  assert.equal(learning.difficulty(), 1);
-  assert.equal(learning.difficultyOption().label, "Explorer");
+  assert.equal(learning.difficulty(), 0);
+  assert.equal(learning.difficultyOption().label, "Starting out");
+  assert.equal(createLearningContext(Object.fromEntries(rows)).learning.difficulty(), 0);
   assert.equal(learning.setDifficulty(3), 3);
   assert.equal(learning.difficulty(), 3);
   assert.equal(learning.setDifficulty(99), 1);
@@ -118,7 +121,7 @@ test("only an actual difficulty change announces a reset and earned progress sta
   learning.record("word-net", { xp: 5, rounds: 1, successes: 1, attempts: 1 });
   const performance = rows.get("caatuu-czech.learning.performance.v1");
   events.length = 0;
-  learning.setDifficulty(1);
+  learning.setDifficulty(0);
   assert.equal(events.length, 0);
   learning.setDifficulty(2);
   learning.setDifficulty(2);
@@ -133,6 +136,133 @@ test("an explicit saved difficulty is preserved when the default changes", () =>
   });
   assert.equal(learning.difficulty(), 2);
   assert.equal(learning.difficultyOption().label, "Traveler");
+});
+
+test("all existing badges and legacy course histories retain their previous selection", () => {
+  for (const difficulty of [0, 1, 2, 3]) {
+    const preferences = JSON.stringify({ schemaVersion: 1, difficulty });
+    const { learning, rows } = createLearningContext({ "caatuu-czech.learning.preferences.v1": preferences });
+    assert.equal(learning.difficulty(), difficulty);
+    assert.equal(rows.get("caatuu-czech.learning.preferences.v1"), preferences);
+  }
+  const performance = JSON.stringify({ schemaVersion: 1, games: {} });
+  const { learning, rows } = createLearningContext({ "caatuu-czech.learning.performance.v1": performance });
+  assert.equal(learning.difficulty(), 1);
+  assert.equal(rows.get("caatuu-czech.learning.performance.v1"), performance);
+  assert.equal(rows.has("caatuu-czech.learning.preferences.v1"), false);
+});
+
+test("missing, blank or malformed preferences never coerce to the new zero badge", () => {
+  for (const difficulty of [null, "", " ", true, false, {}, [], -1, 4]) {
+    const { learning } = createLearningContext({
+      "caatuu-czech.learning.preferences.v1": JSON.stringify({ schemaVersion: 1, difficulty })
+    });
+    assert.equal(learning.difficulty(), 1, JSON.stringify(difficulty));
+  }
+});
+
+test("display and setup preferences do not make an unpracticed learner skip zero", () => {
+  const { learning } = createLearningContext({ "caatuu-czech.theme": "dark",
+    "caatuu-czech.font-size": "largest", "caatuu-czech.setup.v1": JSON.stringify({ ready: true }) });
+  assert.equal(learning.difficulty(), 0);
+});
+
+test("a new learner remains at zero after practice, reload and a display change", async () => {
+  const { learning, rows } = createLearningContext();
+  learning.record("word-world", { attempts: 1, successes: 1, rounds: 1, xp: 3 });
+  await learning.retryPendingSaves();
+  rows.set("caatuu-czech.theme", "dark");
+  const reloaded = createLearningContext(Object.fromEntries(rows)).learning;
+  assert.equal(reloaded.difficulty(), 0);
+  assert.equal(reloaded.snapshot().summary.rounds, 1);
+  assert.equal(reloaded.practiceSet().progression.stage.difficulty, 0);
+});
+
+test("level zero has exactly 100 cycles in every course while later bands retain their corpus budgets", async () => {
+  const { courses } = await loadCourseCatalog();
+  for (const { course } of courses) {
+    const { learning } = createLearningContext({}, { course });
+    const practice = learning.practiceSet();
+    assert.equal(practice.target, 24);
+    assert.equal(practice.cycle.target, 16);
+    for (const stage of practice.progression.stages) {
+      if (stage.difficulty === 0) {
+        assert.equal(stage.targetCycles, 100, course.id);
+        assert.equal(stage.budget.fixedCycles, 100, course.id);
+      } else {
+        const expected = Math.max(200, 25 * Math.ceil(6 * stage.budget.corpusEffort / (384 * 25)));
+        assert.equal(stage.targetCycles, expected, `${course.id}/${stage.difficulty}`);
+        assert.equal(stage.budget.minimumCycles, 200);
+      }
+    }
+  }
+});
+
+test("larger future banks keep zero at 100 cycles and retain later corpus scaling", () => {
+  const corpus = { cz: { 0: { units: 50000, effort: 100000 }, 1: { units: 5000, effort: 12801 },
+    2: { units: 5000, effort: 25601 }, 3: { units: 0, effort: 0 } } };
+  const profileSource = learningProfileSource.replace(/\/\/ BEGIN GENERATED PRACTICE CORPUS[\s\S]*?\/\/ END GENERATED PRACTICE CORPUS/u,
+    `// BEGIN GENERATED PRACTICE CORPUS\n  const practiceCorpusWorkloads = Object.freeze(${JSON.stringify(corpus)});\n  // END GENERATED PRACTICE CORPUS`);
+  assert.notEqual(profileSource, learningProfileSource);
+  const { learning } = createLearningContext({}, { profileSource });
+  const stages = learning.practiceSet().progression.stages;
+  assert.deepEqual(Array.from(stages, stage => stage.targetCycles), [100, 225, 425, 200]);
+});
+
+test("zero completes on its 100th cycle without automatically changing difficulty or later progress", async () => {
+  const first = createLearningContext();
+  const submit = learning => learning.record("word-world", { attempts: 1, successes: 1, rounds: 1, xp: 3 });
+  submit(first.learning);
+  await first.learning.retryPendingSaves();
+  const key = "caatuu-czech.learning.practice.v1";
+  const saved = JSON.parse(first.rows.get(key));
+  saved.stages[0] = { completedSets: 1599, effort: 21 };
+  saved.stages[1] = { completedSets: 17, effort: 6 };
+  saved.stages[2] = { completedSets: 23, effort: 9 };
+  const raw = JSON.stringify(saved);
+  first.rows.set(key, raw);
+  first.rows.set(`${key}.backup`, raw);
+  const app = createLearningContext({}, { rows: first.rows });
+  const before = app.learning.practiceSet();
+  assert.equal(before.progression.stage.completedCycles, 99);
+  assert.equal(before.progression.stage.cycle.sets, 15);
+  assert.equal(before.progression.stage.stageComplete, false);
+  submit(app.learning);
+  const after = app.learning.practiceSet();
+  assert.equal(after.progression.stage.completedCycles, 100);
+  assert.equal(after.progression.stage.completedSets, 1600);
+  assert.equal(after.progression.stage.stageComplete, true);
+  assert.equal(app.learning.difficulty(), 0);
+  assert.deepEqual(Array.from(after.progression.stages).slice(1), Array.from(before.progression.stages).slice(1));
+  await app.learning.retryPendingSaves();
+  const reloaded = createLearningContext({}, { rows: first.rows });
+  assert.equal(reloaded.learning.practiceSet().progression.stage.stageComplete, true);
+  assert.equal(reloaded.learning.difficulty(), 0);
+});
+
+test("lowering zero's target preserves previously earned work, rewards and preferences", async () => {
+  const first = createLearningContext();
+  first.learning.record("word-world", { attempts: 1, successes: 1, rounds: 1, xp: 3 });
+  await first.learning.retryPendingSaves();
+  const key = "caatuu-czech.learning.practice.v1";
+  const saved = JSON.parse(first.rows.get(key));
+  saved.stages[0] = { completedSets: 2400, effort: 17 };
+  const raw = JSON.stringify(saved);
+  first.rows.set(key, raw);
+  first.rows.set(`${key}.backup`, raw);
+  const existing = new Map(first.rows);
+  const app = createLearningContext({}, { rows: first.rows });
+  const practice = app.learning.practiceSet();
+  assert.equal(practice.progression.stage.completedCycles, 100);
+  assert.equal(practice.progression.stage.stageComplete, true);
+  assert.equal(practice.completedSets, saved.completedSets);
+  assert.equal(practice.effort, saved.effort);
+  assert.equal(practice.coins, saved.coinsEarned);
+  assert.equal(practice.gems, saved.gemsEarned);
+  assert.deepEqual(JSON.parse(JSON.stringify(practice.pending)), saved.rewards[0] ?? null);
+  assert.equal(app.learning.difficulty(), 0);
+  await app.learning.retryPendingSaves();
+  assert.deepEqual(first.rows, existing, "reading a shorter advisory stage must not rewrite saved evidence");
 });
 
 test("performance aggregates game activity without inventing achievements", () => {

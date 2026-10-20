@@ -29,7 +29,7 @@ const DEFAULT_ENGLISH_EMBEDDING_POLICY = Object.freeze({
 });
 const LEGACY_STANDARD_PROVIDER_MODULE = "source/games/word-world/word-net-standard.mjs";
 const SHARED_STANDARD_MEANING_SELECTOR = "/language-runtime/static/source/word-net-core.mjs";
-const DEFAULT_RENDERER_MODULE = "./product-word-world.mjs?v=shared-renderer-38";
+const DEFAULT_RENDERER_MODULE = "./product-word-world.mjs?v=shared-renderer-44";
 const STANDARD_USAGE_CAPACITY = 8192;
 const TARGET_TEXT_GUIDE_STATUSES = new Set(["machine-assisted-preview", "native-reviewed"]);
 const WORD_WORLD_GENERATION_IMPLEMENTATIONS = Object.freeze({
@@ -741,7 +741,7 @@ function authoredSelectionRecord(adapter, record) {
       englishAuditText: record.audit?.text || record.englishText
     } : {}),
     targetText: record.target.text,
-    difficulty: Math.max(1, Math.min(3, Math.floor(Number(record.difficulty) || 1))),
+    difficulty: Math.max(0, Math.min(3, Math.floor(Number(record.difficulty ?? 1)))),
     ...normalizeContentProgression(record, record.id),
     topic: record.topic || "general",
     targets: Object.freeze(record.target.tokens.map((token, tokenIndex) => Object.freeze({
@@ -761,7 +761,7 @@ function createAuthoredSelectionProvider(session, manifest, adapter, options = {
   const random = typeof options.random === "function" ? options.random : Math.random;
   const byId = new Map(records.map((record) => [record.id, record]));
   const choose = (candidates, { difficulty = 3, excludeIds = [], allowExcludedFallback = true } = {}) => {
-    const level = Math.max(1, Math.min(3, Math.floor(Number(difficulty) || 1)));
+    const level = Math.max(0, Math.min(3, Math.floor(Number(difficulty ?? 1))));
     const eligible = candidates.filter((record) => matchesContentDifficulty(record, level));
     if (!eligible.length) return null;
     const excluded = new Set((Array.isArray(excludeIds) ? excludeIds : []).map(recordId));

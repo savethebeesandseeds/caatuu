@@ -20,19 +20,19 @@ function fixture({ complete = true, result = ready, evaluator, preferences = new
   const status = document.createElement("p");
   status.id = "learningStatus";
   document.body.append(slot, meter, status);
-  for (let index = 1; index <= 3; index++) {
+  for (let index = 0; index <= 3; index++) {
     const button = document.createElement("button");
     button.setAttribute("data-difficulty-level", String(index));
     document.body.append(button);
   }
   let reset = "first", current = level, stageComplete = complete, available = true;
-  const stageTargets = { 1: 225, 2: 425 };
+  const stageTargets = { 0: 100, 1: 225, 2: 425, 3: 200 };
   const equipped = [], calls = [], opened = [];
   window.CaatuuChrome = { openSharedSettings: value => opened.push(value) };
   const course = { id: "test", storage: { namespace: "caatuu-test" } };
   const learning = {
     difficulty: () => current,
-    difficultyOption: value => ({ label: ["", "Explorer", "Traveler", "Navigator"][value] }),
+    difficultyOption: value => ({ label: ["Starting out", "Explorer", "Traveler", "Navigator"][value] }),
     contentGeneration: () => reset,
     storage: { performanceStorageKey: "course.performance.v1", practiceStorageKey: "course.practice.v1", contentStorageKey: "course.content.v2" },
     practiceSet: () => ({ target: 24, effort: 5, completedSets: 134,
@@ -72,6 +72,25 @@ test("incomplete stages show current-band cycles without fetching readiness or c
   f.controller.destroy();
 });
 
+test("zero can dismiss, reload and voluntarily equip the Explorer invitation", async () => {
+  const preferences = new Map();
+  const result = { status: "ready", suggestedDifficulty: 1, recommended: true };
+  const first = fixture({ level: 0, result, preferences });
+  await settle();
+  assert.match(first.slot.textContent, /Explorer/);
+  first.slot.querySelector(".caatuu-badge-dismiss").dispatchEvent({ type: "click" });
+  first.controller.destroy();
+  const next = fixture({ level: 0, result, preferences });
+  await settle();
+  assert.equal(next.slot.querySelector(".caatuu-badge-equip"), null);
+  next.slot.querySelector(".caatuu-badge-review").dispatchEvent({ type: "click" });
+  await settle();
+  next.slot.querySelector(".caatuu-badge-equip").dispatchEvent({ type: "click" });
+  await settle();
+  assert.deepEqual(next.equipped, [1]);
+  next.controller.destroy();
+});
+
 test("real shared profile counters render correctly without fixture-only fields", async () => {
   const source = await readFile(new URL("../static/source/learning-profile.js", import.meta.url), "utf8");
   const course = { id: "real-profile", storage: { namespace: "caatuu-real-profile" }, games: ["word-net"] };
@@ -87,6 +106,8 @@ test("real shared profile counters render correctly without fixture-only fields"
   assert.equal(f.window.CaatuuLearning.practiceSet().cycle.target, 16);
   assert.match(slot.querySelector(".caatuu-badge-stage-sets").textContent, /1 \/ 16 sets/);
   const practice = f.window.CaatuuLearning.practiceSet();
+  assert.equal(practice.progression.stage.difficulty, 0);
+  assert.equal(practice.progression.stage.targetCycles, 100);
   assert.equal(slot.querySelector("progress").max, practice.progression.stage.targetCycles * practice.cycle.target);
   assert.equal(slot.querySelector("progress").value, 1);
   assert.doesNotMatch(slot.textContent, /NaN|undefined/);
@@ -225,6 +246,7 @@ test("real-profile failed or future-format dismissal writes never become pending
     } };
     vm.runInContext(source, f.context);
     const learning = f.window.CaatuuLearning;
+    learning.setDifficulty(1);
     learning.record("word-world", { attempts: 1, successes: 1, xp: 3, rounds: 1 });
     await learning.retryPendingSaves();
     // Seed only the practiced milestone; this test isolates preference persistence
@@ -300,13 +322,41 @@ test("buttons retained after controller destruction cannot write dismissal prefe
   assert.equal(f.preferences.size, 0);
 });
 
-test("Navigator keeps ongoing cycles with no invented fourth difficulty", async () => {
+test("Navigator shows its finite completed stage with no invented fourth difficulty", async () => {
   const f = fixture({ level: 3 });
   await settle();
   assert.equal(f.calls.length, 0);
   assert.equal(f.controller.getState().status, "max-level");
-  assert.match(f.slot.textContent, /Navigator practice/);
+  const practice = f.learning.practiceSet();
+  const stage = practice.progression.stage;
+  const progress = f.find(".caatuu-badge-stage-meter");
+  assert.equal(progress.max, stage.targetCycles * practice.cycle.target);
+  assert.equal(progress.value, progress.max);
+  assert.equal(f.find(".caatuu-badge-stage-sets").textContent,
+    englishInterfaceContent.t("practice.stage.sets", { sets: practice.cycle.target, target: practice.cycle.target }));
   assert.equal(f.find(".caatuu-badge-equip"), null);
+  assert.equal(f.find(".caatuu-badge-review"), null);
+  assert.equal(f.find(".caatuu-badge-recommendation").textContent, "");
+  f.controller.destroy();
+});
+
+test("difficulty stage summaries restore remembered sets and remain full at the cap", async () => {
+  const f = fixture({ complete: false });
+  let stage = { difficulty: 1, target: 24, effort: 9, completedSets: 19, completedCycles: 1,
+    targetCycles: 200, stageComplete: false, cycle: { target: 16, completed: 1, sets: 3 } };
+  const originalPracticeSet = f.learning.practiceSet;
+  f.learning.practiceSet = () => ({ ...originalPracticeSet(), progression: { available: true, stage } });
+  for (const next of [stage, { ...stage, difficulty: 2, effort: 0, completedSets: 0, completedCycles: 0,
+    cycle: { target: 16, completed: 0, sets: 0 } }, stage,
+  { ...stage, effort: 24, completedSets: 3200, completedCycles: 200, stageComplete: true,
+    cycle: { target: 16, completed: 200, sets: 16 } }]) {
+    stage = next;
+    f.change({ difficulty: stage.difficulty });
+    await settle();
+    assert.equal(f.find(".caatuu-badge-stage-sets").textContent,
+      englishInterfaceContent.t("practice.stage.sets", { sets: stage.cycle.sets, target: stage.cycle.target }));
+    assert.equal(f.find(".caatuu-badge-stage-meter").value, stage.completedSets);
+  }
   f.controller.destroy();
 });
 

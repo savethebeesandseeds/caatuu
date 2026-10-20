@@ -33122,6 +33122,2562 @@
       "annotations": {},
       "usefulness": 92,
       "complexity": 17
+    },
+    {
+      "id": "zero-nb-ww-hello",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "greetings",
+      "englishText": "Hello!",
+      "embeddingText": "Hello!",
+      "englishAlternates": [],
+      "targetText": "Hei!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Hei",
+          "pronunciation": null,
+          "gloss": "Hello",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Hello!",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-goodbye",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "greetings",
+      "englishText": "Goodbye!",
+      "embeddingText": "Goodbye!",
+      "englishAlternates": [],
+      "targetText": "Ha det!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Ha",
+          "pronunciation": null,
+          "gloss": "have",
+          "playable": true
+        },
+        {
+          "surface": "det",
+          "pronunciation": null,
+          "gloss": "it (goodbye expression)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Goodbye!",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-thanks",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "greetings",
+      "englishText": "Thank you!",
+      "embeddingText": "Thank you!",
+      "englishAlternates": [],
+      "targetText": "Takk!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Takk",
+          "pronunciation": null,
+          "gloss": "Thank you",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Thank you!",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-yes",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "greetings",
+      "englishText": "Yes.",
+      "embeddingText": "Yes.",
+      "englishAlternates": [],
+      "targetText": "Ja.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Ja",
+          "pronunciation": null,
+          "gloss": "Yes",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Yes.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-no",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "greetings",
+      "englishText": "No.",
+      "embeddingText": "No.",
+      "englishAlternates": [],
+      "targetText": "Nei.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Nei",
+          "pronunciation": null,
+          "gloss": "No",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "No.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-please",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "greetings",
+      "englishText": "Please.",
+      "embeddingText": "Please.",
+      "englishAlternates": [],
+      "targetText": "Vær så snill.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Vær",
+          "pronunciation": null,
+          "gloss": "be",
+          "playable": true
+        },
+        {
+          "surface": "så",
+          "pronunciation": null,
+          "gloss": "so",
+          "playable": true
+        },
+        {
+          "surface": "snill",
+          "pronunciation": null,
+          "gloss": "kind (please)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Please.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-sorry",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "greetings",
+      "englishText": "Sorry!",
+      "embeddingText": "Sorry!",
+      "englishAlternates": [],
+      "targetText": "Unnskyld!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Unnskyld",
+          "pronunciation": null,
+          "gloss": "Sorry",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Sorry!",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-help",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "greetings",
+      "englishText": "Help!",
+      "embeddingText": "Help!",
+      "englishAlternates": [],
+      "targetText": "Hjelp!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Hjelp",
+          "pronunciation": null,
+          "gloss": "Help",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Help!",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-i",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "people",
+      "englishText": "I",
+      "embeddingText": "I",
+      "englishAlternates": [],
+      "targetText": "jeg",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "jeg",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-you",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "people",
+      "englishText": "you (one person)",
+      "embeddingText": "you (one person)",
+      "englishAlternates": [],
+      "targetText": "du",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "du",
+          "pronunciation": null,
+          "gloss": "you (one person)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "you (one person)",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-mother",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "people",
+      "englishText": "mother",
+      "embeddingText": "mother",
+      "englishAlternates": [],
+      "targetText": "mor",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "mor",
+          "pronunciation": null,
+          "gloss": "mother",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "mother",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-father",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "people",
+      "englishText": "father",
+      "embeddingText": "father",
+      "englishAlternates": [],
+      "targetText": "far",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "far",
+          "pronunciation": null,
+          "gloss": "father",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "father",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-friend",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "people",
+      "englishText": "friend",
+      "embeddingText": "friend",
+      "englishAlternates": [],
+      "targetText": "venn",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "venn",
+          "pronunciation": null,
+          "gloss": "friend",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "friend",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-child",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "people",
+      "englishText": "child",
+      "embeddingText": "child",
+      "englishAlternates": [],
+      "targetText": "barn",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "barn",
+          "pronunciation": null,
+          "gloss": "child",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "child",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-one",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "numbers",
+      "englishText": "one",
+      "embeddingText": "one",
+      "englishAlternates": [],
+      "targetText": "én",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "én",
+          "pronunciation": null,
+          "gloss": "one",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "one",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-two",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "numbers",
+      "englishText": "two",
+      "embeddingText": "two",
+      "englishAlternates": [],
+      "targetText": "to",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "to",
+          "pronunciation": null,
+          "gloss": "two",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "two",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-three",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "numbers",
+      "englishText": "three",
+      "embeddingText": "three",
+      "englishAlternates": [],
+      "targetText": "tre",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "tre",
+          "pronunciation": null,
+          "gloss": "three",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "three",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-four",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "numbers",
+      "englishText": "four",
+      "embeddingText": "four",
+      "englishAlternates": [],
+      "targetText": "fire",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "fire",
+          "pronunciation": null,
+          "gloss": "four",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "four",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-five",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "numbers",
+      "englishText": "five",
+      "embeddingText": "five",
+      "englishAlternates": [],
+      "targetText": "fem",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "fem",
+          "pronunciation": null,
+          "gloss": "five",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "five",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-water",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "food-and-drink",
+      "englishText": "water",
+      "embeddingText": "water",
+      "englishAlternates": [],
+      "targetText": "vann",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "vann",
+          "pronunciation": null,
+          "gloss": "water",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "water",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-bread",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "food-and-drink",
+      "englishText": "bread",
+      "embeddingText": "bread",
+      "englishAlternates": [],
+      "targetText": "brød",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "brød",
+          "pronunciation": null,
+          "gloss": "bread",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "bread",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-milk",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "food-and-drink",
+      "englishText": "milk",
+      "embeddingText": "milk",
+      "englishAlternates": [],
+      "targetText": "melk",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "melk",
+          "pronunciation": null,
+          "gloss": "milk",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "milk",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-apple",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "food-and-drink",
+      "englishText": "apple",
+      "embeddingText": "apple",
+      "englishAlternates": [],
+      "targetText": "eple",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "eple",
+          "pronunciation": null,
+          "gloss": "apple",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "apple",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-tea",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "food-and-drink",
+      "englishText": "tea",
+      "embeddingText": "tea",
+      "englishAlternates": [],
+      "targetText": "te",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "te",
+          "pronunciation": null,
+          "gloss": "tea",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "tea",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-house",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "home",
+      "englishText": "house",
+      "embeddingText": "house",
+      "englishAlternates": [],
+      "targetText": "hus",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "hus",
+          "pronunciation": null,
+          "gloss": "house",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "house",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-book",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "home",
+      "englishText": "book",
+      "embeddingText": "book",
+      "englishAlternates": [],
+      "targetText": "bok",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "bok",
+          "pronunciation": null,
+          "gloss": "book",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "book",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-door",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "home",
+      "englishText": "door",
+      "embeddingText": "door",
+      "englishAlternates": [],
+      "targetText": "dør",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "dør",
+          "pronunciation": null,
+          "gloss": "door",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "door",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-car",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "objects",
+      "englishText": "car",
+      "embeddingText": "car",
+      "englishAlternates": [],
+      "targetText": "bil",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "bil",
+          "pronunciation": null,
+          "gloss": "car",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "car",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-cat",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "animals",
+      "englishText": "cat",
+      "embeddingText": "cat",
+      "englishAlternates": [],
+      "targetText": "katt",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "katt",
+          "pronunciation": null,
+          "gloss": "cat",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "cat",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-dog",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "animals",
+      "englishText": "dog",
+      "embeddingText": "dog",
+      "englishAlternates": [],
+      "targetText": "hund",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "hund",
+          "pronunciation": null,
+          "gloss": "dog",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "dog",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-big",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "properties",
+      "englishText": "big",
+      "embeddingText": "big",
+      "englishAlternates": [],
+      "targetText": "stor",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "stor",
+          "pronunciation": null,
+          "gloss": "big",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "big",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-small",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "properties",
+      "englishText": "small",
+      "embeddingText": "small",
+      "englishAlternates": [],
+      "targetText": "liten",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "liten",
+          "pronunciation": null,
+          "gloss": "small",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "small",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-good",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "properties",
+      "englishText": "good",
+      "embeddingText": "good",
+      "englishAlternates": [],
+      "targetText": "god",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "god",
+          "pronunciation": null,
+          "gloss": "good",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "good",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-new",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "properties",
+      "englishText": "new",
+      "embeddingText": "new",
+      "englishAlternates": [],
+      "targetText": "ny",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ny",
+          "pronunciation": null,
+          "gloss": "new",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "new",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-red",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "properties",
+      "englishText": "red",
+      "embeddingText": "red",
+      "englishAlternates": [],
+      "targetText": "rød",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "rød",
+          "pronunciation": null,
+          "gloss": "red",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "red",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-green",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "properties",
+      "englishText": "green",
+      "embeddingText": "green",
+      "englishAlternates": [],
+      "targetText": "grønn",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "grønn",
+          "pronunciation": null,
+          "gloss": "green",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "green",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-hot",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "properties",
+      "englishText": "hot",
+      "embeddingText": "hot",
+      "englishAlternates": [],
+      "targetText": "varm",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "varm",
+          "pronunciation": null,
+          "gloss": "hot",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "hot",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-cold",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "properties",
+      "englishText": "cold",
+      "embeddingText": "cold",
+      "englishAlternates": [],
+      "targetText": "kald",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "kald",
+          "pronunciation": null,
+          "gloss": "cold",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "cold",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-eat",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "actions",
+      "englishText": "eat",
+      "embeddingText": "eat",
+      "englishAlternates": [],
+      "targetText": "spise",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "spise",
+          "pronunciation": null,
+          "gloss": "eat",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "eat",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-drink",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "actions",
+      "englishText": "drink",
+      "embeddingText": "drink",
+      "englishAlternates": [],
+      "targetText": "drikke",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "drikke",
+          "pronunciation": null,
+          "gloss": "drink",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "drink",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-go",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "actions",
+      "englishText": "walk",
+      "embeddingText": "walk",
+      "englishAlternates": [],
+      "targetText": "gå",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "gå",
+          "pronunciation": null,
+          "gloss": "walk",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "walk",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-come",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "actions",
+      "englishText": "come",
+      "embeddingText": "come",
+      "englishAlternates": [],
+      "targetText": "komme",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "komme",
+          "pronunciation": null,
+          "gloss": "come",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "come",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-sleep",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "actions",
+      "englishText": "sleep",
+      "embeddingText": "sleep",
+      "englishAlternates": [],
+      "targetText": "sove",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "sove",
+          "pronunciation": null,
+          "gloss": "sleep",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "sleep",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-read",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "actions",
+      "englishText": "read",
+      "embeddingText": "read",
+      "englishAlternates": [],
+      "targetText": "lese",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "lese",
+          "pronunciation": null,
+          "gloss": "read",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "read",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-write",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "actions",
+      "englishText": "write",
+      "embeddingText": "write",
+      "englishAlternates": [],
+      "targetText": "skrive",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "skrive",
+          "pronunciation": null,
+          "gloss": "write",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "write",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-see",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "actions",
+      "englishText": "see",
+      "embeddingText": "see",
+      "englishAlternates": [],
+      "targetText": "se",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "se",
+          "pronunciation": null,
+          "gloss": "see",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "see",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-001",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "Hello, friend!",
+      "embeddingText": "Hello, friend!",
+      "englishAlternates": [],
+      "targetText": "Hei, venn!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Hei",
+          "pronunciation": null,
+          "gloss": "hello",
+          "playable": true
+        },
+        {
+          "surface": "venn",
+          "pronunciation": null,
+          "gloss": "friend",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Hello, friend!",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-002",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "Yes, please.",
+      "embeddingText": "Yes, please.",
+      "englishAlternates": [],
+      "targetText": "Ja, takk.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Ja",
+          "pronunciation": null,
+          "gloss": "yes",
+          "playable": true
+        },
+        {
+          "surface": "takk",
+          "pronunciation": null,
+          "gloss": "thanks (polite acceptance)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Yes, please.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-003",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "No, thank you.",
+      "embeddingText": "No, thank you.",
+      "englishAlternates": [],
+      "targetText": "Nei, takk.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Nei",
+          "pronunciation": null,
+          "gloss": "no",
+          "playable": true
+        },
+        {
+          "surface": "takk",
+          "pronunciation": null,
+          "gloss": "thank you",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "No, thank you.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-004",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "Good morning!",
+      "embeddingText": "Good morning!",
+      "englishAlternates": [],
+      "targetText": "God morgen!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "God",
+          "pronunciation": null,
+          "gloss": "good",
+          "playable": true
+        },
+        {
+          "surface": "morgen",
+          "pronunciation": null,
+          "gloss": "morning",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Good morning!",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-005",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "Good night!",
+      "embeddingText": "Good night!",
+      "englishAlternates": [],
+      "targetText": "God natt!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "God",
+          "pronunciation": null,
+          "gloss": "good",
+          "playable": true
+        },
+        {
+          "surface": "natt",
+          "pronunciation": null,
+          "gloss": "night",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Good night!",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-006",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "englishText": "I am here.",
+      "embeddingText": "I am here.",
+      "englishAlternates": [],
+      "targetText": "Jeg er her.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Jeg",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "er",
+          "pronunciation": null,
+          "gloss": "am",
+          "playable": true
+        },
+        {
+          "surface": "her",
+          "pronunciation": null,
+          "gloss": "here",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I am here.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-007",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "englishText": "You are here.",
+      "embeddingText": "You are here.",
+      "englishAlternates": [],
+      "targetText": "Du er her.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Du",
+          "pronunciation": null,
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "er",
+          "pronunciation": null,
+          "gloss": "are",
+          "playable": true
+        },
+        {
+          "surface": "her",
+          "pronunciation": null,
+          "gloss": "here",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "You are here.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-008",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "englishText": "I am at home.",
+      "embeddingText": "I am at home.",
+      "englishAlternates": [],
+      "targetText": "Jeg er hjemme.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Jeg",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "er",
+          "pronunciation": null,
+          "gloss": "am",
+          "playable": true
+        },
+        {
+          "surface": "hjemme",
+          "pronunciation": null,
+          "gloss": "at home",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I am at home.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-009",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "englishText": "You are at home.",
+      "embeddingText": "You are at home.",
+      "englishAlternates": [],
+      "targetText": "Du er hjemme.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Du",
+          "pronunciation": null,
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "er",
+          "pronunciation": null,
+          "gloss": "are",
+          "playable": true
+        },
+        {
+          "surface": "hjemme",
+          "pronunciation": null,
+          "gloss": "at home",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "You are at home.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-010",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 7,
+      "topic": "first-sentences",
+      "englishText": "I am fine.",
+      "embeddingText": "I am fine.",
+      "englishAlternates": [],
+      "targetText": "Jeg har det bra.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Jeg",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "har",
+          "pronunciation": null,
+          "gloss": "have",
+          "playable": true
+        },
+        {
+          "surface": "det",
+          "pronunciation": null,
+          "gloss": "it",
+          "playable": true
+        },
+        {
+          "surface": "bra",
+          "pronunciation": null,
+          "gloss": "well",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I am fine.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-011",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "englishText": "This is water.",
+      "embeddingText": "This is water.",
+      "englishAlternates": [],
+      "targetText": "Dette er vann.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Dette",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "er",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "vann",
+          "pronunciation": null,
+          "gloss": "water",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is water.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-012",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "englishText": "This is bread.",
+      "embeddingText": "This is bread.",
+      "englishAlternates": [],
+      "targetText": "Dette er brød.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Dette",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "er",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "brød",
+          "pronunciation": null,
+          "gloss": "bread",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is bread.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-013",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "englishText": "This is milk.",
+      "embeddingText": "This is milk.",
+      "englishAlternates": [],
+      "targetText": "Dette er melk.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Dette",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "er",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "melk",
+          "pronunciation": null,
+          "gloss": "milk",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is milk.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-014",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "englishText": "This is tea.",
+      "embeddingText": "This is tea.",
+      "englishAlternates": [],
+      "targetText": "Dette er te.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Dette",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "er",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "te",
+          "pronunciation": null,
+          "gloss": "tea",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is tea.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-015",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 7,
+      "topic": "first-sentences",
+      "englishText": "This is a book.",
+      "embeddingText": "This is a book.",
+      "englishAlternates": [],
+      "targetText": "Dette er en bok.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Dette",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "er",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "en",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "bok",
+          "pronunciation": null,
+          "gloss": "book",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is a book.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-016",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 7,
+      "topic": "first-sentences",
+      "englishText": "This is a house.",
+      "embeddingText": "This is a house.",
+      "englishAlternates": [],
+      "targetText": "Dette er et hus.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Dette",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "er",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "et",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "hus",
+          "pronunciation": null,
+          "gloss": "house",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is a house.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-017",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "A cat.",
+      "embeddingText": "A cat.",
+      "englishAlternates": [],
+      "targetText": "En katt.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "En",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "katt",
+          "pronunciation": null,
+          "gloss": "cat",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A cat.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-018",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "A dog.",
+      "embeddingText": "A dog.",
+      "englishAlternates": [],
+      "targetText": "En hund.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "En",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "hund",
+          "pronunciation": null,
+          "gloss": "dog",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A dog.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-019",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "An apple.",
+      "embeddingText": "An apple.",
+      "englishAlternates": [],
+      "targetText": "Et eple.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Et",
+          "pronunciation": null,
+          "gloss": "an",
+          "playable": true
+        },
+        {
+          "surface": "eple",
+          "pronunciation": null,
+          "gloss": "apple",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "An apple.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-020",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "englishText": "A red car.",
+      "embeddingText": "A red car.",
+      "englishAlternates": [],
+      "targetText": "En rød bil.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "En",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "rød",
+          "pronunciation": null,
+          "gloss": "red",
+          "playable": true
+        },
+        {
+          "surface": "bil",
+          "pronunciation": null,
+          "gloss": "car",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A red car.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-021",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "englishText": "A green book.",
+      "embeddingText": "A green book.",
+      "englishAlternates": [],
+      "targetText": "En grønn bok.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "En",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "grønn",
+          "pronunciation": null,
+          "gloss": "green",
+          "playable": true
+        },
+        {
+          "surface": "bok",
+          "pronunciation": null,
+          "gloss": "book",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A green book.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-022",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "englishText": "A big dog.",
+      "embeddingText": "A big dog.",
+      "englishAlternates": [],
+      "targetText": "En stor hund.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "En",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "stor",
+          "pronunciation": null,
+          "gloss": "big",
+          "playable": true
+        },
+        {
+          "surface": "hund",
+          "pronunciation": null,
+          "gloss": "dog",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A big dog.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-023",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "englishText": "A small cat.",
+      "embeddingText": "A small cat.",
+      "englishAlternates": [],
+      "targetText": "En liten katt.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "En",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "liten",
+          "pronunciation": null,
+          "gloss": "small",
+          "playable": true
+        },
+        {
+          "surface": "katt",
+          "pronunciation": null,
+          "gloss": "cat",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A small cat.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-024",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "englishText": "A new book.",
+      "embeddingText": "A new book.",
+      "englishAlternates": [],
+      "targetText": "En ny bok.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "En",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "ny",
+          "pronunciation": null,
+          "gloss": "new",
+          "playable": true
+        },
+        {
+          "surface": "bok",
+          "pronunciation": null,
+          "gloss": "book",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A new book.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-025",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "Cold water.",
+      "embeddingText": "Cold water.",
+      "englishAlternates": [],
+      "targetText": "Kaldt vann.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Kaldt",
+          "pronunciation": null,
+          "gloss": "cold",
+          "playable": true
+        },
+        {
+          "surface": "vann",
+          "pronunciation": null,
+          "gloss": "water",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Cold water.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-026",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "Warm milk.",
+      "embeddingText": "Warm milk.",
+      "englishAlternates": [],
+      "targetText": "Varm melk.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Varm",
+          "pronunciation": null,
+          "gloss": "warm",
+          "playable": true
+        },
+        {
+          "surface": "melk",
+          "pronunciation": null,
+          "gloss": "milk",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Warm milk.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-027",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "Hot tea.",
+      "embeddingText": "Hot tea.",
+      "englishAlternates": [],
+      "targetText": "Varm te.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Varm",
+          "pronunciation": null,
+          "gloss": "hot",
+          "playable": true
+        },
+        {
+          "surface": "te",
+          "pronunciation": null,
+          "gloss": "tea",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Hot tea.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-028",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "Two cats.",
+      "embeddingText": "Two cats.",
+      "englishAlternates": [],
+      "targetText": "To katter.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "To",
+          "pronunciation": null,
+          "gloss": "two",
+          "playable": true
+        },
+        {
+          "surface": "katter",
+          "pronunciation": null,
+          "gloss": "cats",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Two cats.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-029",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "Three books.",
+      "embeddingText": "Three books.",
+      "englishAlternates": [],
+      "targetText": "Tre bøker.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Tre",
+          "pronunciation": null,
+          "gloss": "three",
+          "playable": true
+        },
+        {
+          "surface": "bøker",
+          "pronunciation": null,
+          "gloss": "books",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Three books.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-030",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "I eat.",
+      "embeddingText": "I eat.",
+      "englishAlternates": [],
+      "targetText": "Jeg spiser.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Jeg",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "spiser",
+          "pronunciation": null,
+          "gloss": "eat",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I eat.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-031",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "You eat.",
+      "embeddingText": "You eat.",
+      "englishAlternates": [],
+      "targetText": "Du spiser.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Du",
+          "pronunciation": null,
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "spiser",
+          "pronunciation": null,
+          "gloss": "eat",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "You eat.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-032",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "I drink.",
+      "embeddingText": "I drink.",
+      "englishAlternates": [],
+      "targetText": "Jeg drikker.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Jeg",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "drikker",
+          "pronunciation": null,
+          "gloss": "drink",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I drink.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-033",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "You drink.",
+      "embeddingText": "You drink.",
+      "englishAlternates": [],
+      "targetText": "Du drikker.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Du",
+          "pronunciation": null,
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "drikker",
+          "pronunciation": null,
+          "gloss": "drink",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "You drink.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-034",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "englishText": "I drink water.",
+      "embeddingText": "I drink water.",
+      "englishAlternates": [],
+      "targetText": "Jeg drikker vann.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Jeg",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "drikker",
+          "pronunciation": null,
+          "gloss": "drink",
+          "playable": true
+        },
+        {
+          "surface": "vann",
+          "pronunciation": null,
+          "gloss": "water",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I drink water.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-035",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "englishText": "You drink milk.",
+      "embeddingText": "You drink milk.",
+      "englishAlternates": [],
+      "targetText": "Du drikker melk.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Du",
+          "pronunciation": null,
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "drikker",
+          "pronunciation": null,
+          "gloss": "drink",
+          "playable": true
+        },
+        {
+          "surface": "melk",
+          "pronunciation": null,
+          "gloss": "milk",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "You drink milk.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-036",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "I read.",
+      "embeddingText": "I read.",
+      "englishAlternates": [],
+      "targetText": "Jeg leser.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Jeg",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "leser",
+          "pronunciation": null,
+          "gloss": "read",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I read.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-037",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "You read.",
+      "embeddingText": "You read.",
+      "englishAlternates": [],
+      "targetText": "Du leser.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Du",
+          "pronunciation": null,
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "leser",
+          "pronunciation": null,
+          "gloss": "read",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "You read.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-038",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "I sleep.",
+      "embeddingText": "I sleep.",
+      "englishAlternates": [],
+      "targetText": "Jeg sover.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Jeg",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "sover",
+          "pronunciation": null,
+          "gloss": "sleep",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I sleep.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-039",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 7,
+      "topic": "first-sentences",
+      "englishText": "I see a cat.",
+      "embeddingText": "I see a cat.",
+      "englishAlternates": [],
+      "targetText": "Jeg ser en katt.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Jeg",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "ser",
+          "pronunciation": null,
+          "gloss": "see",
+          "playable": true
+        },
+        {
+          "surface": "en",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "katt",
+          "pronunciation": null,
+          "gloss": "cat",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I see a cat.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-040",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 7,
+      "topic": "first-sentences",
+      "englishText": "You see a dog.",
+      "embeddingText": "You see a dog.",
+      "englishAlternates": [],
+      "targetText": "Du ser en hund.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Du",
+          "pronunciation": null,
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "ser",
+          "pronunciation": null,
+          "gloss": "see",
+          "playable": true
+        },
+        {
+          "surface": "en",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "hund",
+          "pronunciation": null,
+          "gloss": "dog",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "You see a dog.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-041",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 7,
+      "topic": "first-sentences",
+      "englishText": "I have a book.",
+      "embeddingText": "I have a book.",
+      "englishAlternates": [],
+      "targetText": "Jeg har en bok.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Jeg",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "har",
+          "pronunciation": null,
+          "gloss": "have",
+          "playable": true
+        },
+        {
+          "surface": "en",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "bok",
+          "pronunciation": null,
+          "gloss": "book",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I have a book.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-nb-ww-phrase-042",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 7,
+      "topic": "first-sentences",
+      "englishText": "You have an apple.",
+      "embeddingText": "You have an apple.",
+      "englishAlternates": [],
+      "targetText": "Du har et eple.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Du",
+          "pronunciation": null,
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "har",
+          "pronunciation": null,
+          "gloss": "have",
+          "playable": true
+        },
+        {
+          "surface": "et",
+          "pronunciation": null,
+          "gloss": "an",
+          "playable": true
+        },
+        {
+          "surface": "eple",
+          "pronunciation": null,
+          "gloss": "apple",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "You have an apple.",
+      "sceneAssetIds": [],
+      "annotations": {}
     }
   ]
 }

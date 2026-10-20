@@ -11,10 +11,11 @@ test('history exclusions stay within the current challenge range', () => {
   const chosen = progressiveWordWorldSelection(records, { excludeIds: records.slice(0, 6).map(r => r.id), random: () => 0, now });
   assert.ok(records.indexOf(chosen) < 6);
 });
-test('delayed independent practice widens selection and a word request stays within the badge', () => {
+test('delayed independent practice widens a new-material turn and a word request stays within the badge', () => {
   const history = Object.fromEntries(records.slice(0, 6).map(r => [r.id, {
     exposures: 20, firstSeenAt: now - 20 * DAY, lastSeenAt: now - DAY,
     independentDays: 5, spacedSuccesses: 4, intervalMs: 16 * DAY }]));
+  history[records[0].id].exposures += 2; // The next completed-content phase is the new-material slot.
   const chosen = progressiveWordWorldSelection(records, { history, random: () => 0, now,
     excludeIds: records.slice(0, 6).map(r => r.id) });
   assert.ok(records.indexOf(chosen) >= 6 && records.indexOf(chosen) < 16);
@@ -24,7 +25,27 @@ test('delayed independent practice widens selection and a word request stays wit
   assert.equal(progressiveWordWorldSelection(records, { selectedWord: 'missing', now }), null);
 });
 
-test('massed mistakes rotate practice without inferring retention or raising the challenge', () => {
+test('recent exclusions cannot pull a future exhausted-frontier introduction into this turn', () => {
+  const rows = Array.from({ length: 12 }, (_, index) => ({ id: `paced-${index}`,
+    difficulty: 1, usefulness: 70, complexity: index < 6 ? 10 : 30 }));
+  for (const policy of [null, { identity: { courseId: 'test', gameId: 'word-world', bankId: 'sentences' } }]) {
+    const history = Object.fromEntries(rows.slice(0, 6).map(row => [row.id, {
+      exposures: 1, firstSeenAt: new Date(now).toISOString(), lastSeenAt: new Date(now).toISOString()
+    }]));
+    const options = { history, policy, now, random: () => 0,
+      excludeIds: rows.slice(0, 6).map(row => row.id) };
+    let pool;
+    const review = progressiveWordWorldSelection(rows, { ...options, onPool: value => { pool = value; } });
+    assert.ok(history[review.id], 'an exhausted recent list repeats within the current practice category');
+    assert.deepEqual(pool, [review], 'the controller must see only the single scheduled turn');
+    history[rows[0].id].exposures += 1;
+    const fresh = progressiveWordWorldSelection(rows, options);
+    assert.equal(fresh.complexity, 30, 'the following scheduled new slot admits the nearest band');
+    assert.ok(!history[fresh.id]);
+  }
+});
+
+test('massed mistakes retain zero readiness while the exhausted window continues into the nearest band', () => {
   const history = {}; const excludeIds = []; const visited = new Set();
   for (let step = 1; step <= 80; step++) {
     const row = progressiveWordWorldSelection(records, { history, excludeIds, random: () => 0, now: now + step * 1000 });
@@ -32,8 +53,10 @@ test('massed mistakes rotate practice without inferring retention or raising the
     history[row.id] = { exposures: (history[row.id]?.exposures || 0) + 1,
       firstSeenAt: history[row.id]?.firstSeenAt || now, lastSeenAt: now + step * 1000, lastCorrect: false };
   }
-  assert.equal(visited.size, 6);
-  assert.ok(records.slice(6).every(row => !history[row.id]));
+  assert.ok(visited.size > 6, 'continuing play must not remain trapped in the first six sentences');
+  assert.ok([...visited].every(id => records.find(row => row.id === id).difficulty === 1));
+  assert.ok(Object.values(history).every(progress => !progress.spacedSuccesses && !progress.independentDays));
+  assert.ok(records.filter(row => row.difficulty !== 1).every(row => !history[row.id]));
 });
 
 test('general exposure is reusable but directional recall evidence does not transfer', () => {

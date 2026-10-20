@@ -30,7 +30,7 @@ function text(value, label) {
 }
 function progression(rows, label) {
   assert.ok(rows.length > 0, label);
-  assert.deepEqual(new Set(rows.map(row => row.difficulty)), new Set([1, 2, 3]), `${label}: every badge remains playable`);
+  assert.deepEqual(new Set(rows.map(row => row.difficulty)), new Set([0, 1, 2, 3]), `${label}: every badge remains playable`);
   assert.equal(new Set(rows.map(row => row.id)).size, rows.length, `${label}: unique IDs`);
   for (const row of rows) {
     text(row.id, label);
@@ -60,7 +60,7 @@ test('all Mandarin banks have unique stable IDs, explicit progression and usable
   const ids = authority.records.map(row => row.id);
   assert.deepEqual(concepts.concepts.map(row => row.id), ids);
   assert.deepEqual(realizations.realizations.map(row => row.conceptId), ids);
-  assert.equal(new Set(nucleus.challenges.map(row => row.hanzi)).size, nucleus.challenges.length);
+  assert.equal(new Set(nucleus.challenges.map(row => `${row.difficulty === 0 ? 'zero:' : ''}${row.hanzi}`)).size, nucleus.challenges.length);
 });
 
 test('retrieval, visual fields and translations preserve their authoritative language roles', () => {
@@ -160,9 +160,9 @@ test('each Nucleus reading has exact source evidence within its badge and enough
     assert.equal(eligible, true, `${challenge.id}: no source available within its badge`);
   }
   assert.ok(nucleus.roundSettings.pieceCounts.includes(nucleus.roundSettings.defaultPieceCount));
-  for (const level of [1, 2, 3]) {
-    const eligible = nucleus.challenges.filter(row => row.difficulty <= level);
+  for (const level of [0, 1, 2, 3]) {
+    const eligible = nucleus.challenges.filter(row => row.difficulty === level);
     const readings = new Set(eligible.map(row => `${compositionKey(row.pinyin)}:${row.tone}`));
-    for (const pieceCount of nucleus.roundSettings.pieceCounts) assert.ok(readings.size >= pieceCount);
+    for (const pieceCount of level === 0 ? [3] : nucleus.roundSettings.pieceCounts) assert.ok(readings.size >= pieceCount);
   }
 });

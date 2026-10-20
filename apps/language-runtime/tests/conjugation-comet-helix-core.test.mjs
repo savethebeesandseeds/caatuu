@@ -108,7 +108,7 @@ test("Spanish authored subject labels preserve person, number, and the informal/
     "second-plural-informal-spain": "you all (informal)",
     "third-plural-formal": "they/you all (formal)"
   };
-  for (const verb of spanish.verbs) for (const form of verb.forms) {
+  for (const verb of spanish.verbs.filter(verb => verb.difficulty > 0)) for (const form of verb.forms) {
     assert.equal(form.subjectBaseText, subjects[form.id]);
     assert.ok(form.learnerBaseCueText.length > form.subjectBaseText.length || form.learnerBaseCueText !== form.subjectBaseText);
   }

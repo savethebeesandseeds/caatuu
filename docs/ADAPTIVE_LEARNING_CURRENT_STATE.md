@@ -8,6 +8,17 @@ completed follow-up work on canonical `main`.
 
 ## Implemented and production behavior
 
+19 October follow-up: Word World now defaults to full-course practice rather
+than silently selecting the small annotated Foundation subset. Explicit focused
+modes remain available. History navigation refreshes the teaching note, authored
+word meanings are cached by sentence and token position, and selected-word
+semantic results resolve normal string record IDs. The shared selectors also
+permit one nearest-band introduction in the normal new-material slot after
+their frontier has no unseen material left, preventing tiny practice pools from
+looping indefinitely. Difficulty filters, readiness/evidence, scoring weights
+and the experimental soft-frontier boundary remain unchanged. These are source
+corrections; this review does not publish a website or APK.
+
 22 September follow-up: difficulty now filters to the exact selected level
 before progression and adaptive scoring. Previously the cumulative ceiling
 could keep presenting level-1 material after selecting level 3. Game answers,

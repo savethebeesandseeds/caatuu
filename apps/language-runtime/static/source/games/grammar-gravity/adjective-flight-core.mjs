@@ -45,7 +45,7 @@ export function containsGrammarAnchor(container, anchor, contextBefore = "", con
 
 export function buildMeaningChoices(answer, pool, count = 3, random = Math.random) {
   text(answer, "Meaning answer");
-  if (![3, 6].includes(count)) throw new Error("Meaning option count must be 3 or 6.");
+  if (![2, 3, 6].includes(count)) throw new Error("Meaning option count must be 2, 3, or 6.");
   if (!Array.isArray(pool) || pool.some((value) => typeof value !== "string" || !value.trim())) {
     throw new Error("Meaning pool must contain authored learner-base meanings.");
   }

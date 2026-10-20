@@ -2,12 +2,12 @@ import { learnerItemState } from "./learner-state.mjs";
 import { embedSharedEnglishTexts, normalizeSharedEnglishText, peekSharedEnglishVector,
   sharedEnglishEmbeddingOwner } from "./english-image-search.mjs?v=english-image-search-5";
 import { fetchDeclaredCourseGameJson } from "./games/course-game-content.mjs?v=course-game-content-1";
-import { extractCoreVerbPairs } from "./games/verb-nebula/verb-nebula-core.mjs?v=verb-nebula-core-14";
-import { validateConjugationCometCatalog } from "./games/conjugation-comet/conjugation-comet-core.mjs?v=conjugation-comet-core-4";
-import { buildGrammarGravityRounds } from "./games/grammar-gravity/grammar-gravity-core.mjs?v=grammar-gravity-core-8";
-import { normalizeNounLandingPack } from "./games/grammar-gravity/noun-landing-core.mjs?v=noun-landing-core-11";
-import { validateSoundQuasarCatalog } from "./games/sound-quasar/sound-quasar-core.mjs?v=sound-quasar-11";
-import { validateMemoryMoonCatalog } from "./games/memory-moon/memory-moon-core.mjs?v=memory-moon-3";
+import { extractCoreVerbPairs } from "./games/verb-nebula/verb-nebula-core.mjs?v=verb-nebula-core-15";
+import { validateConjugationCometCatalog } from "./games/conjugation-comet/conjugation-comet-core.mjs?v=conjugation-comet-core-5";
+import { buildGrammarGravityRounds } from "./games/grammar-gravity/grammar-gravity-core.mjs?v=grammar-gravity-core-9";
+import { normalizeNounLandingPack } from "./games/grammar-gravity/noun-landing-core.mjs?v=noun-landing-core-12";
+import { validateSoundQuasarCatalog } from "./games/sound-quasar/sound-quasar-core.mjs?v=sound-quasar-12";
+import { validateMemoryMoonCatalog } from "./games/memory-moon/memory-moon-core.mjs?v=memory-moon-4";
 import { joinConceptCatalogs } from "./catalog-runtime.mjs";
 
 // Topics, order, and arithmetic are shared by every course. UI labels live in
@@ -268,7 +268,7 @@ export function createPracticeCompass({ course, learning, runtimeHref = globalTh
       }).items, row => row.id, row => row.english) };
       else if (gameId === "grammar-gravity") result = { phrases: englishRows(
         // Stats resolves all recorded evidence, independently of the selected badge.
-        [1, 2, 3].flatMap(difficulty => buildGrammarGravityRounds(document, difficulty, () => 0.5))) };
+        [0, 1, 2, 3].flatMap(difficulty => buildGrammarGravityRounds(document, difficulty, () => 0.5))) };
       else if (gameId === "sound-quasar") {
         const pack = validateSoundQuasarCatalog(document, { courseId: course.id, targetLanguageId: course.targetLanguage.id,
           learnerBaseLanguage: course.sourceLanguage.locale });

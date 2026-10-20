@@ -11,7 +11,7 @@
   },
   "sourceConceptCatalog": "/language-runtime/static/data/english-concepts/word-world-ar-v1.json",
   "realizationFile": "content.json",
-  "recordCount": 2500,
+  "recordCount": 2587,
   "targetLanguage": "ar",
   "mediationLanguage": "en",
   "tokenization": "authored",

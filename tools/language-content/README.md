@@ -1,7 +1,7 @@
 # Language content contract
 
 All game learning records have authored usefulness and complexity (1–100) within the
-three badge levels. The [progression guide](../../docs/CONTENT_PROGRESSION.md)
+four badge levels (0–3). The [progression guide](../../docs/CONTENT_PROGRESSION.md)
 defines gradual introductions, evidence and spaced review. Run
 `node tools/language-content/quality/content-progression-catalogs.mjs` in the
 established container to validate metadata coverage across every registered

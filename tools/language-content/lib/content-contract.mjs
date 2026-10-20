@@ -250,8 +250,8 @@ function validateEnglishConceptCatalog(catalog, issues, { release }) {
     if (typeof concept.topic !== "string" || !TOPIC_PATTERN.test(concept.topic)) {
       addIssue(issues, "concepts.shape", `${label}.topic must be a lowercase topic ID.`);
     }
-    if (!Number.isInteger(concept.difficulty) || concept.difficulty < 1 || concept.difficulty > 3) {
-      addIssue(issues, "concepts.shape", `${label}.difficulty must be an integer from 1 to 3.`);
+    if (!Number.isInteger(concept.difficulty) || concept.difficulty < 0 || concept.difficulty > 3) {
+      addIssue(issues, "concepts.shape", `${label}.difficulty must be an integer from 0 to 3.`);
     }
     for (const field of ["usefulness", "complexity"]) if (concept[field] !== undefined
       && (!Number.isInteger(concept[field]) || concept[field] < 1 || concept[field] > 100)) {

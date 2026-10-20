@@ -1,5 +1,5 @@
 import { createRewardSound } from "./reward-sound.mjs?v=reward-sound-2";
-import { preventRepeatedReviewKey } from "./games/practice-pacing.mjs?v=practice-pacing-2";
+import { preventRepeatedReviewKey } from "./games/practice-pacing.mjs?v=practice-pacing-3";
 
 const XP_ICON = "/language-runtime/static/assets/xp-gold.webp";
 const gameIds = Object.freeze({ "verb-lab": "verb-nebula", "word-net": "word-world" });
@@ -111,8 +111,9 @@ export function installGameDynamics({
     }
     const header = document.querySelector(".app-header");
     if (header && meter.parentElement !== header) header.append(meter);
-    const target = Math.max(1, Number(snapshot.target) || 1);
-    const effort = Math.min(target, Math.max(0, Number(snapshot.effort) || 0));
+    const stage = snapshot.progression?.stage;
+    const target = Math.max(1, Number(stage?.target ?? snapshot.target) || 1);
+    const effort = Math.min(target, Math.max(0, Number(stage?.effort ?? snapshot.effort) || 0));
     const label = translate("practice.set.label", "Practice set");
     const count = translate("practice.set.progress", `${effort} / ${target}`, { effort, target });
     meterProgress.max = target;

@@ -170,14 +170,14 @@ function actualPlayableUnits(catalog, rows, { naturalizationValidator } = {}) {
     normalizer = 'buildRounds + buildQuestions';
     // The game builders select one exact band. Inventory every band rather
     // than treating the highest badge as an inclusive catalog request.
-    for (const difficulty of [1, 2, 3]) for (const round of buildRounds(document, difficulty)) for (const question of buildQuestions(round, () => 0.5)) {
+    for (const difficulty of [0, 1, 2, 3]) for (const round of buildRounds(document, difficulty)) for (const question of buildQuestions(round, () => 0.5)) {
       const row = question.id ? byItemId.get(question.id) : rows.find(row => row.kind === 'case-context' && row.parent?.noun === round.noun && row.detail === question.case);
       const nounKey = Array.from(round.noun).map(char => char.codePointAt(0).toString(16)).join('-');
       add({ ...round, ...question }, 'case-context', [row], normalizer, question.id || `legacy-${nounKey}-${question.case.toLowerCase()}`);
     }
   } else if (game === 'grammar-gravity') {
     normalizer = 'buildGrammarGravityRounds';
-    for (const difficulty of [1, 2, 3]) for (const item of buildGrammarGravityRounds(document, difficulty, () => 0.5)) {
+    for (const difficulty of [0, 1, 2, 3]) for (const item of buildGrammarGravityRounds(document, difficulty, () => 0.5)) {
       add(item, 'agreement-example', [byItemId.get(item.id)], normalizer);
     }
   } else if (game === 'grammar-gravity-nouns') {
@@ -244,7 +244,7 @@ export function buildEvaluationCorpus(catalogs, { sources = [], naturalizationVa
         } catch (error) { addFinding('semantic-input-rejected', error.message, id); }
       }
       for (const key of ['usefulness', 'complexity']) if (!Number.isInteger(row.item[key]) || row.item[key] < 1 || row.item[key] > 100) addFinding('missing-or-invalid-metadata', `${key} must be an authored integer 1–100.`, id);
-      if (row.item.difficulty !== undefined && (![1, 2, 3].includes(row.item.difficulty))) addFinding('invalid-difficulty', 'Authored difficulty badge must be 1, 2 or 3.', id);
+      if (row.item.difficulty !== undefined && (![0, 1, 2, 3].includes(row.item.difficulty))) addFinding('invalid-difficulty', 'Authored difficulty badge must be 0, 1, 2 or 3.', id);
       if (translation.missingTarget) addFinding('missing-target-translation', 'Authored target-language text is missing.', id);
       if (translation.missingLearnerBase) addFinding('missing-learner-base-translation', 'Authored learner-base text is missing.', id);
       if (Object.hasOwn(row.item, 'urgency') || Object.hasOwn(row.item, 'subdifficulty')) addFinding('legacy-metadata', 'Legacy compatibility fields are present; they are not counted as authored usefulness/complexity.', id);

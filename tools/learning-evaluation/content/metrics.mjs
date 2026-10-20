@@ -9,7 +9,8 @@ const countBy = (rows, key) => {
 };
 const finite = value => typeof value === 'number' && Number.isFinite(value);
 const mean = values => values.length ? values.reduce((a, b) => a + b, 0) / values.length : null;
-const gradeValid = (key, value) => Number.isInteger(value) && value >= 1 && value <= (key === 'difficulty' ? 3 : 100);
+const gradeValid = (key, value) => Number.isInteger(value)
+  && value >= (key === 'difficulty' ? 0 : 1) && value <= (key === 'difficulty' ? 3 : 100);
 const groupKey = row => JSON.stringify([row.courseId, row.gameId, row.bankId, row.kind]);
 const identity = row => ({ courseId: row.courseId, gameId: row.gameId, bankId: row.bankId, kind: row.kind });
 
@@ -29,7 +30,7 @@ export function numericSummary(values) {
 export function gradeDistribution(rows, key) {
   const values = rows.map(row => row.metadata?.[key]);
   const valid = values.filter(value => gradeValid(key, value));
-  const bins = key === 'difficulty' ? [[1, 1], [2, 2], [3, 3]]
+  const bins = key === 'difficulty' ? [[0, 0], [1, 1], [2, 2], [3, 3]]
     : Array.from({ length: 10 }, (_, i) => [10 * i + 1, 10 * i + 10]);
   return { total: values.length, missing: values.filter(value => value == null).length,
     invalid: values.filter(value => value != null && !gradeValid(key, value)).length,

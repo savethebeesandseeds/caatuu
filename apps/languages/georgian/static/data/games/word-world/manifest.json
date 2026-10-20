@@ -11,7 +11,7 @@
   },
   "sourceConceptCatalog": "/language-runtime/static/data/english-concepts/word-world-ka-v1.json",
   "realizationFile": "content.json",
-  "recordCount": 2500,
+  "recordCount": 2594,
   "targetLanguage": "ka",
   "mediationLanguage": "en",
   "tokenization": "authored",

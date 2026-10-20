@@ -114,13 +114,18 @@ test('back-forward cached pages retain pause state during mount and resume on pa
   assert.equal(app.calls.filter(call => call[0] === 'destroy').length, 1);
 });
 
-test('campaign advance only restarts the active completed campaign moon', async () => {
+test('campaign advance silently resets the completed campaign moon while suspended', async () => {
   const app = fixture({ campaign: true }); const controller = await app.starting;
   app.message({ type: 'campaign-advance' });
   assert.equal(app.calls.some(call => call[0] === 'restart'), false);
   app.complete(); app.message({ type: 'visibility', active: false });
+  app.calls.length = 0;
   app.message({ type: 'campaign-advance' });
-  assert.equal(app.calls.some(call => call[0] === 'restart'), false);
+  assert.deepEqual(app.calls, [['active', false], ['restart']]);
+  app.message({ type: 'campaign-advance' });
+  assert.equal(app.calls.filter(call => call[0] === 'restart').length, 1);
+  app.calls.length = 0;
+  app.complete();
   app.message({ type: 'visibility', active: true });
   app.shell.document.body.dataset.campaignActive = 'false';
   app.message({ type: 'campaign-advance' });
@@ -128,6 +133,7 @@ test('campaign advance only restarts the active completed campaign moon', async 
   app.shell.document.body.dataset.campaignActive = 'true';
   app.message({ type: 'campaign-advance' }); app.message({ type: 'campaign-advance' });
   assert.equal(app.calls.filter(call => call[0] === 'restart').length, 1);
+  assert.deepEqual(app.calls.slice(-2), [['active', false], ['restart']]);
   controller.dispose();
   app.message({ type: 'visibility', active: false });
   assert.deepEqual(app.calls.at(-1), ['destroy']);

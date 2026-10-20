@@ -59,6 +59,7 @@ function storedPerformance(rounds, xp = 9) {
   return JSON.stringify({ schemaVersion: 1, games: { "word-world": { rounds, xp } } });
 }
 const plain = value => JSON.parse(JSON.stringify(value));
+const stageFor = (practice, difficulty) => practice.progression.stages.find(stage => stage.difficulty === difficulty);
 const legacyCheckpoint = overrides => ({ schemaVersion: 1, generation: "legacy", legacyCoins: 17,
   seeded: true, revision: 50, effort: 11, completedSets: 10, setXp: 4, staged: {},
   rewards: [{ id: "practice:already-earned", xp: 6, coins: 1, gems: 1 }], claimed: [],
@@ -630,7 +631,7 @@ test("captured difficulty buckets share one capped board reward without shifting
   const practice = learning.practiceSet();
   assert.equal(practice.effort, 4);
   assert.equal(practice.coins, 0);
-  assert.deepEqual(plain(practice.progression.stages.map(stage => stage.effort)), [2, 2, 0]);
+  assert.deepEqual(plain(practice.progression.stages.map(stage => stage.effort)), [2, 0, 2, 0]);
   assert.equal(practice.progression.stage.difficulty, 3);
   await learning.retryPendingSaves();
 });
@@ -647,26 +648,27 @@ test("restored old board work keeps monetary credit while only new decisions ent
   const practice = learning.practiceSet();
   assert.equal(practice.effort, 4);
   assert.equal(practice.coins, 17);
-  assert.deepEqual(plain(practice.progression.stages.map(stage => stage.effort)), [0, 1, 0]);
+  assert.deepEqual(plain(practice.progression.stages.map(stage => stage.effort)), [0, 0, 1, 0]);
 });
 
 test("Explorer and Traveler stage thresholds are independent and never switch the selected difficulty", async () => {
   const first = context({ courseId: "cz" });
+  first.learning.setDifficulty(1);
   word(first.learning);
   await first.learning.retryPendingSaves();
   const before = first.learning.practiceSet();
-  const explorerTarget = before.progression.stages[0].targetCycles;
-  const travelerTarget = before.progression.stages[1].targetCycles;
+  const explorerTarget = stageFor(before, 1).targetCycles;
+  const travelerTarget = stageFor(before, 2).targetCycles;
   const setsPerCycle = before.cycle.target;
   const saved = JSON.parse(first.rows.get(practiceKey));
   saved.stages["1"] = { completedSets: explorerTarget * setsPerCycle - 1, effort: 21 };
   saved.stages["2"] = { completedSets: travelerTarget * setsPerCycle - 1, effort: 21 };
   first.rows.set(practiceKey, JSON.stringify(saved));
   const { learning } = context({ rows: first.rows, courseId: "cz" });
-  assert.equal(learning.practiceSet().progression.stages[0].stageComplete, false);
-  assert.equal(learning.practiceSet().progression.stages[1].stageComplete, false);
+  assert.equal(stageFor(learning.practiceSet(), 1).stageComplete, false);
+  assert.equal(stageFor(learning.practiceSet(), 2).stageComplete, false);
   word(learning);
-  const explorer = learning.practiceSet().progression.stages[0];
+  const explorer = stageFor(learning.practiceSet(), 1);
   assert.equal(explorer.completedSets, explorerTarget * setsPerCycle);
   assert.equal(explorer.completedCycles, explorerTarget);
   assert.equal(explorer.targetCycles, explorerTarget);
@@ -680,7 +682,139 @@ test("Explorer and Traveler stage thresholds are independent and never switch th
   assert.equal(traveler.targetCycles, travelerTarget);
   assert.equal(traveler.stageComplete, true);
   assert.equal(learning.difficulty(), 2);
-  assert.equal(learning.practiceSet().progression.stages[2].targetCycles, null);
+  assert.ok(Number.isSafeInteger(stageFor(learning.practiceSet(), 3).targetCycles));
+});
+
+test("difficulty switches restore each saved cycle, set and partial effort through reload", async () => {
+  const first = context({ courseId: "cz" });
+  first.learning.setDifficulty(1);
+  word(first.learning);
+  await first.learning.retryPendingSaves();
+  const saved = JSON.parse(first.rows.get(practiceKey));
+  saved.stages[1] = { completedSets: 35, effort: 6 };
+  const raw = JSON.stringify(saved);
+  first.rows.set(practiceKey, raw);
+  first.rows.set(`${practiceKey}.backup`, raw);
+  const app = context({ rows: first.rows, courseId: "cz" });
+  const explorer = plain(app.learning.practiceSet().progression.stage);
+  assert.deepEqual(explorer.cycle, { target: 16, sets: 3, completed: 2 });
+  assert.equal(explorer.effort, 6);
+  assert.equal(explorer.target, 24);
+  const wallet = plain(app.learning.practiceSet());
+  app.learning.setDifficulty(2);
+  const traveler = app.learning.practiceSet().progression.stage;
+  assert.deepEqual(plain(traveler.cycle), { target: 16, sets: 0, completed: 0 });
+  assert.equal(traveler.effort, 0);
+  assert.equal(app.learning.practiceSet().coins, wallet.coins);
+  assert.equal(app.learning.practiceSet().gems, wallet.gems);
+  word(app.learning);
+  assert.equal(app.learning.practiceSet().progression.stage.effort, 3);
+  app.learning.setDifficulty(1);
+  assert.deepEqual(plain(app.learning.practiceSet().progression.stage), explorer);
+  await app.learning.retryPendingSaves();
+  const reloaded = context({ rows: first.rows, courseId: "cz" });
+  assert.deepEqual(plain(reloaded.learning.practiceSet().progression.stage), explorer);
+  reloaded.learning.setDifficulty(2);
+  assert.equal(reloaded.learning.practiceSet().progression.stage.effort, 3);
+  reloaded.learning.setDifficulty(3);
+  assert.equal(reloaded.learning.practiceSet().progression.stage.completedSets, 0);
+});
+
+for (const difficulty of [0, 1, 2, 3]) {
+  test(`cleared difficulty ${difficulty} stays capped while repeat practice earns XP, coins and gems`, async () => {
+    const first = context({ courseId: "cz" });
+    first.learning.setDifficulty(difficulty);
+    word(first.learning);
+    await first.learning.retryPendingSaves();
+    const stage = first.learning.practiceSet().progression.stage;
+    assert.ok(Number.isSafeInteger(stage.targetCycles) && stage.targetCycles > 0);
+    const maximumSets = stage.targetCycles * stage.cycle.target;
+    const saved = JSON.parse(first.rows.get(practiceKey));
+    saved.stages[difficulty] = { completedSets: maximumSets + 10, effort: 17 };
+    Object.assign(saved, { effort: 21, setXp: 5, newCompletedSets: 15,
+      completedSets: 15, coinsEarned: 15, gemsEarned: 0, rewards: [] });
+    const raw = JSON.stringify(saved);
+    first.rows.set(practiceKey, raw);
+    first.rows.set(`${practiceKey}.backup`, raw);
+    const app = context({ rows: first.rows, courseId: "cz" });
+    const completed = plain(app.learning.practiceSet().progression.stage);
+    assert.equal(completed.stageComplete, true);
+    assert.equal(completed.completedSets, maximumSets);
+    assert.equal(completed.completedCycles, stage.targetCycles);
+    assert.equal(completed.effort, completed.target);
+    assert.deepEqual(completed.cycle, { target: 16, sets: 16, completed: stage.targetCycles });
+    assert.equal(app.learning.practiceSet().pending, null, "reading a completed stage does not award anything");
+    const xp = app.learning.snapshot().summary.xp;
+    word(app.learning);
+    const after = app.learning.practiceSet();
+    assert.deepEqual(plain(after.progression.stage), completed);
+    assert.equal(after.coins, 16);
+    assert.equal(after.gems, 1);
+    assert.equal(after.pending.coins, 1);
+    assert.equal(after.pending.xp, 8);
+    assert.equal(app.learning.snapshot().summary.xp, xp + 3);
+    assert.equal(app.learning.difficulty(), difficulty);
+    await app.learning.retryPendingSaves();
+    assert.deepEqual(plain(context({ rows: first.rows, courseId: "cz" }).learning.practiceSet().progression.stage), completed);
+    const stored = JSON.parse(first.rows.get(practiceKey));
+    assert.deepEqual(stored.stages[difficulty], { completedSets: maximumSets + 10, effort: 20 },
+      "presentation caps preserve exact existing counters and future reward work");
+  });
+}
+
+test("pre-zero v2 checkpoints expose an empty zero stage without moving existing balances or progress", async () => {
+  const first = context();
+  first.learning.setDifficulty(1);
+  word(first.learning);
+  await first.learning.retryPendingSaves();
+  const saved = JSON.parse(first.rows.get(practiceKey));
+  delete saved.stages[0];
+  const raw = JSON.stringify(saved);
+  first.rows.set(practiceKey, raw);
+  first.rows.set(`${practiceKey}.backup`, raw);
+  const app = context({ rows: first.rows });
+  const before = app.learning.practiceSet();
+  assert.equal(before.progression.available, true);
+  assert.deepEqual(Array.from(before.progression.stages, stage => stage.difficulty), [0, 1, 2, 3]);
+  assert.equal(app.learning.difficulty(), 1, "an existing learner retains the selected Explorer badge");
+  assert.equal(stageFor(before, 0).effort, 0);
+  assert.equal(stageFor(before, 0).completedSets, 0);
+  assert.equal(app.learning.setDifficulty(0), 0, "the learner can explicitly select the authored zero band");
+  await app.learning.retryPendingSaves();
+  assert.equal(first.rows.get(practiceKey), raw, "viewing existing progress requires no rewrite");
+  word(app.learning);
+  await app.learning.retryPendingSaves();
+  const after = JSON.parse(first.rows.get(practiceKey));
+  assert.deepEqual(after.stages[0], { effort: 3, completedSets: 0 });
+  assert.deepEqual(after.stages[1], saved.stages[1], "zero practice does not reclassify existing Explorer work");
+  assert.equal(app.learning.practiceSet().coins, before.coins);
+  assert.equal(app.learning.practiceSet().gems, before.gems);
+});
+
+test("saved level-zero buckets and captured events survive validation without moving the equipped badge", async () => {
+  const first = context();
+  first.learning.setDifficulty(1);
+  word(first.learning);
+  await first.learning.retryPendingSaves();
+  const saved = JSON.parse(first.rows.get(practiceKey));
+  saved.stages[0] = { effort: 5, completedSets: 2 };
+  saved.staged["verb-nebula"] = { 0: { activities: 1, attempts: 1, successes: 1, xp: 1 } };
+  const raw = JSON.stringify(saved);
+  first.rows.set(practiceKey, raw);
+  first.rows.set(`${practiceKey}.backup`, raw);
+  const entry = { schemaVersion: 2, policyVersion: 2, type: "boundary", difficulty: 0,
+    id: "reserved-zero-boundary", actor: "reserved-zero", sequence: 1, generation: saved.generation,
+    order: saved.revision + 1, at: "2026-10-14T09:00:00.000Z", gameId: "verb-nebula",
+    legacyCoins: saved.legacyCoins, delta: { activities: 0, attempts: 0, successes: 0, xp: 0, rounds: 0 } };
+  first.rows.set(`${practiceKey}.pending.${entry.id}`, JSON.stringify(entry));
+  const app = context({ rows: first.rows });
+  assert.equal(app.learning.practiceSet().progression.available, true);
+  assert.equal(app.learning.difficulty(), 1);
+  await app.learning.retryPendingSaves();
+  assert.deepEqual(JSON.parse(first.rows.get(practiceKey)).stages[0], { effort: 6, completedSets: 2 });
+  assert.equal(app.learning.saveStatus().status, "saved");
+  assert.equal(app.learning.practiceSet().progression.stage.effort, 3,
+    "zero's captured work never moves the currently selected difficulty");
 });
 
 test("registered courses derive stage quotas from the generated corpus budget without changing 24/16 rewards", async () => {
@@ -690,38 +824,41 @@ test("registered courses derive stage quotas from the generated corpus budget wi
     const practice = learning.practiceSet();
     assert.equal(practice.target, 24, course.id);
     assert.equal(practice.cycle.target, 16, course.id);
-    for (const stage of practice.progression.stages.slice(0, 2)) {
+    for (const stage of practice.progression.stages) {
       const budget = stage.budget;
       assert.equal(budget.version, "corpus-replay-1", course.id);
       assert.equal(budget.source, "playable-corpus", course.id);
       assert.equal(budget.replayPasses, 6);
-      assert.equal(budget.minimumCycles, 200);
+      assert.equal(budget.minimumCycles, stage.difficulty === 0 ? 100 : 200);
       assert.equal(budget.cycleStep, 25);
       assert.equal(Number.isSafeInteger(budget.corpusUnits) && budget.corpusUnits >= 0, true, course.id);
       assert.equal(Number.isSafeInteger(budget.corpusEffort) && budget.corpusEffort >= 0, true, course.id);
-      const expected = Math.max(budget.minimumCycles, Math.ceil(
+      const expected = stage.difficulty === 0 ? 100 : Math.max(budget.minimumCycles, Math.ceil(
         budget.replayPasses * budget.corpusEffort / (practice.target * practice.cycle.target * budget.cycleStep)
       ) * budget.cycleStep);
       assert.equal(stage.targetCycles, expected, `${course.id} difficulty ${stage.difficulty}`);
       assert.equal(stage.targetCycles % budget.cycleStep, 0);
       assert.equal(stage.stageComplete, false);
     }
-    assert.equal(practice.progression.stages[2].targetCycles, null);
   }
 });
 
 test("a larger future corpus raises advisory targets above the minimum and preserves exact stage boundaries", async () => {
-  const corpus = { "future-course": { 1: { units: 5000, effort: 12801 },
+  const corpus = { "future-course": { 0: { units: 5000, effort: 999999 }, 1: { units: 5000, effort: 12801 },
     2: { units: 5000, effort: 25601 }, 3: { units: 0, effort: 0 } } };
   const profileSource = source.replace(/\/\/ BEGIN GENERATED PRACTICE CORPUS[\s\S]*?\/\/ END GENERATED PRACTICE CORPUS/u,
     `// BEGIN GENERATED PRACTICE CORPUS\n  const practiceCorpusWorkloads = Object.freeze(${JSON.stringify(corpus)});\n  // END GENERATED PRACTICE CORPUS`);
   assert.notEqual(profileSource, source, "the synthetic fixture replaces only the generated corpus table");
   const first = context({ courseId: "future-course", profileSource });
+  assert.equal(first.learning.practiceSet().progression.stage.difficulty, 0);
+  assert.equal(first.learning.practiceSet().progression.stage.targetCycles, 100,
+    "zero keeps its fixed introductory target even if its corpus grows");
+  first.learning.setDifficulty(1);
   const initial = first.learning.practiceSet();
-  assert.equal(initial.progression.stages[0].targetCycles, 225);
-  assert.equal(initial.progression.stages[1].targetCycles, 425);
-  assert.equal(initial.progression.stages[0].budget.corpusEffort, 12801);
-  assert.equal(initial.progression.stages[1].budget.corpusEffort, 25601);
+  assert.equal(stageFor(initial, 1).targetCycles, 225);
+  assert.equal(stageFor(initial, 2).targetCycles, 425);
+  assert.equal(stageFor(initial, 1).budget.corpusEffort, 12801);
+  assert.equal(stageFor(initial, 2).budget.corpusEffort, 25601);
   assert.equal(initial.target, 24);
   assert.equal(initial.cycle.target, 16);
   word(first.learning);
@@ -731,8 +868,8 @@ test("a larger future corpus raises advisory targets above the minimum and prese
   saved.stages["2"] = { completedSets: 425 * initial.cycle.target - 1, effort: 21 };
   first.rows.set(practiceKey, JSON.stringify(saved));
   const { learning } = context({ rows: first.rows, courseId: "future-course", profileSource });
-  assert.equal(learning.practiceSet().progression.stages[0].stageComplete, false);
-  assert.equal(learning.practiceSet().progression.stages[1].stageComplete, false);
+  assert.equal(stageFor(learning.practiceSet(), 1).stageComplete, false);
+  assert.equal(stageFor(learning.practiceSet(), 2).stageComplete, false);
   word(learning);
   assert.equal(learning.practiceSet().progression.stage.completedCycles, 225);
   assert.equal(learning.practiceSet().progression.stage.stageComplete, true);
@@ -744,10 +881,10 @@ test("a larger future corpus raises advisory targets above the minimum and prese
   assert.equal(learning.difficulty(), 2);
 });
 
-test("unknown course IDs use the conservative advisory minimum without inventing a corpus inventory", () => {
+test("unknown course IDs retain zero's fixed target and later minima without inventing a corpus inventory", () => {
   const { learning } = context({ courseId: "unregistered-course", navigator: {} });
-  for (const stage of learning.practiceSet().progression.stages.slice(0, 2)) {
-    assert.equal(stage.targetCycles, 200);
+  for (const stage of learning.practiceSet().progression.stages) {
+    assert.equal(stage.targetCycles, stage.difficulty === 0 ? 100 : 200);
     assert.equal(stage.budget.source, "minimum");
     assert.equal(stage.budget.corpusUnits, null);
     assert.equal(stage.budget.corpusEffort, null);
@@ -780,9 +917,9 @@ test("raising advisory quotas preserves equipped badges and exact reward checkpo
   assert.equal(practice.gems, saved.gemsEarned);
   assert.deepEqual(plain(practice.pending), saved.rewards[0]);
   assert.deepEqual(plain(practice.progression.stages.map(stage => ({ effort: stage.effort, completedSets: stage.completedSets }))),
-    [saved.stages["1"], saved.stages["2"], saved.stages["3"]]);
-  assert.equal(practice.progression.stages[0].stageComplete, false, "eight old cycles no longer satisfy the higher budget");
-  assert.equal(practice.progression.stages[1].stageComplete, false, "sixteen old cycles no longer satisfy the higher budget");
+    [saved.stages["0"], saved.stages["1"], saved.stages["2"], saved.stages["3"]]);
+  assert.equal(stageFor(practice, 1).stageComplete, false, "eight old cycles no longer satisfy the higher budget");
+  assert.equal(stageFor(practice, 2).stageComplete, false, "sixteen old cycles no longer satisfy the higher budget");
   await reloaded.learning.retryPendingSaves();
   assert.equal(original.rows.get(practiceKey), primary);
   assert.equal(original.rows.get(`${practiceKey}.backup`), primary);

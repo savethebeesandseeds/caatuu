@@ -154,7 +154,7 @@ export function validateSoundQuasarCatalog(document, { courseId, targetLanguageI
       const id = identifier(item.id, `${label}[${index}].id`);
       const target = text(item.target, `${label}[${index}].target`, maxLength);
       const spokenTarget = label === "sentences" ? target.replace(/\p{P}/gu, "") : target;
-      const identity = spokenTarget.toLocaleLowerCase(locale).replace(/\s+/gu, " ").trim();
+      const identity = `${item.difficulty === 0 ? "zero:" : ""}${spokenTarget.toLocaleLowerCase(locale).replace(/\s+/gu, " ").trim()}`;
       requireCondition(!itemIds.has(id) && !targetWords.has(identity), "item IDs and targets must be unique, including Unicode, case, and sentence-punctuation equivalents.");
       requireCondition(!/[\/|]/u.test(target), "targets cannot contain alternative answers.");
       const sourceId = text(item.sourceId, `${label}[${index}].sourceId`, 100);
@@ -172,7 +172,7 @@ export function validateSoundQuasarCatalog(document, { courseId, targetLanguageI
       targetWords.add(identity);
       sourceIds.add(sourceId);
       const difficulty = item.difficulty === undefined ? undefined
-        : integer(item.difficulty, `${label}[${index}].difficulty`, 1, 3);
+        : integer(item.difficulty, `${label}[${index}].difficulty`, 0, 3);
       return Object.freeze({
         ...normalizeContentProgression(item, `${label}[${index}]`),
         id,
@@ -346,7 +346,7 @@ function makeRound(items, answer, random, choiceCount, mode) {
 }
 
 export function soundQuasarItemsForDifficulty(catalog, { mode = "words", difficulty = 3 } = {}) {
-  integer(difficulty, "difficulty", 1, 3);
+  integer(difficulty, "difficulty", 0, 3);
   const items = modeItems(asCatalog(catalog), mode).filter(item => matchesContentDifficulty(item, difficulty));
   // Let the existing host's insufficient-content state handle a badge with no
   // audible contrast rather than presenting a single, trivially correct tile.
@@ -356,6 +356,7 @@ export function soundQuasarItemsForDifficulty(catalog, { mode = "words", difficu
 export function buildSoundQuasarRound(catalog, { index = 0, random = Math.random, choiceCount = 4, mode = "words", difficulty = 3 } = {}) {
   const validated = asCatalog(catalog);
   integer(choiceCount, "choiceCount", 2, modeItems(validated, mode).length);
+  if (difficulty === 0) choiceCount = 2;
   const items = soundQuasarItemsForDifficulty(validated, { mode, difficulty });
   requireCondition(items.length >= 2, "difficulty needs at least two eligible listening items.");
   integer(index, "index", 0, Number.MAX_SAFE_INTEGER);
@@ -365,6 +366,7 @@ export function buildSoundQuasarRound(catalog, { index = 0, random = Math.random
 /** A finite session never repeats an answer. The host owns playback and progress. */
 export function createSoundQuasarSession(catalog, { random = Math.random, roundLength = SOUND_QUASAR_ROUND_COUNT, choiceCount = 4, mode = "words", difficulty = 3, history, policy = null } = {}) {
   const validated = asCatalog(catalog);
+  if (difficulty === 0) choiceCount = 2;
   const items = soundQuasarItemsForDifficulty(validated, { mode, difficulty });
   requireCondition(items.length >= 2, "difficulty needs at least two eligible listening items.");
   integer(choiceCount, "choiceCount", 2, modeItems(validated, mode).length);

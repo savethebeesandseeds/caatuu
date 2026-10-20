@@ -269,6 +269,17 @@ async function mountGame({ language = "czech", difficulty = 3, syntheticBase = f
     timers.delete(entry[0]);
     entry[1].callback();
   }
+  function advanceMotion() {
+    if (reducedMotion) {
+      assert.equal(element("conjugationCometGame").dataset.phase, "question");
+      assert.equal(timers.size, 0, "reduced motion never waits for decorative travel");
+      return;
+    }
+    assert.equal(element("conjugationCometGame").dataset.phase, "moving");
+    const delay = [...timers.values()][0]?.delay;
+    assert.ok(delay > 0 && delay <= 180, "strand motion stays short");
+    advance(delay);
+  }
   const round = () => builtRounds.at(-1);
   const sideContainer = (side) => element(side === "subject" ? "conjugationCometSubjects" : "conjugationCometTargets");
   const items = (side) => side === "subject" ? round().subjects : round().options;
@@ -294,7 +305,7 @@ async function mountGame({ language = "czech", difficulty = 3, syntheticBase = f
     while (offset(side) !== index) {
       assert.ok(++steps <= items(side).length, "cyclic navigation must reach every offset");
       click(element(side === "subject" ? "conjugationCometSubjectNext" : "conjugationCometTargetNext"));
-      advance(420);
+      advanceMotion();
     }
   }
   function align(correct = true) {
@@ -321,7 +332,7 @@ async function mountGame({ language = "czech", difficulty = 3, syntheticBase = f
     harness.window.dispatchEvent({ type: "caatuu:speech-autoplay-change" });
   }
   return { ...harness, shell, course, catalog, records, messages, toolbarCalls, toolbarLifecycle, loaderCalls,
-    timers, controller, element, current, click, advance, languageNames, round, items, strandButtons,
+    timers, controller, element, current, click, advance, advanceMotion, languageNames, round, items, strandButtons,
     selectedButton, selected, offset, assessment, choose, align, submit, setControlsOpen, setActive, setAutoplay,
     attempts: () => records.filter((entry) => entry.attempts),
     speechCalls, speechStops: () => speechStops, focusCalls, animations };
@@ -335,6 +346,18 @@ function finishBatch(game) {
   game.submit();
   game.click(game.element("conjugationCometSummaryNext"));
 }
+
+test("level zero renders a two-form helix and credits only its two displayed forms", async () => {
+  const game = await mountGame({ language: "spanish", difficulty: 0 });
+  assert.equal(game.strandButtons("target").length, 2);
+  assert.equal(game.strandButtons("subject").length, 2);
+  assert.equal(game.round().verb.difficulty, 0);
+  game.submit();
+  assert.equal(game.element("conjugationCometGame").dataset.phase, "summary");
+  assert.equal(game.attempts().length, 1);
+  assert.equal(game.attempts()[0].xp, 2);
+  game.controller.destroy();
+});
 
 test("Arabic conjugation renders all thirteen RTL forms and expands rows for tall cues", async () => {
   const game = await mountGame({ language: "arabic-standard", difficulty: 1 });
@@ -547,7 +570,7 @@ test("startup autoplay introduces the target verb once and repeats only for a ne
   assert.deepEqual(game.speechCalls, [firstVerb]);
   assert.equal(game.toolbarCalls[0].autoplay, true, "the shared audio settings expose the autoplay preference");
   game.click(game.element("conjugationCometTargetPrev"));
-  game.advance(420);
+  game.advanceMotion();
   game.setControlsOpen(true);
   game.setControlsOpen(false);
   game.setActive(false);
@@ -768,12 +791,12 @@ test("rotating either entire strand is independent, cyclic, and locks Submit dur
     assert.equal(game.element("conjugationCometSubmit").disabled, true);
     game.element("conjugationCometSubmit").dispatchEvent({ type: "click", bubbles: true });
     assert.equal(game.records.length, 0);
-    game.advance(420);
+    game.advanceMotion();
     assert.equal(game.offset(side), (original + direction + count) % count);
     assert.equal(game.offset(other), otherOffset);
     game.choose(side, direction > 0 ? count - 1 : 0);
     game.click(step);
-    game.advance(420);
+    game.advanceMotion();
     assert.equal(game.offset(side), direction > 0 ? 0 : count - 1);
     assert.equal(game.offset(other), otherOffset);
   }
@@ -782,10 +805,83 @@ test("rotating either entire strand is independent, cyclic, and locks Submit dur
 
 test("reduced motion keeps strand rotation and whole-board submission usable without animations", async () => {
   const game = await mountGame({ reducedMotion: true });
+  game.click(game.element("conjugationCometSubjectNext"));
+  assert.equal(game.element("conjugationCometSubmit").disabled, false);
+  assert.equal(game.element("conjugationCometGame").dataset.phase, "question");
+  assert.equal(game.timers.size, 0);
   const result = game.submit();
   assert.equal(game.animations.length, 0);
   assert.equal(game.attempts().length, 1);
   assert.equal(game.attempts()[0].xp, result.total);
+  game.controller.destroy();
+});
+
+test("deliberate arrow taps retarget strand motion without losing rapid steps or grading", async () => {
+  const game = await mountGame();
+  const subject = game.offset("subject");
+  const target = game.offset("target");
+  const next = game.element("conjugationCometSubjectNext");
+  const previous = game.element("conjugationCometSubjectPrev");
+  const targetNext = game.element("conjugationCometTargetNext");
+  const count = game.round().subjects.length;
+  game.click(next);
+  const stale = [...game.timers.values()][0].callback;
+  const firstAnimations = [...game.animations];
+  game.click(next);
+  game.click(previous);
+  game.click(targetNext);
+  assert.equal(game.offset("subject"), (subject + Number(next.dataset.step) + count) % count);
+  assert.equal(game.offset("target"), (target + Number(targetNext.dataset.step) + count) % count);
+  assert.ok(firstAnimations.every((animation) => animation.cancelled));
+  assert.equal(game.timers.size, 1, "only the latest motion can finish");
+  stale();
+  assert.equal(game.element("conjugationCometGame").dataset.phase, "moving");
+  assert.equal(game.timers.size, 1);
+  assert.equal(game.records.length, 0);
+  game.advanceMotion();
+  assert.equal(game.element("conjugationCometSubmit").disabled, false);
+  game.submit();
+  assert.equal(game.attempts().length, 1, "retargeting never duplicates assessment");
+  game.controller.destroy();
+});
+
+test("distinct keyboard presses remain responsive during motion while held keys and wheel momentum are ignored", async () => {
+  const game = await mountGame();
+  const button = game.selectedButton("subject");
+  const start = game.offset("subject");
+  const count = game.round().subjects.length;
+  button.focus();
+  for (let index = 0; index < 2; index += 1) {
+    const event = { type: "keydown", key: "ArrowDown", target: button };
+    game.document.dispatchEvent(event);
+    assert.equal(event.defaultPrevented, true);
+    assert.equal(button.disabled, false, "the focused audio card stays keyboard reachable");
+  }
+  assert.equal(game.offset("subject"), (start + count - 2) % count);
+  game.document.dispatchEvent({ type: "keydown", key: "ArrowDown", target: button, repeat: true });
+  scrollBoard(game, { deltaY: 2000 });
+  assert.equal(game.offset("subject"), (start + count - 2) % count);
+  assert.equal(game.timers.size, 1);
+  assert.equal(game.records.length, 0);
+  game.advanceMotion();
+  assert.equal(game.offset("subject"), (start + count - 2) % count, "momentum never queues another move");
+  game.controller.destroy();
+});
+
+test("a deliberate pronunciation tap settles movement before starting optional audio", async () => {
+  const game = await mountGame({ speech: true, speechResult: new Promise(() => {}) });
+  game.click(game.element("conjugationCometTargetNext"));
+  const label = game.selectedButton("target");
+  const expected = game.selected("target").text;
+  game.click(label);
+  assert.equal(game.element("conjugationCometGame").dataset.phase, "question");
+  assert.equal(game.timers.size, 0);
+  assert.ok(game.animations.every((animation) => animation.cancelled));
+  await settleMicrotasks();
+  assert.equal(game.speechCalls.at(-1), expected);
+  game.click(game.element("conjugationCometTargetNext"));
+  assert.equal(game.element("conjugationCometGame").dataset.phase, "moving", "unsettled speech never blocks navigation");
+  assert.equal(game.records.length, 0);
   game.controller.destroy();
 });
 
@@ -805,7 +901,7 @@ test("strand wraparound teleports only between coincident invisible keyframes", 
       assert.equal(before.opacity, 0);
       assert.equal(after.opacity, 0);
     }
-    game.advance(420);
+    game.advanceMotion();
   }
   game.controller.destroy();
 });
@@ -1060,7 +1156,7 @@ for (const side of ["subject", "target"]) {
     const otherOffset = game.offset(other);
     for (const key of ["ArrowDown", "ArrowUp"]) {
       game.document.dispatchEvent({ type: "keydown", key, target: game.selectedButton(side) });
-      game.advance(420);
+      game.advanceMotion();
       assert.equal(game.offset(other), otherOffset);
     }
     assert.equal(game.offset(side), original);
@@ -1097,7 +1193,7 @@ test("strand shortcuts ignore held or modified keys, text entry, popovers and in
   game.setActive(false); press();
   assert.equal(game.offset("subject"), original);
   assert.equal(game.timers.size, 0);
-  game.setActive(true); press(); game.advance(420);
+  game.setActive(true); press(); game.advanceMotion();
   assert.notEqual(game.offset("subject"), original);
   assert.equal(game.records.length, 0);
   game.controller.destroy();
@@ -1139,7 +1235,7 @@ test("native Enter and Space replay audio cards while only Check submits the com
   const step = game.element("conjugationCometTargetNext");
   assert.equal(game.document.dispatchEvent({ type: "keydown", key: "Enter", target: step }), true);
   assert.equal(game.timers.size, 0);
-  game.click(step); game.advance(420); game.align();
+  game.click(step); game.advanceMotion(); game.align();
   const submit = game.element("conjugationCometSubmit");
   assert.equal(game.document.dispatchEvent({ type: "keydown", key: "Enter", target: submit }), true);
   assert.equal(game.attempts().length, 1);
@@ -1273,9 +1369,9 @@ test("unavailable shared speech reports the authored failure without a browser v
 for (const phase of ["moving"]) {
   test(`${phase} timers pause while hidden or controls are open and resume safely`, async () => {
     const game = await mountGame();
-    const delay = phase === "moving" ? 420 : 1200;
     if (phase === "moving") game.click(game.element("conjugationCometSubjectNext"));
     if (phase === "transition") finishBatch(game);
+    const delay = [...game.timers.values()][0]?.delay;
     const stale = [...game.timers.values()][0].callback;
     const count = game.attempts().length;
     game.setActive(false, { origin: "https://foreign.test" }); assert.equal(game.timers.size, 1);
@@ -1382,14 +1478,37 @@ test("non-persisted pagehide destroys controls and invalidates pending Continue"
   assert.equal(game.messages.length, 0);
 });
 
+const wheelTimes = new WeakMap();
 function scrollBoard(game, overrides = {}, bounds = {}) {
   const board = game.element("conjugationCometBoard");
   board.getBoundingClientRect = () => ({ left: 10, top: 10, width: 700, height: 640, ...bounds });
+  const timeStamp = overrides.timeStamp ?? (wheelTimes.get(game) ?? 750) + 250;
+  wheelTimes.set(game, timeStamp);
   const event = { type: "wheel", clientX: 600, clientY: 400, deltaY: 100, deltaX: 0,
-    deltaMode: 0, timeStamp: 1000, bubbles: true, cancelable: true, ...overrides };
+    deltaMode: 0, timeStamp, bubbles: true, cancelable: true, ...overrides };
   (overrides.target || board).dispatchEvent(event);
   return event;
 }
+
+test("reduced motion suppresses wheel momentum without locking deliberate arrow taps", async () => {
+  const game = await mountGame({ reducedMotion: true });
+  const start = game.offset("subject");
+  const next = game.element("conjugationCometSubjectNext");
+  const count = game.round().subjects.length;
+  scrollBoard(game, { timeStamp: 1000 });
+  assert.equal(game.offset("subject"), (start + 1) % count);
+  scrollBoard(game, { timeStamp: 1050, deltaY: 2000 });
+  scrollBoard(game, { timeStamp: 1100, deltaY: 2000 });
+  assert.equal(game.offset("subject"), (start + 1) % count);
+  game.click(next);
+  assert.equal(game.offset("subject"), (start + 1 + Number(next.dataset.step) + count) % count);
+  assert.equal(game.timers.size, 0);
+  assert.equal(game.element("conjugationCometSubmit").disabled, false);
+  scrollBoard(game, { timeStamp: 1250 });
+  assert.equal(game.offset("subject"), (start + 2 + Number(next.dataset.step) + count) % count);
+  assert.equal(game.records.length, 0);
+  game.controller.destroy();
+});
 
 test("scrolling anywhere on either half rotates only that strand without grading", async () => {
   const game = await mountGame();
@@ -1400,13 +1519,13 @@ test("scrolling anywhere on either half rotates only that strand without grading
   assert.equal(game.element("conjugationCometGame").dataset.phase, "moving");
   // Large trackpad momentum during motion must not queue a second step.
   scrollBoard(game, { deltaY: 1600 });
-  game.advance(420);
+  game.advanceMotion();
   assert.equal(game.offset("subject"), (before.subject + 1) % 6);
   assert.equal(scrollBoard(game, { clientX: 25, clientY: 80, deltaY: -100 }).defaultPrevented, true);
   assert.equal(game.offset("target"), (before.target + 5) % 6);
   assert.equal(game.offset("subject"), (before.subject + 1) % 6);
   assert.equal(game.attempts().length, 0);
-  game.advance(420);
+  game.advanceMotion();
   const targetBefore = game.offset("target");
   scrollBoard(game, { target: game.strandButtons("target")[0], clientX: 200 });
   assert.equal(game.offset("target"), (targetBefore + 1) % 6, "scrolling over a phrase also works");
@@ -1421,7 +1540,7 @@ test("a tall board preserves page scrolling while explicit controls still rotate
   assert.equal(game.offset("target"), before.target);
   assert.equal(game.offset("subject"), before.subject);
   game.click(game.element("conjugationCometTargetPrev"));
-  game.advance(420);
+  game.advanceMotion();
   assert.equal(game.offset("target"), (before.target + 1) % game.round().options.length);
   assert.equal(game.offset("subject"), before.subject);
   assert.equal(game.attempts().length, 0);
@@ -1440,10 +1559,10 @@ test("trackpad deltas accumulate per half and direction, expire, and normalize l
   assert.equal(game.offset("subject"), before, "changing direction starts a new gesture");
   scrollBoard(game, { deltaY: -20, timeStamp: 1340 });
   assert.equal(game.offset("subject"), (before + 5) % 6);
-  game.advance(420);
+  game.advanceMotion();
   scrollBoard(game, { deltaY: 3, deltaMode: 1 });
   assert.equal(game.offset("subject"), before);
-  game.advance(420);
+  game.advanceMotion();
   scrollBoard(game, { deltaY: 1, deltaMode: 2 });
   assert.equal(game.offset("subject"), (before + 1) % 6);
   game.controller.destroy();

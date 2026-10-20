@@ -8646,6 +8646,1342 @@
       },
       "usefulness": 92,
       "complexity": 42
+    },
+    {
+      "id": "zero-la-grammar-01",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective",
+        "label": "large: nominative singular",
+        "targetText": "magnus",
+        "resultTitle": "large agreement",
+        "summary": "Match a familiar short example to its form. Start with one example and its meaning, then compare the two forms."
+      },
+      "axes": [
+        {
+          "id": "masculine-singular",
+          "label": "masculine singular",
+          "features": {
+            "gender": "masculine",
+            "number": "singular",
+            "case": "nominative"
+          }
+        },
+        {
+          "id": "feminine-singular",
+          "label": "feminine singular",
+          "features": {
+            "gender": "feminine",
+            "number": "singular",
+            "case": "nominative"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "form"
+        ],
+        "categoryFeature": "gender",
+        "categoryOptions": [
+          {
+            "id": "masculine",
+            "label": "Masculine"
+          },
+          {
+            "id": "feminine",
+            "label": "Feminine"
+          }
+        ]
+      },
+      "forms": {
+        "masculine-singular": {
+          "displayForm": "magnus",
+          "usefulness": 98,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-la-grammar-01-masculine-singular-1",
+              "revision": 1,
+              "learnerBaseText": "a big stone",
+              "englishAuditText": "a big stone",
+              "targetText": "lapis magnus",
+              "slot": {
+                "beforeText": "lapis ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "lapis",
+                "learnerBaseText": "stone",
+                "englishAuditText": "stone"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-la-grammar-01-masculine-singular-2",
+              "revision": 1,
+              "learnerBaseText": "a big ball",
+              "englishAuditText": "a big ball",
+              "targetText": "globus magnus",
+              "slot": {
+                "beforeText": "globus ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "globus",
+                "learnerBaseText": "ball",
+                "englishAuditText": "ball"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-la-grammar-01-masculine-singular-3",
+              "revision": 1,
+              "learnerBaseText": "a big book",
+              "englishAuditText": "a big book",
+              "targetText": "liber magnus",
+              "slot": {
+                "beforeText": "liber ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "liber",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ]
+        },
+        "feminine-singular": {
+          "displayForm": "magna",
+          "usefulness": 98,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-la-grammar-01-feminine-singular-1",
+              "revision": 1,
+              "learnerBaseText": "a big line",
+              "englishAuditText": "a big line",
+              "targetText": "līnea magna",
+              "slot": {
+                "beforeText": "līnea ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "līnea",
+                "learnerBaseText": "line",
+                "englishAuditText": "line"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-la-grammar-01-feminine-singular-2",
+              "revision": 1,
+              "learnerBaseText": "a big sphere",
+              "englishAuditText": "a big sphere",
+              "targetText": "sphaera magna",
+              "slot": {
+                "beforeText": "sphaera ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "sphaera",
+                "learnerBaseText": "sphere",
+                "englishAuditText": "sphere"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-la-grammar-01-feminine-singular-3",
+              "revision": 1,
+              "learnerBaseText": "a big star",
+              "englishAuditText": "a big star",
+              "targetText": "stella magna",
+              "slot": {
+                "beforeText": "stella ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "stella",
+                "learnerBaseText": "star",
+                "englishAuditText": "star"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ]
+        }
+      },
+      "usefulness": 98,
+      "complexity": 8
+    },
+    {
+      "id": "zero-la-grammar-02",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective",
+        "label": "small: nominative singular",
+        "targetText": "parvus",
+        "resultTitle": "small agreement",
+        "summary": "Match a familiar short example to its form. Start with one example and its meaning, then compare the two forms."
+      },
+      "axes": [
+        {
+          "id": "masculine-singular",
+          "label": "masculine singular",
+          "features": {
+            "gender": "masculine",
+            "number": "singular",
+            "case": "nominative"
+          }
+        },
+        {
+          "id": "feminine-singular",
+          "label": "feminine singular",
+          "features": {
+            "gender": "feminine",
+            "number": "singular",
+            "case": "nominative"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "form"
+        ],
+        "categoryFeature": "gender",
+        "categoryOptions": [
+          {
+            "id": "masculine",
+            "label": "Masculine"
+          },
+          {
+            "id": "feminine",
+            "label": "Feminine"
+          }
+        ]
+      },
+      "forms": {
+        "masculine-singular": {
+          "displayForm": "parvus",
+          "usefulness": 98,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-la-grammar-02-masculine-singular-1",
+              "revision": 1,
+              "learnerBaseText": "a small stone",
+              "englishAuditText": "a small stone",
+              "targetText": "lapis parvus",
+              "slot": {
+                "beforeText": "lapis ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "lapis",
+                "learnerBaseText": "stone",
+                "englishAuditText": "stone"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-la-grammar-02-masculine-singular-2",
+              "revision": 1,
+              "learnerBaseText": "a small ball",
+              "englishAuditText": "a small ball",
+              "targetText": "globus parvus",
+              "slot": {
+                "beforeText": "globus ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "globus",
+                "learnerBaseText": "ball",
+                "englishAuditText": "ball"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-la-grammar-02-masculine-singular-3",
+              "revision": 1,
+              "learnerBaseText": "a small book",
+              "englishAuditText": "a small book",
+              "targetText": "liber parvus",
+              "slot": {
+                "beforeText": "liber ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "liber",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ]
+        },
+        "feminine-singular": {
+          "displayForm": "parva",
+          "usefulness": 98,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-la-grammar-02-feminine-singular-1",
+              "revision": 1,
+              "learnerBaseText": "a small line",
+              "englishAuditText": "a small line",
+              "targetText": "līnea parva",
+              "slot": {
+                "beforeText": "līnea ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "līnea",
+                "learnerBaseText": "line",
+                "englishAuditText": "line"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-la-grammar-02-feminine-singular-2",
+              "revision": 1,
+              "learnerBaseText": "a small sphere",
+              "englishAuditText": "a small sphere",
+              "targetText": "sphaera parva",
+              "slot": {
+                "beforeText": "sphaera ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "sphaera",
+                "learnerBaseText": "sphere",
+                "englishAuditText": "sphere"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-la-grammar-02-feminine-singular-3",
+              "revision": 1,
+              "learnerBaseText": "a small star",
+              "englishAuditText": "a small star",
+              "targetText": "stella parva",
+              "slot": {
+                "beforeText": "stella ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "stella",
+                "learnerBaseText": "star",
+                "englishAuditText": "star"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ]
+        }
+      },
+      "usefulness": 98,
+      "complexity": 8
+    },
+    {
+      "id": "zero-la-grammar-03",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective",
+        "label": "new: nominative singular",
+        "targetText": "novus",
+        "resultTitle": "new agreement",
+        "summary": "Match a familiar short example to its form. Start with one example and its meaning, then compare the two forms."
+      },
+      "axes": [
+        {
+          "id": "masculine-singular",
+          "label": "masculine singular",
+          "features": {
+            "gender": "masculine",
+            "number": "singular",
+            "case": "nominative"
+          }
+        },
+        {
+          "id": "feminine-singular",
+          "label": "feminine singular",
+          "features": {
+            "gender": "feminine",
+            "number": "singular",
+            "case": "nominative"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "form"
+        ],
+        "categoryFeature": "gender",
+        "categoryOptions": [
+          {
+            "id": "masculine",
+            "label": "Masculine"
+          },
+          {
+            "id": "feminine",
+            "label": "Feminine"
+          }
+        ]
+      },
+      "forms": {
+        "masculine-singular": {
+          "displayForm": "novus",
+          "usefulness": 98,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-la-grammar-03-masculine-singular-1",
+              "revision": 1,
+              "learnerBaseText": "a new stone",
+              "englishAuditText": "a new stone",
+              "targetText": "lapis novus",
+              "slot": {
+                "beforeText": "lapis ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "lapis",
+                "learnerBaseText": "stone",
+                "englishAuditText": "stone"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-la-grammar-03-masculine-singular-2",
+              "revision": 1,
+              "learnerBaseText": "a new ball",
+              "englishAuditText": "a new ball",
+              "targetText": "globus novus",
+              "slot": {
+                "beforeText": "globus ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "globus",
+                "learnerBaseText": "ball",
+                "englishAuditText": "ball"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-la-grammar-03-masculine-singular-3",
+              "revision": 1,
+              "learnerBaseText": "a new book",
+              "englishAuditText": "a new book",
+              "targetText": "liber novus",
+              "slot": {
+                "beforeText": "liber ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "liber",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ]
+        },
+        "feminine-singular": {
+          "displayForm": "nova",
+          "usefulness": 98,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-la-grammar-03-feminine-singular-1",
+              "revision": 1,
+              "learnerBaseText": "a new line",
+              "englishAuditText": "a new line",
+              "targetText": "līnea nova",
+              "slot": {
+                "beforeText": "līnea ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "līnea",
+                "learnerBaseText": "line",
+                "englishAuditText": "line"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-la-grammar-03-feminine-singular-2",
+              "revision": 1,
+              "learnerBaseText": "a new sphere",
+              "englishAuditText": "a new sphere",
+              "targetText": "sphaera nova",
+              "slot": {
+                "beforeText": "sphaera ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "sphaera",
+                "learnerBaseText": "sphere",
+                "englishAuditText": "sphere"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-la-grammar-03-feminine-singular-3",
+              "revision": 1,
+              "learnerBaseText": "a new star",
+              "englishAuditText": "a new star",
+              "targetText": "stella nova",
+              "slot": {
+                "beforeText": "stella ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "stella",
+                "learnerBaseText": "star",
+                "englishAuditText": "star"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ]
+        }
+      },
+      "usefulness": 98,
+      "complexity": 8
+    },
+    {
+      "id": "zero-la-grammar-e2-red",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective",
+        "label": "Red objects",
+        "targetText": "ruber",
+        "resultTitle": "Red objects",
+        "summary": "Read the familiar object with its colour. Compare just these two singular endings, one phrase at a time."
+      },
+      "axes": [
+        {
+          "id": "masculine-singular",
+          "label": "masculine singular",
+          "features": {
+            "gender": "masculine",
+            "number": "singular",
+            "case": "nominative"
+          }
+        },
+        {
+          "id": "neuter-singular",
+          "label": "neuter singular",
+          "features": {
+            "gender": "neuter",
+            "number": "singular",
+            "case": "nominative"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "form"
+        ],
+        "categoryFeature": "gender",
+        "categoryOptions": [
+          {
+            "id": "masculine",
+            "label": "Masculine"
+          },
+          {
+            "id": "neuter",
+            "label": "Neuter"
+          }
+        ]
+      },
+      "forms": {
+        "masculine-singular": {
+          "displayForm": "ruber",
+          "usefulness": 96,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-la-grammar-e2-red-masculine-singular-1",
+              "revision": 1,
+              "learnerBaseText": "red stone",
+              "englishAuditText": "red stone",
+              "targetText": "lapis ruber",
+              "slot": {
+                "beforeText": "lapis ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "lapis",
+                "learnerBaseText": "stone",
+                "englishAuditText": "stone"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-la-grammar-e2-red-masculine-singular-2",
+              "revision": 1,
+              "learnerBaseText": "red ball",
+              "englishAuditText": "red ball",
+              "targetText": "globus ruber",
+              "slot": {
+                "beforeText": "globus ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "globus",
+                "learnerBaseText": "ball",
+                "englishAuditText": "ball"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-la-grammar-e2-red-masculine-singular-3",
+              "revision": 1,
+              "learnerBaseText": "red book",
+              "englishAuditText": "red book",
+              "targetText": "liber ruber",
+              "slot": {
+                "beforeText": "liber ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "liber",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ]
+        },
+        "neuter-singular": {
+          "displayForm": "rubrum",
+          "usefulness": 96,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-la-grammar-e2-red-neuter-singular-1",
+              "revision": 1,
+              "learnerBaseText": "red rock",
+              "englishAuditText": "red rock",
+              "targetText": "saxum rubrum",
+              "slot": {
+                "beforeText": "saxum ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "saxum",
+                "learnerBaseText": "rock",
+                "englishAuditText": "rock"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-la-grammar-e2-red-neuter-singular-2",
+              "revision": 1,
+              "learnerBaseText": "red glass",
+              "englishAuditText": "red glass",
+              "targetText": "vitrum rubrum",
+              "slot": {
+                "beforeText": "vitrum ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "vitrum",
+                "learnerBaseText": "glass",
+                "englishAuditText": "glass"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-la-grammar-e2-red-neuter-singular-3",
+              "revision": 1,
+              "learnerBaseText": "red leaf",
+              "englishAuditText": "red leaf",
+              "targetText": "folium rubrum",
+              "slot": {
+                "beforeText": "folium ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "folium",
+                "learnerBaseText": "leaf",
+                "englishAuditText": "leaf"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ]
+        }
+      },
+      "usefulness": 96,
+      "complexity": 8
+    },
+    {
+      "id": "zero-la-grammar-e2-white",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective",
+        "label": "White objects",
+        "targetText": "albus",
+        "resultTitle": "White objects",
+        "summary": "Read the familiar object with its colour. Compare just these two singular endings, one phrase at a time."
+      },
+      "axes": [
+        {
+          "id": "masculine-singular",
+          "label": "masculine singular",
+          "features": {
+            "gender": "masculine",
+            "number": "singular",
+            "case": "nominative"
+          }
+        },
+        {
+          "id": "neuter-singular",
+          "label": "neuter singular",
+          "features": {
+            "gender": "neuter",
+            "number": "singular",
+            "case": "nominative"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "form"
+        ],
+        "categoryFeature": "gender",
+        "categoryOptions": [
+          {
+            "id": "masculine",
+            "label": "Masculine"
+          },
+          {
+            "id": "neuter",
+            "label": "Neuter"
+          }
+        ]
+      },
+      "forms": {
+        "masculine-singular": {
+          "displayForm": "albus",
+          "usefulness": 96,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-la-grammar-e2-white-masculine-singular-1",
+              "revision": 1,
+              "learnerBaseText": "white stone",
+              "englishAuditText": "white stone",
+              "targetText": "lapis albus",
+              "slot": {
+                "beforeText": "lapis ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "lapis",
+                "learnerBaseText": "stone",
+                "englishAuditText": "stone"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-la-grammar-e2-white-masculine-singular-2",
+              "revision": 1,
+              "learnerBaseText": "white ball",
+              "englishAuditText": "white ball",
+              "targetText": "globus albus",
+              "slot": {
+                "beforeText": "globus ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "globus",
+                "learnerBaseText": "ball",
+                "englishAuditText": "ball"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-la-grammar-e2-white-masculine-singular-3",
+              "revision": 1,
+              "learnerBaseText": "white book",
+              "englishAuditText": "white book",
+              "targetText": "liber albus",
+              "slot": {
+                "beforeText": "liber ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "liber",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ]
+        },
+        "neuter-singular": {
+          "displayForm": "album",
+          "usefulness": 96,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-la-grammar-e2-white-neuter-singular-1",
+              "revision": 1,
+              "learnerBaseText": "white rock",
+              "englishAuditText": "white rock",
+              "targetText": "saxum album",
+              "slot": {
+                "beforeText": "saxum ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "saxum",
+                "learnerBaseText": "rock",
+                "englishAuditText": "rock"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-la-grammar-e2-white-neuter-singular-2",
+              "revision": 1,
+              "learnerBaseText": "white glass",
+              "englishAuditText": "white glass",
+              "targetText": "vitrum album",
+              "slot": {
+                "beforeText": "vitrum ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "vitrum",
+                "learnerBaseText": "glass",
+                "englishAuditText": "glass"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-la-grammar-e2-white-neuter-singular-3",
+              "revision": 1,
+              "learnerBaseText": "white leaf",
+              "englishAuditText": "white leaf",
+              "targetText": "folium album",
+              "slot": {
+                "beforeText": "folium ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "folium",
+                "learnerBaseText": "leaf",
+                "englishAuditText": "leaf"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ]
+        }
+      },
+      "usefulness": 96,
+      "complexity": 8
+    },
+    {
+      "id": "zero-la-grammar-e2-black",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective",
+        "label": "Black objects",
+        "targetText": "niger",
+        "resultTitle": "Black objects",
+        "summary": "Read the familiar object with its colour. Compare just these two singular endings, one phrase at a time."
+      },
+      "axes": [
+        {
+          "id": "masculine-singular",
+          "label": "masculine singular",
+          "features": {
+            "gender": "masculine",
+            "number": "singular",
+            "case": "nominative"
+          }
+        },
+        {
+          "id": "neuter-singular",
+          "label": "neuter singular",
+          "features": {
+            "gender": "neuter",
+            "number": "singular",
+            "case": "nominative"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "form"
+        ],
+        "categoryFeature": "gender",
+        "categoryOptions": [
+          {
+            "id": "masculine",
+            "label": "Masculine"
+          },
+          {
+            "id": "neuter",
+            "label": "Neuter"
+          }
+        ]
+      },
+      "forms": {
+        "masculine-singular": {
+          "displayForm": "niger",
+          "usefulness": 96,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-la-grammar-e2-black-masculine-singular-1",
+              "revision": 1,
+              "learnerBaseText": "black stone",
+              "englishAuditText": "black stone",
+              "targetText": "lapis niger",
+              "slot": {
+                "beforeText": "lapis ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "lapis",
+                "learnerBaseText": "stone",
+                "englishAuditText": "stone"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-la-grammar-e2-black-masculine-singular-2",
+              "revision": 1,
+              "learnerBaseText": "black ball",
+              "englishAuditText": "black ball",
+              "targetText": "globus niger",
+              "slot": {
+                "beforeText": "globus ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "globus",
+                "learnerBaseText": "ball",
+                "englishAuditText": "ball"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-la-grammar-e2-black-masculine-singular-3",
+              "revision": 1,
+              "learnerBaseText": "black book",
+              "englishAuditText": "black book",
+              "targetText": "liber niger",
+              "slot": {
+                "beforeText": "liber ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "liber",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ]
+        },
+        "neuter-singular": {
+          "displayForm": "nigrum",
+          "usefulness": 96,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-la-grammar-e2-black-neuter-singular-1",
+              "revision": 1,
+              "learnerBaseText": "black rock",
+              "englishAuditText": "black rock",
+              "targetText": "saxum nigrum",
+              "slot": {
+                "beforeText": "saxum ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "saxum",
+                "learnerBaseText": "rock",
+                "englishAuditText": "rock"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-la-grammar-e2-black-neuter-singular-2",
+              "revision": 1,
+              "learnerBaseText": "black glass",
+              "englishAuditText": "black glass",
+              "targetText": "vitrum nigrum",
+              "slot": {
+                "beforeText": "vitrum ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "vitrum",
+                "learnerBaseText": "glass",
+                "englishAuditText": "glass"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-la-grammar-e2-black-neuter-singular-3",
+              "revision": 1,
+              "learnerBaseText": "black leaf",
+              "englishAuditText": "black leaf",
+              "targetText": "folium nigrum",
+              "slot": {
+                "beforeText": "folium ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "folium",
+                "learnerBaseText": "leaf",
+                "englishAuditText": "leaf"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ]
+        }
+      },
+      "usefulness": 96,
+      "complexity": 8
+    },
+    {
+      "id": "zero-la-grammar-e2-hot",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective",
+        "label": "Hot materials",
+        "targetText": "calida",
+        "resultTitle": "Hot materials",
+        "summary": "Use water, earth, wood and glass to learn one simple temperature word. Read the model before comparing the two endings."
+      },
+      "axes": [
+        {
+          "id": "feminine-singular",
+          "label": "feminine singular",
+          "features": {
+            "gender": "feminine",
+            "number": "singular",
+            "case": "nominative"
+          }
+        },
+        {
+          "id": "neuter-singular",
+          "label": "neuter singular",
+          "features": {
+            "gender": "neuter",
+            "number": "singular",
+            "case": "nominative"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "form"
+        ],
+        "categoryFeature": "gender",
+        "categoryOptions": [
+          {
+            "id": "feminine",
+            "label": "Feminine"
+          },
+          {
+            "id": "neuter",
+            "label": "Neuter"
+          }
+        ]
+      },
+      "forms": {
+        "feminine-singular": {
+          "displayForm": "calida",
+          "usefulness": 96,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-la-grammar-e2-hot-feminine-singular-1",
+              "revision": 1,
+              "learnerBaseText": "hot water",
+              "englishAuditText": "hot water",
+              "targetText": "aqua calida",
+              "slot": {
+                "beforeText": "aqua ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "aqua",
+                "learnerBaseText": "water",
+                "englishAuditText": "water"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-la-grammar-e2-hot-feminine-singular-2",
+              "revision": 1,
+              "learnerBaseText": "hot earth",
+              "englishAuditText": "hot earth",
+              "targetText": "terra calida",
+              "slot": {
+                "beforeText": "terra ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "terra",
+                "learnerBaseText": "earth",
+                "englishAuditText": "earth"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ]
+        },
+        "neuter-singular": {
+          "displayForm": "calidum",
+          "usefulness": 96,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-la-grammar-e2-hot-neuter-singular-1",
+              "revision": 1,
+              "learnerBaseText": "hot wood",
+              "englishAuditText": "hot wood",
+              "targetText": "lignum calidum",
+              "slot": {
+                "beforeText": "lignum ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "lignum",
+                "learnerBaseText": "wood",
+                "englishAuditText": "wood"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-la-grammar-e2-hot-neuter-singular-2",
+              "revision": 1,
+              "learnerBaseText": "hot glass",
+              "englishAuditText": "hot glass",
+              "targetText": "vitrum calidum",
+              "slot": {
+                "beforeText": "vitrum ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "vitrum",
+                "learnerBaseText": "glass",
+                "englishAuditText": "glass"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ]
+        }
+      },
+      "usefulness": 96,
+      "complexity": 8
+    },
+    {
+      "id": "zero-la-grammar-e2-cold",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective",
+        "label": "Cold materials",
+        "targetText": "frīgida",
+        "resultTitle": "Cold materials",
+        "summary": "Use water, earth, wood and glass to learn one simple temperature word. Read the model before comparing the two endings."
+      },
+      "axes": [
+        {
+          "id": "feminine-singular",
+          "label": "feminine singular",
+          "features": {
+            "gender": "feminine",
+            "number": "singular",
+            "case": "nominative"
+          }
+        },
+        {
+          "id": "neuter-singular",
+          "label": "neuter singular",
+          "features": {
+            "gender": "neuter",
+            "number": "singular",
+            "case": "nominative"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "form"
+        ],
+        "categoryFeature": "gender",
+        "categoryOptions": [
+          {
+            "id": "feminine",
+            "label": "Feminine"
+          },
+          {
+            "id": "neuter",
+            "label": "Neuter"
+          }
+        ]
+      },
+      "forms": {
+        "feminine-singular": {
+          "displayForm": "frīgida",
+          "usefulness": 96,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-la-grammar-e2-cold-feminine-singular-1",
+              "revision": 1,
+              "learnerBaseText": "cold water",
+              "englishAuditText": "cold water",
+              "targetText": "aqua frīgida",
+              "slot": {
+                "beforeText": "aqua ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "aqua",
+                "learnerBaseText": "water",
+                "englishAuditText": "water"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-la-grammar-e2-cold-feminine-singular-2",
+              "revision": 1,
+              "learnerBaseText": "cold earth",
+              "englishAuditText": "cold earth",
+              "targetText": "terra frīgida",
+              "slot": {
+                "beforeText": "terra ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "terra",
+                "learnerBaseText": "earth",
+                "englishAuditText": "earth"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ]
+        },
+        "neuter-singular": {
+          "displayForm": "frīgidum",
+          "usefulness": 96,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-la-grammar-e2-cold-neuter-singular-1",
+              "revision": 1,
+              "learnerBaseText": "cold wood",
+              "englishAuditText": "cold wood",
+              "targetText": "lignum frīgidum",
+              "slot": {
+                "beforeText": "lignum ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "lignum",
+                "learnerBaseText": "wood",
+                "englishAuditText": "wood"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-la-grammar-e2-cold-neuter-singular-2",
+              "revision": 1,
+              "learnerBaseText": "cold glass",
+              "englishAuditText": "cold glass",
+              "targetText": "vitrum frīgidum",
+              "slot": {
+                "beforeText": "vitrum ",
+                "afterText": ""
+              },
+              "anchor": {
+                "targetText": "vitrum",
+                "learnerBaseText": "glass",
+                "englishAuditText": "glass"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ]
+        }
+      },
+      "usefulness": 96,
+      "complexity": 8
     }
   ],
   "gameplay": {

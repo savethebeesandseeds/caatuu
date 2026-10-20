@@ -4163,6 +4163,2166 @@
           }
         }
       ]
+    },
+    {
+      "id": "mm-ka-zero-hello",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "greetings",
+      "familyId": "mm-ka-zero-hello",
+      "targetText": "გამარჯობა!",
+      "learnerBaseText": "Hello!",
+      "englishText": "Hello!",
+      "embeddingText": "Hello!",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "Hello!"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Hello!",
+          "englishAuditText": "Hello!"
+        },
+        {
+          "id": "contrast-1",
+          "text": "Help!",
+          "englishAuditText": "Help!",
+          "contrast": {
+            "kind": "action",
+            "explanation": "This means “Hello!”, rather than “Help!”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "tea",
+          "englishAuditText": "tea",
+          "contrast": {
+            "kind": "action",
+            "explanation": "This means “Hello!”, rather than “tea”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-goodbye",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "greetings",
+      "familyId": "mm-ka-zero-goodbye",
+      "targetText": "ნახვამდის!",
+      "learnerBaseText": "Goodbye!",
+      "englishText": "Goodbye!",
+      "embeddingText": "Goodbye!",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "Goodbye!"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Goodbye!",
+          "englishAuditText": "Goodbye!"
+        },
+        {
+          "id": "contrast-1",
+          "text": "one",
+          "englishAuditText": "one",
+          "contrast": {
+            "kind": "action",
+            "explanation": "This means “Goodbye!”, rather than “one”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "house",
+          "englishAuditText": "house",
+          "contrast": {
+            "kind": "action",
+            "explanation": "This means “Goodbye!”, rather than “house”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-thanks",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "greetings",
+      "familyId": "mm-ka-zero-thanks",
+      "targetText": "მადლობა!",
+      "learnerBaseText": "Thank you!",
+      "englishText": "Thank you!",
+      "embeddingText": "Thank you!",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "Thank you!"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Thank you!",
+          "englishAuditText": "Thank you!"
+        },
+        {
+          "id": "contrast-1",
+          "text": "two",
+          "englishAuditText": "two",
+          "contrast": {
+            "kind": "action",
+            "explanation": "This means “Thank you!”, rather than “two”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "book",
+          "englishAuditText": "book",
+          "contrast": {
+            "kind": "action",
+            "explanation": "This means “Thank you!”, rather than “book”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-yes",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "greetings",
+      "familyId": "mm-ka-zero-yes",
+      "targetText": "დიახ.",
+      "learnerBaseText": "Yes.",
+      "englishText": "Yes.",
+      "embeddingText": "Yes.",
+      "focus": {
+        "kind": "polarity",
+        "englishConcepts": [
+          "Yes."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Yes.",
+          "englishAuditText": "Yes."
+        },
+        {
+          "id": "contrast-1",
+          "text": "three",
+          "englishAuditText": "three",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "This means “Yes.”, rather than “three”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "door",
+          "englishAuditText": "door",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "This means “Yes.”, rather than “door”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-no",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "greetings",
+      "familyId": "mm-ka-zero-no",
+      "targetText": "არა.",
+      "learnerBaseText": "No.",
+      "englishText": "No.",
+      "embeddingText": "No.",
+      "focus": {
+        "kind": "polarity",
+        "englishConcepts": [
+          "No."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "No.",
+          "englishAuditText": "No."
+        },
+        {
+          "id": "contrast-1",
+          "text": "four",
+          "englishAuditText": "four",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "This means “No.”, rather than “four”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "car",
+          "englishAuditText": "car",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "This means “No.”, rather than “car”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-please",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "greetings",
+      "familyId": "mm-ka-zero-please",
+      "targetText": "გთხოვ.",
+      "learnerBaseText": "Please (to one familiar person).",
+      "englishText": "Please (to one familiar person).",
+      "embeddingText": "Please (to one familiar person).",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "Please (to one familiar person)."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Please (to one familiar person).",
+          "englishAuditText": "Please (to one familiar person)."
+        },
+        {
+          "id": "contrast-1",
+          "text": "five",
+          "englishAuditText": "five",
+          "contrast": {
+            "kind": "action",
+            "explanation": "This means “Please (to one familiar person).”, rather than “five”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "cat",
+          "englishAuditText": "cat",
+          "contrast": {
+            "kind": "action",
+            "explanation": "This means “Please (to one familiar person).”, rather than “cat”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-sorry",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "greetings",
+      "familyId": "mm-ka-zero-sorry",
+      "targetText": "ბოდიში!",
+      "learnerBaseText": "Sorry!",
+      "englishText": "Sorry!",
+      "embeddingText": "Sorry!",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "Sorry!"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Sorry!",
+          "englishAuditText": "Sorry!"
+        },
+        {
+          "id": "contrast-1",
+          "text": "water",
+          "englishAuditText": "water",
+          "contrast": {
+            "kind": "action",
+            "explanation": "This means “Sorry!”, rather than “water”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "dog",
+          "englishAuditText": "dog",
+          "contrast": {
+            "kind": "action",
+            "explanation": "This means “Sorry!”, rather than “dog”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-help",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "greetings",
+      "familyId": "mm-ka-zero-help",
+      "targetText": "მიშველეთ!",
+      "learnerBaseText": "Help!",
+      "englishText": "Help!",
+      "embeddingText": "Help!",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "Help!"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Help!",
+          "englishAuditText": "Help!"
+        },
+        {
+          "id": "contrast-1",
+          "text": "bread",
+          "englishAuditText": "bread",
+          "contrast": {
+            "kind": "action",
+            "explanation": "This means “Help!”, rather than “bread”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Hello, mother!",
+          "englishAuditText": "Hello, mother!",
+          "contrast": {
+            "kind": "action",
+            "explanation": "This means “Help!”, rather than “Hello, mother!”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-one",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "numbers",
+      "familyId": "mm-ka-zero-one",
+      "targetText": "ერთი",
+      "learnerBaseText": "one",
+      "englishText": "one",
+      "embeddingText": "one",
+      "focus": {
+        "kind": "number",
+        "englishConcepts": [
+          "one"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "one",
+          "englishAuditText": "one"
+        },
+        {
+          "id": "contrast-1",
+          "text": "milk",
+          "englishAuditText": "milk",
+          "contrast": {
+            "kind": "number",
+            "explanation": "This means “one”, rather than “milk”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Hello, father!",
+          "englishAuditText": "Hello, father!",
+          "contrast": {
+            "kind": "number",
+            "explanation": "This means “one”, rather than “Hello, father!”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-two",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "numbers",
+      "familyId": "mm-ka-zero-two",
+      "targetText": "ორი",
+      "learnerBaseText": "two",
+      "englishText": "two",
+      "embeddingText": "two",
+      "focus": {
+        "kind": "number",
+        "englishConcepts": [
+          "two"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "two",
+          "englishAuditText": "two"
+        },
+        {
+          "id": "contrast-1",
+          "text": "apple",
+          "englishAuditText": "apple",
+          "contrast": {
+            "kind": "number",
+            "explanation": "This means “two”, rather than “apple”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Yes, thank you.",
+          "englishAuditText": "Yes, thank you.",
+          "contrast": {
+            "kind": "number",
+            "explanation": "This means “two”, rather than “Yes, thank you.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-three",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "numbers",
+      "familyId": "mm-ka-zero-three",
+      "targetText": "სამი",
+      "learnerBaseText": "three",
+      "englishText": "three",
+      "embeddingText": "three",
+      "focus": {
+        "kind": "number",
+        "englishConcepts": [
+          "three"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "three",
+          "englishAuditText": "three"
+        },
+        {
+          "id": "contrast-1",
+          "text": "tea",
+          "englishAuditText": "tea",
+          "contrast": {
+            "kind": "number",
+            "explanation": "This means “three”, rather than “tea”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "No, thank you.",
+          "englishAuditText": "No, thank you.",
+          "contrast": {
+            "kind": "number",
+            "explanation": "This means “three”, rather than “No, thank you.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-four",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "numbers",
+      "familyId": "mm-ka-zero-four",
+      "targetText": "ოთხი",
+      "learnerBaseText": "four",
+      "englishText": "four",
+      "embeddingText": "four",
+      "focus": {
+        "kind": "number",
+        "englishConcepts": [
+          "four"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "four",
+          "englishAuditText": "four"
+        },
+        {
+          "id": "contrast-1",
+          "text": "house",
+          "englishAuditText": "house",
+          "contrast": {
+            "kind": "number",
+            "explanation": "This means “four”, rather than “house”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Good morning!",
+          "englishAuditText": "Good morning!",
+          "contrast": {
+            "kind": "number",
+            "explanation": "This means “four”, rather than “Good morning!”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-five",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "numbers",
+      "familyId": "mm-ka-zero-five",
+      "targetText": "ხუთი",
+      "learnerBaseText": "five",
+      "englishText": "five",
+      "embeddingText": "five",
+      "focus": {
+        "kind": "number",
+        "englishConcepts": [
+          "five"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "five",
+          "englishAuditText": "five"
+        },
+        {
+          "id": "contrast-1",
+          "text": "book",
+          "englishAuditText": "book",
+          "contrast": {
+            "kind": "number",
+            "explanation": "This means “five”, rather than “book”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Good evening!",
+          "englishAuditText": "Good evening!",
+          "contrast": {
+            "kind": "number",
+            "explanation": "This means “five”, rather than “Good evening!”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-water",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "food-and-drink",
+      "familyId": "mm-ka-zero-water",
+      "targetText": "წყალი",
+      "learnerBaseText": "water",
+      "englishText": "water",
+      "embeddingText": "water",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "water"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "water",
+          "englishAuditText": "water"
+        },
+        {
+          "id": "contrast-1",
+          "text": "door",
+          "englishAuditText": "door",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “water”, rather than “door”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I am here.",
+          "englishAuditText": "I am here.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “water”, rather than “I am here.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-bread",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "food-and-drink",
+      "familyId": "mm-ka-zero-bread",
+      "targetText": "პური",
+      "learnerBaseText": "bread",
+      "englishText": "bread",
+      "embeddingText": "bread",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "bread"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "bread",
+          "englishAuditText": "bread"
+        },
+        {
+          "id": "contrast-1",
+          "text": "car",
+          "englishAuditText": "car",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “bread”, rather than “car”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "You are here.",
+          "englishAuditText": "You are here.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “bread”, rather than “You are here.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-milk",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "food-and-drink",
+      "familyId": "mm-ka-zero-milk",
+      "targetText": "რძე",
+      "learnerBaseText": "milk",
+      "englishText": "milk",
+      "embeddingText": "milk",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "milk"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "milk",
+          "englishAuditText": "milk"
+        },
+        {
+          "id": "contrast-1",
+          "text": "cat",
+          "englishAuditText": "cat",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “milk”, rather than “cat”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I am at home.",
+          "englishAuditText": "I am at home.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “milk”, rather than “I am at home.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-apple",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "food-and-drink",
+      "familyId": "mm-ka-zero-apple",
+      "targetText": "ვაშლი",
+      "learnerBaseText": "apple",
+      "englishText": "apple",
+      "embeddingText": "apple",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "apple"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "apple",
+          "englishAuditText": "apple"
+        },
+        {
+          "id": "contrast-1",
+          "text": "dog",
+          "englishAuditText": "dog",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “apple”, rather than “dog”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "You are at home.",
+          "englishAuditText": "You are at home.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “apple”, rather than “You are at home.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-tea",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "food-and-drink",
+      "familyId": "mm-ka-zero-tea",
+      "targetText": "ჩაი",
+      "learnerBaseText": "tea",
+      "englishText": "tea",
+      "embeddingText": "tea",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "tea"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "tea",
+          "englishAuditText": "tea"
+        },
+        {
+          "id": "contrast-1",
+          "text": "Hello, mother!",
+          "englishAuditText": "Hello, mother!",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “tea”, rather than “Hello, mother!”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I am fine.",
+          "englishAuditText": "I am fine.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “tea”, rather than “I am fine.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-house",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "home",
+      "familyId": "mm-ka-zero-house",
+      "targetText": "სახლი",
+      "learnerBaseText": "house",
+      "englishText": "house",
+      "embeddingText": "house",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "house"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "house",
+          "englishAuditText": "house"
+        },
+        {
+          "id": "contrast-1",
+          "text": "Hello, father!",
+          "englishAuditText": "Hello, father!",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “house”, rather than “Hello, father!”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This is water.",
+          "englishAuditText": "This is water.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “house”, rather than “This is water.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-book",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "home",
+      "familyId": "mm-ka-zero-book",
+      "targetText": "წიგნი",
+      "learnerBaseText": "book",
+      "englishText": "book",
+      "embeddingText": "book",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "book"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "book",
+          "englishAuditText": "book"
+        },
+        {
+          "id": "contrast-1",
+          "text": "Yes, thank you.",
+          "englishAuditText": "Yes, thank you.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “book”, rather than “Yes, thank you.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This is bread.",
+          "englishAuditText": "This is bread.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “book”, rather than “This is bread.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-door",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "home",
+      "familyId": "mm-ka-zero-door",
+      "targetText": "კარი",
+      "learnerBaseText": "door",
+      "englishText": "door",
+      "embeddingText": "door",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "door"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "door",
+          "englishAuditText": "door"
+        },
+        {
+          "id": "contrast-1",
+          "text": "No, thank you.",
+          "englishAuditText": "No, thank you.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “door”, rather than “No, thank you.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This is milk.",
+          "englishAuditText": "This is milk.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “door”, rather than “This is milk.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-car",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "objects",
+      "familyId": "mm-ka-zero-car",
+      "targetText": "მანქანა",
+      "learnerBaseText": "car",
+      "englishText": "car",
+      "embeddingText": "car",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "car"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "car",
+          "englishAuditText": "car"
+        },
+        {
+          "id": "contrast-1",
+          "text": "Good morning!",
+          "englishAuditText": "Good morning!",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “car”, rather than “Good morning!”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This is tea.",
+          "englishAuditText": "This is tea.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “car”, rather than “This is tea.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-cat",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "animals",
+      "familyId": "mm-ka-zero-cat",
+      "targetText": "კატა",
+      "learnerBaseText": "cat",
+      "englishText": "cat",
+      "embeddingText": "cat",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "cat"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "cat",
+          "englishAuditText": "cat"
+        },
+        {
+          "id": "contrast-1",
+          "text": "Good evening!",
+          "englishAuditText": "Good evening!",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “cat”, rather than “Good evening!”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This is a book.",
+          "englishAuditText": "This is a book.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “cat”, rather than “This is a book.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-dog",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "animals",
+      "familyId": "mm-ka-zero-dog",
+      "targetText": "ძაღლი",
+      "learnerBaseText": "dog",
+      "englishText": "dog",
+      "embeddingText": "dog",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "dog"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "dog",
+          "englishAuditText": "dog"
+        },
+        {
+          "id": "contrast-1",
+          "text": "I am here.",
+          "englishAuditText": "I am here.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “dog”, rather than “I am here.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This is a house.",
+          "englishAuditText": "This is a house.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “dog”, rather than “This is a house.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-phrase-001",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-ka-zero-phrase-001",
+      "targetText": "გამარჯობა, დედა!",
+      "learnerBaseText": "Hello, mother!",
+      "englishText": "Hello, mother!",
+      "embeddingText": "Hello, mother!",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "Hello, mother!"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Hello, mother!",
+          "englishAuditText": "Hello, mother!"
+        },
+        {
+          "id": "contrast-1",
+          "text": "You are here.",
+          "englishAuditText": "You are here.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “Hello, mother!”, rather than “You are here.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This is a cat.",
+          "englishAuditText": "This is a cat.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “Hello, mother!”, rather than “This is a cat.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-phrase-002",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-ka-zero-phrase-002",
+      "targetText": "გამარჯობა, მამა!",
+      "learnerBaseText": "Hello, father!",
+      "englishText": "Hello, father!",
+      "embeddingText": "Hello, father!",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "Hello, father!"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Hello, father!",
+          "englishAuditText": "Hello, father!"
+        },
+        {
+          "id": "contrast-1",
+          "text": "I am at home.",
+          "englishAuditText": "I am at home.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “Hello, father!”, rather than “I am at home.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This is a dog.",
+          "englishAuditText": "This is a dog.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “Hello, father!”, rather than “This is a dog.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-phrase-003",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-ka-zero-phrase-003",
+      "targetText": "დიახ, მადლობა.",
+      "learnerBaseText": "Yes, thank you.",
+      "englishText": "Yes, thank you.",
+      "embeddingText": "Yes, thank you.",
+      "focus": {
+        "kind": "polarity",
+        "englishConcepts": [
+          "Yes, thank you."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Yes, thank you.",
+          "englishAuditText": "Yes, thank you."
+        },
+        {
+          "id": "contrast-1",
+          "text": "You are at home.",
+          "englishAuditText": "You are at home.",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "This means “Yes, thank you.”, rather than “You are at home.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This is an apple.",
+          "englishAuditText": "This is an apple.",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "This means “Yes, thank you.”, rather than “This is an apple.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-phrase-004",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-ka-zero-phrase-004",
+      "targetText": "არა, მადლობა.",
+      "learnerBaseText": "No, thank you.",
+      "englishText": "No, thank you.",
+      "embeddingText": "No, thank you.",
+      "focus": {
+        "kind": "polarity",
+        "englishConcepts": [
+          "No, thank you."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "No, thank you.",
+          "englishAuditText": "No, thank you."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I am fine.",
+          "englishAuditText": "I am fine.",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "This means “No, thank you.”, rather than “I am fine.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "A red car.",
+          "englishAuditText": "A red car.",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "This means “No, thank you.”, rather than “A red car.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-phrase-005",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-ka-zero-phrase-005",
+      "targetText": "დილა მშვიდობისა!",
+      "learnerBaseText": "Good morning!",
+      "englishText": "Good morning!",
+      "embeddingText": "Good morning!",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "Good morning!"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Good morning!",
+          "englishAuditText": "Good morning!"
+        },
+        {
+          "id": "contrast-1",
+          "text": "This is water.",
+          "englishAuditText": "This is water.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “Good morning!”, rather than “This is water.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "A green book.",
+          "englishAuditText": "A green book.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “Good morning!”, rather than “A green book.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-phrase-006",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-ka-zero-phrase-006",
+      "targetText": "საღამო მშვიდობისა!",
+      "learnerBaseText": "Good evening!",
+      "englishText": "Good evening!",
+      "embeddingText": "Good evening!",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "Good evening!"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Good evening!",
+          "englishAuditText": "Good evening!"
+        },
+        {
+          "id": "contrast-1",
+          "text": "This is bread.",
+          "englishAuditText": "This is bread.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “Good evening!”, rather than “This is bread.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "A big dog.",
+          "englishAuditText": "A big dog.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “Good evening!”, rather than “A big dog.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-phrase-007",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "familyId": "mm-ka-zero-phrase-007",
+      "targetText": "მე აქ ვარ.",
+      "learnerBaseText": "I am here.",
+      "englishText": "I am here.",
+      "embeddingText": "I am here.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "I am here."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I am here.",
+          "englishAuditText": "I am here."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This is milk.",
+          "englishAuditText": "This is milk.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "This means “I am here.”, rather than “This is milk.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "A small cat.",
+          "englishAuditText": "A small cat.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "This means “I am here.”, rather than “A small cat.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-phrase-008",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "familyId": "mm-ka-zero-phrase-008",
+      "targetText": "შენ აქ ხარ.",
+      "learnerBaseText": "You are here.",
+      "englishText": "You are here.",
+      "embeddingText": "You are here.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "You are here."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "You are here.",
+          "englishAuditText": "You are here."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This is tea.",
+          "englishAuditText": "This is tea.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "This means “You are here.”, rather than “This is tea.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Hello!",
+          "englishAuditText": "Hello!",
+          "contrast": {
+            "kind": "location",
+            "explanation": "This means “You are here.”, rather than “Hello!”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-phrase-009",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "familyId": "mm-ka-zero-phrase-009",
+      "targetText": "მე სახლში ვარ.",
+      "learnerBaseText": "I am at home.",
+      "englishText": "I am at home.",
+      "embeddingText": "I am at home.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "I am at home."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I am at home.",
+          "englishAuditText": "I am at home."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This is a book.",
+          "englishAuditText": "This is a book.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "This means “I am at home.”, rather than “This is a book.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Goodbye!",
+          "englishAuditText": "Goodbye!",
+          "contrast": {
+            "kind": "location",
+            "explanation": "This means “I am at home.”, rather than “Goodbye!”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-phrase-010",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "familyId": "mm-ka-zero-phrase-010",
+      "targetText": "შენ სახლში ხარ.",
+      "learnerBaseText": "You are at home.",
+      "englishText": "You are at home.",
+      "embeddingText": "You are at home.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "You are at home."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "You are at home.",
+          "englishAuditText": "You are at home."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This is a house.",
+          "englishAuditText": "This is a house.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "This means “You are at home.”, rather than “This is a house.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Thank you!",
+          "englishAuditText": "Thank you!",
+          "contrast": {
+            "kind": "location",
+            "explanation": "This means “You are at home.”, rather than “Thank you!”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-phrase-011",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "familyId": "mm-ka-zero-phrase-011",
+      "targetText": "მე კარგად ვარ.",
+      "learnerBaseText": "I am fine.",
+      "englishText": "I am fine.",
+      "embeddingText": "I am fine.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "I am fine."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I am fine.",
+          "englishAuditText": "I am fine."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This is a cat.",
+          "englishAuditText": "This is a cat.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "This means “I am fine.”, rather than “This is a cat.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Yes.",
+          "englishAuditText": "Yes.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "This means “I am fine.”, rather than “Yes.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-phrase-012",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-ka-zero-phrase-012",
+      "targetText": "ეს წყალია.",
+      "learnerBaseText": "This is water.",
+      "englishText": "This is water.",
+      "embeddingText": "This is water.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "This is water."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This is water.",
+          "englishAuditText": "This is water."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This is a dog.",
+          "englishAuditText": "This is a dog.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “This is water.”, rather than “This is a dog.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "No.",
+          "englishAuditText": "No.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “This is water.”, rather than “No.”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-phrase-013",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-ka-zero-phrase-013",
+      "targetText": "ეს პურია.",
+      "learnerBaseText": "This is bread.",
+      "englishText": "This is bread.",
+      "embeddingText": "This is bread.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "This is bread."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This is bread.",
+          "englishAuditText": "This is bread."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This is an apple.",
+          "englishAuditText": "This is an apple.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “This is bread.”, rather than “This is an apple.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Please (to one familiar person).",
+          "englishAuditText": "Please (to one familiar person).",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “This is bread.”, rather than “Please (to one familiar person).”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-phrase-014",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-ka-zero-phrase-014",
+      "targetText": "ეს რძეა.",
+      "learnerBaseText": "This is milk.",
+      "englishText": "This is milk.",
+      "embeddingText": "This is milk.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "This is milk."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This is milk.",
+          "englishAuditText": "This is milk."
+        },
+        {
+          "id": "contrast-1",
+          "text": "A red car.",
+          "englishAuditText": "A red car.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “This is milk.”, rather than “A red car.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Sorry!",
+          "englishAuditText": "Sorry!",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “This is milk.”, rather than “Sorry!”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-phrase-015",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-ka-zero-phrase-015",
+      "targetText": "ეს ჩაია.",
+      "learnerBaseText": "This is tea.",
+      "englishText": "This is tea.",
+      "embeddingText": "This is tea.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "This is tea."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This is tea.",
+          "englishAuditText": "This is tea."
+        },
+        {
+          "id": "contrast-1",
+          "text": "A green book.",
+          "englishAuditText": "A green book.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “This is tea.”, rather than “A green book.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Help!",
+          "englishAuditText": "Help!",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “This is tea.”, rather than “Help!”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-phrase-016",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-ka-zero-phrase-016",
+      "targetText": "ეს წიგნია.",
+      "learnerBaseText": "This is a book.",
+      "englishText": "This is a book.",
+      "embeddingText": "This is a book.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "This is a book."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This is a book.",
+          "englishAuditText": "This is a book."
+        },
+        {
+          "id": "contrast-1",
+          "text": "A big dog.",
+          "englishAuditText": "A big dog.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “This is a book.”, rather than “A big dog.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "one",
+          "englishAuditText": "one",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “This is a book.”, rather than “one”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-phrase-017",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-ka-zero-phrase-017",
+      "targetText": "ეს სახლია.",
+      "learnerBaseText": "This is a house.",
+      "englishText": "This is a house.",
+      "embeddingText": "This is a house.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "This is a house."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This is a house.",
+          "englishAuditText": "This is a house."
+        },
+        {
+          "id": "contrast-1",
+          "text": "A small cat.",
+          "englishAuditText": "A small cat.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “This is a house.”, rather than “A small cat.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "two",
+          "englishAuditText": "two",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “This is a house.”, rather than “two”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-phrase-018",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-ka-zero-phrase-018",
+      "targetText": "ეს კატაა.",
+      "learnerBaseText": "This is a cat.",
+      "englishText": "This is a cat.",
+      "embeddingText": "This is a cat.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "This is a cat."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This is a cat.",
+          "englishAuditText": "This is a cat."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Hello!",
+          "englishAuditText": "Hello!",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “This is a cat.”, rather than “Hello!”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "three",
+          "englishAuditText": "three",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “This is a cat.”, rather than “three”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-phrase-019",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-ka-zero-phrase-019",
+      "targetText": "ეს ძაღლია.",
+      "learnerBaseText": "This is a dog.",
+      "englishText": "This is a dog.",
+      "embeddingText": "This is a dog.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "This is a dog."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This is a dog.",
+          "englishAuditText": "This is a dog."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Goodbye!",
+          "englishAuditText": "Goodbye!",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “This is a dog.”, rather than “Goodbye!”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "four",
+          "englishAuditText": "four",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “This is a dog.”, rather than “four”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-phrase-020",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-ka-zero-phrase-020",
+      "targetText": "ეს ვაშლია.",
+      "learnerBaseText": "This is an apple.",
+      "englishText": "This is an apple.",
+      "embeddingText": "This is an apple.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "This is an apple."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This is an apple.",
+          "englishAuditText": "This is an apple."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Thank you!",
+          "englishAuditText": "Thank you!",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “This is an apple.”, rather than “Thank you!”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "five",
+          "englishAuditText": "five",
+          "contrast": {
+            "kind": "object",
+            "explanation": "This means “This is an apple.”, rather than “five”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-phrase-021",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-ka-zero-phrase-021",
+      "targetText": "წითელი მანქანა.",
+      "learnerBaseText": "A red car.",
+      "englishText": "A red car.",
+      "embeddingText": "A red car.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "A red car."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "A red car.",
+          "englishAuditText": "A red car."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Yes.",
+          "englishAuditText": "Yes.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "This means “A red car.”, rather than “Yes.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "water",
+          "englishAuditText": "water",
+          "contrast": {
+            "kind": "state",
+            "explanation": "This means “A red car.”, rather than “water”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-phrase-022",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-ka-zero-phrase-022",
+      "targetText": "მწვანე წიგნი.",
+      "learnerBaseText": "A green book.",
+      "englishText": "A green book.",
+      "embeddingText": "A green book.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "A green book."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "A green book.",
+          "englishAuditText": "A green book."
+        },
+        {
+          "id": "contrast-1",
+          "text": "No.",
+          "englishAuditText": "No.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "This means “A green book.”, rather than “No.”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "bread",
+          "englishAuditText": "bread",
+          "contrast": {
+            "kind": "state",
+            "explanation": "This means “A green book.”, rather than “bread”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-phrase-023",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-ka-zero-phrase-023",
+      "targetText": "დიდი ძაღლი.",
+      "learnerBaseText": "A big dog.",
+      "englishText": "A big dog.",
+      "embeddingText": "A big dog.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "A big dog."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "A big dog.",
+          "englishAuditText": "A big dog."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Please (to one familiar person).",
+          "englishAuditText": "Please (to one familiar person).",
+          "contrast": {
+            "kind": "state",
+            "explanation": "This means “A big dog.”, rather than “Please (to one familiar person).”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "milk",
+          "englishAuditText": "milk",
+          "contrast": {
+            "kind": "state",
+            "explanation": "This means “A big dog.”, rather than “milk”."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ka-zero-phrase-024",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "familyId": "mm-ka-zero-phrase-024",
+      "targetText": "პატარა კატა.",
+      "learnerBaseText": "A small cat.",
+      "englishText": "A small cat.",
+      "embeddingText": "A small cat.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "A small cat."
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "A small cat.",
+          "englishAuditText": "A small cat."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Sorry!",
+          "englishAuditText": "Sorry!",
+          "contrast": {
+            "kind": "state",
+            "explanation": "This means “A small cat.”, rather than “Sorry!”."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "apple",
+          "englishAuditText": "apple",
+          "contrast": {
+            "kind": "state",
+            "explanation": "This means “A small cat.”, rather than “apple”."
+          }
+        }
+      ]
     }
   ]
 }

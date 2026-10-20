@@ -25016,6 +25016,876 @@
       "difficulty": 3,
       "usefulness": 92,
       "complexity": 63
+    },
+    {
+      "id": "zero-ar-ww-hello",
+      "englishText": "Hello!",
+      "embeddingText": "Hello!",
+      "sceneQuery": "Hello!",
+      "topic": "greetings",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-goodbye",
+      "englishText": "Goodbye!",
+      "embeddingText": "Goodbye!",
+      "sceneQuery": "Goodbye!",
+      "topic": "greetings",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-ar-ww-thanks",
+      "englishText": "Thank you!",
+      "embeddingText": "Thank you!",
+      "sceneQuery": "Thank you!",
+      "topic": "greetings",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-yes",
+      "englishText": "Yes.",
+      "embeddingText": "Yes.",
+      "sceneQuery": "Yes.",
+      "topic": "greetings",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-no",
+      "englishText": "No.",
+      "embeddingText": "No.",
+      "sceneQuery": "No.",
+      "topic": "greetings",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-please",
+      "englishText": "Please (to a man).",
+      "embeddingText": "Please (to a man).",
+      "sceneQuery": "Please (to a man).",
+      "topic": "greetings",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-ar-ww-sorry",
+      "englishText": "Sorry!",
+      "embeddingText": "Sorry!",
+      "sceneQuery": "Sorry!",
+      "topic": "greetings",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-help",
+      "englishText": "Help!",
+      "embeddingText": "Help!",
+      "sceneQuery": "Help!",
+      "topic": "greetings",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-i",
+      "englishText": "I",
+      "embeddingText": "I",
+      "sceneQuery": "I",
+      "topic": "people",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-you",
+      "englishText": "you (one man)",
+      "embeddingText": "you (one man)",
+      "sceneQuery": "you (one man)",
+      "topic": "people",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-mother",
+      "englishText": "mother",
+      "embeddingText": "mother",
+      "sceneQuery": "mother",
+      "topic": "people",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-father",
+      "englishText": "father",
+      "embeddingText": "father",
+      "sceneQuery": "father",
+      "topic": "people",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-friend",
+      "englishText": "friend (male)",
+      "embeddingText": "friend (male)",
+      "sceneQuery": "friend (male)",
+      "topic": "people",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-child",
+      "englishText": "child (male)",
+      "embeddingText": "child (male)",
+      "sceneQuery": "child (male)",
+      "topic": "people",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-one",
+      "englishText": "one",
+      "embeddingText": "one",
+      "sceneQuery": "one",
+      "topic": "numbers",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-two",
+      "englishText": "two",
+      "embeddingText": "two",
+      "sceneQuery": "two",
+      "topic": "numbers",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-three",
+      "englishText": "three",
+      "embeddingText": "three",
+      "sceneQuery": "three",
+      "topic": "numbers",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-four",
+      "englishText": "four",
+      "embeddingText": "four",
+      "sceneQuery": "four",
+      "topic": "numbers",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-five",
+      "englishText": "five",
+      "embeddingText": "five",
+      "sceneQuery": "five",
+      "topic": "numbers",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-water",
+      "englishText": "water",
+      "embeddingText": "water",
+      "sceneQuery": "water",
+      "topic": "food-and-drink",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-bread",
+      "englishText": "bread",
+      "embeddingText": "bread",
+      "sceneQuery": "bread",
+      "topic": "food-and-drink",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-milk",
+      "englishText": "milk",
+      "embeddingText": "milk",
+      "sceneQuery": "milk",
+      "topic": "food-and-drink",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-apple",
+      "englishText": "apple",
+      "embeddingText": "apple",
+      "sceneQuery": "apple",
+      "topic": "food-and-drink",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-tea",
+      "englishText": "tea",
+      "embeddingText": "tea",
+      "sceneQuery": "tea",
+      "topic": "food-and-drink",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-house",
+      "englishText": "house",
+      "embeddingText": "house",
+      "sceneQuery": "house",
+      "topic": "home",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-book",
+      "englishText": "book",
+      "embeddingText": "book",
+      "sceneQuery": "book",
+      "topic": "home",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-door",
+      "englishText": "door",
+      "embeddingText": "door",
+      "sceneQuery": "door",
+      "topic": "home",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-car",
+      "englishText": "car",
+      "embeddingText": "car",
+      "sceneQuery": "car",
+      "topic": "objects",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-cat",
+      "englishText": "cat",
+      "embeddingText": "cat",
+      "sceneQuery": "cat",
+      "topic": "animals",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-dog",
+      "englishText": "dog",
+      "embeddingText": "dog",
+      "sceneQuery": "dog",
+      "topic": "animals",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-big",
+      "englishText": "big (masculine)",
+      "embeddingText": "big (masculine)",
+      "sceneQuery": "big (masculine)",
+      "topic": "properties",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-small",
+      "englishText": "small (masculine)",
+      "embeddingText": "small (masculine)",
+      "sceneQuery": "small (masculine)",
+      "topic": "properties",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-good",
+      "englishText": "good (masculine)",
+      "embeddingText": "good (masculine)",
+      "sceneQuery": "good (masculine)",
+      "topic": "properties",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-new",
+      "englishText": "new (masculine)",
+      "embeddingText": "new (masculine)",
+      "sceneQuery": "new (masculine)",
+      "topic": "properties",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-red",
+      "englishText": "red (masculine)",
+      "embeddingText": "red (masculine)",
+      "sceneQuery": "red (masculine)",
+      "topic": "properties",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-green",
+      "englishText": "green (masculine)",
+      "embeddingText": "green (masculine)",
+      "sceneQuery": "green (masculine)",
+      "topic": "properties",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-hot",
+      "englishText": "hot (masculine)",
+      "embeddingText": "hot (masculine)",
+      "sceneQuery": "hot (masculine)",
+      "topic": "properties",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-cold",
+      "englishText": "cold (masculine)",
+      "embeddingText": "cold (masculine)",
+      "sceneQuery": "cold (masculine)",
+      "topic": "properties",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-old",
+      "englishText": "old (masculine)",
+      "embeddingText": "old (masculine)",
+      "sceneQuery": "old (masculine)",
+      "topic": "properties",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-eat",
+      "englishText": "I eat",
+      "embeddingText": "I eat",
+      "sceneQuery": "I eat",
+      "topic": "actions",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-drink",
+      "englishText": "I drink",
+      "embeddingText": "I drink",
+      "sceneQuery": "I drink",
+      "topic": "actions",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-go",
+      "englishText": "I go",
+      "embeddingText": "I go",
+      "sceneQuery": "I go",
+      "topic": "actions",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-come",
+      "englishText": "I come",
+      "embeddingText": "I come",
+      "sceneQuery": "I come",
+      "topic": "actions",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-sleep",
+      "englishText": "I sleep",
+      "embeddingText": "I sleep",
+      "sceneQuery": "I sleep",
+      "topic": "actions",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-read",
+      "englishText": "I read",
+      "embeddingText": "I read",
+      "sceneQuery": "I read",
+      "topic": "actions",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-write",
+      "englishText": "I write",
+      "embeddingText": "I write",
+      "sceneQuery": "I write",
+      "topic": "actions",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-see",
+      "englishText": "I see",
+      "embeddingText": "I see",
+      "sceneQuery": "I see",
+      "topic": "actions",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-ar-ww-phrase-001",
+      "englishText": "Hello, mother!",
+      "embeddingText": "Hello, mother!",
+      "sceneQuery": "Hello, mother!",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6
+    },
+    {
+      "id": "zero-ar-ww-phrase-002",
+      "englishText": "Hello, father!",
+      "embeddingText": "Hello, father!",
+      "sceneQuery": "Hello, father!",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6
+    },
+    {
+      "id": "zero-ar-ww-phrase-003",
+      "englishText": "Yes, thank you.",
+      "embeddingText": "Yes, thank you.",
+      "sceneQuery": "Yes, thank you.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-ar-ww-phrase-004",
+      "englishText": "No, thank you.",
+      "embeddingText": "No, thank you.",
+      "sceneQuery": "No, thank you.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-ar-ww-phrase-005",
+      "englishText": "Good morning!",
+      "embeddingText": "Good morning!",
+      "sceneQuery": "Good morning!",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-ar-ww-phrase-006",
+      "englishText": "Good evening!",
+      "embeddingText": "Good evening!",
+      "sceneQuery": "Good evening!",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-ar-ww-phrase-007",
+      "englishText": "I am here.",
+      "embeddingText": "I am here.",
+      "sceneQuery": "I am here.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-ar-ww-phrase-008",
+      "englishText": "You are here (one man).",
+      "embeddingText": "You are here (one man).",
+      "sceneQuery": "You are here (one man).",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-ar-ww-phrase-009",
+      "englishText": "I am at home.",
+      "embeddingText": "I am at home.",
+      "sceneQuery": "I am at home.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6
+    },
+    {
+      "id": "zero-ar-ww-phrase-010",
+      "englishText": "You are at home (one man).",
+      "embeddingText": "You are at home (one man).",
+      "sceneQuery": "You are at home (one man).",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6
+    },
+    {
+      "id": "zero-ar-ww-phrase-011",
+      "englishText": "I am fine.",
+      "embeddingText": "I am fine.",
+      "sceneQuery": "I am fine.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-ar-ww-phrase-012",
+      "englishText": "This is water.",
+      "embeddingText": "This is water.",
+      "sceneQuery": "This is water.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-ar-ww-phrase-013",
+      "englishText": "This is bread.",
+      "embeddingText": "This is bread.",
+      "sceneQuery": "This is bread.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-ar-ww-phrase-014",
+      "englishText": "This is milk.",
+      "embeddingText": "This is milk.",
+      "sceneQuery": "This is milk.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-ar-ww-phrase-015",
+      "englishText": "This is tea.",
+      "embeddingText": "This is tea.",
+      "sceneQuery": "This is tea.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-ar-ww-phrase-016",
+      "englishText": "This is a book.",
+      "embeddingText": "This is a book.",
+      "sceneQuery": "This is a book.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-ar-ww-phrase-017",
+      "englishText": "This is a house.",
+      "embeddingText": "This is a house.",
+      "sceneQuery": "This is a house.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-ar-ww-phrase-018",
+      "englishText": "This is an apple.",
+      "embeddingText": "This is an apple.",
+      "sceneQuery": "This is an apple.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-ar-ww-phrase-019",
+      "englishText": "This is a cat.",
+      "embeddingText": "This is a cat.",
+      "sceneQuery": "This is a cat.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-ar-ww-phrase-020",
+      "englishText": "This is a car.",
+      "embeddingText": "This is a car.",
+      "sceneQuery": "This is a car.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-ar-ww-phrase-021",
+      "englishText": "A big house.",
+      "embeddingText": "A big house.",
+      "sceneQuery": "A big house.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-ar-ww-phrase-022",
+      "englishText": "A small book.",
+      "embeddingText": "A small book.",
+      "sceneQuery": "A small book.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-ar-ww-phrase-023",
+      "englishText": "A new book.",
+      "embeddingText": "A new book.",
+      "sceneQuery": "A new book.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-ar-ww-phrase-024",
+      "englishText": "A big car.",
+      "embeddingText": "A big car.",
+      "sceneQuery": "A big car.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-ar-ww-phrase-025",
+      "englishText": "A small cat.",
+      "embeddingText": "A small cat.",
+      "sceneQuery": "A small cat.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-ar-ww-phrase-026",
+      "englishText": "A new car.",
+      "embeddingText": "A new car.",
+      "sceneQuery": "A new car.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-ar-ww-phrase-027",
+      "englishText": "Cold water.",
+      "embeddingText": "Cold water.",
+      "sceneQuery": "Cold water.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-ar-ww-phrase-028",
+      "englishText": "Hot milk.",
+      "embeddingText": "Hot milk.",
+      "sceneQuery": "Hot milk.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-ar-ww-phrase-029",
+      "englishText": "Hot tea.",
+      "embeddingText": "Hot tea.",
+      "sceneQuery": "Hot tea.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-ar-ww-phrase-030",
+      "englishText": "I eat bread.",
+      "embeddingText": "I eat bread.",
+      "sceneQuery": "I eat bread.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-ar-ww-phrase-031",
+      "englishText": "I drink water.",
+      "embeddingText": "I drink water.",
+      "sceneQuery": "I drink water.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-ar-ww-phrase-032",
+      "englishText": "I drink milk.",
+      "embeddingText": "I drink milk.",
+      "sceneQuery": "I drink milk.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-ar-ww-phrase-033",
+      "englishText": "I read a book.",
+      "embeddingText": "I read a book.",
+      "sceneQuery": "I read a book.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-ar-ww-phrase-034",
+      "englishText": "I see a dog.",
+      "embeddingText": "I see a dog.",
+      "sceneQuery": "I see a dog.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-ar-ww-phrase-035",
+      "englishText": "I see a cat.",
+      "embeddingText": "I see a cat.",
+      "sceneQuery": "I see a cat.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-ar-ww-phrase-036",
+      "englishText": "I have a book.",
+      "embeddingText": "I have a book.",
+      "sceneQuery": "I have a book.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-ar-ww-phrase-037",
+      "englishText": "I have an apple.",
+      "embeddingText": "I have an apple.",
+      "sceneQuery": "I have an apple.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-ar-ww-phrase-038",
+      "englishText": "The door is here.",
+      "embeddingText": "The door is here.",
+      "sceneQuery": "The door is here.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-ar-ww-phrase-039",
+      "englishText": "The book is here.",
+      "embeddingText": "The book is here.",
+      "sceneQuery": "The book is here.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-ar-ww-phrase-040",
+      "englishText": "The water is cold.",
+      "embeddingText": "The water is cold.",
+      "sceneQuery": "The water is cold.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
     }
   ]
 }

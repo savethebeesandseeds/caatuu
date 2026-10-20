@@ -8,14 +8,19 @@ const MACAW_SCENES = ["lantern", "jump", "astronaut", "balance", "chest", "lever
 /** A view of the shared ledger, never a second source of progress or rewards. */
 export function campaignRoadmapModel(practice) {
   if (!practice) return null;
-  const target = Math.max(1, Number(practice.cycle?.target) || 16);
-  const completed = Math.max(0, Number(practice.cycle?.sets) || 0);
-  const cycle = Math.max(0, Number(practice.cycle?.completed) || 0);
+  const stage = practice.progression?.stage ?? null;
+  const position = stage?.cycle ?? practice.cycle;
+  const target = Math.max(1, Number(position?.target) || 16);
+  const stageComplete = stage?.stageComplete === true;
+  const completed = stageComplete ? target : Math.min(target, Math.max(0, Number(position?.sets) || 0));
+  const completedCycles = Math.max(0, Number(position?.completed) || 0);
+  const cycle = stageComplete && Number.isFinite(stage.targetCycles)
+    ? Math.max(0, stage.targetCycles - 1) : completedCycles;
+  const effortTarget = Math.max(1, Number(stage?.target ?? practice.target) || 24);
   return {
     cycle: cycle + 1, target, completed,
-    effort: Math.max(0, Number(practice.effort) || 0),
-    effortTarget: Math.max(1, Number(practice.target) || 24),
-    stage: practice.progression?.stage ?? null,
+    effort: Math.min(effortTarget, Math.max(0, Number(stage?.effort ?? practice.effort) || 0)),
+    effortTarget, stage, stageComplete,
     available: practice.progression?.available !== false,
     sets: Array.from({ length: target }, (_, index) => ({
       number: index + 1,
@@ -68,10 +73,10 @@ export function installCampaignRoadmap({ scope = globalThis.window ?? globalThis
       return section;
     }
     const current = stage.difficulty;
-    const next = stage.targetCycles === null ? current : current + 1;
+    const next = current >= 3 || stage.targetCycles === null ? current : current + 1;
     const medal = level => {
       const value = node("div", "campaign-medal");
-      value.append(art(`/assets/icons/difficulty_medal_${level}_ui.png?v=ui-1`, ""),
+      value.append(art(`/assets/icons/difficulty_flag_${level}_ui.png?v=flags-1`, ""),
         node("strong", "", badgeName(level)));
       return value;
     };
@@ -88,7 +93,7 @@ export function installCampaignRoadmap({ scope = globalThis.window ?? globalThis
       copy.append(progress);
     }
     const caption = node("div", "campaign-stage-caption");
-    caption.append(node("small", "", t(stage.targetCycles === null ? "campaign.stage.final" : "campaign.stage.readiness")));
+    caption.append(node("small", "", t(current >= 3 || stage.targetCycles === null ? "campaign.stage.final" : "campaign.stage.readiness")));
     const details = node("button", "campaign-badge-details", t("campaign.badge.details"));
     details.type = "button";
     details.addEventListener("click", openBadgeDetails);
@@ -107,7 +112,7 @@ export function installCampaignRoadmap({ scope = globalThis.window ?? globalThis
       node("p", "", t("campaign.cycle.summary", { sets: model.target, effort: model.effortTarget })));
     const start = node("button", "campaign-jump", t("campaign.continue"));
     start.type = "button";
-    start.disabled = !model.available || !model.sets.some(set => set.status === "current");
+    start.disabled = !model.available || (!model.stageComplete && !model.sets.some(set => set.status === "current"));
     start.addEventListener("click", continueCurrentSet);
     summary.append(copy, start);
     return summary;
@@ -115,7 +120,7 @@ export function installCampaignRoadmap({ scope = globalThis.window ?? globalThis
   function continueCurrentSet() {
     if (destroyed || !active) return;
     const latest = campaignRoadmapModel(learning?.practiceSet?.());
-    if (!latest?.available || !latest.sets.some(set => set.status === "current")) return;
+    if (!latest?.available || (!latest.stageComplete && !latest.sets.some(set => set.status === "current"))) return;
     onContinue();
   }
   function route(model) {
@@ -179,7 +184,7 @@ export function installCampaignRoadmap({ scope = globalThis.window ?? globalThis
     map.append(list);
     const finish = node("div", "campaign-cycle-reward");
     finish.append(art(`${ART}cycle-trophy.webp`, ""), node("strong", "", t("campaign.cycle.reward")),
-      node("small", "", t("campaign.cycle.next", { cycle: model.cycle + 1 })));
+      node("small", "", model.stageComplete ? t("campaign.stage.final") : t("campaign.cycle.next", { cycle: model.cycle + 1 })));
     map.append(finish);
     return map;
   }

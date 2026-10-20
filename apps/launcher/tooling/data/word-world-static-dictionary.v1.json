@@ -2,7 +2,7 @@
   "schema_name": "caatuu-static-word-world-dictionary",
   "schema_version": 1,
   "corpus_version": "standard-v0.1",
-  "corpus_sha256": "55f63c965334a83c417ed077fdef94f72e3fe3ee9729889632493652ab843b38",
+  "corpus_sha256": "e2cc3236e54f62455e4327e8074ea1dbc89dd1addec319a5b114496db1635c48",
   "source_dictionary": {
     "key": "kaikki-cs-en-2026-07-09",
     "database_sha256": "80e47c922b3abb42ecb363b06844a26c8fc2fd5ae2578203824dc6b94f130a71",
@@ -11,8 +11,8 @@
     "license": "CC-BY-SA-4.0 OR GFDL-1.3-or-later",
     "attribution": "data/dictionaries/ATTRIBUTION.md"
   },
-  "surface_count": 1421,
-  "resolved_surface_count": 1327,
+  "surface_count": 1448,
+  "resolved_surface_count": 1354,
   "unresolved_surfaces": [
     "bráška",
     "dílek",
@@ -4963,6 +4963,224 @@
         ]
       }
     ],
+    "caj": [
+      {
+        "id": "kaikki-1289",
+        "lemma": "čaj",
+        "pos": "noun",
+        "matchedBy": "lemma",
+        "matchedTerm": "čaj",
+        "forms": [
+          {
+            "form": "čaj",
+            "tags": [
+              "accusative",
+              "singular"
+            ]
+          },
+          {
+            "form": "čaj",
+            "tags": [
+              "nominative",
+              "singular"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "tea (the dried leaves or buds of the tea plant, Camellia sinensis)",
+            "rawGloss": "",
+            "tags": [
+              "inanimate",
+              "masculine"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "Kup sáčkový čaj.",
+                "english": "Buy a tea bag.",
+                "tags": []
+              }
+            ]
+          },
+          {
+            "gloss": "tea (the drink made by infusing these dried leaves or buds in hot water)",
+            "rawGloss": "",
+            "tags": [
+              "inanimate",
+              "masculine"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "Pila čaj.",
+                "english": "She drank tea.",
+                "tags": []
+              }
+            ]
+          },
+          {
+            "gloss": "tea (a variety of the tea plant)",
+            "rawGloss": "",
+            "tags": [
+              "inanimate",
+              "masculine"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "zelený čaj",
+                "english": "green tea",
+                "tags": [
+                  "collocation"
+                ]
+              }
+            ]
+          },
+          {
+            "gloss": "tea (by extension, any drink made by infusing parts of various other plants)",
+            "rawGloss": "",
+            "tags": [
+              "inanimate",
+              "masculine"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "bylinkový čaj",
+                "english": "herbal tea",
+                "tags": [
+                  "collocation"
+                ]
+              },
+              {
+                "text": "mátový čaj",
+                "english": "peppermint tea",
+                "tags": [
+                  "collocation"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "kaikki-1289",
+        "lemma": "čaj",
+        "pos": "noun",
+        "matchedBy": "lemma",
+        "matchedTerm": "čaj",
+        "forms": [
+          {
+            "form": "čaj",
+            "tags": [
+              "accusative",
+              "singular"
+            ]
+          },
+          {
+            "form": "čaj",
+            "tags": [
+              "nominative",
+              "singular"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "tea (the dried leaves or buds of the tea plant, Camellia sinensis)",
+            "rawGloss": "",
+            "tags": [
+              "inanimate",
+              "masculine"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "Kup sáčkový čaj.",
+                "english": "Buy a tea bag.",
+                "tags": []
+              }
+            ]
+          },
+          {
+            "gloss": "tea (the drink made by infusing these dried leaves or buds in hot water)",
+            "rawGloss": "",
+            "tags": [
+              "inanimate",
+              "masculine"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "Pila čaj.",
+                "english": "She drank tea.",
+                "tags": []
+              }
+            ]
+          },
+          {
+            "gloss": "tea (a variety of the tea plant)",
+            "rawGloss": "",
+            "tags": [
+              "inanimate",
+              "masculine"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "zelený čaj",
+                "english": "green tea",
+                "tags": [
+                  "collocation"
+                ]
+              }
+            ]
+          },
+          {
+            "gloss": "tea (by extension, any drink made by infusing parts of various other plants)",
+            "rawGloss": "",
+            "tags": [
+              "inanimate",
+              "masculine"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "bylinkový čaj",
+                "english": "herbal tea",
+                "tags": [
+                  "collocation"
+                ]
+              },
+              {
+                "text": "mátový čaj",
+                "english": "peppermint tea",
+                "tags": [
+                  "collocation"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "caje": [
       {
         "id": "kaikki-1289",
@@ -6812,6 +7030,160 @@
         ]
       }
     ],
+    "cerveny": [
+      {
+        "id": "kaikki-3389",
+        "lemma": "červený",
+        "pos": "adj",
+        "matchedBy": "lemma",
+        "matchedTerm": "červený",
+        "forms": [
+          {
+            "form": "červený",
+            "tags": [
+              "accusative",
+              "inanimate",
+              "masculine",
+              "singular"
+            ]
+          },
+          {
+            "form": "červený",
+            "tags": [
+              "masculine",
+              "nominative",
+              "singular"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "red",
+            "rawGloss": "",
+            "tags": [],
+            "topics": [],
+            "synonyms": [
+              "rudý"
+            ],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      },
+      {
+        "id": "kaikki-3389",
+        "lemma": "červený",
+        "pos": "adj",
+        "matchedBy": "lemma",
+        "matchedTerm": "červený",
+        "forms": [
+          {
+            "form": "červený",
+            "tags": [
+              "accusative",
+              "inanimate",
+              "masculine",
+              "singular"
+            ]
+          },
+          {
+            "form": "červený",
+            "tags": [
+              "masculine",
+              "nominative",
+              "singular"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "red",
+            "rawGloss": "",
+            "tags": [],
+            "topics": [],
+            "synonyms": [
+              "rudý"
+            ],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      },
+      {
+        "id": "kaikki-64475",
+        "lemma": "Červený",
+        "pos": "name",
+        "matchedBy": "lemma",
+        "matchedTerm": "Červený",
+        "forms": [
+          {
+            "form": "Červený",
+            "tags": [
+              "nominative",
+              "singular"
+            ]
+          },
+          {
+            "form": "Červený",
+            "tags": [
+              "singular",
+              "vocative"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "a male surname",
+            "rawGloss": "",
+            "tags": [
+              "animate",
+              "masculine"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      },
+      {
+        "id": "kaikki-64475",
+        "lemma": "Červený",
+        "pos": "name",
+        "matchedBy": "lemma",
+        "matchedTerm": "Červený",
+        "forms": [
+          {
+            "form": "Červený",
+            "tags": [
+              "nominative",
+              "singular"
+            ]
+          },
+          {
+            "form": "Červený",
+            "tags": [
+              "singular",
+              "vocative"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "a male surname",
+            "rawGloss": "",
+            "tags": [
+              "animate",
+              "masculine"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      }
+    ],
     "cesky": [
       {
         "id": "kaikki-3143",
@@ -7997,6 +8369,102 @@
             "synonyms": [],
             "antonyms": [],
             "examples": []
+          }
+        ]
+      }
+    ],
+    "chtit": [
+      {
+        "id": "kaikki-2252",
+        "lemma": "chtít",
+        "pos": "verb",
+        "matchedBy": "lemma",
+        "matchedTerm": "chtít",
+        "forms": [
+          {
+            "form": "chtít",
+            "tags": [
+              "infinitive"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "to want",
+            "rawGloss": "",
+            "tags": [
+              "imperfective"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          },
+          {
+            "gloss": "to fancy, to feel like",
+            "rawGloss": "(reflexive with se, impersonal) to fancy, to feel like [with dative]",
+            "tags": [
+              "imperfective",
+              "impersonal",
+              "reflexive"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "Chce se ti tam jít?",
+                "english": "Do you fancy going there?",
+                "tags": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "kaikki-2252",
+        "lemma": "chtít",
+        "pos": "verb",
+        "matchedBy": "lemma",
+        "matchedTerm": "chtít",
+        "forms": [
+          {
+            "form": "chtít",
+            "tags": [
+              "infinitive"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "to want",
+            "rawGloss": "",
+            "tags": [
+              "imperfective"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          },
+          {
+            "gloss": "to fancy, to feel like",
+            "rawGloss": "(reflexive with se, impersonal) to fancy, to feel like [with dative]",
+            "tags": [
+              "imperfective",
+              "impersonal",
+              "reflexive"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "Chce se ti tam jít?",
+                "english": "Do you fancy going there?",
+                "tags": []
+              }
+            ]
           }
         ]
       }
@@ -10304,6 +10772,46 @@
         ]
       }
     ],
+    "ctu": [
+      {
+        "id": "kaikki-1193",
+        "lemma": "číst",
+        "pos": "verb",
+        "matchedBy": "form",
+        "matchedTerm": "čtu",
+        "forms": [
+          {
+            "form": "čtu",
+            "tags": [
+              "first-person",
+              "indicative",
+              "present",
+              "singular"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "to read",
+            "rawGloss": "(transitive) to read",
+            "tags": [
+              "imperfective",
+              "transitive"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "Moje žena si četla časopis, když jsem přišel domů.",
+                "english": "My wife was reading a magazine when I came home.",
+                "tags": []
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "ctyr": [
       {
         "id": "kaikki-1204",
@@ -10316,6 +10824,176 @@
             "form": "čtyř",
             "tags": [
               "genitive",
+              "plural"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "four",
+            "rawGloss": "",
+            "tags": [],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      }
+    ],
+    "ctyri": [
+      {
+        "id": "kaikki-1204",
+        "lemma": "čtyři",
+        "pos": "num",
+        "matchedBy": "lemma",
+        "matchedTerm": "čtyři",
+        "forms": [
+          {
+            "form": "čtyři",
+            "tags": [
+              "accusative",
+              "feminine",
+              "plural"
+            ]
+          },
+          {
+            "form": "čtyři",
+            "tags": [
+              "accusative",
+              "neuter",
+              "plural"
+            ]
+          },
+          {
+            "form": "čtyři",
+            "tags": [
+              "animate",
+              "masculine",
+              "nominative",
+              "plural"
+            ]
+          },
+          {
+            "form": "čtyři",
+            "tags": [
+              "feminine",
+              "nominative"
+            ]
+          },
+          {
+            "form": "čtyři",
+            "tags": [
+              "inanimate",
+              "nominative"
+            ]
+          },
+          {
+            "form": "čtyři",
+            "tags": [
+              "neuter",
+              "nominative",
+              "plural"
+            ]
+          },
+          {
+            "form": "čtyří",
+            "tags": [
+              "alternative",
+              "dialectal"
+            ]
+          },
+          {
+            "form": "čtyří",
+            "tags": [
+              "animate",
+              "dialectal",
+              "masculine",
+              "nominative",
+              "plural"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "four",
+            "rawGloss": "",
+            "tags": [],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      },
+      {
+        "id": "kaikki-1204",
+        "lemma": "čtyři",
+        "pos": "num",
+        "matchedBy": "lemma",
+        "matchedTerm": "čtyři",
+        "forms": [
+          {
+            "form": "čtyři",
+            "tags": [
+              "accusative",
+              "feminine",
+              "plural"
+            ]
+          },
+          {
+            "form": "čtyři",
+            "tags": [
+              "accusative",
+              "neuter",
+              "plural"
+            ]
+          },
+          {
+            "form": "čtyři",
+            "tags": [
+              "animate",
+              "masculine",
+              "nominative",
+              "plural"
+            ]
+          },
+          {
+            "form": "čtyři",
+            "tags": [
+              "feminine",
+              "nominative"
+            ]
+          },
+          {
+            "form": "čtyři",
+            "tags": [
+              "inanimate",
+              "nominative"
+            ]
+          },
+          {
+            "form": "čtyři",
+            "tags": [
+              "neuter",
+              "nominative",
+              "plural"
+            ]
+          },
+          {
+            "form": "čtyří",
+            "tags": [
+              "alternative",
+              "dialectal"
+            ]
+          },
+          {
+            "form": "čtyří",
+            "tags": [
+              "animate",
+              "dialectal",
+              "masculine",
+              "nominative",
               "plural"
             ]
           }
@@ -24966,6 +25644,94 @@
         ]
       }
     ],
+    "jablko": [
+      {
+        "id": "kaikki-2261",
+        "lemma": "jablko",
+        "pos": "noun",
+        "matchedBy": "lemma",
+        "matchedTerm": "jablko",
+        "forms": [
+          {
+            "form": "jablko",
+            "tags": [
+              "accusative",
+              "singular"
+            ]
+          },
+          {
+            "form": "jablko",
+            "tags": [
+              "nominative",
+              "singular"
+            ]
+          },
+          {
+            "form": "jablko",
+            "tags": [
+              "singular",
+              "vocative"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "apple",
+            "rawGloss": "",
+            "tags": [
+              "neuter"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      },
+      {
+        "id": "kaikki-2261",
+        "lemma": "jablko",
+        "pos": "noun",
+        "matchedBy": "lemma",
+        "matchedTerm": "jablko",
+        "forms": [
+          {
+            "form": "jablko",
+            "tags": [
+              "accusative",
+              "singular"
+            ]
+          },
+          {
+            "form": "jablko",
+            "tags": [
+              "nominative",
+              "singular"
+            ]
+          },
+          {
+            "form": "jablko",
+            "tags": [
+              "singular",
+              "vocative"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "apple",
+            "rawGloss": "",
+            "tags": [
+              "neuter"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      }
+    ],
     "jak": [
       {
         "id": "kaikki-1229",
@@ -26607,6 +27373,139 @@
         ]
       }
     ],
+    "jedna": [
+      {
+        "id": "kaikki-1214",
+        "lemma": "jeden",
+        "pos": "num",
+        "matchedBy": "form",
+        "matchedTerm": "jedna",
+        "forms": [
+          {
+            "form": "jedna",
+            "tags": [
+              "accusative",
+              "neuter",
+              "plural"
+            ]
+          },
+          {
+            "form": "jedna",
+            "tags": [
+              "feminine",
+              "nominative",
+              "singular"
+            ]
+          },
+          {
+            "form": "jedna",
+            "tags": [
+              "feminine"
+            ]
+          },
+          {
+            "form": "jedna",
+            "tags": [
+              "neuter",
+              "nominative",
+              "plural"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "one",
+            "rawGloss": "",
+            "tags": [
+              "masculine"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "Je mi to jedno",
+                "english": "It's no big deal; I don't care",
+                "tags": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "kaikki-8889",
+        "lemma": "jednat",
+        "pos": "verb",
+        "matchedBy": "form",
+        "matchedTerm": "jedná",
+        "forms": [
+          {
+            "form": "jedná",
+            "tags": [
+              "indicative",
+              "present",
+              "singular",
+              "third-person"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "to act",
+            "rawGloss": "(intransitive) to act",
+            "tags": [
+              "imperfective",
+              "intransitive"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "Je nejvyšší čas jednat.",
+                "english": "It is high time to act.",
+                "tags": []
+              }
+            ]
+          },
+          {
+            "gloss": "to negotiate, to treat",
+            "rawGloss": "(intransitive) to negotiate, to treat",
+            "tags": [
+              "imperfective",
+              "intransitive"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          },
+          {
+            "gloss": "to concern, to be about",
+            "rawGloss": "(reflexive with se) to concern, to be about [with o (+ accusative)]",
+            "tags": [
+              "imperfective",
+              "reflexive"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "Jedná se o nedorozumění.",
+                "english": "It is a misunderstanding.",
+                "tags": []
+              },
+              {
+                "text": "Praha je hlavní město České republiky. Jedná se o město ležící na řece Vltavě.",
+                "english": "Prague is the capital of the Czech Republic. It is situated on the Vltava river.",
+                "tags": []
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "jednoduchou": [
       {
         "id": "kaikki-9045",
@@ -27540,6 +28439,188 @@
               "present",
               "singular",
               "third-person"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "to eat",
+            "rawGloss": "",
+            "tags": [
+              "imperfective"
+            ],
+            "topics": [],
+            "synonyms": [
+              "papat",
+              "žrát"
+            ],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      }
+    ],
+    "jim": [
+      {
+        "id": "kaikki-6",
+        "lemma": "on",
+        "pos": "pron",
+        "matchedBy": "form",
+        "matchedTerm": "jím",
+        "forms": [
+          {
+            "form": "jím",
+            "tags": [
+              "instrumental",
+              "singular"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "he (third person personal singular)",
+            "rawGloss": "",
+            "tags": [
+              "masculine"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      },
+      {
+        "id": "kaikki-848",
+        "lemma": "ona",
+        "pos": "pron",
+        "matchedBy": "form",
+        "matchedTerm": "jim",
+        "forms": [
+          {
+            "form": "jim",
+            "tags": [
+              "dative",
+              "plural"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "they (third person neuter plural personal pronoun)",
+            "rawGloss": "",
+            "tags": [
+              "neuter",
+              "plural"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      },
+      {
+        "id": "kaikki-850",
+        "lemma": "ono",
+        "pos": "pron",
+        "matchedBy": "form",
+        "matchedTerm": "jím",
+        "forms": [
+          {
+            "form": "jím",
+            "tags": [
+              "instrumental",
+              "singular"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "it (third person personal singular)",
+            "rawGloss": "",
+            "tags": [
+              "neuter"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      },
+      {
+        "id": "kaikki-853",
+        "lemma": "oni",
+        "pos": "pron",
+        "matchedBy": "form",
+        "matchedTerm": "jim",
+        "forms": [
+          {
+            "form": "jim",
+            "tags": [
+              "dative",
+              "plural"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "they (third person personal masculine animate plural)",
+            "rawGloss": "",
+            "tags": [
+              "animate",
+              "masculine",
+              "plural"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      },
+      {
+        "id": "kaikki-855",
+        "lemma": "ony",
+        "pos": "pron",
+        "matchedBy": "form",
+        "matchedTerm": "jim",
+        "forms": [
+          {
+            "form": "jim",
+            "tags": [
+              "dative",
+              "plural"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "they (third person personal nonvirile plural)",
+            "rawGloss": "",
+            "tags": [],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      },
+      {
+        "id": "kaikki-2294",
+        "lemma": "jíst",
+        "pos": "verb",
+        "matchedBy": "form",
+        "matchedTerm": "jím",
+        "forms": [
+          {
+            "form": "jím",
+            "tags": [
+              "first-person",
+              "indicative",
+              "present",
+              "singular"
             ]
           }
         ],
@@ -32698,6 +33779,288 @@
             "rawGloss": "",
             "tags": [
               "inanimate",
+              "masculine"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      }
+    ],
+    "kocka": [
+      {
+        "id": "kaikki-2433",
+        "lemma": "kočka",
+        "pos": "noun",
+        "matchedBy": "lemma",
+        "matchedTerm": "kočka",
+        "forms": [
+          {
+            "form": "kočka",
+            "tags": [
+              "nominative",
+              "singular"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "cat (domestic animal)",
+            "rawGloss": "",
+            "tags": [
+              "feminine"
+            ],
+            "topics": [],
+            "synonyms": [
+              "míca",
+              "micka",
+              "číča"
+            ],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "hrát si jako kočka s myší",
+                "english": "to play cat and mouse",
+                "tags": [
+                  "collocation"
+                ]
+              }
+            ]
+          },
+          {
+            "gloss": "attractive woman",
+            "rawGloss": "(colloquial) attractive woman",
+            "tags": [
+              "colloquial",
+              "feminine"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      },
+      {
+        "id": "kaikki-1031",
+        "lemma": "kot",
+        "pos": "noun",
+        "matchedBy": "form",
+        "matchedTerm": "kočka",
+        "forms": [
+          {
+            "form": "kočka",
+            "tags": [
+              "feminine"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "cat, tomcat",
+            "rawGloss": "(dialectal) cat, tomcat",
+            "tags": [
+              "animate",
+              "dialectal",
+              "masculine"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      },
+      {
+        "id": "kaikki-2433",
+        "lemma": "kočka",
+        "pos": "noun",
+        "matchedBy": "lemma",
+        "matchedTerm": "kočka",
+        "forms": [
+          {
+            "form": "kočka",
+            "tags": [
+              "nominative",
+              "singular"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "cat (domestic animal)",
+            "rawGloss": "",
+            "tags": [
+              "feminine"
+            ],
+            "topics": [],
+            "synonyms": [
+              "míca",
+              "micka",
+              "číča"
+            ],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "hrát si jako kočka s myší",
+                "english": "to play cat and mouse",
+                "tags": [
+                  "collocation"
+                ]
+              }
+            ]
+          },
+          {
+            "gloss": "attractive woman",
+            "rawGloss": "(colloquial) attractive woman",
+            "tags": [
+              "colloquial",
+              "feminine"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      },
+      {
+        "id": "kaikki-7756",
+        "lemma": "kocour",
+        "pos": "noun",
+        "matchedBy": "form",
+        "matchedTerm": "kočka",
+        "forms": [
+          {
+            "form": "kočka",
+            "tags": [
+              "feminine"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "tomcat, male cat (domestic species)",
+            "rawGloss": "",
+            "tags": [
+              "animate",
+              "masculine"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "Když kocour není doma myši mají pré.",
+                "english": "When the cat’s away the mice play.",
+                "tags": []
+              }
+            ]
+          },
+          {
+            "gloss": "an attractive man",
+            "rawGloss": "",
+            "tags": [
+              "animate",
+              "masculine"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      },
+      {
+        "id": "kaikki-62961",
+        "lemma": "Kočka",
+        "pos": "name",
+        "matchedBy": "lemma",
+        "matchedTerm": "Kočka",
+        "forms": [
+          {
+            "form": "Kočka",
+            "tags": [
+              "nominative",
+              "singular"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "a male surname",
+            "rawGloss": "",
+            "tags": [
+              "animate",
+              "masculine"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      },
+      {
+        "id": "kaikki-59544",
+        "lemma": "Kočko",
+        "pos": "name",
+        "matchedBy": "form",
+        "matchedTerm": "Kočka",
+        "forms": [
+          {
+            "form": "Kočka",
+            "tags": [
+              "accusative",
+              "singular"
+            ]
+          },
+          {
+            "form": "Kočka",
+            "tags": [
+              "genitive",
+              "singular"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "a male surname",
+            "rawGloss": "",
+            "tags": [
+              "animate",
+              "masculine"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      },
+      {
+        "id": "kaikki-62961",
+        "lemma": "Kočka",
+        "pos": "name",
+        "matchedBy": "lemma",
+        "matchedTerm": "Kočka",
+        "forms": [
+          {
+            "form": "Kočka",
+            "tags": [
+              "nominative",
+              "singular"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "a male surname",
+            "rawGloss": "",
+            "tags": [
+              "animate",
               "masculine"
             ],
             "topics": [],
@@ -46431,6 +47794,170 @@
         ]
       }
     ],
+    "mit": [
+      {
+        "id": "kaikki-1733",
+        "lemma": "mít",
+        "pos": "verb",
+        "matchedBy": "lemma",
+        "matchedTerm": "mít",
+        "forms": [
+          {
+            "form": "mít",
+            "tags": [
+              "infinitive"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "to have",
+            "rawGloss": "(transitive) to have",
+            "tags": [
+              "imperfective",
+              "transitive"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          },
+          {
+            "gloss": "to be (to be doing fine or poorly)",
+            "rawGloss": "(reflexive with se) to be (to be doing fine or poorly)",
+            "tags": [
+              "imperfective",
+              "reflexive"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "Jak se máš? Mám se dobře.",
+                "english": "How are you? I'm fine.",
+                "tags": []
+              }
+            ]
+          },
+          {
+            "gloss": "to measure",
+            "rawGloss": "",
+            "tags": [
+              "imperfective"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "Kolik máš na výšku?",
+                "english": "How tall are you?",
+                "tags": []
+              }
+            ]
+          },
+          {
+            "gloss": "to be obliged to, to be supposed to",
+            "rawGloss": "",
+            "tags": [
+              "imperfective"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "Mám to udělat dnes?",
+                "english": "Am I supposed to do that today?",
+                "tags": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "kaikki-1733",
+        "lemma": "mít",
+        "pos": "verb",
+        "matchedBy": "lemma",
+        "matchedTerm": "mít",
+        "forms": [
+          {
+            "form": "mít",
+            "tags": [
+              "infinitive"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "to have",
+            "rawGloss": "(transitive) to have",
+            "tags": [
+              "imperfective",
+              "transitive"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          },
+          {
+            "gloss": "to be (to be doing fine or poorly)",
+            "rawGloss": "(reflexive with se) to be (to be doing fine or poorly)",
+            "tags": [
+              "imperfective",
+              "reflexive"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "Jak se máš? Mám se dobře.",
+                "english": "How are you? I'm fine.",
+                "tags": []
+              }
+            ]
+          },
+          {
+            "gloss": "to measure",
+            "rawGloss": "",
+            "tags": [
+              "imperfective"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "Kolik máš na výšku?",
+                "english": "How tall are you?",
+                "tags": []
+              }
+            ]
+          },
+          {
+            "gloss": "to be obliged to, to be supposed to",
+            "rawGloss": "",
+            "tags": [
+              "imperfective"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "Mám to udělat dnes?",
+                "english": "Am I supposed to do that today?",
+                "tags": []
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "mladsi": [
       {
         "id": "kaikki-1807",
@@ -50365,6 +51892,62 @@
               "animate",
               "masculine"
             ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      }
+    ],
+    "my": [
+      {
+        "id": "kaikki-146",
+        "lemma": "my",
+        "pos": "pron",
+        "matchedBy": "lemma",
+        "matchedTerm": "my",
+        "forms": [
+          {
+            "form": "my",
+            "tags": [
+              "nominative",
+              "plural"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "we",
+            "rawGloss": "",
+            "tags": [],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      },
+      {
+        "id": "kaikki-146",
+        "lemma": "my",
+        "pos": "pron",
+        "matchedBy": "lemma",
+        "matchedTerm": "my",
+        "forms": [
+          {
+            "form": "my",
+            "tags": [
+              "nominative",
+              "plural"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "we",
+            "rawGloss": "",
+            "tags": [],
             "topics": [],
             "synonyms": [],
             "antonyms": [],
@@ -58678,6 +60261,200 @@
         ]
       }
     ],
+    "oko": [
+      {
+        "id": "kaikki-1279",
+        "lemma": "oko",
+        "pos": "noun",
+        "matchedBy": "lemma",
+        "matchedTerm": "oko",
+        "forms": [
+          {
+            "form": "oko",
+            "tags": [
+              "accusative",
+              "singular"
+            ]
+          },
+          {
+            "form": "oko",
+            "tags": [
+              "nominative",
+              "singular"
+            ]
+          },
+          {
+            "form": "oko",
+            "tags": [
+              "singular",
+              "vocative"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "eye",
+            "rawGloss": "(anatomy) eye",
+            "tags": [
+              "neuter"
+            ],
+            "topics": [
+              "anatomy",
+              "medicine",
+              "sciences"
+            ],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "zmizet z očí",
+                "english": "to disappear from sight",
+                "tags": [
+                  "collocation"
+                ]
+              },
+              {
+                "text": "Otevřela oči.",
+                "english": "She opened her eyes.",
+                "tags": []
+              }
+            ]
+          },
+          {
+            "gloss": "twenty-one, pontoon",
+            "rawGloss": "(card games) twenty-one, pontoon",
+            "tags": [
+              "neuter"
+            ],
+            "topics": [
+              "card-games",
+              "games"
+            ],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          },
+          {
+            "gloss": "tarn",
+            "rawGloss": "",
+            "tags": [
+              "neuter"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          },
+          {
+            "gloss": "eye (center of a storm)",
+            "rawGloss": "",
+            "tags": [
+              "neuter"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      },
+      {
+        "id": "kaikki-1279",
+        "lemma": "oko",
+        "pos": "noun",
+        "matchedBy": "lemma",
+        "matchedTerm": "oko",
+        "forms": [
+          {
+            "form": "oko",
+            "tags": [
+              "accusative",
+              "singular"
+            ]
+          },
+          {
+            "form": "oko",
+            "tags": [
+              "nominative",
+              "singular"
+            ]
+          },
+          {
+            "form": "oko",
+            "tags": [
+              "singular",
+              "vocative"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "eye",
+            "rawGloss": "(anatomy) eye",
+            "tags": [
+              "neuter"
+            ],
+            "topics": [
+              "anatomy",
+              "medicine",
+              "sciences"
+            ],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "zmizet z očí",
+                "english": "to disappear from sight",
+                "tags": [
+                  "collocation"
+                ]
+              },
+              {
+                "text": "Otevřela oči.",
+                "english": "She opened her eyes.",
+                "tags": []
+              }
+            ]
+          },
+          {
+            "gloss": "twenty-one, pontoon",
+            "rawGloss": "(card games) twenty-one, pontoon",
+            "tags": [
+              "neuter"
+            ],
+            "topics": [
+              "card-games",
+              "games"
+            ],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          },
+          {
+            "gloss": "tarn",
+            "rawGloss": "",
+            "tags": [
+              "neuter"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          },
+          {
+            "gloss": "eye (center of a storm)",
+            "rawGloss": "",
+            "tags": [
+              "neuter"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      }
+    ],
     "omacka": [
       {
         "id": "kaikki-25279",
@@ -61113,6 +62890,344 @@
         ]
       }
     ],
+    "pero": [
+      {
+        "id": "kaikki-745",
+        "lemma": "pero",
+        "pos": "noun",
+        "matchedBy": "lemma",
+        "matchedTerm": "pero",
+        "forms": [
+          {
+            "form": "pero",
+            "tags": [
+              "accusative",
+              "singular"
+            ]
+          },
+          {
+            "form": "pero",
+            "tags": [
+              "nominative",
+              "singular"
+            ]
+          },
+          {
+            "form": "pero",
+            "tags": [
+              "singular",
+              "vocative"
+            ]
+          },
+          {
+            "form": "péro",
+            "tags": [
+              "alternative"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "feather",
+            "rawGloss": "",
+            "tags": [
+              "neuter"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          },
+          {
+            "gloss": "pen (writing instrument)",
+            "rawGloss": "",
+            "tags": [
+              "neuter"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          },
+          {
+            "gloss": "penis",
+            "rawGloss": "(colloquial) penis",
+            "tags": [
+              "colloquial",
+              "neuter"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      },
+      {
+        "id": "kaikki-4132",
+        "lemma": "péro",
+        "pos": "noun",
+        "matchedBy": "lemma",
+        "matchedTerm": "péro",
+        "forms": [
+          {
+            "form": "péro",
+            "tags": [
+              "accusative",
+              "singular"
+            ]
+          },
+          {
+            "form": "péro",
+            "tags": [
+              "nominative",
+              "singular"
+            ]
+          },
+          {
+            "form": "péro",
+            "tags": [
+              "singular",
+              "vocative"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "alternative form of pero",
+            "rawGloss": "",
+            "tags": [
+              "alt-of",
+              "alternative",
+              "neuter"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          },
+          {
+            "gloss": "spring",
+            "rawGloss": "(mechanical device) spring",
+            "tags": [
+              "neuter"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          },
+          {
+            "gloss": "penis",
+            "rawGloss": "(vulgar) penis",
+            "tags": [
+              "neuter",
+              "vulgar"
+            ],
+            "topics": [],
+            "synonyms": [
+              "bimbas",
+              "bimbásek",
+              "čuráček",
+              "čurák",
+              "falus",
+              "chuj",
+              "klabrdón",
+              "klacek",
+              "kláda",
+              "kokot",
+              "kulatina",
+              "lofas",
+              "lulánek",
+              "nádobíčko",
+              "ocas",
+              "penis",
+              "péro",
+              "pindík",
+              "pinďa",
+              "pinďour",
+              "pinďourek",
+              "pohlavní úd",
+              "pták",
+              "pyj",
+              "šulin",
+              "šulínek",
+              "úd"
+            ],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      },
+      {
+        "id": "kaikki-745",
+        "lemma": "pero",
+        "pos": "noun",
+        "matchedBy": "lemma",
+        "matchedTerm": "pero",
+        "forms": [
+          {
+            "form": "pero",
+            "tags": [
+              "accusative",
+              "singular"
+            ]
+          },
+          {
+            "form": "pero",
+            "tags": [
+              "nominative",
+              "singular"
+            ]
+          },
+          {
+            "form": "pero",
+            "tags": [
+              "singular",
+              "vocative"
+            ]
+          },
+          {
+            "form": "péro",
+            "tags": [
+              "alternative"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "feather",
+            "rawGloss": "",
+            "tags": [
+              "neuter"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          },
+          {
+            "gloss": "pen (writing instrument)",
+            "rawGloss": "",
+            "tags": [
+              "neuter"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          },
+          {
+            "gloss": "penis",
+            "rawGloss": "(colloquial) penis",
+            "tags": [
+              "colloquial",
+              "neuter"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      },
+      {
+        "id": "kaikki-4132",
+        "lemma": "péro",
+        "pos": "noun",
+        "matchedBy": "lemma",
+        "matchedTerm": "péro",
+        "forms": [
+          {
+            "form": "péro",
+            "tags": [
+              "accusative",
+              "singular"
+            ]
+          },
+          {
+            "form": "péro",
+            "tags": [
+              "nominative",
+              "singular"
+            ]
+          },
+          {
+            "form": "péro",
+            "tags": [
+              "singular",
+              "vocative"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "alternative form of pero",
+            "rawGloss": "",
+            "tags": [
+              "alt-of",
+              "alternative",
+              "neuter"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          },
+          {
+            "gloss": "spring",
+            "rawGloss": "(mechanical device) spring",
+            "tags": [
+              "neuter"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          },
+          {
+            "gloss": "penis",
+            "rawGloss": "(vulgar) penis",
+            "tags": [
+              "neuter",
+              "vulgar"
+            ],
+            "topics": [],
+            "synonyms": [
+              "bimbas",
+              "bimbásek",
+              "čuráček",
+              "čurák",
+              "falus",
+              "chuj",
+              "klabrdón",
+              "klacek",
+              "kláda",
+              "kokot",
+              "kulatina",
+              "lofas",
+              "lulánek",
+              "nádobíčko",
+              "ocas",
+              "penis",
+              "péro",
+              "pindík",
+              "pinďa",
+              "pinďour",
+              "pinďourek",
+              "pohlavní úd",
+              "pták",
+              "pyj",
+              "šulin",
+              "šulínek",
+              "úd"
+            ],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      }
+    ],
     "pes": [
       {
         "id": "kaikki-1090",
@@ -61815,6 +63930,56 @@
         ]
       }
     ],
+    "piju": [
+      {
+        "id": "kaikki-2287",
+        "lemma": "pít",
+        "pos": "verb",
+        "matchedBy": "form",
+        "matchedTerm": "piju",
+        "forms": [
+          {
+            "form": "piju",
+            "tags": [
+              "colloquial",
+              "first-person",
+              "indicative",
+              "present",
+              "singular"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "to drink (to take in liquid)",
+            "rawGloss": "",
+            "tags": [
+              "imperfective"
+            ],
+            "topics": [],
+            "synonyms": [
+              "chlastat",
+              "bumbat"
+            ],
+            "antonyms": [],
+            "examples": []
+          },
+          {
+            "gloss": "to drink (to take in alcoholic beverage)",
+            "rawGloss": "",
+            "tags": [
+              "imperfective"
+            ],
+            "topics": [],
+            "synonyms": [
+              "chlastat"
+            ],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      }
+    ],
     "pise": [
       {
         "id": "kaikki-2283",
@@ -62033,6 +64198,320 @@
             "rawGloss": "",
             "tags": [
               "feminine"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      }
+    ],
+    "pisu": [
+      {
+        "id": "kaikki-2283",
+        "lemma": "psát",
+        "pos": "verb",
+        "matchedBy": "form",
+        "matchedTerm": "píšu",
+        "forms": [
+          {
+            "form": "píšu",
+            "tags": [
+              "first-person",
+              "indicative",
+              "present",
+              "singular"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "to write",
+            "rawGloss": "(ambitransitive) to write",
+            "tags": [
+              "ambitransitive",
+              "imperfective"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "psát domácí úkol ― to do homework",
+                "english": "",
+                "tags": []
+              },
+              {
+                "text": "Pořád píšu dopisy.",
+                "english": "I still write letters.",
+                "tags": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "kaikki-60917",
+        "lemma": "Píša",
+        "pos": "name",
+        "matchedBy": "form",
+        "matchedTerm": "Píšu",
+        "forms": [
+          {
+            "form": "Píšu",
+            "tags": [
+              "accusative",
+              "singular"
+            ]
+          },
+          {
+            "form": "Píšů",
+            "tags": [
+              "genitive",
+              "plural"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "a male surname",
+            "rawGloss": "",
+            "tags": [
+              "animate",
+              "masculine"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      }
+    ],
+    "pit": [
+      {
+        "id": "kaikki-2287",
+        "lemma": "pít",
+        "pos": "verb",
+        "matchedBy": "lemma",
+        "matchedTerm": "pít",
+        "forms": [
+          {
+            "form": "pit",
+            "tags": [
+              "animate",
+              "masculine",
+              "participle",
+              "passive",
+              "singular"
+            ]
+          },
+          {
+            "form": "pit",
+            "tags": [
+              "inanimate",
+              "masculine",
+              "participle",
+              "passive",
+              "singular"
+            ]
+          },
+          {
+            "form": "pít",
+            "tags": [
+              "infinitive"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "to drink (to take in liquid)",
+            "rawGloss": "",
+            "tags": [
+              "imperfective"
+            ],
+            "topics": [],
+            "synonyms": [
+              "chlastat",
+              "bumbat"
+            ],
+            "antonyms": [],
+            "examples": []
+          },
+          {
+            "gloss": "to drink (to take in alcoholic beverage)",
+            "rawGloss": "",
+            "tags": [
+              "imperfective"
+            ],
+            "topics": [],
+            "synonyms": [
+              "chlastat"
+            ],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      },
+      {
+        "id": "kaikki-1681",
+        "lemma": "pita",
+        "pos": "noun",
+        "matchedBy": "form",
+        "matchedTerm": "pit",
+        "forms": [
+          {
+            "form": "pit",
+            "tags": [
+              "genitive",
+              "plural"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "pita",
+            "rawGloss": "",
+            "tags": [
+              "feminine"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      },
+      {
+        "id": "kaikki-2287",
+        "lemma": "pít",
+        "pos": "verb",
+        "matchedBy": "lemma",
+        "matchedTerm": "pít",
+        "forms": [
+          {
+            "form": "pit",
+            "tags": [
+              "animate",
+              "masculine",
+              "participle",
+              "passive",
+              "singular"
+            ]
+          },
+          {
+            "form": "pit",
+            "tags": [
+              "inanimate",
+              "masculine",
+              "participle",
+              "passive",
+              "singular"
+            ]
+          },
+          {
+            "form": "pít",
+            "tags": [
+              "infinitive"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "to drink (to take in liquid)",
+            "rawGloss": "",
+            "tags": [
+              "imperfective"
+            ],
+            "topics": [],
+            "synonyms": [
+              "chlastat",
+              "bumbat"
+            ],
+            "antonyms": [],
+            "examples": []
+          },
+          {
+            "gloss": "to drink (to take in alcoholic beverage)",
+            "rawGloss": "",
+            "tags": [
+              "imperfective"
+            ],
+            "topics": [],
+            "synonyms": [
+              "chlastat"
+            ],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      },
+      {
+        "id": "kaikki-32001",
+        "lemma": "vypít",
+        "pos": "verb",
+        "matchedBy": "form",
+        "matchedTerm": "pít",
+        "forms": [
+          {
+            "form": "pít",
+            "tags": [
+              "imperfective"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "to drink",
+            "rawGloss": "",
+            "tags": [
+              "perfective"
+            ],
+            "topics": [],
+            "synonyms": [
+              "vybumbat",
+              "vychlastat",
+              "vyžahnout"
+            ],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      },
+      {
+        "id": "kaikki-48087",
+        "lemma": "napít",
+        "pos": "verb",
+        "matchedBy": "form",
+        "matchedTerm": "pít",
+        "forms": [
+          {
+            "form": "pít",
+            "tags": [
+              "imperfective"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "to have a drink, to drink",
+            "rawGloss": "(reflexive with se) to have a drink, to drink",
+            "tags": [
+              "perfective",
+              "reflexive"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          },
+          {
+            "gloss": "to soak up",
+            "rawGloss": "(reflexive with se) to soak up",
+            "tags": [
+              "perfective",
+              "reflexive"
             ],
             "topics": [],
             "synonyms": [],
@@ -75385,6 +77864,123 @@
         ]
       }
     ],
+    "psat": [
+      {
+        "id": "kaikki-2283",
+        "lemma": "psát",
+        "pos": "verb",
+        "matchedBy": "lemma",
+        "matchedTerm": "psát",
+        "forms": [
+          {
+            "form": "psát",
+            "tags": [
+              "infinitive"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "to write",
+            "rawGloss": "(ambitransitive) to write",
+            "tags": [
+              "ambitransitive",
+              "imperfective"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "psát domácí úkol ― to do homework",
+                "english": "",
+                "tags": []
+              },
+              {
+                "text": "Pořád píšu dopisy.",
+                "english": "I still write letters.",
+                "tags": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "kaikki-2283",
+        "lemma": "psát",
+        "pos": "verb",
+        "matchedBy": "lemma",
+        "matchedTerm": "psát",
+        "forms": [
+          {
+            "form": "psát",
+            "tags": [
+              "infinitive"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "to write",
+            "rawGloss": "(ambitransitive) to write",
+            "tags": [
+              "ambitransitive",
+              "imperfective"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "psát domácí úkol ― to do homework",
+                "english": "",
+                "tags": []
+              },
+              {
+                "text": "Pořád píšu dopisy.",
+                "english": "I still write letters.",
+                "tags": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "kaikki-8410",
+        "lemma": "napsat",
+        "pos": "verb",
+        "matchedBy": "form",
+        "matchedTerm": "psát",
+        "forms": [
+          {
+            "form": "psát",
+            "tags": [
+              "imperfective"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "to write",
+            "rawGloss": "(ambitransitive) to write",
+            "tags": [
+              "ambitransitive",
+              "perfective"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "Napsal o tom článek.",
+                "english": "He wrote an article about it.",
+                "tags": []
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "pta": [
       {
         "id": "kaikki-7938",
@@ -76431,6 +79027,479 @@
             "synonyms": [],
             "antonyms": [],
             "examples": []
+          }
+        ]
+      }
+    ],
+    "rad": [
+      {
+        "id": "kaikki-7584",
+        "lemma": "řád",
+        "pos": "noun",
+        "matchedBy": "lemma",
+        "matchedTerm": "řád",
+        "forms": [
+          {
+            "form": "řád",
+            "tags": [
+              "accusative",
+              "singular"
+            ]
+          },
+          {
+            "form": "řád",
+            "tags": [
+              "nominative",
+              "singular"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "order (opposite to chaos)",
+            "rawGloss": "",
+            "tags": [
+              "inanimate",
+              "masculine"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [
+              "chaos"
+            ],
+            "examples": []
+          },
+          {
+            "gloss": "order",
+            "rawGloss": "(taxonomy) order",
+            "tags": [
+              "inanimate",
+              "masculine"
+            ],
+            "topics": [
+              "biology",
+              "natural-sciences",
+              "taxonomy"
+            ],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          },
+          {
+            "gloss": "order (religious group)",
+            "rawGloss": "",
+            "tags": [
+              "inanimate",
+              "masculine"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      },
+      {
+        "id": "kaikki-18283",
+        "lemma": "rád",
+        "pos": "adj",
+        "matchedBy": "lemma",
+        "matchedTerm": "rád",
+        "forms": [
+          {
+            "form": "rád",
+            "tags": [
+              "animate",
+              "masculine",
+              "nominative",
+              "singular"
+            ]
+          },
+          {
+            "form": "rád",
+            "tags": [
+              "inanimate",
+              "masculine",
+              "nominative",
+              "singular"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "glad",
+            "rawGloss": "",
+            "tags": [],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "To jsem rád, že jsi přišel.",
+                "english": "I'm glad you came.",
+                "tags": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "kaikki-3763",
+        "lemma": "rada",
+        "pos": "noun",
+        "matchedBy": "form",
+        "matchedTerm": "rad",
+        "forms": [
+          {
+            "form": "rad",
+            "tags": [
+              "genitive",
+              "plural"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "advice, counsel",
+            "rawGloss": "",
+            "tags": [
+              "feminine"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          },
+          {
+            "gloss": "council",
+            "rawGloss": "",
+            "tags": [
+              "feminine"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      },
+      {
+        "id": "kaikki-7584",
+        "lemma": "řád",
+        "pos": "noun",
+        "matchedBy": "lemma",
+        "matchedTerm": "řád",
+        "forms": [
+          {
+            "form": "řád",
+            "tags": [
+              "accusative",
+              "singular"
+            ]
+          },
+          {
+            "form": "řád",
+            "tags": [
+              "nominative",
+              "singular"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "order (opposite to chaos)",
+            "rawGloss": "",
+            "tags": [
+              "inanimate",
+              "masculine"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [
+              "chaos"
+            ],
+            "examples": []
+          },
+          {
+            "gloss": "order",
+            "rawGloss": "(taxonomy) order",
+            "tags": [
+              "inanimate",
+              "masculine"
+            ],
+            "topics": [
+              "biology",
+              "natural-sciences",
+              "taxonomy"
+            ],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          },
+          {
+            "gloss": "order (religious group)",
+            "rawGloss": "",
+            "tags": [
+              "inanimate",
+              "masculine"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      },
+      {
+        "id": "kaikki-8253",
+        "lemma": "řadit",
+        "pos": "verb",
+        "matchedBy": "form",
+        "matchedTerm": "řaď",
+        "forms": [
+          {
+            "form": "řaď",
+            "tags": [
+              "imperative",
+              "present",
+              "second-person",
+              "singular"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "[with accusative ‘’] to sort (to arrange in order)",
+            "rawGloss": "(transitive) [with accusative ‘’] to sort (to arrange in order) [with do (+ genitive) ‘into something’]",
+            "tags": [
+              "imperfective",
+              "transitive"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "Řadí je do správných skupin.",
+                "english": "She sorts them into the right groups.",
+                "tags": []
+              }
+            ]
+          },
+          {
+            "gloss": "[with accusative ‘’] to be sorted",
+            "rawGloss": "(reflexive with se) [with accusative ‘’] to be sorted [with do (+ genitive) ‘into something’]",
+            "tags": [
+              "imperfective",
+              "reflexive"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "Do té skupiny se řadí Petr a Jan.",
+                "english": "Peter and Jan are sorted into that group.",
+                "tags": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "kaikki-8773",
+        "lemma": "řada",
+        "pos": "noun",
+        "matchedBy": "form",
+        "matchedTerm": "řad",
+        "forms": [
+          {
+            "form": "řad",
+            "tags": [
+              "genitive",
+              "plural"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "row (line of objects)",
+            "rawGloss": "",
+            "tags": [
+              "feminine"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "z řad civilistů",
+                "english": "among civilians",
+                "tags": [
+                  "collocation"
+                ]
+              },
+              {
+                "text": "v první řadě",
+                "english": "first in line, in the first row",
+                "tags": [
+                  "collocation"
+                ]
+              }
+            ]
+          },
+          {
+            "gloss": "series, succession",
+            "rawGloss": "",
+            "tags": [
+              "feminine"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          },
+          {
+            "gloss": "series",
+            "rawGloss": "(mathematical analysis) series",
+            "tags": [
+              "feminine"
+            ],
+            "topics": [
+              "mathematical-analysis",
+              "mathematics",
+              "sciences"
+            ],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          },
+          {
+            "gloss": "rank",
+            "rawGloss": "(chess) rank",
+            "tags": [
+              "feminine"
+            ],
+            "topics": [
+              "board-games",
+              "chess",
+              "games"
+            ],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      },
+      {
+        "id": "kaikki-9247",
+        "lemma": "radit",
+        "pos": "verb",
+        "matchedBy": "form",
+        "matchedTerm": "raď",
+        "forms": [
+          {
+            "form": "raď",
+            "tags": [
+              "imperative",
+              "present",
+              "second-person",
+              "singular"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "[with dative ‘’] to advise",
+            "rawGloss": "(transitive) [with dative ‘’] to advise",
+            "tags": [
+              "imperfective",
+              "transitive"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "Policie oblast uzavřela a radí lidem, aby zůstali doma.",
+                "english": "Police have closed the area off and advise people to stay home.",
+                "tags": []
+              }
+            ]
+          },
+          {
+            "gloss": "to advise",
+            "rawGloss": "(reflexive with si) to advise [with instrumental]",
+            "tags": [
+              "imperfective",
+              "reflexive"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          },
+          {
+            "gloss": "to confer, to consult",
+            "rawGloss": "(reflexive with se) to confer, to consult [with s (+ instrumental) ‘with’]",
+            "tags": [
+              "imperfective",
+              "reflexive"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "Radil jsem se s kolegou.",
+                "english": "I was consulting with an associate.",
+                "tags": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "kaikki-18283",
+        "lemma": "rád",
+        "pos": "adj",
+        "matchedBy": "lemma",
+        "matchedTerm": "rád",
+        "forms": [
+          {
+            "form": "rád",
+            "tags": [
+              "animate",
+              "masculine",
+              "nominative",
+              "singular"
+            ]
+          },
+          {
+            "form": "rád",
+            "tags": [
+              "inanimate",
+              "masculine",
+              "nominative",
+              "singular"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "glad",
+            "rawGloss": "",
+            "tags": [],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "To jsem rád, že jsi přišel.",
+                "english": "I'm glad you came.",
+                "tags": []
+              }
+            ]
           }
         ]
       }
@@ -81499,6 +84568,531 @@
         ]
       }
     ],
+    "ryze": [
+      {
+        "id": "kaikki-3999",
+        "lemma": "rýže",
+        "pos": "noun",
+        "matchedBy": "lemma",
+        "matchedTerm": "rýže",
+        "forms": [
+          {
+            "form": "rýže",
+            "tags": [
+              "accusative",
+              "plural"
+            ]
+          },
+          {
+            "form": "rýže",
+            "tags": [
+              "genitive",
+              "singular"
+            ]
+          },
+          {
+            "form": "rýže",
+            "tags": [
+              "nominative",
+              "plural"
+            ]
+          },
+          {
+            "form": "rýže",
+            "tags": [
+              "nominative",
+              "singular"
+            ]
+          },
+          {
+            "form": "rýže",
+            "tags": [
+              "plural",
+              "vocative"
+            ]
+          },
+          {
+            "form": "rýže",
+            "tags": [
+              "singular",
+              "vocative"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "rice",
+            "rawGloss": "",
+            "tags": [
+              "feminine"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      },
+      {
+        "id": "kaikki-3999",
+        "lemma": "rýže",
+        "pos": "noun",
+        "matchedBy": "lemma",
+        "matchedTerm": "rýže",
+        "forms": [
+          {
+            "form": "rýže",
+            "tags": [
+              "accusative",
+              "plural"
+            ]
+          },
+          {
+            "form": "rýže",
+            "tags": [
+              "genitive",
+              "singular"
+            ]
+          },
+          {
+            "form": "rýže",
+            "tags": [
+              "nominative",
+              "plural"
+            ]
+          },
+          {
+            "form": "rýže",
+            "tags": [
+              "nominative",
+              "singular"
+            ]
+          },
+          {
+            "form": "rýže",
+            "tags": [
+              "plural",
+              "vocative"
+            ]
+          },
+          {
+            "form": "rýže",
+            "tags": [
+              "singular",
+              "vocative"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "rice",
+            "rawGloss": "",
+            "tags": [
+              "feminine"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      },
+      {
+        "id": "kaikki-45657",
+        "lemma": "rýha",
+        "pos": "noun",
+        "matchedBy": "form",
+        "matchedTerm": "rýze",
+        "forms": [
+          {
+            "form": "rýze",
+            "tags": [
+              "dative",
+              "singular"
+            ]
+          },
+          {
+            "form": "rýze",
+            "tags": [
+              "locative",
+              "singular"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "groove, scratch, line",
+            "rawGloss": "",
+            "tags": [
+              "feminine"
+            ],
+            "topics": [],
+            "synonyms": [
+              "brázda",
+              "žlábek",
+              "drážka"
+            ],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      }
+    ],
+    "ryzi": [
+      {
+        "id": "kaikki-9447",
+        "lemma": "ryzí",
+        "pos": "adj",
+        "matchedBy": "lemma",
+        "matchedTerm": "ryzí",
+        "forms": [
+          {
+            "form": "ryzí",
+            "tags": [
+              "accusative",
+              "feminine",
+              "plural"
+            ]
+          },
+          {
+            "form": "ryzí",
+            "tags": [
+              "accusative",
+              "feminine",
+              "singular"
+            ]
+          },
+          {
+            "form": "ryzí",
+            "tags": [
+              "accusative",
+              "inanimate",
+              "masculine",
+              "singular"
+            ]
+          },
+          {
+            "form": "ryzí",
+            "tags": [
+              "accusative",
+              "neuter",
+              "plural"
+            ]
+          },
+          {
+            "form": "ryzí",
+            "tags": [
+              "accusative",
+              "neuter",
+              "singular"
+            ]
+          },
+          {
+            "form": "ryzí",
+            "tags": [
+              "animate",
+              "masculine",
+              "nominative",
+              "plural"
+            ]
+          },
+          {
+            "form": "ryzí",
+            "tags": [
+              "dative",
+              "feminine",
+              "singular"
+            ]
+          },
+          {
+            "form": "ryzí",
+            "tags": [
+              "feminine",
+              "genitive",
+              "singular"
+            ]
+          },
+          {
+            "form": "ryzí",
+            "tags": [
+              "feminine",
+              "instrumental",
+              "singular"
+            ]
+          },
+          {
+            "form": "ryzí",
+            "tags": [
+              "feminine",
+              "locative",
+              "singular"
+            ]
+          },
+          {
+            "form": "ryzí",
+            "tags": [
+              "feminine",
+              "nominative",
+              "singular"
+            ]
+          },
+          {
+            "form": "ryzí",
+            "tags": [
+              "feminine",
+              "nominative"
+            ]
+          },
+          {
+            "form": "ryzí",
+            "tags": [
+              "inanimate",
+              "nominative"
+            ]
+          },
+          {
+            "form": "ryzí",
+            "tags": [
+              "masculine",
+              "nominative",
+              "singular"
+            ]
+          },
+          {
+            "form": "ryzí",
+            "tags": [
+              "neuter",
+              "nominative",
+              "plural"
+            ]
+          },
+          {
+            "form": "ryzí",
+            "tags": [
+              "neuter",
+              "nominative",
+              "singular"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "pure (free of foreign material or pollutants)",
+            "rawGloss": "",
+            "tags": [],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      },
+      {
+        "id": "kaikki-3999",
+        "lemma": "rýže",
+        "pos": "noun",
+        "matchedBy": "form",
+        "matchedTerm": "rýži",
+        "forms": [
+          {
+            "form": "rýži",
+            "tags": [
+              "accusative",
+              "singular"
+            ]
+          },
+          {
+            "form": "rýži",
+            "tags": [
+              "dative",
+              "singular"
+            ]
+          },
+          {
+            "form": "rýži",
+            "tags": [
+              "locative",
+              "singular"
+            ]
+          },
+          {
+            "form": "rýží",
+            "tags": [
+              "genitive",
+              "plural"
+            ]
+          },
+          {
+            "form": "rýží",
+            "tags": [
+              "instrumental",
+              "singular"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "rice",
+            "rawGloss": "",
+            "tags": [
+              "feminine"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      },
+      {
+        "id": "kaikki-9447",
+        "lemma": "ryzí",
+        "pos": "adj",
+        "matchedBy": "lemma",
+        "matchedTerm": "ryzí",
+        "forms": [
+          {
+            "form": "ryzí",
+            "tags": [
+              "accusative",
+              "feminine",
+              "plural"
+            ]
+          },
+          {
+            "form": "ryzí",
+            "tags": [
+              "accusative",
+              "feminine",
+              "singular"
+            ]
+          },
+          {
+            "form": "ryzí",
+            "tags": [
+              "accusative",
+              "inanimate",
+              "masculine",
+              "singular"
+            ]
+          },
+          {
+            "form": "ryzí",
+            "tags": [
+              "accusative",
+              "neuter",
+              "plural"
+            ]
+          },
+          {
+            "form": "ryzí",
+            "tags": [
+              "accusative",
+              "neuter",
+              "singular"
+            ]
+          },
+          {
+            "form": "ryzí",
+            "tags": [
+              "animate",
+              "masculine",
+              "nominative",
+              "plural"
+            ]
+          },
+          {
+            "form": "ryzí",
+            "tags": [
+              "dative",
+              "feminine",
+              "singular"
+            ]
+          },
+          {
+            "form": "ryzí",
+            "tags": [
+              "feminine",
+              "genitive",
+              "singular"
+            ]
+          },
+          {
+            "form": "ryzí",
+            "tags": [
+              "feminine",
+              "instrumental",
+              "singular"
+            ]
+          },
+          {
+            "form": "ryzí",
+            "tags": [
+              "feminine",
+              "locative",
+              "singular"
+            ]
+          },
+          {
+            "form": "ryzí",
+            "tags": [
+              "feminine",
+              "nominative",
+              "singular"
+            ]
+          },
+          {
+            "form": "ryzí",
+            "tags": [
+              "feminine",
+              "nominative"
+            ]
+          },
+          {
+            "form": "ryzí",
+            "tags": [
+              "inanimate",
+              "nominative"
+            ]
+          },
+          {
+            "form": "ryzí",
+            "tags": [
+              "masculine",
+              "nominative",
+              "singular"
+            ]
+          },
+          {
+            "form": "ryzí",
+            "tags": [
+              "neuter",
+              "nominative",
+              "plural"
+            ]
+          },
+          {
+            "form": "ryzí",
+            "tags": [
+              "neuter",
+              "nominative",
+              "singular"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "pure (free of foreign material or pollutants)",
+            "rawGloss": "",
+            "tags": [],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      }
+    ],
     "s": [
       {
         "id": "kaikki-323",
@@ -82694,6 +86288,102 @@
             "synonyms": [],
             "antonyms": [],
             "examples": []
+          }
+        ]
+      }
+    ],
+    "sedet": [
+      {
+        "id": "kaikki-2341",
+        "lemma": "sedět",
+        "pos": "verb",
+        "matchedBy": "lemma",
+        "matchedTerm": "sedět",
+        "forms": [
+          {
+            "form": "sedět",
+            "tags": [
+              "infinitive"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "to sit (to be in a sitting position)",
+            "rawGloss": "",
+            "tags": [
+              "imperfective"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          },
+          {
+            "gloss": "to fit (of clothing)",
+            "rawGloss": "",
+            "tags": [
+              "imperfective"
+            ],
+            "topics": [],
+            "synonyms": [
+              "padnout"
+            ],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "Ty šaty ti nesedí.",
+                "english": "That dress doesn't fit you.",
+                "tags": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "kaikki-2341",
+        "lemma": "sedět",
+        "pos": "verb",
+        "matchedBy": "lemma",
+        "matchedTerm": "sedět",
+        "forms": [
+          {
+            "form": "sedět",
+            "tags": [
+              "infinitive"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "to sit (to be in a sitting position)",
+            "rawGloss": "",
+            "tags": [
+              "imperfective"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          },
+          {
+            "gloss": "to fit (of clothing)",
+            "rawGloss": "",
+            "tags": [
+              "imperfective"
+            ],
+            "topics": [],
+            "synonyms": [
+              "padnout"
+            ],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "Ty šaty ti nesedí.",
+                "english": "That dress doesn't fit you.",
+                "tags": []
+              }
+            ]
           }
         ]
       }
@@ -87467,6 +91157,104 @@
         ]
       }
     ],
+    "slyset": [
+      {
+        "id": "kaikki-2312",
+        "lemma": "slyšet",
+        "pos": "verb",
+        "matchedBy": "lemma",
+        "matchedTerm": "slyšet",
+        "forms": [
+          {
+            "form": "slyšet",
+            "tags": [
+              "infinitive"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "to hear",
+            "rawGloss": "",
+            "tags": [
+              "imperfective"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "špatně vás slyším.",
+                "english": "I can't hear you very well.",
+                "tags": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "kaikki-2312",
+        "lemma": "slyšet",
+        "pos": "verb",
+        "matchedBy": "lemma",
+        "matchedTerm": "slyšet",
+        "forms": [
+          {
+            "form": "slyšet",
+            "tags": [
+              "infinitive"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "to hear",
+            "rawGloss": "",
+            "tags": [
+              "imperfective"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "špatně vás slyším.",
+                "english": "I can't hear you very well.",
+                "tags": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "kaikki-47846",
+        "lemma": "uslyšet",
+        "pos": "verb",
+        "matchedBy": "form",
+        "matchedTerm": "slyšet",
+        "forms": [
+          {
+            "form": "slyšet",
+            "tags": [
+              "imperfective"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "to hear",
+            "rawGloss": "",
+            "tags": [
+              "perfective"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      }
+    ],
     "slysim": [
       {
         "id": "kaikki-2312",
@@ -89426,6 +93214,62 @@
               "present",
               "singular",
               "third-person"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "to sleep (to rest in a state of reduced consciousness)",
+            "rawGloss": "",
+            "tags": [
+              "imperfective"
+            ],
+            "topics": [],
+            "synonyms": [
+              "chrnět",
+              "hnípat",
+              "dřímat",
+              "spinkat",
+              "hajat",
+              "chrápat",
+              "zařezávat"
+            ],
+            "antonyms": [
+              "bdít"
+            ],
+            "examples": []
+          },
+          {
+            "gloss": "to sleep (to have sex)",
+            "rawGloss": "",
+            "tags": [
+              "imperfective"
+            ],
+            "topics": [],
+            "synonyms": [
+              "souložit"
+            ],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      }
+    ],
+    "spim": [
+      {
+        "id": "kaikki-3369",
+        "lemma": "spát",
+        "pos": "verb",
+        "matchedBy": "form",
+        "matchedTerm": "spím",
+        "forms": [
+          {
+            "form": "spím",
+            "tags": [
+              "first-person",
+              "indicative",
+              "present",
+              "singular"
             ]
           }
         ],
@@ -106591,6 +110435,292 @@
         ]
       }
     ],
+    "velky": [
+      {
+        "id": "kaikki-1186",
+        "lemma": "velký",
+        "pos": "adj",
+        "matchedBy": "lemma",
+        "matchedTerm": "velký",
+        "forms": [
+          {
+            "form": "velký",
+            "tags": [
+              "accusative",
+              "inanimate",
+              "masculine",
+              "singular"
+            ]
+          },
+          {
+            "form": "velký",
+            "tags": [
+              "masculine",
+              "nominative",
+              "singular"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "big",
+            "rawGloss": "",
+            "tags": [],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [
+              "malý"
+            ],
+            "examples": []
+          },
+          {
+            "gloss": "major (the larger of two intervals denoted by the same ordinal number)",
+            "rawGloss": "(music) major (the larger of two intervals denoted by the same ordinal number)",
+            "tags": [],
+            "topics": [
+              "entertainment",
+              "lifestyle",
+              "music"
+            ],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "velká tercie",
+                "english": "a major third",
+                "tags": [
+                  "collocation"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "kaikki-1187",
+        "lemma": "velký",
+        "pos": "noun",
+        "matchedBy": "lemma",
+        "matchedTerm": "velký",
+        "forms": [
+          {
+            "form": "velký",
+            "tags": [
+              "accusative",
+              "singular"
+            ]
+          },
+          {
+            "form": "velký",
+            "tags": [
+              "nominative",
+              "singular"
+            ]
+          },
+          {
+            "form": "velký",
+            "tags": [
+              "singular",
+              "vocative"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "synonym of durch",
+            "rawGloss": "",
+            "tags": [
+              "inanimate",
+              "masculine"
+            ],
+            "topics": [],
+            "synonyms": [
+              "durch"
+            ],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      },
+      {
+        "id": "kaikki-1186",
+        "lemma": "velký",
+        "pos": "adj",
+        "matchedBy": "lemma",
+        "matchedTerm": "velký",
+        "forms": [
+          {
+            "form": "velký",
+            "tags": [
+              "accusative",
+              "inanimate",
+              "masculine",
+              "singular"
+            ]
+          },
+          {
+            "form": "velký",
+            "tags": [
+              "masculine",
+              "nominative",
+              "singular"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "big",
+            "rawGloss": "",
+            "tags": [],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [
+              "malý"
+            ],
+            "examples": []
+          },
+          {
+            "gloss": "major (the larger of two intervals denoted by the same ordinal number)",
+            "rawGloss": "(music) major (the larger of two intervals denoted by the same ordinal number)",
+            "tags": [],
+            "topics": [
+              "entertainment",
+              "lifestyle",
+              "music"
+            ],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": [
+              {
+                "text": "velká tercie",
+                "english": "a major third",
+                "tags": [
+                  "collocation"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "kaikki-1187",
+        "lemma": "velký",
+        "pos": "noun",
+        "matchedBy": "lemma",
+        "matchedTerm": "velký",
+        "forms": [
+          {
+            "form": "velký",
+            "tags": [
+              "accusative",
+              "singular"
+            ]
+          },
+          {
+            "form": "velký",
+            "tags": [
+              "nominative",
+              "singular"
+            ]
+          },
+          {
+            "form": "velký",
+            "tags": [
+              "singular",
+              "vocative"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "synonym of durch",
+            "rawGloss": "",
+            "tags": [
+              "inanimate",
+              "masculine"
+            ],
+            "topics": [],
+            "synonyms": [
+              "durch"
+            ],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      },
+      {
+        "id": "kaikki-11676",
+        "lemma": "veliký",
+        "pos": "adj",
+        "matchedBy": "form",
+        "matchedTerm": "velký",
+        "forms": [
+          {
+            "form": "velký",
+            "tags": [
+              "alternative"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "great (very big, large scale)",
+            "rawGloss": "",
+            "tags": [],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          },
+          {
+            "gloss": "great (title referring to an important leader)",
+            "rawGloss": "",
+            "tags": [],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      },
+      {
+        "id": "kaikki-60651",
+        "lemma": "Velek",
+        "pos": "name",
+        "matchedBy": "form",
+        "matchedTerm": "Velky",
+        "forms": [
+          {
+            "form": "Velky",
+            "tags": [
+              "accusative",
+              "plural"
+            ]
+          },
+          {
+            "form": "Velky",
+            "tags": [
+              "instrumental",
+              "plural"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "a male surname",
+            "rawGloss": "",
+            "tags": [
+              "animate",
+              "masculine"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      }
+    ],
     "velmi": [
       {
         "id": "kaikki-12805",
@@ -118017,6 +122147,136 @@
             "gloss": "deeply",
             "rawGloss": "",
             "tags": [],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      }
+    ],
+    "zidle": [
+      {
+        "id": "kaikki-4025",
+        "lemma": "židle",
+        "pos": "noun",
+        "matchedBy": "lemma",
+        "matchedTerm": "židle",
+        "forms": [
+          {
+            "form": "židle",
+            "tags": [
+              "accusative",
+              "plural"
+            ]
+          },
+          {
+            "form": "židle",
+            "tags": [
+              "genitive",
+              "singular"
+            ]
+          },
+          {
+            "form": "židle",
+            "tags": [
+              "nominative",
+              "plural"
+            ]
+          },
+          {
+            "form": "židle",
+            "tags": [
+              "nominative",
+              "singular"
+            ]
+          },
+          {
+            "form": "židle",
+            "tags": [
+              "plural",
+              "vocative"
+            ]
+          },
+          {
+            "form": "židle",
+            "tags": [
+              "singular",
+              "vocative"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "chair (piece of furniture)",
+            "rawGloss": "",
+            "tags": [
+              "feminine"
+            ],
+            "topics": [],
+            "synonyms": [],
+            "antonyms": [],
+            "examples": []
+          }
+        ]
+      },
+      {
+        "id": "kaikki-4025",
+        "lemma": "židle",
+        "pos": "noun",
+        "matchedBy": "lemma",
+        "matchedTerm": "židle",
+        "forms": [
+          {
+            "form": "židle",
+            "tags": [
+              "accusative",
+              "plural"
+            ]
+          },
+          {
+            "form": "židle",
+            "tags": [
+              "genitive",
+              "singular"
+            ]
+          },
+          {
+            "form": "židle",
+            "tags": [
+              "nominative",
+              "plural"
+            ]
+          },
+          {
+            "form": "židle",
+            "tags": [
+              "nominative",
+              "singular"
+            ]
+          },
+          {
+            "form": "židle",
+            "tags": [
+              "plural",
+              "vocative"
+            ]
+          },
+          {
+            "form": "židle",
+            "tags": [
+              "singular",
+              "vocative"
+            ]
+          }
+        ],
+        "senses": [
+          {
+            "gloss": "chair (piece of furniture)",
+            "rawGloss": "",
+            "tags": [
+              "feminine"
+            ],
             "topics": [],
             "synonyms": [],
             "antonyms": [],

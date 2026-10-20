@@ -5,9 +5,9 @@ export const CONTENT_INTRODUCTION_BUDGET = 6;
 
 /** The selected badge is an exact content band; cached unclassified items belong to level 1. */
 export function matchesContentDifficulty(item, difficulty) {
-  if (![1, 2, 3].includes(difficulty)) throw new TypeError("difficulty must be 1, 2, or 3.");
+  if (![0, 1, 2, 3].includes(difficulty)) throw new TypeError("difficulty must be 0, 1, 2, or 3.");
   const authored = item.difficulty === undefined ? 1 : item.difficulty;
-  if (![1, 2, 3].includes(authored)) throw new TypeError("Authored difficulty must be 1, 2, or 3.");
+  if (![0, 1, 2, 3].includes(authored)) throw new TypeError("Authored difficulty must be 0, 1, 2, or 3.");
   return authored === difficulty;
 }
 
@@ -61,13 +61,15 @@ export function contentPracticeReadiness(progress = {}) {
  */
 export function selectContentItems(items, {
   difficulty = 3, history = {}, minimumPool = 4, limit = Infinity,
-  random = Math.random, getId = item => item.id, now = Date.now()
+  random = Math.random, getId = item => item.id, now = Date.now(), excludeIds = []
 } = {}) {
   if (!Array.isArray(items)) throw new TypeError("Content selection needs an array.");
-  if (![1, 2, 3].includes(difficulty)) throw new TypeError("difficulty must be 1, 2, or 3.");
+  if (![0, 1, 2, 3].includes(difficulty)) throw new TypeError("difficulty must be 0, 1, 2, or 3.");
   if (!Number.isInteger(minimumPool) || minimumPool < 1) throw new TypeError("minimumPool must be a positive integer.");
   if (limit !== Infinity && (!Number.isInteger(limit) || limit < 1)) throw new TypeError("limit must be a positive integer.");
   if (!Number.isFinite(now) || now < 0) throw new TypeError("now must be a nonnegative timestamp.");
+  if (!Array.isArray(excludeIds)) throw new TypeError("excludeIds must be an array.");
+  const excluded = new Set(excludeIds.map(String));
   const ids = new Set();
   const rows = [];
   for (const item of items) {
@@ -79,13 +81,14 @@ export function selectContentItems(items, {
     const grade = normalizeContentProgression(item, id);
     const progress = Object.hasOwn(history || {}, id) ? history[id] : {};
     rows.push({ item, id, badge, ...grade, progress: progress || {},
-      position: (badge - 1) * 100 + grade.complexity,
+      // Level zero has its own exact band; keep its frontier positive without changing levels 1–3.
+      position: Math.max(0, badge - 1) * 100 + grade.complexity,
       visits: count(progress?.exposures), readiness: contentPracticeReadiness(progress),
       lastSeen: Math.min(now, seenAt(progress?.lastSeenAt)),
       tie: Math.max(0, Math.min(1, Number(random()) || 0)) });
   }
   if (!rows.length) return [];
-  const size = Math.min(rows.length, Math.max(CONTENT_INTRODUCTION_BUDGET, minimumPool));
+  const size = Math.min(rows.length, Math.max(CONTENT_INTRODUCTION_BUDGET, minimumPool), limit);
   const introduced = rows.filter(row => row.visits > 0);
   const unseen = rows.filter(row => row.visits === 0);
   let frontier = Math.min(...rows.map(row => row.position)) + 18;
@@ -135,6 +138,14 @@ export function selectContentItems(items, {
     if (introduced.length + novel.length >= Math.min(minimumPool, rows.length)) break;
     if (!novel.includes(row)) novel.push(row);
   }
+  // Keep the next nearest band reachable after the ordinary window is fully
+  // encountered, without treating completion or exposure as recall evidence.
+  // This queue is consumed at most once, only by the scheduled new slot.
+  const exhaustedFrontierBand = introduced.length >= Math.min(minimumPool, rows.length)
+    && !novel.length && unseen.length ? Math.min(...unseen.map(row => band(row.position))) : null;
+  const frontierContinuation = exhaustedFrontierBand === null ? []
+    : unseen.filter(row => band(row.position) === exhaustedFrontierBand).sort(editorialOrder);
+  let frontierContinuationChosen = false;
   const deadline = row => seenAt(row.progress.dueAt) || row.lastSeen + CONTENT_PRACTICE_GAP_MS;
   const due = introduced.filter(row => deadline(row) <= now).sort((a, b) => deadline(a) - deadline(b)
     || a.lastSeen - b.lastSeen || b.usefulness - a.usefulness || a.tie - b.tie);
@@ -147,17 +158,19 @@ export function selectContentItems(items, {
   const selectedIds = new Set();
   while (selected.length < size) {
     const category = pattern[(rotation + selected.length) % pattern.length];
-    const queues = category === "new" ? [novel, due, rested, practice]
+    const queues = category === "new" ? [novel, ...(frontierContinuationChosen ? [] : [frontierContinuation]), due, rested, practice]
       : continuedIntroduction ? (category === "review" ? [due, rested, practice] : [rested, due, practice])
       : category === "review" ? [due, rested, novel, practice] : [rested, due, novel, practice];
     let next;
     for (const queue of queues) {
-      next = queue.find(row => !selectedIds.has(row.id));
+      const available = queue.filter(row => !selectedIds.has(row.id));
+      next = available.find(row => !excluded.has(row.id)) || available[0];
       if (next) break;
     }
     if (!next) break;
     selected.push(next);
     selectedIds.add(next.id);
+    if (frontierContinuation.includes(next)) frontierContinuationChosen = true;
   }
   return selected.slice(0, limit).map(row => row.item);
 }

@@ -11940,6 +11940,516 @@
       ],
       "usefulness": 76,
       "complexity": 26
+    },
+    {
+      "id": "zero-es-en-conj-eat",
+      "revision": 1,
+      "targetText": "eat",
+      "learnerBaseText": "comer",
+      "englishAuditText": "eat",
+      "meaningChoiceBaseText": "comer",
+      "difficulty": 0,
+      "family": "Yo y él: dos formas",
+      "lessonId": "zero-es-en-first-actions",
+      "teachingNoteBaseText": "Practica solo I y he. Primero mira la pista y escucha cada forma.",
+      "tags": [
+        "level-zero",
+        "machine-assisted-draft"
+      ],
+      "forms": [
+        {
+          "id": "first",
+          "revision": 1,
+          "subjectTargetText": "I",
+          "subjectBaseText": "yo",
+          "targetText": "eat",
+          "learnerBaseCueText": "yo como",
+          "englishAuditText": "I eat",
+          "usefulness": 92,
+          "complexity": 6
+        },
+        {
+          "id": "second",
+          "revision": 1,
+          "subjectTargetText": "he",
+          "subjectBaseText": "él",
+          "targetText": "eats",
+          "learnerBaseCueText": "él come",
+          "englishAuditText": "he eats",
+          "usefulness": 92,
+          "complexity": 6
+        }
+      ],
+      "usefulness": 92,
+      "complexity": 6
+    },
+    {
+      "id": "zero-es-en-conj-drink",
+      "revision": 1,
+      "targetText": "drink",
+      "learnerBaseText": "beber",
+      "englishAuditText": "drink",
+      "meaningChoiceBaseText": "beber",
+      "difficulty": 0,
+      "family": "Yo y él: dos formas",
+      "lessonId": "zero-es-en-first-actions",
+      "teachingNoteBaseText": "Practica solo I y he. Primero mira la pista y escucha cada forma.",
+      "tags": [
+        "level-zero",
+        "machine-assisted-draft"
+      ],
+      "forms": [
+        {
+          "id": "first",
+          "revision": 1,
+          "subjectTargetText": "I",
+          "subjectBaseText": "yo",
+          "targetText": "drink",
+          "learnerBaseCueText": "yo bebo",
+          "englishAuditText": "I drink",
+          "usefulness": 92,
+          "complexity": 6
+        },
+        {
+          "id": "second",
+          "revision": 1,
+          "subjectTargetText": "he",
+          "subjectBaseText": "él",
+          "targetText": "drinks",
+          "learnerBaseCueText": "él bebe",
+          "englishAuditText": "he drinks",
+          "usefulness": 92,
+          "complexity": 6
+        }
+      ],
+      "usefulness": 92,
+      "complexity": 6
+    },
+    {
+      "id": "zero-es-en-conj-sleep",
+      "revision": 1,
+      "targetText": "sleep",
+      "learnerBaseText": "dormir",
+      "englishAuditText": "sleep",
+      "meaningChoiceBaseText": "dormir",
+      "difficulty": 0,
+      "family": "Yo y él: dos formas",
+      "lessonId": "zero-es-en-first-actions",
+      "teachingNoteBaseText": "Practica solo I y he. Primero mira la pista y escucha cada forma.",
+      "tags": [
+        "level-zero",
+        "machine-assisted-draft"
+      ],
+      "forms": [
+        {
+          "id": "first",
+          "revision": 1,
+          "subjectTargetText": "I",
+          "subjectBaseText": "yo",
+          "targetText": "sleep",
+          "learnerBaseCueText": "yo duermo",
+          "englishAuditText": "I sleep",
+          "usefulness": 92,
+          "complexity": 6
+        },
+        {
+          "id": "second",
+          "revision": 1,
+          "subjectTargetText": "he",
+          "subjectBaseText": "él",
+          "targetText": "sleeps",
+          "learnerBaseCueText": "él duerme",
+          "englishAuditText": "he sleeps",
+          "usefulness": 92,
+          "complexity": 6
+        }
+      ],
+      "usefulness": 92,
+      "complexity": 6
+    },
+    {
+      "id": "zero-es-en-conj-read",
+      "revision": 1,
+      "targetText": "read",
+      "learnerBaseText": "leer",
+      "englishAuditText": "read",
+      "meaningChoiceBaseText": "leer",
+      "difficulty": 0,
+      "family": "Yo y él: dos formas",
+      "lessonId": "zero-es-en-first-actions",
+      "teachingNoteBaseText": "Practica solo I y he. Primero mira la pista y escucha cada forma.",
+      "tags": [
+        "level-zero",
+        "machine-assisted-draft"
+      ],
+      "forms": [
+        {
+          "id": "first",
+          "revision": 1,
+          "subjectTargetText": "I",
+          "subjectBaseText": "yo",
+          "targetText": "read",
+          "learnerBaseCueText": "yo leo",
+          "englishAuditText": "I read",
+          "usefulness": 92,
+          "complexity": 6
+        },
+        {
+          "id": "second",
+          "revision": 1,
+          "subjectTargetText": "he",
+          "subjectBaseText": "él",
+          "targetText": "reads",
+          "learnerBaseCueText": "él lee",
+          "englishAuditText": "he reads",
+          "usefulness": 92,
+          "complexity": 6
+        }
+      ],
+      "usefulness": 92,
+      "complexity": 6
+    },
+    {
+      "id": "zero-es-en-conj-want",
+      "revision": 1,
+      "targetText": "want",
+      "learnerBaseText": "querer",
+      "englishAuditText": "want",
+      "meaningChoiceBaseText": "querer",
+      "difficulty": 0,
+      "family": "Yo y él: dos formas",
+      "lessonId": "zero-es-en-first-actions",
+      "teachingNoteBaseText": "Practica solo I y he. Primero mira la pista y escucha cada forma.",
+      "tags": [
+        "level-zero",
+        "machine-assisted-draft"
+      ],
+      "forms": [
+        {
+          "id": "first",
+          "revision": 1,
+          "subjectTargetText": "I",
+          "subjectBaseText": "yo",
+          "targetText": "want",
+          "learnerBaseCueText": "yo quiero",
+          "englishAuditText": "I want",
+          "usefulness": 92,
+          "complexity": 6
+        },
+        {
+          "id": "second",
+          "revision": 1,
+          "subjectTargetText": "he",
+          "subjectBaseText": "él",
+          "targetText": "wants",
+          "learnerBaseCueText": "él quiere",
+          "englishAuditText": "he wants",
+          "usefulness": 92,
+          "complexity": 6
+        }
+      ],
+      "usefulness": 92,
+      "complexity": 6
+    },
+    {
+      "id": "zero-es-en-conj-have",
+      "revision": 1,
+      "targetText": "have",
+      "learnerBaseText": "tener",
+      "englishAuditText": "have",
+      "meaningChoiceBaseText": "tener",
+      "difficulty": 0,
+      "family": "Yo y él: dos formas",
+      "lessonId": "zero-es-en-first-actions",
+      "teachingNoteBaseText": "Practica solo I y he. Primero mira la pista y escucha cada forma.",
+      "tags": [
+        "level-zero",
+        "machine-assisted-draft"
+      ],
+      "forms": [
+        {
+          "id": "first",
+          "revision": 1,
+          "subjectTargetText": "I",
+          "subjectBaseText": "yo",
+          "targetText": "have",
+          "learnerBaseCueText": "yo tengo",
+          "englishAuditText": "I have",
+          "usefulness": 92,
+          "complexity": 6
+        },
+        {
+          "id": "second",
+          "revision": 1,
+          "subjectTargetText": "he",
+          "subjectBaseText": "él",
+          "targetText": "has",
+          "learnerBaseCueText": "él tiene",
+          "englishAuditText": "he has",
+          "usefulness": 92,
+          "complexity": 6
+        }
+      ],
+      "usefulness": 92,
+      "complexity": 6
+    },
+    {
+      "id": "zero-es-en-conj-expand-go",
+      "revision": 1,
+      "targetText": "go",
+      "learnerBaseText": "ir",
+      "englishAuditText": "go",
+      "meaningChoiceBaseText": "ir",
+      "difficulty": 0,
+      "family": "Dos formas: I y he",
+      "lessonId": "zero-es-en-more-first-actions",
+      "teachingNoteBaseText": "Practica solo I y he. Escucha y relaciona una forma cada vez. Revisión nativa pendiente.",
+      "tags": [
+        "level-zero",
+        "first-forms",
+        "machine-assisted-draft"
+      ],
+      "forms": [
+        {
+          "id": "first",
+          "revision": 1,
+          "subjectTargetText": "I",
+          "subjectBaseText": "yo",
+          "targetText": "go",
+          "learnerBaseCueText": "yo voy",
+          "englishAuditText": "I go",
+          "usefulness": 92,
+          "complexity": 6
+        },
+        {
+          "id": "second",
+          "revision": 1,
+          "subjectTargetText": "he",
+          "subjectBaseText": "él",
+          "targetText": "goes",
+          "learnerBaseCueText": "él va",
+          "englishAuditText": "he goes",
+          "usefulness": 92,
+          "complexity": 6
+        }
+      ],
+      "usefulness": 92,
+      "complexity": 6
+    },
+    {
+      "id": "zero-es-en-conj-expand-see",
+      "revision": 1,
+      "targetText": "see",
+      "learnerBaseText": "ver",
+      "englishAuditText": "see",
+      "meaningChoiceBaseText": "ver",
+      "difficulty": 0,
+      "family": "Dos formas: I y he",
+      "lessonId": "zero-es-en-more-first-actions",
+      "teachingNoteBaseText": "Practica solo I y he. Escucha y relaciona una forma cada vez. Revisión nativa pendiente.",
+      "tags": [
+        "level-zero",
+        "first-forms",
+        "machine-assisted-draft"
+      ],
+      "forms": [
+        {
+          "id": "first",
+          "revision": 1,
+          "subjectTargetText": "I",
+          "subjectBaseText": "yo",
+          "targetText": "see",
+          "learnerBaseCueText": "yo veo",
+          "englishAuditText": "I see",
+          "usefulness": 92,
+          "complexity": 6
+        },
+        {
+          "id": "second",
+          "revision": 1,
+          "subjectTargetText": "he",
+          "subjectBaseText": "él",
+          "targetText": "sees",
+          "learnerBaseCueText": "él ve",
+          "englishAuditText": "he sees",
+          "usefulness": 92,
+          "complexity": 6
+        }
+      ],
+      "usefulness": 92,
+      "complexity": 6
+    },
+    {
+      "id": "zero-es-en-conj-expand-sit",
+      "revision": 1,
+      "targetText": "sit",
+      "learnerBaseText": "sentarse",
+      "englishAuditText": "sit",
+      "meaningChoiceBaseText": "sentarse",
+      "difficulty": 0,
+      "family": "Dos formas: I y he",
+      "lessonId": "zero-es-en-more-first-actions",
+      "teachingNoteBaseText": "Practica solo I y he. Escucha y relaciona una forma cada vez. Revisión nativa pendiente.",
+      "tags": [
+        "level-zero",
+        "first-forms",
+        "machine-assisted-draft"
+      ],
+      "forms": [
+        {
+          "id": "first",
+          "revision": 1,
+          "subjectTargetText": "I",
+          "subjectBaseText": "yo",
+          "targetText": "sit",
+          "learnerBaseCueText": "yo me siento",
+          "englishAuditText": "I sit",
+          "usefulness": 92,
+          "complexity": 6
+        },
+        {
+          "id": "second",
+          "revision": 1,
+          "subjectTargetText": "he",
+          "subjectBaseText": "él",
+          "targetText": "sits",
+          "learnerBaseCueText": "él se sienta",
+          "englishAuditText": "he sits",
+          "usefulness": 92,
+          "complexity": 6
+        }
+      ],
+      "usefulness": 92,
+      "complexity": 6
+    },
+    {
+      "id": "zero-es-en-conj-expand-write",
+      "revision": 1,
+      "targetText": "write",
+      "learnerBaseText": "escribir",
+      "englishAuditText": "write",
+      "meaningChoiceBaseText": "escribir",
+      "difficulty": 0,
+      "family": "Dos formas: I y he",
+      "lessonId": "zero-es-en-more-first-actions",
+      "teachingNoteBaseText": "Practica solo I y he. Escucha y relaciona una forma cada vez. Revisión nativa pendiente.",
+      "tags": [
+        "level-zero",
+        "first-forms",
+        "machine-assisted-draft"
+      ],
+      "forms": [
+        {
+          "id": "first",
+          "revision": 1,
+          "subjectTargetText": "I",
+          "subjectBaseText": "yo",
+          "targetText": "write",
+          "learnerBaseCueText": "yo escribo",
+          "englishAuditText": "I write",
+          "usefulness": 92,
+          "complexity": 6
+        },
+        {
+          "id": "second",
+          "revision": 1,
+          "subjectTargetText": "he",
+          "subjectBaseText": "él",
+          "targetText": "writes",
+          "learnerBaseCueText": "él escribe",
+          "englishAuditText": "he writes",
+          "usefulness": 92,
+          "complexity": 6
+        }
+      ],
+      "usefulness": 92,
+      "complexity": 6
+    },
+    {
+      "id": "zero-es-en-conj-expand-hear",
+      "revision": 1,
+      "targetText": "hear",
+      "learnerBaseText": "oír",
+      "englishAuditText": "hear",
+      "meaningChoiceBaseText": "oír",
+      "difficulty": 0,
+      "family": "Dos formas: I y he",
+      "lessonId": "zero-es-en-more-first-actions",
+      "teachingNoteBaseText": "Practica solo I y he. Escucha y relaciona una forma cada vez. Revisión nativa pendiente.",
+      "tags": [
+        "level-zero",
+        "first-forms",
+        "machine-assisted-draft"
+      ],
+      "forms": [
+        {
+          "id": "first",
+          "revision": 1,
+          "subjectTargetText": "I",
+          "subjectBaseText": "yo",
+          "targetText": "hear",
+          "learnerBaseCueText": "yo oigo",
+          "englishAuditText": "I hear",
+          "usefulness": 92,
+          "complexity": 6
+        },
+        {
+          "id": "second",
+          "revision": 1,
+          "subjectTargetText": "he",
+          "subjectBaseText": "él",
+          "targetText": "hears",
+          "learnerBaseCueText": "él oye",
+          "englishAuditText": "he hears",
+          "usefulness": 92,
+          "complexity": 6
+        }
+      ],
+      "usefulness": 92,
+      "complexity": 6
+    },
+    {
+      "id": "zero-es-en-conj-expand-speak",
+      "revision": 1,
+      "targetText": "speak",
+      "learnerBaseText": "hablar",
+      "englishAuditText": "speak",
+      "meaningChoiceBaseText": "hablar",
+      "difficulty": 0,
+      "family": "Dos formas: I y he",
+      "lessonId": "zero-es-en-more-first-actions",
+      "teachingNoteBaseText": "Practica solo I y he. Escucha y relaciona una forma cada vez. Revisión nativa pendiente.",
+      "tags": [
+        "level-zero",
+        "first-forms",
+        "machine-assisted-draft"
+      ],
+      "forms": [
+        {
+          "id": "first",
+          "revision": 1,
+          "subjectTargetText": "I",
+          "subjectBaseText": "yo",
+          "targetText": "speak",
+          "learnerBaseCueText": "yo hablo",
+          "englishAuditText": "I speak",
+          "usefulness": 92,
+          "complexity": 6
+        },
+        {
+          "id": "second",
+          "revision": 1,
+          "subjectTargetText": "he",
+          "subjectBaseText": "él",
+          "targetText": "speaks",
+          "learnerBaseCueText": "él habla",
+          "englishAuditText": "he speaks",
+          "usefulness": 92,
+          "complexity": 6
+        }
+      ],
+      "usefulness": 92,
+      "complexity": 6
     }
   ]
 }

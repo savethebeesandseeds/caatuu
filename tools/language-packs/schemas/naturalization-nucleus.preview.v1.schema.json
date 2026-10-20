@@ -61,7 +61,7 @@
         "translation": { "type": "string", "minLength": 1, "maxLength": 80 },
         "englishAuditText": { "$ref": "#/$defs/englishAuditText" },
         "context": { "$ref": "#/$defs/context" },
-        "difficulty": { "type": "integer", "minimum": 1, "maximum": 3 },
+        "difficulty": { "type": "integer", "minimum": 0, "maximum": 3 },
         "usefulness": { "$ref": "#/$defs/grade" },
         "complexity": { "$ref": "#/$defs/grade" },
         "urgency": { "type": "integer", "minimum": 1, "maximum": 5 },

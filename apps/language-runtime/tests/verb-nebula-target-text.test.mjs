@@ -51,6 +51,7 @@ function harness({ selectedCourse = course, catalog = rows, saved = {} } = {}) {
     between("const verbTargetTextStorageKey =", "const defaultModelKey ="),
     between("function verbUsesRomanizationGuide()", "function applyVerbLanguageCopy()"),
     between("function createVerbMatchCard(pair, side)", "function verbMatchCardForId"),
+    between("function cancelVerbTapSpeech()", "function renderVerbMatchStats()"),
     between("function bindVerbNebulaControls()", "function printOptions()")
   ].join("\n"), browser.context);
   browser.context.verbTargetTextReadings = browser.context.indexVerbTargetTextReadings(catalog);

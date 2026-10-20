@@ -50,7 +50,7 @@ export function validateMemoryMoonContent(document, { course } = {}) {
   const challenges = Array.isArray(document.challenges) ? document.challenges : [];
   check(challenges.length > 0, 'challenges', 'must contain authored questions');
   const ids = new Set(), prompts = new Set(), meanings = new Set();
-  const levels = new Map([[1, 0], [2, 0], [3, 0]]);
+  const levels = new Map([[0, 0], [1, 0], [2, 0], [3, 0]]);
   for (const [index, item] of challenges.entries()) {
     const where = `challenges[${index}] (${item?.id || 'missing ID'})`;
     if (!item || typeof item !== 'object' || Array.isArray(item)) { check(false, where, 'must be an object'); continue; }
@@ -61,7 +61,7 @@ export function validateMemoryMoonContent(document, { course } = {}) {
     check(idPattern.test(item.id || '') && item.id.startsWith(`mm-${document.courseId}-`) && !ids.has(item.id), `${where}.id`, 'must be a unique course-scoped stable ID');
     ids.add(item.id);
     check(Number.isSafeInteger(item.revision) && item.revision > 0, `${where}.revision`, 'must be a positive integer');
-    check(levels.has(item.difficulty), `${where}.difficulty`, 'must be one of 1, 2, 3');
+    check(levels.has(item.difficulty), `${where}.difficulty`, 'must be one of 0, 1, 2, 3');
     if (levels.has(item.difficulty)) levels.set(item.difficulty, levels.get(item.difficulty) + 1);
     for (const key of ['usefulness', 'complexity']) check(Number.isInteger(item[key]) && item[key] >= 1 && item[key] <= 100,
       `${where}.${key}`, 'must be an authored integer from 1 through 100');
@@ -69,9 +69,11 @@ export function validateMemoryMoonContent(document, { course } = {}) {
     check(idPattern.test(item.familyId || '') && item.familyId.startsWith(`mm-${document.courseId}-`), `${where}.familyId`, 'must name a course-scoped semantic family');
     check(english(item.englishText) && english(item.embeddingText), `${where}.englishText`, 'must contain English audit/retrieval text');
     check(item.embeddingText === item.englishText, `${where}.embeddingText`, 'must equal the authored English meaning, never target or learner-base text');
-    check(!prompts.has(normalized(item.targetText)), `${where}.targetText`, 'duplicates an existing prompt');
-    check(!meanings.has(normalized(item.englishText)), `${where}.englishText`, 'duplicates an existing meaning');
-    prompts.add(normalized(item.targetText)); meanings.add(normalized(item.englishText));
+    const promptKey = `${item.difficulty === 0 ? 'zero:' : ''}${normalized(item.targetText)}`;
+    const meaningKey = `${item.difficulty === 0 ? 'zero:' : ''}${normalized(item.englishText)}`;
+    check(!prompts.has(promptKey), `${where}.targetText`, 'duplicates an existing prompt');
+    check(!meanings.has(meaningKey), `${where}.englishText`, 'duplicates an existing meaning');
+    prompts.add(promptKey); meanings.add(meaningKey);
     const script = { ar: /\p{Script=Arabic}/u, zh: /\p{Script=Han}/u, ka: /\p{Script=Georgian}/u }[document.targetLanguage?.split('-')[0]];
     if (script) check(script.test(item.targetText), `${where}.targetText`, 'must contain the target writing system');
     check(kindSet.has(item.focus?.kind), `${where}.focus.kind`, 'must declare a supported contrast');
@@ -114,7 +116,7 @@ export function memoryMoonContentSummary(document) {
   validateMemoryMoonContent(document);
   return { courseId: document.courseId, challenges: document.challenges.length,
     choices: document.challenges.reduce((sum, item) => sum + item.choices.length, 0),
-    difficulty: Object.fromEntries([1, 2, 3].map(level => [level, document.challenges.filter(item => item.difficulty === level).length])),
+    difficulty: Object.fromEntries([0, 1, 2, 3].map(level => [level, document.challenges.filter(item => item.difficulty === level).length])),
     topics: [...new Set(document.challenges.map(item => item.topic))].sort(),
     families: new Set(document.challenges.map(item => item.familyId)).size,
     contrasts: [...new Set(document.challenges.map(item => item.focus.kind))].sort(),

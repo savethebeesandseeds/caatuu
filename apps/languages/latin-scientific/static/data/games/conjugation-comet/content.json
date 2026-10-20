@@ -10716,6 +10716,666 @@
           "complexity": 51
         }
       ]
+    },
+    {
+      "id": "zero-la-conjugation-01",
+      "revision": 1,
+      "targetText": "numerāre",
+      "learnerBaseText": "count",
+      "englishAuditText": "count",
+      "meaningChoiceBaseText": "count",
+      "difficulty": 0,
+      "family": "First present-time forms",
+      "lessonId": "zero-la-present-foundations",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 98,
+      "complexity": 8,
+      "teachingNoteBaseText": "Learn these two short forms with their subject cues. Practise one pair at a time.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "ego",
+          "subjectBaseText": "I",
+          "targetText": "numerō",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I count",
+          "englishAuditText": "I count",
+          "usefulness": 98,
+          "complexity": 8
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "tū",
+          "subjectBaseText": "you (singular)",
+          "targetText": "numerās",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (singular) count",
+          "englishAuditText": "you (singular) count",
+          "usefulness": 98,
+          "complexity": 8
+        }
+      ]
+    },
+    {
+      "id": "zero-la-conjugation-02",
+      "revision": 1,
+      "targetText": "movēre",
+      "learnerBaseText": "move",
+      "englishAuditText": "move",
+      "meaningChoiceBaseText": "move",
+      "difficulty": 0,
+      "family": "First present-time forms",
+      "lessonId": "zero-la-present-foundations",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 98,
+      "complexity": 8,
+      "teachingNoteBaseText": "Learn these two short forms with their subject cues. Practise one pair at a time.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "ego",
+          "subjectBaseText": "I",
+          "targetText": "moveō",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I move",
+          "englishAuditText": "I move",
+          "usefulness": 98,
+          "complexity": 8
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "tū",
+          "subjectBaseText": "you (singular)",
+          "targetText": "movēs",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (singular) move",
+          "englishAuditText": "you (singular) move",
+          "usefulness": 98,
+          "complexity": 8
+        }
+      ]
+    },
+    {
+      "id": "zero-la-conjugation-03",
+      "revision": 1,
+      "targetText": "vidēre",
+      "learnerBaseText": "see",
+      "englishAuditText": "see",
+      "meaningChoiceBaseText": "see",
+      "difficulty": 0,
+      "family": "First present-time forms",
+      "lessonId": "zero-la-present-foundations",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 98,
+      "complexity": 8,
+      "teachingNoteBaseText": "Learn these two short forms with their subject cues. Practise one pair at a time.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "ego",
+          "subjectBaseText": "I",
+          "targetText": "videō",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I see",
+          "englishAuditText": "I see",
+          "usefulness": 98,
+          "complexity": 8
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "tū",
+          "subjectBaseText": "you (singular)",
+          "targetText": "vidēs",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (singular) see",
+          "englishAuditText": "you (singular) see",
+          "usefulness": 98,
+          "complexity": 8
+        }
+      ]
+    },
+    {
+      "id": "zero-la-conjugation-04",
+      "revision": 1,
+      "targetText": "legere",
+      "learnerBaseText": "read",
+      "englishAuditText": "read",
+      "meaningChoiceBaseText": "read",
+      "difficulty": 0,
+      "family": "First present-time forms",
+      "lessonId": "zero-la-present-foundations",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 98,
+      "complexity": 8,
+      "teachingNoteBaseText": "Learn these two short forms with their subject cues. Practise one pair at a time.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "ego",
+          "subjectBaseText": "I",
+          "targetText": "legō",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I read",
+          "englishAuditText": "I read",
+          "usefulness": 98,
+          "complexity": 8
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "tū",
+          "subjectBaseText": "you (singular)",
+          "targetText": "legis",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (singular) read",
+          "englishAuditText": "you (singular) read",
+          "usefulness": 98,
+          "complexity": 8
+        }
+      ]
+    },
+    {
+      "id": "zero-la-conjugation-05",
+      "revision": 1,
+      "targetText": "scrībere",
+      "learnerBaseText": "write",
+      "englishAuditText": "write",
+      "meaningChoiceBaseText": "write",
+      "difficulty": 0,
+      "family": "First present-time forms",
+      "lessonId": "zero-la-present-foundations",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 98,
+      "complexity": 8,
+      "teachingNoteBaseText": "Learn these two short forms with their subject cues. Practise one pair at a time.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "ego",
+          "subjectBaseText": "I",
+          "targetText": "scrībō",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I write",
+          "englishAuditText": "I write",
+          "usefulness": 98,
+          "complexity": 8
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "tū",
+          "subjectBaseText": "you (singular)",
+          "targetText": "scrībis",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (singular) write",
+          "englishAuditText": "you (singular) write",
+          "usefulness": 98,
+          "complexity": 8
+        }
+      ]
+    },
+    {
+      "id": "zero-la-conjugation-06",
+      "revision": 1,
+      "targetText": "audīre",
+      "learnerBaseText": "hear",
+      "englishAuditText": "hear",
+      "meaningChoiceBaseText": "hear",
+      "difficulty": 0,
+      "family": "First present-time forms",
+      "lessonId": "zero-la-present-foundations",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 98,
+      "complexity": 8,
+      "teachingNoteBaseText": "Learn these two short forms with their subject cues. Practise one pair at a time.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "ego",
+          "subjectBaseText": "I",
+          "targetText": "audiō",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I hear",
+          "englishAuditText": "I hear",
+          "usefulness": 98,
+          "complexity": 8
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "tū",
+          "subjectBaseText": "you (singular)",
+          "targetText": "audīs",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (singular) hear",
+          "englishAuditText": "you (singular) hear",
+          "usefulness": 98,
+          "complexity": 8
+        }
+      ]
+    },
+    {
+      "id": "zero-la-conjugation-e2-la-013-present-active",
+      "revision": 1,
+      "targetText": "tenēre",
+      "learnerBaseText": "hold",
+      "englishAuditText": "hold",
+      "meaningChoiceBaseText": "hold",
+      "difficulty": 0,
+      "family": "First I and you forms",
+      "lessonId": "zero-la-first-forms-expanded",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 96,
+      "complexity": 8,
+      "teachingNoteBaseText": "Read the I example first, then match the you example. These two forms use the same familiar action.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "ego",
+          "subjectBaseText": "I",
+          "targetText": "teneō",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I hold",
+          "englishAuditText": "I hold",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "tū",
+          "subjectBaseText": "you (singular)",
+          "targetText": "tenēs",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (singular) hold",
+          "englishAuditText": "you (singular) hold",
+          "usefulness": 96,
+          "complexity": 8
+        }
+      ]
+    },
+    {
+      "id": "zero-la-conjugation-e2-la-020-present-active",
+      "revision": 1,
+      "targetText": "pōnere",
+      "learnerBaseText": "place",
+      "englishAuditText": "place",
+      "meaningChoiceBaseText": "place",
+      "difficulty": 0,
+      "family": "First I and you forms",
+      "lessonId": "zero-la-first-forms-expanded",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 96,
+      "complexity": 8,
+      "teachingNoteBaseText": "Read the I example first, then match the you example. These two forms use the same familiar action.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "ego",
+          "subjectBaseText": "I",
+          "targetText": "pōnō",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I place",
+          "englishAuditText": "I place",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "tū",
+          "subjectBaseText": "you (singular)",
+          "targetText": "pōnis",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (singular) place",
+          "englishAuditText": "you (singular) place",
+          "usefulness": 96,
+          "complexity": 8
+        }
+      ]
+    },
+    {
+      "id": "zero-la-conjugation-e2-la-021-present-active",
+      "revision": 1,
+      "targetText": "trahere",
+      "learnerBaseText": "pull",
+      "englishAuditText": "pull",
+      "meaningChoiceBaseText": "pull",
+      "difficulty": 0,
+      "family": "First I and you forms",
+      "lessonId": "zero-la-first-forms-expanded",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 96,
+      "complexity": 8,
+      "teachingNoteBaseText": "Read the I example first, then match the you example. These two forms use the same familiar action.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "ego",
+          "subjectBaseText": "I",
+          "targetText": "trahō",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "I pull",
+          "englishAuditText": "I pull",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "you-sg",
+          "revision": 1,
+          "subjectTargetText": "tū",
+          "subjectBaseText": "you (singular)",
+          "targetText": "trahis",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "you (singular) pull",
+          "englishAuditText": "you (singular) pull",
+          "usefulness": 96,
+          "complexity": 8
+        }
+      ]
+    },
+    {
+      "id": "zero-la-conjugation-e2-be",
+      "revision": 1,
+      "targetText": "esse",
+      "learnerBaseText": "be",
+      "englishAuditText": "be",
+      "meaningChoiceBaseText": "be",
+      "difficulty": 0,
+      "family": "First I and you forms",
+      "lessonId": "zero-la-first-forms-expanded",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 96,
+      "complexity": 8,
+      "teachingNoteBaseText": "Read I and you with one simple physical action or state. Only these two present-time forms are used here.",
+      "forms": [
+        {
+          "id": "first-singular",
+          "revision": 1,
+          "subjectTargetText": "ego",
+          "subjectBaseText": "I",
+          "targetText": "sum",
+          "learnerBaseCueText": "I am",
+          "englishAuditText": "I am",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "second-singular",
+          "revision": 1,
+          "subjectTargetText": "tū",
+          "subjectBaseText": "you",
+          "targetText": "es",
+          "learnerBaseCueText": "you are",
+          "englishAuditText": "you are",
+          "usefulness": 96,
+          "complexity": 8
+        }
+      ]
+    },
+    {
+      "id": "zero-la-conjugation-e2-rest",
+      "revision": 1,
+      "targetText": "quiēscere",
+      "learnerBaseText": "be at rest",
+      "englishAuditText": "be at rest",
+      "meaningChoiceBaseText": "be at rest",
+      "difficulty": 0,
+      "family": "First I and you forms",
+      "lessonId": "zero-la-first-forms-expanded",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 96,
+      "complexity": 8,
+      "teachingNoteBaseText": "Read I and you with one simple physical action or state. Only these two present-time forms are used here.",
+      "forms": [
+        {
+          "id": "first-singular",
+          "revision": 1,
+          "subjectTargetText": "ego",
+          "subjectBaseText": "I",
+          "targetText": "quiēscō",
+          "learnerBaseCueText": "I am at rest",
+          "englishAuditText": "I am at rest",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "second-singular",
+          "revision": 1,
+          "subjectTargetText": "tū",
+          "subjectBaseText": "you",
+          "targetText": "quiēscis",
+          "learnerBaseCueText": "you are at rest",
+          "englishAuditText": "you are at rest",
+          "usefulness": 96,
+          "complexity": 8
+        }
+      ]
+    },
+    {
+      "id": "zero-la-conjugation-e2-touch",
+      "revision": 1,
+      "targetText": "tangere",
+      "learnerBaseText": "touch",
+      "englishAuditText": "touch",
+      "meaningChoiceBaseText": "touch",
+      "difficulty": 0,
+      "family": "First I and you forms",
+      "lessonId": "zero-la-first-forms-expanded",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 96,
+      "complexity": 8,
+      "teachingNoteBaseText": "Read I and you with one simple physical action or state. Only these two present-time forms are used here.",
+      "forms": [
+        {
+          "id": "first-singular",
+          "revision": 1,
+          "subjectTargetText": "ego",
+          "subjectBaseText": "I",
+          "targetText": "tangō",
+          "learnerBaseCueText": "I touch",
+          "englishAuditText": "I touch",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "second-singular",
+          "revision": 1,
+          "subjectTargetText": "tū",
+          "subjectBaseText": "you",
+          "targetText": "tangis",
+          "learnerBaseCueText": "you touch",
+          "englishAuditText": "you touch",
+          "usefulness": 96,
+          "complexity": 8
+        }
+      ]
+    },
+    {
+      "id": "zero-la-conjugation-e2-lift",
+      "revision": 1,
+      "targetText": "levāre",
+      "learnerBaseText": "lift",
+      "englishAuditText": "lift",
+      "meaningChoiceBaseText": "lift",
+      "difficulty": 0,
+      "family": "First I and you forms",
+      "lessonId": "zero-la-first-forms-expanded",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 96,
+      "complexity": 8,
+      "teachingNoteBaseText": "Read I and you with one simple physical action or state. Only these two present-time forms are used here.",
+      "forms": [
+        {
+          "id": "first-singular",
+          "revision": 1,
+          "subjectTargetText": "ego",
+          "subjectBaseText": "I",
+          "targetText": "levō",
+          "learnerBaseCueText": "I lift",
+          "englishAuditText": "I lift",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "second-singular",
+          "revision": 1,
+          "subjectTargetText": "tū",
+          "subjectBaseText": "you",
+          "targetText": "levās",
+          "learnerBaseCueText": "you lift",
+          "englishAuditText": "you lift",
+          "usefulness": 96,
+          "complexity": 8
+        }
+      ]
+    },
+    {
+      "id": "zero-la-conjugation-e2-fall",
+      "revision": 1,
+      "targetText": "cadere",
+      "learnerBaseText": "fall",
+      "englishAuditText": "fall",
+      "meaningChoiceBaseText": "fall",
+      "difficulty": 0,
+      "family": "First I and you forms",
+      "lessonId": "zero-la-first-forms-expanded",
+      "tags": [
+        "level-zero",
+        "first-forms"
+      ],
+      "usefulness": 96,
+      "complexity": 8,
+      "teachingNoteBaseText": "Read I and you with one simple physical action or state. Only these two present-time forms are used here.",
+      "forms": [
+        {
+          "id": "first-singular",
+          "revision": 1,
+          "subjectTargetText": "ego",
+          "subjectBaseText": "I",
+          "targetText": "cadō",
+          "learnerBaseCueText": "I fall",
+          "englishAuditText": "I fall",
+          "usefulness": 96,
+          "complexity": 8
+        },
+        {
+          "id": "second-singular",
+          "revision": 1,
+          "subjectTargetText": "tū",
+          "subjectBaseText": "you",
+          "targetText": "cadis",
+          "learnerBaseCueText": "you fall",
+          "englishAuditText": "you fall",
+          "usefulness": 96,
+          "complexity": 8
+        }
+      ]
     }
   ]
 }

@@ -12,9 +12,22 @@
   },
   "reviewPolicy": {
     "allowedStatuses": ["codex_reviewed"],
+    "levelZeroStatuses": ["machine-assisted-preview"],
     "humanApprovalAllowed": false
   },
   "levels": {
+    "0": {
+      "name": "Starting out",
+      "description": "Concrete first words and short, supported recognition patterns with no assumed vocabulary.",
+      "allowedCefr": ["Pre-A1", "Pre-A1/A1"],
+      "minimumTokens": 1,
+      "maximumCzechTokens": 4,
+      "maximumEnglishTokens": 5,
+      "maximumCzechCharacters": 40,
+      "maximumEnglishCharacters": 40,
+      "maximumClauses": 1,
+      "prerequisites": []
+    },
     "1": {
       "name": "First contact",
       "description": "Tiny, self-contained language for immediate recognition and imitation. One thought, no subordinate clause, and no hidden context needed.",

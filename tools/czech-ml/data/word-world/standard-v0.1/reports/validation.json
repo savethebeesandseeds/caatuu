@@ -6,8 +6,10 @@
   ],
   "valid": true,
   "errors": [],
-  "warnings": [],
-  "recordCount": 833,
+  "warnings": [
+    "6 English meaning group(s) occur in more than one record; allowed for Czech variants and minimal contrasts"
+  ],
+  "recordCount": 927,
   "level2Share": 0.702281,
-  "duplicateEnglishGroups": 0
+  "duplicateEnglishGroups": 6
 }

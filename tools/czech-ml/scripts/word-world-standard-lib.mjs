@@ -170,13 +170,13 @@ export function validateRecords(records, rubric) {
     validateLanguages(record.languages, label, errors);
     const csText = record.languages?.cs?.text || "";
     const enText = record.languages?.en?.text || "";
-    registerUnique(czech, normalizeSentence(csText), label, "normalized Czech sentence", errors);
+    registerUnique(czech, `${record.difficulty === 0 ? "zero:" : ""}${normalizeSentence(csText)}`, label, "normalized Czech sentence", errors);
     for (const candidate of [enText, ...(record.languages?.en?.alternates || [])]) {
       registerOccurrence(english, normalizeText(candidate), label);
     }
 
     const level = rubric.levels[String(record.difficulty)];
-    if (!level) errors.push(`${label}: difficulty must be 1, 2, or 3`);
+    if (!level) errors.push(`${label}: difficulty must be 0, 1, 2, or 3`);
     else validateLevel(record, level, label, errors);
     if (record.learning?.progression?.level !== record.difficulty) {
       errors.push(`${label}: learning.progression.level must match difficulty`);
@@ -184,10 +184,12 @@ export function validateRecords(records, rubric) {
 
     validateTargets(record.targets, csText, label, errors);
     validateLearning(record.learning, label, errors);
-    validateGrammar(record.grammar, label, errors);
+    validateGrammar(record.grammar, label, errors, record.difficulty);
     validateScene(record.scene, label, errors);
     validateProvenance(record.provenance, label, sourceIds, errors);
-    validateReview(record.review, label, allowedReviewStatuses, rubric.reviewPolicy, errors);
+    const reviewStatuses = record.difficulty === 0
+      ? new Set([...allowedReviewStatuses, ...(rubric.reviewPolicy.levelZeroStatuses || [])]) : allowedReviewStatuses;
+    validateReview(record.review, label, reviewStatuses, rubric.reviewPolicy, errors);
   });
 
   const safetyFindings = inspectLearnerFields(records.flatMap((record) => [
@@ -210,7 +212,8 @@ export function validateRecords(records, rubric) {
     errors.push(`bank has ${records.length} records; minimum is ${rubric.distribution.minimumRecords}`);
   }
   const level2Count = records.filter((record) => record.difficulty === 2).length;
-  const level2Share = records.length ? level2Count / records.length : 0;
+  const establishedCount = records.filter(record => record.difficulty >= 1).length;
+  const level2Share = establishedCount ? level2Count / establishedCount : 0;
   if (level2Share < rubric.distribution.minimumLevel2Share) {
     errors.push(`level 2 share is ${formatPercent(level2Share)}; minimum is ${formatPercent(rubric.distribution.minimumLevel2Share)}`);
   }
@@ -469,11 +472,12 @@ function validateLearning(learning, label, errors) {
   if (learning?.support?.translationAvailable !== true) errors.push(`${label}: Standard mode requires an included translation`);
 }
 
-function validateGrammar(grammar, label, errors) {
+function validateGrammar(grammar, label, errors, difficulty) {
   requireObject(grammar, `${label}.grammar`, errors);
   requireExactKeys(grammar, ["tags", "sentenceType", "clauseCount"], `${label}.grammar`, errors);
   requireStringArray(grammar?.tags, `${label}.grammar.tags`, errors);
-  if (!["statement", "question", "imperative", "formula"].includes(grammar?.sentenceType)) errors.push(`${label}.grammar.sentenceType: invalid value`);
+  const sentenceTypes = ["statement", "question", "imperative", "formula", ...(difficulty === 0 ? ["phrase"] : [])];
+  if (!sentenceTypes.includes(grammar?.sentenceType)) errors.push(`${label}.grammar.sentenceType: invalid value`);
   if (!Number.isInteger(grammar?.clauseCount) || grammar.clauseCount < 1 || grammar.clauseCount > 3) errors.push(`${label}.grammar.clauseCount: must be 1..3`);
 }
 

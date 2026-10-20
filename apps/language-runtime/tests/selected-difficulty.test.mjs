@@ -8,7 +8,7 @@ import { selectContentItems as practice } from '../static/source/games/adaptive-
 const now = Date.UTC(2026, 8, 22, 12);
 const iso = time => new Date(time).toISOString();
 const policy = { identity: { courseId: 'fixture', gameId: 'fixture-game', bankId: 'recognition' } };
-const rows = [1, 2, 3].flatMap(difficulty => Array.from({ length: 4 }, (_, index) => ({
+const rows = [0, 1, 2, 3].flatMap(difficulty => Array.from({ length: 4 }, (_, index) => ({
   id: `${difficulty}-${index}`, difficulty, complexity: 10 + index, usefulness: 80
 })));
 const history = {
@@ -26,11 +26,11 @@ const selectors = {
 };
 
 test('difficulty matches exactly and unclassified cached items belong only to level 1', () => {
-  for (const difficulty of [1, 2, 3]) {
+  for (const difficulty of [0, 1, 2, 3]) {
     assert.deepEqual(rows.filter(row => matchesContentDifficulty(row, difficulty)), rows.filter(row => row.difficulty === difficulty));
     assert.equal(matchesContentDifficulty({ id: 'cached' }, difficulty), difficulty === 1);
   }
-  for (const difficulty of [undefined, null, 0, 4, '1', 1.5]) {
+  for (const difficulty of [undefined, null, -1, 4, '1', 1.5]) {
     assert.throws(() => matchesContentDifficulty(rows[0], difficulty), /difficulty/);
     if (difficulty !== undefined) assert.throws(() => matchesContentDifficulty({ difficulty }, 1), /difficulty/);
   }
@@ -39,7 +39,7 @@ test('difficulty matches exactly and unclassified cached items belong only to le
 for (const [name, select] of Object.entries(selectors)) {
   test(`${name} switches levels immediately with fresh or mixed difficulty history`, () => {
     const before = structuredClone({ rows, history });
-    for (const savedHistory of [{}, history]) for (const difficulty of [1, 2, 3, 1, 3, 2]) {
+    for (const savedHistory of [{}, history]) for (const difficulty of [0, 1, 2, 3, 0, 1, 3, 2]) {
       const config = { ...options, difficulty, history: savedHistory };
       const selectedBand = rows.filter(row => row.difficulty === difficulty);
       const selected = select(rows, config);
@@ -84,7 +84,7 @@ test('runtime policy callbacks receive the selected band and cannot return anoth
 test('experimental access and sparse fallback never restore a different selected difficulty', () => {
   for (const controls of [{ softFrontier: true }, { crossCategoryRecency: true },
     { frontier: false, introductions: false, slots: false, recency: false }, { outsideExploration: 1 }]) {
-    for (const difficulty of [1, 2, 3]) {
+    for (const difficulty of [0, 1, 2, 3]) {
       const result = createSamplingExperiment(rows, { ...options, difficulty, history,
         recentIds: rows.map(row => row.id), excludeIds: rows.map(row => row.id) }, controls);
       assert.ok(result.items.length > 0);

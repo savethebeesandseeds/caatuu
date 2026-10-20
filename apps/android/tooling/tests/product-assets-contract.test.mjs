@@ -925,10 +925,11 @@ test("a no-LLM embedding course compiles from its manifest without Czech diction
 test("product transforms fail closed when an expected development anchor drifts", () => {
   const source = readFileSync(join(languageStaticDir, "source/shared/course-profile.js"), "utf8");
   const transformed = transformCourseProfile(source);
-  assert.match(transformed, /llm: false/);
-  assert.match(transformed, /generation: false/);
-  assert.match(transformed, /chat: false/);
-  assert.match(transformed, /offlineModels: false/);
+  const context = { window: {} };
+  runInNewContext(transformed, context);
+  for (const name of ["llm", "generation", "chat", "offlineModels"]) {
+    assert.equal(context.window.CaatuuCourse.capabilities[name], false);
+  }
   assert.throws(
     () => transformCourseProfile(source.replace("      chat: true,", "      chat: maybe,")),
     /course chat capability: expected 1 exact source anchor/

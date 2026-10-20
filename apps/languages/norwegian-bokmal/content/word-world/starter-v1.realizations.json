@@ -26439,6 +26439,1594 @@
           "playable": true
         }
       ]
+    },
+    {
+      "conceptId": "zero-nb-ww-hello",
+      "text": "Hei!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Hei",
+          "pronunciation": null,
+          "gloss": "Hello",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-goodbye",
+      "text": "Ha det!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Ha",
+          "pronunciation": null,
+          "gloss": "have",
+          "playable": true
+        },
+        {
+          "surface": "det",
+          "pronunciation": null,
+          "gloss": "it (goodbye expression)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-thanks",
+      "text": "Takk!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Takk",
+          "pronunciation": null,
+          "gloss": "Thank you",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-yes",
+      "text": "Ja.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Ja",
+          "pronunciation": null,
+          "gloss": "Yes",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-no",
+      "text": "Nei.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Nei",
+          "pronunciation": null,
+          "gloss": "No",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-please",
+      "text": "Vær så snill.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Vær",
+          "pronunciation": null,
+          "gloss": "be",
+          "playable": true
+        },
+        {
+          "surface": "så",
+          "pronunciation": null,
+          "gloss": "so",
+          "playable": true
+        },
+        {
+          "surface": "snill",
+          "pronunciation": null,
+          "gloss": "kind (please)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-sorry",
+      "text": "Unnskyld!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Unnskyld",
+          "pronunciation": null,
+          "gloss": "Sorry",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-help",
+      "text": "Hjelp!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Hjelp",
+          "pronunciation": null,
+          "gloss": "Help",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-i",
+      "text": "jeg",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "jeg",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-you",
+      "text": "du",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "du",
+          "pronunciation": null,
+          "gloss": "you (one person)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-mother",
+      "text": "mor",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "mor",
+          "pronunciation": null,
+          "gloss": "mother",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-father",
+      "text": "far",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "far",
+          "pronunciation": null,
+          "gloss": "father",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-friend",
+      "text": "venn",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "venn",
+          "pronunciation": null,
+          "gloss": "friend",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-child",
+      "text": "barn",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "barn",
+          "pronunciation": null,
+          "gloss": "child",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-one",
+      "text": "én",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "én",
+          "pronunciation": null,
+          "gloss": "one",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-two",
+      "text": "to",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "to",
+          "pronunciation": null,
+          "gloss": "two",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-three",
+      "text": "tre",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "tre",
+          "pronunciation": null,
+          "gloss": "three",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-four",
+      "text": "fire",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "fire",
+          "pronunciation": null,
+          "gloss": "four",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-five",
+      "text": "fem",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "fem",
+          "pronunciation": null,
+          "gloss": "five",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-water",
+      "text": "vann",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "vann",
+          "pronunciation": null,
+          "gloss": "water",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-bread",
+      "text": "brød",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "brød",
+          "pronunciation": null,
+          "gloss": "bread",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-milk",
+      "text": "melk",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "melk",
+          "pronunciation": null,
+          "gloss": "milk",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-apple",
+      "text": "eple",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "eple",
+          "pronunciation": null,
+          "gloss": "apple",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-tea",
+      "text": "te",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "te",
+          "pronunciation": null,
+          "gloss": "tea",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-house",
+      "text": "hus",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "hus",
+          "pronunciation": null,
+          "gloss": "house",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-book",
+      "text": "bok",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "bok",
+          "pronunciation": null,
+          "gloss": "book",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-door",
+      "text": "dør",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "dør",
+          "pronunciation": null,
+          "gloss": "door",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-car",
+      "text": "bil",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "bil",
+          "pronunciation": null,
+          "gloss": "car",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-cat",
+      "text": "katt",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "katt",
+          "pronunciation": null,
+          "gloss": "cat",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-dog",
+      "text": "hund",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "hund",
+          "pronunciation": null,
+          "gloss": "dog",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-big",
+      "text": "stor",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "stor",
+          "pronunciation": null,
+          "gloss": "big",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-small",
+      "text": "liten",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "liten",
+          "pronunciation": null,
+          "gloss": "small",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-good",
+      "text": "god",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "god",
+          "pronunciation": null,
+          "gloss": "good",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-new",
+      "text": "ny",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ny",
+          "pronunciation": null,
+          "gloss": "new",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-red",
+      "text": "rød",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "rød",
+          "pronunciation": null,
+          "gloss": "red",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-green",
+      "text": "grønn",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "grønn",
+          "pronunciation": null,
+          "gloss": "green",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-hot",
+      "text": "varm",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "varm",
+          "pronunciation": null,
+          "gloss": "hot",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-cold",
+      "text": "kald",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "kald",
+          "pronunciation": null,
+          "gloss": "cold",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-eat",
+      "text": "spise",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "spise",
+          "pronunciation": null,
+          "gloss": "eat",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-drink",
+      "text": "drikke",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "drikke",
+          "pronunciation": null,
+          "gloss": "drink",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-go",
+      "text": "gå",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "gå",
+          "pronunciation": null,
+          "gloss": "walk",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-come",
+      "text": "komme",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "komme",
+          "pronunciation": null,
+          "gloss": "come",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-sleep",
+      "text": "sove",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "sove",
+          "pronunciation": null,
+          "gloss": "sleep",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-read",
+      "text": "lese",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "lese",
+          "pronunciation": null,
+          "gloss": "read",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-write",
+      "text": "skrive",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "skrive",
+          "pronunciation": null,
+          "gloss": "write",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-see",
+      "text": "se",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "se",
+          "pronunciation": null,
+          "gloss": "see",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-001",
+      "text": "Hei, venn!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Hei",
+          "pronunciation": null,
+          "gloss": "hello",
+          "playable": true
+        },
+        {
+          "surface": "venn",
+          "pronunciation": null,
+          "gloss": "friend",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-002",
+      "text": "Ja, takk.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Ja",
+          "pronunciation": null,
+          "gloss": "yes",
+          "playable": true
+        },
+        {
+          "surface": "takk",
+          "pronunciation": null,
+          "gloss": "thanks (polite acceptance)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-003",
+      "text": "Nei, takk.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Nei",
+          "pronunciation": null,
+          "gloss": "no",
+          "playable": true
+        },
+        {
+          "surface": "takk",
+          "pronunciation": null,
+          "gloss": "thank you",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-004",
+      "text": "God morgen!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "God",
+          "pronunciation": null,
+          "gloss": "good",
+          "playable": true
+        },
+        {
+          "surface": "morgen",
+          "pronunciation": null,
+          "gloss": "morning",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-005",
+      "text": "God natt!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "God",
+          "pronunciation": null,
+          "gloss": "good",
+          "playable": true
+        },
+        {
+          "surface": "natt",
+          "pronunciation": null,
+          "gloss": "night",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-006",
+      "text": "Jeg er her.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Jeg",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "er",
+          "pronunciation": null,
+          "gloss": "am",
+          "playable": true
+        },
+        {
+          "surface": "her",
+          "pronunciation": null,
+          "gloss": "here",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-007",
+      "text": "Du er her.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Du",
+          "pronunciation": null,
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "er",
+          "pronunciation": null,
+          "gloss": "are",
+          "playable": true
+        },
+        {
+          "surface": "her",
+          "pronunciation": null,
+          "gloss": "here",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-008",
+      "text": "Jeg er hjemme.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Jeg",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "er",
+          "pronunciation": null,
+          "gloss": "am",
+          "playable": true
+        },
+        {
+          "surface": "hjemme",
+          "pronunciation": null,
+          "gloss": "at home",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-009",
+      "text": "Du er hjemme.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Du",
+          "pronunciation": null,
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "er",
+          "pronunciation": null,
+          "gloss": "are",
+          "playable": true
+        },
+        {
+          "surface": "hjemme",
+          "pronunciation": null,
+          "gloss": "at home",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-010",
+      "text": "Jeg har det bra.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Jeg",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "har",
+          "pronunciation": null,
+          "gloss": "have",
+          "playable": true
+        },
+        {
+          "surface": "det",
+          "pronunciation": null,
+          "gloss": "it",
+          "playable": true
+        },
+        {
+          "surface": "bra",
+          "pronunciation": null,
+          "gloss": "well",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-011",
+      "text": "Dette er vann.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Dette",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "er",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "vann",
+          "pronunciation": null,
+          "gloss": "water",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-012",
+      "text": "Dette er brød.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Dette",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "er",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "brød",
+          "pronunciation": null,
+          "gloss": "bread",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-013",
+      "text": "Dette er melk.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Dette",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "er",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "melk",
+          "pronunciation": null,
+          "gloss": "milk",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-014",
+      "text": "Dette er te.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Dette",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "er",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "te",
+          "pronunciation": null,
+          "gloss": "tea",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-015",
+      "text": "Dette er en bok.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Dette",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "er",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "en",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "bok",
+          "pronunciation": null,
+          "gloss": "book",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-016",
+      "text": "Dette er et hus.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Dette",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "er",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "et",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "hus",
+          "pronunciation": null,
+          "gloss": "house",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-017",
+      "text": "En katt.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "En",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "katt",
+          "pronunciation": null,
+          "gloss": "cat",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-018",
+      "text": "En hund.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "En",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "hund",
+          "pronunciation": null,
+          "gloss": "dog",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-019",
+      "text": "Et eple.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Et",
+          "pronunciation": null,
+          "gloss": "an",
+          "playable": true
+        },
+        {
+          "surface": "eple",
+          "pronunciation": null,
+          "gloss": "apple",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-020",
+      "text": "En rød bil.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "En",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "rød",
+          "pronunciation": null,
+          "gloss": "red",
+          "playable": true
+        },
+        {
+          "surface": "bil",
+          "pronunciation": null,
+          "gloss": "car",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-021",
+      "text": "En grønn bok.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "En",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "grønn",
+          "pronunciation": null,
+          "gloss": "green",
+          "playable": true
+        },
+        {
+          "surface": "bok",
+          "pronunciation": null,
+          "gloss": "book",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-022",
+      "text": "En stor hund.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "En",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "stor",
+          "pronunciation": null,
+          "gloss": "big",
+          "playable": true
+        },
+        {
+          "surface": "hund",
+          "pronunciation": null,
+          "gloss": "dog",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-023",
+      "text": "En liten katt.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "En",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "liten",
+          "pronunciation": null,
+          "gloss": "small",
+          "playable": true
+        },
+        {
+          "surface": "katt",
+          "pronunciation": null,
+          "gloss": "cat",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-024",
+      "text": "En ny bok.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "En",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "ny",
+          "pronunciation": null,
+          "gloss": "new",
+          "playable": true
+        },
+        {
+          "surface": "bok",
+          "pronunciation": null,
+          "gloss": "book",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-025",
+      "text": "Kaldt vann.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Kaldt",
+          "pronunciation": null,
+          "gloss": "cold",
+          "playable": true
+        },
+        {
+          "surface": "vann",
+          "pronunciation": null,
+          "gloss": "water",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-026",
+      "text": "Varm melk.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Varm",
+          "pronunciation": null,
+          "gloss": "warm",
+          "playable": true
+        },
+        {
+          "surface": "melk",
+          "pronunciation": null,
+          "gloss": "milk",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-027",
+      "text": "Varm te.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Varm",
+          "pronunciation": null,
+          "gloss": "hot",
+          "playable": true
+        },
+        {
+          "surface": "te",
+          "pronunciation": null,
+          "gloss": "tea",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-028",
+      "text": "To katter.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "To",
+          "pronunciation": null,
+          "gloss": "two",
+          "playable": true
+        },
+        {
+          "surface": "katter",
+          "pronunciation": null,
+          "gloss": "cats",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-029",
+      "text": "Tre bøker.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Tre",
+          "pronunciation": null,
+          "gloss": "three",
+          "playable": true
+        },
+        {
+          "surface": "bøker",
+          "pronunciation": null,
+          "gloss": "books",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-030",
+      "text": "Jeg spiser.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Jeg",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "spiser",
+          "pronunciation": null,
+          "gloss": "eat",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-031",
+      "text": "Du spiser.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Du",
+          "pronunciation": null,
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "spiser",
+          "pronunciation": null,
+          "gloss": "eat",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-032",
+      "text": "Jeg drikker.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Jeg",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "drikker",
+          "pronunciation": null,
+          "gloss": "drink",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-033",
+      "text": "Du drikker.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Du",
+          "pronunciation": null,
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "drikker",
+          "pronunciation": null,
+          "gloss": "drink",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-034",
+      "text": "Jeg drikker vann.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Jeg",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "drikker",
+          "pronunciation": null,
+          "gloss": "drink",
+          "playable": true
+        },
+        {
+          "surface": "vann",
+          "pronunciation": null,
+          "gloss": "water",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-035",
+      "text": "Du drikker melk.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Du",
+          "pronunciation": null,
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "drikker",
+          "pronunciation": null,
+          "gloss": "drink",
+          "playable": true
+        },
+        {
+          "surface": "melk",
+          "pronunciation": null,
+          "gloss": "milk",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-036",
+      "text": "Jeg leser.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Jeg",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "leser",
+          "pronunciation": null,
+          "gloss": "read",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-037",
+      "text": "Du leser.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Du",
+          "pronunciation": null,
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "leser",
+          "pronunciation": null,
+          "gloss": "read",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-038",
+      "text": "Jeg sover.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Jeg",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "sover",
+          "pronunciation": null,
+          "gloss": "sleep",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-039",
+      "text": "Jeg ser en katt.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Jeg",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "ser",
+          "pronunciation": null,
+          "gloss": "see",
+          "playable": true
+        },
+        {
+          "surface": "en",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "katt",
+          "pronunciation": null,
+          "gloss": "cat",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-040",
+      "text": "Du ser en hund.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Du",
+          "pronunciation": null,
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "ser",
+          "pronunciation": null,
+          "gloss": "see",
+          "playable": true
+        },
+        {
+          "surface": "en",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "hund",
+          "pronunciation": null,
+          "gloss": "dog",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-041",
+      "text": "Jeg har en bok.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Jeg",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "har",
+          "pronunciation": null,
+          "gloss": "have",
+          "playable": true
+        },
+        {
+          "surface": "en",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "bok",
+          "pronunciation": null,
+          "gloss": "book",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-nb-ww-phrase-042",
+      "text": "Du har et eple.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Du",
+          "pronunciation": null,
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "har",
+          "pronunciation": null,
+          "gloss": "have",
+          "playable": true
+        },
+        {
+          "surface": "et",
+          "pronunciation": null,
+          "gloss": "an",
+          "playable": true
+        },
+        {
+          "surface": "eple",
+          "pronunciation": null,
+          "gloss": "apple",
+          "playable": true
+        }
+      ]
     }
   ]
 }

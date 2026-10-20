@@ -66,7 +66,7 @@
       "required": ["id", "revision", "difficulty", "usefulness", "complexity", "topic", "familyId", "targetText", "learnerBaseText", "englishText", "embeddingText", "focus", "correctChoiceId", "choices"],
       "properties": {
         "id": {"$ref": "#/$defs/id"}, "revision": {"type": "integer", "minimum": 1},
-        "difficulty": {"enum": [1, 2, 3]}, "usefulness": {"$ref": "#/$defs/grade"}, "complexity": {"$ref": "#/$defs/grade"},
+        "difficulty": {"enum": [0, 1, 2, 3]}, "usefulness": {"$ref": "#/$defs/grade"}, "complexity": {"$ref": "#/$defs/grade"},
         "topic": {"$ref": "#/$defs/text"}, "familyId": {"$ref": "#/$defs/id"},
         "targetText": {"$ref": "#/$defs/text"}, "learnerBaseText": {"$ref": "#/$defs/text"},
         "targetReading": {"$ref": "#/$defs/targetReading"},

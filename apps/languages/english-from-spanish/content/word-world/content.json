@@ -49613,6 +49613,5568 @@
       "annotations": {},
       "usefulness": 92,
       "complexity": 23
+    },
+    {
+      "id": "ww-zero-cat",
+      "difficulty": 0,
+      "topic": "objects",
+      "englishText": "cat",
+      "embeddingText": "First words: cat",
+      "englishAlternates": [],
+      "targetText": "cat",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "cat",
+          "pronunciation": null,
+          "gloss": "cat",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "gato",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "cat",
+            "text": "gato"
+          }
+        ]
+      },
+      "sceneQuery": "cat",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.objects",
+          "order": 1,
+          "title": "Cosas cotidianas",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "objects"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-dog",
+      "difficulty": 0,
+      "topic": "objects",
+      "englishText": "dog",
+      "embeddingText": "First words: dog",
+      "englishAlternates": [],
+      "targetText": "dog",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "dog",
+          "pronunciation": null,
+          "gloss": "dog",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "perro",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "dog",
+            "text": "perro"
+          }
+        ]
+      },
+      "sceneQuery": "dog",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.objects",
+          "order": 2,
+          "title": "Cosas cotidianas",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "objects"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-water",
+      "difficulty": 0,
+      "topic": "objects",
+      "englishText": "water",
+      "embeddingText": "First words: water",
+      "englishAlternates": [],
+      "targetText": "water",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "water",
+          "pronunciation": null,
+          "gloss": "water",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "agua",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "water",
+            "text": "agua"
+          }
+        ]
+      },
+      "sceneQuery": "water",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.objects",
+          "order": 3,
+          "title": "Cosas cotidianas",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "objects"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-bread",
+      "difficulty": 0,
+      "topic": "objects",
+      "englishText": "bread",
+      "embeddingText": "First words: bread",
+      "englishAlternates": [],
+      "targetText": "bread",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "bread",
+          "pronunciation": null,
+          "gloss": "bread",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "pan",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "bread",
+            "text": "pan"
+          }
+        ]
+      },
+      "sceneQuery": "bread",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.objects",
+          "order": 4,
+          "title": "Cosas cotidianas",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "objects"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-milk",
+      "difficulty": 0,
+      "topic": "objects",
+      "englishText": "milk",
+      "embeddingText": "First words: milk",
+      "englishAlternates": [],
+      "targetText": "milk",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "milk",
+          "pronunciation": null,
+          "gloss": "milk",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "leche",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "milk",
+            "text": "leche"
+          }
+        ]
+      },
+      "sceneQuery": "milk",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.objects",
+          "order": 5,
+          "title": "Cosas cotidianas",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "objects"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-apple",
+      "difficulty": 0,
+      "topic": "objects",
+      "englishText": "apple",
+      "embeddingText": "First words: apple",
+      "englishAlternates": [],
+      "targetText": "apple",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "apple",
+          "pronunciation": null,
+          "gloss": "apple",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "manzana",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "apple",
+            "text": "manzana"
+          }
+        ]
+      },
+      "sceneQuery": "apple",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.objects",
+          "order": 6,
+          "title": "Cosas cotidianas",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "objects"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-rice",
+      "difficulty": 0,
+      "topic": "objects",
+      "englishText": "rice",
+      "embeddingText": "First words: rice",
+      "englishAlternates": [],
+      "targetText": "rice",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "rice",
+          "pronunciation": null,
+          "gloss": "rice",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "arroz",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "rice",
+            "text": "arroz"
+          }
+        ]
+      },
+      "sceneQuery": "rice",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.objects",
+          "order": 7,
+          "title": "Cosas cotidianas",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "objects"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-tea",
+      "difficulty": 0,
+      "topic": "objects",
+      "englishText": "tea",
+      "embeddingText": "First words: tea",
+      "englishAlternates": [],
+      "targetText": "tea",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "tea",
+          "pronunciation": null,
+          "gloss": "tea",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "té",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "tea",
+            "text": "té"
+          }
+        ]
+      },
+      "sceneQuery": "tea",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.objects",
+          "order": 8,
+          "title": "Cosas cotidianas",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "objects"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-book",
+      "difficulty": 0,
+      "topic": "objects",
+      "englishText": "book",
+      "embeddingText": "First words: book",
+      "englishAlternates": [],
+      "targetText": "book",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "book",
+          "pronunciation": null,
+          "gloss": "book",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "libro",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "book",
+            "text": "libro"
+          }
+        ]
+      },
+      "sceneQuery": "book",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.objects",
+          "order": 9,
+          "title": "Cosas cotidianas",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "objects"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-pen",
+      "difficulty": 0,
+      "topic": "objects",
+      "englishText": "pen",
+      "embeddingText": "First words: pen",
+      "englishAlternates": [],
+      "targetText": "pen",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "pen",
+          "pronunciation": null,
+          "gloss": "pen",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "bolígrafo",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "pen",
+            "text": "bolígrafo"
+          }
+        ]
+      },
+      "sceneQuery": "pen",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.objects",
+          "order": 10,
+          "title": "Cosas cotidianas",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "objects"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-house",
+      "difficulty": 0,
+      "topic": "objects",
+      "englishText": "house",
+      "embeddingText": "First words: house",
+      "englishAlternates": [],
+      "targetText": "house",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "house",
+          "pronunciation": null,
+          "gloss": "house",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "casa",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "house",
+            "text": "casa"
+          }
+        ]
+      },
+      "sceneQuery": "house",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.objects",
+          "order": 11,
+          "title": "Cosas cotidianas",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "objects"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-door",
+      "difficulty": 0,
+      "topic": "objects",
+      "englishText": "door",
+      "embeddingText": "First words: door",
+      "englishAlternates": [],
+      "targetText": "door",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "door",
+          "pronunciation": null,
+          "gloss": "door",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "puerta",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "door",
+            "text": "puerta"
+          }
+        ]
+      },
+      "sceneQuery": "door",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.objects",
+          "order": 12,
+          "title": "Cosas cotidianas",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "objects"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-table",
+      "difficulty": 0,
+      "topic": "objects",
+      "englishText": "table",
+      "embeddingText": "First words: table",
+      "englishAlternates": [],
+      "targetText": "table",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "table",
+          "pronunciation": null,
+          "gloss": "table",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "mesa",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "table",
+            "text": "mesa"
+          }
+        ]
+      },
+      "sceneQuery": "table",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.objects",
+          "order": 13,
+          "title": "Cosas cotidianas",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "objects"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-chair",
+      "difficulty": 0,
+      "topic": "objects",
+      "englishText": "chair",
+      "embeddingText": "First words: chair",
+      "englishAlternates": [],
+      "targetText": "chair",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "chair",
+          "pronunciation": null,
+          "gloss": "chair",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "silla",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "chair",
+            "text": "silla"
+          }
+        ]
+      },
+      "sceneQuery": "chair",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.objects",
+          "order": 14,
+          "title": "Cosas cotidianas",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "objects"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-bed",
+      "difficulty": 0,
+      "topic": "objects",
+      "englishText": "bed",
+      "embeddingText": "First words: bed",
+      "englishAlternates": [],
+      "targetText": "bed",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "bed",
+          "pronunciation": null,
+          "gloss": "bed",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "cama",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "bed",
+            "text": "cama"
+          }
+        ]
+      },
+      "sceneQuery": "bed",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.objects",
+          "order": 15,
+          "title": "Cosas cotidianas",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "objects"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-bag",
+      "difficulty": 0,
+      "topic": "objects",
+      "englishText": "bag",
+      "embeddingText": "First words: bag",
+      "englishAlternates": [],
+      "targetText": "bag",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "bag",
+          "pronunciation": null,
+          "gloss": "bag",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "bolsa",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "bag",
+            "text": "bolsa"
+          }
+        ]
+      },
+      "sceneQuery": "bag",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.objects",
+          "order": 16,
+          "title": "Cosas cotidianas",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "objects"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-ball",
+      "difficulty": 0,
+      "topic": "objects",
+      "englishText": "ball",
+      "embeddingText": "First words: ball",
+      "englishAlternates": [],
+      "targetText": "ball",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ball",
+          "pronunciation": null,
+          "gloss": "ball",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "pelota",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "ball",
+            "text": "pelota"
+          }
+        ]
+      },
+      "sceneQuery": "ball",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.objects",
+          "order": 17,
+          "title": "Cosas cotidianas",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "objects"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-sun",
+      "difficulty": 0,
+      "topic": "objects",
+      "englishText": "sun",
+      "embeddingText": "First words: sun",
+      "englishAlternates": [],
+      "targetText": "sun",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "sun",
+          "pronunciation": null,
+          "gloss": "sun",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "sol",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "sun",
+            "text": "sol"
+          }
+        ]
+      },
+      "sceneQuery": "sun",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.objects",
+          "order": 18,
+          "title": "Cosas cotidianas",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "objects"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-hand",
+      "difficulty": 0,
+      "topic": "objects",
+      "englishText": "hand",
+      "embeddingText": "First words: hand",
+      "englishAlternates": [],
+      "targetText": "hand",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "hand",
+          "pronunciation": null,
+          "gloss": "hand",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "mano",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "hand",
+            "text": "mano"
+          }
+        ]
+      },
+      "sceneQuery": "hand",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.objects",
+          "order": 19,
+          "title": "Cosas cotidianas",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "objects"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-eye",
+      "difficulty": 0,
+      "topic": "objects",
+      "englishText": "eye",
+      "embeddingText": "First words: eye",
+      "englishAlternates": [],
+      "targetText": "eye",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "eye",
+          "pronunciation": null,
+          "gloss": "eye",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "ojo",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "eye",
+            "text": "ojo"
+          }
+        ]
+      },
+      "sceneQuery": "eye",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.objects",
+          "order": 20,
+          "title": "Cosas cotidianas",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "objects"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 2
+    },
+    {
+      "id": "ww-zero-eat",
+      "difficulty": 0,
+      "topic": "actions",
+      "englishText": "eat",
+      "embeddingText": "First words: eat",
+      "englishAlternates": [],
+      "targetText": "eat",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "eat",
+          "pronunciation": null,
+          "gloss": "eat",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "comer",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "eat",
+            "text": "comer"
+          }
+        ]
+      },
+      "sceneQuery": "eat",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.actions",
+          "order": 21,
+          "title": "Acciones básicas",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "actions"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-drink",
+      "difficulty": 0,
+      "topic": "actions",
+      "englishText": "drink",
+      "embeddingText": "First words: drink",
+      "englishAlternates": [],
+      "targetText": "drink",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "drink",
+          "pronunciation": null,
+          "gloss": "drink",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "beber",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "drink",
+            "text": "beber"
+          }
+        ]
+      },
+      "sceneQuery": "drink",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.actions",
+          "order": 22,
+          "title": "Acciones básicas",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "actions"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-go",
+      "difficulty": 0,
+      "topic": "actions",
+      "englishText": "go",
+      "embeddingText": "First words: go",
+      "englishAlternates": [],
+      "targetText": "go",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "go",
+          "pronunciation": null,
+          "gloss": "go",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "ir",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "go",
+            "text": "ir"
+          }
+        ]
+      },
+      "sceneQuery": "go",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.actions",
+          "order": 23,
+          "title": "Acciones básicas",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "actions"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-see",
+      "difficulty": 0,
+      "topic": "actions",
+      "englishText": "see",
+      "embeddingText": "First words: see",
+      "englishAlternates": [],
+      "targetText": "see",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "see",
+          "pronunciation": null,
+          "gloss": "see",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "ver",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "see",
+            "text": "ver"
+          }
+        ]
+      },
+      "sceneQuery": "see",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.actions",
+          "order": 24,
+          "title": "Acciones básicas",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "actions"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-want",
+      "difficulty": 0,
+      "topic": "actions",
+      "englishText": "want",
+      "embeddingText": "First words: want",
+      "englishAlternates": [],
+      "targetText": "want",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "want",
+          "pronunciation": null,
+          "gloss": "want",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "querer",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "want",
+            "text": "querer"
+          }
+        ]
+      },
+      "sceneQuery": "want",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.actions",
+          "order": 25,
+          "title": "Acciones básicas",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "actions"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-have",
+      "difficulty": 0,
+      "topic": "actions",
+      "englishText": "have",
+      "embeddingText": "First words: have",
+      "englishAlternates": [],
+      "targetText": "have",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "have",
+          "pronunciation": null,
+          "gloss": "have",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "tener",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "have",
+            "text": "tener"
+          }
+        ]
+      },
+      "sceneQuery": "have",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.actions",
+          "order": 26,
+          "title": "Acciones básicas",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "actions"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-like",
+      "difficulty": 0,
+      "topic": "actions",
+      "englishText": "like",
+      "embeddingText": "First words: like",
+      "englishAlternates": [],
+      "targetText": "like",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "like",
+          "pronunciation": null,
+          "gloss": "like",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "gustar",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "like",
+            "text": "gustar"
+          }
+        ]
+      },
+      "sceneQuery": "like",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.actions",
+          "order": 27,
+          "title": "Acciones básicas",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "actions"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-sleep",
+      "difficulty": 0,
+      "topic": "actions",
+      "englishText": "sleep",
+      "embeddingText": "First words: sleep",
+      "englishAlternates": [],
+      "targetText": "sleep",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "sleep",
+          "pronunciation": null,
+          "gloss": "sleep",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "dormir",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "sleep",
+            "text": "dormir"
+          }
+        ]
+      },
+      "sceneQuery": "sleep",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.actions",
+          "order": 28,
+          "title": "Acciones básicas",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "actions"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-sit",
+      "difficulty": 0,
+      "topic": "actions",
+      "englishText": "sit",
+      "embeddingText": "First words: sit",
+      "englishAlternates": [],
+      "targetText": "sit",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "sit",
+          "pronunciation": null,
+          "gloss": "sit",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "sentarse",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "sit",
+            "text": "sentarse"
+          }
+        ]
+      },
+      "sceneQuery": "sit",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.actions",
+          "order": 29,
+          "title": "Acciones básicas",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "actions"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-read",
+      "difficulty": 0,
+      "topic": "actions",
+      "englishText": "read",
+      "embeddingText": "First words: read",
+      "englishAlternates": [],
+      "targetText": "read",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "read",
+          "pronunciation": null,
+          "gloss": "read",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "leer",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "read",
+            "text": "leer"
+          }
+        ]
+      },
+      "sceneQuery": "read",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.actions",
+          "order": 30,
+          "title": "Acciones básicas",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "actions"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-write",
+      "difficulty": 0,
+      "topic": "actions",
+      "englishText": "write",
+      "embeddingText": "First words: write",
+      "englishAlternates": [],
+      "targetText": "write",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "write",
+          "pronunciation": null,
+          "gloss": "write",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "escribir",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "write",
+            "text": "escribir"
+          }
+        ]
+      },
+      "sceneQuery": "write",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.actions",
+          "order": 31,
+          "title": "Acciones básicas",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "actions"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-hear",
+      "difficulty": 0,
+      "topic": "actions",
+      "englishText": "hear",
+      "embeddingText": "First words: hear",
+      "englishAlternates": [],
+      "targetText": "hear",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "hear",
+          "pronunciation": null,
+          "gloss": "hear",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "oír",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "hear",
+            "text": "oír"
+          }
+        ]
+      },
+      "sceneQuery": "hear",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.actions",
+          "order": 32,
+          "title": "Acciones básicas",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "actions"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-i",
+      "difficulty": 0,
+      "topic": "people",
+      "englishText": "I",
+      "embeddingText": "First words: I",
+      "englishAlternates": [],
+      "targetText": "I",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "I",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "yo",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "I",
+            "text": "yo"
+          }
+        ]
+      },
+      "sceneQuery": "I",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.people",
+          "order": 33,
+          "title": "Yo, tú y nosotros",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "people"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-you",
+      "difficulty": 0,
+      "topic": "people",
+      "englishText": "you",
+      "embeddingText": "First words: you",
+      "englishAlternates": [],
+      "targetText": "you",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "you",
+          "pronunciation": null,
+          "gloss": "Thank you",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "tú",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "you",
+            "text": "tú"
+          }
+        ]
+      },
+      "sceneQuery": "you",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.people",
+          "order": 34,
+          "title": "Yo, tú y nosotros",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "people"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-we",
+      "difficulty": 0,
+      "topic": "people",
+      "englishText": "we",
+      "embeddingText": "First words: we",
+      "englishAlternates": [],
+      "targetText": "we",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "we",
+          "pronunciation": null,
+          "gloss": "we",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "nosotros",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "we",
+            "text": "nosotros"
+          }
+        ]
+      },
+      "sceneQuery": "we",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.people",
+          "order": 35,
+          "title": "Yo, tú y nosotros",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "people"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 3
+    },
+    {
+      "id": "ww-zero-hello",
+      "difficulty": 0,
+      "topic": "first-contact",
+      "englishText": "Hello!",
+      "embeddingText": "First words: Hello!",
+      "englishAlternates": [],
+      "targetText": "Hello!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Hello",
+          "pronunciation": null,
+          "gloss": "Hello",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "¡Hola!",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "Hello",
+            "text": "Hola"
+          }
+        ]
+      },
+      "sceneQuery": "Hello",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.first-contact",
+          "order": 36,
+          "title": "Primer contacto",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "first-contact"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 1
+    },
+    {
+      "id": "ww-zero-goodbye",
+      "difficulty": 0,
+      "topic": "first-contact",
+      "englishText": "Goodbye!",
+      "embeddingText": "First words: Goodbye!",
+      "englishAlternates": [],
+      "targetText": "Goodbye!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Goodbye",
+          "pronunciation": null,
+          "gloss": "Goodbye",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "¡Adiós!",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "Goodbye",
+            "text": "Adiós"
+          }
+        ]
+      },
+      "sceneQuery": "Goodbye",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.first-contact",
+          "order": 37,
+          "title": "Primer contacto",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "first-contact"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 1
+    },
+    {
+      "id": "ww-zero-yes",
+      "difficulty": 0,
+      "topic": "first-contact",
+      "englishText": "Yes.",
+      "embeddingText": "First words: Yes.",
+      "englishAlternates": [],
+      "targetText": "Yes.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Yes",
+          "pronunciation": null,
+          "gloss": "Yes",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Sí.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "Yes",
+            "text": "Sí"
+          }
+        ]
+      },
+      "sceneQuery": "Yes",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.first-contact",
+          "order": 38,
+          "title": "Primer contacto",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "first-contact"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 1
+    },
+    {
+      "id": "ww-zero-no",
+      "difficulty": 0,
+      "topic": "first-contact",
+      "englishText": "No.",
+      "embeddingText": "First words: No.",
+      "englishAlternates": [],
+      "targetText": "No.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "No",
+          "pronunciation": null,
+          "gloss": "No",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "No.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "No",
+            "text": "No"
+          }
+        ]
+      },
+      "sceneQuery": "No",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.first-contact",
+          "order": 39,
+          "title": "Primer contacto",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "first-contact"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 1
+    },
+    {
+      "id": "ww-zero-please",
+      "difficulty": 0,
+      "topic": "first-contact",
+      "englishText": "Please.",
+      "embeddingText": "First words: Please.",
+      "englishAlternates": [],
+      "targetText": "Please.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Please",
+          "pronunciation": null,
+          "gloss": "Please",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Por favor.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "Please",
+            "text": "Por favor"
+          }
+        ]
+      },
+      "sceneQuery": "Please",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.first-contact",
+          "order": 40,
+          "title": "Primer contacto",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "first-contact"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 1
+    },
+    {
+      "id": "ww-zero-thanks",
+      "difficulty": 0,
+      "topic": "first-contact",
+      "englishText": "Thank you.",
+      "embeddingText": "First words: Thank you.",
+      "englishAlternates": [],
+      "targetText": "Thank you.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "Thank",
+          "pronunciation": null,
+          "gloss": "Thank you",
+          "playable": true
+        },
+        {
+          "surface": "you",
+          "pronunciation": null,
+          "gloss": "Thank you",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Gracias.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "Thank",
+            "text": "Gracias."
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "you",
+            "text": "tú"
+          }
+        ]
+      },
+      "sceneQuery": "Thank you",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.first-contact",
+          "order": 41,
+          "title": "Primer contacto",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "first-contact"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 1
+    },
+    {
+      "id": "ww-zero-one",
+      "difficulty": 0,
+      "topic": "numbers",
+      "englishText": "one",
+      "embeddingText": "First words: one",
+      "englishAlternates": [],
+      "targetText": "one",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "one",
+          "pronunciation": null,
+          "gloss": "one",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "uno",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "one",
+            "text": "uno"
+          }
+        ]
+      },
+      "sceneQuery": "one",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.numbers",
+          "order": 42,
+          "title": "Del uno al cinco",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "numbers"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 4
+    },
+    {
+      "id": "ww-zero-two",
+      "difficulty": 0,
+      "topic": "numbers",
+      "englishText": "two",
+      "embeddingText": "First words: two",
+      "englishAlternates": [],
+      "targetText": "two",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "two",
+          "pronunciation": null,
+          "gloss": "two",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "dos",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "two",
+            "text": "dos"
+          }
+        ]
+      },
+      "sceneQuery": "two",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.numbers",
+          "order": 43,
+          "title": "Del uno al cinco",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "numbers"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 4
+    },
+    {
+      "id": "ww-zero-three",
+      "difficulty": 0,
+      "topic": "numbers",
+      "englishText": "three",
+      "embeddingText": "First words: three",
+      "englishAlternates": [],
+      "targetText": "three",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "three",
+          "pronunciation": null,
+          "gloss": "three",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "tres",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "three",
+            "text": "tres"
+          }
+        ]
+      },
+      "sceneQuery": "three",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.numbers",
+          "order": 44,
+          "title": "Del uno al cinco",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "numbers"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 4
+    },
+    {
+      "id": "ww-zero-four",
+      "difficulty": 0,
+      "topic": "numbers",
+      "englishText": "four",
+      "embeddingText": "First words: four",
+      "englishAlternates": [],
+      "targetText": "four",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "four",
+          "pronunciation": null,
+          "gloss": "four",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "cuatro",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "four",
+            "text": "cuatro"
+          }
+        ]
+      },
+      "sceneQuery": "four",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.numbers",
+          "order": 45,
+          "title": "Del uno al cinco",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "numbers"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 4
+    },
+    {
+      "id": "ww-zero-five",
+      "difficulty": 0,
+      "topic": "numbers",
+      "englishText": "five",
+      "embeddingText": "First words: five",
+      "englishAlternates": [],
+      "targetText": "five",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "five",
+          "pronunciation": null,
+          "gloss": "five",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "cinco",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "five",
+            "text": "cinco"
+          }
+        ]
+      },
+      "sceneQuery": "five",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.numbers",
+          "order": 46,
+          "title": "Del uno al cinco",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "numbers"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 4
+    },
+    {
+      "id": "ww-zero-big",
+      "difficulty": 0,
+      "topic": "describing",
+      "englishText": "big",
+      "embeddingText": "First words: big",
+      "englishAlternates": [],
+      "targetText": "big",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "big",
+          "pronunciation": null,
+          "gloss": "big",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "grande",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "big",
+            "text": "grande"
+          }
+        ]
+      },
+      "sceneQuery": "big",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.describing",
+          "order": 47,
+          "title": "Tamaño y color",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "describing"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 4
+    },
+    {
+      "id": "ww-zero-small",
+      "difficulty": 0,
+      "topic": "describing",
+      "englishText": "small",
+      "embeddingText": "First words: small",
+      "englishAlternates": [],
+      "targetText": "small",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "small",
+          "pronunciation": null,
+          "gloss": "small",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "pequeño",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "small",
+            "text": "pequeño"
+          }
+        ]
+      },
+      "sceneQuery": "small",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.describing",
+          "order": 48,
+          "title": "Tamaño y color",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "describing"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 4
+    },
+    {
+      "id": "ww-zero-red",
+      "difficulty": 0,
+      "topic": "describing",
+      "englishText": "red",
+      "embeddingText": "First words: red",
+      "englishAlternates": [],
+      "targetText": "red",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "red",
+          "pronunciation": null,
+          "gloss": "red",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "rojo",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "red",
+            "text": "rojo"
+          }
+        ]
+      },
+      "sceneQuery": "red",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.describing",
+          "order": 49,
+          "title": "Tamaño y color",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "describing"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 4
+    },
+    {
+      "id": "ww-zero-green",
+      "difficulty": 0,
+      "topic": "describing",
+      "englishText": "green",
+      "embeddingText": "First words: green",
+      "englishAlternates": [],
+      "targetText": "green",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "green",
+          "pronunciation": null,
+          "gloss": "green",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "verde",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "green",
+            "text": "verde"
+          }
+        ]
+      },
+      "sceneQuery": "green",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.describing",
+          "order": 50,
+          "title": "Tamaño y color",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "describing"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 4
+    },
+    {
+      "id": "ww-zero-this-cat",
+      "difficulty": 0,
+      "topic": "identify",
+      "englishText": "This is a cat.",
+      "embeddingText": "First words: This is a cat.",
+      "englishAlternates": [],
+      "targetText": "This is a cat.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "This",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "is",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "cat",
+          "pronunciation": null,
+          "gloss": "cat",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Esto es un gato.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "This",
+            "text": "esto"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "is",
+            "text": "es"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 2,
+            "surface": "a",
+            "text": "un; una"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 3,
+            "surface": "cat",
+            "text": "gato"
+          }
+        ]
+      },
+      "sceneQuery": "This is a cat",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.identify",
+          "order": 51,
+          "title": "Esto es…",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "identify"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-dog",
+      "difficulty": 0,
+      "topic": "identify",
+      "englishText": "This is a dog.",
+      "embeddingText": "First words: This is a dog.",
+      "englishAlternates": [],
+      "targetText": "This is a dog.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "This",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "is",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "dog",
+          "pronunciation": null,
+          "gloss": "dog",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Esto es un perro.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "This",
+            "text": "esto"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "is",
+            "text": "es"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 2,
+            "surface": "a",
+            "text": "un; una"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 3,
+            "surface": "dog",
+            "text": "perro"
+          }
+        ]
+      },
+      "sceneQuery": "This is a dog",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.identify",
+          "order": 52,
+          "title": "Esto es…",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "identify"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-water",
+      "difficulty": 0,
+      "topic": "identify",
+      "englishText": "This is water.",
+      "embeddingText": "First words: This is water.",
+      "englishAlternates": [],
+      "targetText": "This is water.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "This",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "is",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "water",
+          "pronunciation": null,
+          "gloss": "water",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Esto es agua.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "This",
+            "text": "esto"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "is",
+            "text": "es"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 2,
+            "surface": "water",
+            "text": "agua"
+          }
+        ]
+      },
+      "sceneQuery": "This is water",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.identify",
+          "order": 53,
+          "title": "Esto es…",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "identify"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-bread",
+      "difficulty": 0,
+      "topic": "identify",
+      "englishText": "This is bread.",
+      "embeddingText": "First words: This is bread.",
+      "englishAlternates": [],
+      "targetText": "This is bread.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "This",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "is",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "bread",
+          "pronunciation": null,
+          "gloss": "bread",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Esto es pan.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "This",
+            "text": "esto"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "is",
+            "text": "es"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 2,
+            "surface": "bread",
+            "text": "pan"
+          }
+        ]
+      },
+      "sceneQuery": "This is bread",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.identify",
+          "order": 54,
+          "title": "Esto es…",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "identify"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-milk",
+      "difficulty": 0,
+      "topic": "identify",
+      "englishText": "This is milk.",
+      "embeddingText": "First words: This is milk.",
+      "englishAlternates": [],
+      "targetText": "This is milk.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "This",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "is",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "milk",
+          "pronunciation": null,
+          "gloss": "milk",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Esto es leche.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "This",
+            "text": "esto"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "is",
+            "text": "es"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 2,
+            "surface": "milk",
+            "text": "leche"
+          }
+        ]
+      },
+      "sceneQuery": "This is milk",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.identify",
+          "order": 55,
+          "title": "Esto es…",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "identify"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-apple",
+      "difficulty": 0,
+      "topic": "identify",
+      "englishText": "This is an apple.",
+      "embeddingText": "First words: This is an apple.",
+      "englishAlternates": [],
+      "targetText": "This is an apple.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "This",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "is",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "an",
+          "pronunciation": null,
+          "gloss": "This is an apple",
+          "playable": true
+        },
+        {
+          "surface": "apple",
+          "pronunciation": null,
+          "gloss": "apple",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Esto es una manzana.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "This",
+            "text": "esto"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "is",
+            "text": "es"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 2,
+            "surface": "an",
+            "text": "Esto es una manzana."
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 3,
+            "surface": "apple",
+            "text": "manzana"
+          }
+        ]
+      },
+      "sceneQuery": "This is an apple",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.identify",
+          "order": 56,
+          "title": "Esto es…",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "identify"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-rice",
+      "difficulty": 0,
+      "topic": "identify",
+      "englishText": "This is rice.",
+      "embeddingText": "First words: This is rice.",
+      "englishAlternates": [],
+      "targetText": "This is rice.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "This",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "is",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "rice",
+          "pronunciation": null,
+          "gloss": "rice",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Esto es arroz.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "This",
+            "text": "esto"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "is",
+            "text": "es"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 2,
+            "surface": "rice",
+            "text": "arroz"
+          }
+        ]
+      },
+      "sceneQuery": "This is rice",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.identify",
+          "order": 57,
+          "title": "Esto es…",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "identify"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-tea",
+      "difficulty": 0,
+      "topic": "identify",
+      "englishText": "This is tea.",
+      "embeddingText": "First words: This is tea.",
+      "englishAlternates": [],
+      "targetText": "This is tea.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "This",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "is",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "tea",
+          "pronunciation": null,
+          "gloss": "tea",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Esto es té.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "This",
+            "text": "esto"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "is",
+            "text": "es"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 2,
+            "surface": "tea",
+            "text": "té"
+          }
+        ]
+      },
+      "sceneQuery": "This is tea",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.identify",
+          "order": 58,
+          "title": "Esto es…",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "identify"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-book",
+      "difficulty": 0,
+      "topic": "identify",
+      "englishText": "This is a book.",
+      "embeddingText": "First words: This is a book.",
+      "englishAlternates": [],
+      "targetText": "This is a book.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "This",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "is",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "book",
+          "pronunciation": null,
+          "gloss": "book",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Esto es un libro.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "This",
+            "text": "esto"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "is",
+            "text": "es"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 2,
+            "surface": "a",
+            "text": "un; una"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 3,
+            "surface": "book",
+            "text": "libro"
+          }
+        ]
+      },
+      "sceneQuery": "This is a book",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.identify",
+          "order": 59,
+          "title": "Esto es…",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "identify"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-pen",
+      "difficulty": 0,
+      "topic": "identify",
+      "englishText": "This is a pen.",
+      "embeddingText": "First words: This is a pen.",
+      "englishAlternates": [],
+      "targetText": "This is a pen.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "This",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "is",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "pen",
+          "pronunciation": null,
+          "gloss": "pen",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Esto es un bolígrafo.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "This",
+            "text": "esto"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "is",
+            "text": "es"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 2,
+            "surface": "a",
+            "text": "un; una"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 3,
+            "surface": "pen",
+            "text": "bolígrafo"
+          }
+        ]
+      },
+      "sceneQuery": "This is a pen",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.identify",
+          "order": 60,
+          "title": "Esto es…",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "identify"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-house",
+      "difficulty": 0,
+      "topic": "identify",
+      "englishText": "This is a house.",
+      "embeddingText": "First words: This is a house.",
+      "englishAlternates": [],
+      "targetText": "This is a house.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "This",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "is",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "house",
+          "pronunciation": null,
+          "gloss": "house",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Esto es una casa.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "This",
+            "text": "esto"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "is",
+            "text": "es"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 2,
+            "surface": "a",
+            "text": "un; una"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 3,
+            "surface": "house",
+            "text": "casa"
+          }
+        ]
+      },
+      "sceneQuery": "This is a house",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.identify",
+          "order": 61,
+          "title": "Esto es…",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "identify"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-door",
+      "difficulty": 0,
+      "topic": "identify",
+      "englishText": "This is a door.",
+      "embeddingText": "First words: This is a door.",
+      "englishAlternates": [],
+      "targetText": "This is a door.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "This",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "is",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "door",
+          "pronunciation": null,
+          "gloss": "door",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Esto es una puerta.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "This",
+            "text": "esto"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "is",
+            "text": "es"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 2,
+            "surface": "a",
+            "text": "un; una"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 3,
+            "surface": "door",
+            "text": "puerta"
+          }
+        ]
+      },
+      "sceneQuery": "This is a door",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.identify",
+          "order": 62,
+          "title": "Esto es…",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "identify"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-table",
+      "difficulty": 0,
+      "topic": "identify",
+      "englishText": "This is a table.",
+      "embeddingText": "First words: This is a table.",
+      "englishAlternates": [],
+      "targetText": "This is a table.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "This",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "is",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "table",
+          "pronunciation": null,
+          "gloss": "table",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Esto es una mesa.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "This",
+            "text": "esto"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "is",
+            "text": "es"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 2,
+            "surface": "a",
+            "text": "un; una"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 3,
+            "surface": "table",
+            "text": "mesa"
+          }
+        ]
+      },
+      "sceneQuery": "This is a table",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.identify",
+          "order": 63,
+          "title": "Esto es…",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "identify"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-chair",
+      "difficulty": 0,
+      "topic": "identify",
+      "englishText": "This is a chair.",
+      "embeddingText": "First words: This is a chair.",
+      "englishAlternates": [],
+      "targetText": "This is a chair.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "This",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "is",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "chair",
+          "pronunciation": null,
+          "gloss": "chair",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Esto es una silla.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "This",
+            "text": "esto"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "is",
+            "text": "es"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 2,
+            "surface": "a",
+            "text": "un; una"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 3,
+            "surface": "chair",
+            "text": "silla"
+          }
+        ]
+      },
+      "sceneQuery": "This is a chair",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.identify",
+          "order": 64,
+          "title": "Esto es…",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "identify"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-bed",
+      "difficulty": 0,
+      "topic": "identify",
+      "englishText": "This is a bed.",
+      "embeddingText": "First words: This is a bed.",
+      "englishAlternates": [],
+      "targetText": "This is a bed.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "This",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "is",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "bed",
+          "pronunciation": null,
+          "gloss": "bed",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Esto es una cama.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "This",
+            "text": "esto"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "is",
+            "text": "es"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 2,
+            "surface": "a",
+            "text": "un; una"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 3,
+            "surface": "bed",
+            "text": "cama"
+          }
+        ]
+      },
+      "sceneQuery": "This is a bed",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.identify",
+          "order": 65,
+          "title": "Esto es…",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "identify"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-bag",
+      "difficulty": 0,
+      "topic": "identify",
+      "englishText": "This is a bag.",
+      "embeddingText": "First words: This is a bag.",
+      "englishAlternates": [],
+      "targetText": "This is a bag.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "This",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "is",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "bag",
+          "pronunciation": null,
+          "gloss": "bag",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Esto es una bolsa.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "This",
+            "text": "esto"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "is",
+            "text": "es"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 2,
+            "surface": "a",
+            "text": "un; una"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 3,
+            "surface": "bag",
+            "text": "bolsa"
+          }
+        ]
+      },
+      "sceneQuery": "This is a bag",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.identify",
+          "order": 66,
+          "title": "Esto es…",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "identify"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-ball",
+      "difficulty": 0,
+      "topic": "identify",
+      "englishText": "This is a ball.",
+      "embeddingText": "First words: This is a ball.",
+      "englishAlternates": [],
+      "targetText": "This is a ball.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "This",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "is",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "ball",
+          "pronunciation": null,
+          "gloss": "ball",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Esto es una pelota.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "This",
+            "text": "esto"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "is",
+            "text": "es"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 2,
+            "surface": "a",
+            "text": "un; una"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 3,
+            "surface": "ball",
+            "text": "pelota"
+          }
+        ]
+      },
+      "sceneQuery": "This is a ball",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.identify",
+          "order": 67,
+          "title": "Esto es…",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "identify"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-sun",
+      "difficulty": 0,
+      "topic": "identify",
+      "englishText": "This is the sun.",
+      "embeddingText": "First words: This is the sun.",
+      "englishAlternates": [],
+      "targetText": "This is the sun.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "This",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "is",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "the",
+          "pronunciation": null,
+          "gloss": "the",
+          "playable": true
+        },
+        {
+          "surface": "sun",
+          "pronunciation": null,
+          "gloss": "sun",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Esto es el sol.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "This",
+            "text": "esto"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "is",
+            "text": "es"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 2,
+            "surface": "the",
+            "text": "el"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 3,
+            "surface": "sun",
+            "text": "sol"
+          }
+        ]
+      },
+      "sceneQuery": "This is the sun",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.identify",
+          "order": 68,
+          "title": "Esto es…",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "identify"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-hand",
+      "difficulty": 0,
+      "topic": "identify",
+      "englishText": "This is a hand.",
+      "embeddingText": "First words: This is a hand.",
+      "englishAlternates": [],
+      "targetText": "This is a hand.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "This",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "is",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "hand",
+          "pronunciation": null,
+          "gloss": "hand",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Esto es una mano.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "This",
+            "text": "esto"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "is",
+            "text": "es"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 2,
+            "surface": "a",
+            "text": "un; una"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 3,
+            "surface": "hand",
+            "text": "mano"
+          }
+        ]
+      },
+      "sceneQuery": "This is a hand",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.identify",
+          "order": 69,
+          "title": "Esto es…",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "identify"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-this-eye",
+      "difficulty": 0,
+      "topic": "identify",
+      "englishText": "This is an eye.",
+      "embeddingText": "First words: This is an eye.",
+      "englishAlternates": [],
+      "targetText": "This is an eye.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "This",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "is",
+          "pronunciation": null,
+          "gloss": "is",
+          "playable": true
+        },
+        {
+          "surface": "an",
+          "pronunciation": null,
+          "gloss": "This is an eye",
+          "playable": true
+        },
+        {
+          "surface": "eye",
+          "pronunciation": null,
+          "gloss": "eye",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Esto es un ojo.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "This",
+            "text": "esto"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "is",
+            "text": "es"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 2,
+            "surface": "an",
+            "text": "Esto es un ojo."
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 3,
+            "surface": "eye",
+            "text": "ojo"
+          }
+        ]
+      },
+      "sceneQuery": "This is an eye",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.identify",
+          "order": 70,
+          "title": "Esto es…",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "identify"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "ww-zero-want-water",
+      "difficulty": 0,
+      "topic": "request",
+      "englishText": "I want water.",
+      "embeddingText": "First words: I want water.",
+      "englishAlternates": [],
+      "targetText": "I want water.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "I",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "want",
+          "pronunciation": null,
+          "gloss": "want",
+          "playable": true
+        },
+        {
+          "surface": "water",
+          "pronunciation": null,
+          "gloss": "water",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Quiero agua.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "I",
+            "text": "yo"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "want",
+            "text": "querer"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 2,
+            "surface": "water",
+            "text": "agua"
+          }
+        ]
+      },
+      "sceneQuery": "I want water",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.request",
+          "order": 71,
+          "title": "Quiero…",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "request"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 9
+    },
+    {
+      "id": "ww-zero-want-bread",
+      "difficulty": 0,
+      "topic": "request",
+      "englishText": "I want bread.",
+      "embeddingText": "First words: I want bread.",
+      "englishAlternates": [],
+      "targetText": "I want bread.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "I",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "want",
+          "pronunciation": null,
+          "gloss": "want",
+          "playable": true
+        },
+        {
+          "surface": "bread",
+          "pronunciation": null,
+          "gloss": "bread",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Quiero pan.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "I",
+            "text": "yo"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "want",
+            "text": "querer"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 2,
+            "surface": "bread",
+            "text": "pan"
+          }
+        ]
+      },
+      "sceneQuery": "I want bread",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.request",
+          "order": 72,
+          "title": "Quiero…",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "request"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 9
+    },
+    {
+      "id": "ww-zero-want-milk",
+      "difficulty": 0,
+      "topic": "request",
+      "englishText": "I want milk.",
+      "embeddingText": "First words: I want milk.",
+      "englishAlternates": [],
+      "targetText": "I want milk.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "I",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "want",
+          "pronunciation": null,
+          "gloss": "want",
+          "playable": true
+        },
+        {
+          "surface": "milk",
+          "pronunciation": null,
+          "gloss": "milk",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Quiero leche.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "I",
+            "text": "yo"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "want",
+            "text": "querer"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 2,
+            "surface": "milk",
+            "text": "leche"
+          }
+        ]
+      },
+      "sceneQuery": "I want milk",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.request",
+          "order": 73,
+          "title": "Quiero…",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "request"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 9
+    },
+    {
+      "id": "ww-zero-want-apple",
+      "difficulty": 0,
+      "topic": "request",
+      "englishText": "I want an apple.",
+      "embeddingText": "First words: I want an apple.",
+      "englishAlternates": [],
+      "targetText": "I want an apple.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "I",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "want",
+          "pronunciation": null,
+          "gloss": "want",
+          "playable": true
+        },
+        {
+          "surface": "an",
+          "pronunciation": null,
+          "gloss": "I want an apple",
+          "playable": true
+        },
+        {
+          "surface": "apple",
+          "pronunciation": null,
+          "gloss": "apple",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Quiero una manzana.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "I",
+            "text": "yo"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "want",
+            "text": "querer"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 2,
+            "surface": "an",
+            "text": "Quiero una manzana."
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 3,
+            "surface": "apple",
+            "text": "manzana"
+          }
+        ]
+      },
+      "sceneQuery": "I want an apple",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.request",
+          "order": 74,
+          "title": "Quiero…",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "request"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 9
+    },
+    {
+      "id": "ww-zero-want-rice",
+      "difficulty": 0,
+      "topic": "request",
+      "englishText": "I want rice.",
+      "embeddingText": "First words: I want rice.",
+      "englishAlternates": [],
+      "targetText": "I want rice.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "I",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "want",
+          "pronunciation": null,
+          "gloss": "want",
+          "playable": true
+        },
+        {
+          "surface": "rice",
+          "pronunciation": null,
+          "gloss": "rice",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Quiero arroz.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "I",
+            "text": "yo"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "want",
+            "text": "querer"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 2,
+            "surface": "rice",
+            "text": "arroz"
+          }
+        ]
+      },
+      "sceneQuery": "I want rice",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.request",
+          "order": 75,
+          "title": "Quiero…",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "request"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 9
+    },
+    {
+      "id": "ww-zero-want-tea",
+      "difficulty": 0,
+      "topic": "request",
+      "englishText": "I want tea.",
+      "embeddingText": "First words: I want tea.",
+      "englishAlternates": [],
+      "targetText": "I want tea.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "I",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "want",
+          "pronunciation": null,
+          "gloss": "want",
+          "playable": true
+        },
+        {
+          "surface": "tea",
+          "pronunciation": null,
+          "gloss": "tea",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Quiero té.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "I",
+            "text": "yo"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "want",
+            "text": "querer"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 2,
+            "surface": "tea",
+            "text": "té"
+          }
+        ]
+      },
+      "sceneQuery": "I want tea",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.request",
+          "order": 76,
+          "title": "Quiero…",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "request"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 9
+    },
+    {
+      "id": "ww-zero-want-book",
+      "difficulty": 0,
+      "topic": "request",
+      "englishText": "I want a book.",
+      "embeddingText": "First words: I want a book.",
+      "englishAlternates": [],
+      "targetText": "I want a book.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "I",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "want",
+          "pronunciation": null,
+          "gloss": "want",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "book",
+          "pronunciation": null,
+          "gloss": "book",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Quiero un libro.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "I",
+            "text": "yo"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "want",
+            "text": "querer"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 2,
+            "surface": "a",
+            "text": "un; una"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 3,
+            "surface": "book",
+            "text": "libro"
+          }
+        ]
+      },
+      "sceneQuery": "I want a book",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.request",
+          "order": 77,
+          "title": "Quiero…",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "request"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 9
+    },
+    {
+      "id": "ww-zero-want-pen",
+      "difficulty": 0,
+      "topic": "request",
+      "englishText": "I want a pen.",
+      "embeddingText": "First words: I want a pen.",
+      "englishAlternates": [],
+      "targetText": "I want a pen.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "I",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "want",
+          "pronunciation": null,
+          "gloss": "want",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "pen",
+          "pronunciation": null,
+          "gloss": "pen",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Quiero un bolígrafo.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "I",
+            "text": "yo"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "want",
+            "text": "querer"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 2,
+            "surface": "a",
+            "text": "un; una"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 3,
+            "surface": "pen",
+            "text": "bolígrafo"
+          }
+        ]
+      },
+      "sceneQuery": "I want a pen",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.request",
+          "order": 78,
+          "title": "Quiero…",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "request"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 9
+    },
+    {
+      "id": "ww-zero-see-cat",
+      "difficulty": 0,
+      "topic": "notice",
+      "englishText": "I see a cat.",
+      "embeddingText": "First words: I see a cat.",
+      "englishAlternates": [],
+      "targetText": "I see a cat.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "I",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "see",
+          "pronunciation": null,
+          "gloss": "see",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "cat",
+          "pronunciation": null,
+          "gloss": "cat",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Veo un gato.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "I",
+            "text": "yo"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "see",
+            "text": "ver"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 2,
+            "surface": "a",
+            "text": "un; una"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 3,
+            "surface": "cat",
+            "text": "gato"
+          }
+        ]
+      },
+      "sceneQuery": "I see a cat",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.notice",
+          "order": 79,
+          "title": "Veo…",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "notice"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 10
+    },
+    {
+      "id": "ww-zero-see-dog",
+      "difficulty": 0,
+      "topic": "notice",
+      "englishText": "I see a dog.",
+      "embeddingText": "First words: I see a dog.",
+      "englishAlternates": [],
+      "targetText": "I see a dog.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "I",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "see",
+          "pronunciation": null,
+          "gloss": "see",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "dog",
+          "pronunciation": null,
+          "gloss": "dog",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Veo un perro.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "I",
+            "text": "yo"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "see",
+            "text": "ver"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 2,
+            "surface": "a",
+            "text": "un; una"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 3,
+            "surface": "dog",
+            "text": "perro"
+          }
+        ]
+      },
+      "sceneQuery": "I see a dog",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.notice",
+          "order": 80,
+          "title": "Veo…",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "notice"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 10
+    },
+    {
+      "id": "ww-zero-see-book",
+      "difficulty": 0,
+      "topic": "notice",
+      "englishText": "I see a book.",
+      "embeddingText": "First words: I see a book.",
+      "englishAlternates": [],
+      "targetText": "I see a book.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "I",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "see",
+          "pronunciation": null,
+          "gloss": "see",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "book",
+          "pronunciation": null,
+          "gloss": "book",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Veo un libro.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "I",
+            "text": "yo"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "see",
+            "text": "ver"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 2,
+            "surface": "a",
+            "text": "un; una"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 3,
+            "surface": "book",
+            "text": "libro"
+          }
+        ]
+      },
+      "sceneQuery": "I see a book",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.notice",
+          "order": 81,
+          "title": "Veo…",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "notice"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 10
+    },
+    {
+      "id": "ww-zero-see-pen",
+      "difficulty": 0,
+      "topic": "notice",
+      "englishText": "I see a pen.",
+      "embeddingText": "First words: I see a pen.",
+      "englishAlternates": [],
+      "targetText": "I see a pen.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "I",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "see",
+          "pronunciation": null,
+          "gloss": "see",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "pen",
+          "pronunciation": null,
+          "gloss": "pen",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Veo un bolígrafo.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "I",
+            "text": "yo"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "see",
+            "text": "ver"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 2,
+            "surface": "a",
+            "text": "un; una"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 3,
+            "surface": "pen",
+            "text": "bolígrafo"
+          }
+        ]
+      },
+      "sceneQuery": "I see a pen",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.notice",
+          "order": 82,
+          "title": "Veo…",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "notice"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 10
+    },
+    {
+      "id": "ww-zero-see-house",
+      "difficulty": 0,
+      "topic": "notice",
+      "englishText": "I see a house.",
+      "embeddingText": "First words: I see a house.",
+      "englishAlternates": [],
+      "targetText": "I see a house.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "I",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "see",
+          "pronunciation": null,
+          "gloss": "see",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "house",
+          "pronunciation": null,
+          "gloss": "house",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Veo una casa.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "I",
+            "text": "yo"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "see",
+            "text": "ver"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 2,
+            "surface": "a",
+            "text": "un; una"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 3,
+            "surface": "house",
+            "text": "casa"
+          }
+        ]
+      },
+      "sceneQuery": "I see a house",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.notice",
+          "order": 83,
+          "title": "Veo…",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "notice"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 10
+    },
+    {
+      "id": "ww-zero-see-door",
+      "difficulty": 0,
+      "topic": "notice",
+      "englishText": "I see a door.",
+      "embeddingText": "First words: I see a door.",
+      "englishAlternates": [],
+      "targetText": "I see a door.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "I",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "see",
+          "pronunciation": null,
+          "gloss": "see",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "door",
+          "pronunciation": null,
+          "gloss": "door",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Veo una puerta.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "I",
+            "text": "yo"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "see",
+            "text": "ver"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 2,
+            "surface": "a",
+            "text": "un; una"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 3,
+            "surface": "door",
+            "text": "puerta"
+          }
+        ]
+      },
+      "sceneQuery": "I see a door",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.notice",
+          "order": 84,
+          "title": "Veo…",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "notice"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 10
+    },
+    {
+      "id": "ww-zero-see-table",
+      "difficulty": 0,
+      "topic": "notice",
+      "englishText": "I see a table.",
+      "embeddingText": "First words: I see a table.",
+      "englishAlternates": [],
+      "targetText": "I see a table.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "I",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "see",
+          "pronunciation": null,
+          "gloss": "see",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "table",
+          "pronunciation": null,
+          "gloss": "table",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Veo una mesa.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "I",
+            "text": "yo"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "see",
+            "text": "ver"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 2,
+            "surface": "a",
+            "text": "un; una"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 3,
+            "surface": "table",
+            "text": "mesa"
+          }
+        ]
+      },
+      "sceneQuery": "I see a table",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.notice",
+          "order": 85,
+          "title": "Veo…",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "notice"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 10
+    },
+    {
+      "id": "ww-zero-see-ball",
+      "difficulty": 0,
+      "topic": "notice",
+      "englishText": "I see a ball.",
+      "embeddingText": "First words: I see a ball.",
+      "englishAlternates": [],
+      "targetText": "I see a ball.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "I",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "see",
+          "pronunciation": null,
+          "gloss": "see",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "ball",
+          "pronunciation": null,
+          "gloss": "ball",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Veo una pelota.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "I",
+            "text": "yo"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "see",
+            "text": "ver"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 2,
+            "surface": "a",
+            "text": "un; una"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 3,
+            "surface": "ball",
+            "text": "pelota"
+          }
+        ]
+      },
+      "sceneQuery": "I see a ball",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.notice",
+          "order": 86,
+          "title": "Veo…",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "notice"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 10
+    },
+    {
+      "id": "ww-zero-i-eat",
+      "difficulty": 0,
+      "topic": "doing",
+      "englishText": "I eat.",
+      "embeddingText": "First words: I eat.",
+      "englishAlternates": [],
+      "targetText": "I eat.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "I",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "eat",
+          "pronunciation": null,
+          "gloss": "eat",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Como.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "I",
+            "text": "yo"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "eat",
+            "text": "comer"
+          }
+        ]
+      },
+      "sceneQuery": "I eat",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.doing",
+          "order": 87,
+          "title": "Una acción",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "doing"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 8
+    },
+    {
+      "id": "ww-zero-i-drink",
+      "difficulty": 0,
+      "topic": "doing",
+      "englishText": "I drink.",
+      "embeddingText": "First words: I drink.",
+      "englishAlternates": [],
+      "targetText": "I drink.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "I",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "drink",
+          "pronunciation": null,
+          "gloss": "drink",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Bebo.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "I",
+            "text": "yo"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "drink",
+            "text": "beber"
+          }
+        ]
+      },
+      "sceneQuery": "I drink",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.doing",
+          "order": 88,
+          "title": "Una acción",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "doing"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 8
+    },
+    {
+      "id": "ww-zero-i-go",
+      "difficulty": 0,
+      "topic": "doing",
+      "englishText": "I go.",
+      "embeddingText": "First words: I go.",
+      "englishAlternates": [],
+      "targetText": "I go.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "I",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "go",
+          "pronunciation": null,
+          "gloss": "go",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Voy.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "I",
+            "text": "yo"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "go",
+            "text": "ir"
+          }
+        ]
+      },
+      "sceneQuery": "I go",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.doing",
+          "order": 89,
+          "title": "Una acción",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "doing"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 8
+    },
+    {
+      "id": "ww-zero-i-sit",
+      "difficulty": 0,
+      "topic": "doing",
+      "englishText": "I sit.",
+      "embeddingText": "First words: I sit.",
+      "englishAlternates": [],
+      "targetText": "I sit.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "I",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "sit",
+          "pronunciation": null,
+          "gloss": "sit",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Me siento.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "I",
+            "text": "yo"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "sit",
+            "text": "sentarse"
+          }
+        ]
+      },
+      "sceneQuery": "I sit",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.doing",
+          "order": 90,
+          "title": "Una acción",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "doing"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 8
+    },
+    {
+      "id": "ww-zero-i-read",
+      "difficulty": 0,
+      "topic": "doing",
+      "englishText": "I read a book.",
+      "embeddingText": "First words: I read a book.",
+      "englishAlternates": [],
+      "targetText": "I read a book.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "I",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "read",
+          "pronunciation": null,
+          "gloss": "read",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "book",
+          "pronunciation": null,
+          "gloss": "book",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Leo un libro.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "I",
+            "text": "yo"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "read",
+            "text": "leo"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 2,
+            "surface": "a",
+            "text": "un"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 3,
+            "surface": "book",
+            "text": "libro"
+          }
+        ]
+      },
+      "sceneQuery": "I read a book",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.doing",
+          "order": 91,
+          "title": "Una acción",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "doing"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 8
+    },
+    {
+      "id": "ww-zero-i-write",
+      "difficulty": 0,
+      "topic": "doing",
+      "englishText": "I write.",
+      "embeddingText": "First words: I write.",
+      "englishAlternates": [],
+      "targetText": "I write.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "I",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "write",
+          "pronunciation": null,
+          "gloss": "write",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Escribo.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "I",
+            "text": "yo"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "write",
+            "text": "escribir"
+          }
+        ]
+      },
+      "sceneQuery": "I write",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.doing",
+          "order": 92,
+          "title": "Una acción",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "doing"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 8
+    },
+    {
+      "id": "ww-zero-i-sleep",
+      "difficulty": 0,
+      "topic": "doing",
+      "englishText": "I sleep.",
+      "embeddingText": "First words: I sleep.",
+      "englishAlternates": [],
+      "targetText": "I sleep.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "I",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "sleep",
+          "pronunciation": null,
+          "gloss": "sleep",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Duermo.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "I",
+            "text": "yo"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "sleep",
+            "text": "dormir"
+          }
+        ]
+      },
+      "sceneQuery": "I sleep",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.doing",
+          "order": 93,
+          "title": "Una acción",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "doing"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 8
+    },
+    {
+      "id": "ww-zero-i-have-pen",
+      "difficulty": 0,
+      "topic": "doing",
+      "englishText": "I have a pen.",
+      "embeddingText": "First words: I have a pen.",
+      "englishAlternates": [],
+      "targetText": "I have a pen.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "I",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "have",
+          "pronunciation": null,
+          "gloss": "have",
+          "playable": true
+        },
+        {
+          "surface": "a",
+          "pronunciation": null,
+          "gloss": "a",
+          "playable": true
+        },
+        {
+          "surface": "pen",
+          "pronunciation": null,
+          "gloss": "pen",
+          "playable": true
+        }
+      ],
+      "learnerBase": {
+        "text": "Tengo un bolígrafo.",
+        "tokenMeanings": [
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 0,
+            "surface": "I",
+            "text": "yo"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 1,
+            "surface": "have",
+            "text": "tengo"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 2,
+            "surface": "a",
+            "text": "un"
+          },
+          {
+            "targetLanguage": "en-US",
+            "tokenIndex": 3,
+            "surface": "pen",
+            "text": "bolígrafo"
+          }
+        ]
+      },
+      "sceneQuery": "I have a pen",
+      "sceneAssetIds": [],
+      "annotations": {
+        "learning": {
+          "unitId": "zero.es-en.doing",
+          "order": 94,
+          "title": "Una acción",
+          "explanation": "Una palabra o un patrón corto. Mira su traducción y escucha antes de practicar. Contenido asistido por IA; revisión nativa pendiente.",
+          "focus": [
+            "level-zero",
+            "doing"
+          ]
+        }
+      },
+      "usefulness": 92,
+      "complexity": 8
     }
   ]
 }

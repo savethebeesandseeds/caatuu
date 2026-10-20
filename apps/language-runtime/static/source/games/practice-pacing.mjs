@@ -39,3 +39,24 @@ export function createReviewContinuation({ button, canContinue = () => true, onC
     get pending() { return pending; }
   });
 }
+
+/** Let selected state paint before starting optional audio or other tap work. */
+export function afterInteractionPaint(scope, callback) {
+  let cancelled = false, frame = null, timer = null;
+  const schedule = () => {
+    frame = null;
+    if (cancelled) return;
+    timer = scope.setTimeout(() => {
+      timer = null;
+      if (!cancelled) callback();
+    }, 0);
+  };
+  if (typeof scope.requestAnimationFrame === "function") frame = scope.requestAnimationFrame(schedule);
+  else schedule();
+  return () => {
+    cancelled = true;
+    if (frame !== null) scope.cancelAnimationFrame?.(frame);
+    if (timer !== null) scope.clearTimeout(timer);
+    frame = timer = null;
+  };
+}

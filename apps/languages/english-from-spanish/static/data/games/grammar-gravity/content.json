@@ -10733,6 +10733,1390 @@
       },
       "usefulness": 92,
       "complexity": 24
+    },
+    {
+      "id": "zero-es-en-grammar-one-many",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "determiner",
+        "label": "Una cosa y varias",
+        "targetText": "a · two",
+        "resultTitle": "Dos formas básicas",
+        "summary": "Mira una cosa y dos cosas. Practica una palabra cada vez."
+      },
+      "forms": {
+        "singular": {
+          "displayForm": "a",
+          "examples": [
+            {
+              "id": "zero-es-en-grammar-one-many-singular-book",
+              "revision": 1,
+              "learnerBaseText": "un libro",
+              "englishAuditText": "a book",
+              "targetText": "a book",
+              "anchor": {
+                "targetText": "book",
+                "learnerBaseText": "libro",
+                "englishAuditText": "book"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " book"
+              },
+              "usefulness": 92,
+              "complexity": 6
+            },
+            {
+              "id": "zero-es-en-grammar-one-many-singular-cat",
+              "revision": 1,
+              "learnerBaseText": "un gato",
+              "englishAuditText": "a cat",
+              "targetText": "a cat",
+              "anchor": {
+                "targetText": "cat",
+                "learnerBaseText": "gato",
+                "englishAuditText": "cat"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " cat"
+              },
+              "usefulness": 92,
+              "complexity": 6
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 5
+        },
+        "plural": {
+          "displayForm": "two",
+          "examples": [
+            {
+              "id": "zero-es-en-grammar-one-many-plural-book",
+              "revision": 1,
+              "learnerBaseText": "dos libros",
+              "englishAuditText": "two books",
+              "targetText": "two books",
+              "anchor": {
+                "targetText": "books",
+                "learnerBaseText": "libros",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " books"
+              },
+              "usefulness": 92,
+              "complexity": 6
+            },
+            {
+              "id": "zero-es-en-grammar-one-many-plural-cat",
+              "revision": 1,
+              "learnerBaseText": "dos gatos",
+              "englishAuditText": "two cats",
+              "targetText": "two cats",
+              "anchor": {
+                "targetText": "cats",
+                "learnerBaseText": "gatos",
+                "englishAuditText": "cats"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " cats"
+              },
+              "usefulness": 92,
+              "complexity": 6
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 5
+        }
+      },
+      "axes": [
+        {
+          "id": "singular",
+          "label": "Singular",
+          "features": {
+            "number": "singular"
+          }
+        },
+        {
+          "id": "plural",
+          "label": "Plural",
+          "features": {
+            "number": "plural"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "number",
+        "categoryOptions": [
+          {
+            "id": "singular",
+            "label": "Singular"
+          },
+          {
+            "id": "plural",
+            "label": "Plural"
+          }
+        ]
+      },
+      "usefulness": 92,
+      "complexity": 6
+    },
+    {
+      "id": "zero-es-en-grammar-near",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "determiner",
+        "label": "Una cosa y varias",
+        "targetText": "this · these",
+        "resultTitle": "Dos formas básicas",
+        "summary": "Mira una cosa y dos cosas. Practica una palabra cada vez."
+      },
+      "forms": {
+        "singular": {
+          "displayForm": "this",
+          "examples": [
+            {
+              "id": "zero-es-en-grammar-near-singular-book",
+              "revision": 1,
+              "learnerBaseText": "este libro",
+              "englishAuditText": "this book",
+              "targetText": "this book",
+              "anchor": {
+                "targetText": "book",
+                "learnerBaseText": "libro",
+                "englishAuditText": "book"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " book"
+              },
+              "usefulness": 92,
+              "complexity": 6
+            },
+            {
+              "id": "zero-es-en-grammar-near-singular-cat",
+              "revision": 1,
+              "learnerBaseText": "este gato",
+              "englishAuditText": "this cat",
+              "targetText": "this cat",
+              "anchor": {
+                "targetText": "cat",
+                "learnerBaseText": "gato",
+                "englishAuditText": "cat"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " cat"
+              },
+              "usefulness": 92,
+              "complexity": 6
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 5
+        },
+        "plural": {
+          "displayForm": "these",
+          "examples": [
+            {
+              "id": "zero-es-en-grammar-near-plural-book",
+              "revision": 1,
+              "learnerBaseText": "estos libros",
+              "englishAuditText": "these books",
+              "targetText": "these books",
+              "anchor": {
+                "targetText": "books",
+                "learnerBaseText": "libros",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " books"
+              },
+              "usefulness": 92,
+              "complexity": 6
+            },
+            {
+              "id": "zero-es-en-grammar-near-plural-cat",
+              "revision": 1,
+              "learnerBaseText": "estos gatos",
+              "englishAuditText": "these cats",
+              "targetText": "these cats",
+              "anchor": {
+                "targetText": "cats",
+                "learnerBaseText": "gatos",
+                "englishAuditText": "cats"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " cats"
+              },
+              "usefulness": 92,
+              "complexity": 6
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 5
+        }
+      },
+      "axes": [
+        {
+          "id": "singular",
+          "label": "Singular",
+          "features": {
+            "number": "singular"
+          }
+        },
+        {
+          "id": "plural",
+          "label": "Plural",
+          "features": {
+            "number": "plural"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "number",
+        "categoryOptions": [
+          {
+            "id": "singular",
+            "label": "Singular"
+          },
+          {
+            "id": "plural",
+            "label": "Plural"
+          }
+        ]
+      },
+      "usefulness": 92,
+      "complexity": 6
+    },
+    {
+      "id": "zero-es-en-grammar-far",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "determiner",
+        "label": "Una cosa y varias",
+        "targetText": "that · those",
+        "resultTitle": "Dos formas básicas",
+        "summary": "Mira una cosa y dos cosas. Practica una palabra cada vez."
+      },
+      "forms": {
+        "singular": {
+          "displayForm": "that",
+          "examples": [
+            {
+              "id": "zero-es-en-grammar-far-singular-book",
+              "revision": 1,
+              "learnerBaseText": "ese libro",
+              "englishAuditText": "that book",
+              "targetText": "that book",
+              "anchor": {
+                "targetText": "book",
+                "learnerBaseText": "libro",
+                "englishAuditText": "book"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " book"
+              },
+              "usefulness": 92,
+              "complexity": 6
+            },
+            {
+              "id": "zero-es-en-grammar-far-singular-cat",
+              "revision": 1,
+              "learnerBaseText": "ese gato",
+              "englishAuditText": "that cat",
+              "targetText": "that cat",
+              "anchor": {
+                "targetText": "cat",
+                "learnerBaseText": "gato",
+                "englishAuditText": "cat"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " cat"
+              },
+              "usefulness": 92,
+              "complexity": 6
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 5
+        },
+        "plural": {
+          "displayForm": "those",
+          "examples": [
+            {
+              "id": "zero-es-en-grammar-far-plural-book",
+              "revision": 1,
+              "learnerBaseText": "esos libros",
+              "englishAuditText": "those books",
+              "targetText": "those books",
+              "anchor": {
+                "targetText": "books",
+                "learnerBaseText": "libros",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " books"
+              },
+              "usefulness": 92,
+              "complexity": 6
+            },
+            {
+              "id": "zero-es-en-grammar-far-plural-cat",
+              "revision": 1,
+              "learnerBaseText": "esos gatos",
+              "englishAuditText": "those cats",
+              "targetText": "those cats",
+              "anchor": {
+                "targetText": "cats",
+                "learnerBaseText": "gatos",
+                "englishAuditText": "cats"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " cats"
+              },
+              "usefulness": 92,
+              "complexity": 6
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 5
+        }
+      },
+      "axes": [
+        {
+          "id": "singular",
+          "label": "Singular",
+          "features": {
+            "number": "singular"
+          }
+        },
+        {
+          "id": "plural",
+          "label": "Plural",
+          "features": {
+            "number": "plural"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "number",
+        "categoryOptions": [
+          {
+            "id": "singular",
+            "label": "Singular"
+          },
+          {
+            "id": "plural",
+            "label": "Plural"
+          }
+        ]
+      },
+      "usefulness": 92,
+      "complexity": 6
+    },
+    {
+      "id": "zero-es-en-grammar-one-two",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "determiner",
+        "label": "Una cosa y varias",
+        "targetText": "one · two",
+        "resultTitle": "Dos formas básicas",
+        "summary": "Mira una cosa y dos cosas. Practica una palabra cada vez."
+      },
+      "forms": {
+        "singular": {
+          "displayForm": "one",
+          "examples": [
+            {
+              "id": "zero-es-en-grammar-one-two-singular-book",
+              "revision": 1,
+              "learnerBaseText": "un libro",
+              "englishAuditText": "one book",
+              "targetText": "one book",
+              "anchor": {
+                "targetText": "book",
+                "learnerBaseText": "libro",
+                "englishAuditText": "book"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " book"
+              },
+              "usefulness": 92,
+              "complexity": 6
+            },
+            {
+              "id": "zero-es-en-grammar-one-two-singular-cat",
+              "revision": 1,
+              "learnerBaseText": "un gato",
+              "englishAuditText": "one cat",
+              "targetText": "one cat",
+              "anchor": {
+                "targetText": "cat",
+                "learnerBaseText": "gato",
+                "englishAuditText": "cat"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " cat"
+              },
+              "usefulness": 92,
+              "complexity": 6
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 5
+        },
+        "plural": {
+          "displayForm": "two",
+          "examples": [
+            {
+              "id": "zero-es-en-grammar-one-two-plural-book",
+              "revision": 1,
+              "learnerBaseText": "dos libros",
+              "englishAuditText": "two books",
+              "targetText": "two books",
+              "anchor": {
+                "targetText": "books",
+                "learnerBaseText": "libros",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " books"
+              },
+              "usefulness": 92,
+              "complexity": 6
+            },
+            {
+              "id": "zero-es-en-grammar-one-two-plural-cat",
+              "revision": 1,
+              "learnerBaseText": "dos gatos",
+              "englishAuditText": "two cats",
+              "targetText": "two cats",
+              "anchor": {
+                "targetText": "cats",
+                "learnerBaseText": "gatos",
+                "englishAuditText": "cats"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " cats"
+              },
+              "usefulness": 92,
+              "complexity": 6
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 5
+        }
+      },
+      "axes": [
+        {
+          "id": "singular",
+          "label": "Singular",
+          "features": {
+            "number": "singular"
+          }
+        },
+        {
+          "id": "plural",
+          "label": "Plural",
+          "features": {
+            "number": "plural"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "number",
+        "categoryOptions": [
+          {
+            "id": "singular",
+            "label": "Singular"
+          },
+          {
+            "id": "plural",
+            "label": "Plural"
+          }
+        ]
+      },
+      "usefulness": 92,
+      "complexity": 6
+    },
+    {
+      "id": "zero-es-en-grammar-expand-big",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective-number-frame",
+        "label": "Una cosa y dos: big",
+        "targetText": "a big · two big",
+        "resultTitle": "big no cambia",
+        "summary": "Con una cosa usa a big. Con dos cosas usa two big. El adjetivo no cambia. Revisión nativa pendiente."
+      },
+      "forms": {
+        "singular": {
+          "displayForm": "a big",
+          "examples": [
+            {
+              "id": "zero-es-en-grammar-expand-big-singular-1",
+              "revision": 1,
+              "targetText": "a big cat",
+              "learnerBaseText": "un gato grande",
+              "englishAuditText": "a big cat",
+              "anchor": {
+                "targetText": "cat",
+                "learnerBaseText": "gato",
+                "englishAuditText": "cat"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " cat"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-en-grammar-expand-big-singular-2",
+              "revision": 1,
+              "targetText": "a big dog",
+              "learnerBaseText": "un perro grande",
+              "englishAuditText": "a big dog",
+              "anchor": {
+                "targetText": "dog",
+                "learnerBaseText": "perro",
+                "englishAuditText": "dog"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " dog"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-en-grammar-expand-big-singular-3",
+              "revision": 1,
+              "targetText": "a big house",
+              "learnerBaseText": "una casa grande",
+              "englishAuditText": "a big house",
+              "anchor": {
+                "targetText": "house",
+                "learnerBaseText": "casa",
+                "englishAuditText": "house"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " house"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-en-grammar-expand-big-singular-4",
+              "revision": 1,
+              "targetText": "a big ball",
+              "learnerBaseText": "una pelota grande",
+              "englishAuditText": "a big ball",
+              "anchor": {
+                "targetText": "ball",
+                "learnerBaseText": "pelota",
+                "englishAuditText": "ball"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " ball"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 6
+        },
+        "plural": {
+          "displayForm": "two big",
+          "examples": [
+            {
+              "id": "zero-es-en-grammar-expand-big-plural-1",
+              "revision": 1,
+              "targetText": "two big cats",
+              "learnerBaseText": "dos gatos grandes",
+              "englishAuditText": "two big cats",
+              "anchor": {
+                "targetText": "cats",
+                "learnerBaseText": "gatos",
+                "englishAuditText": "cats"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " cats"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-en-grammar-expand-big-plural-2",
+              "revision": 1,
+              "targetText": "two big dogs",
+              "learnerBaseText": "dos perros grandes",
+              "englishAuditText": "two big dogs",
+              "anchor": {
+                "targetText": "dogs",
+                "learnerBaseText": "perros",
+                "englishAuditText": "dogs"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " dogs"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-en-grammar-expand-big-plural-3",
+              "revision": 1,
+              "targetText": "two big houses",
+              "learnerBaseText": "dos casas grandes",
+              "englishAuditText": "two big houses",
+              "anchor": {
+                "targetText": "houses",
+                "learnerBaseText": "casas",
+                "englishAuditText": "houses"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " houses"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-en-grammar-expand-big-plural-4",
+              "revision": 1,
+              "targetText": "two big balls",
+              "learnerBaseText": "dos pelotas grandes",
+              "englishAuditText": "two big balls",
+              "anchor": {
+                "targetText": "balls",
+                "learnerBaseText": "pelotas",
+                "englishAuditText": "balls"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " balls"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 6
+        }
+      },
+      "axes": [
+        {
+          "id": "singular",
+          "label": "Singular",
+          "features": {
+            "number": "singular"
+          }
+        },
+        {
+          "id": "plural",
+          "label": "Plural",
+          "features": {
+            "number": "plural"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "number",
+        "categoryOptions": [
+          {
+            "id": "singular",
+            "label": "Singular"
+          },
+          {
+            "id": "plural",
+            "label": "Plural"
+          }
+        ]
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "zero-es-en-grammar-expand-small",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective-number-frame",
+        "label": "Una cosa y dos: small",
+        "targetText": "a small · two small",
+        "resultTitle": "small no cambia",
+        "summary": "Con una cosa usa a small. Con dos cosas usa two small. El adjetivo no cambia. Revisión nativa pendiente."
+      },
+      "forms": {
+        "singular": {
+          "displayForm": "a small",
+          "examples": [
+            {
+              "id": "zero-es-en-grammar-expand-small-singular-1",
+              "revision": 1,
+              "targetText": "a small book",
+              "learnerBaseText": "un libro pequeño",
+              "englishAuditText": "a small book",
+              "anchor": {
+                "targetText": "book",
+                "learnerBaseText": "libro",
+                "englishAuditText": "book"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " book"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-en-grammar-expand-small-singular-2",
+              "revision": 1,
+              "targetText": "a small bag",
+              "learnerBaseText": "una bolsa pequeña",
+              "englishAuditText": "a small bag",
+              "anchor": {
+                "targetText": "bag",
+                "learnerBaseText": "bolsa",
+                "englishAuditText": "bag"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " bag"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-en-grammar-expand-small-singular-3",
+              "revision": 1,
+              "targetText": "a small bed",
+              "learnerBaseText": "una cama pequeña",
+              "englishAuditText": "a small bed",
+              "anchor": {
+                "targetText": "bed",
+                "learnerBaseText": "cama",
+                "englishAuditText": "bed"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " bed"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-en-grammar-expand-small-singular-4",
+              "revision": 1,
+              "targetText": "a small pen",
+              "learnerBaseText": "un bolígrafo pequeño",
+              "englishAuditText": "a small pen",
+              "anchor": {
+                "targetText": "pen",
+                "learnerBaseText": "bolígrafo",
+                "englishAuditText": "pen"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " pen"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 6
+        },
+        "plural": {
+          "displayForm": "two small",
+          "examples": [
+            {
+              "id": "zero-es-en-grammar-expand-small-plural-1",
+              "revision": 1,
+              "targetText": "two small books",
+              "learnerBaseText": "dos libros pequeños",
+              "englishAuditText": "two small books",
+              "anchor": {
+                "targetText": "books",
+                "learnerBaseText": "libros",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " books"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-en-grammar-expand-small-plural-2",
+              "revision": 1,
+              "targetText": "two small bags",
+              "learnerBaseText": "dos bolsas pequeñas",
+              "englishAuditText": "two small bags",
+              "anchor": {
+                "targetText": "bags",
+                "learnerBaseText": "bolsas",
+                "englishAuditText": "bags"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " bags"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-en-grammar-expand-small-plural-3",
+              "revision": 1,
+              "targetText": "two small beds",
+              "learnerBaseText": "dos camas pequeñas",
+              "englishAuditText": "two small beds",
+              "anchor": {
+                "targetText": "beds",
+                "learnerBaseText": "camas",
+                "englishAuditText": "beds"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " beds"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-en-grammar-expand-small-plural-4",
+              "revision": 1,
+              "targetText": "two small pens",
+              "learnerBaseText": "dos bolígrafos pequeños",
+              "englishAuditText": "two small pens",
+              "anchor": {
+                "targetText": "pens",
+                "learnerBaseText": "bolígrafos",
+                "englishAuditText": "pens"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " pens"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 6
+        }
+      },
+      "axes": [
+        {
+          "id": "singular",
+          "label": "Singular",
+          "features": {
+            "number": "singular"
+          }
+        },
+        {
+          "id": "plural",
+          "label": "Plural",
+          "features": {
+            "number": "plural"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "number",
+        "categoryOptions": [
+          {
+            "id": "singular",
+            "label": "Singular"
+          },
+          {
+            "id": "plural",
+            "label": "Plural"
+          }
+        ]
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "zero-es-en-grammar-expand-red",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective-number-frame",
+        "label": "Una cosa y dos: red",
+        "targetText": "a red · two red",
+        "resultTitle": "red no cambia",
+        "summary": "Con una cosa usa a red. Con dos cosas usa two red. El adjetivo no cambia. Revisión nativa pendiente."
+      },
+      "forms": {
+        "singular": {
+          "displayForm": "a red",
+          "examples": [
+            {
+              "id": "zero-es-en-grammar-expand-red-singular-1",
+              "revision": 1,
+              "targetText": "a red ball",
+              "learnerBaseText": "una pelota roja",
+              "englishAuditText": "a red ball",
+              "anchor": {
+                "targetText": "ball",
+                "learnerBaseText": "pelota",
+                "englishAuditText": "ball"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " ball"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-en-grammar-expand-red-singular-2",
+              "revision": 1,
+              "targetText": "a red bag",
+              "learnerBaseText": "una bolsa roja",
+              "englishAuditText": "a red bag",
+              "anchor": {
+                "targetText": "bag",
+                "learnerBaseText": "bolsa",
+                "englishAuditText": "bag"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " bag"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-en-grammar-expand-red-singular-3",
+              "revision": 1,
+              "targetText": "a red car",
+              "learnerBaseText": "un coche rojo",
+              "englishAuditText": "a red car",
+              "anchor": {
+                "targetText": "car",
+                "learnerBaseText": "coche",
+                "englishAuditText": "car"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " car"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-en-grammar-expand-red-singular-4",
+              "revision": 1,
+              "targetText": "a red shoe",
+              "learnerBaseText": "un zapato rojo",
+              "englishAuditText": "a red shoe",
+              "anchor": {
+                "targetText": "shoe",
+                "learnerBaseText": "zapato",
+                "englishAuditText": "shoe"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " shoe"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 6
+        },
+        "plural": {
+          "displayForm": "two red",
+          "examples": [
+            {
+              "id": "zero-es-en-grammar-expand-red-plural-1",
+              "revision": 1,
+              "targetText": "two red balls",
+              "learnerBaseText": "dos pelotas rojas",
+              "englishAuditText": "two red balls",
+              "anchor": {
+                "targetText": "balls",
+                "learnerBaseText": "pelotas",
+                "englishAuditText": "balls"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " balls"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-en-grammar-expand-red-plural-2",
+              "revision": 1,
+              "targetText": "two red bags",
+              "learnerBaseText": "dos bolsas rojas",
+              "englishAuditText": "two red bags",
+              "anchor": {
+                "targetText": "bags",
+                "learnerBaseText": "bolsas",
+                "englishAuditText": "bags"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " bags"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-en-grammar-expand-red-plural-3",
+              "revision": 1,
+              "targetText": "two red cars",
+              "learnerBaseText": "dos coches rojos",
+              "englishAuditText": "two red cars",
+              "anchor": {
+                "targetText": "cars",
+                "learnerBaseText": "coches",
+                "englishAuditText": "cars"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " cars"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-en-grammar-expand-red-plural-4",
+              "revision": 1,
+              "targetText": "two red shoes",
+              "learnerBaseText": "dos zapatos rojos",
+              "englishAuditText": "two red shoes",
+              "anchor": {
+                "targetText": "shoes",
+                "learnerBaseText": "zapatos",
+                "englishAuditText": "shoes"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " shoes"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 6
+        }
+      },
+      "axes": [
+        {
+          "id": "singular",
+          "label": "Singular",
+          "features": {
+            "number": "singular"
+          }
+        },
+        {
+          "id": "plural",
+          "label": "Plural",
+          "features": {
+            "number": "plural"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "number",
+        "categoryOptions": [
+          {
+            "id": "singular",
+            "label": "Singular"
+          },
+          {
+            "id": "plural",
+            "label": "Plural"
+          }
+        ]
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "zero-es-en-grammar-expand-green",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective-number-frame",
+        "label": "Una cosa y dos: green",
+        "targetText": "a green · two green",
+        "resultTitle": "green no cambia",
+        "summary": "Con una cosa usa a green. Con dos cosas usa two green. El adjetivo no cambia. Revisión nativa pendiente."
+      },
+      "forms": {
+        "singular": {
+          "displayForm": "a green",
+          "examples": [
+            {
+              "id": "zero-es-en-grammar-expand-green-singular-1",
+              "revision": 1,
+              "targetText": "a green book",
+              "learnerBaseText": "un libro verde",
+              "englishAuditText": "a green book",
+              "anchor": {
+                "targetText": "book",
+                "learnerBaseText": "libro",
+                "englishAuditText": "book"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " book"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-en-grammar-expand-green-singular-2",
+              "revision": 1,
+              "targetText": "a green chair",
+              "learnerBaseText": "una silla verde",
+              "englishAuditText": "a green chair",
+              "anchor": {
+                "targetText": "chair",
+                "learnerBaseText": "silla",
+                "englishAuditText": "chair"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " chair"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-en-grammar-expand-green-singular-3",
+              "revision": 1,
+              "targetText": "a green door",
+              "learnerBaseText": "una puerta verde",
+              "englishAuditText": "a green door",
+              "anchor": {
+                "targetText": "door",
+                "learnerBaseText": "puerta",
+                "englishAuditText": "door"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " door"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-en-grammar-expand-green-singular-4",
+              "revision": 1,
+              "targetText": "a green bike",
+              "learnerBaseText": "una bicicleta verde",
+              "englishAuditText": "a green bike",
+              "anchor": {
+                "targetText": "bike",
+                "learnerBaseText": "bicicleta",
+                "englishAuditText": "bike"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " bike"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 6
+        },
+        "plural": {
+          "displayForm": "two green",
+          "examples": [
+            {
+              "id": "zero-es-en-grammar-expand-green-plural-1",
+              "revision": 1,
+              "targetText": "two green books",
+              "learnerBaseText": "dos libros verdes",
+              "englishAuditText": "two green books",
+              "anchor": {
+                "targetText": "books",
+                "learnerBaseText": "libros",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " books"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-en-grammar-expand-green-plural-2",
+              "revision": 1,
+              "targetText": "two green chairs",
+              "learnerBaseText": "dos sillas verdes",
+              "englishAuditText": "two green chairs",
+              "anchor": {
+                "targetText": "chairs",
+                "learnerBaseText": "sillas",
+                "englishAuditText": "chairs"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " chairs"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-en-grammar-expand-green-plural-3",
+              "revision": 1,
+              "targetText": "two green doors",
+              "learnerBaseText": "dos puertas verdes",
+              "englishAuditText": "two green doors",
+              "anchor": {
+                "targetText": "doors",
+                "learnerBaseText": "puertas",
+                "englishAuditText": "doors"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " doors"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-en-grammar-expand-green-plural-4",
+              "revision": 1,
+              "targetText": "two green bikes",
+              "learnerBaseText": "dos bicicletas verdes",
+              "englishAuditText": "two green bikes",
+              "anchor": {
+                "targetText": "bikes",
+                "learnerBaseText": "bicicletas",
+                "englishAuditText": "bikes"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " bikes"
+              },
+              "usefulness": 92,
+              "complexity": 7
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 6
+        }
+      },
+      "axes": [
+        {
+          "id": "singular",
+          "label": "Singular",
+          "features": {
+            "number": "singular"
+          }
+        },
+        {
+          "id": "plural",
+          "label": "Plural",
+          "features": {
+            "number": "plural"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "number",
+        "categoryOptions": [
+          {
+            "id": "singular",
+            "label": "Singular"
+          },
+          {
+            "id": "plural",
+            "label": "Plural"
+          }
+        ]
+      },
+      "usefulness": 92,
+      "complexity": 7
     }
   ],
   "gameplay": {

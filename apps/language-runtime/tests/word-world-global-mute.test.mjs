@@ -4,7 +4,7 @@ import test from "node:test";
 import vm from "node:vm";
 
 const source = readFileSync(new URL("../static/source/product-word-world.mjs", import.meta.url), "utf8");
-const functions = ["speechGloballyMuted", "syncSpeechControl", "toggleCzechSpeech", "maybeAutoplayCurrentSentence", "refreshAndroidSpeechStatus", "resumeSpeechControl", "initializeSpeechControl"];
+const functions = ["speechGloballyMuted", "speechPresentationActive", "syncSpeechControl", "toggleCzechSpeech", "previewCurrentCzechSentenceFromAudioMenu", "maybeAutoplayCurrentSentence", "refreshAndroidSpeechStatus", "resumeSpeechControl", "initializeSpeechControl"];
 const implementation = functions.map((name) => {
   let start = source.indexOf(`function ${name}(`);
   assert.ok(start >= 0, `${name} exists`);
@@ -139,6 +139,29 @@ test("global mute blocks programmatic playback and autoplay without consuming th
   game.context.maybeAutoplayCurrentSentence();
   assert.equal(game.counters.spoken, 1);
 });
+
+for (const hidden of ["inactive-game", "hidden-document", "pagehide"]) {
+  test(`Word World cannot start card speech or delayed autoplay after ${hidden}`, () => {
+    const game = fixture();
+    if (hidden === "inactive-game") game.state.loadingActive = false;
+    if (hidden === "hidden-document") game.context.document.visibilityState = "hidden";
+    if (hidden === "pagehide") game.state.loadingPageHidden = true;
+    game.context.toggleCzechSpeech("我", "word");
+    game.context.maybeAutoplayCurrentSentence();
+    game.context.maybeAutoplayCurrentSentence({ force: true });
+    game.context.previewCurrentCzechSentenceFromAudioMenu();
+    assert.equal(game.counters.spoken, 0);
+    assert.equal(game.counters.cancelled, 0, "a late voice preview cannot stop the newly visible game's speech");
+    assert.equal(game.state.lastAutoplayFingerprint, "", "hidden preparation must not consume visible autoplay");
+    game.state.loadingActive = true;
+    game.state.loadingPageHidden = false;
+    game.context.document.visibilityState = "visible";
+    game.context.resumeSpeechControl();
+    assert.equal(game.counters.spoken, 1, "the prepared sentence speaks when Word World is shown again");
+    game.context.resumeSpeechControl();
+    assert.equal(game.counters.spoken, 1, "activity synchronization cannot replay the same sentence");
+  });
+}
 
 test("a cold native voice plays the pending first sentence when initialization finishes", async () => {
   const game = fixture({ native: true });

@@ -597,6 +597,31 @@ test("the transparent header renders compact journey stats with exact accessible
   harness.window.dispatchEvent({ type: "pagehide" });
 });
 
+test("answer events reuse their profile for immediate header updates without rereading learning journals", () => {
+  let reads = 0;
+  const summary = { activities: 0, activeGames: 0, rounds: 0, xp: 0 };
+  const profile = { difficulty: 1, difficultyOption: { label: "Explorer", summary: "" },
+    summary, journey: { summary }, streak: { currentDays: 0, highestDays: 0 } };
+  const learning = { difficultyLevels: [], snapshot() { reads++; return profile; } };
+  const harness = createBrowserHarness({ course: fixtureCourse(), window: { CaatuuLearning: learning } });
+  const header = harness.document.createElement("header");
+  header.className = "app-header";
+  harness.document.body.append(header);
+  runChrome(harness);
+  reads = 0;
+  const updated = { ...profile, reason: "performance", summary: { ...summary, xp: 17 },
+    journey: { summary: { ...summary, xp: 17 } }, rewards: { coins: 5, gems: 2 } };
+  harness.window.dispatchEvent(new harness.window.CustomEvent("caatuu:learning-change", { detail: updated }));
+  assert.equal(reads, 0, "the answer's synchronous listener needs no extra profile snapshot");
+  assert.equal(header.querySelector("[data-caatuu-header-xp-count]").textContent, "17");
+  assert.equal(header.querySelector("[data-caatuu-header-coins-count]").textContent, "5");
+  assert.equal(header.querySelector("[data-caatuu-header-gems-count]").textContent, "2");
+  harness.window.dispatchEvent(new harness.window.CustomEvent("caatuu:learning-change"));
+  assert.equal(reads, 1, "legacy notifications without a profile still read current progress");
+  assert.equal(header.querySelector("[data-caatuu-header-xp-count]").textContent, "0");
+  harness.window.dispatchEvent({ type: "pagehide" });
+});
+
 test("navigation launchers keep one menu open across repeated pointer and keyboard activations", () => {
   const course = fixtureCourse();
   course.games = ["word-net"];

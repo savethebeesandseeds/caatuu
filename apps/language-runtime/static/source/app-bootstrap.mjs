@@ -1,11 +1,11 @@
 import { initializeWorkspaceAfterDictionaryProvider } from "./dictionary-provider-loader.mjs";
 import { initializeHomeCourseSetup } from "./course-setup.mjs?v=course-setup-5";
 import { installMusic } from "./music.mjs";
-import { installGameDynamics } from "./game-dynamics.mjs?v=game-dynamics-9";
-import * as practicePacing from "./games/practice-pacing.mjs?v=practice-pacing-2";
-import { installBadgeProgression } from "./badge-progression.mjs?v=badge-progression-5";
-import { installCampaignRoadmap } from "./campaign-roadmap.mjs?v=campaign-roadmap-3";
-import { createPracticeCompass, sharedPracticeAxes } from "./practice-compass.mjs?v=practice-compass-9";
+import { installGameDynamics } from "./game-dynamics.mjs?v=game-dynamics-11";
+import * as practicePacing from "./games/practice-pacing.mjs?v=practice-pacing-3";
+import { installBadgeProgression } from "./badge-progression.mjs?v=badge-progression-7";
+import { installCampaignRoadmap } from "./campaign-roadmap.mjs?v=campaign-roadmap-4";
+import { createPracticeCompass, sharedPracticeAxes } from "./practice-compass.mjs?v=practice-compass-10";
 import {
   installInterfaceContent,
   loadInterfaceContent
@@ -735,8 +735,8 @@ async function loadCourseFeatureProviders() {
   const naturalizationNucleus = gameAvailable("naturalization-nucleus");
   if (naturalizationNucleus) {
     await Promise.all([
-      loadStyle("/language-runtime/static/source/games/naturalization-nucleus/naturalization-nucleus.css?v=naturalization-nucleus-27"),
-      loadScript("/language-runtime/static/source/games/naturalization-nucleus/naturalization-nucleus.js?v=naturalization-nucleus-27")
+      loadStyle("/language-runtime/static/source/games/naturalization-nucleus/naturalization-nucleus.css?v=naturalization-nucleus-28"),
+      loadScript("/language-runtime/static/source/games/naturalization-nucleus/naturalization-nucleus.js?v=naturalization-nucleus-29")
     ]);
   }
   const courseRuntime = declaredBrowserProvider("courseRuntime");
@@ -756,7 +756,7 @@ async function loadCourseFeatureProviders() {
     origin: location.origin,
     routeBase,
     async initializeWorkspace() {
-      await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-51");
+      await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-54");
       const workspace = await globalThis.CaatuuWorkspaceReady;
       if (workspace?.ready !== true) {
         throw workspace?.error instanceof Error
@@ -791,7 +791,7 @@ async function start() {
     axes: sharedPracticeAxes,
     ...createPracticeCompass({ course, learning: globalThis.CaatuuLearning })
   });
-  await loadSharedScript("/language-runtime/static/source/caatuu-chrome.js?v=chrome-186");
+  await loadSharedScript("/language-runtime/static/source/caatuu-chrome.js?v=chrome-190");
   globalThis.CaatuuGameDynamics = installGameDynamics({
     scope: globalThis,
     onPauseChange(paused) {
@@ -808,7 +808,7 @@ async function start() {
   await initializeHomeCourseSetup(globalThis, { onSetupRequired: revealApplication });
   configureGameRoutes();
   applyCapabilityBoundaries();
-  await import("./word-world-host.mjs?v=word-world-host-32");
+  await import("./word-world-host.mjs?v=word-world-host-36");
   await loadCourseFeatureProviders();
   // Publish the usable-controls and voice results together. Further voice
   // retries can recover a late engine without delaying entry to the app.

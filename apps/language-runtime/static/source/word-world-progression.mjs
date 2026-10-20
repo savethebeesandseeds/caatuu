@@ -23,17 +23,12 @@ export function progressiveWordWorldSelection(records, {
   difficulty = 1, history = {}, excludeIds = [], selectedWord = "", matchesWord = () => false,
   random = Math.random, now = Date.now(), policy = null, onPool = () => {}
 } = {}) {
-  const adaptive = policy?.identity && policy.id !== 'existing';
   const pool = wordWorldProgressionPool(records, { difficulty, history, random, selectedWord, matchesWord, now,
-    policy, excludeIds, limit: adaptive ? 1 : Infinity });
+    policy, excludeIds, limit: 1 });
   onPool(pool);
-  // The adaptive decision already accounts for recent exclusions and reports
-  // its actual conditional probability. Never filter or resample it afterward.
-  if (adaptive) return pool[0] || null;
-  const excluded = new Set(excludeIds);
-  // If recent history covers the eligible practice pool, repeat within that pool.
-  const available = pool.filter(record => !excluded.has(record.id));
-  return (available.length ? available : pool)[0] || null;
+  // Both selectors own this turn's category and recent exclusions. Choosing a
+  // later cohort item here could consume a future new-material slot early.
+  return pool[0] || null;
 }
 
 export function wordWorldProgressionPool(records, {

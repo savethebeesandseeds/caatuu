@@ -29,9 +29,12 @@ const campaignCompletionSource = sourceBetween(
 function wordWorldCampaign({ nextGameId = "verb-lab" } = {}) {
   const state = { campaignActive: true, campaignTransitioning: false,
     campaignTransitionId: 0, trainTab: "word-net", campaignQueue: [] };
-  const calls = [], waits = [], readiness = [];
+  const calls = [], waits = [], readiness = [], activity = [];
   const window = { location: { origin: "https://local.test" },
-    CaatuuWordWorldHost: { advanceCampaignRound: () => calls.push("next-sentence") } };
+    CaatuuWordWorldHost: { advanceCampaignRound: () => {
+      assert.equal(state.campaignHandoffPending, true, "the outgoing game is suspended before reset");
+      calls.push("next-sentence");
+    } } };
   const context = vm.createContext({ state, window, Promise,
     waitForPracticePresentation: () => ({ promise: Promise.resolve(true) }),
     cancelPracticePresentationWaits() {}, nextCampaignTab: () => nextGameId,
@@ -39,12 +42,13 @@ function wordWorldCampaign({ nextGameId = "verb-lab" } = {}) {
     showCampaignTransition: () => calls.push("show-transition"), hideCampaignTransition: () => calls.push("hide-transition"),
     ensureCampaignGameLoaded: () => calls.push("load-next-game"),
     waitForCampaignGameReady: () => new Promise(resolve => readiness.push(resolve)),
-    setTrainTab: id => { state.trainTab = id; }
+    syncActiveGameVisibility: () => activity.push(!state.campaignHandoffPending),
+    setTrainTab: id => { state.trainTab = id; activity.push(!state.campaignHandoffPending); }
   });
   vm.runInContext(campaignCompletionSource + sourceBetween("function stopCampaign()", "function handleCampaignGameMessage"), context);
   window.CaatuuWorkspaceShell = { completeWordWorldRound: () => context.completeWordWorldCampaignRound(),
     continueWordWorld: () => context.continueWordWorldCampaign() };
-  return { state, calls, waits, window, context, ready: () => readiness.shift()?.(),
+  return { state, calls, waits, activity, window, context, ready: () => readiness.shift()?.(),
     complete: () => context.completeCampaignRound("word-net", window) };
 }
 
@@ -52,13 +56,48 @@ test("Campaign preserves the Word World result until Next, then waits only for r
   const game = wordWorldCampaign(), completed = game.complete();
   await new Promise(resolve => setImmediate(resolve));
   assert.deepEqual(game.calls, [], "there is no timed result dismissal or loading overlay");
+  assert.notEqual(game.state.campaignHandoffPending, true, "the result remains interactive until Next");
   await game.complete();
   game.context.continueWordWorldCampaign();
   await new Promise(resolve => setImmediate(resolve));
   assert.deepEqual(game.calls, ["show-transition", "next-sentence", "load-next-game"]);
+  assert.deepEqual(game.activity, [false]);
   assert.equal(game.state.trainTab, "word-net", "unready destination cannot replace the current game");
   game.ready(); await completed;
   assert.equal(game.state.trainTab, "verb-lab"); assert.equal(game.state.campaignTransitioning, false);
+  assert.deepEqual(game.activity, [false, true]);
+  assert.equal(game.state.campaignHandoffPending, false);
+});
+
+test("cancelling a handoff retires suspension without reactivating the outgoing game", async () => {
+  const game = wordWorldCampaign(), completed = game.complete();
+  game.context.continueWordWorldCampaign();
+  await new Promise(resolve => setImmediate(resolve));
+  assert.equal(game.state.campaignHandoffPending, true);
+  game.context.stopCampaign();
+  assert.equal(game.state.campaignHandoffPending, false);
+  assert.deepEqual(game.activity, [false], "navigation chooses the next active presentation");
+  game.ready(); await completed;
+  assert.equal(game.state.trainTab, "word-net");
+});
+
+test("a late embedded load or appearance sync cannot reactivate the outgoing game during handoff", () => {
+  const messages = [];
+  const state = { activeView: "verbs", trainTab: "memory-moon", campaignHandoffPending: true };
+  const frame = { dataset: { ready: "true" }, contentWindow: {
+    postMessage: message => messages.push(message)
+  } };
+  const context = vm.createContext({ state, Object,
+    embeddedGameTabs: { "memory-moon": { frameId: "moon" } },
+    document: { getElementById: () => frame, documentElement: { dataset: {} } },
+    window: { location: { origin: "https://local.test" } }
+  });
+  vm.runInContext(sourceBetween("function syncEmbeddedGameVisibility(activeTab)", "function ensureEmbeddedGameLoaded(gameId)"), context);
+  context.syncEmbeddedGameVisibility("memory-moon");
+  assert.equal(messages.at(-1).active, false);
+  state.campaignHandoffPending = false;
+  context.syncEmbeddedGameVisibility("memory-moon");
+  assert.equal(messages.at(-1).active, true);
 });
 
 test("leaving Campaign while reviewing cancels its pending manual handoff", async () => {
@@ -225,6 +264,7 @@ test("a one-game Campaign consumes each completed Verb round before the next cyc
       dealtRoundIds.push(nextId);
     },
     showCampaignTransition() {},
+    syncActiveGameVisibility() {},
     state,
     verbRoundComplete() {
       return state.verbRound.length > 0

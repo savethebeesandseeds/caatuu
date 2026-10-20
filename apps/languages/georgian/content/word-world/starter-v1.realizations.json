@@ -63674,6 +63674,1522 @@
           "playable": true
         }
       ]
+    },
+    {
+      "conceptId": "zero-ka-ww-hello",
+      "text": "გამარჯობა!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "გამარჯობა",
+          "pronunciation": null,
+          "gloss": "Hello",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-goodbye",
+      "text": "ნახვამდის!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ნახვამდის",
+          "pronunciation": null,
+          "gloss": "Goodbye",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-thanks",
+      "text": "მადლობა!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "მადლობა",
+          "pronunciation": null,
+          "gloss": "Thank you",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-yes",
+      "text": "დიახ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "დიახ",
+          "pronunciation": null,
+          "gloss": "Yes",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-no",
+      "text": "არა.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "არა",
+          "pronunciation": null,
+          "gloss": "No",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-please",
+      "text": "გთხოვ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "გთხოვ",
+          "pronunciation": null,
+          "gloss": "Please (to one familiar person)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-sorry",
+      "text": "ბოდიში!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ბოდიში",
+          "pronunciation": null,
+          "gloss": "Sorry",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-help",
+      "text": "მიშველეთ!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "მიშველეთ",
+          "pronunciation": null,
+          "gloss": "Help",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-i",
+      "text": "მე",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "მე",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-you",
+      "text": "შენ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "შენ",
+          "pronunciation": null,
+          "gloss": "you (one familiar person)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-mother",
+      "text": "დედა",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "დედა",
+          "pronunciation": null,
+          "gloss": "mother",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-father",
+      "text": "მამა",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "მამა",
+          "pronunciation": null,
+          "gloss": "father",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-friend",
+      "text": "მეგობარი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "მეგობარი",
+          "pronunciation": null,
+          "gloss": "friend",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-child",
+      "text": "ბავშვი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ბავშვი",
+          "pronunciation": null,
+          "gloss": "child",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-one",
+      "text": "ერთი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ერთი",
+          "pronunciation": null,
+          "gloss": "one",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-two",
+      "text": "ორი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ორი",
+          "pronunciation": null,
+          "gloss": "two",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-three",
+      "text": "სამი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "სამი",
+          "pronunciation": null,
+          "gloss": "three",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-four",
+      "text": "ოთხი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ოთხი",
+          "pronunciation": null,
+          "gloss": "four",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-five",
+      "text": "ხუთი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ხუთი",
+          "pronunciation": null,
+          "gloss": "five",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-water",
+      "text": "წყალი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "წყალი",
+          "pronunciation": null,
+          "gloss": "water",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-bread",
+      "text": "პური",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "პური",
+          "pronunciation": null,
+          "gloss": "bread",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-milk",
+      "text": "რძე",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "რძე",
+          "pronunciation": null,
+          "gloss": "milk",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-apple",
+      "text": "ვაშლი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ვაშლი",
+          "pronunciation": null,
+          "gloss": "apple",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-tea",
+      "text": "ჩაი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ჩაი",
+          "pronunciation": null,
+          "gloss": "tea",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-house",
+      "text": "სახლი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "სახლი",
+          "pronunciation": null,
+          "gloss": "house",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-book",
+      "text": "წიგნი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "წიგნი",
+          "pronunciation": null,
+          "gloss": "book",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-door",
+      "text": "კარი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "კარი",
+          "pronunciation": null,
+          "gloss": "door",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-car",
+      "text": "მანქანა",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "მანქანა",
+          "pronunciation": null,
+          "gloss": "car",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-cat",
+      "text": "კატა",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "კატა",
+          "pronunciation": null,
+          "gloss": "cat",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-dog",
+      "text": "ძაღლი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ძაღლი",
+          "pronunciation": null,
+          "gloss": "dog",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-big",
+      "text": "დიდი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "დიდი",
+          "pronunciation": null,
+          "gloss": "big",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-small",
+      "text": "პატარა",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "პატარა",
+          "pronunciation": null,
+          "gloss": "small",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-good",
+      "text": "კარგი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "კარგი",
+          "pronunciation": null,
+          "gloss": "good",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-new",
+      "text": "ახალი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ახალი",
+          "pronunciation": null,
+          "gloss": "new",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-red",
+      "text": "წითელი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "წითელი",
+          "pronunciation": null,
+          "gloss": "red",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-green",
+      "text": "მწვანე",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "მწვანე",
+          "pronunciation": null,
+          "gloss": "green",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-hot",
+      "text": "ცხელი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ცხელი",
+          "pronunciation": null,
+          "gloss": "hot",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-cold",
+      "text": "ცივი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ცივი",
+          "pronunciation": null,
+          "gloss": "cold",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-eat",
+      "text": "ჭამა",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ჭამა",
+          "pronunciation": null,
+          "gloss": "eating (verbal noun)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-drink",
+      "text": "სმა",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "სმა",
+          "pronunciation": null,
+          "gloss": "drinking (verbal noun)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-go",
+      "text": "წასვლა",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "წასვლა",
+          "pronunciation": null,
+          "gloss": "going (verbal noun)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-come",
+      "text": "მოსვლა",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "მოსვლა",
+          "pronunciation": null,
+          "gloss": "coming (verbal noun)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-sleep",
+      "text": "ძილი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ძილი",
+          "pronunciation": null,
+          "gloss": "sleeping (verbal noun)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-read",
+      "text": "კითხვა",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "კითხვა",
+          "pronunciation": null,
+          "gloss": "reading (verbal noun)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-write",
+      "text": "წერა",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "წერა",
+          "pronunciation": null,
+          "gloss": "writing (verbal noun)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-see",
+      "text": "დანახვა",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "დანახვა",
+          "pronunciation": null,
+          "gloss": "seeing (verbal noun)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-letter-a",
+      "text": "ა",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ა",
+          "pronunciation": null,
+          "gloss": "Georgian letter ani",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-letter-m",
+      "text": "მ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "მ",
+          "pronunciation": null,
+          "gloss": "Georgian letter mani",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-letter-i",
+      "text": "ი",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ი",
+          "pronunciation": null,
+          "gloss": "Georgian letter ini",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-letter-n",
+      "text": "ნ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ნ",
+          "pronunciation": null,
+          "gloss": "Georgian letter nari",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-letter-d",
+      "text": "დ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "დ",
+          "pronunciation": null,
+          "gloss": "Georgian letter doni",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-letter-s",
+      "text": "ს",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ს",
+          "pronunciation": null,
+          "gloss": "Georgian letter sani",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-001",
+      "text": "გამარჯობა, დედა!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "გამარჯობა",
+          "pronunciation": null,
+          "gloss": "hello",
+          "playable": true
+        },
+        {
+          "surface": "დედა",
+          "pronunciation": null,
+          "gloss": "mother",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-002",
+      "text": "გამარჯობა, მამა!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "გამარჯობა",
+          "pronunciation": null,
+          "gloss": "hello",
+          "playable": true
+        },
+        {
+          "surface": "მამა",
+          "pronunciation": null,
+          "gloss": "father",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-003",
+      "text": "დიახ, მადლობა.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "დიახ",
+          "pronunciation": null,
+          "gloss": "yes",
+          "playable": true
+        },
+        {
+          "surface": "მადლობა",
+          "pronunciation": null,
+          "gloss": "thank you",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-004",
+      "text": "არა, მადლობა.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "არა",
+          "pronunciation": null,
+          "gloss": "no",
+          "playable": true
+        },
+        {
+          "surface": "მადლობა",
+          "pronunciation": null,
+          "gloss": "thank you",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-005",
+      "text": "დილა მშვიდობისა!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "დილა",
+          "pronunciation": null,
+          "gloss": "morning",
+          "playable": true
+        },
+        {
+          "surface": "მშვიდობისა",
+          "pronunciation": null,
+          "gloss": "peace (greeting)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-006",
+      "text": "საღამო მშვიდობისა!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "საღამო",
+          "pronunciation": null,
+          "gloss": "evening",
+          "playable": true
+        },
+        {
+          "surface": "მშვიდობისა",
+          "pronunciation": null,
+          "gloss": "peace (greeting)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-007",
+      "text": "მე აქ ვარ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "მე",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "აქ",
+          "pronunciation": null,
+          "gloss": "here",
+          "playable": true
+        },
+        {
+          "surface": "ვარ",
+          "pronunciation": null,
+          "gloss": "am",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-008",
+      "text": "შენ აქ ხარ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "შენ",
+          "pronunciation": null,
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "აქ",
+          "pronunciation": null,
+          "gloss": "here",
+          "playable": true
+        },
+        {
+          "surface": "ხარ",
+          "pronunciation": null,
+          "gloss": "are",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-009",
+      "text": "მე სახლში ვარ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "მე",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "სახლში",
+          "pronunciation": null,
+          "gloss": "at home",
+          "playable": true
+        },
+        {
+          "surface": "ვარ",
+          "pronunciation": null,
+          "gloss": "am",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-010",
+      "text": "შენ სახლში ხარ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "შენ",
+          "pronunciation": null,
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "სახლში",
+          "pronunciation": null,
+          "gloss": "at home",
+          "playable": true
+        },
+        {
+          "surface": "ხარ",
+          "pronunciation": null,
+          "gloss": "are",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-011",
+      "text": "მე კარგად ვარ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "მე",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "კარგად",
+          "pronunciation": null,
+          "gloss": "well",
+          "playable": true
+        },
+        {
+          "surface": "ვარ",
+          "pronunciation": null,
+          "gloss": "am",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-012",
+      "text": "ეს წყალია.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ეს",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "წყალია",
+          "pronunciation": null,
+          "gloss": "is water",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-013",
+      "text": "ეს პურია.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ეს",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "პურია",
+          "pronunciation": null,
+          "gloss": "is bread",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-014",
+      "text": "ეს რძეა.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ეს",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "რძეა",
+          "pronunciation": null,
+          "gloss": "is milk",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-015",
+      "text": "ეს ჩაია.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ეს",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "ჩაია",
+          "pronunciation": null,
+          "gloss": "is tea",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-016",
+      "text": "ეს წიგნია.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ეს",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "წიგნია",
+          "pronunciation": null,
+          "gloss": "is a book",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-017",
+      "text": "ეს სახლია.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ეს",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "სახლია",
+          "pronunciation": null,
+          "gloss": "is a house",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-018",
+      "text": "ეს კატაა.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ეს",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "კატაა",
+          "pronunciation": null,
+          "gloss": "is a cat",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-019",
+      "text": "ეს ძაღლია.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ეს",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "ძაღლია",
+          "pronunciation": null,
+          "gloss": "is a dog",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-020",
+      "text": "ეს ვაშლია.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ეს",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "ვაშლია",
+          "pronunciation": null,
+          "gloss": "is an apple",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-021",
+      "text": "წითელი მანქანა.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "წითელი",
+          "pronunciation": null,
+          "gloss": "red",
+          "playable": true
+        },
+        {
+          "surface": "მანქანა",
+          "pronunciation": null,
+          "gloss": "car",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-022",
+      "text": "მწვანე წიგნი.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "მწვანე",
+          "pronunciation": null,
+          "gloss": "green",
+          "playable": true
+        },
+        {
+          "surface": "წიგნი",
+          "pronunciation": null,
+          "gloss": "book",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-023",
+      "text": "დიდი ძაღლი.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "დიდი",
+          "pronunciation": null,
+          "gloss": "big",
+          "playable": true
+        },
+        {
+          "surface": "ძაღლი",
+          "pronunciation": null,
+          "gloss": "dog",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-024",
+      "text": "პატარა კატა.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "პატარა",
+          "pronunciation": null,
+          "gloss": "small",
+          "playable": true
+        },
+        {
+          "surface": "კატა",
+          "pronunciation": null,
+          "gloss": "cat",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-025",
+      "text": "ახალი წიგნი.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ახალი",
+          "pronunciation": null,
+          "gloss": "new",
+          "playable": true
+        },
+        {
+          "surface": "წიგნი",
+          "pronunciation": null,
+          "gloss": "book",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-026",
+      "text": "ცივი წყალი.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ცივი",
+          "pronunciation": null,
+          "gloss": "cold",
+          "playable": true
+        },
+        {
+          "surface": "წყალი",
+          "pronunciation": null,
+          "gloss": "water",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-027",
+      "text": "ცხელი რძე.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ცხელი",
+          "pronunciation": null,
+          "gloss": "hot",
+          "playable": true
+        },
+        {
+          "surface": "რძე",
+          "pronunciation": null,
+          "gloss": "milk",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-028",
+      "text": "ცხელი ჩაი.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ცხელი",
+          "pronunciation": null,
+          "gloss": "hot",
+          "playable": true
+        },
+        {
+          "surface": "ჩაი",
+          "pronunciation": null,
+          "gloss": "tea",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-029",
+      "text": "ორი კატა.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ორი",
+          "pronunciation": null,
+          "gloss": "two",
+          "playable": true
+        },
+        {
+          "surface": "კატა",
+          "pronunciation": null,
+          "gloss": "cat (after a number)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-030",
+      "text": "სამი წიგნი.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "სამი",
+          "pronunciation": null,
+          "gloss": "three",
+          "playable": true
+        },
+        {
+          "surface": "წიგნი",
+          "pronunciation": null,
+          "gloss": "book (after a number)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-031",
+      "text": "მე ვჭამ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "მე",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "ვჭამ",
+          "pronunciation": null,
+          "gloss": "eat",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-032",
+      "text": "შენ ჭამ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "შენ",
+          "pronunciation": null,
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "ჭამ",
+          "pronunciation": null,
+          "gloss": "eat",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-033",
+      "text": "მე ვსვამ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "მე",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "ვსვამ",
+          "pronunciation": null,
+          "gloss": "drink",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-034",
+      "text": "შენ სვამ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "შენ",
+          "pronunciation": null,
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "სვამ",
+          "pronunciation": null,
+          "gloss": "drink",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-035",
+      "text": "მე წყალს ვსვამ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "მე",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "წყალს",
+          "pronunciation": null,
+          "gloss": "water (object)",
+          "playable": true
+        },
+        {
+          "surface": "ვსვამ",
+          "pronunciation": null,
+          "gloss": "drink",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-036",
+      "text": "შენ რძეს სვამ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "შენ",
+          "pronunciation": null,
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "რძეს",
+          "pronunciation": null,
+          "gloss": "milk (object)",
+          "playable": true
+        },
+        {
+          "surface": "სვამ",
+          "pronunciation": null,
+          "gloss": "drink",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-037",
+      "text": "მე ვკითხულობ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "მე",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "ვკითხულობ",
+          "pronunciation": null,
+          "gloss": "read",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-038",
+      "text": "შენ კითხულობ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "შენ",
+          "pronunciation": null,
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "კითხულობ",
+          "pronunciation": null,
+          "gloss": "read",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-039",
+      "text": "მე მძინავს.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "მე",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "მძინავს",
+          "pronunciation": null,
+          "gloss": "am sleeping",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-040",
+      "text": "წყალი ცივია.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "წყალი",
+          "pronunciation": null,
+          "gloss": "water",
+          "playable": true
+        },
+        {
+          "surface": "ცივია",
+          "pronunciation": null,
+          "gloss": "is cold",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-041",
+      "text": "კატა პატარაა.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "კატა",
+          "pronunciation": null,
+          "gloss": "cat",
+          "playable": true
+        },
+        {
+          "surface": "პატარაა",
+          "pronunciation": null,
+          "gloss": "is small",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-ka-ww-phrase-042",
+      "text": "ძაღლი დიდია.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ძაღლი",
+          "pronunciation": null,
+          "gloss": "dog",
+          "playable": true
+        },
+        {
+          "surface": "დიდია",
+          "pronunciation": null,
+          "gloss": "is big",
+          "playable": true
+        }
+      ]
     }
   ]
 }

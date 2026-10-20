@@ -11,8 +11,8 @@ async function read(relative) {
   sources.set(relative.replaceAll('\\', '/'), createHash('sha256').update(bytes).digest('hex'));
   return JSON.parse(bytes);
 }
-const levels = (items) => ({ ...Object.fromEntries([1, 2, 3].map(level => [level, items.filter(item => item.difficulty === level).length])),
-  ungraded: items.filter(item => ![1, 2, 3].includes(item.difficulty)).length });
+const levels = (items) => ({ ...Object.fromEntries([0, 1, 2, 3].map(level => [level, items.filter(item => item.difficulty === level).length])),
+  ungraded: items.filter(item => ![0, 1, 2, 3].includes(item.difficulty)).length });
 const countExamples = (value) => {
   if (!value || typeof value !== 'object') return 0;
   if (typeof value.targetText === 'string' && typeof value.learnerBaseText === 'string') return 1;
@@ -67,6 +67,9 @@ for (const entry of catalog.courses) {
     } else if (game === 'sound-quasar') {
       const bank = await resource('soundQuasarCatalog');
       pairs.push({ ...base, words: bank.items.length, sentences: bank.sentences.length, wordLevels: levels(bank.items), sentenceLevels: levels(bank.sentences), audioReview: bank.audio.reviewStatus, ids: [...bank.items, ...bank.sentences].map(item => item.id) });
+    } else if (game === 'memory-moon') {
+      const bank = await resource('memoryMoonCatalog');
+      pairs.push({ ...base, questions: bank.challenges.length, levels: levels(bank.challenges), ids: bank.challenges.map(item => item.id) });
     } else throw new Error(`Unmapped enabled game: ${course.id}/${game}`);
   }
 }

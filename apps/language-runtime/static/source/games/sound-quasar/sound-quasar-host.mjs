@@ -1,10 +1,11 @@
 import { readEmbeddedCourseProfile, fetchDeclaredCourseGameJson } from "../course-game-content.mjs?v=course-game-content-1";
-import { validateSoundQuasarCatalog, createSoundQuasarSession, evaluateSoundQuasarChoice, soundQuasarItemsForDifficulty } from "./sound-quasar-core.mjs?v=sound-quasar-11";
+import { validateSoundQuasarCatalog, createSoundQuasarSession, evaluateSoundQuasarChoice, soundQuasarItemsForDifficulty } from "./sound-quasar-core.mjs?v=sound-quasar-12";
 import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-10";
 import { appendTargetToneText } from "../../target-text-tones.mjs?v=target-text-tones-1";
 import { newContentEncounterId } from "../content-progression.mjs";
 import { createArabicReadingGuide } from "../../arabic-reading-guide.mjs?v=arabic-reading-guide-2";
-import { createReviewContinuation } from "../practice-pacing.mjs?v=practice-pacing-2";
+import { createReviewContinuation } from "../practice-pacing.mjs?v=practice-pacing-3";
+import { createMemoryMoonDictionary as createResultDictionary } from "../memory-moon/memory-moon-dictionary.mjs?v=memory-moon-dictionary-2";
 
 const GAME_ID = "sound-quasar";
 const MUSIC_ARTWORK = Object.freeze([
@@ -16,7 +17,7 @@ const MUSIC_ARTWORK = Object.freeze([
   "/assets/macaw/music/music%20(11).png", "/assets/macaw/music/music%20(12).png"
 ]);
 
-export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = globalThis.fetch, random = Math.random } = {}) {
+export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = globalThis.fetch, random = Math.random, services = {} } = {}) {
   const doc = scope.document;
   const node = (id) => doc.getElementById(id);
   const course = readEmbeddedCourseProfile(scope);
@@ -48,7 +49,7 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     finished: false, destroyed: false, speechRequest: 0, voiceRequest: 0,
     voiceBackend: "", audioContext: null, report: null, reported: new Set(), mode: "words", artwork: "", sessionCorrect: 0,
     pageHidden: false, pendingAutoplay: false, audioFailed: false, choiceCount: 4,
-    waitingCampaign: false
+    waitingCampaign: false, dictionaryWord: ""
   };
   const loadingLabel = t("verbnebula.round.preparing");
   const loadingScreen = mountRobotLoadingScreen({ container: node("quasarLoading"), label: loadingLabel,
@@ -66,6 +67,7 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
   try { if (shell.localStorage?.getItem(choiceCountKey) === "6") state.choiceCount = 6; } catch { /* Keep the session default when storage is unavailable. */ }
   try { if (shell.localStorage?.getItem(modeKey) === "sentences") state.mode = "sentences"; } catch { /* Keep the session default when storage is unavailable. */ }
   const disposers = [];
+  let dictionary = null;
   const readingGuide = createArabicReadingGuide({ course, gameId: GAME_ID, document: doc, storage: shell.localStorage });
   const listen = (target, event, handler) => {
     target?.addEventListener?.(event, handler);
@@ -75,12 +77,73 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     readingGuide,
     challenge: { content: node("quasarModeOptions"), labelKey: "soundquasar.mode.title" },
     settings: { content: node("quasarChoiceOptions"), labelKey: "soundquasar.options.title", icon: "boxes" },
-    onOpenChange: () => syncButtons() });
+    onOpenChange(open) { if (open) dictionary?.reset(); syncButtons(); } });
   const review = createReviewContinuation({ button: node("quasarContinue"), i18n,
     canContinue: canAdvance, onContinue: next });
   const current = () => state.rounds[state.index];
   const muted = () => api.getSpeechMuted?.() === true;
   const automaticAudioOff = () => muted() || api.getSpeechAutoplay?.() === false;
+  function dictionaryAvailable() {
+    return (state.resolved || state.skipped) && state.active && !state.destroyed && !state.finished
+      && !state.pageHidden && shell.document.visibilityState !== "hidden"
+      && !shell.CaatuuGameDynamics?.active && !state.report && !controls.isOpen();
+  }
+  function renderResultWord(host, word, { reading } = {}) {
+    host.replaceChildren();
+    if (!readingGuide.render(host, word)) appendTargetToneText(doc, host, word, reading);
+  }
+  // Authored Chinese readings also provide exact word boundaries and retain the
+  // reading of each occurrence. Other scripts use locale-aware word segments.
+  function resultWords(round) {
+    const text = round.target;
+    if (round.reading?.system === "pinyin") {
+      const parts = [];
+      let cursor = 0;
+      for (const token of round.reading.tokens) {
+        const start = text.indexOf(token.surface, cursor);
+        if (start > cursor) parts.push({ text: text.slice(cursor, start), word: false });
+        parts.push({ text: token.surface, word: true, reading: { ...round.reading, tokens: [token] } });
+        cursor = start + token.surface.length;
+      }
+      if (cursor < text.length) parts.push({ text: text.slice(cursor), word: false });
+      return parts;
+    }
+    try {
+      return [...new Intl.Segmenter(course.targetLanguage.locale, { granularity: "word" }).segment(text)]
+        .map(part => ({ text: part.segment, word: part.isWordLike }));
+    } catch {
+      return [...text.matchAll(/[\p{L}\p{M}\p{N}]+|[^\p{L}\p{M}\p{N}]+/gu)]
+        .map(([part]) => ({ text: part, word: /^[\p{L}\p{M}\p{N}]/u.test(part) }));
+    }
+  }
+  dictionary = createResultDictionary({ slot: node("quasarDictionary"), course,
+    runtime: shell.CaatuuRuntime, i18n, fetchImpl, runtimeHref: scope.location.href,
+    resolveWord: services.resolveWord, renderWord: renderResultWord,
+    onSpeak: word => { void speakDictionaryWord(word); },
+    onOpenChange(open) {
+      node("quasarPanel").classList.toggle("has-dictionary", open);
+      if (!open && state.dictionaryWord) stopSpeech();
+    } });
+  dictionary.setActive(false);
+  async function speakDictionaryWord(word) {
+    if (!dictionaryAvailable() || !word) return;
+    stopSpeech();
+    const request = ++state.speechRequest;
+    state.playing = true;
+    state.dictionaryWord = word;
+    dictionary.syncSpeech({ status: "playing", text: word });
+    syncButtons();
+    try { await api.speakText(word, { allowWhileMuted: true }); }
+    catch { /* Dictionary pronunciation never changes the listening result. */ }
+    finally {
+      if (request === state.speechRequest && !state.destroyed) {
+        state.playing = false;
+        state.dictionaryWord = "";
+        dictionary.syncSpeech({ status: "idle" });
+        syncButtons();
+      }
+    }
+  }
   function maybeAutoplay() {
     if (!state.pendingAutoplay || !state.audioReady || automaticAudioOff() || !state.active || state.destroyed
       || state.pageHidden || shell.document.visibilityState === "hidden" || state.finished
@@ -95,6 +158,12 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
   }
   function canAdvance() {
     return (state.resolved || state.skipped) && state.active && !state.destroyed && !state.finished
+      && !state.pageHidden && shell.document.visibilityState !== "hidden"
+      && !shell.CaatuuGameDynamics?.active && !state.report && !controls.isOpen();
+  }
+  function canChoose() {
+    // A completed first listen unlocks the question; replay never relocks it.
+    return state.heard && !state.resolved && !state.skipped && state.active && !state.destroyed && !state.finished
       && !state.pageHidden && shell.document.visibilityState !== "hidden"
       && !shell.CaatuuGameDynamics?.active && !state.report && !controls.isOpen();
   }
@@ -113,7 +182,24 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     target.lang = course.targetLanguage.locale || course.targetLanguage.id;
     target.dir = course.targetLanguage.direction || "auto";
     target.replaceChildren();
-    if (!readingGuide.render(target, round.target)) appendTargetToneText(doc, target, round.target, round.reading);
+    let tokenIndex = 0;
+    for (const part of resultWords(round)) {
+      if (!part.word) { target.append(part.text); continue; }
+      const button = doc.createElement("button");
+      button.type = "button";
+      button.className = "quasar-result-word";
+      button.dataset.word = part.text;
+      button.setAttribute("aria-label", t("wordworld.word.selectmeaning", { word: part.text }));
+      renderResultWord(button, part.text, part);
+      const context = { item: { targetText: round.target, targetReading: round.reading },
+        tokenIndex: tokenIndex++, reading: part.reading, button };
+      button.addEventListener("click", () => {
+        if (!dictionaryAvailable()) return;
+        stopSpeech();
+        void dictionary.open(part.text, context);
+      });
+      target.append(button);
+    }
     const reading = node("quasarResultReading");
     reading.textContent = round.reading?.system === "pinyin"
       ? round.reading.tokens.flatMap((token) => token.units.map((unit) => unit.notation)).join(" ") : "";
@@ -122,6 +208,7 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     node("quasarResultMeaning").dir = course.sourceLanguage.direction || "auto";
     node("quasarResultMeaning").textContent = round.meaning;
     node("quasarResult").hidden = false;
+    dictionary.setActive(dictionaryAvailable());
     node("quasarResult").focus();
     review.show();
   }
@@ -131,6 +218,7 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
   }
   function syncButtons() {
     syncRobotScreens();
+    dictionary?.setActive(dictionaryAvailable());
     const unavailable = !state.active || state.destroyed || state.finished;
     node("quasarListen").disabled = unavailable || !state.audioReady || state.finished;
     node("quasarListen").setAttribute("aria-pressed", String(state.playing));
@@ -141,7 +229,7 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     node("quasarReport").disabled = unavailable || state.finished || state.reported.has(current()?.id);
     node("quasarReport").textContent = t(state.reported.has(current()?.id) ? "wordworld.report.savedaction" : "soundquasar.report.action");
     for (const button of node("quasarChoices").querySelectorAll("button")) {
-      button.disabled = unavailable || !state.heard || state.playing || state.resolved || state.skipped || state.missed.has(button.dataset.choiceId);
+      button.disabled = !canChoose() || state.missed.has(button.dataset.choiceId);
     }
     syncAdvance();
     maybeAutoplay();
@@ -150,6 +238,8 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     state.speechRequest += 1;
     const wasPlaying = state.playing;
     state.playing = false;
+    state.dictionaryWord = "";
+    dictionary?.syncSpeech({ status: "idle" });
     if (wasPlaying) void Promise.resolve(api.stopSpeech?.()).catch(() => {});
     syncButtons();
   }
@@ -171,6 +261,7 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     syncButtons();
   }
   function beginWord() {
+    dictionary.reset();
     review.clear();
     state.encounterId = newContentEncounterId();
     state.contentGeneration = shell.CaatuuLearning?.contentGeneration?.() ?? null;
@@ -223,11 +314,12 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     syncButtons();
   }
   function startSession() {
+    dictionary.reset();
     review.clear();
     state.waitingCampaign = false;
     state.resolved = false;
     state.skipped = false;
-    const difficulty = Math.max(1, Math.min(3, Math.floor(Number(shell.CaatuuLearning?.difficulty?.()) || 1)));
+    const difficulty = Math.max(0, Math.min(3, Math.floor(Number(shell.CaatuuLearning?.difficulty?.() ?? 1))));
     const available = soundQuasarItemsForDifficulty(catalog, { mode: state.mode, difficulty }).length;
     if (available < 2) {
       state.rounds = [];
@@ -243,14 +335,14 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     }
     node("quasarError").hidden = true;
     node("quasarGame").hidden = false;
-    const choiceCount = available >= state.choiceCount ? state.choiceCount : Math.min(4, available);
+    const choiceCount = difficulty === 0 ? 2 : available >= state.choiceCount ? state.choiceCount : Math.min(4, available);
     state.rounds = createSoundQuasarSession(catalog, { random, mode: state.mode, choiceCount, difficulty,
       history: shell.CaatuuLearning?.contentHistory?.(GAME_ID, state.mode),
       policy: shell.CaatuuLearning?.samplingContext?.(GAME_ID, state.mode) });
     for (const button of node("quasarChoiceOptions").querySelectorAll("button[data-count]")) {
       const count = Number(button.dataset.count);
       button.textContent = t("soundquasar.options.count", { count });
-      button.disabled = count > available;
+      button.disabled = count > available || (difficulty === 0 && count !== 2);
       button.setAttribute("aria-pressed", String(count === choiceCount));
     }
     state.index = 0;
@@ -307,24 +399,25 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     }
   }
   function choose(choiceId) {
-    if (!state.active || state.destroyed || state.finished || !state.heard || state.playing || state.resolved || state.skipped || state.missed.has(choiceId)) return;
+    if (!canChoose() || state.missed.has(choiceId)) return;
     const round = current();
+    const button = node("quasarChoices").querySelector(`[data-choice-id="${choiceId}"]`);
+    if (!button) return;
     const correct = evaluateSoundQuasarChoice(round, choiceId);
     const evidence = state.missed.size ? "assisted" : "independent";
-    const button = node("quasarChoices").querySelector(`[data-choice-id="${choiceId}"]`);
     if (correct) {
       state.resolved = true;
       state.sessionCorrect += 1;
       button.classList.add("is-correct");
-      showResult();
     } else {
       state.missed.add(choiceId);
       button.classList.add("is-wrong");
-      if (state.missed.size >= 2) {
-        state.resolved = true;
-        showResult(false);
-      } else feedback("soundquasar.tryagain", undefined, "error");
+      if (state.missed.size >= 2) state.resolved = true;
     }
+    // Fence a replay's completion after locking this attempt, then reveal feedback.
+    if (state.playing) stopSpeech();
+    if (state.resolved) showResult(correct);
+    else feedback("soundquasar.tryagain", undefined, "error");
     // Lock the attempt before record() emits synchronous learning-change events.
     shell.CaatuuLearning?.recordExposure?.(GAME_ID, {
       bankId: state.mode, itemId: round.id, encounterId: state.encounterId,
@@ -348,6 +441,7 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     state.skipped = false;
     review.clear();
     stopSpeech();
+    dictionary.reset();
     state.index += 1;
     if (state.index < state.rounds.length) {
       beginWord();
@@ -387,6 +481,7 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     if (!state.active || state.destroyed || state.finished || state.reported.has(current()?.id)) return;
     state.pendingAutoplay = false;
     controls.close();
+    dictionary.reset();
     stopSpeech();
     const round = current();
     state.report = {
@@ -457,7 +552,7 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
   });
   listen(node("quasarPanel"), "click", (event) => {
     if (event.defaultPrevented || (event.button !== undefined && event.button !== 0) || state.report || controls.isOpen()) return;
-    if (event.target?.closest?.('button, a, input, select, textarea, label, dialog, [role="dialog"], .caatuu-game-controls')) return;
+    if (event.target?.closest?.('button, a, input, select, textarea, label, dialog, [role="dialog"], .caatuu-game-controls, .quasar-dictionary')) return;
     if (scope.getSelection?.()?.isCollapsed === false) return;
     // A single click covers taps as well, avoiding duplicate touch/click playback.
     void play();
@@ -514,6 +609,7 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
   function destroy() {
     if (state.destroyed) return;
     state.destroyed = true;
+    dictionary.destroy();
     review.destroy();
     loadingScreen.destroy();
     transitionScreen.destroy();

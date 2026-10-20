@@ -2,15 +2,15 @@ import { fetchDeclaredCourseGameJson, readEmbeddedCourseProfile } from "../cours
 import {
   buildConjugationHelixRound, judgeConjugationHelixRound, splitConjugationDisplay,
   buildConjugationVerbQueue, validateConjugationCometCatalog, selectConjugationPracticeVerbs
-} from "./conjugation-comet-core.mjs?v=conjugation-comet-core-4";
+} from "./conjugation-comet-core.mjs?v=conjugation-comet-core-5";
 import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-10";
 import { newContentEncounterId, matchesContentDifficulty } from "../content-progression.mjs";
 import { createArabicReadingGuide } from "../../arabic-reading-guide.mjs?v=arabic-reading-guide-2";
-import { createReviewContinuation, preventRepeatedReviewKey } from "../practice-pacing.mjs?v=practice-pacing-2";
+import { createReviewContinuation, preventRepeatedReviewKey } from "../practice-pacing.mjs?v=practice-pacing-3";
 
 const GAME_ID = "conjugation-comet";
 const RESOURCE_NAME = "conjugationCometCatalog";
-const PHASE_DELAYS = Object.freeze({ moving: 420 });
+const PHASE_DELAYS = Object.freeze({ moving: 160 });
 const ILLUSTRATIONS_KEY = "caatuu.conjugation-comet.illustrations";
 const element = (id) => document.getElementById(id);
 const targetReadingMeasurements = new WeakMap();
@@ -60,6 +60,12 @@ function finishMotion(state) {
   state.animations.forEach((animation) => animation.cancel());
   state.animations = [];
 }
+function settleStrandMotion(state) {
+  clearTimer(state);
+  finishMotion(state);
+  state.phase = "question";
+  syncInteraction(state);
+}
 function armPhase(state) {
   clearTimer(state);
   if (!canInteract(state) || state.waitingCampaign) return;
@@ -70,9 +76,7 @@ function armPhase(state) {
     if (serial !== state.timerSerial || !canInteract(state)) return;
     state.timer = 0;
     if (state.phase === "moving") {
-      finishMotion(state);
-      state.phase = "question";
-      syncInteraction(state);
+      settleStrandMotion(state);
       focusStrand(state, state.focusSide);
     }
   }, delay);
@@ -165,12 +169,12 @@ function syncInteraction(state) {
     if (!canInteract(state)) animation.pause();
     else if (animation.playState === "paused") animation.play();
   }
-  const locked = state.phase !== "question" || !canInteract(state);
+  const locked = !["question", "moving"].includes(state.phase) || !canInteract(state);
   for (const id of ["conjugationCometSubjectPrev", "conjugationCometSubjectNext", "conjugationCometTargetPrev", "conjugationCometTargetNext"]) element(id).disabled = locked;
   for (const id of ["conjugationCometSubjects", "conjugationCometTargets"]) {
     element(id).querySelectorAll("button").forEach((node) => { node.disabled = locked; });
   }
-  element("conjugationCometSubmit").disabled = locked || !state.round;
+  element("conjugationCometSubmit").disabled = state.phase !== "question" || !canInteract(state) || !state.round;
   element("conjugationCometSummaryNext").disabled = state.phase !== "summary" || !canInteract(state);
   state.continuation?.sync();
   renderPairBackgrounds(state);
@@ -529,7 +533,7 @@ function resetResult(state) {
   renderJudgment(state);
 }
 function moveStrand(state, side, requested) {
-  if (!canInteract(state) || state.phase !== "question") return;
+  if (!canInteract(state) || !["question", "moving"].includes(state.phase)) return;
   const length = state.round.subjects.length;
   const key = side === "subject" ? "subjectIndex" : "targetIndex";
   const shift = requested - state[key];
@@ -545,6 +549,8 @@ function moveStrand(state, side, requested) {
   resetResult(state);
   renderStrand(state, side, { shift });
   renderStrand(state, side === "subject" ? "target" : "subject");
+  // Reduced motion (or a browser without animation support) has nothing to wait for.
+  if (!state.animations.length) state.phase = "question";
   syncInteraction(state);
   armPhase(state);
 }
@@ -557,7 +563,7 @@ function beginNextVerb(state) {
   finishMotion(state);
   state.waitingCampaign = false;
   if (!state.queue.length) {
-    const level = Math.max(1, Math.min(3, Number(shellWindow().CaatuuLearning?.difficulty?.()) || 1));
+    const level = Math.max(0, Math.min(3, Number(shellWindow().CaatuuLearning?.difficulty?.() ?? 1)));
     const learning = shellWindow().CaatuuLearning;
     state.queue = learning?.contentHistory
       ? selectConjugationPracticeVerbs(state.catalog.verbs, { difficulty: level,
@@ -721,6 +727,7 @@ function bindUi(state) {
     completeBatch(state);
   });
   let wheel = { side: "", delta: 0, time: 0 };
+  let lastWheelStepAt = -Infinity;
   listen(board, "wheel", (event) => {
     if (!canInteract(state) || !["question", "moving"].includes(state.phase)
       || event.ctrlKey || event.metaKey || event.altKey || event.shiftKey
@@ -735,16 +742,17 @@ function bindUi(state) {
     // Its visible arrow buttons and keyboard controls still rotate each strand.
     if (bounds.height > window.innerHeight) { wheel.delta = 0; return; }
     event.preventDefault();
-    // Momentum during a rotation must not queue up more steps or scroll the page.
-    if (state.phase === "moving") { wheel.delta = 0; return; }
+    const time = event.timeStamp || Date.now();
+    // Momentum must not accelerate when reduced motion removes the animation.
+    if (state.phase === "moving" || time - lastWheelStepAt < PHASE_DELAYS.moving) { wheel.delta = 0; return; }
     const side = event.clientX < bounds.left + bounds.width / 2 ? "target" : "subject";
     const delta = event.deltaY * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? bounds.height : 1);
-    const time = event.timeStamp || Date.now();
     if (side !== wheel.side || time - wheel.time > 200 || Math.sign(delta) !== Math.sign(wheel.delta)) wheel.delta = 0;
     wheel = { side, delta: wheel.delta + delta, time };
     if (Math.abs(wheel.delta) < 40) return;
     const step = Math.sign(wheel.delta);
     wheel.delta = 0;
+    lastWheelStepAt = time;
     moveStrand(state, side, (side === "subject" ? state.subjectIndex : state.targetIndex) + step);
   }, { passive: false });
   listen(document, "click", (event) => {
@@ -753,7 +761,8 @@ function bindUi(state) {
     const side = button.dataset.helixSide;
     if (button.id === "conjugationCometSubmit") submitHelix(state);
     else if (side && button.dataset.step) moveStrand(state, side, (side === "subject" ? state.subjectIndex : state.targetIndex) + Number(button.dataset.step));
-    else if (side && button.dataset.helixIndex !== undefined && state.phase === "question") {
+    else if (side && button.dataset.helixIndex !== undefined && ["question", "moving"].includes(state.phase)) {
+      if (state.phase === "moving") settleStrandMotion(state);
       state.focusSide = side;
       const row = Number(button.dataset.row);
       void speakTargetText(state, state.round.options[wrap(row + state.targetIndex, state.round.options.length)].text);
@@ -763,7 +772,7 @@ function bindUi(state) {
   listen(document, "keydown", (event) => {
     if (event.defaultPrevented || event.repeat || event.isComposing || event.ctrlKey || event.altKey || event.metaKey || event.shiftKey
       || event.target.closest?.('input, textarea, select, [contenteditable]:not([contenteditable="false"]), [role="textbox"], dialog, [role="dialog"], #conjugationCometControls')
-      || !canInteract(state) || state.phase !== "question") return;
+      || !canInteract(state) || !["question", "moving"].includes(state.phase)) return;
     const button = event.target.closest?.("button");
     const strand = event.target.closest?.(".conjugation-comet-strand");
     const side = button?.dataset.helixSide || state.focusSide;

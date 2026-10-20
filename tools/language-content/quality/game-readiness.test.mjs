@@ -5,7 +5,7 @@ import vm from 'node:vm';
 import { extractCoreVerbPairs, filterVerbPairsForDifficulty, dealVerbRound, VERB_NEBULA_PAIR_COUNTS } from '../../../apps/language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs';
 import { validateSoundQuasarCatalog, createSoundQuasarSession, buildSoundQuasarRound } from '../../../apps/language-runtime/static/source/games/sound-quasar/sound-quasar-core.mjs';
 import { validateMemoryMoonCatalog, selectMemoryMoonChallenges } from '../../../apps/language-runtime/static/source/games/memory-moon/memory-moon-core.mjs';
-import { createNounLandingSession } from '../../../apps/language-runtime/static/source/games/grammar-gravity/noun-landing-core.mjs';
+import { createNounLandingSession, setNounFallDuration } from '../../../apps/language-runtime/static/source/games/grammar-gravity/noun-landing-core.mjs';
 import { buildGrammarGravityRounds } from '../../../apps/language-runtime/static/source/games/grammar-gravity/grammar-gravity-core.mjs';
 import { validateConjugationCometCatalog, buildConjugationVerbQueue, buildConjugationHelixRound, judgeConjugationHelixPair } from '../../../apps/language-runtime/static/source/games/conjugation-comet/conjugation-comet-core.mjs';
 import { buildRounds, buildQuestions } from '../../../apps/languages/czech/static/source/games/case-cosmos/case-cosmos-content.mjs';
@@ -20,6 +20,7 @@ const courses = await Promise.all(catalog.courses.map(entry => json(entry.manife
 const random = () => 0.37;
 const eligible = (rows, level) => rows.filter(row => (row.difficulty ?? 1) === level);
 const sameIds = (actual, expected) => assert.deepEqual(new Set(actual.map(row => row.id)), new Set(expected.map(row => row.id)));
+const difficulties = [0, 1, 2, 3];
 
 for (const course of courses) {
   const resource = key => json(course.resources[key].path);
@@ -27,10 +28,11 @@ for (const course of courses) {
     test(`${course.id}/${game}: every level builds playable content`, async t => {
       if (game === 'verb-lab') {
         const pairs = extractCoreVerbPairs(await resource('verbNebulaCatalog'), { learnerBaseLanguage: course.sourceLanguage.locale });
-        for (const difficulty of [1, 2, 3]) {
+        for (const difficulty of difficulties) {
           const rows = filterVerbPairsForDifficulty(pairs, difficulty);
-          assert.ok(rows.length >= Math.max(...VERB_NEBULA_PAIR_COUNTS), 'Each level must support every offered board size.');
-          for (const count of VERB_NEBULA_PAIR_COUNTS) {
+          const boardSizes = difficulty === 0 ? [2] : VERB_NEBULA_PAIR_COUNTS;
+          assert.ok(rows.length >= Math.max(...boardSizes), 'Each level must support every board size offered at that level.');
+          for (const count of boardSizes) {
             let queue = rows.map(row => row.id);
             const seen = new Set();
             while (seen.size < rows.length) {
@@ -48,7 +50,7 @@ for (const course of courses) {
         }
       } else if (game === 'sound-quasar') {
         const pack = validateSoundQuasarCatalog(await resource('soundQuasarCatalog'));
-        for (const mode of ['words', 'sentences']) for (const difficulty of [1, 2, 3]) {
+        for (const mode of ['words', 'sentences']) for (const difficulty of difficulties) {
           const rows = eligible(mode === 'words' ? pack.items : pack.sentences, difficulty);
           for (const choiceCount of [2, 4, 6, 8]) {
             const session = createSoundQuasarSession(pack, { mode, difficulty, choiceCount, roundLength: 500, random });
@@ -61,7 +63,7 @@ for (const course of courses) {
               buildSoundQuasarRound(pack, { mode, difficulty, choiceCount, index, random }));
             assert.deepEqual(new Set(rounds.map(round => round.answerId)), new Set(rows.map(row => row.id)));
             for (const round of rounds) {
-              assert.equal(round.choices.length, Math.min(choiceCount, rows.length));
+              assert.equal(round.choices.length, Math.min(difficulty === 0 ? 2 : choiceCount, rows.length));
               assert.ok(round.choices.some(row => row.id === round.answerId));
               assert.equal(new Set(round.choices.map(row => row.id)).size, round.choices.length);
               assert.ok(round.choices.every(row => rows.some(item => item.id === row.id)));
@@ -73,7 +75,7 @@ for (const course of courses) {
         }
       } else if (game === 'memory-moon') {
         const pack = validateMemoryMoonCatalog(await resource('memoryMoonCatalog'), { course });
-        for (const difficulty of [1, 2, 3]) {
+        for (const difficulty of difficulties) {
           const rows = eligible(pack.challenges, difficulty);
           const selected = selectMemoryMoonChallenges(pack, { difficulty, limit: 6, random }).items;
           assert.equal(selected.length, 6);
@@ -83,22 +85,43 @@ for (const course of courses) {
             assert.ok(authored, 'Every selected question stays in its chosen badge.');
             for (const key of ['revision', 'usefulness', 'complexity', 'familyId']) assert.equal(question[key], authored[key]);
             assert.equal(question.choices.filter(choice => choice.id === question.correctChoiceId).length, 1);
-            sameIds(question.choices, authored.choices);
+            if (difficulty === 0) {
+              assert.equal(question.choices.length, 2, 'Introductory recognition presents one correct answer and one authored contrast.');
+              assert.ok(question.choices.every(choice => authored.choices.some(item => item.id === choice.id && item.text === choice.text)));
+            } else sameIds(question.choices, authored.choices);
+          }
+          if (difficulty === 0) {
+            assert.ok(rows.length >= 12, 'A second six-question beginner session must have fresh material.');
+            const recentIds = selected.map(item => item.id);
+            const next = selectMemoryMoonChallenges(pack, { difficulty, limit: 6, recentIds, random }).items;
+            assert.equal(next.length, 6);
+            assert.ok(next.every(item => item.difficulty === 0 && !recentIds.includes(item.id)), 'Beginner sessions rotate beyond the first six questions.');
           }
           t.diagnostic(`L${difficulty}: ${rows.length} independent translation questions`);
         }
       } else if (game === 'grammar-gravity') {
         const pack = await resource('grammarGravityCatalog');
         const nouns = await resource('grammarGravityNouns');
-        for (const difficulty of [1, 2, 3]) {
+        for (const difficulty of difficulties) {
           const rounds = buildGrammarGravityRounds(pack, difficulty, random);
           assert.ok(rounds.length > 0);
           assert.ok(rounds.every(round => round.difficulty === difficulty));
           assert.deepEqual(new Set(rounds.map(round => round.challengeId)), new Set(eligible(pack.challenges, difficulty).map(row => row.id)));
           for (const round of rounds) for (const flight of round.flights) {
             assert.ok(flight.options.includes(flight.answer));
+            if (difficulty === 0) {
+              assert.equal(flight.options.length, 2);
+              assert.equal(flight.meaningOptions.length, 2);
+              assert.ok(flight.meaningOptions.includes(flight.anchorMeaning));
+              assert.deepEqual(flight.stages, ['meaning', 'form'], 'Beginner grammar introduces a meaning and a tiny form contrast.');
+              assert.equal(flight.introductory, true);
+            }
           }
-          const session = createNounLandingSession(nouns, { difficulty, random });
+          const session = createNounLandingSession(nouns, { difficulty, random, durationMs: 5000 });
+          if (difficulty === 0) {
+            assert.equal(session.durationMs, 0, 'First noun encounters are untimed even after a saved timed preference.');
+            assert.equal(setNounFallDuration(session, 5000).durationMs, 0);
+          }
           const rows = [session.item, ...session.queue];
           sameIds(rows, eligible(nouns.items, difficulty));
           assert.deepEqual(new Set(rows.map(row => row.laneId)), new Set(nouns.lanes.map(lane => lane.id)), 'Each displayed noun category must have practice at every level.');
@@ -109,14 +132,15 @@ for (const course of courses) {
           expectedCourseId: course.id, expectedTargetLanguageId: course.targetLanguage.id,
           expectedLearnerBaseLanguageId: course.sourceLanguage.id, expectedTargetLocale: course.targetLanguage.locale
         });
-        for (const difficulty of [1, 2, 3]) {
+        for (const difficulty of difficulties) {
           const rows = eligible(pack.verbs, difficulty);
           assert.ok(rows.length > 0, 'Every selected band must be playable without borrowing another level.');
           const queue = buildConjugationVerbQueue(rows, { random });
           sameIds(queue, rows);
           for (const verb of queue) {
             const round = buildConjugationHelixRound(pack, verb.id, { rng: random });
-            assert.equal(round.subjects.length, verb.forms.length);
+            assert.equal(round.subjects.length, difficulty === 0 ? 2 : verb.forms.length);
+            if (difficulty === 0) assert.equal(round.options.length, 2);
             for (const subject of round.subjects) {
               assert.ok(round.options.some(option => judgeConjugationHelixPair(round, subject.id, option.id)));
             }
@@ -125,7 +149,7 @@ for (const course of courses) {
         }
       } else if (game === 'case-cosmos') {
         const pack = await resource('caseCosmosCatalog');
-        for (const difficulty of [1, 2, 3]) {
+        for (const difficulty of difficulties) {
           const rounds = buildRounds(pack, difficulty);
           assert.ok(rounds.length > 0);
           assert.ok(rounds.every(round => round.difficulty === difficulty));
@@ -142,12 +166,13 @@ for (const course of courses) {
         vm.runInContext(await readFile(new URL(controller, root), 'utf8'), context);
         const api = context.window.CaatuuNaturalizationNucleus;
         const pack = api.validateCatalog(await resource('naturalizationNucleusCatalog'));
-        for (const difficulty of [1, 2, 3]) {
+        for (const difficulty of difficulties) {
           const rows = api.filterChallengesForDifficulty(pack.challenges, difficulty);
           for (const count of pack.roundSettings.pieceCounts) {
             const round = api.createRound(pack, count, random, '', difficulty);
-            assert.equal(round.pieces.length, count);
-            assert.equal(new Set(round.pieces.map(piece => api.readingKey(piece.left))).size, count);
+            const expectedCount = difficulty === 0 ? 3 : count;
+            assert.equal(round.pieces.length, expectedCount);
+            assert.equal(new Set(round.pieces.map(piece => api.readingKey(piece.left))).size, expectedCount);
             assert.ok(round.pieces.every(piece => piece.left.difficulty === difficulty && piece.right.difficulty === difficulty));
           }
           t.diagnostic(`L${difficulty}: ${rows.length} characters; all board sizes`);
@@ -170,7 +195,7 @@ for (const course of courses) {
         });
         const provider = context.selectionProvider;
         assert.equal(provider.records.length, manifest.recordCount, 'Normalization must not silently discard content.');
-        for (const difficulty of [1, 2, 3]) {
+        for (const difficulty of difficulties) {
           const rows = eligible(provider.records, difficulty);
           assert.ok(rows.length > 0);
           const seen = [];
@@ -189,13 +214,24 @@ for (const course of courses) {
   }
 }
 
-test('readiness rejects catalogs with empty introductory listening or noun pools', async () => {
+test('empty introductory pools cannot borrow content from another band', async () => {
   const course = courses.find(course => course.id === 'es-en');
   const sound = await json(course.resources.soundQuasarCatalog.path);
-  for (const row of [...sound.items, ...sound.sentences]) row.difficulty = 3;
+  sound.items = sound.items.filter(row => row.difficulty > 1);
+  sound.sentences = sound.sentences.filter(row => row.difficulty > 1);
+  sound.provenance.sourceItemIds = sound.items.map(row => row.sourceId);
+  sound.sentenceProvenance.sourceItemIds = sound.sentences.map(row => row.sourceId);
   const pack = validateSoundQuasarCatalog(sound);
-  for (const mode of ['words', 'sentences']) assert.throws(() => createSoundQuasarSession(pack, { mode, difficulty: 1 }), /eligible/);
+  for (const mode of ['words', 'sentences']) for (const difficulty of [0, 1]) {
+    assert.throws(() => createSoundQuasarSession(pack, { mode, difficulty }), /eligible/);
+  }
   const nouns = await json(course.resources.grammarGravityNouns.path);
-  nouns.items.forEach(row => { row.difficulty = 3; });
-  assert.throws(() => createNounLandingSession(nouns, { difficulty: 1 }), /eligible/);
+  nouns.items = nouns.items.filter(row => row.difficulty > 1);
+  for (const difficulty of [0, 1]) assert.throws(() => createNounLandingSession(nouns, { difficulty }), /eligible/);
+  const memory = await json(course.resources.memoryMoonCatalog.path);
+  memory.challenges = memory.challenges.filter(row => row.difficulty > 1);
+  assert.deepEqual(selectMemoryMoonChallenges(memory, { difficulty: 0, random }).items, []);
+  const grammar = await json(course.resources.grammarGravityCatalog.path);
+  grammar.challenges = grammar.challenges.filter(row => row.difficulty !== 0);
+  assert.throws(() => buildGrammarGravityRounds(grammar, 0, random), /no challenge/);
 });

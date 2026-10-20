@@ -19,7 +19,7 @@ test('badge selects an exact band; useful, simple introductions come first', () 
   assert.deepEqual(new Set(selected.map(row => row.id)), new Set(['essential', 'ordinary']));
 });
 
-test('mass repetition, correct counters and legacy exposure do not widen the challenge range', () => {
+test('mass repetition leaves readiness unchanged while an exhausted window permits one nearest-band introduction', () => {
   const items = bank();
   for (const exposures of [3, 20, 1000]) {
     const history = Object.fromEntries(items.slice(0, 6).map(row => [row.id, {
@@ -28,8 +28,38 @@ test('mass repetition, correct counters and legacy exposure do not widen the cha
       intervalMs: DAY, spacedSuccesses: 0
     }]));
     assert.equal(contentPracticeReadiness(history[items[0].id]), 0);
-    assert.ok(choose(items, { history }).every(row => row.complexity === 10));
+    const snapshot = structuredClone(history);
+    const selected = choose(items, { history });
+    const newRows = selected.filter(row => !history[row.id]);
+    assert.equal(newRows.length, 1);
+    assert.equal(newRows[0].complexity, 30);
+    assert.deepEqual(history, snapshot);
   }
+});
+
+test('exhausted-frontier continuation waits for its new slot and never skips the nearest band', () => {
+  const items = [...Array.from({ length: 6 }, (_, i) => item(`seen-${i}`)),
+    item('nearest-a', 30), item('nearest-b', 30), item('later', 70), item('other-level', 1, 100, 2)];
+  for (const exposures of [1, 2]) {
+    const history = Object.fromEntries(items.slice(0, 6).map(row => [row.id, {
+      exposures, firstSeenAt: NOW, lastSeenAt: NOW, practiceDays: 1
+    }]));
+    const requestedCategory = ['review', 'practice', 'new', 'review', 'practice'][(6 * exposures) % 5];
+    const single = choose(items, { history, limit: 1 });
+    assert.equal(Boolean(history[single[0].id]), requestedCategory !== 'new');
+    const board = choose(items, { history });
+    assert.equal(board.filter(row => !history[row.id]).length, 1);
+    assert.ok(board.every(row => row.difficulty === 1 && row.complexity <= 30));
+  }
+});
+
+test('ordinary unseen material prevents exhausted-frontier continuation', () => {
+  const items = [...Array.from({ length: 6 }, (_, i) => item(`seen-${i}`)),
+    item('inside', 20), item('outside', 30)];
+  const history = Object.fromEntries(items.slice(0, 6).map(row => [row.id, {
+    exposures: 2, firstSeenAt: NOW, lastSeenAt: NOW
+  }]));
+  assert.equal(choose(items, { history, limit: 1 })[0].id, 'inside');
 });
 
 test('delayed independent evidence opens gradual challenge while one stubborn item remains in practice', () => {
@@ -155,7 +185,7 @@ test('both editorial fields accept the full100 scale, with strict legacy compati
 
 test('invalid selection settings fail at the boundary', () => {
   assert.throws(() => choose(null), /array/);
-  for (const difficulty of [0, 4, '1']) assert.throws(() => choose([], { difficulty }), /difficulty/);
+  for (const difficulty of [-1, 4, '1']) assert.throws(() => choose([], { difficulty }), /difficulty/);
   for (const now of [-1, NaN, Infinity]) assert.throws(() => choose([], { now }), /timestamp/);
   assert.throws(() => choose([], { minimumPool: 0 }), /minimumPool/);
   assert.throws(() => choose([], { limit: 0 }), /limit/);

@@ -12889,6 +12889,806 @@
         "meaning": "formulate; draw up",
         "sourceConceptId": "ww-zh-m260908-300"
       }
+    },
+    {
+      "id": "zh.hanzi.zero-i",
+      "hanzi": "我",
+      "pinyin": "wǒ",
+      "tone": 3,
+      "translation": "I; me",
+      "difficulty": 0,
+      "sourceConceptIds": [
+        "ww-zero-i"
+      ],
+      "usefulness": 92,
+      "complexity": 3,
+      "englishAuditText": "I; me",
+      "context": {
+        "text": "我",
+        "notation": "wǒ",
+        "meaning": "I",
+        "sourceConceptId": "ww-zero-i"
+      }
+    },
+    {
+      "id": "zh.hanzi.zero-you",
+      "hanzi": "你",
+      "pinyin": "nǐ",
+      "tone": 3,
+      "translation": "you",
+      "difficulty": 0,
+      "sourceConceptIds": [
+        "ww-zero-you"
+      ],
+      "usefulness": 92,
+      "complexity": 3,
+      "englishAuditText": "you",
+      "context": {
+        "text": "你",
+        "notation": "nǐ",
+        "meaning": "you",
+        "sourceConceptId": "ww-zero-you"
+      }
+    },
+    {
+      "id": "zh.hanzi.zero-water",
+      "hanzi": "水",
+      "pinyin": "shuǐ",
+      "tone": 3,
+      "translation": "water",
+      "difficulty": 0,
+      "sourceConceptIds": [
+        "ww-zero-water"
+      ],
+      "usefulness": 92,
+      "complexity": 3,
+      "englishAuditText": "water",
+      "context": {
+        "text": "水",
+        "notation": "shuǐ",
+        "meaning": "water",
+        "sourceConceptId": "ww-zero-water"
+      }
+    },
+    {
+      "id": "zh.hanzi.zero-book",
+      "hanzi": "书",
+      "pinyin": "shū",
+      "tone": 1,
+      "translation": "book",
+      "difficulty": 0,
+      "sourceConceptIds": [
+        "ww-zero-book"
+      ],
+      "usefulness": 92,
+      "complexity": 3,
+      "englishAuditText": "book",
+      "context": {
+        "text": "书",
+        "notation": "shū",
+        "meaning": "book",
+        "sourceConceptId": "ww-zero-book"
+      }
+    },
+    {
+      "id": "zh.hanzi.zero-cat",
+      "hanzi": "猫",
+      "pinyin": "māo",
+      "tone": 1,
+      "translation": "cat",
+      "difficulty": 0,
+      "sourceConceptIds": [
+        "ww-zero-cat"
+      ],
+      "usefulness": 92,
+      "complexity": 3,
+      "englishAuditText": "cat",
+      "context": {
+        "text": "猫",
+        "notation": "māo",
+        "meaning": "cat",
+        "sourceConceptId": "ww-zero-cat"
+      }
+    },
+    {
+      "id": "zh.hanzi.zero-dog",
+      "hanzi": "狗",
+      "pinyin": "gǒu",
+      "tone": 3,
+      "translation": "dog",
+      "difficulty": 0,
+      "sourceConceptIds": [
+        "ww-zero-dog"
+      ],
+      "usefulness": 92,
+      "complexity": 3,
+      "englishAuditText": "dog",
+      "context": {
+        "text": "狗",
+        "notation": "gǒu",
+        "meaning": "dog",
+        "sourceConceptId": "ww-zero-dog"
+      }
+    },
+    {
+      "id": "zh.hanzi.zero-tea",
+      "hanzi": "茶",
+      "pinyin": "chá",
+      "tone": 2,
+      "translation": "tea",
+      "difficulty": 0,
+      "sourceConceptIds": [
+        "ww-zero-tea"
+      ],
+      "usefulness": 92,
+      "complexity": 3,
+      "englishAuditText": "tea",
+      "context": {
+        "text": "茶",
+        "notation": "chá",
+        "meaning": "tea",
+        "sourceConceptId": "ww-zero-tea"
+      }
+    },
+    {
+      "id": "zh.hanzi.zero-door",
+      "hanzi": "门",
+      "pinyin": "mén",
+      "tone": 2,
+      "translation": "door",
+      "difficulty": 0,
+      "sourceConceptIds": [
+        "ww-zero-door"
+      ],
+      "usefulness": 92,
+      "complexity": 3,
+      "englishAuditText": "door",
+      "context": {
+        "text": "门",
+        "notation": "mén",
+        "meaning": "door",
+        "sourceConceptId": "ww-zero-door"
+      }
+    },
+    {
+      "id": "zh.hanzi.zero-hand",
+      "hanzi": "手",
+      "pinyin": "shǒu",
+      "tone": 3,
+      "translation": "hand",
+      "difficulty": 0,
+      "sourceConceptIds": [
+        "ww-zero-hand"
+      ],
+      "usefulness": 92,
+      "complexity": 3,
+      "englishAuditText": "hand",
+      "context": {
+        "text": "手",
+        "notation": "shǒu",
+        "meaning": "hand",
+        "sourceConceptId": "ww-zero-hand"
+      }
+    },
+    {
+      "id": "zh.hanzi.zero-ball",
+      "hanzi": "球",
+      "pinyin": "qiú",
+      "tone": 2,
+      "translation": "ball",
+      "difficulty": 0,
+      "sourceConceptIds": [
+        "ww-zero-ball"
+      ],
+      "usefulness": 92,
+      "complexity": 3,
+      "englishAuditText": "ball",
+      "context": {
+        "text": "球",
+        "notation": "qiú",
+        "meaning": "ball",
+        "sourceConceptId": "ww-zero-ball"
+      }
+    },
+    {
+      "id": "zh.hanzi.zero-eat",
+      "hanzi": "吃",
+      "pinyin": "chī",
+      "tone": 1,
+      "translation": "eat",
+      "difficulty": 0,
+      "sourceConceptIds": [
+        "ww-zero-eat"
+      ],
+      "usefulness": 92,
+      "complexity": 3,
+      "englishAuditText": "eat",
+      "context": {
+        "text": "吃",
+        "notation": "chī",
+        "meaning": "eat",
+        "sourceConceptId": "ww-zero-eat"
+      }
+    },
+    {
+      "id": "zh.hanzi.zero-drink",
+      "hanzi": "喝",
+      "pinyin": "hē",
+      "tone": 1,
+      "translation": "drink",
+      "difficulty": 0,
+      "sourceConceptIds": [
+        "ww-zero-drink"
+      ],
+      "usefulness": 92,
+      "complexity": 3,
+      "englishAuditText": "drink",
+      "context": {
+        "text": "喝",
+        "notation": "hē",
+        "meaning": "drink",
+        "sourceConceptId": "ww-zero-drink"
+      }
+    },
+    {
+      "id": "zh.hanzi.zero-go",
+      "hanzi": "去",
+      "pinyin": "qù",
+      "tone": 4,
+      "translation": "go",
+      "difficulty": 0,
+      "sourceConceptIds": [
+        "ww-zero-go"
+      ],
+      "usefulness": 92,
+      "complexity": 3,
+      "englishAuditText": "go",
+      "context": {
+        "text": "去",
+        "notation": "qù",
+        "meaning": "go",
+        "sourceConceptId": "ww-zero-go"
+      }
+    },
+    {
+      "id": "zh.hanzi.zero-have",
+      "hanzi": "有",
+      "pinyin": "yǒu",
+      "tone": 3,
+      "translation": "have",
+      "difficulty": 0,
+      "sourceConceptIds": [
+        "ww-zero-have"
+      ],
+      "usefulness": 92,
+      "complexity": 3,
+      "englishAuditText": "have",
+      "context": {
+        "text": "有",
+        "notation": "yǒu",
+        "meaning": "have",
+        "sourceConceptId": "ww-zero-have"
+      }
+    },
+    {
+      "id": "zh.hanzi.zero-big",
+      "hanzi": "大",
+      "pinyin": "dà",
+      "tone": 4,
+      "translation": "big",
+      "difficulty": 0,
+      "sourceConceptIds": [
+        "ww-zero-big"
+      ],
+      "usefulness": 92,
+      "complexity": 3,
+      "englishAuditText": "big",
+      "context": {
+        "text": "大",
+        "notation": "dà",
+        "meaning": "big",
+        "sourceConceptId": "ww-zero-big"
+      }
+    },
+    {
+      "id": "zh.hanzi.zero-small",
+      "hanzi": "小",
+      "pinyin": "xiǎo",
+      "tone": 3,
+      "translation": "small",
+      "difficulty": 0,
+      "sourceConceptIds": [
+        "ww-zero-small"
+      ],
+      "usefulness": 92,
+      "complexity": 3,
+      "englishAuditText": "small",
+      "context": {
+        "text": "小",
+        "notation": "xiǎo",
+        "meaning": "small",
+        "sourceConceptId": "ww-zero-small"
+      }
+    },
+    {
+      "id": "zh.hanzi.zero-one",
+      "hanzi": "一",
+      "pinyin": "yī",
+      "tone": 1,
+      "translation": "one",
+      "difficulty": 0,
+      "sourceConceptIds": [
+        "ww-zero-one"
+      ],
+      "usefulness": 92,
+      "complexity": 3,
+      "englishAuditText": "one",
+      "context": {
+        "text": "一",
+        "notation": "yī",
+        "meaning": "one",
+        "sourceConceptId": "ww-zero-one"
+      }
+    },
+    {
+      "id": "zh.hanzi.zero-two",
+      "hanzi": "二",
+      "pinyin": "èr",
+      "tone": 4,
+      "translation": "two",
+      "difficulty": 0,
+      "sourceConceptIds": [
+        "ww-zero-two"
+      ],
+      "usefulness": 92,
+      "complexity": 3,
+      "englishAuditText": "two",
+      "context": {
+        "text": "二",
+        "notation": "èr",
+        "meaning": "two",
+        "sourceConceptId": "ww-zero-two"
+      }
+    },
+    {
+      "id": "zh.hanzi.zero-three",
+      "hanzi": "三",
+      "pinyin": "sān",
+      "tone": 1,
+      "translation": "three",
+      "difficulty": 0,
+      "sourceConceptIds": [
+        "ww-zero-three"
+      ],
+      "usefulness": 92,
+      "complexity": 3,
+      "englishAuditText": "three",
+      "context": {
+        "text": "三",
+        "notation": "sān",
+        "meaning": "three",
+        "sourceConceptId": "ww-zero-three"
+      }
+    },
+    {
+      "id": "zh.hanzi.zero-four",
+      "hanzi": "四",
+      "pinyin": "sì",
+      "tone": 4,
+      "translation": "four",
+      "difficulty": 0,
+      "sourceConceptIds": [
+        "ww-zero-four"
+      ],
+      "usefulness": 92,
+      "complexity": 3,
+      "englishAuditText": "four",
+      "context": {
+        "text": "四",
+        "notation": "sì",
+        "meaning": "four",
+        "sourceConceptId": "ww-zero-four"
+      }
+    },
+    {
+      "id": "zh.hanzi.zero-five",
+      "hanzi": "五",
+      "pinyin": "wǔ",
+      "tone": 3,
+      "translation": "five",
+      "difficulty": 0,
+      "sourceConceptIds": [
+        "ww-zero-five"
+      ],
+      "usefulness": 92,
+      "complexity": 3,
+      "englishAuditText": "five",
+      "context": {
+        "text": "五",
+        "notation": "wǔ",
+        "meaning": "five",
+        "sourceConceptId": "ww-zero-five"
+      }
+    },
+    {
+      "id": "zh.hanzi.zero-sit",
+      "hanzi": "坐",
+      "pinyin": "zuò",
+      "tone": 4,
+      "translation": "sit",
+      "difficulty": 0,
+      "sourceConceptIds": [
+        "ww-zero-sit"
+      ],
+      "usefulness": 92,
+      "complexity": 3,
+      "englishAuditText": "sit",
+      "context": {
+        "text": "坐",
+        "notation": "zuò",
+        "meaning": "sit",
+        "sourceConceptId": "ww-zero-sit"
+      }
+    },
+    {
+      "id": "zh.hanzi.zero-read",
+      "hanzi": "读",
+      "pinyin": "dú",
+      "tone": 2,
+      "translation": "read",
+      "difficulty": 0,
+      "sourceConceptIds": [
+        "ww-zero-read"
+      ],
+      "usefulness": 92,
+      "complexity": 3,
+      "englishAuditText": "read",
+      "context": {
+        "text": "读",
+        "notation": "dú",
+        "meaning": "read",
+        "sourceConceptId": "ww-zero-read"
+      }
+    },
+    {
+      "id": "zh.hanzi.zero-write",
+      "hanzi": "写",
+      "pinyin": "xiě",
+      "tone": 3,
+      "translation": "write",
+      "difficulty": 0,
+      "sourceConceptIds": [
+        "ww-zero-write"
+      ],
+      "usefulness": 92,
+      "complexity": 3,
+      "englishAuditText": "write",
+      "context": {
+        "text": "写",
+        "notation": "xiě",
+        "meaning": "write",
+        "sourceConceptId": "ww-zero-write"
+      }
+    },
+    {
+      "id": "zh.hanzi.zero-bag",
+      "hanzi": "包",
+      "pinyin": "bāo",
+      "tone": 1,
+      "translation": "bag",
+      "difficulty": 0,
+      "sourceConceptIds": [
+        "ww-zero-bag"
+      ],
+      "usefulness": 92,
+      "complexity": 2,
+      "englishAuditText": "bag",
+      "context": {
+        "text": "包",
+        "notation": "bāo",
+        "meaning": "bag",
+        "sourceConceptId": "ww-zero-bag"
+      }
+    },
+    {
+      "id": "zh.hanzi.zero-pen",
+      "hanzi": "笔",
+      "pinyin": "bǐ",
+      "tone": 3,
+      "translation": "pen",
+      "difficulty": 0,
+      "sourceConceptIds": [
+        "ww-zero-pen"
+      ],
+      "usefulness": 92,
+      "complexity": 2,
+      "englishAuditText": "pen",
+      "context": {
+        "text": "笔",
+        "notation": "bǐ",
+        "meaning": "pen",
+        "sourceConceptId": "ww-zero-pen"
+      }
+    },
+    {
+      "id": "zh.hanzi.zero-bed",
+      "hanzi": "床",
+      "pinyin": "chuáng",
+      "tone": 2,
+      "translation": "bed",
+      "difficulty": 0,
+      "sourceConceptIds": [
+        "ww-zero-bed"
+      ],
+      "usefulness": 92,
+      "complexity": 2,
+      "englishAuditText": "bed",
+      "context": {
+        "text": "床",
+        "notation": "chuáng",
+        "meaning": "bed",
+        "sourceConceptId": "ww-zero-bed"
+      }
+    },
+    {
+      "id": "zh.hanzi.zero-want",
+      "hanzi": "要",
+      "pinyin": "yào",
+      "tone": 4,
+      "translation": "want",
+      "difficulty": 0,
+      "sourceConceptIds": [
+        "ww-zero-want"
+      ],
+      "usefulness": 92,
+      "complexity": 2,
+      "englishAuditText": "want",
+      "context": {
+        "text": "要",
+        "notation": "yào",
+        "meaning": "want",
+        "sourceConceptId": "ww-zero-want"
+      }
+    },
+    {
+      "id": "zh.hanzi.zero-this",
+      "hanzi": "这",
+      "pinyin": "zhè",
+      "tone": 4,
+      "translation": "this",
+      "difficulty": 0,
+      "sourceConceptIds": [
+        "ww-zero-this-cat"
+      ],
+      "usefulness": 92,
+      "complexity": 3,
+      "englishAuditText": "this",
+      "context": {
+        "text": "这是猫。",
+        "notation": "zhè shì māo",
+        "meaning": "This is a cat.",
+        "sourceConceptId": "ww-zero-this-cat"
+      }
+    },
+    {
+      "id": "zh.hanzi.zero-be",
+      "hanzi": "是",
+      "pinyin": "shì",
+      "tone": 4,
+      "translation": "is; to be",
+      "difficulty": 0,
+      "sourceConceptIds": [
+        "ww-zero-this-cat"
+      ],
+      "usefulness": 92,
+      "complexity": 3,
+      "englishAuditText": "is; to be",
+      "context": {
+        "text": "这是猫。",
+        "notation": "zhè shì māo",
+        "meaning": "This is a cat.",
+        "sourceConceptId": "ww-zero-this-cat"
+      }
+    },
+    {
+      "id": "zh.hanzi.zero-good",
+      "hanzi": "好",
+      "pinyin": "hǎo",
+      "tone": 3,
+      "translation": "good",
+      "difficulty": 0,
+      "sourceConceptIds": [
+        "ww-zero-hello"
+      ],
+      "usefulness": 92,
+      "complexity": 3,
+      "englishAuditText": "good",
+      "context": {
+        "text": "你好",
+        "notation": "nǐ hǎo",
+        "meaning": "Hello",
+        "sourceConceptId": "ww-zero-hello"
+      }
+    },
+    {
+      "id": "zh.hanzi.zero-red",
+      "hanzi": "红",
+      "pinyin": "hóng",
+      "tone": 2,
+      "translation": "red",
+      "difficulty": 0,
+      "sourceConceptIds": [
+        "ww-zero-red"
+      ],
+      "usefulness": 92,
+      "complexity": 3,
+      "englishAuditText": "red",
+      "context": {
+        "text": "红色",
+        "notation": "hóng sè",
+        "meaning": "red",
+        "sourceConceptId": "ww-zero-red"
+      }
+    },
+    {
+      "id": "zh.hanzi.zero-green",
+      "hanzi": "绿",
+      "pinyin": "lǜ",
+      "tone": 4,
+      "translation": "green",
+      "difficulty": 0,
+      "sourceConceptIds": [
+        "ww-zero-green"
+      ],
+      "usefulness": 92,
+      "complexity": 3,
+      "englishAuditText": "green",
+      "context": {
+        "text": "绿色",
+        "notation": "lǜ sè",
+        "meaning": "green",
+        "sourceConceptId": "ww-zero-green"
+      }
+    },
+    {
+      "id": "zh.hanzi.zero-look",
+      "hanzi": "看",
+      "pinyin": "kàn",
+      "tone": 4,
+      "translation": "look",
+      "difficulty": 0,
+      "sourceConceptIds": [
+        "ww-zero-see"
+      ],
+      "usefulness": 92,
+      "complexity": 3,
+      "englishAuditText": "look",
+      "context": {
+        "text": "看见",
+        "notation": "kàn jiàn",
+        "meaning": "see",
+        "sourceConceptId": "ww-zero-see"
+      }
+    },
+    {
+      "id": "zh.hanzi.zero-see",
+      "hanzi": "见",
+      "pinyin": "jiàn",
+      "tone": 4,
+      "translation": "see",
+      "difficulty": 0,
+      "sourceConceptIds": [
+        "ww-zero-see"
+      ],
+      "usefulness": 92,
+      "complexity": 3,
+      "englishAuditText": "see",
+      "context": {
+        "text": "看见",
+        "notation": "kàn jiàn",
+        "meaning": "see",
+        "sourceConceptId": "ww-zero-see"
+      }
+    },
+    {
+      "id": "zh.hanzi.zero-listen",
+      "hanzi": "听",
+      "pinyin": "tīng",
+      "tone": 1,
+      "translation": "listen",
+      "difficulty": 0,
+      "sourceConceptIds": [
+        "ww-zero-hear"
+      ],
+      "usefulness": 92,
+      "complexity": 3,
+      "englishAuditText": "listen",
+      "context": {
+        "text": "听见",
+        "notation": "tīng jiàn",
+        "meaning": "hear",
+        "sourceConceptId": "ww-zero-hear"
+      }
+    },
+    {
+      "id": "zh.hanzi.zero-sleep",
+      "hanzi": "睡",
+      "pinyin": "shuì",
+      "tone": 4,
+      "translation": "sleep",
+      "difficulty": 0,
+      "sourceConceptIds": [
+        "ww-zero-sleep"
+      ],
+      "usefulness": 92,
+      "complexity": 3,
+      "englishAuditText": "sleep",
+      "context": {
+        "text": "睡觉",
+        "notation": "shuì jiào",
+        "meaning": "sleep",
+        "sourceConceptId": "ww-zero-sleep"
+      }
+    },
+    {
+      "id": "zh.hanzi.zero-rice",
+      "hanzi": "米",
+      "pinyin": "mǐ",
+      "tone": 3,
+      "translation": "rice",
+      "difficulty": 0,
+      "sourceConceptIds": [
+        "ww-zero-rice"
+      ],
+      "usefulness": 92,
+      "complexity": 3,
+      "englishAuditText": "rice",
+      "context": {
+        "text": "米饭",
+        "notation": "mǐ fàn",
+        "meaning": "rice",
+        "sourceConceptId": "ww-zero-rice"
+      }
+    },
+    {
+      "id": "zh.hanzi.zero-cooked-rice",
+      "hanzi": "饭",
+      "pinyin": "fàn",
+      "tone": 4,
+      "translation": "cooked rice",
+      "difficulty": 0,
+      "sourceConceptIds": [
+        "ww-zero-rice"
+      ],
+      "usefulness": 92,
+      "complexity": 3,
+      "englishAuditText": "cooked rice",
+      "context": {
+        "text": "米饭",
+        "notation": "mǐ fàn",
+        "meaning": "rice",
+        "sourceConceptId": "ww-zero-rice"
+      }
+    },
+    {
+      "id": "zh.hanzi.zero-milk",
+      "hanzi": "奶",
+      "pinyin": "nǎi",
+      "tone": 3,
+      "translation": "milk",
+      "difficulty": 0,
+      "sourceConceptIds": [
+        "ww-zero-milk"
+      ],
+      "usefulness": 92,
+      "complexity": 3,
+      "englishAuditText": "milk",
+      "context": {
+        "text": "牛奶",
+        "notation": "niú nǎi",
+        "meaning": "milk",
+        "sourceConceptId": "ww-zero-milk"
+      }
     }
   ]
 }

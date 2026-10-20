@@ -58,7 +58,7 @@ test("normalized tasks count once, helix forms group by parent, and modes/target
   for (const kind of ["verb-match", "case-context", "agreement-example", "noun-category", "listening-word", "listening-sentence"]) f.add(kind, kind);
   f.domino(["a", "b", "c", "d", "e"]);
   f.corpus.records.push({ id: "structural-parent", recordRole: "parent" });
-  assert.deepEqual(f.aggregate(), { "future-course": { 1: { units: 13, effort: 21 }, 2: { units: 0, effort: 0 }, 3: { units: 0, effort: 0 } } });
+  assert.deepEqual(f.aggregate(), { "future-course": { 0: { units: 0, effort: 0 }, 1: { units: 13, effort: 21 }, 2: { units: 0, effort: 0 }, 3: { units: 0, effort: 0 } } });
   f.corpus.playableUnits.reverse(); f.corpus.records.reverse(); f.corpus.adapters.reverse();
   assert.equal(f.aggregate()["future-course"][1].effort, 21);
 });
@@ -74,12 +74,12 @@ test("reading collisions require additional domino boards, whose repeated filler
 
 test("Memory Moon counts each authored translation question once rather than multiplying choices or session phases", () => {
   const f = corpusFixture();
-  for (const difficulty of [1, 2, 3]) for (let index = 0; index < 6; index++) {
+  for (const difficulty of [0, 1, 2, 3]) for (let index = 0; index < 6; index++) {
     f.add('translation-choice', `question-${difficulty}-${index}`, { difficulty, choiceCount: 3, assessmentDirection: 'recognize-translation' });
   }
-  for (const difficulty of [1, 2, 3]) assert.deepEqual(f.aggregate()['future-course'][difficulty], { units: 6, effort: 6 });
+  for (const difficulty of [0, 1, 2, 3]) assert.deepEqual(f.aggregate()['future-course'][difficulty], { units: 6, effort: 6 });
   f.profiles.get('future-course').capabilities.memory = false;
-  for (const difficulty of [1, 2, 3]) assert.deepEqual(f.aggregate()['future-course'][difficulty], { units: 0, effort: 0 });
+  for (const difficulty of [0, 1, 2, 3]) assert.deepEqual(f.aggregate()['future-course'][difficulty], { units: 0, effort: 0 });
   assert.throws(() => extractPracticeEffortPolicy(policySource.replace('"memory-moon": { cap: 6 }', '"memory-moon": { cap: 5 }')), /Memory Moon cap/u);
 });
 
@@ -90,7 +90,16 @@ test("exact difficulty and canonical game availability apply to dynamically regi
   f.add("sentence", "three", { difficulty: 3 });
   f.add("listening-word", "listening", { difficulty: 2 });
   f.profiles.get("new-language").capabilities.speech = false;
-  assert.deepEqual(f.aggregate(), { "new-language": { 1: { units: 1, effort: 3 }, 2: { units: 1, effort: 3 }, 3: { units: 1, effort: 3 } } });
+  assert.deepEqual(f.aggregate(), { "new-language": { 0: { units: 0, effort: 0 }, 1: { units: 1, effort: 3 }, 2: { units: 1, effort: 3 }, 3: { units: 1, effort: 3 } } });
+});
+
+test("zero workloads use two-form helices and three-tile reading boards independently of higher-band settings", () => {
+  const f = corpusFixture();
+  f.add("conjugation-form", "starter/I", { difficulty: 0, parentItemId: "starter" });
+  f.add("conjugation-form", "starter/you", { difficulty: 0, parentItemId: "starter" });
+  f.domino(["a", "b", "c", "d"], 9, 0);
+  assert.deepEqual(f.aggregate()["future-course"][0], { units: 5, effort: 12 });
+  assert.deepEqual(f.aggregate()["future-course"][1], { units: 0, effort: 0 });
 });
 
 test("incomplete, unsupported, duplicated, or unproven normalized populations fail instead of falling back to authoring counts", () => {

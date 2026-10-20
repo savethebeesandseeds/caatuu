@@ -25016,6 +25016,866 @@
       "difficulty": 3,
       "usefulness": 86,
       "complexity": 62
+    },
+    {
+      "id": "zero-la-ww-hello",
+      "englishText": "Hello!",
+      "embeddingText": "Hello!",
+      "sceneQuery": "Hello!",
+      "topic": "greetings",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-goodbye",
+      "englishText": "Goodbye!",
+      "embeddingText": "Goodbye!",
+      "sceneQuery": "Goodbye!",
+      "topic": "greetings",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-thanks",
+      "englishText": "Thank you!",
+      "embeddingText": "Thank you!",
+      "sceneQuery": "Thank you!",
+      "topic": "greetings",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-yes",
+      "englishText": "Yes.",
+      "embeddingText": "Yes.",
+      "sceneQuery": "Yes.",
+      "topic": "greetings",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-no",
+      "englishText": "No.",
+      "embeddingText": "No.",
+      "sceneQuery": "No.",
+      "topic": "greetings",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-please",
+      "englishText": "Please.",
+      "embeddingText": "Please.",
+      "sceneQuery": "Please.",
+      "topic": "greetings",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-i",
+      "englishText": "I",
+      "embeddingText": "I",
+      "sceneQuery": "I",
+      "topic": "people",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-you",
+      "englishText": "you (one person)",
+      "embeddingText": "you (one person)",
+      "sceneQuery": "you (one person)",
+      "topic": "people",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-one",
+      "englishText": "one",
+      "embeddingText": "one",
+      "sceneQuery": "one",
+      "topic": "numbers",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-two",
+      "englishText": "two",
+      "embeddingText": "two",
+      "sceneQuery": "two",
+      "topic": "numbers",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-three",
+      "englishText": "three",
+      "embeddingText": "three",
+      "sceneQuery": "three",
+      "topic": "numbers",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-four",
+      "englishText": "four",
+      "embeddingText": "four",
+      "sceneQuery": "four",
+      "topic": "numbers",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-five",
+      "englishText": "five",
+      "embeddingText": "five",
+      "sceneQuery": "five",
+      "topic": "numbers",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-water",
+      "englishText": "water",
+      "embeddingText": "water",
+      "sceneQuery": "water",
+      "topic": "matter",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-stone",
+      "englishText": "stone",
+      "embeddingText": "stone",
+      "sceneQuery": "stone",
+      "topic": "matter",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-body",
+      "englishText": "body",
+      "embeddingText": "body",
+      "sceneQuery": "body",
+      "topic": "matter",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-ball",
+      "englishText": "ball",
+      "embeddingText": "ball",
+      "sceneQuery": "ball",
+      "topic": "matter",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-sphere",
+      "englishText": "sphere",
+      "embeddingText": "sphere",
+      "sceneQuery": "sphere",
+      "topic": "shapes",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-line",
+      "englishText": "line",
+      "embeddingText": "line",
+      "sceneQuery": "line",
+      "topic": "shapes",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-point",
+      "englishText": "point",
+      "embeddingText": "point",
+      "sceneQuery": "point",
+      "topic": "shapes",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-circle",
+      "englishText": "circle",
+      "embeddingText": "circle",
+      "sceneQuery": "circle",
+      "topic": "shapes",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-star",
+      "englishText": "star",
+      "embeddingText": "star",
+      "sceneQuery": "star",
+      "topic": "nature",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-sun",
+      "englishText": "sun",
+      "embeddingText": "sun",
+      "sceneQuery": "sun",
+      "topic": "nature",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-moon",
+      "englishText": "moon",
+      "embeddingText": "moon",
+      "sceneQuery": "moon",
+      "topic": "nature",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-earth",
+      "englishText": "earth",
+      "embeddingText": "earth",
+      "sceneQuery": "earth",
+      "topic": "nature",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-light",
+      "englishText": "light",
+      "embeddingText": "light",
+      "sceneQuery": "light",
+      "topic": "nature",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-heat",
+      "englishText": "heat",
+      "embeddingText": "heat",
+      "sceneQuery": "heat",
+      "topic": "nature",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-book",
+      "englishText": "book",
+      "embeddingText": "book",
+      "sceneQuery": "book",
+      "topic": "objects",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-table",
+      "englishText": "board",
+      "embeddingText": "board",
+      "sceneQuery": "board",
+      "topic": "objects",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-big",
+      "englishText": "big (masculine)",
+      "embeddingText": "big (masculine)",
+      "sceneQuery": "big (masculine)",
+      "topic": "properties",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-small",
+      "englishText": "small (masculine)",
+      "embeddingText": "small (masculine)",
+      "sceneQuery": "small (masculine)",
+      "topic": "properties",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-new",
+      "englishText": "new (masculine)",
+      "embeddingText": "new (masculine)",
+      "sceneQuery": "new (masculine)",
+      "topic": "properties",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-hot",
+      "englishText": "hot (masculine)",
+      "embeddingText": "hot (masculine)",
+      "sceneQuery": "hot (masculine)",
+      "topic": "properties",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-cold",
+      "englishText": "cold (masculine)",
+      "embeddingText": "cold (masculine)",
+      "sceneQuery": "cold (masculine)",
+      "topic": "properties",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-here",
+      "englishText": "here",
+      "embeddingText": "here",
+      "sceneQuery": "here",
+      "topic": "location",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-there",
+      "englishText": "there",
+      "embeddingText": "there",
+      "sceneQuery": "there",
+      "topic": "location",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-see",
+      "englishText": "see",
+      "embeddingText": "see",
+      "sceneQuery": "see",
+      "topic": "actions",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-hear",
+      "englishText": "hear",
+      "embeddingText": "hear",
+      "sceneQuery": "hear",
+      "topic": "actions",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-read",
+      "englishText": "read",
+      "embeddingText": "read",
+      "sceneQuery": "read",
+      "topic": "actions",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-write",
+      "englishText": "write",
+      "embeddingText": "write",
+      "sceneQuery": "write",
+      "topic": "actions",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-count",
+      "englishText": "count",
+      "embeddingText": "count",
+      "sceneQuery": "count",
+      "topic": "actions",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-move",
+      "englishText": "move something",
+      "embeddingText": "move something",
+      "sceneQuery": "move something",
+      "topic": "actions",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-rest",
+      "englishText": "be at rest",
+      "embeddingText": "be at rest",
+      "sceneQuery": "be at rest",
+      "topic": "actions",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-be",
+      "englishText": "be",
+      "embeddingText": "be",
+      "sceneQuery": "be",
+      "topic": "actions",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2
+    },
+    {
+      "id": "zero-la-ww-phrase-001",
+      "englishText": "Hello, friend!",
+      "embeddingText": "Hello, friend!",
+      "sceneQuery": "Hello, friend!",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-la-ww-phrase-002",
+      "englishText": "Yes, thank you.",
+      "embeddingText": "Yes, thank you.",
+      "sceneQuery": "Yes, thank you.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-la-ww-phrase-003",
+      "englishText": "No, thank you.",
+      "embeddingText": "No, thank you.",
+      "sceneQuery": "No, thank you.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-la-ww-phrase-004",
+      "englishText": "One stone.",
+      "embeddingText": "One stone.",
+      "sceneQuery": "One stone.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-la-ww-phrase-005",
+      "englishText": "One line.",
+      "embeddingText": "One line.",
+      "sceneQuery": "One line.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-la-ww-phrase-006",
+      "englishText": "One body.",
+      "embeddingText": "One body.",
+      "sceneQuery": "One body.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-la-ww-phrase-007",
+      "englishText": "Two stones.",
+      "embeddingText": "Two stones.",
+      "sceneQuery": "Two stones.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-la-ww-phrase-008",
+      "englishText": "Two lines.",
+      "embeddingText": "Two lines.",
+      "sceneQuery": "Two lines.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-la-ww-phrase-009",
+      "englishText": "Two bodies.",
+      "embeddingText": "Two bodies.",
+      "sceneQuery": "Two bodies.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-la-ww-phrase-010",
+      "englishText": "Three points.",
+      "embeddingText": "Three points.",
+      "sceneQuery": "Three points.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-la-ww-phrase-011",
+      "englishText": "A big stone.",
+      "embeddingText": "A big stone.",
+      "sceneQuery": "A big stone.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-la-ww-phrase-012",
+      "englishText": "A small stone.",
+      "embeddingText": "A small stone.",
+      "sceneQuery": "A small stone.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-la-ww-phrase-013",
+      "englishText": "A big line.",
+      "embeddingText": "A big line.",
+      "sceneQuery": "A big line.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-la-ww-phrase-014",
+      "englishText": "A small line.",
+      "embeddingText": "A small line.",
+      "sceneQuery": "A small line.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-la-ww-phrase-015",
+      "englishText": "A big body.",
+      "embeddingText": "A big body.",
+      "sceneQuery": "A big body.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-la-ww-phrase-016",
+      "englishText": "A small body.",
+      "embeddingText": "A small body.",
+      "sceneQuery": "A small body.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-la-ww-phrase-017",
+      "englishText": "A new book.",
+      "embeddingText": "A new book.",
+      "sceneQuery": "A new book.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-la-ww-phrase-018",
+      "englishText": "Cold water.",
+      "embeddingText": "Cold water.",
+      "sceneQuery": "Cold water.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-la-ww-phrase-019",
+      "englishText": "Hot water.",
+      "embeddingText": "Hot water.",
+      "sceneQuery": "Hot water.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-la-ww-phrase-020",
+      "englishText": "A small star.",
+      "embeddingText": "A small star.",
+      "sceneQuery": "A small star.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-la-ww-phrase-021",
+      "englishText": "A big sphere.",
+      "embeddingText": "A big sphere.",
+      "sceneQuery": "A big sphere.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-la-ww-phrase-022",
+      "englishText": "A small circle.",
+      "embeddingText": "A small circle.",
+      "sceneQuery": "A small circle.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-la-ww-phrase-023",
+      "englishText": "The stone is here.",
+      "embeddingText": "The stone is here.",
+      "sceneQuery": "The stone is here.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6
+    },
+    {
+      "id": "zero-la-ww-phrase-024",
+      "englishText": "The book is here.",
+      "embeddingText": "The book is here.",
+      "sceneQuery": "The book is here.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6
+    },
+    {
+      "id": "zero-la-ww-phrase-025",
+      "englishText": "The line is here.",
+      "embeddingText": "The line is here.",
+      "sceneQuery": "The line is here.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6
+    },
+    {
+      "id": "zero-la-ww-phrase-026",
+      "englishText": "The water is here.",
+      "embeddingText": "The water is here.",
+      "sceneQuery": "The water is here.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6
+    },
+    {
+      "id": "zero-la-ww-phrase-027",
+      "englishText": "The stone is there.",
+      "embeddingText": "The stone is there.",
+      "sceneQuery": "The stone is there.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6
+    },
+    {
+      "id": "zero-la-ww-phrase-028",
+      "englishText": "The body is there.",
+      "embeddingText": "The body is there.",
+      "sceneQuery": "The body is there.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6
+    },
+    {
+      "id": "zero-la-ww-phrase-029",
+      "englishText": "I see.",
+      "embeddingText": "I see.",
+      "sceneQuery": "I see.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-la-ww-phrase-030",
+      "englishText": "You see.",
+      "embeddingText": "You see.",
+      "sceneQuery": "You see.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-la-ww-phrase-031",
+      "englishText": "I read.",
+      "embeddingText": "I read.",
+      "sceneQuery": "I read.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-la-ww-phrase-032",
+      "englishText": "You read.",
+      "embeddingText": "You read.",
+      "sceneQuery": "You read.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-la-ww-phrase-033",
+      "englishText": "I write.",
+      "embeddingText": "I write.",
+      "sceneQuery": "I write.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-la-ww-phrase-034",
+      "englishText": "You write.",
+      "embeddingText": "You write.",
+      "sceneQuery": "You write.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-la-ww-phrase-035",
+      "englishText": "I count.",
+      "embeddingText": "I count.",
+      "sceneQuery": "I count.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-la-ww-phrase-036",
+      "englishText": "You count.",
+      "embeddingText": "You count.",
+      "sceneQuery": "You count.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-la-ww-phrase-037",
+      "englishText": "The stone is at rest.",
+      "embeddingText": "The stone is at rest.",
+      "sceneQuery": "The stone is at rest.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-la-ww-phrase-038",
+      "englishText": "The ball is at rest.",
+      "embeddingText": "The ball is at rest.",
+      "sceneQuery": "The ball is at rest.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5
+    },
+    {
+      "id": "zero-la-ww-phrase-039",
+      "englishText": "The water is cold.",
+      "embeddingText": "The water is cold.",
+      "sceneQuery": "The water is cold.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6
+    },
+    {
+      "id": "zero-la-ww-phrase-040",
+      "englishText": "The water is hot.",
+      "embeddingText": "The water is hot.",
+      "sceneQuery": "The water is hot.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6
+    },
+    {
+      "id": "zero-la-ww-phrase-041",
+      "englishText": "I see a stone.",
+      "embeddingText": "I see a stone.",
+      "sceneQuery": "I see a stone.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6
+    },
+    {
+      "id": "zero-la-ww-phrase-042",
+      "englishText": "I see a star.",
+      "embeddingText": "I see a star.",
+      "sceneQuery": "I see a star.",
+      "topic": "first-sentences",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6
     }
   ],
   "derivedFrom": "apps/languages/shared/english-concepts/word-world-la-v1.json"

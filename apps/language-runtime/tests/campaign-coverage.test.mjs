@@ -34,8 +34,11 @@ function campaign(course, random = () => 0.5) {
     Math: { random, floor: Math.floor }, Promise, campaignTransitionMillis: 1600, wordWorldResultHoldMillis: 4000,
     campaignFrame: (id) => frames.get(id),
     verbRoundComplete: () => false,
-    ensureCampaignGameLoaded() {}, showCampaignTransition() {}, hideCampaignTransition() {},
+    ensureCampaignGameLoaded() {}, showCampaignTransition() {}, hideCampaignTransition() {}, syncActiveGameVisibility() {},
     waitForCampaignGameReady: async () => {}, waitForVerbTransition: async () => {},
+    // Presentation gating has its own browser tests; this fixture owns game order.
+    waitForPracticePresentation: () => ({ promise: Promise.resolve(true) }),
+    cancelPracticePresentationWaits() {},
     setTrainTab(id) { state.trainTab = id; visits.push(id); }
   });
   vm.runInContext(selection + lifecycle, context);
@@ -48,6 +51,7 @@ function campaign(course, random = () => 0.5) {
           source: ["word-net", "naturalization-nucleus"].includes(id) ? window : frames.get(id).contentWindow,
           data: { source: "caatuu-game", gameId: id,
             type: ["sound-quasar", "conjugation-comet", "memory-moon"].includes(id) ? "round-complete" : "round-success" } });
+        if (id === "word-net") context.continueWordWorldCampaign();
         await new Promise((resolve) => setImmediate(resolve));
       }
       assert.equal(state.campaignTransitioning, false);
@@ -102,14 +106,17 @@ test("cancelling a transition returns its unvisited destination to the queue", a
   await game.context.startCampaign();
   const originalQueue = [...game.state.campaignQueue];
   const waits = [];
-  game.context.waitForVerbTransition = () => new Promise((resolve) => waits.push(resolve));
+  game.context.waitForCampaignGameReady = () => new Promise((resolve) => waits.push(resolve));
   const completed = game.context.completeCampaignRound(game.state.trainTab, game.window);
+  if (game.state.trainTab === "word-net") game.context.continueWordWorldCampaign();
+  await new Promise((resolve) => setImmediate(resolve));
   assert.ok(game.state.campaignPendingTab);
+  assert.equal(waits.length, 1, "the destination remains unvisited while readiness is pending");
   game.context.stopCampaign();
   assert.deepEqual([...game.state.campaignQueue], originalQueue);
   waits.forEach((resolve) => resolve());
   await completed;
-  game.context.waitForVerbTransition = async () => {};
+  game.context.waitForCampaignGameReady = async () => {};
   await game.context.startCampaign();
   assert.equal(game.state.trainTab, originalQueue[0]);
 });

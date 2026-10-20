@@ -22,6 +22,10 @@ slot it mixes score softmax with uniform exploration: normally 15%, or 25% for
 Explore. Small banks may relax pacing/frontier limits to remain playable, never
 the selected difficulty. Recent/excluded items yield to alternatives within the available
 category; exhausted categories have explicit fallback explanations.
+When the current frontier has no unseen material left, an ordinary new-material
+slot may offer one item from the nearest unseen complexity band. This paced
+continuation preserves the selected difficulty, review slots and all evidence;
+it does not promote the experimental soft-frontier scoring policy.
 The difficulty filter runs before progression, history and scoring: Explorer
 selects level 1, Traveler level 2, and Navigator level 3. Older reviews and
 semantic suggestions cannot introduce a different level. Empty bands stay empty;

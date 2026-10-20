@@ -122786,6 +122786,2370 @@
       "sceneQuery": "By the time the confirmation arrived, we had already agreed on the next step.",
       "sceneAssetIds": [],
       "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-hello",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "greetings",
+      "englishText": "Hello!",
+      "embeddingText": "Hello!",
+      "englishAlternates": [],
+      "targetText": "مَرْحَبًا!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "مَرْحَبًا",
+          "pronunciation": null,
+          "gloss": "Hello",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Hello!",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-goodbye",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "greetings",
+      "englishText": "Goodbye!",
+      "embeddingText": "Goodbye!",
+      "englishAlternates": [],
+      "targetText": "إِلَى اللِّقَاءِ!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "إِلَى",
+          "pronunciation": null,
+          "gloss": "until",
+          "playable": true
+        },
+        {
+          "surface": "اللِّقَاءِ",
+          "pronunciation": null,
+          "gloss": "the meeting (goodbye)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Goodbye!",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-thanks",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "greetings",
+      "englishText": "Thank you!",
+      "embeddingText": "Thank you!",
+      "englishAlternates": [],
+      "targetText": "شُكْرًا!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "شُكْرًا",
+          "pronunciation": null,
+          "gloss": "Thank you",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Thank you!",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-yes",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "greetings",
+      "englishText": "Yes.",
+      "embeddingText": "Yes.",
+      "englishAlternates": [],
+      "targetText": "نَعَمْ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "نَعَمْ",
+          "pronunciation": null,
+          "gloss": "Yes",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Yes.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-no",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "greetings",
+      "englishText": "No.",
+      "embeddingText": "No.",
+      "englishAlternates": [],
+      "targetText": "لَا.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "لَا",
+          "pronunciation": null,
+          "gloss": "No",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "No.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-please",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "greetings",
+      "englishText": "Please (to a man).",
+      "embeddingText": "Please (to a man).",
+      "englishAlternates": [],
+      "targetText": "مِنْ فَضْلِكَ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "مِنْ",
+          "pronunciation": null,
+          "gloss": "from",
+          "playable": true
+        },
+        {
+          "surface": "فَضْلِكَ",
+          "pronunciation": null,
+          "gloss": "your favour (please)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Please (to a man).",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-sorry",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "greetings",
+      "englishText": "Sorry!",
+      "embeddingText": "Sorry!",
+      "englishAlternates": [],
+      "targetText": "عَفْوًا!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "عَفْوًا",
+          "pronunciation": null,
+          "gloss": "Sorry",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Sorry!",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-help",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "greetings",
+      "englishText": "Help!",
+      "embeddingText": "Help!",
+      "englishAlternates": [],
+      "targetText": "النَّجْدَةَ!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "النَّجْدَةَ",
+          "pronunciation": null,
+          "gloss": "Help",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Help!",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-i",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "people",
+      "englishText": "I",
+      "embeddingText": "I",
+      "englishAlternates": [],
+      "targetText": "أَنَا",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَنَا",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-you",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "people",
+      "englishText": "you (one man)",
+      "embeddingText": "you (one man)",
+      "englishAlternates": [],
+      "targetText": "أَنْتَ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَنْتَ",
+          "pronunciation": null,
+          "gloss": "you (one man)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "you (one man)",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-mother",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "people",
+      "englishText": "mother",
+      "embeddingText": "mother",
+      "englishAlternates": [],
+      "targetText": "أُمٌّ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أُمٌّ",
+          "pronunciation": null,
+          "gloss": "mother",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "mother",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-father",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "people",
+      "englishText": "father",
+      "embeddingText": "father",
+      "englishAlternates": [],
+      "targetText": "أَبٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَبٌ",
+          "pronunciation": null,
+          "gloss": "father",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "father",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-friend",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "people",
+      "englishText": "friend (male)",
+      "embeddingText": "friend (male)",
+      "englishAlternates": [],
+      "targetText": "صَدِيقٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "صَدِيقٌ",
+          "pronunciation": null,
+          "gloss": "friend (male)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "friend (male)",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-child",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "people",
+      "englishText": "child (male)",
+      "embeddingText": "child (male)",
+      "englishAlternates": [],
+      "targetText": "طِفْلٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "طِفْلٌ",
+          "pronunciation": null,
+          "gloss": "child (male)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "child (male)",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-one",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "numbers",
+      "englishText": "one",
+      "embeddingText": "one",
+      "englishAlternates": [],
+      "targetText": "وَاحِدٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "وَاحِدٌ",
+          "pronunciation": null,
+          "gloss": "one",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "one",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-two",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "numbers",
+      "englishText": "two",
+      "embeddingText": "two",
+      "englishAlternates": [],
+      "targetText": "اِثْنَانِ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "اِثْنَانِ",
+          "pronunciation": null,
+          "gloss": "two",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "two",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-three",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "numbers",
+      "englishText": "three",
+      "embeddingText": "three",
+      "englishAlternates": [],
+      "targetText": "ثَلَاثَةٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "ثَلَاثَةٌ",
+          "pronunciation": null,
+          "gloss": "three",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "three",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-four",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "numbers",
+      "englishText": "four",
+      "embeddingText": "four",
+      "englishAlternates": [],
+      "targetText": "أَرْبَعَةٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَرْبَعَةٌ",
+          "pronunciation": null,
+          "gloss": "four",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "four",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-five",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "numbers",
+      "englishText": "five",
+      "embeddingText": "five",
+      "englishAlternates": [],
+      "targetText": "خَمْسَةٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "خَمْسَةٌ",
+          "pronunciation": null,
+          "gloss": "five",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "five",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-water",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "food-and-drink",
+      "englishText": "water",
+      "embeddingText": "water",
+      "englishAlternates": [],
+      "targetText": "مَاءٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "مَاءٌ",
+          "pronunciation": null,
+          "gloss": "water",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "water",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-bread",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "food-and-drink",
+      "englishText": "bread",
+      "embeddingText": "bread",
+      "englishAlternates": [],
+      "targetText": "خُبْزٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "خُبْزٌ",
+          "pronunciation": null,
+          "gloss": "bread",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "bread",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-milk",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "food-and-drink",
+      "englishText": "milk",
+      "embeddingText": "milk",
+      "englishAlternates": [],
+      "targetText": "حَلِيبٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "حَلِيبٌ",
+          "pronunciation": null,
+          "gloss": "milk",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "milk",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-apple",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "food-and-drink",
+      "englishText": "apple",
+      "embeddingText": "apple",
+      "englishAlternates": [],
+      "targetText": "تُفَّاحَةٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "تُفَّاحَةٌ",
+          "pronunciation": null,
+          "gloss": "apple",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "apple",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-tea",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "food-and-drink",
+      "englishText": "tea",
+      "embeddingText": "tea",
+      "englishAlternates": [],
+      "targetText": "شَايٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "شَايٌ",
+          "pronunciation": null,
+          "gloss": "tea",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "tea",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-house",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "home",
+      "englishText": "house",
+      "embeddingText": "house",
+      "englishAlternates": [],
+      "targetText": "بَيْتٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "بَيْتٌ",
+          "pronunciation": null,
+          "gloss": "house",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "house",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-book",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "home",
+      "englishText": "book",
+      "embeddingText": "book",
+      "englishAlternates": [],
+      "targetText": "كِتَابٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "كِتَابٌ",
+          "pronunciation": null,
+          "gloss": "book",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "book",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-door",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "home",
+      "englishText": "door",
+      "embeddingText": "door",
+      "englishAlternates": [],
+      "targetText": "بَابٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "بَابٌ",
+          "pronunciation": null,
+          "gloss": "door",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "door",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-car",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "objects",
+      "englishText": "car",
+      "embeddingText": "car",
+      "englishAlternates": [],
+      "targetText": "سَيَّارَةٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "سَيَّارَةٌ",
+          "pronunciation": null,
+          "gloss": "car",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "car",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-cat",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "animals",
+      "englishText": "cat",
+      "embeddingText": "cat",
+      "englishAlternates": [],
+      "targetText": "قِطَّةٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "قِطَّةٌ",
+          "pronunciation": null,
+          "gloss": "cat",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "cat",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-dog",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "animals",
+      "englishText": "dog",
+      "embeddingText": "dog",
+      "englishAlternates": [],
+      "targetText": "كَلْبٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "كَلْبٌ",
+          "pronunciation": null,
+          "gloss": "dog",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "dog",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-big",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "properties",
+      "englishText": "big (masculine)",
+      "embeddingText": "big (masculine)",
+      "englishAlternates": [],
+      "targetText": "كَبِيرٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "كَبِيرٌ",
+          "pronunciation": null,
+          "gloss": "big (masculine)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "big (masculine)",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-small",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "properties",
+      "englishText": "small (masculine)",
+      "embeddingText": "small (masculine)",
+      "englishAlternates": [],
+      "targetText": "صَغِيرٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "صَغِيرٌ",
+          "pronunciation": null,
+          "gloss": "small (masculine)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "small (masculine)",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-good",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "properties",
+      "englishText": "good (masculine)",
+      "embeddingText": "good (masculine)",
+      "englishAlternates": [],
+      "targetText": "جَيِّدٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "جَيِّدٌ",
+          "pronunciation": null,
+          "gloss": "good (masculine)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "good (masculine)",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-new",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "properties",
+      "englishText": "new (masculine)",
+      "embeddingText": "new (masculine)",
+      "englishAlternates": [],
+      "targetText": "جَدِيدٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "جَدِيدٌ",
+          "pronunciation": null,
+          "gloss": "new (masculine)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "new (masculine)",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-red",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "properties",
+      "englishText": "red (masculine)",
+      "embeddingText": "red (masculine)",
+      "englishAlternates": [],
+      "targetText": "أَحْمَرُ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَحْمَرُ",
+          "pronunciation": null,
+          "gloss": "red (masculine)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "red (masculine)",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-green",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "properties",
+      "englishText": "green (masculine)",
+      "embeddingText": "green (masculine)",
+      "englishAlternates": [],
+      "targetText": "أَخْضَرُ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَخْضَرُ",
+          "pronunciation": null,
+          "gloss": "green (masculine)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "green (masculine)",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-hot",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "properties",
+      "englishText": "hot (masculine)",
+      "embeddingText": "hot (masculine)",
+      "englishAlternates": [],
+      "targetText": "سَاخِنٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "سَاخِنٌ",
+          "pronunciation": null,
+          "gloss": "hot (masculine)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "hot (masculine)",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-cold",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "properties",
+      "englishText": "cold (masculine)",
+      "embeddingText": "cold (masculine)",
+      "englishAlternates": [],
+      "targetText": "بَارِدٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "بَارِدٌ",
+          "pronunciation": null,
+          "gloss": "cold (masculine)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "cold (masculine)",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-old",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "properties",
+      "englishText": "old (masculine)",
+      "embeddingText": "old (masculine)",
+      "englishAlternates": [],
+      "targetText": "قَدِيمٌ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "قَدِيمٌ",
+          "pronunciation": null,
+          "gloss": "old (masculine)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "old (masculine)",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-eat",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "actions",
+      "englishText": "I eat",
+      "embeddingText": "I eat",
+      "englishAlternates": [],
+      "targetText": "آكُلُ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "آكُلُ",
+          "pronunciation": null,
+          "gloss": "I eat",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I eat",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-drink",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "actions",
+      "englishText": "I drink",
+      "embeddingText": "I drink",
+      "englishAlternates": [],
+      "targetText": "أَشْرَبُ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَشْرَبُ",
+          "pronunciation": null,
+          "gloss": "I drink",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I drink",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-go",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "actions",
+      "englishText": "I go",
+      "embeddingText": "I go",
+      "englishAlternates": [],
+      "targetText": "أَذْهَبُ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَذْهَبُ",
+          "pronunciation": null,
+          "gloss": "I go",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I go",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-come",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "actions",
+      "englishText": "I come",
+      "embeddingText": "I come",
+      "englishAlternates": [],
+      "targetText": "آتِي",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "آتِي",
+          "pronunciation": null,
+          "gloss": "I come",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I come",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-sleep",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "actions",
+      "englishText": "I sleep",
+      "embeddingText": "I sleep",
+      "englishAlternates": [],
+      "targetText": "أَنَامُ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَنَامُ",
+          "pronunciation": null,
+          "gloss": "I sleep",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I sleep",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-read",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "actions",
+      "englishText": "I read",
+      "embeddingText": "I read",
+      "englishAlternates": [],
+      "targetText": "أَقْرَأُ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَقْرَأُ",
+          "pronunciation": null,
+          "gloss": "I read",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I read",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-write",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "actions",
+      "englishText": "I write",
+      "embeddingText": "I write",
+      "englishAlternates": [],
+      "targetText": "أَكْتُبُ",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَكْتُبُ",
+          "pronunciation": null,
+          "gloss": "I write",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I write",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-see",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 2,
+      "topic": "actions",
+      "englishText": "I see",
+      "embeddingText": "I see",
+      "englishAlternates": [],
+      "targetText": "أَرَى",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَرَى",
+          "pronunciation": null,
+          "gloss": "I see",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I see",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-phrase-001",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "englishText": "Hello, mother!",
+      "embeddingText": "Hello, mother!",
+      "englishAlternates": [],
+      "targetText": "مَرْحَبًا يَا أُمِّي!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "مَرْحَبًا",
+          "pronunciation": null,
+          "gloss": "hello",
+          "playable": true
+        },
+        {
+          "surface": "يَا",
+          "pronunciation": null,
+          "gloss": "O (address)",
+          "playable": true
+        },
+        {
+          "surface": "أُمِّي",
+          "pronunciation": null,
+          "gloss": "my mother",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Hello, mother!",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-phrase-002",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "englishText": "Hello, father!",
+      "embeddingText": "Hello, father!",
+      "englishAlternates": [],
+      "targetText": "مَرْحَبًا يَا أَبِي!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "مَرْحَبًا",
+          "pronunciation": null,
+          "gloss": "hello",
+          "playable": true
+        },
+        {
+          "surface": "يَا",
+          "pronunciation": null,
+          "gloss": "O (address)",
+          "playable": true
+        },
+        {
+          "surface": "أَبِي",
+          "pronunciation": null,
+          "gloss": "my father",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Hello, father!",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-phrase-003",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "Yes, thank you.",
+      "embeddingText": "Yes, thank you.",
+      "englishAlternates": [],
+      "targetText": "نَعَمْ، شُكْرًا.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "نَعَمْ",
+          "pronunciation": null,
+          "gloss": "yes",
+          "playable": true
+        },
+        {
+          "surface": "شُكْرًا",
+          "pronunciation": null,
+          "gloss": "thank you",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Yes, thank you.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-phrase-004",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "No, thank you.",
+      "embeddingText": "No, thank you.",
+      "englishAlternates": [],
+      "targetText": "لَا، شُكْرًا.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "لَا",
+          "pronunciation": null,
+          "gloss": "no",
+          "playable": true
+        },
+        {
+          "surface": "شُكْرًا",
+          "pronunciation": null,
+          "gloss": "thank you",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "No, thank you.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-phrase-005",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "Good morning!",
+      "embeddingText": "Good morning!",
+      "englishAlternates": [],
+      "targetText": "صَبَاحُ الْخَيْرِ!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "صَبَاحُ",
+          "pronunciation": null,
+          "gloss": "morning",
+          "playable": true
+        },
+        {
+          "surface": "الْخَيْرِ",
+          "pronunciation": null,
+          "gloss": "goodness (greeting)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Good morning!",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-phrase-006",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "Good evening!",
+      "embeddingText": "Good evening!",
+      "englishAlternates": [],
+      "targetText": "مَسَاءُ الْخَيْرِ!",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "مَسَاءُ",
+          "pronunciation": null,
+          "gloss": "evening",
+          "playable": true
+        },
+        {
+          "surface": "الْخَيْرِ",
+          "pronunciation": null,
+          "gloss": "goodness (greeting)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Good evening!",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-phrase-007",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "I am here.",
+      "embeddingText": "I am here.",
+      "englishAlternates": [],
+      "targetText": "أَنَا هُنَا.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَنَا",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "هُنَا",
+          "pronunciation": null,
+          "gloss": "here",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I am here.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-phrase-008",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "You are here (one man).",
+      "embeddingText": "You are here (one man).",
+      "englishAlternates": [],
+      "targetText": "أَنْتَ هُنَا.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَنْتَ",
+          "pronunciation": null,
+          "gloss": "you (one man)",
+          "playable": true
+        },
+        {
+          "surface": "هُنَا",
+          "pronunciation": null,
+          "gloss": "here",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "You are here (one man).",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-phrase-009",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "englishText": "I am at home.",
+      "embeddingText": "I am at home.",
+      "englishAlternates": [],
+      "targetText": "أَنَا فِي الْبَيْتِ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَنَا",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "فِي",
+          "pronunciation": null,
+          "gloss": "in",
+          "playable": true
+        },
+        {
+          "surface": "الْبَيْتِ",
+          "pronunciation": null,
+          "gloss": "the house",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I am at home.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-phrase-010",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 6,
+      "topic": "first-sentences",
+      "englishText": "You are at home (one man).",
+      "embeddingText": "You are at home (one man).",
+      "englishAlternates": [],
+      "targetText": "أَنْتَ فِي الْبَيْتِ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَنْتَ",
+          "pronunciation": null,
+          "gloss": "you (one man)",
+          "playable": true
+        },
+        {
+          "surface": "فِي",
+          "pronunciation": null,
+          "gloss": "in",
+          "playable": true
+        },
+        {
+          "surface": "الْبَيْتِ",
+          "pronunciation": null,
+          "gloss": "the house",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "You are at home (one man).",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-phrase-011",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "I am fine.",
+      "embeddingText": "I am fine.",
+      "englishAlternates": [],
+      "targetText": "أَنَا بِخَيْرٍ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَنَا",
+          "pronunciation": null,
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "بِخَيْرٍ",
+          "pronunciation": null,
+          "gloss": "well",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I am fine.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-phrase-012",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "This is water.",
+      "embeddingText": "This is water.",
+      "englishAlternates": [],
+      "targetText": "هٰذَا مَاءٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "هٰذَا",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "مَاءٌ",
+          "pronunciation": null,
+          "gloss": "water",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is water.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-phrase-013",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "This is bread.",
+      "embeddingText": "This is bread.",
+      "englishAlternates": [],
+      "targetText": "هٰذَا خُبْزٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "هٰذَا",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "خُبْزٌ",
+          "pronunciation": null,
+          "gloss": "bread",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is bread.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-phrase-014",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "This is milk.",
+      "embeddingText": "This is milk.",
+      "englishAlternates": [],
+      "targetText": "هٰذَا حَلِيبٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "هٰذَا",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "حَلِيبٌ",
+          "pronunciation": null,
+          "gloss": "milk",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is milk.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-phrase-015",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "This is tea.",
+      "embeddingText": "This is tea.",
+      "englishAlternates": [],
+      "targetText": "هٰذَا شَايٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "هٰذَا",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "شَايٌ",
+          "pronunciation": null,
+          "gloss": "tea",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is tea.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-phrase-016",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "This is a book.",
+      "embeddingText": "This is a book.",
+      "englishAlternates": [],
+      "targetText": "هٰذَا كِتَابٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "هٰذَا",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "كِتَابٌ",
+          "pronunciation": null,
+          "gloss": "book",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is a book.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-phrase-017",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "This is a house.",
+      "embeddingText": "This is a house.",
+      "englishAlternates": [],
+      "targetText": "هٰذَا بَيْتٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "هٰذَا",
+          "pronunciation": null,
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "بَيْتٌ",
+          "pronunciation": null,
+          "gloss": "house",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is a house.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-phrase-018",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "This is an apple.",
+      "embeddingText": "This is an apple.",
+      "englishAlternates": [],
+      "targetText": "هٰذِهِ تُفَّاحَةٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "هٰذِهِ",
+          "pronunciation": null,
+          "gloss": "this (feminine)",
+          "playable": true
+        },
+        {
+          "surface": "تُفَّاحَةٌ",
+          "pronunciation": null,
+          "gloss": "apple",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is an apple.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-phrase-019",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "This is a cat.",
+      "embeddingText": "This is a cat.",
+      "englishAlternates": [],
+      "targetText": "هٰذِهِ قِطَّةٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "هٰذِهِ",
+          "pronunciation": null,
+          "gloss": "this (feminine)",
+          "playable": true
+        },
+        {
+          "surface": "قِطَّةٌ",
+          "pronunciation": null,
+          "gloss": "cat",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is a cat.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-phrase-020",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "This is a car.",
+      "embeddingText": "This is a car.",
+      "englishAlternates": [],
+      "targetText": "هٰذِهِ سَيَّارَةٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "هٰذِهِ",
+          "pronunciation": null,
+          "gloss": "this (feminine)",
+          "playable": true
+        },
+        {
+          "surface": "سَيَّارَةٌ",
+          "pronunciation": null,
+          "gloss": "car",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "This is a car.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-phrase-021",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "A big house.",
+      "embeddingText": "A big house.",
+      "englishAlternates": [],
+      "targetText": "بَيْتٌ كَبِيرٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "بَيْتٌ",
+          "pronunciation": null,
+          "gloss": "house",
+          "playable": true
+        },
+        {
+          "surface": "كَبِيرٌ",
+          "pronunciation": null,
+          "gloss": "big",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A big house.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-phrase-022",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "A small book.",
+      "embeddingText": "A small book.",
+      "englishAlternates": [],
+      "targetText": "كِتَابٌ صَغِيرٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "كِتَابٌ",
+          "pronunciation": null,
+          "gloss": "book",
+          "playable": true
+        },
+        {
+          "surface": "صَغِيرٌ",
+          "pronunciation": null,
+          "gloss": "small",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A small book.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-phrase-023",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "A new book.",
+      "embeddingText": "A new book.",
+      "englishAlternates": [],
+      "targetText": "كِتَابٌ جَدِيدٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "كِتَابٌ",
+          "pronunciation": null,
+          "gloss": "book",
+          "playable": true
+        },
+        {
+          "surface": "جَدِيدٌ",
+          "pronunciation": null,
+          "gloss": "new",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A new book.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-phrase-024",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "A big car.",
+      "embeddingText": "A big car.",
+      "englishAlternates": [],
+      "targetText": "سَيَّارَةٌ كَبِيرَةٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "سَيَّارَةٌ",
+          "pronunciation": null,
+          "gloss": "car",
+          "playable": true
+        },
+        {
+          "surface": "كَبِيرَةٌ",
+          "pronunciation": null,
+          "gloss": "big (feminine)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A big car.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-phrase-025",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "A small cat.",
+      "embeddingText": "A small cat.",
+      "englishAlternates": [],
+      "targetText": "قِطَّةٌ صَغِيرَةٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "قِطَّةٌ",
+          "pronunciation": null,
+          "gloss": "cat",
+          "playable": true
+        },
+        {
+          "surface": "صَغِيرَةٌ",
+          "pronunciation": null,
+          "gloss": "small (feminine)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A small cat.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-phrase-026",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "A new car.",
+      "embeddingText": "A new car.",
+      "englishAlternates": [],
+      "targetText": "سَيَّارَةٌ جَدِيدَةٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "سَيَّارَةٌ",
+          "pronunciation": null,
+          "gloss": "car",
+          "playable": true
+        },
+        {
+          "surface": "جَدِيدَةٌ",
+          "pronunciation": null,
+          "gloss": "new (feminine)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "A new car.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-phrase-027",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "Cold water.",
+      "embeddingText": "Cold water.",
+      "englishAlternates": [],
+      "targetText": "مَاءٌ بَارِدٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "مَاءٌ",
+          "pronunciation": null,
+          "gloss": "water",
+          "playable": true
+        },
+        {
+          "surface": "بَارِدٌ",
+          "pronunciation": null,
+          "gloss": "cold",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Cold water.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-phrase-028",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "Hot milk.",
+      "embeddingText": "Hot milk.",
+      "englishAlternates": [],
+      "targetText": "حَلِيبٌ سَاخِنٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "حَلِيبٌ",
+          "pronunciation": null,
+          "gloss": "milk",
+          "playable": true
+        },
+        {
+          "surface": "سَاخِنٌ",
+          "pronunciation": null,
+          "gloss": "hot",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Hot milk.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-phrase-029",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "Hot tea.",
+      "embeddingText": "Hot tea.",
+      "englishAlternates": [],
+      "targetText": "شَايٌ سَاخِنٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "شَايٌ",
+          "pronunciation": null,
+          "gloss": "tea",
+          "playable": true
+        },
+        {
+          "surface": "سَاخِنٌ",
+          "pronunciation": null,
+          "gloss": "hot",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "Hot tea.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-phrase-030",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "I eat bread.",
+      "embeddingText": "I eat bread.",
+      "englishAlternates": [],
+      "targetText": "آكُلُ خُبْزًا.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "آكُلُ",
+          "pronunciation": null,
+          "gloss": "I eat",
+          "playable": true
+        },
+        {
+          "surface": "خُبْزًا",
+          "pronunciation": null,
+          "gloss": "bread (object)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I eat bread.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-phrase-031",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "I drink water.",
+      "embeddingText": "I drink water.",
+      "englishAlternates": [],
+      "targetText": "أَشْرَبُ مَاءً.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَشْرَبُ",
+          "pronunciation": null,
+          "gloss": "I drink",
+          "playable": true
+        },
+        {
+          "surface": "مَاءً",
+          "pronunciation": null,
+          "gloss": "water (object)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I drink water.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-phrase-032",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "I drink milk.",
+      "embeddingText": "I drink milk.",
+      "englishAlternates": [],
+      "targetText": "أَشْرَبُ حَلِيبًا.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَشْرَبُ",
+          "pronunciation": null,
+          "gloss": "I drink",
+          "playable": true
+        },
+        {
+          "surface": "حَلِيبًا",
+          "pronunciation": null,
+          "gloss": "milk (object)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I drink milk.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-phrase-033",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "I read a book.",
+      "embeddingText": "I read a book.",
+      "englishAlternates": [],
+      "targetText": "أَقْرَأُ كِتَابًا.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَقْرَأُ",
+          "pronunciation": null,
+          "gloss": "I read",
+          "playable": true
+        },
+        {
+          "surface": "كِتَابًا",
+          "pronunciation": null,
+          "gloss": "book (object)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I read a book.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-phrase-034",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "I see a dog.",
+      "embeddingText": "I see a dog.",
+      "englishAlternates": [],
+      "targetText": "أَرَى كَلْبًا.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَرَى",
+          "pronunciation": null,
+          "gloss": "I see",
+          "playable": true
+        },
+        {
+          "surface": "كَلْبًا",
+          "pronunciation": null,
+          "gloss": "dog (object)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I see a dog.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-phrase-035",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "I see a cat.",
+      "embeddingText": "I see a cat.",
+      "englishAlternates": [],
+      "targetText": "أَرَى قِطَّةً.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "أَرَى",
+          "pronunciation": null,
+          "gloss": "I see",
+          "playable": true
+        },
+        {
+          "surface": "قِطَّةً",
+          "pronunciation": null,
+          "gloss": "cat (object)",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I see a cat.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-phrase-036",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "I have a book.",
+      "embeddingText": "I have a book.",
+      "englishAlternates": [],
+      "targetText": "عِنْدِي كِتَابٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "عِنْدِي",
+          "pronunciation": null,
+          "gloss": "I have",
+          "playable": true
+        },
+        {
+          "surface": "كِتَابٌ",
+          "pronunciation": null,
+          "gloss": "book",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I have a book.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-phrase-037",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "I have an apple.",
+      "embeddingText": "I have an apple.",
+      "englishAlternates": [],
+      "targetText": "عِنْدِي تُفَّاحَةٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "عِنْدِي",
+          "pronunciation": null,
+          "gloss": "I have",
+          "playable": true
+        },
+        {
+          "surface": "تُفَّاحَةٌ",
+          "pronunciation": null,
+          "gloss": "apple",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "I have an apple.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-phrase-038",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "The door is here.",
+      "embeddingText": "The door is here.",
+      "englishAlternates": [],
+      "targetText": "الْبَابُ هُنَا.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "الْبَابُ",
+          "pronunciation": null,
+          "gloss": "the door",
+          "playable": true
+        },
+        {
+          "surface": "هُنَا",
+          "pronunciation": null,
+          "gloss": "here",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "The door is here.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-phrase-039",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "The book is here.",
+      "embeddingText": "The book is here.",
+      "englishAlternates": [],
+      "targetText": "الْكِتَابُ هُنَا.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "الْكِتَابُ",
+          "pronunciation": null,
+          "gloss": "the book",
+          "playable": true
+        },
+        {
+          "surface": "هُنَا",
+          "pronunciation": null,
+          "gloss": "here",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "The book is here.",
+      "sceneAssetIds": [],
+      "annotations": {}
+    },
+    {
+      "id": "zero-ar-ww-phrase-040",
+      "difficulty": 0,
+      "usefulness": 98,
+      "complexity": 5,
+      "topic": "first-sentences",
+      "englishText": "The water is cold.",
+      "embeddingText": "The water is cold.",
+      "englishAlternates": [],
+      "targetText": "الْمَاءُ بَارِدٌ.",
+      "pronunciation": null,
+      "tokens": [
+        {
+          "surface": "الْمَاءُ",
+          "pronunciation": null,
+          "gloss": "the water",
+          "playable": true
+        },
+        {
+          "surface": "بَارِدٌ",
+          "pronunciation": null,
+          "gloss": "cold",
+          "playable": true
+        }
+      ],
+      "learnerBase": null,
+      "sceneQuery": "The water is cold.",
+      "sceneAssetIds": [],
+      "annotations": {}
     }
   ]
 }

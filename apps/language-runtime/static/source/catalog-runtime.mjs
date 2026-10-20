@@ -164,8 +164,8 @@ export function validateEnglishConceptCatalog(catalog) {
     nonEmptyString(concept.englishText, `concepts[${index}].englishText`);
     assertNoTargetScript(concept.embeddingText, `concepts[${index}].embeddingText`);
     nonEmptyString(concept.topic, `concepts[${index}].topic`);
-    if (!Number.isInteger(concept.difficulty) || concept.difficulty < 1 || concept.difficulty > 3) {
-      throw new CourseCatalogError(`concepts[${index}].difficulty must be 1, 2, or 3.`);
+    if (!Number.isInteger(concept.difficulty) || concept.difficulty < 0 || concept.difficulty > 3) {
+      throw new CourseCatalogError(`concepts[${index}].difficulty must be 0, 1, 2, or 3.`);
     }
     try { normalizeContentProgression(concept, `concepts[${index}]`); }
     catch (error) { throw new CourseCatalogError(error.message); }

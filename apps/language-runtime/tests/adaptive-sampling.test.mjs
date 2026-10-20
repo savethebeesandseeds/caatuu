@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { createAdaptiveDecision, selectAdaptiveItems } from '../static/source/games/adaptive-sampling.mjs';
+import { createAdaptiveDecision, createSamplingExperiment, selectAdaptiveItems } from '../static/source/games/adaptive-sampling.mjs';
 import { CONTENT_DAY_MS as DAY } from '../static/source/games/content-progression.mjs';
 
 const NOW = Date.UTC(2026, 8, 20, 12);
@@ -50,6 +50,80 @@ test('same-day introductions continue only in their paced slot after the daily t
   for (let index = 7; index < introductionSteps.length; index++) {
     assert.ok(introductionSteps[index] - introductionSteps[index - 1] >= 5);
   }
+});
+
+test('an exhausted frontier continues only in the scheduled new slot at the nearest unseen band', () => {
+  const rows = [...bank(6), item('nearest-a', 30), item('nearest-b', 30),
+    item('later', 70), item('other-level', 1, 100, 2)];
+  for (const exposures of [1, 2]) {
+    const history = Object.fromEntries(rows.slice(0, 6).map(row => [row.id,
+      seen({ exposures, firstSeenAt: iso(NOW), lastSeenAt: iso(NOW), practiceDays: 1 })]));
+    const before = structuredClone(history);
+    const single = decide(rows, { history, limit: 1 });
+    const draw = single.trace.draws[0];
+    assert.equal(Boolean(history[single.items[0].id]), draw.requestedCategory !== 'new');
+    const paced = decide(rows, { history, excludeIds: ['nearest-a'] });
+    const continuation = paced.trace.draws.filter(row => row.fallbackReasons.includes('exhausted-frontier-continuation'));
+    assert.equal(continuation.length, 1);
+    assert.equal(continuation[0].requestedCategory, 'new');
+    assert.equal(continuation[0].chosenId, 'nearest-b');
+    assert.equal(paced.trace.constraints.exhaustedFrontierBand, 2);
+    assert.equal(paced.trace.constraints.frontier, 28);
+    assert.ok(paced.items.every(row => row.difficulty === 1 && row.complexity <= 30));
+    assert.equal(paced.items.filter(row => !history[row.id]).length, 1);
+    assert.deepEqual(history, before);
+    assert.ok(paced.trace.candidates.filter(row => history[row.id]).every(row => row.readiness === 0));
+  }
+});
+
+test('ordinary frontier material and the soft-frontier experiment do not use exhausted-frontier continuation', () => {
+  const rows = [...bank(6), item('inside', 20), item('outside', 70)];
+  const history = Object.fromEntries(rows.slice(0, 6).map(row => [row.id,
+    seen({ exposures: 2, firstSeenAt: iso(NOW), lastSeenAt: iso(NOW) })]));
+  const result = decide(rows, { history, limit: 1 });
+  assert.equal(result.trace.constraints.exhaustedFrontierBand, null);
+  assert.equal(result.items[0].id, 'inside');
+  assert.ok(!result.trace.draws[0].fallbackReasons.includes('exhausted-frontier-continuation'));
+  const soft = createSamplingExperiment(rows.filter(row => row.id !== 'inside'), {
+    difficulty: 1, history, now: NOW, random: () => .4, limit: 1
+  }, { softFrontier: true });
+  assert.equal(soft.trace.constraints.exhaustedFrontierBand, null);
+  assert.ok(!soft.trace.draws[0].fallbackReasons.includes('exhausted-frontier-continuation'));
+});
+
+test('a nearest-band homophone keeps a group available for its new slot instead of trapping five-piece boards', () => {
+  const rows = [...['a', 'b', 'c', 'd', 'e'].map(id => ({ ...item(id), reading: id })),
+    { ...item('a-homophone', 30), reading: 'a' }, { ...item('far-f', 50), reading: 'f' }];
+  const history = Object.fromEntries(rows.slice(0, 5).map(row => [row.id,
+    seen({ firstSeenAt: iso(NOW), lastSeenAt: iso(NOW), practiceDays: 1 })]));
+  for (let board = 0; board < 2; board++) {
+    const result = decide(rows, { history, minimumPool: 5, limit: 5,
+      getGroupKey: row => row.reading, recentIds: ['a', 'b', 'c', 'd'], random: () => 0 });
+    assert.equal(result.items.length, 5);
+    assert.equal(new Set(result.items.map(row => row.reading)).size, 5);
+    const continuation = result.trace.draws.filter(draw => draw.fallbackReasons.includes('exhausted-frontier-continuation'));
+    assert.equal(continuation.length, 1);
+    assert.equal(continuation[0].requestedCategory, 'new');
+    assert.equal(continuation[0].chosenId, board === 0 ? 'a-homophone' : 'far-f');
+    assert.equal(result.trace.constraints.frontier, 28);
+    if (board === 0) assert.equal(result.trace.constraints.exhaustedFrontierReservedGroup, 'a');
+    for (const row of result.items) history[row.id] = {
+      ...history[row.id], exposures: (history[row.id]?.exposures || 0) + 1,
+      firstSeenAt: history[row.id]?.firstSeenAt || iso(NOW), lastSeenAt: iso(NOW), practiceDays: 1
+    };
+  }
+  assert.ok(history['a-homophone'] && history['far-f']);
+});
+
+test('outside exploration never labels a practice-slot draw as exhausted-frontier continuation', () => {
+  const rows = [...bank(6), item('nearest', 30)];
+  const history = Object.fromEntries(rows.slice(0, 6).map(row => [row.id,
+    seen({ firstSeenAt: iso(NOW), lastSeenAt: iso(NOW) })]));
+  const result = createSamplingExperiment(rows, { history, difficulty: 1, now: NOW,
+    limit: 1, random: () => 1 }, { outsideExploration: 1 });
+  assert.equal(result.items[0].id, 'nearest');
+  assert.notEqual(result.trace.draws[0].requestedCategory, 'new');
+  assert.ok(!result.trace.draws[0].fallbackReasons.includes('exhausted-frontier-continuation'));
 });
 
 test('the full bank history controls pacing even for a filtered candidate bank', () => {
@@ -274,7 +348,7 @@ test('invalid policy controls and supplied feature values fail explicitly', () =
   assert.throws(() => decide([{ ...item('invalid'), difficulty: null }]), /difficulty/);
   assert.throws(() => decide(bank(), { getGroupKey: null }), /getGroupKey/);
   assert.throws(() => decide(bank(), { getGroupKey: () => '' }), /getGroupKey/);
-  for (const options of [{ difficulty: 0 }, { minimumPool: 0 }, { limit: 0 }, { now: -1 }, { random: () => NaN },
+  for (const options of [{ difficulty: -1 }, { minimumPool: 0 }, { limit: 0 }, { now: -1 }, { random: () => NaN },
     { config: { temperature: 0 } }, { config: { exploration: 2 } }, { config: { weights: { mastery: 2 } } },
     { learner: { knowledgeByItem: { 'item-0': { recallProbability: 2 } } } },
     { semantic: { byItem: { 'item-0': { recentSimilarity: Infinity } } } }, { goal: { weights: { 'item-0': -1 } } }]) {

@@ -77679,6 +77679,1212 @@
           "playable": true
         }
       ]
+    },
+    {
+      "conceptId": "zero-la-ww-hello",
+      "text": "Salvē!",
+      "tokens": [
+        {
+          "surface": "Salvē",
+          "gloss": "Hello",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-goodbye",
+      "text": "Valē!",
+      "tokens": [
+        {
+          "surface": "Valē",
+          "gloss": "Goodbye",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-thanks",
+      "text": "Grātiās!",
+      "tokens": [
+        {
+          "surface": "Grātiās",
+          "gloss": "Thank you",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-yes",
+      "text": "Ita.",
+      "tokens": [
+        {
+          "surface": "Ita",
+          "gloss": "Yes",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-no",
+      "text": "Minimē.",
+      "tokens": [
+        {
+          "surface": "Minimē",
+          "gloss": "No",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-please",
+      "text": "Quaesō.",
+      "tokens": [
+        {
+          "surface": "Quaesō",
+          "gloss": "Please",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-i",
+      "text": "ego",
+      "tokens": [
+        {
+          "surface": "ego",
+          "gloss": "I",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-you",
+      "text": "tū",
+      "tokens": [
+        {
+          "surface": "tū",
+          "gloss": "you (one person)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-one",
+      "text": "ūnus",
+      "tokens": [
+        {
+          "surface": "ūnus",
+          "gloss": "one",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-two",
+      "text": "duo",
+      "tokens": [
+        {
+          "surface": "duo",
+          "gloss": "two",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-three",
+      "text": "trēs",
+      "tokens": [
+        {
+          "surface": "trēs",
+          "gloss": "three",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-four",
+      "text": "quattuor",
+      "tokens": [
+        {
+          "surface": "quattuor",
+          "gloss": "four",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-five",
+      "text": "quīnque",
+      "tokens": [
+        {
+          "surface": "quīnque",
+          "gloss": "five",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-water",
+      "text": "aqua",
+      "tokens": [
+        {
+          "surface": "aqua",
+          "gloss": "water",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-stone",
+      "text": "lapis",
+      "tokens": [
+        {
+          "surface": "lapis",
+          "gloss": "stone",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-body",
+      "text": "corpus",
+      "tokens": [
+        {
+          "surface": "corpus",
+          "gloss": "body",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-ball",
+      "text": "globus",
+      "tokens": [
+        {
+          "surface": "globus",
+          "gloss": "ball",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-sphere",
+      "text": "sphaera",
+      "tokens": [
+        {
+          "surface": "sphaera",
+          "gloss": "sphere",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-line",
+      "text": "līnea",
+      "tokens": [
+        {
+          "surface": "līnea",
+          "gloss": "line",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-point",
+      "text": "punctum",
+      "tokens": [
+        {
+          "surface": "punctum",
+          "gloss": "point",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-circle",
+      "text": "circulus",
+      "tokens": [
+        {
+          "surface": "circulus",
+          "gloss": "circle",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-star",
+      "text": "stella",
+      "tokens": [
+        {
+          "surface": "stella",
+          "gloss": "star",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-sun",
+      "text": "sōl",
+      "tokens": [
+        {
+          "surface": "sōl",
+          "gloss": "sun",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-moon",
+      "text": "lūna",
+      "tokens": [
+        {
+          "surface": "lūna",
+          "gloss": "moon",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-earth",
+      "text": "terra",
+      "tokens": [
+        {
+          "surface": "terra",
+          "gloss": "earth",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-light",
+      "text": "lūx",
+      "tokens": [
+        {
+          "surface": "lūx",
+          "gloss": "light",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-heat",
+      "text": "calor",
+      "tokens": [
+        {
+          "surface": "calor",
+          "gloss": "heat",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-book",
+      "text": "liber",
+      "tokens": [
+        {
+          "surface": "liber",
+          "gloss": "book",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-table",
+      "text": "tabula",
+      "tokens": [
+        {
+          "surface": "tabula",
+          "gloss": "board",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-big",
+      "text": "magnus",
+      "tokens": [
+        {
+          "surface": "magnus",
+          "gloss": "big (masculine)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-small",
+      "text": "parvus",
+      "tokens": [
+        {
+          "surface": "parvus",
+          "gloss": "small (masculine)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-new",
+      "text": "novus",
+      "tokens": [
+        {
+          "surface": "novus",
+          "gloss": "new (masculine)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-hot",
+      "text": "calidus",
+      "tokens": [
+        {
+          "surface": "calidus",
+          "gloss": "hot (masculine)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-cold",
+      "text": "frīgidus",
+      "tokens": [
+        {
+          "surface": "frīgidus",
+          "gloss": "cold (masculine)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-here",
+      "text": "hīc",
+      "tokens": [
+        {
+          "surface": "hīc",
+          "gloss": "here",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-there",
+      "text": "ibi",
+      "tokens": [
+        {
+          "surface": "ibi",
+          "gloss": "there",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-see",
+      "text": "vidēre",
+      "tokens": [
+        {
+          "surface": "vidēre",
+          "gloss": "see",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-hear",
+      "text": "audīre",
+      "tokens": [
+        {
+          "surface": "audīre",
+          "gloss": "hear",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-read",
+      "text": "legere",
+      "tokens": [
+        {
+          "surface": "legere",
+          "gloss": "read",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-write",
+      "text": "scrībere",
+      "tokens": [
+        {
+          "surface": "scrībere",
+          "gloss": "write",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-count",
+      "text": "numerāre",
+      "tokens": [
+        {
+          "surface": "numerāre",
+          "gloss": "count",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-move",
+      "text": "movēre",
+      "tokens": [
+        {
+          "surface": "movēre",
+          "gloss": "move something",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-rest",
+      "text": "quiēscere",
+      "tokens": [
+        {
+          "surface": "quiēscere",
+          "gloss": "be at rest",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-be",
+      "text": "esse",
+      "tokens": [
+        {
+          "surface": "esse",
+          "gloss": "be",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-001",
+      "text": "Salvē, amīce!",
+      "tokens": [
+        {
+          "surface": "Salvē",
+          "gloss": "hello",
+          "playable": true
+        },
+        {
+          "surface": "amīce",
+          "gloss": "friend (address)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-002",
+      "text": "Ita, grātiās.",
+      "tokens": [
+        {
+          "surface": "Ita",
+          "gloss": "yes",
+          "playable": true
+        },
+        {
+          "surface": "grātiās",
+          "gloss": "thank you",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-003",
+      "text": "Minimē, grātiās.",
+      "tokens": [
+        {
+          "surface": "Minimē",
+          "gloss": "no",
+          "playable": true
+        },
+        {
+          "surface": "grātiās",
+          "gloss": "thank you",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-004",
+      "text": "Ūnus lapis.",
+      "tokens": [
+        {
+          "surface": "Ūnus",
+          "gloss": "one",
+          "playable": true
+        },
+        {
+          "surface": "lapis",
+          "gloss": "stone",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-005",
+      "text": "Ūna līnea.",
+      "tokens": [
+        {
+          "surface": "Ūna",
+          "gloss": "one (feminine)",
+          "playable": true
+        },
+        {
+          "surface": "līnea",
+          "gloss": "line",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-006",
+      "text": "Ūnum corpus.",
+      "tokens": [
+        {
+          "surface": "Ūnum",
+          "gloss": "one (neuter)",
+          "playable": true
+        },
+        {
+          "surface": "corpus",
+          "gloss": "body",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-007",
+      "text": "Duo lapidēs.",
+      "tokens": [
+        {
+          "surface": "Duo",
+          "gloss": "two",
+          "playable": true
+        },
+        {
+          "surface": "lapidēs",
+          "gloss": "stones",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-008",
+      "text": "Duae līneae.",
+      "tokens": [
+        {
+          "surface": "Duae",
+          "gloss": "two (feminine)",
+          "playable": true
+        },
+        {
+          "surface": "līneae",
+          "gloss": "lines",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-009",
+      "text": "Duo corpora.",
+      "tokens": [
+        {
+          "surface": "Duo",
+          "gloss": "two (neuter)",
+          "playable": true
+        },
+        {
+          "surface": "corpora",
+          "gloss": "bodies",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-010",
+      "text": "Tria puncta.",
+      "tokens": [
+        {
+          "surface": "Tria",
+          "gloss": "three (neuter)",
+          "playable": true
+        },
+        {
+          "surface": "puncta",
+          "gloss": "points",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-011",
+      "text": "Lapis magnus.",
+      "tokens": [
+        {
+          "surface": "Lapis",
+          "gloss": "stone",
+          "playable": true
+        },
+        {
+          "surface": "magnus",
+          "gloss": "big",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-012",
+      "text": "Lapis parvus.",
+      "tokens": [
+        {
+          "surface": "Lapis",
+          "gloss": "stone",
+          "playable": true
+        },
+        {
+          "surface": "parvus",
+          "gloss": "small",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-013",
+      "text": "Līnea magna.",
+      "tokens": [
+        {
+          "surface": "Līnea",
+          "gloss": "line",
+          "playable": true
+        },
+        {
+          "surface": "magna",
+          "gloss": "big (feminine)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-014",
+      "text": "Līnea parva.",
+      "tokens": [
+        {
+          "surface": "Līnea",
+          "gloss": "line",
+          "playable": true
+        },
+        {
+          "surface": "parva",
+          "gloss": "small (feminine)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-015",
+      "text": "Corpus magnum.",
+      "tokens": [
+        {
+          "surface": "Corpus",
+          "gloss": "body",
+          "playable": true
+        },
+        {
+          "surface": "magnum",
+          "gloss": "big (neuter)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-016",
+      "text": "Corpus parvum.",
+      "tokens": [
+        {
+          "surface": "Corpus",
+          "gloss": "body",
+          "playable": true
+        },
+        {
+          "surface": "parvum",
+          "gloss": "small (neuter)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-017",
+      "text": "Liber novus.",
+      "tokens": [
+        {
+          "surface": "Liber",
+          "gloss": "book",
+          "playable": true
+        },
+        {
+          "surface": "novus",
+          "gloss": "new",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-018",
+      "text": "Aqua frīgida.",
+      "tokens": [
+        {
+          "surface": "Aqua",
+          "gloss": "water",
+          "playable": true
+        },
+        {
+          "surface": "frīgida",
+          "gloss": "cold (feminine)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-019",
+      "text": "Aqua calida.",
+      "tokens": [
+        {
+          "surface": "Aqua",
+          "gloss": "water",
+          "playable": true
+        },
+        {
+          "surface": "calida",
+          "gloss": "hot (feminine)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-020",
+      "text": "Stella parva.",
+      "tokens": [
+        {
+          "surface": "Stella",
+          "gloss": "star",
+          "playable": true
+        },
+        {
+          "surface": "parva",
+          "gloss": "small (feminine)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-021",
+      "text": "Sphaera magna.",
+      "tokens": [
+        {
+          "surface": "Sphaera",
+          "gloss": "sphere",
+          "playable": true
+        },
+        {
+          "surface": "magna",
+          "gloss": "big (feminine)",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-022",
+      "text": "Circulus parvus.",
+      "tokens": [
+        {
+          "surface": "Circulus",
+          "gloss": "circle",
+          "playable": true
+        },
+        {
+          "surface": "parvus",
+          "gloss": "small",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-023",
+      "text": "Lapis hīc est.",
+      "tokens": [
+        {
+          "surface": "Lapis",
+          "gloss": "stone",
+          "playable": true
+        },
+        {
+          "surface": "hīc",
+          "gloss": "here",
+          "playable": true
+        },
+        {
+          "surface": "est",
+          "gloss": "is",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-024",
+      "text": "Liber hīc est.",
+      "tokens": [
+        {
+          "surface": "Liber",
+          "gloss": "book",
+          "playable": true
+        },
+        {
+          "surface": "hīc",
+          "gloss": "here",
+          "playable": true
+        },
+        {
+          "surface": "est",
+          "gloss": "is",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-025",
+      "text": "Līnea hīc est.",
+      "tokens": [
+        {
+          "surface": "Līnea",
+          "gloss": "line",
+          "playable": true
+        },
+        {
+          "surface": "hīc",
+          "gloss": "here",
+          "playable": true
+        },
+        {
+          "surface": "est",
+          "gloss": "is",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-026",
+      "text": "Aqua hīc est.",
+      "tokens": [
+        {
+          "surface": "Aqua",
+          "gloss": "water",
+          "playable": true
+        },
+        {
+          "surface": "hīc",
+          "gloss": "here",
+          "playable": true
+        },
+        {
+          "surface": "est",
+          "gloss": "is",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-027",
+      "text": "Lapis ibi est.",
+      "tokens": [
+        {
+          "surface": "Lapis",
+          "gloss": "stone",
+          "playable": true
+        },
+        {
+          "surface": "ibi",
+          "gloss": "there",
+          "playable": true
+        },
+        {
+          "surface": "est",
+          "gloss": "is",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-028",
+      "text": "Corpus ibi est.",
+      "tokens": [
+        {
+          "surface": "Corpus",
+          "gloss": "body",
+          "playable": true
+        },
+        {
+          "surface": "ibi",
+          "gloss": "there",
+          "playable": true
+        },
+        {
+          "surface": "est",
+          "gloss": "is",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-029",
+      "text": "Ego videō.",
+      "tokens": [
+        {
+          "surface": "Ego",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "videō",
+          "gloss": "see",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-030",
+      "text": "Tū vidēs.",
+      "tokens": [
+        {
+          "surface": "Tū",
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "vidēs",
+          "gloss": "see",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-031",
+      "text": "Ego legō.",
+      "tokens": [
+        {
+          "surface": "Ego",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "legō",
+          "gloss": "read",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-032",
+      "text": "Tū legis.",
+      "tokens": [
+        {
+          "surface": "Tū",
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "legis",
+          "gloss": "read",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-033",
+      "text": "Ego scrībō.",
+      "tokens": [
+        {
+          "surface": "Ego",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "scrībō",
+          "gloss": "write",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-034",
+      "text": "Tū scrībis.",
+      "tokens": [
+        {
+          "surface": "Tū",
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "scrībis",
+          "gloss": "write",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-035",
+      "text": "Ego numerō.",
+      "tokens": [
+        {
+          "surface": "Ego",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "numerō",
+          "gloss": "count",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-036",
+      "text": "Tū numerās.",
+      "tokens": [
+        {
+          "surface": "Tū",
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "numerās",
+          "gloss": "count",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-037",
+      "text": "Lapis quiēscit.",
+      "tokens": [
+        {
+          "surface": "Lapis",
+          "gloss": "stone",
+          "playable": true
+        },
+        {
+          "surface": "quiēscit",
+          "gloss": "is at rest",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-038",
+      "text": "Globus quiēscit.",
+      "tokens": [
+        {
+          "surface": "Globus",
+          "gloss": "ball",
+          "playable": true
+        },
+        {
+          "surface": "quiēscit",
+          "gloss": "is at rest",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-039",
+      "text": "Aqua frīgida est.",
+      "tokens": [
+        {
+          "surface": "Aqua",
+          "gloss": "water",
+          "playable": true
+        },
+        {
+          "surface": "frīgida",
+          "gloss": "cold (feminine)",
+          "playable": true
+        },
+        {
+          "surface": "est",
+          "gloss": "is",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-040",
+      "text": "Aqua calida est.",
+      "tokens": [
+        {
+          "surface": "Aqua",
+          "gloss": "water",
+          "playable": true
+        },
+        {
+          "surface": "calida",
+          "gloss": "hot (feminine)",
+          "playable": true
+        },
+        {
+          "surface": "est",
+          "gloss": "is",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-041",
+      "text": "Ego lapidem videō.",
+      "tokens": [
+        {
+          "surface": "Ego",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "lapidem",
+          "gloss": "stone (object)",
+          "playable": true
+        },
+        {
+          "surface": "videō",
+          "gloss": "see",
+          "playable": true
+        }
+      ]
+    },
+    {
+      "conceptId": "zero-la-ww-phrase-042",
+      "text": "Ego stellam videō.",
+      "tokens": [
+        {
+          "surface": "Ego",
+          "gloss": "I",
+          "playable": true
+        },
+        {
+          "surface": "stellam",
+          "gloss": "star (object)",
+          "playable": true
+        },
+        {
+          "surface": "videō",
+          "gloss": "see",
+          "playable": true
+        }
+      ]
     }
   ]
 }

@@ -5141,6 +5141,1674 @@
       },
       "usefulness": 97,
       "complexity": 53
+    },
+    {
+      "id": "zero-ka-grammar-01",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "verb",
+        "label": "Human subject: is here",
+        "targetText": "არის",
+        "resultTitle": "One person and more than one person",
+        "summary": "Match a familiar short example to its form. Start with one example and its meaning, then compare the two forms."
+      },
+      "axes": [
+        {
+          "id": "singular",
+          "label": "Singular",
+          "features": {
+            "number": "singular"
+          }
+        },
+        {
+          "id": "plural",
+          "label": "Plural",
+          "features": {
+            "number": "plural"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "number",
+        "categoryOptions": [
+          {
+            "id": "singular",
+            "label": "Singular"
+          },
+          {
+            "id": "plural",
+            "label": "Plural"
+          }
+        ]
+      },
+      "forms": {
+        "singular": {
+          "displayForm": "არის",
+          "usefulness": 98,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-ka-grammar-01-singular-1",
+              "revision": 1,
+              "learnerBaseText": "The mother is here.",
+              "englishAuditText": "The mother is here.",
+              "targetText": "დედა აქ არის.",
+              "slot": {
+                "beforeText": "დედა აქ ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "დედა",
+                "learnerBaseText": "mother",
+                "englishAuditText": "mother"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-01-singular-2",
+              "revision": 1,
+              "learnerBaseText": "The father is here.",
+              "englishAuditText": "The father is here.",
+              "targetText": "მამა აქ არის.",
+              "slot": {
+                "beforeText": "მამა აქ ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მამა",
+                "learnerBaseText": "father",
+                "englishAuditText": "father"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-01-singular-3",
+              "revision": 1,
+              "learnerBaseText": "The child is here.",
+              "englishAuditText": "The child is here.",
+              "targetText": "ბავშვი აქ არის.",
+              "slot": {
+                "beforeText": "ბავშვი აქ ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "ბავშვი",
+                "learnerBaseText": "child",
+                "englishAuditText": "child"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-01-singular-4",
+              "revision": 1,
+              "learnerBaseText": "The friend is here.",
+              "englishAuditText": "The friend is here.",
+              "targetText": "მეგობარი აქ არის.",
+              "slot": {
+                "beforeText": "მეგობარი აქ ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მეგობარი",
+                "learnerBaseText": "friend",
+                "englishAuditText": "friend"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ]
+        },
+        "plural": {
+          "displayForm": "არიან",
+          "usefulness": 98,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-ka-grammar-01-plural-1",
+              "revision": 1,
+              "learnerBaseText": "The mothers are here.",
+              "englishAuditText": "The mothers are here.",
+              "targetText": "დედები აქ არიან.",
+              "slot": {
+                "beforeText": "დედები აქ ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "დედები",
+                "learnerBaseText": "mothers",
+                "englishAuditText": "mothers"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-01-plural-2",
+              "revision": 1,
+              "learnerBaseText": "The fathers are here.",
+              "englishAuditText": "The fathers are here.",
+              "targetText": "მამები აქ არიან.",
+              "slot": {
+                "beforeText": "მამები აქ ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მამები",
+                "learnerBaseText": "fathers",
+                "englishAuditText": "fathers"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-01-plural-3",
+              "revision": 1,
+              "learnerBaseText": "The children are here.",
+              "englishAuditText": "The children are here.",
+              "targetText": "ბავშვები აქ არიან.",
+              "slot": {
+                "beforeText": "ბავშვები აქ ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "ბავშვები",
+                "learnerBaseText": "children",
+                "englishAuditText": "children"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-01-plural-4",
+              "revision": 1,
+              "learnerBaseText": "The friends are here.",
+              "englishAuditText": "The friends are here.",
+              "targetText": "მეგობრები აქ არიან.",
+              "slot": {
+                "beforeText": "მეგობრები აქ ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მეგობრები",
+                "learnerBaseText": "friends",
+                "englishAuditText": "friends"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ]
+        }
+      },
+      "usefulness": 98,
+      "complexity": 8
+    },
+    {
+      "id": "zero-ka-grammar-02",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "verb",
+        "label": "Human subject: works",
+        "targetText": "მუშაობს",
+        "resultTitle": "Human subject and verb number",
+        "summary": "Match a familiar short example to its form. Start with one example and its meaning, then compare the two forms."
+      },
+      "axes": [
+        {
+          "id": "singular",
+          "label": "Singular",
+          "features": {
+            "number": "singular"
+          }
+        },
+        {
+          "id": "plural",
+          "label": "Plural",
+          "features": {
+            "number": "plural"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "number",
+        "categoryOptions": [
+          {
+            "id": "singular",
+            "label": "Singular"
+          },
+          {
+            "id": "plural",
+            "label": "Plural"
+          }
+        ]
+      },
+      "forms": {
+        "singular": {
+          "displayForm": "მუშაობს",
+          "usefulness": 98,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-ka-grammar-02-singular-1",
+              "revision": 1,
+              "learnerBaseText": "The mother works.",
+              "englishAuditText": "The mother works.",
+              "targetText": "დედა მუშაობს.",
+              "slot": {
+                "beforeText": "დედა ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "დედა",
+                "learnerBaseText": "mother",
+                "englishAuditText": "mother"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-02-singular-2",
+              "revision": 1,
+              "learnerBaseText": "The father works.",
+              "englishAuditText": "The father works.",
+              "targetText": "მამა მუშაობს.",
+              "slot": {
+                "beforeText": "მამა ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მამა",
+                "learnerBaseText": "father",
+                "englishAuditText": "father"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-02-singular-3",
+              "revision": 1,
+              "learnerBaseText": "The child works.",
+              "englishAuditText": "The child works.",
+              "targetText": "ბავშვი მუშაობს.",
+              "slot": {
+                "beforeText": "ბავშვი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "ბავშვი",
+                "learnerBaseText": "child",
+                "englishAuditText": "child"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-02-singular-4",
+              "revision": 1,
+              "learnerBaseText": "The friend works.",
+              "englishAuditText": "The friend works.",
+              "targetText": "მეგობარი მუშაობს.",
+              "slot": {
+                "beforeText": "მეგობარი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მეგობარი",
+                "learnerBaseText": "friend",
+                "englishAuditText": "friend"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ]
+        },
+        "plural": {
+          "displayForm": "მუშაობენ",
+          "usefulness": 98,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-ka-grammar-02-plural-1",
+              "revision": 1,
+              "learnerBaseText": "The mothers work.",
+              "englishAuditText": "The mothers work.",
+              "targetText": "დედები მუშაობენ.",
+              "slot": {
+                "beforeText": "დედები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "დედები",
+                "learnerBaseText": "mothers",
+                "englishAuditText": "mothers"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-02-plural-2",
+              "revision": 1,
+              "learnerBaseText": "The fathers work.",
+              "englishAuditText": "The fathers work.",
+              "targetText": "მამები მუშაობენ.",
+              "slot": {
+                "beforeText": "მამები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მამები",
+                "learnerBaseText": "fathers",
+                "englishAuditText": "fathers"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-02-plural-3",
+              "revision": 1,
+              "learnerBaseText": "The children work.",
+              "englishAuditText": "The children work.",
+              "targetText": "ბავშვები მუშაობენ.",
+              "slot": {
+                "beforeText": "ბავშვები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "ბავშვები",
+                "learnerBaseText": "children",
+                "englishAuditText": "children"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-02-plural-4",
+              "revision": 1,
+              "learnerBaseText": "The friends work.",
+              "englishAuditText": "The friends work.",
+              "targetText": "მეგობრები მუშაობენ.",
+              "slot": {
+                "beforeText": "მეგობრები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მეგობრები",
+                "learnerBaseText": "friends",
+                "englishAuditText": "friends"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ]
+        }
+      },
+      "usefulness": 98,
+      "complexity": 8
+    },
+    {
+      "id": "zero-ka-grammar-03",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "verb",
+        "label": "Human subject: reads",
+        "targetText": "კითხულობს",
+        "resultTitle": "Human subject and verb number",
+        "summary": "Match a familiar short example to its form. Start with one example and its meaning, then compare the two forms."
+      },
+      "axes": [
+        {
+          "id": "singular",
+          "label": "Singular",
+          "features": {
+            "number": "singular"
+          }
+        },
+        {
+          "id": "plural",
+          "label": "Plural",
+          "features": {
+            "number": "plural"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "number",
+        "categoryOptions": [
+          {
+            "id": "singular",
+            "label": "Singular"
+          },
+          {
+            "id": "plural",
+            "label": "Plural"
+          }
+        ]
+      },
+      "forms": {
+        "singular": {
+          "displayForm": "კითხულობს",
+          "usefulness": 98,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-ka-grammar-03-singular-1",
+              "revision": 1,
+              "learnerBaseText": "The mother reads.",
+              "englishAuditText": "The mother reads.",
+              "targetText": "დედა კითხულობს.",
+              "slot": {
+                "beforeText": "დედა ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "დედა",
+                "learnerBaseText": "mother",
+                "englishAuditText": "mother"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-03-singular-2",
+              "revision": 1,
+              "learnerBaseText": "The father reads.",
+              "englishAuditText": "The father reads.",
+              "targetText": "მამა კითხულობს.",
+              "slot": {
+                "beforeText": "მამა ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მამა",
+                "learnerBaseText": "father",
+                "englishAuditText": "father"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-03-singular-3",
+              "revision": 1,
+              "learnerBaseText": "The child reads.",
+              "englishAuditText": "The child reads.",
+              "targetText": "ბავშვი კითხულობს.",
+              "slot": {
+                "beforeText": "ბავშვი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "ბავშვი",
+                "learnerBaseText": "child",
+                "englishAuditText": "child"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-03-singular-4",
+              "revision": 1,
+              "learnerBaseText": "The friend reads.",
+              "englishAuditText": "The friend reads.",
+              "targetText": "მეგობარი კითხულობს.",
+              "slot": {
+                "beforeText": "მეგობარი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მეგობარი",
+                "learnerBaseText": "friend",
+                "englishAuditText": "friend"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ]
+        },
+        "plural": {
+          "displayForm": "კითხულობენ",
+          "usefulness": 98,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-ka-grammar-03-plural-1",
+              "revision": 1,
+              "learnerBaseText": "The mothers read.",
+              "englishAuditText": "The mothers read.",
+              "targetText": "დედები კითხულობენ.",
+              "slot": {
+                "beforeText": "დედები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "დედები",
+                "learnerBaseText": "mothers",
+                "englishAuditText": "mothers"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-03-plural-2",
+              "revision": 1,
+              "learnerBaseText": "The fathers read.",
+              "englishAuditText": "The fathers read.",
+              "targetText": "მამები კითხულობენ.",
+              "slot": {
+                "beforeText": "მამები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მამები",
+                "learnerBaseText": "fathers",
+                "englishAuditText": "fathers"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-03-plural-3",
+              "revision": 1,
+              "learnerBaseText": "The children read.",
+              "englishAuditText": "The children read.",
+              "targetText": "ბავშვები კითხულობენ.",
+              "slot": {
+                "beforeText": "ბავშვები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "ბავშვები",
+                "learnerBaseText": "children",
+                "englishAuditText": "children"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-03-plural-4",
+              "revision": 1,
+              "learnerBaseText": "The friends read.",
+              "englishAuditText": "The friends read.",
+              "targetText": "მეგობრები კითხულობენ.",
+              "slot": {
+                "beforeText": "მეგობრები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მეგობრები",
+                "learnerBaseText": "friends",
+                "englishAuditText": "friends"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ]
+        }
+      },
+      "usefulness": 98,
+      "complexity": 8
+    },
+    {
+      "id": "zero-ka-grammar-04",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "verb",
+        "label": "Human subject: writes",
+        "targetText": "წერს",
+        "resultTitle": "Human subject and verb number",
+        "summary": "Match a familiar short example to its form. Start with one example and its meaning, then compare the two forms."
+      },
+      "axes": [
+        {
+          "id": "singular",
+          "label": "Singular",
+          "features": {
+            "number": "singular"
+          }
+        },
+        {
+          "id": "plural",
+          "label": "Plural",
+          "features": {
+            "number": "plural"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "number",
+        "categoryOptions": [
+          {
+            "id": "singular",
+            "label": "Singular"
+          },
+          {
+            "id": "plural",
+            "label": "Plural"
+          }
+        ]
+      },
+      "forms": {
+        "singular": {
+          "displayForm": "წერს",
+          "usefulness": 98,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-ka-grammar-04-singular-1",
+              "revision": 1,
+              "learnerBaseText": "The mother writes.",
+              "englishAuditText": "The mother writes.",
+              "targetText": "დედა წერს.",
+              "slot": {
+                "beforeText": "დედა ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "დედა",
+                "learnerBaseText": "mother",
+                "englishAuditText": "mother"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-04-singular-2",
+              "revision": 1,
+              "learnerBaseText": "The father writes.",
+              "englishAuditText": "The father writes.",
+              "targetText": "მამა წერს.",
+              "slot": {
+                "beforeText": "მამა ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მამა",
+                "learnerBaseText": "father",
+                "englishAuditText": "father"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-04-singular-3",
+              "revision": 1,
+              "learnerBaseText": "The child writes.",
+              "englishAuditText": "The child writes.",
+              "targetText": "ბავშვი წერს.",
+              "slot": {
+                "beforeText": "ბავშვი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "ბავშვი",
+                "learnerBaseText": "child",
+                "englishAuditText": "child"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-04-singular-4",
+              "revision": 1,
+              "learnerBaseText": "The friend writes.",
+              "englishAuditText": "The friend writes.",
+              "targetText": "მეგობარი წერს.",
+              "slot": {
+                "beforeText": "მეგობარი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მეგობარი",
+                "learnerBaseText": "friend",
+                "englishAuditText": "friend"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ]
+        },
+        "plural": {
+          "displayForm": "წერენ",
+          "usefulness": 98,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-ka-grammar-04-plural-1",
+              "revision": 1,
+              "learnerBaseText": "The mothers write.",
+              "englishAuditText": "The mothers write.",
+              "targetText": "დედები წერენ.",
+              "slot": {
+                "beforeText": "დედები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "დედები",
+                "learnerBaseText": "mothers",
+                "englishAuditText": "mothers"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-04-plural-2",
+              "revision": 1,
+              "learnerBaseText": "The fathers write.",
+              "englishAuditText": "The fathers write.",
+              "targetText": "მამები წერენ.",
+              "slot": {
+                "beforeText": "მამები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მამები",
+                "learnerBaseText": "fathers",
+                "englishAuditText": "fathers"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-04-plural-3",
+              "revision": 1,
+              "learnerBaseText": "The children write.",
+              "englishAuditText": "The children write.",
+              "targetText": "ბავშვები წერენ.",
+              "slot": {
+                "beforeText": "ბავშვები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "ბავშვები",
+                "learnerBaseText": "children",
+                "englishAuditText": "children"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-04-plural-4",
+              "revision": 1,
+              "learnerBaseText": "The friends write.",
+              "englishAuditText": "The friends write.",
+              "targetText": "მეგობრები წერენ.",
+              "slot": {
+                "beforeText": "მეგობრები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მეგობრები",
+                "learnerBaseText": "friends",
+                "englishAuditText": "friends"
+              },
+              "usefulness": 98,
+              "complexity": 8
+            }
+          ]
+        }
+      },
+      "usefulness": 98,
+      "complexity": 8
+    },
+    {
+      "id": "zero-ka-grammar-e2-study",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "verb",
+        "label": "Study",
+        "targetText": "სწავლობს",
+        "resultTitle": "Study",
+        "summary": "First read the model for one familiar person. Then read the model for more than one person. Use the visible subject and the English meaning as clues."
+      },
+      "axes": [
+        {
+          "id": "singular",
+          "label": "Singular",
+          "features": {
+            "number": "singular"
+          }
+        },
+        {
+          "id": "plural",
+          "label": "Plural",
+          "features": {
+            "number": "plural"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "form"
+        ],
+        "categoryFeature": "number",
+        "categoryOptions": [
+          {
+            "id": "singular",
+            "label": "Singular"
+          },
+          {
+            "id": "plural",
+            "label": "Plural"
+          }
+        ]
+      },
+      "forms": {
+        "singular": {
+          "displayForm": "სწავლობს",
+          "usefulness": 96,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-ka-grammar-e2-study-singular-1",
+              "revision": 1,
+              "learnerBaseText": "The mother studies.",
+              "englishAuditText": "The mother studies.",
+              "targetText": "დედა სწავლობს.",
+              "slot": {
+                "beforeText": "დედა ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "დედა",
+                "learnerBaseText": "mother",
+                "englishAuditText": "mother"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-e2-study-singular-2",
+              "revision": 1,
+              "learnerBaseText": "The father studies.",
+              "englishAuditText": "The father studies.",
+              "targetText": "მამა სწავლობს.",
+              "slot": {
+                "beforeText": "მამა ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მამა",
+                "learnerBaseText": "father",
+                "englishAuditText": "father"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-e2-study-singular-3",
+              "revision": 1,
+              "learnerBaseText": "The child studies.",
+              "englishAuditText": "The child studies.",
+              "targetText": "ბავშვი სწავლობს.",
+              "slot": {
+                "beforeText": "ბავშვი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "ბავშვი",
+                "learnerBaseText": "child",
+                "englishAuditText": "child"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-e2-study-singular-4",
+              "revision": 1,
+              "learnerBaseText": "The friend studies.",
+              "englishAuditText": "The friend studies.",
+              "targetText": "მეგობარი სწავლობს.",
+              "slot": {
+                "beforeText": "მეგობარი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მეგობარი",
+                "learnerBaseText": "friend",
+                "englishAuditText": "friend"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ]
+        },
+        "plural": {
+          "displayForm": "სწავლობენ",
+          "usefulness": 96,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-ka-grammar-e2-study-plural-1",
+              "revision": 1,
+              "learnerBaseText": "The mothers study.",
+              "englishAuditText": "The mothers study.",
+              "targetText": "დედები სწავლობენ.",
+              "slot": {
+                "beforeText": "დედები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "დედები",
+                "learnerBaseText": "mothers",
+                "englishAuditText": "mothers"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-e2-study-plural-2",
+              "revision": 1,
+              "learnerBaseText": "The fathers study.",
+              "englishAuditText": "The fathers study.",
+              "targetText": "მამები სწავლობენ.",
+              "slot": {
+                "beforeText": "მამები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მამები",
+                "learnerBaseText": "fathers",
+                "englishAuditText": "fathers"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-e2-study-plural-3",
+              "revision": 1,
+              "learnerBaseText": "The children study.",
+              "englishAuditText": "The children study.",
+              "targetText": "ბავშვები სწავლობენ.",
+              "slot": {
+                "beforeText": "ბავშვები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "ბავშვები",
+                "learnerBaseText": "children",
+                "englishAuditText": "children"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-e2-study-plural-4",
+              "revision": 1,
+              "learnerBaseText": "The friends study.",
+              "englishAuditText": "The friends study.",
+              "targetText": "მეგობრები სწავლობენ.",
+              "slot": {
+                "beforeText": "მეგობრები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მეგობრები",
+                "learnerBaseText": "friends",
+                "englishAuditText": "friends"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ]
+        }
+      },
+      "usefulness": 96,
+      "complexity": 8
+    },
+    {
+      "id": "zero-ka-grammar-e2-speak",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "verb",
+        "label": "Speak",
+        "targetText": "ლაპარაკობს",
+        "resultTitle": "Speak",
+        "summary": "First read the model for one familiar person. Then read the model for more than one person. Use the visible subject and the English meaning as clues."
+      },
+      "axes": [
+        {
+          "id": "singular",
+          "label": "Singular",
+          "features": {
+            "number": "singular"
+          }
+        },
+        {
+          "id": "plural",
+          "label": "Plural",
+          "features": {
+            "number": "plural"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "form"
+        ],
+        "categoryFeature": "number",
+        "categoryOptions": [
+          {
+            "id": "singular",
+            "label": "Singular"
+          },
+          {
+            "id": "plural",
+            "label": "Plural"
+          }
+        ]
+      },
+      "forms": {
+        "singular": {
+          "displayForm": "ლაპარაკობს",
+          "usefulness": 96,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-ka-grammar-e2-speak-singular-1",
+              "revision": 1,
+              "learnerBaseText": "The mother speaks.",
+              "englishAuditText": "The mother speaks.",
+              "targetText": "დედა ლაპარაკობს.",
+              "slot": {
+                "beforeText": "დედა ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "დედა",
+                "learnerBaseText": "mother",
+                "englishAuditText": "mother"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-e2-speak-singular-2",
+              "revision": 1,
+              "learnerBaseText": "The father speaks.",
+              "englishAuditText": "The father speaks.",
+              "targetText": "მამა ლაპარაკობს.",
+              "slot": {
+                "beforeText": "მამა ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მამა",
+                "learnerBaseText": "father",
+                "englishAuditText": "father"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-e2-speak-singular-3",
+              "revision": 1,
+              "learnerBaseText": "The child speaks.",
+              "englishAuditText": "The child speaks.",
+              "targetText": "ბავშვი ლაპარაკობს.",
+              "slot": {
+                "beforeText": "ბავშვი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "ბავშვი",
+                "learnerBaseText": "child",
+                "englishAuditText": "child"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-e2-speak-singular-4",
+              "revision": 1,
+              "learnerBaseText": "The friend speaks.",
+              "englishAuditText": "The friend speaks.",
+              "targetText": "მეგობარი ლაპარაკობს.",
+              "slot": {
+                "beforeText": "მეგობარი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მეგობარი",
+                "learnerBaseText": "friend",
+                "englishAuditText": "friend"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ]
+        },
+        "plural": {
+          "displayForm": "ლაპარაკობენ",
+          "usefulness": 96,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-ka-grammar-e2-speak-plural-1",
+              "revision": 1,
+              "learnerBaseText": "The mothers speak.",
+              "englishAuditText": "The mothers speak.",
+              "targetText": "დედები ლაპარაკობენ.",
+              "slot": {
+                "beforeText": "დედები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "დედები",
+                "learnerBaseText": "mothers",
+                "englishAuditText": "mothers"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-e2-speak-plural-2",
+              "revision": 1,
+              "learnerBaseText": "The fathers speak.",
+              "englishAuditText": "The fathers speak.",
+              "targetText": "მამები ლაპარაკობენ.",
+              "slot": {
+                "beforeText": "მამები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მამები",
+                "learnerBaseText": "fathers",
+                "englishAuditText": "fathers"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-e2-speak-plural-3",
+              "revision": 1,
+              "learnerBaseText": "The children speak.",
+              "englishAuditText": "The children speak.",
+              "targetText": "ბავშვები ლაპარაკობენ.",
+              "slot": {
+                "beforeText": "ბავშვები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "ბავშვები",
+                "learnerBaseText": "children",
+                "englishAuditText": "children"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-e2-speak-plural-4",
+              "revision": 1,
+              "learnerBaseText": "The friends speak.",
+              "englishAuditText": "The friends speak.",
+              "targetText": "მეგობრები ლაპარაკობენ.",
+              "slot": {
+                "beforeText": "მეგობრები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მეგობრები",
+                "learnerBaseText": "friends",
+                "englishAuditText": "friends"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ]
+        }
+      },
+      "usefulness": 96,
+      "complexity": 8
+    },
+    {
+      "id": "zero-ka-grammar-e2-come",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "verb",
+        "label": "Come",
+        "targetText": "მოდის",
+        "resultTitle": "Come",
+        "summary": "First read the model for one familiar person. Then read the model for more than one person. Use the visible subject and the English meaning as clues."
+      },
+      "axes": [
+        {
+          "id": "singular",
+          "label": "Singular",
+          "features": {
+            "number": "singular"
+          }
+        },
+        {
+          "id": "plural",
+          "label": "Plural",
+          "features": {
+            "number": "plural"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "form"
+        ],
+        "categoryFeature": "number",
+        "categoryOptions": [
+          {
+            "id": "singular",
+            "label": "Singular"
+          },
+          {
+            "id": "plural",
+            "label": "Plural"
+          }
+        ]
+      },
+      "forms": {
+        "singular": {
+          "displayForm": "მოდის",
+          "usefulness": 96,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-ka-grammar-e2-come-singular-1",
+              "revision": 1,
+              "learnerBaseText": "The mother comes.",
+              "englishAuditText": "The mother comes.",
+              "targetText": "დედა მოდის.",
+              "slot": {
+                "beforeText": "დედა ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "დედა",
+                "learnerBaseText": "mother",
+                "englishAuditText": "mother"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-e2-come-singular-2",
+              "revision": 1,
+              "learnerBaseText": "The father comes.",
+              "englishAuditText": "The father comes.",
+              "targetText": "მამა მოდის.",
+              "slot": {
+                "beforeText": "მამა ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მამა",
+                "learnerBaseText": "father",
+                "englishAuditText": "father"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-e2-come-singular-3",
+              "revision": 1,
+              "learnerBaseText": "The child comes.",
+              "englishAuditText": "The child comes.",
+              "targetText": "ბავშვი მოდის.",
+              "slot": {
+                "beforeText": "ბავშვი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "ბავშვი",
+                "learnerBaseText": "child",
+                "englishAuditText": "child"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-e2-come-singular-4",
+              "revision": 1,
+              "learnerBaseText": "The friend comes.",
+              "englishAuditText": "The friend comes.",
+              "targetText": "მეგობარი მოდის.",
+              "slot": {
+                "beforeText": "მეგობარი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მეგობარი",
+                "learnerBaseText": "friend",
+                "englishAuditText": "friend"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ]
+        },
+        "plural": {
+          "displayForm": "მოდიან",
+          "usefulness": 96,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-ka-grammar-e2-come-plural-1",
+              "revision": 1,
+              "learnerBaseText": "The mothers come.",
+              "englishAuditText": "The mothers come.",
+              "targetText": "დედები მოდიან.",
+              "slot": {
+                "beforeText": "დედები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "დედები",
+                "learnerBaseText": "mothers",
+                "englishAuditText": "mothers"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-e2-come-plural-2",
+              "revision": 1,
+              "learnerBaseText": "The fathers come.",
+              "englishAuditText": "The fathers come.",
+              "targetText": "მამები მოდიან.",
+              "slot": {
+                "beforeText": "მამები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მამები",
+                "learnerBaseText": "fathers",
+                "englishAuditText": "fathers"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-e2-come-plural-3",
+              "revision": 1,
+              "learnerBaseText": "The children come.",
+              "englishAuditText": "The children come.",
+              "targetText": "ბავშვები მოდიან.",
+              "slot": {
+                "beforeText": "ბავშვები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "ბავშვები",
+                "learnerBaseText": "children",
+                "englishAuditText": "children"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-e2-come-plural-4",
+              "revision": 1,
+              "learnerBaseText": "The friends come.",
+              "englishAuditText": "The friends come.",
+              "targetText": "მეგობრები მოდიან.",
+              "slot": {
+                "beforeText": "მეგობრები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მეგობრები",
+                "learnerBaseText": "friends",
+                "englishAuditText": "friends"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ]
+        }
+      },
+      "usefulness": 96,
+      "complexity": 8
+    },
+    {
+      "id": "zero-ka-grammar-e2-sing",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "verb",
+        "label": "Sing",
+        "targetText": "მღერის",
+        "resultTitle": "Sing",
+        "summary": "First read the model for one familiar person. Then read the model for more than one person. Use the visible subject and the English meaning as clues."
+      },
+      "axes": [
+        {
+          "id": "singular",
+          "label": "Singular",
+          "features": {
+            "number": "singular"
+          }
+        },
+        {
+          "id": "plural",
+          "label": "Plural",
+          "features": {
+            "number": "plural"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "form"
+        ],
+        "categoryFeature": "number",
+        "categoryOptions": [
+          {
+            "id": "singular",
+            "label": "Singular"
+          },
+          {
+            "id": "plural",
+            "label": "Plural"
+          }
+        ]
+      },
+      "forms": {
+        "singular": {
+          "displayForm": "მღერის",
+          "usefulness": 96,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-ka-grammar-e2-sing-singular-1",
+              "revision": 1,
+              "learnerBaseText": "The mother sings.",
+              "englishAuditText": "The mother sings.",
+              "targetText": "დედა მღერის.",
+              "slot": {
+                "beforeText": "დედა ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "დედა",
+                "learnerBaseText": "mother",
+                "englishAuditText": "mother"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-e2-sing-singular-2",
+              "revision": 1,
+              "learnerBaseText": "The father sings.",
+              "englishAuditText": "The father sings.",
+              "targetText": "მამა მღერის.",
+              "slot": {
+                "beforeText": "მამა ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მამა",
+                "learnerBaseText": "father",
+                "englishAuditText": "father"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-e2-sing-singular-3",
+              "revision": 1,
+              "learnerBaseText": "The child sings.",
+              "englishAuditText": "The child sings.",
+              "targetText": "ბავშვი მღერის.",
+              "slot": {
+                "beforeText": "ბავშვი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "ბავშვი",
+                "learnerBaseText": "child",
+                "englishAuditText": "child"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-e2-sing-singular-4",
+              "revision": 1,
+              "learnerBaseText": "The friend sings.",
+              "englishAuditText": "The friend sings.",
+              "targetText": "მეგობარი მღერის.",
+              "slot": {
+                "beforeText": "მეგობარი ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მეგობარი",
+                "learnerBaseText": "friend",
+                "englishAuditText": "friend"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ]
+        },
+        "plural": {
+          "displayForm": "მღერიან",
+          "usefulness": 96,
+          "complexity": 8,
+          "examples": [
+            {
+              "id": "zero-ka-grammar-e2-sing-plural-1",
+              "revision": 1,
+              "learnerBaseText": "The mothers sing.",
+              "englishAuditText": "The mothers sing.",
+              "targetText": "დედები მღერიან.",
+              "slot": {
+                "beforeText": "დედები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "დედები",
+                "learnerBaseText": "mothers",
+                "englishAuditText": "mothers"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-e2-sing-plural-2",
+              "revision": 1,
+              "learnerBaseText": "The fathers sing.",
+              "englishAuditText": "The fathers sing.",
+              "targetText": "მამები მღერიან.",
+              "slot": {
+                "beforeText": "მამები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მამები",
+                "learnerBaseText": "fathers",
+                "englishAuditText": "fathers"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-e2-sing-plural-3",
+              "revision": 1,
+              "learnerBaseText": "The children sing.",
+              "englishAuditText": "The children sing.",
+              "targetText": "ბავშვები მღერიან.",
+              "slot": {
+                "beforeText": "ბავშვები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "ბავშვები",
+                "learnerBaseText": "children",
+                "englishAuditText": "children"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            },
+            {
+              "id": "zero-ka-grammar-e2-sing-plural-4",
+              "revision": 1,
+              "learnerBaseText": "The friends sing.",
+              "englishAuditText": "The friends sing.",
+              "targetText": "მეგობრები მღერიან.",
+              "slot": {
+                "beforeText": "მეგობრები ",
+                "afterText": "."
+              },
+              "anchor": {
+                "targetText": "მეგობრები",
+                "learnerBaseText": "friends",
+                "englishAuditText": "friends"
+              },
+              "usefulness": 96,
+              "complexity": 8
+            }
+          ]
+        }
+      },
+      "usefulness": 96,
+      "complexity": 8
     }
   ],
   "gameplay": {

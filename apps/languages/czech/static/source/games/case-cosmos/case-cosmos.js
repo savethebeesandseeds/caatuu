@@ -1,7 +1,7 @@
 import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "/language-runtime/static/source/games/embedded-game-controls.mjs?v=embedded-game-controls-9";
 import { bindHorizontalGesture } from "/language-runtime/static/source/horizontal-gesture.mjs";
 
-import { CZECH_CASES, validatePack, buildRounds, buildQuestions, buildCasePracticeRounds } from "./case-cosmos-content.mjs?v=case-cosmos-content-4";
+import { CZECH_CASES, validatePack, buildRounds, buildQuestions, buildCasePracticeRounds } from "./case-cosmos-content.mjs?v=case-cosmos-content-5";
 import { newContentEncounterId } from "../../../../../../language-runtime/static/source/games/content-progression.mjs";
 import { assertEnglishCzechCourse } from "./case-cosmos-cs-policy.mjs?v=case-cosmos-policy-2";
 
@@ -190,7 +190,10 @@ function mountControls() {
         if (!currentQuestion()) { showError(new Error("The noun alternatives ended without a solution.")); return; }
         reopenQuestion();
       } else {
-        if (state.phase === "solved") announceRoundSuccess();
+        if (state.phase === "solved") {
+          announceRoundSuccess();
+          if (shell.document.body?.dataset.campaignActive === "true") return;
+        }
         void nextRound();
       }
     }
@@ -230,12 +233,14 @@ function bindCampaignBridge() {
   listen(window, "message", (event) => {
     if (event.origin !== window.location.origin || event.source !== window.parent) return;
     if (event.data?.source !== "caatuu-app-shell") return;
-    if (event.data.type === "campaign-advance" && state.phase === "solved") nextRound();
+    if (event.data.type === "campaign-advance" && state.phase === "solved") nextRound({ campaignAdvance: true });
     else if (event.data.type === "visibility") {
       state.active = Boolean(event.data.active);
       if (!engaged()) state.controls?.close();
       syncActivity();
       document.body.toggleAttribute("inert", !state.active);
+      if (state.active && state.phase === "solved" && !state.continuation?.pending
+          && state.shell.document.body?.dataset.campaignActive !== "true") void nextRound();
     }
   });
 }
@@ -251,8 +256,8 @@ function currentRound() {
 }
 
 function learningDifficulty() {
-  const value = Number(window.CaatuuLearning?.difficulty?.() || 1);
-  return Number.isInteger(value) && value >= 1 && value <= 3 ? value : 1;
+  const value = Number(window.CaatuuLearning?.difficulty?.() ?? 1);
+  return Number.isInteger(value) && value >= 0 && value <= 3 ? value : 1;
 }
 
 function currentChallenge() {
@@ -388,8 +393,9 @@ function reopenQuestion() {
   $("#caseCosmosExample").focus();
 }
 
-async function nextRound() {
-  if (!engaged() || state.menuOpen || state.continuation?.pending || !["solved", "mistake"].includes(state.phase)) return;
+async function nextRound({ campaignAdvance = false } = {}) {
+  if (state.continuation?.pending || (!campaignAdvance && (!engaged() || state.menuOpen))
+      || !["solved", "mistake"].includes(state.phase)) return;
   cancelTransition();
   resetSwipe();
   stopSentence();
@@ -412,7 +418,7 @@ async function nextRound() {
   state.phase = "question";
   state.pendingAutoplay = true;
   render();
-  $("#caseCosmosExample").focus();
+  if (!campaignAdvance) $("#caseCosmosExample").focus();
 }
 
 function bindUi() {

@@ -1,5 +1,5 @@
 import { readEmbeddedCourseProfile } from '../course-game-content.mjs';
-import { mountMemoryMoon } from './memory-moon-host.mjs?v=memory-moon-host-5';
+import { mountMemoryMoon } from './memory-moon-host.mjs?v=memory-moon-host-7';
 
 /** Keep shell authority and visibility messages confined to the same-origin parent. */
 export async function startMemoryMoon(scope = window, { mount = mountMemoryMoon } = {}) {
@@ -29,8 +29,10 @@ export async function startMemoryMoon(scope = window, { mount = mountMemoryMoon 
       controller?.setCampaign(campaign());
       controller?.setActive(active);
     } else if (['theme', 'fontSize'].includes(message.type)) appearance(message);
-    else if (message.type === 'campaign-advance' && active && campaign()
+    else if (message.type === 'campaign-advance' && campaign()
       && controller?.snapshot?.()?.phase === 'complete') {
+      active = false;
+      controller.setActive(false);
       void controller?.restart();
     }
   };

@@ -1203,6 +1203,7 @@ html[data-theme="dark"] .cz-word-token.is-curriculum-focus {
 
 .word-net-reconstruction-token,
 .word-net-reconstruction-result button {
+  touch-action: manipulation;
   min-width: var(--caatuu-control-target-size, 44px);
   min-height: var(--caatuu-control-target-size, 44px);
   border: 1px solid var(--theme-control-border, #b8c5bd);
@@ -1230,12 +1231,7 @@ html[data-theme="dark"] .cz-word-token.is-curriculum-focus {
 .word-net-reconstruction-token.is-moving {
   position: relative;
   z-index: 5;
-  pointer-events: none;
   will-change: transform, opacity;
-}
-
-.word-net-reconstruction.is-transferring .word-net-reconstruction-token {
-  pointer-events: none;
 }
 
 .word-net-reconstruction-answer .word-net-reconstruction-token {

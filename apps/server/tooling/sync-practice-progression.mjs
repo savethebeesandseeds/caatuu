@@ -85,7 +85,7 @@ export function aggregatePracticeCorpusWorkloads(corpus, { courseProfiles, catal
     assert.ok(text(row.id) && !records.has(row.id), "Missing or duplicate authoring identity");
     records.set(row.id, row);
   }
-  const table = Object.fromEntries([...courseIds].sort().map(id => [id, Object.fromEntries([1, 2, 3].map(level => [level, { units: 0, effort: 0 }]))]));
+  const table = Object.fromEntries([...courseIds].sort().map(id => [id, Object.fromEntries([0, 1, 2, 3].map(level => [level, { units: 0, effort: 0 }]))]));
   const seen = new Set(), helices = new Map(), dominoes = new Map();
   const adapterCounts = new Map();
   for (const unit of corpus.playableUnits) {
@@ -94,7 +94,7 @@ export function aggregatePracticeCorpusWorkloads(corpus, { courseProfiles, catal
     assert.ok(table[unit.courseId], "Playable unit belongs to an unknown course");
     assert.ok(adapters.has(identity(unit)), "Playable unit lacks a successful adapter");
     adapterCounts.set(identity(unit), (adapterCounts.get(identity(unit)) || 0) + 1);
-    assert.ok([1, 2, 3].includes(unit.metadata?.difficulty), "Playable unit has no exact normalized difficulty");
+    assert.ok([0, 1, 2, 3].includes(unit.metadata?.difficulty), "Playable unit has no exact normalized difficulty");
     assert.ok(Array.isArray(unit.recordIds) && unit.recordIds.length > 0 && unit.recordIds.every(id => records.has(id)), "Playable unit lacks authoring provenance");
     assert.ok(simpleKinds.has(unit.kind) || groupedKinds.has(unit.kind), `Unsupported playable kind: ${unit.kind}`);
     if (!globalThis.CaatuuShellPolicy.isGameAvailable(unit.gameId, profiles.get(unit.courseId))) continue;
@@ -126,8 +126,9 @@ export function aggregatePracticeCorpusWorkloads(corpus, { courseProfiles, catal
       assert.equal(unit.recordIds.length, 1, "Domino identity must resolve one exact authored challenge");
       const row = records.get(unit.recordIds[0]), document = documents.get(row.source?.path);
       assert.ok(document && document.gameId === "naturalization-nucleus" && document.courseId === unit.courseId, "Domino catalog authority unavailable");
-      const pieces = document.roundSettings?.defaultPieceCount;
-      assert.ok(Number.isSafeInteger(pieces) && pieces >= 3 && document.roundSettings.pieceCounts?.includes(pieces), "Invalid default domino board size");
+      const pieces = unit.metadata.difficulty === 0 ? 3 : document.roundSettings?.defaultPieceCount;
+      assert.ok(Number.isSafeInteger(pieces) && pieces >= 3
+        && (unit.metadata.difficulty === 0 || document.roundSettings.pieceCounts?.includes(pieces)), "Invalid default domino board size");
       if (defaultPieces !== undefined) assert.equal(pieces, defaultPieces, "Mixed domino board settings");
       defaultPieces = pieces;
       const location = /^challenges\[(\d+)\]$/u.exec(row.source.location);

@@ -5919,6 +5919,7 @@ html[data-theme] .verb-match-control-cluster > .theme-toggle:focus-visible {
 }
 
 .verb-match-card {
+  touch-action: manipulation;
   position: relative;
   min-width: 0;
   min-height: 64px;
@@ -5935,7 +5936,7 @@ html[data-theme] .verb-match-control-cluster > .theme-toggle:focus-visible {
   padding: 7px 10px;
   text-align: left;
   box-shadow: none;
-  transition: border-color 150ms ease, background 150ms ease, color 150ms ease, opacity 180ms ease, transform 150ms ease;
+  transition: opacity 180ms ease, transform 150ms ease;
 }
 
 .verb-match-card::before {

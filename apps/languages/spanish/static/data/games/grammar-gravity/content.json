@@ -9765,6 +9765,1422 @@
       },
       "usefulness": 94,
       "complexity": 32
+    },
+    {
+      "id": "zero-es-grammar-red",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective",
+        "label": "red",
+        "targetText": "rojo · roja",
+        "resultTitle": "Two tiny forms",
+        "summary": "One familiar noun and one describing word. Machine-assisted draft; native review pending."
+      },
+      "forms": {
+        "masculine-singular": {
+          "displayForm": "rojo",
+          "examples": [
+            {
+              "id": "zero-es-grammar-red-masculine-singular-book",
+              "revision": 1,
+              "learnerBaseText": "red book",
+              "englishAuditText": "red book",
+              "targetText": "libro rojo",
+              "anchor": {
+                "targetText": "libro",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "slot": {
+                "beforeText": "libro ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 6
+            },
+            {
+              "id": "zero-es-grammar-red-masculine-singular-pen",
+              "revision": 1,
+              "learnerBaseText": "red pen",
+              "englishAuditText": "red pen",
+              "targetText": "bolígrafo rojo",
+              "anchor": {
+                "targetText": "bolígrafo",
+                "learnerBaseText": "pen",
+                "englishAuditText": "pen"
+              },
+              "slot": {
+                "beforeText": "bolígrafo ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 6
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 5
+        },
+        "feminine-singular": {
+          "displayForm": "roja",
+          "examples": [
+            {
+              "id": "zero-es-grammar-red-feminine-singular-bag",
+              "revision": 1,
+              "learnerBaseText": "red bag",
+              "englishAuditText": "red bag",
+              "targetText": "bolsa roja",
+              "anchor": {
+                "targetText": "bolsa",
+                "learnerBaseText": "bag",
+                "englishAuditText": "bag"
+              },
+              "slot": {
+                "beforeText": "bolsa ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 6
+            },
+            {
+              "id": "zero-es-grammar-red-feminine-singular-ball",
+              "revision": 1,
+              "learnerBaseText": "red ball",
+              "englishAuditText": "red ball",
+              "targetText": "pelota roja",
+              "anchor": {
+                "targetText": "pelota",
+                "learnerBaseText": "ball",
+                "englishAuditText": "ball"
+              },
+              "slot": {
+                "beforeText": "pelota ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 6
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 5
+        }
+      },
+      "axes": [
+        {
+          "id": "masculine-singular",
+          "label": "Masculine singular",
+          "features": {
+            "gender": "masculine",
+            "number": "singular"
+          }
+        },
+        {
+          "id": "feminine-singular",
+          "label": "Feminine singular",
+          "features": {
+            "gender": "feminine",
+            "number": "singular"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "gender",
+        "categoryOptions": [
+          {
+            "id": "masculine",
+            "label": "Masculine",
+            "image": "/assets/micelaneous/male_gender.png"
+          },
+          {
+            "id": "feminine",
+            "label": "Feminine",
+            "image": "/assets/micelaneous/female_gender.png"
+          }
+        ]
+      },
+      "usefulness": 92,
+      "complexity": 6
+    },
+    {
+      "id": "zero-es-grammar-small",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective",
+        "label": "small",
+        "targetText": "pequeño · pequeña",
+        "resultTitle": "Two tiny forms",
+        "summary": "One familiar noun and one describing word. Machine-assisted draft; native review pending."
+      },
+      "forms": {
+        "masculine-singular": {
+          "displayForm": "pequeño",
+          "examples": [
+            {
+              "id": "zero-es-grammar-small-masculine-singular-book",
+              "revision": 1,
+              "learnerBaseText": "small book",
+              "englishAuditText": "small book",
+              "targetText": "libro pequeño",
+              "anchor": {
+                "targetText": "libro",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "slot": {
+                "beforeText": "libro ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 6
+            },
+            {
+              "id": "zero-es-grammar-small-masculine-singular-pen",
+              "revision": 1,
+              "learnerBaseText": "small pen",
+              "englishAuditText": "small pen",
+              "targetText": "bolígrafo pequeño",
+              "anchor": {
+                "targetText": "bolígrafo",
+                "learnerBaseText": "pen",
+                "englishAuditText": "pen"
+              },
+              "slot": {
+                "beforeText": "bolígrafo ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 6
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 5
+        },
+        "feminine-singular": {
+          "displayForm": "pequeña",
+          "examples": [
+            {
+              "id": "zero-es-grammar-small-feminine-singular-bag",
+              "revision": 1,
+              "learnerBaseText": "small bag",
+              "englishAuditText": "small bag",
+              "targetText": "bolsa pequeña",
+              "anchor": {
+                "targetText": "bolsa",
+                "learnerBaseText": "bag",
+                "englishAuditText": "bag"
+              },
+              "slot": {
+                "beforeText": "bolsa ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 6
+            },
+            {
+              "id": "zero-es-grammar-small-feminine-singular-ball",
+              "revision": 1,
+              "learnerBaseText": "small ball",
+              "englishAuditText": "small ball",
+              "targetText": "pelota pequeña",
+              "anchor": {
+                "targetText": "pelota",
+                "learnerBaseText": "ball",
+                "englishAuditText": "ball"
+              },
+              "slot": {
+                "beforeText": "pelota ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 6
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 5
+        }
+      },
+      "axes": [
+        {
+          "id": "masculine-singular",
+          "label": "Masculine singular",
+          "features": {
+            "gender": "masculine",
+            "number": "singular"
+          }
+        },
+        {
+          "id": "feminine-singular",
+          "label": "Feminine singular",
+          "features": {
+            "gender": "feminine",
+            "number": "singular"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "gender",
+        "categoryOptions": [
+          {
+            "id": "masculine",
+            "label": "Masculine",
+            "image": "/assets/micelaneous/male_gender.png"
+          },
+          {
+            "id": "feminine",
+            "label": "Feminine",
+            "image": "/assets/micelaneous/female_gender.png"
+          }
+        ]
+      },
+      "usefulness": 92,
+      "complexity": 6
+    },
+    {
+      "id": "zero-es-grammar-white",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective",
+        "label": "white",
+        "targetText": "blanco · blanca",
+        "resultTitle": "Two tiny forms",
+        "summary": "One familiar noun and one describing word. Machine-assisted draft; native review pending."
+      },
+      "forms": {
+        "masculine-singular": {
+          "displayForm": "blanco",
+          "examples": [
+            {
+              "id": "zero-es-grammar-white-masculine-singular-book",
+              "revision": 1,
+              "learnerBaseText": "white book",
+              "englishAuditText": "white book",
+              "targetText": "libro blanco",
+              "anchor": {
+                "targetText": "libro",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "slot": {
+                "beforeText": "libro ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 6
+            },
+            {
+              "id": "zero-es-grammar-white-masculine-singular-pen",
+              "revision": 1,
+              "learnerBaseText": "white pen",
+              "englishAuditText": "white pen",
+              "targetText": "bolígrafo blanco",
+              "anchor": {
+                "targetText": "bolígrafo",
+                "learnerBaseText": "pen",
+                "englishAuditText": "pen"
+              },
+              "slot": {
+                "beforeText": "bolígrafo ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 6
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 5
+        },
+        "feminine-singular": {
+          "displayForm": "blanca",
+          "examples": [
+            {
+              "id": "zero-es-grammar-white-feminine-singular-bag",
+              "revision": 1,
+              "learnerBaseText": "white bag",
+              "englishAuditText": "white bag",
+              "targetText": "bolsa blanca",
+              "anchor": {
+                "targetText": "bolsa",
+                "learnerBaseText": "bag",
+                "englishAuditText": "bag"
+              },
+              "slot": {
+                "beforeText": "bolsa ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 6
+            },
+            {
+              "id": "zero-es-grammar-white-feminine-singular-ball",
+              "revision": 1,
+              "learnerBaseText": "white ball",
+              "englishAuditText": "white ball",
+              "targetText": "pelota blanca",
+              "anchor": {
+                "targetText": "pelota",
+                "learnerBaseText": "ball",
+                "englishAuditText": "ball"
+              },
+              "slot": {
+                "beforeText": "pelota ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 6
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 5
+        }
+      },
+      "axes": [
+        {
+          "id": "masculine-singular",
+          "label": "Masculine singular",
+          "features": {
+            "gender": "masculine",
+            "number": "singular"
+          }
+        },
+        {
+          "id": "feminine-singular",
+          "label": "Feminine singular",
+          "features": {
+            "gender": "feminine",
+            "number": "singular"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "gender",
+        "categoryOptions": [
+          {
+            "id": "masculine",
+            "label": "Masculine",
+            "image": "/assets/micelaneous/male_gender.png"
+          },
+          {
+            "id": "feminine",
+            "label": "Feminine",
+            "image": "/assets/micelaneous/female_gender.png"
+          }
+        ]
+      },
+      "usefulness": 92,
+      "complexity": 6
+    },
+    {
+      "id": "zero-es-grammar-black",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective",
+        "label": "black",
+        "targetText": "negro · negra",
+        "resultTitle": "Two tiny forms",
+        "summary": "One familiar noun and one describing word. Machine-assisted draft; native review pending."
+      },
+      "forms": {
+        "masculine-singular": {
+          "displayForm": "negro",
+          "examples": [
+            {
+              "id": "zero-es-grammar-black-masculine-singular-book",
+              "revision": 1,
+              "learnerBaseText": "black book",
+              "englishAuditText": "black book",
+              "targetText": "libro negro",
+              "anchor": {
+                "targetText": "libro",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "slot": {
+                "beforeText": "libro ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 6
+            },
+            {
+              "id": "zero-es-grammar-black-masculine-singular-pen",
+              "revision": 1,
+              "learnerBaseText": "black pen",
+              "englishAuditText": "black pen",
+              "targetText": "bolígrafo negro",
+              "anchor": {
+                "targetText": "bolígrafo",
+                "learnerBaseText": "pen",
+                "englishAuditText": "pen"
+              },
+              "slot": {
+                "beforeText": "bolígrafo ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 6
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 5
+        },
+        "feminine-singular": {
+          "displayForm": "negra",
+          "examples": [
+            {
+              "id": "zero-es-grammar-black-feminine-singular-bag",
+              "revision": 1,
+              "learnerBaseText": "black bag",
+              "englishAuditText": "black bag",
+              "targetText": "bolsa negra",
+              "anchor": {
+                "targetText": "bolsa",
+                "learnerBaseText": "bag",
+                "englishAuditText": "bag"
+              },
+              "slot": {
+                "beforeText": "bolsa ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 6
+            },
+            {
+              "id": "zero-es-grammar-black-feminine-singular-ball",
+              "revision": 1,
+              "learnerBaseText": "black ball",
+              "englishAuditText": "black ball",
+              "targetText": "pelota negra",
+              "anchor": {
+                "targetText": "pelota",
+                "learnerBaseText": "ball",
+                "englishAuditText": "ball"
+              },
+              "slot": {
+                "beforeText": "pelota ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 6
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 5
+        }
+      },
+      "axes": [
+        {
+          "id": "masculine-singular",
+          "label": "Masculine singular",
+          "features": {
+            "gender": "masculine",
+            "number": "singular"
+          }
+        },
+        {
+          "id": "feminine-singular",
+          "label": "Feminine singular",
+          "features": {
+            "gender": "feminine",
+            "number": "singular"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "gender",
+        "categoryOptions": [
+          {
+            "id": "masculine",
+            "label": "Masculine",
+            "image": "/assets/micelaneous/male_gender.png"
+          },
+          {
+            "id": "feminine",
+            "label": "Feminine",
+            "image": "/assets/micelaneous/female_gender.png"
+          }
+        ]
+      },
+      "usefulness": 92,
+      "complexity": 6
+    },
+    {
+      "id": "zero-es-grammar-expand-new",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective",
+        "label": "new",
+        "targetText": "nuevo · nueva",
+        "resultTitle": "Two tiny forms",
+        "summary": "One familiar thing and one describing word. Machine-assisted draft; native review is pending."
+      },
+      "forms": {
+        "masculine-singular": {
+          "displayForm": "nuevo",
+          "examples": [
+            {
+              "id": "zero-es-grammar-expand-new-masculine-singular-1",
+              "revision": 1,
+              "learnerBaseText": "new book",
+              "englishAuditText": "new book",
+              "targetText": "libro nuevo",
+              "anchor": {
+                "targetText": "libro",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "slot": {
+                "beforeText": "libro ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-grammar-expand-new-masculine-singular-2",
+              "revision": 1,
+              "learnerBaseText": "new pen",
+              "englishAuditText": "new pen",
+              "targetText": "bolígrafo nuevo",
+              "anchor": {
+                "targetText": "bolígrafo",
+                "learnerBaseText": "pen",
+                "englishAuditText": "pen"
+              },
+              "slot": {
+                "beforeText": "bolígrafo ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-grammar-expand-new-masculine-singular-3",
+              "revision": 1,
+              "learnerBaseText": "new car",
+              "englishAuditText": "new car",
+              "targetText": "coche nuevo",
+              "anchor": {
+                "targetText": "coche",
+                "learnerBaseText": "car",
+                "englishAuditText": "car"
+              },
+              "slot": {
+                "beforeText": "coche ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-grammar-expand-new-masculine-singular-4",
+              "revision": 1,
+              "learnerBaseText": "new shoe",
+              "englishAuditText": "new shoe",
+              "targetText": "zapato nuevo",
+              "anchor": {
+                "targetText": "zapato",
+                "learnerBaseText": "shoe",
+                "englishAuditText": "shoe"
+              },
+              "slot": {
+                "beforeText": "zapato ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 6
+        },
+        "feminine-singular": {
+          "displayForm": "nueva",
+          "examples": [
+            {
+              "id": "zero-es-grammar-expand-new-feminine-singular-1",
+              "revision": 1,
+              "learnerBaseText": "new bag",
+              "englishAuditText": "new bag",
+              "targetText": "bolsa nueva",
+              "anchor": {
+                "targetText": "bolsa",
+                "learnerBaseText": "bag",
+                "englishAuditText": "bag"
+              },
+              "slot": {
+                "beforeText": "bolsa ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-grammar-expand-new-feminine-singular-2",
+              "revision": 1,
+              "learnerBaseText": "new ball",
+              "englishAuditText": "new ball",
+              "targetText": "pelota nueva",
+              "anchor": {
+                "targetText": "pelota",
+                "learnerBaseText": "ball",
+                "englishAuditText": "ball"
+              },
+              "slot": {
+                "beforeText": "pelota ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-grammar-expand-new-feminine-singular-3",
+              "revision": 1,
+              "learnerBaseText": "new chair",
+              "englishAuditText": "new chair",
+              "targetText": "silla nueva",
+              "anchor": {
+                "targetText": "silla",
+                "learnerBaseText": "chair",
+                "englishAuditText": "chair"
+              },
+              "slot": {
+                "beforeText": "silla ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-grammar-expand-new-feminine-singular-4",
+              "revision": 1,
+              "learnerBaseText": "new bicycle",
+              "englishAuditText": "new bicycle",
+              "targetText": "bicicleta nueva",
+              "anchor": {
+                "targetText": "bicicleta",
+                "learnerBaseText": "bicycle",
+                "englishAuditText": "bicycle"
+              },
+              "slot": {
+                "beforeText": "bicicleta ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 6
+        }
+      },
+      "axes": [
+        {
+          "id": "masculine-singular",
+          "label": "Masculine singular",
+          "features": {
+            "gender": "masculine",
+            "number": "singular"
+          }
+        },
+        {
+          "id": "feminine-singular",
+          "label": "Feminine singular",
+          "features": {
+            "gender": "feminine",
+            "number": "singular"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "gender",
+        "categoryOptions": [
+          {
+            "id": "masculine",
+            "label": "Masculine",
+            "image": "/assets/micelaneous/male_gender.png"
+          },
+          {
+            "id": "feminine",
+            "label": "Feminine",
+            "image": "/assets/micelaneous/female_gender.png"
+          }
+        ]
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "zero-es-grammar-expand-old",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective",
+        "label": "old",
+        "targetText": "viejo · vieja",
+        "resultTitle": "Two tiny forms",
+        "summary": "One familiar thing and one describing word. Machine-assisted draft; native review is pending."
+      },
+      "forms": {
+        "masculine-singular": {
+          "displayForm": "viejo",
+          "examples": [
+            {
+              "id": "zero-es-grammar-expand-old-masculine-singular-1",
+              "revision": 1,
+              "learnerBaseText": "old book",
+              "englishAuditText": "old book",
+              "targetText": "libro viejo",
+              "anchor": {
+                "targetText": "libro",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "slot": {
+                "beforeText": "libro ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-grammar-expand-old-masculine-singular-2",
+              "revision": 1,
+              "learnerBaseText": "old car",
+              "englishAuditText": "old car",
+              "targetText": "coche viejo",
+              "anchor": {
+                "targetText": "coche",
+                "learnerBaseText": "car",
+                "englishAuditText": "car"
+              },
+              "slot": {
+                "beforeText": "coche ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-grammar-expand-old-masculine-singular-3",
+              "revision": 1,
+              "learnerBaseText": "old shoe",
+              "englishAuditText": "old shoe",
+              "targetText": "zapato viejo",
+              "anchor": {
+                "targetText": "zapato",
+                "learnerBaseText": "shoe",
+                "englishAuditText": "shoe"
+              },
+              "slot": {
+                "beforeText": "zapato ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-grammar-expand-old-masculine-singular-4",
+              "revision": 1,
+              "learnerBaseText": "old plate",
+              "englishAuditText": "old plate",
+              "targetText": "plato viejo",
+              "anchor": {
+                "targetText": "plato",
+                "learnerBaseText": "plate",
+                "englishAuditText": "plate"
+              },
+              "slot": {
+                "beforeText": "plato ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 6
+        },
+        "feminine-singular": {
+          "displayForm": "vieja",
+          "examples": [
+            {
+              "id": "zero-es-grammar-expand-old-feminine-singular-1",
+              "revision": 1,
+              "learnerBaseText": "old bag",
+              "englishAuditText": "old bag",
+              "targetText": "bolsa vieja",
+              "anchor": {
+                "targetText": "bolsa",
+                "learnerBaseText": "bag",
+                "englishAuditText": "bag"
+              },
+              "slot": {
+                "beforeText": "bolsa ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-grammar-expand-old-feminine-singular-2",
+              "revision": 1,
+              "learnerBaseText": "old chair",
+              "englishAuditText": "old chair",
+              "targetText": "silla vieja",
+              "anchor": {
+                "targetText": "silla",
+                "learnerBaseText": "chair",
+                "englishAuditText": "chair"
+              },
+              "slot": {
+                "beforeText": "silla ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-grammar-expand-old-feminine-singular-3",
+              "revision": 1,
+              "learnerBaseText": "old table",
+              "englishAuditText": "old table",
+              "targetText": "mesa vieja",
+              "anchor": {
+                "targetText": "mesa",
+                "learnerBaseText": "table",
+                "englishAuditText": "table"
+              },
+              "slot": {
+                "beforeText": "mesa ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-grammar-expand-old-feminine-singular-4",
+              "revision": 1,
+              "learnerBaseText": "old bicycle",
+              "englishAuditText": "old bicycle",
+              "targetText": "bicicleta vieja",
+              "anchor": {
+                "targetText": "bicicleta",
+                "learnerBaseText": "bicycle",
+                "englishAuditText": "bicycle"
+              },
+              "slot": {
+                "beforeText": "bicicleta ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 6
+        }
+      },
+      "axes": [
+        {
+          "id": "masculine-singular",
+          "label": "Masculine singular",
+          "features": {
+            "gender": "masculine",
+            "number": "singular"
+          }
+        },
+        {
+          "id": "feminine-singular",
+          "label": "Feminine singular",
+          "features": {
+            "gender": "feminine",
+            "number": "singular"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "gender",
+        "categoryOptions": [
+          {
+            "id": "masculine",
+            "label": "Masculine",
+            "image": "/assets/micelaneous/male_gender.png"
+          },
+          {
+            "id": "feminine",
+            "label": "Feminine",
+            "image": "/assets/micelaneous/female_gender.png"
+          }
+        ]
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "zero-es-grammar-expand-pretty",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective",
+        "label": "pretty",
+        "targetText": "bonito · bonita",
+        "resultTitle": "Two tiny forms",
+        "summary": "One familiar thing and one describing word. Machine-assisted draft; native review is pending."
+      },
+      "forms": {
+        "masculine-singular": {
+          "displayForm": "bonito",
+          "examples": [
+            {
+              "id": "zero-es-grammar-expand-pretty-masculine-singular-1",
+              "revision": 1,
+              "learnerBaseText": "pretty book",
+              "englishAuditText": "pretty book",
+              "targetText": "libro bonito",
+              "anchor": {
+                "targetText": "libro",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "slot": {
+                "beforeText": "libro ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-grammar-expand-pretty-masculine-singular-2",
+              "revision": 1,
+              "learnerBaseText": "pretty car",
+              "englishAuditText": "pretty car",
+              "targetText": "coche bonito",
+              "anchor": {
+                "targetText": "coche",
+                "learnerBaseText": "car",
+                "englishAuditText": "car"
+              },
+              "slot": {
+                "beforeText": "coche ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-grammar-expand-pretty-masculine-singular-3",
+              "revision": 1,
+              "learnerBaseText": "pretty plate",
+              "englishAuditText": "pretty plate",
+              "targetText": "plato bonito",
+              "anchor": {
+                "targetText": "plato",
+                "learnerBaseText": "plate",
+                "englishAuditText": "plate"
+              },
+              "slot": {
+                "beforeText": "plato ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-grammar-expand-pretty-masculine-singular-4",
+              "revision": 1,
+              "learnerBaseText": "pretty shoe",
+              "englishAuditText": "pretty shoe",
+              "targetText": "zapato bonito",
+              "anchor": {
+                "targetText": "zapato",
+                "learnerBaseText": "shoe",
+                "englishAuditText": "shoe"
+              },
+              "slot": {
+                "beforeText": "zapato ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 6
+        },
+        "feminine-singular": {
+          "displayForm": "bonita",
+          "examples": [
+            {
+              "id": "zero-es-grammar-expand-pretty-feminine-singular-1",
+              "revision": 1,
+              "learnerBaseText": "pretty house",
+              "englishAuditText": "pretty house",
+              "targetText": "casa bonita",
+              "anchor": {
+                "targetText": "casa",
+                "learnerBaseText": "house",
+                "englishAuditText": "house"
+              },
+              "slot": {
+                "beforeText": "casa ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-grammar-expand-pretty-feminine-singular-2",
+              "revision": 1,
+              "learnerBaseText": "pretty ball",
+              "englishAuditText": "pretty ball",
+              "targetText": "pelota bonita",
+              "anchor": {
+                "targetText": "pelota",
+                "learnerBaseText": "ball",
+                "englishAuditText": "ball"
+              },
+              "slot": {
+                "beforeText": "pelota ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-grammar-expand-pretty-feminine-singular-3",
+              "revision": 1,
+              "learnerBaseText": "pretty cup",
+              "englishAuditText": "pretty cup",
+              "targetText": "taza bonita",
+              "anchor": {
+                "targetText": "taza",
+                "learnerBaseText": "cup",
+                "englishAuditText": "cup"
+              },
+              "slot": {
+                "beforeText": "taza ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-grammar-expand-pretty-feminine-singular-4",
+              "revision": 1,
+              "learnerBaseText": "pretty bicycle",
+              "englishAuditText": "pretty bicycle",
+              "targetText": "bicicleta bonita",
+              "anchor": {
+                "targetText": "bicicleta",
+                "learnerBaseText": "bicycle",
+                "englishAuditText": "bicycle"
+              },
+              "slot": {
+                "beforeText": "bicicleta ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 6
+        }
+      },
+      "axes": [
+        {
+          "id": "masculine-singular",
+          "label": "Masculine singular",
+          "features": {
+            "gender": "masculine",
+            "number": "singular"
+          }
+        },
+        {
+          "id": "feminine-singular",
+          "label": "Feminine singular",
+          "features": {
+            "gender": "feminine",
+            "number": "singular"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "gender",
+        "categoryOptions": [
+          {
+            "id": "masculine",
+            "label": "Masculine",
+            "image": "/assets/micelaneous/male_gender.png"
+          },
+          {
+            "id": "feminine",
+            "label": "Feminine",
+            "image": "/assets/micelaneous/female_gender.png"
+          }
+        ]
+      },
+      "usefulness": 92,
+      "complexity": 7
+    },
+    {
+      "id": "zero-es-grammar-expand-clean",
+      "revision": 1,
+      "difficulty": 0,
+      "focus": {
+        "kind": "adjective",
+        "label": "clean",
+        "targetText": "limpio · limpia",
+        "resultTitle": "Two tiny forms",
+        "summary": "One familiar thing and one describing word. Machine-assisted draft; native review is pending."
+      },
+      "forms": {
+        "masculine-singular": {
+          "displayForm": "limpio",
+          "examples": [
+            {
+              "id": "zero-es-grammar-expand-clean-masculine-singular-1",
+              "revision": 1,
+              "learnerBaseText": "clean plate",
+              "englishAuditText": "clean plate",
+              "targetText": "plato limpio",
+              "anchor": {
+                "targetText": "plato",
+                "learnerBaseText": "plate",
+                "englishAuditText": "plate"
+              },
+              "slot": {
+                "beforeText": "plato ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-grammar-expand-clean-masculine-singular-2",
+              "revision": 1,
+              "learnerBaseText": "clean car",
+              "englishAuditText": "clean car",
+              "targetText": "coche limpio",
+              "anchor": {
+                "targetText": "coche",
+                "learnerBaseText": "car",
+                "englishAuditText": "car"
+              },
+              "slot": {
+                "beforeText": "coche ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-grammar-expand-clean-masculine-singular-3",
+              "revision": 1,
+              "learnerBaseText": "clean shoe",
+              "englishAuditText": "clean shoe",
+              "targetText": "zapato limpio",
+              "anchor": {
+                "targetText": "zapato",
+                "learnerBaseText": "shoe",
+                "englishAuditText": "shoe"
+              },
+              "slot": {
+                "beforeText": "zapato ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-grammar-expand-clean-masculine-singular-4",
+              "revision": 1,
+              "learnerBaseText": "clean drinking glass",
+              "englishAuditText": "clean drinking glass",
+              "targetText": "vaso limpio",
+              "anchor": {
+                "targetText": "vaso",
+                "learnerBaseText": "drinking glass",
+                "englishAuditText": "drinking glass"
+              },
+              "slot": {
+                "beforeText": "vaso ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 6
+        },
+        "feminine-singular": {
+          "displayForm": "limpia",
+          "examples": [
+            {
+              "id": "zero-es-grammar-expand-clean-feminine-singular-1",
+              "revision": 1,
+              "learnerBaseText": "clean cup",
+              "englishAuditText": "clean cup",
+              "targetText": "taza limpia",
+              "anchor": {
+                "targetText": "taza",
+                "learnerBaseText": "cup",
+                "englishAuditText": "cup"
+              },
+              "slot": {
+                "beforeText": "taza ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-grammar-expand-clean-feminine-singular-2",
+              "revision": 1,
+              "learnerBaseText": "clean table",
+              "englishAuditText": "clean table",
+              "targetText": "mesa limpia",
+              "anchor": {
+                "targetText": "mesa",
+                "learnerBaseText": "table",
+                "englishAuditText": "table"
+              },
+              "slot": {
+                "beforeText": "mesa ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-grammar-expand-clean-feminine-singular-3",
+              "revision": 1,
+              "learnerBaseText": "clean chair",
+              "englishAuditText": "clean chair",
+              "targetText": "silla limpia",
+              "anchor": {
+                "targetText": "silla",
+                "learnerBaseText": "chair",
+                "englishAuditText": "chair"
+              },
+              "slot": {
+                "beforeText": "silla ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            },
+            {
+              "id": "zero-es-grammar-expand-clean-feminine-singular-4",
+              "revision": 1,
+              "learnerBaseText": "clean bicycle",
+              "englishAuditText": "clean bicycle",
+              "targetText": "bicicleta limpia",
+              "anchor": {
+                "targetText": "bicicleta",
+                "learnerBaseText": "bicycle",
+                "englishAuditText": "bicycle"
+              },
+              "slot": {
+                "beforeText": "bicicleta ",
+                "afterText": ""
+              },
+              "usefulness": 92,
+              "complexity": 7
+            }
+          ],
+          "usefulness": 92,
+          "complexity": 6
+        }
+      },
+      "axes": [
+        {
+          "id": "masculine-singular",
+          "label": "Masculine singular",
+          "features": {
+            "gender": "masculine",
+            "number": "singular"
+          }
+        },
+        {
+          "id": "feminine-singular",
+          "label": "Feminine singular",
+          "features": {
+            "gender": "feminine",
+            "number": "singular"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "gender",
+        "categoryOptions": [
+          {
+            "id": "masculine",
+            "label": "Masculine",
+            "image": "/assets/micelaneous/male_gender.png"
+          },
+          {
+            "id": "feminine",
+            "label": "Feminine",
+            "image": "/assets/micelaneous/female_gender.png"
+          }
+        ]
+      },
+      "usefulness": 92,
+      "complexity": 7
     }
   ],
   "gameplay": {
