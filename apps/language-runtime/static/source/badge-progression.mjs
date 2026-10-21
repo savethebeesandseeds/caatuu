@@ -75,7 +75,7 @@ export function installBadgeProgression({ scope = globalThis.window ?? globalThi
       result.setAttribute("data-badge-status", state?.status || "practice-needed");
       if (ready) {
         const image = node("img", "caatuu-badge-recommendation-art");
-        image.src = `/assets/icons/difficulty_flag_${currentDifficulty + 1}_ui.png?v=flags-1`;
+        image.src = `/assets/icons/difficulty_flag_${currentDifficulty + 1}_ui.png?v=flags-2`;
         image.alt = "";
         const message = node("p", "caatuu-badge-recommendation-message", t("practice.badge.ready", { badge: badge(currentDifficulty + 1) }));
         result.append(image, message, node("small", "", t("practice.badge.explanation")));

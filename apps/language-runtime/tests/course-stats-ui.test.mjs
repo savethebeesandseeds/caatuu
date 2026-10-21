@@ -90,33 +90,29 @@ async function browser(t, { course = courses[0], storage = createMemoryStorage()
     element: id => panel.querySelector(`#${id}`) };
 }
 
-test("difficulty flags preview level zero without changing playable content or the equipped flag", async t => {
+test("all four difficulty flags are selectable and rendering preserves the equipped flag", async t => {
   for (const course of [courses.find(course => course.sourceLanguage.id === "en"), courses.find(course => course.sourceLanguage.id === "es")]) {
     const app = await browser(t, { course, seed: async ({ learning }) => learning.setDifficulty(3) });
-    const previewMarkup = app.template.match(/<button[^>]*data-difficulty-preview="0"[\s\S]*?<\/button>/u)?.[0];
-    assert.ok(previewMarkup, "the new flag is visible before its beginner content is available");
-    assert.match(previewMarkup, /\bdisabled\b/u);
-    assert.ok(previewMarkup.includes(app.content.t("common.cominglater")));
-    assert.ok(!app.template.includes('data-difficulty-level="0"'));
-    assert.deepEqual(plain(app.learning.difficultyLevels.map(option => option.level)), [1, 2, 3]);
+    assert.deepEqual(plain(app.learning.difficultyLevels.map(option => option.level)), [0, 1, 2, 3]);
+    const flagUrls = new Map([...app.template.matchAll(/src="(\/assets\/icons\/difficulty_flag_(\d+)_ui\.png(?:\?[^"]*)?)"/gu)]
+      .map(([, src, level]) => [Number(level), src]));
     for (const level of [0, 1, 2, 3]) {
-      assert.ok(app.template.includes(`/assets/icons/difficulty_flag_${level}_ui.png?v=flags-1`));
+      assert.ok(app.template.includes(`data-difficulty-level="${level}"`));
+      assert.equal(new URL(flagUrls.get(level), "https://caatuu.test").pathname, `/assets/icons/difficulty_flag_${level}_ui.png`);
     }
-    const preview = app.document.createElement("button");
-    preview.dataset.difficultyPreview = "0";
-    preview.disabled = true;
-    app.items.append(preview);
     const art = app.document.createElement("img");
     art.id = "difficultyBadgeArt";
     app.items.append(art);
-    app.refresh();
-    assert.equal(art.src, "/assets/icons/difficulty_flag_3_ui.png?v=flags-1");
     const before = plain(app.learning.snapshot());
-    app.document.dispatchEvent({ type: "click", target: preview });
-    assert.deepEqual(plain(app.learning.snapshot()), before, "even a synthetic preview click cannot select or reset a difficulty");
-    app.document.dispatchEvent({ type: "click", target: app.items.querySelector('[data-difficulty-level="2"]') });
-    assert.equal(app.learning.difficulty(), 2, "the existing playable difficulties remain selectable");
-    assert.equal(art.src, "/assets/icons/difficulty_flag_2_ui.png?v=flags-1");
+    app.refresh();
+    assert.equal(app.learning.difficulty(), 3);
+    assert.equal(art.src, flagUrls.get(3));
+    assert.deepEqual(plain(app.learning.snapshot()), before, "rendering the flags cannot select or reset a difficulty");
+    for (const level of [0, 2]) {
+      app.document.dispatchEvent({ type: "click", target: app.items.querySelector(`[data-difficulty-level="${level}"]`) });
+      assert.equal(app.learning.difficulty(), level, "playable difficulties remain selectable");
+      assert.equal(art.src, flagUrls.get(level), "the equipped flag uses the same asset URL as its choice");
+    }
   }
 });
 

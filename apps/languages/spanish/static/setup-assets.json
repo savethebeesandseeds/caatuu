@@ -40,9 +40,9 @@
       "/language-runtime/contract.mjs",
       "/language-runtime/embedding-runtimes.json",
       "/language-runtime/static/source/initial-theme.js?v=theme-3",
-      "/language-runtime/static/source/app-bootstrap.mjs?v=app-149",
+      "/language-runtime/static/source/app-bootstrap.mjs?v=app-151",
       "/language-runtime/static/source/interface-content.mjs?v=interface-runtime-2",
-      "/language-runtime/static/source/legacy-page-bootstrap.mjs?v=legacy-page-10",
+      "/language-runtime/static/source/legacy-page-bootstrap.mjs?v=legacy-page-22",
       "/language-runtime/static/source/dictionary-provider-loader.mjs",
       "/language-runtime/static/source/embedded-game-bootstrap.js?v=embedded-1",
       "/language-runtime/static/games/grammar-gravity.html",
@@ -75,7 +75,7 @@
       "/language-runtime/static/source/browser-shell.mjs?v=browser-shell-2",
       "/language-runtime/static/source/shell-policy.js?v=shell-policy-18",
       "/language-runtime/static/source/shell-policy.mjs",
-      "/language-runtime/static/source/caatuu-chrome.js?v=chrome-190",
+      "/language-runtime/static/source/caatuu-chrome.js?v=chrome-192",
       "/language-runtime/static/source/learning-profile.js?v=learning-24",
       "/language-runtime/static/source/product-word-world.mjs?v=shared-renderer-49",
       "/language-runtime/static/source/word-net-core.mjs?v=word-net-core-22",
@@ -86,7 +86,7 @@
       "/language-runtime/static/styles/caatuu-workspace.css?v=shell-105",
       "/language-runtime/static/styles/caatuu-home.css?v=home-69",
       "/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-149",
-      "/language-runtime/static/styles/caatuu-word-world.css?v=word-net-109",
+      "/language-runtime/static/styles/caatuu-word-world.css?v=word-net-111",
       "/language-runtime/static/styles/dictionary-word-card.css?v=dictionary-card-3",
       "/language-runtime/static/assets/caatuu-shell-512.png",
       "/language-runtime/static/data/interface/en.v1.json?v=interface-en-52",
@@ -252,12 +252,12 @@
       "/language-runtime/static/styles/game-dynamics.css?v=game-dynamics-8",
       "/language-runtime/static/source/reward-sound.mjs?v=reward-sound-2",
       "/language-runtime/static/source/badge-recommendation.mjs?v=badge-recommendation-7",
-      "/language-runtime/static/source/badge-progression.mjs?v=badge-progression-8",
+      "/language-runtime/static/source/badge-progression.mjs?v=badge-progression-9",
       "/language-runtime/static/assets/xp-gold.webp",
       "/language-runtime/static/source/word-world-learning.mjs",
       "/language-runtime/static/source/word-world-teaching.mjs",
       "/language-runtime/static/assets/aa-control.webp",
-      "/language-runtime/static/source/campaign-roadmap.mjs?v=campaign-roadmap-4",
+      "/language-runtime/static/source/campaign-roadmap.mjs?v=campaign-roadmap-5",
       "/language-runtime/static/styles/campaign-roadmap.css?v=campaign-roadmap-7",
       "/language-runtime/static/assets/campaign/robot-01.webp",
       "/language-runtime/static/assets/campaign/robot-02.webp",
@@ -315,14 +315,14 @@
       "/language-runtime/static/source/games/memory-moon/memory-moon-practice.mjs?v=memory-moon-practice-3",
       "/language-runtime/static/source/games/memory-moon/memory-moon-render.mjs?v=memory-moon-render-4",
       "/language-runtime/static/source/games/memory-moon/memory-moon-speech.mjs",
-      "/language-runtime/static/source/games/memory-moon/memory-moon.css?v=memory-moon-3",
+      "/language-runtime/static/source/games/memory-moon/memory-moon.css?v=memory-moon-4",
       "/language-runtime/static/source/games/memory-moon/memory-moon-dictionary.mjs?v=memory-moon-dictionary-2",
       "/language-runtime/static/source/games/memory-moon/memory-moon-reading.mjs",
       "/language-runtime/static/source/games/practice-pacing.mjs?v=practice-pacing-3",
-      "/assets/icons/difficulty_flag_0_ui.png?v=flags-1",
-      "/assets/icons/difficulty_flag_1_ui.png?v=flags-1",
-      "/assets/icons/difficulty_flag_2_ui.png?v=flags-1",
-      "/assets/icons/difficulty_flag_3_ui.png?v=flags-1"
+      "/assets/icons/difficulty_flag_0_ui.png?v=flags-2",
+      "/assets/icons/difficulty_flag_1_ui.png?v=flags-2",
+      "/assets/icons/difficulty_flag_2_ui.png?v=flags-2",
+      "/assets/icons/difficulty_flag_3_ui.png?v=flags-2"
     ]
   },
   "artifacts": [
@@ -339,8 +339,8 @@
       "kind": "shared-application",
       "url": "/es/index.html",
       "browserRequired": true,
-      "bytes": 99934,
-      "sha256": "6926fa999c8dd5ea7c37072f4bbf2838ec527a68d411d33b4b77c1467b7d40be"
+      "bytes": 100874,
+      "sha256": "442f05b009b7b4463ff4cd0a9919ca542b1688ad737712e4545bc0193cd1fb6c"
     },
     {
       "key": "course-profile",
@@ -356,7 +356,7 @@
       "url": "/language-runtime/static/source/app-bootstrap.mjs",
       "browserRequired": true,
       "bytes": 35976,
-      "sha256": "171b71f291e8f8ec3ca242be55e151234af2b37eec9aca68b7ce49421c2fd2a2"
+      "sha256": "edfaf8a6dce18a2fb5f12bca5be8883f6e822b13d58349fbdcc788bcb9285583"
     },
     {
       "key": "initial-theme",
@@ -467,8 +467,8 @@
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/caatuu-chrome.js",
       "browserRequired": true,
-      "bytes": 259388,
-      "sha256": "1cd2771e223e40c1c3f04ffb4ce3460e2ef6072baba73164a6ff1df5da3d7046"
+      "bytes": 259511,
+      "sha256": "574a422ea6816a3984c35a701dd6260f1553004f63958212041afe723d493b2e"
     },
     {
       "key": "learning-profile",
@@ -555,8 +555,8 @@
       "kind": "shared-interface",
       "url": "/language-runtime/static/styles/caatuu-word-world.css",
       "browserRequired": true,
-      "bytes": 71599,
-      "sha256": "bc6e5bf31eb595d2ccc3b980042551bbc2260dc6674570ef264c29b8579b7193"
+      "bytes": 74737,
+      "sha256": "2612958cd4ae5c31d74a926d927803273ed59e022960d63b83c8f3e4f791328e"
     },
     {
       "key": "shared-caatuu-art",
@@ -627,8 +627,8 @@
       "kind": "shared-runtime",
       "url": "/language-runtime/static/source/course-service-worker.js",
       "browserRequired": true,
-      "bytes": 12492,
-      "sha256": "c17d3aff3a2f8778d4b0ba0c00d3c458d1a7d2d51d3884f67f2edfee3bccde00"
+      "bytes": 12496,
+      "sha256": "4c1f49b5fe2f9a164cce728fcc8bc24e17d29aae4f84ec8e2c25ac37b3659dcb"
     },
     {
       "key": "course-flag",

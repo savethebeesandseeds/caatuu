@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-developer-tools.css?v=developer-tools-2">
     <link rel="stylesheet" href="/language-runtime/static/styles/dictionary-word-card.css?v=dictionary-card-3">
     <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-target-text.css?v=target-text-4">
-    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-word-world.css?v=word-net-109">
+    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-word-world.css?v=word-net-111">
     <link rel="stylesheet" href="/language-runtime/static/styles/games/embedded-game-controls.css?v=embedded-game-controls-10">
     <link rel="stylesheet" href="/language-runtime/static/styles/game-dynamics.css?v=game-dynamics-8">
     <link rel="stylesheet" href="/language-runtime/static/styles/campaign-roadmap.css?v=campaign-roadmap-7">
@@ -736,10 +736,18 @@
                               <div class="word-net-reconstruction-result-answer is-attempt" id="wordNetReconstructionResultAttempt" hidden>
                                 <span data-i18n="wordworld.result.youranswer">Your answer</span>
                                 <div class="word-net-reconstruction-result-diff" id="wordNetReconstructionResultAttemptText"></div>
+                                <span class="word-net-reconstruction-answer-status" aria-hidden="true">
+                                  <svg class="status-cross" viewBox="0 0 24 24" width="26" height="26" focusable="false"><path d="m6 6 12 12M18 6 6 18"></path></svg>
+                                  <svg class="status-check" viewBox="0 0 24 24" width="26" height="26" focusable="false"><path d="m5 12 4 4L19 6"></path></svg>
+                                </span>
                               </div>
                               <div class="word-net-reconstruction-result-answer is-correct-answer" id="wordNetReconstructionResultCorrect" hidden>
                                 <span data-i18n="wordworld.result.correctanswer">Correct answer</span>
                                 <strong id="wordNetReconstructionResultCorrectText"></strong>
+                                <span class="word-net-reconstruction-answer-status" aria-hidden="true">
+                                  <svg class="status-cross" viewBox="0 0 24 24" width="26" height="26" focusable="false"><path d="m6 6 12 12M18 6 6 18"></path></svg>
+                                  <svg class="status-check" viewBox="0 0 24 24" width="26" height="26" focusable="false"><path d="m5 12 4 4L19 6"></path></svg>
+                                </span>
                               </div>
                             </div>
                             <div class="word-net-reconstruction-result-actions">
@@ -1202,6 +1210,6 @@
     <section class="print-book" id="printBook" aria-label="Generated pocket book" aria-hidden="true" data-i18n-aria-label="print.book.label"></section>
 
     <script src="/language-runtime/static/source/shell-policy.js?v=shell-policy-18"></script>
-    <script type="module" src="/language-runtime/static/source/app-bootstrap.mjs?v=app-149"></script>
+    <script type="module" src="/language-runtime/static/source/app-bootstrap.mjs?v=app-151"></script>
   </body>
 </html>

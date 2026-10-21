@@ -277,6 +277,15 @@ pwsh -NoProfile -Command '$ErrorActionPreference = "Stop"; & ./apps/android/tool
 
 ## Close the loop after each incident
 
+Android 192's focused source check measured 8,002,900 bootstrap bytes before
+any APK build or sealed candidate. Native provider catalogs, active embedding
+manifests and Android dependency metadata now use the existing lossless JSON
+compaction in the logical product compiler, before setup receipts are projected
+from their exact packaged bytes. The Home/bootstrap contract checks every parsed
+value and compact output against the existing provider projection, including
+every dependency notice. Authoring files, model downloads, and the 8,000,000-byte
+limit remain unchanged.
+
 Android 188's first attempt at source `8270d8cc4492707738e773163699fa59136ea4a9`
 stopped in asset preparation at 8,000,085 bootstrap bytes, before a candidate
 was sealed. The existing shared-asset transform now compacts the APK's embedding

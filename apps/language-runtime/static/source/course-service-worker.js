@@ -3,7 +3,7 @@
 // Contract revision 8: offline updates bypass stale HTTP cache entries.
 
 const CAATUU_CANONICAL_APP_ENTRY = "apps/language-runtime/static/app/index.html";
-// Shared application revision: difficulty-flags-1. Updating this imported worker
+// Shared application revision: memory-moon-contrast-1. Updating this imported worker
 // refreshes the canonical runtime for every course through the same lifecycle.
 // Practice review revision: word-world-context-and-paced-continuation-1.
 const CAATUU_SHARED_WORKER_URL = "/language-runtime/static/source/course-service-worker.js";

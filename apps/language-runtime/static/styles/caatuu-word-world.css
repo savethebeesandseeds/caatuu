@@ -1505,6 +1505,7 @@ html[data-theme="dark"] .word-net-reconstruction-result.is-incorrect {
 }
 
 .word-net-reconstruction-result-answer {
+  position: relative;
   min-width: 0;
   padding: 7px 9px;
   border: 1px solid color-mix(in srgb, var(--word-net-result-accent) 34%, var(--theme-line, #cfd8d1));
@@ -1533,7 +1534,6 @@ html[data-theme="dark"] .word-net-reconstruction-result.is-incorrect {
 }
 
 .word-net-reconstruction-result.is-incorrect .word-net-reconstruction-result-answer.is-attempt {
-  margin-inline-start: 36px;
   border-inline-start-color: var(--word-net-result-accent);
   background: var(--word-net-result-row-error);
 }
@@ -1542,11 +1542,50 @@ html[data-theme="dark"] .word-net-reconstruction-result.is-incorrect {
   background: var(--word-net-result-row-correct);
 }
 
-.word-net-reconstruction-result.is-incorrect .word-net-reconstruction-result-answer:not(.is-attempt) > span {
+.word-net-reconstruction-result .word-net-reconstruction-result-answer.is-challenge {
+  width: calc(100% - 24px);
+  justify-self: center;
+  margin-block-end: 16px;
+  padding: 12px 16px;
+  border: 2px solid color-mix(in srgb, var(--word-net-result-row-line, var(--theme-line-strong, #a6b4aa)) 58%, var(--theme-panel-raised, #fffdf8));
+  border-radius: 14px;
+  outline: 1px solid color-mix(in srgb, var(--word-net-result-row-line, var(--theme-line-strong, #a6b4aa)) 35%, transparent);
+  outline-offset: -6px;
+  background: var(--word-net-result-row-neutral, color-mix(in srgb, var(--theme-ink, #17201d) 6%, var(--theme-panel-raised, #fffdf8)));
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--theme-panel-raised, #fffdf8) 70%, transparent), 0 2px 0 color-mix(in srgb, var(--theme-ink, #17201d) 5%, transparent);
+  text-align: center;
+  gap: 6px;
+}
+
+.word-net-reconstruction-result .word-net-reconstruction-result-answer.is-challenge::after {
+  position: absolute;
+  inset-inline: -12px;
+  bottom: -13px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--word-net-result-row-line, var(--theme-line-strong, #a6b4aa)) 25%, var(--word-net-result-row-line, var(--theme-line-strong, #a6b4aa)) 75%, transparent);
+  content: "";
+  pointer-events: none;
+}
+
+.word-net-reconstruction-result .word-net-reconstruction-result-answer.is-challenge > h2 {
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.word-net-reconstruction-result .word-net-reconstruction-result-answer.is-challenge > span:not(.word-net-reconstruction-answer-status) {
+  justify-self: center;
+  padding: 4px 9px;
+  border: 1px solid color-mix(in srgb, var(--word-net-result-row-line, var(--theme-line-strong, #a6b4aa)) 55%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--theme-panel-raised, #fffdf8) 70%, transparent);
+  line-height: 1.1;
+}
+
+.word-net-reconstruction-result.is-incorrect .word-net-reconstruction-result-answer:not(.is-attempt) > span:not(.word-net-reconstruction-answer-status) {
   color: var(--word-net-result-row-label);
 }
 
-.word-net-reconstruction-result.is-incorrect .word-net-reconstruction-result-answer.is-attempt > span {
+.word-net-reconstruction-result.is-incorrect .word-net-reconstruction-result-answer.is-attempt > span:not(.word-net-reconstruction-answer-status) {
   color: var(--word-net-result-accent);
 }
 
@@ -1561,7 +1600,7 @@ html[data-theme="dark"] .word-net-reconstruction-result.is-incorrect {
   line-height: 1.6;
 }
 
-.word-net-reconstruction-result.is-incorrect .word-net-reconstruction-result-answer > span {
+.word-net-reconstruction-result.is-incorrect .word-net-reconstruction-result-answer > span:not(.word-net-reconstruction-answer-status) {
   font-size: 0.62rem;
   letter-spacing: 0.08em;
 }
@@ -1573,12 +1612,53 @@ html[data-theme="dark"] .word-net-reconstruction-result.is-incorrect {
   gap: 2px;
 }
 
-.word-net-reconstruction-result-answer > span {
+.word-net-reconstruction-result-answer > span:not(.word-net-reconstruction-answer-status) {
   color: var(--theme-quiet, #74817b);
   font-size: 0.58rem;
   font-weight: 850;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+}
+
+.word-net-reconstruction-result .word-net-reconstruction-result-answer:is(.is-attempt, .is-correct-answer) {
+  padding-inline-end: 56px;
+}
+
+.word-net-reconstruction-answer-status {
+  position: absolute;
+  inset-inline-end: 12px;
+  top: 50%;
+  width: 32px;
+  height: 32px;
+  border: 1px solid color-mix(in srgb, currentColor 30%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, currentColor 12%, transparent);
+  display: grid;
+  place-items: center;
+  color: var(--theme-red, #985044);
+  line-height: 1;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.word-net-reconstruction-result-answer:is(.is-correct-answer, .is-correct-attempt) > .word-net-reconstruction-answer-status {
+  color: var(--theme-green, #376a5a);
+}
+
+.word-net-reconstruction-answer-status svg {
+  display: none;
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.word-net-reconstruction-result-answer.is-attempt:not(.is-correct-attempt) > .word-net-reconstruction-answer-status .status-cross,
+.word-net-reconstruction-result-answer:is(.is-correct-answer, .is-correct-attempt) > .word-net-reconstruction-answer-status .status-check {
+  display: block;
 }
 
 .word-net-reconstruction-result-answer > strong {
@@ -2676,10 +2756,6 @@ html[data-theme="dark"] .word-net-trail-head {
     position: relative;
     inset: auto;
     align-self: flex-start;
-  }
-
-  .word-net-reconstruction-result.is-incorrect .word-net-reconstruction-result-answer.is-attempt {
-    margin-inline-start: 28px;
   }
 
   .word-net-sentence-panel.has-reconstruction-result.has-result-dictionary {

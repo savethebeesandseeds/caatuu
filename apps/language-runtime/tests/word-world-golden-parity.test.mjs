@@ -428,6 +428,24 @@ function normalizeSharedReconstructionReview(root, goldenGame) {
   assert.equal(findAll(result, node => node.attributes.get("id") === "wordNetReconstructionResultMessage").length, 0,
     "The comparison no longer has an additional message paragraph.");
 
+  for (const id of ["wordNetReconstructionResultAttempt", "wordNetReconstructionResultCorrect"]) {
+    const row = byId(id);
+    const status = findOne(row, node => hasClass(node, "word-net-reconstruction-answer-status"), `${id} status decoration`);
+    assert.equal(status.parent, row);
+    assert.equal(status.tag, "span");
+    assert.equal(status.attributes.get("aria-hidden"), "true", "Status decoration does not duplicate the announced outcome.");
+    assert.equal(status.children.length, 2);
+    for (const className of ["status-cross", "status-check"]) {
+      const icon = findOne(status, node => hasClass(node, className), `${id} ${className}`);
+      assert.equal(icon.tag, "svg");
+      assert.equal(icon.attributes.get("focusable"), "false");
+      assert.ok(findAll(icon, node => node.tag === "path").length > 0, "Each status icon supplies vector artwork.");
+    }
+    assert.ok([status, ...descendants(status)].every(node => !node.attributes.has("tabindex")),
+      "Decorative status icons never introduce an extra keyboard target.");
+    row.children = row.children.filter(node => node !== status);
+  }
+
   const heading = kicker.parent;
   assert.ok(hasClass(heading, "word-net-reconstruction-result-heading"));
   assert.deepEqual(heading.children, [kicker], "The outcome header leaves the challenge prompt in its own answer row.");

@@ -76,7 +76,7 @@ export function installCampaignRoadmap({ scope = globalThis.window ?? globalThis
     const next = current >= 3 || stage.targetCycles === null ? current : current + 1;
     const medal = level => {
       const value = node("div", "campaign-medal");
-      value.append(art(`/assets/icons/difficulty_flag_${level}_ui.png?v=flags-1`, ""),
+      value.append(art(`/assets/icons/difficulty_flag_${level}_ui.png?v=flags-2`, ""),
         node("strong", "", badgeName(level)));
       return value;
     };

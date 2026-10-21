@@ -1955,6 +1955,7 @@ export function transformProductModelTools(input) {
 
 const SHARED_APP_TRANSFORMS = Object.freeze({
   "language-runtime/embedding-runtimes.json": compactProductJson,
+  "language-runtime/static/legal/android-dependencies.json": compactProductJson,
   "language-runtime/static/source/developer-tools/developer-tools.mjs": transformProductDeveloperTools,
   "language-runtime/static/source/developer-tools/model-tools.mjs": transformProductModelTools,
   "language-runtime/static/source/developer-tools/browser-model-service.mjs": transformDeveloperBrowserModelService,
@@ -2930,6 +2931,11 @@ function productLogicalBytes(bundle) {
     else files.set(output, readFileSync(source));
   }
   putText(PRODUCT_COURSE_BUNDLE_ASSET, `${JSON.stringify(bundle.courseCatalog)}\n`);
+  // Native provider catalogs and active model manifests are APK-resident.
+  // Compact their metadata before projecting the exact setup byte receipts.
+  for (const path of nativeBootstrapCatalogAssets(files, bundle.courseCatalog)) {
+    putText(path, compactProductJson(files.get(path).toString("utf8")));
+  }
   for (const { course } of bundle.configurations) {
     const assetPrefix = `courses/${course.id}`;
     const setupPath = `${assetPrefix}/setup-assets.json`;

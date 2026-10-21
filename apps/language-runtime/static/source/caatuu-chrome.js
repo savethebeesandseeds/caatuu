@@ -906,6 +906,7 @@
         event.preventDefault();
         event.stopImmediatePropagation();
         if (!homeMenuPanel || homeMenuPanel.hidden) openHomeMenu(homeNav);
+        else closeHomeMenu();
         return;
       }
 
@@ -962,6 +963,7 @@
         event.stopImmediatePropagation();
         if (homeMenuPanel && !homeMenuPanel.hidden) closeHomeMenu({ restoreFocus: false });
         if (!gameMenuPanel || gameMenuPanel.hidden) openGameMenu(gameNav);
+        else closeGameMenu();
         return;
       }
       const backpackButton = event.target.closest?.('[data-caatuu-bottom-nav] #openSettings');
@@ -970,7 +972,7 @@
         event.stopImmediatePropagation();
         if (homeMenuPanel && !homeMenuPanel.hidden) closeHomeMenu({ restoreFocus: false });
         if (gameMenuPanel && !gameMenuPanel.hidden) closeGameMenu({ restoreFocus: false });
-        setBottomDockMenu("settings");
+        setBottomDockMenu(backpackButton.getAttribute("aria-expanded") === "true" ? "" : "settings");
         return;
       }
       const otherNavigation = event.target.closest?.("[data-caatuu-bottom-nav] a, [data-caatuu-bottom-nav] button");
@@ -2045,7 +2047,7 @@
         level: option.level
       })}">
         <b aria-hidden="true">
-          <img src="/assets/icons/difficulty_flag_${option.level}_ui.png?v=flags-1" alt="" loading="lazy" decoding="async">
+          <img src="/assets/icons/difficulty_flag_${option.level}_ui.png?v=flags-2" alt="" loading="lazy" decoding="async">
         </b>
         <span>${escapeHtmlText(option.label)}</span>
       </button>
@@ -2196,7 +2198,7 @@
     const badgeName = root.querySelector("#difficultyBadgeName");
     if (badgeName) badgeName.textContent = profile.difficultyOption.label;
     const badgeArt = root.querySelector("#difficultyBadgeArt");
-    if (badgeArt) badgeArt.src = `/assets/icons/difficulty_flag_${profile.difficulty}_ui.png?v=flags-1`;
+    if (badgeArt) badgeArt.src = `/assets/icons/difficulty_flag_${profile.difficulty}_ui.png?v=flags-2`;
     const goalSelect = root.querySelector("#learningGoal");
     if (goalSelect) goalSelect.value = profile.goal?.id || "balanced";
     renderLearningDirection(root);
@@ -4541,7 +4543,7 @@
                 <div class="traveler-badge" aria-label="${interfaceHtml("settings.backpack.currentbadge")}">
                   <span class="traveler-badge-level" id="difficultyLevelSummary">${interfaceHtml("progress.level", { level: 2 })}</span>
                   <span class="traveler-badge-emblem" aria-hidden="true">
-                    <img id="difficultyBadgeArt" src="/assets/icons/difficulty_flag_1_ui.png?v=flags-1" alt="" decoding="async">
+                    <img id="difficultyBadgeArt" src="/assets/icons/difficulty_flag_1_ui.png?v=flags-2" alt="" decoding="async">
                   </span>
                   <strong id="difficultyBadgeName">${interfaceHtml("settings.backpack.traveler")}</strong>
                 </div>

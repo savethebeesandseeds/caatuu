@@ -257,6 +257,13 @@ public `product` compiler instead validates its declared sources and writes
 packaged setup projections into build output; routine deployment does not
 refresh tracked source manifests.
 
+The bootstrap compiler compacts APK-resident native provider catalogs, active
+embedding manifests and Android dependency metadata before deriving their
+packaged setup receipts. This removes only JSON indentation; parsed fields,
+pinned download identities and authoring files remain intact. The Home/bootstrap
+contract verifies those values and the unchanged residency budget before an APK
+release.
+
 ## Canonical release workflow
 
 Read the [Android release operations runbook](../../../docs/ANDROID_RELEASE_OPERATIONS.md)

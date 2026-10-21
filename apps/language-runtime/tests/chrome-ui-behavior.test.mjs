@@ -622,7 +622,7 @@ test("answer events reuse their profile for immediate header updates without rer
   harness.window.dispatchEvent({ type: "pagehide" });
 });
 
-test("navigation launchers keep one menu open across repeated pointer and keyboard activations", () => {
+test("navigation launchers toggle their menus across pointer and keyboard activations", () => {
   const course = fixtureCourse();
   course.games = ["word-net"];
   course.capabilities.wordWorld = true;
@@ -635,14 +635,30 @@ test("navigation launchers keep one menu open across repeated pointer and keyboa
   panel.append(settingsMenu);
   document.body.append(panel);
   const dock = nav.closest("[data-caatuu-bottom-dock]");
+  let settingsLaunches = 0;
+  document.addEventListener("click", event => {
+    if (!event.target.closest("#openSettings")) return;
+    settingsLaunches += 1;
+    panel.hidden = false;
+  });
 
   for (const [key, menu] of [["home", "home"], ["games", "games"], ["backpack", "settings"]]) {
     const trigger = nav.querySelector(`[data-nav-key="${key}"]`);
     trigger.click();
-    trigger.dispatchEvent({ type: "click", detail: 2, bubbles: true });
-    trigger.dispatchEvent({ type: "click", detail: 0, bubbles: true });
-    assert.equal(dock.dataset.openMenu, menu, `${key} is an open request, not a toggle`);
+    assert.equal(dock.dataset.openMenu, menu, `${key} opens its menu`);
     assert.equal(trigger.getAttribute("aria-expanded"), "true");
+    trigger.dispatchEvent({ type: "pointerdown", pointerType: "mouse", bubbles: true });
+    trigger.dispatchEvent({ type: "click", detail: 2, bubbles: true });
+    assert.equal(dock.dataset.openMenu, undefined, `${key} closes on the next pointer activation`);
+    assert.equal(trigger.getAttribute("aria-expanded"), "false");
+    assert.equal(panel.hidden, true, "closing the menu must not open the underlying Settings");
+    trigger.dispatchEvent({ type: "click", detail: 0, bubbles: true });
+    assert.equal(dock.dataset.openMenu, menu, `${key} also opens through keyboard activation`);
+    assert.equal(trigger.getAttribute("aria-expanded"), "true");
+    trigger.dispatchEvent({ type: "click", detail: 0, bubbles: true });
+    assert.equal(dock.dataset.openMenu, undefined, `${key} also closes through keyboard activation`);
+    assert.equal(trigger.getAttribute("aria-expanded"), "false");
+    trigger.click();
     trigger.dispatchEvent({ type: "keydown", key: "Escape", isComposing: true, bubbles: true });
     assert.equal(dock.dataset.openMenu, menu, "IME Escape must not dismiss navigation");
     trigger.dispatchEvent({ type: "keydown", key: "Escape", bubbles: true });
@@ -657,6 +673,7 @@ test("navigation launchers keep one menu open across repeated pointer and keyboa
     document.body.click();
     assert.equal(dock.dataset.openMenu, undefined, "outside click dismisses without navigating");
   }
+  assert.equal(settingsLaunches, 0, "navigation capture prevents a duplicate workspace Settings handler from reopening the panel");
 });
 
 test("the Home submenu exposes shared section semantics and availability", () => {
@@ -815,7 +832,9 @@ test("the Home submenu navigates Social and Store, redraws Store, and restores f
 
   trigger.click();
   trigger.click();
-  assert.equal(trigger.getAttribute("aria-expanded"), "true", "repeated open requests retain the menu");
+  assert.equal(trigger.getAttribute("aria-expanded"), "false", "pressing the open Home launcher dismisses its menu");
+  assert.equal(backdrop.hidden, true);
+  trigger.click();
   backdrop.click();
   assert.equal(trigger.getAttribute("aria-expanded"), "false");
   assert.equal(document.activeElement, trigger);

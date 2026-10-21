@@ -1,5 +1,18 @@
 # Changelog
 
+## Android 192 / 0.1.40
+
+- Refine Word World's correction card with a centered, framed challenge,
+  aligned answer rows, and circular red cross and green check indicators.
+- Toggle each bottom navigation menu closed when its button is pressed again.
+- Give Starting out a straight flagpole, Traveler a sage banner, and Navigator
+  a forest-green banner with gold trim, keeping Explorer's artwork.
+- Restore Memory Moon's opaque surface while retaining its translucent shadow.
+- Compact packaged native metadata without removing fields or changing model
+  downloads, keeping the existing bootstrap asset size limit.
+- Physical-device installation, update, offline use and saved-data preservation
+  remain unverified for this candidate. Course review status is unchanged.
+
 ## Android 191 / 0.1.39
 
 - Improve Word World corrections with aligned challenge, submitted-answer and
