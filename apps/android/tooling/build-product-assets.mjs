@@ -2520,7 +2520,21 @@ function assertServiceWorkerBoundary(outputDir) {
   assert.match(readSourceText(workerEngine), /Retired runtime assets cannot be cached/);
 }
 
+/** One metadata projection for compilation, staged validation and APK auditing. */
+export function nativeMetadataAssetTransform(configuration, path) {
+  const providers = configuration.nativeProviders.providers;
+  if (Object.values(providers).some(provider => provider.catalogAsset === path)) return compactProductJson;
+  const embedding = providers.embeddings;
+  if (embedding?.implementation !== "vector-database-catalog-v1" || !path.endsWith("/manifest.json")) return undefined;
+  const catalog = readJson(join(configuration.languageStaticDir, embedding.catalogAsset), "Native embedding catalog");
+  if (catalog.models.some(model => model.status === "active"
+    && providerManifestAsset(embedding.catalogAsset, model.manifest_file) === path)) return compactProductJson;
+  return undefined;
+}
+
 function reviewedCourseAssetTransform(configuration, path, embeddingRuntime) {
+  const metadataTransform = nativeMetadataAssetTransform(configuration, path);
+  if (metadataTransform) return metadataTransform;
   const sourcePath = configuration.languageFileSources[path];
   if (!sourcePath) return undefined;
   const source = readSourceText(sourcePath);
@@ -2931,11 +2945,6 @@ function productLogicalBytes(bundle) {
     else files.set(output, readFileSync(source));
   }
   putText(PRODUCT_COURSE_BUNDLE_ASSET, `${JSON.stringify(bundle.courseCatalog)}\n`);
-  // Native provider catalogs and active model manifests are APK-resident.
-  // Compact their metadata before projecting the exact setup byte receipts.
-  for (const path of nativeBootstrapCatalogAssets(files, bundle.courseCatalog)) {
-    putText(path, compactProductJson(files.get(path).toString("utf8")));
-  }
   for (const { course } of bundle.configurations) {
     const assetPrefix = `courses/${course.id}`;
     const setupPath = `${assetPrefix}/setup-assets.json`;

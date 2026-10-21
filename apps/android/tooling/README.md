@@ -263,6 +263,9 @@ packaged setup receipts. This removes only JSON indentation; parsed fields,
 pinned download identities and authoring files remain intact. The Home/bootstrap
 contract verifies those values and the unchanged residency budget before an APK
 release.
+Native metadata uses the same course-asset projection during compilation,
+staged validation and signed-package auditing; bootstrap-only byte rewrites
+must not bypass that shared projection.
 
 ## Canonical release workflow
 

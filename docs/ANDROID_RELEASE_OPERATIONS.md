@@ -286,6 +286,13 @@ value and compact output against the existing provider projection, including
 every dependency notice. Authoring files, model downloads, and the 8,000,000-byte
 limit remain unchanged.
 
+The first 192 build at source `a6ba2ed006d2923fdd21d047b5a5e1bdac1fdfbf`
+stopped before signing: staged validation still expected the native catalog's
+authoring whitespace. Native metadata now uses one shared course-asset
+projection for compilation, staged validation and signed-package auditing.
+Its focused regression checks catalogs, active manifests, value preservation
+and idempotence. Keep version 192 while no candidate is sealed.
+
 Android 188's first attempt at source `8270d8cc4492707738e773163699fa59136ea4a9`
 stopped in asset preparation at 8,000,085 bootstrap bytes, before a candidate
 was sealed. The existing shared-asset transform now compacts the APK's embedding

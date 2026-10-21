@@ -4,6 +4,8 @@ import test from "node:test";
 import {
   assertProductCourseProfileCapabilities,
   compactProductCourseProfile,
+  loadAndroidCourseConfiguration,
+  nativeMetadataAssetTransform,
   transformCourseProfile,
   transformManifest,
   transformWordWorldManifest,
@@ -103,4 +105,26 @@ test("compact native embedding metadata retains all provider and license values"
   const output = transformWebViewEmbeddingCatalog(input);
   assert.deepEqual(JSON.parse(output), { ...before, runtime: { ...before.runtime, modelDelivery: "android-setup-download" } });
   assert.ok(Buffer.byteLength(output) < Buffer.byteLength(input));
+});
+
+test("native metadata uses the same lossless projection for catalogs and active model manifests", async () => {
+  const configuration = loadAndroidCourseConfiguration();
+  const providers = configuration.nativeProviders.providers;
+  const paths = Object.values(providers).map(provider => provider.catalogAsset).filter(Boolean);
+  const embedding = providers.embeddings;
+  const catalog = JSON.parse(await readFile(configuration.languageFileSources[embedding.catalogAsset], "utf8"));
+  const directory = embedding.catalogAsset.slice(0, embedding.catalogAsset.lastIndexOf("/"));
+  for (const model of catalog.models.filter(model => model.status === "active")) {
+    paths.push(model.manifest_file.startsWith(`${directory}/`) ? model.manifest_file : `${directory}/${model.manifest_file}`);
+  }
+  for (const path of paths) {
+    const transform = nativeMetadataAssetTransform(configuration, path);
+    assert.equal(typeof transform, "function", `${path} has an explicit source projection`);
+    const source = await readFile(configuration.languageFileSources[path], "utf8");
+    const projected = transform(source);
+    assert.deepEqual(JSON.parse(projected), JSON.parse(source), `${path} retains all fields and pinned identities`);
+    assert.equal(projected, `${JSON.stringify(JSON.parse(source))}\n`);
+    assert.equal(transform(projected), projected, "Repeated package auditing is idempotent");
+  }
+  assert.equal(nativeMetadataAssetTransform(configuration, "data/unrelated/manifest.json"), undefined);
 });
