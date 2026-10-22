@@ -227,7 +227,7 @@ async function start(selectedProfile = profile) {
 
 async function initialize() {
   installInterfaceContent(await loadInterfaceContent(course));
-  await import("../source/caatuu-chrome.js?v=chrome-197");
+  await import("../source/caatuu-chrome.js?v=chrome-200");
   window.CaatuuChrome.setHeaderTitle("Memory Moon", { backHref: "/cz/index.html", trainTab: "memory-moon" });
   speech = createMoonSpeech({ api: window.CaatuuChrome, onState: syncSpeech });
   syncSpeech();

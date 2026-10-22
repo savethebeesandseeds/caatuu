@@ -3902,14 +3902,11 @@
     screenBack.type = "button";
     screenBack.className = "language-selector-action is-secondary course-selection-back";
     screenBack.dataset.courseSelectionBack = "";
-    screenBack.setAttribute("aria-label", interfaceMessage("common.back"));
-    screenBack.title = interfaceMessage("common.back");
     const backIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     backIcon.classList.add("app-header-back-icon");
     backIcon.setAttribute("viewBox", "0 0 24 24");
     backIcon.setAttribute("aria-hidden", "true");
     const backPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    backPath.setAttribute("d", "M15 5.5 8.5 12l6.5 6.5");
     backIcon.append(backPath);
     screenBack.append(backIcon);
     const heading = document.createElement("h3");
@@ -3934,11 +3931,16 @@
     newLanguage.type = "button";
     newLanguage.className = "language-selector-action is-primary";
     newLanguage.dataset.courseSelectionNewLanguage = "";
-    newLanguage.textContent = interfaceMessage("courseselector.newlanguage");
+    const newLanguageIcon = document.createElement("span");
+    newLanguageIcon.className = "course-selection-new-icon";
+    newLanguageIcon.setAttribute("aria-hidden", "true");
+    newLanguageIcon.textContent = "+";
+    const newLanguageLabel = document.createElement("span");
+    newLanguageLabel.textContent = interfaceMessage("courseselector.newlanguage");
+    newLanguage.append(newLanguageIcon, newLanguageLabel);
     courseActions.append(newLanguage);
     const currentCourse = document.createElement("div");
     currentCourse.className = "course-selection-current";
-    screenHeader.append(currentCourse);
     const ongoingHead = document.createElement("div");
     ongoingHead.className = "course-selection-ongoing-head";
     const ongoingHeading = document.createElement("h4");
@@ -3946,12 +3948,13 @@
     ongoingHeading.id = menu.id + "OngoingTitle";
     ongoingHeading.textContent = interfaceMessage("courseselector.ongoing.heading");
     ongoingHead.append(ongoingHeading, courseActions);
+    screenHeader.append(ongoingHead);
     const ongoingScroll = document.createElement("div");
     ongoingScroll.className = "course-selection-scroll";
     ongoingScroll.tabIndex = 0;
     ongoingScroll.setAttribute("role", "region");
     ongoingScroll.setAttribute("aria-labelledby", ongoingHeading.id);
-    courseList.append(ongoingHead, ongoingScroll);
+    courseList.append(ongoingScroll);
     coursesStage.append(courseList);
 
     const choiceStage = document.createElement("div");
@@ -4060,11 +4063,20 @@
       reviewOrigin: "courses"
     };
 
+    function updateScreenBack(isClose) {
+      const label = interfaceMessage(isClose ? "common.close" : "common.back");
+      screenBack.setAttribute("aria-label", label);
+      screenBack.title = label;
+      backPath.setAttribute("d", isClose ? "M6 6l12 12M18 6 6 18" : "M15 5.5 8.5 12l6.5 6.5");
+    }
+
     function showCourses({ focusNew = false } = {}) {
+      updateScreenBack(true);
       choiceStage.hidden = true;
       reviewStage.hidden = true;
       coursesStage.hidden = false;
       currentCourse.hidden = false;
+      ongoingHead.hidden = false;
       introduction.hidden = true;
       heading.textContent = interfaceMessage("courseselector.courses.heading");
       menu.dataset.courseSelectionStage = "courses";
@@ -4074,14 +4086,15 @@
 
     function renderCourses() {
       const current = createHomeCurrentCourse();
+      current.setAttribute("aria-current", "true");
       currentCourse.replaceChildren(current);
       const ongoing = createHomeLanguageQuickSwitches(menu, ongoingHeading.id);
-      if (ongoing) ongoingScroll.replaceChildren(ongoing);
+      if (ongoing) ongoingScroll.replaceChildren(currentCourse, ongoing);
       else {
         const empty = document.createElement("p");
         empty.className = "home-language-ongoing-empty";
         empty.textContent = interfaceMessage("courseselector.ongoing.empty");
-        ongoingScroll.replaceChildren(empty);
+        ongoingScroll.replaceChildren(currentCourse, empty);
       }
     }
 
@@ -4128,8 +4141,10 @@
     }
 
     function showChoices({ focusReview = false } = {}) {
+      updateScreenBack(false);
       coursesStage.hidden = true;
       currentCourse.hidden = true;
+      ongoingHead.hidden = true;
       reviewStage.hidden = true;
       choiceStage.hidden = false;
       introduction.hidden = false;
@@ -4142,6 +4157,7 @@
     function showReview() {
       const selected = selectedCourseRecord();
       if (!selected || selected.id === course.id || !courseSelectorAvailable(selected)) return;
+      updateScreenBack(false);
       state.reviewOrigin = menu.dataset.courseSelectionStage === "courses" ? "courses" : "new-language";
       const targetName = interfaceLanguageName(selected.targetLanguage);
       reviewTitle.textContent = interfaceMessage("courseselector.review.title", { language: targetName });
@@ -4157,6 +4173,7 @@
       choiceStage.hidden = true;
       coursesStage.hidden = true;
       currentCourse.hidden = true;
+      ongoingHead.hidden = true;
       reviewStage.hidden = false;
       introduction.hidden = true;
       heading.textContent = interfaceMessage("courseselector.review.kicker");
@@ -4347,8 +4364,8 @@
       const kicker = document.createElement("span");
       kicker.className = "home-language-switch-kicker";
       kicker.textContent = record.status === "development"
-        ? interfaceMessage("courseselector.course.preview")
-        : interfaceMessage("courseselector.course.yours");
+        ? interfaceMessage("common.preview")
+        : "";
       const routeLabel = document.createElement("strong");
       const sourceName = interfaceLanguageName(record.sourceLanguage);
       const targetName = interfaceLanguageName(record.targetLanguage);
@@ -4357,19 +4374,25 @@
       effortLabel.className = "home-language-switch-effort";
       effortLabel.textContent = effortLabels.visible;
       effortLabel.setAttribute("title", effortLabels.exact);
-      copy.append(kicker, routeLabel, effortLabel);
+      const meta = document.createElement("span");
+      meta.className = "home-language-switch-meta";
+      meta.append(effortLabel);
+      if (kicker.textContent) meta.append(kicker);
+      copy.append(routeLabel, meta);
 
       const action = document.createElement("span");
       action.className = "home-language-switch-action";
-      const actionLabel = document.createElement("span");
-      actionLabel.textContent = available
-        ? interfaceMessage("courseselector.action.switch")
-        : interfaceMessage("common.browseronly");
+      action.setAttribute("aria-hidden", "true");
+      if (!available) {
+        const actionLabel = document.createElement("span");
+        actionLabel.textContent = interfaceMessage("common.browseronly");
+        action.append(actionLabel);
+      }
       const actionArrow = document.createElement("span");
       actionArrow.className = "home-language-switch-action-arrow";
       actionArrow.setAttribute("aria-hidden", "true");
       actionArrow.textContent = "›";
-      action.append(actionLabel, actionArrow);
+      if (available) action.append(actionArrow);
       button.append(createHomeLanguagePair(record), copy, action);
       button.dataset.languageEffort = effortLabels.visible;
       button.dataset.languageEffortExact = effortLabels.exact;

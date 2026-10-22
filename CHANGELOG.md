@@ -1,5 +1,17 @@
 # Changelog
 
+## Android 195 / 0.1.43
+
+- Simplify course selection into one scrolling list, with the active course
+  marked Current and other courses opened by tapping their rows.
+- Use a plain Close icon and one New language action above the list. Remove
+  repeated headings and Switch buttons, and soften the list with a tinted
+  background and rounded corners in both themes.
+- Preserve nested Back navigation, course-change confirmation and saved
+  progress, with refreshed offline assets for all eight courses.
+- Physical-device installation, update, offline use and saved-data preservation
+  remain unverified for this candidate. Course review status is unchanged.
+
 ## Android 194 / 0.1.42
 
 - Keep header rewards and the course flag beside the navigation controls at
