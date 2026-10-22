@@ -132,6 +132,48 @@
       "bytes": 3505405,
       "sha256": "7ffa2fdae522d65a9c80b24fb073dbc0b3bb00c67b3af425e6d69f8aed128629",
       "downloadUrl": "https://github.com/savethebeesandseeds/caatuu/releases/download/caatuu-android-v184/caatuu-184.apk"
+    },
+    {
+      "path": "android/releases/185/caatuu.apk",
+      "bytes": 3505658,
+      "sha256": "24f17bfa20ee9d5e2d0d6ab532a6e27e96e6b523836246c620f5e3c3ad2c441e",
+      "downloadUrl": "https://github.com/savethebeesandseeds/caatuu/releases/download/caatuu-android-v185/caatuu-185.apk"
+    },
+    {
+      "path": "android/releases/186/caatuu.apk",
+      "bytes": 3505642,
+      "sha256": "866ec6cf945475b4ccd09df0e5377a742da10b59a132ef99b82707df2a62699f",
+      "downloadUrl": "https://github.com/savethebeesandseeds/caatuu/releases/download/caatuu-android-v186/caatuu-186.apk"
+    },
+    {
+      "path": "android/releases/187/caatuu.apk",
+      "bytes": 3505642,
+      "sha256": "f2b8176792ddf829738fb9077cc4019e015878293819d6219ce19965110eda63",
+      "downloadUrl": "https://github.com/savethebeesandseeds/caatuu/releases/download/caatuu-android-v187/caatuu-187.apk"
+    },
+    {
+      "path": "android/releases/188/caatuu.apk",
+      "bytes": 3509738,
+      "sha256": "7b78582c94ea1eb2ca7e2c1aa2ebb2402b80cbe34091ea6ca567447b70f7cecd",
+      "downloadUrl": "https://github.com/savethebeesandseeds/caatuu/releases/download/caatuu-android-v188/caatuu-188.apk"
+    },
+    {
+      "path": "android/releases/189/caatuu.apk",
+      "bytes": 3513834,
+      "sha256": "a147bae060ece82d3770b8f67cabb17e01e0bc5fad9461a494ec65ed8b8a03d6",
+      "downloadUrl": "https://github.com/savethebeesandseeds/caatuu/releases/download/caatuu-android-v189/caatuu-189.apk"
+    },
+    {
+      "path": "android/releases/190/caatuu.apk",
+      "bytes": 3513834,
+      "sha256": "141e43e9ce9ba4ab0c687cebbf693b8654b37a15a8a6986f1f71eb8c247e7636",
+      "downloadUrl": "https://github.com/savethebeesandseeds/caatuu/releases/download/caatuu-android-v190/caatuu-190.apk"
+    },
+    {
+      "path": "android/releases/191/caatuu.apk",
+      "bytes": 3517930,
+      "sha256": "35dc20132122ea50d4526895531fcc54ae7a1dc89278bfab1a7affe56b24a41e",
+      "downloadUrl": "https://github.com/savethebeesandseeds/caatuu/releases/download/caatuu-android-v191/caatuu-191.apk"
     }
   ]
 }
