@@ -654,6 +654,27 @@
         "bytes": 107212800,
         "sha256": "f00408e622c721005e4a2ca3cff56e5f2278492a84962d130842eda72c9d9606"
       }
+    },
+    {
+      "versionCode": 195,
+      "versionName": "0.1.43",
+      "sourceRevision": "4878e23f03b8ae42d515fc08d2119abc334aed5e",
+      "manifest": {
+        "bytes": 1041,
+        "sha256": "d9b5a1104d9314c8e3193157d20f4d32d0725eecd400b55523da3f967ddd775f"
+      },
+      "apk": {
+        "bytes": 3522150,
+        "sha256": "707d2281d22adb74acf0ae12e6f3f4f8b887d8e4a757134eb8451663185d0963"
+      },
+      "receipt": {
+        "bytes": 1361,
+        "sha256": "71e1e6fb9351e7562e4bfd75c40f33fed77c5588d85e0fd0a948aced17c6ba00"
+      },
+      "setup": {
+        "bytes": 107212800,
+        "sha256": "f00408e622c721005e4a2ca3cff56e5f2278492a84962d130842eda72c9d9606"
+      }
     }
   ],
   "setupEntries": [
