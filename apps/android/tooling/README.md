@@ -176,6 +176,11 @@ WebView asset path. This avoids historical setup URLs whose bytes must remain
 frozen for older APKs. Archive, public-inventory and public-byte verification
 also read the APK's native embedding and dictionary catalogs, so these separate
 native downloads cannot escape the setup dependency checks.
+For retained APKs without an explicit embedding download override, the reader
+also accepts the historical course-relative manifest URL only when it names
+exactly the catalog-owned model file. Download transport still comes from the
+catalog, and basename, byte count and SHA-256 checks remain mandatory. New
+download projections and the artifact authoring contract remain strict.
 
 Bootstrap validation verifies downloads against these exact companion objects
 and the final APK setup catalogs. Only remaining external dependencies require

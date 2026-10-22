@@ -44,7 +44,14 @@ export function nativeProviderDownloadArtifacts(course, readAsset) {
     for (const model of catalog.models.filter(({ status }) => status === "active")) {
       const manifestPath = `${prefix}${referencePath(embedding.catalogAsset, model.manifest_file)}`;
       const manifest = readJson(manifestPath);
-      artifacts.push(receipt(embeddingStorageRecord(model, manifest, catalog.base_url, course.id,
+      // Older sealed APKs wrote this metadata URL relative to the course root.
+      // Accept only that exact spelling of the catalog-owned file. Transport
+      // still comes from the catalog; new explicit download projections remain strict.
+      const historicalCoursePath = referencePath(embedding.catalogAsset, model.model_file);
+      const contractManifest = !Object.hasOwn(model, "download_url") && manifest.url === historicalCoursePath
+        ? { ...manifest, url: model.model_file }
+        : manifest;
+      artifacts.push(receipt(embeddingStorageRecord(model, contractManifest, catalog.base_url, course.id,
         `${course.id} native embedding ${model.key}`), embedding.catalogAsset,
       { provider_catalog: embedding.catalogAsset, model_key: model.key }));
     }

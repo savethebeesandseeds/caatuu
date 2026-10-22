@@ -148,6 +148,40 @@ test("native provider receipt extraction includes active dictionaries and preser
   () => Buffer.from("{}")), /must belong to cz/u);
 });
 
+test("historical native manifests accept only the exact course-relative catalog file", () => {
+  const catalogPath = "courses/cz/data/embeddings/models.json";
+  const course = { id: "cz", assetPrefix: "courses/cz", nativeProviders: { providers: {
+    embeddings: { implementation: "vector-database-catalog-v1", catalogAsset: catalogPath },
+  } } };
+  const model = { key: "model-v1", status: "active", artifact_kind: "embedding-vector-db",
+    model_file: "model-v1/curriculum.sqlite", manifest_file: "model-v1/manifest.json",
+    bytes: 100, sha256: "b".repeat(64) };
+  const catalog = { base_url: `${origin}/cz/data/embeddings`, models: [model] };
+  const manifest = { file: "curriculum.sqlite", url: model.model_file,
+    bytes: model.bytes, sha256: model.sha256 };
+  const read = (value = manifest) => nativeProviderDownloadArtifacts(course, path => {
+    if (path === catalogPath) return Buffer.from(JSON.stringify(catalog));
+    assert.equal(path, "courses/cz/data/embeddings/model-v1/manifest.json");
+    return Buffer.from(JSON.stringify(value));
+  });
+  const current = read();
+  const historical = { ...manifest, url: `data/embeddings/${model.model_file}` };
+  assert.deepEqual(read(historical), current);
+  assert.equal(current[0].url, `${catalog.base_url}/${model.model_file}`);
+  assert.equal(current[0].asset_path, historical.url);
+  for (const url of ["data/other/model-v1/curriculum.sqlite", `courses/other/${historical.url}`,
+    `../${historical.url}`, `data/embeddings/./${model.model_file}`,
+    `${historical.url}?download=1`, `${catalog.base_url}/${model.model_file}`]) {
+    assert.throws(() => read({ ...manifest, url }), /manifest URL must equal/u, url);
+  }
+  assert.throws(() => read({ ...historical, file: "other.sqlite" }), /basename/u);
+  assert.throws(() => read({ ...historical, bytes: 101 }), /bytes must match/u);
+  assert.throws(() => read({ ...historical, sha256: "a".repeat(64) }), /SHA-256 must match/u);
+  model.download_url = `${origin}/assets/setup/${model.sha256}/curriculum.sqlite`;
+  assert.throws(() => read(historical), /manifest URL must equal/u);
+  assert.equal(read()[0].url, model.download_url);
+});
+
 test("setup archive is deterministic, inventory-exact, and preserves a previously sealed candidate", (t) => {
   const f = fixture(t), first = readFileSync(f.archive);
   packageSetupPayload({ workspaceRoot: f.workspaceRoot, inputDir: f.inputDir, output: f.archive });

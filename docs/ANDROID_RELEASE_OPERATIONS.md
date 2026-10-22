@@ -308,6 +308,16 @@ hosting limit, companion budgets and approved archive policy remain unchanged;
 no existing APK or setup object is removed to make this release fit. An APK
 that exceeds the new bound cannot be sealed for normal publication.
 
+Android 193 was then built, sealed and uploaded, but its first Pages run stopped
+before deployment while verifying retained APKs. Versions 161–164 encode the
+embedding manifest URL relative to the course root; the new native download
+reader had applied the current catalog-relative authoring contract to those
+sealed manifests. The reader now accepts only the exact equivalent historical
+course-relative spelling when no explicit download override exists. Transport
+still comes from the catalog, and file basename, byte count and SHA-256 checks
+remain strict. Regression coverage rejects other paths and changed identities.
+Retry receipt-only deployment of the existing 193 candidate; do not rebuild it.
+
 Android 192's focused source check measured 8,002,900 bootstrap bytes before
 any APK build or sealed candidate. Native provider catalogs, active embedding
 manifests and Android dependency metadata now use the existing lossless JSON
