@@ -1,11 +1,49 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { spawnSync } from "node:child_process";
+import { mkdtempSync, rmSync, truncateSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
+import { NEW_APK_RESERVE_BYTES } from "../pages-storage-policy.mjs";
 
 const publisher = await readFile(new URL("../publish-release.sh", import.meta.url), "utf8");
 const builder = await readFile(new URL("../build-release-aab.sh", import.meta.url), "utf8");
+
+test("only new signed APKs enforce the shared reservation before companion and candidate sealing", (t) => {
+  const copyUniversal = builder.indexOf('cp "$temporary_dir/universal/universal.apk" "$output_universal_apk"');
+  const guardStart = builder.indexOf('if [[ "$signed" == true ]]; then', copyUniversal);
+  const guardEnd = builder.indexOf("\nfi", guardStart) + "\nfi".length;
+  const guard = builder.slice(guardStart, guardEnd);
+  const reuseExit = builder.indexOf("exit 0", builder.indexOf('if [[ "$signed" == true && -f "$candidate_receipt" ]]'));
+  const companionSeal = builder.indexOf('start_phase "Seal downloadable setup payload"');
+  const captureAudit = builder.indexOf('release-candidate.mjs" capture-audit-input');
+  const candidateSeal = builder.indexOf('release-candidate.mjs" seal-existing');
+  assert.ok(reuseExit > 0 && copyUniversal > reuseExit && guardStart > copyUniversal);
+  assert.ok(guardEnd < companionSeal && companionSeal < captureAudit && captureAudit < candidateSeal);
+  assert.ok(guard.includes('"$repo_root/apps/android/tooling/pages-storage-policy.mjs"'));
+  assert.ok(guard.includes("assertNewApkFitsPagesReserve(statSync(process.argv[2]).size)"));
+  assert.doesNotMatch(guard, /(?:16|32)[_,]?000[_,]?000/u, "the bound comes from the shared storage policy");
+  const fixture = mkdtempSync(join(tmpdir(), "caatuu-apk-reserve-"));
+  t.after(() => rmSync(fixture, { recursive: true, force: true }));
+  const apk = join(fixture, "candidate.apk");
+  writeFileSync(apk, "");
+  const run = (signed, bytes) => {
+    truncateSync(apk, bytes);
+    return spawnSync("bash", ["-c", `set -euo pipefail\n${guard}\nprintf 'guard-complete'`], {
+      encoding: "utf8", env: { ...process.env, signed, output_universal_apk: apk,
+        repo_root: fileURLToPath(new URL("../../../../", import.meta.url)) },
+    });
+  };
+  const boundary = run("true", NEW_APK_RESERVE_BYTES);
+  assert.equal(boundary.status, 0, boundary.stderr);
+  const oversized = run("true", NEW_APK_RESERVE_BYTES + 1);
+  assert.notEqual(oversized.status, 0);
+  assert.equal(oversized.stdout, "", "a rejected new package cannot reach the next stage");
+  assert.equal(run("false", NEW_APK_RESERVE_BYTES + 1).status, 0,
+    "local unsigned inspection does not consume a publication reservation");
+});
 
 test("only explicit adoption accepts an existing setup companion and binds it to audit and receipt", () => {
   const script = fileURLToPath(new URL("../publish-release.sh", import.meta.url));

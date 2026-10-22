@@ -22,7 +22,7 @@ for (const release of descriptor.releases) {
     additions.push(...readSetupPayloadArchive(resolve(workspaceRoot, release.setup.sourcePath)).values());
   }
 }
-// Reserve the entire bounded companion plus two conservative 32 MB APK copies.
+// Reserve the bounded companion plus two APKs at the new-build size limit.
 // No product transforms or asset generation are repeated before Gradle.
 // The final overlay checks the actual complete output against the same cap.
 console.log(JSON.stringify(projectPagesCapacity({ inventory, additions,

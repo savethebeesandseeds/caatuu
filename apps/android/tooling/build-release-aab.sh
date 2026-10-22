@@ -300,6 +300,15 @@ if [[ ! -f "$temporary_dir/universal/universal.apk" ]]; then
   exit 1
 fi
 cp "$temporary_dir/universal/universal.apk" "$output_universal_apk"
+if [[ "$signed" == true ]]; then
+  # Enforce the same per-APK bound reserved by the metadata-only Pages check.
+  # Receipt reuse exits before building, so historical packages are unaffected.
+  node --input-type=module -e '
+    import { statSync } from "node:fs";
+    const { assertNewApkFitsPagesReserve } = await import(process.argv[1]);
+    assertNewApkFitsPagesReserve(statSync(process.argv[2]).size);
+  ' "$repo_root/apps/android/tooling/pages-storage-policy.mjs" "$output_universal_apk"
+fi
 if [[ "$signed" == false ]]; then
   inspection_certificate="$($apksigner_path verify --print-certs "$output_universal_apk")"
   if [[ "$inspection_certificate" != *"CN=Caatuu package inspection"* ]]; then

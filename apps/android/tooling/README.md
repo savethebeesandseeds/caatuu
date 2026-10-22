@@ -146,7 +146,8 @@ expensive build stage.
 
 Before Gradle, `pages-capacity-preflight.mjs` also projects the live inventory
 and pending sealed objects, applying `pages-storage-policy.json` and reserving
-the full companion budget plus two 32 MB APK copies. This is a metadata check,
+the full companion budget plus two 16 MB APK copies. Signed new builds enforce
+that same per-APK bound before sealing. This is a metadata check,
 without product transforms or a website build. The final overlay checks actual
 bytes against the unchanged 1 GB Pages cap. The approved policy archives only
 the Pages APK copies for versions 163–184, approved in two batches on 5 and

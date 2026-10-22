@@ -3,7 +3,16 @@ import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 
 export const PAGES_PAYLOAD_MAX_BYTES = 1_000_000_000;
-export const NEW_APK_RESERVE_BYTES = 32_000_000;
+export const NEW_APK_RESERVE_BYTES = 16_000_000;
+
+/** New signed APKs must fit the per-copy reservation made before Gradle. */
+export function assertNewApkFitsPagesReserve(bytes) {
+  assert.ok(Number.isSafeInteger(bytes) && bytes > 0,
+    "New APK byte count must be a positive safe integer");
+  assert.ok(bytes <= NEW_APK_RESERVE_BYTES,
+    `New signed APK ${bytes} exceeds the reserved ${NEW_APK_RESERVE_BYTES}-byte package limit`);
+  return bytes;
+}
 
 export function validatePagesStoragePolicy(value, descriptor) {
   assert.deepEqual(Object.keys(value).sort(), ["archivedApks", "schemaVersion"]);

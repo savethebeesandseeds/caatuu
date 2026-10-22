@@ -53,7 +53,9 @@ local checkpoint.
 The builder's metadata-only Pages capacity preflight runs before Gradle. It
 accounts for pending finalized releases, applies only the explicitly approved
 APK archive policy, and reserves the full 96 MB content companion, a separate
-32 MB native vector payload and two 32 MB APK copies. It does not repeat
+32 MB native vector payload and two 16 MB APK copies. New signed builds enforce
+that per-APK bound before sealing; historical receipts retain their exact bytes.
+It does not repeat
 product transforms or website builds. The final
 overlay still verifies its actual complete payload against the 1 GB limit.
 Insufficient headroom stops before an APK build; inspect the reported bytes
@@ -297,6 +299,14 @@ Receipt promotion reads the explicit static-text format from the sealed source
 compiler. Historical sources without that declaration retain their original
 HTML indentation; an unknown declared format fails rather than changing the
 expected bytes of an existing APK.
+
+The first 193 routine release then passed all 92 source checks but stopped
+before Gradle: the 32 MB allowance for each new APK projected 1,028,831,071
+Pages bytes. New signed builds now enforce a smaller 16 MB APK bound before
+sealing, and the metadata preflight reserves that same bound twice. The 1 GB
+hosting limit, companion budgets and approved archive policy remain unchanged;
+no existing APK or setup object is removed to make this release fit. An APK
+that exceeds the new bound cannot be sealed for normal publication.
 
 Android 192's focused source check measured 8,002,900 bootstrap bytes before
 any APK build or sealed candidate. Native provider catalogs, active embedding
