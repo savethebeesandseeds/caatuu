@@ -1753,7 +1753,7 @@
     listen(global, "pageshow", () => { pageHidden = false; syncActivity(); });
     syncActivity();
     const mounting = (async () => {
-      const { mountRobotLoadingScreen } = await import("/language-runtime/static/source/games/embedded-game-controls.mjs?v=embedded-game-controls-10");
+      const { mountRobotLoadingScreen } = await import("/language-runtime/static/source/games/embedded-game-controls.mjs?v=embedded-game-controls-11");
       if (disposed) return null;
       loadingScreen = mountRobotLoadingScreen({ container: interstitial,
         label: global.CaatuuI18n?.t?.("verbnebula.round.preparing") || "Preparing a Naturalization Nucleus round",

@@ -2,10 +2,28 @@ import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
-import { packageSourceReader, packagePublicationPlan } from "../package-source-contract.mjs";
-import { loadAndroidCourseBundleCatalogPlan } from "../build-product-assets.mjs";
+import { packageSourceReader, packagePublicationPlan, packageStaticTextFormat, packageCanonicalAppEntry } from "../package-source-contract.mjs";
+import { loadAndroidCourseBundleCatalogPlan, PRODUCT_STATIC_TEXT_FORMAT, transformIndex } from "../build-product-assets.mjs";
 
 const workspaceRoot = fileURLToPath(new URL("../../../../", import.meta.url));
+
+test("receipt source selects historical or compact HTML without accepting unknown formatting policies", () => {
+  const current = packageSourceReader(workspaceRoot);
+  const html = current("apps/language-runtime/static/app/index.html").toString("utf8");
+  const reader = (compiler) => (path) => path.endsWith("build-product-assets.mjs") ? Buffer.from(compiler) : current(path);
+  const legacy = reader("// Historical compiler with unmodified HTML indentation.\n");
+  const compact = reader(`export const PRODUCT_STATIC_TEXT_FORMAT = ${JSON.stringify(PRODUCT_STATIC_TEXT_FORMAT)};\n`);
+  assert.equal(packageStaticTextFormat(legacy), null);
+  assert.equal(packageCanonicalAppEntry(legacy).toString(), transformIndex(html, { compact: false }));
+  assert.equal(packageStaticTextFormat(compact), PRODUCT_STATIC_TEXT_FORMAT);
+  assert.equal(packageCanonicalAppEntry(compact).toString(), transformIndex(html));
+  assert.ok(packageCanonicalAppEntry(compact).length < packageCanonicalAppEntry(legacy).length);
+  for (const declaration of [
+    'export const PRODUCT_STATIC_TEXT_FORMAT = "unknown";',
+    'export const PRODUCT_STATIC_TEXT_FORMAT = getFormat();',
+    `export const PRODUCT_STATIC_TEXT_FORMAT = "${PRODUCT_STATIC_TEXT_FORMAT}";\nexport const PRODUCT_STATIC_TEXT_FORMAT = "${PRODUCT_STATIC_TEXT_FORMAT}";`,
+  ]) assert.throws(() => packageCanonicalAppEntry(reader(declaration)), /format/u);
+});
 
 test("source-only package projection matches the compiler publication plan", () => {
   assert.deepEqual(packagePublicationPlan(packageSourceReader(workspaceRoot)),

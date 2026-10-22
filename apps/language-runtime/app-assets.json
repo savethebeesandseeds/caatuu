@@ -635,6 +635,10 @@
       "output": "language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs"
     },
     {
+      "source": "apps/language-runtime/static/source/games/verb-nebula/verb-nebula-layout.mjs",
+      "output": "language-runtime/static/source/games/verb-nebula/verb-nebula-layout.mjs"
+    },
+    {
       "source": "apps/language-runtime/static/styles/caatuu-chrome.css",
       "output": "language-runtime/static/styles/caatuu-chrome.css"
     },

@@ -15,7 +15,8 @@ offline practice after their required assets have been downloaded; Android
 packages provide the native offline experience for their included courses.
 
 **[Open Caatuu](https://caatuu.waajacu.com/)** ·
-[Development guide](docs/DEVELOPMENT.md) · [Privacy notice](docs/PRIVACY.md)
+[Development guide](docs/DEVELOPMENT.md) ·
+[Expansion roadmap](docs/EXPANSION_ROADMAP.md) · [Privacy notice](docs/PRIVACY.md)
 
 ![Caatuu's current local landing page: Learn languages. Explore new worlds.](docs/assets/screenshots/caatuu-language-launcher.png)
 

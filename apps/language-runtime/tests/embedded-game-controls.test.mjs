@@ -384,6 +384,59 @@ test("settings close on their toggle, outside clicks, Escape, and destruction", 
   assert.equal(transitions.length, 10, "destroy removes toggle handlers and is idempotent");
 });
 
+test("outside pointer presses dismiss controls before a disabled answer can suppress its click", () => {
+  let answer;
+  const f = fixture({ onOpenChange: open => { if (answer) answer.disabled = open; } });
+  answer = f.frame.document.createElement("button");
+  f.frame.document.body.append(answer);
+  let accepted = 0;
+  answer.addEventListener("click", () => { accepted += 1; });
+  f.container.querySelectorAll(".caatuu-game-control-toggle")[1].click();
+  assert.equal(f.controller.isOpen(), true);
+  assert.equal(answer.disabled, true);
+  assert.equal(accepted, 0);
+  f.frame.document.dispatchEvent({ type: "pointerdown", target: answer });
+  assert.equal(f.controller.isOpen(), false);
+  assert.equal(answer.disabled, false, "the next answer tap can reach the resumed game");
+  answer.click();
+  assert.equal(accepted, 1);
+});
+
+test("ordinary outside pointer gestures keep controls paused until their click dismissal", () => {
+  const f = fixture();
+  const toggle = f.container.querySelectorAll(".caatuu-game-control-toggle")[1];
+  for (const document of [f.frame.document, f.shell.document]) {
+    for (const tagName of ["div", "button"]) {
+      const outside = document.createElement(tagName);
+      document.body.append(outside);
+      toggle.click();
+      assert.equal(f.controller.isOpen(), true);
+      document.dispatchEvent({ type: "pointerdown", target: outside });
+      assert.equal(f.controller.isOpen(), true, `${tagName} must not start a resumed gesture`);
+      document.dispatchEvent({ type: "pointerup", target: outside });
+      assert.equal(f.controller.isOpen(), true);
+      document.dispatchEvent({ type: "click", target: outside });
+      assert.equal(f.controller.isOpen(), false);
+    }
+  }
+  f.controller.destroy();
+});
+
+test("pointer presses inside a popover retain it, while the shell can dismiss it without a click", () => {
+  const f = fixture({ settings: true });
+  f.container.querySelectorAll(".caatuu-game-control-toggle")[2].click();
+  f.frame.document.dispatchEvent({ type: "pointerdown", target: f.settingsInput });
+  assert.equal(f.controller.isOpen(), true);
+  const outside = f.shell.document.createElement("button");
+  outside.disabled = true;
+  f.shell.document.body.append(outside);
+  f.shell.document.dispatchEvent({ type: "pointerdown", target: outside });
+  assert.equal(f.controller.isOpen(), false);
+  f.controller.destroy();
+  f.frame.document.dispatchEvent({ type: "pointerdown", target: outside });
+  assert.equal(f.controller.isOpen(), false);
+});
+
 test("existing layout-enabled games retain their display, layout, audio control order", () => {
   const { container, controller, settingsContent } = fixture();
   assert.deepEqual(container.querySelectorAll(".caatuu-game-control-toggle").map((toggle) => toggle.getAttribute("aria-label")), [

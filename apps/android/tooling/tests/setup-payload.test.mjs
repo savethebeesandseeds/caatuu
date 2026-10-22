@@ -8,6 +8,7 @@ import { packageSetupPayload, parseSetupPayloadArchive, readSetupPayloadArchive,
 import { sealCandidateReceipt, verifyCandidateReceipt } from "../release-candidate.mjs";
 import { advancePagesCurrentReleaseDescriptor, assertPagesReleaseHistoryPrefix, pagesCurrentReleaseDownloadPlan } from "../pages-current-release.mjs";
 import { verifyPublicSetupPayload } from "../verify-public-pages-release.mjs";
+import { nativeProviderDownloadArtifacts } from "../native-provider-downloads.mjs";
 
 const descriptor = JSON.parse(readFileSync(new URL("../pages-current-release.json", import.meta.url)));
 const version = descriptor.releases.at(-1).versionCode + 1;
@@ -49,12 +50,103 @@ function fixture(t) {
   const archive = join(workspaceRoot, "artifacts/android/release-candidates/setup.tar");
   const bundle = { $schema: "https://caatuu.org/schemas/android-course-bundle-runtime.v1.schema.json", schemaVersion: 1, defaultCourseId: "cz", courses: [{ id: "cz", assetPrefix: "courses/cz" }] };
   const setup = { artifacts: artifacts.map((record, index) => ({ key: `payload-${index}`, url: `/${record.path}`, asset_path: record.assetPath.replace(/^courses\/cz\//u, ""), native_required: true, bytes: record.bytes, sha256: record.sha256 })) };
-  const apkBytes = () => zip([["assets/caatuu-course-bundle.json", JSON.stringify(bundle)], ["assets/courses/cz/setup-assets.json", JSON.stringify(setup)]]);
+  const nativeMetadata = new Map();
+  const apkBytes = () => zip([["assets/caatuu-course-bundle.json", JSON.stringify(bundle)], ["assets/courses/cz/setup-assets.json", JSON.stringify(setup)], ...nativeMetadata]);
   const apk = join(workspaceRoot, "artifacts/android/candidate.apk");
   packageSetupPayload({ workspaceRoot, inputDir, output: archive });
   writeFileSync(apk, apkBytes());
-  return { workspaceRoot, inputDir, archive, artifacts, content, bundle, setup, apk, apkBytes };
+  return { workspaceRoot, inputDir, archive, artifacts, content, bundle, setup, nativeMetadata, apk, apkBytes };
 }
+
+function vectorFixture(t) {
+  const f = fixture(t);
+  const bytes = Buffer.from("current reviewed vector database"), identity = digest(bytes);
+  const assetPath = "courses/cz/data/embeddings/model-v1/curriculum.sqlite";
+  const record = { path: `assets/setup/${identity.sha256}/curriculum.sqlite`,
+    file: `objects/${identity.sha256}/curriculum.sqlite`, assetPath, ...identity };
+  const catalogPath = "courses/cz/data/embeddings/models.json";
+  const model = { key: "model-v1", status: "active", artifact_kind: "embedding-vector-db",
+    model_file: "model-v1/curriculum.sqlite", manifest_file: "model-v1/manifest.json",
+    download_url: `${origin}/${record.path}`, ...identity };
+  const catalog = { base_url: `${origin}/cz/data/embeddings`, models: [model] };
+  const manifest = { file: "curriculum.sqlite", url: model.model_file, ...identity };
+  f.bundle.courses[0].nativeProviders = { providers: {
+    embeddings: { implementation: "vector-database-catalog-v1", catalogAsset: catalogPath },
+  } };
+  const refreshApk = () => {
+    f.nativeMetadata.set(`assets/${catalogPath}`, JSON.stringify(catalog));
+    f.nativeMetadata.set("assets/courses/cz/data/embeddings/model-v1/manifest.json", JSON.stringify(manifest));
+    writeFileSync(f.apk, f.apkBytes());
+  };
+  // This browser receipt does not describe the native manager's download.
+  f.setup.artifacts.push({ key: "embedding-sqlite", native_required: false,
+    url: `${catalog.base_url}/${model.model_file}`, asset_path: `data/embeddings/${model.model_file}`, ...identity });
+  f.artifacts.push(record); f.content.set(record.path, bytes);
+  mkdirSync(dirname(join(f.inputDir, record.file)), { recursive: true });
+  writeFileSync(join(f.inputDir, record.file), bytes);
+  writeFileSync(join(f.inputDir, "caatuu-setup-payload.json"), JSON.stringify({ schemaVersion: 1, artifacts: f.artifacts }));
+  f.archive = join(f.workspaceRoot, "artifacts/android/release-candidates/setup-native.tar");
+  packageSetupPayload({ workspaceRoot: f.workspaceRoot, inputDir: f.inputDir, output: f.archive });
+  refreshApk();
+  return { ...f, record, model, catalog, refreshApk };
+}
+
+test("sealed payload reachability includes native vector catalogs independently of browser setup flags", (t) => {
+  const f = vectorFixture(t);
+  const payload = readSetupPayloadArchive(f.archive);
+  assert.equal(validateSetupPayloadForApk(f.apk, payload).size, 3);
+  const missing = new Map(payload); missing.delete(f.record.path);
+  assert.throws(() => validateSetupPayloadForApk(f.apk, missing), /missing from sealed payload/u);
+  const wrongSize = new Map(payload);
+  wrongSize.set(f.record.path, { ...payload.get(f.record.path), bytes: f.record.bytes + 1 });
+  assert.throws(() => validateSetupPayloadForApk(f.apk, wrongSize), /byte count differs/u);
+  const wrongHash = new Map(payload);
+  wrongHash.set(f.record.path, { ...payload.get(f.record.path), sha256: "0".repeat(64) });
+  assert.throws(() => validateSetupPayloadForApk(f.apk, wrongHash), /hash differs/u);
+  const wrongPath = new Map(payload);
+  wrongPath.set(f.record.path, { ...payload.get(f.record.path), assetPaths: ["courses/cz/data/other.sqlite"] });
+  assert.throws(() => validateSetupPayloadForApk(f.apk, wrongPath), /logical path differs/u);
+});
+
+test("public verification checks native vector downloads even when their browser receipt is not native-required", async (t) => {
+  const f = vectorFixture(t);
+  const bundle = { files: f.artifacts.map(({ path, bytes, sha256 }) => ({ path, bytes, sha256 })) };
+  const calls = [];
+  const request = async (_origin, path, _options, consume) => {
+    calls.push(path); return consume(new Response(f.content.get(path.slice(1))));
+  };
+  assert.equal(await verifyPublicSetupPayload({ apkBytes: f.apkBytes(), bundle, request, origin }), 3);
+  assert.ok(calls.includes(`/${f.record.path}`));
+  const missing = { files: bundle.files.filter(({ path }) => path !== f.record.path) };
+  await assert.rejects(verifyPublicSetupPayload({ apkBytes: f.apkBytes(), bundle: missing, request, origin }), /inventory/u);
+  f.content.set(f.record.path, Buffer.alloc(f.record.bytes, 65));
+  await assert.rejects(verifyPublicSetupPayload({ apkBytes: f.apkBytes(), bundle, request, origin }), /SHA-256 changed/u);
+  delete f.model.download_url; f.refreshApk();
+  const legacyPath = `cz/data/embeddings/${f.model.model_file}`;
+  const stale = { files: [...bundle.files, { path: legacyPath, bytes: f.record.bytes + 100, sha256: "f".repeat(64) }] };
+  await assert.rejects(verifyPublicSetupPayload({ apkBytes: f.apkBytes(), bundle: stale, request, origin }), /inventory/u);
+});
+
+test("native provider receipt extraction includes active dictionaries and preserves historical bundles", () => {
+  assert.deepEqual(nativeProviderDownloadArtifacts({ id: "legacy" }, () => assert.fail("No native metadata expected")), []);
+  const course = { id: "cz", assetPrefix: "courses/cz", targetLanguage: { id: "cs" },
+    nativeProviders: { providers: { dictionary: { catalogAsset: "courses/cz/data/dictionaries/catalog.json" } } } };
+  const dictionary = { key: "dictionary-v1", label: "Czech dictionary", status: "active",
+    artifact_kind: "dictionary-database", direction: "cs-en", database_file: "dictionary-v1/words.sqlite",
+    download_url: `${origin}/cz/data/dictionaries/dictionary-v1/words.sqlite`, bytes: 100, sha256: "b".repeat(64) };
+  const paths = [];
+  const receipts = nativeProviderDownloadArtifacts(course, path => {
+    paths.push(path); return Buffer.from(JSON.stringify({ dictionaries: [dictionary, { status: "retired" }] }));
+  });
+  assert.deepEqual(paths, ["courses/cz/data/dictionaries/catalog.json"]);
+  assert.equal(receipts.length, 1);
+  assert.equal(receipts[0].asset_path, "data/dictionaries/dictionary-v1/words.sqlite");
+  assert.equal(receipts[0].url, dictionary.download_url);
+  assert.equal(receipts[0].native_required, true);
+  assert.throws(() => nativeProviderDownloadArtifacts({ ...course,
+    nativeProviders: { providers: { dictionary: { catalogAsset: "courses/other/catalog.json" } } } },
+  () => Buffer.from("{}")), /must belong to cz/u);
+});
 
 test("setup archive is deterministic, inventory-exact, and preserves a previously sealed candidate", (t) => {
   const f = fixture(t), first = readFileSync(f.archive);

@@ -294,6 +294,7 @@ function assertReady(harness) {
   assert.equal(harness.document.body.classList.contains("app-starting"), false);
   assert.equal(harness.document.body.classList.contains("setup-blocked"), false);
   assert.equal(harness.card.classList.contains("is-ready"), true);
+  assert.equal(harness.card.hidden, true, "completed setup leaves the normal Home uncluttered");
   assert.equal(harness.document.getElementById("setupTitle").textContent, englishInterfaceContent.t("setup.readytitle"));
   assert.equal(harness.document.querySelector('#setupArtifacts [data-kind="app-controls"]').dataset.ready, "true");
   assert.equal(harness.nav.hasAttribute("inert"), false);
@@ -425,6 +426,7 @@ test("Android's model-free profile leaves readiness and details with its setup p
   const details = document.getElementById("setupDetails");
   const toggle = document.getElementById("setupDetailsToggle");
   assert.equal(card.classList.contains("is-ready"), false, "shell initialization cannot announce native setup readiness");
+  assert.equal(card.hidden, false, "required native setup stays visible until content is verified");
   assert.equal(document.body.classList.contains("setup-blocked"), true);
   assert.equal(games.getAttribute("aria-disabled"), "true");
   assert.equal(document.getElementById("setupProgress").hidden, false);
@@ -434,6 +436,7 @@ test("Android's model-free profile leaves readiness and details with its setup p
   nativeSetup.resolve({ ready: true, staticAssets: { assets: [{ key: "course", ready: true, bytes: 1 }] } });
   await flush();
   assert.equal(card.classList.contains("is-ready"), true);
+  assert.equal(card.hidden, true, "completed native setup is absent from Home");
   assert.equal(document.body.classList.contains("setup-blocked"), false);
   assert.equal(games.hasAttribute("aria-disabled"), false);
   assert.equal(nav.dataset.setupLocked, "false");

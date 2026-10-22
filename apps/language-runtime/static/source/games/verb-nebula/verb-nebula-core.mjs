@@ -1,5 +1,6 @@
 import { normalizeContentProgression, matchesContentDifficulty } from "../content-progression.mjs";
 export { selectContentItems, newContentEncounterId } from "../adaptive-practice.mjs";
+export { fitVerbMatchLabels } from "./verb-nebula-layout.mjs";
 export const VERB_NEBULA_PAIR_COUNTS = Object.freeze([2, 4, 6, 8]);
 
 const verbKindPattern = /^V(?:\s|$)/u;

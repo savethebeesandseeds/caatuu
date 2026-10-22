@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { PRODUCT_SETUP_PAYLOAD_MAX_BYTES } from "./product-delivery.mjs";
+import { PRODUCT_SETUP_PAYLOAD_MAX_BYTES, PRODUCT_NATIVE_VECTOR_PAYLOAD_MAX_BYTES } from "./product-delivery.mjs";
 import { assertPublicSetupDependencies } from "./android-artifact-contract.mjs";
 import { validatePagesCurrentReleaseDescriptor } from "./pages-current-release.mjs";
 import { readSetupPayloadArchive } from "./setup-payload.mjs";
@@ -27,4 +27,4 @@ for (const release of descriptor.releases) {
 // The final overlay checks the actual complete output against the same cap.
 console.log(JSON.stringify(projectPagesCapacity({ inventory, additions,
   archivedApks: readPagesStoragePolicy(descriptor), apkReserveBytes: 2 * NEW_APK_RESERVE_BYTES,
-  setupReserveBytes: PRODUCT_SETUP_PAYLOAD_MAX_BYTES })));
+  setupReserveBytes: PRODUCT_SETUP_PAYLOAD_MAX_BYTES + PRODUCT_NATIVE_VECTOR_PAYLOAD_MAX_BYTES })));

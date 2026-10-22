@@ -127,8 +127,14 @@ packaged interface catalogs, and the Android course-bundle catalog are compact.
 This preserves their complete metadata and messages while keeping the
 catalog-derived course bundle inside its unchanged 8 MB
 asset budget without omitting download receipts or moving Home into setup.
-The complete eight-course companion has a bounded 96 MB content budget; each
-device still downloads shared assets and only its selected course content.
+Packaged HTML and CSS also omit formatting indentation through the shared
+compiler projection. Protected text, quoted values, comments and escapes stay
+intact; staged validation and signed-package auditing use the same projection.
+Receipt audits select this formatting policy from the sealed source compiler;
+older source without the declaration keeps its original HTML projection.
+The complete eight-course companion has a bounded 96 MB content budget plus
+a separate 32 MB native vector-database budget; each device still downloads
+shared assets and only its selected course content.
 Release preflight scans the learner content of every Android-enabled course
 before Gradle, using the same extractors and rules as the final compiler.
 It also checks the fallback course chooser and shared language-selector flag
@@ -161,6 +167,14 @@ sha256}` for every removed logical asset. Public `path` is
 `assets/setup/<sha256>/<filename>` and archive `file` is
 `objects/<sha256>/<filename>`. The payload contains transformed production
 bytes; it never re-reads a newer checkout at deployment time.
+
+Native vector databases join that sealed payload without entering the APK or
+the static asset manager. The compiler pins each active model's `download_url`
+to its exact content-addressed object and keeps `model_file` as the logical
+WebView asset path. This avoids historical setup URLs whose bytes must remain
+frozen for older APKs. Archive, public-inventory and public-byte verification
+also read the APK's native embedding and dictionary catalogs, so these separate
+native downloads cannot escape the setup dependency checks.
 
 Bootstrap validation verifies downloads against these exact companion objects
 and the final APK setup catalogs. Only remaining external dependencies require

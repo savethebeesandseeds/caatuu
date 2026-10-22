@@ -5912,6 +5912,12 @@ html[data-theme] .verb-match-control-cluster > .theme-toggle:focus-visible {
 
 .verb-match-card-row > .verb-match-card {
   grid-column: 2;
+  grid-row: 1;
+}
+
+.verb-match-card-row > .verb-match-hint-slot {
+  grid-column: 1;
+  grid-row: 1;
 }
 
 .verb-match-card-row:has(.verb-match-hint-slot[hidden]) > .verb-match-card {
@@ -6003,7 +6009,8 @@ html[data-theme] .verb-match-control-cluster > .theme-toggle:focus-visible {
   font-size: clamp(1rem, 2.35vw, 1.18rem);
   font-weight: 500;
   line-height: 1.18;
-  overflow-wrap: anywhere;
+  overflow-wrap: normal;
+  zoom: var(--verb-label-scale, 1);
 }
 
 .verb-match-hint-slot {
@@ -6392,30 +6399,8 @@ html[data-theme="dark"] .verb-match-board {
 
   .verb-match-board {
     --verb-hint-size: 82px;
-  }
-
-  /* Whole-word reading guides need the target column's full width. Keep
-     picture clues above their cards instead of squeezing them beside text. */
-  body:is([data-target-script^="Geor"], [data-target-script^="Arab"]) .verb-match-board {
-    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-    column-gap: 16px;
-  }
-
-  body:is([data-target-script^="Geor"], [data-target-script^="Arab"]) .verb-match-column-heading-cz {
-    padding-inline-start: 5px;
-  }
-
-  body:is([data-target-script^="Geor"], [data-target-script^="Arab"]) .verb-match-card-row-cz {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  body:is([data-target-script^="Geor"], [data-target-script^="Arab"]) .verb-match-card-row-cz > .verb-match-hint-slot {
-    justify-self: center;
-  }
-
-  body:is([data-target-script^="Geor"], [data-target-script^="Arab"]) .verb-match-card-row-cz > .verb-match-card {
-    grid-column: 1;
-    overflow: visible;
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    column-gap: clamp(16px, 3vw, 24px);
   }
 
   .verb-match-card {
@@ -6442,15 +6427,10 @@ html[data-theme="dark"] .verb-match-board {
   }
 
   .verb-match-board {
-    --verb-hint-size: 76px;
+    --verb-hint-size: clamp(32px, 11vw, 48px);
     row-gap: 6px;
-    column-gap: clamp(30px, 8vw, 40px);
-    padding: 7px;
-  }
-
-  body[data-target-script^="Han"] .verb-match-board {
-    --verb-hint-size: 48px;
     column-gap: 16px;
+    padding: 7px;
   }
 
   .verb-match-control-cluster {

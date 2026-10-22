@@ -60,7 +60,7 @@ function setShellRobotLoading(container, visible, label) {
   if (!entry) {
     entry = { container, screen: null, retired: false };
     shellRobotScreens.set(container, entry);
-    shellRobotModulePromise ||= import("/language-runtime/static/source/games/embedded-game-controls.mjs?v=embedded-game-controls-10");
+    shellRobotModulePromise ||= import("/language-runtime/static/source/games/embedded-game-controls.mjs?v=embedded-game-controls-11");
     void shellRobotModulePromise.then(({ mountRobotLoadingScreen }) => {
       if (entry.retired || !container.isConnected) return;
       entry.screen = mountRobotLoadingScreen({
@@ -453,7 +453,7 @@ async function loadContentData() {
 
   if (verbsEnabled) {
     [verbNebulaCore, verbExerciseFamilyCore, childFacingAssets] = await Promise.all([
-      import("/language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs?v=verb-nebula-core-16"),
+      import("/language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs?v=verb-nebula-core-17"),
       import("/language-runtime/static/source/games/verb-nebula/verb-exercise-family-core.mjs?v=verb-exercise-family-core-3"),
       import("/language-runtime/static/source/child-facing-assets.mjs?v=child-facing-assets-2")
     ]);
@@ -462,6 +462,7 @@ async function loadContentData() {
       verbReadingGuide = createTargetReadingGuide({
         course, gameId: "verb-lab", document, storage: window.localStorage,
         onChange() {
+          fitVerbMatchLayout();
           if (state.verbSolutionRevealed) renderVerbSolutionArrows();
         }
       });
@@ -490,6 +491,8 @@ const state = {
   campaignHandoffPending: false,
   campaignTransitionId: 0,
   campaignContinueResult: null,
+  languageReviewOpen: false,
+  shellReviewOpen: false,
   verbDifficulty: 1,
   verbPairs: [],
   verbQueueIds: [],
@@ -1089,6 +1092,7 @@ function openSettingsPanel() {
   lastAppSettingsTrigger = document.activeElement;
   panel.hidden = false;
   document.body.classList.add("settings-open");
+  syncShellReviewVisibility();
   window.CaatuuChrome?.setSettingsNavActive?.(true);
   syncThemeControls();
   if (courseUsesModels()) syncGenerationSettingsUi();
@@ -1100,6 +1104,7 @@ function closeSettingsPanel({ restoreFocus = true } = {}) {
   if (!panel) return;
   panel.hidden = true;
   document.body.classList.remove("settings-open");
+  syncShellReviewVisibility();
   window.CaatuuChrome?.setSettingsNavActive?.(false);
   if (restoreFocus && lastAppSettingsTrigger && typeof lastAppSettingsTrigger.focus === "function") {
     lastAppSettingsTrigger.focus();
@@ -2269,6 +2274,7 @@ function changeVerbTargetTextPreference(event) {
     const copy = card.querySelector(".verb-match-card-copy");
     if (pair && copy) renderVerbTargetTextCopy(copy, pair);
   });
+  fitVerbMatchLayout();
   if (state.verbSolutionRevealed) renderVerbSolutionArrows();
 }
 
@@ -2336,6 +2342,7 @@ function renderVerbDisplayControls() {
     button.classList.toggle("is-active", selected);
     button.setAttribute("aria-pressed", String(selected));
   });
+  fitVerbMatchLayout();
 }
 
 async function refreshVerbAudioVoiceControls() {
@@ -2495,11 +2502,7 @@ function createVerbMatchCard(pair, side) {
   button.className = `verb-match-card verb-match-card-${side}`;
   button.dataset.verbId = pair.id;
   button.dataset.verbSide = side;
-  button.disabled = matched
-    || state.verbRoundTransitioning
-    || state.verbSolutionRevealed
-    || verbGuidedInteractionLocked()
-    || (verbGuidedTargetPending() && side === "cz" && pair.id !== state.verbGuidedTargetId);
+  button.disabled = verbMatchCardDisabled(pair.id, side);
   button.setAttribute("aria-pressed", String(selected));
   button.classList.toggle("is-selected", selected);
   button.classList.toggle("is-matched", matched);
@@ -2527,6 +2530,13 @@ function createVerbMatchCard(pair, side) {
     return row;
   }
   return button;
+}
+
+function verbMatchCardDisabled(pairId, side) {
+  return state.languageReviewOpen || state.shellReviewOpen || state.verbMatchedIds.has(pairId)
+    || state.verbRoundTransitioning || state.verbSolutionRevealed
+    || verbGuidedInteractionLocked()
+    || (verbGuidedTargetPending() && side === "cz" && pairId !== state.verbGuidedTargetId);
 }
 
 function verbMatchCardForId(column, pairId) {
@@ -2691,6 +2701,10 @@ function trackVerbGuidedOperation(operation) {
 }
 
 
+function fitVerbMatchLayout() {
+  verbNebulaCore?.fitVerbMatchLabels?.($("#verbMeaningBoard"));
+}
+
 function renderVerbNebula() {
   if (!courseGameAvailable("verb-lab")) return;
   const panel = $("#trainPanelVerbLab");
@@ -2721,6 +2735,7 @@ function renderVerbNebula() {
   renderVerbHintButton();
   renderVerbGuidedStatus();
   renderVerbRoundInterstitial();
+  fitVerbMatchLayout();
   renderVerbSolutionArrows();
   renderVerbReviewContinuation();
   if (state.verbHintsEnabled && state.verbRound.length && !state.verbHintById.size) {
@@ -2769,7 +2784,9 @@ function hasPracticeReviewMenu(root) {
 }
 
 function practiceReviewMenusOpen(gameId) {
-  return Boolean(document.querySelector('#settingsPanel:not([hidden]), .home-menu-backdrop:not([hidden]), .games-menu-backdrop:not([hidden])')
+  return Boolean(state.languageReviewOpen || state.shellReviewOpen
+    || [...document.querySelectorAll('#settingsPanel:not([hidden]), [data-caatuu-settings-panel]:not([hidden]), .home-menu-backdrop:not([hidden]), .games-menu-backdrop:not([hidden]), [data-caatuu-bottom-dock][data-open-menu]')]
+      .some(menu => !menu.closest("[hidden]"))
     || hasPracticeReviewMenu(document.querySelector(`[data-train-panel="${gameId}"]`)));
 }
 
@@ -3141,7 +3158,7 @@ async function settleVerbMatch() {
 
 function chooseVerbMatchCard(event) {
   const card = event.target.closest("button[data-verb-side][data-verb-id]");
-  if (event.defaultPrevented || !card || card.disabled || state.verbWrongTimer
+  if (event.defaultPrevented || !card || card.disabled || state.verbWrongTimer || state.languageReviewOpen || state.shellReviewOpen
     || state.activeView !== "verbs" || state.trainTab !== "verb-lab"
     || document.hidden || document.visibilityState === "hidden" || window.CaatuuGameDynamics?.active
     || state.verbRoundTransitioning || state.campaignTransitioning || state.verbGuidedEvidencePending
@@ -3603,8 +3620,10 @@ function bindVerbNebulaControls() {
     void trackVerbGuidedOperation(toggleVerbSolution);
   });
   window.addEventListener("resize", () => {
+    fitVerbMatchLayout();
     if (state.verbSolutionRevealed) renderVerbSolutionArrows();
   });
+  document.fonts?.ready.then(() => fitVerbMatchLayout());
   document.addEventListener("visibilitychange", () => {
     if (document.visibilityState === "hidden") {
       cancelVerbTapSpeech();
@@ -4613,7 +4632,9 @@ function syncActiveGameVisibility() {
   const selectedTab = state.activeView === "verbs" ? state.trainTab : "";
   window.CaatuuGameDynamics?.setActive?.(Boolean(selectedTab && !["galaxy", "campaign"].includes(selectedTab)));
   window.CaatuuCampaignRoadmap?.show?.(selectedTab === "campaign");
-  const activeTab = window.CaatuuGameDynamics?.active || state.campaignHandoffPending ? "" : selectedTab;
+  const paused = Boolean(window.CaatuuGameDynamics?.active || state.campaignHandoffPending || state.languageReviewOpen || state.shellReviewOpen);
+  document.body.toggleAttribute("data-caatuu-practice-paused", paused);
+  const activeTab = paused ? "" : selectedTab;
   if (activeTab !== "verb-lab") cancelVerbTapSpeech();
   document.body.classList.toggle("word-net-active", selectedTab === "word-net");
   document.body.classList.toggle("embedded-game-active", selectedTab === "word-net" || Object.hasOwn(embeddedGameTabs, selectedTab));
@@ -4621,6 +4642,31 @@ function syncActiveGameVisibility() {
   syncEmbeddedGameVisibility(activeTab);
   syncShellRobotLoading();
   verbReviewContinuation?.sync();
+}
+
+function languageReviewIsOpen() {
+  return [...document.querySelectorAll('.header-language-menu:not([hidden]), [data-language-selector-menu][open]')]
+    .some(menu => !menu.closest("[hidden]"));
+}
+
+function shellReviewIsOpen() {
+  return [...document.querySelectorAll('#settingsPanel:not([hidden]), [data-caatuu-settings-panel]:not([hidden]), .home-menu-backdrop:not([hidden]), .games-menu-backdrop:not([hidden]), [data-caatuu-bottom-dock][data-open-menu]')]
+    .some(menu => !menu.closest("[hidden]"));
+}
+
+function syncShellReviewVisibility() {
+  state.languageReviewOpen = languageReviewIsOpen();
+  state.shellReviewOpen = shellReviewIsOpen();
+  syncActiveGameVisibility();
+  // Preserve node identity so a pointer dismissal can enable its original
+  // target before the matching pointerup/click arrives.
+  document.querySelectorAll("button[data-verb-side][data-verb-id]").forEach(button => {
+    button.disabled = verbMatchCardDisabled(button.dataset.verbId, button.dataset.verbSide);
+  });
+}
+
+function syncLanguageReviewVisibility() {
+  syncShellReviewVisibility();
 }
 
 function syncEmbeddedWordNetVisibility(active) {
@@ -4700,6 +4746,7 @@ function prepareEmbeddedGameDocument(frame) {
     body.caatuu-embedded-shell > .app-shell > .app-header,
     body.caatuu-embedded-shell > .app-bottom-dock,
     body.caatuu-embedded-shell > [data-caatuu-bottom-dock],
+    body.caatuu-embedded-shell > #appFreshnessNotice,
     body.caatuu-embedded-shell > #gamesMenuPanel,
     body.caatuu-embedded-shell > #settingsPanel { display: none !important; }
     body.caatuu-embedded-shell > .app-shell {
@@ -4732,7 +4779,7 @@ function syncEmbeddedGameVisibility(activeTab) {
       source: "caatuu-app-shell",
       type: "visibility",
       active: state.activeView === "verbs" && activeTab === gameId
-        && !state.campaignHandoffPending && !window.CaatuuGameDynamics?.active,
+        && !state.campaignHandoffPending && !state.languageReviewOpen && !state.shellReviewOpen && !window.CaatuuGameDynamics?.active,
       theme: document.documentElement.dataset.theme || "light",
       fontSize: document.documentElement.dataset.fontSize || "largest"
     }, window.location.origin);
@@ -4945,6 +4992,9 @@ async function startCampaign() {
   }
 
   state.campaignTransitioning = true;
+  // Initial loading owns attention just like a later Campaign handoff. Keep
+  // the first game's input and timers suspended until its cover can leave.
+  state.campaignHandoffPending = true;
   const transitionId = state.campaignTransitionId + 1;
   state.campaignTransitionId = transitionId;
   setTrainTab(firstGameId);
@@ -4957,7 +5007,9 @@ async function startCampaign() {
       || transitionId !== state.campaignTransitionId || !state.campaignActive) return;
 
   state.campaignTransitioning = false;
+  state.campaignHandoffPending = false;
   hideCampaignTransition();
+  syncActiveGameVisibility();
 }
 
 function stopCampaign() {
@@ -5237,6 +5289,8 @@ async function init() {
     if (courseUsesModels()) {
       syncGenerationSettingsUi();
     }
+    state.languageReviewOpen = languageReviewIsOpen();
+    state.shellReviewOpen = shellReviewIsOpen();
     setInitialViewFromLocation();
     render();
     return Object.freeze({ ready: true });
@@ -5249,6 +5303,9 @@ async function init() {
 function registerServiceWorker() {
   window.CaatuuRuntime?.registerServiceWorker?.().catch(() => {});
 }
+
+window.addEventListener("caatuu:language-menu-change", syncLanguageReviewVisibility);
+window.addEventListener("caatuu:shell-overlay-change", syncShellReviewVisibility);
 
 window.CaatuuWorkspaceShell = Object.freeze({
   setView,

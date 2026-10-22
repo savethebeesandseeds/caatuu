@@ -218,6 +218,76 @@ async function mountGame({ language = "mandarin-simplified", muted = true, voice
     setVoiceState(value) { voices = value; }, setSpeechResult(value) { audioResult = value; } };
 }
 
+test("a heard question restores eligible answer buttons after document visibility returns", async () => {
+  const game = await mountGame();
+  await game.listen();
+  const missed = game.choices().find(button => button.dataset.choiceId !== game.current().id);
+  game.click(missed);
+  game.parent.document.visibilityState = "hidden";
+  game.parent.document.dispatchEvent({ type: "visibilitychange" });
+  assert.ok(game.choices().every(button => button.disabled));
+  game.parent.document.visibilityState = "visible";
+  game.parent.document.dispatchEvent({ type: "visibilitychange" });
+  assert.equal(missed.disabled, true, "a prior wrong choice stays unavailable");
+  assert.equal(game.choice(game.current().id).disabled, false, "the heard question remains answerable");
+  game.click(game.choice(game.current().id));
+  assert.equal(game.records.length, 2);
+  assert.equal(game.records.at(-1)[1].successes, 1);
+  game.controller.destroy();
+});
+
+test("a voice refresh during reporting cannot leave a heard question disabled after cancel", async () => {
+  const game = await mountGame();
+  await game.listen();
+  game.click(game.element("Report"));
+  game.shell.dispatchEvent({ type: "caatuu:speech-voices-refresh" });
+  await settle();
+  assert.ok(game.choices().every(button => button.disabled));
+  game.click(game.element("ReportCancel"));
+  assert.equal(game.choice(game.current().id).disabled, false);
+  game.click(game.choice(game.current().id));
+  assert.equal(game.records.length, 1);
+  assert.equal(game.records[0][1].successes, 1);
+  game.controller.destroy();
+});
+
+for (const resumeFrom of ["inactive panel", "persisted pagehide"]) {
+  test(`a heard question resumes after ${resumeFrom} without waiting for a voice probe`, async () => {
+    const game = await mountGame();
+    await game.listen();
+    const pendingVoice = deferred();
+    game.shell.CaatuuChrome.getSpeechVoiceControlState = () => pendingVoice.promise;
+    if (resumeFrom === "inactive panel") {
+      for (const active of [false, true]) game.window.dispatchEvent({ type: "message", origin: "https://caatuu.test", source: game.shell,
+        data: { source: "caatuu-app-shell", type: "visibility", active } });
+    } else {
+      game.window.dispatchEvent({ type: "pagehide", persisted: true });
+      game.window.dispatchEvent({ type: "pageshow", persisted: true });
+    }
+    assert.equal(game.choice(game.current().id).disabled, false, "completed listening already authorizes choosing");
+    game.click(game.choice(game.current().id));
+    assert.equal(game.records.length, 1);
+    assert.equal(game.records[0][1].successes, 1);
+    pendingVoice.resolve({ available: false });
+    await settle();
+    assert.ok(game.choices().every(button => button.disabled), "a late probe cannot reopen a resolved answer");
+    game.controller.destroy();
+  });
+}
+
+test("returning to an unheard question keeps its answer gate closed", async () => {
+  const game = await mountGame();
+  game.parent.document.visibilityState = "hidden";
+  game.parent.document.dispatchEvent({ type: "visibilitychange" });
+  game.parent.document.visibilityState = "visible";
+  game.parent.document.dispatchEvent({ type: "visibilitychange" });
+  assert.ok(game.choices().every(button => button.disabled));
+  game.noCredit();
+  await game.listen();
+  assert.equal(game.choice(game.current().id).disabled, false);
+  game.controller.destroy();
+});
+
 test("Arabic listening keeps target phrases RTL and the English result LTR", async () => {
   const game = await mountGame({ language: "arabic-standard" });
   assert.equal(game.document.documentElement.dir, "ltr");

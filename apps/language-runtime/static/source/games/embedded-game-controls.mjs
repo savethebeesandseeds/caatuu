@@ -505,12 +505,22 @@ export function mountEmbeddedGameControls({ container, shell, course, onLayoutCh
     }
   }
 
-  listen(document, "click", (event) => { if (!root.contains(event.target)) close(); });
+  // Disabled native answers suppress clicks and need early dismissal. Other
+  // pointer presses may start swipes, which must stay paused through dismissal.
+  const dismissOutside = (event) => { if (!root.contains(event.target)) close(); };
+  const dismissDisabledAnswer = (event) => {
+    if (!root.contains(event.target) && event.target?.closest?.("button")?.disabled) close();
+  };
+  listen(document, "pointerdown", dismissDisabledAnswer, true);
+  listen(document, "click", dismissOutside);
   listen(document.defaultView, "resize", constrainOpenPopovers);
   listen(document.defaultView, "scroll", constrainOpenPopovers);
   listen(document.defaultView.visualViewport, "resize", constrainOpenPopovers);
   listen(document.defaultView.visualViewport, "scroll", constrainOpenPopovers);
-  if (shell.document !== document) listen(shell.document, "click", () => close());
+  if (shell.document !== document) {
+    listen(shell.document, "pointerdown", dismissDisabledAnswer, true);
+    listen(shell.document, "click", () => close());
+  }
   listen(document, "keydown", (event) => {
     if (event.defaultPrevented || event.isComposing || event.keyCode === 229) return;
     if (event.key !== "Escape" || !panels.some(({ panel }) => !panel.hidden)) return;

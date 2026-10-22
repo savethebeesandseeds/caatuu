@@ -3,6 +3,7 @@ import { assertProductSourceText } from "./product-source-policy.mjs";
 import { transformPackagedImageKeymap } from "./developer-image-catalog.mjs";
 import { homeBootstrapAssets, nativeBootstrapCatalogAssets, planProductDelivery, SETUP_PAYLOAD_MANIFEST } from "./product-delivery.mjs";
 import { validateSetupPayloadForApk } from "./setup-payload.mjs";
+import { nativeProviderDownloadArtifacts } from "./native-provider-downloads.mjs";
 import {
   copyFileSync,
   existsSync,
@@ -50,6 +51,7 @@ import { evaluateCourseProfile } from "../../../tools/language-packs/lib/course-
 const scriptPath = fileURLToPath(import.meta.url);
 const defaultWorkspaceRoot = resolve(dirname(scriptPath), "../../..");
 export const DEFAULT_COURSE_MANIFEST_PATH = "apps/languages/czech/course.json";
+export const PRODUCT_STATIC_TEXT_FORMAT = "indentation-v1";
 export const DEFAULT_COURSE_BUNDLE_PATH = "apps/android/course-bundle.json";
 export const DEFAULT_LANGUAGE_CATALOG_PATH = "apps/languages/catalog.json";
 export const CANONICAL_APP_ENTRY_PATH = "apps/language-runtime/static/app/index.html";
@@ -1533,7 +1535,45 @@ function transformProductSetupAssets(input, course) {
   return `${JSON.stringify(manifest, null, 2)}\n`;
 }
 
-export function transformIndex(input) {
+/** Remove authoring indentation at real tag boundaries, never inside literal content. */
+export function compactProductHtml(input) {
+  const source = String(input);
+  const tokens = /<!--[\s\S]*?(?:-->|$)|<\/?[A-Za-z][A-Za-z0-9:-]*(?:[^>"']|"[^"]*"|'[^']*')*>/gu;
+  const literalElements = new Set([
+    "pre", "textarea", "script", "style", "title", "template", "noscript",
+    "xmp", "iframe", "noembed", "noframes", "listing", "plaintext",
+  ]);
+  let cursor = 0;
+  let output = "";
+  for (let match; (match = tokens.exec(source));) {
+    const token = match[0];
+    const name = /^<([A-Za-z][A-Za-z0-9:-]*)(?=[\t\n\f\r />])/u.exec(token)?.[1].toLowerCase();
+    if (token.startsWith("<!--") || (name && literalElements.has(name))) {
+      // Comments and raw/preformatted elements are opaque, including any text
+      // that happens to resemble tags, attribute values, or indentation.
+      let end = tokens.lastIndex;
+      if (name === "plaintext") end = source.length;
+      else if (name && literalElements.has(name)) {
+        const closing = new RegExp(`<\\/${name}(?=[\\t\\n\\f\\r />])(?:[^>"']|"[^"]*"|'[^']*')*>`, "giu");
+        closing.lastIndex = end;
+        const close = closing.exec(source);
+        end = close ? closing.lastIndex : source.length;
+      }
+      output += source.slice(cursor, end);
+      cursor = end;
+      tokens.lastIndex = end;
+      continue;
+    }
+    const lineStart = source.lastIndexOf("\n", match.index - 1) + 1;
+    const indentation = source.slice(lineStart, match.index);
+    const start = /^[\t ]+$/u.test(indentation) ? lineStart : match.index;
+    output += source.slice(cursor, start) + token;
+    cursor = tokens.lastIndex;
+  }
+  return output + source.slice(cursor);
+}
+
+export function transformIndex(input, { compact = true } = {}) {
   let source = normalizeText(input);
   source = transformHtmlElement(source, "div", "id", "wordNetGenerationMenu", (opening, body, closing) =>
     setHtmlAttribute(setHtmlAttribute(opening, "aria-label", "Next sentence options"),
@@ -1551,7 +1591,7 @@ export function transformIndex(input) {
   );
   assert.match(source, /data-generation-mode\s*=\s*["']random["']/u);
   assert.match(source, /data-generation-mode\s*=\s*["']selected["']/u);
-  return source;
+  return compact ? compactProductHtml(source) : source;
 }
 
 export function transformSetupAssets(input) {
@@ -1891,6 +1931,62 @@ export function transformHomeCss(input) {
   return stripFlatCssRules(normalizeText(input), [/gguf-model/i], "home model artifact styling");
 }
 
+/** Keep CSS tokens and literal bytes; omit indentation after ordinary newlines. */
+export function compactProductCss(input) {
+  const source = String(input);
+  let output = "";
+  let lineStart = true;
+  for (let index = 0; index < source.length;) {
+    const character = source[index];
+    if (lineStart && (character === " " || character === "\t")) {
+      index += 1;
+      continue;
+    }
+    if (character === "/" && source[index + 1] === "*") {
+      const end = source.indexOf("*/", index + 2);
+      assert.ok(end >= 0, "Product CSS comment must be closed");
+      output += source.slice(index, end + 2);
+      index = end + 2;
+      lineStart = false;
+      continue;
+    }
+    if (character === '"' || character === "'") {
+      let end = index + 1;
+      while (end < source.length && source[end] !== character) {
+        if (source[end] === "\\") {
+          end += source[end + 1] === "\r" && source[end + 2] === "\n" ? 3 : 2;
+        } else end += 1;
+      }
+      assert.ok(end < source.length, "Product CSS string must be closed");
+      output += source.slice(index, end + 1);
+      index = end + 1;
+      lineStart = false;
+      continue;
+    }
+    if (character === "\\") {
+      let end = index + 1;
+      while (end < source.length && end < index + 7 && /[0-9a-f]/iu.test(source[end])) end += 1;
+      if (end > index + 1) {
+        if (/[\t\n\f\r ]/u.test(source[end] || "!")) {
+          end += source[end] === "\r" && source[end + 1] === "\n" ? 2 : 1;
+        }
+      } else if (end < source.length) {
+        end += source[end] === "\r" && source[end + 1] === "\n" ? 2 : 1;
+      }
+      output += source.slice(index, end);
+      index = end;
+      // A newline consumed by an escape is not a token separator. Preserve
+      // following indentation so escaped selectors cannot join adjacent tokens.
+      lineStart = false;
+      continue;
+    }
+    output += character;
+    lineStart = character === "\n" || character === "\r";
+    index += 1;
+  }
+  return output;
+}
+
 export function transformWordNetStandard(input) {
   let source = normalizeText(input);
   source = exactReplace(
@@ -1975,7 +2071,11 @@ function sharedAppAssetTransform(output, assets, storageRecords = []) {
     const availableAssets = [...assets, ...storageRecords.map(({ declaredPath }) => ({ output: declaredPath }))];
     return (input) => transformPackagedImageKeymap(input, availableAssets);
   }
-  return SHARED_APP_TRANSFORMS[output];
+  const transform = SHARED_APP_TRANSFORMS[output];
+  if (output.endsWith(".css")) {
+    return (input) => compactProductCss(transform ? transform(input) : normalizeText(input));
+  }
+  return transform;
 }
 
 function assertSafeOutputDirectory(outputDir, workspaceRoot, languageStaticDir, launcherStaticDir) {
@@ -2966,6 +3066,17 @@ export function createAndroidProductDelivery(bundle) {
   const logicalFiles = productLogicalBytes(bundle);
   const providerCatalogs = nativeBootstrapCatalogAssets(logicalFiles, bundle.courseCatalog);
   const bootstrapAssets = homeBootstrapAssets(logicalFiles, bundle.configurations.map(({ course }) => course));
+  const providerFiles = new Map();
+  for (const course of bundle.courseCatalog.courses) {
+    const configuration = bundle.configurations.find(({ course: input }) => input.id === course.id);
+    for (const artifact of nativeProviderDownloadArtifacts(course, path => logicalFiles.get(path))) {
+      if (!artifact.provider_catalog) continue;
+      const source = exactWorkspaceSource(bundle.workspaceRoot,
+        join(configuration.languageStaticDir, artifact.asset_path),
+        `Course ${course.id} native vector database`, { allowAbsolute: true, kind: "file" });
+      providerFiles.set(`${course.assetPrefix}/${artifact.asset_path}`, readFileSync(source));
+    }
+  }
   return {
     ...planProductDelivery({
       files: logicalFiles,
@@ -2973,6 +3084,7 @@ export function createAndroidProductDelivery(bundle) {
       profile: bundle.productProfile,
       bootstrapAssets,
       providerCatalogs,
+      providerFiles,
     }),
     logicalFiles,
   };
@@ -3025,7 +3137,8 @@ export function validateBootstrapSetupDependencies({ bundledFiles, setupPayload,
     const label = `${course.id} bootstrap setup`;
     assertBundledSetupArtifacts(setup, { assetPrefix: course.assetPrefix,
       readAsset: path => bundledFiles.get(path) ?? null, label });
-    const external = { ...setup, artifacts: setup.artifacts.filter(artifact => {
+    const nativeDownloads = nativeProviderDownloadArtifacts(course, path => bundledFiles.get(path));
+    const external = { ...setup, artifacts: [...setup.artifacts, ...nativeDownloads].filter(artifact => {
       if (artifact.native_required !== true) return true;
       const path = new URL(artifact.url, "https://caatuu.waajacu.com").pathname.slice(1);
       return !payload.has(path);
@@ -3049,6 +3162,7 @@ function writeExactAssetMap(root, files) {
 function productSourceSnapshot(bundle) {
   const paths = new Set([
     scriptPath, join(dirname(scriptPath), "product-delivery.mjs"),
+    join(dirname(scriptPath), "native-provider-downloads.mjs"),
     join(dirname(scriptPath), "android-artifact-contract.mjs"), join(dirname(scriptPath), "setup-payload.mjs"),
     bundle.courseBundlePath, bundle.languageCatalogPath, bundle.embeddingRuntime.catalogPath,
     ...bundle.sharedAssets.map(({ source }) => source),
@@ -3058,6 +3172,17 @@ function productSourceSnapshot(bundle) {
       ...Object.values(configuration.languageFileSources),
     ]),
   ].filter(Boolean));
+  for (const configuration of bundle.configurations) {
+    const provider = configuration.nativeProviders.providers.embeddings;
+    if (provider?.implementation !== "vector-database-catalog-v1") continue;
+    const catalogPath = configuration.languageFileSources[provider.catalogAsset];
+    const catalog = readJson(catalogPath, "Native embedding source snapshot");
+    for (const model of catalog.models.filter(model => model.status === "active")) {
+      paths.add(exactWorkspaceSource(bundle.workspaceRoot,
+        join(configuration.languageStaticDir, providerManifestAsset(provider.catalogAsset, model.model_file)),
+        "Native vector database source snapshot", { allowAbsolute: true, kind: "file" }));
+    }
+  }
   return new Map([...paths].sort().map((path) => [path, sha256File(path)]));
 }
 

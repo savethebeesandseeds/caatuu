@@ -1,5 +1,5 @@
 import { fetchDeclaredCourseGameJson } from '../course-game-content.mjs';
-import { mountEmbeddedGameControls } from '../embedded-game-controls.mjs';
+import { mountEmbeddedGameControls } from '../embedded-game-controls.mjs?v=embedded-game-controls-11';
 import { createMemoryMoonPractice } from './memory-moon-practice.mjs?v=memory-moon-practice-3';
 import { validateMemoryMoonCatalog, moonIllumination, moonShadePath } from './memory-moon-core.mjs?v=memory-moon-5';
 import { createMoonRenderer } from './memory-moon-render.mjs?v=memory-moon-render-4';

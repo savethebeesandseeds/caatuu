@@ -7,6 +7,7 @@ import { execFileSync } from "node:child_process";
 import { randomBytes } from "node:crypto";
 import { fileURLToPath } from "node:url";
 import { readZipEntry, sha256Bytes } from "./pages-baseline.mjs";
+import { nativeProviderDownloadArtifacts } from "./native-provider-downloads.mjs";
 
 export const setupPayloadInventory = "caatuu-setup-payload.json";
 const origin = "https://caatuu.waajacu.com";
@@ -142,14 +143,16 @@ export function packageSetupPayload({ workspaceRoot, inputDir, output, outputDir
   } finally { rmSync(temporary, { force: true }); }
 }
 
-/** All companion objects must be reachable from APK-pinned course setup catalogs. */
+/** All companion objects must be reachable from APK-pinned setup or native providers. */
 export function validateSetupPayloadForApk(apkPath, payload, readApkAsset = readZipEntry) {
   const bundle = JSON.parse(readApkAsset(apkPath, "assets/caatuu-course-bundle.json").toString("utf8"));
   const required = new Map();
   for (const course of bundle.courses) {
     safePath(course.assetPrefix);
     const setup = JSON.parse(readApkAsset(apkPath, `assets/${course.assetPrefix}/setup-assets.json`).toString("utf8"));
-    for (const artifact of setup.artifacts.filter((item) => item.native_required === true)) {
+    const providerArtifacts = nativeProviderDownloadArtifacts(course,
+      path => readApkAsset(apkPath, `assets/${path}`));
+    for (const artifact of [...setup.artifacts.filter((item) => item.native_required === true), ...providerArtifacts]) {
       const url = new URL(artifact.url, origin);
       if (!url.pathname.startsWith("/assets/setup/")) continue;
       assert.equal(url.origin, origin, "Setup payload origin differs from the APK");

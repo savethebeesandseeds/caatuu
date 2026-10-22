@@ -9,6 +9,7 @@ and implementation details stay beside the relevant app or tool.
 | --- | --- |
 | [Workspace map](WORKSPACE.md) | What belongs in apps, artifacts, tools, archive, and Git |
 | [Architecture](ARCHITECTURE.md) | Product surfaces, runtime boundaries, routes, and repository ownership |
+| [Expansion roadmap](EXPANSION_ROADMAP.md) | Future ideas: new languages, the animated macaw adventure, and custom Gemini voices |
 | [Interaction model](INTERACTION_MODEL.md) | Click, keyboard, gesture and async action contracts, implementation plan and validation |
 | [Development](DEVELOPMENT.md) | Local Docker/tooling operations, Android work, and validation |
 | [Deployment standard](DEPLOYMENT_STANDARD.md) | Provider-neutral release identity, immutable delivery, promotion, rollback, operations, and recovery |

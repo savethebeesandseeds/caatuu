@@ -8,6 +8,27 @@ import org.junit.Test
 
 class NativeArtifactContractTest {
     @Test
+    fun embeddingDownloadsHonorAnExplicitHttpsTransportWithoutChangingTheLogicalAsset() {
+        val base = "https://caatuu.example/embeddings"
+        val logicalPath = "model-v1/curriculum.sqlite"
+        assertEquals("$base/$logicalPath", VectorDatabaseManager.embeddingDownloadUrl(base, logicalPath))
+        val immutableUrl = "https://caatuu.example/assets/setup/${"b".repeat(64)}/reviewed.sqlite"
+        assertEquals(immutableUrl, VectorDatabaseManager.embeddingDownloadUrl(base, logicalPath, immutableUrl))
+        for (invalid in listOf("", "/assets/model.sqlite", "http://caatuu.example/model.sqlite",
+            "https://user:password@caatuu.example/model.sqlite", "https://caatuu.example/model file.sqlite")) {
+            assertThrows(invalid, IllegalArgumentException::class.java) {
+                VectorDatabaseManager.embeddingDownloadUrl(base, logicalPath, invalid)
+            }
+        }
+        assertThrows(IllegalArgumentException::class.java) {
+            VectorDatabaseManager.embeddingDownloadUrl("http://caatuu.example/embeddings", logicalPath, immutableUrl)
+        }
+        assertThrows(IllegalArgumentException::class.java) {
+            VectorDatabaseManager.embeddingDownloadUrl(base, "../curriculum.sqlite", immutableUrl)
+        }
+    }
+
+    @Test
     fun dictionaryStorageKeysAreStableSingleSegmentIdentifiers() {
         assertEquals(
             "kaikki-cs-en-2026-07-09",

@@ -544,9 +544,10 @@ class VectorDatabaseManager(
         require(manifestUrl == modelFile) {
             "Embedding manifest URL must equal the catalog model_file."
         }
-        val url = NativeArtifactContract.httpsUrl(
-            resolveDownloadUrl(baseUrl, modelFile),
-            "Embedding manifest URL",
+        val url = embeddingDownloadUrl(
+            baseUrl,
+            modelFile,
+            if (item.has("download_url")) item.getString("download_url") else null,
         )
         val catalogBytes = NativeArtifactContract.positiveSafeByteCount(
             item.opt("bytes"),
@@ -617,9 +618,6 @@ class VectorDatabaseManager(
         }
     }
 
-    private fun resolveDownloadUrl(baseUrl: String, modelFile: String): String =
-        URL(URL("$baseUrl/"), modelFile).toExternalForm()
-
     private fun directorySize(file: File): Long {
         if (!file.exists()) return 0L
         if (file.isFile) return file.length()
@@ -664,6 +662,15 @@ class VectorDatabaseManager(
 
     companion object {
         private val fileVerifier = VerifiedArtifactFiles()
+        internal fun embeddingDownloadUrl(baseUrl: String, modelFile: String, downloadUrl: String? = null): String {
+            val base = NativeArtifactContract.httpsUrl(baseUrl, "Embedding catalog base_url")
+            val logicalPath = NativeArtifactContract.relativePath(modelFile, "Embedding model file")
+            return NativeArtifactContract.httpsUrl(
+                downloadUrl ?: URL(URL("${base.trimEnd('/')}/"), logicalPath).toExternalForm(),
+                "Embedding download URL",
+            )
+        }
+
         const val EMBEDDING_DIMENSION = 384
         const val EMBEDDING_TEXT_FIELD = "english_text"
         const val EMBEDDING_INPUT_POLICY = "english_text_only"

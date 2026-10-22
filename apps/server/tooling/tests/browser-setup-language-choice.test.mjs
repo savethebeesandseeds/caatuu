@@ -192,18 +192,15 @@ test("the shared home exposes a two-question language form and the game display 
     appEntry,
     /id="homeSocialView" role="tabpanel" aria-labelledby="homeSocialTab" hidden[\s\S]*?id="homeSocialTitle"[^>]*data-i18n="home\.social\.title"[^>]*>Social<[\s\S]*?Social is in development\./u
   );
-  assert.match(
-    homeStyles,
-    /dialog\.home-language-selector-menu \{[\s\S]*?position: fixed;[\s\S]*?left: 50%;[\s\S]*?transform: translateX\(-50%\);/u
-  );
+  assert.match(homeStyles, /dialog\.home-language-selector-menu\.course-selection-screen/u);
   assert.match(chromeSource, /className = "home-language-pair"/u);
   assert.match(chromeSource, /const current = document\.createElement\("div"\)/u);
   assert.match(chromeSource, /current\.className = "home-language-current-course"/u);
-  assert.match(chromeSource, /status\.textContent = interfaceMessage\("common\.current"\)/u);
-  assert.match(chromeSource, /heading\.textContent = interfaceMessage\("courseselector\.ongoing\.heading"\)/u);
-  assert.match(chromeSource, /manageIcon\.textContent = "\+"/u);
-  assert.match(chromeSource, /manageLabel\.textContent = interfaceMessage\("courseselector\.newcourse"\)/u);
-  assert.match(chromeSource, /trigger\.setAttribute\("aria-label", interfaceMessage\("courseselector\.startnew"\)\)/u);
+  assert.match(chromeSource, /function openCourseSelection\(opener\)/u);
+  assert.match(chromeSource, /dataset\.courseSelectionNewLanguage/u);
+  assert.match(chromeSource, /dataset\.courseSelectionBack/u);
+  assert.doesNotMatch(chromeSource, /function createHomeLanguageOngoingCourses\(/u);
+  assert.match(appEntry, /data-i18n-aria-label="courseselector\.menu\.change"/u);
   assert.match(homeStyles, /\.home-language-manage \{[\s\S]*?flex: 0 0 auto;[\s\S]*?white-space: nowrap;/u);
   assert.match(chromeSource, /className = "home-language-quick-switches"/u);
   assert.match(
@@ -215,7 +212,9 @@ test("the shared home exposes a two-question language form and the game display 
   assert.match(chromeSource, /dataset\.languageEffortExact/u);
   assert.match(chromeSource, /className = "language-pill app-header-language-pill current-language-indicator"/u);
   assert.match(chromeSource, /function renderLanguageIndicator\(element\)[\s\S]*?interfaceMessage\("courseselector\.indicator\.arialabel"/u);
-  assert.doesNotMatch(chromeSource, /language\.dataset\.caatuuLanguageSwitch/u);
+  assert.match(chromeSource, /function renderHeaderLanguageMenu\(element\)/u);
+  assert.match(chromeSource, /language = document\.createElement\("button"\)/u);
+  assert.match(chromeSource, /renderHeaderLanguageMenu\(language\)/u);
   assert.match(chromeSource, /menu\.setAttribute\("role", "dialog"\)/u);
   assert.match(chromeSource, /document\.createElement\("dialog"\)/u);
   assert.match(chromeSource, /menu\.showModal\(\)/u);
@@ -238,11 +237,6 @@ test("the shared home exposes a two-question language form and the game display 
   assert.match(homeStyles, /\.language-selector-review-info \{[\s\S]*?border-radius: 50%;/u);
   assert.match(homeStyles, /\.home-language-current-course \{[\s\S]*?background:[\s\S]*?box-shadow:/u);
   assert.match(homeStyles, /\.home-language-current-status \{[\s\S]*?background: var\(--setup-accent\);/u);
-  assert.match(homeStyles, /\.home-language-ongoing-courses \{[\s\S]*?border:[\s\S]*?background:/u);
-  assert.match(
-    homeStyles,
-    /\.home-language-ongoing-head \{[\s\S]*?background: var\(--theme-panel-head-bg, #eee8de\);/u
-  );
   assert.match(
     homeStyles,
     /\.home-language-selector-menu \[data-language-target-options\] \{\s*grid-template-columns: minmax\(0, 1fr\);/u

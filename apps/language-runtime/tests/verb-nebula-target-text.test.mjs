@@ -36,7 +36,7 @@ function harness({ selectedCourse = course, catalog = rows, saved = {} } = {}) {
     course: selectedCourse, gameId: "verb-lab", document: browser.document, storage: browser.localStorage,
     onChange() { if (state.verbSolutionRevealed) calls.arrows += 1; }
   });
-  Object.assign(browser.context, { course: selectedCourse, state, verbTargetTextRenderer,
+  Object.assign(browser.context, { course: selectedCourse, state, verbTargetTextRenderer, verbNebulaCore,
     verbReadingGuide,
     sourceLanguage: selectedCourse.sourceLanguage, targetLanguage: selectedCourse.targetLanguage,
     $: (selector) => browser.document.querySelector(selector),
@@ -52,6 +52,7 @@ function harness({ selectedCourse = course, catalog = rows, saved = {} } = {}) {
     between("function verbUsesRomanizationGuide()", "function applyVerbLanguageCopy()"),
     between("function createVerbMatchCard(pair, side)", "function verbMatchCardForId"),
     between("function cancelVerbTapSpeech()", "function renderVerbMatchStats()"),
+    between("function fitVerbMatchLayout()", "function renderVerbNebula()"),
     between("function bindVerbNebulaControls()", "function printOptions()")
   ].join("\n"), browser.context);
   browser.context.verbTargetTextReadings = browser.context.indexVerbTargetTextReadings(catalog);
@@ -63,14 +64,15 @@ function harness({ selectedCourse = course, catalog = rows, saved = {} } = {}) {
     return element;
   }
   const panel = node("section", "trainPanelVerbLab", browser.document.body);
+  const board = node("div", "verbMeaningBoard", panel);
   const controls = node("section", "verbTargetTextSettings", panel);
   node("span", "verbTargetTextLabel", controls);
   const tones = node("button", "verbTargetTextToneColors", controls);
   tones.dataset.verbTargetTextSetting = "colorTones";
   const guide = node("button", "verbTargetTextNotation", controls);
   guide.dataset.verbTargetTextSetting = "showGuide";
-  const column = node("div", "verbCzechColumn", panel);
-  const meanings = node("div", "verbEnglishColumn", panel);
+  const column = node("div", "verbCzechColumn", board);
+  const meanings = node("div", "verbEnglishColumn", board);
   pairs.forEach((pair) => {
     column.append(browser.context.createVerbMatchCard(pair, "cz"));
     meanings.append(browser.context.createVerbMatchCard(pair, "en"));

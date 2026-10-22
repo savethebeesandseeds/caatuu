@@ -3,7 +3,7 @@ import {
   selectNounLane, advanceNounFall, landNoun, nextNoun, setNounFallDuration
 } from "./noun-landing-core.mjs?v=noun-landing-core-13";
 import { fetchDeclaredCourseGameJson } from "../course-game-content.mjs?v=course-game-content-1";
-import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-10";
+import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-11";
 import { createNounVisual } from "./noun-visual.mjs?v=noun-visual-4";
 import { newContentEncounterId } from "../content-progression.mjs";
 import { createReviewContinuation } from "../practice-pacing.mjs?v=practice-pacing-3";

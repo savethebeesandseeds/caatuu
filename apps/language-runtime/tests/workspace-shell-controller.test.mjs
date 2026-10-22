@@ -102,7 +102,17 @@ function wordWorldOnlyBrowser(options = {}) {
     dataset: { theme: "dark", fontSize: "largest" },
     style: {}
   };
-  const body = { classList: new FakeClassList(), dataset: {} };
+  const bodyAttributes = new Set();
+  const body = {
+    classList: new FakeClassList(),
+    dataset: {},
+    toggleAttribute(name, force) {
+      const enabled = force === undefined ? !bodyAttributes.has(name) : Boolean(force);
+      if (enabled) bodyAttributes.add(name);
+      else bodyAttributes.delete(name);
+      return enabled;
+    }
+  };
   const launchpadShip = { src: "" };
   const pwaInstallButton = {
     addEventListener() {},

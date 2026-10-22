@@ -5,6 +5,7 @@ import {
   HOME_BOOTSTRAP_ARTWORK,
   HOME_BOOTSTRAP_ASSET_MAX_BYTES,
   PRODUCT_SETUP_PAYLOAD_MAX_BYTES,
+  PRODUCT_NATIVE_VECTOR_PAYLOAD_MAX_BYTES,
   homeBootstrapAssets,
   isSetupDeliveredAsset,
   nativeBootstrapCatalogAssets,
@@ -216,4 +217,66 @@ test("downloadable content retains a bounded payload budget as courses are added
   const input = fixture();
   input.files.set("courses/alpha/data/games/oversized.json", Buffer.alloc(PRODUCT_SETUP_PAYLOAD_MAX_BYTES + 1));
   assert.throws(() => planProductDelivery(input), /Setup payload exceeds the reviewed/u);
+});
+
+function vectorFixture() {
+  const input = fixture();
+  const catalogPath = "courses/alpha/data/embeddings/models.json";
+  const modelPath = "courses/alpha/data/embeddings/v1/curriculum.sqlite";
+  const bytes = buffer("current verified vector database");
+  const model = { key: "v1", status: "active", artifact_kind: "embedding-vector-db",
+    model_file: "v1/curriculum.sqlite", manifest_file: "v1/manifest.json",
+    bytes: bytes.length, sha256: digest(bytes) };
+  input.files.set(catalogPath, buffer({ base_url: "https://caatuu.waajacu.com/legacy/embeddings",
+    models: [model] }));
+  input.files.set("courses/alpha/data/embeddings/v1/manifest.json", buffer({ file: "curriculum.sqlite",
+    url: model.model_file, bytes: model.bytes, sha256: model.sha256 }));
+  input.files.set("caatuu-course-bundle.json", buffer({ courses: [{ id: "alpha", assetPrefix: "courses/alpha",
+    nativeProviders: { providers: { embeddings: { implementation: "vector-database-catalog-v1",
+      catalogAsset: catalogPath } } } }] }));
+  input.providerCatalogs = new Set([catalogPath, "courses/alpha/data/embeddings/v1/manifest.json"]);
+  input.providerFiles = new Map([[modelPath, bytes]]);
+  return { input, catalogPath, modelPath, model };
+}
+
+test("native vector databases seal current bytes and keep their logical WebView paths", () => {
+  const { input, catalogPath, modelPath, model } = vectorFixture();
+  const delivery = planProductDelivery(input);
+  const record = delivery.setupPayload.artifacts.find(record => record.assetPath === modelPath);
+  assert.ok(record);
+  assert.equal(record.sha256, model.sha256);
+  assert.ok(delivery.setupObjects.get(record.file).equals(input.providerFiles.get(modelPath)));
+  assert.ok(!delivery.bundledFiles.has(modelPath));
+  const projected = JSON.parse(delivery.bundledFiles.get(catalogPath)).models[0];
+  assert.equal(projected.download_url, `https://caatuu.waajacu.com/${record.path}`);
+  assert.equal(projected.model_file, model.model_file);
+  assert.equal(projected.bytes, model.bytes);
+  assert.equal(projected.sha256, model.sha256);
+  assert.equal(JSON.parse(input.files.get(catalogPath)).models[0].download_url, undefined,
+    "Planning preserves the source catalog");
+  const setup = JSON.parse(delivery.bundledFiles.get("courses/alpha/setup-assets.json"));
+  assert.ok(!setup.artifacts.some(artifact => artifact.sha256 === model.sha256),
+    "The native database manager retains sole ownership of the downloaded file");
+  assert.equal(delivery.byteCounts.nativeVectors, model.bytes);
+});
+
+test("native provider payloads require exact catalog bytes and cannot include unlisted files", () => {
+  for (const mutate of [
+    ({ input, modelPath }) => input.providerFiles.set(modelPath, buffer("wrong")),
+    ({ input, modelPath }) => { const bytes = Buffer.from(input.providerFiles.get(modelPath)); bytes[0] ^= 1;
+      input.providerFiles.set(modelPath, bytes); },
+    ({ input }) => input.providerFiles.set("courses/alpha/data/unlisted.sqlite", buffer("extra")),
+  ]) {
+    const f = vectorFixture(); mutate(f);
+    assert.throws(() => planProductDelivery(f.input), /byte count changed|hash changed|active vector database allowlist/u);
+  }
+  const f = vectorFixture();
+  const bytes = Buffer.alloc(PRODUCT_NATIVE_VECTOR_PAYLOAD_MAX_BYTES + 1);
+  const model = JSON.parse(f.input.files.get(f.catalogPath));
+  model.models[0].bytes = bytes.length; model.models[0].sha256 = digest(bytes);
+  f.input.files.set(f.catalogPath, buffer(model));
+  f.input.files.set("courses/alpha/data/embeddings/v1/manifest.json", buffer({ file: "curriculum.sqlite",
+    url: f.model.model_file, bytes: bytes.length, sha256: digest(bytes) }));
+  f.input.providerFiles.set(f.modelPath, bytes);
+  assert.throws(() => planProductDelivery(f.input), /Native vector payload exceeds/u);
 });

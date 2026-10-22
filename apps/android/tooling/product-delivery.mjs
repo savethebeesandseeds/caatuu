@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { posix } from "node:path";
+import { nativeProviderDownloadArtifacts } from "./native-provider-downloads.mjs";
 import {
   assertCompatibleSharedStorage,
   assertNormalizedRelativePath,
@@ -38,13 +39,14 @@ export const HOME_BOOTSTRAP_ARTWORK = Object.freeze([
   "language-runtime/static/assets/home/setup-ship-15.webp",
   "language-runtime/static/assets/home/setup-ship-22.webp",
 ]);
-// Separate residency and content budgets; independently delivered model and
-// dictionary binaries are not duplicated in this companion payload.
+// Separate residency, curriculum and native vector database budgets. Stable
+// model and dictionary downloads remain independently hosted.
 export const PRODUCT_BOOTSTRAP_MAX_BYTES = 8_000_000;
 // The complete eight-course companion is currently about 83 MB. This bounded
 // download budget covers the three approved 2,500-sentence courses; it is not
 // APK residency, and a device installs only its selected course plus shared art.
 export const PRODUCT_SETUP_PAYLOAD_MAX_BYTES = 96_000_000;
+export const PRODUCT_NATIVE_VECTOR_PAYLOAD_MAX_BYTES = 32_000_000;
 export const NATIVE_SETUP_CATALOG_FORMAT = "android-native-v1";
 
 const hash = (bytes) => createHash("sha256").update(bytes).digest("hex");
@@ -159,8 +161,9 @@ function logicalArtifactPath(artifact, courseId) {
 
 /** Split fully transformed product bytes into the APK and sealed setup objects. */
 export function planProductDelivery({ files, courseIds, profile, bootstrapAssets, providerCatalogs,
-  setupCatalogFormat = NATIVE_SETUP_CATALOG_FORMAT }) {
+  providerFiles = new Map(), setupCatalogFormat = NATIVE_SETUP_CATALOG_FORMAT }) {
   assert.ok(files instanceof Map, "Product delivery requires a logical file map");
+  assert.ok(providerFiles instanceof Map, "Native provider delivery requires exact file bytes");
   assert.ok(setupCatalogFormat === null || setupCatalogFormat === NATIVE_SETUP_CATALOG_FORMAT,
     "Unsupported native setup catalog format");
   assert.ok(Array.isArray(courseIds) && new Set(courseIds).size === courseIds.length,
@@ -177,6 +180,38 @@ export function planProductDelivery({ files, courseIds, profile, bootstrapAssets
     const record = immutableObject(path, bytes);
     records.push(record);
     setupObjects.set(record.file, bytes);
+  }
+  // Vector databases have a native owner and never enter either the APK or
+  // StaticAssetManager's file list. Seal their exact bytes alongside ordinary
+  // setup objects and bind the native catalog to that immutable transport URL.
+  const nativeRecords = [];
+  const nativePaths = new Set();
+  if (providerFiles.size) {
+    const bundle = JSON.parse(files.get("caatuu-course-bundle.json").toString("utf8"));
+    for (const course of bundle.courses) {
+      for (const artifact of nativeProviderDownloadArtifacts(course, path => files.get(path))) {
+        if (!artifact.provider_catalog) continue;
+        const path = `${course.assetPrefix}/${artifact.asset_path}`;
+        const bytes = providerFiles.get(path);
+        assert.ok(Buffer.isBuffer(bytes), `Native vector database bytes are missing: ${path}`);
+        assert.ok(!files.has(path), `Native vector database must not be bundled: ${path}`);
+        assert.equal(bytes.length, artifact.bytes, `Native vector database byte count changed: ${path}`);
+        assert.equal(hash(bytes), artifact.sha256, `Native vector database hash changed: ${path}`);
+        assert.ok(!nativePaths.has(path), `Repeated native vector database: ${path}`);
+        nativePaths.add(path);
+        const record = immutableObject(path, bytes);
+        nativeRecords.push(record);
+        records.push(record);
+        setupObjects.set(record.file, bytes);
+        const catalog = JSON.parse(bundledFiles.get(artifact.provider_catalog).toString("utf8"));
+        const model = catalog.models.find(model => model.key === artifact.model_key && model.status === "active");
+        assert.ok(model, `Native vector model is missing: ${artifact.model_key}`);
+        model.download_url = `https://caatuu.waajacu.com/${record.path}`;
+        bundledFiles.set(artifact.provider_catalog, jsonBytes(catalog));
+      }
+    }
+    assert.deepEqual([...nativePaths].sort(), [...providerFiles.keys()].sort(),
+      "Native provider objects must match the active vector database allowlist");
   }
   const sharedRecords = records.filter(({ assetPath }) => !assetPath.startsWith("courses/"));
   const artifactKinds = new Map();
@@ -215,7 +250,8 @@ export function planProductDelivery({ files, courseIds, profile, bootstrapAssets
         browser_required: false,
       });
     }
-    const courseRecords = [...sharedRecords, ...records.filter(({ assetPath }) => assetPath.startsWith(assetPrefix))];
+    const courseRecords = [...sharedRecords, ...records.filter(({ assetPath }) =>
+      assetPath.startsWith(assetPrefix) && !nativePaths.has(assetPath))];
     const byAsset = new Map(courseRecords.map((record) => [record.assetPath, record]));
     const consumed = new Set();
     const artifactFor = (record, previous = {}) => {
@@ -251,7 +287,7 @@ export function planProductDelivery({ files, courseIds, profile, bootstrapAssets
   }
   assertCompatibleSharedStorage(ownership, "Product setup delivery");
   const delivered = new Set(records.map(({ assetPath }) => assetPath));
-  assert.deepEqual([...new Set([...bundledFiles.keys(), ...delivered])].sort(), [...files.keys()].sort(),
+  assert.deepEqual([...new Set([...bundledFiles.keys(), ...delivered])].sort(), [...files.keys(), ...providerFiles.keys()].sort(),
     "APK and setup objects must cover the exact logical product allowlist");
   const deliveredProfile = { ...profile,
     ...(setupCatalogFormat ? { setupCatalogFormat } : {}),
@@ -264,11 +300,15 @@ export function planProductDelivery({ files, courseIds, profile, bootstrapAssets
     courses: Object.fromEntries(courseIds.map((id) => [id, records
       .filter(({ assetPath }) => assetPath.startsWith(`courses/${id}/`))
       .reduce((sum, record) => sum + record.bytes, 0)])),
+    nativeVectors: nativeRecords.reduce((sum, record) => sum + record.bytes, 0),
   };
   assert.ok(byteCounts.bootstrap <= PRODUCT_BOOTSTRAP_MAX_BYTES,
     `Bootstrap APK assets exceed the reviewed ${PRODUCT_BOOTSTRAP_MAX_BYTES}-byte budget: ${byteCounts.bootstrap}`);
-  assert.ok(byteCounts.setup <= PRODUCT_SETUP_PAYLOAD_MAX_BYTES,
-    `Setup payload exceeds the reviewed ${PRODUCT_SETUP_PAYLOAD_MAX_BYTES}-byte budget: ${byteCounts.setup}`);
+  const contentBytes = byteCounts.setup - byteCounts.nativeVectors;
+  assert.ok(contentBytes <= PRODUCT_SETUP_PAYLOAD_MAX_BYTES,
+    `Setup payload exceeds the reviewed ${PRODUCT_SETUP_PAYLOAD_MAX_BYTES}-byte budget: ${contentBytes}`);
+  assert.ok(byteCounts.nativeVectors <= PRODUCT_NATIVE_VECTOR_PAYLOAD_MAX_BYTES,
+    `Native vector payload exceeds the ${PRODUCT_NATIVE_VECTOR_PAYLOAD_MAX_BYTES}-byte budget: ${byteCounts.nativeVectors}`);
   return {
     bundledFiles,
     setupPayload: { schemaVersion: 1, artifacts: records.sort((left, right) => left.assetPath.localeCompare(right.assetPath)) },

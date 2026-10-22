@@ -646,6 +646,39 @@ test('an initially inactive embedded tab starts selection only when activated', 
   assert.equal(app.host.snapshot().phase, 'question');
 });
 
+for (const pendingStage of ['catalogWait', 'selectionWait']) {
+  for (const boundary of ['controls', 'pause', 'activity', 'visibility', 'page']) {
+    test(`pending Memory Moon ${pendingStage} recovers usable choices after ${boundary}`, async t => {
+      const wait = deferred();
+      const app = await fixture({ [pendingStage]: wait, autoplay: false });
+      t.after(() => app.host.destroy());
+      await flush();
+      assert.equal(app.root.getAttribute('aria-busy'), 'true');
+      const setEligible = enabled => {
+        if (boundary === 'controls') app.controlsOptions.onOpenChange(!enabled);
+        else if (boundary === 'pause') app.host.setPaused(!enabled);
+        else if (boundary === 'activity') app.host.setActive(enabled);
+        else if (boundary === 'visibility') app.visible(!enabled);
+        else app.frame.window.dispatchEvent({ type: enabled ? 'pageshow' : 'pagehide', persisted: true });
+      };
+      setEligible(false);
+      wait.resolve();
+      await app.host.ready;
+      await flush();
+      assert.ok(app.root.querySelectorAll('.moon-choice').every(button => button.disabled),
+        'late loading cannot expose a usable choice while the game is ineligible');
+      setEligible(true);
+      await flush();
+      assert.equal(app.root.getAttribute('aria-busy'), 'false');
+      assert.equal(app.host.snapshot().phase, 'question');
+      const correct = app.choice(app.host.snapshot().currentItem.correctChoiceId);
+      assert.equal(correct.disabled, false, 'the resumed choice is enabled without another setting change');
+      correct.click();
+      assert.equal(app.host.snapshot().phase, 'answered', 'the resumed control accepts the answer');
+    });
+  }
+}
+
 test('destroy fences late catalog callbacks and releases animation/timer listeners', async () => {
   const wait = deferred(); const app = await fixture({ catalogWait: wait });
   app.host.destroy(); wait.resolve(); await app.host.ready;

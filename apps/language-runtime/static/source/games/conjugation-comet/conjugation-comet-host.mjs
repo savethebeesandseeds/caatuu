@@ -3,7 +3,7 @@ import {
   buildConjugationHelixRound, judgeConjugationHelixRound, splitConjugationDisplay,
   buildConjugationVerbQueue, validateConjugationCometCatalog, selectConjugationPracticeVerbs
 } from "./conjugation-comet-core.mjs?v=conjugation-comet-core-6";
-import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-10";
+import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-11";
 import { newContentEncounterId, matchesContentDifficulty } from "../content-progression.mjs";
 import { createArabicReadingGuide } from "../../arabic-reading-guide.mjs?v=arabic-reading-guide-2";
 import { createReviewContinuation, preventRepeatedReviewKey } from "../practice-pacing.mjs?v=practice-pacing-3";

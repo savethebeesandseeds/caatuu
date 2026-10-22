@@ -84,6 +84,8 @@
   let lastAudibleSpeechVolume = defaultSpeechVolume;
   let speechAutoplayFallback = true;
   let activeLanguageSelectorHost = null;
+  let sharedCourseSelectorHost = null;
+  let activeHeaderLanguageMenu = null;
   let languageSelectorSequence = 0;
   let languageSelectorDismissalBound = false;
   let streakReminderTimer = 0;
@@ -506,6 +508,10 @@
     return dock;
   }
 
+  function announceShellOverlayChange() {
+    window.dispatchEvent(new CustomEvent("caatuu:shell-overlay-change"));
+  }
+
   function setBottomDockMenu(menu = "") {
     const dock = mountBottomDockMenus();
     const host = dock?.querySelector("[data-caatuu-bottom-dock-menu]");
@@ -528,6 +534,7 @@
       .forEach((button) => button.setAttribute("aria-expanded", normalizedMenu === "games" ? "true" : "false"));
     updateBottomDockHeight(dock);
     window.requestAnimationFrame(() => updateBottomDockHeight(dock));
+    announceShellOverlayChange();
   }
 
   function closeBottomDockMenu({ restoreFocus = true } = {}) {
@@ -650,6 +657,7 @@
     panel.hidden = false;
     setBottomDockMenu("home");
     document.body.classList.add("home-menu-open");
+    announceShellOverlayChange();
     window.requestAnimationFrame(() => {
       const current = document.querySelector(".home-section-switcher [data-home-menu-target].is-current");
       (current || document.querySelector(".home-section-switcher [data-home-menu-target]:not(:disabled)"))?.focus?.();
@@ -663,6 +671,7 @@
     const dock = document.querySelector("[data-caatuu-bottom-dock]");
     if (dock?.dataset.openMenu === "home") setBottomDockMenu();
     document.body.classList.remove("home-menu-open");
+    announceShellOverlayChange();
     if (restoreFocus && typeof sharedHomeMenuTrigger?.focus === "function") sharedHomeMenuTrigger.focus();
   }
 
@@ -790,6 +799,7 @@
     panel.hidden = false;
     setBottomDockMenu("games");
     document.body.classList.add("games-menu-open");
+    announceShellOverlayChange();
     document.querySelectorAll('[data-caatuu-bottom-nav] [data-nav-key="games"]')
       .forEach((button) => button.setAttribute("aria-expanded", "true"));
     window.requestAnimationFrame(() => {
@@ -804,6 +814,7 @@
     panel.hidden = true;
     setBottomDockMenu();
     document.body.classList.remove("games-menu-open");
+    announceShellOverlayChange();
     document.querySelectorAll('[data-caatuu-bottom-nav] [data-nav-key="games"]')
       .forEach((button) => button.setAttribute("aria-expanded", "false"));
     if (restoreFocus && typeof sharedGameMenuTrigger?.focus === "function") sharedGameMenuTrigger.focus();
@@ -886,6 +897,10 @@
 
   function bindSharedGameNavigation() {
     document.addEventListener("click", (event) => {
+      const headerNavigation = event.target.closest?.(".app-header a");
+      if (headerNavigation && activeLanguageSelectorHost) {
+        closeLanguageSelectorHost(activeLanguageSelectorHost);
+      }
       const homeMenuTarget = event.target.closest?.("[data-home-menu-target]");
       if (homeMenuTarget) {
         event.preventDefault();
@@ -3449,7 +3464,52 @@
   function languageSelectorOptions(menu) {
     return Array.from(
       menu?.querySelectorAll('[data-language-selector-option]:not([aria-disabled="true"])') || []
-    );
+    ).filter((option) => !option.closest("[hidden]"));
+  }
+
+  function courseSelectionMenu(opener) {
+    if (!sharedCourseSelectorHost) {
+      sharedCourseSelectorHost = document.createElement("div");
+      sharedCourseSelectorHost.className = "language-selector course-selection-host";
+      document.body.append(sharedCourseSelectorHost);
+      sharedCourseSelectorHost.append(createLanguageSelectorMenu(sharedCourseSelectorHost, opener));
+    }
+    return sharedCourseSelectorHost.querySelector("[data-language-selector-menu]");
+  }
+
+  function openCourseSelection(opener) {
+    const menu = courseSelectionMenu(opener);
+    opener.setAttribute("aria-haspopup", "dialog");
+    opener.setAttribute("aria-controls", menu.id);
+    setLanguageSelectorOpen(sharedCourseSelectorHost, true, { opener });
+  }
+
+  function backFromCourseSelection(host) {
+    const menu = host?.querySelector("[data-language-selector-menu]");
+    if (typeof menu?.caatuuBack === "function") menu.caatuuBack();
+    else closeLanguageSelectorHost(host, { restoreFocus: true });
+  }
+
+  function moveCourseSelectionHeader(menu) {
+    if (menu.caatuuHeaderReturn) return;
+    const header = document.querySelector(".app-header");
+    const slot = menu.querySelector(".course-selection-app-header");
+    if (!header || !slot || menu.contains(header)) return;
+    // Keep the live header, its counters and its controls in the modal's top
+    // layer, then return it to the exact place it occupied when closing.
+    const placeholder = document.createElement("span");
+    placeholder.hidden = true;
+    header.before(placeholder);
+    menu.caatuuHeaderReturn = { header, placeholder };
+    slot.append(header);
+  }
+
+  function restoreCourseSelectionHeader(menu) {
+    const saved = menu?.caatuuHeaderReturn;
+    if (!saved) return;
+    saved.placeholder.before(saved.header);
+    saved.placeholder.remove();
+    menu.caatuuHeaderReturn = null;
   }
 
   function closeLanguageSelectorHost(host, { restoreFocus = false } = {}) {
@@ -3458,14 +3518,20 @@
       || host.querySelector("[data-caatuu-language-switch]");
     const menu = host.querySelector("[data-language-selector-menu]");
     if (!menu) return;
+    const wasOpen = !menu.hidden || menu.open;
+    if (activeLanguageSelectorHost === host) activeLanguageSelectorHost = null;
     if (menu.open) menu.close();
     menu.hidden = true;
+    restoreCourseSelectionHeader(menu);
     host.querySelectorAll("[data-language-selector-opener]")
       .forEach((opener) => opener.setAttribute("aria-expanded", "false"));
     host.classList.remove("is-open");
-    if (activeLanguageSelectorHost === host) activeLanguageSelectorHost = null;
+    trigger?.setAttribute("aria-expanded", "false");
     if (restoreFocus) trigger?.focus();
     host.caatuuLanguageSelectorOpener = null;
+    const headerMenu = trigger?.closest(".header-language-selector")?.querySelector("[data-header-language-menu]");
+    if (headerMenu) trigger?.setAttribute("aria-controls", headerMenu.id);
+    if (wasOpen) window.dispatchEvent(new CustomEvent("caatuu:language-menu-change"));
   }
 
   function setLanguageSelectorOpen(host, open, { focusIndex = null, opener = null } = {}) {
@@ -3476,6 +3542,7 @@
       closeLanguageSelectorHost(host);
       return;
     }
+    setHeaderLanguageMenuOpen(activeHeaderLanguageMenu, false);
     if (activeLanguageSelectorHost && activeLanguageSelectorHost !== host) {
       closeLanguageSelectorHost(activeLanguageSelectorHost);
     }
@@ -3483,14 +3550,23 @@
     host.caatuuLanguageSelectorOpener = trigger;
     activeLanguageSelectorHost = host;
     menu.hidden = false;
+    moveCourseSelectionHeader(menu);
     menu.showModal();
     host.querySelectorAll("[data-language-selector-opener]")
       .forEach((candidate) => candidate.setAttribute("aria-expanded", "false"));
     trigger.setAttribute("aria-expanded", "true");
+    trigger.setAttribute("aria-controls", menu.id);
     host.classList.add("is-open");
+    window.dispatchEvent(new CustomEvent("caatuu:language-menu-change"));
     window.requestAnimationFrame(() => {
       const options = languageSelectorOptions(menu);
-      if (!options.length || !menu.open) return;
+      if (!menu.open) return;
+      if (!options.length) {
+        if (!menu.contains(document.activeElement) || document.activeElement?.closest("[hidden]")) {
+          menu.querySelector("[data-course-selection-back]")?.focus();
+        }
+        return;
+      }
       const normalizedIndex = ((Number.isInteger(focusIndex) ? focusIndex : 0) + options.length) % options.length;
       options[normalizedIndex].focus();
     });
@@ -3499,11 +3575,45 @@
   function bindLanguageSelectorDismissal() {
     if (languageSelectorDismissalBound) return;
     languageSelectorDismissalBound = true;
+    const dismissHeaderMenuOutside = (event) => {
+      if (activeHeaderLanguageMenu && !activeHeaderLanguageMenu.contains(event.target)) {
+        setHeaderLanguageMenuOpen(activeHeaderLanguageMenu, false);
+      }
+    };
+    document.addEventListener("pointerdown", (event) => {
+      const control = event.target?.closest?.("button, input, select, textarea");
+      // Disabled native actions cannot emit the normal outside click. Other
+      // surfaces must retain their pause until click so this press cannot also
+      // begin a game gesture when the menu is dismissed.
+      if (control?.disabled || control?.matches?.(":disabled")) dismissHeaderMenuOutside(event);
+    }, true);
+    document.addEventListener("click", dismissHeaderMenuOutside);
+    // Pointer events inside an embedded game do not reach this document.
+    // Wait for focus to settle, then dismiss the short menu on frame entry.
+    window.addEventListener("blur", () => {
+      const host = activeHeaderLanguageMenu;
+      if (!host) return;
+      window.setTimeout(() => {
+        if (activeHeaderLanguageMenu === host && document.activeElement?.tagName === "IFRAME") {
+          setHeaderLanguageMenuOpen(host, false);
+        }
+      }, 0);
+    });
+    document.addEventListener("focusin", (event) => {
+      if (activeHeaderLanguageMenu && !activeHeaderLanguageMenu.contains(event.target)) {
+        setHeaderLanguageMenuOpen(activeHeaderLanguageMenu, false);
+      }
+    });
     document.addEventListener("keydown", (event) => {
       if (event.defaultPrevented || event.isComposing || event.keyCode === 229) return;
+      if (event.key === "Escape" && activeHeaderLanguageMenu) {
+        event.preventDefault();
+        setHeaderLanguageMenuOpen(activeHeaderLanguageMenu, false, { restoreFocus: true });
+        return;
+      }
       if (event.key !== "Escape" || !activeLanguageSelectorHost) return;
       event.preventDefault();
-      closeLanguageSelectorHost(activeLanguageSelectorHost, { restoreFocus: true });
+      backFromCourseSelection(activeLanguageSelectorHost);
     });
   }
 
@@ -3524,6 +3634,10 @@
 
   function renderLanguageIndicator(element) {
     if (!element || element.dataset.caatuuLanguageIndicatorRendered === "true") return;
+    if (element.dataset.caatuuHeaderLanguageMenu !== undefined) {
+      renderHeaderLanguageMenu(element);
+      return;
+    }
     element.replaceChildren(createCurrentLanguageFlag());
     element.setAttribute("role", "img");
     element.setAttribute(
@@ -3534,6 +3648,83 @@
       language: targetLanguageName
     }));
     element.dataset.caatuuLanguageIndicatorRendered = "true";
+  }
+
+  function setHeaderLanguageMenuOpen(host, open, { restoreFocus = false, focusAction = false } = {}) {
+    if (!host) return;
+    const trigger = host.querySelector("[data-caatuu-header-language-menu]");
+    const panel = host.querySelector("[data-header-language-menu]");
+    if (!trigger || !panel) return;
+    const wasOpen = !panel.hidden;
+    if (open) {
+      if (activeHeaderLanguageMenu && activeHeaderLanguageMenu !== host) {
+        setHeaderLanguageMenuOpen(activeHeaderLanguageMenu, false);
+      }
+      closeLanguageSelectorHost(activeLanguageSelectorHost);
+      activeHeaderLanguageMenu = host;
+    } else if (activeHeaderLanguageMenu === host) activeHeaderLanguageMenu = null;
+    panel.hidden = !open;
+    trigger.setAttribute("aria-expanded", String(open));
+    trigger.setAttribute("aria-controls", panel.id);
+    if (restoreFocus) trigger.focus();
+    else if (open && focusAction) panel.querySelector("button")?.focus();
+    if (wasOpen !== open) window.dispatchEvent(new CustomEvent("caatuu:language-menu-change"));
+  }
+
+  function renderHeaderLanguageMenu(element) {
+    element.replaceChildren(createCurrentLanguageFlag());
+    element.type = "button";
+    element.dataset.caatuuHeaderLanguageMenu = "";
+    element.dataset.languageSelectorOpener = "";
+    element.setAttribute("aria-label", interfaceMessage("courseselector.menu.trigger", { language: targetLanguageName }));
+    element.title = interfaceMessage("courseselector.menu.trigger", { language: targetLanguageName });
+    const host = document.createElement("div");
+    host.className = "language-selector header-language-selector";
+    element.before(host);
+    host.append(element);
+    const panel = document.createElement("div");
+    panel.className = "header-language-menu";
+    panel.dataset.headerLanguageMenu = "";
+    panel.id = "caatuuHeaderLanguageMenu" + (++languageSelectorSequence);
+    panel.hidden = true;
+    panel.setAttribute("role", "group");
+    panel.setAttribute("aria-label", interfaceMessage("courseselector.current.label"));
+    const label = document.createElement("span");
+    label.className = "language-selector-kicker";
+    label.textContent = interfaceMessage("courseselector.current.label");
+    const name = document.createElement("strong");
+    name.className = "header-language-current";
+    name.setAttribute("aria-label", interfaceMessage("course.direction", {
+      source: interfaceLanguageName(course.sourceLanguage), target: targetLanguageName
+    }));
+    const flags = createHomeLanguagePair(currentCourseSelectorRecord());
+    flags.classList.add("header-language-course-flags");
+    name.append(flags);
+    const change = document.createElement("button");
+    change.type = "button";
+    change.className = "header-language-change";
+    change.dataset.headerLanguageChange = "";
+    change.textContent = interfaceMessage("courseselector.menu.change");
+    change.setAttribute("aria-haspopup", "dialog");
+    change.setAttribute("aria-controls", courseSelectionMenu(element).id);
+    change.addEventListener("click", () => {
+      setHeaderLanguageMenuOpen(host, false);
+      openCourseSelection(element);
+    });
+    panel.append(label, name, change);
+    host.append(panel);
+    element.setAttribute("aria-expanded", "false");
+    element.setAttribute("aria-controls", panel.id);
+    element.addEventListener("click", () => setHeaderLanguageMenuOpen(host, panel.hidden));
+    element.addEventListener("keydown", (event) => {
+      if (event.defaultPrevented || event.isComposing || event.keyCode === 229) return;
+      if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+        event.preventDefault();
+        setHeaderLanguageMenuOpen(host, true, { focusAction: true });
+      }
+    });
+    element.dataset.caatuuLanguageIndicatorRendered = "true";
+    bindLanguageSelectorDismissal();
   }
 
   function populateLanguageSelectorOption(option, language, { statusLabels = [], effort = null } = {}) {
@@ -3686,7 +3877,7 @@
 
   function createLanguageSelectorMenu(host, trigger) {
     const menu = document.createElement("dialog");
-    menu.className = "language-selector-menu home-language-selector-menu";
+    menu.className = "language-selector-menu home-language-selector-menu course-selection-screen";
     menu.dataset.languageSelectorMenu = "";
     menu.id = "caatuuLanguageSelectorMenu" + (++languageSelectorSequence);
     menu.setAttribute("role", "dialog");
@@ -3694,24 +3885,64 @@
     menu.hidden = true;
     menu.addEventListener("cancel", (event) => {
       event.preventDefault();
-      closeLanguageSelectorHost(host, { restoreFocus: true });
+      backFromCourseSelection(host);
     });
     menu.addEventListener("close", () => {
       if (!menu.open && activeLanguageSelectorHost === host) closeLanguageSelectorHost(host, { restoreFocus: true });
     });
 
+    const appHeader = document.createElement("div");
+    appHeader.className = "course-selection-app-header";
     const form = document.createElement("form");
     form.className = "language-selector-form";
 
+    const screenHeader = document.createElement("header");
+    screenHeader.className = "course-selection-screen-header";
+    const screenBack = document.createElement("button");
+    screenBack.type = "button";
+    screenBack.className = "language-selector-action is-secondary course-selection-back";
+    screenBack.dataset.courseSelectionBack = "";
+    screenBack.textContent = interfaceMessage("common.back");
     const heading = document.createElement("h3");
     heading.className = "language-selector-form-title";
     heading.id = menu.id + "Title";
     heading.textContent = interfaceMessage("courseselector.heading");
     menu.setAttribute("aria-labelledby", heading.id);
+    screenHeader.append(screenBack, heading);
 
     const introduction = document.createElement("p");
     introduction.className = "language-selector-form-intro";
     introduction.textContent = interfaceMessage("courseselector.introduction");
+
+    const coursesStage = document.createElement("section");
+    coursesStage.className = "course-selection-stage";
+    coursesStage.dataset.courseSelectionStage = "";
+    const courseList = document.createElement("div");
+    courseList.className = "course-selection-list";
+    const courseActions = document.createElement("div");
+    courseActions.className = "course-selection-actions";
+    const newLanguage = document.createElement("button");
+    newLanguage.type = "button";
+    newLanguage.className = "language-selector-action is-primary";
+    newLanguage.dataset.courseSelectionNewLanguage = "";
+    newLanguage.textContent = interfaceMessage("courseselector.newlanguage");
+    courseActions.append(newLanguage);
+    const currentCourse = document.createElement("div");
+    currentCourse.className = "course-selection-current";
+    const ongoingHead = document.createElement("div");
+    ongoingHead.className = "course-selection-ongoing-head";
+    const ongoingHeading = document.createElement("h4");
+    ongoingHeading.className = "course-selection-heading";
+    ongoingHeading.id = menu.id + "OngoingTitle";
+    ongoingHeading.textContent = interfaceMessage("courseselector.ongoing.heading");
+    ongoingHead.append(ongoingHeading, courseActions);
+    const ongoingScroll = document.createElement("div");
+    ongoingScroll.className = "course-selection-scroll";
+    ongoingScroll.tabIndex = 0;
+    ongoingScroll.setAttribute("role", "region");
+    ongoingScroll.setAttribute("aria-labelledby", ongoingHeading.id);
+    courseList.append(currentCourse, ongoingHead, ongoingScroll);
+    coursesStage.append(courseList);
 
     const choiceStage = document.createElement("div");
     choiceStage.className = "language-selector-choice-stage";
@@ -3760,7 +3991,7 @@
     cancel.className = "language-selector-action is-secondary";
     cancel.type = "button";
     cancel.dataset.languageSelectorCancel = "";
-    cancel.textContent = interfaceMessage("common.cancel");
+    cancel.textContent = interfaceMessage("common.back");
     const review = document.createElement("button");
     review.className = "language-selector-action is-primary";
     review.type = "button";
@@ -3808,15 +4039,40 @@
     reviewActions.append(back, confirm);
     reviewStage.append(reviewKicker, reviewHeading, reviewCopy, reviewStatus, reviewActions);
 
-    form.append(heading, introduction, choiceStage, reviewStage);
-    menu.append(form);
+    form.append(screenHeader, introduction, coursesStage, choiceStage, reviewStage);
+    menu.append(appHeader, form);
     trigger.setAttribute("aria-controls", menu.id);
     trigger.setAttribute("aria-expanded", "false");
 
     const state = {
       sourceId: "",
-      courseId: ""
+      courseId: "",
+      reviewOrigin: "courses"
     };
+
+    function showCourses({ focusNew = false } = {}) {
+      choiceStage.hidden = true;
+      reviewStage.hidden = true;
+      coursesStage.hidden = false;
+      introduction.hidden = true;
+      heading.textContent = interfaceMessage("courseselector.courses.heading");
+      menu.dataset.courseSelectionStage = "courses";
+      menu.classList.remove("is-reviewing");
+      if (focusNew) newLanguage.focus();
+    }
+
+    function renderCourses() {
+      const current = createHomeCurrentCourse();
+      currentCourse.replaceChildren(current);
+      const ongoing = createHomeLanguageQuickSwitches(menu, ongoingHeading.id);
+      if (ongoing) ongoingScroll.replaceChildren(ongoing);
+      else {
+        const empty = document.createElement("p");
+        empty.className = "home-language-ongoing-empty";
+        empty.textContent = interfaceMessage("courseselector.ongoing.empty");
+        ongoingScroll.replaceChildren(empty);
+      }
+    }
 
     function selectedCourseRecord() {
       return courseSelectorRecords().find((record) => record.id === state.courseId) || null;
@@ -3861,8 +4117,12 @@
     }
 
     function showChoices({ focusReview = false } = {}) {
+      coursesStage.hidden = true;
       reviewStage.hidden = true;
       choiceStage.hidden = false;
+      introduction.hidden = false;
+      heading.textContent = interfaceMessage("courseselector.newlanguage");
+      menu.dataset.courseSelectionStage = "new-language";
       menu.classList.remove("is-reviewing");
       if (focusReview) review.focus();
     }
@@ -3870,6 +4130,7 @@
     function showReview() {
       const selected = selectedCourseRecord();
       if (!selected || selected.id === course.id || !courseSelectorAvailable(selected)) return;
+      state.reviewOrigin = menu.dataset.courseSelectionStage === "courses" ? "courses" : "new-language";
       const targetName = interfaceLanguageName(selected.targetLanguage);
       reviewTitle.textContent = interfaceMessage("courseselector.review.title", { language: targetName });
       const reviewFlag = createLanguageFlag(selected.targetLanguage, "language-selector-review-flag");
@@ -3882,7 +4143,11 @@
         language: targetLanguageName
       });
       choiceStage.hidden = true;
+      coursesStage.hidden = true;
       reviewStage.hidden = false;
+      introduction.hidden = true;
+      heading.textContent = interfaceMessage("courseselector.review.kicker");
+      menu.dataset.courseSelectionStage = "review";
       menu.classList.add("is-reviewing");
       confirm.focus();
     }
@@ -3891,7 +4156,8 @@
       state.sourceId = "";
       state.courseId = "";
       renderDraft();
-      showChoices();
+      renderCourses();
+      showCourses();
     };
 
     menu.caatuuReviewCourse = (courseId) => {
@@ -3904,9 +4170,24 @@
       return true;
     };
 
-    cancel.addEventListener("click", () => closeLanguageSelectorHost(host, { restoreFocus: true }));
+    menu.caatuuBack = () => {
+      if (menu.dataset.courseSelectionStage === "review") {
+        if (state.reviewOrigin === "courses") showCourses({ focusNew: true });
+        else showChoices({ focusReview: true });
+      } else if (menu.dataset.courseSelectionStage === "new-language") showCourses({ focusNew: true });
+      else closeLanguageSelectorHost(host, { restoreFocus: true });
+    };
+    screenBack.addEventListener("click", menu.caatuuBack);
+    newLanguage.addEventListener("click", () => {
+      state.sourceId = "";
+      state.courseId = "";
+      renderDraft();
+      showChoices();
+      sourceOptions.querySelector('[data-language-selector-option]:not([aria-disabled="true"])')?.focus();
+    });
+    cancel.addEventListener("click", menu.caatuuBack);
     review.addEventListener("click", showReview);
-    back.addEventListener("click", () => showChoices({ focusReview: true }));
+    back.addEventListener("click", menu.caatuuBack);
     confirm.addEventListener("click", () => {
       const selected = selectedCourseRecord();
       if (!selected || selected.id === course.id || !courseSelectorAvailable(selected)) return;
@@ -3921,12 +4202,17 @@
     });
     form.addEventListener("submit", (event) => {
       event.preventDefault();
-      if (reviewStage.hidden) showReview();
+      if (menu.dataset.courseSelectionStage === "new-language") showReview();
     });
 
     menu.caatuuResetDraft();
     menu.addEventListener("keydown", (event) => {
       if (event.defaultPrevented || event.isComposing || event.keyCode === 229) return;
+      if (event.key === "Escape") {
+        event.preventDefault();
+        menu.caatuuBack();
+        return;
+      }
       const entries = languageSelectorOptions(menu);
       if (!entries.length) return;
       const currentIndex = entries.indexOf(document.activeElement);
@@ -3938,9 +4224,6 @@
       if (nextIndex !== null) {
         event.preventDefault();
         entries[(nextIndex + entries.length) % entries.length].focus();
-      } else if (event.key === "Escape") {
-        event.preventDefault();
-        closeLanguageSelectorHost(host, { restoreFocus: true });
       }
     });
     return menu;
@@ -3959,7 +4242,7 @@
     return flags;
   }
 
-  function createHomeCurrentCourse() {
+  function createHomeCurrentCourse(changeControl = null) {
     const record = currentCourseSelectorRecord();
     const effortLabels = selectorEffortLabels(
       courseSelectorEffort(record, selectorCourseSummaries())
@@ -3967,6 +4250,7 @@
     const current = document.createElement("div");
     current.className = "home-language-current-course";
     current.dataset.homeLanguageCurrentCourse = record.id;
+    current.dataset.courseSelectionCourse = record.id;
     current.setAttribute("role", "group");
     current.setAttribute(
       "aria-label",
@@ -3992,16 +4276,30 @@
     effort.setAttribute("title", effortLabels.exact);
     copy.append(kicker, routeLabel, effort);
 
-    const status = document.createElement("span");
-    status.className = "home-language-current-status";
-    status.textContent = interfaceMessage("common.current");
+    const status = changeControl || document.createElement("span");
+    status.className = changeControl ? "home-language-current-change" : "home-language-current-status";
+    status.textContent = interfaceMessage(changeControl ? "courseselector.action.change" : "common.current");
+    if (changeControl) {
+      const label = document.createElement("span");
+      label.className = "home-language-change-label";
+      label.textContent = interfaceMessage("courseselector.action.change");
+      const arrow = document.createElement("span");
+      arrow.className = "home-language-change-arrow";
+      arrow.setAttribute("aria-hidden", "true");
+      arrow.textContent = "›";
+      status.replaceChildren(label, arrow);
+      status.setAttribute("aria-label", interfaceMessage("courseselector.menu.change"));
+      status.title = interfaceMessage("courseselector.menu.change");
+      status.dataset.i18nAriaLabel = "courseselector.menu.change";
+      status.dataset.i18nTitle = "courseselector.menu.change";
+    }
     current.append(createHomeLanguagePair(record), copy, status);
     current.dataset.languageEffort = effortLabels.visible;
     current.dataset.languageEffortExact = effortLabels.exact;
     return current;
   }
 
-  function createHomeLanguageQuickSwitches(host, menu, headingId) {
+  function createHomeLanguageQuickSwitches(menu, headingId) {
     const summaries = selectorCourseSummaries();
     const engaged = courseSelectorRecords()
       .filter((record) => record.id !== course.id)
@@ -4020,6 +4318,8 @@
       button.type = "button";
       button.className = "home-language-quick-switch";
       button.dataset.homeLanguageQuickCourse = record.id;
+      button.dataset.courseSelectionCourse = record.id;
+      button.dataset.languageSelectorOption = "";
       button.dataset.languageSelectorOpener = "";
       button.setAttribute("aria-haspopup", "dialog");
       button.setAttribute("aria-controls", menu.id);
@@ -4075,8 +4375,7 @@
       button.addEventListener("click", (event) => {
         event.preventDefault();
         event.stopPropagation();
-        if (!available) return;
-        setLanguageSelectorOpen(host, true, { opener: button });
+        if (!available || !menu.open) return;
         menu.caatuuReviewCourse?.(record.id);
       });
       list.append(button);
@@ -4084,62 +4383,9 @@
     return list;
   }
 
-  function createHomeLanguageOngoingCourses(host, menu, trigger) {
-    const section = document.createElement("section");
-    section.className = "home-language-ongoing-courses";
-    section.dataset.homeLanguageOngoingCourses = "";
-    const header = document.createElement("header");
-    header.className = "home-language-ongoing-head";
-    const heading = document.createElement("h3");
-    heading.id = menu.id + "OngoingTitle";
-    const body = document.createElement("div");
-    body.id = menu.id + "OngoingCourses";
-    body.dataset.homeLanguageOngoingBody = "";
-    body.hidden = true;
-    const toggle = document.createElement("button");
-    toggle.type = "button";
-    toggle.className = "home-language-ongoing-toggle";
-    toggle.dataset.homeLanguageOngoingToggle = "";
-    toggle.textContent = interfaceMessage("courseselector.ongoing.heading");
-    toggle.setAttribute("aria-controls", body.id);
-    toggle.setAttribute("aria-expanded", "false");
-    toggle.addEventListener("click", () => {
-      body.hidden = !body.hidden;
-      toggle.setAttribute("aria-expanded", String(!body.hidden));
-    });
-    heading.append(toggle);
-
-    trigger.className = "home-language-manage";
-    const manageIcon = document.createElement("span");
-    manageIcon.className = "home-language-manage-icon";
-    manageIcon.setAttribute("aria-hidden", "true");
-    manageIcon.textContent = "+";
-    const manageLabel = document.createElement("span");
-    manageLabel.textContent = interfaceMessage("courseselector.newcourse");
-    trigger.replaceChildren(manageIcon, manageLabel);
-    trigger.setAttribute("aria-label", interfaceMessage("courseselector.startnew"));
-    trigger.setAttribute("title", interfaceMessage("courseselector.startnew"));
-    header.append(heading, trigger);
-    section.append(header);
-
-    const quickSwitches = createHomeLanguageQuickSwitches(host, menu, heading.id);
-    if (quickSwitches) {
-      host.classList.add("has-quick-courses");
-      body.append(quickSwitches);
-    } else {
-      const empty = document.createElement("p");
-      empty.className = "home-language-ongoing-empty";
-      empty.textContent = interfaceMessage("courseselector.ongoing.empty");
-      body.append(empty);
-    }
-    section.append(body);
-    return section;
-  }
-
   function renderLanguageSwitch(element) {
     if (!element || element.dataset.caatuuLanguageSelectorRendered === "true") return;
     const homeVariant = element.dataset.languageSwitchVariant === "home";
-    const currentCourse = homeVariant ? createHomeCurrentCourse() : null;
     if (!homeVariant) {
       element.replaceChildren(createCurrentLanguageFlag());
     }
@@ -4165,31 +4411,29 @@
     host.className = "language-selector";
     element.before(host);
     if (!homeVariant) host.append(element);
-    const menu = createLanguageSelectorMenu(host, element);
+    const menu = courseSelectionMenu(element);
+    element.setAttribute("aria-controls", menu.id);
+    element.setAttribute("aria-expanded", "false");
     if (homeVariant) {
       host.classList.add("home-language-selector");
-      host.append(currentCourse, createHomeLanguageOngoingCourses(host, menu, element));
+      host.append(createHomeCurrentCourse(element));
     }
-    host.append(menu);
 
     element.addEventListener("click", (event) => {
       event.preventDefault();
-      setLanguageSelectorOpen(host, menu.hidden, { opener: element });
+      openCourseSelection(element);
     });
     element.addEventListener("keydown", (event) => {
       if (event.defaultPrevented || event.isComposing || event.keyCode === 229) return;
       if (event.key === "ArrowDown" || event.key === "ArrowUp") {
         event.preventDefault();
-        setLanguageSelectorOpen(host, true, {
-          focusIndex: event.key === "ArrowDown" ? 0 : -1,
-          opener: element
-        });
+        openCourseSelection(element);
       } else if (event.key === "Escape") {
         event.preventDefault();
-        closeLanguageSelectorHost(host, { restoreFocus: true });
+        backFromCourseSelection(sharedCourseSelectorHost);
       } else if (element.tagName !== "BUTTON" && (event.key === "Enter" || event.key === " ")) {
         event.preventDefault();
-        setLanguageSelectorOpen(host, menu.hidden, { opener: element });
+        openCourseSelection(element);
       }
     });
     element.dataset.caatuuLanguageSelectorRendered = "true";
@@ -4197,6 +4441,13 @@
   }
 
   function renderAppHeader(header) {
+    if (activeHeaderLanguageMenu && header.contains(activeHeaderLanguageMenu)) {
+      setHeaderLanguageMenuOpen(activeHeaderLanguageMenu, false);
+    }
+    if (activeLanguageSelectorHost && (header.contains(activeLanguageSelectorHost)
+      || header.contains(activeLanguageSelectorHost.caatuuLanguageSelectorOpener))) {
+      closeLanguageSelectorHost(activeLanguageSelectorHost);
+    }
     header.replaceChildren();
 
     const rawPageKicker = String(
@@ -4258,7 +4509,7 @@
     const screenCenter = document.createElement("span");
     screenCenter.className = "app-header-center";
 
-    const language = document.createElement("span");
+    const language = document.createElement("button");
     language.className = "language-pill app-header-language-pill current-language-indicator";
     language.dataset.caatuuLanguageIndicator = "";
 
@@ -4303,7 +4554,7 @@
     screenCenter.append(screenTitle);
     actions.append(headerStats, language);
     header.append(brand, screenBack, screenCenter, actions);
-    renderLanguageIndicator(language);
+    renderHeaderLanguageMenu(language);
     renderLearningControls(header);
     updateThemeControls(readStoredTheme());
 
@@ -4530,10 +4781,11 @@
               <h2 id="settingsTitle">${interfaceHtml("nav.backpack")}</h2>
             </div>
           </div>
-          <span
+          <button type="button"
             class="language-pill settings-language-pill current-language-indicator"
             data-caatuu-language-indicator
-          ></span>
+            data-caatuu-header-language-menu
+          ></button>
         </header>
 
         <div class="settings-sheet-body" tabindex="-1">
@@ -5313,6 +5565,7 @@
   function openSharedSettings({ view = readRememberedBackpackView() } = {}) {
     const panel = document.querySelector("#settingsPanel");
     if (!panel) return;
+    setHeaderLanguageMenuOpen(activeHeaderLanguageMenu, false);
     closeLanguageSelectorHost(activeLanguageSelectorHost);
     closeHomeMenu({ restoreFocus: false });
     closeGameMenu({ restoreFocus: false });
@@ -5322,6 +5575,7 @@
     setBottomDockMenu();
     document.body.classList.add("settings-open");
     setSettingsNavActive(true);
+    announceShellOverlayChange();
     document.dispatchEvent(new CustomEvent("caatuu:settings-open"));
     panel.querySelector(".settings-sheet-body")?.focus?.();
   }
@@ -5329,6 +5583,7 @@
   function closeSharedSettings({ restoreFocus = true } = {}) {
     const panel = document.querySelector("#settingsPanel");
     if (!panel) return;
+    setHeaderLanguageMenuOpen(activeHeaderLanguageMenu, false);
     closeStatsDetails(panel);
     closeLanguageSelectorHost(activeLanguageSelectorHost);
     cancelSettingsViewTransition(panel);
@@ -5338,6 +5593,7 @@
     setBottomDockMenu();
     document.body.classList.remove("settings-open");
     setSettingsNavActive(false);
+    announceShellOverlayChange();
     if (restoreFocus && typeof sharedSettingsTrigger?.focus === "function") sharedSettingsTrigger.focus();
   }
 
@@ -5530,6 +5786,14 @@
   }
 
   function handleAndroidBack() {
+    if (activeHeaderLanguageMenu) {
+      setHeaderLanguageMenuOpen(activeHeaderLanguageMenu, false, { restoreFocus: true });
+      return true;
+    }
+    if (activeLanguageSelectorHost) {
+      backFromCourseSelection(activeLanguageSelectorHost);
+      return true;
+    }
     if (closeBottomDockMenu({ restoreFocus: false })) return true;
     const homeMenuPanel = document.querySelector("#homeMenuPanel");
     if (homeMenuPanel && !homeMenuPanel.hidden) {

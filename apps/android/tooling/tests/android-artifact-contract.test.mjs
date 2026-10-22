@@ -13,6 +13,7 @@ import {
   assertBundledSetupArtifacts,
   projectBundledSetupArtifacts,
   assertPublicSetupDependencies,
+  embeddingDownloadUrl,
   embeddingStorageRecord,
   setupStorageRecord,
   assertUniqueActiveDictionaryKeys,
@@ -251,6 +252,38 @@ test("the tracked Czech embedding manifest resolves to its catalog-declared data
     embeddingStorageRecord(active, manifest, catalog.base_url, "cz", "Czech embedding").source,
     new URL(active.model_file, `${catalog.base_url.replace(/\/+$/u, "")}/`).href,
   );
+});
+
+test("embedding download overrides keep the logical asset and pinned integrity unchanged", () => {
+  const base = "https://caatuu.example/embeddings";
+  const active = { artifact_kind: "embedding-vector-db", model_file: "model-v1/curriculum.sqlite",
+    bytes: 100, sha256: "b".repeat(64) };
+  const manifest = { file: "curriculum.sqlite", url: active.model_file,
+    bytes: active.bytes, sha256: active.sha256 };
+  assert.equal(embeddingDownloadUrl(active, base), `${base}/${active.model_file}`);
+  const download_url = `https://caatuu.example/assets/setup/${active.sha256}/reviewed.sqlite`;
+  const projected = { ...active, download_url };
+  assert.equal(embeddingDownloadUrl(projected, base), download_url);
+  assert.equal(assertEmbeddingArtifactContract(projected, manifest, base, "embedding"), manifest);
+  const record = embeddingStorageRecord(projected, manifest, base, "cz", "embedding");
+  assert.equal(record.source, download_url);
+  assert.equal(record.declaredPath, active.model_file);
+  assert.equal(record.storagePath, "vector-dbs/curriculum.sqlite");
+  assert.equal(record.bytes, active.bytes);
+  assert.equal(record.sha256, active.sha256);
+  assert.throws(() => assertEmbeddingArtifactContract(projected, { ...manifest, sha256: "a".repeat(64) },
+    base, "embedding"), /SHA-256 must match the catalog/u);
+  assert.throws(() => assertEmbeddingArtifactContract(projected, { ...manifest, bytes: 101 },
+    base, "embedding"), /bytes must match the catalog/u);
+  assert.throws(() => embeddingDownloadUrl(projected, "http://caatuu.example/embeddings"), /must use HTTPS/u);
+  for (const download_url of [null, "", " /assets/model.sqlite", "/assets/model.sqlite",
+    "http://caatuu.example/model.sqlite", "https://user:password@caatuu.example/model.sqlite",
+    "https://caatuu.example/model file.sqlite"]) {
+    const invalid = { ...active, download_url };
+    assert.throws(() => embeddingDownloadUrl(invalid, base), String(download_url));
+    assert.throws(() => assertEmbeddingArtifactContract(invalid, manifest, base, "embedding"), String(download_url));
+    assert.throws(() => embeddingStorageRecord(invalid, manifest, base, "cz", "embedding"), String(download_url));
+  }
 });
 
 test("shared Android storage permits only complete byte-identical artifact identities", () => {

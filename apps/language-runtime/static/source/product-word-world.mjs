@@ -21,7 +21,7 @@ import {
 import { WordNetBranchQueue } from "./word-net-queue.mjs?v=word-net-queue-6";
 import { bindHorizontalGesture } from "./horizontal-gesture.mjs";
 import { localAiAvailability } from "./shell-policy.mjs";
-import { mountRobotLoadingScreen } from "./games/embedded-game-controls.mjs?v=embedded-game-controls-10";
+import { mountRobotLoadingScreen } from "./games/embedded-game-controls.mjs?v=embedded-game-controls-11";
 import { createEnglishImageSearch } from "./english-image-search.mjs?v=english-image-search-5";
 import { renderTargetText } from "./target-text.mjs?v=target-text-1";
 import { createTargetReadingGuide } from "./target-reading-guide.mjs?v=target-reading-guide-1";
@@ -3934,7 +3934,7 @@ function speakReconstructionOption(round, option) {
 }
 
 function selectReconstructionOption(id) {
-  if (state.busy) return;
+  if (state.busy || state.loadingActive === false) return;
   const round = ensureReconstructionChallenge();
   const option = round?.challenge.options.find((candidate) => candidate.id === id);
   if (!round || !option || round.submitted || guidedWordInteractionLocked() || round.evidencePending || round.selectedIds.includes(id)) return;
@@ -3949,7 +3949,7 @@ function selectReconstructionOption(id) {
 }
 
 function removeReconstructionOption(id) {
-  if (state.busy) return;
+  if (state.busy || state.loadingActive === false) return;
   const round = ensureReconstructionChallenge();
   const option = round?.challenge.options.find((candidate) => candidate.id === id);
   if (!round || !option || round.submitted || guidedWordInteractionLocked() || round.evidencePending) return;
@@ -3964,6 +3964,7 @@ function removeReconstructionOption(id) {
 }
 
 async function submitReconstructionChallenge() {
+  if (state.busy || state.loadingActive === false) return;
   const round = ensureReconstructionChallenge();
   if (!round || round.submitted || guidedWordInteractionLocked() || round.evidencePending) return;
   if (round.guidedLifecycle) {
@@ -4061,6 +4062,7 @@ async function submitReconstructionChallenge() {
 }
 
 function retryReconstructionChallenge() {
+  if (state.loadingActive === false) return;
   const round = ensureReconstructionChallenge();
   if (!round?.submitted || state.busy || state.guidedEvidencePending) return;
   if (state.guidedRequested) {
@@ -4096,6 +4098,7 @@ function shouldBlockReconstructionAdvance() {
 }
 
 async function activateNextSentence({ campaignAdvance = false, focusAnswer = false } = {}) {
+  if (!campaignAdvance && state.loadingActive === false) return;
   if (state.guidedRequested) {
     const round = ensureReconstructionChallenge();
     if (!round?.submitted || state.busy || state.guidedEvidencePending) return;
@@ -5687,6 +5690,7 @@ function updateHistoryTranslation(sentence, translation) {
 }
 
 async function showPreviousSentence() {
+  if (state.loadingActive === false) return;
   if (state.guidedRequested) {
     setStatus(interfaceText("wordworld.history.guideddisabled"), { tone: "muted" });
     return;

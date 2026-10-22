@@ -237,7 +237,7 @@
       "path": "apps/language-runtime/static/data/interface/en.v1.json",
       "scope": "shared",
       "state": "present",
-      "revision": "interface-en-52"
+      "revision": "interface-en-54"
     },
     "courseProfile": {
       "kind": "file",
@@ -330,7 +330,7 @@
       "path": "apps/languages/czech/static/source/features/setup/setup.js",
       "scope": "course",
       "state": "present",
-      "revision": "setup-43"
+      "revision": "setup-44"
     },
     "modelCatalog": {
       "kind": "file",

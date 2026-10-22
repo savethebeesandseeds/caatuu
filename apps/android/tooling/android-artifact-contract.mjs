@@ -259,6 +259,15 @@ export function activeDictionaryStorageKeys(catalog, label) {
     ));
 }
 
+export function embeddingDownloadUrl(active, baseUrl, label = "Embedding") {
+  assert.ok(isObject(active), `${label} active embedding model must be an object`);
+  const base = assertHttpsUrl(baseUrl, `${label} embedding base URL`);
+  const modelFile = assertSafeRelativePath(active.model_file, `${label} embedding model_file`);
+  return Object.hasOwn(active, "download_url")
+    ? assertHttpsUrl(active.download_url, `${label} embedding download_url`)
+    : resolveAndAssertHttpsUrl(base, modelFile, `${label} embedding manifest URL`);
+}
+
 export function assertEmbeddingArtifactContract(active, manifest, baseUrl, label) {
   assert.ok(isObject(active), `${label} active embedding model must be an object`);
   assert.ok(isObject(manifest), `${label} embedding manifest must be an object`);
@@ -280,7 +289,7 @@ export function assertEmbeddingArtifactContract(active, manifest, baseUrl, label
     modelFile,
     `${label} embedding manifest URL must equal the catalog model_file`,
   );
-  resolveAndAssertHttpsUrl(baseUrl, modelFile, `${label} embedding manifest URL`);
+  embeddingDownloadUrl(active, baseUrl, label);
   return manifest;
 }
 
@@ -325,7 +334,7 @@ export function embeddingStorageRecord(active, manifest, baseUrl, courseId, labe
   return storageRecord({
     courseId,
     storagePath: `vector-dbs/${fileName}`,
-    source: resolveAndAssertHttpsUrl(baseUrl, active.model_file, `${label} embedding manifest URL`),
+    source: embeddingDownloadUrl(active, baseUrl, label),
     declaredPath: active.model_file,
     bytes: manifest.bytes,
     sha256: manifest.sha256,

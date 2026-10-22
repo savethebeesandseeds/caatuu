@@ -47,7 +47,7 @@
       schemaVersion: 1,
       locale: "en",
       direction: "ltr",
-      revision: "interface-en-52",
+      revision: "interface-en-54",
       catalog: "/language-runtime/static/data/interface/en.v1.json"
     },
     learnerBasePreview: false,
@@ -74,7 +74,7 @@
     browserProviders: {
       courseRuntime: "source/shared/runtime.js?v=runtime-43",
       setupProgressProvider: "source/features/setup/setup-progress.js?v=setup-progress-1",
-      setupProvider: "source/features/setup/setup.js?v=setup-43"
+      setupProvider: "source/features/setup/setup.js?v=setup-44"
     },
     gameContent: {
       "verb-lab": {
@@ -177,7 +177,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-52",
+            revision: "interface-en-54",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -237,7 +237,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-52",
+            revision: "interface-en-54",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -301,7 +301,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-52",
+            revision: "interface-en-54",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -365,7 +365,7 @@
             schemaVersion: 1,
             locale: "es-ES",
             direction: "ltr",
-            revision: "interface-es-27",
+            revision: "interface-es-29",
             catalog: "/language-runtime/static/data/interface/es.v1.json"
           },
           targetLanguage: {
@@ -429,7 +429,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-52",
+            revision: "interface-en-54",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -496,7 +496,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-52",
+            revision: "interface-en-54",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -557,7 +557,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-52",
+            revision: "interface-en-54",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -618,7 +618,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-52",
+            revision: "interface-en-54",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {

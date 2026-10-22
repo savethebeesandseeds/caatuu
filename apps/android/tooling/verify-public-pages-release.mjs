@@ -8,6 +8,7 @@ import { fileURLToPath } from "node:url";
 
 import { validatePagesCurrentReleaseDescriptor } from "./pages-current-release.mjs";
 import { readZipEntry } from "./pages-baseline.mjs";
+import { nativeProviderDownloadArtifacts } from "./native-provider-downloads.mjs";
 import { readPagesStoragePolicy, validatePagesStoragePolicy } from "./pages-storage-policy.mjs";
 
 const modulePath = fileURLToPath(import.meta.url);
@@ -252,12 +253,17 @@ export async function verifyPublicSetupPayload({ apkBytes, bundle, request, orig
   const records = new Map();
   for (const course of courses.courses) {
     const setup = JSON.parse(readZipEntry(apkBytes, `assets/${course.assetPrefix}/setup-assets.json`).toString("utf8"));
-    for (const artifact of setup.artifacts.filter((item) => item.native_required === true)) {
+    const setupArtifacts = setup.artifacts.filter((item) => item.native_required === true
+      && new URL(item.url, origin).pathname.startsWith("/assets/setup/"));
+    const providerArtifacts = nativeProviderDownloadArtifacts(course,
+      path => readZipEntry(apkBytes, `assets/${path}`));
+    for (const artifact of [...setupArtifacts, ...providerArtifacts]) {
       const url = new URL(artifact.url, origin);
-      if (!url.pathname.startsWith("/assets/setup/")) continue;
       assert.equal(url.origin, origin, "Public setup object changed origin");
       assert.ok(!url.search && !url.hash && !url.username && !url.password, "Public setup URL is not immutable");
-      assert.ok(url.pathname.startsWith(`/assets/setup/${artifact.sha256}/`), "Public setup URL is not content-addressed");
+      if (url.pathname.startsWith("/assets/setup/")) {
+        assert.ok(url.pathname.startsWith(`/assets/setup/${artifact.sha256}/`), "Public setup URL is not content-addressed");
+      }
       const record = { path: url.pathname, bytes: artifact.bytes, sha256: artifact.sha256 };
       if (records.has(record.path)) assert.deepEqual(records.get(record.path), record, "Public APK requires conflicting setup bytes");
       records.set(record.path, record);

@@ -700,6 +700,10 @@
     const setupActive = setupRunning || nativeSetupActive;
     const card = $("#nativeSetup");
     if (card) {
+      // Completed setup is not a Home destination. Keep required preparation
+      // and recovery visible, including an active or confirmed app update.
+      card.hidden = ready && !setupActive && !updateRunning && !appUpdateLocked
+        && !card.classList.contains("is-error");
       card.classList.toggle("is-updating", updateRunning);
       card.classList.toggle("is-app-update-lock", appUpdateLocked);
     }

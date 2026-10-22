@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="robots" content="noindex, nofollow">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; style-src-attr 'none'; img-src 'self'; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+    <title>Caatuu · Verb Nebula layout review</title>
+    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-theme.css?v=theme-8">
+    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-workspace.css?v=shell-106">
+    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-chrome.css?v=chrome-style-152">
+    <link rel="stylesheet" href="/language-runtime/static/styles/caatuu-target-text.css?v=target-text-4">
+    <script src="/cz/source/shared/course-profile.js?v=course-74"></script>
+    <script type="module" src="verb-nebula-layout.mjs"></script>
+  </head>
+  <body>
+    <header class="app-header">
+      <div>
+        <h1>Verb Nebula layout review</h1>
+        <p>Local review only. Real course labels and reading guides; one fixed picture tests geometry.</p>
+      </div>
+    </header>
+    <section class="workspace" aria-label="Review controls">
+      <p><label for="reviewCourse">Course</label> <select id="reviewCourse" disabled></select></p>
+      <p><label for="reviewFont">Font size</label> <select id="reviewFont"><option value="standard">Standard</option><option value="large">Large</option><option value="largest">Largest</option></select></p>
+      <p><label><input id="reviewHints" type="checkbox" checked> Picture hints</label></p>
+      <p><label><input id="reviewReadings" type="checkbox" checked> Reading guides</label></p>
+      <p><button id="reviewCheck" type="button" disabled>Check selected course</button></p>
+      <p><button id="reviewCheckAll" type="button" disabled>Check all courses</button></p>
+      <p><output id="reviewSummary" role="status" aria-live="polite">Loading the declared course catalogs…</output></p>
+      <details>
+        <summary>Geometry report</summary>
+        <textarea id="reviewReport" rows="12" readonly aria-label="Geometry report JSON"></textarea>
+      </details>
+    </section>
+    <div class="app-shell">
+      <main class="workspace">
+        <section class="view is-active" id="view-verbs">
+          <section class="verb-match-panel is-active" id="trainPanelVerbLab" aria-label="Verb Nebula review board">
+            <div class="verb-match-board">
+              <div class="verb-match-controls"><strong id="reviewBoardTitle">Real catalog samples</strong></div>
+              <div class="verb-match-column-heading verb-match-column-heading-cz"><span id="reviewTargetHeading">Target</span></div>
+              <div class="verb-match-column-heading"><span id="reviewSourceHeading">Meaning</span></div>
+              <div class="verb-match-column verb-match-column-cz" id="reviewTargetColumn"></div>
+              <div class="verb-match-column verb-match-column-en" id="reviewSourceColumn"></div>
+            </div>
+            <footer class="verb-match-footer"><p class="verb-match-note">Samples include ordinary words, the widest target word, the widest reading and a long phrase. Preferences and reports remain in this page’s memory.</p></footer>
+          </section>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

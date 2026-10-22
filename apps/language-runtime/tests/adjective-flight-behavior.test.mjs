@@ -282,6 +282,62 @@ test("the robot keeps meaning input and its clock paused until the illustration 
   game.controller.destroy();
 });
 
+async function mountLoadingChoiceStage(stage) {
+  const game = await mountGame({ practiceMode: stage === "form" ? "forms" : "meaning", delayVisual: true });
+  if (stage === "category") {
+    assert.ok(game.round.stages.includes("category"), "the authored course provides a category stage");
+    const stages = ["category", "form"];
+    game.controller.start({ ...game.round, stages }, game.flights.map((flight) => ({ ...flight, stages })), { practiceMode: "sequence" });
+  }
+  assert.equal(game.controller.snapshot().step, stage);
+  return game;
+}
+
+for (const stage of ["meaning", "category", "form"]) {
+  test(`illustration completion restores ${stage} choices after an activity handoff`, async () => {
+    const game = await mountLoadingChoiceStage(stage);
+    game.controller.setActive(false);
+    game.controller.setActive(true);
+    assert.equal(game.option().disabled, true, "pending artwork still blocks answers");
+    game.visuals.finish();
+    assert.equal(game.arena.getAttribute("aria-busy"), "false");
+    assert.equal(game.element("gravityAdjectiveChoices").hidden, false);
+    assert.equal(game.option().disabled, false, "ready options become actionable without another visibility event");
+    game.answer();
+    assert.equal(game.controller.snapshot().phase, "landing");
+    game.controller.destroy();
+  });
+
+  test(`illustration completion restores ${stage} choices after controls close during loading`, async () => {
+    const game = await mountLoadingChoiceStage(stage);
+    game.controller.setPaused(true);
+    game.controller.setPaused(false);
+    assert.equal(game.option().disabled, true);
+    game.visuals.finish();
+    assert.equal(game.option().disabled, false);
+    game.answer();
+    assert.equal(game.controller.snapshot().phase, "landing");
+    game.controller.destroy();
+  });
+
+  test(`illustration completion keeps ${stage} choices paused until activity and controls resume`, async () => {
+    const game = await mountLoadingChoiceStage(stage);
+    game.controller.setPaused(true);
+    game.controller.setActive(false);
+    game.visuals.finish();
+    assert.equal(game.option().disabled, true);
+    game.option().click();
+    assert.notEqual(game.controller.snapshot().phase, "landing");
+    game.controller.setActive(true);
+    assert.equal(game.option().disabled, true, "visible games retain an open control pause");
+    game.controller.setPaused(false);
+    assert.equal(game.option().disabled, false);
+    game.answer();
+    assert.equal(game.controller.snapshot().phase, "landing");
+    game.controller.destroy();
+  });
+}
+
 function assertMistakes(game, stages) {
   assert.deepEqual(Array.from(game.controller.snapshot().mistakes), stages);
   const failedSteps = [...game.element("gravityAdjectiveProgress").querySelectorAll('[data-result="wrong"]')];

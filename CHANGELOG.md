@@ -1,5 +1,19 @@
 # Changelog
 
+## Android 193 / 0.1.41
+
+- Pin native vector-database downloads to their sealed setup objects so Czech
+  setup receives the exact catalog-verified bytes.
+- Keep Arabic Verb Nebula words and pictures together, and fix answer selection
+  and menu pause behavior across the shared games.
+- Simplify Home with one current-course card and a Change action. Add dedicated
+  course and new-language screens with a persistent header, a scrollable course
+  list, and a visible New language action.
+- Enlarge header rewards and flags, show both course flags in the language menu,
+  and make Change course a green action.
+- Physical-device installation, update, offline use and saved-data preservation
+  remain unverified for this candidate. Course review status is unchanged.
+
 ## Android 192 / 0.1.40
 
 - Refine Word World's correction card with a centered, framed challenge,

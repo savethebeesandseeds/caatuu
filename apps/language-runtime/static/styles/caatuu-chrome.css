@@ -494,12 +494,12 @@ html {
   flex: 0 0 auto;
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
 }
 
 .app-header-stat {
   flex: 0 0 auto;
-  height: 34px;
+  min-height: 42px;
   min-width: 0;
   padding: 0 2px;
   border: 0;
@@ -510,37 +510,74 @@ html {
   background: transparent;
   box-shadow: none;
   color: var(--green-dark, var(--green));
-  font-size: 0.74rem;
+  font-size: 0.9rem;
   font-variant-numeric: tabular-nums;
   line-height: 1;
 }
 
 .app-header-stat img {
-  width: 24px;
-  height: 24px;
+  width: 30px;
+  height: 30px;
   display: block;
   object-fit: contain;
 }
 
 .app-header-xp img {
-  width: 22px;
-  height: 24px;
+  width: 28px;
+  height: 30px;
 }
 
 .app-header-coins img {
-  width: 25px;
-  height: 25px;
+  width: 32px;
+  height: 32px;
 }
 
 .app-header-streak img {
-  width: 29px;
-  height: 29px;
+  width: 36px;
+  height: 36px;
 }
 
 .app-header-stat strong {
   min-width: 1ch;
   font-weight: 950;
   text-align: center;
+}
+
+@media (max-width: 600px) {
+  .app-header {
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+
+  .app-header .header-actions,
+  .app-header.has-screen-title .header-actions {
+    flex: 0 0 100%;
+    width: 100%;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 380px) {
+  .app-header .app-header-stats {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 4px;
+  }
+
+  .app-header .app-header-stat {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .app-header-stat strong {
+    max-width: 100%;
+    white-space: nowrap;
+  }
 }
 
 .theme-toggle {
@@ -651,6 +688,104 @@ html {
 
 .language-selector-menu[hidden] {
   display: none;
+}
+
+.header-language-selector .language-pill.current-language-indicator {
+  width: 52px;
+  min-width: 52px;
+  height: 52px;
+  min-height: 52px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.header-language-selector .current-language-indicator .caatuu-language-flag {
+  flex-basis: 40px;
+  width: 40px;
+  min-width: 40px;
+  max-width: 40px;
+  height: 28px;
+  min-height: 28px;
+  max-height: 28px;
+  object-fit: contain;
+}
+
+.header-language-selector .current-language-indicator:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
+}
+
+.header-language-menu {
+  position: absolute;
+  z-index: 90;
+  top: calc(100% + 8px);
+  inset-inline-end: 0;
+  width: min(280px, calc(100vw - 24px));
+  padding: 12px;
+  display: grid;
+  gap: 8px;
+  border: 1px solid var(--theme-control-border, var(--line));
+  border-radius: 16px;
+  background: var(--theme-panel-raised, var(--panel));
+  color: var(--ink);
+  text-align: start;
+  box-shadow: 0 12px 32px color-mix(in srgb, var(--ink) 18%, transparent);
+}
+
+.header-language-menu[hidden] {
+  display: none;
+}
+
+.header-language-current {
+  display: flex;
+  justify-content: center;
+  padding: 0 7px 6px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.header-language-course-flags {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  min-height: 52px;
+}
+
+.header-language-course-flags .caatuu-language-flag {
+  flex-basis: 48px;
+  width: 48px;
+  min-width: 48px;
+  max-width: 48px;
+  height: 32px;
+  min-height: 32px;
+  max-height: 32px;
+  object-fit: contain;
+}
+
+.header-language-course-flags .home-language-pair-arrow {
+  color: var(--theme-green-strong, var(--green));
+  font-size: 1.4rem;
+}
+
+.header-language-change {
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--theme-green-filled, var(--green));
+  border-radius: 10px;
+  background: var(--theme-green-filled, var(--green));
+  color: #fffaf0;
+  font: inherit;
+  font-weight: 800;
+  text-align: start;
+  cursor: pointer;
+}
+
+.header-language-change:hover,
+.header-language-change:focus-visible {
+  background: color-mix(in srgb, var(--theme-green-filled, var(--green)) 86%, #17251f);
+  outline: 2px solid var(--green);
+  outline-offset: 1px;
 }
 
 .language-selector-kicker {
@@ -4645,22 +4780,22 @@ html[data-caatuu-runtime="android"] .settings-section-switcher {
 
   .app-header-stat {
     padding: 0;
-    font-size: 0.68rem;
+    font-size: 0.84rem;
   }
 
   .app-header-stat img {
-    width: 22px;
-    height: 22px;
+    width: 28px;
+    height: 28px;
   }
 
   .app-header-xp img {
-    width: 20px;
-    height: 22px;
+    width: 26px;
+    height: 28px;
   }
 
   .app-header-streak img {
-    width: 25px;
-    height: 25px;
+    width: 34px;
+    height: 34px;
   }
 
   .language-pill.app-header-language-pill,

@@ -1,6 +1,6 @@
 # Android release operations
 
-Last reviewed: 15 October 2026
+Last reviewed: 22 October 2026
 
 This is the operational handoff for maintainers and coding sessions. Use the
 maintained entrypoints, not a remembered sequence of repair commands.
@@ -52,11 +52,20 @@ local checkpoint.
 
 The builder's metadata-only Pages capacity preflight runs before Gradle. It
 accounts for pending finalized releases, applies only the explicitly approved
-APK archive policy, and reserves a full 96 MB companion plus two 32 MB APK
-copies. It does not repeat product transforms or website builds. The final
+APK archive policy, and reserves the full 96 MB content companion, a separate
+32 MB native vector payload and two 32 MB APK copies. It does not repeat
+product transforms or website builds. The final
 overlay still verifies its actual complete payload against the 1 GB limit.
 Insufficient headroom stops before an APK build; inspect the reported bytes
 and agree on capacity rather than repeatedly invoking the publisher.
+
+Native vector databases are sealed in the companion with immutable download
+URLs projected into the APK's embedding catalog. Logical WebView paths and
+the pinned byte count and SHA-256 remain unchanged. Preserve the historical
+database routes: Czech's old route serves the frozen 20,029,440-byte database,
+while newer curriculum catalogs pin different bytes. Setup verification reads
+native provider catalogs as well as the ordinary setup manifest, including
+the remaining independently hosted dictionary downloads.
 
 Signing lineage is pinned by
 [`direct-release-certificate.sha256`](../apps/android/tooling/direct-release-certificate.sha256).
@@ -276,6 +285,18 @@ pwsh -NoProfile -Command '$ErrorActionPreference = "Stop"; & ./apps/android/tool
 ```
 
 ## Close the loop after each incident
+
+Android 193's source packaging checks measured 8,027,526 bootstrap bytes before
+any APK build or sealed candidate. The shared product projection now removes
+formatting indentation from packaged HTML and CSS while preserving protected
+text, attributes, strings, comments and escapes. Compilation, staged validation
+and signed-package auditing share these transforms. The 8,000,000-byte limit,
+course content and download identities remain unchanged. Focused preservation
+and real-catalog residency checks cover this boundary.
+Receipt promotion reads the explicit static-text format from the sealed source
+compiler. Historical sources without that declaration retain their original
+HTML indentation; an unknown declared format fails rather than changing the
+expected bytes of an existing APK.
 
 Android 192's focused source check measured 8,002,900 bootstrap bytes before
 any APK build or sealed candidate. Native provider catalogs, active embedding

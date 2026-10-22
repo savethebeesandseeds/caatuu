@@ -1,6 +1,6 @@
 import { highlightedFormParts, buildMeaningChoices, validateGrammarFlight, validateGrammarStages } from "./adjective-flight-core.mjs?v=grammar-journey-6";
 import { createNounVisual } from "./noun-visual.mjs?v=noun-visual-4";
-import { createSpeechIcon, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-10";
+import { createSpeechIcon, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-11";
 import { createReviewContinuation } from "../practice-pacing.mjs?v=practice-pacing-3";
 
 const LANDING_MS = 180;
@@ -118,6 +118,9 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
     arena.setAttribute("aria-busy", String(loading));
     drop.hidden = loading;
     choices.hidden = loading || phase === "recap";
+    for (const button of choices.querySelectorAll("button")) {
+      button.disabled = !engaged() || !["preview", "falling"].includes(phase);
+    }
     review.sync();
     if (loading) { cancelFrame(); stopSpeech(); }
     else { syncSpeech(); position(); schedule(); }
@@ -471,7 +474,6 @@ export function mountGrammarFlight({ document, scope = globalThis, shell, course
   function syncVisibility() {
     cancelFrame();
     review.sync();
-    for (const button of choices.querySelectorAll("button")) button.disabled = !engaged() || !["preview", "falling"].includes(phase);
     syncHelp();
     if (!visible()) stopSpeech();
     else syncSpeech();

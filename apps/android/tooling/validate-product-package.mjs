@@ -8,11 +8,11 @@ import { assertProductSourceText } from "./product-source-policy.mjs";
 import { homeBootstrapAssets, nativeBootstrapCatalogAssets, planProductDelivery,
   assertNativeSetupCatalog, NATIVE_SETUP_CATALOG_FORMAT } from "./product-delivery.mjs";
 import { readSetupPayloadArchive, validateSetupPayloadForApk } from "./setup-payload.mjs";
-import { packageSourceReader, packagePublicationPlan } from "./package-source-contract.mjs";
+import { nativeProviderDownloadArtifacts } from "./native-provider-downloads.mjs";
+import { packageSourceReader, packagePublicationPlan, packageCanonicalAppEntry } from "./package-source-contract.mjs";
 
 import {
   loadAndroidCourseBundleCatalogPlan,
-  transformIndex,
 } from "./build-product-assets.mjs";
 import { assertAndroidDictionaryLanguageContract } from "./android-course-bundle-plan.mjs";
 import {
@@ -39,9 +39,7 @@ function defaultProductPublicationPlan() {
   return expectedProductPublicationPlan;
 }
 let appAssetCatalog = JSON.parse(readSource("apps/language-runtime/app-assets.json").toString("utf8"));
-let canonicalAppEntry = Buffer.from(transformIndex(
-  readSource("apps/language-runtime/static/app/index.html").toString("utf8"),
-));
+let canonicalAppEntry = packageCanonicalAppEntry(readSource);
 let SHARED_APP_REQUIRED_ASSET_PATHS = Object.freeze(
   appAssetCatalog.assets.map(({ output }) => output),
 );
@@ -1263,17 +1261,29 @@ export function packageBootstrapAssets(files, publicationPlan = defaultProductPu
 
 /** Reapply the compiler's residency policy to sealed bytes. */
 function assertBootstrapDelivery({ unzip, archive, kind, label, bundle, profile, setupPayload }) {
-  const files = new Map(["caatuu-profile.json", ...profile.assets].map((path) => [path, archiveBuffer(unzip, archive, archiveEntryForAsset(path, kind))]));
+  const bundledFiles = new Map(["caatuu-profile.json", ...profile.assets].map((path) => [path, archiveBuffer(unzip, archive, archiveEntryForAsset(path, kind))]));
+  return assertBootstrapDeliveryBytes({ bundledFiles, kind, label, bundle, profile, setupPayload });
+}
+
+export function assertBootstrapDeliveryBytes({ bundledFiles, kind = "apk", label = "Android package",
+  bundle, profile, setupPayload, bootstrapAssets }) {
+  const files = new Map(bundledFiles);
+  const nativePaths = new Set(bundle.courses.flatMap(course =>
+    nativeProviderDownloadArtifacts(course, path => bundledFiles.get(path))
+      .filter(artifact => artifact.provider_catalog)
+      .map(artifact => `${course.assetPrefix}/${artifact.asset_path}`)));
+  const providerFiles = new Map();
   for (const object of setupPayload.values()) {
     for (const path of object.assetPaths) {
-      assert(!files.has(path), `${label} downloads an asset that is also packaged: ${path}`);
+      assert(!files.has(path) && !providerFiles.has(path), `${label} downloads an asset that is also packaged: ${path}`);
       assertNoForbiddenPaths([archiveEntryForAsset(path, kind)], `${label} setup payload`);
-      files.set(path, object.content);
+      if (nativePaths.has(path)) providerFiles.set(path, object.content);
+      else files.set(path, object.content);
     }
   }
   const providerCatalogs = nativeBootstrapCatalogAssets(files, bundle);
-  const bootstrapAssets = packageBootstrapAssets(files);
-  const delivery = planProductDelivery({ files, courseIds: bundle.courses.map(({ id }) => id), profile, providerCatalogs, bootstrapAssets,
+  const delivery = planProductDelivery({ files, courseIds: bundle.courses.map(({ id }) => id), profile, providerCatalogs, providerFiles,
+    bootstrapAssets: bootstrapAssets ?? packageBootstrapAssets(files),
     setupCatalogFormat: profile.setupCatalogFormat ?? null });
   assert(JSON.stringify(delivery.profile.assets) === JSON.stringify(profile.assets), `${label} APK does not match the bootstrap residency policy`);
   for (const [path, expected] of delivery.bundledFiles) {
@@ -1281,6 +1291,7 @@ function assertBootstrapDelivery({ unzip, archive, kind, label, bundle, profile,
   }
   const actual = [...setupPayload.values()].flatMap(({ path, file, assetPaths, bytes, sha256 }) => assetPaths.map((assetPath) => ({ path, file, assetPath, bytes, sha256 }))).sort((a, b) => a.assetPath.localeCompare(b.assetPath));
   assert(JSON.stringify(actual) === JSON.stringify(delivery.setupPayload.artifacts), `${label} companion differs from the complete delivery plan`);
+  return delivery;
 }
 
 function assertApkManifest(apkanalyzerPath, apk, allowTransitionDebug = false) {
@@ -1434,7 +1445,7 @@ function main() {
       readSource = packageSourceReader(workspaceRoot, options["source-revision"]);
       expectedProductPublicationPlan = packagePublicationPlan(readSource);
       appAssetCatalog = JSON.parse(readSource("apps/language-runtime/app-assets.json").toString("utf8"));
-      canonicalAppEntry = Buffer.from(transformIndex(readSource("apps/language-runtime/static/app/index.html").toString("utf8")));
+      canonicalAppEntry = packageCanonicalAppEntry(readSource);
       SHARED_APP_REQUIRED_ASSET_PATHS = Object.freeze(appAssetCatalog.assets.map(({ output }) => output));
     } else {
       defaultProductPublicationPlan();

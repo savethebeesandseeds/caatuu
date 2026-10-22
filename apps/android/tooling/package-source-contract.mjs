@@ -5,8 +5,10 @@ import { resolve } from "node:path";
 import {
   DEFAULT_COURSE_BUNDLE_PATH,
   DEFAULT_LANGUAGE_CATALOG_PATH,
+  PRODUCT_STATIC_TEXT_FORMAT,
   courseBundleRecord,
   resolveAndroidNativeProviders,
+  transformIndex,
 } from "./build-product-assets.mjs";
 import { createAndroidCourseBundlePlan, createAndroidCoursePublicationPlan } from "./android-course-bundle-plan.mjs";
 
@@ -28,6 +30,27 @@ export function packageSourceReader(workspaceRoot, revision = null) {
       ? readFileSync(resolve(workspaceRoot, file))
       : execFileSync("git", ["-C", workspaceRoot, "show", `${revision}:${file}`], { maxBuffer: 32 * 1024 * 1024 });
   };
+}
+
+/** Formatting is a source-pinned build policy, including for historical receipts. */
+export function packageStaticTextFormat(readSource) {
+  const compiler = readSource("apps/android/tooling/build-product-assets.mjs").toString("utf8");
+  const declarations = [...compiler.matchAll(/export\s+const\s+PRODUCT_STATIC_TEXT_FORMAT\s*=\s*(["'])([^"'\r\n]+)\1\s*;/gu)];
+  if (!declarations.length) {
+    assert.doesNotMatch(compiler, /export\s+const\s+PRODUCT_STATIC_TEXT_FORMAT\b/u,
+      "Package source has an invalid static text format declaration");
+    return null;
+  }
+  assert.equal(declarations.length, 1, "Package source must declare one static text format");
+  assert.equal(declarations[0][2], PRODUCT_STATIC_TEXT_FORMAT, "Unsupported package source static text format");
+  return declarations[0][2];
+}
+
+export function packageCanonicalAppEntry(readSource) {
+  const compact = packageStaticTextFormat(readSource) !== null;
+  return Buffer.from(transformIndex(
+    readSource("apps/language-runtime/static/app/index.html").toString("utf8"), { compact },
+  ));
 }
 
 // Read the receipt's catalog from Git objects, without changing the shared checkout.

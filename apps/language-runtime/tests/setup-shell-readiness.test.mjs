@@ -26,6 +26,40 @@ function deferred() {
 
 const flushTasks = () => new Promise((resolve) => setImmediate(resolve));
 
+test("completed setup leaves Home while preparation, failures and app updates remain visible", () => {
+  const { context, document } = createBrowserHarness();
+  const card = document.createElement("section");
+  card.id = "nativeSetup";
+  document.body.append(card);
+  Object.assign(context, {
+    $: (selector) => document.querySelector(selector),
+    hasNativeRuntime: () => true,
+    syncDetailsState() {},
+    setupComplete: true, setupRunning: false, nativeSetupActive: false,
+    appUpdateLocked: false, updateRunning: false,
+  });
+  const start = source.indexOf("  function setControls()");
+  const end = source.indexOf("  function syncDetailsState()", start);
+  vm.runInContext(source.slice(start, end), context);
+
+  context.setControls();
+  assert.equal(card.hidden, true, "verified content and working controls need no Ready card");
+  for (const pending of ["setupComplete", "setupRunning", "nativeSetupActive", "updateRunning", "appUpdateLocked"]) {
+    context[pending] = pending !== "setupComplete";
+    context.setControls();
+    assert.equal(card.hidden, false, pending);
+    context[pending] = pending === "setupComplete";
+    context.setControls();
+    assert.equal(card.hidden, true, `${pending} resolved`);
+  }
+  card.classList.add("is-error");
+  context.setControls();
+  assert.equal(card.hidden, false, "a recovery error cannot disappear behind completed setup");
+  card.classList.remove("is-error");
+  context.setControls();
+  assert.equal(card.hidden, true, "successful recovery removes the completed card again");
+});
+
 test("native setup offers retry only after attention, never during automatic checking or preparation", () => {
   const harness = createBrowserHarness();
   const { context, document } = harness;

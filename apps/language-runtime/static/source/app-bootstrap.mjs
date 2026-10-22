@@ -581,7 +581,7 @@ function renderReadyCourseHome() {
     art.classList.remove("is-looping");
   }
 
-  card.hidden = false;
+  card.hidden = true;
   card.classList.add("is-ready");
   card.classList.remove("is-error", "is-updating", "is-app-update-lock", "details-open");
   const details = document.getElementById("setupDetails");
@@ -736,7 +736,7 @@ async function loadCourseFeatureProviders() {
   if (naturalizationNucleus) {
     await Promise.all([
       loadStyle("/language-runtime/static/source/games/naturalization-nucleus/naturalization-nucleus.css?v=naturalization-nucleus-28"),
-      loadScript("/language-runtime/static/source/games/naturalization-nucleus/naturalization-nucleus.js?v=naturalization-nucleus-31")
+      loadScript("/language-runtime/static/source/games/naturalization-nucleus/naturalization-nucleus.js?v=naturalization-nucleus-32")
     ]);
   }
   const courseRuntime = declaredBrowserProvider("courseRuntime");
@@ -756,7 +756,7 @@ async function loadCourseFeatureProviders() {
     origin: location.origin,
     routeBase,
     async initializeWorkspace() {
-      await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-56");
+      await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-58");
       const workspace = await globalThis.CaatuuWorkspaceReady;
       if (workspace?.ready !== true) {
         throw workspace?.error instanceof Error
@@ -791,7 +791,7 @@ async function start() {
     axes: sharedPracticeAxes,
     ...createPracticeCompass({ course, learning: globalThis.CaatuuLearning })
   });
-  await loadSharedScript("/language-runtime/static/source/caatuu-chrome.js?v=chrome-192");
+  await loadSharedScript("/language-runtime/static/source/caatuu-chrome.js?v=chrome-196");
   globalThis.CaatuuGameDynamics = installGameDynamics({
     scope: globalThis,
     onPauseChange(paused) {
@@ -808,7 +808,7 @@ async function start() {
   await initializeHomeCourseSetup(globalThis, { onSetupRequired: revealApplication });
   configureGameRoutes();
   applyCapabilityBoundaries();
-  await import("./word-world-host.mjs?v=word-world-host-41");
+  await import("./word-world-host.mjs?v=word-world-host-42");
   await loadCourseFeatureProviders();
   // Publish the usable-controls and voice results together. Further voice
   // retries can recover a late engine without delaying entry to the app.

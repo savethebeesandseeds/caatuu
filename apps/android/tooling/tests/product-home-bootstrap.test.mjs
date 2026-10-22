@@ -1,9 +1,11 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { runInContext } from "node:vm";
 import test from "node:test";
 import { createBrowserHarness } from "../../../language-runtime/tests/helpers/fake-browser.mjs";
 import { installEnglishInterfaceContent } from "../../../language-runtime/tests/helpers/english-interface-content.mjs";
+import { nativeProviderDownloadArtifacts } from "../native-provider-downloads.mjs";
 import {
   createAndroidProductDelivery,
   loadAndroidCourseBundleConfiguration,
@@ -34,10 +36,27 @@ test("the product Home renders its existing art, controls, and course flags befo
     const provider = configuration.nativeProviders.providers.embeddings;
     const projected = provider?.implementation === "webview-english-minilm-v1" && relativePath === provider.catalogAsset
       ? transformWebViewEmbeddingCatalog(authored) : authored;
+    const expected = JSON.parse(projected);
+    if (provider?.implementation === "vector-database-catalog-v1" && relativePath === provider.catalogAsset) {
+      const course = bundle.courseCatalog.courses.find(({ id }) => id === configuration.course.id);
+      const downloads = nativeProviderDownloadArtifacts(course, (asset) => delivery.logicalFiles.get(asset));
+      for (const model of expected.models.filter(({ status }) => status === "active")) {
+        const download = downloads.find((item) => item.provider_catalog === path && item.model_key === model.key);
+        assert.ok(download, `${model.key} retains its native download receipt`);
+        const object = delivery.setupPayload.artifacts.find((item) => item.assetPath === `${course.assetPrefix}/${download.asset_path}`);
+        assert.ok(object, `${model.key} is sealed in the companion`);
+        assert.equal(object.bytes, model.bytes);
+        assert.equal(object.sha256, model.sha256);
+        const bytes = delivery.setupObjects.get(object.file);
+        assert.equal(bytes?.length, model.bytes);
+        assert.equal(createHash("sha256").update(bytes).digest("hex"), model.sha256);
+        model.download_url = new URL(object.path, "https://caatuu.waajacu.com/").href;
+      }
+    }
     const packaged = delivery.bundledFiles.get(path).toString("utf8");
-    assert.deepEqual(JSON.parse(packaged), JSON.parse(projected), `${path} retains every native metadata value`);
-    assert.equal(packaged, `${JSON.stringify(JSON.parse(projected))}\n`, `${path} omits authoring indentation`);
-    metadataSavings += Buffer.byteLength(projected) - Buffer.byteLength(packaged);
+    assert.deepEqual(JSON.parse(packaged), expected, `${path} retains every native metadata value and exact sealed transport`);
+    assert.equal(packaged, `${JSON.stringify(expected)}\n`, `${path} omits authoring indentation`);
+    metadataSavings += Buffer.byteLength(`${JSON.stringify(expected, null, 2)}\n`) - Buffer.byteLength(packaged);
   }
   assert.ok(metadataSavings > 0, "Native metadata compaction recovers APK residency without deleting fields");
   t.diagnostic(`Native metadata compaction saves ${metadataSavings} bytes.`);

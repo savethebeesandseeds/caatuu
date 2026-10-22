@@ -7,6 +7,7 @@ import test from "node:test";
 import { assertPublicSetupDependencies } from "../android-artifact-contract.mjs";
 import { compileProductAssetBundle, validateBootstrapSetupDependencies, validateProductAssetBundle } from "../build-product-assets.mjs";
 import { planProductDelivery } from "../product-delivery.mjs";
+import { nativeProviderDownloadArtifacts } from "../native-provider-downloads.mjs";
 
 const origin = "https://caatuu.waajacu.com";
 const hash = bytes => createHash("sha256").update(bytes).digest("hex");
@@ -130,7 +131,12 @@ test("the canonical bootstrap compiler checks final external receipts rather tha
   const external = new Map();
   for (const course of bundle.courses) {
     const setup = JSON.parse(readFileSync(join(options.outputDir, course.assetPrefix, "setup-assets.json")));
-    for (const artifact of setup.artifacts.filter(item => item.native_required === true)) {
+    const native = nativeProviderDownloadArtifacts(course, path => readFileSync(join(options.outputDir, path)));
+    for (const artifact of native.filter(artifact => artifact.provider_catalog)) {
+      assert.match(artifact.url, /^https:\/\/caatuu\.waajacu\.com\/assets\/setup\//u,
+        "The actual native vector download must use the sealed current database");
+    }
+    for (const artifact of [...setup.artifacts.filter(item => item.native_required === true), ...native]) {
       const path = decodeURIComponent(new URL(artifact.url, origin).pathname).slice(1);
       if (path.startsWith("assets/setup/")) continue;
       external.set(path, { path, bytes: artifact.bytes, sha256: artifact.sha256 });
@@ -147,4 +153,25 @@ test("the canonical bootstrap compiler checks final external receipts rather tha
   writeFileSync(inventoryPath, JSON.stringify(inventory([...external.values()])));
   assert.throws(() => validateProductAssetBundle(options), /required public asset bytes\/hash differ/u,
     "the production bootstrap call path must retain the external public gate");
+});
+
+test("native vector downloads cannot bypass the bootstrap public dependency gate", () => {
+  const f = fixture();
+  const catalogAsset = "courses/a/data/embeddings/models.json";
+  const model = { key: "v1", status: "active", artifact_kind: "embedding-vector-db",
+    model_file: "v1/curriculum.sqlite", manifest_file: "v1/manifest.json", bytes: 16, sha256: "a".repeat(64) };
+  f.delivery.bundledFiles.set("caatuu-course-bundle.json", json({ courses: [{ id: "a", assetPrefix: "courses/a",
+    nativeProviders: { providers: { embeddings: { implementation: "vector-database-catalog-v1", catalogAsset } } } }] }));
+  f.delivery.bundledFiles.set(catalogAsset, json({ base_url: `${origin}/cz/data/embeddings`, models: [model] }));
+  f.delivery.bundledFiles.set("courses/a/data/embeddings/v1/manifest.json", json({ file: "curriculum.sqlite",
+    url: model.model_file, bytes: model.bytes, sha256: model.sha256 }));
+  assert.throws(() => validateBootstrapSetupDependencies(f.delivery, { publicInventory: f.publicInventory }),
+    /required public asset is missing/u);
+  const path = "cz/data/embeddings/v1/curriculum.sqlite";
+  assert.throws(() => validateBootstrapSetupDependencies(f.delivery,
+    { publicInventory: inventory([...f.publicInventory.files, { path, bytes: 20, sha256: "b".repeat(64) }]) }),
+  /required public asset bytes\/hash differ/u);
+  const remaining = validateBootstrapSetupDependencies(f.delivery,
+    { publicInventory: inventory([...f.publicInventory.files, { path, bytes: model.bytes, sha256: model.sha256 }]) });
+  assert.ok(remaining.get("a").artifacts.some(artifact => artifact.model_key === model.key));
 });

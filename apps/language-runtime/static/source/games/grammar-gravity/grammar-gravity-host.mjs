@@ -8,9 +8,9 @@ import {
   fetchDeclaredCourseGameJson,
   readEmbeddedCourseProfile
 } from "../course-game-content.mjs?v=course-game-content-1";
-import { mountNounLanding } from "./noun-landing-host.mjs?v=noun-landing-host-32";
-import { mountGrammarFlight } from "./adjective-flight-host.mjs?v=adjective-flight-host-26";
-import { mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-10";
+import { mountNounLanding } from "./noun-landing-host.mjs?v=noun-landing-host-33";
+import { mountGrammarFlight } from "./adjective-flight-host.mjs?v=adjective-flight-host-28";
+import { mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-11";
 import { selectContentItems, newContentEncounterId } from "../adaptive-practice.mjs";
 import { createArabicReadingGuide } from "../../arabic-reading-guide.mjs?v=arabic-reading-guide-2";
 

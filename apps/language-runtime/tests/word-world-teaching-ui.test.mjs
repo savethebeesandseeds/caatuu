@@ -1076,3 +1076,35 @@ for (const retired of ["pause-and-resume", "new-phrase", "programmatic-selection
     assert.deepEqual(clock.calls, []);
   });
 }
+
+test("paused Word World rejects queued answer selection, removal and submission until resumed", async t => {
+  const g = await game(t);
+  g.run('setTranslationMode("reconstruct")');
+  const round = g.run("ensureReconstructionChallenge()");
+  const firstId = round.challenge.options[0].id;
+  g.controller.pause();
+  g.run(`selectReconstructionOption(${JSON.stringify(firstId)})`);
+  assert.equal(round.selectedIds.length, 0);
+  g.controller.resume();
+  g.run(`selectReconstructionOption(${JSON.stringify(firstId)})`);
+  assert.equal(round.selectedIds.length, 1);
+  g.controller.pause();
+  g.run(`removeReconstructionOption(${JSON.stringify(firstId)})`);
+  assert.equal(round.selectedIds.length, 1);
+  await g.run("submitReconstructionChallenge()");
+  assert.equal(round.submitted, false);
+  g.controller.resume();
+  g.run(`removeReconstructionOption(${JSON.stringify(firstId)})`);
+  assert.equal(round.selectedIds.length, 0);
+});
+
+test("paused Word World cannot navigate to another phrase through queued Next", async t => {
+  const g = await game(t);
+  g.run('setTranslationMode("visible")');
+  g.controller.pause();
+  const request = g.state.phraseRequestId;
+  const entry = g.state.currentEntryId;
+  await g.controller.next();
+  assert.equal(g.state.phraseRequestId, request);
+  assert.equal(g.state.currentEntryId, entry);
+});

@@ -6,6 +6,7 @@ import vm from "node:vm";
 import { createBrowserHarness } from "./helpers/fake-browser.mjs";
 import { installEnglishInterfaceContent } from "./helpers/english-interface-content.mjs";
 import shellPolicy from "../static/source/shell-policy.mjs";
+import { bindHorizontalGesture } from "../static/source/horizontal-gesture.mjs";
 import {
   createInterfaceContent,
   installInterfaceContent
@@ -168,6 +169,41 @@ function executeChrome(options = {}) {
   return harness;
 }
 
+function sharedCourseSelector(harness) {
+  return harness.document.querySelector("[data-language-selector-menu]");
+}
+
+function enterNewLanguage(menu) {
+  assert.equal(menu.open, true);
+  menu.querySelector("[data-course-selection-new-language]").click();
+  assert.equal(menu.dataset.courseSelectionStage, "new-language");
+  assert.equal(menu.querySelector("[data-language-selector-choice-stage]").hidden, false);
+}
+
+function selectLanguageBase(menu, sourceId) {
+  if (menu.dataset.courseSelectionStage === "courses") enterNewLanguage(menu);
+  menu.querySelector(`[data-language-base-option="${sourceId}"]`).click();
+}
+
+function closeCourseSelection(menu) {
+  for (let remaining = 3; menu.open && remaining > 0; remaining -= 1) {
+    menu.querySelector("[data-course-selection-back]").click();
+  }
+  assert.equal(menu.open, false);
+}
+
+function assertNodeIdentity(actual, expected, message = "") {
+  const label = node => node ? `${node.tagName || "node"}#${node.id || ""}` : "null";
+  assert.equal(actual === expected, true, message || `Expected ${label(expected)}; got ${label(actual)}`);
+}
+
+function assertHomeChangeAffordance(trigger) {
+  assert.equal(trigger.querySelector(".home-language-change-label").textContent, "Change");
+  const arrow = trigger.querySelector(".home-language-change-arrow");
+  assert.equal(arrow.textContent, "›");
+  assert.equal(arrow.getAttribute("aria-hidden"), "true");
+}
+
 function executeChromeWithHomeMenu({ course = fixtureCourse(), interfaceContent = null, policy = null } = {}) {
   const harness = createBrowserHarness({ course });
   if (policy) harness.window.CaatuuShellPolicy = policy;
@@ -302,11 +338,11 @@ test("Home audio controls reuse global mute and speed, and dismiss on Escape or 
   for (const ignored of [{ isComposing: true }, { keyCode: 229 }, { defaultPrevented: true }]) {
     harness.document.dispatchEvent({ type: "keydown", key: "Escape", target: mute, ...ignored });
     assert.equal(menu.open, true, "composition and handled Escape belong to the active control");
-    assert.equal(harness.document.activeElement, mute);
+    assertNodeIdentity(harness.document.activeElement, mute);
   }
   harness.document.dispatchEvent({ type: "keydown", key: "Escape" });
   assert.equal(menu.open, false);
-  assert.equal(harness.document.activeElement, summary);
+  assertNodeIdentity(harness.document.activeElement, summary);
   menu.open = true;
   harness.document.dispatchEvent({ type: "click", target: harness.document.body });
   assert.equal(menu.open, false);
@@ -450,20 +486,20 @@ test("Home display settings stays open for inside controls and dismisses outside
   outside.focus();
   outside.click();
   assert.equal(menu.open, false);
-  assert.equal(harness.document.activeElement, outside, "outside dismissal must not steal focus");
+  assertNodeIdentity(harness.document.activeElement, outside, "outside dismissal must not steal focus");
 
   menu.open = true;
   darkTheme.focus();
   for (const ignored of [{ isComposing: true }, { keyCode: 229 }, { defaultPrevented: true }]) {
     harness.document.dispatchEvent({ type: "keydown", key: "Escape", target: darkTheme, ...ignored });
     assert.equal(menu.open, true, "composition and handled Escape do not dismiss display settings");
-    assert.equal(harness.document.activeElement, darkTheme);
+    assertNodeIdentity(harness.document.activeElement, darkTheme);
   }
   const escape = { type: "keydown", key: "Escape", target: darkTheme };
   harness.document.dispatchEvent(escape);
   assert.equal(menu.open, false);
   assert.equal(escape.defaultPrevented, true);
-  assert.equal(harness.document.activeElement, summary);
+  assertNodeIdentity(harness.document.activeElement, summary);
 });
 
 test("shared appearance follows the learner across course namespaces", () => {
@@ -555,12 +591,12 @@ test("the transparent header renders compact journey stats with exact accessible
   const streakStat = header.querySelector("[data-caatuu-streak]");
   const languageIndicator = header.querySelector("[data-caatuu-language-indicator]");
   assert.ok(stats);
-  assert.equal(languageIndicator.tagName, "SPAN");
-  assert.equal(languageIndicator.getAttribute("role"), "img");
-  assert.equal(languageIndicator.getAttribute("aria-haspopup"), null);
-  assert.match(languageIndicator.getAttribute("aria-label"), /Current learning language: Czech/u);
-  assert.match(languageIndicator.getAttribute("aria-label"), /Change languages from Home/u);
-  assert.equal(header.querySelector(".language-selector"), null);
+  assert.equal(languageIndicator.tagName, "BUTTON");
+  assert.notEqual(languageIndicator.getAttribute("role"), "img");
+  assert.equal(languageIndicator.getAttribute("aria-expanded"), "false");
+  assert.match(languageIndicator.getAttribute("aria-label"), /Current course: Czech/u);
+  assert.ok(header.querySelector(".header-language-selector"));
+  assert.equal(header.querySelector("[data-header-language-menu]").hidden, true);
   assert.equal(xp.classList.contains("app-header-stat"), true);
   assert.equal(xp.classList.contains("app-header-xp"), true);
   assert.equal(xp.querySelector("img").src, "/language-runtime/static/assets/xp-gold.webp");
@@ -663,7 +699,7 @@ test("navigation launchers toggle their menus across pointer and keyboard activa
     assert.equal(dock.dataset.openMenu, menu, "IME Escape must not dismiss navigation");
     trigger.dispatchEvent({ type: "keydown", key: "Escape", bubbles: true });
     assert.equal(dock.dataset.openMenu, undefined);
-    assert.equal(document.activeElement, trigger);
+    assertNodeIdentity(document.activeElement, trigger);
     assert.equal(panel.hidden, true, "dismissing a menu must not open the underlying Settings");
 
     trigger.click();
@@ -761,10 +797,10 @@ test("the Home submenu navigates Social and Store, redraws Store, and restores f
   assert.equal(dock.dataset.openMenu, "home");
   assert.equal(backdrop.hidden, false);
   assert.equal(menu.hidden, false);
-  assert.equal(document.activeElement, home);
+  assertNodeIdentity(document.activeElement, home);
 
   home.dispatchEvent({ type: "keydown", key: "ArrowRight", bubbles: true });
-  assert.equal(document.activeElement, social, "keyboard navigation must include Social");
+  assertNodeIdentity(document.activeElement, social, "keyboard navigation must include Social");
   assert.equal(trigger.querySelector(".app-nav-submenu-icon"), homeIndicator);
   assertHomeNavIndicator(trigger, "home", "homebase_icon.png");
   social.click();
@@ -778,17 +814,17 @@ test("the Home submenu navigates Social and Store, redraws Store, and restores f
   assert.equal(homeSocialView.hidden, false);
   assert.equal(homeStoreView.hidden, true);
   assert.equal(trigger.getAttribute("aria-expanded"), "false");
-  assert.equal(document.activeElement, trigger, "selecting Social must restore focus to the Home trigger");
+  assertNodeIdentity(document.activeElement, trigger, "selecting Social must restore focus to the Home trigger");
   assert.equal(trigger.querySelector(".app-nav-submenu-icon"), homeIndicator);
   assertHomeNavIndicator(trigger, "social", "social_icon.png");
 
   trigger.click();
-  assert.equal(document.activeElement, social, "reopening the submenu must focus Social");
+  assertNodeIdentity(document.activeElement, social, "reopening the submenu must focus Social");
   social.dispatchEvent({ type: "keydown", key: "ArrowLeft", bubbles: true });
-  assert.equal(document.activeElement, home);
+  assertNodeIdentity(document.activeElement, home);
   home.dispatchEvent({ type: "keydown", key: "ArrowRight", bubbles: true });
   social.dispatchEvent({ type: "keydown", key: "ArrowRight", bubbles: true });
-  assert.equal(document.activeElement, store);
+  assertNodeIdentity(document.activeElement, store);
   assert.equal(trigger.querySelector(".app-nav-submenu-icon"), homeIndicator);
   assertHomeNavIndicator(trigger, "social", "social_icon.png");
   store.click();
@@ -801,29 +837,29 @@ test("the Home submenu navigates Social and Store, redraws Store, and restores f
   assert.equal(homeSocialView.hidden, true);
   assert.equal(homeStoreView.hidden, false);
   assert.ok(storeArtworkUrls.has(homeStoreArt.src), `unexpected Store artwork URL: ${homeStoreArt.src}`);
-  assert.equal(document.activeElement, trigger, "selecting Store must restore focus to the Home trigger");
+  assertNodeIdentity(document.activeElement, trigger, "selecting Store must restore focus to the Home trigger");
   assert.equal(trigger.querySelector(".app-nav-submenu-icon"), homeIndicator);
   assertHomeNavIndicator(trigger, "store", "store_icon.png");
 
   const firstStoreArtwork = homeStoreArt.src;
   trigger.click();
-  assert.equal(document.activeElement, store, "reopening the submenu must focus Store");
+  assertNodeIdentity(document.activeElement, store, "reopening the submenu must focus Store");
   store.click();
   assert.ok(storeArtworkUrls.has(homeStoreArt.src), `unexpected second Store artwork URL: ${homeStoreArt.src}`);
   assert.notEqual(homeStoreArt.src, firstStoreArtwork, "Store must not immediately repeat its artwork");
-  assert.equal(document.activeElement, trigger, "redrawing Store must restore focus to the Home trigger");
+  assertNodeIdentity(document.activeElement, trigger, "redrawing Store must restore focus to the Home trigger");
   assert.equal(trigger.querySelector(".app-nav-submenu-icon"), homeIndicator);
   assertHomeNavIndicator(trigger, "store", "store_icon.png");
 
   if (trigger.getAttribute("aria-expanded") !== "true") trigger.click();
-  assert.equal(document.activeElement, store, "opening the submenu must focus its current section");
+  assertNodeIdentity(document.activeElement, store, "opening the submenu must focus its current section");
   store.dispatchEvent({ type: "keydown", key: "ArrowLeft", bubbles: true });
-  assert.equal(document.activeElement, social, "reverse keyboard navigation must include Social");
+  assertNodeIdentity(document.activeElement, social, "reverse keyboard navigation must include Social");
   social.dispatchEvent({ type: "keydown", key: "Escape", bubbles: true });
   assert.equal(trigger.getAttribute("aria-expanded"), "false");
   assert.equal(backdrop.hidden, true);
   assert.equal(menu.hidden, true);
-  assert.equal(document.activeElement, trigger);
+  assertNodeIdentity(document.activeElement, trigger);
 
   trigger.click();
   home.click();
@@ -837,14 +873,14 @@ test("the Home submenu navigates Social and Store, redraws Store, and restores f
   trigger.click();
   backdrop.click();
   assert.equal(trigger.getAttribute("aria-expanded"), "false");
-  assert.equal(document.activeElement, trigger);
+  assertNodeIdentity(document.activeElement, trigger);
 
   trigger.click();
   backdrop.click();
   assert.equal(trigger.getAttribute("aria-expanded"), "false");
   assert.equal(backdrop.hidden, true);
   assert.equal(menu.hidden, true);
-  assert.equal(document.activeElement, trigger);
+  assertNodeIdentity(document.activeElement, trigger);
 });
 
 test("opening Games over Backpack preserves the current screen until selection", () => {
@@ -1493,8 +1529,8 @@ test("the Home language form is wired at startup and confirms a course switch", 
 
   runChrome(harness);
 
-  const host = harness.document.querySelector(".language-selector");
-  const menu = host.querySelector("[data-language-selector-menu]");
+  const host = trigger.closest(".home-language-selector");
+  const menu = sharedCourseSelector(harness);
   const sourceOptions = menu.querySelectorAll("[data-language-base-option]");
   const courseOptions = menu.querySelectorAll("[data-language-course-option]");
   const current = courseOptions.find((option) => option.dataset.languageCourseOption === "cz");
@@ -1515,16 +1551,15 @@ test("the Home language form is wired at startup and confirms a course switch", 
   assert.match(currentCourse.textContent, /Current course/u);
   assert.match(currentCourse.textContent, /English → Czech/u);
   assert.match(currentCourse.textContent, /1\.3K XP · 3 rounds/u);
-  assert.match(currentCourse.textContent, /Current/u);
-  assert.doesNotMatch(currentCourse.textContent, /Change|›/u);
+  assert.equal(currentCourse.querySelector(".home-language-current-status"), null);
+  assert.equal(currentCourse.contains(trigger), true);
   assert.equal(currentCourse.dataset.languageEffort, "1.3K XP · 3 rounds");
   assert.equal(currentCourse.dataset.languageEffortExact, "1250 experience points and 3 completed rounds");
   assert.match(currentCourse.getAttribute("aria-label"), /Current course: English to Czech/u);
-  assert.equal(trigger.classList.contains("home-language-manage"), true);
-  assert.match(trigger.textContent, /\+New course/u);
-  assert.equal(trigger.querySelector(".home-language-manage-icon").getAttribute("aria-hidden"), "true");
-  assert.equal(trigger.getAttribute("aria-label"), "Start a new language course");
-  assert.equal(trigger.getAttribute("title"), "Start a new language course");
+  assert.equal(trigger.classList.contains("home-language-current-change"), true);
+  assertHomeChangeAffordance(trigger);
+  assert.equal(trigger.getAttribute("aria-label"), "Change course");
+  assert.equal(host.querySelector("[data-home-language-ongoing-courses]"), null);
   assert.equal(trigger.dataset.caatuuLanguageSelectorRendered, "true");
   assert.equal(trigger.getAttribute("aria-haspopup"), "dialog");
   assert.equal(trigger.getAttribute("aria-expanded"), "false");
@@ -1550,9 +1585,11 @@ test("the Home language form is wired at startup and confirms a course switch", 
   assert.equal(review.disabled, true);
 
   trigger.click();
+  assert.equal(menu.dataset.courseSelectionStage, "courses");
+  enterNewLanguage(menu);
   preview.click();
   assert.equal(review.disabled, true, "step 2 cannot select a course before step 1");
-  menu.querySelector('[data-language-base-option="en"]').click();
+  selectLanguageBase(menu, "en");
   preview = menu.querySelector('[data-language-course-option="zh"]');
   assert.equal(preview.closest("fieldset").disabled, false);
   assert.equal(preview.disabled, false);
@@ -1625,7 +1662,7 @@ function courseSwitchHarness({ native = true, localStorageValues = {}, sessionSt
   const menu = harness.document.querySelector("[data-language-selector-menu]");
   const choose = () => {
     trigger.click();
-    menu.querySelector('[data-language-base-option="en"]').click();
+    selectLanguageBase(menu, "en");
     menu.querySelector('[data-language-course-option="zh"]').click();
     menu.querySelector("[data-language-selector-review]").click();
   };
@@ -1693,47 +1730,31 @@ test("browser course confirmation keeps its existing navigation and setup prefer
   assert.equal(harness.sessionStorage.getItem("caatuu.setup.pending-course.v1"), null);
 });
 
-test("the Home course card offers engaged courses as confirmed quick switches", () => {
+test("Home keeps one Change action while the dedicated course screen contains current and ongoing courses", () => {
   const course = fixtureCourse();
   course.courseSelector.courses.push({
-    id: "fr",
-    status: "active",
-    entryPath: "/fr/index.html",
-    sourceLanguage: english,
-    targetLanguage: french,
+    id: "fr", status: "active", entryPath: "/fr/index.html",
+    sourceLanguage: english, targetLanguage: french,
     storage: { learningPerformance: "caatuu-fr.learning.performance.v1" }
   });
   const assignments = [];
   const harness = executeChrome({
     course,
-    location: { assign: (path) => assignments.push(path) },
+    location: { assign: path => assignments.push(path) },
     window: {
       CaatuuLearning: {
         courseSummaries() {
           return [
-            {
-              id: "cz",
-              hasProgress: true,
-              summary: { xp: 1250, rounds: 3, attempts: 12, activities: 4 }
-            },
-            {
-              id: "zh",
-              hasProgress: true,
-              summary: { xp: 28, rounds: 10, attempts: 10, activities: 10 }
-            },
-            {
-              id: "fr",
-              hasProgress: false,
-              summary: { xp: 0, rounds: 0, attempts: 0, activities: 0 }
-            }
+            { id: "cz", hasProgress: true, summary: { xp: 1250, rounds: 3 } },
+            { id: "zh", hasProgress: true, summary: { xp: 28, rounds: 10 } },
+            { id: "fr", hasProgress: false, summary: { xp: 0, rounds: 0 } }
           ];
         },
         snapshot() {
           return {
-            difficulty: 1,
-            difficultyOption: { label: "Explorer", summary: "A steady pace." },
-            summary: { xp: 1250, rounds: 3, attempts: 12, activities: 4 },
-            journey: { summary: { xp: 1278, rounds: 13, attempts: 22, activities: 14 } },
+            difficulty: 1, difficultyOption: { label: "Explorer", summary: "A steady pace." },
+            summary: { xp: 1250, rounds: 3 },
+            journey: { summary: { xp: 1278, rounds: 13 } },
             streak: { currentDays: 0, highestDays: 0, remindersEnabled: false }
           };
         }
@@ -1745,143 +1766,103 @@ test("the Home course card offers engaged courses as confirmed quick switches", 
   trigger.dataset.languageSwitchVariant = "home";
   harness.document.body.append(trigger);
   harness.window.CaatuuChrome.renderLanguageSwitch(trigger);
-
-  const host = harness.document.querySelector(".language-selector");
-  const menu = host.querySelector("[data-language-selector-menu]");
+  const host = trigger.closest(".home-language-selector");
+  const menu = sharedCourseSelector(harness);
   const currentCourse = host.querySelector("[data-home-language-current-course]");
-  const ongoing = host.querySelector("[data-home-language-ongoing-courses]");
-  const ongoingBody = ongoing.querySelector("[data-home-language-ongoing-body]");
-  const ongoingToggle = ongoing.querySelector("[data-home-language-ongoing-toggle]");
-  const quickSwitches = host.querySelectorAll("[data-home-language-quick-course]");
-  assert.equal(currentCourse.tagName, "DIV");
-  assert.equal(currentCourse.parentElement, host);
-  assert.equal(ongoing.parentElement, host);
-  assert.equal(ongoing.querySelector("h3").textContent, "Ongoing courses");
-  assert.equal(ongoingToggle.type, "button");
-  assert.equal(ongoingToggle.getAttribute("aria-controls"), ongoingBody.id);
-  assert.equal(ongoingBody.id, menu.id + "OngoingCourses");
-  assert.equal(ongoingToggle.getAttribute("aria-expanded"), "false");
-  assert.equal(ongoingBody.hidden, true, "other courses start collapsed");
-  assert.equal(ongoingBody.contains(quickSwitches[0]), true);
-  assert.equal(ongoingBody.contains(currentCourse), false, "the current course stays outside the disclosure");
-  assert.equal(ongoingBody.contains(trigger), false, "New course remains available while courses are collapsed");
-  assert.match(currentCourse.textContent, /Current/u);
-  assert.doesNotMatch(currentCourse.textContent, /Change|›/u);
-  assert.equal(trigger.classList.contains("home-language-manage"), true);
-  assert.match(trigger.textContent, /\+New course/u);
-  assert.equal(host.classList.contains("has-quick-courses"), true);
-  assert.equal(quickSwitches.length, 1, "only non-current courses with recorded engagement are listed");
-  assert.equal(quickSwitches[0].dataset.homeLanguageQuickCourse, "zh");
-  assert.match(quickSwitches[0].textContent, /English → Simplified Chinese/u);
-  assert.match(quickSwitches[0].textContent, /28 XP · 10 rounds/u);
-  assert.match(quickSwitches[0].textContent, /Switch/u);
-  assert.equal(host.querySelector('[data-home-language-quick-course="fr"]'), null);
+  assert.equal(currentCourse.contains(trigger), true);
+  assert.equal(host.querySelector("[data-home-language-ongoing-courses]"), null);
+  assert.equal(host.querySelector("[data-home-language-quick-course]"), null);
+  assert.equal(host.querySelector("[data-course-selection-new-language]"), null);
+  assertHomeChangeAffordance(trigger);
+  assert.equal(menu.hidden, true);
 
   trigger.click();
-  assert.equal(menu.hidden, false);
-  assert.equal(menu.querySelector("[data-language-selector-choice-stage]").hidden, false);
-  menu.querySelector("[data-language-selector-cancel]").click();
-  assert.equal(menu.hidden, true);
-  assert.equal(ongoingBody.hidden, true, "opening and cancelling New course does not expand other courses");
-  assert.equal(ongoingToggle.getAttribute("aria-expanded"), "false");
-
-  ongoingToggle.click();
-  assert.equal(ongoingBody.hidden, false);
-  assert.equal(ongoingToggle.getAttribute("aria-expanded"), "true");
-  assert.equal(menu.hidden, true, "the disclosure does not open the course selection dialog");
-  ongoingToggle.click();
-  assert.equal(ongoingBody.hidden, true);
-  assert.equal(ongoingToggle.getAttribute("aria-expanded"), "false");
-  ongoingToggle.click();
-  assert.equal(ongoingBody.hidden, false);
-
-  trigger.click();
-  assert.equal(menu.hidden, false);
-  assert.equal(ongoingBody.hidden, false, "New course does not toggle the expanded course list");
-  assert.equal(ongoingToggle.getAttribute("aria-expanded"), "true");
-  menu.querySelector("[data-language-selector-cancel]").click();
-  assert.equal(menu.hidden, true);
-  assert.equal(ongoingBody.hidden, false, "cancelling New course preserves the expanded course list");
-  assert.equal(ongoingToggle.getAttribute("aria-expanded"), "true");
-  assert.equal(harness.document.activeElement, trigger);
-
-  quickSwitches[0].click();
-  assert.equal(assignments.length, 0, "quick switching still requires confirmation");
-  assert.equal(menu.hidden, false);
-  assert.equal(menu.querySelector("[data-language-selector-choice-stage]").hidden, true);
-  assert.equal(menu.querySelector("[data-language-selector-review-stage]").hidden, false);
+  assert.equal(menu.dataset.courseSelectionStage, "courses");
+  const courses = menu.querySelector(".course-selection-stage");
+  assert.equal(courses.hidden, false);
+  assert.match(courses.textContent, /English → Czech/u);
+  const quick = courses.querySelector('[data-home-language-quick-course="zh"]');
+  assert.ok(quick, "an engaged course appears on its dedicated screen");
+  assert.match(quick.textContent, /28 XP · 10 rounds/u);
+  assert.equal(courses.querySelector('[data-home-language-quick-course="fr"]'), null,
+    "an unstarted course belongs in New language");
+  quick.click();
+  assert.equal(assignments.length, 0, "existing course switching waits for confirmation");
+  assert.equal(menu.dataset.courseSelectionStage, "review");
   assert.match(menu.querySelector("[data-language-selector-review-title]").textContent, /Simplified Chinese/u);
-  assert.equal(quickSwitches[0].getAttribute("aria-expanded"), "true");
-
-  menu.dispatchEvent({ type: "keydown", key: "Escape" });
-  assert.equal(menu.hidden, true);
-  assert.equal(quickSwitches[0].getAttribute("aria-expanded"), "false");
-  assert.equal(harness.document.activeElement, quickSwitches[0]);
-
-  quickSwitches[0].click();
+  menu.querySelector("[data-course-selection-back]").click();
+  assert.equal(menu.dataset.courseSelectionStage, "courses", "existing-course review returns to its list");
+  courses.querySelector('[data-home-language-quick-course="zh"]').click();
   menu.querySelector("[data-language-selector-confirm]").click();
   assert.deepEqual(assignments, ["/zh/index.html"]);
 });
-
-test("the Home language form resets drafts and supports keyboard dismissal", () => {
+test("new-language drafts reset and keyboard navigation stays within the visible course screen", () => {
   const assignments = [];
   const harness = createBrowserHarness({
-    course: fixtureCourse(),
-    location: { assign: (path) => assignments.push(path) }
+    course: fixtureCourse(), location: { assign: path => assignments.push(path) }
   });
   const trigger = harness.document.createElement("button");
   trigger.dataset.caatuuLanguageSwitch = "";
   trigger.dataset.languageSwitchVariant = "home";
   harness.document.body.append(trigger);
   runChrome(harness);
-  const menu = harness.document.querySelector("[data-language-selector-menu]");
+  const menu = sharedCourseSelector(harness);
 
   trigger.click();
-  assert.equal(menu.tagName, "DIALOG", "native modality blocks pointer and keyboard access to the background");
+  assert.equal(menu.tagName, "DIALOG", "native modality blocks background input");
   assert.equal(menu.open, true);
   assert.equal(menu.getAttribute("aria-modal"), "true");
   assert.equal(harness.document.activeElement.closest("dialog"), menu);
-  menu.querySelector('[data-language-base-option="en"]').click();
+  selectLanguageBase(menu, "en");
   menu.querySelector('[data-language-course-option="zh"]').click();
   menu.querySelector("[data-language-selector-cancel]").click();
-  assert.equal(menu.hidden, true);
-  assert.equal(menu.open, false);
+  assert.equal(menu.dataset.courseSelectionStage, "courses");
+  assert.equal(menu.open, true, "leaving New language returns to the course screen");
   assert.equal(assignments.length, 0);
-  assert.equal(harness.document.activeElement, trigger);
+  closeCourseSelection(menu);
+  assertNodeIdentity(harness.document.activeElement, trigger);
 
   for (const ignored of [{ isComposing: true }, { keyCode: 229 }, { defaultPrevented: true }]) {
     trigger.dispatchEvent({ type: "keydown", key: "ArrowDown", ...ignored });
     assert.equal(menu.hidden, true, "composition or a handled arrow must not open the selector");
-    assert.equal(harness.document.activeElement, trigger);
+    assertNodeIdentity(harness.document.activeElement, trigger);
   }
   trigger.dispatchEvent({ type: "keydown", key: "ArrowDown" });
-  const enabledOptions = menu.querySelectorAll(
-    '[data-language-selector-option]:not([aria-disabled="true"])'
-  );
+  assert.equal(menu.dataset.courseSelectionStage, "courses");
   assert.equal(menu.hidden, false);
   assert.equal(trigger.getAttribute("aria-expanded"), "true");
-  assert.equal(harness.document.activeElement, enabledOptions[0]);
+  assert.equal(harness.document.activeElement.closest("[hidden]"), null,
+    "course-screen focus must not land in the hidden new-language draft");
+  enterNewLanguage(menu);
   assert.equal(menu.querySelector('[data-language-course-option="cz"]').getAttribute("aria-checked"), "false");
   assert.equal(menu.querySelector('[data-language-base-option="en"]').getAttribute("aria-checked"), "false");
   assert.equal(menu.querySelector('[data-language-course-option="cz"]').disabled, true);
-
+  selectLanguageBase(menu, "en");
+  const enabledOptions = menu.querySelectorAll('[data-language-selector-option]:not([aria-disabled="true"])')
+    .filter(option => !option.closest("[hidden]"));
+  assert.ok(enabledOptions.length > 1);
+  enabledOptions[0].focus();
   for (const ignored of [{ isComposing: true }, { keyCode: 229 }, { defaultPrevented: true }]) {
     for (const key of ["ArrowDown", "End", "Escape"]) {
       menu.dispatchEvent({ type: "keydown", key, ...ignored });
-      assert.equal(menu.open, true, "composition or a handled key cannot dismiss the selector");
-      assert.equal(harness.document.activeElement, enabledOptions[0], "the selector does not steal composition navigation");
+      assert.equal(menu.open, true);
+      assert.equal(menu.dataset.courseSelectionStage, "new-language");
+      assertNodeIdentity(harness.document.activeElement, enabledOptions[0]);
     }
     harness.document.dispatchEvent({ type: "keydown", key: "Escape", ...ignored });
-    assert.equal(menu.open, true, "the document-level fallback respects the same input ownership");
+    assert.equal(menu.dataset.courseSelectionStage, "new-language");
   }
   menu.dispatchEvent({ type: "keydown", key: "End" });
-  assert.equal(harness.document.activeElement, enabledOptions.at(-1));
+  assertNodeIdentity(harness.document.activeElement, enabledOptions.at(-1));
+  assert.equal(harness.document.activeElement.closest("[hidden]"), null);
+  menu.dispatchEvent({ type: "keydown", key: "Escape" });
+  assert.equal(menu.dataset.courseSelectionStage, "courses", "Escape returns one screen level");
+  assert.equal(menu.open, true);
   menu.dispatchEvent({ type: "keydown", key: "Escape" });
   assert.equal(menu.hidden, true);
   assert.equal(trigger.getAttribute("aria-expanded"), "false");
-  assert.equal(harness.document.activeElement, trigger);
+  assertNodeIdentity(harness.document.activeElement, trigger);
 });
-
 test("native dialog dismissal releases the language selector and restores its opener", () => {
   const harness = executeChrome();
   const trigger = harness.document.createElement("button");
@@ -1894,11 +1875,11 @@ test("native dialog dismissal releases the language selector and restores its op
   assert.equal(menu.open, false);
   assert.equal(menu.hidden, true);
   assert.equal(trigger.getAttribute("aria-expanded"), "false");
-  assert.equal(harness.document.activeElement, trigger);
+  assertNodeIdentity(harness.document.activeElement, trigger);
   trigger.click();
   menu.close();
   assert.equal(menu.hidden, true);
-  assert.equal(harness.document.activeElement, trigger);
+  assertNodeIdentity(harness.document.activeElement, trigger);
   trigger.click();
   menu.dispatchEvent({ type: "close" });
   assert.equal(menu.open, true, "a queued close event cannot dismiss a newly reopened dialog");
@@ -1955,7 +1936,7 @@ test("English stays first and bundled draft Spanish remains selectable on Androi
     const bases = menu.querySelectorAll("[data-language-base-option]");
     assert.equal(bases[0].dataset.languageBaseOption, "en");
     assert.ok(bases.every((button) => button.getAttribute("aria-checked") === "false"));
-    menu.querySelector('[data-language-base-option="es"]').click();
+    selectLanguageBase(menu, "es");
     assert.equal(menu.querySelector('[data-language-base-option="es"]').getAttribute("aria-checked"), "true");
     const target = menu.querySelector('[data-language-course-option="es-en"]');
     assert.equal(target.disabled, false);
@@ -2014,9 +1995,9 @@ test("base-language switching preserves an explicitly chosen current target and 
   assert.match(frenchBase.textContent, /Français/u);
   assert.doesNotMatch(frenchBase.textContent, /Browser only/u);
   trigger.click();
-  harness.document.querySelector('[data-language-base-option="en"]').click();
+  selectLanguageBase(sharedCourseSelector(harness), "en");
   harness.document.querySelector('[data-language-course-option="cz"]').click();
-  harness.document.querySelector('[data-language-base-option="fr"]').click();
+  selectLanguageBase(sharedCourseSelector(harness), "fr");
 
   const menu = harness.document.querySelector("[data-language-selector-menu]");
   const selectedFrenchBase = menu.querySelector('[data-language-base-option="fr"]');
@@ -2067,9 +2048,9 @@ test("base-language switching preserves the in-progress target selection", () =>
   harness.window.CaatuuChrome.renderLanguageSwitch(trigger);
 
   trigger.click();
-  harness.document.querySelector('[data-language-base-option="en"]').click();
+  selectLanguageBase(sharedCourseSelector(harness), "en");
   harness.document.querySelector('[data-language-course-option="zh"]').click();
-  harness.document.querySelector('[data-language-base-option="fr"]').click();
+  selectLanguageBase(sharedCourseSelector(harness), "fr");
 
   const menu = harness.document.querySelector("[data-language-selector-menu]");
   assert.equal(
@@ -2130,9 +2111,9 @@ test("base-language switching preserves the exact target script variant", () => 
   harness.window.CaatuuChrome.renderLanguageSwitch(trigger);
 
   trigger.click();
-  harness.document.querySelector('[data-language-base-option="en"]').click();
+  selectLanguageBase(sharedCourseSelector(harness), "en");
   harness.document.querySelector('[data-language-course-option="zh-hant"]').click();
-  harness.document.querySelector('[data-language-base-option="fr"]').click();
+  selectLanguageBase(sharedCourseSelector(harness), "fr");
 
   const menu = harness.document.querySelector("[data-language-selector-menu]");
   assert.equal(
@@ -2164,4 +2145,912 @@ test("the current base badge uses the canonical source locale key", () => {
   const currentBase = harness.document.querySelector('[data-language-base-option="en-us"]');
   assert.ok(currentBase);
   assert.match(currentBase.textContent, /Current/u);
+});
+
+function headerLanguageHarness({ native = false, isCourseBundled = () => true, interfaceContent = null,
+  learningProfile = null } = {}) {
+  const assignments = [];
+  const harness = createBrowserHarness({
+    course: fixtureCourse(),
+    runtime: { env: native ? "android" : "browser" },
+    localStorageValues: { "caatuu-czech.learning.performance.v1": "saved-czech-progress" },
+    window: {
+      ...(native ? { CaatuuAndroid: { isCourseBundled, postMessage() {} } } : {}),
+      ...(learningProfile ? { CaatuuLearning: learningProfile } : {})
+    },
+    location: { assign: (path) => assignments.push(path) }
+  });
+  const header = harness.document.createElement("header");
+  header.className = "app-header";
+  harness.document.body.append(header);
+  runChrome(harness, interfaceContent);
+  const flag = header.querySelector("[data-caatuu-header-language-menu]");
+  const panel = header.querySelector("[data-header-language-menu]");
+  const change = panel?.querySelector("[data-header-language-change]");
+  return {
+    ...harness, assignments, header, flag, panel, change,
+    selector: () => sharedCourseSelector(harness)
+  };
+}
+
+test("the header flag opens a localized current-course menu before offering language selection", async () => {
+  const spanishCatalog = JSON.parse(await readFile(
+    new URL("../static/data/interface/es.v1.json", import.meta.url), "utf8"
+  ));
+  for (const [catalog, current, action] of [
+    [englishInterfaceCatalog, "Current course", "Change course"],
+    [spanishCatalog, "Curso actual", "Cambiar curso"]
+  ]) {
+    const harness = headerLanguageHarness({ interfaceContent: createInterfaceContent(catalog) });
+    const { flag, panel, change } = harness;
+    assert.equal(flag.tagName, "BUTTON");
+    assert.equal(flag.type, "button");
+    assert.equal(flag.getAttribute("aria-controls"), panel.id);
+    assert.equal(flag.getAttribute("aria-expanded"), "false");
+    assert.equal(panel.hidden, true);
+    assert.equal(change.textContent, action);
+    flag.click();
+    assert.equal(panel.hidden, false);
+    assert.equal(flag.getAttribute("aria-expanded"), "true");
+    assert.ok(panel.textContent.includes(current));
+    const pair = panel.querySelector(".header-language-current");
+    assert.deepEqual(pair.querySelectorAll("img").map(image => image.src), [english.flagSrc, czech.flagSrc]);
+    assert.equal(pair.textContent.trim(), "→", "the visible course is a flag pair and direction arrow");
+    assert.match(pair.getAttribute("aria-label"), /English|Inglés/u);
+    assert.equal(harness.selector()?.open || false, false, "the compact menu does not open the full chooser");
+    assert.deepEqual(harness.assignments, []);
+    flag.click();
+    assert.equal(panel.hidden, true);
+    assert.equal(flag.getAttribute("aria-expanded"), "false");
+  }
+});
+
+test("the header language menu dismisses on Escape, outside clicks and focus leaving", () => {
+  const harness = headerLanguageHarness();
+  const { flag, panel, change, document } = harness;
+  const outside = document.createElement("button");
+  document.body.append(outside);
+  flag.focus();
+  flag.click();
+  change.focus();
+  document.dispatchEvent({ type: "keydown", key: "Escape" });
+  assert.equal(panel.hidden, true);
+  assert.equal(flag.getAttribute("aria-expanded"), "false");
+  assertNodeIdentity(document.activeElement, flag);
+
+  flag.click();
+  outside.click();
+  assert.equal(panel.hidden, true);
+  assert.equal(flag.getAttribute("aria-expanded"), "false");
+
+  flag.click();
+  document.dispatchEvent({ type: "focusin", target: change });
+  assert.equal(panel.hidden, false, "focus within the compact menu keeps it open");
+  outside.focus();
+  document.dispatchEvent({ type: "focusin", target: outside });
+  assert.equal(panel.hidden, true);
+  assertNodeIdentity(document.activeElement, outside, "leaving the menu does not steal focus back");
+  assert.deepEqual(harness.assignments, []);
+});
+
+test("Change course opens the course screen and cancelling a new-language draft preserves progress", () => {
+  const harness = headerLanguageHarness();
+  const { flag, panel, change } = harness;
+  const beforeLocal = harness.localStorage.snapshot();
+  const beforeSession = harness.sessionStorage.snapshot();
+  flag.click();
+  change.click();
+  const selector = harness.selector();
+  assert.equal(panel.hidden, true);
+  assert.equal(selector.tagName, "DIALOG");
+  assert.equal(selector.open, true);
+  assert.equal(selector.getAttribute("aria-modal"), "true");
+  assert.equal(flag.getAttribute("aria-controls"), selector.id);
+  assert.equal(harness.document.activeElement.closest("dialog"), selector);
+  assert.deepEqual(harness.assignments, []);
+  selectLanguageBase(selector, "en");
+  selector.querySelector('[data-language-course-option="zh"]').click();
+  assert.deepEqual(harness.assignments, [], "draft selection does not navigate");
+  selector.querySelector("[data-language-selector-cancel]").click();
+  assert.equal(selector.dataset.courseSelectionStage, "courses");
+  assert.equal(selector.open, true, "cancelling New language returns to course selection");
+  closeCourseSelection(selector);
+  assert.equal(selector.open, false);
+  assert.equal(selector.hidden, true);
+  assert.equal(flag.getAttribute("aria-expanded"), "false");
+  assert.equal(flag.getAttribute("aria-controls"), panel.id);
+  assertNodeIdentity(harness.document.activeElement, flag);
+  assert.deepEqual(harness.localStorage.snapshot(), beforeLocal);
+  assert.deepEqual(harness.sessionStorage.snapshot(), beforeSession);
+});
+
+test("header language switching waits for confirmation and keeps browser and native handoff rules", () => {
+  for (const native of [false, true]) {
+    const harness = headerLanguageHarness({ native });
+    const selectedKey = "caatuu.setup.selected-course.v1";
+    const pendingKey = "caatuu.setup.pending-course.v1";
+    harness.flag.click();
+    harness.change.click();
+    const selector = harness.selector();
+    selectLanguageBase(selector, "en");
+    selector.querySelector('[data-language-course-option="zh"]').click();
+    selector.querySelector("[data-language-selector-review]").click();
+    assert.deepEqual(harness.assignments, []);
+    assert.equal(harness.localStorage.getItem(selectedKey), null);
+    assert.equal(harness.sessionStorage.getItem(pendingKey), null);
+    selector.querySelector("[data-language-selector-confirm]").click();
+    assert.deepEqual(harness.assignments, ["/zh/index.html"]);
+    assert.equal(harness.localStorage.getItem("caatuu-czech.learning.performance.v1"), "saved-czech-progress");
+    assert.equal(harness.localStorage.getItem(selectedKey), native ? "zh" : null);
+    assert.equal(harness.sessionStorage.getItem(pendingKey), native ? "zh" : null);
+  }
+});
+
+test("Android Back dismisses the header menu or chooser before the underlying settings", () => {
+  const harness = headerLanguageHarness({ native: true });
+  const settings = harness.document.createElement("div");
+  settings.id = "settingsPanel";
+  settings.hidden = false;
+  harness.document.body.append(settings);
+  harness.flag.click();
+  assert.equal(harness.window.CaatuuChrome.handleAndroidBack(), true);
+  assert.equal(harness.panel.hidden, true);
+  assert.equal(settings.hidden, false);
+  harness.flag.click();
+  harness.change.click();
+  assert.equal(harness.selector().open, true);
+  assert.equal(harness.window.CaatuuChrome.handleAndroidBack(), true);
+  assert.equal(harness.selector().open, false);
+  assert.equal(harness.selector().hidden, true);
+  assert.equal(settings.hidden, false);
+  assertNodeIdentity(harness.document.activeElement, harness.flag);
+  assert.deepEqual(harness.assignments, []);
+});
+
+test("the header chooser retains installed-course availability limits on Android", () => {
+  const harness = headerLanguageHarness({ native: true, isCourseBundled: (id) => id === "cz" });
+  harness.flag.click();
+  harness.change.click();
+  const selector = harness.selector();
+  selectLanguageBase(selector, "en");
+  const unavailable = selector.querySelector('[data-language-course-option="zh"]');
+  assert.equal(unavailable.disabled, true);
+  assert.equal(unavailable.getAttribute("aria-disabled"), "true");
+  assert.equal(unavailable.tabIndex, -1);
+  assert.equal(selector.querySelector("[data-language-selector-review]").disabled, true);
+  assert.deepEqual(harness.assignments, []);
+});
+
+test("rerendering the header dismisses its old menus without retaining detached active hosts", () => {
+  const harness = headerLanguageHarness({ native: true });
+  const { header, flag, panel } = harness;
+  flag.click();
+  assert.equal(panel.hidden, false);
+  harness.window.CaatuuChrome.renderAppHeader(header);
+  assert.equal(panel.hidden, true);
+  assert.equal(flag.getAttribute("aria-expanded"), "false");
+  assert.equal(flag.isConnected, false);
+  assert.equal(harness.window.CaatuuChrome.handleAndroidBack(), false,
+    "a detached compact menu does not consume Android Back");
+
+  const replacementFlag = header.querySelector("[data-caatuu-header-language-menu]");
+  replacementFlag.click();
+  header.querySelector("[data-header-language-change]").click();
+  const oldSelector = sharedCourseSelector(harness);
+  assert.equal(oldSelector.open, true);
+  harness.window.CaatuuChrome.renderAppHeader(header);
+  assert.equal(oldSelector.open, false);
+  assert.equal(oldSelector.hidden, true);
+  assert.equal(oldSelector.isConnected, true, "the one shared course screen remains mounted");
+  assert.equal(harness.window.CaatuuChrome.handleAndroidBack(), false,
+    "a detached chooser does not consume Android Back");
+  const finalFlag = header.querySelector("[data-caatuu-header-language-menu]");
+  assertNodeIdentity(sharedCourseSelector(harness), oldSelector, "header rerenders reuse the same course screen");
+  finalFlag.click();
+  assert.equal(header.querySelector("[data-header-language-menu]").hidden, false);
+  assert.equal(harness.window.CaatuuChrome.handleAndroidBack(), true);
+  assertNodeIdentity(harness.document.activeElement, finalFlag);
+  assert.deepEqual(harness.assignments, []);
+});
+
+test("a different shared chooser opener dismisses the short header menu before taking focus", () => {
+  const harness = headerLanguageHarness({ native: true });
+  const other = harness.document.createElement("button");
+  other.dataset.caatuuLanguageSwitch = "";
+  harness.document.body.append(other);
+  harness.window.CaatuuChrome.renderLanguageSwitch(other);
+  // Quick course switches handle their own clicks; dismissal must not depend
+  // on bubbling to the document or an eventual real-browser focusin event.
+  other.addEventListener("click", (event) => event.stopPropagation());
+  const otherSelector = sharedCourseSelector(harness);
+  assert.equal(otherSelector, harness.selector());
+  assert.equal(harness.document.querySelectorAll("[data-language-selector-menu]").length, 1);
+  harness.flag.click();
+  other.click();
+  assert.equal(harness.panel.hidden, true);
+  assert.equal(harness.flag.getAttribute("aria-expanded"), "false");
+  assert.equal(harness.flag.getAttribute("aria-controls"), harness.panel.id);
+  assert.equal(otherSelector.open, true);
+  assert.equal(harness.document.activeElement.closest("dialog"), otherSelector);
+  assert.equal(harness.window.CaatuuChrome.handleAndroidBack(), true);
+  assert.equal(otherSelector.open, false, "Back dismisses the current chooser on its first press");
+  assertNodeIdentity(harness.document.activeElement, other);
+  assert.deepEqual(harness.assignments, []);
+});
+
+function backpackLanguageHarness() {
+  const assignments = [];
+  const harness = createBrowserHarness({
+    course: fixtureCourse(),
+    runtime: { env: "android" },
+    window: { CaatuuAndroid: { isCourseBundled: () => true, postMessage() {} } },
+    location: { assign: (path) => assignments.push(path) }
+  });
+  const settings = harness.document.createElement("div");
+  settings.id = "settingsPanel";
+  // The light DOM harness does not parse innerHTML. Materialize only the flag
+  // declared by the real Backpack template; its attributes and tag remain the
+  // production authority, and the real initialization supplies its behavior.
+  let renderedMarkup = "";
+  Object.defineProperty(settings, "innerHTML", {
+    get() { return renderedMarkup; },
+    set(value) {
+      renderedMarkup = value;
+      const declaration = /<(button|span)\b([^>]*class="language-pill settings-language-pill[^>]+)>/u.exec(value);
+      assert.ok(declaration, "Backpack template declares its upper-right language flag");
+      const sheet = harness.document.createElement("section");
+      sheet.className = "settings-sheet";
+      const head = harness.document.createElement("header");
+      head.className = "settings-sheet-head";
+      const flag = harness.document.createElement(declaration[1]);
+      for (const [, name, content] of declaration[2].matchAll(/([:\w-]+)(?:="([^"]*)")?/gu)) {
+        flag.setAttribute(name, content || "");
+      }
+      head.append(flag);
+      sheet.append(head);
+      settings.replaceChildren(sheet);
+    }
+  });
+  harness.document.body.append(settings);
+  runChrome(harness);
+  settings.hidden = false;
+  const flag = settings.querySelector("[data-caatuu-header-language-menu]");
+  return {
+    ...harness, assignments, settings, flag,
+    panel: settings.querySelector("[data-header-language-menu]"),
+    change: settings.querySelector("[data-header-language-change]"),
+    selector: sharedCourseSelector(harness)
+  };
+}
+
+test("the real Backpack flag template opens the shared current-course screen and restores focus after Back", () => {
+  const harness = backpackLanguageHarness();
+  const { settings, flag, panel, change, selector } = harness;
+  assert.equal(flag.tagName, "BUTTON");
+  assert.equal(flag.getAttribute("aria-controls"), panel.id);
+  assert.equal(panel.hidden, true);
+  flag.click();
+  assert.equal(panel.hidden, false);
+  assert.match(panel.textContent, /Current course/u);
+  assert.deepEqual(panel.querySelector(".header-language-current").querySelectorAll("img").map(image => image.src),
+    [english.flagSrc, czech.flagSrc]);
+  assert.equal(change.textContent, "Change course");
+  assert.equal(selector.open, false);
+  change.click();
+  assert.equal(panel.hidden, true);
+  assert.equal(selector.open, true);
+  selector.querySelector("[data-course-selection-back]").click();
+  assert.equal(selector.open, false);
+  assert.equal(settings.hidden, false, "closing the chooser preserves the underlying Backpack");
+  assert.equal(flag.getAttribute("aria-controls"), panel.id);
+  assertNodeIdentity(harness.document.activeElement, flag);
+  assert.deepEqual(harness.assignments, []);
+});
+
+test("Backpack language menus dismiss before settings on Android Back and settings closure clears their state", () => {
+  const harness = backpackLanguageHarness();
+  const { settings, flag, panel, change, selector } = harness;
+  flag.click();
+  assert.equal(harness.window.CaatuuChrome.handleAndroidBack(), true);
+  assert.equal(panel.hidden, true);
+  assert.equal(settings.hidden, false);
+  flag.click();
+  change.click();
+  assert.equal(harness.window.CaatuuChrome.handleAndroidBack(), true);
+  assert.equal(selector.open, false);
+  assert.equal(settings.hidden, false);
+  assertNodeIdentity(harness.document.activeElement, flag);
+
+  flag.click();
+  harness.window.CaatuuChrome.closeSharedSettings({ restoreFocus: false });
+  assert.equal(panel.hidden, true);
+  assert.equal(flag.getAttribute("aria-expanded"), "false");
+  assert.equal(settings.hidden, true);
+  assert.equal(harness.window.CaatuuChrome.handleAndroidBack(), false,
+    "a menu in the hidden Backpack cannot consume Back");
+  assert.deepEqual(harness.assignments, []);
+});
+
+test("Home, the main flag and the Backpack flag reuse one dedicated course screen", () => {
+  const harness = backpackLanguageHarness();
+  const selector = harness.selector;
+  const homeChange = harness.document.createElement("button");
+  homeChange.dataset.caatuuLanguageSwitch = "";
+  homeChange.dataset.languageSwitchVariant = "home";
+  harness.document.body.append(homeChange);
+  harness.window.CaatuuChrome.renderLanguageSwitch(homeChange);
+  const header = harness.document.createElement("header");
+  header.className = "app-header";
+  harness.document.body.append(header);
+  harness.window.CaatuuChrome.renderAppHeader(header);
+  const mainFlag = header.querySelector("[data-caatuu-header-language-menu]");
+  const beforeLocal = harness.localStorage.snapshot();
+  const beforeSession = harness.sessionStorage.snapshot();
+  for (const [opener, open] of [
+    [homeChange, () => homeChange.click()],
+    [mainFlag, () => { mainFlag.click(); header.querySelector("[data-header-language-change]").click(); }],
+    [harness.flag, () => { harness.flag.click(); harness.change.click(); }]
+  ]) {
+    open();
+    assertNodeIdentity(sharedCourseSelector(harness), selector);
+    assert.equal(harness.document.querySelectorAll("[data-language-selector-menu]").length, 1);
+    assert.equal(selector.dataset.courseSelectionStage, "courses");
+    assert.equal(selector.open, true);
+    assert.equal(opener.getAttribute("aria-controls"), selector.id);
+    closeCourseSelection(selector);
+    assertNodeIdentity(harness.document.activeElement, opener);
+    assert.equal(harness.settings.hidden, false, "the underlying Backpack stays open");
+  }
+  assert.deepEqual(harness.localStorage.snapshot(), beforeLocal);
+  assert.deepEqual(harness.sessionStorage.snapshot(), beforeSession);
+  assert.deepEqual(harness.assignments, []);
+});
+
+function backThroughCourseScreen(harness, method) {
+  const menu = sharedCourseSelector(harness);
+  if (method === "button") menu.querySelector("[data-course-selection-back]").click();
+  else if (method === "escape") menu.dispatchEvent({ type: "keydown", key: "Escape" });
+  else if (method === "android") assert.equal(harness.window.CaatuuChrome.handleAndroidBack(), true);
+  else menu.dispatchEvent({ type: "cancel" });
+}
+
+test("every Back route traverses new-language review, draft and course screens without dropping their pause", () => {
+  for (const method of ["button", "escape", "android", "native-cancel"]) {
+    const harness = headerLanguageHarness({ native: true });
+    const beforeLocal = harness.localStorage.snapshot();
+    const beforeSession = harness.sessionStorage.snapshot();
+    const changes = observeLanguageMenuChanges(harness);
+    harness.flag.click();
+    harness.change.click();
+    const menu = harness.selector();
+    const firstFullScreenChange = changes.length - 1;
+    selectLanguageBase(menu, "en");
+    menu.querySelector('[data-language-course-option="zh"]').click();
+    menu.querySelector("[data-language-selector-review]").click();
+    assert.equal(menu.dataset.courseSelectionStage, "review");
+    backThroughCourseScreen(harness, method);
+    assert.equal(menu.dataset.courseSelectionStage, "new-language", `${method}: review returns to its draft`);
+    assert.equal(menu.querySelector('[data-language-course-option="zh"]').getAttribute("aria-checked"), "true");
+    assert.equal(menu.open, true);
+    backThroughCourseScreen(harness, method);
+    assert.equal(menu.dataset.courseSelectionStage, "courses", `${method}: draft returns to the course list`);
+    assert.equal(menu.open, true);
+    assert.ok(changes.slice(firstFullScreenChange).every(change => change.open),
+      `${method}: intermediate screens never announce a resumed game`);
+    backThroughCourseScreen(harness, method);
+    assert.equal(menu.open, false);
+    assert.equal(menu.hidden, true);
+    assert.equal(changes.at(-1).open, false);
+    assertNodeIdentity(harness.document.activeElement, harness.flag);
+    assert.deepEqual(harness.assignments, []);
+    assert.deepEqual(harness.localStorage.snapshot(), beforeLocal);
+    assert.deepEqual(harness.sessionStorage.snapshot(), beforeSession);
+  }
+});
+
+test("an existing-course review returns directly to the course list on every Back route", () => {
+  for (const method of ["button", "escape", "android", "native-cancel"]) {
+    const harness = headerLanguageHarness({ native: true, learningProfile: {
+      courseSummaries: () => [
+        { id: "cz", hasProgress: true, summary: { xp: 10, rounds: 2 } },
+        { id: "zh", hasProgress: true, summary: { xp: 5, rounds: 1 } }
+      ],
+      snapshot: () => ({
+        difficulty: 1, difficultyOption: { label: "Explorer", summary: "A steady pace." },
+        summary: { xp: 10, rounds: 2 }, journey: { summary: { xp: 15, rounds: 3 } },
+        streak: { currentDays: 0, highestDays: 0, remindersEnabled: false }
+      })
+    } });
+    harness.flag.click();
+    harness.change.click();
+    const menu = harness.selector();
+    const changes = observeLanguageMenuChanges(harness);
+    menu.querySelector('[data-home-language-quick-course="zh"]').click();
+    assert.equal(menu.dataset.courseSelectionStage, "review");
+    assert.deepEqual(harness.assignments, []);
+    backThroughCourseScreen(harness, method);
+    assert.equal(menu.dataset.courseSelectionStage, "courses", method);
+    assert.equal(menu.open, true);
+    assert.ok(changes.every(change => change.open), "returning to the list keeps the game paused");
+    backThroughCourseScreen(harness, method);
+    assert.equal(menu.open, false);
+    assertNodeIdentity(harness.document.activeElement, harness.flag);
+  }
+});
+
+test("the course screen keeps unavailable ongoing courses disabled in an installed Android shell", () => {
+  const harness = headerLanguageHarness({
+    native: true, isCourseBundled: id => id === "cz",
+    learningProfile: {
+      courseSummaries: () => [
+        { id: "cz", hasProgress: true, summary: { xp: 10, rounds: 2 } },
+        { id: "zh", hasProgress: true, summary: { xp: 5, rounds: 1 } }
+      ],
+      snapshot: () => ({
+        difficulty: 1, difficultyOption: { label: "Explorer", summary: "A steady pace." },
+        summary: { xp: 10, rounds: 2 }, journey: { summary: { xp: 15, rounds: 3 } },
+        streak: { currentDays: 0, highestDays: 0, remindersEnabled: false }
+      })
+    }
+  });
+  harness.flag.click();
+  harness.change.click();
+  const menu = harness.selector();
+  const unavailable = menu.querySelector('[data-home-language-quick-course="zh"]');
+  assert.equal(unavailable.disabled, true);
+  assert.equal(unavailable.getAttribute("aria-disabled"), "true");
+  assert.match(unavailable.getAttribute("aria-label"), /Browser only/u);
+  unavailable.click();
+  assert.equal(menu.dataset.courseSelectionStage, "courses");
+  assert.deepEqual(harness.assignments, []);
+  assert.equal(harness.localStorage.getItem("caatuu.setup.selected-course.v1"), null);
+  assert.equal(harness.sessionStorage.getItem("caatuu.setup.pending-course.v1"), null);
+});
+
+test("a header refresh preserves an open course screen owned by the Home Change button", () => {
+  const harness = headerLanguageHarness();
+  const trigger = harness.document.createElement("button");
+  trigger.dataset.caatuuLanguageSwitch = "";
+  trigger.dataset.languageSwitchVariant = "home";
+  harness.document.body.append(trigger);
+  harness.window.CaatuuChrome.renderLanguageSwitch(trigger);
+  const menu = harness.selector();
+  trigger.click();
+  const changes = observeLanguageMenuChanges(harness);
+  harness.window.CaatuuChrome.renderAppHeader(harness.header);
+  assertNodeIdentity(sharedCourseSelector(harness), menu);
+  assert.equal(menu.open, true, "repainting unrelated rewards cannot dismiss Home course selection");
+  assert.equal(menu.dataset.courseSelectionStage, "courses");
+  assert.ok(changes.every(change => change.open), "the selector retains its game pause");
+  closeCourseSelection(menu);
+  assert.ok(harness.document.activeElement === trigger, "closing restores the original Home Change action");
+});
+
+function headerInAppShell(harness) {
+  const shell = harness.document.createElement("div");
+  shell.className = "app-shell";
+  const before = harness.document.createElement("span");
+  before.id = "beforeHeader";
+  const after = harness.document.createElement("main");
+  after.id = "afterHeader";
+  harness.header.before(shell);
+  shell.append(before, harness.header, after);
+  return { shell, before, after };
+}
+
+function assertHeaderRestored(harness, position) {
+  assertNodeIdentity(harness.header.parentElement, position.shell, "the live header returns to its original shell");
+  assert.equal(position.shell.children.length, 3, "the temporary header placeholder is removed");
+  assertNodeIdentity(position.shell.children[0], position.before);
+  assertNodeIdentity(position.shell.children[1], harness.header);
+  assertNodeIdentity(position.shell.children[2], position.after);
+  assert.equal(harness.document.querySelectorAll(".app-header").length, 1, "the header is never cloned");
+}
+
+test("the course modal retains the live game header and reward counters through every screen stage", () => {
+  const profile = {
+    difficulty: 1, difficultyOption: { label: "Explorer", summary: "A steady pace." },
+    summary: { xp: 10, rounds: 2 }, journey: { summary: { xp: 15, rounds: 3 } },
+    streak: { currentDays: 0, highestDays: 0, remindersEnabled: false }
+  };
+  const harness = headerLanguageHarness({ learningProfile: { snapshot: () => profile } });
+  const position = headerInAppShell(harness);
+  const liveXp = harness.header.querySelector("[data-caatuu-header-xp-count]");
+  harness.flag.click();
+  harness.change.click();
+  const menu = harness.selector();
+  const slot = menu.querySelector(".course-selection-app-header");
+  assertNodeIdentity(harness.header.parentElement, slot);
+  assertNodeIdentity(slot.querySelector(".app-header"), harness.header);
+  assert.equal(harness.header.isConnected, true);
+  assert.equal(harness.document.querySelectorAll("[data-caatuu-header-xp-count]").length, 1);
+  profile.journey.summary.xp = 28;
+  harness.window.dispatchEvent(new harness.window.CustomEvent("caatuu:learning-change", { detail: profile }));
+  assertNodeIdentity(harness.header.querySelector("[data-caatuu-header-xp-count]"), liveXp,
+    "reward refresh updates the actual counter node");
+  assert.equal(liveXp.textContent, "28");
+  selectLanguageBase(menu, "en");
+  assertNodeIdentity(harness.header.parentElement, slot, "New language keeps the same header");
+  menu.querySelector('[data-language-course-option="zh"]').click();
+  menu.querySelector("[data-language-selector-review]").click();
+  assertNodeIdentity(harness.header.parentElement, slot, "confirmation keeps the same header");
+  closeCourseSelection(menu);
+  assertHeaderRestored(harness, position);
+  assertNodeIdentity(harness.document.activeElement, harness.flag, "focus returns only after restoring the header");
+});
+
+test("closing the course modal restores the header in place before Back, native close or confirmed navigation", () => {
+  for (const method of ["button", "escape", "android", "native-cancel", "native-close", "confirm"]) {
+    const harness = headerLanguageHarness({ native: true });
+    const position = headerInAppShell(harness);
+    harness.flag.click();
+    harness.change.click();
+    const menu = harness.selector();
+    if (method === "confirm") {
+      const navigate = harness.window.location.assign;
+      harness.window.location.assign = path => {
+        assertHeaderRestored(harness, position);
+        assert.equal(menu.open, false);
+        navigate(path);
+      };
+      selectLanguageBase(menu, "en");
+      menu.querySelector('[data-language-course-option="zh"]').click();
+      menu.querySelector("[data-language-selector-review]").click();
+      menu.querySelector("[data-language-selector-confirm]").click();
+      assert.deepEqual(harness.assignments, ["/zh/index.html"]);
+    } else if (method === "native-close") menu.close();
+    else backThroughCourseScreen(harness, method);
+    assert.equal(menu.open, false, method);
+    assert.equal(menu.hidden, true, method);
+    assertHeaderRestored(harness, position);
+    if (method !== "confirm") assertNodeIdentity(harness.document.activeElement, harness.flag, method);
+  }
+});
+
+test("the live header flag, brand and game Back remain functional from the dedicated course modal", () => {
+  for (const action of ["flag", "brand", "game-back"]) {
+    const harness = headerLanguageHarness({ native: true });
+    const position = headerInAppShell(harness);
+    if (action === "game-back") {
+      harness.window.CaatuuChrome.setHeaderTitle("Grammar Gravity", {
+        backLabel: "Back to games", backHref: "/cz/index.html"
+      });
+    }
+    harness.flag.click();
+    harness.change.click();
+    const menu = harness.selector();
+    if (action === "flag") harness.flag.click();
+    else harness.header.querySelector(action === "brand" ? ".brand-link" : ".app-header-back").click();
+    assert.equal(menu.open, false, `${action}: header navigation closes course selection`);
+    assertHeaderRestored(harness, position);
+    if (action === "flag") {
+      assert.equal(harness.panel.hidden, false);
+      assert.equal(harness.flag.getAttribute("aria-expanded"), "true");
+      assert.equal(harness.window.CaatuuChrome.handleAndroidBack(), true);
+      assert.equal(harness.panel.hidden, true);
+    }
+  }
+});
+
+test("an obsolete dialog close cannot restore the live header out of a newly reopened course screen", () => {
+  const harness = headerLanguageHarness();
+  const position = headerInAppShell(harness);
+  harness.flag.click();
+  harness.change.click();
+  const menu = harness.selector();
+  closeCourseSelection(menu);
+  assertHeaderRestored(harness, position);
+  harness.flag.click();
+  harness.change.click();
+  menu.dispatchEvent({ type: "close" });
+  assert.equal(menu.open, true);
+  assertNodeIdentity(harness.header.parentElement, menu.querySelector(".course-selection-app-header"));
+  closeCourseSelection(menu);
+  assertHeaderRestored(harness, position);
+});
+
+function observeLanguageMenuChanges(harness) {
+  const changes = [];
+  harness.window.addEventListener("caatuu:language-menu-change", () => {
+    const compact = harness.document.querySelectorAll("[data-header-language-menu]")
+      .filter(panel => !panel.hidden);
+    const selectors = harness.document.querySelectorAll("[data-language-selector-menu]")
+      .filter(menu => menu.open && !menu.hidden);
+    changes.push({ compact, selectors, open: compact.length > 0 || selectors.length > 0 });
+  });
+  return changes;
+}
+
+test("language-menu listeners see the compact panel's updated state on every dismissal path", () => {
+  for (const dismissal of ["toggle", "outside", "escape", "back"]) {
+    const harness = headerLanguageHarness({ native: true });
+    const changes = observeLanguageMenuChanges(harness);
+    harness.flag.click();
+    assert.equal(changes.at(-1)?.open, true, `${dismissal}: opening notifies after the panel becomes visible`);
+    assert.equal(changes.at(-1).compact[0], harness.panel);
+    assert.equal(changes.at(-1).selectors.length, 0);
+    if (dismissal === "toggle") harness.flag.click();
+    else if (dismissal === "outside") harness.document.body.click();
+    else if (dismissal === "escape") harness.document.dispatchEvent({ type: "keydown", key: "Escape" });
+    else assert.equal(harness.window.CaatuuChrome.handleAndroidBack(), true);
+    assert.equal(changes.at(-1)?.open, false, `${dismissal}: closing releases the menu pause`);
+    assert.equal(harness.flag.getAttribute("aria-expanded"), "false");
+    assert.equal(harness.panel.hidden, true);
+  }
+});
+
+test("an outside pointer press dismisses the flag menu even when paused answers cannot emit clicks", () => {
+  const harness = headerLanguageHarness();
+  const changes = observeLanguageMenuChanges(harness);
+  const answer = harness.document.createElement("button");
+  answer.textContent = "Game answer";
+  harness.document.body.append(answer);
+  let answers = 0;
+  answer.addEventListener("click", () => { answers += 1; });
+  harness.window.addEventListener("caatuu:language-menu-change", () => {
+    answer.disabled = changes.at(-1).open;
+  });
+  harness.flag.click();
+  assert.equal(answer.disabled, true, "the visible flag menu pauses a listening game");
+  for (const target of [harness.flag, harness.change]) {
+    target.dispatchEvent({ type: "pointerdown", bubbles: true });
+    assert.equal(harness.panel.hidden, false, "presses within the flag menu retain its pause");
+    assert.equal(changes.at(-1).open, true);
+  }
+  // Native disabled buttons suppress click; the light DOM harness dispatches
+  // synthetic clicks unconditionally, so reproduce the pointer-only press.
+  assert.equal(answers, 0);
+  assert.equal(harness.panel.hidden, false);
+  answer.dispatchEvent({ type: "pointerdown", bubbles: true });
+  assert.equal(harness.panel.hidden, true);
+  assert.equal(harness.flag.getAttribute("aria-expanded"), "false");
+  assert.equal(changes.at(-1).open, false, "listeners observe collapsed DOM before resuming input");
+  assert.equal(answer.disabled, false, "the pointer dismissal alone releases the game pause");
+  answer.click();
+  assert.equal(answers, 1, "the next ordinary answer click is accepted");
+});
+
+test("dismissing the flag menu on a game surface cannot activate the same swipe gesture", () => {
+  const harness = headerLanguageHarness();
+  const surface = harness.document.createElement("section");
+  harness.document.body.append(surface);
+  let answers = 0;
+  const gesture = bindHorizontalGesture({
+    surface, document: harness.document, window: harness.window,
+    available: () => harness.panel.hidden,
+    onAction() { answers += 1; }
+  });
+  const pointer = (type, clientX, timeStamp) => harness.document.dispatchEvent({
+    type, target: surface, pointerId: 1, pointerType: "touch", isPrimary: true,
+    button: 0, clientX, clientY: 100, timeStamp
+  });
+  harness.flag.click();
+  pointer("pointerdown", 180, 0);
+  assert.equal(harness.panel.hidden, false, "a play-surface press keeps the game paused until normal dismissal");
+  pointer("pointerup", 80, 100);
+  assert.equal(answers, 0, "the menu-dismiss gesture must never submit a game answer");
+  harness.document.dispatchEvent({ type: "click", target: surface, detail: 1 });
+  assert.equal(harness.panel.hidden, true, "ordinary outside click dismissal remains available");
+  pointer("pointerdown", 180, 200);
+  pointer("pointerup", 80, 300);
+  assert.equal(answers, 1, "a fresh swipe after dismissal is accepted");
+  gesture.dispose();
+});
+
+test("entering an embedded frame dismisses the flag menu after focus settles and releases its pause", t => {
+  const harness = headerLanguageHarness();
+  const changes = observeLanguageMenuChanges(harness);
+  const frame = harness.document.createElement("iframe");
+  harness.document.body.append(frame);
+  const pending = [];
+  const originalTimeout = harness.window.setTimeout;
+  harness.window.setTimeout = callback => { pending.push(callback); return pending.length; };
+  t.after(() => { harness.window.setTimeout = originalTimeout; });
+  harness.flag.focus();
+  harness.flag.click();
+  harness.window.dispatchEvent({ type: "blur" });
+  assert.equal(harness.panel.hidden, false, "focus can still point at the flag during the blur event");
+  assert.equal(changes.at(-1).open, true);
+  assert.equal(pending.length, 1);
+  frame.focus();
+  pending.shift()();
+  assert.equal(harness.panel.hidden, true);
+  assert.equal(harness.flag.getAttribute("aria-expanded"), "false");
+  assert.equal(changes.at(-1).open, false, "the resumed game reads the collapsed menu in its notification");
+  assertNodeIdentity(harness.document.activeElement, frame, "dismissal preserves the learner's frame focus");
+});
+
+test("an unrelated window blur retains the flag menu and an obsolete frame check cannot close its replacement", t => {
+  const harness = headerLanguageHarness();
+  const changes = observeLanguageMenuChanges(harness);
+  const frame = harness.document.createElement("iframe");
+  harness.document.body.append(frame);
+  const pending = [];
+  const originalTimeout = harness.window.setTimeout;
+  harness.window.setTimeout = callback => { pending.push(callback); return pending.length; };
+  t.after(() => { harness.window.setTimeout = originalTimeout; });
+  harness.flag.focus();
+  harness.flag.click();
+  const initialChanges = changes.length;
+  harness.window.dispatchEvent({ type: "blur" });
+  pending.shift()();
+  assert.equal(harness.panel.hidden, false, "leaving the app window does not imply entering a game frame");
+  assert.equal(changes.length, initialChanges);
+
+  harness.window.dispatchEvent({ type: "blur" });
+  assert.equal(pending.length, 1);
+  harness.window.CaatuuChrome.renderAppHeader(harness.header);
+  const replacementFlag = harness.header.querySelector("[data-caatuu-header-language-menu]");
+  const replacementPanel = harness.header.querySelector("[data-header-language-menu]");
+  replacementFlag.focus();
+  replacementFlag.click();
+  frame.focus();
+  const replacementChanges = changes.length;
+  pending.shift()();
+  assert.equal(replacementPanel.hidden, false, "a deferred check owned by a detached host cannot close the new menu");
+  assert.equal(changes.length, replacementChanges, "the old host emits no late resume notification");
+  assert.equal(changes.at(-1).open, true);
+});
+
+test("both flag and Home language choosers notify after opening and after Cancel, Escape or Back", () => {
+  for (const opener of ["flag", "home"]) for (const dismissal of ["cancel", "escape", "back", "native-cancel"]) {
+    const harness = headerLanguageHarness({ native: true });
+    let trigger = harness.flag;
+    let selector = harness.selector();
+    if (opener === "home") {
+      trigger = harness.document.createElement("button");
+      trigger.dataset.caatuuLanguageSwitch = "";
+      trigger.dataset.languageSwitchVariant = "home";
+      harness.document.body.append(trigger);
+      harness.window.CaatuuChrome.renderLanguageSwitch(trigger);
+      selector = sharedCourseSelector(harness);
+    }
+    const changes = observeLanguageMenuChanges(harness);
+    trigger.click();
+    if (opener === "flag") harness.change.click();
+    const visible = changes.at(-1);
+    assert.equal(visible?.open, true, `${opener}/${dismissal}: opening is announced`);
+    assert.deepEqual(visible.compact, [], "the chooser replaces the compact menu");
+    assert.deepEqual(visible.selectors, [selector], "listeners can read the opened dialog synchronously");
+    if (dismissal === "cancel") selector.querySelector("[data-course-selection-back]").click();
+    else if (dismissal === "escape") harness.document.dispatchEvent({ type: "keydown", key: "Escape" });
+    else if (dismissal === "back") assert.equal(harness.window.CaatuuChrome.handleAndroidBack(), true);
+    else selector.dispatchEvent({ type: "cancel" });
+    assert.equal(changes.at(-1)?.open, false, `${opener}/${dismissal}: closing releases the chooser pause`);
+    assert.equal(selector.open, false);
+    assert.equal(selector.hidden, true);
+    assertNodeIdentity(harness.document.activeElement, trigger);
+  }
+});
+
+test("replacing a header announces that its compact menu or chooser no longer owns a pause", () => {
+  for (const menu of ["compact", "chooser"]) {
+    const harness = headerLanguageHarness({ native: true });
+    const changes = observeLanguageMenuChanges(harness);
+    harness.flag.click();
+    if (menu === "chooser") harness.change.click();
+    assert.equal(changes.at(-1)?.open, true);
+    harness.window.CaatuuChrome.renderAppHeader(harness.header);
+    assert.equal(changes.at(-1)?.open, false, `${menu}: replacement releases the old menu's pause`);
+    assert.equal(harness.flag.isConnected, false);
+    const finalCount = changes.length;
+    assert.equal(harness.window.CaatuuChrome.handleAndroidBack(), false);
+    assert.equal(changes.length, finalCount, "a detached host cannot emit a later phantom dismissal");
+    const replacement = harness.header.querySelector("[data-caatuu-header-language-menu]");
+    replacement.click();
+    assert.equal(changes.at(-1).open, true);
+    replacement.click();
+    assert.equal(changes.at(-1).open, false);
+  }
+});
+
+function shellOverlayHarness() {
+  const course = fixtureCourse();
+  course.games = ["word-net"];
+  course.capabilities.wordWorld = true;
+  const harness = executeChromeWithHomeMenu({ course });
+  const { document } = harness;
+  const settings = document.createElement("section");
+  settings.id = "settingsPanel";
+  settings.hidden = true;
+  const sheet = document.createElement("section");
+  sheet.className = "settings-sheet";
+  const body = document.createElement("div");
+  body.className = "settings-sheet-body";
+  const switcher = document.createElement("nav");
+  switcher.className = "settings-section-switcher";
+  const items = document.createElement("button");
+  items.dataset.settingsView = "items";
+  switcher.append(items);
+  sheet.append(body, switcher);
+  settings.append(sheet);
+  document.body.append(settings);
+  const dock = harness.nav.closest("[data-caatuu-bottom-dock]");
+  const changes = [];
+  harness.window.addEventListener("caatuu:shell-overlay-change", () => {
+    const visible = selector => {
+      const panel = document.querySelector(selector);
+      return Boolean(panel && !panel.hidden);
+    };
+    const snapshot = {
+      settings: visible("#settingsPanel"),
+      home: visible("#homeMenuPanel"),
+      games: visible("#gamesMenuPanel"),
+      dock: dock.dataset.openMenu || "",
+      settingsClass: document.body.classList.contains("settings-open")
+    };
+    snapshot.paused = Boolean(snapshot.settings || snapshot.home || snapshot.games || snapshot.dock);
+    changes.push(snapshot);
+  });
+  return { ...harness, settings, dock, changes };
+}
+
+test("shell-overlay listeners read final short navigation menu states after opening and dismissal", () => {
+  for (const [key, expectedMenu] of [["home", "home"], ["games", "games"], ["backpack", "settings"]]) {
+    for (const dismissal of ["toggle", "outside", "escape", "back"]) {
+      const harness = shellOverlayHarness();
+      const { document, window, nav, changes } = harness;
+      const trigger = nav.querySelector(`[data-nav-key="${key}"]`);
+      trigger.click();
+      assert.equal(changes.at(-1)?.paused, true, `${key}/${dismissal}: opening announces a pause`);
+      assert.equal(changes.at(-1).dock, expectedMenu, "the listener sees the expanded dock synchronously");
+      assert.equal(changes.at(-1).home, key === "home");
+      assert.equal(changes.at(-1).games, key === "games");
+      assert.equal(changes.at(-1).settings, false, "the short Backpack menu does not open its full modal");
+      const openedCount = changes.length;
+      if (dismissal === "toggle") trigger.click();
+      else if (dismissal === "outside") document.body.click();
+      else if (dismissal === "escape") document.dispatchEvent({ type: "keydown", key: "Escape" });
+      else assert.equal(window.CaatuuChrome.handleAndroidBack(), true);
+      assert.ok(changes.length > openedCount, `${key}/${dismissal}: closing notifies the game`);
+      assert.equal(changes.at(-1).paused, false, "the listener can resume from the final collapsed DOM");
+      assert.equal(changes.at(-1).dock, "");
+      assert.equal(changes.at(-1).home, false);
+      assert.equal(changes.at(-1).games, false);
+      assert.equal(trigger.getAttribute("aria-expanded"), "false");
+    }
+  }
+});
+
+test("Backpack modal lifecycle announces visible state before listeners pause or resume games", () => {
+  for (const dismissal of ["api", "backdrop", "escape", "back"]) {
+    const harness = shellOverlayHarness();
+    const { document, window, settings, changes } = harness;
+    window.CaatuuChrome.openSharedSettings({ view: "items" });
+    assert.equal(changes.at(-1)?.settings, true, `${dismissal}: opening announces the visible modal`);
+    assert.equal(changes.at(-1).settingsClass, true);
+    assert.equal(changes.at(-1).paused, true);
+    assert.equal(changes.at(-1).dock, "");
+    const openedCount = changes.length;
+    if (dismissal === "api") window.CaatuuChrome.closeSharedSettings();
+    else if (dismissal === "backdrop") settings.click();
+    else if (dismissal === "escape") document.dispatchEvent({ type: "keydown", key: "Escape" });
+    else assert.equal(window.CaatuuChrome.handleAndroidBack(), true);
+    assert.ok(changes.length > openedCount, `${dismissal}: modal closure notifies the game`);
+    assert.equal(changes.at(-1).settings, false);
+    assert.equal(changes.at(-1).settingsClass, false);
+    assert.equal(changes.at(-1).paused, false, "the dismissal notification releases the final overlay pause");
+  }
+});
+
+test("dismissing Home or Games above Backpack retains the underlying modal pause until a second Back", () => {
+  for (const key of ["home", "games"]) {
+    const harness = shellOverlayHarness();
+    const { window, nav, settings, changes } = harness;
+    window.CaatuuChrome.openSharedSettings({ view: "items" });
+    const openedCount = changes.length;
+    nav.querySelector(`[data-nav-key="${key}"]`).click();
+    assert.equal(changes.at(-1)?.[key], true);
+    assert.equal(changes.at(-1).settings, true, "the chooser preserves the modal behind it");
+    assert.equal(window.CaatuuChrome.handleAndroidBack(), true);
+    assert.equal(changes.at(-1)[key], false);
+    assert.equal(changes.at(-1).dock, "");
+    assert.equal(changes.at(-1).settings, true);
+    assert.equal(settings.hidden, false);
+    assert.ok(changes.slice(openedCount).every(change => change.paused),
+      "closing the top chooser never tells the game that every overlay has closed");
+    assert.equal(window.CaatuuChrome.handleAndroidBack(), true);
+    assert.equal(changes.at(-1).settings, false);
+    assert.equal(changes.at(-1).paused, false, "the second Back releases the remaining Backpack pause");
+  }
 });

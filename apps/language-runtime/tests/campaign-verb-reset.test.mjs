@@ -9,6 +9,65 @@ const workspace = await readFile(
 );
 const wordWorld = await readFile(new URL("../static/source/product-word-world.mjs", import.meta.url), "utf8");
 
+function initialCampaign(gameId) {
+  const state = { activeView: "verbs", trainTab: "galaxy", campaignActive: false,
+    campaignTransitionId: 0, campaignQueue: [], campaignPendingTab: "" };
+  const activity = [], readiness = [], presentations = [];
+  let covered = false;
+  const context = vm.createContext({ state, activity,
+    document: { body: { dataset: {}, classList: { toggle() {} }, toggleAttribute() {} } },
+    window: { CaatuuGameDynamics: { active: false, setActive() {} } },
+    embeddedGameTabs: Object.fromEntries(["grammar-gravity", "sound-quasar", "conjugation-comet", "memory-moon", "case-cosmos"].map(id => [id, {}])),
+    verbReviewContinuation: null, cancelVerbTapSpeech() {}, syncShellRobotLoading() {},
+    syncEmbeddedWordNetVisibility(active) { activity.push({ owner: "word-net", active, covered }); },
+    syncEmbeddedGameVisibility(activeTab) { activity.push({ owner: "embedded", active: activeTab, covered }); },
+    nextCampaignTab: () => gameId,
+    showCampaignTransition() { covered = true; }, hideCampaignTransition() { covered = false; },
+    ensureCampaignGameLoaded() {},
+    waitForCampaignGameReady: () => new Promise(resolve => readiness.push(resolve)),
+    waitForPracticePresentation: () => ({ promise: new Promise(resolve => presentations.push(resolve)) }),
+    cancelPracticePresentationWaits() {},
+    setTrainTab(id) { state.trainTab = id; context.syncActiveGameVisibility(); }
+  });
+  vm.runInContext(sourceBetween("function syncActiveGameVisibility()", "function syncEmbeddedWordNetVisibility(")
+    + sourceBetween("async function startCampaign()", "function handleCampaignGameMessage(event)"), context);
+  return { context, state, activity, readiness, presentations, covered: () => covered };
+}
+
+for (const gameId of ["grammar-gravity", "sound-quasar", "conjugation-comet", "case-cosmos", "memory-moon", "word-net"]) {
+  test(`Campaign keeps its first ${gameId} challenge inactive until readiness and presentation are released`, async () => {
+    const game = initialCampaign(gameId);
+    const started = game.context.startCampaign();
+    const active = () => game.activity.filter(event => event.owner === "word-net" ? event.active : Boolean(event.active));
+    assert.equal(game.covered(), true);
+    assert.deepEqual(active(), [], "loading cannot start hidden game timers or input");
+    game.readiness.shift()();
+    await new Promise(resolve => setImmediate(resolve));
+    game.context.syncActiveGameVisibility();
+    assert.deepEqual(active(), [], "a settings or reward gate keeps the ready game suspended");
+    game.presentations.shift()(true);
+    await started;
+    assert.equal(game.covered(), false);
+    assert.equal(game.state.campaignHandoffPending, false);
+    assert.ok(active().length > 0, "the selected game becomes active after presentation readiness");
+    assert.equal(game.activity.at(-1).active, gameId);
+  });
+}
+
+test("cancelling an initial Campaign load cannot reactivate its abandoned first game", async () => {
+  const game = initialCampaign("grammar-gravity");
+  const started = game.context.startCampaign();
+  game.context.stopCampaign();
+  game.context.setTrainTab("galaxy");
+  game.readiness.shift()();
+  await started;
+  assert.equal(game.state.campaignActive, false);
+  assert.equal(game.state.campaignHandoffPending, false);
+  assert.equal(game.covered(), false);
+  assert.equal(game.presentations.length, 0);
+  assert.ok(game.activity.every(event => event.owner === "word-net" ? !event.active : event.active !== "grammar-gravity"));
+});
+
 function sourceBetween(startMarker, endMarker) {
   const start = workspace.indexOf(startMarker);
   const end = workspace.indexOf(endMarker, start);

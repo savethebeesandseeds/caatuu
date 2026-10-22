@@ -1,6 +1,6 @@
 import { readEmbeddedCourseProfile, fetchDeclaredCourseGameJson } from "../course-game-content.mjs?v=course-game-content-1";
 import { validateSoundQuasarCatalog, createSoundQuasarSession, evaluateSoundQuasarChoice, soundQuasarItemsForDifficulty } from "./sound-quasar-core.mjs?v=sound-quasar-13";
-import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-10";
+import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-11";
 import { appendTargetToneText } from "../../target-text-tones.mjs?v=target-text-tones-1";
 import { newContentEncounterId } from "../content-progression.mjs";
 import { createArabicReadingGuide } from "../../arabic-reading-guide.mjs?v=arabic-reading-guide-2";
@@ -481,7 +481,7 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     }
     state.report = null;
     if (restoreFocus && state.active && !state.destroyed) node("quasarReport").focus();
-    syncAdvance();
+    syncButtons();
   }
   function openReport() {
     if (!state.active || state.destroyed || state.finished || state.reported.has(current()?.id)) return;
@@ -543,7 +543,7 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     syncRobotScreens();
     if (active && shell.document.body?.dataset.campaignActive !== "true") state.waitingCampaign = false;
     if (!active) { controls.close(); closeReport(false); stopSpeech(); }
-    else { syncAppearance(); controls.sync(); syncAdvance(); void checkAudio(); }
+    else { syncAppearance(); controls.sync(); syncButtons(); void checkAudio(); }
   }
   listen(node("quasarListen"), "click", () => { void play(); });
   listen(doc, "keydown", (event) => {
@@ -614,7 +614,7 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
   });
   listen(shell.document, "visibilitychange", () => {
     if (shell.document.visibilityState === "hidden") { controls.close(); closeReport(false); stopSpeech(); }
-    else { syncRobotScreens(); syncAdvance(); maybeAutoplay(); }
+    else syncButtons();
   });
   function destroy() {
     if (state.destroyed) return;
@@ -634,7 +634,7 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     state.pageHidden = true;
     if (event.persisted) { controls.close(); closeReport(false); stopSpeech(); } else destroy();
   });
-  listen(scope, "pageshow", () => { state.pageHidden = false; syncRobotScreens(); syncAppearance(); syncAdvance(); void checkAudio(); });
+  listen(scope, "pageshow", () => { state.pageHidden = false; syncAppearance(); syncButtons(); void checkAudio(); });
   // Register lifecycle before fetching so a hidden or retired frame cannot keep
   // its initial loading animation active or begin playback when content arrives.
   try {
