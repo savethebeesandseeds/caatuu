@@ -18,6 +18,6 @@ const response = await fetch("../data/interface/en.v1.json");
 if (!response.ok) throw new Error("Cannot load the interface catalog for flag review.");
 installInterfaceContent(createInterfaceContent(await response.json()), window);
 await import("../source/learning-profile.js?v=learning-24");
-await import("../source/caatuu-chrome.js?v=chrome-194");
+await import("../source/caatuu-chrome.js?v=chrome-197");
 window.CaatuuChrome.openSharedSettings({ view: "items" });
 document.querySelector(".badge-collection").open = true;

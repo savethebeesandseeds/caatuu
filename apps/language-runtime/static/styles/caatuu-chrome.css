@@ -298,9 +298,9 @@ html {
   margin-left: auto;
 }
 
-/* Keep game artwork beside Back on narrow screens, including the Campaign map. */
-@media (max-width: 600px) {
-  .app-header.has-screen-title { flex-wrap: wrap; column-gap: 5px; row-gap: 5px; }
+/* Keep game artwork clear of the reward counters, including the Campaign map. */
+@media (max-width: 900px) {
+  .app-header.has-screen-title { flex-wrap: nowrap; column-gap: 5px; }
   .app-header.has-screen-title .header-actions { gap: 8px; }
   .app-header.has-screen-title .app-header-stats { gap: 4px; }
   .app-header.has-screen-title .app-header-back { margin-right: 0; }
@@ -545,26 +545,45 @@ html {
 
 @media (max-width: 600px) {
   .app-header {
-    flex-wrap: wrap;
-    row-gap: 8px;
+    flex-wrap: nowrap;
+    gap: 8px;
+    padding-inline: clamp(8px, 2vw, 14px);
+  }
+
+  .app-header .brand-link {
+    flex: 0 1 auto;
+    max-width: none;
+    gap: 6px;
   }
 
   .app-header .header-actions,
   .app-header.has-screen-title .header-actions {
-    flex: 0 0 100%;
-    width: 100%;
+    flex: 0 0 auto;
+    width: auto;
     justify-content: flex-end;
-    gap: 12px;
+    gap: 8px;
   }
 }
 
-@media (max-width: 380px) {
-  .app-header .app-header-stats {
+@media (max-width: 420px) {
+  .app-header .app-header-page-copy {
+    display: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .app-header .header-actions,
+  .app-header.has-screen-title .header-actions {
+    gap: 4px;
+  }
+
+  .app-header .app-header-stats,
+  .app-header.has-screen-title .app-header-stats {
     flex: 1 1 auto;
     min-width: 0;
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 4px;
+    gap: 2px;
   }
 
   .app-header .app-header-stat {
@@ -572,6 +591,12 @@ html {
     display: flex;
     flex-direction: column;
     gap: 2px;
+    font-size: min(0.74rem, 12px);
+  }
+
+  .app-header .app-header-stat img {
+    width: 24px;
+    height: 24px;
   }
 
   .app-header-stat strong {

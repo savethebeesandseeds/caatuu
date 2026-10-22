@@ -1780,7 +1780,13 @@ test("Home keeps one Change action while the dedicated course screen contains cu
   assert.equal(menu.dataset.courseSelectionStage, "courses");
   const courses = menu.querySelector(".course-selection-stage");
   assert.equal(courses.hidden, false);
-  assert.match(courses.textContent, /English → Czech/u);
+  const screenHeader = menu.querySelector(".course-selection-screen-header");
+  const displayedCurrent = screenHeader.querySelector('[data-course-selection-course="cz"]');
+  assert.ok(displayedCurrent, "the active course shares the screen header row with Back");
+  assertNodeIdentity(displayedCurrent.closest(".course-selection-screen-header"),
+    menu.querySelector("[data-course-selection-back]").parentElement);
+  assert.equal(courses.querySelector('[data-course-selection-course="cz"]'), null,
+    "the scrolling course list does not duplicate the current course");
   const quick = courses.querySelector('[data-home-language-quick-course="zh"]');
   assert.ok(quick, "an engaged course appears on its dedicated screen");
   assert.match(quick.textContent, /28 XP · 10 rounds/u);
@@ -2181,7 +2187,8 @@ test("the header flag opens a localized current-course menu before offering lang
     [englishInterfaceCatalog, "Current course", "Change course"],
     [spanishCatalog, "Curso actual", "Cambiar curso"]
   ]) {
-    const harness = headerLanguageHarness({ interfaceContent: createInterfaceContent(catalog) });
+    const interfaceContent = createInterfaceContent(catalog);
+    const harness = headerLanguageHarness({ interfaceContent });
     const { flag, panel, change } = harness;
     assert.equal(flag.tagName, "BUTTON");
     assert.equal(flag.type, "button");
@@ -2202,6 +2209,20 @@ test("the header flag opens a localized current-course menu before offering lang
     flag.click();
     assert.equal(panel.hidden, true);
     assert.equal(flag.getAttribute("aria-expanded"), "false");
+    flag.click();
+    change.click();
+    const selector = harness.selector();
+    const screenBack = selector.querySelector("[data-course-selection-back]");
+    assert.equal(screenBack.textContent.trim(), "", "Back displays its icon without a text label");
+    assert.equal(screenBack.getAttribute("aria-label"), interfaceContent.t("common.back"));
+    assert.equal(screenBack.title, interfaceContent.t("common.back"));
+    assert.equal(screenBack.querySelector("svg").getAttribute("aria-hidden"), "true",
+      "the decorative icon does not replace the localized button name");
+    const screenHeading = harness.document.getElementById(selector.getAttribute("aria-labelledby"));
+    assert.ok(screenHeading, "the dialog retains a naming heading when its visual title is clipped");
+    assert.equal(screenHeading.hidden, false, "the clipped heading remains available to assistive technology");
+    assert.equal(screenHeading.textContent, interfaceContent.t("courseselector.courses.heading"));
+    closeCourseSelection(selector);
   }
 });
 
@@ -2523,17 +2544,27 @@ test("every Back route traverses new-language review, draft and course screens w
     harness.flag.click();
     harness.change.click();
     const menu = harness.selector();
+    const currentCourse = menu.querySelector(".course-selection-current");
+    assert.equal(currentCourse.hidden, false, `${method}: the course screen shows its current course`);
+    assertNodeIdentity(currentCourse.parentElement,
+      menu.querySelector("[data-course-selection-back]").parentElement);
     const firstFullScreenChange = changes.length - 1;
     selectLanguageBase(menu, "en");
+    assert.equal(currentCourse.hidden, true, `${method}: the new-language draft hides the current course`);
     menu.querySelector('[data-language-course-option="zh"]').click();
     menu.querySelector("[data-language-selector-review]").click();
     assert.equal(menu.dataset.courseSelectionStage, "review");
+    assert.equal(currentCourse.hidden, true, `${method}: review hides the current course`);
     backThroughCourseScreen(harness, method);
     assert.equal(menu.dataset.courseSelectionStage, "new-language", `${method}: review returns to its draft`);
+    assert.equal(currentCourse.hidden, true, `${method}: returning to the draft keeps the current course hidden`);
     assert.equal(menu.querySelector('[data-language-course-option="zh"]').getAttribute("aria-checked"), "true");
     assert.equal(menu.open, true);
     backThroughCourseScreen(harness, method);
     assert.equal(menu.dataset.courseSelectionStage, "courses", `${method}: draft returns to the course list`);
+    assert.equal(currentCourse.hidden, false, `${method}: returning to courses restores the current course`);
+    assertNodeIdentity(menu.querySelector(".course-selection-current"), currentCourse,
+      "stage transitions retain the current-course header node");
     assert.equal(menu.open, true);
     assert.ok(changes.slice(firstFullScreenChange).every(change => change.open),
       `${method}: intermediate screens never announce a resumed game`);
@@ -2564,12 +2595,16 @@ test("an existing-course review returns directly to the course list on every Bac
     harness.flag.click();
     harness.change.click();
     const menu = harness.selector();
+    const currentCourse = menu.querySelector(".course-selection-current");
+    assert.equal(currentCourse.hidden, false);
     const changes = observeLanguageMenuChanges(harness);
     menu.querySelector('[data-home-language-quick-course="zh"]').click();
     assert.equal(menu.dataset.courseSelectionStage, "review");
+    assert.equal(currentCourse.hidden, true, "existing-course confirmation hides the old current course");
     assert.deepEqual(harness.assignments, []);
     backThroughCourseScreen(harness, method);
     assert.equal(menu.dataset.courseSelectionStage, "courses", method);
+    assert.equal(currentCourse.hidden, false, "Back restores the current course beside its icon");
     assert.equal(menu.open, true);
     assert.ok(changes.every(change => change.open), "returning to the list keeps the game paused");
     backThroughCourseScreen(harness, method);

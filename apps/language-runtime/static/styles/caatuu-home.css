@@ -680,8 +680,11 @@ dialog.course-selection-screen[hidden] {
 }
 
 .course-selection-screen-header > button {
-  min-height: 48px;
-  padding: 10px 14px;
+  width: var(--caatuu-control-target-size, 44px);
+  min-width: var(--caatuu-control-target-size, 44px);
+  height: var(--caatuu-control-target-size, 44px);
+  min-height: var(--caatuu-control-target-size, 44px);
+  padding: 0;
   border: 1px solid var(--setup-line);
   border-radius: 12px;
   background: var(--setup-panel);
@@ -690,6 +693,8 @@ dialog.course-selection-screen[hidden] {
   font-size: 0.85rem;
   font-weight: 800;
   cursor: pointer;
+  display: grid;
+  place-items: center;
 }
 
 .course-selection-screen-header > button:hover {
@@ -705,6 +710,17 @@ dialog.course-selection-screen[hidden] {
   font-size: clamp(1.2rem, 3vw, 1.6rem);
   line-height: 1.15;
   overflow-wrap: anywhere;
+}
+
+.course-selection-screen[data-course-selection-stage="courses"] .language-selector-form-title {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 .course-selection-stage {
@@ -723,12 +739,11 @@ dialog.course-selection-screen[hidden] {
   min-width: 0;
   min-height: 0;
   display: grid;
-  grid-template-rows: auto auto minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr);
 }
 
 .course-selection-current {
   min-width: 0;
-  margin-bottom: 18px;
 }
 
 .course-selection-ongoing-head {
@@ -778,13 +793,14 @@ dialog.course-selection-screen[hidden] {
   gap: 10px;
 }
 
-.course-selection-list .home-language-current-course,
+.course-selection-current .home-language-current-course,
 .course-selection-list .home-language-quick-switch {
   min-height: 90px;
   padding: 14px 18px;
   border-radius: 14px;
 }
 
+.course-selection-current .home-language-pair-flag,
 .course-selection-list .home-language-pair-flag {
   flex-basis: 40px;
   width: 40px;
@@ -796,12 +812,14 @@ dialog.course-selection-screen[hidden] {
   object-fit: contain;
 }
 
+.course-selection-current .home-language-switch-copy > *,
 .course-selection-list .home-language-switch-copy > * {
   overflow: visible;
   white-space: normal;
   overflow-wrap: anywhere;
 }
 
+.course-selection-current .home-language-switch-copy strong,
 .course-selection-list .home-language-switch-copy strong {
   font-size: 1rem;
 }
@@ -895,7 +913,7 @@ dialog.course-selection-screen[hidden] {
     gap: 12px;
   }
 
-  .course-selection-list .home-language-current-course,
+  .course-selection-current .home-language-current-course,
   .course-selection-list .home-language-quick-switch {
     grid-template-columns: auto minmax(0, 1fr);
     padding: 14px;

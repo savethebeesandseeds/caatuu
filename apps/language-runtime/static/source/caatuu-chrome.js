@@ -3902,7 +3902,16 @@
     screenBack.type = "button";
     screenBack.className = "language-selector-action is-secondary course-selection-back";
     screenBack.dataset.courseSelectionBack = "";
-    screenBack.textContent = interfaceMessage("common.back");
+    screenBack.setAttribute("aria-label", interfaceMessage("common.back"));
+    screenBack.title = interfaceMessage("common.back");
+    const backIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    backIcon.classList.add("app-header-back-icon");
+    backIcon.setAttribute("viewBox", "0 0 24 24");
+    backIcon.setAttribute("aria-hidden", "true");
+    const backPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    backPath.setAttribute("d", "M15 5.5 8.5 12l6.5 6.5");
+    backIcon.append(backPath);
+    screenBack.append(backIcon);
     const heading = document.createElement("h3");
     heading.className = "language-selector-form-title";
     heading.id = menu.id + "Title";
@@ -3929,6 +3938,7 @@
     courseActions.append(newLanguage);
     const currentCourse = document.createElement("div");
     currentCourse.className = "course-selection-current";
+    screenHeader.append(currentCourse);
     const ongoingHead = document.createElement("div");
     ongoingHead.className = "course-selection-ongoing-head";
     const ongoingHeading = document.createElement("h4");
@@ -3941,7 +3951,7 @@
     ongoingScroll.tabIndex = 0;
     ongoingScroll.setAttribute("role", "region");
     ongoingScroll.setAttribute("aria-labelledby", ongoingHeading.id);
-    courseList.append(currentCourse, ongoingHead, ongoingScroll);
+    courseList.append(ongoingHead, ongoingScroll);
     coursesStage.append(courseList);
 
     const choiceStage = document.createElement("div");
@@ -4054,6 +4064,7 @@
       choiceStage.hidden = true;
       reviewStage.hidden = true;
       coursesStage.hidden = false;
+      currentCourse.hidden = false;
       introduction.hidden = true;
       heading.textContent = interfaceMessage("courseselector.courses.heading");
       menu.dataset.courseSelectionStage = "courses";
@@ -4118,6 +4129,7 @@
 
     function showChoices({ focusReview = false } = {}) {
       coursesStage.hidden = true;
+      currentCourse.hidden = true;
       reviewStage.hidden = true;
       choiceStage.hidden = false;
       introduction.hidden = false;
@@ -4144,6 +4156,7 @@
       });
       choiceStage.hidden = true;
       coursesStage.hidden = true;
+      currentCourse.hidden = true;
       reviewStage.hidden = false;
       introduction.hidden = true;
       heading.textContent = interfaceMessage("courseselector.review.kicker");

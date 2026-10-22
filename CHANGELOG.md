@@ -1,5 +1,16 @@
 # Changelog
 
+## Android 194 / 0.1.42
+
+- Keep header rewards and the course flag beside the navigation controls at
+  phone widths, including game screens with a practice progress bar.
+- Use an accessible Back arrow on the course screens. Place the current course
+  card beside it and remove the visible Your courses heading.
+- Preserve the dedicated scrolling course list and the separate new-language
+  and confirmation screens, with refreshed offline assets for all eight courses.
+- Physical-device installation, update, offline use and saved-data preservation
+  remain unverified for this candidate. Course review status is unchanged.
+
 ## Android 193 / 0.1.41
 
 - Pin native vector-database downloads to their sealed setup objects so Czech
