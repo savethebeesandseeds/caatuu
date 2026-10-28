@@ -9,6 +9,8 @@
   used a letter the embedding guard rejects. Those English lines now use ASCII
   spellings.
 - Refresh offline catalogs for every course after the grade and audit updates.
+- Remove the Pages copy of Android 192 so this release fits the hosting limit.
+  Its GitHub Release download, manifest, and receipt stay.
 - Physical-device installation, update, offline use and saved-data preservation
   remain unverified for this candidate. Course review status is unchanged.
 
