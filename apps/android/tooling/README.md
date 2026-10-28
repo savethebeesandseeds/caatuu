@@ -319,6 +319,8 @@ source tests and building while retaining receipt/artifact verification.
 When a finalized receipt already exists for the declared version, the wrapper
 skips the build operation and resumes receipt-only deployment. The two
 lower-level commands below remain available for inspection and recovery.
+Pages run lookup decodes `gh` output as UTF-8, so the middle dot in the
+Android workflow title still matches the accepted run.
 
 Public verification allows 30 seconds for metadata and range requests, and
 120 seconds for each complete APK download, including reading its body.

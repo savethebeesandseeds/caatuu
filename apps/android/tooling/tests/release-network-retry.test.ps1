@@ -307,6 +307,16 @@ Test-Case "a thrown mutation callback propagates without any automatic resend" {
     Assert-Equal $calls.Reads 0 "no assumed result after a thrown callback"
 }
 
+Test-Case "read-only command output keeps a UTF-8 middle dot" {
+    $powershellPath = (Get-Process -Id $PID).Path
+    $result = Invoke-CaatuuBoundedReadProcess -File $powershellPath -Arguments @(
+        "-NoProfile", "-Command",
+        "[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new(`$false); [Console]::Out.Write([string][char]0x00B7)"
+    ) -TimeoutSeconds 20
+    Assert-Equal $result.Code 0 "utf8 reader exit"
+    Assert-Equal $result.Output ([string][char]0x00B7) "utf8 middle dot"
+}
+
 if (-not $NestedInvocation) {
     Test-Case "both behavior suites pass under CI's nested-script invocation with terminating errors" {
         $powershellPath = (Get-Process -Id $PID).Path
@@ -318,7 +328,7 @@ if (-not $NestedInvocation) {
         # network behavior assertion still runs in the child process.
         $expectedCount = $script:Passed
         $command = "`$ErrorActionPreference = 'Stop'; & '$orchestrationPath'; & '$networkPath' -NestedInvocation"
-        $result = Invoke-CaatuuBoundedReadProcess -File $powershellPath -Arguments @("-NoProfile", "-Command", $command) -TimeoutSeconds 20
+        $result = Invoke-CaatuuBoundedReadProcess -File $powershellPath -Arguments @("-NoProfile", "-Command", $command) -TimeoutSeconds 45
         if ($result.Code -ne 0) { throw "CI-form behavior suite failed with exit $($result.Code).`n$($result.Output)" }
         $records = @($result.Output -split "`r?`n" | Where-Object { $_.StartsWith('{"schema":"caatuu-release-network-test-result"') })
         Assert-Equal $records.Count 1 "nested machine-readable result count"

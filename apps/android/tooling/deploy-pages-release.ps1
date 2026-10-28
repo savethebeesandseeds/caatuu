@@ -64,12 +64,15 @@ function Invoke-NativeResult {
         [string[]]$Arguments = @()
     )
     $previousPreference = $ErrorActionPreference
+    $previousOutputEncoding = [Console]::OutputEncoding
     $ErrorActionPreference = "Continue"
     try {
+        [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
         $lines = @(& $File @Arguments 2>&1 | ForEach-Object { $_.ToString() })
         $code = $LASTEXITCODE
     }
     finally {
+        [Console]::OutputEncoding = $previousOutputEncoding
         $ErrorActionPreference = $previousPreference
     }
     return [pscustomobject]@{

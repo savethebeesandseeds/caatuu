@@ -3,8 +3,8 @@
 The large preservation archive permanently holds previous stable 162
 (`0.1.10`), transition 161, and their setup dependencies. Stable 163
 (`0.1.11`) is the first small separately pinned overlay. The public alias
-follows the newest append-only entry. As of 27 October 2026 that entry is
-stable 195 (`0.1.43`). The Pages workflow does not
+follows the newest append-only entry. As of 28 October 2026 that entry is
+stable 196 (`0.1.44`). The Pages workflow does not
 run Gradle, change a version, or sign an APK.
 
 The deterministic preservation archive is:

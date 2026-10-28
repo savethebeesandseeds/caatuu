@@ -1,9 +1,9 @@
 # Static web hosting
 
-Last reviewed: 27 October 2026
+Last reviewed: 28 October 2026
 
 Caatuu has a deterministic GitHub Pages deployment profile. The public stable
-alias is Android 195 (`0.1.43`). The preservation baseline remains stable 162
+alias is Android 196 (`0.1.44`). The preservation baseline remains stable 162
 (`0.1.10`) and compatibility transition 161. Stable 163 (`0.1.11`) is the first
 append-only overlay, not the current alias. Four large setup files live in a
 pinned GitHub Release and retain their original Caatuu URLs through the
@@ -119,8 +119,8 @@ same-origin Android contracts as exact byte copies:
   by already-installed preview clients.
 
 The public launcher advertises only the signed, non-debuggable newest descriptor
-release. As of 27 October 2026 that alias is stable 195 (`0.1.43`), source
-`4878e23f03b8ae42d515fc08d2119abc334aed5e`, with `device_smoke` recorded as
+release. As of 28 October 2026 that alias is stable 196 (`0.1.44`), source
+`56cd751a435770991fb30ba231e52fa9869aafe8`, with `device_smoke` recorded as
 `not-run`. The 163 paths in this section remain immutable history. Pages
 does not publish `/android/caatuu-preview.{json,apk}`, so debuggable transition
 161 cannot become an ungated automatic fallback.

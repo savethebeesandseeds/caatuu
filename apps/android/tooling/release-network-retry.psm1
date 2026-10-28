@@ -60,6 +60,11 @@ function Invoke-CaatuuBoundedReadProcess {
         $process.StartInfo.CreateNoWindow = $true
         $process.StartInfo.RedirectStandardOutput = $true
         $process.StartInfo.RedirectStandardError = $true
+        # gh writes UTF-8. The Windows console code page splits the middle dot in
+        # "Caatuu android · <sha>", so a Pages run lookup would miss the accepted run.
+        $utf8 = [System.Text.UTF8Encoding]::new($false)
+        $process.StartInfo.StandardOutputEncoding = $utf8
+        $process.StartInfo.StandardErrorEncoding = $utf8
         foreach ($argument in $Arguments) { $process.StartInfo.ArgumentList.Add($argument) }
         [void]$process.Start()
         $stdout = $process.StandardOutput.ReadToEndAsync()

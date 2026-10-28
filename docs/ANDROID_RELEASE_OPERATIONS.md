@@ -292,6 +292,16 @@ pwsh -NoProfile -Command '$ErrorActionPreference = "Stop"; & ./apps/android/tool
 
 ## Close the loop after each incident
 
+Android 196 sealed, uploaded, and deployed from source `56cd751a435770991fb30ba231e52fa9869aafe8`.
+The local deployer then failed to recognize the accepted Pages run
+`40645770920`: `gh` writes UTF-8, and the bounded reader decoded it with the
+Windows console code page, so the middle dot in `Caatuu android · <sha>` never
+matched. Retries dispatched extra runs; those duplicates were cancelled and the
+original run completed. Read-only command output and native deployer output are
+now decoded as UTF-8. The public manifest is Android 196 (`0.1.44`), SHA-256
+`a941457585358e504f3e7d3865f2168d4c132e1a768f1dfb1665ca4b8a10bfc0`, 3,522,150
+bytes, with device smoke not run.
+
 Android 193's source packaging checks measured 8,027,526 bootstrap bytes before
 any APK build or sealed candidate. The shared product projection now removes
 formatting indentation from packaged HTML and CSS while preserving protected
