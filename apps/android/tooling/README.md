@@ -150,9 +150,10 @@ the full companion budget plus two 16 MB APK copies. Signed new builds enforce
 that same per-APK bound before sealing. This is a metadata check,
 without product transforms or a website build. The final overlay checks actual
 bytes against the unchanged 1 GB Pages cap. The approved policy archives only
-the Pages APK copies for versions 163–192, approved in batches on 5, 20,
-22 and 28 October 2026; identical GitHub Release downloads,
-Pages manifests/receipts and all setup assets remain. Policy pins prevent
+the Pages APK copies for versions 162–195, approved in batches on 5, 20,
+22 and 28 October 2026. Versions 163–195 keep identical GitHub Release
+downloads. Version 162 remains inside the `caatuu-pages-v162` preservation
+archive. Pages manifests, receipts and all setup assets remain. Policy pins prevent
 arbitrary deletion or retirement of current/previous APKs. Both Android overlays
 and later website builds honor it. See the operational runbook for approval
 and recovery; never change immutable release-history records to reclaim space.

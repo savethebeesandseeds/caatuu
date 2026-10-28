@@ -442,8 +442,8 @@ val androidTargetSdk = providers.environmentVariable("CAATUU_ANDROID_TARGET_SDK"
     .orElse(36)
 val androidUpdateBaseUrl = providers.environmentVariable("CAATUU_ANDROID_UPDATE_BASE_URL")
     .orElse("https://caatuu.waajacu.com/android")
-val caatuuVersionCode = providers.gradleProperty("caatuuVersionCode").map(String::toInt).orElse(197)
-val caatuuVersionName = providers.gradleProperty("caatuuVersionName").orElse("0.1.45")
+val caatuuVersionCode = providers.gradleProperty("caatuuVersionCode").map(String::toInt).orElse(198)
+val caatuuVersionName = providers.gradleProperty("caatuuVersionName").orElse("0.1.46")
 val releaseSigningValues = listOf(
     releaseKeystorePath,
     releaseKeystorePassword,

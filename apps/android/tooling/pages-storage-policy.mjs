@@ -14,6 +14,16 @@ export function assertNewApkFitsPagesReserve(bytes) {
   return bytes;
 }
 
+function baselineArchivePin() {
+  const baseline = JSON.parse(readFileSync(fileURLToPath(new URL("./pages-baseline.json", import.meta.url)), "utf8"));
+  return {
+    versionCode: baseline.stable.versionCode,
+    bytes: baseline.stable.apk.bytes,
+    sha256: baseline.stable.apk.sha256,
+    downloadUrl: baseline.releaseArchive.downloadUrl,
+  };
+}
+
 export function validatePagesStoragePolicy(value, descriptor) {
   assert.deepEqual(Object.keys(value).sort(), ["archivedApks", "schemaVersion"]);
   assert.equal(value.schemaVersion, 1);
@@ -27,12 +37,23 @@ export function validatePagesStoragePolicy(value, descriptor) {
     seen.add(record.path);
     const version = Number(match[1]);
     const release = descriptor.releases.find(({ versionCode }) => versionCode === version);
-    assert.ok(release && version < descriptor.releases.at(-2)?.versionCode,
-      "Archive policy must preserve baseline, current and previous APKs");
-    assert.equal(record.bytes, release.apk.bytes, "Archived APK byte count changed");
-    assert.equal(record.sha256, release.apk.sha256, "Archived APK hash changed");
-    assert.equal(record.downloadUrl,
-      `https://github.com/${descriptor.repository}/releases/download/caatuu-android-v${version}/caatuu-${version}.apk`);
+    assert.ok(version < descriptor.releases.at(-2)?.versionCode,
+      "Archive policy must preserve current and previous APKs");
+    if (release) {
+      assert.equal(record.bytes, release.apk.bytes, "Archived APK byte count changed");
+      assert.equal(record.sha256, release.apk.sha256, "Archived APK hash changed");
+      assert.equal(record.downloadUrl,
+        `https://github.com/${descriptor.repository}/releases/download/caatuu-android-v${version}/caatuu-${version}.apk`);
+    } else {
+      const baseline = baselineArchivePin();
+      assert.equal(version, descriptor.baselineStableVersionCode,
+        "Only explicitly approved historical APK copies may be archived");
+      assert.equal(version, baseline.versionCode, "Archived baseline APK version changed");
+      assert.equal(record.bytes, baseline.bytes, "Archived baseline APK byte count changed");
+      assert.equal(record.sha256, baseline.sha256, "Archived baseline APK hash changed");
+      assert.equal(record.downloadUrl, baseline.downloadUrl,
+        "Archived baseline APK must point at the preservation archive");
+    }
   }
   return value.archivedApks;
 }

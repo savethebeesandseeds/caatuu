@@ -1,4 +1,6 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 import test from "node:test";
 import { NEW_APK_RESERVE_BYTES, PAGES_PAYLOAD_MAX_BYTES, assertNewApkFitsPagesReserve,
   projectPagesCapacity, validatePagesStoragePolicy } from "../pages-storage-policy.mjs";
@@ -43,6 +45,21 @@ test("oversized projection fails before a build and approved retirement cannot r
   assert.throws(() => projectPagesCapacity({ inventory: live, apkReserveBytes: 1 }), /before Gradle/);
   assert.equal(projectPagesCapacity({ inventory: live, archivedApks: [archived], apkReserveBytes: 100 }).projectedBytes, 999_999_900);
   assert.throws(() => projectPagesCapacity({ inventory: live, archivedApks: [{ ...archived, sha256: "b".repeat(64) }] }), /identity/);
+});
+
+test("the baseline APK can be archived only against its preservation archive", () => {
+  const baseline = JSON.parse(readFileSync(fileURLToPath(new URL("../pages-baseline.json", import.meta.url)), "utf8"));
+  const approved = {
+    path: "android/releases/162/caatuu.apk",
+    bytes: baseline.stable.apk.bytes,
+    sha256: baseline.stable.apk.sha256,
+    downloadUrl: baseline.releaseArchive.downloadUrl,
+  };
+  const withBaseline = { ...descriptor, baselineStableVersionCode: baseline.stable.versionCode };
+  assert.deepEqual(validatePagesStoragePolicy({ schemaVersion: 1, archivedApks: [approved] }, withBaseline), [approved]);
+  assert.throws(() => validatePagesStoragePolicy({ schemaVersion: 1, archivedApks: [{ ...approved, sha256: "b".repeat(64) }] }, withBaseline), /hash/);
+  assert.throws(() => validatePagesStoragePolicy({ schemaVersion: 1, archivedApks: [{ ...approved, downloadUrl: "https://github.com/savethebeesandseeds/caatuu/releases/download/caatuu-android-v162/caatuu-162.apk" }] }, withBaseline), /preservation archive/);
+  assert.throws(() => validatePagesStoragePolicy({ schemaVersion: 1, archivedApks: [approved] }, descriptor), /historical APK/);
 });
 
 test("archive policy pins historical APK identity and archive URL and preserves recent versions", () => {

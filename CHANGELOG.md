@@ -1,5 +1,16 @@
 # Changelog
 
+## Android 198 / 0.1.46
+
+- Publish a new signed package so a device can capture the current Play Protect
+  message. The package behavior is unchanged from Android 197.
+- Remove the Pages copies of Android 162 and 193–195 so this release fits the
+  hosting limit. Versions 193–195 keep their GitHub Release downloads. Version
+  162 remains inside the `caatuu-pages-v162` preservation archive. Manifests
+  and receipts stay on Pages.
+- Physical-device installation, update, offline use and saved-data preservation
+  remain unverified for this candidate. Course review status is unchanged.
+
 ## Android 197 / 0.1.45
 
 - Regrade usefulness and complexity on every course with the shared rubric.
