@@ -4249,13 +4249,13 @@
     },
     {
       "id": "ww-zh-m260908-132",
-      "englishText": "Our experiment needs two cups of cold water.",
-      "embeddingText": "Two cups of cold water prepared for a classroom experiment.",
-      "sceneQuery": "Two cups of cold water prepared for a classroom experiment.",
+      "englishText": "After the experiment, I drank a cup of cold water.",
+      "embeddingText": "Drinking a cup of cold water after finishing an experiment.",
+      "sceneQuery": "a person drinking a cup of cold water after an experiment",
       "topic": "school",
       "difficulty": 2,
       "usefulness": 33,
-      "complexity": 39
+      "complexity": 55
     },
     {
       "id": "ww-zh-m260908-133",
@@ -5389,13 +5389,13 @@
     },
     {
       "id": "ww-zh-m260908-246",
-      "englishText": "We repeated the experiment to see whether the result was reliable.",
-      "embeddingText": "A class repeating an experiment and comparing records.",
-      "sceneQuery": "A class repeating an experiment and comparing records.",
-      "topic": "reasoning",
+      "englishText": "Is this message reliable?",
+      "embeddingText": "Asking whether a message can be trusted.",
+      "sceneQuery": "a person asking whether a short message is reliable",
+      "topic": "communication",
       "difficulty": 3,
-      "usefulness": 33,
-      "complexity": 62
+      "usefulness": 79,
+      "complexity": 26
     },
     {
       "id": "ww-zh-m260908-247",
@@ -5419,13 +5419,13 @@
     },
     {
       "id": "ww-zh-m260908-249",
-      "englishText": "We need evidence before deciding that our explanation is correct.",
-      "embeddingText": "Students checking evidence before accepting an explanation.",
-      "sceneQuery": "Students checking evidence before accepting an explanation.",
+      "englishText": "Without evidence, I cannot judge which one is correct.",
+      "embeddingText": "Saying that you cannot decide which choice is correct without evidence.",
+      "sceneQuery": "a person choosing between two options and waiting for evidence",
       "topic": "reasoning",
       "difficulty": 3,
       "usefulness": 33,
-      "complexity": 41
+      "complexity": 52
     },
     {
       "id": "ww-zh-m260908-250",
@@ -5439,12 +5439,12 @@
     },
     {
       "id": "ww-zh-m260908-251",
-      "englishText": "Instead of guessing again, we measured the distance.",
-      "embeddingText": "Children measuring a distance after an earlier estimate.",
-      "sceneQuery": "Children measuring a distance after an earlier estimate.",
-      "topic": "reasoning",
+      "englishText": "Is it far to the station?",
+      "embeddingText": "Asking whether the station is a long way from here.",
+      "sceneQuery": "a person asking whether the station is far",
+      "topic": "transit-travel",
       "difficulty": 3,
-      "usefulness": 34,
+      "usefulness": 81,
       "complexity": 33
     },
     {
@@ -6099,12 +6099,12 @@
     },
     {
       "id": "ww.zh.pilot-v1.origin-british",
-      "englishText": "I am British.",
-      "embeddingText": "A person stating that they are British.",
-      "sceneQuery": "A person stating that they are British.",
+      "englishText": "I am a guest.",
+      "embeddingText": "A person saying that they are a guest.",
+      "sceneQuery": "A person saying that they are a guest.",
       "topic": "identity-people-family",
       "difficulty": 1,
-      "usefulness": 70,
+      "usefulness": 77,
       "complexity": 27
     },
     {
@@ -6119,12 +6119,12 @@
     },
     {
       "id": "ww.zh.pilot-v1.origin-from-china",
-      "englishText": "I come from China.",
-      "embeddingText": "A person saying that they come from China.",
-      "sceneQuery": "A person saying that they come from China.",
-      "topic": "first-contact",
+      "englishText": "I come from the station.",
+      "embeddingText": "A person saying that they have come from the station.",
+      "sceneQuery": "A person saying that they have come from the station.",
+      "topic": "transit-travel",
       "difficulty": 1,
-      "usefulness": 68,
+      "usefulness": 81,
       "complexity": 22
     },
     {
@@ -6169,12 +6169,12 @@
     },
     {
       "id": "ww.zh.pilot-v1.need-rest",
-      "englishText": "I need to rest.",
-      "embeddingText": "Expressing the need for a rest.",
-      "sceneQuery": "Expressing the need for a rest.",
-      "topic": "daily-life",
+      "englishText": "I need to eat.",
+      "embeddingText": "A person saying that they need to eat.",
+      "sceneQuery": "A person saying that they need to eat.",
+      "topic": "food-drink",
       "difficulty": 1,
-      "usefulness": 70,
+      "usefulness": 88,
       "complexity": 22
     },
     {
@@ -6349,23 +6349,23 @@
     },
     {
       "id": "ww.zh.pilot-v1.price-ten",
-      "englishText": "Ten yuan.",
-      "embeddingText": "An item priced at ten yuan.",
-      "sceneQuery": "An item priced at ten yuan.",
+      "englishText": "This cup of water is ten yuan.",
+      "embeddingText": "A cup of water priced at ten yuan.",
+      "sceneQuery": "A cup of water priced at ten yuan.",
       "topic": "shopping-services",
       "difficulty": 1,
-      "usefulness": 70,
-      "complexity": 22
+      "usefulness": 86,
+      "complexity": 32
     },
     {
       "id": "ww.zh.pilot-v1.price-twelve",
-      "englishText": "Twelve yuan.",
-      "embeddingText": "An item priced at twelve yuan.",
-      "sceneQuery": "An item priced at twelve yuan.",
+      "englishText": "These two books are twelve yuan.",
+      "embeddingText": "Two books priced at twelve yuan.",
+      "sceneQuery": "Two books priced at twelve yuan.",
       "topic": "shopping-services",
       "difficulty": 1,
-      "usefulness": 70,
-      "complexity": 22
+      "usefulness": 81,
+      "complexity": 35
     },
     {
       "id": "ww.zh.pilot-v1.pay-how",
@@ -6389,23 +6389,23 @@
     },
     {
       "id": "ww.zh.pilot-v1.can-swim",
-      "englishText": "I know how to swim.",
-      "embeddingText": "A person saying they have learned the skill of swimming.",
-      "sceneQuery": "A person saying they have learned the skill of swimming.",
-      "topic": "play",
+      "englishText": "I know how to cook.",
+      "embeddingText": "A person saying they have learned to cook.",
+      "sceneQuery": "A person saying they have learned to cook.",
+      "topic": "food-drink",
       "difficulty": 1,
-      "usefulness": 63,
+      "usefulness": 75,
       "complexity": 22
     },
     {
       "id": "ww.zh.pilot-v1.cannot-swim",
-      "englishText": "I do not know how to swim.",
-      "embeddingText": "A person saying they have not learned to swim.",
-      "sceneQuery": "A person saying they have not learned to swim.",
-      "topic": "play",
+      "englishText": "I cannot cook.",
+      "embeddingText": "A person saying they have not learned to cook.",
+      "sceneQuery": "A person saying they have not learned to cook.",
+      "topic": "food-drink",
       "difficulty": 1,
-      "usefulness": 92,
-      "complexity": 32
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "ww.zh.pilot-v1.permission-enter",
@@ -6439,12 +6439,12 @@
     },
     {
       "id": "ww.zh.pilot-v1.experience-beijing",
-      "englishText": "Have you been to Beijing?",
-      "embeddingText": "Asking whether another person has ever visited Beijing.",
-      "sceneQuery": "Asking whether another person has ever visited Beijing.",
-      "topic": "experience-opinion",
+      "englishText": "Have you taken the subway?",
+      "embeddingText": "Asking whether another person has ever taken the subway.",
+      "sceneQuery": "Asking whether another person has ever taken the subway.",
+      "topic": "transit-travel",
       "difficulty": 2,
-      "usefulness": 54,
+      "usefulness": 83,
       "complexity": 31
     },
     {
@@ -6469,13 +6469,13 @@
     },
     {
       "id": "ww.zh.pilot-v1.push-door",
-      "englishText": "Please push the door.",
-      "embeddingText": "A polite request to push a door open.",
-      "sceneQuery": "A polite request to push a door open.",
+      "englishText": "Can you push the door?",
+      "embeddingText": "Asking someone to push the door.",
+      "sceneQuery": "Asking someone to push the door.",
       "topic": "community-politeness",
       "difficulty": 1,
       "usefulness": 82,
-      "complexity": 22
+      "complexity": 27
     },
     {
       "id": "ww-zero-cat",

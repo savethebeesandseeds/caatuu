@@ -7,7 +7,7 @@
     "appEntry": "apps/language-runtime/static/app/index.html"
   },
   "offline": {
-    "cacheName": "caatuu-zh-hans-pwa-v224",
+    "cacheName": "caatuu-zh-hans-pwa-v227",
     "cachePrefix": "caatuu-zh-hans-pwa-",
     "assets": [
       "/language-runtime/static/assets/initial-image.png",
@@ -563,24 +563,24 @@
       "kind": "english-concept-catalog",
       "url": "/language-runtime/static/data/english-concepts/word-world-starter-v1.json",
       "browserRequired": true,
-      "bytes": 257523,
-      "sha256": "5e85d95b2b8f983a4ea5aa1e55b18cc70c9de8f631e9e233fcf1a43e9f90a53d"
+      "bytes": 257497,
+      "sha256": "91eee8edb9a65f7fe3ffea3218cea33d895031dcf08f15a30125e9c72abad43c"
     },
     {
       "key": "target-realizations",
       "kind": "target-realization-catalog",
       "url": "/zh/data/games/word-world/content.json",
       "browserRequired": true,
-      "bytes": 599588,
-      "sha256": "c2f3e99c3a682bfb1f85ac52a18cf4859478ca9d2e2db9e16d1afca135b1d9cf"
+      "bytes": 600487,
+      "sha256": "77d9b1eaaa788b52536ebcf62d5e53eb59dd8bd246d172a49d49d6b64e8810c7"
     },
     {
       "key": "target-reading-guides",
       "kind": "target-text-guide-catalog",
       "url": "/zh/data/games/word-world/reading-guides.json",
       "browserRequired": true,
-      "bytes": 975939,
-      "sha256": "740e1ad91cfd62992af21acd09fb56b5b37e1576a4f1550b37e3b1aeaf009cbe"
+      "bytes": 976356,
+      "sha256": "fa5e7bf51f02f01b1ca8087c01464859110b9ab3d9302c1b3edbb2afdbb04389"
     },
     {
       "key": "word-world-manifest",
@@ -652,7 +652,7 @@
       "url": "/zh/sw.js",
       "browserRequired": true,
       "bytes": 142,
-      "sha256": "cda84d5d95a1116877baf634da0f463c8a19ae934910ac69c103c5c4c6d974e0"
+      "sha256": "f5f05bc61b1185b1262bf12cb6be57a30e4eb9adf5e73942efdd9b8a9811078c"
     },
     {
       "key": "shared-course-service-worker",

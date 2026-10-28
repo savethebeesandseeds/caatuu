@@ -13825,31 +13825,41 @@
     },
     {
       "conceptId": "ww-zh-m260908-132",
-      "text": "我们的实验需要两杯冷水。",
+      "text": "实验做完以后，我喝了一杯冷水。",
       "tokens": [
-        {
-          "surface": "我们",
-          "gloss": "we; us",
-          "playable": true
-        },
-        {
-          "surface": "的",
-          "gloss": "marks possession or a noun description",
-          "playable": true
-        },
         {
           "surface": "实验",
           "gloss": "experiment",
           "playable": true
         },
         {
-          "surface": "需要",
-          "gloss": "need",
+          "surface": "做完",
+          "gloss": "finish doing",
           "playable": true
         },
         {
-          "surface": "两",
-          "gloss": "two",
+          "surface": "以后",
+          "gloss": "afterward",
+          "playable": true
+        },
+        {
+          "surface": "我",
+          "gloss": "I; me",
+          "playable": true
+        },
+        {
+          "surface": "喝",
+          "gloss": "drink",
+          "playable": true
+        },
+        {
+          "surface": "了",
+          "gloss": "change-of-state particle",
+          "playable": true
+        },
+        {
+          "surface": "一",
+          "gloss": "one",
           "playable": true
         },
         {
@@ -18859,41 +18869,26 @@
     },
     {
       "conceptId": "ww-zh-m260908-246",
-      "text": "我们重复实验，看结果是否可靠。",
+      "text": "这个消息可靠吗？",
       "tokens": [
         {
-          "surface": "我们",
-          "gloss": "we; us",
+          "surface": "这个",
+          "gloss": "this",
           "playable": true
         },
         {
-          "surface": "重复",
-          "gloss": "repeat",
-          "playable": true
-        },
-        {
-          "surface": "实验",
-          "gloss": "experiment",
-          "playable": true
-        },
-        {
-          "surface": "看",
-          "gloss": "look",
-          "playable": true
-        },
-        {
-          "surface": "结果",
-          "gloss": "result",
-          "playable": true
-        },
-        {
-          "surface": "是否",
-          "gloss": "whether",
+          "surface": "消息",
+          "gloss": "message",
           "playable": true
         },
         {
           "surface": "可靠",
           "gloss": "reliable",
+          "playable": true
+        },
+        {
+          "surface": "吗",
+          "gloss": "yes-no question particle",
           "playable": true
         }
       ]
@@ -19037,16 +19032,16 @@
     },
     {
       "conceptId": "ww-zh-m260908-249",
-      "text": "我们需要证据，才能判断解释是否正确。",
+      "text": "我没有证据，不能判断哪个是正确的。",
       "tokens": [
         {
-          "surface": "我们",
-          "gloss": "we; us",
+          "surface": "我",
+          "gloss": "I; me",
           "playable": true
         },
         {
-          "surface": "需要",
-          "gloss": "need",
+          "surface": "没有",
+          "gloss": "did not",
           "playable": true
         },
         {
@@ -19055,8 +19050,8 @@
           "playable": true
         },
         {
-          "surface": "才能",
-          "gloss": "only then can",
+          "surface": "不能",
+          "gloss": "cannot",
           "playable": true
         },
         {
@@ -19065,18 +19060,28 @@
           "playable": true
         },
         {
-          "surface": "解释",
-          "gloss": "explain",
+          "surface": "哪",
+          "gloss": "which",
           "playable": true
         },
         {
-          "surface": "是否",
-          "gloss": "whether",
+          "surface": "个",
+          "gloss": "general measure word",
+          "playable": true
+        },
+        {
+          "surface": "是",
+          "gloss": "to be",
           "playable": true
         },
         {
           "surface": "正确",
           "gloss": "correct",
+          "playable": true
+        },
+        {
+          "surface": "的",
+          "gloss": "possessive particle",
           "playable": true
         }
       ]
@@ -19139,46 +19144,36 @@
     },
     {
       "conceptId": "ww-zh-m260908-251",
-      "text": "我们没有再猜，而是测量了距离。",
+      "text": "到车站的距离远吗？",
       "tokens": [
         {
-          "surface": "我们",
-          "gloss": "we; us",
+          "surface": "到",
+          "gloss": "arrive",
           "playable": true
         },
         {
-          "surface": "没有",
-          "gloss": "did not",
+          "surface": "车站",
+          "gloss": "station",
           "playable": true
         },
         {
-          "surface": "再",
-          "gloss": "again; then",
-          "playable": true
-        },
-        {
-          "surface": "猜",
-          "gloss": "guess",
-          "playable": true
-        },
-        {
-          "surface": "而是",
-          "gloss": "instead",
-          "playable": true
-        },
-        {
-          "surface": "测量",
-          "gloss": "measure",
-          "playable": true
-        },
-        {
-          "surface": "了",
-          "gloss": "marks a completed event or changed situation",
+          "surface": "的",
+          "gloss": "possessive particle",
           "playable": true
         },
         {
           "surface": "距离",
           "gloss": "distance",
+          "playable": true
+        },
+        {
+          "surface": "远",
+          "gloss": "far",
+          "playable": true
+        },
+        {
+          "surface": "吗",
+          "gloss": "yes-no question particle",
           "playable": true
         }
       ]
@@ -22676,7 +22671,7 @@
     },
     {
       "conceptId": "ww.zh.pilot-v1.origin-british",
-      "text": "我是英国人。",
+      "text": "我是客人。",
       "learning": {
         "unitId": "ww.zh.foundation.identity",
         "order": 12,
@@ -22700,8 +22695,8 @@
           "playable": true
         },
         {
-          "surface": "英国人",
-          "gloss": "British person",
+          "surface": "客人",
+          "gloss": "guest",
           "playable": true
         }
       ]
@@ -22745,7 +22740,7 @@
     },
     {
       "conceptId": "ww.zh.pilot-v1.origin-from-china",
-      "text": "我从中国来。",
+      "text": "我从车站来。",
       "learning": {
         "unitId": "ww.zh.foundation.identity",
         "order": 14,
@@ -22769,8 +22764,8 @@
           "playable": true
         },
         {
-          "surface": "中国",
-          "gloss": "China",
+          "surface": "车站",
+          "gloss": "station",
           "playable": true
         },
         {
@@ -22910,12 +22905,12 @@
     },
     {
       "conceptId": "ww.zh.pilot-v1.need-rest",
-      "text": "我需要休息。",
+      "text": "我需要吃饭。",
       "learning": {
         "unitId": "ww.zh.foundation.needs",
         "order": 19,
         "title": "Needs and requests",
-        "explanation": "需要 names a need. Put the question particle 吗 at the end of a statement to ask a yes/no question. A request with 能 asks whether the person can help.",
+        "explanation": "需要 names a need. Put the question particle 吗 at the end of a statement to ask a yes/no question. A request with 能 asks whether the person can do something.",
         "focus": [
           "needs",
           "question-particle"
@@ -22933,8 +22928,8 @@
           "playable": true
         },
         {
-          "surface": "休息",
-          "gloss": "rest",
+          "surface": "吃饭",
+          "gloss": "eat; have a meal",
           "playable": true
         }
       ]
@@ -22946,7 +22941,7 @@
         "unitId": "ww.zh.foundation.needs",
         "order": 20,
         "title": "Needs and requests",
-        "explanation": "需要 names a need. Put the question particle 吗 at the end of a statement to ask a yes/no question. A request with 能 asks whether the person can help.",
+        "explanation": "需要 names a need. Put the question particle 吗 at the end of a statement to ask a yes/no question. A request with 能 asks whether the person can do something.",
         "focus": [
           "needs",
           "question-particle"
@@ -22987,7 +22982,7 @@
         "unitId": "ww.zh.foundation.needs",
         "order": 21,
         "title": "Needs and requests",
-        "explanation": "需要 names a need. Put the question particle 吗 at the end of a statement to ask a yes/no question. A request with 能 asks whether the person can help.",
+        "explanation": "需要 names a need. Put the question particle 吗 at the end of a statement to ask a yes/no question. A request with 能 asks whether the person can do something.",
         "focus": [
           "needs",
           "question-particle"
@@ -23532,7 +23527,7 @@
     },
     {
       "conceptId": "ww.zh.pilot-v1.price-ten",
-      "text": "十元。",
+      "text": "这杯水十元。",
       "learning": {
         "unitId": "ww.zh.foundation.buying",
         "order": 38,
@@ -23545,6 +23540,21 @@
         ]
       },
       "tokens": [
+        {
+          "surface": "这",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "杯",
+          "gloss": "cup; measure word for cups",
+          "playable": true
+        },
+        {
+          "surface": "水",
+          "gloss": "water",
+          "playable": true
+        },
         {
           "surface": "十",
           "gloss": "ten",
@@ -23559,7 +23569,7 @@
     },
     {
       "conceptId": "ww.zh.pilot-v1.price-twelve",
-      "text": "十二元。",
+      "text": "这两本书十二元。",
       "learning": {
         "unitId": "ww.zh.foundation.buying",
         "order": 39,
@@ -23572,6 +23582,26 @@
         ]
       },
       "tokens": [
+        {
+          "surface": "这",
+          "gloss": "this",
+          "playable": true
+        },
+        {
+          "surface": "两",
+          "gloss": "two before a measure word",
+          "playable": true
+        },
+        {
+          "surface": "本",
+          "gloss": "measure word for books",
+          "playable": true
+        },
+        {
+          "surface": "书",
+          "gloss": "book",
+          "playable": true
+        },
         {
           "surface": "十二",
           "gloss": "twelve",
@@ -23660,12 +23690,12 @@
     },
     {
       "conceptId": "ww.zh.pilot-v1.can-swim",
-      "text": "我会游泳。",
+      "text": "我会做饭。",
       "learning": {
         "unitId": "ww.zh.foundation.modals",
         "order": 42,
         "title": "Ability and permission",
-        "explanation": "会 often describes a learned skill, such as swimming. 能 concerns ability or possibility in the situation. 可以 is useful for asking permission. Put 不 before the modal to make it negative.",
+        "explanation": "会 often describes a learned skill, such as cooking. 能 concerns ability or possibility in the situation. 可以 is useful for asking permission. Put 不 before the modal to make it negative.",
         "focus": [
           "hui-neng-keyi",
           "ability",
@@ -23684,20 +23714,20 @@
           "playable": true
         },
         {
-          "surface": "游泳",
-          "gloss": "swim",
+          "surface": "做饭",
+          "gloss": "cook",
           "playable": true
         }
       ]
     },
     {
       "conceptId": "ww.zh.pilot-v1.cannot-swim",
-      "text": "我不会游泳。",
+      "text": "我不会做饭。",
       "learning": {
         "unitId": "ww.zh.foundation.modals",
         "order": 43,
         "title": "Ability and permission",
-        "explanation": "会 often describes a learned skill, such as swimming. 能 concerns ability or possibility in the situation. 可以 is useful for asking permission. Put 不 before the modal to make it negative.",
+        "explanation": "会 often describes a learned skill, such as cooking. 能 concerns ability or possibility in the situation. 可以 is useful for asking permission. Put 不 before the modal to make it negative.",
         "focus": [
           "hui-neng-keyi",
           "ability",
@@ -23721,8 +23751,8 @@
           "playable": true
         },
         {
-          "surface": "游泳",
-          "gloss": "swim",
+          "surface": "做饭",
+          "gloss": "cook",
           "playable": true
         }
       ]
@@ -23734,7 +23764,7 @@
         "unitId": "ww.zh.foundation.modals",
         "order": 44,
         "title": "Ability and permission",
-        "explanation": "会 often describes a learned skill, such as swimming. 能 concerns ability or possibility in the situation. 可以 is useful for asking permission. Put 不 before the modal to make it negative.",
+        "explanation": "会 often describes a learned skill, such as cooking. 能 concerns ability or possibility in the situation. 可以 is useful for asking permission. Put 不 before the modal to make it negative.",
         "focus": [
           "hui-neng-keyi",
           "ability",
@@ -23828,12 +23858,12 @@
     },
     {
       "conceptId": "ww.zh.pilot-v1.experience-beijing",
-      "text": "你去过北京吗？",
+      "text": "你坐过地铁吗？",
       "learning": {
         "unitId": "ww.zh.foundation.aspect",
         "order": 47,
         "title": "Experience, completion and a continuing state",
-        "explanation": "In 去过北京, 过 marks a past experience; here it is not the verb meaning pass. 了 after a verb can mark a completed action. 着 describes a continuing state, such as a window remaining open. These particles do not conjugate the verb.",
+        "explanation": "In 坐过地铁, 过 marks a past experience; here it is not the verb meaning pass. 了 after a verb can mark a completed action. 着 describes a continuing state, such as a window remaining open. These particles do not conjugate the verb.",
         "focus": [
           "experience-guo",
           "completion-le",
@@ -23847,8 +23877,8 @@
           "playable": true
         },
         {
-          "surface": "去",
-          "gloss": "go",
+          "surface": "坐",
+          "gloss": "sit; ride",
           "playable": true
         },
         {
@@ -23857,8 +23887,8 @@
           "playable": true
         },
         {
-          "surface": "北京",
-          "gloss": "Beijing",
+          "surface": "地铁",
+          "gloss": "subway",
           "playable": true
         },
         {
@@ -23875,7 +23905,7 @@
         "unitId": "ww.zh.foundation.aspect",
         "order": 48,
         "title": "Experience, completion and a continuing state",
-        "explanation": "In 去过北京, 过 marks a past experience; here it is not the verb meaning pass. 了 after a verb can mark a completed action. 着 describes a continuing state, such as a window remaining open. These particles do not conjugate the verb.",
+        "explanation": "In 坐过地铁, 过 marks a past experience; here it is not the verb meaning pass. 了 after a verb can mark a completed action. 着 describes a continuing state, such as a window remaining open. These particles do not conjugate the verb.",
         "focus": [
           "experience-guo",
           "completion-le",
@@ -23922,7 +23952,7 @@
         "unitId": "ww.zh.foundation.aspect",
         "order": 49,
         "title": "Experience, completion and a continuing state",
-        "explanation": "In 去过北京, 过 marks a past experience; here it is not the verb meaning pass. 了 after a verb can mark a completed action. 着 describes a continuing state, such as a window remaining open. These particles do not conjugate the verb.",
+        "explanation": "In 坐过地铁, 过 marks a past experience; here it is not the verb meaning pass. 了 after a verb can mark a completed action. 着 describes a continuing state, such as a window remaining open. These particles do not conjugate the verb.",
         "focus": [
           "experience-guo",
           "completion-le",
@@ -23949,12 +23979,12 @@
     },
     {
       "conceptId": "ww.zh.pilot-v1.push-door",
-      "text": "请推门。",
+      "text": "你能推门吗？",
       "learning": {
         "unitId": "ww.zh.foundation.needs",
         "order": 22,
         "title": "Needs and requests",
-        "explanation": "需要 names a need. Put the question particle 吗 at the end of a statement to ask a yes/no question. A request with 能 asks whether the person can help.",
+        "explanation": "需要 names a need. Put the question particle 吗 at the end of a statement to ask a yes/no question. A request with 能 asks whether the person can do something.",
         "focus": [
           "needs",
           "question-particle"
@@ -23962,8 +23992,13 @@
       },
       "tokens": [
         {
-          "surface": "请",
-          "gloss": "please; marks a polite request",
+          "surface": "你",
+          "gloss": "you",
+          "playable": true
+        },
+        {
+          "surface": "能",
+          "gloss": "can; be able to",
           "playable": true
         },
         {
@@ -23974,6 +24009,11 @@
         {
           "surface": "门",
           "gloss": "door",
+          "playable": true
+        },
+        {
+          "surface": "吗",
+          "gloss": "marks a yes-no question",
           "playable": true
         }
       ]

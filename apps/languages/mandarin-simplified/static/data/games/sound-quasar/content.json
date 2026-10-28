@@ -38892,10 +38892,10 @@
     {
       "id": "zh-m260908-sentence-190",
       "difficulty": 2,
-      "revision": "1",
-      "target": "我们的实验需要两杯冷水。",
-      "meaning": "Our experiment needs two cups of cold water.",
-      "englishAuditText": "Our experiment needs two cups of cold water.",
+      "revision": "2",
+      "target": "实验做完以后，我喝了一杯冷水。",
+      "meaning": "After the experiment, I drank a cup of cold water.",
+      "englishAuditText": "After the experiment, I drank a cup of cold water.",
       "sourceId": "ww-zh-m260908-132",
       "sourceReviewStatus": "native-review-required",
       "reading": {
@@ -38904,28 +38904,6 @@
         "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
         "sourceId": "ww-zh-m260908-132",
         "tokens": [
-          {
-            "surface": "我们",
-            "units": [
-              {
-                "surface": "我",
-                "notation": "wǒ"
-              },
-              {
-                "surface": "们",
-                "notation": "men"
-              }
-            ]
-          },
-          {
-            "surface": "的",
-            "units": [
-              {
-                "surface": "的",
-                "notation": "de"
-              }
-            ]
-          },
           {
             "surface": "实验",
             "units": [
@@ -38940,24 +38918,64 @@
             ]
           },
           {
-            "surface": "需要",
+            "surface": "做完",
             "units": [
               {
-                "surface": "需",
-                "notation": "xū"
+                "surface": "做",
+                "notation": "zuò"
               },
               {
-                "surface": "要",
-                "notation": "yào"
+                "surface": "完",
+                "notation": "wán"
               }
             ]
           },
           {
-            "surface": "两",
+            "surface": "以后",
             "units": [
               {
-                "surface": "两",
-                "notation": "liǎng"
+                "surface": "以",
+                "notation": "yǐ"
+              },
+              {
+                "surface": "后",
+                "notation": "hòu"
+              }
+            ]
+          },
+          {
+            "surface": "我",
+            "units": [
+              {
+                "surface": "我",
+                "notation": "wǒ"
+              }
+            ]
+          },
+          {
+            "surface": "喝",
+            "units": [
+              {
+                "surface": "喝",
+                "notation": "hē"
+              }
+            ]
+          },
+          {
+            "surface": "了",
+            "units": [
+              {
+                "surface": "了",
+                "notation": "le"
+              }
+            ]
+          },
+          {
+            "surface": "一",
+            "units": [
+              {
+                "surface": "一",
+                "notation": "yī"
               }
             ]
           },
@@ -38986,7 +39004,7 @@
         ]
       },
       "usefulness": 33,
-      "complexity": 39
+      "complexity": 55
     },
     {
       "id": "zh-m260908-sentence-191",
@@ -50738,10 +50756,10 @@
     {
       "id": "zh-m260908-sentence-304",
       "difficulty": 3,
-      "revision": "1",
-      "target": "我们重复实验，看结果是否可靠。",
-      "meaning": "We repeated the experiment to see whether the result was reliable.",
-      "englishAuditText": "We repeated the experiment to see whether the result was reliable.",
+      "revision": "2",
+      "target": "这个消息可靠吗？",
+      "meaning": "Is this message reliable?",
+      "englishAuditText": "Is this message reliable?",
       "sourceId": "ww-zh-m260908-246",
       "sourceReviewStatus": "native-review-required",
       "reading": {
@@ -50751,76 +50769,28 @@
         "sourceId": "ww-zh-m260908-246",
         "tokens": [
           {
-            "surface": "我们",
+            "surface": "这个",
             "units": [
               {
-                "surface": "我",
-                "notation": "wǒ"
+                "surface": "这",
+                "notation": "zhè"
               },
               {
-                "surface": "们",
-                "notation": "men"
+                "surface": "个",
+                "notation": "ge"
               }
             ]
           },
           {
-            "surface": "重复",
+            "surface": "消息",
             "units": [
               {
-                "surface": "重",
-                "notation": "chóng"
+                "surface": "消",
+                "notation": "xiāo"
               },
               {
-                "surface": "复",
-                "notation": "fù"
-              }
-            ]
-          },
-          {
-            "surface": "实验",
-            "units": [
-              {
-                "surface": "实",
-                "notation": "shí"
-              },
-              {
-                "surface": "验",
-                "notation": "yàn"
-              }
-            ]
-          },
-          {
-            "surface": "看",
-            "units": [
-              {
-                "surface": "看",
-                "notation": "kàn"
-              }
-            ]
-          },
-          {
-            "surface": "结果",
-            "units": [
-              {
-                "surface": "结",
-                "notation": "jié"
-              },
-              {
-                "surface": "果",
-                "notation": "guǒ"
-              }
-            ]
-          },
-          {
-            "surface": "是否",
-            "units": [
-              {
-                "surface": "是",
-                "notation": "shì"
-              },
-              {
-                "surface": "否",
-                "notation": "fǒu"
+                "surface": "息",
+                "notation": "xi"
               }
             ]
           },
@@ -50836,11 +50806,20 @@
                 "notation": "kào"
               }
             ]
+          },
+          {
+            "surface": "吗",
+            "units": [
+              {
+                "surface": "吗",
+                "notation": "ma"
+              }
+            ]
           }
         ]
       },
-      "usefulness": 33,
-      "complexity": 62
+      "usefulness": 79,
+      "complexity": 26
     },
     {
       "id": "zh-m260908-sentence-305",
@@ -51162,10 +51141,10 @@
     {
       "id": "zh-m260908-sentence-307",
       "difficulty": 3,
-      "revision": "1",
-      "target": "我们需要证据，才能判断解释是否正确。",
-      "meaning": "We need evidence before deciding that our explanation is correct.",
-      "englishAuditText": "We need evidence before deciding that our explanation is correct.",
+      "revision": "2",
+      "target": "我没有证据，不能判断哪个是正确的。",
+      "meaning": "Without evidence, I cannot judge which one is correct.",
+      "englishAuditText": "Without evidence, I cannot judge which one is correct.",
       "sourceId": "ww-zh-m260908-249",
       "sourceReviewStatus": "native-review-required",
       "reading": {
@@ -51175,28 +51154,24 @@
         "sourceId": "ww-zh-m260908-249",
         "tokens": [
           {
-            "surface": "我们",
+            "surface": "我",
             "units": [
               {
                 "surface": "我",
                 "notation": "wǒ"
-              },
-              {
-                "surface": "们",
-                "notation": "men"
               }
             ]
           },
           {
-            "surface": "需要",
+            "surface": "没有",
             "units": [
               {
-                "surface": "需",
-                "notation": "xū"
+                "surface": "没",
+                "notation": "méi"
               },
               {
-                "surface": "要",
-                "notation": "yào"
+                "surface": "有",
+                "notation": "yǒu"
               }
             ]
           },
@@ -51214,11 +51189,11 @@
             ]
           },
           {
-            "surface": "才能",
+            "surface": "不能",
             "units": [
               {
-                "surface": "才",
-                "notation": "cái"
+                "surface": "不",
+                "notation": "bù"
               },
               {
                 "surface": "能",
@@ -51240,28 +51215,29 @@
             ]
           },
           {
-            "surface": "解释",
+            "surface": "哪",
             "units": [
               {
-                "surface": "解",
-                "notation": "jiě"
-              },
-              {
-                "surface": "释",
-                "notation": "shì"
+                "surface": "哪",
+                "notation": "nǎ"
               }
             ]
           },
           {
-            "surface": "是否",
+            "surface": "个",
+            "units": [
+              {
+                "surface": "个",
+                "notation": "ge"
+              }
+            ]
+          },
+          {
+            "surface": "是",
             "units": [
               {
                 "surface": "是",
                 "notation": "shì"
-              },
-              {
-                "surface": "否",
-                "notation": "fǒu"
               }
             ]
           },
@@ -51277,11 +51253,20 @@
                 "notation": "què"
               }
             ]
+          },
+          {
+            "surface": "的",
+            "units": [
+              {
+                "surface": "的",
+                "notation": "de"
+              }
+            ]
           }
         ]
       },
       "usefulness": 33,
-      "complexity": 41
+      "complexity": 52
     },
     {
       "id": "zh-m260908-sentence-308",
@@ -51412,10 +51397,10 @@
     {
       "id": "zh-m260908-sentence-309",
       "difficulty": 3,
-      "revision": "1",
-      "target": "我们没有再猜，而是测量了距离。",
-      "meaning": "Instead of guessing again, we measured the distance.",
-      "englishAuditText": "Instead of guessing again, we measured the distance.",
+      "revision": "2",
+      "target": "到车站的距离远吗？",
+      "meaning": "Is it far to the station?",
+      "englishAuditText": "Is it far to the station?",
       "sourceId": "ww-zh-m260908-251",
       "sourceReviewStatus": "native-review-required",
       "reading": {
@@ -51425,81 +51410,33 @@
         "sourceId": "ww-zh-m260908-251",
         "tokens": [
           {
-            "surface": "我们",
+            "surface": "到",
             "units": [
               {
-                "surface": "我",
-                "notation": "wǒ"
+                "surface": "到",
+                "notation": "dào"
+              }
+            ]
+          },
+          {
+            "surface": "车站",
+            "units": [
+              {
+                "surface": "车",
+                "notation": "chē"
               },
               {
-                "surface": "们",
-                "notation": "men"
+                "surface": "站",
+                "notation": "zhàn"
               }
             ]
           },
           {
-            "surface": "没有",
+            "surface": "的",
             "units": [
               {
-                "surface": "没",
-                "notation": "méi"
-              },
-              {
-                "surface": "有",
-                "notation": "yǒu"
-              }
-            ]
-          },
-          {
-            "surface": "再",
-            "units": [
-              {
-                "surface": "再",
-                "notation": "zài"
-              }
-            ]
-          },
-          {
-            "surface": "猜",
-            "units": [
-              {
-                "surface": "猜",
-                "notation": "cāi"
-              }
-            ]
-          },
-          {
-            "surface": "而是",
-            "units": [
-              {
-                "surface": "而",
-                "notation": "ér"
-              },
-              {
-                "surface": "是",
-                "notation": "shì"
-              }
-            ]
-          },
-          {
-            "surface": "测量",
-            "units": [
-              {
-                "surface": "测",
-                "notation": "cè"
-              },
-              {
-                "surface": "量",
-                "notation": "liáng"
-              }
-            ]
-          },
-          {
-            "surface": "了",
-            "units": [
-              {
-                "surface": "了",
-                "notation": "le"
+                "surface": "的",
+                "notation": "de"
               }
             ]
           },
@@ -51515,10 +51452,28 @@
                 "notation": "lí"
               }
             ]
+          },
+          {
+            "surface": "远",
+            "units": [
+              {
+                "surface": "远",
+                "notation": "yuǎn"
+              }
+            ]
+          },
+          {
+            "surface": "吗",
+            "units": [
+              {
+                "surface": "吗",
+                "notation": "ma"
+              }
+            ]
           }
         ]
       },
-      "usefulness": 34,
+      "usefulness": 81,
       "complexity": 33
     },
     {
@@ -59912,12 +59867,12 @@
     {
       "id": "zh.listening.zh.pilot-v1.origin-british",
       "difficulty": 1,
-      "revision": "1",
-      "target": "我是英国人。",
-      "meaning": "I am British.",
+      "revision": "2",
+      "target": "我是客人。",
+      "meaning": "I am a guest.",
       "sourceId": "ww.zh.pilot-v1.origin-british",
       "sourceReviewStatus": "native-review-required",
-      "englishAuditText": "I am British.",
+      "englishAuditText": "I am a guest.",
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -59943,15 +59898,11 @@
             ]
           },
           {
-            "surface": "英国人",
+            "surface": "客人",
             "units": [
               {
-                "surface": "英",
-                "notation": "yīng"
-              },
-              {
-                "surface": "国",
-                "notation": "guó"
+                "surface": "客",
+                "notation": "kè"
               },
               {
                 "surface": "人",
@@ -59961,7 +59912,7 @@
           }
         ]
       },
-      "usefulness": 70,
+      "usefulness": 77,
       "complexity": 27
     },
     {
@@ -60027,12 +59978,12 @@
     {
       "id": "zh.listening.zh.pilot-v1.origin-from-china",
       "difficulty": 1,
-      "revision": "1",
-      "target": "我从中国来。",
-      "meaning": "I come from China.",
+      "revision": "2",
+      "target": "我从车站来。",
+      "meaning": "I come from the station.",
       "sourceId": "ww.zh.pilot-v1.origin-from-china",
       "sourceReviewStatus": "native-review-required",
-      "englishAuditText": "I come from China.",
+      "englishAuditText": "I come from the station.",
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -60058,15 +60009,15 @@
             ]
           },
           {
-            "surface": "中国",
+            "surface": "车站",
             "units": [
               {
-                "surface": "中",
-                "notation": "zhōng"
+                "surface": "车",
+                "notation": "chē"
               },
               {
-                "surface": "国",
-                "notation": "guó"
+                "surface": "站",
+                "notation": "zhàn"
               }
             ]
           },
@@ -60081,7 +60032,7 @@
           }
         ]
       },
-      "usefulness": 68,
+      "usefulness": 81,
       "complexity": 22
     },
     {
@@ -60287,12 +60238,12 @@
     {
       "id": "zh.listening.zh.pilot-v1.need-rest",
       "difficulty": 1,
-      "revision": "1",
-      "target": "我需要休息。",
-      "meaning": "I need to rest.",
+      "revision": "2",
+      "target": "我需要吃饭。",
+      "meaning": "I need to eat.",
       "sourceId": "ww.zh.pilot-v1.need-rest",
       "sourceReviewStatus": "native-review-required",
-      "englishAuditText": "I need to rest.",
+      "englishAuditText": "I need to eat.",
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -60322,21 +60273,21 @@
             ]
           },
           {
-            "surface": "休息",
+            "surface": "吃饭",
             "units": [
               {
-                "surface": "休",
-                "notation": "xiū"
+                "surface": "吃",
+                "notation": "chī"
               },
               {
-                "surface": "息",
-                "notation": "xi"
+                "surface": "饭",
+                "notation": "fàn"
               }
             ]
           }
         ]
       },
-      "usefulness": 70,
+      "usefulness": 88,
       "complexity": 22
     },
     {
@@ -61303,18 +61254,45 @@
     {
       "id": "zh.listening.zh.pilot-v1.price-ten",
       "difficulty": 1,
-      "revision": "1",
-      "target": "十元。",
-      "meaning": "Ten yuan.",
+      "revision": "2",
+      "target": "这杯水十元。",
+      "meaning": "This cup of water is ten yuan.",
       "sourceId": "ww.zh.pilot-v1.price-ten",
       "sourceReviewStatus": "native-review-required",
-      "englishAuditText": "Ten yuan.",
+      "englishAuditText": "This cup of water is ten yuan.",
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
         "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
         "sourceId": "ww.zh.pilot-v1.price-ten",
         "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "杯",
+            "units": [
+              {
+                "surface": "杯",
+                "notation": "bēi"
+              }
+            ]
+          },
+          {
+            "surface": "水",
+            "units": [
+              {
+                "surface": "水",
+                "notation": "shuǐ"
+              }
+            ]
+          },
           {
             "surface": "十",
             "units": [
@@ -61335,24 +61313,60 @@
           }
         ]
       },
-      "usefulness": 70,
-      "complexity": 22
+      "usefulness": 86,
+      "complexity": 32
     },
     {
       "id": "zh.listening.zh.pilot-v1.price-twelve",
       "difficulty": 1,
-      "revision": "1",
-      "target": "十二元。",
-      "meaning": "Twelve yuan.",
+      "revision": "2",
+      "target": "这两本书十二元。",
+      "meaning": "These two books are twelve yuan.",
       "sourceId": "ww.zh.pilot-v1.price-twelve",
       "sourceReviewStatus": "native-review-required",
-      "englishAuditText": "Twelve yuan.",
+      "englishAuditText": "These two books are twelve yuan.",
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
         "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
         "sourceId": "ww.zh.pilot-v1.price-twelve",
         "tokens": [
+          {
+            "surface": "这",
+            "units": [
+              {
+                "surface": "这",
+                "notation": "zhè"
+              }
+            ]
+          },
+          {
+            "surface": "两",
+            "units": [
+              {
+                "surface": "两",
+                "notation": "liǎng"
+              }
+            ]
+          },
+          {
+            "surface": "本",
+            "units": [
+              {
+                "surface": "本",
+                "notation": "běn"
+              }
+            ]
+          },
+          {
+            "surface": "书",
+            "units": [
+              {
+                "surface": "书",
+                "notation": "shū"
+              }
+            ]
+          },
           {
             "surface": "十二",
             "units": [
@@ -61377,8 +61391,8 @@
           }
         ]
       },
-      "usefulness": 70,
-      "complexity": 22
+      "usefulness": 81,
+      "complexity": 35
     },
     {
       "id": "zh.listening.zh.pilot-v1.pay-how",
@@ -61515,12 +61529,12 @@
     {
       "id": "zh.listening.zh.pilot-v1.can-swim",
       "difficulty": 1,
-      "revision": "1",
-      "target": "我会游泳。",
-      "meaning": "I know how to swim.",
+      "revision": "2",
+      "target": "我会做饭。",
+      "meaning": "I know how to cook.",
       "sourceId": "ww.zh.pilot-v1.can-swim",
       "sourceReviewStatus": "native-review-required",
-      "englishAuditText": "I know how to swim.",
+      "englishAuditText": "I know how to cook.",
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -61546,32 +61560,32 @@
             ]
           },
           {
-            "surface": "游泳",
+            "surface": "做饭",
             "units": [
               {
-                "surface": "游",
-                "notation": "yóu"
+                "surface": "做",
+                "notation": "zuò"
               },
               {
-                "surface": "泳",
-                "notation": "yǒng"
+                "surface": "饭",
+                "notation": "fàn"
               }
             ]
           }
         ]
       },
-      "usefulness": 63,
+      "usefulness": 75,
       "complexity": 22
     },
     {
       "id": "zh.listening.zh.pilot-v1.cannot-swim",
       "difficulty": 1,
-      "revision": "1",
-      "target": "我不会游泳。",
-      "meaning": "I do not know how to swim.",
+      "revision": "2",
+      "target": "我不会做饭。",
+      "meaning": "I cannot cook.",
       "sourceId": "ww.zh.pilot-v1.cannot-swim",
       "sourceReviewStatus": "native-review-required",
-      "englishAuditText": "I do not know how to swim.",
+      "englishAuditText": "I cannot cook.",
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -61606,22 +61620,22 @@
             ]
           },
           {
-            "surface": "游泳",
+            "surface": "做饭",
             "units": [
               {
-                "surface": "游",
-                "notation": "yóu"
+                "surface": "做",
+                "notation": "zuò"
               },
               {
-                "surface": "泳",
-                "notation": "yǒng"
+                "surface": "饭",
+                "notation": "fàn"
               }
             ]
           }
         ]
       },
-      "usefulness": 92,
-      "complexity": 32
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "zh.listening.zh.pilot-v1.permission-enter",
@@ -61788,12 +61802,12 @@
     {
       "id": "zh.listening.zh.pilot-v1.experience-beijing",
       "difficulty": 2,
-      "revision": "1",
-      "target": "你去过北京吗？",
-      "meaning": "Have you been to Beijing?",
+      "revision": "2",
+      "target": "你坐过地铁吗？",
+      "meaning": "Have you taken the subway?",
       "sourceId": "ww.zh.pilot-v1.experience-beijing",
       "sourceReviewStatus": "native-review-required",
-      "englishAuditText": "Have you been to Beijing?",
+      "englishAuditText": "Have you taken the subway?",
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -61810,11 +61824,11 @@
             ]
           },
           {
-            "surface": "去",
+            "surface": "坐",
             "units": [
               {
-                "surface": "去",
-                "notation": "qù"
+                "surface": "坐",
+                "notation": "zuò"
               }
             ]
           },
@@ -61828,15 +61842,15 @@
             ]
           },
           {
-            "surface": "北京",
+            "surface": "地铁",
             "units": [
               {
-                "surface": "北",
-                "notation": "běi"
+                "surface": "地",
+                "notation": "dì"
               },
               {
-                "surface": "京",
-                "notation": "jīng"
+                "surface": "铁",
+                "notation": "tiě"
               }
             ]
           },
@@ -61851,7 +61865,7 @@
           }
         ]
       },
-      "usefulness": 54,
+      "usefulness": 83,
       "complexity": 31
     },
     {
@@ -61986,12 +62000,12 @@
     {
       "id": "zh.listening.zh.pilot-v1.push-door",
       "difficulty": 1,
-      "revision": "1",
-      "target": "请推门。",
-      "meaning": "Please push the door.",
+      "revision": "2",
+      "target": "你能推门吗？",
+      "meaning": "Can you push the door?",
       "sourceId": "ww.zh.pilot-v1.push-door",
       "sourceReviewStatus": "native-review-required",
-      "englishAuditText": "Please push the door.",
+      "englishAuditText": "Can you push the door?",
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -61999,11 +62013,20 @@
         "sourceId": "ww.zh.pilot-v1.push-door",
         "tokens": [
           {
-            "surface": "请",
+            "surface": "你",
             "units": [
               {
-                "surface": "请",
-                "notation": "qǐng"
+                "surface": "你",
+                "notation": "nǐ"
+              }
+            ]
+          },
+          {
+            "surface": "能",
+            "units": [
+              {
+                "surface": "能",
+                "notation": "néng"
               }
             ]
           },
@@ -62024,11 +62047,20 @@
                 "notation": "mén"
               }
             ]
+          },
+          {
+            "surface": "吗",
+            "units": [
+              {
+                "surface": "吗",
+                "notation": "ma"
+              }
+            ]
           }
         ]
       },
       "usefulness": 82,
-      "complexity": 22
+      "complexity": 27
     },
     {
       "id": "zero-zh-sound-ww-zero-this-cat",
