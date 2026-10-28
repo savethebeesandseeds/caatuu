@@ -216,8 +216,9 @@ test("the shared game helper fetches only the resolved projected resource", asyn
   assert.equal(requests[0].options.headers.Accept, "application/json");
 });
 
-test("the neutral core preserves the existing Czech catalog through its legacy adapter", async () => {
+test("the Czech catalog uses the shared v1 schema and keeps its review-required license", async () => {
   const raw = JSON.parse(await readFile(czechCatalogUrl, "utf8"));
+  assert.equal(raw.schemaVersion, "caatuu-conjugation-comet-catalog-v1");
   const catalog = validateConjugationCometCatalog(raw, {
     expectedCourseId: "cz",
     expectedTargetLanguageId: "cs",
@@ -234,25 +235,27 @@ test("the neutral core preserves the existing Czech catalog through its legacy a
     spdx: null,
     noteEnglish: "The existing Czech catalog remains subject to its course-level review and licensing authority during migration."
   });
-  assert.equal(catalog.verbs[0].targetText, raw.verbs[0].verb);
-  assert.equal(catalog.verbs[0].learnerBaseText, raw.verbs[0].meaning);
-  assert.equal(catalog.verbs[0].englishAuditText, raw.verbs[0].meaning);
-  assert.equal(catalog.verbs[0].forms[0].targetText, raw.verbs[0].forms[0].form);
-  assert.equal(catalog.verbs[0].forms[0].learnerBaseCueText, raw.verbs[0].forms[0].cue);
-  assert.equal(catalog.verbs[0].forms[0].englishAuditText, raw.verbs[0].forms[0].cue);
+  assert.equal(catalog.verbs[0].targetText, "být");
+  assert.equal(catalog.verbs[0].learnerBaseText, "be");
+  assert.equal(catalog.verbs[0].englishAuditText, "be");
+  assert.equal(catalog.verbs[0].forms[0].targetText, "jsem");
+  assert.equal(catalog.verbs[0].forms[0].subjectTargetText, "S1");
+  assert.equal(catalog.verbs[0].forms[0].learnerBaseCueText, "I am");
+  assert.equal(catalog.verbs[0].forms[0].englishAuditText, "I am");
 });
 
-test("schema-less legacy catalogs are confined to the exact Czech migration identity", async () => {
-  const raw = JSON.parse(await readFile(czechCatalogUrl, "utf8"));
+test("schema-less catalogs are rejected for every course identity", () => {
+  const raw = { language: "cs", verbs: [] };
   for (const identity of [
+    {},
     {
-      expectedCourseId: "sk",
+      expectedCourseId: "cz",
       expectedTargetLanguageId: "cs",
       expectedLearnerBaseLanguageId: "en",
       expectedTargetLocale: "cs-CZ"
     },
     {
-      expectedCourseId: "cz",
+      expectedCourseId: "es",
       expectedTargetLanguageId: "es",
       expectedLearnerBaseLanguageId: "en",
       expectedTargetLocale: "es-ES"
@@ -262,18 +265,13 @@ test("schema-less legacy catalogs are confined to the exact Czech migration iden
       expectedTargetLanguageId: "cs",
       expectedLearnerBaseLanguageId: "de",
       expectedTargetLocale: "cs-CZ"
-    },
-    {
-      expectedCourseId: "cz",
-      expectedTargetLanguageId: "cs",
-      expectedLearnerBaseLanguageId: "en",
-      expectedTargetLocale: "cs"
     }
   ]) {
     assert.throws(
       () => validateConjugationCometCatalog(raw, identity),
       (error) => error?.code === "CONJUGATION_COMET_LEGACY_SCOPE_INVALID"
-        && /Czech cs-CZ migration boundary/u.test(error.message),
+        && /not accepted/u.test(error.message)
+        && /caatuu-conjugation-comet-catalog-v1/u.test(error.message),
       JSON.stringify(identity)
     );
   }

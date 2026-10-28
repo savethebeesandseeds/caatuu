@@ -120,8 +120,8 @@
       "forms": {
         "masculine-singular": {
           "displayForm": "magnus",
-          "usefulness": 92,
-          "complexity": 24,
+          "usefulness": 77,
+          "complexity": 31,
           "examples": [
             {
               "id": "la.grammar.large.singular.masculine-singular.1",
@@ -138,7 +138,7 @@
                 "learnerBaseText": "motion",
                 "englishAuditText": "motion"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             },
             {
@@ -156,7 +156,7 @@
                 "learnerBaseText": "radius",
                 "englishAuditText": "radius"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             },
             {
@@ -174,7 +174,7 @@
                 "learnerBaseText": "number",
                 "englishAuditText": "number"
               },
-              "usefulness": 92,
+              "usefulness": 73,
               "complexity": 24
             },
             {
@@ -192,7 +192,7 @@
                 "learnerBaseText": "angle",
                 "englishAuditText": "angle"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             },
             {
@@ -210,15 +210,15 @@
                 "learnerBaseText": "circle",
                 "englishAuditText": "circle"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             }
           ]
         },
         "feminine-singular": {
           "displayForm": "magna",
-          "usefulness": 92,
-          "complexity": 24,
+          "usefulness": 77,
+          "complexity": 31,
           "examples": [
             {
               "id": "la.grammar.large.singular.feminine-singular.1",
@@ -235,7 +235,7 @@
                 "learnerBaseText": "line",
                 "englishAuditText": "line"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             },
             {
@@ -253,7 +253,7 @@
                 "learnerBaseText": "figure",
                 "englishAuditText": "figure"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             },
             {
@@ -271,7 +271,7 @@
                 "learnerBaseText": "quantity",
                 "englishAuditText": "quantity"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             },
             {
@@ -289,8 +289,8 @@
                 "learnerBaseText": "cause",
                 "englishAuditText": "cause"
               },
-              "usefulness": 92,
-              "complexity": 24
+              "usefulness": 55,
+              "complexity": 29
             },
             {
               "id": "la.grammar.large.singular.feminine-singular.5",
@@ -307,15 +307,15 @@
                 "learnerBaseText": "rule",
                 "englishAuditText": "rule"
               },
-              "usefulness": 92,
+              "usefulness": 44,
               "complexity": 24
             }
           ]
         },
         "neuter-singular": {
           "displayForm": "magnum",
-          "usefulness": 92,
-          "complexity": 24,
+          "usefulness": 77,
+          "complexity": 34,
           "examples": [
             {
               "id": "la.grammar.large.singular.neuter-singular.1",
@@ -332,8 +332,8 @@
                 "learnerBaseText": "body",
                 "englishAuditText": "body"
               },
-              "usefulness": 92,
-              "complexity": 24
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "la.grammar.large.singular.neuter-singular.2",
@@ -350,8 +350,8 @@
                 "learnerBaseText": "space",
                 "englishAuditText": "space"
               },
-              "usefulness": 92,
-              "complexity": 24
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "la.grammar.large.singular.neuter-singular.3",
@@ -368,8 +368,8 @@
                 "learnerBaseText": "time",
                 "englishAuditText": "time"
               },
-              "usefulness": 92,
-              "complexity": 24
+              "usefulness": 75,
+              "complexity": 26
             },
             {
               "id": "la.grammar.large.singular.neuter-singular.4",
@@ -386,8 +386,8 @@
                 "learnerBaseText": "weight",
                 "englishAuditText": "weight"
               },
-              "usefulness": 92,
-              "complexity": 24
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "la.grammar.large.singular.neuter-singular.5",
@@ -404,14 +404,14 @@
                 "learnerBaseText": "example",
                 "englishAuditText": "example"
               },
-              "usefulness": 92,
-              "complexity": 24
+              "usefulness": 54,
+              "complexity": 26
             }
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 24
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "la.grammar.large.plural",
@@ -478,8 +478,8 @@
       "forms": {
         "masculine-plural": {
           "displayForm": "magnī",
-          "usefulness": 92,
-          "complexity": 34,
+          "usefulness": 77,
+          "complexity": 37,
           "examples": [
             {
               "id": "la.grammar.large.plural.masculine-plural.1",
@@ -496,8 +496,8 @@
                 "learnerBaseText": "motions",
                 "englishAuditText": "motions"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.large.plural.masculine-plural.2",
@@ -514,8 +514,8 @@
                 "learnerBaseText": "radii",
                 "englishAuditText": "radii"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.large.plural.masculine-plural.3",
@@ -532,8 +532,8 @@
                 "learnerBaseText": "numbers",
                 "englishAuditText": "numbers"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 73,
+              "complexity": 28
             },
             {
               "id": "la.grammar.large.plural.masculine-plural.4",
@@ -550,8 +550,8 @@
                 "learnerBaseText": "angles",
                 "englishAuditText": "angles"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.large.plural.masculine-plural.5",
@@ -568,15 +568,15 @@
                 "learnerBaseText": "circles",
                 "englishAuditText": "circles"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             }
           ]
         },
         "feminine-plural": {
           "displayForm": "magnae",
-          "usefulness": 92,
-          "complexity": 34,
+          "usefulness": 77,
+          "complexity": 37,
           "examples": [
             {
               "id": "la.grammar.large.plural.feminine-plural.1",
@@ -593,8 +593,8 @@
                 "learnerBaseText": "lines",
                 "englishAuditText": "lines"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.large.plural.feminine-plural.2",
@@ -611,8 +611,8 @@
                 "learnerBaseText": "figures",
                 "englishAuditText": "figures"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.large.plural.feminine-plural.3",
@@ -629,8 +629,8 @@
                 "learnerBaseText": "quantities",
                 "englishAuditText": "quantities"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.large.plural.feminine-plural.4",
@@ -647,8 +647,8 @@
                 "learnerBaseText": "causes",
                 "englishAuditText": "causes"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 55,
+              "complexity": 33
             },
             {
               "id": "la.grammar.large.plural.feminine-plural.5",
@@ -665,15 +665,15 @@
                 "learnerBaseText": "rules",
                 "englishAuditText": "rules"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 44,
+              "complexity": 28
             }
           ]
         },
         "neuter-plural": {
           "displayForm": "magna",
-          "usefulness": 92,
-          "complexity": 34,
+          "usefulness": 77,
+          "complexity": 40,
           "examples": [
             {
               "id": "la.grammar.large.plural.neuter-plural.1",
@@ -690,8 +690,8 @@
                 "learnerBaseText": "bodies",
                 "englishAuditText": "bodies"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 30
             },
             {
               "id": "la.grammar.large.plural.neuter-plural.2",
@@ -708,8 +708,8 @@
                 "learnerBaseText": "spaces",
                 "englishAuditText": "spaces"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 30
             },
             {
               "id": "la.grammar.large.plural.neuter-plural.3",
@@ -726,8 +726,8 @@
                 "learnerBaseText": "times",
                 "englishAuditText": "times"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 75,
+              "complexity": 30
             },
             {
               "id": "la.grammar.large.plural.neuter-plural.4",
@@ -744,8 +744,8 @@
                 "learnerBaseText": "weights",
                 "englishAuditText": "weights"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 30
             },
             {
               "id": "la.grammar.large.plural.neuter-plural.5",
@@ -762,14 +762,14 @@
                 "learnerBaseText": "examples",
                 "englishAuditText": "examples"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 30
             }
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 34
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "la.grammar.small.singular",
@@ -836,8 +836,8 @@
       "forms": {
         "masculine-singular": {
           "displayForm": "parvus",
-          "usefulness": 92,
-          "complexity": 24,
+          "usefulness": 77,
+          "complexity": 31,
           "examples": [
             {
               "id": "la.grammar.small.singular.masculine-singular.1",
@@ -854,7 +854,7 @@
                 "learnerBaseText": "motion",
                 "englishAuditText": "motion"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             },
             {
@@ -872,7 +872,7 @@
                 "learnerBaseText": "radius",
                 "englishAuditText": "radius"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             },
             {
@@ -890,7 +890,7 @@
                 "learnerBaseText": "number",
                 "englishAuditText": "number"
               },
-              "usefulness": 92,
+              "usefulness": 73,
               "complexity": 24
             },
             {
@@ -908,7 +908,7 @@
                 "learnerBaseText": "angle",
                 "englishAuditText": "angle"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             },
             {
@@ -926,15 +926,15 @@
                 "learnerBaseText": "circle",
                 "englishAuditText": "circle"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             }
           ]
         },
         "feminine-singular": {
           "displayForm": "parva",
-          "usefulness": 92,
-          "complexity": 24,
+          "usefulness": 77,
+          "complexity": 31,
           "examples": [
             {
               "id": "la.grammar.small.singular.feminine-singular.1",
@@ -951,7 +951,7 @@
                 "learnerBaseText": "line",
                 "englishAuditText": "line"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             },
             {
@@ -969,7 +969,7 @@
                 "learnerBaseText": "figure",
                 "englishAuditText": "figure"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             },
             {
@@ -987,7 +987,7 @@
                 "learnerBaseText": "quantity",
                 "englishAuditText": "quantity"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             },
             {
@@ -1005,8 +1005,8 @@
                 "learnerBaseText": "cause",
                 "englishAuditText": "cause"
               },
-              "usefulness": 92,
-              "complexity": 24
+              "usefulness": 55,
+              "complexity": 29
             },
             {
               "id": "la.grammar.small.singular.feminine-singular.5",
@@ -1023,15 +1023,15 @@
                 "learnerBaseText": "rule",
                 "englishAuditText": "rule"
               },
-              "usefulness": 92,
+              "usefulness": 44,
               "complexity": 24
             }
           ]
         },
         "neuter-singular": {
           "displayForm": "parvum",
-          "usefulness": 92,
-          "complexity": 24,
+          "usefulness": 77,
+          "complexity": 34,
           "examples": [
             {
               "id": "la.grammar.small.singular.neuter-singular.1",
@@ -1048,8 +1048,8 @@
                 "learnerBaseText": "body",
                 "englishAuditText": "body"
               },
-              "usefulness": 92,
-              "complexity": 24
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "la.grammar.small.singular.neuter-singular.2",
@@ -1066,8 +1066,8 @@
                 "learnerBaseText": "space",
                 "englishAuditText": "space"
               },
-              "usefulness": 92,
-              "complexity": 24
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "la.grammar.small.singular.neuter-singular.3",
@@ -1084,8 +1084,8 @@
                 "learnerBaseText": "time",
                 "englishAuditText": "time"
               },
-              "usefulness": 92,
-              "complexity": 24
+              "usefulness": 75,
+              "complexity": 26
             },
             {
               "id": "la.grammar.small.singular.neuter-singular.4",
@@ -1102,8 +1102,8 @@
                 "learnerBaseText": "weight",
                 "englishAuditText": "weight"
               },
-              "usefulness": 92,
-              "complexity": 24
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "la.grammar.small.singular.neuter-singular.5",
@@ -1120,14 +1120,14 @@
                 "learnerBaseText": "example",
                 "englishAuditText": "example"
               },
-              "usefulness": 92,
-              "complexity": 24
+              "usefulness": 54,
+              "complexity": 26
             }
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 24
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "la.grammar.small.plural",
@@ -1194,8 +1194,8 @@
       "forms": {
         "masculine-plural": {
           "displayForm": "parvī",
-          "usefulness": 92,
-          "complexity": 34,
+          "usefulness": 77,
+          "complexity": 37,
           "examples": [
             {
               "id": "la.grammar.small.plural.masculine-plural.1",
@@ -1212,8 +1212,8 @@
                 "learnerBaseText": "motions",
                 "englishAuditText": "motions"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.small.plural.masculine-plural.2",
@@ -1230,8 +1230,8 @@
                 "learnerBaseText": "radii",
                 "englishAuditText": "radii"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.small.plural.masculine-plural.3",
@@ -1248,8 +1248,8 @@
                 "learnerBaseText": "numbers",
                 "englishAuditText": "numbers"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 73,
+              "complexity": 28
             },
             {
               "id": "la.grammar.small.plural.masculine-plural.4",
@@ -1266,8 +1266,8 @@
                 "learnerBaseText": "angles",
                 "englishAuditText": "angles"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.small.plural.masculine-plural.5",
@@ -1284,15 +1284,15 @@
                 "learnerBaseText": "circles",
                 "englishAuditText": "circles"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             }
           ]
         },
         "feminine-plural": {
           "displayForm": "parvae",
-          "usefulness": 92,
-          "complexity": 34,
+          "usefulness": 77,
+          "complexity": 37,
           "examples": [
             {
               "id": "la.grammar.small.plural.feminine-plural.1",
@@ -1309,8 +1309,8 @@
                 "learnerBaseText": "lines",
                 "englishAuditText": "lines"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.small.plural.feminine-plural.2",
@@ -1327,8 +1327,8 @@
                 "learnerBaseText": "figures",
                 "englishAuditText": "figures"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.small.plural.feminine-plural.3",
@@ -1345,8 +1345,8 @@
                 "learnerBaseText": "quantities",
                 "englishAuditText": "quantities"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.small.plural.feminine-plural.4",
@@ -1363,8 +1363,8 @@
                 "learnerBaseText": "causes",
                 "englishAuditText": "causes"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 55,
+              "complexity": 33
             },
             {
               "id": "la.grammar.small.plural.feminine-plural.5",
@@ -1381,15 +1381,15 @@
                 "learnerBaseText": "rules",
                 "englishAuditText": "rules"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 44,
+              "complexity": 28
             }
           ]
         },
         "neuter-plural": {
           "displayForm": "parva",
-          "usefulness": 92,
-          "complexity": 34,
+          "usefulness": 77,
+          "complexity": 40,
           "examples": [
             {
               "id": "la.grammar.small.plural.neuter-plural.1",
@@ -1406,8 +1406,8 @@
                 "learnerBaseText": "bodies",
                 "englishAuditText": "bodies"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 30
             },
             {
               "id": "la.grammar.small.plural.neuter-plural.2",
@@ -1424,8 +1424,8 @@
                 "learnerBaseText": "spaces",
                 "englishAuditText": "spaces"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 30
             },
             {
               "id": "la.grammar.small.plural.neuter-plural.3",
@@ -1442,8 +1442,8 @@
                 "learnerBaseText": "times",
                 "englishAuditText": "times"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 75,
+              "complexity": 30
             },
             {
               "id": "la.grammar.small.plural.neuter-plural.4",
@@ -1460,8 +1460,8 @@
                 "learnerBaseText": "weights",
                 "englishAuditText": "weights"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 30
             },
             {
               "id": "la.grammar.small.plural.neuter-plural.5",
@@ -1478,14 +1478,14 @@
                 "learnerBaseText": "examples",
                 "englishAuditText": "examples"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 30
             }
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 34
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "la.grammar.high.singular",
@@ -1552,8 +1552,8 @@
       "forms": {
         "masculine-singular": {
           "displayForm": "altus",
-          "usefulness": 92,
-          "complexity": 24,
+          "usefulness": 77,
+          "complexity": 31,
           "examples": [
             {
               "id": "la.grammar.high.singular.masculine-singular.1",
@@ -1570,7 +1570,7 @@
                 "learnerBaseText": "motion",
                 "englishAuditText": "motion"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             },
             {
@@ -1588,7 +1588,7 @@
                 "learnerBaseText": "radius",
                 "englishAuditText": "radius"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             },
             {
@@ -1606,7 +1606,7 @@
                 "learnerBaseText": "number",
                 "englishAuditText": "number"
               },
-              "usefulness": 92,
+              "usefulness": 73,
               "complexity": 24
             },
             {
@@ -1624,7 +1624,7 @@
                 "learnerBaseText": "angle",
                 "englishAuditText": "angle"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             },
             {
@@ -1642,15 +1642,15 @@
                 "learnerBaseText": "circle",
                 "englishAuditText": "circle"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             }
           ]
         },
         "feminine-singular": {
           "displayForm": "alta",
-          "usefulness": 92,
-          "complexity": 24,
+          "usefulness": 77,
+          "complexity": 31,
           "examples": [
             {
               "id": "la.grammar.high.singular.feminine-singular.1",
@@ -1667,7 +1667,7 @@
                 "learnerBaseText": "line",
                 "englishAuditText": "line"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             },
             {
@@ -1685,7 +1685,7 @@
                 "learnerBaseText": "figure",
                 "englishAuditText": "figure"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             },
             {
@@ -1703,7 +1703,7 @@
                 "learnerBaseText": "quantity",
                 "englishAuditText": "quantity"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             },
             {
@@ -1721,8 +1721,8 @@
                 "learnerBaseText": "cause",
                 "englishAuditText": "cause"
               },
-              "usefulness": 92,
-              "complexity": 24
+              "usefulness": 55,
+              "complexity": 29
             },
             {
               "id": "la.grammar.high.singular.feminine-singular.5",
@@ -1739,15 +1739,15 @@
                 "learnerBaseText": "rule",
                 "englishAuditText": "rule"
               },
-              "usefulness": 92,
+              "usefulness": 44,
               "complexity": 24
             }
           ]
         },
         "neuter-singular": {
           "displayForm": "altum",
-          "usefulness": 92,
-          "complexity": 24,
+          "usefulness": 77,
+          "complexity": 34,
           "examples": [
             {
               "id": "la.grammar.high.singular.neuter-singular.1",
@@ -1764,8 +1764,8 @@
                 "learnerBaseText": "body",
                 "englishAuditText": "body"
               },
-              "usefulness": 92,
-              "complexity": 24
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "la.grammar.high.singular.neuter-singular.2",
@@ -1782,8 +1782,8 @@
                 "learnerBaseText": "space",
                 "englishAuditText": "space"
               },
-              "usefulness": 92,
-              "complexity": 24
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "la.grammar.high.singular.neuter-singular.3",
@@ -1800,8 +1800,8 @@
                 "learnerBaseText": "time",
                 "englishAuditText": "time"
               },
-              "usefulness": 92,
-              "complexity": 24
+              "usefulness": 75,
+              "complexity": 26
             },
             {
               "id": "la.grammar.high.singular.neuter-singular.4",
@@ -1818,8 +1818,8 @@
                 "learnerBaseText": "weight",
                 "englishAuditText": "weight"
               },
-              "usefulness": 92,
-              "complexity": 24
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "la.grammar.high.singular.neuter-singular.5",
@@ -1836,14 +1836,14 @@
                 "learnerBaseText": "example",
                 "englishAuditText": "example"
               },
-              "usefulness": 92,
-              "complexity": 24
+              "usefulness": 54,
+              "complexity": 26
             }
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 24
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "la.grammar.high.plural",
@@ -1910,8 +1910,8 @@
       "forms": {
         "masculine-plural": {
           "displayForm": "altī",
-          "usefulness": 92,
-          "complexity": 34,
+          "usefulness": 77,
+          "complexity": 37,
           "examples": [
             {
               "id": "la.grammar.high.plural.masculine-plural.1",
@@ -1928,8 +1928,8 @@
                 "learnerBaseText": "motions",
                 "englishAuditText": "motions"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.high.plural.masculine-plural.2",
@@ -1946,8 +1946,8 @@
                 "learnerBaseText": "radii",
                 "englishAuditText": "radii"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.high.plural.masculine-plural.3",
@@ -1964,8 +1964,8 @@
                 "learnerBaseText": "numbers",
                 "englishAuditText": "numbers"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 73,
+              "complexity": 28
             },
             {
               "id": "la.grammar.high.plural.masculine-plural.4",
@@ -1982,8 +1982,8 @@
                 "learnerBaseText": "angles",
                 "englishAuditText": "angles"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.high.plural.masculine-plural.5",
@@ -2000,15 +2000,15 @@
                 "learnerBaseText": "circles",
                 "englishAuditText": "circles"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             }
           ]
         },
         "feminine-plural": {
           "displayForm": "altae",
-          "usefulness": 92,
-          "complexity": 34,
+          "usefulness": 77,
+          "complexity": 37,
           "examples": [
             {
               "id": "la.grammar.high.plural.feminine-plural.1",
@@ -2025,8 +2025,8 @@
                 "learnerBaseText": "lines",
                 "englishAuditText": "lines"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.high.plural.feminine-plural.2",
@@ -2043,8 +2043,8 @@
                 "learnerBaseText": "figures",
                 "englishAuditText": "figures"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.high.plural.feminine-plural.3",
@@ -2061,8 +2061,8 @@
                 "learnerBaseText": "quantities",
                 "englishAuditText": "quantities"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.high.plural.feminine-plural.4",
@@ -2079,8 +2079,8 @@
                 "learnerBaseText": "causes",
                 "englishAuditText": "causes"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 55,
+              "complexity": 33
             },
             {
               "id": "la.grammar.high.plural.feminine-plural.5",
@@ -2097,15 +2097,15 @@
                 "learnerBaseText": "rules",
                 "englishAuditText": "rules"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 44,
+              "complexity": 28
             }
           ]
         },
         "neuter-plural": {
           "displayForm": "alta",
-          "usefulness": 92,
-          "complexity": 34,
+          "usefulness": 77,
+          "complexity": 40,
           "examples": [
             {
               "id": "la.grammar.high.plural.neuter-plural.1",
@@ -2122,8 +2122,8 @@
                 "learnerBaseText": "bodies",
                 "englishAuditText": "bodies"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 30
             },
             {
               "id": "la.grammar.high.plural.neuter-plural.2",
@@ -2140,8 +2140,8 @@
                 "learnerBaseText": "spaces",
                 "englishAuditText": "spaces"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 30
             },
             {
               "id": "la.grammar.high.plural.neuter-plural.3",
@@ -2158,8 +2158,8 @@
                 "learnerBaseText": "times",
                 "englishAuditText": "times"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 75,
+              "complexity": 30
             },
             {
               "id": "la.grammar.high.plural.neuter-plural.4",
@@ -2176,8 +2176,8 @@
                 "learnerBaseText": "weights",
                 "englishAuditText": "weights"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 30
             },
             {
               "id": "la.grammar.high.plural.neuter-plural.5",
@@ -2194,14 +2194,14 @@
                 "learnerBaseText": "examples",
                 "englishAuditText": "examples"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 30
             }
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 34
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "la.grammar.new.singular",
@@ -2268,8 +2268,8 @@
       "forms": {
         "masculine-singular": {
           "displayForm": "novus",
-          "usefulness": 92,
-          "complexity": 24,
+          "usefulness": 77,
+          "complexity": 31,
           "examples": [
             {
               "id": "la.grammar.new.singular.masculine-singular.1",
@@ -2286,7 +2286,7 @@
                 "learnerBaseText": "motion",
                 "englishAuditText": "motion"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             },
             {
@@ -2304,7 +2304,7 @@
                 "learnerBaseText": "radius",
                 "englishAuditText": "radius"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             },
             {
@@ -2322,7 +2322,7 @@
                 "learnerBaseText": "number",
                 "englishAuditText": "number"
               },
-              "usefulness": 92,
+              "usefulness": 73,
               "complexity": 24
             },
             {
@@ -2340,7 +2340,7 @@
                 "learnerBaseText": "angle",
                 "englishAuditText": "angle"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             },
             {
@@ -2358,15 +2358,15 @@
                 "learnerBaseText": "circle",
                 "englishAuditText": "circle"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             }
           ]
         },
         "feminine-singular": {
           "displayForm": "nova",
-          "usefulness": 92,
-          "complexity": 24,
+          "usefulness": 77,
+          "complexity": 31,
           "examples": [
             {
               "id": "la.grammar.new.singular.feminine-singular.1",
@@ -2383,7 +2383,7 @@
                 "learnerBaseText": "line",
                 "englishAuditText": "line"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             },
             {
@@ -2401,7 +2401,7 @@
                 "learnerBaseText": "figure",
                 "englishAuditText": "figure"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             },
             {
@@ -2419,7 +2419,7 @@
                 "learnerBaseText": "quantity",
                 "englishAuditText": "quantity"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             },
             {
@@ -2437,8 +2437,8 @@
                 "learnerBaseText": "cause",
                 "englishAuditText": "cause"
               },
-              "usefulness": 92,
-              "complexity": 24
+              "usefulness": 55,
+              "complexity": 29
             },
             {
               "id": "la.grammar.new.singular.feminine-singular.5",
@@ -2455,15 +2455,15 @@
                 "learnerBaseText": "rule",
                 "englishAuditText": "rule"
               },
-              "usefulness": 92,
+              "usefulness": 44,
               "complexity": 24
             }
           ]
         },
         "neuter-singular": {
           "displayForm": "novum",
-          "usefulness": 92,
-          "complexity": 24,
+          "usefulness": 77,
+          "complexity": 34,
           "examples": [
             {
               "id": "la.grammar.new.singular.neuter-singular.1",
@@ -2480,8 +2480,8 @@
                 "learnerBaseText": "body",
                 "englishAuditText": "body"
               },
-              "usefulness": 92,
-              "complexity": 24
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "la.grammar.new.singular.neuter-singular.2",
@@ -2498,8 +2498,8 @@
                 "learnerBaseText": "space",
                 "englishAuditText": "space"
               },
-              "usefulness": 92,
-              "complexity": 24
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "la.grammar.new.singular.neuter-singular.3",
@@ -2516,8 +2516,8 @@
                 "learnerBaseText": "time",
                 "englishAuditText": "time"
               },
-              "usefulness": 92,
-              "complexity": 24
+              "usefulness": 75,
+              "complexity": 26
             },
             {
               "id": "la.grammar.new.singular.neuter-singular.4",
@@ -2534,8 +2534,8 @@
                 "learnerBaseText": "weight",
                 "englishAuditText": "weight"
               },
-              "usefulness": 92,
-              "complexity": 24
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "la.grammar.new.singular.neuter-singular.5",
@@ -2552,14 +2552,14 @@
                 "learnerBaseText": "example",
                 "englishAuditText": "example"
               },
-              "usefulness": 92,
-              "complexity": 24
+              "usefulness": 54,
+              "complexity": 26
             }
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 24
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "la.grammar.new.plural",
@@ -2626,8 +2626,8 @@
       "forms": {
         "masculine-plural": {
           "displayForm": "novī",
-          "usefulness": 92,
-          "complexity": 34,
+          "usefulness": 77,
+          "complexity": 37,
           "examples": [
             {
               "id": "la.grammar.new.plural.masculine-plural.1",
@@ -2644,8 +2644,8 @@
                 "learnerBaseText": "motions",
                 "englishAuditText": "motions"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.new.plural.masculine-plural.2",
@@ -2662,8 +2662,8 @@
                 "learnerBaseText": "radii",
                 "englishAuditText": "radii"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.new.plural.masculine-plural.3",
@@ -2680,8 +2680,8 @@
                 "learnerBaseText": "numbers",
                 "englishAuditText": "numbers"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 73,
+              "complexity": 28
             },
             {
               "id": "la.grammar.new.plural.masculine-plural.4",
@@ -2698,8 +2698,8 @@
                 "learnerBaseText": "angles",
                 "englishAuditText": "angles"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.new.plural.masculine-plural.5",
@@ -2716,15 +2716,15 @@
                 "learnerBaseText": "circles",
                 "englishAuditText": "circles"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             }
           ]
         },
         "feminine-plural": {
           "displayForm": "novae",
-          "usefulness": 92,
-          "complexity": 34,
+          "usefulness": 77,
+          "complexity": 37,
           "examples": [
             {
               "id": "la.grammar.new.plural.feminine-plural.1",
@@ -2741,8 +2741,8 @@
                 "learnerBaseText": "lines",
                 "englishAuditText": "lines"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.new.plural.feminine-plural.2",
@@ -2759,8 +2759,8 @@
                 "learnerBaseText": "figures",
                 "englishAuditText": "figures"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.new.plural.feminine-plural.3",
@@ -2777,8 +2777,8 @@
                 "learnerBaseText": "quantities",
                 "englishAuditText": "quantities"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.new.plural.feminine-plural.4",
@@ -2795,8 +2795,8 @@
                 "learnerBaseText": "causes",
                 "englishAuditText": "causes"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 55,
+              "complexity": 33
             },
             {
               "id": "la.grammar.new.plural.feminine-plural.5",
@@ -2813,15 +2813,15 @@
                 "learnerBaseText": "rules",
                 "englishAuditText": "rules"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 44,
+              "complexity": 28
             }
           ]
         },
         "neuter-plural": {
           "displayForm": "nova",
-          "usefulness": 92,
-          "complexity": 34,
+          "usefulness": 77,
+          "complexity": 40,
           "examples": [
             {
               "id": "la.grammar.new.plural.neuter-plural.1",
@@ -2838,8 +2838,8 @@
                 "learnerBaseText": "bodies",
                 "englishAuditText": "bodies"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 30
             },
             {
               "id": "la.grammar.new.plural.neuter-plural.2",
@@ -2856,8 +2856,8 @@
                 "learnerBaseText": "spaces",
                 "englishAuditText": "spaces"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 30
             },
             {
               "id": "la.grammar.new.plural.neuter-plural.3",
@@ -2874,8 +2874,8 @@
                 "learnerBaseText": "times",
                 "englishAuditText": "times"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 75,
+              "complexity": 30
             },
             {
               "id": "la.grammar.new.plural.neuter-plural.4",
@@ -2892,8 +2892,8 @@
                 "learnerBaseText": "weights",
                 "englishAuditText": "weights"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 30
             },
             {
               "id": "la.grammar.new.plural.neuter-plural.5",
@@ -2910,14 +2910,14 @@
                 "learnerBaseText": "examples",
                 "englishAuditText": "examples"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 30
             }
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 34
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "la.grammar.clear.singular",
@@ -2984,8 +2984,8 @@
       "forms": {
         "masculine-singular": {
           "displayForm": "clārus",
-          "usefulness": 92,
-          "complexity": 24,
+          "usefulness": 77,
+          "complexity": 31,
           "examples": [
             {
               "id": "la.grammar.clear.singular.masculine-singular.1",
@@ -3002,7 +3002,7 @@
                 "learnerBaseText": "motion",
                 "englishAuditText": "motion"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             },
             {
@@ -3020,7 +3020,7 @@
                 "learnerBaseText": "radius",
                 "englishAuditText": "radius"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             },
             {
@@ -3038,7 +3038,7 @@
                 "learnerBaseText": "number",
                 "englishAuditText": "number"
               },
-              "usefulness": 92,
+              "usefulness": 73,
               "complexity": 24
             },
             {
@@ -3056,7 +3056,7 @@
                 "learnerBaseText": "angle",
                 "englishAuditText": "angle"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             },
             {
@@ -3074,15 +3074,15 @@
                 "learnerBaseText": "circle",
                 "englishAuditText": "circle"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             }
           ]
         },
         "feminine-singular": {
           "displayForm": "clāra",
-          "usefulness": 92,
-          "complexity": 24,
+          "usefulness": 77,
+          "complexity": 31,
           "examples": [
             {
               "id": "la.grammar.clear.singular.feminine-singular.1",
@@ -3099,7 +3099,7 @@
                 "learnerBaseText": "line",
                 "englishAuditText": "line"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             },
             {
@@ -3117,7 +3117,7 @@
                 "learnerBaseText": "figure",
                 "englishAuditText": "figure"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             },
             {
@@ -3135,7 +3135,7 @@
                 "learnerBaseText": "quantity",
                 "englishAuditText": "quantity"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             },
             {
@@ -3153,8 +3153,8 @@
                 "learnerBaseText": "cause",
                 "englishAuditText": "cause"
               },
-              "usefulness": 92,
-              "complexity": 24
+              "usefulness": 55,
+              "complexity": 29
             },
             {
               "id": "la.grammar.clear.singular.feminine-singular.5",
@@ -3171,15 +3171,15 @@
                 "learnerBaseText": "rule",
                 "englishAuditText": "rule"
               },
-              "usefulness": 92,
+              "usefulness": 44,
               "complexity": 24
             }
           ]
         },
         "neuter-singular": {
           "displayForm": "clārum",
-          "usefulness": 92,
-          "complexity": 24,
+          "usefulness": 77,
+          "complexity": 34,
           "examples": [
             {
               "id": "la.grammar.clear.singular.neuter-singular.1",
@@ -3196,8 +3196,8 @@
                 "learnerBaseText": "body",
                 "englishAuditText": "body"
               },
-              "usefulness": 92,
-              "complexity": 24
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "la.grammar.clear.singular.neuter-singular.2",
@@ -3214,8 +3214,8 @@
                 "learnerBaseText": "space",
                 "englishAuditText": "space"
               },
-              "usefulness": 92,
-              "complexity": 24
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "la.grammar.clear.singular.neuter-singular.3",
@@ -3232,8 +3232,8 @@
                 "learnerBaseText": "time",
                 "englishAuditText": "time"
               },
-              "usefulness": 92,
-              "complexity": 24
+              "usefulness": 75,
+              "complexity": 26
             },
             {
               "id": "la.grammar.clear.singular.neuter-singular.4",
@@ -3250,8 +3250,8 @@
                 "learnerBaseText": "weight",
                 "englishAuditText": "weight"
               },
-              "usefulness": 92,
-              "complexity": 24
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "la.grammar.clear.singular.neuter-singular.5",
@@ -3268,14 +3268,14 @@
                 "learnerBaseText": "example",
                 "englishAuditText": "example"
               },
-              "usefulness": 92,
-              "complexity": 24
+              "usefulness": 54,
+              "complexity": 26
             }
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 24
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "la.grammar.clear.plural",
@@ -3342,8 +3342,8 @@
       "forms": {
         "masculine-plural": {
           "displayForm": "clārī",
-          "usefulness": 92,
-          "complexity": 34,
+          "usefulness": 77,
+          "complexity": 37,
           "examples": [
             {
               "id": "la.grammar.clear.plural.masculine-plural.1",
@@ -3360,8 +3360,8 @@
                 "learnerBaseText": "motions",
                 "englishAuditText": "motions"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.clear.plural.masculine-plural.2",
@@ -3378,8 +3378,8 @@
                 "learnerBaseText": "radii",
                 "englishAuditText": "radii"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.clear.plural.masculine-plural.3",
@@ -3396,8 +3396,8 @@
                 "learnerBaseText": "numbers",
                 "englishAuditText": "numbers"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 73,
+              "complexity": 28
             },
             {
               "id": "la.grammar.clear.plural.masculine-plural.4",
@@ -3414,8 +3414,8 @@
                 "learnerBaseText": "angles",
                 "englishAuditText": "angles"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.clear.plural.masculine-plural.5",
@@ -3432,15 +3432,15 @@
                 "learnerBaseText": "circles",
                 "englishAuditText": "circles"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             }
           ]
         },
         "feminine-plural": {
           "displayForm": "clārae",
-          "usefulness": 92,
-          "complexity": 34,
+          "usefulness": 77,
+          "complexity": 37,
           "examples": [
             {
               "id": "la.grammar.clear.plural.feminine-plural.1",
@@ -3457,8 +3457,8 @@
                 "learnerBaseText": "lines",
                 "englishAuditText": "lines"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.clear.plural.feminine-plural.2",
@@ -3475,8 +3475,8 @@
                 "learnerBaseText": "figures",
                 "englishAuditText": "figures"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.clear.plural.feminine-plural.3",
@@ -3493,8 +3493,8 @@
                 "learnerBaseText": "quantities",
                 "englishAuditText": "quantities"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.clear.plural.feminine-plural.4",
@@ -3511,8 +3511,8 @@
                 "learnerBaseText": "causes",
                 "englishAuditText": "causes"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 55,
+              "complexity": 33
             },
             {
               "id": "la.grammar.clear.plural.feminine-plural.5",
@@ -3529,15 +3529,15 @@
                 "learnerBaseText": "rules",
                 "englishAuditText": "rules"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 44,
+              "complexity": 28
             }
           ]
         },
         "neuter-plural": {
           "displayForm": "clāra",
-          "usefulness": 92,
-          "complexity": 34,
+          "usefulness": 77,
+          "complexity": 40,
           "examples": [
             {
               "id": "la.grammar.clear.plural.neuter-plural.1",
@@ -3554,8 +3554,8 @@
                 "learnerBaseText": "bodies",
                 "englishAuditText": "bodies"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 30
             },
             {
               "id": "la.grammar.clear.plural.neuter-plural.2",
@@ -3572,8 +3572,8 @@
                 "learnerBaseText": "spaces",
                 "englishAuditText": "spaces"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 30
             },
             {
               "id": "la.grammar.clear.plural.neuter-plural.3",
@@ -3590,8 +3590,8 @@
                 "learnerBaseText": "times",
                 "englishAuditText": "times"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 75,
+              "complexity": 30
             },
             {
               "id": "la.grammar.clear.plural.neuter-plural.4",
@@ -3608,8 +3608,8 @@
                 "learnerBaseText": "weights",
                 "englishAuditText": "weights"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 30
             },
             {
               "id": "la.grammar.clear.plural.neuter-plural.5",
@@ -3626,14 +3626,14 @@
                 "learnerBaseText": "examples",
                 "englishAuditText": "examples"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 30
             }
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 34
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "la.grammar.certain.singular",
@@ -3700,8 +3700,8 @@
       "forms": {
         "masculine-singular": {
           "displayForm": "certus",
-          "usefulness": 92,
-          "complexity": 24,
+          "usefulness": 77,
+          "complexity": 31,
           "examples": [
             {
               "id": "la.grammar.certain.singular.masculine-singular.1",
@@ -3718,7 +3718,7 @@
                 "learnerBaseText": "motion",
                 "englishAuditText": "motion"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             },
             {
@@ -3736,7 +3736,7 @@
                 "learnerBaseText": "radius",
                 "englishAuditText": "radius"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             },
             {
@@ -3754,7 +3754,7 @@
                 "learnerBaseText": "number",
                 "englishAuditText": "number"
               },
-              "usefulness": 92,
+              "usefulness": 73,
               "complexity": 24
             },
             {
@@ -3772,7 +3772,7 @@
                 "learnerBaseText": "angle",
                 "englishAuditText": "angle"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             },
             {
@@ -3790,15 +3790,15 @@
                 "learnerBaseText": "circle",
                 "englishAuditText": "circle"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             }
           ]
         },
         "feminine-singular": {
           "displayForm": "certa",
-          "usefulness": 92,
-          "complexity": 24,
+          "usefulness": 77,
+          "complexity": 31,
           "examples": [
             {
               "id": "la.grammar.certain.singular.feminine-singular.1",
@@ -3815,7 +3815,7 @@
                 "learnerBaseText": "line",
                 "englishAuditText": "line"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             },
             {
@@ -3833,7 +3833,7 @@
                 "learnerBaseText": "figure",
                 "englishAuditText": "figure"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             },
             {
@@ -3851,7 +3851,7 @@
                 "learnerBaseText": "quantity",
                 "englishAuditText": "quantity"
               },
-              "usefulness": 92,
+              "usefulness": 54,
               "complexity": 24
             },
             {
@@ -3869,8 +3869,8 @@
                 "learnerBaseText": "cause",
                 "englishAuditText": "cause"
               },
-              "usefulness": 92,
-              "complexity": 24
+              "usefulness": 55,
+              "complexity": 29
             },
             {
               "id": "la.grammar.certain.singular.feminine-singular.5",
@@ -3887,15 +3887,15 @@
                 "learnerBaseText": "rule",
                 "englishAuditText": "rule"
               },
-              "usefulness": 92,
+              "usefulness": 44,
               "complexity": 24
             }
           ]
         },
         "neuter-singular": {
           "displayForm": "certum",
-          "usefulness": 92,
-          "complexity": 24,
+          "usefulness": 77,
+          "complexity": 34,
           "examples": [
             {
               "id": "la.grammar.certain.singular.neuter-singular.1",
@@ -3912,8 +3912,8 @@
                 "learnerBaseText": "body",
                 "englishAuditText": "body"
               },
-              "usefulness": 92,
-              "complexity": 24
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "la.grammar.certain.singular.neuter-singular.2",
@@ -3930,8 +3930,8 @@
                 "learnerBaseText": "space",
                 "englishAuditText": "space"
               },
-              "usefulness": 92,
-              "complexity": 24
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "la.grammar.certain.singular.neuter-singular.3",
@@ -3948,8 +3948,8 @@
                 "learnerBaseText": "time",
                 "englishAuditText": "time"
               },
-              "usefulness": 92,
-              "complexity": 24
+              "usefulness": 75,
+              "complexity": 26
             },
             {
               "id": "la.grammar.certain.singular.neuter-singular.4",
@@ -3966,8 +3966,8 @@
                 "learnerBaseText": "weight",
                 "englishAuditText": "weight"
               },
-              "usefulness": 92,
-              "complexity": 24
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "la.grammar.certain.singular.neuter-singular.5",
@@ -3984,14 +3984,14 @@
                 "learnerBaseText": "example",
                 "englishAuditText": "example"
               },
-              "usefulness": 92,
-              "complexity": 24
+              "usefulness": 54,
+              "complexity": 26
             }
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 24
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "la.grammar.certain.plural",
@@ -4058,8 +4058,8 @@
       "forms": {
         "masculine-plural": {
           "displayForm": "certī",
-          "usefulness": 92,
-          "complexity": 34,
+          "usefulness": 77,
+          "complexity": 37,
           "examples": [
             {
               "id": "la.grammar.certain.plural.masculine-plural.1",
@@ -4076,8 +4076,8 @@
                 "learnerBaseText": "motions",
                 "englishAuditText": "motions"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.certain.plural.masculine-plural.2",
@@ -4094,8 +4094,8 @@
                 "learnerBaseText": "radii",
                 "englishAuditText": "radii"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.certain.plural.masculine-plural.3",
@@ -4112,8 +4112,8 @@
                 "learnerBaseText": "numbers",
                 "englishAuditText": "numbers"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 73,
+              "complexity": 28
             },
             {
               "id": "la.grammar.certain.plural.masculine-plural.4",
@@ -4130,8 +4130,8 @@
                 "learnerBaseText": "angles",
                 "englishAuditText": "angles"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.certain.plural.masculine-plural.5",
@@ -4148,15 +4148,15 @@
                 "learnerBaseText": "circles",
                 "englishAuditText": "circles"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             }
           ]
         },
         "feminine-plural": {
           "displayForm": "certae",
-          "usefulness": 92,
-          "complexity": 34,
+          "usefulness": 77,
+          "complexity": 37,
           "examples": [
             {
               "id": "la.grammar.certain.plural.feminine-plural.1",
@@ -4173,8 +4173,8 @@
                 "learnerBaseText": "lines",
                 "englishAuditText": "lines"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.certain.plural.feminine-plural.2",
@@ -4191,8 +4191,8 @@
                 "learnerBaseText": "figures",
                 "englishAuditText": "figures"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.certain.plural.feminine-plural.3",
@@ -4209,8 +4209,8 @@
                 "learnerBaseText": "quantities",
                 "englishAuditText": "quantities"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.certain.plural.feminine-plural.4",
@@ -4227,8 +4227,8 @@
                 "learnerBaseText": "causes",
                 "englishAuditText": "causes"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 55,
+              "complexity": 33
             },
             {
               "id": "la.grammar.certain.plural.feminine-plural.5",
@@ -4245,15 +4245,15 @@
                 "learnerBaseText": "rules",
                 "englishAuditText": "rules"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 44,
+              "complexity": 28
             }
           ]
         },
         "neuter-plural": {
           "displayForm": "certa",
-          "usefulness": 92,
-          "complexity": 34,
+          "usefulness": 77,
+          "complexity": 40,
           "examples": [
             {
               "id": "la.grammar.certain.plural.neuter-plural.1",
@@ -4270,8 +4270,8 @@
                 "learnerBaseText": "bodies",
                 "englishAuditText": "bodies"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 30
             },
             {
               "id": "la.grammar.certain.plural.neuter-plural.2",
@@ -4288,8 +4288,8 @@
                 "learnerBaseText": "spaces",
                 "englishAuditText": "spaces"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 30
             },
             {
               "id": "la.grammar.certain.plural.neuter-plural.3",
@@ -4306,8 +4306,8 @@
                 "learnerBaseText": "times",
                 "englishAuditText": "times"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 75,
+              "complexity": 30
             },
             {
               "id": "la.grammar.certain.plural.neuter-plural.4",
@@ -4324,8 +4324,8 @@
                 "learnerBaseText": "weights",
                 "englishAuditText": "weights"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 30
             },
             {
               "id": "la.grammar.certain.plural.neuter-plural.5",
@@ -4342,14 +4342,14 @@
                 "learnerBaseText": "examples",
                 "englishAuditText": "examples"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 30
             }
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 34
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "la.grammar.equal.singular",
@@ -4416,8 +4416,8 @@
       "forms": {
         "masculine-singular": {
           "displayForm": "aequālis",
-          "usefulness": 92,
-          "complexity": 32,
+          "usefulness": 77,
+          "complexity": 31,
           "examples": [
             {
               "id": "la.grammar.equal.singular.masculine-singular.1",
@@ -4434,8 +4434,8 @@
                 "learnerBaseText": "motion",
                 "englishAuditText": "motion"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "la.grammar.equal.singular.masculine-singular.2",
@@ -4452,8 +4452,8 @@
                 "learnerBaseText": "radius",
                 "englishAuditText": "radius"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "la.grammar.equal.singular.masculine-singular.3",
@@ -4470,8 +4470,8 @@
                 "learnerBaseText": "number",
                 "englishAuditText": "number"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 73,
+              "complexity": 24
             },
             {
               "id": "la.grammar.equal.singular.masculine-singular.4",
@@ -4488,8 +4488,8 @@
                 "learnerBaseText": "angle",
                 "englishAuditText": "angle"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "la.grammar.equal.singular.masculine-singular.5",
@@ -4506,15 +4506,15 @@
                 "learnerBaseText": "circle",
                 "englishAuditText": "circle"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 24
             }
           ]
         },
         "feminine-singular": {
           "displayForm": "aequālis",
-          "usefulness": 92,
-          "complexity": 32,
+          "usefulness": 77,
+          "complexity": 31,
           "examples": [
             {
               "id": "la.grammar.equal.singular.feminine-singular.1",
@@ -4531,8 +4531,8 @@
                 "learnerBaseText": "line",
                 "englishAuditText": "line"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "la.grammar.equal.singular.feminine-singular.2",
@@ -4549,8 +4549,8 @@
                 "learnerBaseText": "figure",
                 "englishAuditText": "figure"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "la.grammar.equal.singular.feminine-singular.3",
@@ -4567,8 +4567,8 @@
                 "learnerBaseText": "quantity",
                 "englishAuditText": "quantity"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "la.grammar.equal.singular.feminine-singular.4",
@@ -4585,8 +4585,8 @@
                 "learnerBaseText": "cause",
                 "englishAuditText": "cause"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 55,
+              "complexity": 29
             },
             {
               "id": "la.grammar.equal.singular.feminine-singular.5",
@@ -4603,15 +4603,15 @@
                 "learnerBaseText": "rule",
                 "englishAuditText": "rule"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 44,
+              "complexity": 24
             }
           ]
         },
         "neuter-singular": {
           "displayForm": "aequāle",
-          "usefulness": 92,
-          "complexity": 32,
+          "usefulness": 77,
+          "complexity": 34,
           "examples": [
             {
               "id": "la.grammar.equal.singular.neuter-singular.1",
@@ -4628,8 +4628,8 @@
                 "learnerBaseText": "body",
                 "englishAuditText": "body"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "la.grammar.equal.singular.neuter-singular.2",
@@ -4646,8 +4646,8 @@
                 "learnerBaseText": "space",
                 "englishAuditText": "space"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "la.grammar.equal.singular.neuter-singular.3",
@@ -4664,8 +4664,8 @@
                 "learnerBaseText": "time",
                 "englishAuditText": "time"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 75,
+              "complexity": 26
             },
             {
               "id": "la.grammar.equal.singular.neuter-singular.4",
@@ -4682,8 +4682,8 @@
                 "learnerBaseText": "weight",
                 "englishAuditText": "weight"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "la.grammar.equal.singular.neuter-singular.5",
@@ -4700,14 +4700,14 @@
                 "learnerBaseText": "example",
                 "englishAuditText": "example"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 26
             }
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 32
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "la.grammar.equal.plural",
@@ -4774,8 +4774,8 @@
       "forms": {
         "masculine-plural": {
           "displayForm": "aequālēs",
-          "usefulness": 92,
-          "complexity": 42,
+          "usefulness": 77,
+          "complexity": 37,
           "examples": [
             {
               "id": "la.grammar.equal.plural.masculine-plural.1",
@@ -4792,8 +4792,8 @@
                 "learnerBaseText": "motions",
                 "englishAuditText": "motions"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.equal.plural.masculine-plural.2",
@@ -4810,8 +4810,8 @@
                 "learnerBaseText": "radii",
                 "englishAuditText": "radii"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.equal.plural.masculine-plural.3",
@@ -4828,8 +4828,8 @@
                 "learnerBaseText": "numbers",
                 "englishAuditText": "numbers"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 73,
+              "complexity": 28
             },
             {
               "id": "la.grammar.equal.plural.masculine-plural.4",
@@ -4846,8 +4846,8 @@
                 "learnerBaseText": "angles",
                 "englishAuditText": "angles"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.equal.plural.masculine-plural.5",
@@ -4864,15 +4864,15 @@
                 "learnerBaseText": "circles",
                 "englishAuditText": "circles"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 28
             }
           ]
         },
         "feminine-plural": {
           "displayForm": "aequālēs",
-          "usefulness": 92,
-          "complexity": 42,
+          "usefulness": 77,
+          "complexity": 37,
           "examples": [
             {
               "id": "la.grammar.equal.plural.feminine-plural.1",
@@ -4889,8 +4889,8 @@
                 "learnerBaseText": "lines",
                 "englishAuditText": "lines"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.equal.plural.feminine-plural.2",
@@ -4907,8 +4907,8 @@
                 "learnerBaseText": "figures",
                 "englishAuditText": "figures"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.equal.plural.feminine-plural.3",
@@ -4925,8 +4925,8 @@
                 "learnerBaseText": "quantities",
                 "englishAuditText": "quantities"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.equal.plural.feminine-plural.4",
@@ -4943,8 +4943,8 @@
                 "learnerBaseText": "causes",
                 "englishAuditText": "causes"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 55,
+              "complexity": 33
             },
             {
               "id": "la.grammar.equal.plural.feminine-plural.5",
@@ -4961,15 +4961,15 @@
                 "learnerBaseText": "rules",
                 "englishAuditText": "rules"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 44,
+              "complexity": 28
             }
           ]
         },
         "neuter-plural": {
           "displayForm": "aequālia",
-          "usefulness": 92,
-          "complexity": 42,
+          "usefulness": 77,
+          "complexity": 40,
           "examples": [
             {
               "id": "la.grammar.equal.plural.neuter-plural.1",
@@ -4986,8 +4986,8 @@
                 "learnerBaseText": "bodies",
                 "englishAuditText": "bodies"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 30
             },
             {
               "id": "la.grammar.equal.plural.neuter-plural.2",
@@ -5004,8 +5004,8 @@
                 "learnerBaseText": "spaces",
                 "englishAuditText": "spaces"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 30
             },
             {
               "id": "la.grammar.equal.plural.neuter-plural.3",
@@ -5022,8 +5022,8 @@
                 "learnerBaseText": "times",
                 "englishAuditText": "times"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 75,
+              "complexity": 30
             },
             {
               "id": "la.grammar.equal.plural.neuter-plural.4",
@@ -5040,8 +5040,8 @@
                 "learnerBaseText": "weights",
                 "englishAuditText": "weights"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 30
             },
             {
               "id": "la.grammar.equal.plural.neuter-plural.5",
@@ -5058,14 +5058,14 @@
                 "learnerBaseText": "examples",
                 "englishAuditText": "examples"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 30
             }
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 42
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "la.grammar.heavy.singular",
@@ -5132,8 +5132,8 @@
       "forms": {
         "masculine-singular": {
           "displayForm": "gravis",
-          "usefulness": 92,
-          "complexity": 32,
+          "usefulness": 77,
+          "complexity": 31,
           "examples": [
             {
               "id": "la.grammar.heavy.singular.masculine-singular.1",
@@ -5150,8 +5150,8 @@
                 "learnerBaseText": "motion",
                 "englishAuditText": "motion"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 70,
+              "complexity": 24
             },
             {
               "id": "la.grammar.heavy.singular.masculine-singular.2",
@@ -5168,8 +5168,8 @@
                 "learnerBaseText": "radius",
                 "englishAuditText": "radius"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 70,
+              "complexity": 24
             },
             {
               "id": "la.grammar.heavy.singular.masculine-singular.3",
@@ -5186,8 +5186,8 @@
                 "learnerBaseText": "number",
                 "englishAuditText": "number"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 73,
+              "complexity": 24
             },
             {
               "id": "la.grammar.heavy.singular.masculine-singular.4",
@@ -5204,8 +5204,8 @@
                 "learnerBaseText": "angle",
                 "englishAuditText": "angle"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 70,
+              "complexity": 24
             },
             {
               "id": "la.grammar.heavy.singular.masculine-singular.5",
@@ -5222,15 +5222,15 @@
                 "learnerBaseText": "circle",
                 "englishAuditText": "circle"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 70,
+              "complexity": 24
             }
           ]
         },
         "feminine-singular": {
           "displayForm": "gravis",
-          "usefulness": 92,
-          "complexity": 32,
+          "usefulness": 77,
+          "complexity": 31,
           "examples": [
             {
               "id": "la.grammar.heavy.singular.feminine-singular.1",
@@ -5247,8 +5247,8 @@
                 "learnerBaseText": "line",
                 "englishAuditText": "line"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 70,
+              "complexity": 24
             },
             {
               "id": "la.grammar.heavy.singular.feminine-singular.2",
@@ -5265,8 +5265,8 @@
                 "learnerBaseText": "figure",
                 "englishAuditText": "figure"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 70,
+              "complexity": 24
             },
             {
               "id": "la.grammar.heavy.singular.feminine-singular.3",
@@ -5283,8 +5283,8 @@
                 "learnerBaseText": "quantity",
                 "englishAuditText": "quantity"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 70,
+              "complexity": 24
             },
             {
               "id": "la.grammar.heavy.singular.feminine-singular.4",
@@ -5301,8 +5301,8 @@
                 "learnerBaseText": "cause",
                 "englishAuditText": "cause"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 70,
+              "complexity": 29
             },
             {
               "id": "la.grammar.heavy.singular.feminine-singular.5",
@@ -5319,15 +5319,15 @@
                 "learnerBaseText": "rule",
                 "englishAuditText": "rule"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 70,
+              "complexity": 24
             }
           ]
         },
         "neuter-singular": {
           "displayForm": "grave",
-          "usefulness": 92,
-          "complexity": 32,
+          "usefulness": 77,
+          "complexity": 34,
           "examples": [
             {
               "id": "la.grammar.heavy.singular.neuter-singular.1",
@@ -5344,8 +5344,8 @@
                 "learnerBaseText": "body",
                 "englishAuditText": "body"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 70,
+              "complexity": 26
             },
             {
               "id": "la.grammar.heavy.singular.neuter-singular.2",
@@ -5362,8 +5362,8 @@
                 "learnerBaseText": "space",
                 "englishAuditText": "space"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 70,
+              "complexity": 26
             },
             {
               "id": "la.grammar.heavy.singular.neuter-singular.3",
@@ -5380,8 +5380,8 @@
                 "learnerBaseText": "time",
                 "englishAuditText": "time"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 75,
+              "complexity": 26
             },
             {
               "id": "la.grammar.heavy.singular.neuter-singular.4",
@@ -5398,8 +5398,8 @@
                 "learnerBaseText": "weight",
                 "englishAuditText": "weight"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 70,
+              "complexity": 26
             },
             {
               "id": "la.grammar.heavy.singular.neuter-singular.5",
@@ -5416,14 +5416,14 @@
                 "learnerBaseText": "example",
                 "englishAuditText": "example"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 70,
+              "complexity": 26
             }
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 32
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "la.grammar.heavy.plural",
@@ -5490,8 +5490,8 @@
       "forms": {
         "masculine-plural": {
           "displayForm": "gravēs",
-          "usefulness": 92,
-          "complexity": 42,
+          "usefulness": 77,
+          "complexity": 37,
           "examples": [
             {
               "id": "la.grammar.heavy.plural.masculine-plural.1",
@@ -5508,8 +5508,8 @@
                 "learnerBaseText": "motions",
                 "englishAuditText": "motions"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 70,
+              "complexity": 28
             },
             {
               "id": "la.grammar.heavy.plural.masculine-plural.2",
@@ -5526,8 +5526,8 @@
                 "learnerBaseText": "radii",
                 "englishAuditText": "radii"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 70,
+              "complexity": 28
             },
             {
               "id": "la.grammar.heavy.plural.masculine-plural.3",
@@ -5544,8 +5544,8 @@
                 "learnerBaseText": "numbers",
                 "englishAuditText": "numbers"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 73,
+              "complexity": 28
             },
             {
               "id": "la.grammar.heavy.plural.masculine-plural.4",
@@ -5562,8 +5562,8 @@
                 "learnerBaseText": "angles",
                 "englishAuditText": "angles"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 70,
+              "complexity": 28
             },
             {
               "id": "la.grammar.heavy.plural.masculine-plural.5",
@@ -5580,15 +5580,15 @@
                 "learnerBaseText": "circles",
                 "englishAuditText": "circles"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 70,
+              "complexity": 28
             }
           ]
         },
         "feminine-plural": {
           "displayForm": "gravēs",
-          "usefulness": 92,
-          "complexity": 42,
+          "usefulness": 77,
+          "complexity": 37,
           "examples": [
             {
               "id": "la.grammar.heavy.plural.feminine-plural.1",
@@ -5605,8 +5605,8 @@
                 "learnerBaseText": "lines",
                 "englishAuditText": "lines"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 70,
+              "complexity": 28
             },
             {
               "id": "la.grammar.heavy.plural.feminine-plural.2",
@@ -5623,8 +5623,8 @@
                 "learnerBaseText": "figures",
                 "englishAuditText": "figures"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 70,
+              "complexity": 28
             },
             {
               "id": "la.grammar.heavy.plural.feminine-plural.3",
@@ -5641,8 +5641,8 @@
                 "learnerBaseText": "quantities",
                 "englishAuditText": "quantities"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 70,
+              "complexity": 28
             },
             {
               "id": "la.grammar.heavy.plural.feminine-plural.4",
@@ -5659,8 +5659,8 @@
                 "learnerBaseText": "causes",
                 "englishAuditText": "causes"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 70,
+              "complexity": 33
             },
             {
               "id": "la.grammar.heavy.plural.feminine-plural.5",
@@ -5677,15 +5677,15 @@
                 "learnerBaseText": "rules",
                 "englishAuditText": "rules"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 70,
+              "complexity": 28
             }
           ]
         },
         "neuter-plural": {
           "displayForm": "gravia",
-          "usefulness": 92,
-          "complexity": 42,
+          "usefulness": 77,
+          "complexity": 40,
           "examples": [
             {
               "id": "la.grammar.heavy.plural.neuter-plural.1",
@@ -5702,8 +5702,8 @@
                 "learnerBaseText": "bodies",
                 "englishAuditText": "bodies"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 70,
+              "complexity": 30
             },
             {
               "id": "la.grammar.heavy.plural.neuter-plural.2",
@@ -5720,8 +5720,8 @@
                 "learnerBaseText": "spaces",
                 "englishAuditText": "spaces"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 70,
+              "complexity": 30
             },
             {
               "id": "la.grammar.heavy.plural.neuter-plural.3",
@@ -5738,8 +5738,8 @@
                 "learnerBaseText": "times",
                 "englishAuditText": "times"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 75,
+              "complexity": 30
             },
             {
               "id": "la.grammar.heavy.plural.neuter-plural.4",
@@ -5756,8 +5756,8 @@
                 "learnerBaseText": "weights",
                 "englishAuditText": "weights"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 70,
+              "complexity": 30
             },
             {
               "id": "la.grammar.heavy.plural.neuter-plural.5",
@@ -5774,14 +5774,14 @@
                 "learnerBaseText": "examples",
                 "englishAuditText": "examples"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 70,
+              "complexity": 30
             }
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 42
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "la.grammar.light.singular",
@@ -5848,8 +5848,8 @@
       "forms": {
         "masculine-singular": {
           "displayForm": "levis",
-          "usefulness": 92,
-          "complexity": 32,
+          "usefulness": 77,
+          "complexity": 31,
           "examples": [
             {
               "id": "la.grammar.light.singular.masculine-singular.1",
@@ -5866,8 +5866,8 @@
                 "learnerBaseText": "motion",
                 "englishAuditText": "motion"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 70,
+              "complexity": 24
             },
             {
               "id": "la.grammar.light.singular.masculine-singular.2",
@@ -5884,8 +5884,8 @@
                 "learnerBaseText": "radius",
                 "englishAuditText": "radius"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 70,
+              "complexity": 24
             },
             {
               "id": "la.grammar.light.singular.masculine-singular.3",
@@ -5902,8 +5902,8 @@
                 "learnerBaseText": "number",
                 "englishAuditText": "number"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 73,
+              "complexity": 24
             },
             {
               "id": "la.grammar.light.singular.masculine-singular.4",
@@ -5920,8 +5920,8 @@
                 "learnerBaseText": "angle",
                 "englishAuditText": "angle"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 70,
+              "complexity": 24
             },
             {
               "id": "la.grammar.light.singular.masculine-singular.5",
@@ -5938,15 +5938,15 @@
                 "learnerBaseText": "circle",
                 "englishAuditText": "circle"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 70,
+              "complexity": 24
             }
           ]
         },
         "feminine-singular": {
           "displayForm": "levis",
-          "usefulness": 92,
-          "complexity": 32,
+          "usefulness": 77,
+          "complexity": 31,
           "examples": [
             {
               "id": "la.grammar.light.singular.feminine-singular.1",
@@ -5963,8 +5963,8 @@
                 "learnerBaseText": "line",
                 "englishAuditText": "line"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 70,
+              "complexity": 24
             },
             {
               "id": "la.grammar.light.singular.feminine-singular.2",
@@ -5981,8 +5981,8 @@
                 "learnerBaseText": "figure",
                 "englishAuditText": "figure"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 70,
+              "complexity": 24
             },
             {
               "id": "la.grammar.light.singular.feminine-singular.3",
@@ -5999,8 +5999,8 @@
                 "learnerBaseText": "quantity",
                 "englishAuditText": "quantity"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 70,
+              "complexity": 24
             },
             {
               "id": "la.grammar.light.singular.feminine-singular.4",
@@ -6017,8 +6017,8 @@
                 "learnerBaseText": "cause",
                 "englishAuditText": "cause"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 70,
+              "complexity": 29
             },
             {
               "id": "la.grammar.light.singular.feminine-singular.5",
@@ -6035,15 +6035,15 @@
                 "learnerBaseText": "rule",
                 "englishAuditText": "rule"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 70,
+              "complexity": 24
             }
           ]
         },
         "neuter-singular": {
           "displayForm": "leve",
-          "usefulness": 92,
-          "complexity": 32,
+          "usefulness": 77,
+          "complexity": 34,
           "examples": [
             {
               "id": "la.grammar.light.singular.neuter-singular.1",
@@ -6060,8 +6060,8 @@
                 "learnerBaseText": "body",
                 "englishAuditText": "body"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 70,
+              "complexity": 26
             },
             {
               "id": "la.grammar.light.singular.neuter-singular.2",
@@ -6078,8 +6078,8 @@
                 "learnerBaseText": "space",
                 "englishAuditText": "space"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 70,
+              "complexity": 26
             },
             {
               "id": "la.grammar.light.singular.neuter-singular.3",
@@ -6096,8 +6096,8 @@
                 "learnerBaseText": "time",
                 "englishAuditText": "time"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 75,
+              "complexity": 26
             },
             {
               "id": "la.grammar.light.singular.neuter-singular.4",
@@ -6114,8 +6114,8 @@
                 "learnerBaseText": "weight",
                 "englishAuditText": "weight"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 70,
+              "complexity": 26
             },
             {
               "id": "la.grammar.light.singular.neuter-singular.5",
@@ -6132,14 +6132,14 @@
                 "learnerBaseText": "example",
                 "englishAuditText": "example"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 70,
+              "complexity": 26
             }
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 32
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "la.grammar.light.plural",
@@ -6206,8 +6206,8 @@
       "forms": {
         "masculine-plural": {
           "displayForm": "levēs",
-          "usefulness": 92,
-          "complexity": 42,
+          "usefulness": 77,
+          "complexity": 37,
           "examples": [
             {
               "id": "la.grammar.light.plural.masculine-plural.1",
@@ -6224,8 +6224,8 @@
                 "learnerBaseText": "motions",
                 "englishAuditText": "motions"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 70,
+              "complexity": 28
             },
             {
               "id": "la.grammar.light.plural.masculine-plural.2",
@@ -6242,8 +6242,8 @@
                 "learnerBaseText": "radii",
                 "englishAuditText": "radii"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 70,
+              "complexity": 28
             },
             {
               "id": "la.grammar.light.plural.masculine-plural.3",
@@ -6260,8 +6260,8 @@
                 "learnerBaseText": "numbers",
                 "englishAuditText": "numbers"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 73,
+              "complexity": 28
             },
             {
               "id": "la.grammar.light.plural.masculine-plural.4",
@@ -6278,8 +6278,8 @@
                 "learnerBaseText": "angles",
                 "englishAuditText": "angles"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 70,
+              "complexity": 28
             },
             {
               "id": "la.grammar.light.plural.masculine-plural.5",
@@ -6296,15 +6296,15 @@
                 "learnerBaseText": "circles",
                 "englishAuditText": "circles"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 70,
+              "complexity": 28
             }
           ]
         },
         "feminine-plural": {
           "displayForm": "levēs",
-          "usefulness": 92,
-          "complexity": 42,
+          "usefulness": 77,
+          "complexity": 37,
           "examples": [
             {
               "id": "la.grammar.light.plural.feminine-plural.1",
@@ -6321,8 +6321,8 @@
                 "learnerBaseText": "lines",
                 "englishAuditText": "lines"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 70,
+              "complexity": 28
             },
             {
               "id": "la.grammar.light.plural.feminine-plural.2",
@@ -6339,8 +6339,8 @@
                 "learnerBaseText": "figures",
                 "englishAuditText": "figures"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 70,
+              "complexity": 28
             },
             {
               "id": "la.grammar.light.plural.feminine-plural.3",
@@ -6357,8 +6357,8 @@
                 "learnerBaseText": "quantities",
                 "englishAuditText": "quantities"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 70,
+              "complexity": 28
             },
             {
               "id": "la.grammar.light.plural.feminine-plural.4",
@@ -6375,8 +6375,8 @@
                 "learnerBaseText": "causes",
                 "englishAuditText": "causes"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 70,
+              "complexity": 33
             },
             {
               "id": "la.grammar.light.plural.feminine-plural.5",
@@ -6393,15 +6393,15 @@
                 "learnerBaseText": "rules",
                 "englishAuditText": "rules"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 70,
+              "complexity": 28
             }
           ]
         },
         "neuter-plural": {
           "displayForm": "levia",
-          "usefulness": 92,
-          "complexity": 42,
+          "usefulness": 77,
+          "complexity": 40,
           "examples": [
             {
               "id": "la.grammar.light.plural.neuter-plural.1",
@@ -6418,8 +6418,8 @@
                 "learnerBaseText": "bodies",
                 "englishAuditText": "bodies"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 70,
+              "complexity": 30
             },
             {
               "id": "la.grammar.light.plural.neuter-plural.2",
@@ -6436,8 +6436,8 @@
                 "learnerBaseText": "spaces",
                 "englishAuditText": "spaces"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 70,
+              "complexity": 30
             },
             {
               "id": "la.grammar.light.plural.neuter-plural.3",
@@ -6454,8 +6454,8 @@
                 "learnerBaseText": "times",
                 "englishAuditText": "times"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 75,
+              "complexity": 30
             },
             {
               "id": "la.grammar.light.plural.neuter-plural.4",
@@ -6472,8 +6472,8 @@
                 "learnerBaseText": "weights",
                 "englishAuditText": "weights"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 70,
+              "complexity": 30
             },
             {
               "id": "la.grammar.light.plural.neuter-plural.5",
@@ -6490,14 +6490,14 @@
                 "learnerBaseText": "examples",
                 "englishAuditText": "examples"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 70,
+              "complexity": 30
             }
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 42
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "la.grammar.similar.singular",
@@ -6564,8 +6564,8 @@
       "forms": {
         "masculine-singular": {
           "displayForm": "similis",
-          "usefulness": 92,
-          "complexity": 32,
+          "usefulness": 77,
+          "complexity": 31,
           "examples": [
             {
               "id": "la.grammar.similar.singular.masculine-singular.1",
@@ -6582,8 +6582,8 @@
                 "learnerBaseText": "motion",
                 "englishAuditText": "motion"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "la.grammar.similar.singular.masculine-singular.2",
@@ -6600,8 +6600,8 @@
                 "learnerBaseText": "radius",
                 "englishAuditText": "radius"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "la.grammar.similar.singular.masculine-singular.3",
@@ -6618,8 +6618,8 @@
                 "learnerBaseText": "number",
                 "englishAuditText": "number"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 73,
+              "complexity": 24
             },
             {
               "id": "la.grammar.similar.singular.masculine-singular.4",
@@ -6636,8 +6636,8 @@
                 "learnerBaseText": "angle",
                 "englishAuditText": "angle"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "la.grammar.similar.singular.masculine-singular.5",
@@ -6654,15 +6654,15 @@
                 "learnerBaseText": "circle",
                 "englishAuditText": "circle"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 24
             }
           ]
         },
         "feminine-singular": {
           "displayForm": "similis",
-          "usefulness": 92,
-          "complexity": 32,
+          "usefulness": 77,
+          "complexity": 31,
           "examples": [
             {
               "id": "la.grammar.similar.singular.feminine-singular.1",
@@ -6679,8 +6679,8 @@
                 "learnerBaseText": "line",
                 "englishAuditText": "line"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "la.grammar.similar.singular.feminine-singular.2",
@@ -6697,8 +6697,8 @@
                 "learnerBaseText": "figure",
                 "englishAuditText": "figure"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "la.grammar.similar.singular.feminine-singular.3",
@@ -6715,8 +6715,8 @@
                 "learnerBaseText": "quantity",
                 "englishAuditText": "quantity"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "la.grammar.similar.singular.feminine-singular.4",
@@ -6733,8 +6733,8 @@
                 "learnerBaseText": "cause",
                 "englishAuditText": "cause"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 55,
+              "complexity": 29
             },
             {
               "id": "la.grammar.similar.singular.feminine-singular.5",
@@ -6751,15 +6751,15 @@
                 "learnerBaseText": "rule",
                 "englishAuditText": "rule"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 44,
+              "complexity": 24
             }
           ]
         },
         "neuter-singular": {
           "displayForm": "simile",
-          "usefulness": 92,
-          "complexity": 32,
+          "usefulness": 77,
+          "complexity": 34,
           "examples": [
             {
               "id": "la.grammar.similar.singular.neuter-singular.1",
@@ -6776,8 +6776,8 @@
                 "learnerBaseText": "body",
                 "englishAuditText": "body"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "la.grammar.similar.singular.neuter-singular.2",
@@ -6794,8 +6794,8 @@
                 "learnerBaseText": "space",
                 "englishAuditText": "space"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "la.grammar.similar.singular.neuter-singular.3",
@@ -6812,8 +6812,8 @@
                 "learnerBaseText": "time",
                 "englishAuditText": "time"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 75,
+              "complexity": 26
             },
             {
               "id": "la.grammar.similar.singular.neuter-singular.4",
@@ -6830,8 +6830,8 @@
                 "learnerBaseText": "weight",
                 "englishAuditText": "weight"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "la.grammar.similar.singular.neuter-singular.5",
@@ -6848,14 +6848,14 @@
                 "learnerBaseText": "example",
                 "englishAuditText": "example"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 26
             }
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 32
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "la.grammar.similar.plural",
@@ -6922,8 +6922,8 @@
       "forms": {
         "masculine-plural": {
           "displayForm": "similēs",
-          "usefulness": 92,
-          "complexity": 42,
+          "usefulness": 77,
+          "complexity": 37,
           "examples": [
             {
               "id": "la.grammar.similar.plural.masculine-plural.1",
@@ -6940,8 +6940,8 @@
                 "learnerBaseText": "motions",
                 "englishAuditText": "motions"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.similar.plural.masculine-plural.2",
@@ -6958,8 +6958,8 @@
                 "learnerBaseText": "radii",
                 "englishAuditText": "radii"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.similar.plural.masculine-plural.3",
@@ -6976,8 +6976,8 @@
                 "learnerBaseText": "numbers",
                 "englishAuditText": "numbers"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 73,
+              "complexity": 28
             },
             {
               "id": "la.grammar.similar.plural.masculine-plural.4",
@@ -6994,8 +6994,8 @@
                 "learnerBaseText": "angles",
                 "englishAuditText": "angles"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.similar.plural.masculine-plural.5",
@@ -7012,15 +7012,15 @@
                 "learnerBaseText": "circles",
                 "englishAuditText": "circles"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 28
             }
           ]
         },
         "feminine-plural": {
           "displayForm": "similēs",
-          "usefulness": 92,
-          "complexity": 42,
+          "usefulness": 77,
+          "complexity": 37,
           "examples": [
             {
               "id": "la.grammar.similar.plural.feminine-plural.1",
@@ -7037,8 +7037,8 @@
                 "learnerBaseText": "lines",
                 "englishAuditText": "lines"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.similar.plural.feminine-plural.2",
@@ -7055,8 +7055,8 @@
                 "learnerBaseText": "figures",
                 "englishAuditText": "figures"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.similar.plural.feminine-plural.3",
@@ -7073,8 +7073,8 @@
                 "learnerBaseText": "quantities",
                 "englishAuditText": "quantities"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.similar.plural.feminine-plural.4",
@@ -7091,8 +7091,8 @@
                 "learnerBaseText": "causes",
                 "englishAuditText": "causes"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 55,
+              "complexity": 33
             },
             {
               "id": "la.grammar.similar.plural.feminine-plural.5",
@@ -7109,15 +7109,15 @@
                 "learnerBaseText": "rules",
                 "englishAuditText": "rules"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 44,
+              "complexity": 28
             }
           ]
         },
         "neuter-plural": {
           "displayForm": "similia",
-          "usefulness": 92,
-          "complexity": 42,
+          "usefulness": 77,
+          "complexity": 40,
           "examples": [
             {
               "id": "la.grammar.similar.plural.neuter-plural.1",
@@ -7134,8 +7134,8 @@
                 "learnerBaseText": "bodies",
                 "englishAuditText": "bodies"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 30
             },
             {
               "id": "la.grammar.similar.plural.neuter-plural.2",
@@ -7152,8 +7152,8 @@
                 "learnerBaseText": "spaces",
                 "englishAuditText": "spaces"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 30
             },
             {
               "id": "la.grammar.similar.plural.neuter-plural.3",
@@ -7170,8 +7170,8 @@
                 "learnerBaseText": "times",
                 "englishAuditText": "times"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 75,
+              "complexity": 30
             },
             {
               "id": "la.grammar.similar.plural.neuter-plural.4",
@@ -7188,8 +7188,8 @@
                 "learnerBaseText": "weights",
                 "englishAuditText": "weights"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 30
             },
             {
               "id": "la.grammar.similar.plural.neuter-plural.5",
@@ -7206,14 +7206,14 @@
                 "learnerBaseText": "examples",
                 "englishAuditText": "examples"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 30
             }
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 42
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "la.grammar.useful.singular",
@@ -7280,8 +7280,8 @@
       "forms": {
         "masculine-singular": {
           "displayForm": "ūtilis",
-          "usefulness": 92,
-          "complexity": 32,
+          "usefulness": 77,
+          "complexity": 31,
           "examples": [
             {
               "id": "la.grammar.useful.singular.masculine-singular.1",
@@ -7298,8 +7298,8 @@
                 "learnerBaseText": "motion",
                 "englishAuditText": "motion"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "la.grammar.useful.singular.masculine-singular.2",
@@ -7316,8 +7316,8 @@
                 "learnerBaseText": "radius",
                 "englishAuditText": "radius"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "la.grammar.useful.singular.masculine-singular.3",
@@ -7334,8 +7334,8 @@
                 "learnerBaseText": "number",
                 "englishAuditText": "number"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 73,
+              "complexity": 24
             },
             {
               "id": "la.grammar.useful.singular.masculine-singular.4",
@@ -7352,8 +7352,8 @@
                 "learnerBaseText": "angle",
                 "englishAuditText": "angle"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "la.grammar.useful.singular.masculine-singular.5",
@@ -7370,15 +7370,15 @@
                 "learnerBaseText": "circle",
                 "englishAuditText": "circle"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 24
             }
           ]
         },
         "feminine-singular": {
           "displayForm": "ūtilis",
-          "usefulness": 92,
-          "complexity": 32,
+          "usefulness": 77,
+          "complexity": 31,
           "examples": [
             {
               "id": "la.grammar.useful.singular.feminine-singular.1",
@@ -7395,8 +7395,8 @@
                 "learnerBaseText": "line",
                 "englishAuditText": "line"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "la.grammar.useful.singular.feminine-singular.2",
@@ -7413,8 +7413,8 @@
                 "learnerBaseText": "figure",
                 "englishAuditText": "figure"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "la.grammar.useful.singular.feminine-singular.3",
@@ -7431,8 +7431,8 @@
                 "learnerBaseText": "quantity",
                 "englishAuditText": "quantity"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "la.grammar.useful.singular.feminine-singular.4",
@@ -7449,8 +7449,8 @@
                 "learnerBaseText": "cause",
                 "englishAuditText": "cause"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 55,
+              "complexity": 29
             },
             {
               "id": "la.grammar.useful.singular.feminine-singular.5",
@@ -7467,15 +7467,15 @@
                 "learnerBaseText": "rule",
                 "englishAuditText": "rule"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 44,
+              "complexity": 24
             }
           ]
         },
         "neuter-singular": {
           "displayForm": "ūtile",
-          "usefulness": 92,
-          "complexity": 32,
+          "usefulness": 77,
+          "complexity": 34,
           "examples": [
             {
               "id": "la.grammar.useful.singular.neuter-singular.1",
@@ -7492,8 +7492,8 @@
                 "learnerBaseText": "body",
                 "englishAuditText": "body"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "la.grammar.useful.singular.neuter-singular.2",
@@ -7510,8 +7510,8 @@
                 "learnerBaseText": "space",
                 "englishAuditText": "space"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "la.grammar.useful.singular.neuter-singular.3",
@@ -7528,8 +7528,8 @@
                 "learnerBaseText": "time",
                 "englishAuditText": "time"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 75,
+              "complexity": 26
             },
             {
               "id": "la.grammar.useful.singular.neuter-singular.4",
@@ -7546,8 +7546,8 @@
                 "learnerBaseText": "weight",
                 "englishAuditText": "weight"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "la.grammar.useful.singular.neuter-singular.5",
@@ -7564,14 +7564,14 @@
                 "learnerBaseText": "example",
                 "englishAuditText": "example"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 26
             }
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 32
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "la.grammar.useful.plural",
@@ -7638,8 +7638,8 @@
       "forms": {
         "masculine-plural": {
           "displayForm": "ūtilēs",
-          "usefulness": 92,
-          "complexity": 42,
+          "usefulness": 77,
+          "complexity": 37,
           "examples": [
             {
               "id": "la.grammar.useful.plural.masculine-plural.1",
@@ -7656,8 +7656,8 @@
                 "learnerBaseText": "motions",
                 "englishAuditText": "motions"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.useful.plural.masculine-plural.2",
@@ -7674,8 +7674,8 @@
                 "learnerBaseText": "radii",
                 "englishAuditText": "radii"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.useful.plural.masculine-plural.3",
@@ -7692,8 +7692,8 @@
                 "learnerBaseText": "numbers",
                 "englishAuditText": "numbers"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 73,
+              "complexity": 28
             },
             {
               "id": "la.grammar.useful.plural.masculine-plural.4",
@@ -7710,8 +7710,8 @@
                 "learnerBaseText": "angles",
                 "englishAuditText": "angles"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.useful.plural.masculine-plural.5",
@@ -7728,15 +7728,15 @@
                 "learnerBaseText": "circles",
                 "englishAuditText": "circles"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 28
             }
           ]
         },
         "feminine-plural": {
           "displayForm": "ūtilēs",
-          "usefulness": 92,
-          "complexity": 42,
+          "usefulness": 77,
+          "complexity": 37,
           "examples": [
             {
               "id": "la.grammar.useful.plural.feminine-plural.1",
@@ -7753,8 +7753,8 @@
                 "learnerBaseText": "lines",
                 "englishAuditText": "lines"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.useful.plural.feminine-plural.2",
@@ -7771,8 +7771,8 @@
                 "learnerBaseText": "figures",
                 "englishAuditText": "figures"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.useful.plural.feminine-plural.3",
@@ -7789,8 +7789,8 @@
                 "learnerBaseText": "quantities",
                 "englishAuditText": "quantities"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.useful.plural.feminine-plural.4",
@@ -7807,8 +7807,8 @@
                 "learnerBaseText": "causes",
                 "englishAuditText": "causes"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 55,
+              "complexity": 33
             },
             {
               "id": "la.grammar.useful.plural.feminine-plural.5",
@@ -7825,15 +7825,15 @@
                 "learnerBaseText": "rules",
                 "englishAuditText": "rules"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 44,
+              "complexity": 28
             }
           ]
         },
         "neuter-plural": {
           "displayForm": "ūtilia",
-          "usefulness": 92,
-          "complexity": 42,
+          "usefulness": 77,
+          "complexity": 40,
           "examples": [
             {
               "id": "la.grammar.useful.plural.neuter-plural.1",
@@ -7850,8 +7850,8 @@
                 "learnerBaseText": "bodies",
                 "englishAuditText": "bodies"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 30
             },
             {
               "id": "la.grammar.useful.plural.neuter-plural.2",
@@ -7868,8 +7868,8 @@
                 "learnerBaseText": "spaces",
                 "englishAuditText": "spaces"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 30
             },
             {
               "id": "la.grammar.useful.plural.neuter-plural.3",
@@ -7886,8 +7886,8 @@
                 "learnerBaseText": "times",
                 "englishAuditText": "times"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 75,
+              "complexity": 30
             },
             {
               "id": "la.grammar.useful.plural.neuter-plural.4",
@@ -7904,8 +7904,8 @@
                 "learnerBaseText": "weights",
                 "englishAuditText": "weights"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 30
             },
             {
               "id": "la.grammar.useful.plural.neuter-plural.5",
@@ -7922,14 +7922,14 @@
                 "learnerBaseText": "examples",
                 "englishAuditText": "examples"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 30
             }
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 42
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "la.grammar.short.singular",
@@ -7996,8 +7996,8 @@
       "forms": {
         "masculine-singular": {
           "displayForm": "brevis",
-          "usefulness": 92,
-          "complexity": 32,
+          "usefulness": 77,
+          "complexity": 31,
           "examples": [
             {
               "id": "la.grammar.short.singular.masculine-singular.1",
@@ -8014,8 +8014,8 @@
                 "learnerBaseText": "motion",
                 "englishAuditText": "motion"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "la.grammar.short.singular.masculine-singular.2",
@@ -8032,8 +8032,8 @@
                 "learnerBaseText": "radius",
                 "englishAuditText": "radius"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "la.grammar.short.singular.masculine-singular.3",
@@ -8050,8 +8050,8 @@
                 "learnerBaseText": "number",
                 "englishAuditText": "number"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 73,
+              "complexity": 24
             },
             {
               "id": "la.grammar.short.singular.masculine-singular.4",
@@ -8068,8 +8068,8 @@
                 "learnerBaseText": "angle",
                 "englishAuditText": "angle"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "la.grammar.short.singular.masculine-singular.5",
@@ -8086,15 +8086,15 @@
                 "learnerBaseText": "circle",
                 "englishAuditText": "circle"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 24
             }
           ]
         },
         "feminine-singular": {
           "displayForm": "brevis",
-          "usefulness": 92,
-          "complexity": 32,
+          "usefulness": 77,
+          "complexity": 31,
           "examples": [
             {
               "id": "la.grammar.short.singular.feminine-singular.1",
@@ -8111,8 +8111,8 @@
                 "learnerBaseText": "line",
                 "englishAuditText": "line"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "la.grammar.short.singular.feminine-singular.2",
@@ -8129,8 +8129,8 @@
                 "learnerBaseText": "figure",
                 "englishAuditText": "figure"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "la.grammar.short.singular.feminine-singular.3",
@@ -8147,8 +8147,8 @@
                 "learnerBaseText": "quantity",
                 "englishAuditText": "quantity"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "la.grammar.short.singular.feminine-singular.4",
@@ -8165,8 +8165,8 @@
                 "learnerBaseText": "cause",
                 "englishAuditText": "cause"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 55,
+              "complexity": 29
             },
             {
               "id": "la.grammar.short.singular.feminine-singular.5",
@@ -8183,15 +8183,15 @@
                 "learnerBaseText": "rule",
                 "englishAuditText": "rule"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 44,
+              "complexity": 24
             }
           ]
         },
         "neuter-singular": {
           "displayForm": "breve",
-          "usefulness": 92,
-          "complexity": 32,
+          "usefulness": 77,
+          "complexity": 34,
           "examples": [
             {
               "id": "la.grammar.short.singular.neuter-singular.1",
@@ -8208,8 +8208,8 @@
                 "learnerBaseText": "body",
                 "englishAuditText": "body"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "la.grammar.short.singular.neuter-singular.2",
@@ -8226,8 +8226,8 @@
                 "learnerBaseText": "space",
                 "englishAuditText": "space"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "la.grammar.short.singular.neuter-singular.3",
@@ -8244,8 +8244,8 @@
                 "learnerBaseText": "time",
                 "englishAuditText": "time"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 75,
+              "complexity": 26
             },
             {
               "id": "la.grammar.short.singular.neuter-singular.4",
@@ -8262,8 +8262,8 @@
                 "learnerBaseText": "weight",
                 "englishAuditText": "weight"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "la.grammar.short.singular.neuter-singular.5",
@@ -8280,14 +8280,14 @@
                 "learnerBaseText": "example",
                 "englishAuditText": "example"
               },
-              "usefulness": 92,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 26
             }
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 32
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "la.grammar.short.plural",
@@ -8354,8 +8354,8 @@
       "forms": {
         "masculine-plural": {
           "displayForm": "brevēs",
-          "usefulness": 92,
-          "complexity": 42,
+          "usefulness": 77,
+          "complexity": 37,
           "examples": [
             {
               "id": "la.grammar.short.plural.masculine-plural.1",
@@ -8372,8 +8372,8 @@
                 "learnerBaseText": "motions",
                 "englishAuditText": "motions"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.short.plural.masculine-plural.2",
@@ -8390,8 +8390,8 @@
                 "learnerBaseText": "radii",
                 "englishAuditText": "radii"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.short.plural.masculine-plural.3",
@@ -8408,8 +8408,8 @@
                 "learnerBaseText": "numbers",
                 "englishAuditText": "numbers"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 73,
+              "complexity": 28
             },
             {
               "id": "la.grammar.short.plural.masculine-plural.4",
@@ -8426,8 +8426,8 @@
                 "learnerBaseText": "angles",
                 "englishAuditText": "angles"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.short.plural.masculine-plural.5",
@@ -8444,15 +8444,15 @@
                 "learnerBaseText": "circles",
                 "englishAuditText": "circles"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 28
             }
           ]
         },
         "feminine-plural": {
           "displayForm": "brevēs",
-          "usefulness": 92,
-          "complexity": 42,
+          "usefulness": 77,
+          "complexity": 37,
           "examples": [
             {
               "id": "la.grammar.short.plural.feminine-plural.1",
@@ -8469,8 +8469,8 @@
                 "learnerBaseText": "lines",
                 "englishAuditText": "lines"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.short.plural.feminine-plural.2",
@@ -8487,8 +8487,8 @@
                 "learnerBaseText": "figures",
                 "englishAuditText": "figures"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.short.plural.feminine-plural.3",
@@ -8505,8 +8505,8 @@
                 "learnerBaseText": "quantities",
                 "englishAuditText": "quantities"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "la.grammar.short.plural.feminine-plural.4",
@@ -8523,8 +8523,8 @@
                 "learnerBaseText": "causes",
                 "englishAuditText": "causes"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 55,
+              "complexity": 33
             },
             {
               "id": "la.grammar.short.plural.feminine-plural.5",
@@ -8541,15 +8541,15 @@
                 "learnerBaseText": "rules",
                 "englishAuditText": "rules"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 44,
+              "complexity": 28
             }
           ]
         },
         "neuter-plural": {
           "displayForm": "brevia",
-          "usefulness": 92,
-          "complexity": 42,
+          "usefulness": 77,
+          "complexity": 40,
           "examples": [
             {
               "id": "la.grammar.short.plural.neuter-plural.1",
@@ -8566,8 +8566,8 @@
                 "learnerBaseText": "bodies",
                 "englishAuditText": "bodies"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 30
             },
             {
               "id": "la.grammar.short.plural.neuter-plural.2",
@@ -8584,8 +8584,8 @@
                 "learnerBaseText": "spaces",
                 "englishAuditText": "spaces"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 30
             },
             {
               "id": "la.grammar.short.plural.neuter-plural.3",
@@ -8602,8 +8602,8 @@
                 "learnerBaseText": "times",
                 "englishAuditText": "times"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 75,
+              "complexity": 30
             },
             {
               "id": "la.grammar.short.plural.neuter-plural.4",
@@ -8620,8 +8620,8 @@
                 "learnerBaseText": "weights",
                 "englishAuditText": "weights"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 30
             },
             {
               "id": "la.grammar.short.plural.neuter-plural.5",
@@ -8638,14 +8638,14 @@
                 "learnerBaseText": "examples",
                 "englishAuditText": "examples"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 54,
+              "complexity": 30
             }
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 42
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "zero-la-grammar-01",
@@ -8661,8 +8661,8 @@
       "forms": {
         "masculine-singular": {
           "displayForm": "magnus",
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 77,
+          "complexity": 31,
           "examples": [
             {
               "id": "zero-la-grammar-01-masculine-singular-1",
@@ -8679,8 +8679,8 @@
                 "learnerBaseText": "stone",
                 "englishAuditText": "stone"
               },
-              "usefulness": 98,
-              "complexity": 8
+              "usefulness": 65,
+              "complexity": 24
             },
             {
               "id": "zero-la-grammar-01-masculine-singular-2",
@@ -8697,8 +8697,8 @@
                 "learnerBaseText": "ball",
                 "englishAuditText": "ball"
               },
-              "usefulness": 98,
-              "complexity": 8
+              "usefulness": 63,
+              "complexity": 24
             },
             {
               "id": "zero-la-grammar-01-masculine-singular-3",
@@ -8715,15 +8715,15 @@
                 "learnerBaseText": "book",
                 "englishAuditText": "book"
               },
-              "usefulness": 98,
-              "complexity": 8
+              "usefulness": 73,
+              "complexity": 24
             }
           ]
         },
         "feminine-singular": {
           "displayForm": "magna",
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 77,
+          "complexity": 31,
           "examples": [
             {
               "id": "zero-la-grammar-01-feminine-singular-1",
@@ -8740,8 +8740,8 @@
                 "learnerBaseText": "line",
                 "englishAuditText": "line"
               },
-              "usefulness": 98,
-              "complexity": 8
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "zero-la-grammar-01-feminine-singular-2",
@@ -8758,8 +8758,8 @@
                 "learnerBaseText": "sphere",
                 "englishAuditText": "sphere"
               },
-              "usefulness": 98,
-              "complexity": 8
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "zero-la-grammar-01-feminine-singular-3",
@@ -8776,8 +8776,8 @@
                 "learnerBaseText": "star",
                 "englishAuditText": "star"
               },
-              "usefulness": 98,
-              "complexity": 8
+              "usefulness": 65,
+              "complexity": 24
             }
           ]
         },
@@ -8799,8 +8799,8 @@
                 "beforeText": "ōvum ",
                 "afterText": ""
               },
-              "usefulness": 98,
-              "complexity": 8
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "zero-la-grammar-01-neuter-singular-restored-2",
@@ -8817,16 +8817,16 @@
                 "beforeText": "folium ",
                 "afterText": ""
               },
-              "usefulness": 98,
-              "complexity": 8
+              "usefulness": 65,
+              "complexity": 26
             }
           ],
-          "usefulness": 98,
-          "complexity": 8
+          "usefulness": 77,
+          "complexity": 34
         }
       },
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "zero-la-grammar-02",
@@ -8842,8 +8842,8 @@
       "forms": {
         "masculine-singular": {
           "displayForm": "parvus",
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 77,
+          "complexity": 31,
           "examples": [
             {
               "id": "zero-la-grammar-02-masculine-singular-1",
@@ -8860,8 +8860,8 @@
                 "learnerBaseText": "stone",
                 "englishAuditText": "stone"
               },
-              "usefulness": 98,
-              "complexity": 8
+              "usefulness": 65,
+              "complexity": 24
             },
             {
               "id": "zero-la-grammar-02-masculine-singular-2",
@@ -8878,8 +8878,8 @@
                 "learnerBaseText": "ball",
                 "englishAuditText": "ball"
               },
-              "usefulness": 98,
-              "complexity": 8
+              "usefulness": 63,
+              "complexity": 24
             },
             {
               "id": "zero-la-grammar-02-masculine-singular-3",
@@ -8896,15 +8896,15 @@
                 "learnerBaseText": "book",
                 "englishAuditText": "book"
               },
-              "usefulness": 98,
-              "complexity": 8
+              "usefulness": 73,
+              "complexity": 24
             }
           ]
         },
         "feminine-singular": {
           "displayForm": "parva",
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 77,
+          "complexity": 31,
           "examples": [
             {
               "id": "zero-la-grammar-02-feminine-singular-1",
@@ -8921,8 +8921,8 @@
                 "learnerBaseText": "line",
                 "englishAuditText": "line"
               },
-              "usefulness": 98,
-              "complexity": 8
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "zero-la-grammar-02-feminine-singular-2",
@@ -8939,8 +8939,8 @@
                 "learnerBaseText": "sphere",
                 "englishAuditText": "sphere"
               },
-              "usefulness": 98,
-              "complexity": 8
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "zero-la-grammar-02-feminine-singular-3",
@@ -8957,8 +8957,8 @@
                 "learnerBaseText": "star",
                 "englishAuditText": "star"
               },
-              "usefulness": 98,
-              "complexity": 8
+              "usefulness": 65,
+              "complexity": 24
             }
           ]
         },
@@ -8980,8 +8980,8 @@
                 "beforeText": "ōvum ",
                 "afterText": ""
               },
-              "usefulness": 98,
-              "complexity": 8
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "zero-la-grammar-02-neuter-singular-restored-2",
@@ -8998,16 +8998,16 @@
                 "beforeText": "folium ",
                 "afterText": ""
               },
-              "usefulness": 98,
-              "complexity": 8
+              "usefulness": 65,
+              "complexity": 26
             }
           ],
-          "usefulness": 98,
-          "complexity": 8
+          "usefulness": 77,
+          "complexity": 34
         }
       },
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "zero-la-grammar-03",
@@ -9023,8 +9023,8 @@
       "forms": {
         "masculine-singular": {
           "displayForm": "novus",
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 77,
+          "complexity": 31,
           "examples": [
             {
               "id": "zero-la-grammar-03-masculine-singular-1",
@@ -9041,8 +9041,8 @@
                 "learnerBaseText": "stone",
                 "englishAuditText": "stone"
               },
-              "usefulness": 98,
-              "complexity": 8
+              "usefulness": 65,
+              "complexity": 24
             },
             {
               "id": "zero-la-grammar-03-masculine-singular-2",
@@ -9059,8 +9059,8 @@
                 "learnerBaseText": "ball",
                 "englishAuditText": "ball"
               },
-              "usefulness": 98,
-              "complexity": 8
+              "usefulness": 63,
+              "complexity": 24
             },
             {
               "id": "zero-la-grammar-03-masculine-singular-3",
@@ -9077,15 +9077,15 @@
                 "learnerBaseText": "book",
                 "englishAuditText": "book"
               },
-              "usefulness": 98,
-              "complexity": 8
+              "usefulness": 73,
+              "complexity": 24
             }
           ]
         },
         "feminine-singular": {
           "displayForm": "nova",
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 77,
+          "complexity": 31,
           "examples": [
             {
               "id": "zero-la-grammar-03-feminine-singular-1",
@@ -9102,8 +9102,8 @@
                 "learnerBaseText": "line",
                 "englishAuditText": "line"
               },
-              "usefulness": 98,
-              "complexity": 8
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "zero-la-grammar-03-feminine-singular-2",
@@ -9120,8 +9120,8 @@
                 "learnerBaseText": "sphere",
                 "englishAuditText": "sphere"
               },
-              "usefulness": 98,
-              "complexity": 8
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "zero-la-grammar-03-feminine-singular-3",
@@ -9138,8 +9138,8 @@
                 "learnerBaseText": "star",
                 "englishAuditText": "star"
               },
-              "usefulness": 98,
-              "complexity": 8
+              "usefulness": 65,
+              "complexity": 24
             }
           ]
         },
@@ -9161,8 +9161,8 @@
                 "beforeText": "ōvum ",
                 "afterText": ""
               },
-              "usefulness": 98,
-              "complexity": 8
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "zero-la-grammar-03-neuter-singular-restored-2",
@@ -9179,16 +9179,16 @@
                 "beforeText": "folium ",
                 "afterText": ""
               },
-              "usefulness": 98,
-              "complexity": 8
+              "usefulness": 65,
+              "complexity": 26
             }
           ],
-          "usefulness": 98,
-          "complexity": 8
+          "usefulness": 77,
+          "complexity": 34
         }
       },
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "zero-la-grammar-e2-red",
@@ -9204,8 +9204,8 @@
       "forms": {
         "masculine-singular": {
           "displayForm": "ruber",
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 77,
+          "complexity": 31,
           "examples": [
             {
               "id": "zero-la-grammar-e2-red-masculine-singular-1",
@@ -9222,8 +9222,8 @@
                 "learnerBaseText": "stone",
                 "englishAuditText": "stone"
               },
-              "usefulness": 96,
-              "complexity": 8
+              "usefulness": 65,
+              "complexity": 24
             },
             {
               "id": "zero-la-grammar-e2-red-masculine-singular-2",
@@ -9240,8 +9240,8 @@
                 "learnerBaseText": "ball",
                 "englishAuditText": "ball"
               },
-              "usefulness": 96,
-              "complexity": 8
+              "usefulness": 63,
+              "complexity": 24
             },
             {
               "id": "zero-la-grammar-e2-red-masculine-singular-3",
@@ -9258,15 +9258,15 @@
                 "learnerBaseText": "book",
                 "englishAuditText": "book"
               },
-              "usefulness": 96,
-              "complexity": 8
+              "usefulness": 73,
+              "complexity": 24
             }
           ]
         },
         "neuter-singular": {
           "displayForm": "rubrum",
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 77,
+          "complexity": 34,
           "examples": [
             {
               "id": "zero-la-grammar-e2-red-neuter-singular-1",
@@ -9283,8 +9283,8 @@
                 "learnerBaseText": "rock",
                 "englishAuditText": "rock"
               },
-              "usefulness": 96,
-              "complexity": 8
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "zero-la-grammar-e2-red-neuter-singular-2",
@@ -9301,8 +9301,8 @@
                 "learnerBaseText": "glass",
                 "englishAuditText": "glass"
               },
-              "usefulness": 96,
-              "complexity": 8
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "zero-la-grammar-e2-red-neuter-singular-3",
@@ -9319,8 +9319,8 @@
                 "learnerBaseText": "leaf",
                 "englishAuditText": "leaf"
               },
-              "usefulness": 96,
-              "complexity": 8
+              "usefulness": 65,
+              "complexity": 26
             }
           ]
         },
@@ -9342,8 +9342,8 @@
                 "beforeText": "stella ",
                 "afterText": ""
               },
-              "usefulness": 96,
-              "complexity": 8
+              "usefulness": 65,
+              "complexity": 24
             },
             {
               "id": "zero-la-grammar-e2-red-feminine-singular-restored-2",
@@ -9360,16 +9360,16 @@
                 "beforeText": "rosa ",
                 "afterText": ""
               },
-              "usefulness": 96,
-              "complexity": 8
+              "usefulness": 54,
+              "complexity": 24
             }
           ],
-          "usefulness": 96,
-          "complexity": 8
+          "usefulness": 77,
+          "complexity": 31
         }
       },
-      "usefulness": 96,
-      "complexity": 8
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "zero-la-grammar-e2-white",
@@ -9385,8 +9385,8 @@
       "forms": {
         "masculine-singular": {
           "displayForm": "albus",
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 77,
+          "complexity": 31,
           "examples": [
             {
               "id": "zero-la-grammar-e2-white-masculine-singular-1",
@@ -9403,8 +9403,8 @@
                 "learnerBaseText": "stone",
                 "englishAuditText": "stone"
               },
-              "usefulness": 96,
-              "complexity": 8
+              "usefulness": 65,
+              "complexity": 24
             },
             {
               "id": "zero-la-grammar-e2-white-masculine-singular-2",
@@ -9421,8 +9421,8 @@
                 "learnerBaseText": "ball",
                 "englishAuditText": "ball"
               },
-              "usefulness": 96,
-              "complexity": 8
+              "usefulness": 63,
+              "complexity": 24
             },
             {
               "id": "zero-la-grammar-e2-white-masculine-singular-3",
@@ -9439,15 +9439,15 @@
                 "learnerBaseText": "book",
                 "englishAuditText": "book"
               },
-              "usefulness": 96,
-              "complexity": 8
+              "usefulness": 73,
+              "complexity": 24
             }
           ]
         },
         "neuter-singular": {
           "displayForm": "album",
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 77,
+          "complexity": 34,
           "examples": [
             {
               "id": "zero-la-grammar-e2-white-neuter-singular-1",
@@ -9464,8 +9464,8 @@
                 "learnerBaseText": "rock",
                 "englishAuditText": "rock"
               },
-              "usefulness": 96,
-              "complexity": 8
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "zero-la-grammar-e2-white-neuter-singular-2",
@@ -9482,8 +9482,8 @@
                 "learnerBaseText": "glass",
                 "englishAuditText": "glass"
               },
-              "usefulness": 96,
-              "complexity": 8
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "zero-la-grammar-e2-white-neuter-singular-3",
@@ -9500,8 +9500,8 @@
                 "learnerBaseText": "leaf",
                 "englishAuditText": "leaf"
               },
-              "usefulness": 96,
-              "complexity": 8
+              "usefulness": 65,
+              "complexity": 26
             }
           ]
         },
@@ -9523,8 +9523,8 @@
                 "beforeText": "stella ",
                 "afterText": ""
               },
-              "usefulness": 96,
-              "complexity": 8
+              "usefulness": 65,
+              "complexity": 24
             },
             {
               "id": "zero-la-grammar-e2-white-feminine-singular-restored-2",
@@ -9541,16 +9541,16 @@
                 "beforeText": "rosa ",
                 "afterText": ""
               },
-              "usefulness": 96,
-              "complexity": 8
+              "usefulness": 54,
+              "complexity": 24
             }
           ],
-          "usefulness": 96,
-          "complexity": 8
+          "usefulness": 77,
+          "complexity": 31
         }
       },
-      "usefulness": 96,
-      "complexity": 8
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "zero-la-grammar-e2-black",
@@ -9566,8 +9566,8 @@
       "forms": {
         "masculine-singular": {
           "displayForm": "niger",
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 77,
+          "complexity": 31,
           "examples": [
             {
               "id": "zero-la-grammar-e2-black-masculine-singular-1",
@@ -9584,8 +9584,8 @@
                 "learnerBaseText": "stone",
                 "englishAuditText": "stone"
               },
-              "usefulness": 96,
-              "complexity": 8
+              "usefulness": 65,
+              "complexity": 24
             },
             {
               "id": "zero-la-grammar-e2-black-masculine-singular-2",
@@ -9602,8 +9602,8 @@
                 "learnerBaseText": "ball",
                 "englishAuditText": "ball"
               },
-              "usefulness": 96,
-              "complexity": 8
+              "usefulness": 63,
+              "complexity": 24
             },
             {
               "id": "zero-la-grammar-e2-black-masculine-singular-3",
@@ -9620,15 +9620,15 @@
                 "learnerBaseText": "book",
                 "englishAuditText": "book"
               },
-              "usefulness": 96,
-              "complexity": 8
+              "usefulness": 73,
+              "complexity": 24
             }
           ]
         },
         "neuter-singular": {
           "displayForm": "nigrum",
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 77,
+          "complexity": 34,
           "examples": [
             {
               "id": "zero-la-grammar-e2-black-neuter-singular-1",
@@ -9645,8 +9645,8 @@
                 "learnerBaseText": "rock",
                 "englishAuditText": "rock"
               },
-              "usefulness": 96,
-              "complexity": 8
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "zero-la-grammar-e2-black-neuter-singular-2",
@@ -9663,8 +9663,8 @@
                 "learnerBaseText": "glass",
                 "englishAuditText": "glass"
               },
-              "usefulness": 96,
-              "complexity": 8
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "zero-la-grammar-e2-black-neuter-singular-3",
@@ -9681,8 +9681,8 @@
                 "learnerBaseText": "leaf",
                 "englishAuditText": "leaf"
               },
-              "usefulness": 96,
-              "complexity": 8
+              "usefulness": 65,
+              "complexity": 26
             }
           ]
         },
@@ -9704,8 +9704,8 @@
                 "beforeText": "stella ",
                 "afterText": ""
               },
-              "usefulness": 96,
-              "complexity": 8
+              "usefulness": 65,
+              "complexity": 24
             },
             {
               "id": "zero-la-grammar-e2-black-feminine-singular-restored-2",
@@ -9722,16 +9722,16 @@
                 "beforeText": "rosa ",
                 "afterText": ""
               },
-              "usefulness": 96,
-              "complexity": 8
+              "usefulness": 54,
+              "complexity": 24
             }
           ],
-          "usefulness": 96,
-          "complexity": 8
+          "usefulness": 77,
+          "complexity": 31
         }
       },
-      "usefulness": 96,
-      "complexity": 8
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "zero-la-grammar-e2-hot",
@@ -9747,8 +9747,8 @@
       "forms": {
         "feminine-singular": {
           "displayForm": "calida",
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 77,
+          "complexity": 31,
           "examples": [
             {
               "id": "zero-la-grammar-e2-hot-feminine-singular-1",
@@ -9765,8 +9765,8 @@
                 "learnerBaseText": "water",
                 "englishAuditText": "water"
               },
-              "usefulness": 96,
-              "complexity": 8
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "zero-la-grammar-e2-hot-feminine-singular-2",
@@ -9783,15 +9783,15 @@
                 "learnerBaseText": "earth",
                 "englishAuditText": "earth"
               },
-              "usefulness": 96,
-              "complexity": 8
+              "usefulness": 54,
+              "complexity": 24
             }
           ]
         },
         "neuter-singular": {
           "displayForm": "calidum",
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 77,
+          "complexity": 34,
           "examples": [
             {
               "id": "zero-la-grammar-e2-hot-neuter-singular-1",
@@ -9808,8 +9808,8 @@
                 "learnerBaseText": "wood",
                 "englishAuditText": "wood"
               },
-              "usefulness": 96,
-              "complexity": 8
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "zero-la-grammar-e2-hot-neuter-singular-2",
@@ -9826,8 +9826,8 @@
                 "learnerBaseText": "glass",
                 "englishAuditText": "glass"
               },
-              "usefulness": 96,
-              "complexity": 8
+              "usefulness": 54,
+              "complexity": 26
             }
           ]
         },
@@ -9849,8 +9849,8 @@
                 "beforeText": "lapis ",
                 "afterText": ""
               },
-              "usefulness": 96,
-              "complexity": 8
+              "usefulness": 65,
+              "complexity": 24
             },
             {
               "id": "zero-la-grammar-e2-hot-masculine-singular-restored-2",
@@ -9867,16 +9867,16 @@
                 "beforeText": "globus ",
                 "afterText": ""
               },
-              "usefulness": 96,
-              "complexity": 8
+              "usefulness": 63,
+              "complexity": 24
             }
           ],
-          "usefulness": 96,
-          "complexity": 8
+          "usefulness": 77,
+          "complexity": 31
         }
       },
-      "usefulness": 96,
-      "complexity": 8
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "zero-la-grammar-e2-cold",
@@ -9892,8 +9892,8 @@
       "forms": {
         "feminine-singular": {
           "displayForm": "frīgida",
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 77,
+          "complexity": 31,
           "examples": [
             {
               "id": "zero-la-grammar-e2-cold-feminine-singular-1",
@@ -9910,8 +9910,8 @@
                 "learnerBaseText": "water",
                 "englishAuditText": "water"
               },
-              "usefulness": 96,
-              "complexity": 8
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "zero-la-grammar-e2-cold-feminine-singular-2",
@@ -9928,15 +9928,15 @@
                 "learnerBaseText": "earth",
                 "englishAuditText": "earth"
               },
-              "usefulness": 96,
-              "complexity": 8
+              "usefulness": 77,
+              "complexity": 24
             }
           ]
         },
         "neuter-singular": {
           "displayForm": "frīgidum",
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 77,
+          "complexity": 34,
           "examples": [
             {
               "id": "zero-la-grammar-e2-cold-neuter-singular-1",
@@ -9953,8 +9953,8 @@
                 "learnerBaseText": "wood",
                 "englishAuditText": "wood"
               },
-              "usefulness": 96,
-              "complexity": 8
+              "usefulness": 77,
+              "complexity": 26
             },
             {
               "id": "zero-la-grammar-e2-cold-neuter-singular-2",
@@ -9971,8 +9971,8 @@
                 "learnerBaseText": "glass",
                 "englishAuditText": "glass"
               },
-              "usefulness": 96,
-              "complexity": 8
+              "usefulness": 77,
+              "complexity": 26
             }
           ]
         },
@@ -9994,8 +9994,8 @@
                 "beforeText": "lapis ",
                 "afterText": ""
               },
-              "usefulness": 96,
-              "complexity": 8
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "zero-la-grammar-e2-cold-masculine-singular-restored-2",
@@ -10012,16 +10012,16 @@
                 "beforeText": "globus ",
                 "afterText": ""
               },
-              "usefulness": 96,
-              "complexity": 8
+              "usefulness": 77,
+              "complexity": 24
             }
           ],
-          "usefulness": 96,
-          "complexity": 8
+          "usefulness": 77,
+          "complexity": 31
         }
       },
-      "usefulness": 96,
-      "complexity": 8
+      "usefulness": 77,
+      "complexity": 31
     }
   ],
   "gameplay": {

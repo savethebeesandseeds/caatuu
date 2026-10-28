@@ -70,17 +70,18 @@ test("every Czech and Spanish subject retains its authored answer and accepted e
   }
 });
 
-test("only the English-base legacy adapter maps its explicit person labels to subject names", () => {
+test("the shipped Czech catalog keeps its persisted person names and rejects a schema-less document", () => {
   assert.deepEqual(czech.verbs[0].forms.map((form) => form.subjectBaseText), [
     "I", "you", "he or she", "we", "you all", "they"
   ]);
-  const raw = structuredClone(rawCzech);
-  raw.verbs[0].forms[0].subjectBaseText = "  authored subject  ";
-  raw.verbs[0].forms[1].label = "custom-person";
-  const catalog = validateConjugationCometCatalog(raw, czechAuthority);
-  assert.equal(catalog.verbs[0].forms[0].subjectBaseText, "authored subject");
-  assert.equal(catalog.verbs[0].forms[1].subjectBaseText, raw.verbs[0].forms[1].cue);
-  assert.throws(() => validateConjugationCometCatalog(rawCzech, {
+  assert.deepEqual(czech.verbs[0].forms.map((form) => form.subjectTargetText), [
+    "S1", "S2", "S3", "P1", "P2", "P3"
+  ]);
+  const schemaLess = { language: "cs", verbs: [] };
+  assert.throws(() => validateConjugationCometCatalog(schemaLess, czechAuthority), {
+    code: "CONJUGATION_COMET_LEGACY_SCOPE_INVALID"
+  });
+  assert.throws(() => validateConjugationCometCatalog(schemaLess, {
     ...czechAuthority, expectedLearnerBaseLanguageId: "de"
   }), { code: "CONJUGATION_COMET_LEGACY_SCOPE_INVALID" });
 });

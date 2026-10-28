@@ -14,6 +14,32 @@ const gradeValid = (key, value) => Number.isInteger(value)
 const groupKey = row => JSON.stringify([row.courseId, row.gameId, row.bankId, row.kind]);
 const identity = row => ({ courseId: row.courseId, gameId: row.gameId, bankId: row.bankId, kind: row.kind });
 
+/** Printed samples rotate through courses. Catalog order must not fill the page from one course. */
+export function examplesAcrossCourses(rows, limit, courseOf = row => row.courseId) {
+  const cap = Math.max(0, limit || 0);
+  const buckets = new Map();
+  for (const row of rows) {
+    const course = String(courseOf(row) ?? '');
+    if (!buckets.has(course)) buckets.set(course, []);
+    buckets.get(course).push(row);
+  }
+  const courses = [...buckets.keys()].sort(compare);
+  const selected = [];
+  for (let index = 0; selected.length < cap; index += 1) {
+    let added = false;
+    for (const course of courses) {
+      const bucket = buckets.get(course);
+      if (index < bucket.length) {
+        selected.push(bucket[index]);
+        added = true;
+        if (selected.length === cap) break;
+      }
+    }
+    if (!added) break;
+  }
+  return selected;
+}
+
 export function numericSummary(values) {
   const numbers = values.filter(finite).sort((a, b) => a - b);
   const average = mean(numbers);
@@ -109,6 +135,10 @@ export function inspectMetadata(corpus, diagnostics, reference = null) {
       for (const value of Object.keys(dist.counts)) scopes.push({ field, value, rows: rows.filter(row => row.categories?.[field]?.includes(value)) });
     }
     for (const scope of scopes) {
+      // A tagged slice of one or two records always has at most one interval.
+      // That interval is the slice, not a missing lesson. Whole bank and kind
+      // scopes still report every empty interval.
+      if (!scope.field || scope.rows.length >= 3) {
       const values = sorted(new Set(scope.rows.map(row => row.metadata.complexity).filter(value => gradeValid('complexity', value)))).sort((a, b) => a - b);
       for (let i = 1; i < values.length; i++) if (values[i] - values[i - 1] >= diagnostics.complexityGap) {
         gaps.push({ ...identity(rows[0]), category: { field: scope.field, value: scope.value }, lower: values[i - 1], upper: values[i],
@@ -116,11 +146,12 @@ export function inspectMetadata(corpus, diagnostics, reference = null) {
           lowerRecordIds: scope.rows.filter(row => row.metadata.complexity === values[i - 1]).map(row => row.id),
           upperRecordIds: scope.rows.filter(row => row.metadata.complexity === values[i]).map(row => row.id) });
       }
+      }
       if (scope.field) categorySpread.push({ ...identity(rows[0]), field: scope.field, value: scope.value, records: scope.rows.length,
         complexity: gradeDistribution(scope.rows, 'complexity'), difficulty: gradeDistribution(scope.rows, 'difficulty') });
     }
   }
-  gaps.sort((a, b) => b.gap - a.gap || compare(JSON.stringify(a), JSON.stringify(b)));
+  gaps.sort((a, b) => b.gap - a.gap || compare(a.courseId, b.courseId) || compare(JSON.stringify(a), JSON.stringify(b)));
   let referenceCoverage = { status: 'not-assessed', reason: 'No explicit reference supplied; topic absence cannot be inferred.' };
   if (reference) {
     const selected = records.filter(row => ['courseId', 'gameId', 'bankId'].every(key => !reference[key] || row[key] === reference[key]));
@@ -142,8 +173,8 @@ export function inspectMetadata(corpus, diagnostics, reference = null) {
   }
   return { overall: describe(records, units, corpus.adapters || []), groups, exactDuplicates: { documentGroups: exactDuplicates.length,
     participatingRecords: exactDuplicates.reduce((sum, row) => sum + row.records, 0), examples: exactDuplicates.slice(0, diagnostics.exampleLimit) },
-    exactDuplicateSpread: duplicateSpread, categorySpread, progressionGaps: { candidates: gaps.length, examples: gaps.slice(0, diagnostics.exampleLimit),
-      interpretation: 'Empty intervals in authored complexity within a bank/kind or authored category; not missing lessons or an evaluated learning path.' },
+    exactDuplicateSpread: duplicateSpread, categorySpread, progressionGaps: { candidates: gaps.length, examples: examplesAcrossCourses(gaps, diagnostics.exampleLimit),
+      interpretation: 'Empty intervals in authored complexity within a bank/kind or authored category; not missing lessons or an evaluated learning path. Categories with fewer than three records are omitted.' },
     referenceCoverage };
 }
 

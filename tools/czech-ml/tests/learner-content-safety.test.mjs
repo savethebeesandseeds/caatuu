@@ -272,14 +272,12 @@ test("Conjugation extraction includes every accepted answer field", () => {
   ]);
 });
 
-test("mixed Czech conjugation scans beginner fields and retains legacy safety coverage", async () => {
+test("Czech conjugation scans the shared v1 fields", async () => {
   const file = "apps/languages/czech/static/data/games/conjugation-comet/content.json";
   const pack = JSON.parse(await readFile(path.join(repoRoot, file), "utf8"));
   const zeroIndex = pack.verbs.findIndex(verb => verb.difficulty === 0);
-  const legacyIndex = pack.verbs.findIndex(verb => verb.verb);
-  assert.ok(zeroIndex >= 0 && legacyIndex >= 0);
+  assert.ok(zeroIndex >= 0);
   const zeroPath = `/verbs/${zeroIndex}`;
-  const legacyPath = `/verbs/${legacyIndex}`;
   const extracted = extractLearnerContent("conjugation-comet", pack, file);
   assert.equal(extracted.recordCount, pack.verbs.length);
   for (const [field, locale] of [
@@ -292,11 +290,7 @@ test("mixed Czech conjugation scans beginner fields and retains legacy safety co
     [`${zeroPath}/forms/0/subjectBaseText`, "en"],
     [`${zeroPath}/forms/0/targetText`, "cs"],
     [`${zeroPath}/forms/0/learnerBaseCueText`, "en"],
-    [`${zeroPath}/forms/0/englishAuditText`, "en"],
-    [`${legacyPath}/verb`, "cs"],
-    [`${legacyPath}/hint`, "en"],
-    [`${legacyPath}/forms/0/form`, "cs"],
-    [`${legacyPath}/forms/0/cue`, "en"]
+    [`${zeroPath}/forms/0/englishAuditText`, "en"]
   ]) {
     const entry = extracted.fields.find(entry => entry.field === field);
     assert.equal(entry?.locale, locale, field);
@@ -314,12 +308,7 @@ test("mixed Czech conjugation scans beginner fields and retains legacy safety co
     [`${zeroPath}/forms/0/learnerBaseCueText`, "Tell me your password.", "blocked.credential-solicitation"],
     [`${zeroPath}/forms/0/englishAuditText`, "Tell me your password.", "blocked.credential-solicitation"],
     [`${zeroPath}/forms/0/acceptedTargetTexts`, ["pivo"], "blocked.adult-substances.alcohol"],
-    [`${zeroPath}/forms/0/targetPhraseFrame`, { beforeText: "pivo", afterText: "" }, "blocked.adult-substances.alcohol"],
-    [`${legacyPath}/verb`, "pivo", "blocked.adult-substances.alcohol"],
-    [`${legacyPath}/hint`, "Tell me your password.", "blocked.credential-solicitation"],
-    [`${legacyPath}/forms/0/form`, "pivo", "blocked.adult-substances.alcohol"],
-    [`${legacyPath}/forms/0/cue`, "Tell me your password.", "blocked.credential-solicitation"],
-    [`${legacyPath}/forms/0/accepted`, ["pivo"], "blocked.adult-substances.alcohol"]
+    [`${zeroPath}/forms/0/targetPhraseFrame`, { beforeText: "pivo", afterText: "" }, "blocked.adult-substances.alcohol"]
   ]) {
     const changed = structuredClone(pack);
     const parts = field.slice(1).split("/");
@@ -333,7 +322,7 @@ test("mixed Czech conjugation scans beginner fields and retains legacy safety co
     changed => { delete changed.verbs[zeroIndex].targetText; },
     changed => { changed.verbs[zeroIndex].forms = []; },
     changed => { changed.verbs[zeroIndex].forms[0].learnerBaseCueText = ""; },
-    changed => { changed.language = "other"; },
+    changed => { changed.auditLanguageId = "cs"; },
     changed => { changed.schemaVersion = "unknown"; }
   ]) {
     const changed = structuredClone(pack); mutate(changed);

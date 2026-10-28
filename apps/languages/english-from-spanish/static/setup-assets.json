@@ -7,7 +7,7 @@
     "appEntry": "apps/language-runtime/static/app/index.html"
   },
   "offline": {
-    "cacheName": "caatuu-es-en-pwa-v73",
+    "cacheName": "caatuu-es-en-pwa-v74",
     "cachePrefix": "caatuu-es-en-pwa-",
     "assets": [
       "/language-runtime/static/assets/initial-image.png",
@@ -60,8 +60,8 @@
       "/language-runtime/static/source/games/grammar-gravity/adjective-flight-core.mjs?v=grammar-journey-6",
       "/language-runtime/static/source/games/grammar-gravity/adjective-flight-host.mjs?v=adjective-flight-host-28",
       "/assets/icons/clock_icon.png",
-      "/language-runtime/static/source/games/conjugation-comet/conjugation-comet-core.mjs?v=conjugation-comet-core-6",
-      "/language-runtime/static/source/games/conjugation-comet/conjugation-comet-host.mjs?v=conjugation-comet-shared-26",
+      "/language-runtime/static/source/games/conjugation-comet/conjugation-comet-core.mjs?v=conjugation-comet-core-7",
+      "/language-runtime/static/source/games/conjugation-comet/conjugation-comet-host.mjs?v=conjugation-comet-shared-27",
       "/language-runtime/static/styles/games/grammar-gravity.css?v=grammar-gravity-shared-39",
       "/language-runtime/static/styles/games/conjugation-comet.css?v=conjugation-comet-shared-10",
       "/language-runtime/static/source/caatuu-workspace.js?v=workspace-59",
@@ -333,8 +333,8 @@
       "kind": "course-game-content",
       "url": "/es-en/data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-3",
       "browserRequired": true,
-      "bytes": 118375,
-      "sha256": "0ecd3f28b7985970d41eba7e58e12aed4b8a477ee32fd503502a899129dacead"
+      "bytes": 118420,
+      "sha256": "9b00acea3424c7dd043ab1006b9d2b8c8f0cedbb1e46359ba355fe471890e9c6"
     },
     {
       "key": "app-entry",
@@ -350,7 +350,7 @@
       "url": "/es-en/source/shared/course-profile.js",
       "browserRequired": true,
       "bytes": 27172,
-      "sha256": "22ec949703547547d1e5320601122e50961217df9234a2db65bb10b71bf2a275"
+      "sha256": "820cc7a7a8da521a5c74f50733ce61e2e1e0a0956322483d1d33a7f7a9741f0f"
     },
     {
       "key": "shared-app-bootstrap",
@@ -437,8 +437,8 @@
       "kind": "shared-game-runtime",
       "url": "/language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs",
       "browserRequired": true,
-      "bytes": 20420,
-      "sha256": "0f29cc274c10abc9a99589a4ce50f441e99c31b512b817706209582d8a5998e8"
+      "bytes": 20632,
+      "sha256": "6cc74697f13e5f8d779638ba99573b059cf2a09c7339f25e236b3cac82f64a04"
     },
     {
       "key": "verb-exercise-family-core",
@@ -478,7 +478,7 @@
       "url": "/language-runtime/static/source/learning-profile.js",
       "browserRequired": true,
       "bytes": 113673,
-      "sha256": "9ed963c77b4164f5ad1cc6236d21ffe63c7917b0871ac7f8877a4a8d4907d434"
+      "sha256": "bae9d3539048feadd01af8a3b5dd0e0a2b65ce569e8f1765d27ea6538a118e74"
     },
     {
       "key": "product-word-world",
@@ -573,8 +573,8 @@
       "kind": "english-concept-catalog",
       "url": "/language-runtime/static/data/english-concepts/word-world-es-en-v1.json",
       "browserRequired": true,
-      "bytes": 204774,
-      "sha256": "92d81901e606e46f5f5da20d7c0296b8ce7f4829861da726dabc1fe13e7a4fb0"
+      "bytes": 204854,
+      "sha256": "e4f29875d0b3e6ad80b3111373986e9699433d74d6627036a86f09272a6324a4"
     },
     {
       "key": "target-realizations",
@@ -597,8 +597,8 @@
       "kind": "course-game-content",
       "url": "/es-en/data/games/verb-nebula/content.json",
       "browserRequired": true,
-      "bytes": 134387,
-      "sha256": "0a0862733d9e67435e8bfb19ca1d46e55f5b2758ffeab9c165ce60a8524c28b6"
+      "bytes": 134433,
+      "sha256": "14daab076e3da64724c40f712d2a7dea6b5102a2d079801f08c304850eb4ca82"
     },
     {
       "key": "embedding-catalog",
@@ -622,7 +622,7 @@
       "url": "/es-en/sw.js",
       "browserRequired": true,
       "bytes": 139,
-      "sha256": "8a11de3022ef41f81c51fef3e0b931605f747997b551721933402f412c06671d"
+      "sha256": "c00d8d5140b49454fead59b4cd4c2b6c24c104beffcf18538dc302e3261b9737"
     },
     {
       "key": "shared-course-service-worker",

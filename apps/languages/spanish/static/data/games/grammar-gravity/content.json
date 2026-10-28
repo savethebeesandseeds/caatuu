@@ -91,7 +91,7 @@
                 "englishAuditText": "the book"
               },
               "usefulness": 73,
-              "complexity": 18
+              "complexity": 24
             },
             {
               "id": "es.agreement.bonito.ms.jardin",
@@ -127,7 +127,7 @@
                 "englishAuditText": "drawing"
               },
               "usefulness": 63,
-              "complexity": 20
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.masculine-singular.mosaico",
@@ -145,7 +145,7 @@
                 "englishAuditText": "mosaic"
               },
               "usefulness": 54,
-              "complexity": 43
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.masculine-singular.paisaje",
@@ -163,7 +163,7 @@
                 "englishAuditText": "landscape"
               },
               "usefulness": 54,
-              "complexity": 32
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.masculine-singular.bordado",
@@ -181,7 +181,7 @@
                 "englishAuditText": "embroidery"
               },
               "usefulness": 54,
-              "complexity": 52
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.masculine-singular.collar",
@@ -199,7 +199,7 @@
                 "englishAuditText": "necklace"
               },
               "usefulness": 54,
-              "complexity": 30
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.masculine-singular.ramo",
@@ -217,7 +217,7 @@
                 "englishAuditText": "bouquet"
               },
               "usefulness": 54,
-              "complexity": 34
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.masculine-singular.atardecer",
@@ -235,7 +235,7 @@
                 "englishAuditText": "sunset"
               },
               "usefulness": 54,
-              "complexity": 39
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-bonito.starter-expanded.ms.gato",
@@ -252,8 +252,8 @@
                 "learnerBaseText": "cat",
                 "englishAuditText": "cat"
               },
-              "usefulness": 90,
-              "complexity": 20
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-bonito.starter-expanded.ms.perro",
@@ -270,8 +270,8 @@
                 "learnerBaseText": "dog",
                 "englishAuditText": "dog"
               },
-              "usefulness": 90,
-              "complexity": 20
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-bonito.starter-expanded.ms.coche",
@@ -288,8 +288,8 @@
                 "learnerBaseText": "car",
                 "englishAuditText": "car"
               },
-              "usefulness": 90,
-              "complexity": 22
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-bonito.starter-expanded.ms.sombrero",
@@ -306,8 +306,8 @@
                 "learnerBaseText": "hat",
                 "englishAuditText": "hat"
               },
-              "usefulness": 90,
-              "complexity": 25
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-bonito.starter-sentence.ms.jardin",
@@ -324,8 +324,8 @@
                 "learnerBaseText": "garden",
                 "englishAuditText": "garden"
               },
-              "usefulness": 92,
-              "complexity": 38
+              "usefulness": 62,
+              "complexity": 33
             },
             {
               "id": "es.agreement.adjective-bonito.starter-sentence.ms.dibujo",
@@ -342,8 +342,8 @@
                 "learnerBaseText": "drawing",
                 "englishAuditText": "drawing"
               },
-              "usefulness": 92,
-              "complexity": 36
+              "usefulness": 63,
+              "complexity": 33
             },
             {
               "id": "es.agreement.adjective-bonito.starter-sentence.ms.libro",
@@ -360,12 +360,12 @@
                 "learnerBaseText": "book",
                 "englishAuditText": "book"
               },
-              "usefulness": 92,
-              "complexity": 35
+              "usefulness": 73,
+              "complexity": 33
             }
           ],
           "usefulness": 77,
-          "complexity": 18
+          "complexity": 31
         },
         "feminine-singular": {
           "displayForm": "bonita",
@@ -386,7 +386,7 @@
                 "englishAuditText": "the house"
               },
               "usefulness": 77,
-              "complexity": 18
+              "complexity": 24
             },
             {
               "id": "es.agreement.bonito.fs.cancion",
@@ -404,7 +404,7 @@
                 "englishAuditText": "a song"
               },
               "usefulness": 70,
-              "complexity": 23
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-bonito.feminine-singular.exp260908",
@@ -422,7 +422,7 @@
                 "englishAuditText": "butterfly"
               },
               "usefulness": 54,
-              "complexity": 27
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.feminine-singular.acuarela",
@@ -440,7 +440,7 @@
                 "englishAuditText": "watercolor painting"
               },
               "usefulness": 63,
-              "complexity": 52
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.feminine-singular.melodia",
@@ -458,7 +458,7 @@
                 "englishAuditText": "melody"
               },
               "usefulness": 54,
-              "complexity": 39
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.feminine-singular.vidriera",
@@ -476,7 +476,7 @@
                 "englishAuditText": "stained-glass window"
               },
               "usefulness": 54,
-              "complexity": 58
+              "complexity": 42
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.feminine-singular.postal",
@@ -494,7 +494,7 @@
                 "englishAuditText": "postcard"
               },
               "usefulness": 54,
-              "complexity": 32
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.feminine-singular.guirnalda",
@@ -512,7 +512,7 @@
                 "englishAuditText": "garland"
               },
               "usefulness": 54,
-              "complexity": 49
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.feminine-singular.ilustracion",
@@ -530,7 +530,7 @@
                 "englishAuditText": "illustration"
               },
               "usefulness": 54,
-              "complexity": 46
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-bonito.starter-expanded.fs.camisa",
@@ -547,8 +547,8 @@
                 "learnerBaseText": "shirt",
                 "englishAuditText": "shirt"
               },
-              "usefulness": 90,
-              "complexity": 23
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-bonito.starter-expanded.fs.bolsa",
@@ -565,7 +565,7 @@
                 "learnerBaseText": "bag",
                 "englishAuditText": "bag"
               },
-              "usefulness": 90,
+              "usefulness": 54,
               "complexity": 24
             },
             {
@@ -583,8 +583,8 @@
                 "learnerBaseText": "cup",
                 "englishAuditText": "cup"
               },
-              "usefulness": 90,
-              "complexity": 22
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-bonito.starter-expanded.fs.silla",
@@ -601,8 +601,8 @@
                 "learnerBaseText": "chair",
                 "englishAuditText": "chair"
               },
-              "usefulness": 90,
-              "complexity": 23
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-bonito.starter-sentence.fs.casa",
@@ -619,8 +619,8 @@
                 "learnerBaseText": "house",
                 "englishAuditText": "house"
               },
-              "usefulness": 92,
-              "complexity": 35
+              "usefulness": 77,
+              "complexity": 33
             },
             {
               "id": "es.agreement.adjective-bonito.starter-sentence.fs.cancion",
@@ -637,8 +637,8 @@
                 "learnerBaseText": "song",
                 "englishAuditText": "song"
               },
-              "usefulness": 92,
-              "complexity": 39
+              "usefulness": 70,
+              "complexity": 33
             },
             {
               "id": "es.agreement.adjective-bonito.starter-sentence.fs.camisa",
@@ -655,12 +655,12 @@
                 "learnerBaseText": "shirt",
                 "englishAuditText": "shirt"
               },
-              "usefulness": 92,
-              "complexity": 37
+              "usefulness": 54,
+              "complexity": 33
             }
           ],
           "usefulness": 77,
-          "complexity": 18
+          "complexity": 31
         },
         "masculine-plural": {
           "displayForm": "bonitos",
@@ -681,7 +681,7 @@
                 "englishAuditText": "the books"
               },
               "usefulness": 73,
-              "complexity": 22
+              "complexity": 28
             },
             {
               "id": "es.agreement.bonito.mp.jardines",
@@ -717,7 +717,7 @@
                 "englishAuditText": "bows"
               },
               "usefulness": 54,
-              "complexity": 32
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.masculine-plural.mosaicos",
@@ -735,7 +735,7 @@
                 "englishAuditText": "mosaics"
               },
               "usefulness": 54,
-              "complexity": 47
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.masculine-plural.paisajes",
@@ -753,7 +753,7 @@
                 "englishAuditText": "landscapes"
               },
               "usefulness": 54,
-              "complexity": 36
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.masculine-plural.bordados",
@@ -771,7 +771,7 @@
                 "englishAuditText": "embroideries"
               },
               "usefulness": 54,
-              "complexity": 56
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.masculine-plural.collares",
@@ -789,7 +789,7 @@
                 "englishAuditText": "necklaces"
               },
               "usefulness": 54,
-              "complexity": 34
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.masculine-plural.ramos",
@@ -807,7 +807,7 @@
                 "englishAuditText": "bouquets"
               },
               "usefulness": 54,
-              "complexity": 38
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.masculine-plural.atardeceres",
@@ -825,7 +825,7 @@
                 "englishAuditText": "sunsets"
               },
               "usefulness": 54,
-              "complexity": 43
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-bonito.starter-expanded.mp.gatos",
@@ -842,8 +842,8 @@
                 "learnerBaseText": "cats",
                 "englishAuditText": "cats"
               },
-              "usefulness": 90,
-              "complexity": 23
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-bonito.starter-expanded.mp.perros",
@@ -860,8 +860,8 @@
                 "learnerBaseText": "dogs",
                 "englishAuditText": "dogs"
               },
-              "usefulness": 90,
-              "complexity": 23
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-bonito.starter-expanded.mp.coches",
@@ -878,8 +878,8 @@
                 "learnerBaseText": "cars",
                 "englishAuditText": "cars"
               },
-              "usefulness": 90,
-              "complexity": 25
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-bonito.starter-expanded.mp.sombreros",
@@ -896,7 +896,7 @@
                 "learnerBaseText": "hats",
                 "englishAuditText": "hats"
               },
-              "usefulness": 90,
+              "usefulness": 54,
               "complexity": 28
             },
             {
@@ -914,8 +914,8 @@
                 "learnerBaseText": "gardens",
                 "englishAuditText": "gardens"
               },
-              "usefulness": 92,
-              "complexity": 42
+              "usefulness": 62,
+              "complexity": 37
             },
             {
               "id": "es.agreement.adjective-bonito.starter-sentence.mp.dibujos",
@@ -932,8 +932,8 @@
                 "learnerBaseText": "drawings",
                 "englishAuditText": "drawings"
               },
-              "usefulness": 92,
-              "complexity": 40
+              "usefulness": 63,
+              "complexity": 37
             },
             {
               "id": "es.agreement.adjective-bonito.starter-sentence.mp.libros",
@@ -950,12 +950,12 @@
                 "learnerBaseText": "books",
                 "englishAuditText": "books"
               },
-              "usefulness": 92,
-              "complexity": 39
+              "usefulness": 73,
+              "complexity": 37
             }
           ],
           "usefulness": 77,
-          "complexity": 22
+          "complexity": 37
         },
         "feminine-plural": {
           "displayForm": "bonitas",
@@ -976,7 +976,7 @@
                 "englishAuditText": "the houses"
               },
               "usefulness": 77,
-              "complexity": 22
+              "complexity": 28
             },
             {
               "id": "es.agreement.bonito.fp.canciones",
@@ -994,7 +994,7 @@
                 "englishAuditText": "some songs"
               },
               "usefulness": 70,
-              "complexity": 27
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-bonito.feminine-plural.exp260908",
@@ -1012,7 +1012,7 @@
                 "englishAuditText": "shells"
               },
               "usefulness": 46,
-              "complexity": 39
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.feminine-plural.acuarelas",
@@ -1030,7 +1030,7 @@
                 "englishAuditText": "watercolor paintings"
               },
               "usefulness": 63,
-              "complexity": 56
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.feminine-plural.melodias",
@@ -1048,7 +1048,7 @@
                 "englishAuditText": "melodies"
               },
               "usefulness": 54,
-              "complexity": 43
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.feminine-plural.vidrieras",
@@ -1066,7 +1066,7 @@
                 "englishAuditText": "stained-glass windows"
               },
               "usefulness": 54,
-              "complexity": 62
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.feminine-plural.postales",
@@ -1084,7 +1084,7 @@
                 "englishAuditText": "postcards"
               },
               "usefulness": 54,
-              "complexity": 36
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.feminine-plural.guirnaldas",
@@ -1102,7 +1102,7 @@
                 "englishAuditText": "garlands"
               },
               "usefulness": 54,
-              "complexity": 53
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-bonito.pair260908.feminine-plural.ilustraciones",
@@ -1120,7 +1120,7 @@
                 "englishAuditText": "illustrations"
               },
               "usefulness": 54,
-              "complexity": 50
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-bonito.starter-expanded.fp.camisas",
@@ -1137,8 +1137,8 @@
                 "learnerBaseText": "shirts",
                 "englishAuditText": "shirts"
               },
-              "usefulness": 90,
-              "complexity": 26
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-bonito.starter-expanded.fp.bolsas",
@@ -1155,8 +1155,8 @@
                 "learnerBaseText": "bags",
                 "englishAuditText": "bags"
               },
-              "usefulness": 90,
-              "complexity": 27
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-bonito.starter-expanded.fp.tazas",
@@ -1173,8 +1173,8 @@
                 "learnerBaseText": "cups",
                 "englishAuditText": "cups"
               },
-              "usefulness": 90,
-              "complexity": 25
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-bonito.starter-expanded.fp.sillas",
@@ -1191,8 +1191,8 @@
                 "learnerBaseText": "chairs",
                 "englishAuditText": "chairs"
               },
-              "usefulness": 90,
-              "complexity": 26
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-bonito.starter-sentence.fp.casas",
@@ -1209,8 +1209,8 @@
                 "learnerBaseText": "houses",
                 "englishAuditText": "houses"
               },
-              "usefulness": 92,
-              "complexity": 39
+              "usefulness": 77,
+              "complexity": 37
             },
             {
               "id": "es.agreement.adjective-bonito.starter-sentence.fp.canciones",
@@ -1227,8 +1227,8 @@
                 "learnerBaseText": "songs",
                 "englishAuditText": "songs"
               },
-              "usefulness": 92,
-              "complexity": 43
+              "usefulness": 70,
+              "complexity": 37
             },
             {
               "id": "es.agreement.adjective-bonito.starter-sentence.fp.camisas",
@@ -1245,16 +1245,16 @@
                 "learnerBaseText": "shirts",
                 "englishAuditText": "shirts"
               },
-              "usefulness": 92,
-              "complexity": 41
+              "usefulness": 54,
+              "complexity": 37
             }
           ],
           "usefulness": 77,
-          "complexity": 22
+          "complexity": 37
         }
       },
       "usefulness": 77,
-      "complexity": 18
+      "complexity": 31
     },
     {
       "id": "es.agreement.adjective-pequeno",
@@ -1287,7 +1287,7 @@
                 "englishAuditText": "the dog"
               },
               "usefulness": 54,
-              "complexity": 16
+              "complexity": 22
             },
             {
               "id": "es.agreement.pequeno.ms.pueblo",
@@ -1305,7 +1305,7 @@
                 "englishAuditText": "a town"
               },
               "usefulness": 65,
-              "complexity": 23
+              "complexity": 22
             },
             {
               "id": "es.agreement.adjective-pequeno.masculine-singular.exp260908",
@@ -1323,7 +1323,7 @@
                 "englishAuditText": "hedgehog"
               },
               "usefulness": 48,
-              "complexity": 41
+              "complexity": 22
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.masculine-singular.boton",
@@ -1341,7 +1341,7 @@
                 "englishAuditText": "button"
               },
               "usefulness": 72,
-              "complexity": 27
+              "complexity": 22
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.masculine-singular.dedal",
@@ -1359,7 +1359,7 @@
                 "englishAuditText": "thimble"
               },
               "usefulness": 54,
-              "complexity": 54
+              "complexity": 22
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.masculine-singular.iman",
@@ -1377,7 +1377,7 @@
                 "englishAuditText": "magnet"
               },
               "usefulness": 54,
-              "complexity": 38
+              "complexity": 22
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.masculine-singular.tornillo",
@@ -1395,7 +1395,7 @@
                 "englishAuditText": "screw"
               },
               "usefulness": 54,
-              "complexity": 38
+              "complexity": 22
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.masculine-singular.charco",
@@ -1413,7 +1413,7 @@
                 "englishAuditText": "puddle"
               },
               "usefulness": 46,
-              "complexity": 38
+              "complexity": 22
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.masculine-singular.invernadero",
@@ -1431,7 +1431,7 @@
                 "englishAuditText": "greenhouse"
               },
               "usefulness": 54,
-              "complexity": 58
+              "complexity": 22
             },
             {
               "id": "es.agreement.adjective-pequeno.starter-expanded.ms.gato",
@@ -1448,8 +1448,8 @@
                 "learnerBaseText": "cat",
                 "englishAuditText": "cat"
               },
-              "usefulness": 90,
-              "complexity": 17
+              "usefulness": 54,
+              "complexity": 22
             },
             {
               "id": "es.agreement.adjective-pequeno.starter-expanded.ms.vaso",
@@ -1466,8 +1466,8 @@
                 "learnerBaseText": "glass",
                 "englishAuditText": "glass"
               },
-              "usefulness": 90,
-              "complexity": 19
+              "usefulness": 54,
+              "complexity": 22
             },
             {
               "id": "es.agreement.adjective-pequeno.starter-expanded.ms.plato",
@@ -1484,8 +1484,8 @@
                 "learnerBaseText": "plate",
                 "englishAuditText": "plate"
               },
-              "usefulness": 90,
-              "complexity": 19
+              "usefulness": 77,
+              "complexity": 22
             },
             {
               "id": "es.agreement.adjective-pequeno.starter-expanded.ms.coche",
@@ -1502,8 +1502,8 @@
                 "learnerBaseText": "car",
                 "englishAuditText": "car"
               },
-              "usefulness": 90,
-              "complexity": 18
+              "usefulness": 54,
+              "complexity": 22
             },
             {
               "id": "es.agreement.adjective-pequeno.starter-sentence.ms.perro",
@@ -1520,8 +1520,8 @@
                 "learnerBaseText": "dog",
                 "englishAuditText": "dog"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 33
             },
             {
               "id": "es.agreement.adjective-pequeno.starter-sentence.ms.gato",
@@ -1538,8 +1538,8 @@
                 "learnerBaseText": "cat",
                 "englishAuditText": "cat"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 33
             },
             {
               "id": "es.agreement.adjective-pequeno.starter-sentence.ms.coche",
@@ -1556,12 +1556,12 @@
                 "learnerBaseText": "car",
                 "englishAuditText": "car"
               },
-              "usefulness": 92,
-              "complexity": 35
+              "usefulness": 54,
+              "complexity": 33
             }
           ],
           "usefulness": 77,
-          "complexity": 16
+          "complexity": 21
         },
         "feminine-singular": {
           "displayForm": "pequeña",
@@ -1582,7 +1582,7 @@
                 "englishAuditText": "the table"
               },
               "usefulness": 54,
-              "complexity": 16
+              "complexity": 22
             },
             {
               "id": "es.agreement.pequeno.fs.tienda",
@@ -1600,7 +1600,7 @@
                 "englishAuditText": "a shop"
               },
               "usefulness": 77,
-              "complexity": 21
+              "complexity": 22
             },
             {
               "id": "es.agreement.adjective-pequeno.feminine-singular.exp260908",
@@ -1618,7 +1618,7 @@
                 "englishAuditText": "seed"
               },
               "usefulness": 46,
-              "complexity": 31
+              "complexity": 22
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.feminine-singular.huella",
@@ -1636,7 +1636,7 @@
                 "englishAuditText": "footprint"
               },
               "usefulness": 54,
-              "complexity": 40
+              "complexity": 22
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.feminine-singular.concha",
@@ -1654,7 +1654,7 @@
                 "englishAuditText": "shell"
               },
               "usefulness": 46,
-              "complexity": 39
+              "complexity": 22
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.feminine-singular.linterna",
@@ -1672,7 +1672,7 @@
                 "englishAuditText": "flashlight"
               },
               "usefulness": 54,
-              "complexity": 32
+              "complexity": 22
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.feminine-singular.maceta",
@@ -1690,7 +1690,7 @@
                 "englishAuditText": "plant pot"
               },
               "usefulness": 77,
-              "complexity": 37
+              "complexity": 22
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.feminine-singular.campana",
@@ -1708,7 +1708,7 @@
                 "englishAuditText": "bell"
               },
               "usefulness": 54,
-              "complexity": 32
+              "complexity": 22
             },
             {
               "id": "es.agreement.adjective-pequeno.starter-expanded.fs.casa",
@@ -1725,8 +1725,8 @@
                 "learnerBaseText": "house",
                 "englishAuditText": "house"
               },
-              "usefulness": 90,
-              "complexity": 18
+              "usefulness": 77,
+              "complexity": 22
             },
             {
               "id": "es.agreement.adjective-pequeno.starter-expanded.fs.silla",
@@ -1743,8 +1743,8 @@
                 "learnerBaseText": "chair",
                 "englishAuditText": "chair"
               },
-              "usefulness": 90,
-              "complexity": 18
+              "usefulness": 54,
+              "complexity": 22
             },
             {
               "id": "es.agreement.adjective-pequeno.starter-expanded.fs.bolsa",
@@ -1761,8 +1761,8 @@
                 "learnerBaseText": "bag",
                 "englishAuditText": "bag"
               },
-              "usefulness": 90,
-              "complexity": 20
+              "usefulness": 54,
+              "complexity": 22
             },
             {
               "id": "es.agreement.adjective-pequeno.starter-expanded.fs.taza",
@@ -1779,8 +1779,8 @@
                 "learnerBaseText": "cup",
                 "englishAuditText": "cup"
               },
-              "usefulness": 90,
-              "complexity": 18
+              "usefulness": 54,
+              "complexity": 22
             },
             {
               "id": "es.agreement.adjective-pequeno.starter-sentence.fs.casa",
@@ -1797,8 +1797,8 @@
                 "learnerBaseText": "house",
                 "englishAuditText": "house"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 77,
+              "complexity": 33
             },
             {
               "id": "es.agreement.adjective-pequeno.starter-sentence.fs.mesa",
@@ -1815,8 +1815,8 @@
                 "learnerBaseText": "table",
                 "englishAuditText": "table"
               },
-              "usefulness": 92,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 33
             },
             {
               "id": "es.agreement.adjective-pequeno.starter-sentence.fs.silla",
@@ -1833,12 +1833,12 @@
                 "learnerBaseText": "chair",
                 "englishAuditText": "chair"
               },
-              "usefulness": 92,
-              "complexity": 35
+              "usefulness": 54,
+              "complexity": 33
             }
           ],
           "usefulness": 77,
-          "complexity": 16
+          "complexity": 21
         },
         "masculine-plural": {
           "displayForm": "pequeños",
@@ -1859,7 +1859,7 @@
                 "englishAuditText": "the dogs"
               },
               "usefulness": 54,
-              "complexity": 20
+              "complexity": 26
             },
             {
               "id": "es.agreement.pequeno.mp.pueblos",
@@ -1877,7 +1877,7 @@
                 "englishAuditText": "some towns"
               },
               "usefulness": 65,
-              "complexity": 27
+              "complexity": 26
             },
             {
               "id": "es.agreement.adjective-pequeno.masculine-plural.exp260908",
@@ -1895,7 +1895,7 @@
                 "englishAuditText": "drums"
               },
               "usefulness": 58,
-              "complexity": 36
+              "complexity": 26
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.masculine-plural.botones",
@@ -1913,7 +1913,7 @@
                 "englishAuditText": "buttons"
               },
               "usefulness": 72,
-              "complexity": 31
+              "complexity": 26
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.masculine-plural.dedales",
@@ -1931,7 +1931,7 @@
                 "englishAuditText": "thimbles"
               },
               "usefulness": 54,
-              "complexity": 58
+              "complexity": 26
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.masculine-plural.imanes",
@@ -1949,7 +1949,7 @@
                 "englishAuditText": "magnets"
               },
               "usefulness": 54,
-              "complexity": 42
+              "complexity": 26
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.masculine-plural.tornillos",
@@ -1967,7 +1967,7 @@
                 "englishAuditText": "screws"
               },
               "usefulness": 54,
-              "complexity": 42
+              "complexity": 26
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.masculine-plural.charcos",
@@ -1985,7 +1985,7 @@
                 "englishAuditText": "puddles"
               },
               "usefulness": 46,
-              "complexity": 42
+              "complexity": 26
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.masculine-plural.invernaderos",
@@ -2003,7 +2003,7 @@
                 "englishAuditText": "greenhouses"
               },
               "usefulness": 54,
-              "complexity": 62
+              "complexity": 26
             },
             {
               "id": "es.agreement.adjective-pequeno.starter-expanded.mp.gatos",
@@ -2020,8 +2020,8 @@
                 "learnerBaseText": "cats",
                 "englishAuditText": "cats"
               },
-              "usefulness": 90,
-              "complexity": 21
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "es.agreement.adjective-pequeno.starter-expanded.mp.vasos",
@@ -2038,8 +2038,8 @@
                 "learnerBaseText": "glasses",
                 "englishAuditText": "glasses"
               },
-              "usefulness": 90,
-              "complexity": 23
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "es.agreement.adjective-pequeno.starter-expanded.mp.platos",
@@ -2056,8 +2056,8 @@
                 "learnerBaseText": "plates",
                 "englishAuditText": "plates"
               },
-              "usefulness": 90,
-              "complexity": 23
+              "usefulness": 77,
+              "complexity": 26
             },
             {
               "id": "es.agreement.adjective-pequeno.starter-expanded.mp.coches",
@@ -2074,8 +2074,8 @@
                 "learnerBaseText": "cars",
                 "englishAuditText": "cars"
               },
-              "usefulness": 90,
-              "complexity": 22
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "es.agreement.adjective-pequeno.starter-sentence.mp.perros",
@@ -2092,8 +2092,8 @@
                 "learnerBaseText": "dogs",
                 "englishAuditText": "dogs"
               },
-              "usefulness": 92,
-              "complexity": 38
+              "usefulness": 54,
+              "complexity": 37
             },
             {
               "id": "es.agreement.adjective-pequeno.starter-sentence.mp.gatos",
@@ -2110,8 +2110,8 @@
                 "learnerBaseText": "cats",
                 "englishAuditText": "cats"
               },
-              "usefulness": 92,
-              "complexity": 38
+              "usefulness": 54,
+              "complexity": 37
             },
             {
               "id": "es.agreement.adjective-pequeno.starter-sentence.mp.coches",
@@ -2128,12 +2128,12 @@
                 "learnerBaseText": "cars",
                 "englishAuditText": "cars"
               },
-              "usefulness": 92,
-              "complexity": 39
+              "usefulness": 54,
+              "complexity": 37
             }
           ],
           "usefulness": 77,
-          "complexity": 20
+          "complexity": 27
         },
         "feminine-plural": {
           "displayForm": "pequeñas",
@@ -2154,7 +2154,7 @@
                 "englishAuditText": "the tables"
               },
               "usefulness": 54,
-              "complexity": 20
+              "complexity": 26
             },
             {
               "id": "es.agreement.pequeno.fp.tiendas",
@@ -2172,7 +2172,7 @@
                 "englishAuditText": "some shops"
               },
               "usefulness": 77,
-              "complexity": 25
+              "complexity": 26
             },
             {
               "id": "es.agreement.adjective-pequeno.feminine-plural.exp260908",
@@ -2190,7 +2190,7 @@
                 "englishAuditText": "footprints"
               },
               "usefulness": 54,
-              "complexity": 44
+              "complexity": 26
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.feminine-plural.semillas",
@@ -2208,7 +2208,7 @@
                 "englishAuditText": "seeds"
               },
               "usefulness": 46,
-              "complexity": 35
+              "complexity": 26
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.feminine-plural.conchas",
@@ -2226,7 +2226,7 @@
                 "englishAuditText": "shells"
               },
               "usefulness": 46,
-              "complexity": 43
+              "complexity": 26
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.feminine-plural.linternas",
@@ -2244,7 +2244,7 @@
                 "englishAuditText": "flashlights"
               },
               "usefulness": 54,
-              "complexity": 36
+              "complexity": 26
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.feminine-plural.macetas",
@@ -2262,7 +2262,7 @@
                 "englishAuditText": "plant pots"
               },
               "usefulness": 77,
-              "complexity": 41
+              "complexity": 26
             },
             {
               "id": "es.agreement.adjective-pequeno.pair260908.feminine-plural.campanas",
@@ -2280,7 +2280,7 @@
                 "englishAuditText": "bells"
               },
               "usefulness": 54,
-              "complexity": 36
+              "complexity": 26
             },
             {
               "id": "es.agreement.adjective-pequeno.starter-expanded.fp.casas",
@@ -2297,8 +2297,8 @@
                 "learnerBaseText": "houses",
                 "englishAuditText": "houses"
               },
-              "usefulness": 90,
-              "complexity": 22
+              "usefulness": 77,
+              "complexity": 26
             },
             {
               "id": "es.agreement.adjective-pequeno.starter-expanded.fp.sillas",
@@ -2315,8 +2315,8 @@
                 "learnerBaseText": "chairs",
                 "englishAuditText": "chairs"
               },
-              "usefulness": 90,
-              "complexity": 22
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "es.agreement.adjective-pequeno.starter-expanded.fp.bolsas",
@@ -2333,8 +2333,8 @@
                 "learnerBaseText": "bags",
                 "englishAuditText": "bags"
               },
-              "usefulness": 90,
-              "complexity": 24
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "es.agreement.adjective-pequeno.starter-expanded.fp.tazas",
@@ -2351,8 +2351,8 @@
                 "learnerBaseText": "cups",
                 "englishAuditText": "cups"
               },
-              "usefulness": 90,
-              "complexity": 22
+              "usefulness": 54,
+              "complexity": 26
             },
             {
               "id": "es.agreement.adjective-pequeno.starter-sentence.fp.casas",
@@ -2369,8 +2369,8 @@
                 "learnerBaseText": "houses",
                 "englishAuditText": "houses"
               },
-              "usefulness": 92,
-              "complexity": 38
+              "usefulness": 77,
+              "complexity": 37
             },
             {
               "id": "es.agreement.adjective-pequeno.starter-sentence.fp.mesas",
@@ -2387,8 +2387,8 @@
                 "learnerBaseText": "tables",
                 "englishAuditText": "tables"
               },
-              "usefulness": 92,
-              "complexity": 38
+              "usefulness": 54,
+              "complexity": 37
             },
             {
               "id": "es.agreement.adjective-pequeno.starter-sentence.fp.sillas",
@@ -2405,16 +2405,16 @@
                 "learnerBaseText": "chairs",
                 "englishAuditText": "chairs"
               },
-              "usefulness": 92,
-              "complexity": 39
+              "usefulness": 54,
+              "complexity": 37
             }
           ],
           "usefulness": 77,
-          "complexity": 20
+          "complexity": 27
         }
       },
       "usefulness": 77,
-      "complexity": 16
+      "complexity": 21
     },
     {
       "id": "es.agreement.determiner-definite-surprises",
@@ -2447,7 +2447,7 @@
                 "englishAuditText": "problem"
               },
               "usefulness": 70,
-              "complexity": 56
+              "complexity": 50
             },
             {
               "id": "es.agreement.definite.ms.mapa",
@@ -2465,7 +2465,7 @@
                 "englishAuditText": "map"
               },
               "usefulness": 54,
-              "complexity": 52
+              "complexity": 50
             },
             {
               "id": "es.agreement.determiner-definite-surprises.masculine-singular.exp260908",
@@ -2501,7 +2501,7 @@
                 "englishAuditText": "sofa"
               },
               "usefulness": 77,
-              "complexity": 44
+              "complexity": 50
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.masculine-singular.pijama",
@@ -2519,7 +2519,7 @@
                 "englishAuditText": "pair of pajamas"
               },
               "usefulness": 54,
-              "complexity": 55
+              "complexity": 50
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.masculine-singular.poema",
@@ -2555,7 +2555,7 @@
                 "englishAuditText": "comet"
               },
               "usefulness": 54,
-              "complexity": 60
+              "complexity": 50
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.masculine-singular.cristal",
@@ -2573,7 +2573,7 @@
                 "englishAuditText": "crystal"
               },
               "usefulness": 54,
-              "complexity": 54
+              "complexity": 50
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.masculine-singular.paisaje",
@@ -2591,11 +2591,11 @@
                 "englishAuditText": "landscape"
               },
               "usefulness": 54,
-              "complexity": 52
+              "complexity": 50
             }
           ],
           "usefulness": 77,
-          "complexity": 44
+          "complexity": 57
         },
         "feminine-singular": {
           "displayForm": "la",
@@ -2634,7 +2634,7 @@
                 "englishAuditText": "photograph"
               },
               "usefulness": 58,
-              "complexity": 53
+              "complexity": 50
             },
             {
               "id": "es.agreement.determiner-definite-surprises.feminine-singular.exp260908",
@@ -2652,7 +2652,7 @@
                 "englishAuditText": "cloud"
               },
               "usefulness": 65,
-              "complexity": 48
+              "complexity": 50
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.feminine-singular.cometa",
@@ -2670,7 +2670,7 @@
                 "englishAuditText": "kite"
               },
               "usefulness": 63,
-              "complexity": 60
+              "complexity": 50
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.feminine-singular.radio",
@@ -2688,7 +2688,7 @@
                 "englishAuditText": "radio"
               },
               "usefulness": 54,
-              "complexity": 48
+              "complexity": 50
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.feminine-singular.moto",
@@ -2706,7 +2706,7 @@
                 "englishAuditText": "motorcycle"
               },
               "usefulness": 54,
-              "complexity": 48
+              "complexity": 50
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.feminine-singular.llave",
@@ -2724,7 +2724,7 @@
                 "englishAuditText": "key"
               },
               "usefulness": 54,
-              "complexity": 48
+              "complexity": 50
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.feminine-singular.sal",
@@ -2742,7 +2742,7 @@
                 "englishAuditText": "salt"
               },
               "usefulness": 54,
-              "complexity": 53
+              "complexity": 50
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.feminine-singular.flor",
@@ -2760,11 +2760,11 @@
                 "englishAuditText": "flower"
               },
               "usefulness": 65,
-              "complexity": 48
+              "complexity": 50
             }
           ],
           "usefulness": 77,
-          "complexity": 48
+          "complexity": 57
         },
         "masculine-plural": {
           "displayForm": "los",
@@ -2785,7 +2785,7 @@
                 "englishAuditText": "problems"
               },
               "usefulness": 70,
-              "complexity": 60
+              "complexity": 54
             },
             {
               "id": "es.agreement.definite.mp.mapas",
@@ -2803,7 +2803,7 @@
                 "englishAuditText": "maps"
               },
               "usefulness": 54,
-              "complexity": 56
+              "complexity": 54
             },
             {
               "id": "es.agreement.determiner-definite-surprises.masculine-plural.exp260908",
@@ -2821,7 +2821,7 @@
                 "englishAuditText": "pencils"
               },
               "usefulness": 75,
-              "complexity": 59
+              "complexity": 54
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.masculine-plural.sofas",
@@ -2839,7 +2839,7 @@
                 "englishAuditText": "sofas"
               },
               "usefulness": 77,
-              "complexity": 48
+              "complexity": 54
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.masculine-plural.pijamas",
@@ -2857,7 +2857,7 @@
                 "englishAuditText": "pairs of pajamas"
               },
               "usefulness": 54,
-              "complexity": 59
+              "complexity": 54
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.masculine-plural.poemas",
@@ -2893,7 +2893,7 @@
                 "englishAuditText": "comets"
               },
               "usefulness": 54,
-              "complexity": 64
+              "complexity": 54
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.masculine-plural.cristales",
@@ -2911,7 +2911,7 @@
                 "englishAuditText": "crystals"
               },
               "usefulness": 54,
-              "complexity": 58
+              "complexity": 54
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.masculine-plural.paisajes",
@@ -2929,11 +2929,11 @@
                 "englishAuditText": "landscapes"
               },
               "usefulness": 54,
-              "complexity": 56
+              "complexity": 54
             }
           ],
           "usefulness": 77,
-          "complexity": 48
+          "complexity": 63
         },
         "feminine-plural": {
           "displayForm": "las",
@@ -2972,7 +2972,7 @@
                 "englishAuditText": "photographs"
               },
               "usefulness": 58,
-              "complexity": 57
+              "complexity": 54
             },
             {
               "id": "es.agreement.determiner-definite-surprises.feminine-plural.exp260908",
@@ -2990,7 +2990,7 @@
                 "englishAuditText": "flowers"
               },
               "usefulness": 65,
-              "complexity": 52
+              "complexity": 54
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.feminine-plural.cometas",
@@ -3008,7 +3008,7 @@
                 "englishAuditText": "kites"
               },
               "usefulness": 63,
-              "complexity": 64
+              "complexity": 54
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.feminine-plural.radios",
@@ -3026,7 +3026,7 @@
                 "englishAuditText": "radios"
               },
               "usefulness": 54,
-              "complexity": 52
+              "complexity": 54
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.feminine-plural.motos",
@@ -3044,7 +3044,7 @@
                 "englishAuditText": "motorcycles"
               },
               "usefulness": 54,
-              "complexity": 52
+              "complexity": 54
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.feminine-plural.llaves",
@@ -3062,7 +3062,7 @@
                 "englishAuditText": "keys"
               },
               "usefulness": 54,
-              "complexity": 52
+              "complexity": 54
             },
             {
               "id": "es.agreement.determiner-definite-surprises.pair260908.feminine-plural.sales",
@@ -3080,15 +3080,15 @@
                 "englishAuditText": "salts"
               },
               "usefulness": 54,
-              "complexity": 76
+              "complexity": 54
             }
           ],
           "usefulness": 77,
-          "complexity": 52
+          "complexity": 63
         }
       },
       "usefulness": 77,
-      "complexity": 54
+      "complexity": 57
     },
     {
       "id": "es.agreement.determiner-demonstrative-este",
@@ -3121,7 +3121,7 @@
                 "englishAuditText": "book"
               },
               "usefulness": 73,
-              "complexity": 22
+              "complexity": 24
             },
             {
               "id": "es.agreement.este.ms.coche",
@@ -3139,7 +3139,7 @@
                 "englishAuditText": "car"
               },
               "usefulness": 54,
-              "complexity": 22
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.masculine-singular.exp260908",
@@ -3157,7 +3157,7 @@
                 "englishAuditText": "rainbow"
               },
               "usefulness": 65,
-              "complexity": 40
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.masculine-singular.sendero",
@@ -3175,7 +3175,7 @@
                 "englishAuditText": "trail"
               },
               "usefulness": 46,
-              "complexity": 37
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.masculine-singular.telescopio",
@@ -3193,7 +3193,7 @@
                 "englishAuditText": "telescope"
               },
               "usefulness": 33,
-              "complexity": 55
+              "complexity": 31
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.masculine-singular.acuario",
@@ -3211,7 +3211,7 @@
                 "englishAuditText": "aquarium"
               },
               "usefulness": 54,
-              "complexity": 44
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.masculine-singular.violin",
@@ -3229,7 +3229,7 @@
                 "englishAuditText": "violin"
               },
               "usefulness": 58,
-              "complexity": 38
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.masculine-singular.cuenco",
@@ -3247,7 +3247,7 @@
                 "englishAuditText": "bowl"
               },
               "usefulness": 77,
-              "complexity": 31
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.masculine-singular.faro",
@@ -3265,11 +3265,11 @@
                 "englishAuditText": "lighthouse"
               },
               "usefulness": 54,
-              "complexity": 38
+              "complexity": 24
             }
           ],
           "usefulness": 77,
-          "complexity": 22
+          "complexity": 31
         },
         "feminine-singular": {
           "displayForm": "esta",
@@ -3290,7 +3290,7 @@
                 "englishAuditText": "table"
               },
               "usefulness": 54,
-              "complexity": 22
+              "complexity": 24
             },
             {
               "id": "es.agreement.este.fs.calle",
@@ -3326,7 +3326,7 @@
                 "englishAuditText": "compass"
               },
               "usefulness": 33,
-              "complexity": 55
+              "complexity": 31
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.feminine-singular.escultura",
@@ -3344,7 +3344,7 @@
                 "englishAuditText": "sculpture"
               },
               "usefulness": 58,
-              "complexity": 43
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.feminine-singular.mascara",
@@ -3362,7 +3362,7 @@
                 "englishAuditText": "mask"
               },
               "usefulness": 58,
-              "complexity": 39
+              "complexity": 42
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.feminine-singular.fuente",
@@ -3380,7 +3380,7 @@
                 "englishAuditText": "fountain"
               },
               "usefulness": 54,
-              "complexity": 36
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.feminine-singular.lupa",
@@ -3398,7 +3398,7 @@
                 "englishAuditText": "magnifying glass"
               },
               "usefulness": 54,
-              "complexity": 48
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.feminine-singular.cabana",
@@ -3416,11 +3416,11 @@
                 "englishAuditText": "cabin"
               },
               "usefulness": 54,
-              "complexity": 39
+              "complexity": 24
             }
           ],
           "usefulness": 77,
-          "complexity": 22
+          "complexity": 31
         },
         "masculine-plural": {
           "displayForm": "estos",
@@ -3441,7 +3441,7 @@
                 "englishAuditText": "books"
               },
               "usefulness": 73,
-              "complexity": 26
+              "complexity": 28
             },
             {
               "id": "es.agreement.este.mp.coches",
@@ -3459,7 +3459,7 @@
                 "englishAuditText": "cars"
               },
               "usefulness": 54,
-              "complexity": 26
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.masculine-plural.exp260908",
@@ -3477,7 +3477,7 @@
                 "englishAuditText": "costumes"
               },
               "usefulness": 58,
-              "complexity": 42
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.masculine-plural.senderos",
@@ -3495,7 +3495,7 @@
                 "englishAuditText": "trails"
               },
               "usefulness": 46,
-              "complexity": 41
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.masculine-plural.telescopios",
@@ -3513,7 +3513,7 @@
                 "englishAuditText": "telescopes"
               },
               "usefulness": 33,
-              "complexity": 59
+              "complexity": 35
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.masculine-plural.acuarios",
@@ -3531,7 +3531,7 @@
                 "englishAuditText": "aquariums"
               },
               "usefulness": 54,
-              "complexity": 48
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.masculine-plural.violines",
@@ -3549,7 +3549,7 @@
                 "englishAuditText": "violins"
               },
               "usefulness": 58,
-              "complexity": 42
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.masculine-plural.cuencos",
@@ -3567,7 +3567,7 @@
                 "englishAuditText": "bowls"
               },
               "usefulness": 77,
-              "complexity": 35
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.masculine-plural.faros",
@@ -3585,11 +3585,11 @@
                 "englishAuditText": "lighthouses"
               },
               "usefulness": 54,
-              "complexity": 42
+              "complexity": 28
             }
           ],
           "usefulness": 77,
-          "complexity": 26
+          "complexity": 37
         },
         "feminine-plural": {
           "displayForm": "estas",
@@ -3610,7 +3610,7 @@
                 "englishAuditText": "tables"
               },
               "usefulness": 54,
-              "complexity": 26
+              "complexity": 28
             },
             {
               "id": "es.agreement.este.fp.calles",
@@ -3646,7 +3646,7 @@
                 "englishAuditText": "roots"
               },
               "usefulness": 46,
-              "complexity": 48
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.feminine-plural.brujulas",
@@ -3664,7 +3664,7 @@
                 "englishAuditText": "compasses"
               },
               "usefulness": 33,
-              "complexity": 59
+              "complexity": 35
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.feminine-plural.esculturas",
@@ -3682,7 +3682,7 @@
                 "englishAuditText": "sculptures"
               },
               "usefulness": 58,
-              "complexity": 47
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.feminine-plural.mascaras",
@@ -3700,7 +3700,7 @@
                 "englishAuditText": "masks"
               },
               "usefulness": 58,
-              "complexity": 43
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.feminine-plural.fuentes",
@@ -3718,7 +3718,7 @@
                 "englishAuditText": "fountains"
               },
               "usefulness": 54,
-              "complexity": 40
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.feminine-plural.lupas",
@@ -3736,7 +3736,7 @@
                 "englishAuditText": "magnifying glasses"
               },
               "usefulness": 54,
-              "complexity": 52
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-demonstrative-este.pair260908.feminine-plural.cabanas",
@@ -3754,15 +3754,15 @@
                 "englishAuditText": "cabins"
               },
               "usefulness": 54,
-              "complexity": 43
+              "complexity": 28
             }
           ],
           "usefulness": 77,
-          "complexity": 26
+          "complexity": 37
         }
       },
       "usefulness": 77,
-      "complexity": 26
+      "complexity": 31
     },
     {
       "id": "es.agreement.adjective-trabajador",
@@ -3795,7 +3795,7 @@
                 "englishAuditText": "the male student"
               },
               "usefulness": 75,
-              "complexity": 34
+              "complexity": 35
             },
             {
               "id": "es.agreement.trabajador.ms.medico",
@@ -3813,7 +3813,7 @@
                 "englishAuditText": "a male doctor"
               },
               "usefulness": 77,
-              "complexity": 36
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-trabajador.masculine-singular.exp260908",
@@ -3831,7 +3831,7 @@
                 "englishAuditText": "gardener"
               },
               "usefulness": 54,
-              "complexity": 40
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.masculine-singular.panadero",
@@ -3849,7 +3849,7 @@
                 "englishAuditText": "baker"
               },
               "usefulness": 54,
-              "complexity": 39
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.masculine-singular.bibliotecario",
@@ -3867,7 +3867,7 @@
                 "englishAuditText": "librarian"
               },
               "usefulness": 54,
-              "complexity": 49
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.masculine-singular.carpintero",
@@ -3885,7 +3885,7 @@
                 "englishAuditText": "carpenter"
               },
               "usefulness": 54,
-              "complexity": 45
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.masculine-singular.voluntario",
@@ -3903,7 +3903,7 @@
                 "englishAuditText": "volunteer"
               },
               "usefulness": 54,
-              "complexity": 43
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.masculine-singular.monitor",
@@ -3921,11 +3921,11 @@
                 "englishAuditText": "activity leader"
               },
               "usefulness": 75,
-              "complexity": 48
+              "complexity": 35
             }
           ],
           "usefulness": 77,
-          "complexity": 34
+          "complexity": 42
         },
         "feminine-singular": {
           "displayForm": "trabajadora",
@@ -3946,7 +3946,7 @@
                 "englishAuditText": "the female student"
               },
               "usefulness": 75,
-              "complexity": 36
+              "complexity": 35
             },
             {
               "id": "es.agreement.trabajador.fs.medica",
@@ -3964,7 +3964,7 @@
                 "englishAuditText": "a female doctor"
               },
               "usefulness": 77,
-              "complexity": 38
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-trabajador.feminine-singular.exp260908",
@@ -3982,7 +3982,7 @@
                 "englishAuditText": "female inventor"
               },
               "usefulness": 54,
-              "complexity": 50
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.feminine-singular.jardinera",
@@ -4000,7 +4000,7 @@
                 "englishAuditText": "female gardener"
               },
               "usefulness": 54,
-              "complexity": 42
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.feminine-singular.panadera",
@@ -4018,7 +4018,7 @@
                 "englishAuditText": "female baker"
               },
               "usefulness": 54,
-              "complexity": 41
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.feminine-singular.bibliotecaria",
@@ -4036,7 +4036,7 @@
                 "englishAuditText": "female librarian"
               },
               "usefulness": 54,
-              "complexity": 51
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.feminine-singular.carpintera",
@@ -4054,7 +4054,7 @@
                 "englishAuditText": "female carpenter"
               },
               "usefulness": 54,
-              "complexity": 47
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.feminine-singular.voluntaria",
@@ -4072,7 +4072,7 @@
                 "englishAuditText": "female volunteer"
               },
               "usefulness": 54,
-              "complexity": 45
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.feminine-singular.monitora",
@@ -4090,11 +4090,11 @@
                 "englishAuditText": "female activity leader"
               },
               "usefulness": 75,
-              "complexity": 50
+              "complexity": 35
             }
           ],
           "usefulness": 77,
-          "complexity": 36
+          "complexity": 42
         },
         "masculine-plural": {
           "displayForm": "trabajadores",
@@ -4115,7 +4115,7 @@
                 "englishAuditText": "the male students"
               },
               "usefulness": 75,
-              "complexity": 38
+              "complexity": 39
             },
             {
               "id": "es.agreement.trabajador.mp.medicos",
@@ -4133,7 +4133,7 @@
                 "englishAuditText": "some male doctors"
               },
               "usefulness": 77,
-              "complexity": 40
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-trabajador.masculine-plural.exp260908",
@@ -4151,7 +4151,7 @@
                 "englishAuditText": "teammates"
               },
               "usefulness": 54,
-              "complexity": 43
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.masculine-plural.jardineros",
@@ -4169,7 +4169,7 @@
                 "englishAuditText": "gardeners"
               },
               "usefulness": 54,
-              "complexity": 44
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.masculine-plural.panaderos",
@@ -4187,7 +4187,7 @@
                 "englishAuditText": "bakers"
               },
               "usefulness": 54,
-              "complexity": 43
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.masculine-plural.bibliotecarios",
@@ -4205,7 +4205,7 @@
                 "englishAuditText": "librarians"
               },
               "usefulness": 54,
-              "complexity": 53
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.masculine-plural.carpinteros",
@@ -4223,7 +4223,7 @@
                 "englishAuditText": "carpenters"
               },
               "usefulness": 54,
-              "complexity": 49
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.masculine-plural.voluntarios",
@@ -4241,7 +4241,7 @@
                 "englishAuditText": "volunteers"
               },
               "usefulness": 54,
-              "complexity": 47
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.masculine-plural.monitores",
@@ -4259,11 +4259,11 @@
                 "englishAuditText": "activity leaders"
               },
               "usefulness": 75,
-              "complexity": 52
+              "complexity": 39
             }
           ],
           "usefulness": 77,
-          "complexity": 38
+          "complexity": 48
         },
         "feminine-plural": {
           "displayForm": "trabajadoras",
@@ -4284,7 +4284,7 @@
                 "englishAuditText": "the female students"
               },
               "usefulness": 75,
-              "complexity": 40
+              "complexity": 39
             },
             {
               "id": "es.agreement.trabajador.fp.medicas",
@@ -4302,7 +4302,7 @@
                 "englishAuditText": "some female doctors"
               },
               "usefulness": 77,
-              "complexity": 42
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-trabajador.feminine-plural.exp260908",
@@ -4320,7 +4320,7 @@
                 "englishAuditText": "female researchers"
               },
               "usefulness": 34,
-              "complexity": 60
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.feminine-plural.jardineras",
@@ -4338,7 +4338,7 @@
                 "englishAuditText": "female gardeners"
               },
               "usefulness": 54,
-              "complexity": 46
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.feminine-plural.panaderas",
@@ -4356,7 +4356,7 @@
                 "englishAuditText": "female bakers"
               },
               "usefulness": 54,
-              "complexity": 45
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.feminine-plural.bibliotecarias",
@@ -4374,7 +4374,7 @@
                 "englishAuditText": "female librarians"
               },
               "usefulness": 54,
-              "complexity": 55
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.feminine-plural.carpinteras",
@@ -4392,7 +4392,7 @@
                 "englishAuditText": "female carpenters"
               },
               "usefulness": 54,
-              "complexity": 51
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.feminine-plural.voluntarias",
@@ -4410,7 +4410,7 @@
                 "englishAuditText": "female volunteers"
               },
               "usefulness": 54,
-              "complexity": 49
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-trabajador.pair260908.feminine-plural.monitoras",
@@ -4428,15 +4428,15 @@
                 "englishAuditText": "female activity leaders"
               },
               "usefulness": 75,
-              "complexity": 54
+              "complexity": 39
             }
           ],
           "usefulness": 77,
-          "complexity": 40
+          "complexity": 48
         }
       },
       "usefulness": 77,
-      "complexity": 38
+      "complexity": 42
     },
     {
       "id": "es.agreement.adjective-verde",
@@ -4469,7 +4469,7 @@
                 "englishAuditText": "the car"
               },
               "usefulness": 54,
-              "complexity": 20
+              "complexity": 24
             },
             {
               "id": "es.agreement.verde.ms.vestido",
@@ -4487,7 +4487,7 @@
                 "englishAuditText": "a dress"
               },
               "usefulness": 54,
-              "complexity": 22
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-verde.masculine-singular.exp260908",
@@ -4505,7 +4505,7 @@
                 "englishAuditText": "sprout"
               },
               "usefulness": 46,
-              "complexity": 39
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.masculine-singular.pepino",
@@ -4523,7 +4523,7 @@
                 "englishAuditText": "cucumber"
               },
               "usefulness": 77,
-              "complexity": 31
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.masculine-singular.guisante",
@@ -4541,7 +4541,7 @@
                 "englishAuditText": "pea"
               },
               "usefulness": 77,
-              "complexity": 34
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.masculine-singular.pimiento",
@@ -4559,7 +4559,7 @@
                 "englishAuditText": "pepper"
               },
               "usefulness": 54,
-              "complexity": 30
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.masculine-singular.lagarto",
@@ -4577,7 +4577,7 @@
                 "englishAuditText": "lizard"
               },
               "usefulness": 48,
-              "complexity": 39
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.masculine-singular.globo",
@@ -4595,7 +4595,7 @@
                 "englishAuditText": "balloon"
               },
               "usefulness": 63,
-              "complexity": 25
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.masculine-singular.delantal",
@@ -4613,11 +4613,11 @@
                 "englishAuditText": "apron"
               },
               "usefulness": 54,
-              "complexity": 34
+              "complexity": 24
             }
           ],
           "usefulness": 77,
-          "complexity": 20
+          "complexity": 31
         },
         "feminine-singular": {
           "displayForm": "verde",
@@ -4638,7 +4638,7 @@
                 "englishAuditText": "the shirt"
               },
               "usefulness": 54,
-              "complexity": 20
+              "complexity": 24
             },
             {
               "id": "es.agreement.verde.fs.puerta",
@@ -4656,7 +4656,7 @@
                 "englishAuditText": "a door"
               },
               "usefulness": 54,
-              "complexity": 20
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-verde.feminine-singular.exp260908",
@@ -4674,7 +4674,7 @@
                 "englishAuditText": "kite"
               },
               "usefulness": 63,
-              "complexity": 34
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.feminine-singular.bufanda",
@@ -4692,7 +4692,7 @@
                 "englishAuditText": "scarf"
               },
               "usefulness": 77,
-              "complexity": 27
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.feminine-singular.taza",
@@ -4710,7 +4710,7 @@
                 "englishAuditText": "cup"
               },
               "usefulness": 54,
-              "complexity": 20
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.feminine-singular.sudadera",
@@ -4728,7 +4728,7 @@
                 "englishAuditText": "sweatshirt"
               },
               "usefulness": 54,
-              "complexity": 33
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.feminine-singular.cinta",
@@ -4746,7 +4746,7 @@
                 "englishAuditText": "ribbon"
               },
               "usefulness": 54,
-              "complexity": 32
+              "complexity": 24
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.feminine-singular.bota",
@@ -4764,11 +4764,11 @@
                 "englishAuditText": "boot"
               },
               "usefulness": 77,
-              "complexity": 25
+              "complexity": 24
             }
           ],
           "usefulness": 77,
-          "complexity": 20
+          "complexity": 31
         },
         "masculine-plural": {
           "displayForm": "verdes",
@@ -4789,7 +4789,7 @@
                 "englishAuditText": "the cars"
               },
               "usefulness": 54,
-              "complexity": 24
+              "complexity": 28
             },
             {
               "id": "es.agreement.verde.mp.vestidos",
@@ -4807,7 +4807,7 @@
                 "englishAuditText": "some dresses"
               },
               "usefulness": 54,
-              "complexity": 26
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-verde.masculine-plural.exp260908",
@@ -4825,7 +4825,7 @@
                 "englishAuditText": "peas"
               },
               "usefulness": 77,
-              "complexity": 38
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.masculine-plural.pepinos",
@@ -4843,7 +4843,7 @@
                 "englishAuditText": "cucumbers"
               },
               "usefulness": 77,
-              "complexity": 35
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.masculine-plural.pimientos",
@@ -4861,7 +4861,7 @@
                 "englishAuditText": "peppers"
               },
               "usefulness": 54,
-              "complexity": 34
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.masculine-plural.lagartos",
@@ -4879,7 +4879,7 @@
                 "englishAuditText": "lizards"
               },
               "usefulness": 48,
-              "complexity": 43
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.masculine-plural.globos",
@@ -4897,7 +4897,7 @@
                 "englishAuditText": "balloons"
               },
               "usefulness": 63,
-              "complexity": 29
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.masculine-plural.delantales",
@@ -4915,11 +4915,11 @@
                 "englishAuditText": "aprons"
               },
               "usefulness": 54,
-              "complexity": 38
+              "complexity": 28
             }
           ],
           "usefulness": 77,
-          "complexity": 24
+          "complexity": 37
         },
         "feminine-plural": {
           "displayForm": "verdes",
@@ -4940,7 +4940,7 @@
                 "englishAuditText": "the shirts"
               },
               "usefulness": 54,
-              "complexity": 24
+              "complexity": 28
             },
             {
               "id": "es.agreement.verde.fp.puertas",
@@ -4958,7 +4958,7 @@
                 "englishAuditText": "some doors"
               },
               "usefulness": 54,
-              "complexity": 24
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-verde.feminine-plural.exp260908",
@@ -4976,7 +4976,7 @@
                 "englishAuditText": "hills"
               },
               "usefulness": 46,
-              "complexity": 41
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.feminine-plural.bufandas",
@@ -4994,7 +4994,7 @@
                 "englishAuditText": "scarves"
               },
               "usefulness": 54,
-              "complexity": 31
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.feminine-plural.tazas",
@@ -5012,7 +5012,7 @@
                 "englishAuditText": "cups"
               },
               "usefulness": 54,
-              "complexity": 24
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.feminine-plural.sudaderas",
@@ -5030,7 +5030,7 @@
                 "englishAuditText": "sweatshirts"
               },
               "usefulness": 54,
-              "complexity": 37
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.feminine-plural.cintas",
@@ -5048,7 +5048,7 @@
                 "englishAuditText": "ribbons"
               },
               "usefulness": 54,
-              "complexity": 36
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.feminine-plural.cometas",
@@ -5066,7 +5066,7 @@
                 "englishAuditText": "kites"
               },
               "usefulness": 63,
-              "complexity": 38
+              "complexity": 28
             },
             {
               "id": "es.agreement.adjective-verde.pair260908.feminine-plural.botas",
@@ -5084,15 +5084,15 @@
                 "englishAuditText": "boots"
               },
               "usefulness": 77,
-              "complexity": 29
+              "complexity": 28
             }
           ],
           "usefulness": 77,
-          "complexity": 24
+          "complexity": 37
         }
       },
       "usefulness": 77,
-      "complexity": 24
+      "complexity": 31
     },
     {
       "id": "es.agreement.determiner-indefinite",
@@ -5125,7 +5125,7 @@
                 "englishAuditText": "day"
               },
               "usefulness": 70,
-              "complexity": 34
+              "complexity": 24
             },
             {
               "id": "es.agreement.indefinite.ms.idioma",
@@ -5143,7 +5143,7 @@
                 "englishAuditText": "language"
               },
               "usefulness": 75,
-              "complexity": 36
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-indefinite.masculine-singular.exp260908",
@@ -5161,7 +5161,7 @@
                 "englishAuditText": "habitat"
               },
               "usefulness": 34,
-              "complexity": 57
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.masculine-singular.experimento",
@@ -5179,7 +5179,7 @@
                 "englishAuditText": "experiment"
               },
               "usefulness": 33,
-              "complexity": 55
+              "complexity": 31
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.masculine-singular.invento",
@@ -5197,7 +5197,7 @@
                 "englishAuditText": "invention"
               },
               "usefulness": 52,
-              "complexity": 43
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.masculine-singular.engranaje",
@@ -5215,7 +5215,7 @@
                 "englishAuditText": "gear"
               },
               "usefulness": 54,
-              "complexity": 55
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.masculine-singular.asteroide",
@@ -5233,7 +5233,7 @@
                 "englishAuditText": "asteroid"
               },
               "usefulness": 34,
-              "complexity": 58
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.masculine-singular.eclipse",
@@ -5251,7 +5251,7 @@
                 "englishAuditText": "eclipse"
               },
               "usefulness": 34,
-              "complexity": 55
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.masculine-singular.microscopio",
@@ -5269,11 +5269,11 @@
                 "englishAuditText": "microscope"
               },
               "usefulness": 33,
-              "complexity": 60
+              "complexity": 31
             }
           ],
           "usefulness": 77,
-          "complexity": 34
+          "complexity": 31
         },
         "feminine-singular": {
           "displayForm": "una",
@@ -5294,7 +5294,7 @@
                 "englishAuditText": "night"
               },
               "usefulness": 70,
-              "complexity": 30
+              "complexity": 24
             },
             {
               "id": "es.agreement.indefinite.fs.clase",
@@ -5312,7 +5312,7 @@
                 "englishAuditText": "class"
               },
               "usefulness": 75,
-              "complexity": 30
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-indefinite.feminine-singular.exp260908",
@@ -5330,7 +5330,7 @@
                 "englishAuditText": "solution"
               },
               "usefulness": 52,
-              "complexity": 40
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.feminine-singular.hipotesis",
@@ -5348,7 +5348,7 @@
                 "englishAuditText": "hypothesis"
               },
               "usefulness": 33,
-              "complexity": 65
+              "complexity": 31
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.feminine-singular.prediccion",
@@ -5366,7 +5366,7 @@
                 "englishAuditText": "prediction"
               },
               "usefulness": 52,
-              "complexity": 59
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.feminine-singular.constelacion",
@@ -5384,7 +5384,7 @@
                 "englishAuditText": "constellation"
               },
               "usefulness": 34,
-              "complexity": 63
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.feminine-singular.galaxia",
@@ -5402,7 +5402,7 @@
                 "englishAuditText": "galaxy"
               },
               "usefulness": 34,
-              "complexity": 53
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.feminine-singular.polea",
@@ -5420,7 +5420,7 @@
                 "englishAuditText": "pulley"
               },
               "usefulness": 54,
-              "complexity": 57
+              "complexity": 24
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.feminine-singular.orbita",
@@ -5438,11 +5438,11 @@
                 "englishAuditText": "orbit"
               },
               "usefulness": 33,
-              "complexity": 58
+              "complexity": 31
             }
           ],
           "usefulness": 77,
-          "complexity": 30
+          "complexity": 31
         },
         "masculine-plural": {
           "displayForm": "unos",
@@ -5463,7 +5463,7 @@
                 "englishAuditText": "days"
               },
               "usefulness": 70,
-              "complexity": 38
+              "complexity": 28
             },
             {
               "id": "es.agreement.indefinite.mp.idiomas",
@@ -5481,7 +5481,7 @@
                 "englishAuditText": "languages"
               },
               "usefulness": 75,
-              "complexity": 40
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-indefinite.masculine-plural.exp260908",
@@ -5499,7 +5499,7 @@
                 "englishAuditText": "discoveries"
               },
               "usefulness": 52,
-              "complexity": 54
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.masculine-plural.experimentos",
@@ -5517,7 +5517,7 @@
                 "englishAuditText": "experiments"
               },
               "usefulness": 33,
-              "complexity": 59
+              "complexity": 35
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.masculine-plural.inventos",
@@ -5535,7 +5535,7 @@
                 "englishAuditText": "inventions"
               },
               "usefulness": 52,
-              "complexity": 47
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.masculine-plural.engranajes",
@@ -5553,7 +5553,7 @@
                 "englishAuditText": "gears"
               },
               "usefulness": 54,
-              "complexity": 59
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.masculine-plural.asteroides",
@@ -5571,7 +5571,7 @@
                 "englishAuditText": "asteroids"
               },
               "usefulness": 34,
-              "complexity": 62
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.masculine-plural.eclipses",
@@ -5589,7 +5589,7 @@
                 "englishAuditText": "eclipses"
               },
               "usefulness": 34,
-              "complexity": 59
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.masculine-plural.microscopios",
@@ -5607,11 +5607,11 @@
                 "englishAuditText": "microscopes"
               },
               "usefulness": 33,
-              "complexity": 64
+              "complexity": 35
             }
           ],
           "usefulness": 77,
-          "complexity": 38
+          "complexity": 37
         },
         "feminine-plural": {
           "displayForm": "unas",
@@ -5632,7 +5632,7 @@
                 "englishAuditText": "nights"
               },
               "usefulness": 70,
-              "complexity": 34
+              "complexity": 28
             },
             {
               "id": "es.agreement.indefinite.fp.clases",
@@ -5650,7 +5650,7 @@
                 "englishAuditText": "classes"
               },
               "usefulness": 75,
-              "complexity": 34
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-indefinite.feminine-plural.exp260908",
@@ -5668,7 +5668,7 @@
                 "englishAuditText": "possibilities"
               },
               "usefulness": 55,
-              "complexity": 53
+              "complexity": 33
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.feminine-plural.hipotesis",
@@ -5686,7 +5686,7 @@
                 "englishAuditText": "hypotheses"
               },
               "usefulness": 54,
-              "complexity": 69
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.feminine-plural.predicciones",
@@ -5704,7 +5704,7 @@
                 "englishAuditText": "predictions"
               },
               "usefulness": 52,
-              "complexity": 63
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.feminine-plural.constelaciones",
@@ -5722,7 +5722,7 @@
                 "englishAuditText": "constellations"
               },
               "usefulness": 34,
-              "complexity": 67
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.feminine-plural.galaxias",
@@ -5740,7 +5740,7 @@
                 "englishAuditText": "galaxies"
               },
               "usefulness": 34,
-              "complexity": 57
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.feminine-plural.poleas",
@@ -5758,7 +5758,7 @@
                 "englishAuditText": "pulleys"
               },
               "usefulness": 54,
-              "complexity": 61
+              "complexity": 28
             },
             {
               "id": "es.agreement.determiner-indefinite.pair260908.feminine-plural.orbitas",
@@ -5776,15 +5776,15 @@
                 "englishAuditText": "orbits"
               },
               "usefulness": 33,
-              "complexity": 62
+              "complexity": 35
             }
           ],
           "usefulness": 77,
-          "complexity": 34
+          "complexity": 37
         }
       },
       "usefulness": 77,
-      "complexity": 44
+      "complexity": 31
     },
     {
       "id": "es.agreement.adjective-feliz",
@@ -5817,7 +5817,7 @@
                 "englishAuditText": "the boy"
               },
               "usefulness": 77,
-              "complexity": 30
+              "complexity": 35
             },
             {
               "id": "es.agreement.feliz.ms.dia",
@@ -5835,7 +5835,7 @@
                 "englishAuditText": "a day"
               },
               "usefulness": 70,
-              "complexity": 33
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-feliz.masculine-singular.exp260908",
@@ -5853,7 +5853,7 @@
                 "englishAuditText": "ending"
               },
               "usefulness": 70,
-              "complexity": 40
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.masculine-singular.excursionista",
@@ -5871,7 +5871,7 @@
                 "englishAuditText": "male hiker"
               },
               "usefulness": 70,
-              "complexity": 49
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.masculine-singular.musico",
@@ -5889,7 +5889,7 @@
                 "englishAuditText": "male musician"
               },
               "usefulness": 70,
-              "complexity": 40
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.masculine-singular.ganador",
@@ -5907,7 +5907,7 @@
                 "englishAuditText": "male winner"
               },
               "usefulness": 70,
-              "complexity": 42
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.masculine-singular.lector",
@@ -5925,7 +5925,7 @@
                 "englishAuditText": "male reader"
               },
               "usefulness": 70,
-              "complexity": 39
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.masculine-singular.anfitrion",
@@ -5943,7 +5943,7 @@
                 "englishAuditText": "male host"
               },
               "usefulness": 70,
-              "complexity": 53
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.masculine-singular.companero",
@@ -5961,11 +5961,11 @@
                 "englishAuditText": "male teammate"
               },
               "usefulness": 70,
-              "complexity": 38
+              "complexity": 35
             }
           ],
           "usefulness": 77,
-          "complexity": 30
+          "complexity": 42
         },
         "feminine-singular": {
           "displayForm": "feliz",
@@ -5986,7 +5986,7 @@
                 "englishAuditText": "the girl"
               },
               "usefulness": 77,
-              "complexity": 30
+              "complexity": 35
             },
             {
               "id": "es.agreement.feliz.fs.familia",
@@ -6004,7 +6004,7 @@
                 "englishAuditText": "a family"
               },
               "usefulness": 77,
-              "complexity": 32
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-feliz.feminine-singular.exp260908",
@@ -6022,7 +6022,7 @@
                 "englishAuditText": "childhood"
               },
               "usefulness": 70,
-              "complexity": 49
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.feminine-singular.excursionista",
@@ -6040,7 +6040,7 @@
                 "englishAuditText": "female hiker"
               },
               "usefulness": 70,
-              "complexity": 51
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.feminine-singular.musica",
@@ -6058,7 +6058,7 @@
                 "englishAuditText": "female musician"
               },
               "usefulness": 70,
-              "complexity": 54
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.feminine-singular.ganadora",
@@ -6076,7 +6076,7 @@
                 "englishAuditText": "female winner"
               },
               "usefulness": 70,
-              "complexity": 44
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.feminine-singular.lectora",
@@ -6094,7 +6094,7 @@
                 "englishAuditText": "female reader"
               },
               "usefulness": 70,
-              "complexity": 41
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.feminine-singular.anfitriona",
@@ -6112,7 +6112,7 @@
                 "englishAuditText": "female host"
               },
               "usefulness": 70,
-              "complexity": 55
+              "complexity": 35
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.feminine-singular.companera",
@@ -6130,11 +6130,11 @@
                 "englishAuditText": "female teammate"
               },
               "usefulness": 70,
-              "complexity": 40
+              "complexity": 35
             }
           ],
           "usefulness": 77,
-          "complexity": 30
+          "complexity": 42
         },
         "masculine-plural": {
           "displayForm": "felices",
@@ -6155,7 +6155,7 @@
                 "englishAuditText": "the boys"
               },
               "usefulness": 77,
-              "complexity": 38
+              "complexity": 39
             },
             {
               "id": "es.agreement.feliz.mp.dias",
@@ -6173,7 +6173,7 @@
                 "englishAuditText": "some days"
               },
               "usefulness": 70,
-              "complexity": 41
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-feliz.masculine-plural.exp260908",
@@ -6191,7 +6191,7 @@
                 "englishAuditText": "memories"
               },
               "usefulness": 70,
-              "complexity": 49
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.masculine-plural.excursionistas",
@@ -6209,7 +6209,7 @@
                 "englishAuditText": "male hikers"
               },
               "usefulness": 70,
-              "complexity": 57
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.masculine-plural.musicos",
@@ -6227,7 +6227,7 @@
                 "englishAuditText": "male musicians"
               },
               "usefulness": 70,
-              "complexity": 48
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.masculine-plural.ganadores",
@@ -6245,7 +6245,7 @@
                 "englishAuditText": "male winners"
               },
               "usefulness": 70,
-              "complexity": 50
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.masculine-plural.lectores",
@@ -6263,7 +6263,7 @@
                 "englishAuditText": "male readers"
               },
               "usefulness": 70,
-              "complexity": 47
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.masculine-plural.anfitriones",
@@ -6281,7 +6281,7 @@
                 "englishAuditText": "male hosts"
               },
               "usefulness": 70,
-              "complexity": 61
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.masculine-plural.companeros",
@@ -6299,11 +6299,11 @@
                 "englishAuditText": "male teammates"
               },
               "usefulness": 70,
-              "complexity": 46
+              "complexity": 39
             }
           ],
           "usefulness": 77,
-          "complexity": 38
+          "complexity": 48
         },
         "feminine-plural": {
           "displayForm": "felices",
@@ -6324,7 +6324,7 @@
                 "englishAuditText": "the girls"
               },
               "usefulness": 77,
-              "complexity": 38
+              "complexity": 39
             },
             {
               "id": "es.agreement.feliz.fp.familias",
@@ -6342,7 +6342,7 @@
                 "englishAuditText": "some families"
               },
               "usefulness": 77,
-              "complexity": 40
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-feliz.feminine-plural.exp260908",
@@ -6360,7 +6360,7 @@
                 "englishAuditText": "coincidences"
               },
               "usefulness": 70,
-              "complexity": 63
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.feminine-plural.excursionistas",
@@ -6378,7 +6378,7 @@
                 "englishAuditText": "female hikers"
               },
               "usefulness": 70,
-              "complexity": 59
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.feminine-plural.musicas",
@@ -6396,7 +6396,7 @@
                 "englishAuditText": "female musicians"
               },
               "usefulness": 70,
-              "complexity": 62
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.feminine-plural.ganadoras",
@@ -6414,7 +6414,7 @@
                 "englishAuditText": "female winners"
               },
               "usefulness": 70,
-              "complexity": 52
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.feminine-plural.lectoras",
@@ -6432,7 +6432,7 @@
                 "englishAuditText": "female readers"
               },
               "usefulness": 70,
-              "complexity": 49
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.feminine-plural.anfitrionas",
@@ -6450,7 +6450,7 @@
                 "englishAuditText": "female hosts"
               },
               "usefulness": 70,
-              "complexity": 63
+              "complexity": 39
             },
             {
               "id": "es.agreement.adjective-feliz.pair260908.feminine-plural.companeras",
@@ -6468,15 +6468,15 @@
                 "englishAuditText": "female teammates"
               },
               "usefulness": 70,
-              "complexity": 48
+              "complexity": 39
             }
           ],
           "usefulness": 77,
-          "complexity": 38
+          "complexity": 48
         }
       },
       "usefulness": 77,
-      "complexity": 40
+      "complexity": 42
     },
     {
       "id": "es.agreement.pair260908.nuestro",
@@ -6509,7 +6509,7 @@
                 "englishAuditText": "vegetable garden"
               },
               "usefulness": 62,
-              "complexity": 36
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.nuestro.pair260908.masculine-singular.proyecto",
@@ -6527,7 +6527,7 @@
                 "englishAuditText": "project"
               },
               "usefulness": 75,
-              "complexity": 32
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.nuestro.pair260908.masculine-singular.refugio",
@@ -6545,7 +6545,7 @@
                 "englishAuditText": "shelter"
               },
               "usefulness": 54,
-              "complexity": 38
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.nuestro.pair260908.masculine-singular.equipo",
@@ -6563,7 +6563,7 @@
                 "englishAuditText": "team"
               },
               "usefulness": 75,
-              "complexity": 30
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.nuestro.pair260908.masculine-singular.barrio",
@@ -6581,7 +6581,7 @@
                 "englishAuditText": "neighborhood"
               },
               "usefulness": 54,
-              "complexity": 30
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.nuestro.pair260908.masculine-singular.escenario",
@@ -6599,11 +6599,11 @@
                 "englishAuditText": "stage"
               },
               "usefulness": 58,
-              "complexity": 39
+              "complexity": 35
             }
           ],
           "usefulness": 83,
-          "complexity": 30
+          "complexity": 42
         },
         "feminine-singular": {
           "displayForm": "nuestra",
@@ -6624,7 +6624,7 @@
                 "englishAuditText": "model"
               },
               "usefulness": 58,
-              "complexity": 38
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.nuestro.pair260908.feminine-singular.coleccion",
@@ -6642,7 +6642,7 @@
                 "englishAuditText": "collection"
               },
               "usefulness": 54,
-              "complexity": 34
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.nuestro.pair260908.feminine-singular.orquesta",
@@ -6660,7 +6660,7 @@
                 "englishAuditText": "orchestra"
               },
               "usefulness": 54,
-              "complexity": 41
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.nuestro.pair260908.feminine-singular.biblioteca",
@@ -6678,7 +6678,7 @@
                 "englishAuditText": "library"
               },
               "usefulness": 75,
-              "complexity": 32
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.nuestro.pair260908.feminine-singular.exposicion",
@@ -6696,7 +6696,7 @@
                 "englishAuditText": "exhibition"
               },
               "usefulness": 54,
-              "complexity": 41
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.nuestro.pair260908.feminine-singular.aventura",
@@ -6718,7 +6718,7 @@
             }
           ],
           "usefulness": 83,
-          "complexity": 32
+          "complexity": 42
         },
         "masculine-plural": {
           "displayForm": "nuestros",
@@ -6739,7 +6739,7 @@
                 "englishAuditText": "vegetable gardens"
               },
               "usefulness": 62,
-              "complexity": 40
+              "complexity": 39
             },
             {
               "id": "es.agreement.pair260908.nuestro.pair260908.masculine-plural.proyectos",
@@ -6757,7 +6757,7 @@
                 "englishAuditText": "projects"
               },
               "usefulness": 75,
-              "complexity": 36
+              "complexity": 39
             },
             {
               "id": "es.agreement.pair260908.nuestro.pair260908.masculine-plural.refugios",
@@ -6775,7 +6775,7 @@
                 "englishAuditText": "shelters"
               },
               "usefulness": 54,
-              "complexity": 42
+              "complexity": 39
             },
             {
               "id": "es.agreement.pair260908.nuestro.pair260908.masculine-plural.equipos",
@@ -6793,7 +6793,7 @@
                 "englishAuditText": "teams"
               },
               "usefulness": 75,
-              "complexity": 34
+              "complexity": 39
             },
             {
               "id": "es.agreement.pair260908.nuestro.pair260908.masculine-plural.barrios",
@@ -6811,7 +6811,7 @@
                 "englishAuditText": "neighborhoods"
               },
               "usefulness": 54,
-              "complexity": 34
+              "complexity": 39
             },
             {
               "id": "es.agreement.pair260908.nuestro.pair260908.masculine-plural.escenarios",
@@ -6829,11 +6829,11 @@
                 "englishAuditText": "stages"
               },
               "usefulness": 58,
-              "complexity": 43
+              "complexity": 39
             }
           ],
           "usefulness": 83,
-          "complexity": 34
+          "complexity": 48
         },
         "feminine-plural": {
           "displayForm": "nuestras",
@@ -6854,7 +6854,7 @@
                 "englishAuditText": "models"
               },
               "usefulness": 58,
-              "complexity": 42
+              "complexity": 39
             },
             {
               "id": "es.agreement.pair260908.nuestro.pair260908.feminine-plural.colecciones",
@@ -6872,7 +6872,7 @@
                 "englishAuditText": "collections"
               },
               "usefulness": 54,
-              "complexity": 38
+              "complexity": 39
             },
             {
               "id": "es.agreement.pair260908.nuestro.pair260908.feminine-plural.orquestas",
@@ -6890,7 +6890,7 @@
                 "englishAuditText": "orchestras"
               },
               "usefulness": 54,
-              "complexity": 45
+              "complexity": 39
             },
             {
               "id": "es.agreement.pair260908.nuestro.pair260908.feminine-plural.bibliotecas",
@@ -6908,7 +6908,7 @@
                 "englishAuditText": "libraries"
               },
               "usefulness": 75,
-              "complexity": 36
+              "complexity": 39
             },
             {
               "id": "es.agreement.pair260908.nuestro.pair260908.feminine-plural.exposiciones",
@@ -6926,7 +6926,7 @@
                 "englishAuditText": "exhibitions"
               },
               "usefulness": 54,
-              "complexity": 45
+              "complexity": 39
             },
             {
               "id": "es.agreement.pair260908.nuestro.pair260908.feminine-plural.aventuras",
@@ -6948,11 +6948,11 @@
             }
           ],
           "usefulness": 83,
-          "complexity": 36
+          "complexity": 48
         }
       },
       "usefulness": 83,
-      "complexity": 36
+      "complexity": 42
     },
     {
       "id": "es.agreement.pair260908.primer",
@@ -6985,7 +6985,7 @@
                 "englishAuditText": "attempt"
               },
               "usefulness": 77,
-              "complexity": 34
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.primer.pair260908.masculine-singular.ensayo",
@@ -7003,7 +7003,7 @@
                 "englishAuditText": "rehearsal"
               },
               "usefulness": 54,
-              "complexity": 44
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.primer.pair260908.masculine-singular.capitulo",
@@ -7021,7 +7021,7 @@
                 "englishAuditText": "chapter"
               },
               "usefulness": 63,
-              "complexity": 39
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.primer.pair260908.masculine-singular.borrador",
@@ -7039,7 +7039,7 @@
                 "englishAuditText": "draft"
               },
               "usefulness": 54,
-              "complexity": 47
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.primer.pair260908.masculine-singular.brote",
@@ -7057,7 +7057,7 @@
                 "englishAuditText": "sprout"
               },
               "usefulness": 46,
-              "complexity": 45
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.primer.pair260908.masculine-singular.aplauso",
@@ -7075,11 +7075,11 @@
                 "englishAuditText": "round of applause"
               },
               "usefulness": 54,
-              "complexity": 47
+              "complexity": 35
             }
           ],
           "usefulness": 77,
-          "complexity": 34
+          "complexity": 42
         },
         "feminine-singular": {
           "displayForm": "primera",
@@ -7100,7 +7100,7 @@
                 "englishAuditText": "page"
               },
               "usefulness": 54,
-              "complexity": 32
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.primer.pair260908.feminine-singular.huella",
@@ -7118,7 +7118,7 @@
                 "englishAuditText": "footprint"
               },
               "usefulness": 54,
-              "complexity": 43
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.primer.pair260908.feminine-singular.version",
@@ -7136,7 +7136,7 @@
                 "englishAuditText": "version"
               },
               "usefulness": 54,
-              "complexity": 42
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.primer.pair260908.feminine-singular.medalla",
@@ -7154,7 +7154,7 @@
                 "englishAuditText": "medal"
               },
               "usefulness": 54,
-              "complexity": 40
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.primer.pair260908.feminine-singular.cosecha",
@@ -7172,7 +7172,7 @@
                 "englishAuditText": "harvest"
               },
               "usefulness": 46,
-              "complexity": 48
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.primer.pair260908.feminine-singular.visita",
@@ -7190,11 +7190,11 @@
                 "englishAuditText": "visit"
               },
               "usefulness": 77,
-              "complexity": 32
+              "complexity": 35
             }
           ],
           "usefulness": 77,
-          "complexity": 32
+          "complexity": 42
         },
         "masculine-plural": {
           "displayForm": "primeros",
@@ -7215,7 +7215,7 @@
                 "englishAuditText": "attempts"
               },
               "usefulness": 77,
-              "complexity": 38
+              "complexity": 39
             },
             {
               "id": "es.agreement.pair260908.primer.pair260908.masculine-plural.ensayos",
@@ -7233,7 +7233,7 @@
                 "englishAuditText": "rehearsals"
               },
               "usefulness": 54,
-              "complexity": 48
+              "complexity": 39
             },
             {
               "id": "es.agreement.pair260908.primer.pair260908.masculine-plural.capitulos",
@@ -7251,7 +7251,7 @@
                 "englishAuditText": "chapters"
               },
               "usefulness": 63,
-              "complexity": 43
+              "complexity": 39
             },
             {
               "id": "es.agreement.pair260908.primer.pair260908.masculine-plural.borradores",
@@ -7269,7 +7269,7 @@
                 "englishAuditText": "drafts"
               },
               "usefulness": 54,
-              "complexity": 51
+              "complexity": 39
             },
             {
               "id": "es.agreement.pair260908.primer.pair260908.masculine-plural.brotes",
@@ -7287,7 +7287,7 @@
                 "englishAuditText": "sprouts"
               },
               "usefulness": 46,
-              "complexity": 49
+              "complexity": 39
             },
             {
               "id": "es.agreement.pair260908.primer.pair260908.masculine-plural.aplausos",
@@ -7305,11 +7305,11 @@
                 "englishAuditText": "rounds of applause"
               },
               "usefulness": 54,
-              "complexity": 51
+              "complexity": 39
             }
           ],
           "usefulness": 77,
-          "complexity": 38
+          "complexity": 48
         },
         "feminine-plural": {
           "displayForm": "primeras",
@@ -7330,7 +7330,7 @@
                 "englishAuditText": "pages"
               },
               "usefulness": 54,
-              "complexity": 36
+              "complexity": 39
             },
             {
               "id": "es.agreement.pair260908.primer.pair260908.feminine-plural.huellas",
@@ -7348,7 +7348,7 @@
                 "englishAuditText": "footprints"
               },
               "usefulness": 54,
-              "complexity": 47
+              "complexity": 39
             },
             {
               "id": "es.agreement.pair260908.primer.pair260908.feminine-plural.versiones",
@@ -7366,7 +7366,7 @@
                 "englishAuditText": "versions"
               },
               "usefulness": 54,
-              "complexity": 46
+              "complexity": 39
             },
             {
               "id": "es.agreement.pair260908.primer.pair260908.feminine-plural.medallas",
@@ -7384,7 +7384,7 @@
                 "englishAuditText": "medals"
               },
               "usefulness": 54,
-              "complexity": 44
+              "complexity": 39
             },
             {
               "id": "es.agreement.pair260908.primer.pair260908.feminine-plural.cosechas",
@@ -7402,7 +7402,7 @@
                 "englishAuditText": "harvests"
               },
               "usefulness": 46,
-              "complexity": 52
+              "complexity": 39
             },
             {
               "id": "es.agreement.pair260908.primer.pair260908.feminine-plural.visitas",
@@ -7420,15 +7420,15 @@
                 "englishAuditText": "visits"
               },
               "usefulness": 77,
-              "complexity": 36
+              "complexity": 39
             }
           ],
           "usefulness": 77,
-          "complexity": 36
+          "complexity": 48
         }
       },
       "usefulness": 77,
-      "complexity": 40
+      "complexity": 42
     },
     {
       "id": "es.agreement.pair260908.mejor",
@@ -7461,7 +7461,7 @@
                 "englishAuditText": "result"
               },
               "usefulness": 70,
-              "complexity": 49
+              "complexity": 29
             },
             {
               "id": "es.agreement.pair260908.mejor.pair260908.masculine-singular.metodo",
@@ -7479,7 +7479,7 @@
                 "englishAuditText": "method"
               },
               "usefulness": 70,
-              "complexity": 50
+              "complexity": 24
             },
             {
               "id": "es.agreement.pair260908.mejor.pair260908.masculine-singular.argumento",
@@ -7497,7 +7497,7 @@
                 "englishAuditText": "argument"
               },
               "usefulness": 70,
-              "complexity": 57
+              "complexity": 24
             },
             {
               "id": "es.agreement.pair260908.mejor.pair260908.masculine-singular.resumen",
@@ -7515,7 +7515,7 @@
                 "englishAuditText": "summary"
               },
               "usefulness": 70,
-              "complexity": 52
+              "complexity": 24
             },
             {
               "id": "es.agreement.pair260908.mejor.pair260908.masculine-singular.diseno",
@@ -7533,7 +7533,7 @@
                 "englishAuditText": "design"
               },
               "usefulness": 70,
-              "complexity": 51
+              "complexity": 24
             },
             {
               "id": "es.agreement.pair260908.mejor.pair260908.masculine-singular.ejemplo",
@@ -7551,11 +7551,11 @@
                 "englishAuditText": "example"
               },
               "usefulness": 70,
-              "complexity": 47
+              "complexity": 24
             }
           ],
           "usefulness": 77,
-          "complexity": 47
+          "complexity": 31
         },
         "feminine-singular": {
           "displayForm": "mejor",
@@ -7576,7 +7576,7 @@
                 "englishAuditText": "solution"
               },
               "usefulness": 70,
-              "complexity": 50
+              "complexity": 24
             },
             {
               "id": "es.agreement.pair260908.mejor.pair260908.feminine-singular.explicacion",
@@ -7594,7 +7594,7 @@
                 "englishAuditText": "explanation"
               },
               "usefulness": 70,
-              "complexity": 54
+              "complexity": 24
             },
             {
               "id": "es.agreement.pair260908.mejor.pair260908.feminine-singular.estrategia",
@@ -7612,7 +7612,7 @@
                 "englishAuditText": "strategy"
               },
               "usefulness": 70,
-              "complexity": 61
+              "complexity": 24
             },
             {
               "id": "es.agreement.pair260908.mejor.pair260908.feminine-singular.propuesta",
@@ -7630,7 +7630,7 @@
                 "englishAuditText": "proposal"
               },
               "usefulness": 70,
-              "complexity": 57
+              "complexity": 24
             },
             {
               "id": "es.agreement.pair260908.mejor.pair260908.feminine-singular.interpretacion",
@@ -7648,7 +7648,7 @@
                 "englishAuditText": "interpretation"
               },
               "usefulness": 33,
-              "complexity": 67
+              "complexity": 31
             },
             {
               "id": "es.agreement.pair260908.mejor.pair260908.feminine-singular.alternativa",
@@ -7666,11 +7666,11 @@
                 "englishAuditText": "alternative"
               },
               "usefulness": 70,
-              "complexity": 59
+              "complexity": 24
             }
           ],
           "usefulness": 77,
-          "complexity": 50
+          "complexity": 31
         },
         "masculine-plural": {
           "displayForm": "mejores",
@@ -7691,7 +7691,7 @@
                 "englishAuditText": "results"
               },
               "usefulness": 70,
-              "complexity": 53
+              "complexity": 33
             },
             {
               "id": "es.agreement.pair260908.mejor.pair260908.masculine-plural.metodos",
@@ -7709,7 +7709,7 @@
                 "englishAuditText": "methods"
               },
               "usefulness": 70,
-              "complexity": 54
+              "complexity": 28
             },
             {
               "id": "es.agreement.pair260908.mejor.pair260908.masculine-plural.argumentos",
@@ -7727,7 +7727,7 @@
                 "englishAuditText": "arguments"
               },
               "usefulness": 70,
-              "complexity": 61
+              "complexity": 28
             },
             {
               "id": "es.agreement.pair260908.mejor.pair260908.masculine-plural.resumenes",
@@ -7745,7 +7745,7 @@
                 "englishAuditText": "summaries"
               },
               "usefulness": 70,
-              "complexity": 56
+              "complexity": 28
             },
             {
               "id": "es.agreement.pair260908.mejor.pair260908.masculine-plural.disenos",
@@ -7763,7 +7763,7 @@
                 "englishAuditText": "designs"
               },
               "usefulness": 70,
-              "complexity": 55
+              "complexity": 28
             },
             {
               "id": "es.agreement.pair260908.mejor.pair260908.masculine-plural.ejemplos",
@@ -7781,11 +7781,11 @@
                 "englishAuditText": "examples"
               },
               "usefulness": 70,
-              "complexity": 51
+              "complexity": 28
             }
           ],
           "usefulness": 77,
-          "complexity": 51
+          "complexity": 37
         },
         "feminine-plural": {
           "displayForm": "mejores",
@@ -7806,7 +7806,7 @@
                 "englishAuditText": "solutions"
               },
               "usefulness": 70,
-              "complexity": 54
+              "complexity": 28
             },
             {
               "id": "es.agreement.pair260908.mejor.pair260908.feminine-plural.explicaciones",
@@ -7824,7 +7824,7 @@
                 "englishAuditText": "explanations"
               },
               "usefulness": 70,
-              "complexity": 58
+              "complexity": 28
             },
             {
               "id": "es.agreement.pair260908.mejor.pair260908.feminine-plural.estrategias",
@@ -7842,7 +7842,7 @@
                 "englishAuditText": "strategies"
               },
               "usefulness": 70,
-              "complexity": 65
+              "complexity": 28
             },
             {
               "id": "es.agreement.pair260908.mejor.pair260908.feminine-plural.propuestas",
@@ -7860,7 +7860,7 @@
                 "englishAuditText": "proposals"
               },
               "usefulness": 70,
-              "complexity": 61
+              "complexity": 28
             },
             {
               "id": "es.agreement.pair260908.mejor.pair260908.feminine-plural.interpretaciones",
@@ -7878,7 +7878,7 @@
                 "englishAuditText": "interpretations"
               },
               "usefulness": 33,
-              "complexity": 71
+              "complexity": 35
             },
             {
               "id": "es.agreement.pair260908.mejor.pair260908.feminine-plural.alternativas",
@@ -7896,15 +7896,15 @@
                 "englishAuditText": "alternatives"
               },
               "usefulness": 70,
-              "complexity": 63
+              "complexity": 28
             }
           ],
           "usefulness": 77,
-          "complexity": 54
+          "complexity": 37
         }
       },
       "usefulness": 77,
-      "complexity": 56
+      "complexity": 31
     },
     {
       "id": "es.agreement.basic.definite",
@@ -7936,8 +7936,8 @@
                 "learnerBaseText": "book",
                 "englishAuditText": "book"
               },
-              "usefulness": 94,
-              "complexity": 10
+              "usefulness": 73,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.definite.masculine-singular.gato",
@@ -7954,8 +7954,8 @@
                 "learnerBaseText": "cat",
                 "englishAuditText": "cat"
               },
-              "usefulness": 93,
-              "complexity": 11
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.definite.masculine-singular.perro",
@@ -7972,8 +7972,8 @@
                 "learnerBaseText": "dog",
                 "englishAuditText": "dog"
               },
-              "usefulness": 92,
-              "complexity": 12
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.definite.masculine-singular.vaso",
@@ -7990,8 +7990,8 @@
                 "learnerBaseText": "glass",
                 "englishAuditText": "glass"
               },
-              "usefulness": 91,
-              "complexity": 13
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.definite.masculine-singular.plato",
@@ -8008,8 +8008,8 @@
                 "learnerBaseText": "plate",
                 "englishAuditText": "plate"
               },
-              "usefulness": 90,
-              "complexity": 13
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.definite.masculine-singular.zapato",
@@ -8026,8 +8026,8 @@
                 "learnerBaseText": "shoe",
                 "englishAuditText": "shoe"
               },
-              "usefulness": 89,
-              "complexity": 13
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.definite.starter-expanded.ms.coche",
@@ -8044,8 +8044,8 @@
                 "learnerBaseText": "car",
                 "englishAuditText": "car"
               },
-              "usefulness": 94,
-              "complexity": 12
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.definite.starter-expanded.ms.nino",
@@ -8062,8 +8062,8 @@
                 "learnerBaseText": "boy",
                 "englishAuditText": "boy"
               },
-              "usefulness": 94,
-              "complexity": 12
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.definite.starter-expanded.ms.boligrafo",
@@ -8080,8 +8080,8 @@
                 "learnerBaseText": "pen",
                 "englishAuditText": "pen"
               },
-              "usefulness": 94,
-              "complexity": 16
+              "usefulness": 75,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.definite.starter-expanded.ms.bolso",
@@ -8098,8 +8098,8 @@
                 "learnerBaseText": "handbag",
                 "englishAuditText": "handbag"
               },
-              "usefulness": 94,
-              "complexity": 15
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.definite.starter-expanded.ms.abrigo",
@@ -8116,8 +8116,8 @@
                 "learnerBaseText": "coat",
                 "englishAuditText": "coat"
               },
-              "usefulness": 94,
-              "complexity": 16
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.definite.starter-expanded.ms.sombrero",
@@ -8134,12 +8134,12 @@
                 "learnerBaseText": "hat",
                 "englishAuditText": "hat"
               },
-              "usefulness": 94,
-              "complexity": 17
+              "usefulness": 54,
+              "complexity": 24
             }
           ],
-          "usefulness": 94,
-          "complexity": 10
+          "usefulness": 77,
+          "complexity": 31
         },
         "feminine-singular": {
           "displayForm": "la",
@@ -8159,8 +8159,8 @@
                 "learnerBaseText": "house",
                 "englishAuditText": "house"
               },
-              "usefulness": 94,
-              "complexity": 10
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.definite.feminine-singular.mesa",
@@ -8177,8 +8177,8 @@
                 "learnerBaseText": "table",
                 "englishAuditText": "table"
               },
-              "usefulness": 93,
-              "complexity": 11
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.definite.feminine-singular.silla",
@@ -8195,8 +8195,8 @@
                 "learnerBaseText": "chair",
                 "englishAuditText": "chair"
               },
-              "usefulness": 92,
-              "complexity": 12
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.definite.feminine-singular.taza",
@@ -8213,8 +8213,8 @@
                 "learnerBaseText": "cup",
                 "englishAuditText": "cup"
               },
-              "usefulness": 91,
-              "complexity": 13
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.definite.feminine-singular.bolsa",
@@ -8231,8 +8231,8 @@
                 "learnerBaseText": "bag",
                 "englishAuditText": "bag"
               },
-              "usefulness": 90,
-              "complexity": 13
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.definite.feminine-singular.camisa",
@@ -8249,8 +8249,8 @@
                 "learnerBaseText": "shirt",
                 "englishAuditText": "shirt"
               },
-              "usefulness": 89,
-              "complexity": 13
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.definite.starter-expanded.fs.nina",
@@ -8267,8 +8267,8 @@
                 "learnerBaseText": "girl",
                 "englishAuditText": "girl"
               },
-              "usefulness": 94,
-              "complexity": 12
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.definite.starter-expanded.fs.puerta",
@@ -8285,8 +8285,8 @@
                 "learnerBaseText": "door",
                 "englishAuditText": "door"
               },
-              "usefulness": 94,
-              "complexity": 12
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.definite.starter-expanded.fs.cama",
@@ -8303,8 +8303,8 @@
                 "learnerBaseText": "bed",
                 "englishAuditText": "bed"
               },
-              "usefulness": 94,
-              "complexity": 12
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.definite.starter-expanded.fs.ventana",
@@ -8321,8 +8321,8 @@
                 "learnerBaseText": "window",
                 "englishAuditText": "window"
               },
-              "usefulness": 94,
-              "complexity": 15
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.definite.starter-expanded.fs.pelota",
@@ -8339,8 +8339,8 @@
                 "learnerBaseText": "ball",
                 "englishAuditText": "ball"
               },
-              "usefulness": 94,
-              "complexity": 14
+              "usefulness": 63,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.definite.starter-expanded.fs.botella",
@@ -8357,12 +8357,12 @@
                 "learnerBaseText": "bottle",
                 "englishAuditText": "bottle"
               },
-              "usefulness": 94,
-              "complexity": 15
+              "usefulness": 54,
+              "complexity": 24
             }
           ],
-          "usefulness": 94,
-          "complexity": 10
+          "usefulness": 77,
+          "complexity": 31
         },
         "masculine-plural": {
           "displayForm": "los",
@@ -8382,8 +8382,8 @@
                 "learnerBaseText": "books",
                 "englishAuditText": "books"
               },
-              "usefulness": 94,
-              "complexity": 14
+              "usefulness": 73,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.definite.masculine-plural.gatos",
@@ -8400,8 +8400,8 @@
                 "learnerBaseText": "cats",
                 "englishAuditText": "cats"
               },
-              "usefulness": 93,
-              "complexity": 15
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.definite.masculine-plural.perros",
@@ -8418,8 +8418,8 @@
                 "learnerBaseText": "dogs",
                 "englishAuditText": "dogs"
               },
-              "usefulness": 92,
-              "complexity": 16
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.definite.masculine-plural.vasos",
@@ -8436,8 +8436,8 @@
                 "learnerBaseText": "glasses",
                 "englishAuditText": "glasses"
               },
-              "usefulness": 91,
-              "complexity": 17
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.definite.masculine-plural.platos",
@@ -8454,8 +8454,8 @@
                 "learnerBaseText": "plates",
                 "englishAuditText": "plates"
               },
-              "usefulness": 90,
-              "complexity": 17
+              "usefulness": 77,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.definite.masculine-plural.zapatos",
@@ -8472,8 +8472,8 @@
                 "learnerBaseText": "shoes",
                 "englishAuditText": "shoes"
               },
-              "usefulness": 89,
-              "complexity": 17
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.definite.starter-expanded.mp.coches",
@@ -8490,8 +8490,8 @@
                 "learnerBaseText": "cars",
                 "englishAuditText": "cars"
               },
-              "usefulness": 94,
-              "complexity": 16
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.definite.starter-expanded.mp.ninos",
@@ -8508,8 +8508,8 @@
                 "learnerBaseText": "boys",
                 "englishAuditText": "boys"
               },
-              "usefulness": 94,
-              "complexity": 16
+              "usefulness": 77,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.definite.starter-expanded.mp.boligrafos",
@@ -8526,8 +8526,8 @@
                 "learnerBaseText": "pens",
                 "englishAuditText": "pens"
               },
-              "usefulness": 94,
-              "complexity": 20
+              "usefulness": 75,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.definite.starter-expanded.mp.bolsos",
@@ -8544,8 +8544,8 @@
                 "learnerBaseText": "handbags",
                 "englishAuditText": "handbags"
               },
-              "usefulness": 94,
-              "complexity": 19
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.definite.starter-expanded.mp.abrigos",
@@ -8562,8 +8562,8 @@
                 "learnerBaseText": "coats",
                 "englishAuditText": "coats"
               },
-              "usefulness": 94,
-              "complexity": 20
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.definite.starter-expanded.mp.sombreros",
@@ -8580,12 +8580,12 @@
                 "learnerBaseText": "hats",
                 "englishAuditText": "hats"
               },
-              "usefulness": 94,
-              "complexity": 21
+              "usefulness": 54,
+              "complexity": 28
             }
           ],
-          "usefulness": 94,
-          "complexity": 14
+          "usefulness": 77,
+          "complexity": 37
         },
         "feminine-plural": {
           "displayForm": "las",
@@ -8605,8 +8605,8 @@
                 "learnerBaseText": "houses",
                 "englishAuditText": "houses"
               },
-              "usefulness": 94,
-              "complexity": 14
+              "usefulness": 77,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.definite.feminine-plural.mesas",
@@ -8623,8 +8623,8 @@
                 "learnerBaseText": "tables",
                 "englishAuditText": "tables"
               },
-              "usefulness": 93,
-              "complexity": 15
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.definite.feminine-plural.sillas",
@@ -8641,8 +8641,8 @@
                 "learnerBaseText": "chairs",
                 "englishAuditText": "chairs"
               },
-              "usefulness": 92,
-              "complexity": 16
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.definite.feminine-plural.tazas",
@@ -8659,8 +8659,8 @@
                 "learnerBaseText": "cups",
                 "englishAuditText": "cups"
               },
-              "usefulness": 91,
-              "complexity": 17
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.definite.feminine-plural.bolsas",
@@ -8677,8 +8677,8 @@
                 "learnerBaseText": "bags",
                 "englishAuditText": "bags"
               },
-              "usefulness": 90,
-              "complexity": 17
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.definite.feminine-plural.camisas",
@@ -8695,8 +8695,8 @@
                 "learnerBaseText": "shirts",
                 "englishAuditText": "shirts"
               },
-              "usefulness": 89,
-              "complexity": 17
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.definite.starter-expanded.fp.ninas",
@@ -8713,8 +8713,8 @@
                 "learnerBaseText": "girls",
                 "englishAuditText": "girls"
               },
-              "usefulness": 94,
-              "complexity": 16
+              "usefulness": 77,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.definite.starter-expanded.fp.puertas",
@@ -8731,8 +8731,8 @@
                 "learnerBaseText": "doors",
                 "englishAuditText": "doors"
               },
-              "usefulness": 94,
-              "complexity": 16
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.definite.starter-expanded.fp.camas",
@@ -8749,8 +8749,8 @@
                 "learnerBaseText": "beds",
                 "englishAuditText": "beds"
               },
-              "usefulness": 94,
-              "complexity": 16
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.definite.starter-expanded.fp.ventanas",
@@ -8767,8 +8767,8 @@
                 "learnerBaseText": "windows",
                 "englishAuditText": "windows"
               },
-              "usefulness": 94,
-              "complexity": 19
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.definite.starter-expanded.fp.pelotas",
@@ -8785,8 +8785,8 @@
                 "learnerBaseText": "balls",
                 "englishAuditText": "balls"
               },
-              "usefulness": 94,
-              "complexity": 18
+              "usefulness": 63,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.definite.starter-expanded.fp.botellas",
@@ -8803,16 +8803,16 @@
                 "learnerBaseText": "bottles",
                 "englishAuditText": "bottles"
               },
-              "usefulness": 94,
-              "complexity": 19
+              "usefulness": 54,
+              "complexity": 28
             }
           ],
-          "usefulness": 94,
-          "complexity": 14
+          "usefulness": 77,
+          "complexity": 37
         }
       },
-      "usefulness": 94,
-      "complexity": 10
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "es.agreement.basic.adjective-grande",
@@ -8844,8 +8844,8 @@
                 "learnerBaseText": "dog",
                 "englishAuditText": "dog"
               },
-              "usefulness": 90,
-              "complexity": 22
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.adjective-grande.starter-expanded.ms.gato",
@@ -8862,8 +8862,8 @@
                 "learnerBaseText": "cat",
                 "englishAuditText": "cat"
               },
-              "usefulness": 90,
-              "complexity": 22
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.adjective-grande.starter-expanded.ms.coche",
@@ -8880,8 +8880,8 @@
                 "learnerBaseText": "car",
                 "englishAuditText": "car"
               },
-              "usefulness": 90,
-              "complexity": 22
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.adjective-grande.starter-expanded.ms.vaso",
@@ -8898,8 +8898,8 @@
                 "learnerBaseText": "glass",
                 "englishAuditText": "glass"
               },
-              "usefulness": 90,
-              "complexity": 23
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.adjective-grande.starter-expanded.ms.plato",
@@ -8916,8 +8916,8 @@
                 "learnerBaseText": "plate",
                 "englishAuditText": "plate"
               },
-              "usefulness": 90,
-              "complexity": 23
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.adjective-grande.starter-expanded.ms.bolso",
@@ -8934,12 +8934,12 @@
                 "learnerBaseText": "handbag",
                 "englishAuditText": "handbag"
               },
-              "usefulness": 90,
+              "usefulness": 54,
               "complexity": 24
             }
           ],
-          "usefulness": 92,
-          "complexity": 22
+          "usefulness": 77,
+          "complexity": 31
         },
         "feminine-singular": {
           "displayForm": "grande",
@@ -8959,8 +8959,8 @@
                 "learnerBaseText": "house",
                 "englishAuditText": "house"
               },
-              "usefulness": 90,
-              "complexity": 22
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.adjective-grande.starter-expanded.fs.mesa",
@@ -8977,8 +8977,8 @@
                 "learnerBaseText": "table",
                 "englishAuditText": "table"
               },
-              "usefulness": 90,
-              "complexity": 22
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.adjective-grande.starter-expanded.fs.cama",
@@ -8995,8 +8995,8 @@
                 "learnerBaseText": "bed",
                 "englishAuditText": "bed"
               },
-              "usefulness": 90,
-              "complexity": 22
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.adjective-grande.starter-expanded.fs.bolsa",
@@ -9013,8 +9013,8 @@
                 "learnerBaseText": "bag",
                 "englishAuditText": "bag"
               },
-              "usefulness": 90,
-              "complexity": 23
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.adjective-grande.starter-expanded.fs.taza",
@@ -9031,8 +9031,8 @@
                 "learnerBaseText": "cup",
                 "englishAuditText": "cup"
               },
-              "usefulness": 90,
-              "complexity": 23
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.adjective-grande.starter-expanded.fs.ventana",
@@ -9049,12 +9049,12 @@
                 "learnerBaseText": "window",
                 "englishAuditText": "window"
               },
-              "usefulness": 90,
+              "usefulness": 54,
               "complexity": 24
             }
           ],
-          "usefulness": 92,
-          "complexity": 22
+          "usefulness": 77,
+          "complexity": 31
         },
         "masculine-plural": {
           "displayForm": "grandes",
@@ -9074,8 +9074,8 @@
                 "learnerBaseText": "dogs",
                 "englishAuditText": "dogs"
               },
-              "usefulness": 90,
-              "complexity": 26
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.adjective-grande.starter-expanded.mp.gatos",
@@ -9092,8 +9092,8 @@
                 "learnerBaseText": "cats",
                 "englishAuditText": "cats"
               },
-              "usefulness": 90,
-              "complexity": 26
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.adjective-grande.starter-expanded.mp.coches",
@@ -9110,8 +9110,8 @@
                 "learnerBaseText": "cars",
                 "englishAuditText": "cars"
               },
-              "usefulness": 90,
-              "complexity": 26
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.adjective-grande.starter-expanded.mp.vasos",
@@ -9128,8 +9128,8 @@
                 "learnerBaseText": "glasses",
                 "englishAuditText": "glasses"
               },
-              "usefulness": 90,
-              "complexity": 27
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.adjective-grande.starter-expanded.mp.platos",
@@ -9146,8 +9146,8 @@
                 "learnerBaseText": "plates",
                 "englishAuditText": "plates"
               },
-              "usefulness": 90,
-              "complexity": 27
+              "usefulness": 77,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.adjective-grande.starter-expanded.mp.bolsos",
@@ -9164,12 +9164,12 @@
                 "learnerBaseText": "handbags",
                 "englishAuditText": "handbags"
               },
-              "usefulness": 90,
+              "usefulness": 54,
               "complexity": 28
             }
           ],
-          "usefulness": 92,
-          "complexity": 26
+          "usefulness": 77,
+          "complexity": 37
         },
         "feminine-plural": {
           "displayForm": "grandes",
@@ -9189,8 +9189,8 @@
                 "learnerBaseText": "houses",
                 "englishAuditText": "houses"
               },
-              "usefulness": 90,
-              "complexity": 26
+              "usefulness": 77,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.adjective-grande.starter-expanded.fp.mesas",
@@ -9207,8 +9207,8 @@
                 "learnerBaseText": "tables",
                 "englishAuditText": "tables"
               },
-              "usefulness": 90,
-              "complexity": 26
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.adjective-grande.starter-expanded.fp.camas",
@@ -9225,8 +9225,8 @@
                 "learnerBaseText": "beds",
                 "englishAuditText": "beds"
               },
-              "usefulness": 90,
-              "complexity": 26
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.adjective-grande.starter-expanded.fp.bolsas",
@@ -9243,8 +9243,8 @@
                 "learnerBaseText": "bags",
                 "englishAuditText": "bags"
               },
-              "usefulness": 90,
-              "complexity": 27
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.adjective-grande.starter-expanded.fp.tazas",
@@ -9261,8 +9261,8 @@
                 "learnerBaseText": "cups",
                 "englishAuditText": "cups"
               },
-              "usefulness": 90,
-              "complexity": 27
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.adjective-grande.starter-expanded.fp.ventanas",
@@ -9279,16 +9279,16 @@
                 "learnerBaseText": "windows",
                 "englishAuditText": "windows"
               },
-              "usefulness": 90,
+              "usefulness": 54,
               "complexity": 28
             }
           ],
-          "usefulness": 92,
-          "complexity": 26
+          "usefulness": 77,
+          "complexity": 37
         }
       },
-      "usefulness": 92,
-      "complexity": 22
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "es.agreement.basic.possessive-mi",
@@ -9320,8 +9320,8 @@
                 "learnerBaseText": "book",
                 "englishAuditText": "book"
               },
-              "usefulness": 94,
-              "complexity": 32
+              "usefulness": 73,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.possessive-mi.starter-expanded.ms.perro",
@@ -9338,8 +9338,8 @@
                 "learnerBaseText": "dog",
                 "englishAuditText": "dog"
               },
-              "usefulness": 94,
-              "complexity": 32
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.possessive-mi.starter-expanded.ms.gato",
@@ -9356,8 +9356,8 @@
                 "learnerBaseText": "cat",
                 "englishAuditText": "cat"
               },
-              "usefulness": 94,
-              "complexity": 33
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.possessive-mi.starter-expanded.ms.coche",
@@ -9374,8 +9374,8 @@
                 "learnerBaseText": "car",
                 "englishAuditText": "car"
               },
-              "usefulness": 94,
-              "complexity": 33
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.possessive-mi.starter-expanded.ms.vaso",
@@ -9392,8 +9392,8 @@
                 "learnerBaseText": "glass",
                 "englishAuditText": "glass"
               },
-              "usefulness": 94,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.possessive-mi.starter-expanded.ms.zapato",
@@ -9410,12 +9410,12 @@
                 "learnerBaseText": "shoe",
                 "englishAuditText": "shoe"
               },
-              "usefulness": 94,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 24
             }
           ],
-          "usefulness": 94,
-          "complexity": 32
+          "usefulness": 77,
+          "complexity": 31
         },
         "feminine-singular": {
           "displayForm": "mi",
@@ -9435,8 +9435,8 @@
                 "learnerBaseText": "house",
                 "englishAuditText": "house"
               },
-              "usefulness": 94,
-              "complexity": 32
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.possessive-mi.starter-expanded.fs.mesa",
@@ -9453,8 +9453,8 @@
                 "learnerBaseText": "table",
                 "englishAuditText": "table"
               },
-              "usefulness": 94,
-              "complexity": 33
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.possessive-mi.starter-expanded.fs.silla",
@@ -9471,8 +9471,8 @@
                 "learnerBaseText": "chair",
                 "englishAuditText": "chair"
               },
-              "usefulness": 94,
-              "complexity": 33
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.possessive-mi.starter-expanded.fs.taza",
@@ -9489,8 +9489,8 @@
                 "learnerBaseText": "cup",
                 "englishAuditText": "cup"
               },
-              "usefulness": 94,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.possessive-mi.starter-expanded.fs.bolsa",
@@ -9507,8 +9507,8 @@
                 "learnerBaseText": "bag",
                 "englishAuditText": "bag"
               },
-              "usefulness": 94,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "es.agreement.basic.possessive-mi.starter-expanded.fs.camisa",
@@ -9525,12 +9525,12 @@
                 "learnerBaseText": "shirt",
                 "englishAuditText": "shirt"
               },
-              "usefulness": 94,
-              "complexity": 34
+              "usefulness": 54,
+              "complexity": 24
             }
           ],
-          "usefulness": 94,
-          "complexity": 32
+          "usefulness": 77,
+          "complexity": 31
         },
         "masculine-plural": {
           "displayForm": "mis",
@@ -9550,8 +9550,8 @@
                 "learnerBaseText": "books",
                 "englishAuditText": "books"
               },
-              "usefulness": 94,
-              "complexity": 36
+              "usefulness": 73,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.possessive-mi.starter-expanded.mp.perros",
@@ -9568,8 +9568,8 @@
                 "learnerBaseText": "dogs",
                 "englishAuditText": "dogs"
               },
-              "usefulness": 94,
-              "complexity": 36
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.possessive-mi.starter-expanded.mp.gatos",
@@ -9586,8 +9586,8 @@
                 "learnerBaseText": "cats",
                 "englishAuditText": "cats"
               },
-              "usefulness": 94,
-              "complexity": 37
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.possessive-mi.starter-expanded.mp.coches",
@@ -9604,8 +9604,8 @@
                 "learnerBaseText": "cars",
                 "englishAuditText": "cars"
               },
-              "usefulness": 94,
-              "complexity": 37
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.possessive-mi.starter-expanded.mp.vasos",
@@ -9622,8 +9622,8 @@
                 "learnerBaseText": "glasses",
                 "englishAuditText": "glasses"
               },
-              "usefulness": 94,
-              "complexity": 38
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.possessive-mi.starter-expanded.mp.zapatos",
@@ -9640,12 +9640,12 @@
                 "learnerBaseText": "shoes",
                 "englishAuditText": "shoes"
               },
-              "usefulness": 94,
-              "complexity": 38
+              "usefulness": 54,
+              "complexity": 28
             }
           ],
-          "usefulness": 94,
-          "complexity": 36
+          "usefulness": 77,
+          "complexity": 37
         },
         "feminine-plural": {
           "displayForm": "mis",
@@ -9665,8 +9665,8 @@
                 "learnerBaseText": "houses",
                 "englishAuditText": "houses"
               },
-              "usefulness": 94,
-              "complexity": 36
+              "usefulness": 77,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.possessive-mi.starter-expanded.fp.mesas",
@@ -9683,8 +9683,8 @@
                 "learnerBaseText": "tables",
                 "englishAuditText": "tables"
               },
-              "usefulness": 94,
-              "complexity": 37
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.possessive-mi.starter-expanded.fp.sillas",
@@ -9701,8 +9701,8 @@
                 "learnerBaseText": "chairs",
                 "englishAuditText": "chairs"
               },
-              "usefulness": 94,
-              "complexity": 37
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.possessive-mi.starter-expanded.fp.tazas",
@@ -9719,8 +9719,8 @@
                 "learnerBaseText": "cups",
                 "englishAuditText": "cups"
               },
-              "usefulness": 94,
-              "complexity": 38
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.possessive-mi.starter-expanded.fp.bolsas",
@@ -9737,8 +9737,8 @@
                 "learnerBaseText": "bags",
                 "englishAuditText": "bags"
               },
-              "usefulness": 94,
-              "complexity": 38
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "es.agreement.basic.possessive-mi.starter-expanded.fp.camisas",
@@ -9755,16 +9755,16 @@
                 "learnerBaseText": "shirts",
                 "englishAuditText": "shirts"
               },
-              "usefulness": 94,
-              "complexity": 38
+              "usefulness": 54,
+              "complexity": 28
             }
           ],
-          "usefulness": 94,
-          "complexity": 36
+          "usefulness": 77,
+          "complexity": 37
         }
       },
-      "usefulness": 94,
-      "complexity": 32
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "zero-es-grammar-red",
@@ -9796,8 +9796,8 @@
                 "beforeText": "libro ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 6
+              "usefulness": 73,
+              "complexity": 24
             },
             {
               "id": "zero-es-grammar-red-masculine-singular-pen",
@@ -9814,12 +9814,12 @@
                 "beforeText": "bolígrafo ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 6
+              "usefulness": 75,
+              "complexity": 24
             }
           ],
-          "usefulness": 92,
-          "complexity": 5
+          "usefulness": 77,
+          "complexity": 31
         },
         "feminine-singular": {
           "displayForm": "roja",
@@ -9839,8 +9839,8 @@
                 "beforeText": "bolsa ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 6
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "zero-es-grammar-red-feminine-singular-ball",
@@ -9857,12 +9857,12 @@
                 "beforeText": "pelota ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 6
+              "usefulness": 63,
+              "complexity": 24
             }
           ],
-          "usefulness": 92,
-          "complexity": 5
+          "usefulness": 77,
+          "complexity": 31
         },
         "masculine-plural": {
           "displayForm": "rojos",
@@ -9882,8 +9882,8 @@
                 "beforeText": "libros ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 6
+              "usefulness": 73,
+              "complexity": 28
             },
             {
               "id": "zero-es-grammar-red-masculine-plural-restored-2",
@@ -9900,12 +9900,12 @@
                 "beforeText": "perros ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 6
+              "usefulness": 54,
+              "complexity": 28
             }
           ],
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 77,
+          "complexity": 37
         },
         "feminine-plural": {
           "displayForm": "rojas",
@@ -9925,8 +9925,8 @@
                 "beforeText": "bolsas ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 6
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "zero-es-grammar-red-feminine-plural-restored-2",
@@ -9943,16 +9943,16 @@
                 "beforeText": "pelotas ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 6
+              "usefulness": 63,
+              "complexity": 28
             }
           ],
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 77,
+          "complexity": 37
         }
       },
-      "usefulness": 92,
-      "complexity": 6
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "zero-es-grammar-small",
@@ -9984,8 +9984,8 @@
                 "beforeText": "libro ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 6
+              "usefulness": 73,
+              "complexity": 24
             },
             {
               "id": "zero-es-grammar-small-masculine-singular-pen",
@@ -10002,12 +10002,12 @@
                 "beforeText": "bolígrafo ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 6
+              "usefulness": 75,
+              "complexity": 24
             }
           ],
-          "usefulness": 92,
-          "complexity": 5
+          "usefulness": 77,
+          "complexity": 31
         },
         "feminine-singular": {
           "displayForm": "pequeña",
@@ -10027,8 +10027,8 @@
                 "beforeText": "bolsa ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 6
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "zero-es-grammar-small-feminine-singular-ball",
@@ -10045,12 +10045,12 @@
                 "beforeText": "pelota ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 6
+              "usefulness": 63,
+              "complexity": 24
             }
           ],
-          "usefulness": 92,
-          "complexity": 5
+          "usefulness": 77,
+          "complexity": 31
         },
         "masculine-plural": {
           "displayForm": "pequeños",
@@ -10070,8 +10070,8 @@
                 "beforeText": "libros ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 6
+              "usefulness": 73,
+              "complexity": 28
             },
             {
               "id": "zero-es-grammar-small-masculine-plural-restored-2",
@@ -10088,12 +10088,12 @@
                 "beforeText": "perros ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 6
+              "usefulness": 54,
+              "complexity": 28
             }
           ],
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 77,
+          "complexity": 37
         },
         "feminine-plural": {
           "displayForm": "pequeñas",
@@ -10113,8 +10113,8 @@
                 "beforeText": "bolsas ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 6
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "zero-es-grammar-small-feminine-plural-restored-2",
@@ -10131,16 +10131,16 @@
                 "beforeText": "pelotas ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 6
+              "usefulness": 63,
+              "complexity": 28
             }
           ],
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 77,
+          "complexity": 37
         }
       },
-      "usefulness": 92,
-      "complexity": 6
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "zero-es-grammar-white",
@@ -10172,8 +10172,8 @@
                 "beforeText": "libro ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 6
+              "usefulness": 73,
+              "complexity": 24
             },
             {
               "id": "zero-es-grammar-white-masculine-singular-pen",
@@ -10190,12 +10190,12 @@
                 "beforeText": "bolígrafo ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 6
+              "usefulness": 75,
+              "complexity": 24
             }
           ],
-          "usefulness": 92,
-          "complexity": 5
+          "usefulness": 77,
+          "complexity": 31
         },
         "feminine-singular": {
           "displayForm": "blanca",
@@ -10215,8 +10215,8 @@
                 "beforeText": "bolsa ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 6
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "zero-es-grammar-white-feminine-singular-ball",
@@ -10233,12 +10233,12 @@
                 "beforeText": "pelota ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 6
+              "usefulness": 63,
+              "complexity": 24
             }
           ],
-          "usefulness": 92,
-          "complexity": 5
+          "usefulness": 77,
+          "complexity": 31
         },
         "masculine-plural": {
           "displayForm": "blancos",
@@ -10258,8 +10258,8 @@
                 "beforeText": "libros ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 6
+              "usefulness": 73,
+              "complexity": 28
             },
             {
               "id": "zero-es-grammar-white-masculine-plural-restored-2",
@@ -10276,12 +10276,12 @@
                 "beforeText": "perros ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 6
+              "usefulness": 54,
+              "complexity": 28
             }
           ],
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 77,
+          "complexity": 37
         },
         "feminine-plural": {
           "displayForm": "blancas",
@@ -10301,8 +10301,8 @@
                 "beforeText": "bolsas ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 6
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "zero-es-grammar-white-feminine-plural-restored-2",
@@ -10319,16 +10319,16 @@
                 "beforeText": "pelotas ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 6
+              "usefulness": 63,
+              "complexity": 28
             }
           ],
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 77,
+          "complexity": 37
         }
       },
-      "usefulness": 92,
-      "complexity": 6
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "zero-es-grammar-black",
@@ -10360,8 +10360,8 @@
                 "beforeText": "libro ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 6
+              "usefulness": 73,
+              "complexity": 24
             },
             {
               "id": "zero-es-grammar-black-masculine-singular-pen",
@@ -10378,12 +10378,12 @@
                 "beforeText": "bolígrafo ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 6
+              "usefulness": 75,
+              "complexity": 24
             }
           ],
-          "usefulness": 92,
-          "complexity": 5
+          "usefulness": 77,
+          "complexity": 31
         },
         "feminine-singular": {
           "displayForm": "negra",
@@ -10403,8 +10403,8 @@
                 "beforeText": "bolsa ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 6
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "zero-es-grammar-black-feminine-singular-ball",
@@ -10421,12 +10421,12 @@
                 "beforeText": "pelota ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 6
+              "usefulness": 63,
+              "complexity": 24
             }
           ],
-          "usefulness": 92,
-          "complexity": 5
+          "usefulness": 77,
+          "complexity": 31
         },
         "masculine-plural": {
           "displayForm": "negros",
@@ -10446,8 +10446,8 @@
                 "beforeText": "libros ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 6
+              "usefulness": 73,
+              "complexity": 28
             },
             {
               "id": "zero-es-grammar-black-masculine-plural-restored-2",
@@ -10464,12 +10464,12 @@
                 "beforeText": "perros ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 6
+              "usefulness": 54,
+              "complexity": 28
             }
           ],
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 77,
+          "complexity": 37
         },
         "feminine-plural": {
           "displayForm": "negras",
@@ -10489,8 +10489,8 @@
                 "beforeText": "bolsas ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 6
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "zero-es-grammar-black-feminine-plural-restored-2",
@@ -10507,16 +10507,16 @@
                 "beforeText": "pelotas ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 6
+              "usefulness": 63,
+              "complexity": 28
             }
           ],
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 77,
+          "complexity": 37
         }
       },
-      "usefulness": 92,
-      "complexity": 6
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "zero-es-grammar-expand-new",
@@ -10548,8 +10548,8 @@
                 "beforeText": "libro ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 73,
+              "complexity": 24
             },
             {
               "id": "zero-es-grammar-expand-new-masculine-singular-2",
@@ -10566,8 +10566,8 @@
                 "beforeText": "bolígrafo ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 75,
+              "complexity": 24
             },
             {
               "id": "zero-es-grammar-expand-new-masculine-singular-3",
@@ -10584,8 +10584,8 @@
                 "beforeText": "coche ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "zero-es-grammar-expand-new-masculine-singular-4",
@@ -10602,12 +10602,12 @@
                 "beforeText": "zapato ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 54,
+              "complexity": 24
             }
           ],
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 77,
+          "complexity": 31
         },
         "feminine-singular": {
           "displayForm": "nueva",
@@ -10627,8 +10627,8 @@
                 "beforeText": "bolsa ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "zero-es-grammar-expand-new-feminine-singular-2",
@@ -10645,8 +10645,8 @@
                 "beforeText": "pelota ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 63,
+              "complexity": 24
             },
             {
               "id": "zero-es-grammar-expand-new-feminine-singular-3",
@@ -10663,8 +10663,8 @@
                 "beforeText": "silla ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "zero-es-grammar-expand-new-feminine-singular-4",
@@ -10681,12 +10681,12 @@
                 "beforeText": "bicicleta ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 54,
+              "complexity": 24
             }
           ],
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 77,
+          "complexity": 31
         },
         "masculine-plural": {
           "displayForm": "nuevos",
@@ -10706,8 +10706,8 @@
                 "beforeText": "libros ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 73,
+              "complexity": 28
             },
             {
               "id": "zero-es-grammar-expand-new-masculine-plural-restored-2",
@@ -10724,12 +10724,12 @@
                 "beforeText": "perros ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 54,
+              "complexity": 28
             }
           ],
-          "usefulness": 92,
-          "complexity": 7
+          "usefulness": 77,
+          "complexity": 37
         },
         "feminine-plural": {
           "displayForm": "nuevas",
@@ -10749,8 +10749,8 @@
                 "beforeText": "bolsas ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "zero-es-grammar-expand-new-feminine-plural-restored-2",
@@ -10767,16 +10767,16 @@
                 "beforeText": "pelotas ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 63,
+              "complexity": 28
             }
           ],
-          "usefulness": 92,
-          "complexity": 7
+          "usefulness": 77,
+          "complexity": 37
         }
       },
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "zero-es-grammar-expand-old",
@@ -10808,8 +10808,8 @@
                 "beforeText": "libro ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 73,
+              "complexity": 24
             },
             {
               "id": "zero-es-grammar-expand-old-masculine-singular-2",
@@ -10826,8 +10826,8 @@
                 "beforeText": "coche ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "zero-es-grammar-expand-old-masculine-singular-3",
@@ -10844,8 +10844,8 @@
                 "beforeText": "zapato ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "zero-es-grammar-expand-old-masculine-singular-4",
@@ -10862,12 +10862,12 @@
                 "beforeText": "plato ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 77,
+              "complexity": 24
             }
           ],
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 77,
+          "complexity": 31
         },
         "feminine-singular": {
           "displayForm": "vieja",
@@ -10887,8 +10887,8 @@
                 "beforeText": "bolsa ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "zero-es-grammar-expand-old-feminine-singular-2",
@@ -10905,8 +10905,8 @@
                 "beforeText": "silla ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "zero-es-grammar-expand-old-feminine-singular-3",
@@ -10923,8 +10923,8 @@
                 "beforeText": "mesa ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "zero-es-grammar-expand-old-feminine-singular-4",
@@ -10941,12 +10941,12 @@
                 "beforeText": "bicicleta ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 54,
+              "complexity": 24
             }
           ],
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 77,
+          "complexity": 31
         },
         "masculine-plural": {
           "displayForm": "viejos",
@@ -10966,8 +10966,8 @@
                 "beforeText": "libros ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 73,
+              "complexity": 28
             },
             {
               "id": "zero-es-grammar-expand-old-masculine-plural-restored-2",
@@ -10984,12 +10984,12 @@
                 "beforeText": "perros ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 54,
+              "complexity": 28
             }
           ],
-          "usefulness": 92,
-          "complexity": 7
+          "usefulness": 77,
+          "complexity": 37
         },
         "feminine-plural": {
           "displayForm": "viejas",
@@ -11009,8 +11009,8 @@
                 "beforeText": "bolsas ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "zero-es-grammar-expand-old-feminine-plural-restored-2",
@@ -11027,16 +11027,16 @@
                 "beforeText": "pelotas ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 63,
+              "complexity": 28
             }
           ],
-          "usefulness": 92,
-          "complexity": 7
+          "usefulness": 77,
+          "complexity": 37
         }
       },
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "zero-es-grammar-expand-pretty",
@@ -11068,8 +11068,8 @@
                 "beforeText": "libro ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 73,
+              "complexity": 24
             },
             {
               "id": "zero-es-grammar-expand-pretty-masculine-singular-2",
@@ -11086,8 +11086,8 @@
                 "beforeText": "coche ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "zero-es-grammar-expand-pretty-masculine-singular-3",
@@ -11104,8 +11104,8 @@
                 "beforeText": "plato ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "zero-es-grammar-expand-pretty-masculine-singular-4",
@@ -11122,12 +11122,12 @@
                 "beforeText": "zapato ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 54,
+              "complexity": 24
             }
           ],
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 77,
+          "complexity": 31
         },
         "feminine-singular": {
           "displayForm": "bonita",
@@ -11147,8 +11147,8 @@
                 "beforeText": "casa ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 77,
+              "complexity": 24
             },
             {
               "id": "zero-es-grammar-expand-pretty-feminine-singular-2",
@@ -11165,8 +11165,8 @@
                 "beforeText": "pelota ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 63,
+              "complexity": 24
             },
             {
               "id": "zero-es-grammar-expand-pretty-feminine-singular-3",
@@ -11183,8 +11183,8 @@
                 "beforeText": "taza ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 54,
+              "complexity": 24
             },
             {
               "id": "zero-es-grammar-expand-pretty-feminine-singular-4",
@@ -11201,12 +11201,12 @@
                 "beforeText": "bicicleta ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 54,
+              "complexity": 24
             }
           ],
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 77,
+          "complexity": 31
         },
         "masculine-plural": {
           "displayForm": "bonitos",
@@ -11226,8 +11226,8 @@
                 "beforeText": "libros ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 73,
+              "complexity": 28
             },
             {
               "id": "zero-es-grammar-expand-pretty-masculine-plural-restored-2",
@@ -11244,12 +11244,12 @@
                 "beforeText": "perros ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 54,
+              "complexity": 28
             }
           ],
-          "usefulness": 92,
-          "complexity": 7
+          "usefulness": 77,
+          "complexity": 37
         },
         "feminine-plural": {
           "displayForm": "bonitas",
@@ -11269,8 +11269,8 @@
                 "beforeText": "bolsas ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 54,
+              "complexity": 28
             },
             {
               "id": "zero-es-grammar-expand-pretty-feminine-plural-restored-2",
@@ -11287,16 +11287,16 @@
                 "beforeText": "pelotas ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 63,
+              "complexity": 28
             }
           ],
-          "usefulness": 92,
-          "complexity": 7
+          "usefulness": 77,
+          "complexity": 37
         }
       },
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 77,
+      "complexity": 31
     },
     {
       "id": "zero-es-grammar-expand-clean",
@@ -11328,8 +11328,8 @@
                 "beforeText": "plato ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 75,
+              "complexity": 24
             },
             {
               "id": "zero-es-grammar-expand-clean-masculine-singular-2",
@@ -11346,8 +11346,8 @@
                 "beforeText": "coche ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 75,
+              "complexity": 24
             },
             {
               "id": "zero-es-grammar-expand-clean-masculine-singular-3",
@@ -11364,8 +11364,8 @@
                 "beforeText": "zapato ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 75,
+              "complexity": 24
             },
             {
               "id": "zero-es-grammar-expand-clean-masculine-singular-4",
@@ -11382,12 +11382,12 @@
                 "beforeText": "vaso ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 75,
+              "complexity": 24
             }
           ],
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 77,
+          "complexity": 31
         },
         "feminine-singular": {
           "displayForm": "limpia",
@@ -11407,8 +11407,8 @@
                 "beforeText": "taza ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 75,
+              "complexity": 24
             },
             {
               "id": "zero-es-grammar-expand-clean-feminine-singular-2",
@@ -11425,8 +11425,8 @@
                 "beforeText": "mesa ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 75,
+              "complexity": 24
             },
             {
               "id": "zero-es-grammar-expand-clean-feminine-singular-3",
@@ -11443,8 +11443,8 @@
                 "beforeText": "silla ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 75,
+              "complexity": 24
             },
             {
               "id": "zero-es-grammar-expand-clean-feminine-singular-4",
@@ -11461,12 +11461,12 @@
                 "beforeText": "bicicleta ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 75,
+              "complexity": 24
             }
           ],
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 77,
+          "complexity": 31
         },
         "masculine-plural": {
           "displayForm": "limpios",
@@ -11486,8 +11486,8 @@
                 "beforeText": "libros ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 75,
+              "complexity": 28
             },
             {
               "id": "zero-es-grammar-expand-clean-masculine-plural-restored-2",
@@ -11504,12 +11504,12 @@
                 "beforeText": "perros ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 75,
+              "complexity": 28
             }
           ],
-          "usefulness": 92,
-          "complexity": 7
+          "usefulness": 77,
+          "complexity": 37
         },
         "feminine-plural": {
           "displayForm": "limpias",
@@ -11529,8 +11529,8 @@
                 "beforeText": "bolsas ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 75,
+              "complexity": 28
             },
             {
               "id": "zero-es-grammar-expand-clean-feminine-plural-restored-2",
@@ -11547,16 +11547,16 @@
                 "beforeText": "pelotas ",
                 "afterText": ""
               },
-              "usefulness": 92,
-              "complexity": 7
+              "usefulness": 75,
+              "complexity": 28
             }
           ],
-          "usefulness": 92,
-          "complexity": 7
+          "usefulness": 77,
+          "complexity": 37
         }
       },
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 77,
+      "complexity": 31
     }
   ],
   "gameplay": {

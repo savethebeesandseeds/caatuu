@@ -652,8 +652,8 @@
       "id": "ww-codex-exp-0001-0011",
       "difficulty": 2,
       "topic": "people",
-      "englishText": "Tomáš is happy about the trip.",
-      "embeddingText": "Tomáš is happy about the trip.",
+      "englishText": "Tomas is happy about the trip.",
+      "embeddingText": "Tomas is happy about the trip.",
       "englishAlternates": [],
       "targetText": "Tomáš má z výletu radost.",
       "pronunciation": null,
@@ -667,7 +667,7 @@
         }
       ],
       "learnerBase": null,
-      "sceneQuery": "Tomáš is happy about the trip",
+      "sceneQuery": "Tomas is happy about the trip",
       "sceneAssetIds": [],
       "annotations": {
         "cefr": "A1",
@@ -1522,8 +1522,8 @@
       "id": "ww-codex-exp-0001-0021",
       "difficulty": 2,
       "topic": "people",
-      "englishText": "Anička is reading a short story.",
-      "embeddingText": "Anička is reading a short story.",
+      "englishText": "Anicka is reading a short story.",
+      "embeddingText": "Anicka is reading a short story.",
       "englishAlternates": [],
       "targetText": "Anička čte krátký příběh.",
       "pronunciation": null,
@@ -1537,7 +1537,7 @@
         }
       ],
       "learnerBase": null,
-      "sceneQuery": "Anička is reading a short story",
+      "sceneQuery": "Anicka is reading a short story",
       "sceneAssetIds": [],
       "annotations": {
         "cefr": "A1",
@@ -6896,8 +6896,8 @@
       "id": "ww-codex-exp-0001-0094",
       "difficulty": 2,
       "topic": "school",
-      "englishText": "Matěj misunderstood the question.",
-      "embeddingText": "Matěj misunderstood the question.",
+      "englishText": "Matej misunderstood the question.",
+      "embeddingText": "Matej misunderstood the question.",
       "englishAlternates": [],
       "targetText": "Matěj špatně pochopil otázku.",
       "pronunciation": null,
@@ -6911,7 +6911,7 @@
         }
       ],
       "learnerBase": null,
-      "sceneQuery": "Matěj misunderstood the question",
+      "sceneQuery": "Matej misunderstood the question",
       "sceneAssetIds": [],
       "annotations": {
         "cefr": "A1",
@@ -78790,8 +78790,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-dog",
@@ -78866,8 +78866,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-water",
@@ -78942,8 +78942,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 88,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-bread",
@@ -79018,8 +79018,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-milk",
@@ -79094,8 +79094,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-apple",
@@ -79170,8 +79170,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-rice",
@@ -79246,8 +79246,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-tea",
@@ -79322,8 +79322,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-book",
@@ -79398,8 +79398,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 73,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-pen",
@@ -79474,8 +79474,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-house",
@@ -79550,8 +79550,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 77,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-door",
@@ -79626,8 +79626,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-table",
@@ -79702,8 +79702,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-chair",
@@ -79778,8 +79778,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-bed",
@@ -79854,8 +79854,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-bag",
@@ -79930,8 +79930,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-ball",
@@ -80006,8 +80006,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 63,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-sun",
@@ -80082,8 +80082,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 65,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-hand",
@@ -80158,8 +80158,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-eye",
@@ -80234,8 +80234,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-eat",
@@ -80310,8 +80310,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-drink",
@@ -80386,8 +80386,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-go",
@@ -80462,8 +80462,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-see",
@@ -80538,8 +80538,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-want",
@@ -80614,8 +80614,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-have",
@@ -80690,8 +80690,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "ww-cz-zero-like",
@@ -80773,8 +80773,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-sleep",
@@ -80849,8 +80849,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-sit",
@@ -80925,8 +80925,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-read",
@@ -81001,8 +81001,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 73,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-write",
@@ -81077,8 +81077,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 73,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-hear",
@@ -81153,8 +81153,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-i",
@@ -81229,8 +81229,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 70,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-you",
@@ -81305,8 +81305,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 70,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-we",
@@ -81381,8 +81381,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 70,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-hello",
@@ -81457,8 +81457,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 1
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "ww-cz-zero-goodbye",
@@ -81540,8 +81540,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 1
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "ww-cz-zero-yes",
@@ -81616,8 +81616,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 1
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "ww-cz-zero-no",
@@ -81692,8 +81692,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 1
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "ww-cz-zero-please",
@@ -81768,8 +81768,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 1
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "ww-cz-zero-thanks",
@@ -81844,8 +81844,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 1
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "ww-cz-zero-one",
@@ -81920,8 +81920,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-two",
@@ -81996,8 +81996,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-three",
@@ -82072,8 +82072,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-four",
@@ -82148,8 +82148,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-five",
@@ -82224,8 +82224,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-big",
@@ -82300,8 +82300,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-small",
@@ -82376,8 +82376,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-red",
@@ -82452,8 +82452,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-green",
@@ -82528,8 +82528,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-this-cat",
@@ -82618,8 +82618,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "ww-cz-zero-this-dog",
@@ -82708,8 +82708,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "ww-cz-zero-this-water",
@@ -82798,8 +82798,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 88,
+      "complexity": 27
     },
     {
       "id": "ww-cz-zero-this-bread",
@@ -82888,8 +82888,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "ww-cz-zero-this-milk",
@@ -82978,8 +82978,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "ww-cz-zero-this-apple",
@@ -83068,8 +83068,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "ww-cz-zero-this-rice",
@@ -83158,8 +83158,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "ww-cz-zero-this-tea",
@@ -83248,8 +83248,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "ww-cz-zero-this-book",
@@ -83338,8 +83338,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 73,
+      "complexity": 27
     },
     {
       "id": "ww-cz-zero-this-pen",
@@ -83428,8 +83428,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "ww-cz-zero-this-house",
@@ -83518,8 +83518,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 77,
+      "complexity": 27
     },
     {
       "id": "ww-cz-zero-this-door",
@@ -83608,8 +83608,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "ww-cz-zero-this-table",
@@ -83698,8 +83698,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "ww-cz-zero-this-chair",
@@ -83788,8 +83788,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "ww-cz-zero-this-bed",
@@ -83878,8 +83878,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "ww-cz-zero-this-bag",
@@ -83968,8 +83968,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "ww-cz-zero-this-ball",
@@ -84058,8 +84058,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 63,
+      "complexity": 27
     },
     {
       "id": "ww-cz-zero-this-sun",
@@ -84148,8 +84148,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 65,
+      "complexity": 27
     },
     {
       "id": "ww-cz-zero-this-hand",
@@ -84238,8 +84238,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "ww-cz-zero-this-eye",
@@ -84328,8 +84328,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "ww-cz-zero-want-water",
@@ -84411,8 +84411,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 9
+      "usefulness": 93,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-want-bread",
@@ -84494,8 +84494,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 9
+      "usefulness": 80,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-want-milk",
@@ -84577,8 +84577,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 9
+      "usefulness": 80,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-want-apple",
@@ -84660,8 +84660,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 9
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-want-rice",
@@ -84743,8 +84743,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 9
+      "usefulness": 80,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-want-tea",
@@ -84826,8 +84826,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 9
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-want-book",
@@ -84909,8 +84909,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 9
+      "usefulness": 78,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-want-pen",
@@ -84992,8 +84992,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 9
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-see-cat",
@@ -85075,8 +85075,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 10
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-see-dog",
@@ -85158,8 +85158,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 10
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-see-book",
@@ -85241,8 +85241,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 10
+      "usefulness": 73,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-see-pen",
@@ -85324,8 +85324,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 10
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-see-house",
@@ -85407,8 +85407,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 10
+      "usefulness": 77,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-see-door",
@@ -85490,8 +85490,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 10
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-see-table",
@@ -85573,8 +85573,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 10
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-see-ball",
@@ -85656,8 +85656,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 10
+      "usefulness": 63,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-i-eat",
@@ -85732,8 +85732,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 8
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-i-drink",
@@ -85808,8 +85808,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 8
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-i-go",
@@ -85884,8 +85884,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 8
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-i-sit",
@@ -85960,8 +85960,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 8
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-i-read",
@@ -86043,8 +86043,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 8
+      "usefulness": 73,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-i-write",
@@ -86119,8 +86119,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 8
+      "usefulness": 73,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-i-sleep",
@@ -86195,8 +86195,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 8
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "ww-cz-zero-i-have-pen",
@@ -86278,8 +86278,8 @@
           ]
         }
       },
-      "usefulness": 92,
-      "complexity": 8
+      "usefulness": 75,
+      "complexity": 27
     }
   ]
 }

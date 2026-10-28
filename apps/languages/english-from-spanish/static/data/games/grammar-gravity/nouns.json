@@ -4186,8 +4186,8 @@
       "english": "cat",
       "laneId": "singular",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-noun-dog",
@@ -4197,8 +4197,8 @@
       "english": "dog",
       "laneId": "singular",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-noun-water",
@@ -4208,8 +4208,8 @@
       "english": "water",
       "laneId": "singular",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 98,
+      "complexity": 15
     },
     {
       "id": "zero-es-en-noun-bread",
@@ -4219,8 +4219,8 @@
       "english": "bread",
       "laneId": "singular",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 75,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-noun-milk",
@@ -4230,8 +4230,8 @@
       "english": "milk",
       "laneId": "singular",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 75,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-noun-apple",
@@ -4241,8 +4241,8 @@
       "english": "apple",
       "laneId": "singular",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-noun-rice",
@@ -4252,8 +4252,8 @@
       "english": "rice",
       "laneId": "singular",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 75,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-noun-tea",
@@ -4263,8 +4263,8 @@
       "english": "tea",
       "laneId": "singular",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-noun-book",
@@ -4274,8 +4274,8 @@
       "english": "book",
       "laneId": "singular",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 73,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-noun-pen",
@@ -4285,8 +4285,8 @@
       "english": "pen",
       "laneId": "singular",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "zero-es-en-noun-house",
@@ -4296,8 +4296,8 @@
       "english": "house",
       "laneId": "singular",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zero-es-en-noun-door",
@@ -4307,8 +4307,8 @@
       "english": "door",
       "laneId": "singular",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-noun-table",
@@ -4318,8 +4318,8 @@
       "english": "table",
       "laneId": "singular",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-noun-chair",
@@ -4329,8 +4329,8 @@
       "english": "chair",
       "laneId": "singular",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-noun-bed",
@@ -4340,8 +4340,8 @@
       "english": "bed",
       "laneId": "singular",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-noun-bag",
@@ -4351,8 +4351,8 @@
       "english": "bag",
       "laneId": "singular",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-noun-ball",
@@ -4362,8 +4362,8 @@
       "english": "ball",
       "laneId": "singular",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "zero-es-en-noun-sun",
@@ -4373,8 +4373,8 @@
       "english": "sun",
       "laneId": "singular",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "zero-es-en-noun-hand",
@@ -4384,8 +4384,8 @@
       "english": "hand",
       "laneId": "singular",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-noun-eye",
@@ -4395,8 +4395,8 @@
       "english": "eye",
       "laneId": "singular",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-noun-cat-plural",
@@ -4406,8 +4406,8 @@
       "english": "cats",
       "laneId": "plural",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 5
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-noun-dog-plural",
@@ -4417,8 +4417,8 @@
       "english": "dogs",
       "laneId": "plural",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 5
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-noun-book-plural",
@@ -4428,8 +4428,8 @@
       "english": "books",
       "laneId": "plural",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 5
+      "usefulness": 73,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-noun-pen-plural",
@@ -4439,8 +4439,8 @@
       "english": "pens",
       "laneId": "plural",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 5
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "zero-es-en-noun-house-plural",
@@ -4450,8 +4450,8 @@
       "english": "houses",
       "laneId": "plural",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 5
+      "usefulness": 77,
+      "complexity": 29
     },
     {
       "id": "zero-es-en-noun-door-plural",
@@ -4461,8 +4461,8 @@
       "english": "doors",
       "laneId": "plural",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 5
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-noun-table-plural",
@@ -4472,8 +4472,8 @@
       "english": "tables",
       "laneId": "plural",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 5
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-noun-chair-plural",
@@ -4483,8 +4483,8 @@
       "english": "chairs",
       "laneId": "plural",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 5
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-noun-bed-plural",
@@ -4494,8 +4494,8 @@
       "english": "beds",
       "laneId": "plural",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 5
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-noun-bag-plural",
@@ -4505,8 +4505,8 @@
       "english": "bags",
       "laneId": "plural",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 5
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-noun-ball-plural",
@@ -4516,8 +4516,8 @@
       "english": "balls",
       "laneId": "plural",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 5
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "zero-es-en-noun-hand-plural",
@@ -4527,8 +4527,8 @@
       "english": "hands",
       "laneId": "plural",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 5
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-noun-eye-plural",
@@ -4538,8 +4538,8 @@
       "english": "eyes",
       "laneId": "plural",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 5
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-noun-expand-car",
@@ -4549,8 +4549,8 @@
       "english": "car",
       "laneId": "singular",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-noun-expand-car-plural",
@@ -4560,8 +4560,8 @@
       "english": "cars",
       "laneId": "plural",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 5
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-noun-expand-bicycle",
@@ -4571,8 +4571,8 @@
       "english": "bike",
       "laneId": "singular",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-noun-expand-bicycle-plural",
@@ -4582,8 +4582,8 @@
       "english": "bikes",
       "laneId": "plural",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 5
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-noun-expand-window",
@@ -4593,8 +4593,8 @@
       "english": "window",
       "laneId": "singular",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-noun-expand-window-plural",
@@ -4604,8 +4604,8 @@
       "english": "windows",
       "laneId": "plural",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 5
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-noun-expand-egg",
@@ -4615,8 +4615,8 @@
       "english": "egg",
       "laneId": "singular",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-noun-expand-egg-plural",
@@ -4626,8 +4626,8 @@
       "english": "eggs",
       "laneId": "plural",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 5
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-noun-expand-shoe",
@@ -4637,8 +4637,8 @@
       "english": "shoe",
       "laneId": "singular",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-noun-expand-shoe-plural",
@@ -4648,8 +4648,8 @@
       "english": "shoes",
       "laneId": "plural",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 5
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-noun-expand-sister",
@@ -4659,8 +4659,8 @@
       "english": "sister",
       "laneId": "singular",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 79,
+      "complexity": 25
     },
     {
       "id": "zero-es-en-noun-expand-sister-plural",
@@ -4670,8 +4670,8 @@
       "english": "sisters",
       "laneId": "plural",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 5
+      "usefulness": 79,
+      "complexity": 25
     }
   ]
 }

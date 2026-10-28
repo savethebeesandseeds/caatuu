@@ -87,6 +87,9 @@ test('legacy callers retain established selection and adaptive English never use
   assert.deepEqual(selectContentItems(rows, { difficulty: 1, random, now }), legacy(rows, { difficulty: 1, random, now }));
   assert.equal(practiceEnglishText({ en: 'Me gusta aprender.', englishAuditText: 'I like learning.' }, { courseId: 'es-en', gameId: 'word-world' }), 'I like learning.');
   assert.equal(practiceEnglishText({ en: 'Me gusta aprender.' }, { courseId: 'es-en', gameId: 'word-world' }), '');
+  assert.equal(practiceEnglishText({ en: 'go' }, { courseId: 'es', gameId: 'verb-nebula' }), 'go');
+  assert.equal(practiceEnglishText({ meaning: 'be' }, { courseId: 'es', gameId: 'conjugation-comet' }), 'be');
+  assert.equal(practiceEnglishText({ translation: 'friend' }, { courseId: 'ar', gameId: 'naturalization-nucleus' }), 'friend');
 });
 
 test('one Word World decision is one draw and recent exclusions have an inspectable conditional distribution', () => {

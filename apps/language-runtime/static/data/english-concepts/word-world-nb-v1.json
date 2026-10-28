@@ -6074,8 +6074,8 @@
       "sceneQuery": "Hello!",
       "topic": "greetings",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "zero-nb-ww-goodbye",
@@ -6084,8 +6084,8 @@
       "sceneQuery": "Goodbye!",
       "topic": "greetings",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "zero-nb-ww-thanks",
@@ -6094,8 +6094,8 @@
       "sceneQuery": "Thank you!",
       "topic": "greetings",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "zero-nb-ww-yes",
@@ -6104,8 +6104,8 @@
       "sceneQuery": "Yes.",
       "topic": "greetings",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "zero-nb-ww-no",
@@ -6114,8 +6114,8 @@
       "sceneQuery": "No.",
       "topic": "greetings",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "zero-nb-ww-please",
@@ -6124,8 +6124,8 @@
       "sceneQuery": "Please.",
       "topic": "greetings",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 6
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "zero-nb-ww-sorry",
@@ -6134,8 +6134,8 @@
       "sceneQuery": "Sorry!",
       "topic": "greetings",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "zero-nb-ww-help",
@@ -6144,8 +6144,8 @@
       "sceneQuery": "Help!",
       "topic": "greetings",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 99,
+      "complexity": 7
     },
     {
       "id": "zero-nb-ww-i",
@@ -6154,8 +6154,8 @@
       "sceneQuery": "I",
       "topic": "people",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 70,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-you",
@@ -6164,8 +6164,8 @@
       "sceneQuery": "you (one person)",
       "topic": "people",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 70,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-mother",
@@ -6174,8 +6174,8 @@
       "sceneQuery": "mother",
       "topic": "people",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 77,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-father",
@@ -6184,8 +6184,8 @@
       "sceneQuery": "father",
       "topic": "people",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 77,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-friend",
@@ -6194,8 +6194,8 @@
       "sceneQuery": "friend",
       "topic": "people",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 77,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-child",
@@ -6204,8 +6204,8 @@
       "sceneQuery": "child",
       "topic": "people",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 77,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-one",
@@ -6214,8 +6214,8 @@
       "sceneQuery": "one",
       "topic": "numbers",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-two",
@@ -6224,8 +6224,8 @@
       "sceneQuery": "two",
       "topic": "numbers",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-three",
@@ -6234,8 +6234,8 @@
       "sceneQuery": "three",
       "topic": "numbers",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-four",
@@ -6244,8 +6244,8 @@
       "sceneQuery": "four",
       "topic": "numbers",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-five",
@@ -6254,8 +6254,8 @@
       "sceneQuery": "five",
       "topic": "numbers",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-water",
@@ -6264,8 +6264,8 @@
       "sceneQuery": "water",
       "topic": "food-and-drink",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 88,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-bread",
@@ -6274,8 +6274,8 @@
       "sceneQuery": "bread",
       "topic": "food-and-drink",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-milk",
@@ -6284,8 +6284,8 @@
       "sceneQuery": "milk",
       "topic": "food-and-drink",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-apple",
@@ -6294,8 +6294,8 @@
       "sceneQuery": "apple",
       "topic": "food-and-drink",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 70,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-tea",
@@ -6304,8 +6304,8 @@
       "sceneQuery": "tea",
       "topic": "food-and-drink",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 70,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-house",
@@ -6314,8 +6314,8 @@
       "sceneQuery": "house",
       "topic": "home",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 77,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-book",
@@ -6324,8 +6324,8 @@
       "sceneQuery": "book",
       "topic": "home",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 73,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-door",
@@ -6334,8 +6334,8 @@
       "sceneQuery": "door",
       "topic": "home",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 70,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-car",
@@ -6344,8 +6344,8 @@
       "sceneQuery": "car",
       "topic": "objects",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-cat",
@@ -6354,8 +6354,8 @@
       "sceneQuery": "cat",
       "topic": "animals",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-dog",
@@ -6364,8 +6364,8 @@
       "sceneQuery": "dog",
       "topic": "animals",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-big",
@@ -6374,8 +6374,8 @@
       "sceneQuery": "big",
       "topic": "properties",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-small",
@@ -6384,8 +6384,8 @@
       "sceneQuery": "small",
       "topic": "properties",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-good",
@@ -6394,8 +6394,8 @@
       "sceneQuery": "good",
       "topic": "properties",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-new",
@@ -6404,8 +6404,8 @@
       "sceneQuery": "new",
       "topic": "properties",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-red",
@@ -6414,8 +6414,8 @@
       "sceneQuery": "red",
       "topic": "properties",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-green",
@@ -6424,8 +6424,8 @@
       "sceneQuery": "green",
       "topic": "properties",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-hot",
@@ -6434,8 +6434,8 @@
       "sceneQuery": "hot",
       "topic": "properties",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-cold",
@@ -6444,8 +6444,8 @@
       "sceneQuery": "cold",
       "topic": "properties",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 90,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-eat",
@@ -6454,8 +6454,8 @@
       "sceneQuery": "eat",
       "topic": "actions",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-drink",
@@ -6464,8 +6464,8 @@
       "sceneQuery": "drink",
       "topic": "actions",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-go",
@@ -6474,8 +6474,8 @@
       "sceneQuery": "walk",
       "topic": "actions",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 63,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-come",
@@ -6484,8 +6484,8 @@
       "sceneQuery": "come",
       "topic": "actions",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-sleep",
@@ -6494,8 +6494,8 @@
       "sceneQuery": "sleep",
       "topic": "actions",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-read",
@@ -6504,8 +6504,8 @@
       "sceneQuery": "read",
       "topic": "actions",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 73,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-write",
@@ -6514,8 +6514,8 @@
       "sceneQuery": "write",
       "topic": "actions",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 73,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-see",
@@ -6524,8 +6524,8 @@
       "sceneQuery": "see",
       "topic": "actions",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-phrase-001",
@@ -6534,8 +6534,8 @@
       "sceneQuery": "Hello, friend!",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 77,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-phrase-002",
@@ -6544,8 +6544,8 @@
       "sceneQuery": "Yes, please.",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "zero-nb-ww-phrase-003",
@@ -6554,8 +6554,8 @@
       "sceneQuery": "No, thank you.",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "zero-nb-ww-phrase-004",
@@ -6564,8 +6564,8 @@
       "sceneQuery": "Good morning!",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "zero-nb-ww-phrase-005",
@@ -6574,8 +6574,8 @@
       "sceneQuery": "Good night!",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "zero-nb-ww-phrase-006",
@@ -6584,8 +6584,8 @@
       "sceneQuery": "I am here.",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 6
+      "usefulness": 68,
+      "complexity": 27
     },
     {
       "id": "zero-nb-ww-phrase-007",
@@ -6594,8 +6594,8 @@
       "sceneQuery": "You are here.",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 6
+      "usefulness": 68,
+      "complexity": 27
     },
     {
       "id": "zero-nb-ww-phrase-008",
@@ -6604,8 +6604,8 @@
       "sceneQuery": "I am at home.",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 6
+      "usefulness": 77,
+      "complexity": 27
     },
     {
       "id": "zero-nb-ww-phrase-009",
@@ -6614,8 +6614,8 @@
       "sceneQuery": "You are at home.",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 6
+      "usefulness": 77,
+      "complexity": 27
     },
     {
       "id": "zero-nb-ww-phrase-010",
@@ -6624,7 +6624,7 @@
       "sceneQuery": "I am fine.",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
+      "usefulness": 94,
       "complexity": 7
     },
     {
@@ -6634,8 +6634,8 @@
       "sceneQuery": "This is water.",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 6
+      "usefulness": 88,
+      "complexity": 27
     },
     {
       "id": "zero-nb-ww-phrase-012",
@@ -6644,8 +6644,8 @@
       "sceneQuery": "This is bread.",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 6
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "zero-nb-ww-phrase-013",
@@ -6654,8 +6654,8 @@
       "sceneQuery": "This is milk.",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 6
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "zero-nb-ww-phrase-014",
@@ -6664,8 +6664,8 @@
       "sceneQuery": "This is tea.",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 6
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zero-nb-ww-phrase-015",
@@ -6674,8 +6674,8 @@
       "sceneQuery": "This is a book.",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 7
+      "usefulness": 73,
+      "complexity": 27
     },
     {
       "id": "zero-nb-ww-phrase-016",
@@ -6684,8 +6684,8 @@
       "sceneQuery": "This is a house.",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 7
+      "usefulness": 77,
+      "complexity": 27
     },
     {
       "id": "zero-nb-ww-phrase-017",
@@ -6694,8 +6694,8 @@
       "sceneQuery": "A cat.",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-phrase-018",
@@ -6704,8 +6704,8 @@
       "sceneQuery": "A dog.",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-phrase-019",
@@ -6714,8 +6714,8 @@
       "sceneQuery": "An apple.",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-phrase-020",
@@ -6724,8 +6724,8 @@
       "sceneQuery": "A red car.",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 6
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-phrase-021",
@@ -6734,8 +6734,8 @@
       "sceneQuery": "A green book.",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 6
+      "usefulness": 73,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-phrase-022",
@@ -6744,8 +6744,8 @@
       "sceneQuery": "A big dog.",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 6
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-phrase-023",
@@ -6754,8 +6754,8 @@
       "sceneQuery": "A small cat.",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 6
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-phrase-024",
@@ -6764,8 +6764,8 @@
       "sceneQuery": "A new book.",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 6
+      "usefulness": 73,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-phrase-025",
@@ -6774,8 +6774,8 @@
       "sceneQuery": "Cold water.",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 88,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-phrase-026",
@@ -6784,8 +6784,8 @@
       "sceneQuery": "Warm milk.",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-phrase-027",
@@ -6794,8 +6794,8 @@
       "sceneQuery": "Hot tea.",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-phrase-028",
@@ -6804,8 +6804,8 @@
       "sceneQuery": "Two cats.",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-phrase-029",
@@ -6814,8 +6814,8 @@
       "sceneQuery": "Three books.",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 73,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-phrase-030",
@@ -6824,8 +6824,8 @@
       "sceneQuery": "I eat.",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-phrase-031",
@@ -6834,8 +6834,8 @@
       "sceneQuery": "You eat.",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-phrase-032",
@@ -6844,8 +6844,8 @@
       "sceneQuery": "I drink.",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-phrase-033",
@@ -6854,8 +6854,8 @@
       "sceneQuery": "You drink.",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-phrase-034",
@@ -6864,8 +6864,8 @@
       "sceneQuery": "I drink water.",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 6
+      "usefulness": 88,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-phrase-035",
@@ -6874,8 +6874,8 @@
       "sceneQuery": "You drink milk.",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 6
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-phrase-036",
@@ -6884,8 +6884,8 @@
       "sceneQuery": "I read.",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 73,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-phrase-037",
@@ -6894,8 +6894,8 @@
       "sceneQuery": "You read.",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 73,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-phrase-038",
@@ -6904,8 +6904,8 @@
       "sceneQuery": "I sleep.",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-phrase-039",
@@ -6914,8 +6914,8 @@
       "sceneQuery": "I see a cat.",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 7
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-phrase-040",
@@ -6924,8 +6924,8 @@
       "sceneQuery": "You see a dog.",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 7
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "zero-nb-ww-phrase-041",
@@ -6934,8 +6934,8 @@
       "sceneQuery": "I have a book.",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 7
+      "usefulness": 73,
+      "complexity": 27
     },
     {
       "id": "zero-nb-ww-phrase-042",
@@ -6944,8 +6944,8 @@
       "sceneQuery": "You have an apple.",
       "topic": "first-sentences",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     }
   ],
   "derivedFrom": "apps/languages/shared/english-concepts/word-world-nb-v1.json"

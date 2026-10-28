@@ -7,7 +7,7 @@
     "appEntry": "apps/language-runtime/static/app/index.html"
   },
   "offline": {
-    "cacheName": "caatuu-zh-hans-pwa-v222",
+    "cacheName": "caatuu-zh-hans-pwa-v224",
     "cachePrefix": "caatuu-zh-hans-pwa-",
     "assets": [
       "/language-runtime/static/assets/initial-image.png",
@@ -59,8 +59,8 @@
       "/language-runtime/static/source/games/grammar-gravity/adjective-flight-core.mjs?v=grammar-journey-6",
       "/language-runtime/static/source/games/grammar-gravity/adjective-flight-host.mjs?v=adjective-flight-host-28",
       "/assets/icons/clock_icon.png",
-      "/language-runtime/static/source/games/conjugation-comet/conjugation-comet-core.mjs?v=conjugation-comet-core-6",
-      "/language-runtime/static/source/games/conjugation-comet/conjugation-comet-host.mjs?v=conjugation-comet-shared-26",
+      "/language-runtime/static/source/games/conjugation-comet/conjugation-comet-core.mjs?v=conjugation-comet-core-7",
+      "/language-runtime/static/source/games/conjugation-comet/conjugation-comet-host.mjs?v=conjugation-comet-shared-27",
       "/language-runtime/static/styles/games/grammar-gravity.css?v=grammar-gravity-shared-39",
       "/language-runtime/static/styles/games/conjugation-comet.css?v=conjugation-comet-shared-10",
       "/language-runtime/static/source/caatuu-workspace.js?v=workspace-59",
@@ -199,7 +199,7 @@
       "/language-runtime/static/source/games/sound-quasar/sound-quasar-host.mjs?v=sound-quasar-27",
       "/language-runtime/static/source/games/sound-quasar/sound-quasar-core.mjs?v=sound-quasar-13",
       "/language-runtime/static/styles/games/sound-quasar.css?v=sound-quasar-9",
-      "data/games/sound-quasar/content.json?v=sound-quasar-retained-levels-1",
+      "data/games/sound-quasar/content.json?v=sound-quasar-retained-levels-2",
       "/language-runtime/static/source/target-text-tones.mjs?v=target-text-tones-1",
       "/language-runtime/static/source/target-text.mjs?v=target-text-1",
       "/language-runtime/static/styles/caatuu-target-text.css?v=target-text-4",
@@ -340,7 +340,7 @@
       "url": "/zh/source/shared/course-profile.js",
       "browserRequired": true,
       "bytes": 26961,
-      "sha256": "759d1d11e73c9b33b21c170c0b808b7d6190de3fabc5b9522a4da712bbf43532"
+      "sha256": "73f26ff51f94c1db093a6b249aca3ae1945690350ea07c74da23116c29e6ce73"
     },
     {
       "key": "shared-app-bootstrap",
@@ -427,8 +427,8 @@
       "kind": "shared-game-runtime",
       "url": "/language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs",
       "browserRequired": true,
-      "bytes": 20420,
-      "sha256": "0f29cc274c10abc9a99589a4ce50f441e99c31b512b817706209582d8a5998e8"
+      "bytes": 20632,
+      "sha256": "6cc74697f13e5f8d779638ba99573b059cf2a09c7339f25e236b3cac82f64a04"
     },
     {
       "key": "verb-exercise-family-core",
@@ -468,7 +468,7 @@
       "url": "/language-runtime/static/source/learning-profile.js",
       "browserRequired": true,
       "bytes": 113673,
-      "sha256": "9ed963c77b4164f5ad1cc6236d21ffe63c7917b0871ac7f8877a4a8d4907d434"
+      "sha256": "bae9d3539048feadd01af8a3b5dd0e0a2b65ce569e8f1765d27ea6538a118e74"
     },
     {
       "key": "product-word-world",
@@ -563,8 +563,8 @@
       "kind": "english-concept-catalog",
       "url": "/language-runtime/static/data/english-concepts/word-world-starter-v1.json",
       "browserRequired": true,
-      "bytes": 257443,
-      "sha256": "5cfa3304d0c25e31d80e3cc5a9e061edd2a861901720748bf6a9919d9bd679f8"
+      "bytes": 257523,
+      "sha256": "5e85d95b2b8f983a4ea5aa1e55b18cc70c9de8f631e9e233fcf1a43e9f90a53d"
     },
     {
       "key": "target-realizations",
@@ -595,16 +595,16 @@
       "kind": "course-game-content",
       "url": "/zh/data/games/verb-nebula/content.json",
       "browserRequired": true,
-      "bytes": 362657,
-      "sha256": "a00fdc073b1d54dd8d3aa603f4764e6629abcd8115a60c1f6f4a7db14d31c331"
+      "bytes": 362703,
+      "sha256": "f32aa16deb0ed075cc9f0cf1e620c96a691132a08ab8d2b5d0ba05e2ea430798"
     },
     {
       "key": "naturalization-nucleus-catalog",
       "kind": "course-game-content",
       "url": "/zh/data/games/naturalization-nucleus/content.json",
       "browserRequired": true,
-      "bytes": 345136,
-      "sha256": "df723bf3b42e31aac1595eb6fe792f5b8d2551daa8783c6b2f4ee5768853b573"
+      "bytes": 345176,
+      "sha256": "c1cf7582d82fc3bc1e2d5a133dd13ffc1c91f2a633aa2e9a701de08c2eeb63d1"
     },
     {
       "key": "naturalization-nucleus-controller",
@@ -652,7 +652,7 @@
       "url": "/zh/sw.js",
       "browserRequired": true,
       "bytes": 142,
-      "sha256": "f1580b23b8c1a355355bd9b2201770433f34ebab375b1108cd3be2cbd0175a48"
+      "sha256": "cda84d5d95a1116877baf634da0f463c8a19ae934910ac69c103c5c4c6d974e0"
     },
     {
       "key": "shared-course-service-worker",

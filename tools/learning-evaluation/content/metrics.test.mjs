@@ -3,7 +3,7 @@ import test from 'node:test';
 import { readFile } from 'node:fs/promises';
 import { buildEvaluationCorpus } from '../shared/corpus.mjs';
 import { fixtureCatalogs } from './fixture.mjs';
-import { categoryDistribution, gradeDistribution, inspectMetadata, inspectSemantics, numericSummary, selectSemanticDocuments } from './metrics.mjs';
+import { categoryDistribution, examplesAcrossCourses, gradeDistribution, inspectMetadata, inspectSemantics, numericSummary, selectSemanticDocuments } from './metrics.mjs';
 import { parseArgs, validateConfig } from './run.mjs';
 import { renderReport } from './report.mjs';
 
@@ -88,6 +88,15 @@ test('English text rejected by semantic guard is distinct from absent authoring'
   assert.equal(result.exactDuplicates.documentGroups, 1);
   assert.equal(result.exactDuplicates.examples[0].documentId, null);
   assert.equal(result.exactDuplicates.examples[0].englishText, 'café');
+});
+
+test('printed examples rotate through courses instead of catalog order', () => {
+  const rows = [
+    { courseId: 'es', id: 'es-1' }, { courseId: 'es', id: 'es-2' },
+    { courseId: 'ar', id: 'ar-1' }, { courseId: 'nb', id: 'nb-1' }
+  ];
+  assert.deepEqual(examplesAcrossCourses(rows, 4).map(row => row.id), ['ar-1', 'es-1', 'nb-1', 'es-2']);
+  assert.deepEqual(examplesAcrossCourses(rows, 0), []);
 });
 
 test('gaps and explicit reference coverage never invent topics or cross bank boundaries', () => {

@@ -4,7 +4,7 @@
   "courseId": "zh",
   "targetLanguageId": "zh",
   "id": "zh-sound-quasar-listening-pilot",
-  "contentRevision": "mandarin-beginner-pilot-lexical-readings-3",
+  "contentRevision": "content-progression-starters-1",
   "mode": "practice",
   "audio": {
     "kind": "device-speech",
@@ -20477,8 +20477,8 @@
       "sourceId": "zero-zh-word-cat",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "cat",
-      "usefulness": 92,
-      "complexity": 2,
+      "usefulness": 76,
+      "complexity": 21,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -20506,8 +20506,8 @@
       "sourceId": "zero-zh-word-dog",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "dog",
-      "usefulness": 92,
-      "complexity": 2,
+      "usefulness": 76,
+      "complexity": 21,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -20535,8 +20535,8 @@
       "sourceId": "zero-zh-word-water",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "water",
-      "usefulness": 92,
-      "complexity": 2,
+      "usefulness": 98,
+      "complexity": 15,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -20564,8 +20564,8 @@
       "sourceId": "zero-zh-word-bread",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "bread",
-      "usefulness": 92,
-      "complexity": 2,
+      "usefulness": 75,
+      "complexity": 21,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -20597,8 +20597,8 @@
       "sourceId": "zero-zh-word-milk",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "milk",
-      "usefulness": 92,
-      "complexity": 2,
+      "usefulness": 75,
+      "complexity": 21,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -20630,8 +20630,8 @@
       "sourceId": "zero-zh-word-apple",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "apple",
-      "usefulness": 92,
-      "complexity": 2,
+      "usefulness": 76,
+      "complexity": 21,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -20663,8 +20663,8 @@
       "sourceId": "zero-zh-word-rice",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "rice",
-      "usefulness": 92,
-      "complexity": 2,
+      "usefulness": 75,
+      "complexity": 21,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -20696,8 +20696,8 @@
       "sourceId": "zero-zh-word-tea",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "tea",
-      "usefulness": 92,
-      "complexity": 2,
+      "usefulness": 76,
+      "complexity": 21,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -20725,8 +20725,8 @@
       "sourceId": "zero-zh-word-book",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "book",
-      "usefulness": 92,
-      "complexity": 2,
+      "usefulness": 73,
+      "complexity": 21,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -20754,8 +20754,8 @@
       "sourceId": "zero-zh-word-pen",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "pen",
-      "usefulness": 92,
-      "complexity": 2,
+      "usefulness": 75,
+      "complexity": 26,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -20783,8 +20783,8 @@
       "sourceId": "zero-zh-word-house",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "house",
-      "usefulness": 92,
-      "complexity": 2,
+      "usefulness": 89,
+      "complexity": 15,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -20816,8 +20816,8 @@
       "sourceId": "zero-zh-word-door",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "door",
-      "usefulness": 92,
-      "complexity": 2,
+      "usefulness": 76,
+      "complexity": 21,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -20845,8 +20845,8 @@
       "sourceId": "zero-zh-word-table",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "table",
-      "usefulness": 92,
-      "complexity": 2,
+      "usefulness": 76,
+      "complexity": 21,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -20878,8 +20878,8 @@
       "sourceId": "zero-zh-word-chair",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "chair",
-      "usefulness": 92,
-      "complexity": 2,
+      "usefulness": 76,
+      "complexity": 21,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -20911,8 +20911,8 @@
       "sourceId": "zero-zh-word-bed",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "bed",
-      "usefulness": 92,
-      "complexity": 2,
+      "usefulness": 76,
+      "complexity": 21,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -20940,8 +20940,8 @@
       "sourceId": "zero-zh-word-bag",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "bag",
-      "usefulness": 92,
-      "complexity": 2,
+      "usefulness": 76,
+      "complexity": 21,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -20969,8 +20969,8 @@
       "sourceId": "zero-zh-word-ball",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "ball",
-      "usefulness": 92,
-      "complexity": 2,
+      "usefulness": 63,
+      "complexity": 28,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -20998,8 +20998,8 @@
       "sourceId": "zero-zh-word-sun",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "sun",
-      "usefulness": 92,
-      "complexity": 2,
+      "usefulness": 65,
+      "complexity": 26,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -21031,8 +21031,8 @@
       "sourceId": "zero-zh-word-hand",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "hand",
-      "usefulness": 92,
-      "complexity": 2,
+      "usefulness": 76,
+      "complexity": 21,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -21060,8 +21060,8 @@
       "sourceId": "zero-zh-word-eye",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "eye",
-      "usefulness": 92,
-      "complexity": 2,
+      "usefulness": 76,
+      "complexity": 21,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -21093,8 +21093,8 @@
       "sourceId": "zero-zh-verb-eat",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "eat",
-      "usefulness": 92,
-      "complexity": 4,
+      "usefulness": 89,
+      "complexity": 15,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -21122,8 +21122,8 @@
       "sourceId": "zero-zh-verb-drink",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "drink",
-      "usefulness": 92,
-      "complexity": 4,
+      "usefulness": 89,
+      "complexity": 15,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -21151,8 +21151,8 @@
       "sourceId": "zero-zh-verb-go",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "go",
-      "usefulness": 92,
-      "complexity": 4,
+      "usefulness": 94,
+      "complexity": 15,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -21180,8 +21180,8 @@
       "sourceId": "zero-zh-verb-see",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "see",
-      "usefulness": 92,
-      "complexity": 4,
+      "usefulness": 89,
+      "complexity": 15,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -21213,8 +21213,8 @@
       "sourceId": "zero-zh-verb-want",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "want",
-      "usefulness": 92,
-      "complexity": 4,
+      "usefulness": 94,
+      "complexity": 15,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -21242,8 +21242,8 @@
       "sourceId": "zero-zh-verb-have",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "have",
-      "usefulness": 92,
-      "complexity": 4,
+      "usefulness": 94,
+      "complexity": 9,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -21271,8 +21271,8 @@
       "sourceId": "zero-zh-verb-like",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "like",
-      "usefulness": 92,
-      "complexity": 4,
+      "usefulness": 76,
+      "complexity": 21,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -21304,8 +21304,8 @@
       "sourceId": "zero-zh-verb-sleep",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "sleep",
-      "usefulness": 92,
-      "complexity": 4,
+      "usefulness": 89,
+      "complexity": 15,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -21337,8 +21337,8 @@
       "sourceId": "zero-zh-verb-sit",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "sit",
-      "usefulness": 92,
-      "complexity": 4,
+      "usefulness": 76,
+      "complexity": 21,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -21366,8 +21366,8 @@
       "sourceId": "zero-zh-verb-read",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "read",
-      "usefulness": 92,
-      "complexity": 4,
+      "usefulness": 89,
+      "complexity": 15,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -21395,8 +21395,8 @@
       "sourceId": "zero-zh-verb-write",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "write",
-      "usefulness": 92,
-      "complexity": 4,
+      "usefulness": 89,
+      "complexity": 15,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -21424,8 +21424,8 @@
       "sourceId": "zero-zh-verb-hear",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "hear",
-      "usefulness": 92,
-      "complexity": 4,
+      "usefulness": 89,
+      "complexity": 15,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -21457,8 +21457,8 @@
       "sourceId": "zero-zh-word-i",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I",
-      "usefulness": 92,
-      "complexity": 4,
+      "usefulness": 89,
+      "complexity": 9,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -21486,8 +21486,8 @@
       "sourceId": "zero-zh-word-you",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "you",
-      "usefulness": 92,
-      "complexity": 4,
+      "usefulness": 89,
+      "complexity": 9,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -21515,8 +21515,8 @@
       "sourceId": "zero-zh-word-we",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "we",
-      "usefulness": 92,
-      "complexity": 4,
+      "usefulness": 89,
+      "complexity": 9,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -21548,8 +21548,8 @@
       "sourceId": "zero-zh-word-hello",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "Hello!",
-      "usefulness": 92,
-      "complexity": 4,
+      "usefulness": 94,
+      "complexity": 29,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -21581,8 +21581,8 @@
       "sourceId": "zero-zh-word-goodbye",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "Goodbye!",
-      "usefulness": 92,
-      "complexity": 4,
+      "usefulness": 94,
+      "complexity": 29,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -21614,8 +21614,8 @@
       "sourceId": "zero-zh-word-yes",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "Yes.",
-      "usefulness": 92,
-      "complexity": 4,
+      "usefulness": 94,
+      "complexity": 29,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -21643,8 +21643,8 @@
       "sourceId": "zero-zh-word-no",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "No.",
-      "usefulness": 92,
-      "complexity": 4,
+      "usefulness": 94,
+      "complexity": 29,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -21672,8 +21672,8 @@
       "sourceId": "zero-zh-word-please",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "Please.",
-      "usefulness": 92,
-      "complexity": 4,
+      "usefulness": 94,
+      "complexity": 29,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -21701,8 +21701,8 @@
       "sourceId": "zero-zh-word-thanks",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "Thank you.",
-      "usefulness": 92,
-      "complexity": 4,
+      "usefulness": 94,
+      "complexity": 24,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -21734,8 +21734,8 @@
       "sourceId": "zero-zh-word-one",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "one",
-      "usefulness": 92,
-      "complexity": 4,
+      "usefulness": 76,
+      "complexity": 21,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -21763,8 +21763,8 @@
       "sourceId": "zero-zh-word-two",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "two",
-      "usefulness": 92,
-      "complexity": 4,
+      "usefulness": 76,
+      "complexity": 21,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -21792,8 +21792,8 @@
       "sourceId": "zero-zh-word-three",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "three",
-      "usefulness": 92,
-      "complexity": 4,
+      "usefulness": 76,
+      "complexity": 21,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -21821,8 +21821,8 @@
       "sourceId": "zero-zh-word-four",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "four",
-      "usefulness": 92,
-      "complexity": 4,
+      "usefulness": 76,
+      "complexity": 21,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -21850,8 +21850,8 @@
       "sourceId": "zero-zh-word-five",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "five",
-      "usefulness": 92,
-      "complexity": 4,
+      "usefulness": 76,
+      "complexity": 21,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -21879,8 +21879,8 @@
       "sourceId": "zero-zh-word-big",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "big",
-      "usefulness": 92,
-      "complexity": 4,
+      "usefulness": 76,
+      "complexity": 21,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -21908,8 +21908,8 @@
       "sourceId": "zero-zh-word-small",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "small",
-      "usefulness": 92,
-      "complexity": 4,
+      "usefulness": 76,
+      "complexity": 21,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -21937,8 +21937,8 @@
       "sourceId": "zero-zh-word-red",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "red",
-      "usefulness": 92,
-      "complexity": 4,
+      "usefulness": 76,
+      "complexity": 21,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -21970,8 +21970,8 @@
       "sourceId": "zero-zh-word-green",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "green",
-      "usefulness": 92,
-      "complexity": 4,
+      "usefulness": 76,
+      "complexity": 21,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -22459,7 +22459,9 @@
       "ww-zero-i-read",
       "ww-zero-i-write",
       "ww-zero-i-sleep",
-      "ww-zero-i-have-pen"
+      "ww-zero-i-have-pen",
+      "ww-zero-please",
+      "ww-zero-thanks"
     ],
     "selection": "Retained sentence selections plus 39 Mandarin beginner pilot sentences; exact source-linked text and preview readings preserve pending native review."
   },
@@ -27895,7 +27897,7 @@
         ]
       },
       "usefulness": 54,
-      "complexity": 40
+      "complexity": 37
     },
     {
       "id": "zh-m260908-sentence-060",
@@ -47944,7 +47946,7 @@
         ]
       },
       "usefulness": 81,
-      "complexity": 54
+      "complexity": 42
     },
     {
       "id": "zh-m260908-sentence-279",
@@ -59904,8 +59906,8 @@
           }
         ]
       },
-      "usefulness": 97,
-      "complexity": 25
+      "usefulness": 70,
+      "complexity": 27
     },
     {
       "id": "zh.listening.zh.pilot-v1.origin-british",
@@ -59959,8 +59961,8 @@
           }
         ]
       },
-      "usefulness": 88,
-      "complexity": 25
+      "usefulness": 70,
+      "complexity": 27
     },
     {
       "id": "zh.listening.zh.pilot-v1.origin-from-question",
@@ -60019,8 +60021,8 @@
           }
         ]
       },
-      "usefulness": 97,
-      "complexity": 25
+      "usefulness": 68,
+      "complexity": 27
     },
     {
       "id": "zh.listening.zh.pilot-v1.origin-from-china",
@@ -60079,8 +60081,8 @@
           }
         ]
       },
-      "usefulness": 90,
-      "complexity": 25
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "zh.listening.zh.pilot-v1.age-question",
@@ -60130,8 +60132,8 @@
           }
         ]
       },
-      "usefulness": 90,
-      "complexity": 22
+      "usefulness": 70,
+      "complexity": 32
     },
     {
       "id": "zh.listening.zh.pilot-v1.age-twenty",
@@ -60181,8 +60183,8 @@
           }
         ]
       },
-      "usefulness": 88,
-      "complexity": 22
+      "usefulness": 84,
+      "complexity": 27
     },
     {
       "id": "zh.listening.zh.pilot-v1.surname-question",
@@ -60232,8 +60234,8 @@
           }
         ]
       },
-      "usefulness": 91,
-      "complexity": 22
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.listening.zh.pilot-v1.surname-lin",
@@ -60279,8 +60281,8 @@
           }
         ]
       },
-      "usefulness": 90,
-      "complexity": 17
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zh.listening.zh.pilot-v1.need-rest",
@@ -60334,7 +60336,7 @@
           }
         ]
       },
-      "usefulness": 97,
+      "usefulness": 70,
       "complexity": 22
     },
     {
@@ -60399,8 +60401,8 @@
           }
         ]
       },
-      "usefulness": 98,
-      "complexity": 24
+      "usefulness": 97,
+      "complexity": 17
     },
     {
       "id": "zh.listening.zh.pilot-v1.hungry-question",
@@ -60446,8 +60448,8 @@
           }
         ]
       },
-      "usefulness": 95,
-      "complexity": 17
+      "usefulness": 88,
+      "complexity": 27
     },
     {
       "id": "zh.listening.zh.pilot-v1.no-money",
@@ -60497,8 +60499,8 @@
           }
         ]
       },
-      "usefulness": 96,
-      "complexity": 20
+      "usefulness": 81,
+      "complexity": 32
     },
     {
       "id": "zh.listening.zh.pilot-v1.no-time",
@@ -60552,8 +60554,8 @@
           }
         ]
       },
-      "usefulness": 96,
-      "complexity": 22
+      "usefulness": 75,
+      "complexity": 32
     },
     {
       "id": "zh.listening.zh.pilot-v1.not-go-yesterday",
@@ -60612,8 +60614,8 @@
           }
         ]
       },
-      "usefulness": 91,
-      "complexity": 28
+      "usefulness": 70,
+      "complexity": 24
     },
     {
       "id": "zh.listening.zh.pilot-v1.not-understand-heard",
@@ -60663,8 +60665,8 @@
           }
         ]
       },
-      "usefulness": 98,
-      "complexity": 30
+      "usefulness": 88,
+      "complexity": 24
     },
     {
       "id": "zh.listening.zh.pilot-v1.have-time-question",
@@ -60727,7 +60729,7 @@
           }
         ]
       },
-      "usefulness": 98,
+      "usefulness": 75,
       "complexity": 27
     },
     {
@@ -60786,8 +60788,8 @@
           }
         ]
       },
-      "usefulness": 92,
-      "complexity": 30
+      "usefulness": 70,
+      "complexity": 24
     },
     {
       "id": "zh.listening.zh.pilot-v1.go-question",
@@ -60842,8 +60844,8 @@
           }
         ]
       },
-      "usefulness": 96,
-      "complexity": 24
+      "usefulness": 68,
+      "complexity": 27
     },
     {
       "id": "zh.listening.zh.pilot-v1.teacher-question",
@@ -60906,8 +60908,8 @@
           }
         ]
       },
-      "usefulness": 93,
-      "complexity": 26
+      "usefulness": 77,
+      "complexity": 27
     },
     {
       "id": "zh.listening.zh.pilot-v1.want-water-question",
@@ -60966,8 +60968,8 @@
           }
         ]
       },
-      "usefulness": 98,
-      "complexity": 25
+      "usefulness": 88,
+      "complexity": 35
     },
     {
       "id": "zh.listening.zh.pilot-v1.two-cups",
@@ -61013,8 +61015,8 @@
           }
         ]
       },
-      "usefulness": 95,
-      "complexity": 20
+      "usefulness": 88,
+      "complexity": 27
     },
     {
       "id": "zh.listening.zh.pilot-v1.two-people",
@@ -61060,8 +61062,8 @@
           }
         ]
       },
-      "usefulness": 93,
-      "complexity": 20
+      "usefulness": 79,
+      "complexity": 27
     },
     {
       "id": "zh.listening.zh.pilot-v1.book-question",
@@ -61134,8 +61136,8 @@
           }
         ]
       },
-      "usefulness": 95,
-      "complexity": 25
+      "usefulness": 73,
+      "complexity": 32
     },
     {
       "id": "zh.listening.zh.pilot-v1.two-books-question",
@@ -61208,8 +61210,8 @@
           }
         ]
       },
-      "usefulness": 92,
-      "complexity": 27
+      "usefulness": 73,
+      "complexity": 32
     },
     {
       "id": "zh.listening.zh.pilot-v1.twenty-two",
@@ -61245,8 +61247,8 @@
           }
         ]
       },
-      "usefulness": 91,
-      "complexity": 20
+      "usefulness": 84,
+      "complexity": 22
     },
     {
       "id": "zh.listening.zh.pilot-v1.price-question",
@@ -61295,8 +61297,8 @@
           }
         ]
       },
-      "usefulness": 99,
-      "complexity": 25
+      "usefulness": 86,
+      "complexity": 32
     },
     {
       "id": "zh.listening.zh.pilot-v1.price-ten",
@@ -61333,8 +61335,8 @@
           }
         ]
       },
-      "usefulness": 96,
-      "complexity": 15
+      "usefulness": 70,
+      "complexity": 22
     },
     {
       "id": "zh.listening.zh.pilot-v1.price-twelve",
@@ -61375,8 +61377,8 @@
           }
         ]
       },
-      "usefulness": 94,
-      "complexity": 20
+      "usefulness": 70,
+      "complexity": 22
     },
     {
       "id": "zh.listening.zh.pilot-v1.pay-how",
@@ -61421,8 +61423,8 @@
           }
         ]
       },
-      "usefulness": 98,
-      "complexity": 24
+      "usefulness": 86,
+      "complexity": 27
     },
     {
       "id": "zh.listening.zh.pilot-v1.pay-phone",
@@ -61507,8 +61509,8 @@
           }
         ]
       },
-      "usefulness": 98,
-      "complexity": 33
+      "usefulness": 81,
+      "complexity": 19
     },
     {
       "id": "zh.listening.zh.pilot-v1.can-swim",
@@ -61558,7 +61560,7 @@
           }
         ]
       },
-      "usefulness": 91,
+      "usefulness": 63,
       "complexity": 22
     },
     {
@@ -61618,8 +61620,8 @@
           }
         ]
       },
-      "usefulness": 91,
-      "complexity": 25
+      "usefulness": 92,
+      "complexity": 32
     },
     {
       "id": "zh.listening.zh.pilot-v1.permission-enter",
@@ -61682,8 +61684,8 @@
           }
         ]
       },
-      "usefulness": 98,
-      "complexity": 26
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "zh.listening.zh.pilot-v1.location-home",
@@ -61729,8 +61731,8 @@
           }
         ]
       },
-      "usefulness": 97,
-      "complexity": 17
+      "usefulness": 77,
+      "complexity": 27
     },
     {
       "id": "zh.listening.zh.pilot-v1.progressive-eat",
@@ -61780,8 +61782,8 @@
           }
         ]
       },
-      "usefulness": 96,
-      "complexity": 22
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "zh.listening.zh.pilot-v1.experience-beijing",
@@ -61849,8 +61851,8 @@
           }
         ]
       },
-      "usefulness": 91,
-      "complexity": 32
+      "usefulness": 54,
+      "complexity": 31
     },
     {
       "id": "zh.listening.zh.pilot-v1.completed-apple",
@@ -61927,8 +61929,8 @@
           }
         ]
       },
-      "usefulness": 92,
-      "complexity": 32
+      "usefulness": 75,
+      "complexity": 29
     },
     {
       "id": "zh.listening.zh.pilot-v1.open-window",
@@ -61978,8 +61980,8 @@
           }
         ]
       },
-      "usefulness": 94,
-      "complexity": 29
+      "usefulness": 70,
+      "complexity": 31
     },
     {
       "id": "zh.listening.zh.pilot-v1.push-door",
@@ -62025,8 +62027,8 @@
           }
         ]
       },
-      "usefulness": 96,
-      "complexity": 17
+      "usefulness": 82,
+      "complexity": 22
     },
     {
       "id": "zero-zh-sound-ww-zero-this-cat",
@@ -62037,8 +62039,8 @@
       "sourceId": "ww-zero-this-cat",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "This is a cat.",
-      "usefulness": 92,
-      "complexity": 7,
+      "usefulness": 54,
+      "complexity": 27,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -62084,8 +62086,8 @@
       "sourceId": "ww-zero-this-dog",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "This is a dog.",
-      "usefulness": 92,
-      "complexity": 7,
+      "usefulness": 54,
+      "complexity": 27,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -62131,8 +62133,8 @@
       "sourceId": "ww-zero-this-water",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "This is water.",
-      "usefulness": 92,
-      "complexity": 7,
+      "usefulness": 88,
+      "complexity": 27,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -62178,8 +62180,8 @@
       "sourceId": "ww-zero-this-bread",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "This is bread.",
-      "usefulness": 92,
-      "complexity": 7,
+      "usefulness": 75,
+      "complexity": 27,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -62229,8 +62231,8 @@
       "sourceId": "ww-zero-this-milk",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "This is milk.",
-      "usefulness": 92,
-      "complexity": 7,
+      "usefulness": 75,
+      "complexity": 27,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -62280,8 +62282,8 @@
       "sourceId": "ww-zero-this-apple",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "This is an apple.",
-      "usefulness": 92,
-      "complexity": 7,
+      "usefulness": 54,
+      "complexity": 27,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -62331,8 +62333,8 @@
       "sourceId": "ww-zero-this-rice",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "This is rice.",
-      "usefulness": 92,
-      "complexity": 7,
+      "usefulness": 75,
+      "complexity": 27,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -62382,8 +62384,8 @@
       "sourceId": "ww-zero-this-tea",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "This is tea.",
-      "usefulness": 92,
-      "complexity": 7,
+      "usefulness": 54,
+      "complexity": 27,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -62429,8 +62431,8 @@
       "sourceId": "ww-zero-this-book",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "This is a book.",
-      "usefulness": 92,
-      "complexity": 7,
+      "usefulness": 73,
+      "complexity": 27,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -62476,8 +62478,8 @@
       "sourceId": "ww-zero-this-pen",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "This is a pen.",
-      "usefulness": 92,
-      "complexity": 7,
+      "usefulness": 75,
+      "complexity": 27,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -62523,8 +62525,8 @@
       "sourceId": "ww-zero-this-house",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "This is a house.",
-      "usefulness": 92,
-      "complexity": 7,
+      "usefulness": 77,
+      "complexity": 27,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -62574,8 +62576,8 @@
       "sourceId": "ww-zero-this-door",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "This is a door.",
-      "usefulness": 92,
-      "complexity": 7,
+      "usefulness": 54,
+      "complexity": 27,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -62621,8 +62623,8 @@
       "sourceId": "ww-zero-this-table",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "This is a table.",
-      "usefulness": 92,
-      "complexity": 7,
+      "usefulness": 54,
+      "complexity": 27,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -62672,8 +62674,8 @@
       "sourceId": "ww-zero-this-chair",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "This is a chair.",
-      "usefulness": 92,
-      "complexity": 7,
+      "usefulness": 54,
+      "complexity": 27,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -62723,8 +62725,8 @@
       "sourceId": "ww-zero-this-bed",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "This is a bed.",
-      "usefulness": 92,
-      "complexity": 7,
+      "usefulness": 54,
+      "complexity": 27,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -62770,8 +62772,8 @@
       "sourceId": "ww-zero-this-bag",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "This is a bag.",
-      "usefulness": 92,
-      "complexity": 7,
+      "usefulness": 54,
+      "complexity": 27,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -62817,8 +62819,8 @@
       "sourceId": "ww-zero-this-ball",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "This is a ball.",
-      "usefulness": 92,
-      "complexity": 7,
+      "usefulness": 63,
+      "complexity": 27,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -62864,8 +62866,8 @@
       "sourceId": "ww-zero-this-sun",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "This is the sun.",
-      "usefulness": 92,
-      "complexity": 7,
+      "usefulness": 65,
+      "complexity": 27,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -62915,8 +62917,8 @@
       "sourceId": "ww-zero-this-hand",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "This is a hand.",
-      "usefulness": 92,
-      "complexity": 7,
+      "usefulness": 54,
+      "complexity": 27,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -62962,8 +62964,8 @@
       "sourceId": "ww-zero-this-eye",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "This is an eye.",
-      "usefulness": 92,
-      "complexity": 7,
+      "usefulness": 54,
+      "complexity": 27,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -63013,8 +63015,8 @@
       "sourceId": "ww-zero-want-water",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I want water.",
-      "usefulness": 92,
-      "complexity": 9,
+      "usefulness": 93,
+      "complexity": 22,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -63060,8 +63062,8 @@
       "sourceId": "ww-zero-want-bread",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I want bread.",
-      "usefulness": 92,
-      "complexity": 9,
+      "usefulness": 80,
+      "complexity": 22,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -63111,8 +63113,8 @@
       "sourceId": "ww-zero-want-milk",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I want milk.",
-      "usefulness": 92,
-      "complexity": 9,
+      "usefulness": 80,
+      "complexity": 22,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -63162,8 +63164,8 @@
       "sourceId": "ww-zero-want-apple",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I want an apple.",
-      "usefulness": 92,
-      "complexity": 9,
+      "usefulness": 68,
+      "complexity": 22,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -63213,8 +63215,8 @@
       "sourceId": "ww-zero-want-rice",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I want rice.",
-      "usefulness": 92,
-      "complexity": 9,
+      "usefulness": 80,
+      "complexity": 22,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -63264,8 +63266,8 @@
       "sourceId": "ww-zero-want-tea",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I want tea.",
-      "usefulness": 92,
-      "complexity": 9,
+      "usefulness": 68,
+      "complexity": 22,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -63311,8 +63313,8 @@
       "sourceId": "ww-zero-want-book",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I want a book.",
-      "usefulness": 92,
-      "complexity": 9,
+      "usefulness": 78,
+      "complexity": 22,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -63358,8 +63360,8 @@
       "sourceId": "ww-zero-want-pen",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I want a pen.",
-      "usefulness": 92,
-      "complexity": 9,
+      "usefulness": 75,
+      "complexity": 22,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -63405,8 +63407,8 @@
       "sourceId": "ww-zero-see-cat",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I see a cat.",
-      "usefulness": 92,
-      "complexity": 10,
+      "usefulness": 68,
+      "complexity": 22,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -63456,8 +63458,8 @@
       "sourceId": "ww-zero-see-dog",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I see a dog.",
-      "usefulness": 92,
-      "complexity": 10,
+      "usefulness": 68,
+      "complexity": 22,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -63507,8 +63509,8 @@
       "sourceId": "ww-zero-see-book",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I see a book.",
-      "usefulness": 92,
-      "complexity": 10,
+      "usefulness": 73,
+      "complexity": 22,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -63558,8 +63560,8 @@
       "sourceId": "ww-zero-see-pen",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I see a pen.",
-      "usefulness": 92,
-      "complexity": 10,
+      "usefulness": 75,
+      "complexity": 22,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -63609,8 +63611,8 @@
       "sourceId": "ww-zero-see-house",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I see a house.",
-      "usefulness": 92,
-      "complexity": 10,
+      "usefulness": 77,
+      "complexity": 22,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -63664,8 +63666,8 @@
       "sourceId": "ww-zero-see-door",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I see a door.",
-      "usefulness": 92,
-      "complexity": 10,
+      "usefulness": 68,
+      "complexity": 22,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -63715,8 +63717,8 @@
       "sourceId": "ww-zero-see-table",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I see a table.",
-      "usefulness": 92,
-      "complexity": 10,
+      "usefulness": 68,
+      "complexity": 22,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -63770,8 +63772,8 @@
       "sourceId": "ww-zero-see-ball",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I see a ball.",
-      "usefulness": 92,
-      "complexity": 10,
+      "usefulness": 63,
+      "complexity": 22,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -63821,8 +63823,8 @@
       "sourceId": "ww-zero-i-eat",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I eat.",
-      "usefulness": 92,
-      "complexity": 8,
+      "usefulness": 75,
+      "complexity": 22,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -63859,8 +63861,8 @@
       "sourceId": "ww-zero-i-drink",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I drink.",
-      "usefulness": 92,
-      "complexity": 8,
+      "usefulness": 75,
+      "complexity": 22,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -63897,8 +63899,8 @@
       "sourceId": "ww-zero-i-go",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I go.",
-      "usefulness": 92,
-      "complexity": 8,
+      "usefulness": 68,
+      "complexity": 22,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -63935,8 +63937,8 @@
       "sourceId": "ww-zero-i-sit",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I sit.",
-      "usefulness": 92,
-      "complexity": 8,
+      "usefulness": 54,
+      "complexity": 22,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -63973,8 +63975,8 @@
       "sourceId": "ww-zero-i-read",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I read a book.",
-      "usefulness": 92,
-      "complexity": 8,
+      "usefulness": 73,
+      "complexity": 22,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -64020,8 +64022,8 @@
       "sourceId": "ww-zero-i-write",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I write.",
-      "usefulness": 92,
-      "complexity": 8,
+      "usefulness": 73,
+      "complexity": 22,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -64067,8 +64069,8 @@
       "sourceId": "ww-zero-i-sleep",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I sleep.",
-      "usefulness": 92,
-      "complexity": 8,
+      "usefulness": 75,
+      "complexity": 22,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -64109,8 +64111,8 @@
       "sourceId": "ww-zero-i-have-pen",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I have a pen.",
-      "usefulness": 92,
-      "complexity": 8,
+      "usefulness": 75,
+      "complexity": 27,
       "reading": {
         "system": "pinyin",
         "status": "machine-assisted-preview",
@@ -64141,6 +64143,68 @@
               {
                 "surface": "笔",
                 "notation": "bǐ"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zh-starter-listening-zero-please",
+      "difficulty": 0,
+      "usefulness": 94,
+      "complexity": 7,
+      "revision": "1",
+      "target": "请。",
+      "meaning": "Please.",
+      "englishAuditText": "Please.",
+      "sourceId": "ww-zero-please",
+      "sourceReviewStatus": "native-review-required",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-please",
+        "tokens": [
+          {
+            "surface": "请",
+            "units": [
+              {
+                "surface": "请",
+                "notation": "qǐng"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zh-starter-listening-zero-thanks",
+      "difficulty": 0,
+      "usefulness": 94,
+      "complexity": 7,
+      "revision": "1",
+      "target": "谢谢。",
+      "meaning": "Thank you.",
+      "englishAuditText": "Thank you.",
+      "sourceId": "ww-zero-thanks",
+      "sourceReviewStatus": "native-review-required",
+      "reading": {
+        "system": "pinyin",
+        "status": "machine-assisted-preview",
+        "sourcePath": "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
+        "sourceId": "ww-zero-thanks",
+        "tokens": [
+          {
+            "surface": "谢谢",
+            "units": [
+              {
+                "surface": "谢",
+                "notation": "xiè"
+              },
+              {
+                "surface": "谢",
+                "notation": "xie"
               }
             ]
           }

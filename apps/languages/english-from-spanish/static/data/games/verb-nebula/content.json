@@ -4928,8 +4928,8 @@
     "difficulty": 0,
     "category": "zero-basic-actions",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 4
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "zero-es-en-verb-drink",
@@ -4940,8 +4940,8 @@
     "difficulty": 0,
     "category": "zero-basic-actions",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 4
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "zero-es-en-verb-go",
@@ -4952,8 +4952,8 @@
     "difficulty": 0,
     "category": "zero-basic-actions",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 4
+    "usefulness": 94,
+    "complexity": 15
   },
   {
     "id": "zero-es-en-verb-see",
@@ -4964,8 +4964,8 @@
     "difficulty": 0,
     "category": "zero-basic-actions",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 4
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "zero-es-en-verb-want",
@@ -4976,8 +4976,8 @@
     "difficulty": 0,
     "category": "zero-basic-actions",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 4
+    "usefulness": 94,
+    "complexity": 15
   },
   {
     "id": "zero-es-en-verb-have",
@@ -4988,8 +4988,8 @@
     "difficulty": 0,
     "category": "zero-basic-actions",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 4
+    "usefulness": 94,
+    "complexity": 9
   },
   {
     "id": "zero-es-en-verb-like",
@@ -5000,8 +5000,8 @@
     "difficulty": 0,
     "category": "zero-basic-actions",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 4
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zero-es-en-verb-sleep",
@@ -5012,8 +5012,8 @@
     "difficulty": 0,
     "category": "zero-basic-actions",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 4
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "zero-es-en-verb-sit",
@@ -5024,8 +5024,8 @@
     "difficulty": 0,
     "category": "zero-basic-actions",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 4
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zero-es-en-verb-read",
@@ -5036,8 +5036,8 @@
     "difficulty": 0,
     "category": "zero-basic-actions",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 4
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "zero-es-en-verb-write",
@@ -5048,8 +5048,8 @@
     "difficulty": 0,
     "category": "zero-basic-actions",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 4
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "zero-es-en-verb-hear",
@@ -5060,8 +5060,8 @@
     "difficulty": 0,
     "category": "zero-basic-actions",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 4
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "zero-es-en-word-cat",
@@ -5072,8 +5072,8 @@
     "difficulty": 0,
     "category": "zero-first-words",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 2
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zero-es-en-word-dog",
@@ -5084,8 +5084,8 @@
     "difficulty": 0,
     "category": "zero-first-words",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 2
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zero-es-en-word-water",
@@ -5096,8 +5096,8 @@
     "difficulty": 0,
     "category": "zero-first-words",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 2
+    "usefulness": 98,
+    "complexity": 15
   },
   {
     "id": "zero-es-en-word-bread",
@@ -5108,8 +5108,8 @@
     "difficulty": 0,
     "category": "zero-first-words",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 2
+    "usefulness": 75,
+    "complexity": 21
   },
   {
     "id": "zero-es-en-word-milk",
@@ -5120,8 +5120,8 @@
     "difficulty": 0,
     "category": "zero-first-words",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 2
+    "usefulness": 75,
+    "complexity": 21
   },
   {
     "id": "zero-es-en-word-apple",
@@ -5132,8 +5132,8 @@
     "difficulty": 0,
     "category": "zero-first-words",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 2
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zero-es-en-word-rice",
@@ -5144,8 +5144,8 @@
     "difficulty": 0,
     "category": "zero-first-words",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 2
+    "usefulness": 75,
+    "complexity": 21
   },
   {
     "id": "zero-es-en-word-tea",
@@ -5156,8 +5156,8 @@
     "difficulty": 0,
     "category": "zero-first-words",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 2
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zero-es-en-word-book",
@@ -5168,8 +5168,8 @@
     "difficulty": 0,
     "category": "zero-first-words",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 2
+    "usefulness": 73,
+    "complexity": 21
   },
   {
     "id": "zero-es-en-word-pen",
@@ -5180,8 +5180,8 @@
     "difficulty": 0,
     "category": "zero-first-words",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 2
+    "usefulness": 75,
+    "complexity": 26
   },
   {
     "id": "zero-es-en-word-house",
@@ -5192,8 +5192,8 @@
     "difficulty": 0,
     "category": "zero-first-words",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 2
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "zero-es-en-word-door",
@@ -5204,8 +5204,8 @@
     "difficulty": 0,
     "category": "zero-first-words",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 2
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zero-es-en-word-table",
@@ -5216,8 +5216,8 @@
     "difficulty": 0,
     "category": "zero-first-words",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 2
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zero-es-en-word-chair",
@@ -5228,8 +5228,8 @@
     "difficulty": 0,
     "category": "zero-first-words",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 2
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zero-es-en-word-bed",
@@ -5240,8 +5240,8 @@
     "difficulty": 0,
     "category": "zero-first-words",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 2
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zero-es-en-word-bag",
@@ -5252,8 +5252,8 @@
     "difficulty": 0,
     "category": "zero-first-words",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 2
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zero-es-en-word-ball",
@@ -5264,8 +5264,8 @@
     "difficulty": 0,
     "category": "zero-first-words",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 2
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "zero-es-en-word-sun",
@@ -5276,8 +5276,8 @@
     "difficulty": 0,
     "category": "zero-first-words",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 2
+    "usefulness": 65,
+    "complexity": 26
   },
   {
     "id": "zero-es-en-word-hand",
@@ -5288,8 +5288,8 @@
     "difficulty": 0,
     "category": "zero-first-words",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 2
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zero-es-en-word-eye",
@@ -5300,8 +5300,8 @@
     "difficulty": 0,
     "category": "zero-first-words",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 2
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zero-es-en-word-i",
@@ -5312,8 +5312,8 @@
     "difficulty": 0,
     "category": "zero-first-words",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 3
+    "usefulness": 89,
+    "complexity": 9
   },
   {
     "id": "zero-es-en-word-you",
@@ -5324,8 +5324,8 @@
     "difficulty": 0,
     "category": "zero-first-words",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 3
+    "usefulness": 89,
+    "complexity": 9
   },
   {
     "id": "zero-es-en-word-we",
@@ -5336,8 +5336,8 @@
     "difficulty": 0,
     "category": "zero-first-words",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 3
+    "usefulness": 89,
+    "complexity": 9
   },
   {
     "id": "zero-es-en-word-hello",
@@ -5348,8 +5348,8 @@
     "difficulty": 0,
     "category": "zero-first-words",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 1
+    "usefulness": 94,
+    "complexity": 29
   },
   {
     "id": "zero-es-en-word-goodbye",
@@ -5360,8 +5360,8 @@
     "difficulty": 0,
     "category": "zero-first-words",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 1
+    "usefulness": 94,
+    "complexity": 29
   },
   {
     "id": "zero-es-en-word-yes",
@@ -5372,8 +5372,8 @@
     "difficulty": 0,
     "category": "zero-first-words",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 1
+    "usefulness": 94,
+    "complexity": 29
   },
   {
     "id": "zero-es-en-word-no",
@@ -5384,8 +5384,8 @@
     "difficulty": 0,
     "category": "zero-first-words",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 1
+    "usefulness": 94,
+    "complexity": 29
   },
   {
     "id": "zero-es-en-word-please",
@@ -5396,8 +5396,8 @@
     "difficulty": 0,
     "category": "zero-first-words",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 1
+    "usefulness": 94,
+    "complexity": 29
   },
   {
     "id": "zero-es-en-word-thanks",
@@ -5408,8 +5408,8 @@
     "difficulty": 0,
     "category": "zero-first-words",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 1
+    "usefulness": 94,
+    "complexity": 24
   },
   {
     "id": "zero-es-en-word-one",
@@ -5420,8 +5420,8 @@
     "difficulty": 0,
     "category": "zero-first-words",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 4
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zero-es-en-word-two",
@@ -5432,8 +5432,8 @@
     "difficulty": 0,
     "category": "zero-first-words",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 4
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zero-es-en-word-three",
@@ -5444,8 +5444,8 @@
     "difficulty": 0,
     "category": "zero-first-words",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 4
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zero-es-en-word-four",
@@ -5456,8 +5456,8 @@
     "difficulty": 0,
     "category": "zero-first-words",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 4
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zero-es-en-word-five",
@@ -5468,8 +5468,8 @@
     "difficulty": 0,
     "category": "zero-first-words",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 4
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zero-es-en-word-big",
@@ -5480,8 +5480,8 @@
     "difficulty": 0,
     "category": "zero-first-words",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 4
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zero-es-en-word-small",
@@ -5492,8 +5492,8 @@
     "difficulty": 0,
     "category": "zero-first-words",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 4
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zero-es-en-word-red",
@@ -5504,8 +5504,8 @@
     "difficulty": 0,
     "category": "zero-first-words",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 4
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zero-es-en-word-green",
@@ -5516,7 +5516,7 @@
     "difficulty": 0,
     "category": "zero-first-words",
     "reviewStatus": "native-review-required",
-    "usefulness": 92,
-    "complexity": 4
+    "usefulness": 76,
+    "complexity": 21
   }
 ]

@@ -89,7 +89,6 @@ async function mountGame({ language = "czech", difficulty = 3, syntheticBase = f
       sourceLanguage: manifest.sourceLanguage, targetLanguage: manifest.targetLanguage });
   }
   if (syntheticBase) {
-    assert.equal(czech, false, "only v1 catalogs support a different learner base");
     course.id = "de-es";
     course.routePrefix = "/de-es";
     course.sourceLanguage = { id: "de", locale: "de", direction: "ltr" };
@@ -109,8 +108,7 @@ async function mountGame({ language = "czech", difficulty = 3, syntheticBase = f
     form.targetPhraseFrame = { beforeText: "« ", afterText: " »" };
   }));
   if (syncretic) raw.verbs.forEach((verb) => {
-    const field = czech ? "form" : "targetText";
-    verb.forms[1][field] = verb.forms[0][field];
+    verb.forms[1].targetText = verb.forms[0].targetText;
   });
   const catalog = validateConjugationCometCatalog(raw, {
     expectedCourseId: course.id,

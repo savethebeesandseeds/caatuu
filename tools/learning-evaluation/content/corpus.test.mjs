@@ -49,7 +49,7 @@ test('playable corpus covers every exact band of the real Case and Grammar banks
     const records = corpus.records.filter(record => record.kind === kind);
     const units = corpus.playableUnits.filter(unit => unit.kind === kind);
     assert.ok(records.length > 0);
-    assert.deepEqual([...new Set(units.map(unit => unit.metadata.difficulty))].sort(), [1, 2, 3]);
+    assert.deepEqual([...new Set(units.map(unit => unit.metadata.difficulty))].sort(), [0, 1, 2, 3]);
     assert.deepEqual(units.flatMap(unit => unit.recordIds).sort(), records.map(record => record.id).sort());
   }
 });

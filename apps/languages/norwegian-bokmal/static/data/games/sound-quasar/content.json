@@ -7872,8 +7872,8 @@
       "englishAuditText": "Hello",
       "sourceId": "zero-nb-lex-hello",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 3
+      "usefulness": 94,
+      "complexity": 9
     },
     {
       "id": "zero-nb-sound-thanks",
@@ -7884,8 +7884,8 @@
       "englishAuditText": "Thank you",
       "sourceId": "zero-nb-lex-thanks",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 3
+      "usefulness": 94,
+      "complexity": 12
     },
     {
       "id": "zero-nb-sound-yes",
@@ -7896,8 +7896,8 @@
       "englishAuditText": "Yes",
       "sourceId": "zero-nb-lex-yes",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 3
+      "usefulness": 94,
+      "complexity": 9
     },
     {
       "id": "zero-nb-sound-no",
@@ -7908,8 +7908,8 @@
       "englishAuditText": "No",
       "sourceId": "zero-nb-lex-no",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 3
+      "usefulness": 94,
+      "complexity": 9
     },
     {
       "id": "zero-nb-sound-sorry",
@@ -7920,8 +7920,8 @@
       "englishAuditText": "Sorry",
       "sourceId": "zero-nb-lex-sorry",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 3
+      "usefulness": 94,
+      "complexity": 9
     },
     {
       "id": "zero-nb-sound-help",
@@ -7932,8 +7932,8 @@
       "englishAuditText": "Help",
       "sourceId": "zero-nb-lex-help",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 3
+      "usefulness": 99,
+      "complexity": 15
     },
     {
       "id": "zero-nb-sound-i",
@@ -7944,8 +7944,8 @@
       "englishAuditText": "I",
       "sourceId": "zero-nb-lex-i",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 3
+      "usefulness": 89,
+      "complexity": 9
     },
     {
       "id": "zero-nb-sound-you",
@@ -7956,8 +7956,8 @@
       "englishAuditText": "you (one person)",
       "sourceId": "zero-nb-lex-you",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 3
+      "usefulness": 89,
+      "complexity": 9
     },
     {
       "id": "zero-nb-sound-mother",
@@ -7968,8 +7968,8 @@
       "englishAuditText": "mother",
       "sourceId": "zero-nb-lex-mother",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 3
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zero-nb-sound-father",
@@ -7980,8 +7980,8 @@
       "englishAuditText": "father",
       "sourceId": "zero-nb-lex-father",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 3
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zero-nb-sound-friend",
@@ -7992,8 +7992,8 @@
       "englishAuditText": "friend",
       "sourceId": "zero-nb-lex-friend",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 3
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zero-nb-sound-child",
@@ -8004,8 +8004,8 @@
       "englishAuditText": "child",
       "sourceId": "zero-nb-lex-child",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 3
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zero-nb-sound-one",
@@ -8016,8 +8016,8 @@
       "englishAuditText": "one",
       "sourceId": "zero-nb-lex-one",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-nb-sound-two",
@@ -8028,8 +8028,8 @@
       "englishAuditText": "two",
       "sourceId": "zero-nb-lex-two",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-nb-sound-three",
@@ -8040,8 +8040,8 @@
       "englishAuditText": "three",
       "sourceId": "zero-nb-lex-three",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-nb-sound-four",
@@ -8052,8 +8052,8 @@
       "englishAuditText": "four",
       "sourceId": "zero-nb-lex-four",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-nb-sound-five",
@@ -8064,8 +8064,8 @@
       "englishAuditText": "five",
       "sourceId": "zero-nb-lex-five",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-nb-sound-water",
@@ -8077,7 +8077,7 @@
       "sourceId": "zero-nb-lex-water",
       "sourceReviewStatus": "native-review-required",
       "usefulness": 98,
-      "complexity": 3
+      "complexity": 15
     },
     {
       "id": "zero-nb-sound-bread",
@@ -8088,8 +8088,8 @@
       "englishAuditText": "bread",
       "sourceId": "zero-nb-lex-bread",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 3
+      "usefulness": 75,
+      "complexity": 21
     },
     {
       "id": "zero-nb-sound-milk",
@@ -8100,8 +8100,8 @@
       "englishAuditText": "milk",
       "sourceId": "zero-nb-lex-milk",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 3
+      "usefulness": 75,
+      "complexity": 21
     },
     {
       "id": "zero-nb-sound-apple",
@@ -8112,8 +8112,8 @@
       "englishAuditText": "apple",
       "sourceId": "zero-nb-lex-apple",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-nb-sound-tea",
@@ -8124,8 +8124,8 @@
       "englishAuditText": "tea",
       "sourceId": "zero-nb-lex-tea",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-nb-sound-house",
@@ -8136,8 +8136,8 @@
       "englishAuditText": "house",
       "sourceId": "zero-nb-lex-house",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 3
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zero-nb-sound-book",
@@ -8148,8 +8148,8 @@
       "englishAuditText": "book",
       "sourceId": "zero-nb-lex-book",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 3
+      "usefulness": 73,
+      "complexity": 21
     },
     {
       "id": "zero-nb-sound-door",
@@ -8160,8 +8160,8 @@
       "englishAuditText": "door",
       "sourceId": "zero-nb-lex-door",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-nb-sound-car",
@@ -8172,8 +8172,8 @@
       "englishAuditText": "car",
       "sourceId": "zero-nb-lex-car",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-nb-sound-cat",
@@ -8184,8 +8184,8 @@
       "englishAuditText": "cat",
       "sourceId": "zero-nb-lex-cat",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-nb-sound-dog",
@@ -8196,8 +8196,8 @@
       "englishAuditText": "dog",
       "sourceId": "zero-nb-lex-dog",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-nb-sound-big",
@@ -8208,8 +8208,8 @@
       "englishAuditText": "big",
       "sourceId": "zero-nb-lex-big",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-nb-sound-small",
@@ -8220,8 +8220,8 @@
       "englishAuditText": "small",
       "sourceId": "zero-nb-lex-small",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-nb-sound-good",
@@ -8232,8 +8232,8 @@
       "englishAuditText": "good",
       "sourceId": "zero-nb-lex-good",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-nb-sound-new",
@@ -8244,8 +8244,8 @@
       "englishAuditText": "new",
       "sourceId": "zero-nb-lex-new",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-nb-sound-red",
@@ -8256,8 +8256,8 @@
       "englishAuditText": "red",
       "sourceId": "zero-nb-lex-red",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-nb-sound-green",
@@ -8268,8 +8268,8 @@
       "englishAuditText": "green",
       "sourceId": "zero-nb-lex-green",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-nb-sound-hot",
@@ -8280,8 +8280,8 @@
       "englishAuditText": "hot",
       "sourceId": "zero-nb-lex-hot",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-nb-sound-cold",
@@ -8292,8 +8292,8 @@
       "englishAuditText": "cold",
       "sourceId": "zero-nb-lex-cold",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 3
+      "usefulness": 90,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-eat",
@@ -8304,8 +8304,8 @@
       "englishAuditText": "eat",
       "sourceId": "zero-nb-lex-eat",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 7
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zero-nb-sound-drink",
@@ -8316,8 +8316,8 @@
       "englishAuditText": "drink",
       "sourceId": "zero-nb-lex-drink",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 7
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zero-nb-sound-go",
@@ -8328,8 +8328,8 @@
       "englishAuditText": "walk",
       "sourceId": "zero-nb-lex-go",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 7
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "zero-nb-sound-come",
@@ -8340,8 +8340,8 @@
       "englishAuditText": "come",
       "sourceId": "zero-nb-lex-come",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 7
+      "usefulness": 94,
+      "complexity": 15
     },
     {
       "id": "zero-nb-sound-sleep",
@@ -8352,8 +8352,8 @@
       "englishAuditText": "sleep",
       "sourceId": "zero-nb-lex-sleep",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 7
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zero-nb-sound-read",
@@ -8364,8 +8364,8 @@
       "englishAuditText": "read",
       "sourceId": "zero-nb-lex-read",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 7
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zero-nb-sound-write",
@@ -8376,8 +8376,8 @@
       "englishAuditText": "write",
       "sourceId": "zero-nb-lex-write",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 7
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zero-nb-sound-see",
@@ -8388,8 +8388,8 @@
       "englishAuditText": "see",
       "sourceId": "zero-nb-lex-see",
       "sourceReviewStatus": "native-review-required",
-      "usefulness": 98,
-      "complexity": 7
+      "usefulness": 89,
+      "complexity": 15
     }
   ],
   "sentenceProvenance": {
@@ -16362,8 +16362,8 @@
       "sourceId": "zero-nb-ww-phrase-001",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 77,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-phrase-002",
@@ -16374,8 +16374,8 @@
       "sourceId": "zero-nb-ww-phrase-002",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "zero-nb-sound-sentence-phrase-003",
@@ -16386,8 +16386,8 @@
       "sourceId": "zero-nb-ww-phrase-003",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "zero-nb-sound-sentence-phrase-004",
@@ -16398,8 +16398,8 @@
       "sourceId": "zero-nb-ww-phrase-004",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "zero-nb-sound-sentence-phrase-005",
@@ -16410,8 +16410,8 @@
       "sourceId": "zero-nb-ww-phrase-005",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "zero-nb-sound-sentence-phrase-006",
@@ -16422,8 +16422,8 @@
       "sourceId": "zero-nb-ww-phrase-006",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 6
+      "usefulness": 68,
+      "complexity": 27
     },
     {
       "id": "zero-nb-sound-sentence-phrase-007",
@@ -16434,8 +16434,8 @@
       "sourceId": "zero-nb-ww-phrase-007",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 6
+      "usefulness": 68,
+      "complexity": 27
     },
     {
       "id": "zero-nb-sound-sentence-phrase-008",
@@ -16446,8 +16446,8 @@
       "sourceId": "zero-nb-ww-phrase-008",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 6
+      "usefulness": 77,
+      "complexity": 27
     },
     {
       "id": "zero-nb-sound-sentence-phrase-009",
@@ -16458,8 +16458,8 @@
       "sourceId": "zero-nb-ww-phrase-009",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 6
+      "usefulness": 77,
+      "complexity": 27
     },
     {
       "id": "zero-nb-sound-sentence-phrase-010",
@@ -16470,7 +16470,7 @@
       "sourceId": "zero-nb-ww-phrase-010",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
+      "usefulness": 94,
       "complexity": 7
     },
     {
@@ -16482,8 +16482,8 @@
       "sourceId": "zero-nb-ww-phrase-011",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 6
+      "usefulness": 88,
+      "complexity": 27
     },
     {
       "id": "zero-nb-sound-sentence-phrase-012",
@@ -16494,8 +16494,8 @@
       "sourceId": "zero-nb-ww-phrase-012",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 6
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "zero-nb-sound-sentence-phrase-013",
@@ -16506,8 +16506,8 @@
       "sourceId": "zero-nb-ww-phrase-013",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 6
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "zero-nb-sound-sentence-phrase-014",
@@ -16518,8 +16518,8 @@
       "sourceId": "zero-nb-ww-phrase-014",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 6
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zero-nb-sound-sentence-phrase-015",
@@ -16530,8 +16530,8 @@
       "sourceId": "zero-nb-ww-phrase-015",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 7
+      "usefulness": 73,
+      "complexity": 27
     },
     {
       "id": "zero-nb-sound-sentence-phrase-016",
@@ -16542,8 +16542,8 @@
       "sourceId": "zero-nb-ww-phrase-016",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 7
+      "usefulness": 77,
+      "complexity": 27
     },
     {
       "id": "zero-nb-sound-sentence-phrase-017",
@@ -16554,8 +16554,8 @@
       "sourceId": "zero-nb-ww-phrase-017",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-phrase-018",
@@ -16566,8 +16566,8 @@
       "sourceId": "zero-nb-ww-phrase-018",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-phrase-019",
@@ -16578,8 +16578,8 @@
       "sourceId": "zero-nb-ww-phrase-019",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-phrase-020",
@@ -16590,8 +16590,8 @@
       "sourceId": "zero-nb-ww-phrase-020",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 6
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-phrase-021",
@@ -16602,8 +16602,8 @@
       "sourceId": "zero-nb-ww-phrase-021",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 6
+      "usefulness": 73,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-phrase-022",
@@ -16614,8 +16614,8 @@
       "sourceId": "zero-nb-ww-phrase-022",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 6
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-phrase-023",
@@ -16626,8 +16626,8 @@
       "sourceId": "zero-nb-ww-phrase-023",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 6
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-phrase-024",
@@ -16638,8 +16638,8 @@
       "sourceId": "zero-nb-ww-phrase-024",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 6
+      "usefulness": 73,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-phrase-025",
@@ -16650,8 +16650,8 @@
       "sourceId": "zero-nb-ww-phrase-025",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 88,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-phrase-026",
@@ -16662,8 +16662,8 @@
       "sourceId": "zero-nb-ww-phrase-026",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-phrase-027",
@@ -16674,8 +16674,8 @@
       "sourceId": "zero-nb-ww-phrase-027",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-phrase-028",
@@ -16686,8 +16686,8 @@
       "sourceId": "zero-nb-ww-phrase-028",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-phrase-029",
@@ -16698,8 +16698,8 @@
       "sourceId": "zero-nb-ww-phrase-029",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 73,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-phrase-030",
@@ -16710,8 +16710,8 @@
       "sourceId": "zero-nb-ww-phrase-030",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-phrase-031",
@@ -16722,8 +16722,8 @@
       "sourceId": "zero-nb-ww-phrase-031",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-phrase-032",
@@ -16734,8 +16734,8 @@
       "sourceId": "zero-nb-ww-phrase-032",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-phrase-033",
@@ -16746,8 +16746,8 @@
       "sourceId": "zero-nb-ww-phrase-033",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-phrase-034",
@@ -16758,8 +16758,8 @@
       "sourceId": "zero-nb-ww-phrase-034",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 6
+      "usefulness": 88,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-phrase-035",
@@ -16770,8 +16770,8 @@
       "sourceId": "zero-nb-ww-phrase-035",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 6
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-phrase-036",
@@ -16782,8 +16782,8 @@
       "sourceId": "zero-nb-ww-phrase-036",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 73,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-phrase-037",
@@ -16794,8 +16794,8 @@
       "sourceId": "zero-nb-ww-phrase-037",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 73,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-phrase-038",
@@ -16806,8 +16806,8 @@
       "sourceId": "zero-nb-ww-phrase-038",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-phrase-039",
@@ -16818,8 +16818,8 @@
       "sourceId": "zero-nb-ww-phrase-039",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 7
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-phrase-040",
@@ -16830,8 +16830,8 @@
       "sourceId": "zero-nb-ww-phrase-040",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 7
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-phrase-041",
@@ -16842,8 +16842,8 @@
       "sourceId": "zero-nb-ww-phrase-041",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 7
+      "usefulness": 73,
+      "complexity": 27
     },
     {
       "id": "zero-nb-sound-sentence-phrase-042",
@@ -16854,8 +16854,8 @@
       "sourceId": "zero-nb-ww-phrase-042",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zero-nb-sound-sentence-hello",
@@ -16866,8 +16866,8 @@
       "sourceId": "zero-nb-ww-hello",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "zero-nb-sound-sentence-goodbye",
@@ -16878,8 +16878,8 @@
       "sourceId": "zero-nb-ww-goodbye",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 5
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "zero-nb-sound-sentence-thanks",
@@ -16890,8 +16890,8 @@
       "sourceId": "zero-nb-ww-thanks",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "zero-nb-sound-sentence-yes",
@@ -16902,8 +16902,8 @@
       "sourceId": "zero-nb-ww-yes",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "zero-nb-sound-sentence-no",
@@ -16914,8 +16914,8 @@
       "sourceId": "zero-nb-ww-no",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "zero-nb-sound-sentence-please",
@@ -16926,8 +16926,8 @@
       "sourceId": "zero-nb-ww-please",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 6
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "zero-nb-sound-sentence-sorry",
@@ -16938,8 +16938,8 @@
       "sourceId": "zero-nb-ww-sorry",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "zero-nb-sound-sentence-help",
@@ -16950,8 +16950,8 @@
       "sourceId": "zero-nb-ww-help",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 99,
+      "complexity": 7
     },
     {
       "id": "zero-nb-sound-sentence-i",
@@ -16962,8 +16962,8 @@
       "sourceId": "zero-nb-ww-i",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 70,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-you",
@@ -16974,8 +16974,8 @@
       "sourceId": "zero-nb-ww-you",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 70,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-mother",
@@ -16986,8 +16986,8 @@
       "sourceId": "zero-nb-ww-mother",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 77,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-father",
@@ -16998,8 +16998,8 @@
       "sourceId": "zero-nb-ww-father",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 77,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-friend",
@@ -17010,8 +17010,8 @@
       "sourceId": "zero-nb-ww-friend",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 77,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-child",
@@ -17022,8 +17022,8 @@
       "sourceId": "zero-nb-ww-child",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 77,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-one",
@@ -17034,8 +17034,8 @@
       "sourceId": "zero-nb-ww-one",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-two",
@@ -17046,8 +17046,8 @@
       "sourceId": "zero-nb-ww-two",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-three",
@@ -17058,8 +17058,8 @@
       "sourceId": "zero-nb-ww-three",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-four",
@@ -17070,8 +17070,8 @@
       "sourceId": "zero-nb-ww-four",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-five",
@@ -17082,8 +17082,8 @@
       "sourceId": "zero-nb-ww-five",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-water",
@@ -17094,8 +17094,8 @@
       "sourceId": "zero-nb-ww-water",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 88,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-bread",
@@ -17106,8 +17106,8 @@
       "sourceId": "zero-nb-ww-bread",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-milk",
@@ -17118,8 +17118,8 @@
       "sourceId": "zero-nb-ww-milk",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-apple",
@@ -17130,8 +17130,8 @@
       "sourceId": "zero-nb-ww-apple",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 70,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-tea",
@@ -17142,8 +17142,8 @@
       "sourceId": "zero-nb-ww-tea",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 70,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-house",
@@ -17154,8 +17154,8 @@
       "sourceId": "zero-nb-ww-house",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 77,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-book",
@@ -17166,8 +17166,8 @@
       "sourceId": "zero-nb-ww-book",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 73,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-door",
@@ -17178,8 +17178,8 @@
       "sourceId": "zero-nb-ww-door",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 70,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-car",
@@ -17190,8 +17190,8 @@
       "sourceId": "zero-nb-ww-car",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-cat",
@@ -17202,8 +17202,8 @@
       "sourceId": "zero-nb-ww-cat",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-dog",
@@ -17214,8 +17214,8 @@
       "sourceId": "zero-nb-ww-dog",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-big",
@@ -17226,8 +17226,8 @@
       "sourceId": "zero-nb-ww-big",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-small",
@@ -17238,8 +17238,8 @@
       "sourceId": "zero-nb-ww-small",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-good",
@@ -17250,8 +17250,8 @@
       "sourceId": "zero-nb-ww-good",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-new",
@@ -17262,8 +17262,8 @@
       "sourceId": "zero-nb-ww-new",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-red",
@@ -17274,8 +17274,8 @@
       "sourceId": "zero-nb-ww-red",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-green",
@@ -17286,8 +17286,8 @@
       "sourceId": "zero-nb-ww-green",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-hot",
@@ -17298,8 +17298,8 @@
       "sourceId": "zero-nb-ww-hot",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-cold",
@@ -17310,8 +17310,8 @@
       "sourceId": "zero-nb-ww-cold",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 90,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-eat",
@@ -17322,8 +17322,8 @@
       "sourceId": "zero-nb-ww-eat",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-drink",
@@ -17334,8 +17334,8 @@
       "sourceId": "zero-nb-ww-drink",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-go",
@@ -17346,8 +17346,8 @@
       "sourceId": "zero-nb-ww-go",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 63,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-come",
@@ -17358,8 +17358,8 @@
       "sourceId": "zero-nb-ww-come",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-sleep",
@@ -17370,8 +17370,8 @@
       "sourceId": "zero-nb-ww-sleep",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-read",
@@ -17382,8 +17382,8 @@
       "sourceId": "zero-nb-ww-read",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 73,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-write",
@@ -17394,8 +17394,8 @@
       "sourceId": "zero-nb-ww-write",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 73,
+      "complexity": 22
     },
     {
       "id": "zero-nb-sound-sentence-see",
@@ -17406,8 +17406,8 @@
       "sourceId": "zero-nb-ww-see",
       "sourceReviewStatus": "native-review-required",
       "difficulty": 0,
-      "usefulness": 98,
-      "complexity": 2
+      "usefulness": 68,
+      "complexity": 22
     }
   ]
 }

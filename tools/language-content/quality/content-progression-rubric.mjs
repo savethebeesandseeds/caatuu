@@ -141,45 +141,93 @@ function agreementUsefulness(item = {}) {
   if (/(?:\.min|\.muj|nuestro|small-quantity)/u.test(family)) return 83;
   return 77;
 }
+const letterBoundary = word => new RegExp(`(?<![\\p{L}\\p{N}])(?:${word})(?![\\p{L}\\p{N}])`, 'u');
+// One demand table for every course. A rule fires on that course's target
+// text only, so a shared word such as "se" is not scored twice.
+const targetDemands = {
+  cz: [
+    [(target, formula) => /\b(?:se|si|mi|ti|mu|mě|tě|nám|vám)\b/u.test(target) && !formula, 9, 'Czech clitic placement'],
+    [target => /\b(?:bych|bys|bychom|byste|kdyby|kdybych|kdybychom)\b/u.test(target), 18, 'Czech conditional marking'],
+    [target => /\b(?:který|která|které|protože|ačkoli|přestože|zatímco|aby|když)\b/u.test(target), 11, 'Czech subordinate clause'],
+    [target => /(?:ěme|ejme|ujme)(?:\s|[!.])/u.test(target), 18, 'Czech plural invitation or command'],
+    [(target, formula) => /\b(?:s|se|k|ke|bez|od|pro|na|v|ve|o|po|před|za)\b/u.test(target) && !formula, 5, 'contextual Czech case selection']
+  ],
+  zh: [
+    [target => /[把被]/u.test(target), 23, 'Mandarin disposal or passive structure'],
+    [target => /(?:如果|虽然|因为|所以|但是|不但|而且|无论|尽管)/u.test(target), 13, 'Mandarin clause linking'],
+    [target => /(?:越.+越|一边.+一边|不仅.+还|既.+又)/u.test(target), 15, 'paired Mandarin construction'],
+    [target => /(?:过|正在|已经|着)/u.test(target), 7, 'Mandarin aspect or temporal marking'],
+    [(target, formula) => /[的]/u.test(target) && !formula, 6, 'Mandarin attributive relation'],
+    [target => /(?:根据|而不|方便|以便|为了)/u.test(target), 12, 'Mandarin purpose or embedded relation'],
+    [target => /[了]/u.test(target), 5, 'contextual Mandarin le particle'],
+    [target => /[得]/u.test(target), 10, 'Mandarin complement'],
+    [(target, formula) => /(?:起来|下去|出来|进去|回来|过去|完|到|好)/u.test(target) && !formula, 6, 'Mandarin result or direction distinction'],
+    [(target, formula) => /[个本张杯只条件辆位块把双]/u.test(target) && !formula, 5, 'Mandarin measure-word choice']
+  ],
+  es: [
+    [target => /\b(?:hubiera|hubiese|habría|habríamos|hubiéramos)\b/u.test(target), 24, 'Spanish compound counterfactual'],
+    [target => /\b(?:ojalá|aunque|para que|a menos que|sin que|dondequiera que)\b/u.test(target), 14, 'Spanish mood or subordinate clause'],
+    [(target, formula) => /\b(?:que|cuando|donde)\b/u.test(target) && !formula, 8, 'Spanish embedded clause'],
+    [target => /\b\p{Letter}{3,}(?:ara|iera|ase|iese)(?:n|mos)?\b/u.test(target), 20, 'Spanish imperfect subjunctive'],
+    [(target, formula) => /\b(?:me|te|se|lo|le|nos|les)\b/u.test(target) && !formula, 7, 'Spanish object or reflexive clitic'],
+    [target => /\b(?:dámelo|dímelo|tráemelo|explícamelo|ayúdame|dígame|únete)\b/u.test(target), 14, 'Spanish attached imperative pronoun'],
+    [target => /\b(?:he|has|ha|hemos|han|había|habían)\s+\p{Letter}+(?:ado|ido|to|cho)\b/u.test(target), 10, 'Spanish compound tense']
+  ],
+  nb: [
+    [target => /\b(?:fordi|selv om|dersom|mens|før|etter at|hvis|når)\b/u.test(target), 12, 'Bokmål subordinate word order'],
+    [target => /\b(?:lurer|vet)\b.+\b(?:hvor|hva|hvem|hvordan)\b/u.test(target), 10, 'Bokmål embedded question'],
+    [target => /\b(?:hadde|ville|skulle|kunne)\b/u.test(target), 10, 'Bokmål modal or compound tense'],
+    [target => /\b(?:jo .+ desto|både .+ og|verken .+ eller)\b/u.test(target), 15, 'Bokmål paired construction'],
+    [(target, formula) => /\b(?:meg|deg|seg|oss)\b/u.test(target) && !formula, 6, 'Bokmål reflexive or object form'],
+    [target => /\b(?:ta på|slå av|finne ut|gi opp|se etter|stå opp)\b/u.test(target), 10, 'Bokmål particle verb']
+  ],
+  'es-en': [
+    [(target, formula) => /\b(?:does not|doesn't|did not|didn't)\b/u.test(target) && !formula, 7, 'English auxiliary negation'],
+    [target => /\b(?:has|have|had)\s+(?:been|lost|found|made|seen|taken|given|known|\p{Letter}+(?:ed|en))\b/u.test(target), 9, 'English perfect or compound verb'],
+    [target => /\b(?:look after|give up|find out|put on|turn off|get along|look forward)\b/u.test(target), 10, 'English particle verb']
+  ],
+  ar: [
+    [target => /أَنْ|أَنَّ/u.test(target), 8, 'Arabic embedded clause'],
+    [target => /لِأَنَّ|إِذَا|حَتَّى|لِكَيْ/u.test(target), 13, 'Arabic subordinate clause'],
+    [target => /الَّذِي|الَّتِي/u.test(target), 11, 'Arabic relative clause'],
+    [target => /لَمْ|لَنْ|قَدْ/u.test(target), 7, 'Arabic tense or aspect particle']
+  ],
+  la: [
+    [target => /\b(?:ut|ne|cum|quod)\b/u.test(target), 12, 'Latin subordinate clause']
+  ],
+  ka: [
+    [target => letterBoundary('თუ|რადგან').test(target), 12, 'Georgian subordinate clause']
+  ]
+};
 function languageDemand(target, courseId, reasons, formula) {
   let score = 0;
-  const add = (condition, amount, label) => { if (condition) { score += amount; reasons.push(label); } };
-  if (courseId === 'cz') {
-    add(/\b(?:se|si|mi|ti|mu|mě|tě|nám|vám)\b/u.test(target) && !formula, 9, 'Czech clitic placement');
-    add(/\b(?:bych|bys|bychom|byste|kdyby|kdybych|kdybychom)\b/u.test(target), 18, 'Czech conditional marking');
-    add(/\b(?:který|která|které|protože|ačkoli|přestože|zatímco|aby|když)\b/u.test(target), 11, 'Czech subordinate clause');
-    add(/(?:ěme|ejme|ujme)(?:\s|[!.])/u.test(target), 18, 'Czech plural invitation or command');
-    add(/\b(?:s|se|k|ke|bez|od|pro|na|v|ve|o|po|před|za)\b/u.test(target) && !formula, 5, 'contextual Czech case selection');
-  } else if (courseId === 'zh') {
-    add(/[把被]/u.test(target), 23, 'Mandarin disposal or passive structure');
-    add(/(?:如果|虽然|因为|所以|但是|不但|而且|无论|尽管)/u.test(target), 13, 'Mandarin clause linking');
-    add(/(?:越.+越|一边.+一边|不仅.+还|既.+又)/u.test(target), 15, 'paired Mandarin construction');
-    add(/(?:过|正在|已经|着)/u.test(target), 7, 'Mandarin aspect or temporal marking');
-    add(/[的]/u.test(target) && !formula, 6, 'Mandarin attributive relation');
-    add(/(?:根据|而不|方便|以便|为了)/u.test(target), 12, 'Mandarin purpose or embedded relation');
-    add(/[了]/u.test(target), 5, 'contextual Mandarin le particle');
-    add(/[得]/u.test(target), 10, 'Mandarin complement');
-    add(/(?:起来|下去|出来|进去|回来|过去|完|到|好)/u.test(target) && !formula, 6, 'Mandarin result or direction distinction');
-    add(/[个本张杯只条件辆位块把双]/u.test(target) && !formula, 5, 'Mandarin measure-word choice');
-  } else if (courseId === 'es') {
-    add(/\b(?:hubiera|hubiese|habría|habríamos|hubiéramos)\b/u.test(target), 24, 'Spanish compound counterfactual');
-    add(/\b(?:ojalá|aunque|para que|a menos que|sin que|dondequiera que)\b/u.test(target), 14, 'Spanish mood or subordinate clause');
-    add(/\b(?:que|cuando|donde)\b/u.test(target) && !formula, 8, 'Spanish embedded clause');
-    add(/\b\p{Letter}{3,}(?:ara|iera|ase|iese)(?:n|mos)?\b/u.test(target), 20, 'Spanish imperfect subjunctive');
-    add(/\b(?:me|te|se|lo|le|nos|les)\b/u.test(target) && !formula, 7, 'Spanish object or reflexive clitic');
-    add(/\b(?:dámelo|dímelo|tráemelo|explícamelo|ayúdame|dígame|únete)\b/u.test(target), 14, 'Spanish attached imperative pronoun');
-    add(/\b(?:he|has|ha|hemos|han|había|habían)\s+\p{Letter}+(?:ado|ido|to|cho)\b/u.test(target), 10, 'Spanish compound tense');
-  } else if (courseId === 'nb') {
-    add(/\b(?:fordi|selv om|dersom|mens|før|etter at|hvis|når)\b/u.test(target), 12, 'Bokmål subordinate word order');
-    add(/\b(?:lurer|vet)\b.+\b(?:hvor|hva|hvem|hvordan)\b/u.test(target), 10, 'Bokmål embedded question');
-    add(/\b(?:hadde|ville|skulle|kunne)\b/u.test(target), 10, 'Bokmål modal or compound tense');
-    add(/\b(?:jo .+ desto|både .+ og|verken .+ eller)\b/u.test(target), 15, 'Bokmål paired construction');
-    add(/\b(?:meg|deg|seg|oss)\b/u.test(target) && !formula, 6, 'Bokmål reflexive or object form');
-    add(/\b(?:ta på|slå av|finne ut|gi opp|se etter|stå opp)\b/u.test(target), 10, 'Bokmål particle verb');
-  } else if (courseId === 'es-en') {
-    add(/\b(?:does not|doesn't|did not|didn't)\b/u.test(target) && !formula, 7, 'English auxiliary negation');
-    add(/\b(?:has|have|had)\s+(?:been|lost|found|made|seen|taken|given|known|\p{Letter}+(?:ed|en))\b/u.test(target), 9, 'English perfect or compound verb');
-    add(/\b(?:look after|give up|find out|put on|turn off|get along|look forward)\b/u.test(target), 10, 'English particle verb');
+  for (const [test, amount, label] of targetDemands[courseId] || []) {
+    if (test(target, formula)) { score += amount; reasons.push(label); }
+  }
+  return score;
+}
+// Floors and formula additives stay in the same course-keyed tables as demands.
+// A row fires only for that course id. Other courses keep their own rows.
+const sentenceFloors = {
+  cz: [
+    [target => /(?:ěme|ejme|ujme)(?:\s|[!.])/u.test(target) && /\b(?:se|si)\b/u.test(target), 57, 'reflexive plural invitation or command']
+  ],
+  zh: [
+    [target => /[把被]/u.test(target), 58, 'disposal or passive structure floor']
+  ]
+};
+const formulaDemands = {
+  zh: [[target => /(?:一遍|一次)/u.test(target), 7, 'repetition measure']],
+  es: [[target => /(?:habla|diga|dime|repita|repite)/u.test(target), 6, 'spoken repair imperative']]
+};
+function applyCourseSentenceAdjustments(score, target, courseId, reasons, needFormula) {
+  if (needFormula) {
+    for (const [test, amount, label] of formulaDemands[courseId] || []) {
+      if (test(target)) { score += amount; reasons.push(label); }
+    }
+  }
+  for (const [test, floor, label] of sentenceFloors[courseId] || []) {
+    if (test(target)) { score = Math.max(score, floor); reasons.push(label); }
   }
   return score;
 }
@@ -216,11 +264,8 @@ function sentenceComplexity(text, item, courseId, reasons) {
   if (/^the (?:more|less|earlier|later|longer|sooner)\b.*\bthe (?:more|less|better|worse|longer|sooner)\b/u.test(normalized)) {
     score = Math.max(score, 78); reasons.push('correlative comparison and clause ordering');
   }
-  if (courseId === 'zh' && /[把被]/u.test(target)) score = Math.max(score, 58);
-  if (courseId === 'cz' && /(?:ěme|ejme|ujme)(?:\s|[!.])/u.test(target) && /\b(?:se|si)\b/u.test(target)) score = Math.max(score, 57);
   if (needFormula && /^(?:where|what|how|when)\b/u.test(plain)) score += 6;
-  if (needFormula && courseId === 'zh' && /(?:一遍|一次)/u.test(target)) score += 7;
-  if (needFormula && courseId === 'es' && /(?:habla|diga|dime|repita|repite)/u.test(target)) score += 6;
+  score = applyCourseSentenceAdjustments(score, target, courseId, reasons, needFormula);
   if (item.phase === 'transfer' || item.phase === 'assessment') { score += 7; reasons.push('transfer or assessment context'); }
   if (item.contrastGroupId) { score += 13; reasons.push('authored listening contrast'); }
   // Relative to the retained badge's assumed background. Formulaic phrases
@@ -287,7 +332,7 @@ export function proposeProgression({ item, kind, parent, detail = '', courseId =
     const irregular = /irregular|stem.chang|supplet|present-(?:e-i|e-ie|o-ue|g-j|zco|uir|poner|tener|seguir)/u.test(descriptors)
       || courseId === 'nb' && irregularBokmal.has(target) || spanishStemChanges.has(target);
     complexity = irregular ? 51 : 26;
-    if (/supplet/u.test(descriptors) || ['být','jít','ser','ir','be','være'].includes(target)) complexity += 9;
+    if (/supplet/u.test(descriptors) || ['být','jít','ser','ir','be','være','esse','كَانَ','ყოფნა','წასვლა'].includes(target)) complexity += 9;
     if (/reflexive/u.test(descriptors) || /(?:\sse|\ssi)$/u.test(target)) complexity += 12;
     if (/modal/u.test(descriptors)) complexity += 6;
     if (/perfective|motion|aspect/u.test(descriptors) && !/imperfective/u.test(descriptors)) complexity += 7;

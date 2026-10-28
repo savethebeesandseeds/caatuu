@@ -111,7 +111,7 @@
                 wordWorldManifest: "data/games/word-world/manifest.json?v=word-world-token-hints-1"
               },
               "conjugation-comet": {
-                conjugationCometCatalog: "data/games/conjugation-comet/content.json?v=conjugation-comet-verbs-5"
+                conjugationCometCatalog: "data/games/conjugation-comet/content.json?v=conjugation-comet-verbs-6"
               },
               "case-cosmos": {
                 caseCosmosCatalog: "data/games/case-cosmos/content.json?v=case-cosmos-data-8"
@@ -187,7 +187,7 @@
                 naturalizationNucleusCatalog: "data/games/naturalization-nucleus/content.json"
               },
               "sound-quasar": {
-                soundQuasarCatalog: "data/games/sound-quasar/content.json?v=sound-quasar-retained-levels-1"
+                soundQuasarCatalog: "data/games/sound-quasar/content.json?v=sound-quasar-retained-levels-2"
               },
               "memory-moon": {
                 memoryMoonCatalog: "data/games/memory-moon/content.json?v=memory-moon-2"
@@ -446,7 +446,7 @@
                 naturalizationNucleusCatalog: "data/games/naturalization-nucleus/content.json?v=arabic-reading-starter-1"
               },
               "sound-quasar": {
-                soundQuasarCatalog: "data/games/sound-quasar/content.json?v=sound-quasar-content-1"
+                soundQuasarCatalog: "data/games/sound-quasar/content.json?v=sound-quasar-content-2"
               },
               "memory-moon": {
                 memoryMoonCatalog: "data/games/memory-moon/content.json?v=memory-moon-1"

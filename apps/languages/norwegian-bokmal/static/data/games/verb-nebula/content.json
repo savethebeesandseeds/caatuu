@@ -6609,8 +6609,8 @@
     "category": "greetings",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 3
+    "usefulness": 94,
+    "complexity": 9
   },
   {
     "id": "zero-nb-lex-thanks",
@@ -6622,8 +6622,8 @@
     "category": "greetings",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 3
+    "usefulness": 94,
+    "complexity": 12
   },
   {
     "id": "zero-nb-lex-yes",
@@ -6635,8 +6635,8 @@
     "category": "greetings",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 3
+    "usefulness": 94,
+    "complexity": 9
   },
   {
     "id": "zero-nb-lex-no",
@@ -6648,8 +6648,8 @@
     "category": "greetings",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 3
+    "usefulness": 94,
+    "complexity": 9
   },
   {
     "id": "zero-nb-lex-sorry",
@@ -6661,8 +6661,8 @@
     "category": "greetings",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 3
+    "usefulness": 94,
+    "complexity": 9
   },
   {
     "id": "zero-nb-lex-help",
@@ -6674,8 +6674,8 @@
     "category": "greetings",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 3
+    "usefulness": 99,
+    "complexity": 15
   },
   {
     "id": "zero-nb-lex-i",
@@ -6687,8 +6687,8 @@
     "category": "people",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 3
+    "usefulness": 89,
+    "complexity": 9
   },
   {
     "id": "zero-nb-lex-you",
@@ -6700,8 +6700,8 @@
     "category": "people",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 3
+    "usefulness": 89,
+    "complexity": 9
   },
   {
     "id": "zero-nb-lex-mother",
@@ -6713,8 +6713,8 @@
     "category": "people",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 3
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "zero-nb-lex-father",
@@ -6726,8 +6726,8 @@
     "category": "people",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 3
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "zero-nb-lex-friend",
@@ -6739,8 +6739,8 @@
     "category": "people",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 3
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "zero-nb-lex-child",
@@ -6752,8 +6752,8 @@
     "category": "people",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 3
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "zero-nb-lex-one",
@@ -6765,8 +6765,8 @@
     "category": "numbers",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 3
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zero-nb-lex-two",
@@ -6778,8 +6778,8 @@
     "category": "numbers",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 3
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zero-nb-lex-three",
@@ -6791,8 +6791,8 @@
     "category": "numbers",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 3
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zero-nb-lex-four",
@@ -6804,8 +6804,8 @@
     "category": "numbers",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 3
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zero-nb-lex-five",
@@ -6817,8 +6817,8 @@
     "category": "numbers",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 3
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zero-nb-lex-water",
@@ -6831,7 +6831,7 @@
     "reviewStatus": "native-review-required",
     "revision": 1,
     "usefulness": 98,
-    "complexity": 3
+    "complexity": 15
   },
   {
     "id": "zero-nb-lex-bread",
@@ -6843,8 +6843,8 @@
     "category": "food-and-drink",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 3
+    "usefulness": 75,
+    "complexity": 21
   },
   {
     "id": "zero-nb-lex-milk",
@@ -6856,8 +6856,8 @@
     "category": "food-and-drink",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 3
+    "usefulness": 75,
+    "complexity": 21
   },
   {
     "id": "zero-nb-lex-apple",
@@ -6869,8 +6869,8 @@
     "category": "food-and-drink",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 3
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zero-nb-lex-tea",
@@ -6882,8 +6882,8 @@
     "category": "food-and-drink",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 3
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zero-nb-lex-house",
@@ -6895,8 +6895,8 @@
     "category": "home",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 3
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "zero-nb-lex-book",
@@ -6908,8 +6908,8 @@
     "category": "home",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 3
+    "usefulness": 73,
+    "complexity": 21
   },
   {
     "id": "zero-nb-lex-door",
@@ -6921,8 +6921,8 @@
     "category": "home",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 3
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zero-nb-lex-car",
@@ -6934,8 +6934,8 @@
     "category": "objects",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 3
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zero-nb-lex-cat",
@@ -6947,8 +6947,8 @@
     "category": "animals",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 3
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zero-nb-lex-dog",
@@ -6960,8 +6960,8 @@
     "category": "animals",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 3
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zero-nb-lex-big",
@@ -6973,8 +6973,8 @@
     "category": "properties",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 3
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zero-nb-lex-small",
@@ -6986,8 +6986,8 @@
     "category": "properties",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 3
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zero-nb-lex-good",
@@ -6999,8 +6999,8 @@
     "category": "properties",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 3
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zero-nb-lex-new",
@@ -7012,8 +7012,8 @@
     "category": "properties",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 3
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zero-nb-lex-red",
@@ -7025,8 +7025,8 @@
     "category": "properties",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 3
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zero-nb-lex-green",
@@ -7038,8 +7038,8 @@
     "category": "properties",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 3
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zero-nb-lex-hot",
@@ -7051,8 +7051,8 @@
     "category": "properties",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 3
+    "usefulness": 76,
+    "complexity": 21
   },
   {
     "id": "zero-nb-lex-cold",
@@ -7064,8 +7064,8 @@
     "category": "properties",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 3
+    "usefulness": 90,
+    "complexity": 22
   },
   {
     "id": "zero-nb-lex-eat",
@@ -7077,8 +7077,8 @@
     "category": "actions",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 7
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "zero-nb-lex-drink",
@@ -7090,8 +7090,8 @@
     "category": "actions",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 7
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "zero-nb-lex-go",
@@ -7103,8 +7103,8 @@
     "category": "actions",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 7
+    "usefulness": 63,
+    "complexity": 28
   },
   {
     "id": "zero-nb-lex-come",
@@ -7116,8 +7116,8 @@
     "category": "actions",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 7
+    "usefulness": 94,
+    "complexity": 15
   },
   {
     "id": "zero-nb-lex-sleep",
@@ -7129,8 +7129,8 @@
     "category": "actions",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 7
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "zero-nb-lex-read",
@@ -7142,8 +7142,8 @@
     "category": "actions",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 7
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "zero-nb-lex-write",
@@ -7155,8 +7155,8 @@
     "category": "actions",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 7
+    "usefulness": 89,
+    "complexity": 15
   },
   {
     "id": "zero-nb-lex-see",
@@ -7168,7 +7168,7 @@
     "category": "actions",
     "reviewStatus": "native-review-required",
     "revision": 1,
-    "usefulness": 98,
-    "complexity": 7
+    "usefulness": 89,
+    "complexity": 15
   }
 ]

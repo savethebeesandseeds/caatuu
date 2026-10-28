@@ -11958,8 +11958,8 @@
       ],
       "forms": [
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "first",
           "revision": 1,
           "subjectTargetText": "I",
@@ -11973,8 +11973,8 @@
           "englishAuditText": "I eat"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "second-singular",
           "revision": 1,
           "subjectTargetText": "you",
@@ -11988,8 +11988,8 @@
           "englishAuditText": "you eat"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "second",
           "revision": 1,
           "subjectTargetText": "he",
@@ -12003,8 +12003,8 @@
           "englishAuditText": "he eats"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 32,
           "id": "first-plural",
           "revision": 1,
           "subjectTargetText": "we",
@@ -12018,8 +12018,8 @@
           "englishAuditText": "we eat"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 32,
           "id": "second-plural",
           "revision": 1,
           "subjectTargetText": "you",
@@ -12033,8 +12033,8 @@
           "englishAuditText": "you eat"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 35,
           "id": "third-plural",
           "revision": 1,
           "subjectTargetText": "they",
@@ -12048,8 +12048,8 @@
           "englishAuditText": "they eat"
         }
       ],
-      "usefulness": 92,
-      "complexity": 6
+      "usefulness": 89,
+      "complexity": 26
     },
     {
       "id": "zero-es-en-conj-drink",
@@ -12068,8 +12068,8 @@
       ],
       "forms": [
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "first",
           "revision": 1,
           "subjectTargetText": "I",
@@ -12083,8 +12083,8 @@
           "englishAuditText": "I drink"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "second-singular",
           "revision": 1,
           "subjectTargetText": "you",
@@ -12098,8 +12098,8 @@
           "englishAuditText": "you drink"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "second",
           "revision": 1,
           "subjectTargetText": "he",
@@ -12113,8 +12113,8 @@
           "englishAuditText": "he drinks"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 32,
           "id": "first-plural",
           "revision": 1,
           "subjectTargetText": "we",
@@ -12128,8 +12128,8 @@
           "englishAuditText": "we drink"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 32,
           "id": "second-plural",
           "revision": 1,
           "subjectTargetText": "you",
@@ -12143,8 +12143,8 @@
           "englishAuditText": "you drink"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 35,
           "id": "third-plural",
           "revision": 1,
           "subjectTargetText": "they",
@@ -12158,8 +12158,8 @@
           "englishAuditText": "they drink"
         }
       ],
-      "usefulness": 92,
-      "complexity": 6
+      "usefulness": 89,
+      "complexity": 26
     },
     {
       "id": "zero-es-en-conj-sleep",
@@ -12189,8 +12189,8 @@
           },
           "learnerBaseCueText": "yo duermo",
           "englishAuditText": "I sleep",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "second-singular",
@@ -12204,8 +12204,8 @@
           },
           "learnerBaseCueText": "tú duermes",
           "englishAuditText": "you sleep",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "second",
@@ -12219,8 +12219,8 @@
           },
           "learnerBaseCueText": "él duerme",
           "englishAuditText": "he sleeps",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "first-plural",
@@ -12234,8 +12234,8 @@
           },
           "learnerBaseCueText": "nosotros dormimos",
           "englishAuditText": "we sleep",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 89,
+          "complexity": 32
         },
         {
           "id": "second-plural",
@@ -12249,8 +12249,8 @@
           },
           "learnerBaseCueText": "vosotros dormís",
           "englishAuditText": "you sleep",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 89,
+          "complexity": 32
         },
         {
           "id": "third-plural",
@@ -12264,12 +12264,12 @@
           },
           "learnerBaseCueText": "ellos duermen",
           "englishAuditText": "they sleep",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 89,
+          "complexity": 35
         }
       ],
-      "usefulness": 92,
-      "complexity": 6
+      "usefulness": 89,
+      "complexity": 26
     },
     {
       "id": "zero-es-en-conj-read",
@@ -12288,8 +12288,8 @@
       ],
       "forms": [
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "first",
           "revision": 1,
           "subjectTargetText": "I",
@@ -12303,8 +12303,8 @@
           "englishAuditText": "I read"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "second-singular",
           "revision": 1,
           "subjectTargetText": "you",
@@ -12318,8 +12318,8 @@
           "englishAuditText": "you read"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "second",
           "revision": 1,
           "subjectTargetText": "he",
@@ -12333,8 +12333,8 @@
           "englishAuditText": "he reads"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 32,
           "id": "first-plural",
           "revision": 1,
           "subjectTargetText": "we",
@@ -12348,8 +12348,8 @@
           "englishAuditText": "we read"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 32,
           "id": "second-plural",
           "revision": 1,
           "subjectTargetText": "you",
@@ -12363,8 +12363,8 @@
           "englishAuditText": "you read"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 35,
           "id": "third-plural",
           "revision": 1,
           "subjectTargetText": "they",
@@ -12378,8 +12378,8 @@
           "englishAuditText": "they read"
         }
       ],
-      "usefulness": 92,
-      "complexity": 6
+      "usefulness": 89,
+      "complexity": 26
     },
     {
       "id": "zero-es-en-conj-want",
@@ -12409,8 +12409,8 @@
           },
           "learnerBaseCueText": "yo quiero",
           "englishAuditText": "I want",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 94,
+          "complexity": 26
         },
         {
           "id": "second-singular",
@@ -12424,8 +12424,8 @@
           },
           "learnerBaseCueText": "tú quieres",
           "englishAuditText": "you want",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 94,
+          "complexity": 26
         },
         {
           "id": "second",
@@ -12439,8 +12439,8 @@
           },
           "learnerBaseCueText": "él quiere",
           "englishAuditText": "he wants",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 94,
+          "complexity": 26
         },
         {
           "id": "first-plural",
@@ -12454,8 +12454,8 @@
           },
           "learnerBaseCueText": "nosotros queremos",
           "englishAuditText": "we want",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 94,
+          "complexity": 32
         },
         {
           "id": "second-plural",
@@ -12469,8 +12469,8 @@
           },
           "learnerBaseCueText": "vosotros queréis",
           "englishAuditText": "you want",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 94,
+          "complexity": 32
         },
         {
           "id": "third-plural",
@@ -12484,12 +12484,12 @@
           },
           "learnerBaseCueText": "ellos quieren",
           "englishAuditText": "they want",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 94,
+          "complexity": 35
         }
       ],
-      "usefulness": 92,
-      "complexity": 6
+      "usefulness": 94,
+      "complexity": 26
     },
     {
       "id": "zero-es-en-conj-have",
@@ -12508,8 +12508,8 @@
       ],
       "forms": [
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 26,
           "id": "first",
           "revision": 1,
           "subjectTargetText": "I",
@@ -12523,8 +12523,8 @@
           "englishAuditText": "I have"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 26,
           "id": "second-singular",
           "revision": 1,
           "subjectTargetText": "you",
@@ -12538,8 +12538,8 @@
           "englishAuditText": "you have"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 26,
           "id": "second",
           "revision": 1,
           "subjectTargetText": "he",
@@ -12553,8 +12553,8 @@
           "englishAuditText": "he has"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 32,
           "id": "first-plural",
           "revision": 1,
           "subjectTargetText": "we",
@@ -12568,8 +12568,8 @@
           "englishAuditText": "we have"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 32,
           "id": "second-plural",
           "revision": 1,
           "subjectTargetText": "you",
@@ -12583,8 +12583,8 @@
           "englishAuditText": "you have"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 35,
           "id": "third-plural",
           "revision": 1,
           "subjectTargetText": "they",
@@ -12598,8 +12598,8 @@
           "englishAuditText": "they have"
         }
       ],
-      "usefulness": 92,
-      "complexity": 6
+      "usefulness": 94,
+      "complexity": 26
     },
     {
       "id": "zero-es-en-conj-expand-go",
@@ -12619,8 +12619,8 @@
       ],
       "forms": [
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 26,
           "id": "first",
           "revision": 1,
           "subjectTargetText": "I",
@@ -12634,8 +12634,8 @@
           "englishAuditText": "I go"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 26,
           "id": "second-singular",
           "revision": 1,
           "subjectTargetText": "you",
@@ -12649,8 +12649,8 @@
           "englishAuditText": "you go"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 26,
           "id": "second",
           "revision": 1,
           "subjectTargetText": "he",
@@ -12664,8 +12664,8 @@
           "englishAuditText": "he goes"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 32,
           "id": "first-plural",
           "revision": 1,
           "subjectTargetText": "we",
@@ -12679,8 +12679,8 @@
           "englishAuditText": "we go"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 32,
           "id": "second-plural",
           "revision": 1,
           "subjectTargetText": "you",
@@ -12694,8 +12694,8 @@
           "englishAuditText": "you go"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 35,
           "id": "third-plural",
           "revision": 1,
           "subjectTargetText": "they",
@@ -12709,8 +12709,8 @@
           "englishAuditText": "they go"
         }
       ],
-      "usefulness": 92,
-      "complexity": 6
+      "usefulness": 94,
+      "complexity": 26
     },
     {
       "id": "zero-es-en-conj-expand-see",
@@ -12741,8 +12741,8 @@
           },
           "learnerBaseCueText": "yo veo",
           "englishAuditText": "I see",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "second-singular",
@@ -12756,8 +12756,8 @@
           },
           "learnerBaseCueText": "tú ves",
           "englishAuditText": "you see",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "second",
@@ -12771,8 +12771,8 @@
           },
           "learnerBaseCueText": "él ve",
           "englishAuditText": "he sees",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "first-plural",
@@ -12786,8 +12786,8 @@
           },
           "learnerBaseCueText": "nosotros vemos",
           "englishAuditText": "we see",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 89,
+          "complexity": 32
         },
         {
           "id": "second-plural",
@@ -12801,8 +12801,8 @@
           },
           "learnerBaseCueText": "vosotros veis",
           "englishAuditText": "you see",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 89,
+          "complexity": 32
         },
         {
           "id": "third-plural",
@@ -12816,12 +12816,12 @@
           },
           "learnerBaseCueText": "ellos ven",
           "englishAuditText": "they see",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 89,
+          "complexity": 35
         }
       ],
-      "usefulness": 92,
-      "complexity": 6
+      "usefulness": 89,
+      "complexity": 26
     },
     {
       "id": "zero-es-en-conj-expand-sit",
@@ -12852,8 +12852,8 @@
           },
           "learnerBaseCueText": "yo me siento",
           "englishAuditText": "I sit",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "second-singular",
@@ -12867,8 +12867,8 @@
           },
           "learnerBaseCueText": "tú te sientas",
           "englishAuditText": "you sit",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "second",
@@ -12882,8 +12882,8 @@
           },
           "learnerBaseCueText": "él se sienta",
           "englishAuditText": "he sits",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 76,
+          "complexity": 26
         },
         {
           "id": "first-plural",
@@ -12897,8 +12897,8 @@
           },
           "learnerBaseCueText": "nosotros nos sentamos",
           "englishAuditText": "we sit",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 76,
+          "complexity": 32
         },
         {
           "id": "second-plural",
@@ -12912,8 +12912,8 @@
           },
           "learnerBaseCueText": "vosotros os sentáis",
           "englishAuditText": "you sit",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 76,
+          "complexity": 32
         },
         {
           "id": "third-plural",
@@ -12927,12 +12927,12 @@
           },
           "learnerBaseCueText": "ellos se sientan",
           "englishAuditText": "they sit",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 76,
+          "complexity": 35
         }
       ],
-      "usefulness": 92,
-      "complexity": 6
+      "usefulness": 76,
+      "complexity": 26
     },
     {
       "id": "zero-es-en-conj-expand-write",
@@ -12952,8 +12952,8 @@
       ],
       "forms": [
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "first",
           "revision": 1,
           "subjectTargetText": "I",
@@ -12967,8 +12967,8 @@
           "englishAuditText": "I write"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "second-singular",
           "revision": 1,
           "subjectTargetText": "you",
@@ -12982,8 +12982,8 @@
           "englishAuditText": "you write"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "second",
           "revision": 1,
           "subjectTargetText": "he",
@@ -12997,8 +12997,8 @@
           "englishAuditText": "he writes"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 32,
           "id": "first-plural",
           "revision": 1,
           "subjectTargetText": "we",
@@ -13012,8 +13012,8 @@
           "englishAuditText": "we write"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 32,
           "id": "second-plural",
           "revision": 1,
           "subjectTargetText": "you",
@@ -13027,8 +13027,8 @@
           "englishAuditText": "you write"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 35,
           "id": "third-plural",
           "revision": 1,
           "subjectTargetText": "they",
@@ -13042,8 +13042,8 @@
           "englishAuditText": "they write"
         }
       ],
-      "usefulness": 92,
-      "complexity": 6
+      "usefulness": 89,
+      "complexity": 26
     },
     {
       "id": "zero-es-en-conj-expand-hear",
@@ -13074,8 +13074,8 @@
           },
           "learnerBaseCueText": "yo oigo",
           "englishAuditText": "I hear",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "second-singular",
@@ -13089,8 +13089,8 @@
           },
           "learnerBaseCueText": "tú oyes",
           "englishAuditText": "you hear",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "second",
@@ -13104,8 +13104,8 @@
           },
           "learnerBaseCueText": "él oye",
           "englishAuditText": "he hears",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "first-plural",
@@ -13119,8 +13119,8 @@
           },
           "learnerBaseCueText": "nosotros oímos",
           "englishAuditText": "we hear",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 89,
+          "complexity": 32
         },
         {
           "id": "second-plural",
@@ -13134,8 +13134,8 @@
           },
           "learnerBaseCueText": "vosotros oís",
           "englishAuditText": "you hear",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 89,
+          "complexity": 32
         },
         {
           "id": "third-plural",
@@ -13149,12 +13149,12 @@
           },
           "learnerBaseCueText": "ellos oyen",
           "englishAuditText": "they hear",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 89,
+          "complexity": 35
         }
       ],
-      "usefulness": 92,
-      "complexity": 6
+      "usefulness": 89,
+      "complexity": 26
     },
     {
       "id": "zero-es-en-conj-expand-speak",
@@ -13174,8 +13174,8 @@
       ],
       "forms": [
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 26,
           "id": "first",
           "revision": 1,
           "subjectTargetText": "I",
@@ -13189,8 +13189,8 @@
           "englishAuditText": "I speak"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 26,
           "id": "second-singular",
           "revision": 1,
           "subjectTargetText": "you",
@@ -13204,8 +13204,8 @@
           "englishAuditText": "you speak"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 26,
           "id": "second",
           "revision": 1,
           "subjectTargetText": "he",
@@ -13219,8 +13219,8 @@
           "englishAuditText": "he speaks"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 32,
           "id": "first-plural",
           "revision": 1,
           "subjectTargetText": "we",
@@ -13234,8 +13234,8 @@
           "englishAuditText": "we speak"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 32,
           "id": "second-plural",
           "revision": 1,
           "subjectTargetText": "you",
@@ -13249,8 +13249,8 @@
           "englishAuditText": "you speak"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 35,
           "id": "third-plural",
           "revision": 1,
           "subjectTargetText": "they",
@@ -13264,8 +13264,8 @@
           "englishAuditText": "they speak"
         }
       ],
-      "usefulness": 92,
-      "complexity": 6
+      "usefulness": 94,
+      "complexity": 26
     }
   ]
 }

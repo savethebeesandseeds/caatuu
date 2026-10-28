@@ -1,5 +1,17 @@
 # Changelog
 
+## Android 197 / 0.1.45
+
+- Regrade usefulness and complexity on every course with the shared rubric.
+  Listening rows that match a word or sentence source keep that source's score,
+  so practice ranking is no longer piled at the top of the scale.
+- Keep target-language spelling in the target field when an English audit line
+  used a letter the embedding guard rejects. Those English lines now use ASCII
+  spellings.
+- Refresh offline catalogs for every course after the grade and audit updates.
+- Physical-device installation, update, offline use and saved-data preservation
+  remain unverified for this candidate. Course review status is unchanged.
+
 ## Android 196 / 0.1.44
 
 - Restore Memory Moon as a playable planet on every course. Its shared host

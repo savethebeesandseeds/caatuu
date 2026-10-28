@@ -72,6 +72,11 @@ function bytesToHex(bytes) {
   return Array.from(bytes, (byte) => byte.toString(16).padStart(2, "0")).join("");
 }
 
+/** A catalog row the pair builder can project. Dictionary leftovers in the same file are not Verb Lab records. */
+export function isVerbNebulaLearningRow(row) {
+  return projectCoreVerbPair(row, 0) !== null;
+}
+
 export function extractCoreVerbPairs(dictionary, options = {}) {
   if (!Array.isArray(dictionary)) return [];
 

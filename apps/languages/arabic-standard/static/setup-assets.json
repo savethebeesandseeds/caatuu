@@ -7,7 +7,7 @@
     "appEntry": "apps/language-runtime/static/app/index.html"
   },
   "offline": {
-    "cacheName": "caatuu-ar-pwa-v47",
+    "cacheName": "caatuu-ar-pwa-v49",
     "cachePrefix": "caatuu-ar-pwa-",
     "assets": [
       "/language-runtime/static/assets/initial-image.png",
@@ -60,8 +60,8 @@
       "/language-runtime/static/source/games/grammar-gravity/adjective-flight-core.mjs?v=grammar-journey-6",
       "/language-runtime/static/source/games/grammar-gravity/adjective-flight-host.mjs?v=adjective-flight-host-28",
       "/assets/icons/clock_icon.png",
-      "/language-runtime/static/source/games/conjugation-comet/conjugation-comet-core.mjs?v=conjugation-comet-core-6",
-      "/language-runtime/static/source/games/conjugation-comet/conjugation-comet-host.mjs?v=conjugation-comet-shared-26",
+      "/language-runtime/static/source/games/conjugation-comet/conjugation-comet-core.mjs?v=conjugation-comet-core-7",
+      "/language-runtime/static/source/games/conjugation-comet/conjugation-comet-host.mjs?v=conjugation-comet-shared-27",
       "/language-runtime/static/styles/games/grammar-gravity.css?v=grammar-gravity-shared-39",
       "/language-runtime/static/styles/games/conjugation-comet.css?v=conjugation-comet-shared-10",
       "/language-runtime/static/source/caatuu-workspace.js?v=workspace-59",
@@ -200,7 +200,7 @@
       "/language-runtime/static/source/games/sound-quasar/sound-quasar-host.mjs?v=sound-quasar-27",
       "/language-runtime/static/source/games/sound-quasar/sound-quasar-core.mjs?v=sound-quasar-13",
       "/language-runtime/static/styles/games/sound-quasar.css?v=sound-quasar-9",
-      "data/games/sound-quasar/content.json?v=sound-quasar-content-1",
+      "data/games/sound-quasar/content.json?v=sound-quasar-content-2",
       "/language-runtime/static/source/target-text-tones.mjs?v=target-text-tones-1",
       "/language-runtime/static/source/target-text.mjs?v=target-text-1",
       "/language-runtime/static/styles/caatuu-target-text.css?v=target-text-4",
@@ -333,8 +333,8 @@
       "kind": "course-game-content",
       "url": "/ar/data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-1",
       "browserRequired": true,
-      "bytes": 150363,
-      "sha256": "7f59e4009d52c0cf88fecb29151f8eeb371e9e8a3f12175bdd9fae32d4f0eaad"
+      "bytes": 150397,
+      "sha256": "9fd270c06ee5cd59f7c461d9ec61b751566d20d1b763b46307e0c67169e7b7a0"
     },
     {
       "key": "app-entry",
@@ -350,7 +350,7 @@
       "url": "/ar/source/shared/course-profile.js",
       "browserRequired": true,
       "bytes": 28218,
-      "sha256": "b35c5c24680c0616b12625aee4e505dd0440a8a9e8d55d19be3dbe3f64a93907"
+      "sha256": "aa35cb41498d1f3e7542932ddf164d58d7041df89c1343b2da35d5e1df049db2"
     },
     {
       "key": "shared-app-bootstrap",
@@ -437,8 +437,8 @@
       "kind": "shared-game-runtime",
       "url": "/language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs",
       "browserRequired": true,
-      "bytes": 20420,
-      "sha256": "0f29cc274c10abc9a99589a4ce50f441e99c31b512b817706209582d8a5998e8"
+      "bytes": 20632,
+      "sha256": "6cc74697f13e5f8d779638ba99573b059cf2a09c7339f25e236b3cac82f64a04"
     },
     {
       "key": "verb-exercise-family-core",
@@ -478,7 +478,7 @@
       "url": "/language-runtime/static/source/learning-profile.js",
       "browserRequired": true,
       "bytes": 113673,
-      "sha256": "9ed963c77b4164f5ad1cc6236d21ffe63c7917b0871ac7f8877a4a8d4907d434"
+      "sha256": "bae9d3539048feadd01af8a3b5dd0e0a2b65ce569e8f1765d27ea6538a118e74"
     },
     {
       "key": "product-word-world",
@@ -573,8 +573,8 @@
       "kind": "english-concept-catalog",
       "url": "/language-runtime/static/data/english-concepts/word-world-ar-v1.json",
       "browserRequired": true,
-      "bytes": 883971,
-      "sha256": "be5a9a9f431ae6fd111ef8d8897e50867a505c89555d723985368231d8a02274"
+      "bytes": 884039,
+      "sha256": "0d27ac6c2eec77e5806ee4de0d0f96e309dbbcaa34553e316787e154e275cd35"
     },
     {
       "key": "target-realizations",
@@ -597,8 +597,8 @@
       "kind": "course-game-content",
       "url": "/ar/data/games/verb-nebula/content.json",
       "browserRequired": true,
-      "bytes": 191565,
-      "sha256": "e6eb562217bab355d3b9522b6bf333982ebf26d39383f4c9cc59996e45dc134d"
+      "bytes": 191602,
+      "sha256": "c607325f842646fe1a00c17c2e27793fa315bf924776abc364770ac63d2719b2"
     },
     {
       "key": "embedding-catalog",
@@ -622,7 +622,7 @@
       "url": "/ar/sw.js",
       "browserRequired": true,
       "bytes": 136,
-      "sha256": "a4662b603c76aef2c9ebcc53a8ade0a6f2c82cfcce93aa2dbbd54c954e9fffed"
+      "sha256": "37ba2779695c335e501541c20c2689cd7bd6b3bfd6875f9626d8f89f8bbd0840"
     },
     {
       "key": "shared-course-service-worker",
@@ -719,8 +719,8 @@
       "kind": "course-game-content",
       "url": "/ar/data/games/naturalization-nucleus/content.json",
       "browserRequired": true,
-      "bytes": 34656,
-      "sha256": "275aa62fa7ae666979a2ceaa5c0cc9447b56725527998c440389cc4d0693a31d"
+      "bytes": 34700,
+      "sha256": "2b6f2320ee6eddef44eb67121e9144bba4331fd17cfbfd3648b9015fafa9b8b1"
     },
     {
       "key": "naturalization-nucleus-controller",

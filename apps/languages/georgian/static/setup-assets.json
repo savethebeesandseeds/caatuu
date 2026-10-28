@@ -7,7 +7,7 @@
     "appEntry": "apps/language-runtime/static/app/index.html"
   },
   "offline": {
-    "cacheName": "caatuu-ka-pwa-v26",
+    "cacheName": "caatuu-ka-pwa-v27",
     "cachePrefix": "caatuu-ka-pwa-",
     "assets": [
       "/language-runtime/static/assets/initial-image.png",
@@ -60,8 +60,8 @@
       "/language-runtime/static/source/games/grammar-gravity/adjective-flight-core.mjs?v=grammar-journey-6",
       "/language-runtime/static/source/games/grammar-gravity/adjective-flight-host.mjs?v=adjective-flight-host-28",
       "/assets/icons/clock_icon.png",
-      "/language-runtime/static/source/games/conjugation-comet/conjugation-comet-core.mjs?v=conjugation-comet-core-6",
-      "/language-runtime/static/source/games/conjugation-comet/conjugation-comet-host.mjs?v=conjugation-comet-shared-26",
+      "/language-runtime/static/source/games/conjugation-comet/conjugation-comet-core.mjs?v=conjugation-comet-core-7",
+      "/language-runtime/static/source/games/conjugation-comet/conjugation-comet-host.mjs?v=conjugation-comet-shared-27",
       "/language-runtime/static/styles/games/grammar-gravity.css?v=grammar-gravity-shared-39",
       "/language-runtime/static/styles/games/conjugation-comet.css?v=conjugation-comet-shared-10",
       "/language-runtime/static/source/caatuu-workspace.js?v=workspace-59",
@@ -331,8 +331,8 @@
       "kind": "course-game-content",
       "url": "/ka/data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-2",
       "browserRequired": true,
-      "bytes": 51716,
-      "sha256": "c23a6ab22f97b7f4680a8bfdf1fbeb06275ea3128c12c07ec873970ca862de2f"
+      "bytes": 51748,
+      "sha256": "8304373843553978aa55de7d695334b26dae081f146f53d86c55f109e5596781"
     },
     {
       "key": "app-entry",
@@ -348,7 +348,7 @@
       "url": "/ka/source/shared/course-profile.js",
       "browserRequired": true,
       "bytes": 24800,
-      "sha256": "29ec67f5f859975253b309b371c145c2803011604f2e3e752a284ce87e344a44"
+      "sha256": "edb5539e7b2194b6e703f53132ff6cd7326ce51c4a56499a0b85458157b51596"
     },
     {
       "key": "shared-app-bootstrap",
@@ -435,8 +435,8 @@
       "kind": "shared-game-runtime",
       "url": "/language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs",
       "browserRequired": true,
-      "bytes": 20420,
-      "sha256": "0f29cc274c10abc9a99589a4ce50f441e99c31b512b817706209582d8a5998e8"
+      "bytes": 20632,
+      "sha256": "6cc74697f13e5f8d779638ba99573b059cf2a09c7339f25e236b3cac82f64a04"
     },
     {
       "key": "verb-exercise-family-core",
@@ -476,7 +476,7 @@
       "url": "/language-runtime/static/source/learning-profile.js",
       "browserRequired": true,
       "bytes": 113673,
-      "sha256": "9ed963c77b4164f5ad1cc6236d21ffe63c7917b0871ac7f8877a4a8d4907d434"
+      "sha256": "bae9d3539048feadd01af8a3b5dd0e0a2b65ce569e8f1765d27ea6538a118e74"
     },
     {
       "key": "product-word-world",
@@ -571,8 +571,8 @@
       "kind": "english-concept-catalog",
       "url": "/language-runtime/static/data/english-concepts/word-world-ka-v1.json",
       "browserRequired": true,
-      "bytes": 786019,
-      "sha256": "0036f0ed66e40aca1a4a51715075caf16fe9e52fff4f4088c97ad83e6f809f9a"
+      "bytes": 786124,
+      "sha256": "00bc01d07fc6a714d2c8871bba63d76d28b480db44e41fdd63ef73d6f3b73dcc"
     },
     {
       "key": "target-realizations",
@@ -595,8 +595,8 @@
       "kind": "course-game-content",
       "url": "/ka/data/games/verb-nebula/content.json",
       "browserRequired": true,
-      "bytes": 208977,
-      "sha256": "1508f02877838d6c2a43d5559c659319b08cb80a7e21c926986c72221ebff73c"
+      "bytes": 209018,
+      "sha256": "8842727312d784948e8d13723d2bb1f0de86653d8d0fb7313af616c9546acd93"
     },
     {
       "key": "embedding-catalog",
@@ -620,7 +620,7 @@
       "url": "/ka/sw.js",
       "browserRequired": true,
       "bytes": 136,
-      "sha256": "83576747483d2d6d1af700adb8acced2e4b572fa4642aa62e45be9d66c7e63d4"
+      "sha256": "16ae8ff1d1fb212b60f61294c946949329e36ca9b4b3df3cf479c6bebefee8a2"
     },
     {
       "key": "shared-course-service-worker",

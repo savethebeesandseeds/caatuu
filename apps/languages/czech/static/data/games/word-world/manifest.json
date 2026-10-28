@@ -24,9 +24,9 @@
     "modelId": "all-minilm-l6-v2-qint8-v0.1",
     "fallback": "deterministic-lexical"
   },
-  "runtimeFile": "content.json?v=e2cc3236e54f6245",
+  "runtimeFile": "content.json?v=af718eeafb6c3558",
   "recordCount": 927,
-  "contentSha256": "e2cc3236e54f62455e4327e8074ea1dbc89dd1addec319a5b114496db1635c48",
+  "contentSha256": "af718eeafb6c3558c9bd621a45b696d8727f0804c7a4ffb09e39aa197cf7a5dd",
   "difficultyDistribution": {
     "0": 94,
     "1": 188,

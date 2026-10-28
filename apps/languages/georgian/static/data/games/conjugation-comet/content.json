@@ -76,8 +76,8 @@
         "copula",
         "present"
       ],
-      "usefulness": 98,
-      "complexity": 20,
+      "usefulness": 77,
+      "complexity": 35,
       "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
       "forms": [
         {
@@ -92,8 +92,8 @@
           },
           "learnerBaseCueText": "I: be at home (present)",
           "englishAuditText": "I: be at home (present)",
-          "usefulness": 98,
-          "complexity": 20
+          "usefulness": 77,
+          "complexity": 35
         },
         {
           "id": "you-sg",
@@ -107,8 +107,8 @@
           },
           "learnerBaseCueText": "you (singular): be at home (present)",
           "englishAuditText": "you (singular): be at home (present)",
-          "usefulness": 98,
-          "complexity": 20
+          "usefulness": 77,
+          "complexity": 35
         },
         {
           "id": "third-sg",
@@ -122,8 +122,8 @@
           },
           "learnerBaseCueText": "he / she: be at home (present)",
           "englishAuditText": "he / she: be at home (present)",
-          "usefulness": 98,
-          "complexity": 20
+          "usefulness": 77,
+          "complexity": 38
         },
         {
           "id": "we",
@@ -137,8 +137,8 @@
           },
           "learnerBaseCueText": "we: be at home (present)",
           "englishAuditText": "we: be at home (present)",
-          "usefulness": 98,
-          "complexity": 20
+          "usefulness": 77,
+          "complexity": 35
         },
         {
           "id": "you-pl",
@@ -152,8 +152,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): be at home (present)",
           "englishAuditText": "you (plural / polite): be at home (present)",
-          "usefulness": 98,
-          "complexity": 20
+          "usefulness": 77,
+          "complexity": 35
         },
         {
           "id": "third-pl",
@@ -167,8 +167,8 @@
           },
           "learnerBaseCueText": "they: be at home (present)",
           "englishAuditText": "they: be at home (present)",
-          "usefulness": 98,
-          "complexity": 20
+          "usefulness": 77,
+          "complexity": 38
         }
       ]
     },
@@ -187,8 +187,8 @@
         "copula",
         "future"
       ],
-      "usefulness": 98,
-      "complexity": 36,
+      "usefulness": 77,
+      "complexity": 35,
       "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
       "forms": [
         {
@@ -203,8 +203,8 @@
           },
           "learnerBaseCueText": "I: be at home (future)",
           "englishAuditText": "I: be at home (future)",
-          "usefulness": 98,
-          "complexity": 36
+          "usefulness": 77,
+          "complexity": 35
         },
         {
           "id": "you-sg",
@@ -218,8 +218,8 @@
           },
           "learnerBaseCueText": "you (singular): be at home (future)",
           "englishAuditText": "you (singular): be at home (future)",
-          "usefulness": 98,
-          "complexity": 36
+          "usefulness": 77,
+          "complexity": 35
         },
         {
           "id": "third-sg",
@@ -233,8 +233,8 @@
           },
           "learnerBaseCueText": "he / she: be at home (future)",
           "englishAuditText": "he / she: be at home (future)",
-          "usefulness": 98,
-          "complexity": 36
+          "usefulness": 77,
+          "complexity": 38
         },
         {
           "id": "we",
@@ -248,8 +248,8 @@
           },
           "learnerBaseCueText": "we: be at home (future)",
           "englishAuditText": "we: be at home (future)",
-          "usefulness": 98,
-          "complexity": 36
+          "usefulness": 77,
+          "complexity": 35
         },
         {
           "id": "you-pl",
@@ -263,8 +263,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): be at home (future)",
           "englishAuditText": "you (plural / polite): be at home (future)",
-          "usefulness": 98,
-          "complexity": 36
+          "usefulness": 77,
+          "complexity": 35
         },
         {
           "id": "third-pl",
@@ -278,8 +278,8 @@
           },
           "learnerBaseCueText": "they: be at home (future)",
           "englishAuditText": "they: be at home (future)",
-          "usefulness": 98,
-          "complexity": 36
+          "usefulness": 77,
+          "complexity": 38
         }
       ]
     },
@@ -298,8 +298,8 @@
         "copula",
         "aorist"
       ],
-      "usefulness": 98,
-      "complexity": 52,
+      "usefulness": 77,
+      "complexity": 35,
       "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
       "forms": [
         {
@@ -314,8 +314,8 @@
           },
           "learnerBaseCueText": "I: be at home (completed past)",
           "englishAuditText": "I: be at home (completed past)",
-          "usefulness": 98,
-          "complexity": 52
+          "usefulness": 77,
+          "complexity": 35
         },
         {
           "id": "you-sg",
@@ -329,8 +329,8 @@
           },
           "learnerBaseCueText": "you (singular): be at home (completed past)",
           "englishAuditText": "you (singular): be at home (completed past)",
-          "usefulness": 98,
-          "complexity": 52
+          "usefulness": 77,
+          "complexity": 35
         },
         {
           "id": "third-sg",
@@ -344,8 +344,8 @@
           },
           "learnerBaseCueText": "he / she: be at home (completed past)",
           "englishAuditText": "he / she: be at home (completed past)",
-          "usefulness": 98,
-          "complexity": 52
+          "usefulness": 77,
+          "complexity": 38
         },
         {
           "id": "we",
@@ -359,8 +359,8 @@
           },
           "learnerBaseCueText": "we: be at home (completed past)",
           "englishAuditText": "we: be at home (completed past)",
-          "usefulness": 98,
-          "complexity": 52
+          "usefulness": 77,
+          "complexity": 35
         },
         {
           "id": "you-pl",
@@ -374,8 +374,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): be at home (completed past)",
           "englishAuditText": "you (plural / polite): be at home (completed past)",
-          "usefulness": 98,
-          "complexity": 52
+          "usefulness": 77,
+          "complexity": 35
         },
         {
           "id": "third-pl",
@@ -389,8 +389,8 @@
           },
           "learnerBaseCueText": "they: be at home (completed past)",
           "englishAuditText": "they: be at home (completed past)",
-          "usefulness": 98,
-          "complexity": 52
+          "usefulness": 77,
+          "complexity": 38
         }
       ]
     },
@@ -409,8 +409,8 @@
         "inversion",
         "present"
       ],
-      "usefulness": 98,
-      "complexity": 21,
+      "usefulness": 73,
+      "complexity": 26,
       "teachingNoteBaseText": "These present forms use an experiencer or possessor in the dative and a nominative stimulus or possession. The prefixes identify the person; the ordinary third-person subject pronouns are მას / მათ. Animate possession uses ყოლა; inanimate possession uses ქონა.",
       "forms": [
         {
@@ -425,8 +425,8 @@
           },
           "learnerBaseCueText": "I: have a book (present)",
           "englishAuditText": "I: have a book (present)",
-          "usefulness": 98,
-          "complexity": 21
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -440,8 +440,8 @@
           },
           "learnerBaseCueText": "you (singular): have a book (present)",
           "englishAuditText": "you (singular): have a book (present)",
-          "usefulness": 98,
-          "complexity": 21
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -455,8 +455,8 @@
           },
           "learnerBaseCueText": "he / she: have a book (present)",
           "englishAuditText": "he / she: have a book (present)",
-          "usefulness": 98,
-          "complexity": 21
+          "usefulness": 73,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -470,8 +470,8 @@
           },
           "learnerBaseCueText": "we: have a book (present)",
           "englishAuditText": "we: have a book (present)",
-          "usefulness": 98,
-          "complexity": 21
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -485,8 +485,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): have a book (present)",
           "englishAuditText": "you (plural / polite): have a book (present)",
-          "usefulness": 98,
-          "complexity": 21
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -500,8 +500,8 @@
           },
           "learnerBaseCueText": "they: have a book (present)",
           "englishAuditText": "they: have a book (present)",
-          "usefulness": 98,
-          "complexity": 21
+          "usefulness": 73,
+          "complexity": 29
         }
       ]
     },
@@ -520,8 +520,8 @@
         "inversion",
         "present"
       ],
-      "usefulness": 98,
-      "complexity": 22,
+      "usefulness": 77,
+      "complexity": 26,
       "teachingNoteBaseText": "These present forms use an experiencer or possessor in the dative and a nominative stimulus or possession. The prefixes identify the person; the ordinary third-person subject pronouns are მას / მათ. Animate possession uses ყოლა; inanimate possession uses ქონა.",
       "forms": [
         {
@@ -536,8 +536,8 @@
           },
           "learnerBaseCueText": "I: have a friend (present)",
           "englishAuditText": "I: have a friend (present)",
-          "usefulness": 98,
-          "complexity": 22
+          "usefulness": 77,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -551,8 +551,8 @@
           },
           "learnerBaseCueText": "you (singular): have a friend (present)",
           "englishAuditText": "you (singular): have a friend (present)",
-          "usefulness": 98,
-          "complexity": 22
+          "usefulness": 77,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -566,8 +566,8 @@
           },
           "learnerBaseCueText": "he / she: have a friend (present)",
           "englishAuditText": "he / she: have a friend (present)",
-          "usefulness": 98,
-          "complexity": 22
+          "usefulness": 77,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -581,8 +581,8 @@
           },
           "learnerBaseCueText": "we: have a friend (present)",
           "englishAuditText": "we: have a friend (present)",
-          "usefulness": 98,
-          "complexity": 22
+          "usefulness": 77,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -596,8 +596,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): have a friend (present)",
           "englishAuditText": "you (plural / polite): have a friend (present)",
-          "usefulness": 98,
-          "complexity": 22
+          "usefulness": 77,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -611,8 +611,8 @@
           },
           "learnerBaseCueText": "they: have a friend (present)",
           "englishAuditText": "they: have a friend (present)",
-          "usefulness": 98,
-          "complexity": 22
+          "usefulness": 77,
+          "complexity": 29
         }
       ]
     },
@@ -631,8 +631,8 @@
         "inversion",
         "present"
       ],
-      "usefulness": 98,
-      "complexity": 23,
+      "usefulness": 88,
+      "complexity": 26,
       "teachingNoteBaseText": "These present forms use an experiencer or possessor in the dative and a nominative stimulus or possession. The prefixes identify the person; the ordinary third-person subject pronouns are მას / მათ. Animate possession uses ყოლა; inanimate possession uses ქონა.",
       "forms": [
         {
@@ -647,8 +647,8 @@
           },
           "learnerBaseCueText": "I: want water (present)",
           "englishAuditText": "I: want water (present)",
-          "usefulness": 98,
-          "complexity": 23
+          "usefulness": 88,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -662,8 +662,8 @@
           },
           "learnerBaseCueText": "you (singular): want water (present)",
           "englishAuditText": "you (singular): want water (present)",
-          "usefulness": 98,
-          "complexity": 23
+          "usefulness": 88,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -677,8 +677,8 @@
           },
           "learnerBaseCueText": "he / she: want water (present)",
           "englishAuditText": "he / she: want water (present)",
-          "usefulness": 98,
-          "complexity": 23
+          "usefulness": 88,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -692,8 +692,8 @@
           },
           "learnerBaseCueText": "we: want water (present)",
           "englishAuditText": "we: want water (present)",
-          "usefulness": 98,
-          "complexity": 23
+          "usefulness": 88,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -707,8 +707,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): want water (present)",
           "englishAuditText": "you (plural / polite): want water (present)",
-          "usefulness": 98,
-          "complexity": 23
+          "usefulness": 88,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -722,8 +722,8 @@
           },
           "learnerBaseCueText": "they: want water (present)",
           "englishAuditText": "they: want water (present)",
-          "usefulness": 98,
-          "complexity": 23
+          "usefulness": 88,
+          "complexity": 29
         }
       ]
     },
@@ -742,8 +742,8 @@
         "inversion",
         "present"
       ],
-      "usefulness": 98,
-      "complexity": 24,
+      "usefulness": 62,
+      "complexity": 26,
       "teachingNoteBaseText": "These present forms use an experiencer or possessor in the dative and a nominative stimulus or possession. The prefixes identify the person; the ordinary third-person subject pronouns are მას / მათ. Animate possession uses ყოლა; inanimate possession uses ქონა.",
       "forms": [
         {
@@ -758,8 +758,8 @@
           },
           "learnerBaseCueText": "I: like music (present)",
           "englishAuditText": "I: like music (present)",
-          "usefulness": 98,
-          "complexity": 24
+          "usefulness": 62,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -773,8 +773,8 @@
           },
           "learnerBaseCueText": "you (singular): like music (present)",
           "englishAuditText": "you (singular): like music (present)",
-          "usefulness": 98,
-          "complexity": 24
+          "usefulness": 62,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -788,8 +788,8 @@
           },
           "learnerBaseCueText": "he / she: like music (present)",
           "englishAuditText": "he / she: like music (present)",
-          "usefulness": 98,
-          "complexity": 24
+          "usefulness": 62,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -803,8 +803,8 @@
           },
           "learnerBaseCueText": "we: like music (present)",
           "englishAuditText": "we: like music (present)",
-          "usefulness": 98,
-          "complexity": 24
+          "usefulness": 62,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -818,8 +818,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): like music (present)",
           "englishAuditText": "you (plural / polite): like music (present)",
-          "usefulness": 98,
-          "complexity": 24
+          "usefulness": 62,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -833,8 +833,8 @@
           },
           "learnerBaseCueText": "they: like music (present)",
           "englishAuditText": "they: like music (present)",
-          "usefulness": 98,
-          "complexity": 24
+          "usefulness": 62,
+          "complexity": 29
         }
       ]
     },
@@ -853,8 +853,8 @@
         "transitive",
         "present"
       ],
-      "usefulness": 98,
-      "complexity": 25,
+      "usefulness": 73,
+      "complexity": 26,
       "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
       "forms": [
         {
@@ -869,8 +869,8 @@
           },
           "learnerBaseCueText": "I: read a book (present)",
           "englishAuditText": "I: read a book (present)",
-          "usefulness": 98,
-          "complexity": 25
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -884,8 +884,8 @@
           },
           "learnerBaseCueText": "you (singular): read a book (present)",
           "englishAuditText": "you (singular): read a book (present)",
-          "usefulness": 98,
-          "complexity": 25
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -899,8 +899,8 @@
           },
           "learnerBaseCueText": "he / she: read a book (present)",
           "englishAuditText": "he / she: read a book (present)",
-          "usefulness": 98,
-          "complexity": 25
+          "usefulness": 73,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -914,8 +914,8 @@
           },
           "learnerBaseCueText": "we: read a book (present)",
           "englishAuditText": "we: read a book (present)",
-          "usefulness": 98,
-          "complexity": 25
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -929,8 +929,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): read a book (present)",
           "englishAuditText": "you (plural / polite): read a book (present)",
-          "usefulness": 98,
-          "complexity": 25
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -944,8 +944,8 @@
           },
           "learnerBaseCueText": "they: read a book (present)",
           "englishAuditText": "they: read a book (present)",
-          "usefulness": 98,
-          "complexity": 25
+          "usefulness": 73,
+          "complexity": 29
         }
       ]
     },
@@ -964,8 +964,8 @@
         "transitive",
         "future"
       ],
-      "usefulness": 98,
-      "complexity": 41,
+      "usefulness": 73,
+      "complexity": 26,
       "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
       "forms": [
         {
@@ -980,8 +980,8 @@
           },
           "learnerBaseCueText": "I: read a book (future)",
           "englishAuditText": "I: read a book (future)",
-          "usefulness": 98,
-          "complexity": 41
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -995,8 +995,8 @@
           },
           "learnerBaseCueText": "you (singular): read a book (future)",
           "englishAuditText": "you (singular): read a book (future)",
-          "usefulness": 98,
-          "complexity": 41
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -1010,8 +1010,8 @@
           },
           "learnerBaseCueText": "he / she: read a book (future)",
           "englishAuditText": "he / she: read a book (future)",
-          "usefulness": 98,
-          "complexity": 41
+          "usefulness": 73,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -1025,8 +1025,8 @@
           },
           "learnerBaseCueText": "we: read a book (future)",
           "englishAuditText": "we: read a book (future)",
-          "usefulness": 98,
-          "complexity": 41
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -1040,8 +1040,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): read a book (future)",
           "englishAuditText": "you (plural / polite): read a book (future)",
-          "usefulness": 98,
-          "complexity": 41
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -1055,8 +1055,8 @@
           },
           "learnerBaseCueText": "they: read a book (future)",
           "englishAuditText": "they: read a book (future)",
-          "usefulness": 98,
-          "complexity": 41
+          "usefulness": 73,
+          "complexity": 29
         }
       ]
     },
@@ -1075,8 +1075,8 @@
         "transitive",
         "aorist"
       ],
-      "usefulness": 98,
-      "complexity": 57,
+      "usefulness": 73,
+      "complexity": 26,
       "teachingNoteBaseText": "This past screeve uses an ergative subject (მან / მათ) for this verb. A direct object is nominative: compare წიგნს in the present with წიგნი in the completed past.",
       "forms": [
         {
@@ -1091,8 +1091,8 @@
           },
           "learnerBaseCueText": "I: read a book (completed past)",
           "englishAuditText": "I: read a book (completed past)",
-          "usefulness": 98,
-          "complexity": 57
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -1106,8 +1106,8 @@
           },
           "learnerBaseCueText": "you (singular): read a book (completed past)",
           "englishAuditText": "you (singular): read a book (completed past)",
-          "usefulness": 98,
-          "complexity": 57
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -1121,8 +1121,8 @@
           },
           "learnerBaseCueText": "he / she: read a book (completed past)",
           "englishAuditText": "he / she: read a book (completed past)",
-          "usefulness": 98,
-          "complexity": 57
+          "usefulness": 73,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -1136,8 +1136,8 @@
           },
           "learnerBaseCueText": "we: read a book (completed past)",
           "englishAuditText": "we: read a book (completed past)",
-          "usefulness": 98,
-          "complexity": 57
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -1151,8 +1151,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): read a book (completed past)",
           "englishAuditText": "you (plural / polite): read a book (completed past)",
-          "usefulness": 98,
-          "complexity": 57
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -1166,8 +1166,8 @@
           },
           "learnerBaseCueText": "they: read a book (completed past)",
           "englishAuditText": "they: read a book (completed past)",
-          "usefulness": 98,
-          "complexity": 57
+          "usefulness": 73,
+          "complexity": 29
         }
       ]
     },
@@ -1186,7 +1186,7 @@
         "transitive",
         "present"
       ],
-      "usefulness": 98,
+      "usefulness": 73,
       "complexity": 26,
       "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
       "forms": [
@@ -1202,7 +1202,7 @@
           },
           "learnerBaseCueText": "I: write a letter (present)",
           "englishAuditText": "I: write a letter (present)",
-          "usefulness": 98,
+          "usefulness": 73,
           "complexity": 26
         },
         {
@@ -1217,7 +1217,7 @@
           },
           "learnerBaseCueText": "you (singular): write a letter (present)",
           "englishAuditText": "you (singular): write a letter (present)",
-          "usefulness": 98,
+          "usefulness": 73,
           "complexity": 26
         },
         {
@@ -1232,8 +1232,8 @@
           },
           "learnerBaseCueText": "he / she: write a letter (present)",
           "englishAuditText": "he / she: write a letter (present)",
-          "usefulness": 98,
-          "complexity": 26
+          "usefulness": 73,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -1247,7 +1247,7 @@
           },
           "learnerBaseCueText": "we: write a letter (present)",
           "englishAuditText": "we: write a letter (present)",
-          "usefulness": 98,
+          "usefulness": 73,
           "complexity": 26
         },
         {
@@ -1262,7 +1262,7 @@
           },
           "learnerBaseCueText": "you (plural / polite): write a letter (present)",
           "englishAuditText": "you (plural / polite): write a letter (present)",
-          "usefulness": 98,
+          "usefulness": 73,
           "complexity": 26
         },
         {
@@ -1277,8 +1277,8 @@
           },
           "learnerBaseCueText": "they: write a letter (present)",
           "englishAuditText": "they: write a letter (present)",
-          "usefulness": 98,
-          "complexity": 26
+          "usefulness": 73,
+          "complexity": 29
         }
       ]
     },
@@ -1297,8 +1297,8 @@
         "transitive",
         "future"
       ],
-      "usefulness": 98,
-      "complexity": 42,
+      "usefulness": 73,
+      "complexity": 26,
       "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
       "forms": [
         {
@@ -1313,8 +1313,8 @@
           },
           "learnerBaseCueText": "I: write a letter (future)",
           "englishAuditText": "I: write a letter (future)",
-          "usefulness": 98,
-          "complexity": 42
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -1328,8 +1328,8 @@
           },
           "learnerBaseCueText": "you (singular): write a letter (future)",
           "englishAuditText": "you (singular): write a letter (future)",
-          "usefulness": 98,
-          "complexity": 42
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -1343,8 +1343,8 @@
           },
           "learnerBaseCueText": "he / she: write a letter (future)",
           "englishAuditText": "he / she: write a letter (future)",
-          "usefulness": 98,
-          "complexity": 42
+          "usefulness": 73,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -1358,8 +1358,8 @@
           },
           "learnerBaseCueText": "we: write a letter (future)",
           "englishAuditText": "we: write a letter (future)",
-          "usefulness": 98,
-          "complexity": 42
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -1373,8 +1373,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): write a letter (future)",
           "englishAuditText": "you (plural / polite): write a letter (future)",
-          "usefulness": 98,
-          "complexity": 42
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -1388,8 +1388,8 @@
           },
           "learnerBaseCueText": "they: write a letter (future)",
           "englishAuditText": "they: write a letter (future)",
-          "usefulness": 98,
-          "complexity": 42
+          "usefulness": 73,
+          "complexity": 29
         }
       ]
     },
@@ -1408,8 +1408,8 @@
         "transitive",
         "aorist"
       ],
-      "usefulness": 98,
-      "complexity": 58,
+      "usefulness": 73,
+      "complexity": 26,
       "teachingNoteBaseText": "This past screeve uses an ergative subject (მან / მათ) for this verb. A direct object is nominative: compare წიგნს in the present with წიგნი in the completed past.",
       "forms": [
         {
@@ -1424,8 +1424,8 @@
           },
           "learnerBaseCueText": "I: write a letter (completed past)",
           "englishAuditText": "I: write a letter (completed past)",
-          "usefulness": 98,
-          "complexity": 58
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -1439,8 +1439,8 @@
           },
           "learnerBaseCueText": "you (singular): write a letter (completed past)",
           "englishAuditText": "you (singular): write a letter (completed past)",
-          "usefulness": 98,
-          "complexity": 58
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -1454,8 +1454,8 @@
           },
           "learnerBaseCueText": "he / she: write a letter (completed past)",
           "englishAuditText": "he / she: write a letter (completed past)",
-          "usefulness": 98,
-          "complexity": 58
+          "usefulness": 73,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -1469,8 +1469,8 @@
           },
           "learnerBaseCueText": "we: write a letter (completed past)",
           "englishAuditText": "we: write a letter (completed past)",
-          "usefulness": 98,
-          "complexity": 58
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -1484,8 +1484,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): write a letter (completed past)",
           "englishAuditText": "you (plural / polite): write a letter (completed past)",
-          "usefulness": 98,
-          "complexity": 58
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -1499,8 +1499,8 @@
           },
           "learnerBaseCueText": "they: write a letter (completed past)",
           "englishAuditText": "they: write a letter (completed past)",
-          "usefulness": 98,
-          "complexity": 58
+          "usefulness": 73,
+          "complexity": 29
         }
       ]
     },
@@ -1519,8 +1519,8 @@
         "activity",
         "present"
       ],
-      "usefulness": 98,
-      "complexity": 27,
+      "usefulness": 89,
+      "complexity": 26,
       "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
       "forms": [
         {
@@ -1535,8 +1535,8 @@
           },
           "learnerBaseCueText": "I: work (present)",
           "englishAuditText": "I: work (present)",
-          "usefulness": 98,
-          "complexity": 27
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -1550,8 +1550,8 @@
           },
           "learnerBaseCueText": "you (singular): work (present)",
           "englishAuditText": "you (singular): work (present)",
-          "usefulness": 98,
-          "complexity": 27
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -1565,8 +1565,8 @@
           },
           "learnerBaseCueText": "he / she: work (present)",
           "englishAuditText": "he / she: work (present)",
-          "usefulness": 98,
-          "complexity": 27
+          "usefulness": 89,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -1580,8 +1580,8 @@
           },
           "learnerBaseCueText": "we: work (present)",
           "englishAuditText": "we: work (present)",
-          "usefulness": 98,
-          "complexity": 27
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -1595,8 +1595,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): work (present)",
           "englishAuditText": "you (plural / polite): work (present)",
-          "usefulness": 98,
-          "complexity": 27
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -1610,8 +1610,8 @@
           },
           "learnerBaseCueText": "they: work (present)",
           "englishAuditText": "they: work (present)",
-          "usefulness": 98,
-          "complexity": 27
+          "usefulness": 89,
+          "complexity": 29
         }
       ]
     },
@@ -1630,8 +1630,8 @@
         "activity",
         "future"
       ],
-      "usefulness": 98,
-      "complexity": 43,
+      "usefulness": 89,
+      "complexity": 26,
       "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
       "forms": [
         {
@@ -1646,8 +1646,8 @@
           },
           "learnerBaseCueText": "I: work (future)",
           "englishAuditText": "I: work (future)",
-          "usefulness": 98,
-          "complexity": 43
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -1661,8 +1661,8 @@
           },
           "learnerBaseCueText": "you (singular): work (future)",
           "englishAuditText": "you (singular): work (future)",
-          "usefulness": 98,
-          "complexity": 43
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -1676,8 +1676,8 @@
           },
           "learnerBaseCueText": "he / she: work (future)",
           "englishAuditText": "he / she: work (future)",
-          "usefulness": 98,
-          "complexity": 43
+          "usefulness": 89,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -1691,8 +1691,8 @@
           },
           "learnerBaseCueText": "we: work (future)",
           "englishAuditText": "we: work (future)",
-          "usefulness": 98,
-          "complexity": 43
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -1706,8 +1706,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): work (future)",
           "englishAuditText": "you (plural / polite): work (future)",
-          "usefulness": 98,
-          "complexity": 43
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -1721,8 +1721,8 @@
           },
           "learnerBaseCueText": "they: work (future)",
           "englishAuditText": "they: work (future)",
-          "usefulness": 98,
-          "complexity": 43
+          "usefulness": 89,
+          "complexity": 29
         }
       ]
     },
@@ -1741,8 +1741,8 @@
         "activity",
         "aorist"
       ],
-      "usefulness": 98,
-      "complexity": 59,
+      "usefulness": 89,
+      "complexity": 26,
       "teachingNoteBaseText": "This past screeve uses an ergative subject (მან / მათ) for this verb. A direct object is nominative: compare წიგნს in the present with წიგნი in the completed past.",
       "forms": [
         {
@@ -1757,8 +1757,8 @@
           },
           "learnerBaseCueText": "I: work (completed past)",
           "englishAuditText": "I: work (completed past)",
-          "usefulness": 98,
-          "complexity": 59
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -1772,8 +1772,8 @@
           },
           "learnerBaseCueText": "you (singular): work (completed past)",
           "englishAuditText": "you (singular): work (completed past)",
-          "usefulness": 98,
-          "complexity": 59
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -1787,8 +1787,8 @@
           },
           "learnerBaseCueText": "he / she: work (completed past)",
           "englishAuditText": "he / she: work (completed past)",
-          "usefulness": 98,
-          "complexity": 59
+          "usefulness": 89,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -1802,8 +1802,8 @@
           },
           "learnerBaseCueText": "we: work (completed past)",
           "englishAuditText": "we: work (completed past)",
-          "usefulness": 98,
-          "complexity": 59
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -1817,8 +1817,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): work (completed past)",
           "englishAuditText": "you (plural / polite): work (completed past)",
-          "usefulness": 98,
-          "complexity": 59
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -1832,8 +1832,8 @@
           },
           "learnerBaseCueText": "they: work (completed past)",
           "englishAuditText": "they: work (completed past)",
-          "usefulness": 98,
-          "complexity": 59
+          "usefulness": 89,
+          "complexity": 29
         }
       ]
     },
@@ -1852,8 +1852,8 @@
         "motion",
         "present"
       ],
-      "usefulness": 98,
-      "complexity": 20,
+      "usefulness": 77,
+      "complexity": 42,
       "teachingNoteBaseText": "This intransitive verb keeps a nominative subject, including in the aorist. Motion verbs have distinct authored stems; do not infer them by adding one prefix to the present.",
       "forms": [
         {
@@ -1868,8 +1868,8 @@
           },
           "learnerBaseCueText": "I: go home (present)",
           "englishAuditText": "I: go home (present)",
-          "usefulness": 98,
-          "complexity": 20
+          "usefulness": 77,
+          "complexity": 42
         },
         {
           "id": "you-sg",
@@ -1883,8 +1883,8 @@
           },
           "learnerBaseCueText": "you (singular): go home (present)",
           "englishAuditText": "you (singular): go home (present)",
-          "usefulness": 98,
-          "complexity": 20
+          "usefulness": 77,
+          "complexity": 42
         },
         {
           "id": "third-sg",
@@ -1898,8 +1898,8 @@
           },
           "learnerBaseCueText": "he / she: go home (present)",
           "englishAuditText": "he / she: go home (present)",
-          "usefulness": 98,
-          "complexity": 20
+          "usefulness": 77,
+          "complexity": 45
         },
         {
           "id": "we",
@@ -1913,8 +1913,8 @@
           },
           "learnerBaseCueText": "we: go home (present)",
           "englishAuditText": "we: go home (present)",
-          "usefulness": 98,
-          "complexity": 20
+          "usefulness": 77,
+          "complexity": 42
         },
         {
           "id": "you-pl",
@@ -1928,8 +1928,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): go home (present)",
           "englishAuditText": "you (plural / polite): go home (present)",
-          "usefulness": 98,
-          "complexity": 20
+          "usefulness": 77,
+          "complexity": 42
         },
         {
           "id": "third-pl",
@@ -1943,8 +1943,8 @@
           },
           "learnerBaseCueText": "they: go home (present)",
           "englishAuditText": "they: go home (present)",
-          "usefulness": 98,
-          "complexity": 20
+          "usefulness": 77,
+          "complexity": 45
         }
       ]
     },
@@ -1963,8 +1963,8 @@
         "motion",
         "future"
       ],
-      "usefulness": 98,
-      "complexity": 36,
+      "usefulness": 77,
+      "complexity": 42,
       "teachingNoteBaseText": "This intransitive verb keeps a nominative subject, including in the aorist. Motion verbs have distinct authored stems; do not infer them by adding one prefix to the present.",
       "forms": [
         {
@@ -1979,8 +1979,8 @@
           },
           "learnerBaseCueText": "I: go home (future)",
           "englishAuditText": "I: go home (future)",
-          "usefulness": 98,
-          "complexity": 36
+          "usefulness": 77,
+          "complexity": 42
         },
         {
           "id": "you-sg",
@@ -1994,8 +1994,8 @@
           },
           "learnerBaseCueText": "you (singular): go home (future)",
           "englishAuditText": "you (singular): go home (future)",
-          "usefulness": 98,
-          "complexity": 36
+          "usefulness": 77,
+          "complexity": 42
         },
         {
           "id": "third-sg",
@@ -2009,8 +2009,8 @@
           },
           "learnerBaseCueText": "he / she: go home (future)",
           "englishAuditText": "he / she: go home (future)",
-          "usefulness": 98,
-          "complexity": 36
+          "usefulness": 77,
+          "complexity": 45
         },
         {
           "id": "we",
@@ -2024,8 +2024,8 @@
           },
           "learnerBaseCueText": "we: go home (future)",
           "englishAuditText": "we: go home (future)",
-          "usefulness": 98,
-          "complexity": 36
+          "usefulness": 77,
+          "complexity": 42
         },
         {
           "id": "you-pl",
@@ -2039,8 +2039,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): go home (future)",
           "englishAuditText": "you (plural / polite): go home (future)",
-          "usefulness": 98,
-          "complexity": 36
+          "usefulness": 77,
+          "complexity": 42
         },
         {
           "id": "third-pl",
@@ -2054,8 +2054,8 @@
           },
           "learnerBaseCueText": "they: go home (future)",
           "englishAuditText": "they: go home (future)",
-          "usefulness": 98,
-          "complexity": 36
+          "usefulness": 77,
+          "complexity": 45
         }
       ]
     },
@@ -2074,8 +2074,8 @@
         "motion",
         "aorist"
       ],
-      "usefulness": 98,
-      "complexity": 52,
+      "usefulness": 77,
+      "complexity": 42,
       "teachingNoteBaseText": "This intransitive verb keeps a nominative subject, including in the aorist. Motion verbs have distinct authored stems; do not infer them by adding one prefix to the present.",
       "forms": [
         {
@@ -2090,8 +2090,8 @@
           },
           "learnerBaseCueText": "I: go home (completed past)",
           "englishAuditText": "I: go home (completed past)",
-          "usefulness": 98,
-          "complexity": 52
+          "usefulness": 77,
+          "complexity": 42
         },
         {
           "id": "you-sg",
@@ -2105,8 +2105,8 @@
           },
           "learnerBaseCueText": "you (singular): go home (completed past)",
           "englishAuditText": "you (singular): go home (completed past)",
-          "usefulness": 98,
-          "complexity": 52
+          "usefulness": 77,
+          "complexity": 42
         },
         {
           "id": "third-sg",
@@ -2120,8 +2120,8 @@
           },
           "learnerBaseCueText": "he / she: go home (completed past)",
           "englishAuditText": "he / she: go home (completed past)",
-          "usefulness": 98,
-          "complexity": 52
+          "usefulness": 77,
+          "complexity": 45
         },
         {
           "id": "we",
@@ -2135,8 +2135,8 @@
           },
           "learnerBaseCueText": "we: go home (completed past)",
           "englishAuditText": "we: go home (completed past)",
-          "usefulness": 98,
-          "complexity": 52
+          "usefulness": 77,
+          "complexity": 42
         },
         {
           "id": "you-pl",
@@ -2150,8 +2150,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): go home (completed past)",
           "englishAuditText": "you (plural / polite): go home (completed past)",
-          "usefulness": 98,
-          "complexity": 52
+          "usefulness": 77,
+          "complexity": 42
         },
         {
           "id": "third-pl",
@@ -2165,8 +2165,8 @@
           },
           "learnerBaseCueText": "they: go home (completed past)",
           "englishAuditText": "they: go home (completed past)",
-          "usefulness": 98,
-          "complexity": 52
+          "usefulness": 77,
+          "complexity": 45
         }
       ]
     },
@@ -2185,8 +2185,8 @@
         "motion",
         "present"
       ],
-      "usefulness": 98,
-      "complexity": 21,
+      "usefulness": 77,
+      "complexity": 33,
       "teachingNoteBaseText": "This intransitive verb keeps a nominative subject, including in the aorist. Motion verbs have distinct authored stems; do not infer them by adding one prefix to the present.",
       "forms": [
         {
@@ -2201,8 +2201,8 @@
           },
           "learnerBaseCueText": "I: come home (present)",
           "englishAuditText": "I: come home (present)",
-          "usefulness": 98,
-          "complexity": 21
+          "usefulness": 77,
+          "complexity": 33
         },
         {
           "id": "you-sg",
@@ -2216,8 +2216,8 @@
           },
           "learnerBaseCueText": "you (singular): come home (present)",
           "englishAuditText": "you (singular): come home (present)",
-          "usefulness": 98,
-          "complexity": 21
+          "usefulness": 77,
+          "complexity": 33
         },
         {
           "id": "third-sg",
@@ -2231,8 +2231,8 @@
           },
           "learnerBaseCueText": "he / she: come home (present)",
           "englishAuditText": "he / she: come home (present)",
-          "usefulness": 98,
-          "complexity": 21
+          "usefulness": 77,
+          "complexity": 36
         },
         {
           "id": "we",
@@ -2246,8 +2246,8 @@
           },
           "learnerBaseCueText": "we: come home (present)",
           "englishAuditText": "we: come home (present)",
-          "usefulness": 98,
-          "complexity": 21
+          "usefulness": 77,
+          "complexity": 33
         },
         {
           "id": "you-pl",
@@ -2261,8 +2261,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): come home (present)",
           "englishAuditText": "you (plural / polite): come home (present)",
-          "usefulness": 98,
-          "complexity": 21
+          "usefulness": 77,
+          "complexity": 33
         },
         {
           "id": "third-pl",
@@ -2276,8 +2276,8 @@
           },
           "learnerBaseCueText": "they: come home (present)",
           "englishAuditText": "they: come home (present)",
-          "usefulness": 98,
-          "complexity": 21
+          "usefulness": 77,
+          "complexity": 36
         }
       ]
     },
@@ -2296,8 +2296,8 @@
         "motion",
         "future"
       ],
-      "usefulness": 98,
-      "complexity": 37,
+      "usefulness": 77,
+      "complexity": 33,
       "teachingNoteBaseText": "This intransitive verb keeps a nominative subject, including in the aorist. Motion verbs have distinct authored stems; do not infer them by adding one prefix to the present.",
       "forms": [
         {
@@ -2312,8 +2312,8 @@
           },
           "learnerBaseCueText": "I: come home (future)",
           "englishAuditText": "I: come home (future)",
-          "usefulness": 98,
-          "complexity": 37
+          "usefulness": 77,
+          "complexity": 33
         },
         {
           "id": "you-sg",
@@ -2327,8 +2327,8 @@
           },
           "learnerBaseCueText": "you (singular): come home (future)",
           "englishAuditText": "you (singular): come home (future)",
-          "usefulness": 98,
-          "complexity": 37
+          "usefulness": 77,
+          "complexity": 33
         },
         {
           "id": "third-sg",
@@ -2342,8 +2342,8 @@
           },
           "learnerBaseCueText": "he / she: come home (future)",
           "englishAuditText": "he / she: come home (future)",
-          "usefulness": 98,
-          "complexity": 37
+          "usefulness": 77,
+          "complexity": 36
         },
         {
           "id": "we",
@@ -2357,8 +2357,8 @@
           },
           "learnerBaseCueText": "we: come home (future)",
           "englishAuditText": "we: come home (future)",
-          "usefulness": 98,
-          "complexity": 37
+          "usefulness": 77,
+          "complexity": 33
         },
         {
           "id": "you-pl",
@@ -2372,8 +2372,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): come home (future)",
           "englishAuditText": "you (plural / polite): come home (future)",
-          "usefulness": 98,
-          "complexity": 37
+          "usefulness": 77,
+          "complexity": 33
         },
         {
           "id": "third-pl",
@@ -2387,8 +2387,8 @@
           },
           "learnerBaseCueText": "they: come home (future)",
           "englishAuditText": "they: come home (future)",
-          "usefulness": 98,
-          "complexity": 37
+          "usefulness": 77,
+          "complexity": 36
         }
       ]
     },
@@ -2407,8 +2407,8 @@
         "motion",
         "aorist"
       ],
-      "usefulness": 98,
-      "complexity": 53,
+      "usefulness": 77,
+      "complexity": 33,
       "teachingNoteBaseText": "This intransitive verb keeps a nominative subject, including in the aorist. Motion verbs have distinct authored stems; do not infer them by adding one prefix to the present.",
       "forms": [
         {
@@ -2423,8 +2423,8 @@
           },
           "learnerBaseCueText": "I: come home (completed past)",
           "englishAuditText": "I: come home (completed past)",
-          "usefulness": 98,
-          "complexity": 53
+          "usefulness": 77,
+          "complexity": 33
         },
         {
           "id": "you-sg",
@@ -2438,8 +2438,8 @@
           },
           "learnerBaseCueText": "you (singular): come home (completed past)",
           "englishAuditText": "you (singular): come home (completed past)",
-          "usefulness": 98,
-          "complexity": 53
+          "usefulness": 77,
+          "complexity": 33
         },
         {
           "id": "third-sg",
@@ -2453,8 +2453,8 @@
           },
           "learnerBaseCueText": "he / she: come home (completed past)",
           "englishAuditText": "he / she: come home (completed past)",
-          "usefulness": 98,
-          "complexity": 53
+          "usefulness": 77,
+          "complexity": 36
         },
         {
           "id": "we",
@@ -2468,8 +2468,8 @@
           },
           "learnerBaseCueText": "we: come home (completed past)",
           "englishAuditText": "we: come home (completed past)",
-          "usefulness": 98,
-          "complexity": 53
+          "usefulness": 77,
+          "complexity": 33
         },
         {
           "id": "you-pl",
@@ -2483,8 +2483,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): come home (completed past)",
           "englishAuditText": "you (plural / polite): come home (completed past)",
-          "usefulness": 98,
-          "complexity": 53
+          "usefulness": 77,
+          "complexity": 33
         },
         {
           "id": "third-pl",
@@ -2498,8 +2498,8 @@
           },
           "learnerBaseCueText": "they: come home (completed past)",
           "englishAuditText": "they: come home (completed past)",
-          "usefulness": 98,
-          "complexity": 53
+          "usefulness": 77,
+          "complexity": 36
         }
       ]
     },
@@ -2518,8 +2518,8 @@
         "intransitive",
         "present"
       ],
-      "usefulness": 98,
-      "complexity": 22,
+      "usefulness": 77,
+      "complexity": 26,
       "teachingNoteBaseText": "This intransitive verb keeps a nominative subject, including in the aorist. Motion verbs have distinct authored stems; do not infer them by adding one prefix to the present.",
       "forms": [
         {
@@ -2534,8 +2534,8 @@
           },
           "learnerBaseCueText": "I: return home (present)",
           "englishAuditText": "I: return home (present)",
-          "usefulness": 98,
-          "complexity": 22
+          "usefulness": 77,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -2549,8 +2549,8 @@
           },
           "learnerBaseCueText": "you (singular): return home (present)",
           "englishAuditText": "you (singular): return home (present)",
-          "usefulness": 98,
-          "complexity": 22
+          "usefulness": 77,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -2564,8 +2564,8 @@
           },
           "learnerBaseCueText": "he / she: return home (present)",
           "englishAuditText": "he / she: return home (present)",
-          "usefulness": 98,
-          "complexity": 22
+          "usefulness": 77,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -2579,8 +2579,8 @@
           },
           "learnerBaseCueText": "we: return home (present)",
           "englishAuditText": "we: return home (present)",
-          "usefulness": 98,
-          "complexity": 22
+          "usefulness": 77,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -2594,8 +2594,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): return home (present)",
           "englishAuditText": "you (plural / polite): return home (present)",
-          "usefulness": 98,
-          "complexity": 22
+          "usefulness": 77,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -2609,8 +2609,8 @@
           },
           "learnerBaseCueText": "they: return home (present)",
           "englishAuditText": "they: return home (present)",
-          "usefulness": 98,
-          "complexity": 22
+          "usefulness": 77,
+          "complexity": 29
         }
       ]
     },
@@ -2629,8 +2629,8 @@
         "intransitive",
         "future"
       ],
-      "usefulness": 98,
-      "complexity": 38,
+      "usefulness": 77,
+      "complexity": 26,
       "teachingNoteBaseText": "This intransitive verb keeps a nominative subject, including in the aorist. Motion verbs have distinct authored stems; do not infer them by adding one prefix to the present.",
       "forms": [
         {
@@ -2645,8 +2645,8 @@
           },
           "learnerBaseCueText": "I: return home (future)",
           "englishAuditText": "I: return home (future)",
-          "usefulness": 98,
-          "complexity": 38
+          "usefulness": 77,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -2660,8 +2660,8 @@
           },
           "learnerBaseCueText": "you (singular): return home (future)",
           "englishAuditText": "you (singular): return home (future)",
-          "usefulness": 98,
-          "complexity": 38
+          "usefulness": 77,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -2675,8 +2675,8 @@
           },
           "learnerBaseCueText": "he / she: return home (future)",
           "englishAuditText": "he / she: return home (future)",
-          "usefulness": 98,
-          "complexity": 38
+          "usefulness": 77,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -2690,8 +2690,8 @@
           },
           "learnerBaseCueText": "we: return home (future)",
           "englishAuditText": "we: return home (future)",
-          "usefulness": 98,
-          "complexity": 38
+          "usefulness": 77,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -2705,8 +2705,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): return home (future)",
           "englishAuditText": "you (plural / polite): return home (future)",
-          "usefulness": 98,
-          "complexity": 38
+          "usefulness": 77,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -2720,8 +2720,8 @@
           },
           "learnerBaseCueText": "they: return home (future)",
           "englishAuditText": "they: return home (future)",
-          "usefulness": 98,
-          "complexity": 38
+          "usefulness": 77,
+          "complexity": 29
         }
       ]
     },
@@ -2740,8 +2740,8 @@
         "intransitive",
         "aorist"
       ],
-      "usefulness": 98,
-      "complexity": 54,
+      "usefulness": 77,
+      "complexity": 26,
       "teachingNoteBaseText": "This intransitive verb keeps a nominative subject, including in the aorist. Motion verbs have distinct authored stems; do not infer them by adding one prefix to the present.",
       "forms": [
         {
@@ -2756,8 +2756,8 @@
           },
           "learnerBaseCueText": "I: return home (completed past)",
           "englishAuditText": "I: return home (completed past)",
-          "usefulness": 98,
-          "complexity": 54
+          "usefulness": 77,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -2771,8 +2771,8 @@
           },
           "learnerBaseCueText": "you (singular): return home (completed past)",
           "englishAuditText": "you (singular): return home (completed past)",
-          "usefulness": 98,
-          "complexity": 54
+          "usefulness": 77,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -2786,8 +2786,8 @@
           },
           "learnerBaseCueText": "he / she: return home (completed past)",
           "englishAuditText": "he / she: return home (completed past)",
-          "usefulness": 98,
-          "complexity": 54
+          "usefulness": 77,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -2801,8 +2801,8 @@
           },
           "learnerBaseCueText": "we: return home (completed past)",
           "englishAuditText": "we: return home (completed past)",
-          "usefulness": 98,
-          "complexity": 54
+          "usefulness": 77,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -2816,8 +2816,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): return home (completed past)",
           "englishAuditText": "you (plural / polite): return home (completed past)",
-          "usefulness": 98,
-          "complexity": 54
+          "usefulness": 77,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -2831,8 +2831,8 @@
           },
           "learnerBaseCueText": "they: return home (completed past)",
           "englishAuditText": "they: return home (completed past)",
-          "usefulness": 98,
-          "complexity": 54
+          "usefulness": 77,
+          "complexity": 29
         }
       ]
     },
@@ -2851,8 +2851,8 @@
         "activity",
         "present"
       ],
-      "usefulness": 98,
-      "complexity": 23,
+      "usefulness": 89,
+      "complexity": 26,
       "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
       "forms": [
         {
@@ -2867,8 +2867,8 @@
           },
           "learnerBaseCueText": "I: live (present)",
           "englishAuditText": "I: live (present)",
-          "usefulness": 98,
-          "complexity": 23
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -2882,8 +2882,8 @@
           },
           "learnerBaseCueText": "you (singular): live (present)",
           "englishAuditText": "you (singular): live (present)",
-          "usefulness": 98,
-          "complexity": 23
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -2897,8 +2897,8 @@
           },
           "learnerBaseCueText": "he / she: live (present)",
           "englishAuditText": "he / she: live (present)",
-          "usefulness": 98,
-          "complexity": 23
+          "usefulness": 89,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -2912,8 +2912,8 @@
           },
           "learnerBaseCueText": "we: live (present)",
           "englishAuditText": "we: live (present)",
-          "usefulness": 98,
-          "complexity": 23
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -2927,8 +2927,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): live (present)",
           "englishAuditText": "you (plural / polite): live (present)",
-          "usefulness": 98,
-          "complexity": 23
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -2942,8 +2942,8 @@
           },
           "learnerBaseCueText": "they: live (present)",
           "englishAuditText": "they: live (present)",
-          "usefulness": 98,
-          "complexity": 23
+          "usefulness": 89,
+          "complexity": 29
         }
       ]
     },
@@ -2962,8 +2962,8 @@
         "activity",
         "future"
       ],
-      "usefulness": 98,
-      "complexity": 39,
+      "usefulness": 89,
+      "complexity": 26,
       "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
       "forms": [
         {
@@ -2978,8 +2978,8 @@
           },
           "learnerBaseCueText": "I: live (future)",
           "englishAuditText": "I: live (future)",
-          "usefulness": 98,
-          "complexity": 39
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -2993,8 +2993,8 @@
           },
           "learnerBaseCueText": "you (singular): live (future)",
           "englishAuditText": "you (singular): live (future)",
-          "usefulness": 98,
-          "complexity": 39
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -3008,8 +3008,8 @@
           },
           "learnerBaseCueText": "he / she: live (future)",
           "englishAuditText": "he / she: live (future)",
-          "usefulness": 98,
-          "complexity": 39
+          "usefulness": 89,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -3023,8 +3023,8 @@
           },
           "learnerBaseCueText": "we: live (future)",
           "englishAuditText": "we: live (future)",
-          "usefulness": 98,
-          "complexity": 39
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -3038,8 +3038,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): live (future)",
           "englishAuditText": "you (plural / polite): live (future)",
-          "usefulness": 98,
-          "complexity": 39
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -3053,8 +3053,8 @@
           },
           "learnerBaseCueText": "they: live (future)",
           "englishAuditText": "they: live (future)",
-          "usefulness": 98,
-          "complexity": 39
+          "usefulness": 89,
+          "complexity": 29
         }
       ]
     },
@@ -3073,8 +3073,8 @@
         "activity",
         "aorist"
       ],
-      "usefulness": 98,
-      "complexity": 55,
+      "usefulness": 89,
+      "complexity": 26,
       "teachingNoteBaseText": "This past screeve uses an ergative subject (მან / მათ) for this verb. A direct object is nominative: compare წიგნს in the present with წიგნი in the completed past.",
       "forms": [
         {
@@ -3089,8 +3089,8 @@
           },
           "learnerBaseCueText": "I: live (completed past)",
           "englishAuditText": "I: live (completed past)",
-          "usefulness": 98,
-          "complexity": 55
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -3104,8 +3104,8 @@
           },
           "learnerBaseCueText": "you (singular): live (completed past)",
           "englishAuditText": "you (singular): live (completed past)",
-          "usefulness": 98,
-          "complexity": 55
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -3119,8 +3119,8 @@
           },
           "learnerBaseCueText": "he / she: live (completed past)",
           "englishAuditText": "he / she: live (completed past)",
-          "usefulness": 98,
-          "complexity": 55
+          "usefulness": 89,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -3134,8 +3134,8 @@
           },
           "learnerBaseCueText": "we: live (completed past)",
           "englishAuditText": "we: live (completed past)",
-          "usefulness": 98,
-          "complexity": 55
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -3149,8 +3149,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): live (completed past)",
           "englishAuditText": "you (plural / polite): live (completed past)",
-          "usefulness": 98,
-          "complexity": 55
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -3164,8 +3164,8 @@
           },
           "learnerBaseCueText": "they: live (completed past)",
           "englishAuditText": "they: live (completed past)",
-          "usefulness": 98,
-          "complexity": 55
+          "usefulness": 89,
+          "complexity": 29
         }
       ]
     },
@@ -3184,8 +3184,8 @@
         "transitive",
         "present"
       ],
-      "usefulness": 98,
-      "complexity": 24,
+      "usefulness": 73,
+      "complexity": 26,
       "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
       "forms": [
         {
@@ -3200,8 +3200,8 @@
           },
           "learnerBaseCueText": "I: study Georgian (present)",
           "englishAuditText": "I: study Georgian (present)",
-          "usefulness": 98,
-          "complexity": 24
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -3215,8 +3215,8 @@
           },
           "learnerBaseCueText": "you (singular): study Georgian (present)",
           "englishAuditText": "you (singular): study Georgian (present)",
-          "usefulness": 98,
-          "complexity": 24
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -3230,8 +3230,8 @@
           },
           "learnerBaseCueText": "he / she: study Georgian (present)",
           "englishAuditText": "he / she: study Georgian (present)",
-          "usefulness": 98,
-          "complexity": 24
+          "usefulness": 73,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -3245,8 +3245,8 @@
           },
           "learnerBaseCueText": "we: study Georgian (present)",
           "englishAuditText": "we: study Georgian (present)",
-          "usefulness": 98,
-          "complexity": 24
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -3260,8 +3260,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): study Georgian (present)",
           "englishAuditText": "you (plural / polite): study Georgian (present)",
-          "usefulness": 98,
-          "complexity": 24
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -3275,8 +3275,8 @@
           },
           "learnerBaseCueText": "they: study Georgian (present)",
           "englishAuditText": "they: study Georgian (present)",
-          "usefulness": 98,
-          "complexity": 24
+          "usefulness": 73,
+          "complexity": 29
         }
       ]
     },
@@ -3295,8 +3295,8 @@
         "transitive",
         "future"
       ],
-      "usefulness": 98,
-      "complexity": 40,
+      "usefulness": 73,
+      "complexity": 26,
       "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
       "forms": [
         {
@@ -3311,8 +3311,8 @@
           },
           "learnerBaseCueText": "I: study Georgian (future)",
           "englishAuditText": "I: study Georgian (future)",
-          "usefulness": 98,
-          "complexity": 40
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -3326,8 +3326,8 @@
           },
           "learnerBaseCueText": "you (singular): study Georgian (future)",
           "englishAuditText": "you (singular): study Georgian (future)",
-          "usefulness": 98,
-          "complexity": 40
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -3341,8 +3341,8 @@
           },
           "learnerBaseCueText": "he / she: study Georgian (future)",
           "englishAuditText": "he / she: study Georgian (future)",
-          "usefulness": 98,
-          "complexity": 40
+          "usefulness": 73,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -3356,8 +3356,8 @@
           },
           "learnerBaseCueText": "we: study Georgian (future)",
           "englishAuditText": "we: study Georgian (future)",
-          "usefulness": 98,
-          "complexity": 40
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -3371,8 +3371,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): study Georgian (future)",
           "englishAuditText": "you (plural / polite): study Georgian (future)",
-          "usefulness": 98,
-          "complexity": 40
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -3386,8 +3386,8 @@
           },
           "learnerBaseCueText": "they: study Georgian (future)",
           "englishAuditText": "they: study Georgian (future)",
-          "usefulness": 98,
-          "complexity": 40
+          "usefulness": 73,
+          "complexity": 29
         }
       ]
     },
@@ -3406,8 +3406,8 @@
         "transitive",
         "aorist"
       ],
-      "usefulness": 98,
-      "complexity": 56,
+      "usefulness": 73,
+      "complexity": 26,
       "teachingNoteBaseText": "This past screeve uses an ergative subject (მან / მათ) for this verb. A direct object is nominative: compare წიგნს in the present with წიგნი in the completed past.",
       "forms": [
         {
@@ -3422,8 +3422,8 @@
           },
           "learnerBaseCueText": "I: study Georgian (completed past)",
           "englishAuditText": "I: study Georgian (completed past)",
-          "usefulness": 98,
-          "complexity": 56
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -3437,8 +3437,8 @@
           },
           "learnerBaseCueText": "you (singular): study Georgian (completed past)",
           "englishAuditText": "you (singular): study Georgian (completed past)",
-          "usefulness": 98,
-          "complexity": 56
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -3452,8 +3452,8 @@
           },
           "learnerBaseCueText": "he / she: study Georgian (completed past)",
           "englishAuditText": "he / she: study Georgian (completed past)",
-          "usefulness": 98,
-          "complexity": 56
+          "usefulness": 73,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -3467,8 +3467,8 @@
           },
           "learnerBaseCueText": "we: study Georgian (completed past)",
           "englishAuditText": "we: study Georgian (completed past)",
-          "usefulness": 98,
-          "complexity": 56
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -3482,8 +3482,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): study Georgian (completed past)",
           "englishAuditText": "you (plural / polite): study Georgian (completed past)",
-          "usefulness": 98,
-          "complexity": 56
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -3497,8 +3497,8 @@
           },
           "learnerBaseCueText": "they: study Georgian (completed past)",
           "englishAuditText": "they: study Georgian (completed past)",
-          "usefulness": 98,
-          "complexity": 56
+          "usefulness": 73,
+          "complexity": 29
         }
       ]
     },
@@ -3517,8 +3517,8 @@
         "activity",
         "present"
       ],
-      "usefulness": 98,
-      "complexity": 25,
+      "usefulness": 54,
+      "complexity": 26,
       "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
       "forms": [
         {
@@ -3533,8 +3533,8 @@
           },
           "learnerBaseCueText": "I: speak Georgian (present)",
           "englishAuditText": "I: speak Georgian (present)",
-          "usefulness": 98,
-          "complexity": 25
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -3548,8 +3548,8 @@
           },
           "learnerBaseCueText": "you (singular): speak Georgian (present)",
           "englishAuditText": "you (singular): speak Georgian (present)",
-          "usefulness": 98,
-          "complexity": 25
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -3563,8 +3563,8 @@
           },
           "learnerBaseCueText": "he / she: speak Georgian (present)",
           "englishAuditText": "he / she: speak Georgian (present)",
-          "usefulness": 98,
-          "complexity": 25
+          "usefulness": 54,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -3578,8 +3578,8 @@
           },
           "learnerBaseCueText": "we: speak Georgian (present)",
           "englishAuditText": "we: speak Georgian (present)",
-          "usefulness": 98,
-          "complexity": 25
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -3593,8 +3593,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): speak Georgian (present)",
           "englishAuditText": "you (plural / polite): speak Georgian (present)",
-          "usefulness": 98,
-          "complexity": 25
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -3608,8 +3608,8 @@
           },
           "learnerBaseCueText": "they: speak Georgian (present)",
           "englishAuditText": "they: speak Georgian (present)",
-          "usefulness": 98,
-          "complexity": 25
+          "usefulness": 54,
+          "complexity": 29
         }
       ]
     },
@@ -3628,8 +3628,8 @@
         "activity",
         "future"
       ],
-      "usefulness": 98,
-      "complexity": 41,
+      "usefulness": 54,
+      "complexity": 26,
       "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
       "forms": [
         {
@@ -3644,8 +3644,8 @@
           },
           "learnerBaseCueText": "I: speak Georgian (future)",
           "englishAuditText": "I: speak Georgian (future)",
-          "usefulness": 98,
-          "complexity": 41
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -3659,8 +3659,8 @@
           },
           "learnerBaseCueText": "you (singular): speak Georgian (future)",
           "englishAuditText": "you (singular): speak Georgian (future)",
-          "usefulness": 98,
-          "complexity": 41
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -3674,8 +3674,8 @@
           },
           "learnerBaseCueText": "he / she: speak Georgian (future)",
           "englishAuditText": "he / she: speak Georgian (future)",
-          "usefulness": 98,
-          "complexity": 41
+          "usefulness": 54,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -3689,8 +3689,8 @@
           },
           "learnerBaseCueText": "we: speak Georgian (future)",
           "englishAuditText": "we: speak Georgian (future)",
-          "usefulness": 98,
-          "complexity": 41
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -3704,8 +3704,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): speak Georgian (future)",
           "englishAuditText": "you (plural / polite): speak Georgian (future)",
-          "usefulness": 98,
-          "complexity": 41
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -3719,8 +3719,8 @@
           },
           "learnerBaseCueText": "they: speak Georgian (future)",
           "englishAuditText": "they: speak Georgian (future)",
-          "usefulness": 98,
-          "complexity": 41
+          "usefulness": 54,
+          "complexity": 29
         }
       ]
     },
@@ -3739,8 +3739,8 @@
         "activity",
         "aorist"
       ],
-      "usefulness": 98,
-      "complexity": 57,
+      "usefulness": 54,
+      "complexity": 26,
       "teachingNoteBaseText": "This past screeve uses an ergative subject (მან / მათ) for this verb. A direct object is nominative: compare წიგნს in the present with წიგნი in the completed past.",
       "forms": [
         {
@@ -3755,8 +3755,8 @@
           },
           "learnerBaseCueText": "I: speak Georgian (completed past)",
           "englishAuditText": "I: speak Georgian (completed past)",
-          "usefulness": 98,
-          "complexity": 57
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -3770,8 +3770,8 @@
           },
           "learnerBaseCueText": "you (singular): speak Georgian (completed past)",
           "englishAuditText": "you (singular): speak Georgian (completed past)",
-          "usefulness": 98,
-          "complexity": 57
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -3785,8 +3785,8 @@
           },
           "learnerBaseCueText": "he / she: speak Georgian (completed past)",
           "englishAuditText": "he / she: speak Georgian (completed past)",
-          "usefulness": 98,
-          "complexity": 57
+          "usefulness": 54,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -3800,8 +3800,8 @@
           },
           "learnerBaseCueText": "we: speak Georgian (completed past)",
           "englishAuditText": "we: speak Georgian (completed past)",
-          "usefulness": 98,
-          "complexity": 57
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -3815,8 +3815,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): speak Georgian (completed past)",
           "englishAuditText": "you (plural / polite): speak Georgian (completed past)",
-          "usefulness": 98,
-          "complexity": 57
+          "usefulness": 54,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -3830,8 +3830,8 @@
           },
           "learnerBaseCueText": "they: speak Georgian (completed past)",
           "englishAuditText": "they: speak Georgian (completed past)",
-          "usefulness": 98,
-          "complexity": 57
+          "usefulness": 54,
+          "complexity": 29
         }
       ]
     },
@@ -3850,7 +3850,7 @@
         "transitive",
         "present"
       ],
-      "usefulness": 98,
+      "usefulness": 75,
       "complexity": 26,
       "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
       "forms": [
@@ -3866,7 +3866,7 @@
           },
           "learnerBaseCueText": "I: eat bread (present)",
           "englishAuditText": "I: eat bread (present)",
-          "usefulness": 98,
+          "usefulness": 75,
           "complexity": 26
         },
         {
@@ -3881,7 +3881,7 @@
           },
           "learnerBaseCueText": "you (singular): eat bread (present)",
           "englishAuditText": "you (singular): eat bread (present)",
-          "usefulness": 98,
+          "usefulness": 75,
           "complexity": 26
         },
         {
@@ -3896,8 +3896,8 @@
           },
           "learnerBaseCueText": "he / she: eat bread (present)",
           "englishAuditText": "he / she: eat bread (present)",
-          "usefulness": 98,
-          "complexity": 26
+          "usefulness": 75,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -3911,7 +3911,7 @@
           },
           "learnerBaseCueText": "we: eat bread (present)",
           "englishAuditText": "we: eat bread (present)",
-          "usefulness": 98,
+          "usefulness": 75,
           "complexity": 26
         },
         {
@@ -3926,7 +3926,7 @@
           },
           "learnerBaseCueText": "you (plural / polite): eat bread (present)",
           "englishAuditText": "you (plural / polite): eat bread (present)",
-          "usefulness": 98,
+          "usefulness": 75,
           "complexity": 26
         },
         {
@@ -3941,8 +3941,8 @@
           },
           "learnerBaseCueText": "they: eat bread (present)",
           "englishAuditText": "they: eat bread (present)",
-          "usefulness": 98,
-          "complexity": 26
+          "usefulness": 75,
+          "complexity": 29
         }
       ]
     },
@@ -3961,8 +3961,8 @@
         "transitive",
         "future"
       ],
-      "usefulness": 98,
-      "complexity": 42,
+      "usefulness": 75,
+      "complexity": 26,
       "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
       "forms": [
         {
@@ -3977,8 +3977,8 @@
           },
           "learnerBaseCueText": "I: eat bread (future)",
           "englishAuditText": "I: eat bread (future)",
-          "usefulness": 98,
-          "complexity": 42
+          "usefulness": 75,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -3992,8 +3992,8 @@
           },
           "learnerBaseCueText": "you (singular): eat bread (future)",
           "englishAuditText": "you (singular): eat bread (future)",
-          "usefulness": 98,
-          "complexity": 42
+          "usefulness": 75,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -4007,8 +4007,8 @@
           },
           "learnerBaseCueText": "he / she: eat bread (future)",
           "englishAuditText": "he / she: eat bread (future)",
-          "usefulness": 98,
-          "complexity": 42
+          "usefulness": 75,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -4022,8 +4022,8 @@
           },
           "learnerBaseCueText": "we: eat bread (future)",
           "englishAuditText": "we: eat bread (future)",
-          "usefulness": 98,
-          "complexity": 42
+          "usefulness": 75,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -4037,8 +4037,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): eat bread (future)",
           "englishAuditText": "you (plural / polite): eat bread (future)",
-          "usefulness": 98,
-          "complexity": 42
+          "usefulness": 75,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -4052,8 +4052,8 @@
           },
           "learnerBaseCueText": "they: eat bread (future)",
           "englishAuditText": "they: eat bread (future)",
-          "usefulness": 98,
-          "complexity": 42
+          "usefulness": 75,
+          "complexity": 29
         }
       ]
     },
@@ -4072,8 +4072,8 @@
         "transitive",
         "aorist"
       ],
-      "usefulness": 98,
-      "complexity": 58,
+      "usefulness": 75,
+      "complexity": 26,
       "teachingNoteBaseText": "This past screeve uses an ergative subject (მან / მათ) for this verb. A direct object is nominative: compare წიგნს in the present with წიგნი in the completed past.",
       "forms": [
         {
@@ -4088,8 +4088,8 @@
           },
           "learnerBaseCueText": "I: eat bread (completed past)",
           "englishAuditText": "I: eat bread (completed past)",
-          "usefulness": 98,
-          "complexity": 58
+          "usefulness": 75,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -4103,8 +4103,8 @@
           },
           "learnerBaseCueText": "you (singular): eat bread (completed past)",
           "englishAuditText": "you (singular): eat bread (completed past)",
-          "usefulness": 98,
-          "complexity": 58
+          "usefulness": 75,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -4118,8 +4118,8 @@
           },
           "learnerBaseCueText": "he / she: eat bread (completed past)",
           "englishAuditText": "he / she: eat bread (completed past)",
-          "usefulness": 98,
-          "complexity": 58
+          "usefulness": 75,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -4133,8 +4133,8 @@
           },
           "learnerBaseCueText": "we: eat bread (completed past)",
           "englishAuditText": "we: eat bread (completed past)",
-          "usefulness": 98,
-          "complexity": 58
+          "usefulness": 75,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -4148,8 +4148,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): eat bread (completed past)",
           "englishAuditText": "you (plural / polite): eat bread (completed past)",
-          "usefulness": 98,
-          "complexity": 58
+          "usefulness": 75,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -4163,8 +4163,8 @@
           },
           "learnerBaseCueText": "they: eat bread (completed past)",
           "englishAuditText": "they: eat bread (completed past)",
-          "usefulness": 98,
-          "complexity": 58
+          "usefulness": 75,
+          "complexity": 29
         }
       ]
     },
@@ -4183,8 +4183,8 @@
         "transitive",
         "present"
       ],
-      "usefulness": 98,
-      "complexity": 27,
+      "usefulness": 88,
+      "complexity": 26,
       "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
       "forms": [
         {
@@ -4199,8 +4199,8 @@
           },
           "learnerBaseCueText": "I: drink water (present)",
           "englishAuditText": "I: drink water (present)",
-          "usefulness": 98,
-          "complexity": 27
+          "usefulness": 88,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -4214,8 +4214,8 @@
           },
           "learnerBaseCueText": "you (singular): drink water (present)",
           "englishAuditText": "you (singular): drink water (present)",
-          "usefulness": 98,
-          "complexity": 27
+          "usefulness": 88,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -4229,8 +4229,8 @@
           },
           "learnerBaseCueText": "he / she: drink water (present)",
           "englishAuditText": "he / she: drink water (present)",
-          "usefulness": 98,
-          "complexity": 27
+          "usefulness": 88,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -4244,8 +4244,8 @@
           },
           "learnerBaseCueText": "we: drink water (present)",
           "englishAuditText": "we: drink water (present)",
-          "usefulness": 98,
-          "complexity": 27
+          "usefulness": 88,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -4259,8 +4259,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): drink water (present)",
           "englishAuditText": "you (plural / polite): drink water (present)",
-          "usefulness": 98,
-          "complexity": 27
+          "usefulness": 88,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -4274,8 +4274,8 @@
           },
           "learnerBaseCueText": "they: drink water (present)",
           "englishAuditText": "they: drink water (present)",
-          "usefulness": 98,
-          "complexity": 27
+          "usefulness": 88,
+          "complexity": 29
         }
       ]
     },
@@ -4294,8 +4294,8 @@
         "transitive",
         "future"
       ],
-      "usefulness": 98,
-      "complexity": 43,
+      "usefulness": 88,
+      "complexity": 26,
       "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
       "forms": [
         {
@@ -4310,8 +4310,8 @@
           },
           "learnerBaseCueText": "I: drink water (future)",
           "englishAuditText": "I: drink water (future)",
-          "usefulness": 98,
-          "complexity": 43
+          "usefulness": 88,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -4325,8 +4325,8 @@
           },
           "learnerBaseCueText": "you (singular): drink water (future)",
           "englishAuditText": "you (singular): drink water (future)",
-          "usefulness": 98,
-          "complexity": 43
+          "usefulness": 88,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -4340,8 +4340,8 @@
           },
           "learnerBaseCueText": "he / she: drink water (future)",
           "englishAuditText": "he / she: drink water (future)",
-          "usefulness": 98,
-          "complexity": 43
+          "usefulness": 88,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -4355,8 +4355,8 @@
           },
           "learnerBaseCueText": "we: drink water (future)",
           "englishAuditText": "we: drink water (future)",
-          "usefulness": 98,
-          "complexity": 43
+          "usefulness": 88,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -4370,8 +4370,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): drink water (future)",
           "englishAuditText": "you (plural / polite): drink water (future)",
-          "usefulness": 98,
-          "complexity": 43
+          "usefulness": 88,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -4385,8 +4385,8 @@
           },
           "learnerBaseCueText": "they: drink water (future)",
           "englishAuditText": "they: drink water (future)",
-          "usefulness": 98,
-          "complexity": 43
+          "usefulness": 88,
+          "complexity": 29
         }
       ]
     },
@@ -4405,8 +4405,8 @@
         "transitive",
         "aorist"
       ],
-      "usefulness": 98,
-      "complexity": 59,
+      "usefulness": 88,
+      "complexity": 26,
       "teachingNoteBaseText": "This past screeve uses an ergative subject (მან / მათ) for this verb. A direct object is nominative: compare წიგნს in the present with წიგნი in the completed past.",
       "forms": [
         {
@@ -4421,8 +4421,8 @@
           },
           "learnerBaseCueText": "I: drink water (completed past)",
           "englishAuditText": "I: drink water (completed past)",
-          "usefulness": 98,
-          "complexity": 59
+          "usefulness": 88,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -4436,8 +4436,8 @@
           },
           "learnerBaseCueText": "you (singular): drink water (completed past)",
           "englishAuditText": "you (singular): drink water (completed past)",
-          "usefulness": 98,
-          "complexity": 59
+          "usefulness": 88,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -4451,8 +4451,8 @@
           },
           "learnerBaseCueText": "he / she: drink water (completed past)",
           "englishAuditText": "he / she: drink water (completed past)",
-          "usefulness": 98,
-          "complexity": 59
+          "usefulness": 88,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -4466,8 +4466,8 @@
           },
           "learnerBaseCueText": "we: drink water (completed past)",
           "englishAuditText": "we: drink water (completed past)",
-          "usefulness": 98,
-          "complexity": 59
+          "usefulness": 88,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -4481,8 +4481,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): drink water (completed past)",
           "englishAuditText": "you (plural / polite): drink water (completed past)",
-          "usefulness": 98,
-          "complexity": 59
+          "usefulness": 88,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -4496,8 +4496,8 @@
           },
           "learnerBaseCueText": "they: drink water (completed past)",
           "englishAuditText": "they: drink water (completed past)",
-          "usefulness": 98,
-          "complexity": 59
+          "usefulness": 88,
+          "complexity": 29
         }
       ]
     },
@@ -4516,8 +4516,8 @@
         "transitive",
         "present"
       ],
-      "usefulness": 98,
-      "complexity": 20,
+      "usefulness": 81,
+      "complexity": 26,
       "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
       "forms": [
         {
@@ -4532,8 +4532,8 @@
           },
           "learnerBaseCueText": "I: buy a book (present)",
           "englishAuditText": "I: buy a book (present)",
-          "usefulness": 98,
-          "complexity": 20
+          "usefulness": 81,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -4547,8 +4547,8 @@
           },
           "learnerBaseCueText": "you (singular): buy a book (present)",
           "englishAuditText": "you (singular): buy a book (present)",
-          "usefulness": 98,
-          "complexity": 20
+          "usefulness": 81,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -4562,8 +4562,8 @@
           },
           "learnerBaseCueText": "he / she: buy a book (present)",
           "englishAuditText": "he / she: buy a book (present)",
-          "usefulness": 98,
-          "complexity": 20
+          "usefulness": 81,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -4577,8 +4577,8 @@
           },
           "learnerBaseCueText": "we: buy a book (present)",
           "englishAuditText": "we: buy a book (present)",
-          "usefulness": 98,
-          "complexity": 20
+          "usefulness": 81,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -4592,8 +4592,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): buy a book (present)",
           "englishAuditText": "you (plural / polite): buy a book (present)",
-          "usefulness": 98,
-          "complexity": 20
+          "usefulness": 81,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -4607,8 +4607,8 @@
           },
           "learnerBaseCueText": "they: buy a book (present)",
           "englishAuditText": "they: buy a book (present)",
-          "usefulness": 98,
-          "complexity": 20
+          "usefulness": 81,
+          "complexity": 29
         }
       ]
     },
@@ -4627,8 +4627,8 @@
         "transitive",
         "future"
       ],
-      "usefulness": 98,
-      "complexity": 36,
+      "usefulness": 81,
+      "complexity": 26,
       "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
       "forms": [
         {
@@ -4643,8 +4643,8 @@
           },
           "learnerBaseCueText": "I: buy a book (future)",
           "englishAuditText": "I: buy a book (future)",
-          "usefulness": 98,
-          "complexity": 36
+          "usefulness": 81,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -4658,8 +4658,8 @@
           },
           "learnerBaseCueText": "you (singular): buy a book (future)",
           "englishAuditText": "you (singular): buy a book (future)",
-          "usefulness": 98,
-          "complexity": 36
+          "usefulness": 81,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -4673,8 +4673,8 @@
           },
           "learnerBaseCueText": "he / she: buy a book (future)",
           "englishAuditText": "he / she: buy a book (future)",
-          "usefulness": 98,
-          "complexity": 36
+          "usefulness": 81,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -4688,8 +4688,8 @@
           },
           "learnerBaseCueText": "we: buy a book (future)",
           "englishAuditText": "we: buy a book (future)",
-          "usefulness": 98,
-          "complexity": 36
+          "usefulness": 81,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -4703,8 +4703,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): buy a book (future)",
           "englishAuditText": "you (plural / polite): buy a book (future)",
-          "usefulness": 98,
-          "complexity": 36
+          "usefulness": 81,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -4718,8 +4718,8 @@
           },
           "learnerBaseCueText": "they: buy a book (future)",
           "englishAuditText": "they: buy a book (future)",
-          "usefulness": 98,
-          "complexity": 36
+          "usefulness": 81,
+          "complexity": 29
         }
       ]
     },
@@ -4738,8 +4738,8 @@
         "transitive",
         "aorist"
       ],
-      "usefulness": 98,
-      "complexity": 52,
+      "usefulness": 81,
+      "complexity": 26,
       "teachingNoteBaseText": "This past screeve uses an ergative subject (მან / მათ) for this verb. A direct object is nominative: compare წიგნს in the present with წიგნი in the completed past.",
       "forms": [
         {
@@ -4754,8 +4754,8 @@
           },
           "learnerBaseCueText": "I: buy a book (completed past)",
           "englishAuditText": "I: buy a book (completed past)",
-          "usefulness": 98,
-          "complexity": 52
+          "usefulness": 81,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -4769,8 +4769,8 @@
           },
           "learnerBaseCueText": "you (singular): buy a book (completed past)",
           "englishAuditText": "you (singular): buy a book (completed past)",
-          "usefulness": 98,
-          "complexity": 52
+          "usefulness": 81,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -4784,8 +4784,8 @@
           },
           "learnerBaseCueText": "he / she: buy a book (completed past)",
           "englishAuditText": "he / she: buy a book (completed past)",
-          "usefulness": 98,
-          "complexity": 52
+          "usefulness": 81,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -4799,8 +4799,8 @@
           },
           "learnerBaseCueText": "we: buy a book (completed past)",
           "englishAuditText": "we: buy a book (completed past)",
-          "usefulness": 98,
-          "complexity": 52
+          "usefulness": 81,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -4814,8 +4814,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): buy a book (completed past)",
           "englishAuditText": "you (plural / polite): buy a book (completed past)",
-          "usefulness": 98,
-          "complexity": 52
+          "usefulness": 81,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -4829,8 +4829,8 @@
           },
           "learnerBaseCueText": "they: buy a book (completed past)",
           "englishAuditText": "they: buy a book (completed past)",
-          "usefulness": 98,
-          "complexity": 52
+          "usefulness": 81,
+          "complexity": 29
         }
       ]
     },
@@ -4849,8 +4849,8 @@
         "transitive",
         "present"
       ],
-      "usefulness": 98,
-      "complexity": 21,
+      "usefulness": 73,
+      "complexity": 26,
       "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
       "forms": [
         {
@@ -4865,8 +4865,8 @@
           },
           "learnerBaseCueText": "I: see a book (present)",
           "englishAuditText": "I: see a book (present)",
-          "usefulness": 98,
-          "complexity": 21
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -4880,8 +4880,8 @@
           },
           "learnerBaseCueText": "you (singular): see a book (present)",
           "englishAuditText": "you (singular): see a book (present)",
-          "usefulness": 98,
-          "complexity": 21
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -4895,8 +4895,8 @@
           },
           "learnerBaseCueText": "he / she: see a book (present)",
           "englishAuditText": "he / she: see a book (present)",
-          "usefulness": 98,
-          "complexity": 21
+          "usefulness": 73,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -4910,8 +4910,8 @@
           },
           "learnerBaseCueText": "we: see a book (present)",
           "englishAuditText": "we: see a book (present)",
-          "usefulness": 98,
-          "complexity": 21
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -4925,8 +4925,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): see a book (present)",
           "englishAuditText": "you (plural / polite): see a book (present)",
-          "usefulness": 98,
-          "complexity": 21
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -4940,8 +4940,8 @@
           },
           "learnerBaseCueText": "they: see a book (present)",
           "englishAuditText": "they: see a book (present)",
-          "usefulness": 98,
-          "complexity": 21
+          "usefulness": 73,
+          "complexity": 29
         }
       ]
     },
@@ -4960,8 +4960,8 @@
         "transitive",
         "future"
       ],
-      "usefulness": 98,
-      "complexity": 37,
+      "usefulness": 73,
+      "complexity": 26,
       "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
       "forms": [
         {
@@ -4976,8 +4976,8 @@
           },
           "learnerBaseCueText": "I: see a book (future)",
           "englishAuditText": "I: see a book (future)",
-          "usefulness": 98,
-          "complexity": 37
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -4991,8 +4991,8 @@
           },
           "learnerBaseCueText": "you (singular): see a book (future)",
           "englishAuditText": "you (singular): see a book (future)",
-          "usefulness": 98,
-          "complexity": 37
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -5006,8 +5006,8 @@
           },
           "learnerBaseCueText": "he / she: see a book (future)",
           "englishAuditText": "he / she: see a book (future)",
-          "usefulness": 98,
-          "complexity": 37
+          "usefulness": 73,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -5021,8 +5021,8 @@
           },
           "learnerBaseCueText": "we: see a book (future)",
           "englishAuditText": "we: see a book (future)",
-          "usefulness": 98,
-          "complexity": 37
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -5036,8 +5036,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): see a book (future)",
           "englishAuditText": "you (plural / polite): see a book (future)",
-          "usefulness": 98,
-          "complexity": 37
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -5051,8 +5051,8 @@
           },
           "learnerBaseCueText": "they: see a book (future)",
           "englishAuditText": "they: see a book (future)",
-          "usefulness": 98,
-          "complexity": 37
+          "usefulness": 73,
+          "complexity": 29
         }
       ]
     },
@@ -5071,8 +5071,8 @@
         "transitive",
         "aorist"
       ],
-      "usefulness": 98,
-      "complexity": 53,
+      "usefulness": 73,
+      "complexity": 26,
       "teachingNoteBaseText": "This past screeve uses an ergative subject (მან / მათ) for this verb. A direct object is nominative: compare წიგნს in the present with წიგნი in the completed past.",
       "forms": [
         {
@@ -5087,8 +5087,8 @@
           },
           "learnerBaseCueText": "I: see a book (completed past)",
           "englishAuditText": "I: see a book (completed past)",
-          "usefulness": 98,
-          "complexity": 53
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -5102,8 +5102,8 @@
           },
           "learnerBaseCueText": "you (singular): see a book (completed past)",
           "englishAuditText": "you (singular): see a book (completed past)",
-          "usefulness": 98,
-          "complexity": 53
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -5117,8 +5117,8 @@
           },
           "learnerBaseCueText": "he / she: see a book (completed past)",
           "englishAuditText": "he / she: see a book (completed past)",
-          "usefulness": 98,
-          "complexity": 53
+          "usefulness": 73,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -5132,8 +5132,8 @@
           },
           "learnerBaseCueText": "we: see a book (completed past)",
           "englishAuditText": "we: see a book (completed past)",
-          "usefulness": 98,
-          "complexity": 53
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -5147,8 +5147,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): see a book (completed past)",
           "englishAuditText": "you (plural / polite): see a book (completed past)",
-          "usefulness": 98,
-          "complexity": 53
+          "usefulness": 73,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -5162,8 +5162,8 @@
           },
           "learnerBaseCueText": "they: see a book (completed past)",
           "englishAuditText": "they: see a book (completed past)",
-          "usefulness": 98,
-          "complexity": 53
+          "usefulness": 73,
+          "complexity": 29
         }
       ]
     },
@@ -5182,8 +5182,8 @@
         "activity",
         "present"
       ],
-      "usefulness": 98,
-      "complexity": 22,
+      "usefulness": 63,
+      "complexity": 26,
       "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
       "forms": [
         {
@@ -5198,8 +5198,8 @@
           },
           "learnerBaseCueText": "I: sing (present)",
           "englishAuditText": "I: sing (present)",
-          "usefulness": 98,
-          "complexity": 22
+          "usefulness": 63,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -5213,8 +5213,8 @@
           },
           "learnerBaseCueText": "you (singular): sing (present)",
           "englishAuditText": "you (singular): sing (present)",
-          "usefulness": 98,
-          "complexity": 22
+          "usefulness": 63,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -5228,8 +5228,8 @@
           },
           "learnerBaseCueText": "he / she: sing (present)",
           "englishAuditText": "he / she: sing (present)",
-          "usefulness": 98,
-          "complexity": 22
+          "usefulness": 63,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -5243,8 +5243,8 @@
           },
           "learnerBaseCueText": "we: sing (present)",
           "englishAuditText": "we: sing (present)",
-          "usefulness": 98,
-          "complexity": 22
+          "usefulness": 63,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -5258,8 +5258,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): sing (present)",
           "englishAuditText": "you (plural / polite): sing (present)",
-          "usefulness": 98,
-          "complexity": 22
+          "usefulness": 63,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -5273,8 +5273,8 @@
           },
           "learnerBaseCueText": "they: sing (present)",
           "englishAuditText": "they: sing (present)",
-          "usefulness": 98,
-          "complexity": 22
+          "usefulness": 63,
+          "complexity": 29
         }
       ]
     },
@@ -5293,8 +5293,8 @@
         "activity",
         "future"
       ],
-      "usefulness": 98,
-      "complexity": 38,
+      "usefulness": 63,
+      "complexity": 26,
       "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
       "forms": [
         {
@@ -5309,8 +5309,8 @@
           },
           "learnerBaseCueText": "I: sing (future)",
           "englishAuditText": "I: sing (future)",
-          "usefulness": 98,
-          "complexity": 38
+          "usefulness": 63,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -5324,8 +5324,8 @@
           },
           "learnerBaseCueText": "you (singular): sing (future)",
           "englishAuditText": "you (singular): sing (future)",
-          "usefulness": 98,
-          "complexity": 38
+          "usefulness": 63,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -5339,8 +5339,8 @@
           },
           "learnerBaseCueText": "he / she: sing (future)",
           "englishAuditText": "he / she: sing (future)",
-          "usefulness": 98,
-          "complexity": 38
+          "usefulness": 63,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -5354,8 +5354,8 @@
           },
           "learnerBaseCueText": "we: sing (future)",
           "englishAuditText": "we: sing (future)",
-          "usefulness": 98,
-          "complexity": 38
+          "usefulness": 63,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -5369,8 +5369,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): sing (future)",
           "englishAuditText": "you (plural / polite): sing (future)",
-          "usefulness": 98,
-          "complexity": 38
+          "usefulness": 63,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -5384,8 +5384,8 @@
           },
           "learnerBaseCueText": "they: sing (future)",
           "englishAuditText": "they: sing (future)",
-          "usefulness": 98,
-          "complexity": 38
+          "usefulness": 63,
+          "complexity": 29
         }
       ]
     },
@@ -5404,8 +5404,8 @@
         "activity",
         "aorist"
       ],
-      "usefulness": 98,
-      "complexity": 54,
+      "usefulness": 63,
+      "complexity": 26,
       "teachingNoteBaseText": "This past screeve uses an ergative subject (მან / მათ) for this verb. A direct object is nominative: compare წიგნს in the present with წიგნი in the completed past.",
       "forms": [
         {
@@ -5420,8 +5420,8 @@
           },
           "learnerBaseCueText": "I: sing (completed past)",
           "englishAuditText": "I: sing (completed past)",
-          "usefulness": 98,
-          "complexity": 54
+          "usefulness": 63,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -5435,8 +5435,8 @@
           },
           "learnerBaseCueText": "you (singular): sing (completed past)",
           "englishAuditText": "you (singular): sing (completed past)",
-          "usefulness": 98,
-          "complexity": 54
+          "usefulness": 63,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -5450,8 +5450,8 @@
           },
           "learnerBaseCueText": "he / she: sing (completed past)",
           "englishAuditText": "he / she: sing (completed past)",
-          "usefulness": 98,
-          "complexity": 54
+          "usefulness": 63,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -5465,8 +5465,8 @@
           },
           "learnerBaseCueText": "we: sing (completed past)",
           "englishAuditText": "we: sing (completed past)",
-          "usefulness": 98,
-          "complexity": 54
+          "usefulness": 63,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -5480,8 +5480,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): sing (completed past)",
           "englishAuditText": "you (plural / polite): sing (completed past)",
-          "usefulness": 98,
-          "complexity": 54
+          "usefulness": 63,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -5495,8 +5495,8 @@
           },
           "learnerBaseCueText": "they: sing (completed past)",
           "englishAuditText": "they: sing (completed past)",
-          "usefulness": 98,
-          "complexity": 54
+          "usefulness": 63,
+          "complexity": 29
         }
       ]
     },
@@ -5515,8 +5515,8 @@
         "activity",
         "present"
       ],
-      "usefulness": 98,
-      "complexity": 23,
+      "usefulness": 62,
+      "complexity": 26,
       "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
       "forms": [
         {
@@ -5531,8 +5531,8 @@
           },
           "learnerBaseCueText": "I: dance (present)",
           "englishAuditText": "I: dance (present)",
-          "usefulness": 98,
-          "complexity": 23
+          "usefulness": 62,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -5546,8 +5546,8 @@
           },
           "learnerBaseCueText": "you (singular): dance (present)",
           "englishAuditText": "you (singular): dance (present)",
-          "usefulness": 98,
-          "complexity": 23
+          "usefulness": 62,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -5561,8 +5561,8 @@
           },
           "learnerBaseCueText": "he / she: dance (present)",
           "englishAuditText": "he / she: dance (present)",
-          "usefulness": 98,
-          "complexity": 23
+          "usefulness": 62,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -5576,8 +5576,8 @@
           },
           "learnerBaseCueText": "we: dance (present)",
           "englishAuditText": "we: dance (present)",
-          "usefulness": 98,
-          "complexity": 23
+          "usefulness": 62,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -5591,8 +5591,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): dance (present)",
           "englishAuditText": "you (plural / polite): dance (present)",
-          "usefulness": 98,
-          "complexity": 23
+          "usefulness": 62,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -5606,8 +5606,8 @@
           },
           "learnerBaseCueText": "they: dance (present)",
           "englishAuditText": "they: dance (present)",
-          "usefulness": 98,
-          "complexity": 23
+          "usefulness": 62,
+          "complexity": 29
         }
       ]
     },
@@ -5626,8 +5626,8 @@
         "activity",
         "future"
       ],
-      "usefulness": 98,
-      "complexity": 39,
+      "usefulness": 62,
+      "complexity": 26,
       "teachingNoteBaseText": "The forms are authored for the fixed object or setting shown. Six person and number slots; third-person gender is not distinguished.",
       "forms": [
         {
@@ -5642,8 +5642,8 @@
           },
           "learnerBaseCueText": "I: dance (future)",
           "englishAuditText": "I: dance (future)",
-          "usefulness": 98,
-          "complexity": 39
+          "usefulness": 62,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -5657,8 +5657,8 @@
           },
           "learnerBaseCueText": "you (singular): dance (future)",
           "englishAuditText": "you (singular): dance (future)",
-          "usefulness": 98,
-          "complexity": 39
+          "usefulness": 62,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -5672,8 +5672,8 @@
           },
           "learnerBaseCueText": "he / she: dance (future)",
           "englishAuditText": "he / she: dance (future)",
-          "usefulness": 98,
-          "complexity": 39
+          "usefulness": 62,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -5687,8 +5687,8 @@
           },
           "learnerBaseCueText": "we: dance (future)",
           "englishAuditText": "we: dance (future)",
-          "usefulness": 98,
-          "complexity": 39
+          "usefulness": 62,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -5702,8 +5702,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): dance (future)",
           "englishAuditText": "you (plural / polite): dance (future)",
-          "usefulness": 98,
-          "complexity": 39
+          "usefulness": 62,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -5717,8 +5717,8 @@
           },
           "learnerBaseCueText": "they: dance (future)",
           "englishAuditText": "they: dance (future)",
-          "usefulness": 98,
-          "complexity": 39
+          "usefulness": 62,
+          "complexity": 29
         }
       ]
     },
@@ -5737,8 +5737,8 @@
         "activity",
         "aorist"
       ],
-      "usefulness": 98,
-      "complexity": 55,
+      "usefulness": 62,
+      "complexity": 26,
       "teachingNoteBaseText": "This past screeve uses an ergative subject (მან / მათ) for this verb. A direct object is nominative: compare წიგნს in the present with წიგნი in the completed past.",
       "forms": [
         {
@@ -5753,8 +5753,8 @@
           },
           "learnerBaseCueText": "I: dance (completed past)",
           "englishAuditText": "I: dance (completed past)",
-          "usefulness": 98,
-          "complexity": 55
+          "usefulness": 62,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -5768,8 +5768,8 @@
           },
           "learnerBaseCueText": "you (singular): dance (completed past)",
           "englishAuditText": "you (singular): dance (completed past)",
-          "usefulness": 98,
-          "complexity": 55
+          "usefulness": 62,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -5783,8 +5783,8 @@
           },
           "learnerBaseCueText": "he / she: dance (completed past)",
           "englishAuditText": "he / she: dance (completed past)",
-          "usefulness": 98,
-          "complexity": 55
+          "usefulness": 62,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -5798,8 +5798,8 @@
           },
           "learnerBaseCueText": "we: dance (completed past)",
           "englishAuditText": "we: dance (completed past)",
-          "usefulness": 98,
-          "complexity": 55
+          "usefulness": 62,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -5813,8 +5813,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): dance (completed past)",
           "englishAuditText": "you (plural / polite): dance (completed past)",
-          "usefulness": 98,
-          "complexity": 55
+          "usefulness": 62,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -5828,8 +5828,8 @@
           },
           "learnerBaseCueText": "they: dance (completed past)",
           "englishAuditText": "they: dance (completed past)",
-          "usefulness": 98,
-          "complexity": 55
+          "usefulness": 62,
+          "complexity": 29
         }
       ]
     },
@@ -5848,8 +5848,8 @@
         "knowledge",
         "present"
       ],
-      "usefulness": 98,
-      "complexity": 24,
+      "usefulness": 91,
+      "complexity": 26,
       "teachingNoteBaseText": "ცოდნა is exceptional: the present uses an ergative third-person subject (მან / მათ) and a nominative object. Compare მან იცის ქართული with ის სწავლობს ქართულს. These are explicit present forms with Georgian as the fixed object.",
       "forms": [
         {
@@ -5864,8 +5864,8 @@
           },
           "learnerBaseCueText": "I: know Georgian (present)",
           "englishAuditText": "I: know Georgian (present)",
-          "usefulness": 98,
-          "complexity": 24
+          "usefulness": 91,
+          "complexity": 26
         },
         {
           "id": "you-sg",
@@ -5879,8 +5879,8 @@
           },
           "learnerBaseCueText": "you (singular): know Georgian (present)",
           "englishAuditText": "you (singular): know Georgian (present)",
-          "usefulness": 98,
-          "complexity": 24
+          "usefulness": 91,
+          "complexity": 26
         },
         {
           "id": "third-sg",
@@ -5894,8 +5894,8 @@
           },
           "learnerBaseCueText": "he / she: know Georgian (present)",
           "englishAuditText": "he / she: know Georgian (present)",
-          "usefulness": 98,
-          "complexity": 24
+          "usefulness": 91,
+          "complexity": 29
         },
         {
           "id": "we",
@@ -5909,8 +5909,8 @@
           },
           "learnerBaseCueText": "we: know Georgian (present)",
           "englishAuditText": "we: know Georgian (present)",
-          "usefulness": 98,
-          "complexity": 24
+          "usefulness": 91,
+          "complexity": 26
         },
         {
           "id": "you-pl",
@@ -5924,8 +5924,8 @@
           },
           "learnerBaseCueText": "you (plural / polite): know Georgian (present)",
           "englishAuditText": "you (plural / polite): know Georgian (present)",
-          "usefulness": 98,
-          "complexity": 24
+          "usefulness": 91,
+          "complexity": 26
         },
         {
           "id": "third-pl",
@@ -5939,8 +5939,8 @@
           },
           "learnerBaseCueText": "they: know Georgian (present)",
           "englishAuditText": "they: know Georgian (present)",
-          "usefulness": 98,
-          "complexity": 24
+          "usefulness": 91,
+          "complexity": 29
         }
       ]
     },
@@ -5958,13 +5958,13 @@
         "level-zero",
         "first-forms"
       ],
-      "usefulness": 98,
-      "complexity": 8,
+      "usefulness": 77,
+      "complexity": 35,
       "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 77,
+          "complexity": 35,
           "id": "i",
           "revision": 1,
           "subjectTargetText": "მე",
@@ -5978,8 +5978,8 @@
           "englishAuditText": "I am at home"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 77,
+          "complexity": 35,
           "id": "you-sg",
           "revision": 1,
           "subjectTargetText": "შენ",
@@ -5993,8 +5993,8 @@
           "englishAuditText": "you are at home"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 77,
+          "complexity": 38,
           "id": "third-sg",
           "revision": 1,
           "subjectTargetText": "ის",
@@ -6008,8 +6008,8 @@
           "englishAuditText": "he/she is at home"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 77,
+          "complexity": 35,
           "id": "we",
           "revision": 1,
           "subjectTargetText": "ჩვენ",
@@ -6023,8 +6023,8 @@
           "englishAuditText": "we are at home"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 77,
+          "complexity": 35,
           "id": "you-pl",
           "revision": 1,
           "subjectTargetText": "თქვენ",
@@ -6038,8 +6038,8 @@
           "englishAuditText": "you (plural/polite) are at home"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 77,
+          "complexity": 38,
           "id": "third-pl",
           "revision": 1,
           "subjectTargetText": "ისინი",
@@ -6068,13 +6068,13 @@
         "level-zero",
         "first-forms"
       ],
-      "usefulness": 98,
-      "complexity": 8,
+      "usefulness": 73,
+      "complexity": 26,
       "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 73,
+          "complexity": 26,
           "id": "i",
           "revision": 1,
           "subjectTargetText": "მე",
@@ -6088,8 +6088,8 @@
           "englishAuditText": "I have a book"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 73,
+          "complexity": 26,
           "id": "you-sg",
           "revision": 1,
           "subjectTargetText": "შენ",
@@ -6103,8 +6103,8 @@
           "englishAuditText": "you have a book"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 73,
+          "complexity": 29,
           "id": "third-sg",
           "revision": 1,
           "subjectTargetText": "მას",
@@ -6118,8 +6118,8 @@
           "englishAuditText": "he/she has a book"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 73,
+          "complexity": 26,
           "id": "we",
           "revision": 1,
           "subjectTargetText": "ჩვენ",
@@ -6133,8 +6133,8 @@
           "englishAuditText": "we have a book"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 73,
+          "complexity": 26,
           "id": "you-pl",
           "revision": 1,
           "subjectTargetText": "თქვენ",
@@ -6148,8 +6148,8 @@
           "englishAuditText": "you (plural/polite) have a book"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 73,
+          "complexity": 29,
           "id": "third-pl",
           "revision": 1,
           "subjectTargetText": "მათ",
@@ -6178,13 +6178,13 @@
         "level-zero",
         "first-forms"
       ],
-      "usefulness": 98,
-      "complexity": 8,
+      "usefulness": 88,
+      "complexity": 26,
       "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 88,
+          "complexity": 26,
           "id": "i",
           "revision": 1,
           "subjectTargetText": "მე",
@@ -6198,8 +6198,8 @@
           "englishAuditText": "I want water"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 88,
+          "complexity": 26,
           "id": "you-sg",
           "revision": 1,
           "subjectTargetText": "შენ",
@@ -6213,8 +6213,8 @@
           "englishAuditText": "you want water"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 88,
+          "complexity": 29,
           "id": "third-sg",
           "revision": 1,
           "subjectTargetText": "მას",
@@ -6228,8 +6228,8 @@
           "englishAuditText": "he/she wants water"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 88,
+          "complexity": 26,
           "id": "we",
           "revision": 1,
           "subjectTargetText": "ჩვენ",
@@ -6243,8 +6243,8 @@
           "englishAuditText": "we want water"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 88,
+          "complexity": 26,
           "id": "you-pl",
           "revision": 1,
           "subjectTargetText": "თქვენ",
@@ -6258,8 +6258,8 @@
           "englishAuditText": "you (plural/polite) want water"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 88,
+          "complexity": 29,
           "id": "third-pl",
           "revision": 1,
           "subjectTargetText": "მათ",
@@ -6288,13 +6288,13 @@
         "level-zero",
         "first-forms"
       ],
-      "usefulness": 98,
-      "complexity": 8,
+      "usefulness": 89,
+      "complexity": 26,
       "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "i",
           "revision": 1,
           "subjectTargetText": "მე",
@@ -6308,8 +6308,8 @@
           "englishAuditText": "I read a book"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "you-sg",
           "revision": 1,
           "subjectTargetText": "შენ",
@@ -6323,8 +6323,8 @@
           "englishAuditText": "you read a book"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 29,
           "id": "third-sg",
           "revision": 1,
           "subjectTargetText": "ის",
@@ -6338,8 +6338,8 @@
           "englishAuditText": "he/she reads a book"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "we",
           "revision": 1,
           "subjectTargetText": "ჩვენ",
@@ -6353,8 +6353,8 @@
           "englishAuditText": "we read a book"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "you-pl",
           "revision": 1,
           "subjectTargetText": "თქვენ",
@@ -6368,8 +6368,8 @@
           "englishAuditText": "you (plural/polite) read a book"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 29,
           "id": "third-pl",
           "revision": 1,
           "subjectTargetText": "ისინი",
@@ -6398,13 +6398,13 @@
         "level-zero",
         "first-forms"
       ],
-      "usefulness": 98,
-      "complexity": 8,
+      "usefulness": 89,
+      "complexity": 26,
       "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "i",
           "revision": 1,
           "subjectTargetText": "მე",
@@ -6418,8 +6418,8 @@
           "englishAuditText": "I write a letter"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "you-sg",
           "revision": 1,
           "subjectTargetText": "შენ",
@@ -6433,8 +6433,8 @@
           "englishAuditText": "you write a letter"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 29,
           "id": "third-sg",
           "revision": 1,
           "subjectTargetText": "ის",
@@ -6448,8 +6448,8 @@
           "englishAuditText": "he/she writes a letter"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "we",
           "revision": 1,
           "subjectTargetText": "ჩვენ",
@@ -6463,8 +6463,8 @@
           "englishAuditText": "we write a letter"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "you-pl",
           "revision": 1,
           "subjectTargetText": "თქვენ",
@@ -6478,8 +6478,8 @@
           "englishAuditText": "you (plural/polite) write a letter"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 29,
           "id": "third-pl",
           "revision": 1,
           "subjectTargetText": "ისინი",
@@ -6508,13 +6508,13 @@
         "level-zero",
         "first-forms"
       ],
-      "usefulness": 98,
-      "complexity": 8,
+      "usefulness": 77,
+      "complexity": 35,
       "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 77,
+          "complexity": 35,
           "id": "i",
           "revision": 1,
           "subjectTargetText": "მე",
@@ -6528,8 +6528,8 @@
           "englishAuditText": "I go home"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 77,
+          "complexity": 35,
           "id": "you-sg",
           "revision": 1,
           "subjectTargetText": "შენ",
@@ -6543,8 +6543,8 @@
           "englishAuditText": "you go home"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 77,
+          "complexity": 38,
           "id": "third-sg",
           "revision": 1,
           "subjectTargetText": "ის",
@@ -6558,8 +6558,8 @@
           "englishAuditText": "he/she goes home"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 77,
+          "complexity": 35,
           "id": "we",
           "revision": 1,
           "subjectTargetText": "ჩვენ",
@@ -6573,8 +6573,8 @@
           "englishAuditText": "we go home"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 77,
+          "complexity": 35,
           "id": "you-pl",
           "revision": 1,
           "subjectTargetText": "თქვენ",
@@ -6588,8 +6588,8 @@
           "englishAuditText": "you (plural/polite) go home"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 77,
+          "complexity": 38,
           "id": "third-pl",
           "revision": 1,
           "subjectTargetText": "ისინი",
@@ -6618,13 +6618,13 @@
         "level-zero",
         "first-forms"
       ],
-      "usefulness": 96,
-      "complexity": 8,
+      "usefulness": 89,
+      "complexity": 26,
       "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "i",
           "revision": 1,
           "subjectTargetText": "მე",
@@ -6638,8 +6638,8 @@
           "englishAuditText": "I work"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "you-sg",
           "revision": 1,
           "subjectTargetText": "შენ",
@@ -6653,8 +6653,8 @@
           "englishAuditText": "you work"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 29,
           "id": "third-sg",
           "revision": 1,
           "subjectTargetText": "ის",
@@ -6668,8 +6668,8 @@
           "englishAuditText": "he/she works"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "we",
           "revision": 1,
           "subjectTargetText": "ჩვენ",
@@ -6683,8 +6683,8 @@
           "englishAuditText": "we work"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "you-pl",
           "revision": 1,
           "subjectTargetText": "თქვენ",
@@ -6698,8 +6698,8 @@
           "englishAuditText": "you (plural/polite) work"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 29,
           "id": "third-pl",
           "revision": 1,
           "subjectTargetText": "ისინი",
@@ -6728,13 +6728,13 @@
         "level-zero",
         "first-forms"
       ],
-      "usefulness": 96,
-      "complexity": 8,
+      "usefulness": 77,
+      "complexity": 26,
       "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 77,
+          "complexity": 26,
           "id": "i",
           "revision": 1,
           "subjectTargetText": "მე",
@@ -6748,8 +6748,8 @@
           "englishAuditText": "I come home"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 77,
+          "complexity": 26,
           "id": "you-sg",
           "revision": 1,
           "subjectTargetText": "შენ",
@@ -6763,8 +6763,8 @@
           "englishAuditText": "you come home"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 77,
+          "complexity": 29,
           "id": "third-sg",
           "revision": 1,
           "subjectTargetText": "ის",
@@ -6778,8 +6778,8 @@
           "englishAuditText": "he/she comes home"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 77,
+          "complexity": 26,
           "id": "we",
           "revision": 1,
           "subjectTargetText": "ჩვენ",
@@ -6793,8 +6793,8 @@
           "englishAuditText": "we come home"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 77,
+          "complexity": 26,
           "id": "you-pl",
           "revision": 1,
           "subjectTargetText": "თქვენ",
@@ -6808,8 +6808,8 @@
           "englishAuditText": "you (plural/polite) come home"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 77,
+          "complexity": 29,
           "id": "third-pl",
           "revision": 1,
           "subjectTargetText": "ისინი",
@@ -6838,13 +6838,13 @@
         "level-zero",
         "first-forms"
       ],
-      "usefulness": 96,
-      "complexity": 8,
+      "usefulness": 89,
+      "complexity": 26,
       "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "i",
           "revision": 1,
           "subjectTargetText": "მე",
@@ -6858,8 +6858,8 @@
           "englishAuditText": "I live"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "you-sg",
           "revision": 1,
           "subjectTargetText": "შენ",
@@ -6873,8 +6873,8 @@
           "englishAuditText": "you live"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 29,
           "id": "third-sg",
           "revision": 1,
           "subjectTargetText": "ის",
@@ -6888,8 +6888,8 @@
           "englishAuditText": "he/she lives"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "we",
           "revision": 1,
           "subjectTargetText": "ჩვენ",
@@ -6903,8 +6903,8 @@
           "englishAuditText": "we live"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "you-pl",
           "revision": 1,
           "subjectTargetText": "თქვენ",
@@ -6918,8 +6918,8 @@
           "englishAuditText": "you (plural/polite) live"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 29,
           "id": "third-pl",
           "revision": 1,
           "subjectTargetText": "ისინი",
@@ -6948,13 +6948,13 @@
         "level-zero",
         "first-forms"
       ],
-      "usefulness": 96,
-      "complexity": 8,
+      "usefulness": 75,
+      "complexity": 26,
       "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 75,
+          "complexity": 26,
           "id": "i",
           "revision": 1,
           "subjectTargetText": "მე",
@@ -6968,8 +6968,8 @@
           "englishAuditText": "I eat bread"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 75,
+          "complexity": 26,
           "id": "you-sg",
           "revision": 1,
           "subjectTargetText": "შენ",
@@ -6983,8 +6983,8 @@
           "englishAuditText": "you eat bread"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 75,
+          "complexity": 29,
           "id": "third-sg",
           "revision": 1,
           "subjectTargetText": "ის",
@@ -6998,8 +6998,8 @@
           "englishAuditText": "he/she eats bread"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 75,
+          "complexity": 26,
           "id": "we",
           "revision": 1,
           "subjectTargetText": "ჩვენ",
@@ -7013,8 +7013,8 @@
           "englishAuditText": "we eat bread"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 75,
+          "complexity": 26,
           "id": "you-pl",
           "revision": 1,
           "subjectTargetText": "თქვენ",
@@ -7028,8 +7028,8 @@
           "englishAuditText": "you (plural/polite) eat bread"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 75,
+          "complexity": 29,
           "id": "third-pl",
           "revision": 1,
           "subjectTargetText": "ისინი",
@@ -7058,13 +7058,13 @@
         "level-zero",
         "first-forms"
       ],
-      "usefulness": 96,
-      "complexity": 8,
+      "usefulness": 88,
+      "complexity": 26,
       "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 88,
+          "complexity": 26,
           "id": "i",
           "revision": 1,
           "subjectTargetText": "მე",
@@ -7078,8 +7078,8 @@
           "englishAuditText": "I drink water"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 88,
+          "complexity": 26,
           "id": "you-sg",
           "revision": 1,
           "subjectTargetText": "შენ",
@@ -7093,8 +7093,8 @@
           "englishAuditText": "you drink water"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 88,
+          "complexity": 29,
           "id": "third-sg",
           "revision": 1,
           "subjectTargetText": "ის",
@@ -7108,8 +7108,8 @@
           "englishAuditText": "he/she drinks water"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 88,
+          "complexity": 26,
           "id": "we",
           "revision": 1,
           "subjectTargetText": "ჩვენ",
@@ -7123,8 +7123,8 @@
           "englishAuditText": "we drink water"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 88,
+          "complexity": 26,
           "id": "you-pl",
           "revision": 1,
           "subjectTargetText": "თქვენ",
@@ -7138,8 +7138,8 @@
           "englishAuditText": "you (plural/polite) drink water"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 88,
+          "complexity": 29,
           "id": "third-pl",
           "revision": 1,
           "subjectTargetText": "ისინი",
@@ -7168,13 +7168,13 @@
         "level-zero",
         "first-forms"
       ],
-      "usefulness": 96,
-      "complexity": 8,
+      "usefulness": 73,
+      "complexity": 26,
       "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 73,
+          "complexity": 26,
           "id": "i",
           "revision": 1,
           "subjectTargetText": "მე",
@@ -7188,8 +7188,8 @@
           "englishAuditText": "I see a book"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 73,
+          "complexity": 26,
           "id": "you-sg",
           "revision": 1,
           "subjectTargetText": "შენ",
@@ -7203,8 +7203,8 @@
           "englishAuditText": "you see a book"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 73,
+          "complexity": 29,
           "id": "third-sg",
           "revision": 1,
           "subjectTargetText": "ის",
@@ -7218,8 +7218,8 @@
           "englishAuditText": "he/she sees a book"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 73,
+          "complexity": 26,
           "id": "we",
           "revision": 1,
           "subjectTargetText": "ჩვენ",
@@ -7233,8 +7233,8 @@
           "englishAuditText": "we see a book"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 73,
+          "complexity": 26,
           "id": "you-pl",
           "revision": 1,
           "subjectTargetText": "თქვენ",
@@ -7248,8 +7248,8 @@
           "englishAuditText": "you (plural/polite) see a book"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 73,
+          "complexity": 29,
           "id": "third-pl",
           "revision": 1,
           "subjectTargetText": "ისინი",
@@ -7278,13 +7278,13 @@
         "level-zero",
         "first-forms"
       ],
-      "usefulness": 96,
-      "complexity": 8,
+      "usefulness": 63,
+      "complexity": 26,
       "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 63,
+          "complexity": 26,
           "id": "i",
           "revision": 1,
           "subjectTargetText": "მე",
@@ -7298,8 +7298,8 @@
           "englishAuditText": "I sing"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 63,
+          "complexity": 26,
           "id": "you-sg",
           "revision": 1,
           "subjectTargetText": "შენ",
@@ -7313,8 +7313,8 @@
           "englishAuditText": "you sing"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 63,
+          "complexity": 29,
           "id": "third-sg",
           "revision": 1,
           "subjectTargetText": "ის",
@@ -7328,8 +7328,8 @@
           "englishAuditText": "he/she sings"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 63,
+          "complexity": 26,
           "id": "we",
           "revision": 1,
           "subjectTargetText": "ჩვენ",
@@ -7343,8 +7343,8 @@
           "englishAuditText": "we sing"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 63,
+          "complexity": 26,
           "id": "you-pl",
           "revision": 1,
           "subjectTargetText": "თქვენ",
@@ -7358,8 +7358,8 @@
           "englishAuditText": "you (plural/polite) sing"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 63,
+          "complexity": 29,
           "id": "third-pl",
           "revision": 1,
           "subjectTargetText": "ისინი",
@@ -7388,13 +7388,13 @@
         "level-zero",
         "first-forms"
       ],
-      "usefulness": 96,
-      "complexity": 8,
+      "usefulness": 62,
+      "complexity": 26,
       "teachingNoteBaseText": "Listen to each form and match it with its cue.",
       "forms": [
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 62,
+          "complexity": 26,
           "id": "i",
           "revision": 1,
           "subjectTargetText": "მე",
@@ -7408,8 +7408,8 @@
           "englishAuditText": "I dance"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 62,
+          "complexity": 26,
           "id": "you-sg",
           "revision": 1,
           "subjectTargetText": "შენ",
@@ -7423,8 +7423,8 @@
           "englishAuditText": "you dance"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 62,
+          "complexity": 29,
           "id": "third-sg",
           "revision": 1,
           "subjectTargetText": "ის",
@@ -7438,8 +7438,8 @@
           "englishAuditText": "he/she dances"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 62,
+          "complexity": 26,
           "id": "we",
           "revision": 1,
           "subjectTargetText": "ჩვენ",
@@ -7453,8 +7453,8 @@
           "englishAuditText": "we dance"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 62,
+          "complexity": 26,
           "id": "you-pl",
           "revision": 1,
           "subjectTargetText": "თქვენ",
@@ -7468,8 +7468,8 @@
           "englishAuditText": "you (plural/polite) dance"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 62,
+          "complexity": 29,
           "id": "third-pl",
           "revision": 1,
           "subjectTargetText": "ისინი",

@@ -1,3 +1,6 @@
+import { examplesAcrossCourses } from './metrics.mjs';
+
+const compare = (a, b) => String(a ?? '') < String(b ?? '') ? -1 : String(a ?? '') > String(b ?? '') ? 1 : 0;
 const cell = value => String(value ?? '—').replaceAll('|', '\\|').replaceAll('\n', ' ');
 const number = value => typeof value === 'number' ? Number.isInteger(value) ? String(value) : value.toFixed(4) : '—';
 const table = (headers, rows) => [`| ${headers.join(' | ')} |`, `| ${headers.map(() => '---').join(' | ')} |`, ...rows.map(row => `| ${row.map(cell).join(' | ')} |`)].join('\n');
@@ -9,7 +12,7 @@ export function renderReport(result) {
     `Run: ${run.id}. Seed: ${run.config.seed}. Input: ${run.fixture ? 'small authored fixture' : 'manifest-driven course inventory'}.`, '',
     `${all.authoredRecords} authored records; ${all.playableAssessmentUnits} known normalized playable assessment units${all.playableCountComplete ? '' : ` (incomplete: ${all.unavailablePlayableBanks} banks unavailable)`}; ${all.semanticDocuments} unique canonical English documents. These are different counting units.`, '',
     '## Inventory and distributions', '',
-    table(['Course', 'Game', 'Bank', 'Authored', 'Known playable', 'English docs', 'Missing English'], metadata.groups.filter(row => !row.scope.kind).map(row => [row.scope.courseId, row.scope.gameId ?? '(all)', row.scope.bankId ?? '(all)', row.authoredRecords, row.playableCountComplete ? row.playableAssessmentUnits : `${row.playableAssessmentUnits} (incomplete)`, row.semanticDocuments, row.missingEnglish])), '',
+    table(['Course', 'Game', 'Bank', 'Authored', 'Known playable', 'English docs', 'Missing English'], metadata.groups.filter(row => !row.scope.kind).slice().sort((a, b) => compare(a.scope.courseId, b.scope.courseId) || compare(a.scope.gameId, b.scope.gameId) || compare(a.scope.bankId, b.scope.bankId)).map(row => [row.scope.courseId, row.scope.gameId ?? '(all)', row.scope.bankId ?? '(all)', row.authoredRecords, row.playableCountComplete ? row.playableAssessmentUnits : `${row.playableAssessmentUnits} (incomplete)`, row.semanticDocuments, row.missingEnglish])), '',
     table(['Field', 'Valid', 'Missing', 'Invalid', 'Min', 'Median', 'Max', 'Mean'], Object.entries(all.authoredMetadata).map(([key, row]) => [key, row.count, row.missing, row.invalid, row.min, number(row.median), row.max, number(row.mean)])), '',
     'Complete histograms, record kinds/roles, authored and playable metadata, category frequencies, HHI, entropy, and category difficulty/complexity spreads are in results.json. Missing badges are reported separately; some record kinds do not support a badge.', '',
     `Exact English duplicate groups: ${metadata.exactDuplicates.documentGroups}; participating authored records: ${metadata.exactDuplicates.participatingRecords}.`, '',
@@ -39,9 +42,9 @@ export function renderReport(result) {
   }
   lines.push('## Diagnostic candidates and data quality', '',
     `${metadata.progressionGaps.candidates} empty complexity-interval candidates. ${metadata.progressionGaps.interpretation}`, '',
-    table(['Course/game/bank/kind', 'Category', 'Lower', 'Upper', 'Gap'], metadata.progressionGaps.examples.map(row => [Object.values({ course: row.courseId, game: row.gameId, bank: row.bankId, kind: row.kind }).join('/'), row.category.field ? `${row.category.field}=${row.category.value}` : '(bank/kind)', row.lower, row.upper, row.gap])), '',
+    table(['Course/game/bank/kind', 'Category', 'Lower', 'Upper', 'Gap', 'Endpoints'], metadata.progressionGaps.examples.map(row => [Object.values({ course: row.courseId, game: row.gameId, bank: row.bankId, kind: row.kind }).join('/'), row.category.field ? `${row.category.field}=${row.category.value}` : '(bank/kind)', row.lower, row.upper, row.gap, (row.lowerRecordIds?.length || 0) + (row.upperRecordIds?.length || 0)])), '',
     table(['Finding', 'Count'], Object.entries(result.findingCounts)), '',
-    ...result.findings.slice(0, run.config.diagnostics.exampleLimit).map(row => `- ${row.code}: ${row.message} (${row.recordId || [row.courseId, row.gameId, row.bankId].filter(Boolean).join('/')})`), '',
+    ...examplesAcrossCourses(result.findings, run.config.diagnostics.exampleLimit).map(row => `- ${row.code}: ${row.message} (${row.recordId || [row.courseId, row.gameId, row.bankId].filter(Boolean).join('/')})`), '',
     `Reference coverage: ${JSON.stringify(metadata.referenceCoverage)}.`, '',
     '## Limits and interpretation', '',
     '- No aggregate course-quality score, universal curriculum, learner model, or sampling-policy comparison is computed.',
@@ -51,7 +54,7 @@ export function renderReport(result) {
     '- Structural parents can lack independent English or target text. Their omissions are explicit; child text is never invented for them.',
     '- English provenance is an authoring contract, not automatic language detection. The encoder adds a mechanical script guard and reports rejected inputs.',
     '- Grades and gaps are authored metadata diagnostics. Numeric gaps and semantic spreads do not establish learner difficulty, optimal sequencing, or missing topics. Topic absence is assessed only against an explicitly supplied reference.',
-    '- Category dimensions and any authored Czech semantic-compass axes are not embedding coordinates or universal mastery dimensions.',
+    '- Category dimensions and any course-authored semantic-compass axes are not embedding coordinates or universal mastery dimensions.',
     '- Normalized assessment candidates are not generated round combinations, runtime availability guarantees, or counts of dictionary rows. Adapter errors are recorded with unavailable counts, not guessed playable totals.', '',
     '## Reproduction and provenance', '',
     'Exact effective configuration, input/implementation hashes, source provenance, adapter status, selected IDs, model signatures, and skipped-input reasons are retained in results.json and corpus.json.', '',

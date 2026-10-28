@@ -39,8 +39,8 @@
       "learnerBaseText": "friend",
       "english": "friend",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 18
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "ka.gravity.noun.001.pl",
@@ -50,8 +50,8 @@
       "learnerBaseText": "friends",
       "english": "friends",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 28
+      "usefulness": 77,
+      "complexity": 29
     },
     {
       "id": "ka.gravity.noun.002.sg",
@@ -61,8 +61,8 @@
       "learnerBaseText": "teacher",
       "english": "teacher",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 19
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "ka.gravity.noun.002.pl",
@@ -72,8 +72,8 @@
       "learnerBaseText": "teachers",
       "english": "teachers",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 29
+      "usefulness": 77,
+      "complexity": 26
     },
     {
       "id": "ka.gravity.noun.003.sg",
@@ -83,8 +83,8 @@
       "learnerBaseText": "student",
       "english": "student",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 20
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "ka.gravity.noun.003.pl",
@@ -94,8 +94,8 @@
       "learnerBaseText": "students",
       "english": "students",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 30
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "ka.gravity.noun.004.sg",
@@ -105,8 +105,8 @@
       "learnerBaseText": "doctor",
       "english": "doctor",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 21
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "ka.gravity.noun.004.pl",
@@ -116,8 +116,8 @@
       "learnerBaseText": "doctors",
       "english": "doctors",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 31
+      "usefulness": 85,
+      "complexity": 29
     },
     {
       "id": "ka.gravity.noun.005.sg",
@@ -127,8 +127,8 @@
       "learnerBaseText": "neighbor",
       "english": "neighbor",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 22
+      "usefulness": 79,
+      "complexity": 25
     },
     {
       "id": "ka.gravity.noun.005.pl",
@@ -138,8 +138,8 @@
       "learnerBaseText": "neighbors",
       "english": "neighbors",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 32
+      "usefulness": 79,
+      "complexity": 25
     },
     {
       "id": "ka.gravity.noun.006.sg",
@@ -149,8 +149,8 @@
       "learnerBaseText": "guest",
       "english": "guest",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 23
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "ka.gravity.noun.006.pl",
@@ -160,8 +160,8 @@
       "learnerBaseText": "guests",
       "english": "guests",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 33
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "ka.gravity.noun.007.sg",
@@ -171,8 +171,8 @@
       "learnerBaseText": "child",
       "english": "child",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 24
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "ka.gravity.noun.007.pl",
@@ -182,8 +182,8 @@
       "learnerBaseText": "children",
       "english": "children",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 34
+      "usefulness": 77,
+      "complexity": 44
     },
     {
       "id": "ka.gravity.noun.008.sg",
@@ -193,7 +193,7 @@
       "learnerBaseText": "woman",
       "english": "woman",
       "laneId": "singular",
-      "usefulness": 96,
+      "usefulness": 79,
       "complexity": 25
     },
     {
@@ -204,8 +204,8 @@
       "learnerBaseText": "women",
       "english": "women",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 35
+      "usefulness": 79,
+      "complexity": 40
     },
     {
       "id": "ka.gravity.noun.009.sg",
@@ -215,8 +215,8 @@
       "learnerBaseText": "man",
       "english": "man",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 26
+      "usefulness": 79,
+      "complexity": 25
     },
     {
       "id": "ka.gravity.noun.009.pl",
@@ -226,8 +226,8 @@
       "learnerBaseText": "men",
       "english": "men",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 36
+      "usefulness": 79,
+      "complexity": 40
     },
     {
       "id": "ka.gravity.noun.010.sg",
@@ -237,8 +237,8 @@
       "learnerBaseText": "sister",
       "english": "sister",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 27
+      "usefulness": 79,
+      "complexity": 25
     },
     {
       "id": "ka.gravity.noun.010.pl",
@@ -248,8 +248,8 @@
       "learnerBaseText": "sisters",
       "english": "sisters",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 37
+      "usefulness": 79,
+      "complexity": 25
     },
     {
       "id": "ka.gravity.noun.011.sg",
@@ -259,8 +259,8 @@
       "learnerBaseText": "brother",
       "english": "brother",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 28
+      "usefulness": 79,
+      "complexity": 25
     },
     {
       "id": "ka.gravity.noun.011.pl",
@@ -270,8 +270,8 @@
       "learnerBaseText": "brothers",
       "english": "brothers",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 38
+      "usefulness": 79,
+      "complexity": 25
     },
     {
       "id": "ka.gravity.noun.012.sg",
@@ -281,8 +281,8 @@
       "learnerBaseText": "mother",
       "english": "mother",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 29
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "ka.gravity.noun.012.pl",
@@ -292,8 +292,8 @@
       "learnerBaseText": "mothers",
       "english": "mothers",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 39
+      "usefulness": 77,
+      "complexity": 29
     },
     {
       "id": "ka.gravity.noun.013.sg",
@@ -303,8 +303,8 @@
       "learnerBaseText": "father",
       "english": "father",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 18
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "ka.gravity.noun.013.pl",
@@ -314,8 +314,8 @@
       "learnerBaseText": "fathers",
       "english": "fathers",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 28
+      "usefulness": 77,
+      "complexity": 29
     },
     {
       "id": "ka.gravity.noun.014.sg",
@@ -325,8 +325,8 @@
       "learnerBaseText": "driver",
       "english": "driver",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 19
+      "usefulness": 83,
+      "complexity": 25
     },
     {
       "id": "ka.gravity.noun.014.pl",
@@ -336,8 +336,8 @@
       "learnerBaseText": "drivers",
       "english": "drivers",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 29
+      "usefulness": 83,
+      "complexity": 25
     },
     {
       "id": "ka.gravity.noun.015.sg",
@@ -347,8 +347,8 @@
       "learnerBaseText": "seller",
       "english": "seller",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 20
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "ka.gravity.noun.015.pl",
@@ -358,8 +358,8 @@
       "learnerBaseText": "sellers",
       "english": "sellers",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 30
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "ka.gravity.noun.016.sg",
@@ -369,8 +369,8 @@
       "learnerBaseText": "colleague",
       "english": "colleague",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 21
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "ka.gravity.noun.016.pl",
@@ -380,8 +380,8 @@
       "learnerBaseText": "colleagues",
       "english": "colleagues",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 31
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "ka.gravity.noun.017.sg",
@@ -391,8 +391,8 @@
       "learnerBaseText": "guide",
       "english": "guide",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 22
+      "usefulness": 82,
+      "complexity": 26
     },
     {
       "id": "ka.gravity.noun.017.pl",
@@ -402,8 +402,8 @@
       "learnerBaseText": "guides",
       "english": "guides",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 32
+      "usefulness": 82,
+      "complexity": 26
     },
     {
       "id": "ka.gravity.noun.018.sg",
@@ -413,8 +413,8 @@
       "learnerBaseText": "engineer",
       "english": "engineer",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 23
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "ka.gravity.noun.018.pl",
@@ -424,8 +424,8 @@
       "learnerBaseText": "engineers",
       "english": "engineers",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 33
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "ka.gravity.noun.019.sg",
@@ -435,7 +435,7 @@
       "learnerBaseText": "nurse",
       "english": "nurse",
       "laneId": "singular",
-      "usefulness": 96,
+      "usefulness": 88,
       "complexity": 24
     },
     {
@@ -446,8 +446,8 @@
       "learnerBaseText": "nurses",
       "english": "nurses",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 34
+      "usefulness": 88,
+      "complexity": 24
     },
     {
       "id": "ka.gravity.noun.020.sg",
@@ -457,8 +457,8 @@
       "learnerBaseText": "athlete",
       "english": "athlete",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 25
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "ka.gravity.noun.020.pl",
@@ -468,8 +468,8 @@
       "learnerBaseText": "athletes",
       "english": "athletes",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 35
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "ka.gravity.noun.021.sg",
@@ -479,8 +479,8 @@
       "learnerBaseText": "book",
       "english": "book",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 26
+      "usefulness": 73,
+      "complexity": 21
     },
     {
       "id": "ka.gravity.noun.021.pl",
@@ -490,8 +490,8 @@
       "learnerBaseText": "books",
       "english": "books",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 36
+      "usefulness": 73,
+      "complexity": 21
     },
     {
       "id": "ka.gravity.noun.022.sg",
@@ -501,8 +501,8 @@
       "learnerBaseText": "notebook",
       "english": "notebook",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 27
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "ka.gravity.noun.022.pl",
@@ -512,8 +512,8 @@
       "learnerBaseText": "notebooks",
       "english": "notebooks",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 37
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "ka.gravity.noun.023.sg",
@@ -523,8 +523,8 @@
       "learnerBaseText": "pen",
       "english": "pen",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 28
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "ka.gravity.noun.023.pl",
@@ -534,8 +534,8 @@
       "learnerBaseText": "pens",
       "english": "pens",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 38
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "ka.gravity.noun.024.sg",
@@ -545,8 +545,8 @@
       "learnerBaseText": "pencil",
       "english": "pencil",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 29
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "ka.gravity.noun.024.pl",
@@ -556,8 +556,8 @@
       "learnerBaseText": "pencils",
       "english": "pencils",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 39
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "ka.gravity.noun.025.sg",
@@ -567,8 +567,8 @@
       "learnerBaseText": "phone",
       "english": "phone",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 18
+      "usefulness": 79,
+      "complexity": 21
     },
     {
       "id": "ka.gravity.noun.025.pl",
@@ -578,8 +578,8 @@
       "learnerBaseText": "phones",
       "english": "phones",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 28
+      "usefulness": 79,
+      "complexity": 21
     },
     {
       "id": "ka.gravity.noun.026.sg",
@@ -589,8 +589,8 @@
       "learnerBaseText": "computer",
       "english": "computer",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 19
+      "usefulness": 72,
+      "complexity": 27
     },
     {
       "id": "ka.gravity.noun.026.pl",
@@ -600,8 +600,8 @@
       "learnerBaseText": "computers",
       "english": "computers",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 29
+      "usefulness": 72,
+      "complexity": 27
     },
     {
       "id": "ka.gravity.noun.027.sg",
@@ -611,8 +611,8 @@
       "learnerBaseText": "bag",
       "english": "bag",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 20
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "ka.gravity.noun.027.pl",
@@ -622,8 +622,8 @@
       "learnerBaseText": "bags",
       "english": "bags",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 30
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "ka.gravity.noun.028.sg",
@@ -633,7 +633,7 @@
       "learnerBaseText": "key",
       "english": "key",
       "laneId": "singular",
-      "usefulness": 96,
+      "usefulness": 76,
       "complexity": 21
     },
     {
@@ -644,8 +644,8 @@
       "learnerBaseText": "keys",
       "english": "keys",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 31
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "ka.gravity.noun.029.sg",
@@ -655,8 +655,8 @@
       "learnerBaseText": "ticket",
       "english": "ticket",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 22
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "ka.gravity.noun.029.pl",
@@ -666,8 +666,8 @@
       "learnerBaseText": "tickets",
       "english": "tickets",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 32
+      "usefulness": 81,
+      "complexity": 29
     },
     {
       "id": "ka.gravity.noun.030.sg",
@@ -677,8 +677,8 @@
       "learnerBaseText": "passport",
       "english": "passport",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 23
+      "usefulness": 83,
+      "complexity": 25
     },
     {
       "id": "ka.gravity.noun.030.pl",
@@ -688,8 +688,8 @@
       "learnerBaseText": "passports",
       "english": "passports",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 33
+      "usefulness": 83,
+      "complexity": 25
     },
     {
       "id": "ka.gravity.noun.031.sg",
@@ -699,8 +699,8 @@
       "learnerBaseText": "map",
       "english": "map",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 24
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "ka.gravity.noun.031.pl",
@@ -710,8 +710,8 @@
       "learnerBaseText": "maps",
       "english": "maps",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 34
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "ka.gravity.noun.032.sg",
@@ -721,8 +721,8 @@
       "learnerBaseText": "photo",
       "english": "photo",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 25
+      "usefulness": 72,
+      "complexity": 27
     },
     {
       "id": "ka.gravity.noun.032.pl",
@@ -732,8 +732,8 @@
       "learnerBaseText": "photos",
       "english": "photos",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 35
+      "usefulness": 72,
+      "complexity": 27
     },
     {
       "id": "ka.gravity.noun.033.sg",
@@ -743,8 +743,8 @@
       "learnerBaseText": "letter",
       "english": "letter",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 26
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "ka.gravity.noun.033.pl",
@@ -754,8 +754,8 @@
       "learnerBaseText": "letters",
       "english": "letters",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 36
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "ka.gravity.noun.034.sg",
@@ -765,8 +765,8 @@
       "learnerBaseText": "document",
       "english": "document",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 27
+      "usefulness": 61,
+      "complexity": 46
     },
     {
       "id": "ka.gravity.noun.034.pl",
@@ -776,8 +776,8 @@
       "learnerBaseText": "documents",
       "english": "documents",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 37
+      "usefulness": 33,
+      "complexity": 46
     },
     {
       "id": "ka.gravity.noun.035.sg",
@@ -787,8 +787,8 @@
       "learnerBaseText": "table",
       "english": "table",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 28
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "ka.gravity.noun.035.pl",
@@ -798,8 +798,8 @@
       "learnerBaseText": "tables",
       "english": "tables",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 38
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "ka.gravity.noun.036.sg",
@@ -809,8 +809,8 @@
       "learnerBaseText": "chair",
       "english": "chair",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 29
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "ka.gravity.noun.036.pl",
@@ -820,8 +820,8 @@
       "learnerBaseText": "chairs",
       "english": "chairs",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 39
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "ka.gravity.noun.037.sg",
@@ -831,8 +831,8 @@
       "learnerBaseText": "door",
       "english": "door",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 18
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "ka.gravity.noun.037.pl",
@@ -842,8 +842,8 @@
       "learnerBaseText": "doors",
       "english": "doors",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 28
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "ka.gravity.noun.038.sg",
@@ -853,8 +853,8 @@
       "learnerBaseText": "window",
       "english": "window",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 19
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "ka.gravity.noun.038.pl",
@@ -864,8 +864,8 @@
       "learnerBaseText": "windows",
       "english": "windows",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 29
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "ka.gravity.noun.039.sg",
@@ -875,8 +875,8 @@
       "learnerBaseText": "clock",
       "english": "clock",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 20
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "ka.gravity.noun.039.pl",
@@ -886,8 +886,8 @@
       "learnerBaseText": "clocks",
       "english": "clocks",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 30
+      "usefulness": 80,
+      "complexity": 23
     },
     {
       "id": "ka.gravity.noun.040.sg",
@@ -897,7 +897,7 @@
       "learnerBaseText": "bicycle",
       "english": "bicycle",
       "laneId": "singular",
-      "usefulness": 96,
+      "usefulness": 76,
       "complexity": 21
     },
     {
@@ -908,8 +908,8 @@
       "learnerBaseText": "bicycles",
       "english": "bicycles",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 31
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "ka.gravity.noun.041.sg",
@@ -919,8 +919,8 @@
       "learnerBaseText": "school",
       "english": "school",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 22
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "ka.gravity.noun.041.pl",
@@ -930,8 +930,8 @@
       "learnerBaseText": "schools",
       "english": "schools",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 32
+      "usefulness": 77,
+      "complexity": 29
     },
     {
       "id": "ka.gravity.noun.042.sg",
@@ -941,8 +941,8 @@
       "learnerBaseText": "university",
       "english": "university",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 23
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "ka.gravity.noun.042.pl",
@@ -952,8 +952,8 @@
       "learnerBaseText": "universitys",
       "english": "universitys",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 33
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "ka.gravity.noun.043.sg",
@@ -963,8 +963,8 @@
       "learnerBaseText": "shop",
       "english": "shop",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 24
+      "usefulness": 81,
+      "complexity": 21
     },
     {
       "id": "ka.gravity.noun.043.pl",
@@ -974,8 +974,8 @@
       "learnerBaseText": "shops",
       "english": "shops",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 34
+      "usefulness": 81,
+      "complexity": 21
     },
     {
       "id": "ka.gravity.noun.044.sg",
@@ -985,8 +985,8 @@
       "learnerBaseText": "market",
       "english": "market",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 25
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "ka.gravity.noun.044.pl",
@@ -996,8 +996,8 @@
       "learnerBaseText": "markets",
       "english": "markets",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 35
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "ka.gravity.noun.045.sg",
@@ -1007,8 +1007,8 @@
       "learnerBaseText": "restaurant",
       "english": "restaurant",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 26
+      "usefulness": 83,
+      "complexity": 25
     },
     {
       "id": "ka.gravity.noun.045.pl",
@@ -1018,8 +1018,8 @@
       "learnerBaseText": "restaurants",
       "english": "restaurants",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 36
+      "usefulness": 83,
+      "complexity": 25
     },
     {
       "id": "ka.gravity.noun.046.sg",
@@ -1029,8 +1029,8 @@
       "learnerBaseText": "cafe",
       "english": "cafe",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 27
+      "usefulness": 83,
+      "complexity": 25
     },
     {
       "id": "ka.gravity.noun.046.pl",
@@ -1040,8 +1040,8 @@
       "learnerBaseText": "cafes",
       "english": "cafes",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 37
+      "usefulness": 83,
+      "complexity": 25
     },
     {
       "id": "ka.gravity.noun.047.sg",
@@ -1051,8 +1051,8 @@
       "learnerBaseText": "hotel",
       "english": "hotel",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 28
+      "usefulness": 83,
+      "complexity": 25
     },
     {
       "id": "ka.gravity.noun.047.pl",
@@ -1062,8 +1062,8 @@
       "learnerBaseText": "hotels",
       "english": "hotels",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 38
+      "usefulness": 83,
+      "complexity": 25
     },
     {
       "id": "ka.gravity.noun.048.sg",
@@ -1073,7 +1073,7 @@
       "learnerBaseText": "bank",
       "english": "bank",
       "laneId": "singular",
-      "usefulness": 96,
+      "usefulness": 54,
       "complexity": 29
     },
     {
@@ -1084,8 +1084,8 @@
       "learnerBaseText": "banks",
       "english": "banks",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 39
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "ka.gravity.noun.049.sg",
@@ -1095,8 +1095,8 @@
       "learnerBaseText": "hospital",
       "english": "hospital",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 18
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "ka.gravity.noun.049.pl",
@@ -1106,8 +1106,8 @@
       "learnerBaseText": "hospitals",
       "english": "hospitals",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 28
+      "usefulness": 85,
+      "complexity": 29
     },
     {
       "id": "ka.gravity.noun.050.sg",
@@ -1117,8 +1117,8 @@
       "learnerBaseText": "pharmacy",
       "english": "pharmacy",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 19
+      "usefulness": 88,
+      "complexity": 24
     },
     {
       "id": "ka.gravity.noun.050.pl",
@@ -1128,8 +1128,8 @@
       "learnerBaseText": "pharmacies",
       "english": "pharmacies",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 29
+      "usefulness": 88,
+      "complexity": 24
     },
     {
       "id": "ka.gravity.noun.051.sg",
@@ -1139,8 +1139,8 @@
       "learnerBaseText": "airport",
       "english": "airport",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 20
+      "usefulness": 83,
+      "complexity": 25
     },
     {
       "id": "ka.gravity.noun.051.pl",
@@ -1150,8 +1150,8 @@
       "learnerBaseText": "airports",
       "english": "airports",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 30
+      "usefulness": 83,
+      "complexity": 25
     },
     {
       "id": "ka.gravity.noun.052.sg",
@@ -1161,8 +1161,8 @@
       "learnerBaseText": "station",
       "english": "station",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 21
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "ka.gravity.noun.052.pl",
@@ -1172,8 +1172,8 @@
       "learnerBaseText": "stations",
       "english": "stations",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 31
+      "usefulness": 81,
+      "complexity": 29
     },
     {
       "id": "ka.gravity.noun.053.sg",
@@ -1183,8 +1183,8 @@
       "learnerBaseText": "museum",
       "english": "museum",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 22
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "ka.gravity.noun.053.pl",
@@ -1194,8 +1194,8 @@
       "learnerBaseText": "museums",
       "english": "museums",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 32
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "ka.gravity.noun.054.sg",
@@ -1205,8 +1205,8 @@
       "learnerBaseText": "theatre",
       "english": "theatre",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 23
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "ka.gravity.noun.054.pl",
@@ -1216,8 +1216,8 @@
       "learnerBaseText": "theatres",
       "english": "theatres",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 33
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "ka.gravity.noun.055.sg",
@@ -1227,8 +1227,8 @@
       "learnerBaseText": "cinema",
       "english": "cinema",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 24
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "ka.gravity.noun.055.pl",
@@ -1238,8 +1238,8 @@
       "learnerBaseText": "cinemas",
       "english": "cinemas",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 34
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "ka.gravity.noun.056.sg",
@@ -1249,8 +1249,8 @@
       "learnerBaseText": "library",
       "english": "library",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 25
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "ka.gravity.noun.056.pl",
@@ -1260,8 +1260,8 @@
       "learnerBaseText": "libraries",
       "english": "libraries",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 35
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "ka.gravity.noun.057.sg",
@@ -1271,7 +1271,7 @@
       "learnerBaseText": "park",
       "english": "park",
       "laneId": "singular",
-      "usefulness": 96,
+      "usefulness": 65,
       "complexity": 26
     },
     {
@@ -1282,8 +1282,8 @@
       "learnerBaseText": "parks",
       "english": "parks",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 36
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "ka.gravity.noun.058.sg",
@@ -1293,8 +1293,8 @@
       "learnerBaseText": "office",
       "english": "office",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 27
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "ka.gravity.noun.058.pl",
@@ -1304,8 +1304,8 @@
       "learnerBaseText": "offices",
       "english": "offices",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 37
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "ka.gravity.noun.059.sg",
@@ -1315,8 +1315,8 @@
       "learnerBaseText": "village",
       "english": "village",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 28
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "ka.gravity.noun.059.pl",
@@ -1326,8 +1326,8 @@
       "learnerBaseText": "villages",
       "english": "villages",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 38
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "ka.gravity.noun.060.sg",
@@ -1337,8 +1337,8 @@
       "learnerBaseText": "city",
       "english": "city",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 29
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "ka.gravity.noun.060.pl",
@@ -1348,8 +1348,8 @@
       "learnerBaseText": "cities",
       "english": "cities",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 39
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "ka.gravity.noun.061.sg",
@@ -1359,8 +1359,8 @@
       "learnerBaseText": "bed",
       "english": "bed",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 18
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "ka.gravity.noun.061.pl",
@@ -1370,8 +1370,8 @@
       "learnerBaseText": "beds",
       "english": "beds",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 28
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "ka.gravity.noun.062.sg",
@@ -1381,8 +1381,8 @@
       "learnerBaseText": "street",
       "english": "street",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 19
+      "usefulness": 81,
+      "complexity": 21
     },
     {
       "id": "ka.gravity.noun.062.pl",
@@ -1392,8 +1392,8 @@
       "learnerBaseText": "streets",
       "english": "streets",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 29
+      "usefulness": 81,
+      "complexity": 21
     },
     {
       "id": "ka.gravity.noun.063.sg",
@@ -1403,8 +1403,8 @@
       "learnerBaseText": "tree",
       "english": "tree",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 20
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "ka.gravity.noun.063.pl",
@@ -1414,8 +1414,8 @@
       "learnerBaseText": "trees",
       "english": "trees",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 30
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "ka.gravity.noun.064.sg",
@@ -1425,8 +1425,8 @@
       "learnerBaseText": "flower",
       "english": "flower",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 21
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "ka.gravity.noun.064.pl",
@@ -1436,8 +1436,8 @@
       "learnerBaseText": "flowers",
       "english": "flowers",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 31
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "ka.gravity.noun.065.sg",
@@ -1447,8 +1447,8 @@
       "learnerBaseText": "dog",
       "english": "dog",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 22
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "ka.gravity.noun.065.pl",
@@ -1458,8 +1458,8 @@
       "learnerBaseText": "dogs",
       "english": "dogs",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 32
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "ka.gravity.noun.066.sg",
@@ -1469,8 +1469,8 @@
       "learnerBaseText": "cat",
       "english": "cat",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 23
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "ka.gravity.noun.066.pl",
@@ -1480,8 +1480,8 @@
       "learnerBaseText": "cats",
       "english": "cats",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 33
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "ka.gravity.noun.067.sg",
@@ -1491,8 +1491,8 @@
       "learnerBaseText": "house",
       "english": "house",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 24
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "ka.gravity.noun.067.pl",
@@ -1502,8 +1502,8 @@
       "learnerBaseText": "houses",
       "english": "houses",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 34
+      "usefulness": 77,
+      "complexity": 29
     },
     {
       "id": "ka.gravity.noun.068.sg",
@@ -1513,8 +1513,8 @@
       "learnerBaseText": "room",
       "english": "room",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 25
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "ka.gravity.noun.068.pl",
@@ -1524,8 +1524,8 @@
       "learnerBaseText": "rooms",
       "english": "rooms",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 35
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "ka.gravity.noun.069.sg",
@@ -1535,8 +1535,8 @@
       "learnerBaseText": "car",
       "english": "car",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 26
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "ka.gravity.noun.069.pl",
@@ -1546,8 +1546,8 @@
       "learnerBaseText": "cars",
       "english": "cars",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 36
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "ka.gravity.noun.070.sg",
@@ -1557,8 +1557,8 @@
       "learnerBaseText": "bus",
       "english": "bus",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 27
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "ka.gravity.noun.070.pl",
@@ -1568,8 +1568,8 @@
       "learnerBaseText": "buses",
       "english": "buses",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 37
+      "usefulness": 81,
+      "complexity": 29
     },
     {
       "id": "ka.gravity.noun.071.sg",
@@ -1579,8 +1579,8 @@
       "learnerBaseText": "train",
       "english": "train",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 28
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "ka.gravity.noun.071.pl",
@@ -1590,8 +1590,8 @@
       "learnerBaseText": "trains",
       "english": "trains",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 38
+      "usefulness": 81,
+      "complexity": 29
     },
     {
       "id": "ka.gravity.noun.072.sg",
@@ -1601,7 +1601,7 @@
       "learnerBaseText": "boat",
       "english": "boat",
       "laneId": "singular",
-      "usefulness": 96,
+      "usefulness": 54,
       "complexity": 29
     },
     {
@@ -1612,8 +1612,8 @@
       "learnerBaseText": "boats",
       "english": "boats",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 39
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "ka.gravity.noun.073.sg",
@@ -1623,8 +1623,8 @@
       "learnerBaseText": "bridge",
       "english": "bridge",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 18
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "ka.gravity.noun.073.pl",
@@ -1634,8 +1634,8 @@
       "learnerBaseText": "bridges",
       "english": "bridges",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 28
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "ka.gravity.noun.074.sg",
@@ -1645,8 +1645,8 @@
       "learnerBaseText": "mountain",
       "english": "mountain",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 19
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "ka.gravity.noun.074.pl",
@@ -1656,8 +1656,8 @@
       "learnerBaseText": "mountains",
       "english": "mountains",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 29
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "ka.gravity.noun.075.sg",
@@ -1667,8 +1667,8 @@
       "learnerBaseText": "river",
       "english": "river",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 20
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "ka.gravity.noun.075.pl",
@@ -1678,8 +1678,8 @@
       "learnerBaseText": "rivers",
       "english": "rivers",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 30
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "zero-ka-noun-01",
@@ -1689,8 +1689,8 @@
       "learnerBaseText": "friend",
       "english": "friend",
       "laneId": "singular",
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zero-ka-noun-02",
@@ -1700,8 +1700,8 @@
       "learnerBaseText": "child",
       "english": "child",
       "laneId": "singular",
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zero-ka-noun-03",
@@ -1711,8 +1711,8 @@
       "learnerBaseText": "woman",
       "english": "woman",
       "laneId": "singular",
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 79,
+      "complexity": 25
     },
     {
       "id": "zero-ka-noun-04",
@@ -1722,8 +1722,8 @@
       "learnerBaseText": "man",
       "english": "man",
       "laneId": "singular",
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 79,
+      "complexity": 25
     },
     {
       "id": "zero-ka-noun-05",
@@ -1733,8 +1733,8 @@
       "learnerBaseText": "mother",
       "english": "mother",
       "laneId": "singular",
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zero-ka-noun-06",
@@ -1744,8 +1744,8 @@
       "learnerBaseText": "father",
       "english": "father",
       "laneId": "singular",
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zero-ka-noun-07",
@@ -1755,8 +1755,8 @@
       "learnerBaseText": "book",
       "english": "book",
       "laneId": "singular",
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 73,
+      "complexity": 21
     },
     {
       "id": "zero-ka-noun-08",
@@ -1766,8 +1766,8 @@
       "learnerBaseText": "door",
       "english": "door",
       "laneId": "singular",
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-ka-noun-09",
@@ -1777,8 +1777,8 @@
       "learnerBaseText": "dog",
       "english": "dog",
       "laneId": "singular",
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-ka-noun-10",
@@ -1788,8 +1788,8 @@
       "learnerBaseText": "cat",
       "english": "cat",
       "laneId": "singular",
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-ka-noun-11",
@@ -1799,8 +1799,8 @@
       "learnerBaseText": "house",
       "english": "house",
       "laneId": "singular",
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zero-ka-noun-12",
@@ -1810,8 +1810,8 @@
       "learnerBaseText": "car",
       "english": "car",
       "laneId": "singular",
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-ka-noun-plural-01",
@@ -1821,8 +1821,8 @@
       "learnerBaseText": "friends",
       "english": "friends",
       "laneId": "plural",
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 77,
+      "complexity": 29
     },
     {
       "id": "zero-ka-noun-plural-02",
@@ -1832,8 +1832,8 @@
       "learnerBaseText": "children",
       "english": "children",
       "laneId": "plural",
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 77,
+      "complexity": 44
     },
     {
       "id": "zero-ka-noun-plural-03",
@@ -1843,8 +1843,8 @@
       "learnerBaseText": "women",
       "english": "women",
       "laneId": "plural",
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 79,
+      "complexity": 40
     },
     {
       "id": "zero-ka-noun-plural-04",
@@ -1854,8 +1854,8 @@
       "learnerBaseText": "men",
       "english": "men",
       "laneId": "plural",
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 79,
+      "complexity": 40
     },
     {
       "id": "zero-ka-noun-plural-05",
@@ -1865,8 +1865,8 @@
       "learnerBaseText": "mothers",
       "english": "mothers",
       "laneId": "plural",
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 77,
+      "complexity": 29
     },
     {
       "id": "zero-ka-noun-plural-06",
@@ -1876,8 +1876,8 @@
       "learnerBaseText": "fathers",
       "english": "fathers",
       "laneId": "plural",
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 77,
+      "complexity": 29
     },
     {
       "id": "zero-ka-noun-e2-books",
@@ -1887,8 +1887,8 @@
       "learnerBaseText": "books",
       "english": "books",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 8
+      "usefulness": 73,
+      "complexity": 21
     },
     {
       "id": "zero-ka-noun-e2-doors",
@@ -1898,8 +1898,8 @@
       "learnerBaseText": "doors",
       "english": "doors",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 8
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-ka-noun-e2-dogs",
@@ -1909,8 +1909,8 @@
       "learnerBaseText": "dogs",
       "english": "dogs",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 8
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-ka-noun-e2-cats",
@@ -1920,8 +1920,8 @@
       "learnerBaseText": "cats",
       "english": "cats",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 8
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-ka-noun-e2-houses",
@@ -1931,8 +1931,8 @@
       "learnerBaseText": "houses",
       "english": "houses",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 8
+      "usefulness": 77,
+      "complexity": 29
     },
     {
       "id": "zero-ka-noun-e2-cars",
@@ -1942,8 +1942,8 @@
       "learnerBaseText": "cars",
       "english": "cars",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 8
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-ka-noun-e2-table",
@@ -1953,8 +1953,8 @@
       "learnerBaseText": "table",
       "english": "table",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 8
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-ka-noun-e2-tables",
@@ -1964,8 +1964,8 @@
       "learnerBaseText": "tables",
       "english": "tables",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 8
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-ka-noun-e2-chair",
@@ -1975,8 +1975,8 @@
       "learnerBaseText": "chair",
       "english": "chair",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 8
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-ka-noun-e2-chairs",
@@ -1986,8 +1986,8 @@
       "learnerBaseText": "chairs",
       "english": "chairs",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 8
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-ka-noun-e2-bed",
@@ -1997,8 +1997,8 @@
       "learnerBaseText": "bed",
       "english": "bed",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 8
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-ka-noun-e2-beds",
@@ -2008,8 +2008,8 @@
       "learnerBaseText": "beds",
       "english": "beds",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 8
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-ka-noun-e2-apple",
@@ -2019,8 +2019,8 @@
       "learnerBaseText": "apple",
       "english": "apple",
       "laneId": "singular",
-      "usefulness": 96,
-      "complexity": 5
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-ka-noun-e2-apples",
@@ -2030,8 +2030,8 @@
       "learnerBaseText": "apples",
       "english": "apples",
       "laneId": "plural",
-      "usefulness": 96,
-      "complexity": 5
+      "usefulness": 76,
+      "complexity": 21
     }
   ]
 }

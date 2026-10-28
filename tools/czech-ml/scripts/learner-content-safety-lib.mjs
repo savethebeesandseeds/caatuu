@@ -566,25 +566,6 @@ function extractConjugation(value, file) {
     return extractModernGameText(pack, file, ["copy", "verbs"], pack.verbs.length);
   }
   const rows = expectArray(pack.verbs, `${file}/verbs`);
-  // The Czech migration catalog can contain modern beginner records beside
-  // legacy paradigms. Use the same validation boundary as the game, then scan
-  // the original fields so findings still identify their authored JSON path.
-  if (rows.some(row => row?.targetText !== undefined)) {
-    const catalog = validateConjugationCometCatalog(pack, {
-      expectedCourseId: "cz", expectedTargetLanguageId: "cs",
-      expectedLearnerBaseLanguageId: "en", expectedTargetLocale: "cs-CZ"
-    });
-    const extracted = extractModernGameText({ ...pack,
-      targetLanguageId: "cs", learnerBaseLanguageId: "en"
-    }, file, ["copy", "verbs"], rows.length);
-    for (const field of extracted.fields) {
-      const rowIndex = /^\/verbs\/(\d+)\//u.exec(field.field)?.[1];
-      field.contentId ||= rowIndex === undefined ? catalog.id : catalog.verbs[rowIndex].id;
-      if (/^\/verbs\/\d+\/(?:verb|forms\/\d+\/(?:form|subject|label|(?:accepted|acceptedTargetTexts)\/\d+))$/u.test(field.field)) field.locale = "cs";
-      if (/^\/verbs\/\d+\/(?:hint|forms\/\d+\/cue)$/u.test(field.field)) field.locale = "en";
-    }
-    return extracted;
-  }
   const fields = [];
   rows.forEach((row, rowIndex) => {
     expectObject(row, `${file}/verbs/${rowIndex}`);

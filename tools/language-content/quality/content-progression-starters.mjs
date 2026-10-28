@@ -22,14 +22,17 @@ async function save(catalog, original) {
   await writeFile(destination, JSON.stringify(catalog.document, null, 2) + '\n');
 }
 const greetings = new Set(['ww.greeting.hello', 'ww.greeting.thanks', 'ww.greeting.goodbye', 'ww.politeness.welcome', 'ww.identity.your-name']);
-const czech = new Set(['ww-cp-000001','ww-cp-000026','ww-cp-000027','ww-cp-000077','ww-cp-000079','ww-cp-000082','ww-cp-000104','ww-cp-000105','ww-cp-000115','ww-cp-000220']);
+// Same English survival phrases for every course. Identity strips punctuation,
+// so "I don't" and "I'm" match the records whose ids differ by language.
+const starterEnglish = new Set(['hello', 'please', 'thank you', 'i need help', 'i dont understand', 'i do not understand', 'can you speak slowly', 'im hungry', 'i am hungry', 'im thirsty', 'i am thirsty', 'i need water', 'where is the bathroom', 'where is the toilet']);
 for (const catalog of await loadProgressionCatalogs()) {
   const original = await readFile(path.join(repositoryRoot, catalog.path), 'utf8');
   const changes = [];
   if (catalog.game === 'sound-quasar') {
     const source = JSON.parse(await readFile(path.join(repositoryRoot, `apps/languages/${catalog.course.directoryName}/content/word-world/content.json`), 'utf8'));
     const candidates = source.records.filter(record => record.id.startsWith(`ww-${catalog.course.id}-starter260911-`)
-      || (catalog.course.id === 'cz' ? czech : greetings).has(record.id));
+      || greetings.has(record.id)
+      || starterEnglish.has(identity(record.englishText || '')));
     const targets = new Set(catalog.document.sentences.map(item => identity(item.target)));
     const sourceIds = new Set(catalog.document.sentences.map(item => item.sourceId));
     for (const record of candidates) {

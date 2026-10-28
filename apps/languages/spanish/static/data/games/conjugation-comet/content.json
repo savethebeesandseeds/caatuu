@@ -9893,8 +9893,8 @@
       ],
       "forms": [
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "first",
           "revision": 1,
           "subjectTargetText": "yo",
@@ -9908,8 +9908,8 @@
           "englishAuditText": "I eat"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "second",
           "revision": 1,
           "subjectTargetText": "tú",
@@ -9923,8 +9923,8 @@
           "englishAuditText": "you eat"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 33,
           "id": "third-singular-formal",
           "revision": 1,
           "subjectTargetText": "él / ella / usted",
@@ -9938,8 +9938,8 @@
           "englishAuditText": "he/she eats"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 32,
           "id": "first-plural",
           "revision": 1,
           "subjectTargetText": "nosotros / nosotras",
@@ -9953,8 +9953,8 @@
           "englishAuditText": "we eat"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 32,
           "id": "second-plural-informal-spain",
           "revision": 1,
           "subjectTargetText": "vosotros / vosotras",
@@ -9968,8 +9968,8 @@
           "englishAuditText": "you all eat"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 39,
           "id": "third-plural-formal",
           "revision": 1,
           "subjectTargetText": "ellos / ellas / ustedes",
@@ -9983,8 +9983,8 @@
           "englishAuditText": "they eat"
         }
       ],
-      "usefulness": 92,
-      "complexity": 6
+      "usefulness": 89,
+      "complexity": 26
     },
     {
       "id": "zero-es-conj-drink",
@@ -10003,8 +10003,8 @@
       ],
       "forms": [
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "first",
           "revision": 1,
           "subjectTargetText": "yo",
@@ -10018,8 +10018,8 @@
           "englishAuditText": "I drink"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "second",
           "revision": 1,
           "subjectTargetText": "tú",
@@ -10033,8 +10033,8 @@
           "englishAuditText": "you drink"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 33,
           "id": "third-singular-formal",
           "revision": 1,
           "subjectTargetText": "él / ella / usted",
@@ -10048,8 +10048,8 @@
           "englishAuditText": "he/she drinks"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 32,
           "id": "first-plural",
           "revision": 1,
           "subjectTargetText": "nosotros / nosotras",
@@ -10063,8 +10063,8 @@
           "englishAuditText": "we drink"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 32,
           "id": "second-plural-informal-spain",
           "revision": 1,
           "subjectTargetText": "vosotros / vosotras",
@@ -10078,8 +10078,8 @@
           "englishAuditText": "you all drink"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 39,
           "id": "third-plural-formal",
           "revision": 1,
           "subjectTargetText": "ellos / ellas / ustedes",
@@ -10093,8 +10093,8 @@
           "englishAuditText": "they drink"
         }
       ],
-      "usefulness": 92,
-      "complexity": 6
+      "usefulness": 89,
+      "complexity": 26
     },
     {
       "id": "zero-es-conj-speak",
@@ -10113,8 +10113,8 @@
       ],
       "forms": [
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 26,
           "id": "first",
           "revision": 1,
           "subjectTargetText": "yo",
@@ -10128,8 +10128,8 @@
           "englishAuditText": "I speak"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 26,
           "id": "second",
           "revision": 1,
           "subjectTargetText": "tú",
@@ -10143,8 +10143,8 @@
           "englishAuditText": "you speak"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 33,
           "id": "third-singular-formal",
           "revision": 1,
           "subjectTargetText": "él / ella / usted",
@@ -10158,8 +10158,8 @@
           "englishAuditText": "he/she speaks"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 32,
           "id": "first-plural",
           "revision": 1,
           "subjectTargetText": "nosotros / nosotras",
@@ -10173,8 +10173,8 @@
           "englishAuditText": "we speak"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 32,
           "id": "second-plural-informal-spain",
           "revision": 1,
           "subjectTargetText": "vosotros / vosotras",
@@ -10188,8 +10188,8 @@
           "englishAuditText": "you all speak"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 39,
           "id": "third-plural-formal",
           "revision": 1,
           "subjectTargetText": "ellos / ellas / ustedes",
@@ -10203,8 +10203,8 @@
           "englishAuditText": "they speak"
         }
       ],
-      "usefulness": 92,
-      "complexity": 6
+      "usefulness": 94,
+      "complexity": 26
     },
     {
       "id": "zero-es-conj-have",
@@ -10223,8 +10223,8 @@
       ],
       "forms": [
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 26,
           "id": "first",
           "revision": 1,
           "subjectTargetText": "yo",
@@ -10238,8 +10238,8 @@
           "englishAuditText": "I have"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 26,
           "id": "second",
           "revision": 1,
           "subjectTargetText": "tú",
@@ -10253,8 +10253,8 @@
           "englishAuditText": "you have"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 33,
           "id": "third-singular-formal",
           "revision": 1,
           "subjectTargetText": "él / ella / usted",
@@ -10268,8 +10268,8 @@
           "englishAuditText": "he/she has"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 32,
           "id": "first-plural",
           "revision": 1,
           "subjectTargetText": "nosotros / nosotras",
@@ -10283,8 +10283,8 @@
           "englishAuditText": "we have"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 32,
           "id": "second-plural-informal-spain",
           "revision": 1,
           "subjectTargetText": "vosotros / vosotras",
@@ -10298,8 +10298,8 @@
           "englishAuditText": "you all have"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 39,
           "id": "third-plural-formal",
           "revision": 1,
           "subjectTargetText": "ellos / ellas / ustedes",
@@ -10313,8 +10313,8 @@
           "englishAuditText": "they have"
         }
       ],
-      "usefulness": 92,
-      "complexity": 6
+      "usefulness": 94,
+      "complexity": 26
     },
     {
       "id": "zero-es-conj-read",
@@ -10333,8 +10333,8 @@
       ],
       "forms": [
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "first",
           "revision": 1,
           "subjectTargetText": "yo",
@@ -10348,8 +10348,8 @@
           "englishAuditText": "I read"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "second",
           "revision": 1,
           "subjectTargetText": "tú",
@@ -10363,8 +10363,8 @@
           "englishAuditText": "you read"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 33,
           "id": "third-singular-formal",
           "revision": 1,
           "subjectTargetText": "él / ella / usted",
@@ -10378,8 +10378,8 @@
           "englishAuditText": "he/she reads"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 32,
           "id": "first-plural",
           "revision": 1,
           "subjectTargetText": "nosotros / nosotras",
@@ -10393,8 +10393,8 @@
           "englishAuditText": "we read"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 32,
           "id": "second-plural-informal-spain",
           "revision": 1,
           "subjectTargetText": "vosotros / vosotras",
@@ -10408,8 +10408,8 @@
           "englishAuditText": "you all read"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 39,
           "id": "third-plural-formal",
           "revision": 1,
           "subjectTargetText": "ellos / ellas / ustedes",
@@ -10423,8 +10423,8 @@
           "englishAuditText": "they read"
         }
       ],
-      "usefulness": 92,
-      "complexity": 6
+      "usefulness": 89,
+      "complexity": 26
     },
     {
       "id": "zero-es-conj-want",
@@ -10443,8 +10443,8 @@
       ],
       "forms": [
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 26,
           "id": "first",
           "revision": 1,
           "subjectTargetText": "yo",
@@ -10458,8 +10458,8 @@
           "englishAuditText": "I want"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 26,
           "id": "second",
           "revision": 1,
           "subjectTargetText": "tú",
@@ -10473,8 +10473,8 @@
           "englishAuditText": "you want"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 33,
           "id": "third-singular-formal",
           "revision": 1,
           "subjectTargetText": "él / ella / usted",
@@ -10488,8 +10488,8 @@
           "englishAuditText": "he/she wants"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 32,
           "id": "first-plural",
           "revision": 1,
           "subjectTargetText": "nosotros / nosotras",
@@ -10503,8 +10503,8 @@
           "englishAuditText": "we want"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 32,
           "id": "second-plural-informal-spain",
           "revision": 1,
           "subjectTargetText": "vosotros / vosotras",
@@ -10518,8 +10518,8 @@
           "englishAuditText": "you all want"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 39,
           "id": "third-plural-formal",
           "revision": 1,
           "subjectTargetText": "ellos / ellas / ustedes",
@@ -10533,8 +10533,8 @@
           "englishAuditText": "they want"
         }
       ],
-      "usefulness": 92,
-      "complexity": 6
+      "usefulness": 94,
+      "complexity": 26
     },
     {
       "id": "zero-es-conj-expand-go",
@@ -10554,8 +10554,8 @@
       ],
       "forms": [
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 35,
           "id": "first",
           "revision": 1,
           "subjectTargetText": "yo",
@@ -10569,8 +10569,8 @@
           "englishAuditText": "I go"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 35,
           "id": "second",
           "revision": 1,
           "subjectTargetText": "tú",
@@ -10584,8 +10584,8 @@
           "englishAuditText": "you go"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 42,
           "id": "third-singular-formal",
           "revision": 1,
           "subjectTargetText": "él / ella / usted",
@@ -10599,8 +10599,8 @@
           "englishAuditText": "he/she goes"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 41,
           "id": "first-plural",
           "revision": 1,
           "subjectTargetText": "nosotros / nosotras",
@@ -10614,8 +10614,8 @@
           "englishAuditText": "we go"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 41,
           "id": "second-plural-informal-spain",
           "revision": 1,
           "subjectTargetText": "vosotros / vosotras",
@@ -10629,8 +10629,8 @@
           "englishAuditText": "you all go"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 94,
+          "complexity": 48,
           "id": "third-plural-formal",
           "revision": 1,
           "subjectTargetText": "ellos / ellas / ustedes",
@@ -10644,8 +10644,8 @@
           "englishAuditText": "they go"
         }
       ],
-      "usefulness": 92,
-      "complexity": 6
+      "usefulness": 94,
+      "complexity": 35
     },
     {
       "id": "zero-es-conj-expand-see",
@@ -10676,8 +10676,8 @@
           },
           "learnerBaseCueText": "I see",
           "englishAuditText": "I see",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "second",
@@ -10691,8 +10691,8 @@
           },
           "learnerBaseCueText": "you see",
           "englishAuditText": "you see",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "third-singular",
@@ -10706,8 +10706,8 @@
           },
           "learnerBaseCueText": "he/she sees",
           "englishAuditText": "he/she sees",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 89,
+          "complexity": 29
         },
         {
           "id": "first-plural",
@@ -10721,8 +10721,8 @@
           },
           "learnerBaseCueText": "we see",
           "englishAuditText": "we see",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 89,
+          "complexity": 32
         },
         {
           "id": "second-plural",
@@ -10736,8 +10736,8 @@
           },
           "learnerBaseCueText": "you all see",
           "englishAuditText": "you all see",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 89,
+          "complexity": 32
         },
         {
           "id": "third-plural",
@@ -10751,12 +10751,12 @@
           },
           "learnerBaseCueText": "they see",
           "englishAuditText": "they see",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 89,
+          "complexity": 35
         }
       ],
-      "usefulness": 92,
-      "complexity": 6
+      "usefulness": 89,
+      "complexity": 26
     },
     {
       "id": "zero-es-conj-expand-sleep",
@@ -10776,8 +10776,8 @@
       ],
       "forms": [
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 51,
           "id": "first",
           "revision": 1,
           "subjectTargetText": "yo",
@@ -10791,8 +10791,8 @@
           "englishAuditText": "I sleep"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 51,
           "id": "second",
           "revision": 1,
           "subjectTargetText": "tú",
@@ -10806,8 +10806,8 @@
           "englishAuditText": "you sleep"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 58,
           "id": "third-singular-formal",
           "revision": 1,
           "subjectTargetText": "él / ella / usted",
@@ -10821,8 +10821,8 @@
           "englishAuditText": "he/she sleeps"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 57,
           "id": "first-plural",
           "revision": 1,
           "subjectTargetText": "nosotros / nosotras",
@@ -10836,8 +10836,8 @@
           "englishAuditText": "we sleep"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 57,
           "id": "second-plural-informal-spain",
           "revision": 1,
           "subjectTargetText": "vosotros / vosotras",
@@ -10851,8 +10851,8 @@
           "englishAuditText": "you all sleep"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 64,
           "id": "third-plural-formal",
           "revision": 1,
           "subjectTargetText": "ellos / ellas / ustedes",
@@ -10866,8 +10866,8 @@
           "englishAuditText": "they sleep"
         }
       ],
-      "usefulness": 92,
-      "complexity": 6
+      "usefulness": 89,
+      "complexity": 51
     },
     {
       "id": "zero-es-conj-expand-write",
@@ -10887,8 +10887,8 @@
       ],
       "forms": [
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "first",
           "revision": 1,
           "subjectTargetText": "yo",
@@ -10902,8 +10902,8 @@
           "englishAuditText": "I write"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "second",
           "revision": 1,
           "subjectTargetText": "tú",
@@ -10917,8 +10917,8 @@
           "englishAuditText": "you write"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 33,
           "id": "third-singular-formal",
           "revision": 1,
           "subjectTargetText": "él / ella / usted",
@@ -10932,8 +10932,8 @@
           "englishAuditText": "he/she writes"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 32,
           "id": "first-plural",
           "revision": 1,
           "subjectTargetText": "nosotros / nosotras",
@@ -10947,8 +10947,8 @@
           "englishAuditText": "we write"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 32,
           "id": "second-plural-informal-spain",
           "revision": 1,
           "subjectTargetText": "vosotros / vosotras",
@@ -10962,8 +10962,8 @@
           "englishAuditText": "you all write"
         },
         {
-          "usefulness": 92,
-          "complexity": 6,
+          "usefulness": 89,
+          "complexity": 39,
           "id": "third-plural-formal",
           "revision": 1,
           "subjectTargetText": "ellos / ellas / ustedes",
@@ -10977,8 +10977,8 @@
           "englishAuditText": "they write"
         }
       ],
-      "usefulness": 92,
-      "complexity": 6
+      "usefulness": 89,
+      "complexity": 26
     },
     {
       "id": "zero-es-conj-expand-hear",
@@ -11009,8 +11009,8 @@
           },
           "learnerBaseCueText": "I hear",
           "englishAuditText": "I hear",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "second",
@@ -11024,8 +11024,8 @@
           },
           "learnerBaseCueText": "you hear",
           "englishAuditText": "you hear",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 89,
+          "complexity": 26
         },
         {
           "id": "third-singular",
@@ -11039,8 +11039,8 @@
           },
           "learnerBaseCueText": "he/she hears",
           "englishAuditText": "he/she hears",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 89,
+          "complexity": 29
         },
         {
           "id": "first-plural",
@@ -11054,8 +11054,8 @@
           },
           "learnerBaseCueText": "we hear",
           "englishAuditText": "we hear",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 89,
+          "complexity": 32
         },
         {
           "id": "second-plural",
@@ -11069,8 +11069,8 @@
           },
           "learnerBaseCueText": "you all hear",
           "englishAuditText": "you all hear",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 89,
+          "complexity": 32
         },
         {
           "id": "third-plural",
@@ -11084,12 +11084,12 @@
           },
           "learnerBaseCueText": "they hear",
           "englishAuditText": "they hear",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 89,
+          "complexity": 35
         }
       ],
-      "usefulness": 92,
-      "complexity": 6
+      "usefulness": 89,
+      "complexity": 26
     },
     {
       "id": "zero-es-conj-expand-walk",
@@ -11120,8 +11120,8 @@
           },
           "learnerBaseCueText": "I walk",
           "englishAuditText": "I walk",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 63,
+          "complexity": 26
         },
         {
           "id": "second",
@@ -11135,8 +11135,8 @@
           },
           "learnerBaseCueText": "you walk",
           "englishAuditText": "you walk",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 63,
+          "complexity": 26
         },
         {
           "id": "third-singular",
@@ -11150,8 +11150,8 @@
           },
           "learnerBaseCueText": "he/she walks",
           "englishAuditText": "he/she walks",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 63,
+          "complexity": 29
         },
         {
           "id": "first-plural",
@@ -11165,8 +11165,8 @@
           },
           "learnerBaseCueText": "we walk",
           "englishAuditText": "we walk",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 63,
+          "complexity": 32
         },
         {
           "id": "second-plural",
@@ -11180,8 +11180,8 @@
           },
           "learnerBaseCueText": "you all walk",
           "englishAuditText": "you all walk",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 63,
+          "complexity": 32
         },
         {
           "id": "third-plural",
@@ -11195,12 +11195,12 @@
           },
           "learnerBaseCueText": "they walk",
           "englishAuditText": "they walk",
-          "usefulness": 92,
-          "complexity": 6
+          "usefulness": 63,
+          "complexity": 35
         }
       ],
-      "usefulness": 92,
-      "complexity": 6
+      "usefulness": 63,
+      "complexity": 26
     }
   ]
 }

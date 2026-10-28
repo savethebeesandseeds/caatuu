@@ -52,7 +52,11 @@ export function englishAuthority(catalog, row) {
   switch (catalog.game) {
     case 'verb-nebula': fields = ['englishAuditText', 'english', 'en', ...(englishBase(catalog.course) ? ['source'] : [])]; break;
     case 'word-world': fields = ['englishText']; break;
-    case 'conjugation-comet': fields = ['englishAuditText', ...(catalog.document.schemaVersion === undefined && catalog.course.id === 'cz' && englishBase(catalog.course) ? [kind === 'conjugation-form' ? 'cue' : 'meaning'] : [])]; break;
+    case 'conjugation-comet': {
+      const legacy = catalog.document.schemaVersion === undefined && typeof catalog.document.language === 'string' && Array.isArray(catalog.document.verbs);
+      fields = ['englishAuditText', ...(legacy && englishBase(catalog.course) ? [kind === 'conjugation-form' ? 'cue' : 'meaning'] : [])];
+      break;
+    }
     case 'case-cosmos': fields = kind === 'case-context' ? ['english'] : []; break;
     case 'grammar-gravity': fields = kind === 'agreement-example' ? ['englishAuditText'] : []; break;
     case 'grammar-gravity-nouns': fields = ['english']; break;
@@ -73,7 +77,7 @@ function translations(catalog, row, english) {
     case 'verb-nebula': targetText = text(item.target) || text(item.cs); learnerBaseText = text(item.source) || (englishBase(catalog.course) ? text(item.en) : null); break;
     case 'word-world': targetText = text(item.targetText); learnerBaseText = englishBase(catalog.course) ? english.text : text(item.learnerBase?.text); break;
     case 'conjugation-comet': targetText = text(item.targetText) || text(item.form) || text(item.verb); learnerBaseText = text(item.learnerBaseCueText) || text(item.learnerBaseText) || (englishBase(catalog.course) ? english.text : null); break;
-    case 'case-cosmos': targetText = text(item.czech) || text(item.noun); learnerBaseText = kind === 'case-context' ? english.text : null; break;
+    case 'case-cosmos': targetText = text(item.targetText) || text(item.target) || text(item.czech) || text(item.noun); learnerBaseText = kind === 'case-context' ? english.text : null; break;
     case 'grammar-gravity': targetText = text(item.targetText) || text(item.displayForm) || text(item.focus?.targetText); learnerBaseText = text(item.learnerBaseText); break;
     case 'grammar-gravity-nouns': targetText = text(item.targetText); learnerBaseText = text(item.learnerBaseText); break;
     case 'sound-quasar': targetText = text(item.target); learnerBaseText = text(item.meaning); break;
@@ -244,6 +248,9 @@ export function buildEvaluationCorpus(catalogs, { sources = [], naturalizationVa
         } catch (error) { addFinding('semantic-input-rejected', error.message, id); }
       }
       for (const key of ['usefulness', 'complexity']) if (!Number.isInteger(row.item[key]) || row.item[key] < 1 || row.item[key] > 100) addFinding('missing-or-invalid-metadata', `${key} must be an authored integer 1–100.`, id);
+      const ownsBadge = ['lexeme', 'sentence', 'conjugation', 'agreement', 'noun', 'listening-word', 'listening-sentence', 'character', 'translation-choice'].includes(row.kind)
+        || (row.kind === 'case-context' && typeof row.item.id === 'string' && row.item.id);
+      if (ownsBadge && row.item.difficulty === undefined) addFinding('missing-difficulty', 'This learning record needs an authored difficulty badge 0–3. A missing badge is not a course-specific default.', id);
       if (row.item.difficulty !== undefined && (![0, 1, 2, 3].includes(row.item.difficulty))) addFinding('invalid-difficulty', 'Authored difficulty badge must be 0, 1, 2 or 3.', id);
       if (translation.missingTarget) addFinding('missing-target-translation', 'Authored target-language text is missing.', id);
       if (translation.missingLearnerBase) addFinding('missing-learner-base-translation', 'Authored learner-base text is missing.', id);

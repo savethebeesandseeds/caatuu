@@ -4221,8 +4221,8 @@
       "english": "cat",
       "laneId": "masculine",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-noun-dog",
@@ -4232,8 +4232,8 @@
       "english": "dog",
       "laneId": "masculine",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-noun-water",
@@ -4243,8 +4243,8 @@
       "english": "water",
       "laneId": "feminine",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 98,
+      "complexity": 36
     },
     {
       "id": "zero-es-noun-bread",
@@ -4254,8 +4254,8 @@
       "english": "bread",
       "laneId": "masculine",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 75,
+      "complexity": 21
     },
     {
       "id": "zero-es-noun-milk",
@@ -4265,8 +4265,8 @@
       "english": "milk",
       "laneId": "feminine",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 75,
+      "complexity": 21
     },
     {
       "id": "zero-es-noun-apple",
@@ -4276,8 +4276,8 @@
       "english": "apple",
       "laneId": "feminine",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-noun-rice",
@@ -4287,8 +4287,8 @@
       "english": "rice",
       "laneId": "masculine",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 75,
+      "complexity": 21
     },
     {
       "id": "zero-es-noun-tea",
@@ -4298,8 +4298,8 @@
       "english": "tea",
       "laneId": "masculine",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-noun-book",
@@ -4309,8 +4309,8 @@
       "english": "book",
       "laneId": "masculine",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 73,
+      "complexity": 21
     },
     {
       "id": "zero-es-noun-pen",
@@ -4320,8 +4320,8 @@
       "english": "pen",
       "laneId": "masculine",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "zero-es-noun-house",
@@ -4331,8 +4331,8 @@
       "english": "house",
       "laneId": "feminine",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zero-es-noun-door",
@@ -4342,8 +4342,8 @@
       "english": "door",
       "laneId": "feminine",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-noun-table",
@@ -4353,8 +4353,8 @@
       "english": "table",
       "laneId": "feminine",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-noun-chair",
@@ -4364,8 +4364,8 @@
       "english": "chair",
       "laneId": "feminine",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-noun-bed",
@@ -4375,8 +4375,8 @@
       "english": "bed",
       "laneId": "feminine",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-noun-bag",
@@ -4386,8 +4386,8 @@
       "english": "bag",
       "laneId": "feminine",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-noun-ball",
@@ -4397,8 +4397,8 @@
       "english": "ball",
       "laneId": "feminine",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "zero-es-noun-sun",
@@ -4408,8 +4408,8 @@
       "english": "sun",
       "laneId": "masculine",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "zero-es-noun-hand",
@@ -4419,8 +4419,8 @@
       "english": "hand",
       "laneId": "feminine",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 42
     },
     {
       "id": "zero-es-noun-eye",
@@ -4430,8 +4430,8 @@
       "english": "eye",
       "laneId": "masculine",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-noun-expand-mom",
@@ -4441,8 +4441,8 @@
       "english": "mom",
       "laneId": "feminine",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zero-es-noun-expand-dad",
@@ -4452,8 +4452,8 @@
       "english": "dad",
       "laneId": "masculine",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "zero-es-noun-expand-brother",
@@ -4463,8 +4463,8 @@
       "english": "brother",
       "laneId": "masculine",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 79,
+      "complexity": 25
     },
     {
       "id": "zero-es-noun-expand-sister",
@@ -4474,8 +4474,8 @@
       "english": "sister",
       "laneId": "feminine",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 79,
+      "complexity": 25
     },
     {
       "id": "zero-es-noun-expand-boy",
@@ -4485,8 +4485,8 @@
       "english": "boy",
       "laneId": "masculine",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 79,
+      "complexity": 25
     },
     {
       "id": "zero-es-noun-expand-girl",
@@ -4496,8 +4496,8 @@
       "english": "girl",
       "laneId": "feminine",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 79,
+      "complexity": 25
     },
     {
       "id": "zero-es-noun-expand-car",
@@ -4507,8 +4507,8 @@
       "english": "car",
       "laneId": "masculine",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-noun-expand-bicycle",
@@ -4518,8 +4518,8 @@
       "english": "bicycle",
       "laneId": "feminine",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-noun-expand-window",
@@ -4529,8 +4529,8 @@
       "english": "window",
       "laneId": "feminine",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-noun-expand-egg",
@@ -4540,8 +4540,8 @@
       "english": "egg",
       "laneId": "masculine",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-noun-expand-soup",
@@ -4551,8 +4551,8 @@
       "english": "soup",
       "laneId": "feminine",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "zero-es-noun-expand-shoe",
@@ -4562,8 +4562,8 @@
       "english": "shoe",
       "laneId": "masculine",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-noun-expand-plate",
@@ -4573,8 +4573,8 @@
       "english": "plate",
       "laneId": "masculine",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "zero-es-noun-expand-cup",
@@ -4584,8 +4584,8 @@
       "english": "cup",
       "laneId": "feminine",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-noun-expand-glass",
@@ -4595,8 +4595,8 @@
       "english": "drinking glass",
       "laneId": "masculine",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 75,
+      "complexity": 24
     }
   ]
 }

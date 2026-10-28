@@ -22,13 +22,15 @@ test('case context metadata is required without changing string answer pools', (
   assert.deepEqual(document.paradigms[0].forms, forms);
 });
 
-test('invalid grading numbers and badges fail while legacy absent badges survive', () => {
+test('playable verb rows need an explicit badge and dictionary leftovers may omit one', () => {
   for (const field of ['usefulness','complexity']) for (const invalid of [0, 101, 2.5, NaN, '2', null]) {
     assert.throws(() => validateProgressionCatalog('verb-nebula', [graded({ [field]: invalid })]), new RegExp(field));
   }
-  assert.doesNotThrow(() => validateProgressionCatalog('verb-nebula', [graded({})]));
-  assert.throws(() => validateProgressionCatalog('verb-nebula', [graded({ difficulty: 4 })]), /badge/u);
-  assert.doesNotThrow(() => validateProgressionCatalog('verb-nebula', [graded({ usefulness: 1, complexity: 100 })]));
+  assert.throws(() => validateProgressionCatalog('verb-nebula', [graded({ kind: 'V', cs: 'být', en: 'be' })]), /difficulty badge required/u);
+  assert.doesNotThrow(() => validateProgressionCatalog('verb-nebula', [graded({ kind: 'N', cs: 'kočka', en: 'cat' })]));
+  assert.equal(progressionRecords('verb-nebula', [graded({ kind: 'N', cs: 'kočka', en: 'cat' })])[0].kind, 'dictionary-entry');
+  assert.throws(() => validateProgressionCatalog('verb-nebula', [graded({ kind: 'V', cs: 'jít', en: 'go', difficulty: 4 })]), /invalid badge/u);
+  assert.doesNotThrow(() => validateProgressionCatalog('verb-nebula', [graded({ kind: 'V', cs: 'jít', en: 'go', difficulty: 0, usefulness: 1, complexity: 100 })]));
   for (const field of ['urgency', 'subdifficulty']) {
     assert.throws(() => validateProgressionCatalog('verb-nebula', [graded({ [field]: 3 })]), /obsolete/u);
   }

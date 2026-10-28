@@ -287,7 +287,7 @@
       "path": "apps/languages/arabic-standard/static/data/games/sound-quasar/content.json",
       "scope": "course",
       "state": "present",
-      "revision": "sound-quasar-content-1"
+      "revision": "sound-quasar-content-2"
     },
     "staticRoot": {
       "kind": "directory",

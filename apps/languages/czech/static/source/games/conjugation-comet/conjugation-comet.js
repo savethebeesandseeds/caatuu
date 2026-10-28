@@ -6,7 +6,8 @@ import { createEnglishImageSearch } from "/language-runtime/static/source/englis
 const course = window.CaatuuCourse;
 if (!course) throw new Error("Caatuu course profile must load before Conjugation Comet.");
 
-const VERBS_URL = "data/games/conjugation-comet/content.json?v=conjugation-comet-verbs-4";
+const VERBS_URL = "data/games/conjugation-comet/content.json?v=conjugation-comet-verbs-6";
+const SHARED_CONJUGATION_SCHEMA = "caatuu-conjugation-comet-catalog-v1";
 const ENGLISH_SUBJECTS = Object.freeze(["you all", "he/she", "they", "you", "she", "he", "we", "it", "I"]);
 const AM_ENDINGS = Object.freeze({
   S1: "ám",
@@ -274,7 +275,36 @@ function announceRoundSuccess() {
   }, window.location.origin);
 }
 
+function firstText(record, keys) {
+  for (const key of keys) {
+    if (typeof record?.[key] === "string" && record[key].trim()) return record[key];
+  }
+  return "";
+}
+
+function projectSharedCatalog(value) {
+  if (!value || value.schemaVersion !== SHARED_CONJUGATION_SCHEMA || !Array.isArray(value.verbs)) return value;
+  return {
+    language: firstText(value, ["targetLanguageId", "language"]),
+    verbs: value.verbs.map((verb) => ({
+      verb: firstText(verb, ["targetText", "verb"]),
+      meaning: firstText(verb, ["learnerBaseText", "meaning", "englishAuditText"]),
+      hint: firstText(verb, ["family", "teachingNoteBaseText", "hint"]),
+      forms: Array.isArray(verb.forms) ? verb.forms.map((form) => {
+        const accepted = Array.isArray(form.acceptedTargetTexts) ? form.acceptedTargetTexts : form.accepted;
+        return {
+          label: firstText(form, ["subjectTargetText", "label", "id"]),
+          form: firstText(form, ["targetText", "form"]),
+          cue: firstText(form, ["learnerBaseCueText", "cue", "englishAuditText"]),
+          ...(accepted === undefined ? {} : { accepted })
+        };
+      }) : verb.forms
+    }))
+  };
+}
+
 function validateVerbs(value) {
+  value = projectSharedCatalog(value);
   if (!value || typeof value !== "object" || Array.isArray(value)) {
     throw new Error("verbs.json must contain a language and a verbs array.");
   }

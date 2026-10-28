@@ -5785,8 +5785,8 @@
       "sourceId": "zero-es-en-word-cat",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "cat",
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-sound-word-dog",
@@ -5797,8 +5797,8 @@
       "sourceId": "zero-es-en-word-dog",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "dog",
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-sound-word-water",
@@ -5809,8 +5809,8 @@
       "sourceId": "zero-es-en-word-water",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "water",
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 98,
+      "complexity": 15
     },
     {
       "id": "zero-es-en-sound-word-bread",
@@ -5821,8 +5821,8 @@
       "sourceId": "zero-es-en-word-bread",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "bread",
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 75,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-sound-word-milk",
@@ -5833,8 +5833,8 @@
       "sourceId": "zero-es-en-word-milk",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "milk",
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 75,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-sound-word-apple",
@@ -5845,8 +5845,8 @@
       "sourceId": "zero-es-en-word-apple",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "apple",
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-sound-word-rice",
@@ -5857,8 +5857,8 @@
       "sourceId": "zero-es-en-word-rice",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "rice",
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 75,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-sound-word-tea",
@@ -5869,8 +5869,8 @@
       "sourceId": "zero-es-en-word-tea",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "tea",
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-sound-word-book",
@@ -5881,8 +5881,8 @@
       "sourceId": "zero-es-en-word-book",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "book",
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 73,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-sound-word-pen",
@@ -5893,8 +5893,8 @@
       "sourceId": "zero-es-en-word-pen",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "pen",
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 75,
+      "complexity": 26
     },
     {
       "id": "zero-es-en-sound-word-house",
@@ -5905,8 +5905,8 @@
       "sourceId": "zero-es-en-word-house",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "house",
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zero-es-en-sound-word-door",
@@ -5917,8 +5917,8 @@
       "sourceId": "zero-es-en-word-door",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "door",
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-sound-word-table",
@@ -5929,8 +5929,8 @@
       "sourceId": "zero-es-en-word-table",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "table",
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-sound-word-chair",
@@ -5941,8 +5941,8 @@
       "sourceId": "zero-es-en-word-chair",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "chair",
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-sound-word-bed",
@@ -5953,8 +5953,8 @@
       "sourceId": "zero-es-en-word-bed",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "bed",
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-sound-word-bag",
@@ -5965,8 +5965,8 @@
       "sourceId": "zero-es-en-word-bag",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "bag",
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-sound-word-ball",
@@ -5977,8 +5977,8 @@
       "sourceId": "zero-es-en-word-ball",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "ball",
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "zero-es-en-sound-word-sun",
@@ -5989,8 +5989,8 @@
       "sourceId": "zero-es-en-word-sun",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "sun",
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "zero-es-en-sound-word-hand",
@@ -6001,8 +6001,8 @@
       "sourceId": "zero-es-en-word-hand",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "hand",
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-sound-word-eye",
@@ -6013,8 +6013,8 @@
       "sourceId": "zero-es-en-word-eye",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "eye",
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-sound-word-eat",
@@ -6025,8 +6025,8 @@
       "sourceId": "zero-es-en-verb-eat",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "eat",
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zero-es-en-sound-word-drink",
@@ -6037,8 +6037,8 @@
       "sourceId": "zero-es-en-verb-drink",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "drink",
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zero-es-en-sound-word-go",
@@ -6049,8 +6049,8 @@
       "sourceId": "zero-es-en-verb-go",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "go",
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 94,
+      "complexity": 15
     },
     {
       "id": "zero-es-en-sound-word-see",
@@ -6061,8 +6061,8 @@
       "sourceId": "zero-es-en-verb-see",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "see",
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zero-es-en-sound-word-want",
@@ -6073,8 +6073,8 @@
       "sourceId": "zero-es-en-verb-want",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "want",
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 94,
+      "complexity": 15
     },
     {
       "id": "zero-es-en-sound-word-have",
@@ -6085,8 +6085,8 @@
       "sourceId": "zero-es-en-verb-have",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "have",
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 94,
+      "complexity": 9
     },
     {
       "id": "zero-es-en-sound-word-like",
@@ -6097,8 +6097,8 @@
       "sourceId": "zero-es-en-verb-like",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "like",
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-sound-word-sleep",
@@ -6109,8 +6109,8 @@
       "sourceId": "zero-es-en-verb-sleep",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "sleep",
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zero-es-en-sound-word-sit",
@@ -6121,8 +6121,8 @@
       "sourceId": "zero-es-en-verb-sit",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "sit",
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-sound-word-read",
@@ -6133,8 +6133,8 @@
       "sourceId": "zero-es-en-verb-read",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "read",
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zero-es-en-sound-word-write",
@@ -6145,8 +6145,8 @@
       "sourceId": "zero-es-en-verb-write",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "write",
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zero-es-en-sound-word-hear",
@@ -6157,8 +6157,8 @@
       "sourceId": "zero-es-en-verb-hear",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "hear",
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zero-es-en-sound-word-i",
@@ -6169,8 +6169,8 @@
       "sourceId": "zero-es-en-word-i",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I",
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 89,
+      "complexity": 9
     },
     {
       "id": "zero-es-en-sound-word-you",
@@ -6181,8 +6181,8 @@
       "sourceId": "zero-es-en-word-you",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "you",
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 89,
+      "complexity": 9
     },
     {
       "id": "zero-es-en-sound-word-we",
@@ -6193,8 +6193,8 @@
       "sourceId": "zero-es-en-word-we",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "we",
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 89,
+      "complexity": 9
     },
     {
       "id": "zero-es-en-sound-word-hello",
@@ -6205,8 +6205,8 @@
       "sourceId": "zero-es-en-word-hello",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "Hello!",
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 94,
+      "complexity": 29
     },
     {
       "id": "zero-es-en-sound-word-goodbye",
@@ -6217,8 +6217,8 @@
       "sourceId": "zero-es-en-word-goodbye",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "Goodbye!",
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 94,
+      "complexity": 29
     },
     {
       "id": "zero-es-en-sound-word-yes",
@@ -6229,8 +6229,8 @@
       "sourceId": "zero-es-en-word-yes",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "Yes.",
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 94,
+      "complexity": 29
     },
     {
       "id": "zero-es-en-sound-word-no",
@@ -6241,8 +6241,8 @@
       "sourceId": "zero-es-en-word-no",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "No.",
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 94,
+      "complexity": 29
     },
     {
       "id": "zero-es-en-sound-word-please",
@@ -6253,8 +6253,8 @@
       "sourceId": "zero-es-en-word-please",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "Please.",
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 94,
+      "complexity": 29
     },
     {
       "id": "zero-es-en-sound-word-thanks",
@@ -6265,8 +6265,8 @@
       "sourceId": "zero-es-en-word-thanks",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "Thank you.",
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 94,
+      "complexity": 24
     },
     {
       "id": "zero-es-en-sound-word-one",
@@ -6277,8 +6277,8 @@
       "sourceId": "zero-es-en-word-one",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "one",
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-sound-word-two",
@@ -6289,8 +6289,8 @@
       "sourceId": "zero-es-en-word-two",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "two",
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-sound-word-three",
@@ -6301,8 +6301,8 @@
       "sourceId": "zero-es-en-word-three",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "three",
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-sound-word-four",
@@ -6313,8 +6313,8 @@
       "sourceId": "zero-es-en-word-four",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "four",
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-sound-word-five",
@@ -6325,8 +6325,8 @@
       "sourceId": "zero-es-en-word-five",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "five",
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-sound-word-big",
@@ -6337,8 +6337,8 @@
       "sourceId": "zero-es-en-word-big",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "big",
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-sound-word-small",
@@ -6349,8 +6349,8 @@
       "sourceId": "zero-es-en-word-small",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "small",
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-sound-word-red",
@@ -6361,8 +6361,8 @@
       "sourceId": "zero-es-en-word-red",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "red",
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-es-en-sound-word-green",
@@ -6373,8 +6373,8 @@
       "sourceId": "zero-es-en-word-green",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "green",
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 76,
+      "complexity": 21
     }
   ],
   "sentenceProvenance": {
@@ -11325,8 +11325,8 @@
       "sourceId": "ww-zero-thanks",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "Thank you.",
-      "usefulness": 92,
-      "complexity": 1
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "zero-es-en-sound-ww-zero-this-cat",
@@ -11337,8 +11337,8 @@
       "sourceId": "ww-zero-this-cat",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "This is a cat.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zero-es-en-sound-ww-zero-this-dog",
@@ -11349,8 +11349,8 @@
       "sourceId": "ww-zero-this-dog",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "This is a dog.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zero-es-en-sound-ww-zero-this-water",
@@ -11361,8 +11361,8 @@
       "sourceId": "ww-zero-this-water",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "This is water.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 88,
+      "complexity": 27
     },
     {
       "id": "zero-es-en-sound-ww-zero-this-bread",
@@ -11373,8 +11373,8 @@
       "sourceId": "ww-zero-this-bread",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "This is bread.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "zero-es-en-sound-ww-zero-this-milk",
@@ -11385,8 +11385,8 @@
       "sourceId": "ww-zero-this-milk",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "This is milk.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "zero-es-en-sound-ww-zero-this-apple",
@@ -11397,8 +11397,8 @@
       "sourceId": "ww-zero-this-apple",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "This is an apple.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zero-es-en-sound-ww-zero-this-rice",
@@ -11409,8 +11409,8 @@
       "sourceId": "ww-zero-this-rice",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "This is rice.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "zero-es-en-sound-ww-zero-this-tea",
@@ -11421,8 +11421,8 @@
       "sourceId": "ww-zero-this-tea",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "This is tea.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zero-es-en-sound-ww-zero-this-book",
@@ -11433,8 +11433,8 @@
       "sourceId": "ww-zero-this-book",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "This is a book.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 73,
+      "complexity": 27
     },
     {
       "id": "zero-es-en-sound-ww-zero-this-pen",
@@ -11445,8 +11445,8 @@
       "sourceId": "ww-zero-this-pen",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "This is a pen.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "zero-es-en-sound-ww-zero-this-house",
@@ -11457,8 +11457,8 @@
       "sourceId": "ww-zero-this-house",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "This is a house.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 77,
+      "complexity": 27
     },
     {
       "id": "zero-es-en-sound-ww-zero-this-door",
@@ -11469,8 +11469,8 @@
       "sourceId": "ww-zero-this-door",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "This is a door.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zero-es-en-sound-ww-zero-this-table",
@@ -11481,8 +11481,8 @@
       "sourceId": "ww-zero-this-table",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "This is a table.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zero-es-en-sound-ww-zero-this-chair",
@@ -11493,8 +11493,8 @@
       "sourceId": "ww-zero-this-chair",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "This is a chair.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zero-es-en-sound-ww-zero-this-bed",
@@ -11505,8 +11505,8 @@
       "sourceId": "ww-zero-this-bed",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "This is a bed.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zero-es-en-sound-ww-zero-this-bag",
@@ -11517,8 +11517,8 @@
       "sourceId": "ww-zero-this-bag",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "This is a bag.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zero-es-en-sound-ww-zero-this-ball",
@@ -11529,8 +11529,8 @@
       "sourceId": "ww-zero-this-ball",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "This is a ball.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 63,
+      "complexity": 27
     },
     {
       "id": "zero-es-en-sound-ww-zero-this-sun",
@@ -11541,8 +11541,8 @@
       "sourceId": "ww-zero-this-sun",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "This is the sun.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 65,
+      "complexity": 27
     },
     {
       "id": "zero-es-en-sound-ww-zero-this-hand",
@@ -11553,8 +11553,8 @@
       "sourceId": "ww-zero-this-hand",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "This is a hand.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zero-es-en-sound-ww-zero-this-eye",
@@ -11565,8 +11565,8 @@
       "sourceId": "ww-zero-this-eye",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "This is an eye.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zero-es-en-sound-ww-zero-want-water",
@@ -11577,8 +11577,8 @@
       "sourceId": "ww-zero-want-water",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I want water.",
-      "usefulness": 92,
-      "complexity": 9
+      "usefulness": 93,
+      "complexity": 22
     },
     {
       "id": "zero-es-en-sound-ww-zero-want-bread",
@@ -11589,8 +11589,8 @@
       "sourceId": "ww-zero-want-bread",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I want bread.",
-      "usefulness": 92,
-      "complexity": 9
+      "usefulness": 80,
+      "complexity": 22
     },
     {
       "id": "zero-es-en-sound-ww-zero-want-milk",
@@ -11601,8 +11601,8 @@
       "sourceId": "ww-zero-want-milk",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I want milk.",
-      "usefulness": 92,
-      "complexity": 9
+      "usefulness": 80,
+      "complexity": 22
     },
     {
       "id": "zero-es-en-sound-ww-zero-want-apple",
@@ -11613,8 +11613,8 @@
       "sourceId": "ww-zero-want-apple",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I want an apple.",
-      "usefulness": 92,
-      "complexity": 9
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "zero-es-en-sound-ww-zero-want-rice",
@@ -11625,8 +11625,8 @@
       "sourceId": "ww-zero-want-rice",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I want rice.",
-      "usefulness": 92,
-      "complexity": 9
+      "usefulness": 80,
+      "complexity": 22
     },
     {
       "id": "zero-es-en-sound-ww-zero-want-tea",
@@ -11637,8 +11637,8 @@
       "sourceId": "ww-zero-want-tea",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I want tea.",
-      "usefulness": 92,
-      "complexity": 9
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "zero-es-en-sound-ww-zero-want-book",
@@ -11649,8 +11649,8 @@
       "sourceId": "ww-zero-want-book",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I want a book.",
-      "usefulness": 92,
-      "complexity": 9
+      "usefulness": 78,
+      "complexity": 22
     },
     {
       "id": "zero-es-en-sound-ww-zero-want-pen",
@@ -11661,8 +11661,8 @@
       "sourceId": "ww-zero-want-pen",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I want a pen.",
-      "usefulness": 92,
-      "complexity": 9
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "zero-es-en-sound-ww-zero-see-cat",
@@ -11673,8 +11673,8 @@
       "sourceId": "ww-zero-see-cat",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I see a cat.",
-      "usefulness": 92,
-      "complexity": 10
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "zero-es-en-sound-ww-zero-see-dog",
@@ -11685,8 +11685,8 @@
       "sourceId": "ww-zero-see-dog",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I see a dog.",
-      "usefulness": 92,
-      "complexity": 10
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "zero-es-en-sound-ww-zero-see-book",
@@ -11697,8 +11697,8 @@
       "sourceId": "ww-zero-see-book",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I see a book.",
-      "usefulness": 92,
-      "complexity": 10
+      "usefulness": 73,
+      "complexity": 22
     },
     {
       "id": "zero-es-en-sound-ww-zero-see-pen",
@@ -11709,8 +11709,8 @@
       "sourceId": "ww-zero-see-pen",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I see a pen.",
-      "usefulness": 92,
-      "complexity": 10
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "zero-es-en-sound-ww-zero-see-house",
@@ -11721,8 +11721,8 @@
       "sourceId": "ww-zero-see-house",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I see a house.",
-      "usefulness": 92,
-      "complexity": 10
+      "usefulness": 77,
+      "complexity": 22
     },
     {
       "id": "zero-es-en-sound-ww-zero-see-door",
@@ -11733,8 +11733,8 @@
       "sourceId": "ww-zero-see-door",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I see a door.",
-      "usefulness": 92,
-      "complexity": 10
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "zero-es-en-sound-ww-zero-see-table",
@@ -11745,8 +11745,8 @@
       "sourceId": "ww-zero-see-table",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I see a table.",
-      "usefulness": 92,
-      "complexity": 10
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "zero-es-en-sound-ww-zero-see-ball",
@@ -11757,8 +11757,8 @@
       "sourceId": "ww-zero-see-ball",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I see a ball.",
-      "usefulness": 92,
-      "complexity": 10
+      "usefulness": 63,
+      "complexity": 22
     },
     {
       "id": "zero-es-en-sound-ww-zero-i-eat",
@@ -11769,8 +11769,8 @@
       "sourceId": "ww-zero-i-eat",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I eat.",
-      "usefulness": 92,
-      "complexity": 8
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "zero-es-en-sound-ww-zero-i-drink",
@@ -11781,8 +11781,8 @@
       "sourceId": "ww-zero-i-drink",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I drink.",
-      "usefulness": 92,
-      "complexity": 8
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "zero-es-en-sound-ww-zero-i-go",
@@ -11793,8 +11793,8 @@
       "sourceId": "ww-zero-i-go",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I go.",
-      "usefulness": 92,
-      "complexity": 8
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "zero-es-en-sound-ww-zero-i-sit",
@@ -11805,8 +11805,8 @@
       "sourceId": "ww-zero-i-sit",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I sit.",
-      "usefulness": 92,
-      "complexity": 8
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "zero-es-en-sound-ww-zero-i-read",
@@ -11817,8 +11817,8 @@
       "sourceId": "ww-zero-i-read",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I read a book.",
-      "usefulness": 92,
-      "complexity": 8
+      "usefulness": 73,
+      "complexity": 22
     },
     {
       "id": "zero-es-en-sound-ww-zero-i-write",
@@ -11829,8 +11829,8 @@
       "sourceId": "ww-zero-i-write",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I write.",
-      "usefulness": 92,
-      "complexity": 8
+      "usefulness": 73,
+      "complexity": 22
     },
     {
       "id": "zero-es-en-sound-ww-zero-i-sleep",
@@ -11841,8 +11841,8 @@
       "sourceId": "ww-zero-i-sleep",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I sleep.",
-      "usefulness": 92,
-      "complexity": 8
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "zero-es-en-sound-ww-zero-i-hear",
@@ -11853,8 +11853,8 @@
       "sourceId": "ww-zero-i-have-pen",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "I have a pen.",
-      "usefulness": 92,
-      "complexity": 8
+      "usefulness": 75,
+      "complexity": 27
     }
   ],
   "curriculum": {

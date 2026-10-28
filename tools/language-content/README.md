@@ -35,7 +35,7 @@ for the four files and editing workflow.
 existing runtime and publication views. `--course <id>` selects one course;
 `--check` reports drift without writing. New IDs can be added to one course
 without adding them to the others. Shared IDs preserve their English meaning.
-The Czech rubric and language-specific review/token checks remain in place.
+Language-specific review and token checks remain in place.
 
 The older files below are generated compatibility views, not editable sources.
 They retain separate language roles for the existing publication contracts:

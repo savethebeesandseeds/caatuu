@@ -445,16 +445,10 @@ export function validateConjugationCometCatalog(value, {
   const legacy = value.schemaVersion === undefined
     && typeof value.language === "string"
     && Array.isArray(value.verbs);
-  if (legacy && (
-    expectedCourseId !== "cz"
-    || expectedTargetLanguageId !== "cs"
-    || expectedLearnerBaseLanguageId !== "en"
-    || expectedTargetLocale !== "cs-CZ"
-    || value.language.trim() !== "cs"
-  )) {
+  if (legacy) {
     throw catalogError(
       "CONJUGATION_COMET_LEGACY_SCOPE_INVALID",
-      "Schema-less Conjugation Comet content is confined to the Czech cs-CZ migration boundary."
+      `Schema-less Conjugation Comet content is not accepted. The catalog must use ${CONJUGATION_COMET_CATALOG_SCHEMA}.`
     );
   }
   if (!legacy && value.schemaVersion !== CONJUGATION_COMET_CATALOG_SCHEMA) {

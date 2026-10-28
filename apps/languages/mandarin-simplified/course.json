@@ -261,7 +261,7 @@
       "path": "apps/languages/mandarin-simplified/static/data/games/sound-quasar/content.json",
       "scope": "course",
       "state": "present",
-      "revision": "sound-quasar-retained-levels-1"
+      "revision": "sound-quasar-retained-levels-2"
     },
     "staticRoot": {
       "kind": "directory",

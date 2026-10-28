@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { wordWorldContentPath } from '../lib/word-world-course-content.mjs';
+import { isVerbNebulaLearningRow } from '../../../apps/language-runtime/static/source/games/verb-nebula/verb-nebula-core.mjs';
 
 export const repositoryRoot = fileURLToPath(new URL('../../../', import.meta.url));
 const RESOURCE_GAMES = {
@@ -56,7 +57,7 @@ export function progressionRecords(game, document) {
     records.push({ item, location, kind, parent, detail });
   };
   if (game === 'verb-nebula') {
-    document.forEach((item, i) => add(item, `[${i}]`, 'lexeme'));
+    document.forEach((item, i) => add(item, `[${i}]`, isVerbNebulaLearningRow(item) ? 'lexeme' : 'dictionary-entry'));
   } else if (game === 'word-world') {
     document.records.forEach((item, i) => add(item, `records[${i}]`, 'sentence'));
   } else if (game === 'conjugation-comet') {
@@ -96,13 +97,22 @@ export function progressionRecords(game, document) {
   return records;
 }
 
+const BAND_OWNER = new Set(['lexeme', 'sentence', 'conjugation', 'agreement', 'noun', 'listening-word', 'listening-sentence', 'character', 'translation-choice']);
+
+function ownsDifficultyBadge(kind, item) {
+  return BAND_OWNER.has(kind) || (kind === 'case-context' && typeof item.id === 'string' && item.id);
+}
+
 export function validateProgressionCatalog(game, document, label = game) {
   const rows = progressionRecords(game, document);
-  for (const { item, location } of rows) {
+  for (const { item, location, kind } of rows) {
     for (const key of ['urgency', 'subdifficulty']) assert.ok(!Object.hasOwn(item, key), `${label} ${location}: obsolete ${key}`);
     for (const key of ['usefulness', 'complexity']) {
       assert.ok(Number.isInteger(item[key]) && item[key] >= 1 && item[key] <= 100,
         `${label} ${location} ${key} must be an integer from 1 to 100`);
+    }
+    if (ownsDifficultyBadge(kind, item) && !Object.hasOwn(item, 'difficulty')) {
+      assert.fail(`${label} ${location}: difficulty badge required`);
     }
     if (Object.hasOwn(item, 'difficulty')) assert.ok([0, 1, 2, 3].includes(item.difficulty), `${label} ${location}: invalid badge`);
   }

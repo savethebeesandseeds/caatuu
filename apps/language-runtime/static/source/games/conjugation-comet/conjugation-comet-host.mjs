@@ -2,7 +2,7 @@ import { fetchDeclaredCourseGameJson, readEmbeddedCourseProfile } from "../cours
 import {
   buildConjugationHelixRound, judgeConjugationHelixRound, splitConjugationDisplay,
   buildConjugationVerbQueue, validateConjugationCometCatalog, selectConjugationPracticeVerbs
-} from "./conjugation-comet-core.mjs?v=conjugation-comet-core-6";
+} from "./conjugation-comet-core.mjs?v=conjugation-comet-core-7";
 import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-11";
 import { newContentEncounterId, matchesContentDifficulty } from "../content-progression.mjs";
 import { createArabicReadingGuide } from "../../arabic-reading-guide.mjs?v=arabic-reading-guide-2";

@@ -168,7 +168,7 @@ counts are not additive.
 | --- | --- | --- |
 | Verb Nebula (`verb-lab`) | `extractCoreVerbPairs`; one normalized matching pair. Nonverbs, malformed rows and duplicate pairs filtered by the runtime remain authored records only. | `englishAuditText`, `english`, `en`; `source` only when the course's learner-base locale is English. |
 | Word World (`word-net`) | Czech `StandardWordWorldProvider`, or modern `joinConceptCatalogs`; one admitted sentence, with playable-target count recorded separately. Missing runtime projections never imply playability. Text and grades must match authoring. | Authored `englishText`, never translated learner-base text. |
-| Conjugation Comet | `validateConjugationCometCatalog` and `buildConjugationHelixRound`; one helix subject/form assessment, namespaced by verb/form ID. Paradigm groups and parent meanings are not extra helix units. | `englishAuditText`; legacy unversioned Czech only uses `meaning` for parents and `cue` for forms. |
+| Conjugation Comet | `validateConjugationCometCatalog` and `buildConjugationHelixRound`; one helix subject/form assessment, namespaced by verb/form ID. Paradigm groups and parent meanings are not extra helix units. | `englishAuditText` on the shared v1 catalog. |
 | Case Cosmos | Existing `buildRounds` and `buildQuestions` at all authored badge levels; one case context/question. | Context `english`; structural paradigms have no independent English authority. |
 | Grammar Gravity | `buildGrammarGravityRounds` at badge 3 with fixed RNG; one generated bilingual example candidate. | Example `englishAuditText`; challenge/form containers have no independent English. |
 | Grammar Gravity nouns | `normalizeNounLandingPack`; one noun-category candidate. | `english`. |

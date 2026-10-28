@@ -40,9 +40,9 @@ export function practiceEnglishText(item, identity = {}) {
     if (typeof item?.[field] === 'string' && item[field].trim()) return item[field];
   }
   if (identity.gameId === 'case-cosmos') return item?.practiceQuestions?.[0]?.english || '';
-  if (identity.courseId === 'cz' && identity.gameId === 'conjugation-comet') return item?.meaning || '';
-  if (identity.courseId === 'cz' && ['word-world', 'verb-nebula'].includes(identity.gameId)) return item?.en || '';
-  if (identity.courseId === 'zh' && identity.gameId === 'naturalization-nucleus') return item?.translation || '';
+  if (identity.gameId === 'conjugation-comet' && typeof item?.meaning === 'string' && item.meaning.trim()) return item.meaning;
+  if ((identity.gameId === 'verb-nebula' || identity.gameId === 'verb-lab') && typeof item?.en === 'string' && item.en.trim()) return item.en;
+  if (identity.gameId === 'naturalization-nucleus' && typeof item?.translation === 'string' && item.translation.trim()) return item.translation;
   return '';
 }
 

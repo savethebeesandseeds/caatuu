@@ -4884,8 +4884,8 @@
       "sceneQuery": "cat",
       "topic": "objects",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-zero-dog",
@@ -4894,8 +4894,8 @@
       "sceneQuery": "dog",
       "topic": "objects",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-zero-water",
@@ -4904,8 +4904,8 @@
       "sceneQuery": "water",
       "topic": "objects",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 88,
+      "complexity": 22
     },
     {
       "id": "ww-zero-bread",
@@ -4914,8 +4914,8 @@
       "sceneQuery": "bread",
       "topic": "objects",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "ww-zero-milk",
@@ -4924,8 +4924,8 @@
       "sceneQuery": "milk",
       "topic": "objects",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "ww-zero-apple",
@@ -4934,8 +4934,8 @@
       "sceneQuery": "apple",
       "topic": "objects",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-zero-rice",
@@ -4944,8 +4944,8 @@
       "sceneQuery": "rice",
       "topic": "objects",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "ww-zero-tea",
@@ -4954,8 +4954,8 @@
       "sceneQuery": "tea",
       "topic": "objects",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-zero-book",
@@ -4964,8 +4964,8 @@
       "sceneQuery": "book",
       "topic": "objects",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 73,
+      "complexity": 22
     },
     {
       "id": "ww-zero-pen",
@@ -4974,8 +4974,8 @@
       "sceneQuery": "pen",
       "topic": "objects",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "ww-zero-house",
@@ -4984,8 +4984,8 @@
       "sceneQuery": "house",
       "topic": "objects",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 77,
+      "complexity": 22
     },
     {
       "id": "ww-zero-door",
@@ -4994,8 +4994,8 @@
       "sceneQuery": "door",
       "topic": "objects",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-zero-table",
@@ -5004,8 +5004,8 @@
       "sceneQuery": "table",
       "topic": "objects",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-zero-chair",
@@ -5014,8 +5014,8 @@
       "sceneQuery": "chair",
       "topic": "objects",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-zero-bed",
@@ -5024,8 +5024,8 @@
       "sceneQuery": "bed",
       "topic": "objects",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-zero-bag",
@@ -5034,8 +5034,8 @@
       "sceneQuery": "bag",
       "topic": "objects",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-zero-ball",
@@ -5044,8 +5044,8 @@
       "sceneQuery": "ball",
       "topic": "objects",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 63,
+      "complexity": 22
     },
     {
       "id": "ww-zero-sun",
@@ -5054,8 +5054,8 @@
       "sceneQuery": "sun",
       "topic": "objects",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 65,
+      "complexity": 22
     },
     {
       "id": "ww-zero-hand",
@@ -5064,8 +5064,8 @@
       "sceneQuery": "hand",
       "topic": "objects",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-zero-eye",
@@ -5074,8 +5074,8 @@
       "sceneQuery": "eye",
       "topic": "objects",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 2
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-zero-eat",
@@ -5084,8 +5084,8 @@
       "sceneQuery": "eat",
       "topic": "actions",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "ww-zero-drink",
@@ -5094,8 +5094,8 @@
       "sceneQuery": "drink",
       "topic": "actions",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "ww-zero-go",
@@ -5104,8 +5104,8 @@
       "sceneQuery": "go",
       "topic": "actions",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "ww-zero-see",
@@ -5114,8 +5114,8 @@
       "sceneQuery": "see",
       "topic": "actions",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "ww-zero-want",
@@ -5124,8 +5124,8 @@
       "sceneQuery": "want",
       "topic": "actions",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "ww-zero-have",
@@ -5134,8 +5134,8 @@
       "sceneQuery": "have",
       "topic": "actions",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "ww-zero-like",
@@ -5144,8 +5144,8 @@
       "sceneQuery": "like",
       "topic": "actions",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-zero-sleep",
@@ -5154,8 +5154,8 @@
       "sceneQuery": "sleep",
       "topic": "actions",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "ww-zero-sit",
@@ -5164,8 +5164,8 @@
       "sceneQuery": "sit",
       "topic": "actions",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-zero-read",
@@ -5174,8 +5174,8 @@
       "sceneQuery": "read",
       "topic": "actions",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 73,
+      "complexity": 22
     },
     {
       "id": "ww-zero-write",
@@ -5184,8 +5184,8 @@
       "sceneQuery": "write",
       "topic": "actions",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 73,
+      "complexity": 22
     },
     {
       "id": "ww-zero-hear",
@@ -5194,8 +5194,8 @@
       "sceneQuery": "hear",
       "topic": "actions",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "ww-zero-i",
@@ -5204,8 +5204,8 @@
       "sceneQuery": "I",
       "topic": "people",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 70,
+      "complexity": 22
     },
     {
       "id": "ww-zero-you",
@@ -5214,8 +5214,8 @@
       "sceneQuery": "you",
       "topic": "people",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 70,
+      "complexity": 22
     },
     {
       "id": "ww-zero-we",
@@ -5224,8 +5224,8 @@
       "sceneQuery": "we",
       "topic": "people",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 3
+      "usefulness": 70,
+      "complexity": 22
     },
     {
       "id": "ww-zero-hello",
@@ -5234,8 +5234,8 @@
       "sceneQuery": "Hello",
       "topic": "first-contact",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 1
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "ww-zero-goodbye",
@@ -5244,8 +5244,8 @@
       "sceneQuery": "Goodbye",
       "topic": "first-contact",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 1
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "ww-zero-yes",
@@ -5254,8 +5254,8 @@
       "sceneQuery": "Yes",
       "topic": "first-contact",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 1
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "ww-zero-no",
@@ -5264,8 +5264,8 @@
       "sceneQuery": "No",
       "topic": "first-contact",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 1
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "ww-zero-please",
@@ -5274,8 +5274,8 @@
       "sceneQuery": "Please",
       "topic": "first-contact",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 1
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "ww-zero-thanks",
@@ -5284,8 +5284,8 @@
       "sceneQuery": "Thank you",
       "topic": "first-contact",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 1
+      "usefulness": 94,
+      "complexity": 7
     },
     {
       "id": "ww-zero-one",
@@ -5294,8 +5294,8 @@
       "sceneQuery": "one",
       "topic": "numbers",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-zero-two",
@@ -5304,8 +5304,8 @@
       "sceneQuery": "two",
       "topic": "numbers",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-zero-three",
@@ -5314,8 +5314,8 @@
       "sceneQuery": "three",
       "topic": "numbers",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-zero-four",
@@ -5324,8 +5324,8 @@
       "sceneQuery": "four",
       "topic": "numbers",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-zero-five",
@@ -5334,8 +5334,8 @@
       "sceneQuery": "five",
       "topic": "numbers",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-zero-big",
@@ -5344,8 +5344,8 @@
       "sceneQuery": "big",
       "topic": "describing",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-zero-small",
@@ -5354,8 +5354,8 @@
       "sceneQuery": "small",
       "topic": "describing",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-zero-red",
@@ -5364,8 +5364,8 @@
       "sceneQuery": "red",
       "topic": "describing",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-zero-green",
@@ -5374,8 +5374,8 @@
       "sceneQuery": "green",
       "topic": "describing",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 4
+      "usefulness": 54,
+      "complexity": 22
     },
     {
       "id": "ww-zero-this-cat",
@@ -5384,8 +5384,8 @@
       "sceneQuery": "This is a cat",
       "topic": "identify",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "ww-zero-this-dog",
@@ -5394,8 +5394,8 @@
       "sceneQuery": "This is a dog",
       "topic": "identify",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "ww-zero-this-water",
@@ -5404,8 +5404,8 @@
       "sceneQuery": "This is water",
       "topic": "identify",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 88,
+      "complexity": 27
     },
     {
       "id": "ww-zero-this-bread",
@@ -5414,8 +5414,8 @@
       "sceneQuery": "This is bread",
       "topic": "identify",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "ww-zero-this-milk",
@@ -5424,8 +5424,8 @@
       "sceneQuery": "This is milk",
       "topic": "identify",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "ww-zero-this-apple",
@@ -5434,8 +5434,8 @@
       "sceneQuery": "This is an apple",
       "topic": "identify",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "ww-zero-this-rice",
@@ -5444,8 +5444,8 @@
       "sceneQuery": "This is rice",
       "topic": "identify",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "ww-zero-this-tea",
@@ -5454,8 +5454,8 @@
       "sceneQuery": "This is tea",
       "topic": "identify",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "ww-zero-this-book",
@@ -5464,8 +5464,8 @@
       "sceneQuery": "This is a book",
       "topic": "identify",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 73,
+      "complexity": 27
     },
     {
       "id": "ww-zero-this-pen",
@@ -5474,8 +5474,8 @@
       "sceneQuery": "This is a pen",
       "topic": "identify",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "ww-zero-this-house",
@@ -5484,8 +5484,8 @@
       "sceneQuery": "This is a house",
       "topic": "identify",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 77,
+      "complexity": 27
     },
     {
       "id": "ww-zero-this-door",
@@ -5494,8 +5494,8 @@
       "sceneQuery": "This is a door",
       "topic": "identify",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "ww-zero-this-table",
@@ -5504,8 +5504,8 @@
       "sceneQuery": "This is a table",
       "topic": "identify",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "ww-zero-this-chair",
@@ -5514,8 +5514,8 @@
       "sceneQuery": "This is a chair",
       "topic": "identify",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "ww-zero-this-bed",
@@ -5524,8 +5524,8 @@
       "sceneQuery": "This is a bed",
       "topic": "identify",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "ww-zero-this-bag",
@@ -5534,8 +5534,8 @@
       "sceneQuery": "This is a bag",
       "topic": "identify",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "ww-zero-this-ball",
@@ -5544,8 +5544,8 @@
       "sceneQuery": "This is a ball",
       "topic": "identify",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 63,
+      "complexity": 27
     },
     {
       "id": "ww-zero-this-sun",
@@ -5554,8 +5554,8 @@
       "sceneQuery": "This is the sun",
       "topic": "identify",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 65,
+      "complexity": 27
     },
     {
       "id": "ww-zero-this-hand",
@@ -5564,8 +5564,8 @@
       "sceneQuery": "This is a hand",
       "topic": "identify",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "ww-zero-this-eye",
@@ -5574,8 +5574,8 @@
       "sceneQuery": "This is an eye",
       "topic": "identify",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "ww-zero-want-water",
@@ -5584,8 +5584,8 @@
       "sceneQuery": "I want water",
       "topic": "request",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 9
+      "usefulness": 93,
+      "complexity": 22
     },
     {
       "id": "ww-zero-want-bread",
@@ -5594,8 +5594,8 @@
       "sceneQuery": "I want bread",
       "topic": "request",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 9
+      "usefulness": 80,
+      "complexity": 22
     },
     {
       "id": "ww-zero-want-milk",
@@ -5604,8 +5604,8 @@
       "sceneQuery": "I want milk",
       "topic": "request",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 9
+      "usefulness": 80,
+      "complexity": 22
     },
     {
       "id": "ww-zero-want-apple",
@@ -5614,8 +5614,8 @@
       "sceneQuery": "I want an apple",
       "topic": "request",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 9
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "ww-zero-want-rice",
@@ -5624,8 +5624,8 @@
       "sceneQuery": "I want rice",
       "topic": "request",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 9
+      "usefulness": 80,
+      "complexity": 22
     },
     {
       "id": "ww-zero-want-tea",
@@ -5634,8 +5634,8 @@
       "sceneQuery": "I want tea",
       "topic": "request",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 9
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "ww-zero-want-book",
@@ -5644,8 +5644,8 @@
       "sceneQuery": "I want a book",
       "topic": "request",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 9
+      "usefulness": 78,
+      "complexity": 22
     },
     {
       "id": "ww-zero-want-pen",
@@ -5654,8 +5654,8 @@
       "sceneQuery": "I want a pen",
       "topic": "request",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 9
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "ww-zero-see-cat",
@@ -5664,8 +5664,8 @@
       "sceneQuery": "I see a cat",
       "topic": "notice",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 10
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "ww-zero-see-dog",
@@ -5674,8 +5674,8 @@
       "sceneQuery": "I see a dog",
       "topic": "notice",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 10
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "ww-zero-see-book",
@@ -5684,8 +5684,8 @@
       "sceneQuery": "I see a book",
       "topic": "notice",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 10
+      "usefulness": 73,
+      "complexity": 22
     },
     {
       "id": "ww-zero-see-pen",
@@ -5694,8 +5694,8 @@
       "sceneQuery": "I see a pen",
       "topic": "notice",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 10
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "ww-zero-see-house",
@@ -5704,8 +5704,8 @@
       "sceneQuery": "I see a house",
       "topic": "notice",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 10
+      "usefulness": 77,
+      "complexity": 22
     },
     {
       "id": "ww-zero-see-door",
@@ -5714,8 +5714,8 @@
       "sceneQuery": "I see a door",
       "topic": "notice",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 10
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "ww-zero-see-table",
@@ -5724,8 +5724,8 @@
       "sceneQuery": "I see a table",
       "topic": "notice",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 10
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "ww-zero-see-ball",
@@ -5734,8 +5734,8 @@
       "sceneQuery": "I see a ball",
       "topic": "notice",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 10
+      "usefulness": 63,
+      "complexity": 22
     },
     {
       "id": "ww-zero-i-eat",
@@ -5744,8 +5744,8 @@
       "sceneQuery": "I eat",
       "topic": "doing",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 8
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "ww-zero-i-drink",
@@ -5754,8 +5754,8 @@
       "sceneQuery": "I drink",
       "topic": "doing",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 8
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "ww-zero-i-go",
@@ -5764,8 +5764,8 @@
       "sceneQuery": "I go",
       "topic": "doing",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 8
+      "usefulness": 68,
+      "complexity": 22
     },
     {
       "id": "ww-zero-i-sit",
@@ -5774,8 +5774,8 @@
       "sceneQuery": "I sit",
       "topic": "doing",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 8
+      "usefulness": 54,
+      "complexity": 29
     },
     {
       "id": "ww-zero-i-read",
@@ -5784,8 +5784,8 @@
       "sceneQuery": "I read a book",
       "topic": "doing",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 8
+      "usefulness": 73,
+      "complexity": 22
     },
     {
       "id": "ww-zero-i-write",
@@ -5794,8 +5794,8 @@
       "sceneQuery": "I write",
       "topic": "doing",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 8
+      "usefulness": 73,
+      "complexity": 22
     },
     {
       "id": "ww-zero-i-sleep",
@@ -5804,8 +5804,8 @@
       "sceneQuery": "I sleep",
       "topic": "doing",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 8
+      "usefulness": 75,
+      "complexity": 22
     },
     {
       "id": "ww-zero-i-have-pen",
@@ -5814,8 +5814,8 @@
       "sceneQuery": "I have a pen",
       "topic": "doing",
       "difficulty": 0,
-      "usefulness": 92,
-      "complexity": 8
+      "usefulness": 75,
+      "complexity": 27
     }
   ]
 }

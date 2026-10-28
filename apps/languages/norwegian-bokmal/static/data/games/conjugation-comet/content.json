@@ -10038,8 +10038,8 @@
       ],
       "forms": [
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "infinitive",
           "revision": 1,
           "subjectTargetText": "Infinitiv",
@@ -10053,8 +10053,8 @@
           "englishAuditText": "to eat"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "present",
           "revision": 1,
           "subjectTargetText": "Presens",
@@ -10068,8 +10068,8 @@
           "englishAuditText": "I eat"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "preterite",
           "revision": 1,
           "subjectTargetText": "Preteritum",
@@ -10083,8 +10083,8 @@
           "englishAuditText": "I ate"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 34,
           "id": "perfect",
           "revision": 1,
           "subjectTargetText": "Presens perfektum",
@@ -10098,8 +10098,8 @@
           "englishAuditText": "I have eaten"
         }
       ],
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 89,
+      "complexity": 26
     },
     {
       "id": "zero-nb-conjugation-02",
@@ -10118,8 +10118,8 @@
       ],
       "forms": [
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 51,
           "id": "infinitive",
           "revision": 1,
           "subjectTargetText": "Infinitiv",
@@ -10133,8 +10133,8 @@
           "englishAuditText": "to drink"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 51,
           "id": "present",
           "revision": 1,
           "subjectTargetText": "Presens",
@@ -10148,8 +10148,8 @@
           "englishAuditText": "I drink"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 51,
           "id": "preterite",
           "revision": 1,
           "subjectTargetText": "Preteritum",
@@ -10163,8 +10163,8 @@
           "englishAuditText": "I drank"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 59,
           "id": "perfect",
           "revision": 1,
           "subjectTargetText": "Presens perfektum",
@@ -10178,8 +10178,8 @@
           "englishAuditText": "I have drunk"
         }
       ],
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 89,
+      "complexity": 51
     },
     {
       "id": "zero-nb-conjugation-03",
@@ -10198,8 +10198,8 @@
       ],
       "forms": [
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 51,
           "id": "infinitive",
           "revision": 1,
           "subjectTargetText": "Infinitiv",
@@ -10213,8 +10213,8 @@
           "englishAuditText": "to sleep"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 51,
           "id": "present",
           "revision": 1,
           "subjectTargetText": "Presens",
@@ -10228,8 +10228,8 @@
           "englishAuditText": "I sleep"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 51,
           "id": "preterite",
           "revision": 1,
           "subjectTargetText": "Preteritum",
@@ -10243,8 +10243,8 @@
           "englishAuditText": "I slept"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 59,
           "id": "perfect",
           "revision": 1,
           "subjectTargetText": "Presens perfektum",
@@ -10258,8 +10258,8 @@
           "englishAuditText": "I have slept"
         }
       ],
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 89,
+      "complexity": 51
     },
     {
       "id": "zero-nb-conjugation-04",
@@ -10278,8 +10278,8 @@
       ],
       "forms": [
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "infinitive",
           "revision": 1,
           "subjectTargetText": "Infinitiv",
@@ -10293,8 +10293,8 @@
           "englishAuditText": "to read"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "present",
           "revision": 1,
           "subjectTargetText": "Presens",
@@ -10308,8 +10308,8 @@
           "englishAuditText": "I read"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "preterite",
           "revision": 1,
           "subjectTargetText": "Preteritum",
@@ -10323,8 +10323,8 @@
           "englishAuditText": "I read"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 34,
           "id": "perfect",
           "revision": 1,
           "subjectTargetText": "Presens perfektum",
@@ -10338,8 +10338,8 @@
           "englishAuditText": "I have read"
         }
       ],
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 89,
+      "complexity": 26
     },
     {
       "id": "zero-nb-conjugation-05",
@@ -10358,8 +10358,8 @@
       ],
       "forms": [
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 51,
           "id": "infinitive",
           "revision": 1,
           "subjectTargetText": "Infinitiv",
@@ -10373,8 +10373,8 @@
           "englishAuditText": "to write"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 51,
           "id": "present",
           "revision": 1,
           "subjectTargetText": "Presens",
@@ -10388,8 +10388,8 @@
           "englishAuditText": "I write"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 51,
           "id": "preterite",
           "revision": 1,
           "subjectTargetText": "Preteritum",
@@ -10403,8 +10403,8 @@
           "englishAuditText": "I wrote"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 59,
           "id": "perfect",
           "revision": 1,
           "subjectTargetText": "Presens perfektum",
@@ -10418,8 +10418,8 @@
           "englishAuditText": "I have written"
         }
       ],
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 89,
+      "complexity": 51
     },
     {
       "id": "zero-nb-conjugation-06",
@@ -10438,8 +10438,8 @@
       ],
       "forms": [
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 51,
           "id": "infinitive",
           "revision": 1,
           "subjectTargetText": "Infinitiv",
@@ -10453,8 +10453,8 @@
           "englishAuditText": "to see"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 51,
           "id": "present",
           "revision": 1,
           "subjectTargetText": "Presens",
@@ -10468,8 +10468,8 @@
           "englishAuditText": "I see"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 51,
           "id": "preterite",
           "revision": 1,
           "subjectTargetText": "Preteritum",
@@ -10483,8 +10483,8 @@
           "englishAuditText": "I saw"
         },
         {
-          "usefulness": 98,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 59,
           "id": "perfect",
           "revision": 1,
           "subjectTargetText": "Presens perfektum",
@@ -10498,8 +10498,8 @@
           "englishAuditText": "I have seen"
         }
       ],
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 89,
+      "complexity": 51
     },
     {
       "id": "zero-nb-conjugation-e2-nb-tense-001",
@@ -10518,8 +10518,8 @@
       ],
       "forms": [
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 94,
+          "complexity": 60,
           "id": "infinitive",
           "revision": 1,
           "subjectTargetText": "Infinitiv",
@@ -10533,8 +10533,8 @@
           "englishAuditText": "to be"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 94,
+          "complexity": 60,
           "id": "present",
           "revision": 1,
           "subjectTargetText": "Presens",
@@ -10548,8 +10548,8 @@
           "englishAuditText": "I am"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 94,
+          "complexity": 60,
           "id": "preterite",
           "revision": 1,
           "subjectTargetText": "Preteritum",
@@ -10563,8 +10563,8 @@
           "englishAuditText": "I was"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 94,
+          "complexity": 68,
           "id": "perfect",
           "revision": 1,
           "subjectTargetText": "Presens perfektum",
@@ -10578,8 +10578,8 @@
           "englishAuditText": "I have been"
         }
       ],
-      "usefulness": 96,
-      "complexity": 8
+      "usefulness": 94,
+      "complexity": 60
     },
     {
       "id": "zero-nb-conjugation-e2-nb-tense-002",
@@ -10598,8 +10598,8 @@
       ],
       "forms": [
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 94,
+          "complexity": 51,
           "id": "infinitive",
           "revision": 1,
           "subjectTargetText": "Infinitiv",
@@ -10613,8 +10613,8 @@
           "englishAuditText": "to have"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 94,
+          "complexity": 51,
           "id": "present",
           "revision": 1,
           "subjectTargetText": "Presens",
@@ -10628,8 +10628,8 @@
           "englishAuditText": "I have"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 94,
+          "complexity": 51,
           "id": "preterite",
           "revision": 1,
           "subjectTargetText": "Preteritum",
@@ -10643,8 +10643,8 @@
           "englishAuditText": "I had"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 94,
+          "complexity": 59,
           "id": "perfect",
           "revision": 1,
           "subjectTargetText": "Presens perfektum",
@@ -10658,8 +10658,8 @@
           "englishAuditText": "I have had"
         }
       ],
-      "usefulness": 96,
-      "complexity": 8
+      "usefulness": 94,
+      "complexity": 51
     },
     {
       "id": "zero-nb-conjugation-e2-nb-tense-004",
@@ -10678,8 +10678,8 @@
       ],
       "forms": [
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 63,
+          "complexity": 51,
           "id": "infinitive",
           "revision": 1,
           "subjectTargetText": "Infinitiv",
@@ -10693,8 +10693,8 @@
           "englishAuditText": "to walk"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 63,
+          "complexity": 51,
           "id": "present",
           "revision": 1,
           "subjectTargetText": "Presens",
@@ -10708,8 +10708,8 @@
           "englishAuditText": "I walk"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 63,
+          "complexity": 51,
           "id": "preterite",
           "revision": 1,
           "subjectTargetText": "Preteritum",
@@ -10723,8 +10723,8 @@
           "englishAuditText": "I walked"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 63,
+          "complexity": 59,
           "id": "perfect",
           "revision": 1,
           "subjectTargetText": "Presens perfektum",
@@ -10738,8 +10738,8 @@
           "englishAuditText": "I have walked"
         }
       ],
-      "usefulness": 96,
-      "complexity": 8
+      "usefulness": 63,
+      "complexity": 51
     },
     {
       "id": "zero-nb-conjugation-e2-nb-tense-005",
@@ -10758,8 +10758,8 @@
       ],
       "forms": [
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 94,
+          "complexity": 51,
           "id": "infinitive",
           "revision": 1,
           "subjectTargetText": "Infinitiv",
@@ -10773,8 +10773,8 @@
           "englishAuditText": "to come"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 94,
+          "complexity": 51,
           "id": "present",
           "revision": 1,
           "subjectTargetText": "Presens",
@@ -10788,8 +10788,8 @@
           "englishAuditText": "I come"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 94,
+          "complexity": 51,
           "id": "preterite",
           "revision": 1,
           "subjectTargetText": "Preteritum",
@@ -10803,8 +10803,8 @@
           "englishAuditText": "I came"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 94,
+          "complexity": 59,
           "id": "perfect",
           "revision": 1,
           "subjectTargetText": "Presens perfektum",
@@ -10818,8 +10818,8 @@
           "englishAuditText": "I have come"
         }
       ],
-      "usefulness": 96,
-      "complexity": 8
+      "usefulness": 94,
+      "complexity": 51
     },
     {
       "id": "zero-nb-conjugation-e2-nb-tense-019",
@@ -10838,8 +10838,8 @@
       ],
       "forms": [
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "infinitive",
           "revision": 1,
           "subjectTargetText": "Infinitiv",
@@ -10853,8 +10853,8 @@
           "englishAuditText": "to hear"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "present",
           "revision": 1,
           "subjectTargetText": "Presens",
@@ -10868,8 +10868,8 @@
           "englishAuditText": "I hear"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "preterite",
           "revision": 1,
           "subjectTargetText": "Preteritum",
@@ -10883,8 +10883,8 @@
           "englishAuditText": "I heard"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 34,
           "id": "perfect",
           "revision": 1,
           "subjectTargetText": "Presens perfektum",
@@ -10898,8 +10898,8 @@
           "englishAuditText": "I have heard"
         }
       ],
-      "usefulness": 96,
-      "complexity": 8
+      "usefulness": 89,
+      "complexity": 26
     },
     {
       "id": "zero-nb-conjugation-e2-nb-tense-016",
@@ -10918,8 +10918,8 @@
       ],
       "forms": [
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "infinitive",
           "revision": 1,
           "subjectTargetText": "Infinitiv",
@@ -10933,8 +10933,8 @@
           "englishAuditText": "to live"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "present",
           "revision": 1,
           "subjectTargetText": "Presens",
@@ -10948,8 +10948,8 @@
           "englishAuditText": "I live"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 26,
           "id": "preterite",
           "revision": 1,
           "subjectTargetText": "Preteritum",
@@ -10963,8 +10963,8 @@
           "englishAuditText": "I lived"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 89,
+          "complexity": 34,
           "id": "perfect",
           "revision": 1,
           "subjectTargetText": "Presens perfektum",
@@ -10978,8 +10978,8 @@
           "englishAuditText": "I have lived"
         }
       ],
-      "usefulness": 96,
-      "complexity": 8
+      "usefulness": 89,
+      "complexity": 26
     },
     {
       "id": "zero-nb-conjugation-e2-nb-tense-013",
@@ -10998,8 +10998,8 @@
       ],
       "forms": [
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 62,
+          "complexity": 26,
           "id": "infinitive",
           "revision": 1,
           "subjectTargetText": "Infinitiv",
@@ -11013,8 +11013,8 @@
           "englishAuditText": "to play"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 62,
+          "complexity": 26,
           "id": "present",
           "revision": 1,
           "subjectTargetText": "Presens",
@@ -11028,8 +11028,8 @@
           "englishAuditText": "I play"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 62,
+          "complexity": 26,
           "id": "preterite",
           "revision": 1,
           "subjectTargetText": "Preteritum",
@@ -11043,8 +11043,8 @@
           "englishAuditText": "I played"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 62,
+          "complexity": 34,
           "id": "perfect",
           "revision": 1,
           "subjectTargetText": "Presens perfektum",
@@ -11058,8 +11058,8 @@
           "englishAuditText": "I have played"
         }
       ],
-      "usefulness": 96,
-      "complexity": 8
+      "usefulness": 62,
+      "complexity": 26
     },
     {
       "id": "zero-nb-conjugation-e2-nb-tense-021",
@@ -11078,8 +11078,8 @@
       ],
       "forms": [
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 62,
+          "complexity": 26,
           "id": "infinitive",
           "revision": 1,
           "subjectTargetText": "Infinitiv",
@@ -11093,8 +11093,8 @@
           "englishAuditText": "to draw"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 62,
+          "complexity": 26,
           "id": "present",
           "revision": 1,
           "subjectTargetText": "Presens",
@@ -11108,8 +11108,8 @@
           "englishAuditText": "I draw"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 62,
+          "complexity": 26,
           "id": "preterite",
           "revision": 1,
           "subjectTargetText": "Preteritum",
@@ -11123,8 +11123,8 @@
           "englishAuditText": "I drew"
         },
         {
-          "usefulness": 96,
-          "complexity": 8,
+          "usefulness": 62,
+          "complexity": 34,
           "id": "perfect",
           "revision": 1,
           "subjectTargetText": "Presens perfektum",
@@ -11138,8 +11138,8 @@
           "englishAuditText": "I have drawn"
         }
       ],
-      "usefulness": 96,
-      "complexity": 8
+      "usefulness": 62,
+      "complexity": 26
     }
   ]
 }

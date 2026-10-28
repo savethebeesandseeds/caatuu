@@ -6104,8 +6104,8 @@
       "learnerBaseText": "man",
       "english": "man",
       "laneId": "masculine",
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 79,
+      "complexity": 25
     },
     {
       "id": "zero-nb-noun-02",
@@ -6119,8 +6119,8 @@
         "feminine",
         "masculine"
       ],
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 79,
+      "complexity": 33
     },
     {
       "id": "zero-nb-noun-03",
@@ -6130,8 +6130,8 @@
       "learnerBaseText": "boy",
       "english": "boy",
       "laneId": "masculine",
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 79,
+      "complexity": 25
     },
     {
       "id": "zero-nb-noun-04",
@@ -6145,8 +6145,8 @@
         "feminine",
         "masculine"
       ],
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 79,
+      "complexity": 33
     },
     {
       "id": "zero-nb-noun-05",
@@ -6156,8 +6156,8 @@
       "learnerBaseText": "child",
       "english": "child",
       "laneId": "neuter",
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zero-nb-noun-06",
@@ -6167,8 +6167,8 @@
       "learnerBaseText": "friend",
       "english": "friend",
       "laneId": "masculine",
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zero-nb-noun-07",
@@ -6182,8 +6182,8 @@
         "feminine",
         "masculine"
       ],
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 89,
+      "complexity": 23
     },
     {
       "id": "zero-nb-noun-08",
@@ -6193,8 +6193,8 @@
       "learnerBaseText": "father",
       "english": "father",
       "laneId": "masculine",
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zero-nb-noun-09",
@@ -6204,8 +6204,8 @@
       "learnerBaseText": "house",
       "english": "house",
       "laneId": "neuter",
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 89,
+      "complexity": 15
     },
     {
       "id": "zero-nb-noun-10",
@@ -6219,8 +6219,8 @@
         "feminine",
         "masculine"
       ],
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 76,
+      "complexity": 29
     },
     {
       "id": "zero-nb-noun-11",
@@ -6234,8 +6234,8 @@
         "feminine",
         "masculine"
       ],
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 73,
+      "complexity": 29
     },
     {
       "id": "zero-nb-noun-12",
@@ -6245,8 +6245,8 @@
       "learnerBaseText": "bread",
       "english": "bread",
       "laneId": "neuter",
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 75,
+      "complexity": 21
     },
     {
       "id": "zero-nb-noun-13",
@@ -6256,8 +6256,8 @@
       "learnerBaseText": "apple",
       "english": "apple",
       "laneId": "neuter",
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-nb-noun-14",
@@ -6268,7 +6268,7 @@
       "english": "water",
       "laneId": "neuter",
       "usefulness": 98,
-      "complexity": 8
+      "complexity": 15
     },
     {
       "id": "zero-nb-noun-15",
@@ -6282,8 +6282,8 @@
         "feminine",
         "masculine"
       ],
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 75,
+      "complexity": 29
     },
     {
       "id": "zero-nb-noun-16",
@@ -6293,8 +6293,8 @@
       "learnerBaseText": "tea",
       "english": "tea",
       "laneId": "masculine",
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-nb-noun-17",
@@ -6304,8 +6304,8 @@
       "learnerBaseText": "dog",
       "english": "dog",
       "laneId": "masculine",
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-nb-noun-18",
@@ -6315,8 +6315,8 @@
       "learnerBaseText": "cat",
       "english": "cat",
       "laneId": "masculine",
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-nb-noun-19",
@@ -6326,8 +6326,8 @@
       "learnerBaseText": "stone",
       "english": "stone",
       "laneId": "masculine",
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "zero-nb-noun-20",
@@ -6341,8 +6341,8 @@
         "feminine",
         "masculine"
       ],
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 65,
+      "complexity": 34
     },
     {
       "id": "zero-nb-noun-21",
@@ -6352,8 +6352,8 @@
       "learnerBaseText": "moon",
       "english": "moon",
       "laneId": "masculine",
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "zero-nb-noun-22",
@@ -6367,8 +6367,8 @@
         "feminine",
         "masculine"
       ],
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 65,
+      "complexity": 34
     },
     {
       "id": "zero-nb-noun-23",
@@ -6378,8 +6378,8 @@
       "learnerBaseText": "car",
       "english": "car",
       "laneId": "masculine",
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-nb-noun-24",
@@ -6389,8 +6389,8 @@
       "learnerBaseText": "ball",
       "english": "ball",
       "laneId": "masculine",
-      "usefulness": 98,
-      "complexity": 8
+      "usefulness": 63,
+      "complexity": 28
     },
     {
       "id": "zero-nb-noun-e2-table",
@@ -6400,8 +6400,8 @@
       "learnerBaseText": "table",
       "english": "table",
       "laneId": "neuter",
-      "usefulness": 96,
-      "complexity": 8
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-nb-noun-e2-chair",
@@ -6411,8 +6411,8 @@
       "learnerBaseText": "chair",
       "english": "chair",
       "laneId": "masculine",
-      "usefulness": 96,
-      "complexity": 8
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-nb-noun-e2-bed",
@@ -6426,8 +6426,8 @@
         "feminine",
         "masculine"
       ],
-      "usefulness": 96,
-      "complexity": 8
+      "usefulness": 76,
+      "complexity": 29
     },
     {
       "id": "zero-nb-noun-e2-cup",
@@ -6437,8 +6437,8 @@
       "learnerBaseText": "cup",
       "english": "cup",
       "laneId": "masculine",
-      "usefulness": 96,
-      "complexity": 8
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-nb-noun-e2-plate",
@@ -6448,8 +6448,8 @@
       "learnerBaseText": "plate",
       "english": "plate",
       "laneId": "masculine",
-      "usefulness": 96,
-      "complexity": 8
+      "usefulness": 78,
+      "complexity": 23
     },
     {
       "id": "zero-nb-noun-e2-fish",
@@ -6459,8 +6459,8 @@
       "learnerBaseText": "fish",
       "english": "fish",
       "laneId": "masculine",
-      "usefulness": 96,
-      "complexity": 8
+      "usefulness": 76,
+      "complexity": 21
     },
     {
       "id": "zero-nb-noun-e2-bird",
@@ -6470,8 +6470,8 @@
       "learnerBaseText": "bird",
       "english": "bird",
       "laneId": "masculine",
-      "usefulness": 96,
-      "complexity": 8
+      "usefulness": 65,
+      "complexity": 26
     },
     {
       "id": "zero-nb-noun-e2-shoe",
@@ -6481,8 +6481,8 @@
       "learnerBaseText": "shoe",
       "english": "shoe",
       "laneId": "masculine",
-      "usefulness": 96,
-      "complexity": 8
+      "usefulness": 76,
+      "complexity": 21
     }
   ]
 }

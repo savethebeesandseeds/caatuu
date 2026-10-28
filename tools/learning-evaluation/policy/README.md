@@ -17,7 +17,7 @@ From canonical `C:\Work\caatuu` on `main`, inspect the existing container first:
 ```powershell
 docker inspect caatuu-dev --format '{{.State.Status}} {{json .Mounts}}'
 docker exec -w /workspace caatuu-dev node --test tools/learning-evaluation/policy/policy.test.mjs tools/learning-evaluation/policy/investigation.test.mjs
-docker exec -w /workspace caatuu-dev node tools/learning-evaluation/policy/run.mjs
+docker exec -w /workspace caatuu-dev node tools/learning-evaluation/policy/run.mjs --production-adapter tools/learning-evaluation/production-policy.mjs --out default
 ```
 
 The mount must be this checkout at `/workspace`. Stop if the container is
@@ -25,8 +25,11 @@ unavailable or mismatched. These commands do not create or change containers.
 Node built-ins are sufficient. The CLI checks canonical container paths,
 main-only refs and ignored artifact output before writing.
 
-Default size: 3 policies × 3 profiles × 2 goals × 5 seeds = 90 runs,
-120 interactions each. A small smoke run and a changed budget are explicit:
+That comparison is 4 policies × 3 profiles × 2 goals × 5 seeds = 120 runs,
+120 interactions each. The fourth policy is the production adaptive selector.
+Omitting `--production-adapter` runs only the three baselines: uniform,
+`selectContentItems`, and usefulness-weighted. A small smoke run and a changed
+budget are explicit:
 
 ```powershell
 docker exec -w /workspace caatuu-dev node tools/learning-evaluation/policy/run.mjs --interactions 12 --seeds 17 --profiles novice --goals daily-life --out smoke

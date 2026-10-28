@@ -61,7 +61,8 @@ test("authored data is grouped by game or shared language ownership", async () =
 });
 
 test("curated game JSON is the learner-facing content boundary", () => {
-  assert.equal(verbs.language, "cs");
+  assert.equal(verbs.schemaVersion, "caatuu-conjugation-comet-catalog-v1");
+  assert.equal(verbs.targetLanguageId, "cs");
   assert.ok(Array.isArray(verbs.verbs) && verbs.verbs.length >= 4);
   assert.equal(typeof wordManifest.corpusVersion, "string");
   const catalogReference = course.gameContent["conjugation-comet"].conjugationCometCatalog;

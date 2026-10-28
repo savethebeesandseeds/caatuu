@@ -1483,7 +1483,7 @@
       "sourceConceptIds": [
         "ww.family.grandmother-cooks"
       ],
-      "usefulness": 75,
+      "usefulness": 79,
       "complexity": 32,
       "englishAuditText": "grandmother",
       "context": {
@@ -1683,7 +1683,7 @@
       "sourceConceptIds": [
         "ww.shopping.closes-eight"
       ],
-      "usefulness": 54,
+      "usefulness": 81,
       "complexity": 31,
       "englishAuditText": "shop",
       "context": {
@@ -1963,7 +1963,7 @@
       "sourceConceptIds": [
         "ww.community.offer-help"
       ],
-      "usefulness": 98,
+      "usefulness": 99,
       "complexity": 31,
       "englishAuditText": "help",
       "context": {
@@ -1983,7 +1983,7 @@
       "sourceConceptIds": [
         "ww.people.my-teacher"
       ],
-      "usefulness": 76,
+      "usefulness": 89,
       "complexity": 32,
       "englishAuditText": "teacher",
       "context": {
@@ -2023,7 +2023,7 @@
       "sourceConceptIds": [
         "ww.culture.quiet-library"
       ],
-      "usefulness": 54,
+      "usefulness": 75,
       "complexity": 25,
       "englishAuditText": "library",
       "context": {
@@ -2083,8 +2083,8 @@
       "sourceConceptIds": [
         "ww.work.coworker-help"
       ],
-      "usefulness": 55,
-      "complexity": 45,
+      "usefulness": 54,
+      "complexity": 31,
       "englishAuditText": "coworker",
       "context": {
         "text": "同事",
@@ -2143,7 +2143,7 @@
       "sourceConceptIds": [
         "ww.wellbeing.clinic-nearby"
       ],
-      "usefulness": 54,
+      "usefulness": 88,
       "complexity": 36,
       "englishAuditText": "clinic",
       "context": {
@@ -2183,7 +2183,7 @@
       "sourceConceptIds": [
         "ww.wellbeing.see-doctor"
       ],
-      "usefulness": 76,
+      "usefulness": 89,
       "complexity": 27,
       "englishAuditText": "doctor",
       "context": {
@@ -2203,7 +2203,7 @@
       "sourceConceptIds": [
         "ww.tech.charge-phone"
       ],
-      "usefulness": 34,
+      "usefulness": 54,
       "complexity": 20,
       "englishAuditText": "charge a device",
       "context": {
@@ -2223,7 +2223,7 @@
       "sourceConceptIds": [
         "ww.tech.call-grandmother"
       ],
-      "usefulness": 54,
+      "usefulness": 79,
       "complexity": 27,
       "englishAuditText": "make a phone call",
       "context": {
@@ -12900,8 +12900,8 @@
       "sourceConceptIds": [
         "ww-zero-i"
       ],
-      "usefulness": 92,
-      "complexity": 3,
+      "usefulness": 89,
+      "complexity": 32,
       "englishAuditText": "I; me",
       "context": {
         "text": "我",
@@ -12920,8 +12920,8 @@
       "sourceConceptIds": [
         "ww-zero-you"
       ],
-      "usefulness": 92,
-      "complexity": 3,
+      "usefulness": 89,
+      "complexity": 25,
       "englishAuditText": "you",
       "context": {
         "text": "你",
@@ -12940,8 +12940,8 @@
       "sourceConceptIds": [
         "ww-zero-water"
       ],
-      "usefulness": 92,
-      "complexity": 3,
+      "usefulness": 98,
+      "complexity": 29,
       "englishAuditText": "water",
       "context": {
         "text": "水",
@@ -12960,8 +12960,8 @@
       "sourceConceptIds": [
         "ww-zero-book"
       ],
-      "usefulness": 92,
-      "complexity": 3,
+      "usefulness": 73,
+      "complexity": 24,
       "englishAuditText": "book",
       "context": {
         "text": "书",
@@ -12980,8 +12980,8 @@
       "sourceConceptIds": [
         "ww-zero-cat"
       ],
-      "usefulness": 92,
-      "complexity": 3,
+      "usefulness": 76,
+      "complexity": 20,
       "englishAuditText": "cat",
       "context": {
         "text": "猫",
@@ -13000,8 +13000,8 @@
       "sourceConceptIds": [
         "ww-zero-dog"
       ],
-      "usefulness": 92,
-      "complexity": 3,
+      "usefulness": 76,
+      "complexity": 25,
       "englishAuditText": "dog",
       "context": {
         "text": "狗",
@@ -13020,8 +13020,8 @@
       "sourceConceptIds": [
         "ww-zero-tea"
       ],
-      "usefulness": 92,
-      "complexity": 3,
+      "usefulness": 76,
+      "complexity": 24,
       "englishAuditText": "tea",
       "context": {
         "text": "茶",
@@ -13040,8 +13040,8 @@
       "sourceConceptIds": [
         "ww-zero-door"
       ],
-      "usefulness": 92,
-      "complexity": 3,
+      "usefulness": 76,
+      "complexity": 20,
       "englishAuditText": "door",
       "context": {
         "text": "门",
@@ -13060,8 +13060,8 @@
       "sourceConceptIds": [
         "ww-zero-hand"
       ],
-      "usefulness": 92,
-      "complexity": 3,
+      "usefulness": 76,
+      "complexity": 29,
       "englishAuditText": "hand",
       "context": {
         "text": "手",
@@ -13080,8 +13080,8 @@
       "sourceConceptIds": [
         "ww-zero-ball"
       ],
-      "usefulness": 92,
-      "complexity": 3,
+      "usefulness": 63,
+      "complexity": 20,
       "englishAuditText": "ball",
       "context": {
         "text": "球",
@@ -13100,8 +13100,8 @@
       "sourceConceptIds": [
         "ww-zero-eat"
       ],
-      "usefulness": 92,
-      "complexity": 3,
+      "usefulness": 89,
+      "complexity": 24,
       "englishAuditText": "eat",
       "context": {
         "text": "吃",
@@ -13120,8 +13120,8 @@
       "sourceConceptIds": [
         "ww-zero-drink"
       ],
-      "usefulness": 92,
-      "complexity": 3,
+      "usefulness": 89,
+      "complexity": 20,
       "englishAuditText": "drink",
       "context": {
         "text": "喝",
@@ -13140,8 +13140,8 @@
       "sourceConceptIds": [
         "ww-zero-go"
       ],
-      "usefulness": 92,
-      "complexity": 3,
+      "usefulness": 94,
+      "complexity": 20,
       "englishAuditText": "go",
       "context": {
         "text": "去",
@@ -13160,8 +13160,8 @@
       "sourceConceptIds": [
         "ww-zero-have"
       ],
-      "usefulness": 92,
-      "complexity": 3,
+      "usefulness": 94,
+      "complexity": 25,
       "englishAuditText": "have",
       "context": {
         "text": "有",
@@ -13180,8 +13180,8 @@
       "sourceConceptIds": [
         "ww-zero-big"
       ],
-      "usefulness": 92,
-      "complexity": 3,
+      "usefulness": 76,
+      "complexity": 20,
       "englishAuditText": "big",
       "context": {
         "text": "大",
@@ -13200,8 +13200,8 @@
       "sourceConceptIds": [
         "ww-zero-small"
       ],
-      "usefulness": 92,
-      "complexity": 3,
+      "usefulness": 76,
+      "complexity": 25,
       "englishAuditText": "small",
       "context": {
         "text": "小",
@@ -13220,8 +13220,8 @@
       "sourceConceptIds": [
         "ww-zero-one"
       ],
-      "usefulness": 92,
-      "complexity": 3,
+      "usefulness": 76,
+      "complexity": 20,
       "englishAuditText": "one",
       "context": {
         "text": "一",
@@ -13240,8 +13240,8 @@
       "sourceConceptIds": [
         "ww-zero-two"
       ],
-      "usefulness": 92,
-      "complexity": 3,
+      "usefulness": 76,
+      "complexity": 20,
       "englishAuditText": "two",
       "context": {
         "text": "二",
@@ -13260,8 +13260,8 @@
       "sourceConceptIds": [
         "ww-zero-three"
       ],
-      "usefulness": 92,
-      "complexity": 3,
+      "usefulness": 76,
+      "complexity": 20,
       "englishAuditText": "three",
       "context": {
         "text": "三",
@@ -13280,8 +13280,8 @@
       "sourceConceptIds": [
         "ww-zero-four"
       ],
-      "usefulness": 92,
-      "complexity": 3,
+      "usefulness": 76,
+      "complexity": 20,
       "englishAuditText": "four",
       "context": {
         "text": "四",
@@ -13300,8 +13300,8 @@
       "sourceConceptIds": [
         "ww-zero-five"
       ],
-      "usefulness": 92,
-      "complexity": 3,
+      "usefulness": 76,
+      "complexity": 25,
       "englishAuditText": "five",
       "context": {
         "text": "五",
@@ -13320,8 +13320,8 @@
       "sourceConceptIds": [
         "ww-zero-sit"
       ],
-      "usefulness": 92,
-      "complexity": 3,
+      "usefulness": 76,
+      "complexity": 20,
       "englishAuditText": "sit",
       "context": {
         "text": "坐",
@@ -13340,8 +13340,8 @@
       "sourceConceptIds": [
         "ww-zero-read"
       ],
-      "usefulness": 92,
-      "complexity": 3,
+      "usefulness": 89,
+      "complexity": 20,
       "englishAuditText": "read",
       "context": {
         "text": "读",
@@ -13360,8 +13360,8 @@
       "sourceConceptIds": [
         "ww-zero-write"
       ],
-      "usefulness": 92,
-      "complexity": 3,
+      "usefulness": 89,
+      "complexity": 25,
       "englishAuditText": "write",
       "context": {
         "text": "写",
@@ -13380,8 +13380,8 @@
       "sourceConceptIds": [
         "ww-zero-bag"
       ],
-      "usefulness": 92,
-      "complexity": 2,
+      "usefulness": 76,
+      "complexity": 20,
       "englishAuditText": "bag",
       "context": {
         "text": "包",
@@ -13400,8 +13400,8 @@
       "sourceConceptIds": [
         "ww-zero-pen"
       ],
-      "usefulness": 92,
-      "complexity": 2,
+      "usefulness": 75,
+      "complexity": 25,
       "englishAuditText": "pen",
       "context": {
         "text": "笔",
@@ -13420,8 +13420,8 @@
       "sourceConceptIds": [
         "ww-zero-bed"
       ],
-      "usefulness": 92,
-      "complexity": 2,
+      "usefulness": 76,
+      "complexity": 24,
       "englishAuditText": "bed",
       "context": {
         "text": "床",
@@ -13440,8 +13440,8 @@
       "sourceConceptIds": [
         "ww-zero-want"
       ],
-      "usefulness": 92,
-      "complexity": 2,
+      "usefulness": 94,
+      "complexity": 20,
       "englishAuditText": "want",
       "context": {
         "text": "要",
@@ -13460,8 +13460,8 @@
       "sourceConceptIds": [
         "ww-zero-this-cat"
       ],
-      "usefulness": 92,
-      "complexity": 3,
+      "usefulness": 89,
+      "complexity": 24,
       "englishAuditText": "this",
       "context": {
         "text": "这是猫。",
@@ -13480,8 +13480,8 @@
       "sourceConceptIds": [
         "ww-zero-this-cat"
       ],
-      "usefulness": 92,
-      "complexity": 3,
+      "usefulness": 54,
+      "complexity": 31,
       "englishAuditText": "is; to be",
       "context": {
         "text": "这是猫。",
@@ -13500,8 +13500,8 @@
       "sourceConceptIds": [
         "ww-zero-hello"
       ],
-      "usefulness": 92,
-      "complexity": 3,
+      "usefulness": 76,
+      "complexity": 25,
       "englishAuditText": "good",
       "context": {
         "text": "你好",
@@ -13520,8 +13520,8 @@
       "sourceConceptIds": [
         "ww-zero-red"
       ],
-      "usefulness": 92,
-      "complexity": 3,
+      "usefulness": 76,
+      "complexity": 20,
       "englishAuditText": "red",
       "context": {
         "text": "红色",
@@ -13540,8 +13540,8 @@
       "sourceConceptIds": [
         "ww-zero-green"
       ],
-      "usefulness": 92,
-      "complexity": 3,
+      "usefulness": 76,
+      "complexity": 25,
       "englishAuditText": "green",
       "context": {
         "text": "绿色",
@@ -13560,8 +13560,8 @@
       "sourceConceptIds": [
         "ww-zero-see"
       ],
-      "usefulness": 92,
-      "complexity": 3,
+      "usefulness": 76,
+      "complexity": 20,
       "englishAuditText": "look",
       "context": {
         "text": "看见",
@@ -13580,8 +13580,8 @@
       "sourceConceptIds": [
         "ww-zero-see"
       ],
-      "usefulness": 92,
-      "complexity": 3,
+      "usefulness": 89,
+      "complexity": 20,
       "englishAuditText": "see",
       "context": {
         "text": "看见",
@@ -13600,8 +13600,8 @@
       "sourceConceptIds": [
         "ww-zero-hear"
       ],
-      "usefulness": 92,
-      "complexity": 3,
+      "usefulness": 89,
+      "complexity": 20,
       "englishAuditText": "listen",
       "context": {
         "text": "听见",
@@ -13620,8 +13620,8 @@
       "sourceConceptIds": [
         "ww-zero-sleep"
       ],
-      "usefulness": 92,
-      "complexity": 3,
+      "usefulness": 89,
+      "complexity": 24,
       "englishAuditText": "sleep",
       "context": {
         "text": "睡觉",
@@ -13640,8 +13640,8 @@
       "sourceConceptIds": [
         "ww-zero-rice"
       ],
-      "usefulness": 92,
-      "complexity": 3,
+      "usefulness": 75,
+      "complexity": 25,
       "englishAuditText": "rice",
       "context": {
         "text": "米饭",
@@ -13660,8 +13660,8 @@
       "sourceConceptIds": [
         "ww-zero-rice"
       ],
-      "usefulness": 92,
-      "complexity": 3,
+      "usefulness": 75,
+      "complexity": 20,
       "englishAuditText": "cooked rice",
       "context": {
         "text": "米饭",
@@ -13680,8 +13680,8 @@
       "sourceConceptIds": [
         "ww-zero-milk"
       ],
-      "usefulness": 92,
-      "complexity": 3,
+      "usefulness": 75,
+      "complexity": 25,
       "englishAuditText": "milk",
       "context": {
         "text": "牛奶",

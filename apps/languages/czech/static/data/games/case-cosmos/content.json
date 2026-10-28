@@ -339,49 +339,49 @@
       "cases": {
         "Nominative": {
           "form": "Tomáš",
-          "english": "Tomáš is calling.",
+          "english": "Tomas is calling.",
           "czech": "Tomáš volá.",
           "usefulness": 54,
           "complexity": 27
         },
         "Genitive": {
           "form": "Tomáše",
-          "english": "The email is from Tomáš.",
+          "english": "The email is from Tomas.",
           "czech": "E-mail je od Tomáše.",
           "usefulness": 72,
           "complexity": 42
         },
         "Dative": {
           "form": "Tomášovi",
-          "english": "I am giving Tomáš the key.",
+          "english": "I am giving Tomas the key.",
           "czech": "Dávám Tomášovi klíč.",
           "usefulness": 68,
           "complexity": 45
         },
         "Accusative": {
           "form": "Tomáše",
-          "english": "I see Tomáš.",
+          "english": "I see Tomas.",
           "czech": "Vidím Tomáše.",
           "usefulness": 68,
           "complexity": 29
         },
         "Vocative": {
           "form": "Tomáši",
-          "english": "Tomáš, sit down!",
+          "english": "Tomas, sit down!",
           "czech": "Tomáši, posaď se!",
           "usefulness": 54,
           "complexity": 56
         },
         "Locative": {
           "form": "Tomášovi",
-          "english": "I am talking about Tomáš.",
+          "english": "I am talking about Tomas.",
           "czech": "Mluvím o Tomášovi.",
           "usefulness": 54,
           "complexity": 40
         },
         "Instrumental": {
           "form": "Tomášem",
-          "english": "I am going with Tomáš.",
+          "english": "I am going with Tomas.",
           "czech": "Jdu s Tomášem.",
           "usefulness": 68,
           "complexity": 46
@@ -1387,8 +1387,8 @@
         "kočko",
         "kočkou"
       ],
-      "usefulness": 92,
-      "complexity": 5
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "id": "zero-cz-paradigm-dog",
@@ -1402,8 +1402,8 @@
         "psem",
         "pse"
       ],
-      "usefulness": 92,
-      "complexity": 5
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "id": "zero-cz-paradigm-book",
@@ -1416,8 +1416,8 @@
         "knihu",
         "knihou"
       ],
-      "usefulness": 92,
-      "complexity": 5
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "id": "zero-cz-paradigm-water",
@@ -1431,8 +1431,8 @@
         "vodo",
         "vodou"
       ],
-      "usefulness": 92,
-      "complexity": 5
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "id": "zero-cz-paradigm-bag",
@@ -1446,8 +1446,8 @@
         "taško",
         "taškou"
       ],
-      "usefulness": 92,
-      "complexity": 5
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "id": "zero-cz-paradigm-chair",
@@ -1458,8 +1458,8 @@
         "židli",
         "židlí"
       ],
-      "usefulness": 92,
-      "complexity": 5
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "id": "zero-cz-paradigm-expand-rice",
@@ -1470,8 +1470,8 @@
         "rýži",
         "rýží"
       ],
-      "usefulness": 92,
-      "complexity": 6
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "id": "zero-cz-paradigm-expand-hand",
@@ -1485,8 +1485,8 @@
         "ruko",
         "rukou"
       ],
-      "usefulness": 92,
-      "complexity": 6
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "id": "zero-cz-paradigm-expand-mom",
@@ -1500,8 +1500,8 @@
         "mámo",
         "mámou"
       ],
-      "usefulness": 92,
-      "complexity": 6
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "id": "zero-cz-paradigm-expand-dad",
@@ -1515,8 +1515,8 @@
         "táto",
         "tátou"
       ],
-      "usefulness": 92,
-      "complexity": 6
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "id": "zero-cz-paradigm-expand-brother",
@@ -1530,8 +1530,8 @@
         "bratře",
         "bratrem"
       ],
-      "usefulness": 92,
-      "complexity": 6
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "id": "zero-cz-paradigm-expand-sister",
@@ -1545,8 +1545,8 @@
         "sestro",
         "sestrou"
       ],
-      "usefulness": 92,
-      "complexity": 6
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "id": "zero-cz-paradigm-expand-soup",
@@ -1560,8 +1560,8 @@
         "polévko",
         "polévkou"
       ],
-      "usefulness": 92,
-      "complexity": 6
+      "usefulness": 79,
+      "complexity": 32
     },
     {
       "id": "zero-cz-paradigm-expand-shoe",
@@ -1575,8 +1575,8 @@
         "boto",
         "botou"
       ],
-      "usefulness": 92,
-      "complexity": 6
+      "usefulness": 79,
+      "complexity": 32
     }
   ],
   "contexts": [
@@ -2603,8 +2603,8 @@
       "phase": "practice",
       "context": "Name the thing.",
       "explanation": "To je introduces the thing. Read the short model first.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zero-cz-case-cat-accusative",
@@ -2620,8 +2620,8 @@
       "phase": "practice",
       "context": "Name what I see.",
       "explanation": "After Vidím, this noun names what I see. Read the short model first.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 68,
+      "complexity": 29
     },
     {
       "id": "zero-cz-case-dog-nominative",
@@ -2637,8 +2637,8 @@
       "phase": "practice",
       "context": "Name the thing.",
       "explanation": "To je introduces the thing. Read the short model first.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zero-cz-case-dog-accusative",
@@ -2654,8 +2654,8 @@
       "phase": "practice",
       "context": "Name what I see.",
       "explanation": "After Vidím, this noun names what I see. Read the short model first.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 68,
+      "complexity": 29
     },
     {
       "id": "zero-cz-case-book-nominative",
@@ -2671,8 +2671,8 @@
       "phase": "practice",
       "context": "Name the thing.",
       "explanation": "To je introduces the thing. Read the short model first.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 73,
+      "complexity": 27
     },
     {
       "id": "zero-cz-case-book-accusative",
@@ -2688,8 +2688,8 @@
       "phase": "practice",
       "context": "Name what I see.",
       "explanation": "After Vidím, this noun names what I see. Read the short model first.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 73,
+      "complexity": 29
     },
     {
       "id": "zero-cz-case-water-nominative",
@@ -2705,8 +2705,8 @@
       "phase": "practice",
       "context": "Name the thing.",
       "explanation": "To je introduces the thing. Read the short model first.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 88,
+      "complexity": 27
     },
     {
       "id": "zero-cz-case-water-accusative",
@@ -2722,8 +2722,8 @@
       "phase": "practice",
       "context": "Name what I see.",
       "explanation": "After Vidím, this noun names what I see. Read the short model first.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 88,
+      "complexity": 29
     },
     {
       "id": "zero-cz-case-bag-nominative",
@@ -2739,8 +2739,8 @@
       "phase": "practice",
       "context": "Name the thing.",
       "explanation": "To je introduces the thing. Read the short model first.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zero-cz-case-bag-accusative",
@@ -2756,8 +2756,8 @@
       "phase": "practice",
       "context": "Name what I see.",
       "explanation": "After Vidím, this noun names what I see. Read the short model first.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 68,
+      "complexity": 29
     },
     {
       "id": "zero-cz-case-chair-nominative",
@@ -2773,8 +2773,8 @@
       "phase": "transfer",
       "context": "Name the thing.",
       "explanation": "To je introduces the thing. Read the short model first.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 34
     },
     {
       "id": "zero-cz-case-chair-accusative",
@@ -2790,8 +2790,8 @@
       "phase": "transfer",
       "context": "Name what I see.",
       "explanation": "After Vidím, this noun names what I see. Read the short model first.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 68,
+      "complexity": 29
     },
     {
       "id": "zero-cz-case-expand-rice-nominative",
@@ -2807,8 +2807,8 @@
       "phase": "practice",
       "context": "Name the thing or person.",
       "explanation": "To je introduces the thing or person. Read the short model first.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 75,
+      "complexity": 27
     },
     {
       "id": "zero-cz-case-expand-rice-accusative",
@@ -2824,8 +2824,8 @@
       "phase": "practice",
       "context": "Name what I have.",
       "explanation": "After Mám, this noun names what I have. Read the short model first.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 75,
+      "complexity": 29
     },
     {
       "id": "zero-cz-case-expand-hand-nominative",
@@ -2841,8 +2841,8 @@
       "phase": "practice",
       "context": "Name the thing or person.",
       "explanation": "To je introduces the thing or person. Read the short model first.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zero-cz-case-expand-hand-accusative",
@@ -2858,8 +2858,8 @@
       "phase": "practice",
       "context": "Name what I see.",
       "explanation": "After Vidím, this noun names what I see. Read the short model first.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 68,
+      "complexity": 29
     },
     {
       "id": "zero-cz-case-expand-mom-nominative",
@@ -2875,8 +2875,8 @@
       "phase": "practice",
       "context": "Name the thing or person.",
       "explanation": "To je introduces the thing or person. Read the short model first.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zero-cz-case-expand-mom-accusative",
@@ -2892,8 +2892,8 @@
       "phase": "practice",
       "context": "Name what I see.",
       "explanation": "After Vidím, this noun names what I see. Read the short model first.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 68,
+      "complexity": 31
     },
     {
       "id": "zero-cz-case-expand-dad-nominative",
@@ -2909,8 +2909,8 @@
       "phase": "practice",
       "context": "Name the thing or person.",
       "explanation": "To je introduces the thing or person. Read the short model first.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 27
     },
     {
       "id": "zero-cz-case-expand-dad-accusative",
@@ -2926,8 +2926,8 @@
       "phase": "practice",
       "context": "Name what I see.",
       "explanation": "After Vidím, this noun names what I see. Read the short model first.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 68,
+      "complexity": 29
     },
     {
       "id": "zero-cz-case-expand-brother-nominative",
@@ -2943,8 +2943,8 @@
       "phase": "practice",
       "context": "Name the thing or person.",
       "explanation": "To je introduces the thing or person. Read the short model first.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 79,
+      "complexity": 27
     },
     {
       "id": "zero-cz-case-expand-brother-accusative",
@@ -2960,8 +2960,8 @@
       "phase": "practice",
       "context": "Name what I see.",
       "explanation": "After Vidím, this noun names what I see. Read the short model first.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 79,
+      "complexity": 29
     },
     {
       "id": "zero-cz-case-expand-sister-nominative",
@@ -2977,8 +2977,8 @@
       "phase": "practice",
       "context": "Name the thing or person.",
       "explanation": "To je introduces the thing or person. Read the short model first.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 79,
+      "complexity": 27
     },
     {
       "id": "zero-cz-case-expand-sister-accusative",
@@ -2994,8 +2994,8 @@
       "phase": "practice",
       "context": "Name what I see.",
       "explanation": "After Vidím, this noun names what I see. Read the short model first.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 79,
+      "complexity": 29
     },
     {
       "id": "zero-cz-case-expand-soup-nominative",
@@ -3011,8 +3011,8 @@
       "phase": "transfer",
       "context": "Name the thing or person.",
       "explanation": "To je introduces the thing or person. Read the short model first.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 78,
+      "complexity": 34
     },
     {
       "id": "zero-cz-case-expand-soup-accusative",
@@ -3028,8 +3028,8 @@
       "phase": "transfer",
       "context": "Name what I have.",
       "explanation": "After Mám, this noun names what I have. Read the short model first.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 78,
+      "complexity": 34
     },
     {
       "id": "zero-cz-case-expand-shoe-nominative",
@@ -3045,8 +3045,8 @@
       "phase": "transfer",
       "context": "Name the thing or person.",
       "explanation": "To je introduces the thing or person. Read the short model first.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 34
     },
     {
       "id": "zero-cz-case-expand-shoe-accusative",
@@ -3062,8 +3062,8 @@
       "phase": "transfer",
       "context": "Name what I have.",
       "explanation": "After Mám, this noun names what I have. Read the short model first.",
-      "usefulness": 92,
-      "complexity": 7
+      "usefulness": 54,
+      "complexity": 34
     }
   ]
 }
