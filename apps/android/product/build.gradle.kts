@@ -442,8 +442,8 @@ val androidTargetSdk = providers.environmentVariable("CAATUU_ANDROID_TARGET_SDK"
     .orElse(36)
 val androidUpdateBaseUrl = providers.environmentVariable("CAATUU_ANDROID_UPDATE_BASE_URL")
     .orElse("https://caatuu.waajacu.com/android")
-val caatuuVersionCode = providers.gradleProperty("caatuuVersionCode").map(String::toInt).orElse(198)
-val caatuuVersionName = providers.gradleProperty("caatuuVersionName").orElse("0.1.46")
+val caatuuVersionCode = providers.gradleProperty("caatuuVersionCode").map(String::toInt).orElse(199)
+val caatuuVersionName = providers.gradleProperty("caatuuVersionName").orElse("0.1.47")
 val releaseSigningValues = listOf(
     releaseKeystorePath,
     releaseKeystorePassword,
@@ -604,7 +604,7 @@ android {
         buildConfigField("boolean", "CAATUU_EMBEDDINGS_ENABLED", courseEmbeddingsEnabled.toString())
         buildConfigField("boolean", "CAATUU_DICTIONARY_ENABLED", courseDictionaryEnabled.toString())
         buildConfigField("boolean", "CAATUU_GODOT_ENABLED", "false")
-        buildConfigField("boolean", "CAATUU_SELF_UPDATE_ENABLED", "true")
+        buildConfigField("boolean", "CAATUU_SELF_UPDATE_ENABLED", "false")
         buildConfigField("boolean", "CAATUU_ACCEPT_RELEASE_MIGRATION", "false")
         buildConfigField("String", "CAATUU_UPDATE_BASE_URL", buildConfigString(androidUpdateBaseUrl.get()))
         buildConfigField("String", "CAATUU_UPDATE_APK_NAME", buildConfigString("caatuu.apk"))

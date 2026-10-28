@@ -1314,8 +1314,8 @@ function assertApkManifest(apkanalyzerPath, apk, allowTransitionDebug = false) {
   );
   assert(permissions.has("android.permission.INTERNET"), "Caatuu APK must retain INTERNET permission");
   assert(
-    permissions.has("android.permission.REQUEST_INSTALL_PACKAGES"),
-    "direct Caatuu APK must retain REQUEST_INSTALL_PACKAGES for verified self-updates",
+    !permissions.has("android.permission.REQUEST_INSTALL_PACKAGES"),
+    "Caatuu APK must not request REQUEST_INSTALL_PACKAGES",
   );
 
   const manifest = command("manifest", "print");

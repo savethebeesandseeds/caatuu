@@ -191,7 +191,7 @@ export function validateAndroidProjectSources(sources) {
     ["manifest-derived capabilities", "CAATUU_COURSE_CAPABILITIES_JSON"],
     ["disabled generation", 'CAATUU_GENERATIVE_ENABLED\", \"false'],
     ["disabled Godot runtime", 'CAATUU_GODOT_ENABLED\", \"false'],
-    ["verified self update", 'CAATUU_SELF_UPDATE_ENABLED\", \"true'],
+    ["no sideload self-update", 'CAATUU_SELF_UPDATE_ENABLED\", \"false'],
     ["canonical asset compiler", "build-product-assets.mjs"],
   ]);
   forbidText(sources, issues, "productBuild", [
@@ -208,7 +208,6 @@ export function validateAndroidProjectSources(sources) {
   ]);
   requireText(sources, issues, "productManifest", [
     ["network permission", "android.permission.INTERNET"],
-    ["verified update install permission", "android.permission.REQUEST_INSTALL_PACKAGES"],
     ["TTS service discovery", "android.intent.action.TTS_SERVICE"],
     ["cleartext transport prohibition", 'android:usesCleartextTraffic="false"'],
     ["private FileProvider", 'android:name="androidx.core.content.FileProvider"'],
@@ -216,6 +215,7 @@ export function validateAndroidProjectSources(sources) {
   ]);
   forbidText(sources, issues, "productManifest", [
     ["microphone permission", "android.permission.RECORD_AUDIO"],
+    ["sideload install permission", "android.permission.REQUEST_INSTALL_PACKAGES"],
   ]);
   requireText(sources, issues, "productActivity", [
     ["bundled course registry", "BundledCourseRegistry.load"],

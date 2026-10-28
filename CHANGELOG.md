@@ -1,5 +1,16 @@
 # Changelog
 
+## Android 199 / 0.1.47
+
+- Stop requesting permission to install packages. The published app does not
+  install an update package itself. New versions still come from the Caatuu
+  website. The signing certificate is unchanged.
+- Revise Mandarin foundation sentences and four later Word World lines toward
+  everyday use. Listening rows that quote those sentences move with them.
+  Native-speaker review is still outstanding.
+- Physical-device installation and the Play Protect result remain unverified
+  for this candidate. Course review status is otherwise unchanged.
+
 ## Android 198 / 0.1.46
 
 - Publish a new signed package so a device can capture the current Play Protect

@@ -196,7 +196,7 @@ class AppUpdateManager(context: Context) {
     suspend fun downloadLatest(onProgress: (JSONObject) -> Unit): JSONObject =
         withContext(Dispatchers.IO) {
             require(BuildConfig.CAATUU_SELF_UPDATE_ENABLED) {
-                "This Caatuu build is updated by its app store."
+                "This Caatuu build does not install packages."
             }
 
             var snapshot = synchronized(PROCESS_STATE_LOCK) { reconcileLocalStateLocked() }
@@ -317,7 +317,7 @@ class AppUpdateManager(context: Context) {
 
     suspend fun openInstaller(): String {
         require(BuildConfig.CAATUU_SELF_UPDATE_ENABLED) {
-            "This Caatuu build is updated by its app store."
+            "This Caatuu build does not install packages."
         }
 
         val readyApk = withContext(Dispatchers.IO) {

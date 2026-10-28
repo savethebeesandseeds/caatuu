@@ -80,9 +80,10 @@ The first external beta and every later release must be:
 - installed and exercised successfully on ordinary physical devices with Play
   Protect enabled.
 
-For Google Play, use the `play` application variant produced by
-`apps/android/tooling/build-release-aab.sh`. It disables Caatuu's direct updater
-and omits `REQUEST_INSTALL_PACKAGES`.
+The published product does not request `REQUEST_INSTALL_PACKAGES` and does not
+install an update package. `apps/android/tooling/build-release-aab.sh` builds
+that product. The legacy `app` module still has a `play` build type that also
+omits the permission. That build type is not the published package.
 
 For a routine signed direct-download release, use the maintained release
 entrypoint:
