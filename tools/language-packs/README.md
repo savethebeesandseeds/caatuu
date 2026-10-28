@@ -65,8 +65,8 @@ APKs with explicitly marked draft catalogs for hands-on evaluation, using the
 same learner-base preview behavior as the local browser. Promotion to an active
 course still requires the recorded native-review and release-license clearance;
 preview delivery never rewrites draft metadata as approval.
-The existing Czech app alone uses the confined `legacy-active-v1` migration
-marker; future courses cannot use that compatibility exception.
+The Czech manifest is the only pack that still records `legacy-active-v1`.
+Another course cannot select that marker.
 
 A `language-content-v1` course that enables Word World also declares
 `publication.runtimeProjection`. That object binds the selected versioned
@@ -257,8 +257,10 @@ before publication output is mutated. Active modern courses require recorded
 native review and release-cleared licensing. Pages-enabled development previews
 retain their declared draft review and provenance status and remain `noindex`;
 they use the same shared app and offline graph. Delivery flags are authoritative
-per course: Arabic currently enables only the local browser, with its Android
-source asset catalog prepared for later enablement. Czech alone has active status.
+per course. Arabic, Scientific Latin, and Georgian are browser-enabled and
+Android-enabled from version 179, with `pagesEnabled` false. Czech's manifest
+records `active` and `legacy-active-v1`. The other packs record
+`language-content-v1`.
 
 ## Validation in the established development container
 

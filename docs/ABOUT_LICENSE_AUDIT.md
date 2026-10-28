@@ -62,10 +62,14 @@ Regeneration and verification commands are documented in the
 - Artwork provenance and brand terms are incomplete in the
   [legal inventory](LEGAL_INVENTORY.md). The app now states the separate terms
   and pending review explicitly; this change does not grant artwork rights.
-- Spanish and Spanish-to-English content remains `release-review-required`.
-  The reviewed Android APK includes these development courses, so the older
-  inventory statement that Spanish was absent from Android was inaccurate.
-  Notice corrections do not constitute content clearance or platform promotion.
+- On 8 September 2026, Spanish and Spanish-to-English content was still
+  `release-review-required`. The [9 September](CURRICULUM_LICENSE_APPROVAL_20260909.json)
+  and [4 October](CURRICULUM_LICENSE_APPROVAL_20261004.json) owner approvals
+  later cleared the identified original curricula for distribution. Native
+  review remains pending. The reviewed Android APK includes these development
+  courses, so the older inventory statement that Spanish was absent from
+  Android was inaccurate. Notice corrections do not constitute linguistic
+  clearance or active-course promotion.
 - The Rust server and the full development Android application's additional
   native generation dependencies require their own inventories. This product
   audit does not close those entries or authorize a release containing them.

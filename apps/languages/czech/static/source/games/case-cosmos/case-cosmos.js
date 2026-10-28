@@ -6,6 +6,7 @@ import { newContentEncounterId } from "../../../../../../language-runtime/static
 import { assertEnglishCzechCourse } from "./case-cosmos-cs-policy.mjs?v=case-cosmos-policy-2";
 
 const DATA_URL = "data/games/case-cosmos/content.json?v=case-cosmos-data-8";
+const CHALLENGES_PER_ROUND = 3;
 const BOAT_ARTWORK = [
   "/assets/macaw/cases/floating_boat%20(1).png?v=cases-2",
   "/assets/macaw/cases/floating_boat%20(2).png?v=cases-2",
@@ -26,6 +27,8 @@ const state = {
   questions: [],
   questionIndex: 0,
   candidateIndex: 0,
+  challengeIndex: 0,
+  roundCorrect: 0,
   phase: "loading",
   answer: null,
   shell: null,
@@ -190,8 +193,8 @@ function mountControls() {
         if (!currentQuestion()) { showError(new Error("The noun alternatives ended without a solution.")); return; }
         reopenQuestion();
       } else {
-        if (state.phase === "solved") {
-          announceRoundSuccess();
+        if (roundComplete()) {
+          announceRoundCompletion();
           if (shell.document.body?.dataset.campaignActive === "true") return;
         }
         void nextRound();
@@ -219,11 +222,15 @@ function record(delta) {
   window.CaatuuLearning?.record?.("case-cosmos", delta);
 }
 
-function announceRoundSuccess() {
+function roundComplete() {
+  return state.challengeIndex === CHALLENGES_PER_ROUND - 1 && ["solved", "mistake"].includes(state.phase);
+}
+
+function announceRoundCompletion() {
   if (window.parent === window) return;
   window.parent.postMessage({
     source: "caatuu-game",
-    type: "round-success",
+    type: state.roundCorrect > 0 ? "round-success" : "round-complete",
     gameId: "case-cosmos"
   }, window.location.origin);
 }
@@ -233,13 +240,13 @@ function bindCampaignBridge() {
   listen(window, "message", (event) => {
     if (event.origin !== window.location.origin || event.source !== window.parent) return;
     if (event.data?.source !== "caatuu-app-shell") return;
-    if (event.data.type === "campaign-advance" && state.phase === "solved") nextRound({ campaignAdvance: true });
+    if (event.data.type === "campaign-advance" && roundComplete()) nextRound({ campaignAdvance: true });
     else if (event.data.type === "visibility") {
       state.active = Boolean(event.data.active);
       if (!engaged()) state.controls?.close();
       syncActivity();
       document.body.toggleAttribute("inert", !state.active);
-      if (state.active && state.phase === "solved" && !state.continuation?.pending
+      if (state.active && roundComplete() && !state.continuation?.pending
           && state.shell.document.body?.dataset.campaignActive !== "true") void nextRound();
     }
   });
@@ -292,6 +299,8 @@ function configureDifficulty() {
   state.contentGeneration = window.CaatuuLearning?.contentGeneration?.() ?? null;
   state.questionIndex = 0;
   state.candidateIndex = 0;
+  state.challengeIndex = 0;
+  state.roundCorrect = 0;
   delete $("#caseCosmosSentence").dataset.challenge;
   state.phase = "question";
   state.answer = null;
@@ -325,6 +334,8 @@ function renderRound() {
   $("#caseCosmosPanel").setAttribute("aria-busy", "false");
   $("#caseCosmosBoard").dataset.state = state.phase;
   $("#caseCosmosNoun").textContent = round.noun;
+  $("#caseCosmosProgress").textContent = `${state.challengeIndex + 1} / ${CHALLENGES_PER_ROUND}`;
+  $("#caseCosmosProgress").setAttribute("aria-label", `Challenge ${state.challengeIndex + 1} of ${CHALLENGES_PER_ROUND}`);
   renderSentence(question);
   $("#caseCosmosTranslation").textContent = question.english;
   $("#caseCosmosProposedCase").textContent = challenge.case;
@@ -375,13 +386,15 @@ function chooseAnswer(answer) {
   // turn a failed attempt into a later success on the same sentence.
   state.answer = answer;
   state.phase = !correct ? "mistake" : answer ? "solved" : "rejecting";
+  if (correct && answer) state.roundCorrect += 1;
   if (!correct || answer) window.CaatuuLearning?.recordExposure?.("case-cosmos", {
     itemId: currentChallenge().id, encounterId: state.encounterId, generation: state.contentGeneration, correct,
     evidence: state.candidateIndex === 0 ? "independent" : "assisted"
   });
   render();
   $("#caseCosmosExample").focus();
-  record({ activities: 1, attempts: 1, successes: correct ? 1 : 0, rounds: !correct || answer ? 1 : 0, xp: correct && answer ? 1 : 0 });
+  record({ activities: 1, attempts: 1, successes: correct ? 1 : 0,
+    rounds: roundComplete() && state.roundCorrect > 0 ? 1 : 0, xp: correct && answer ? 1 : 0 });
   $("#caseCosmosNext").focus();
 }
 
@@ -395,11 +408,14 @@ function reopenQuestion() {
 
 async function nextRound({ campaignAdvance = false } = {}) {
   if (state.continuation?.pending || (!campaignAdvance && (!engaged() || state.menuOpen))
+      || (campaignAdvance && !roundComplete())
       || !["solved", "mistake"].includes(state.phase)) return;
   cancelTransition();
   resetSwipe();
   stopSentence();
   selectBoatArtwork();
+  state.challengeIndex = (state.challengeIndex + 1) % CHALLENGES_PER_ROUND;
+  if (state.challengeIndex === 0) state.roundCorrect = 0;
   state.questionIndex += 1;
   if (state.questionIndex === state.questions.length) {
     state.index += 1;

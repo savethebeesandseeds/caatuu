@@ -314,6 +314,8 @@ if [[ "$mode" == "build-once" ]]; then
       "$repo_root/apps/language-runtime/tests/conjugation-arabic-capacity.test.mjs" \
       "$repo_root/apps/language-runtime/tests/launcher-interface.test.mjs" \
       "$repo_root/apps/language-runtime/tests/learning-goals-projection.test.mjs" \
+      "$repo_root/apps/language-runtime/tests/memory-moon-delivery.test.mjs" \
+      "$repo_root/apps/language-runtime/tests/course-stats-ui.test.mjs" \
       "$repo_root/apps/android/tooling/tests/publisher-build-once-contract.test.mjs"
     finish_phase
     start_phase "Build one signed release candidate"

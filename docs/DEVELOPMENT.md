@@ -74,10 +74,9 @@ http://127.0.0.1:8765/games/lab
 Backend or dependency changes require a rebuild. Static browser files are
 mounted read-only and normally need only a reload.
 
-Mandarin, Spanish, English-from-Spanish and Norwegian Bokmål remain `noindex`
-development previews in the manifest-driven course collection; Czech remains
-the active reference course. Runtime
-startup verifies every shared Transformers/MiniLM artifact against
+Mandarin, Spanish, English-from-Spanish, and Norwegian Bokmål are `noindex`
+Pages courses. Arabic, Scientific Latin, and Georgian stay off public Pages.
+Runtime startup verifies every shared Transformers/MiniLM artifact against
 `apps/language-runtime/embedding-runtimes.json` before serving any browser
 course. Missing or mismatched model-only assets are a deployment failure, not a
 silent semantic-search downgrade.
@@ -148,9 +147,11 @@ or Node environments.
 Android command-line tools and build dependencies belong to the maintained
 container workflow under [`apps/android/tooling`](../apps/android/tooling/).
 Development APKs are written to the ignored `artifacts/android/` directory.
-The current Android bundle contains Czech and Mandarin. Spanish declares
-`platforms.android.enabled: false` and remains browser-only until a separate
-Android asset and release decision.
+The Android bundle is `apps/android/course-bundle.json`. It contains every
+course in `apps/languages/catalog.json`. Each course manifest sets
+`platforms.android.enabled` and the first `minimumVersionCode` that may carry
+it. Arabic, Scientific Latin, and Georgian keep `pagesEnabled` false while
+remaining in that Android bundle.
 
 Phone-debug exposure is a deliberate trusted-LAN override:
 

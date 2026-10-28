@@ -114,8 +114,9 @@ independent English embedding text.
 
 See the [Memory Moon content guide](MEMORY_MOON_CONTENT.md) for authoring,
 review boundaries, the JSON schema and the all-course validation command.
-These banks remain machine-assisted previews pending independent native review.
-Their presence does not activate the upcoming game or publish a course.
+These banks are the playable Memory Moon catalogs. They remain machine-assisted
+drafts for native review. A bank does not by itself publish a course or clear
+that review.
 
 ## Case Cosmos: JSON is the content authority
 

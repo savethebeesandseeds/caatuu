@@ -1,5 +1,21 @@
 # Changelog
 
+## Android 196 / 0.1.44
+
+- Restore Memory Moon as a playable planet on every course. Its shared host
+  and course banks stay in the offline catalogs, and release preflight checks
+  that delivery before Gradle starts.
+- Show exact recorded practice counts on Stats: independent, help, other, and
+  due. The polygon remains a map of where English glosses landed, including
+  glosses that did not land. Readiness stays off this screen.
+- Add the 46 missing Bokmål difficulty-0 listening sentences so Sound Quasar
+  covers every authored Word World record. The listening cache revision is
+  `sound-quasar-content-2`.
+- Count a Case Cosmos Campaign round after three challenges, and advance from
+  either a solved challenge or a recorded mistake.
+- Physical-device installation, update, offline use and saved-data preservation
+  remain unverified for this candidate. Course review status is unchanged.
+
 ## Android 195 / 0.1.43
 
 - Simplify course selection into one scrolling list, with the active course

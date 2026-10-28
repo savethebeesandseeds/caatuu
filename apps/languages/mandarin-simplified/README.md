@@ -7,7 +7,7 @@ Caatuu product shell, enabled for browser, public Pages, and Android delivery.
 
 - `/zh/` uses the same header, Home/Games/Backpack navigation, theme,
   responsive layout, Settings interaction, and embedded-game lifecycle as the
-  Czech reference course.
+  other courses.
 - `course.json` owns Mandarin identity, routes, storage namespaces,
   capabilities, and platform eligibility.
 - `static/source/language/adapter.mjs` owns authored Hans segmentation and
@@ -24,12 +24,15 @@ Mandarin text, pinyin, and target tokens cannot enter that boundary. A
 deterministic lexical fallback keeps authored lessons usable when local model
 inference is unavailable.
 
-Mandarin speech output is enabled with the course-owned `zh-CN` locale, and
-authored token glosses remain available inside Word World. LLM, chat,
-generated sentences, the separate full Dictionary workspace, pronunciation
-guides, and offline model packaging are disabled. Browser, public Pages, and
-Android distribution are enabled, including bundling this disclosed development
-course in the shared APK. Pending native Mandarin review is a visible quality
+Verb Nebula, Naturalization Nucleus, and Sounds Quasar are enabled with
+course-owned catalogs. Memory Moon is playable from its own Mandarin bank.
+Mandarin speech output is enabled with
+the course-owned `zh-CN` locale, and authored token glosses remain available
+inside Word World. LLM, chat, generated sentences, the separate full
+Dictionary workspace, pronunciation guides, and offline model packaging are
+disabled. Browser, public Pages, and Android distribution are enabled,
+including bundling this disclosed development course in the shared APK.
+Pending native Mandarin review is a visible quality
 note and does not block Pages or APK preview publication. The shared shell hides
 only the unsupported controls; it does not choose another renderer or layout.
 The course remains

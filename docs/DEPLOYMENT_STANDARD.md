@@ -337,8 +337,9 @@ storage, enforce abuse controls, and preserve defined retention and deletion
 behavior. Existing device-local reports must not begin transmitting without
 new authorization consistent with [`PRIVACY.md`](PRIVACY.md).
 
-The current browser dictionary API is the only active Czech feature that
-requires a dynamic application service. Removing it requires measured browser
+The browser dictionary API is a capability currently declared by the Czech
+pack, and it is the one course capability that requires a dynamic application
+service. Removing it requires measured browser
 storage, startup, memory, offline, and mobile testing of the replacement rather
 than assuming that a large local database will work everywhere.
 

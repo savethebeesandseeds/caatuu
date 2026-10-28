@@ -56,8 +56,9 @@ adjectives. Shared masculine/feminine forms such as `aequālis` remain valid
 syncretism. The finite banks do not claim exhaustive Latin morphology.
 
 Case Cosmos currently owns a Czech-specific curriculum and stays excluded.
-Sounds Quasar lacks approved Latin audio; Naturalization Nucleus has a
-Hanzi/pinyin contract; Memory Moon is not implemented. Those games stay excluded.
+Sounds Quasar lacks approved Latin audio, and Naturalization Nucleus requires
+Hanzi or Arabic romanization, so both stay excluded. Memory Moon is playable
+from this course's own question bank.
 
 ## Architecture and maintenance
 

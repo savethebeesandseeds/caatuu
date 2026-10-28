@@ -8,7 +8,7 @@ behavior belongs in contracts and services, not in a catch-all app.
 | [`animated-fabric`](animated-fabric/) | Retired animation application; source, artwork, and provenance retained for reference |
 | [`android`](android/) | Native Android shell and offline model bridge |
 | [`games`](games/) | Language-independent authored games and their delivery manifests |
-| [`languages/czech`](languages/czech/) | Current Czech language world and browser experience |
+| [`languages`](languages/) | Course catalog and one manifest-backed pack per course. Every pack uses the same application |
 | [`launcher`](launcher/) | Public launcher and shared browser shell |
 | [`server`](server/) | Rust server that exposes the workspace as one runtime |
 

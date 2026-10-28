@@ -53,8 +53,8 @@ Conjugation includes sound, weak and hamzated verbs with explicit authored
 forms. Grammar distinguishes human dual/plural agreement from nonhuman plural
 agreement. The selection follows [Arabic grammar references](https://openbooks.lib.msu.edu/arb201/chapter/2-2-grammar-in-context/)
 and the [Arabic layout requirements](https://www.w3.org/TR/alreq/).
-Case Cosmos lacks an Arabic case curriculum; Memory Moon is not implemented.
-Those games stay excluded.
+Case Cosmos lacks an Arabic case curriculum and stays excluded. Memory Moon
+is playable from this course's own question bank.
 
 The [reading catalog](../apps/languages/arabic-standard/static/data/games/naturalization-nucleus/content.json)
 uses `arabic-learning-romanization-v1`: scholarly consonant symbols and long

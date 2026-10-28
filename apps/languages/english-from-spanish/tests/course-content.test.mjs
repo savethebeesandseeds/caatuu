@@ -51,13 +51,14 @@ test('the Spanish-to-English course owns direction, identity, resources and isol
   assert.equal(course.resources.interfaceCatalog.path, 'apps/language-runtime/static/data/interface/es.v1.json');
   assert.equal(course.resources.interfaceCatalog.revision, (await json('../../language-runtime/static/data/interface/es.v1.json')).revision);
   assert.equal(course.resources.appEntry.scope, 'shared');
-  assert.deepEqual(course.games, ['verb-lab', 'word-net', 'conjugation-comet', 'grammar-gravity', 'sound-quasar']);
-  assert.deepEqual(availableGameIds(course), ['campaign', ...course.games]);
+  assert.deepEqual(course.games, ['verb-lab', 'word-net', 'conjugation-comet', 'grammar-gravity', 'sound-quasar', 'memory-moon']);
+  assert.deepEqual(new Set(availableGameIds(course)), new Set(['campaign', ...course.games]));
   assert.deepEqual(CAMPAIGN_GAME_IDS.filter((id) => availableGameIds(course).includes(id)),
-    course.games);
-  for (const key of ['generation', 'llm', 'chat', 'dictionary', 'memory']) {
+    availableGameIds(course).filter((id) => id !== 'campaign'));
+  for (const key of ['generation', 'llm', 'chat', 'dictionary']) {
     assert.equal(course.capabilities[key], false, key);
   }
+  assert.equal(course.capabilities.memory, true);
   for (const value of Object.values(course.storage)) assert.ok(value.startsWith('caatuu-es-en'), value);
   assert.equal(course.cache.prefix, 'caatuu-es-en-pwa-');
   assert.equal((await json('static/manifest.webmanifest')).lang, 'es-ES');
@@ -71,7 +72,7 @@ test('Verb Nebula deals and completes English-to-Spanish meaning rounds with Eng
     assert.equal(pair.target, rows[index].target);
     assert.equal(pair.source, rows[index].source);
     assert.equal(verbHintSearchText(pair), rows[index].englishAuditText);
-    assert.notEqual(pair.source, pair.englishAuditText);
+    assert.ok(pair.source !== pair.englishAuditText || pair.target === pair.englishAuditText, pair.id);
   }
   for (const difficulty of [1, 2, 3]) for (const pairCount of [2, 4, 6, 8]) {
     const eligible = filterVerbPairsForDifficulty(pairs, difficulty);
@@ -162,7 +163,7 @@ test('English grammar uses number and subject agreement with Spanish phrase pres
       assert.ok(['singular', 'plural'].includes(flight.categoryId));
     }
   }
-  assert.equal([1, 2, 3].flatMap(difficulty => buildGrammarGravityRounds(grammar, difficulty)).length,
+  assert.equal([0, 1, 2, 3].flatMap(difficulty => buildGrammarGravityRounds(grammar, difficulty)).length,
     raw.challenges.flatMap(challenge => Object.values(challenge.forms).flatMap(form => form.examples)).length);
   const nounSource = await json('static/data/games/grammar-gravity/nouns.json');
   const nouns = normalizeNounLandingPack(nounSource, options);

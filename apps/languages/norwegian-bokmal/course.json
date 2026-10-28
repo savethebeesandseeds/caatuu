@@ -260,7 +260,7 @@
       "path": "apps/languages/norwegian-bokmal/static/data/games/sound-quasar/content.json",
       "scope": "course",
       "state": "present",
-      "revision": "sound-quasar-content-1"
+      "revision": "sound-quasar-content-2"
     },
     "staticRoot": {
       "kind": "directory",
@@ -279,7 +279,7 @@
       "path": "apps/language-runtime/static/data/interface/en.v1.json",
       "scope": "shared",
       "state": "present",
-      "revision": "interface-en-54"
+      "revision": "interface-en-55"
     },
     "courseProfile": {
       "kind": "file",

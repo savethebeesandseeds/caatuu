@@ -1,5 +1,10 @@
 # English → Norwegian Bokmål course
 
+This is the 9 September 2026 onboarding record. The course is now one of eight
+registered courses, with `noindex` Pages delivery and Android delivery from
+version 172. The public stable alias has since moved past the Android 172
+candidate described below.
+
 Added on 2026-09-09 in the canonical checkout on `main`, following the user's
 explicit request to onboard Norwegian and adapt applicable games. The user
 selected Bokmål. The course is available locally at

@@ -340,7 +340,9 @@ content release validator. Full fixture builds and website export tests belong
 to separate full reviews. The real asset compiler and final
 archive audit still enforce package capabilities and source/asset integrity.
 The fixed preflight list uses `learning-goals-projection.test.mjs` for authored
-topic coverage; repeated full-catalog mutation checks stay outside publication.
+topic coverage, `memory-moon-delivery.test.mjs` for the shared Memory Moon
+modules in every course offline catalog, and `course-stats-ui.test.mjs` for
+the Stats screen. Repeated full-catalog mutation checks stay outside publication.
 Ordinary Repository CI pushes check repository file policy and Markdown links.
 Its manual workflow dispatch runs the full diagnostic suite independently of
 Android publication. Run focused tests for the changed behavior before release.

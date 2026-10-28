@@ -260,6 +260,11 @@ test("release preflight checks cheap Android safety contracts without rebuilding
   }
   assert.doesNotMatch(preflightSource, /product-\*|product-assets-contract|product-word-world-startup|apps\/launcher\/tooling|build-product-assets\.mjs|build-static-site\.mjs|build-pages-site\.mjs/u);
   assert.match(preflightSource, /learning-goals-projection\.test\.mjs/u);
+  for (const checkpoint of ["memory-moon-delivery.test.mjs", "course-stats-ui.test.mjs"]) {
+    const preflight = publisher.indexOf(checkpoint);
+    assert.ok(preflight > sourceValidation && preflight < signedBuild,
+      `${checkpoint} must pass before a signed Android build starts`);
+  }
   assert.doesNotMatch(preflightSource, /\/learning-goals\.test\.mjs|--test\s+[^\n]*\*/u);
   assert.match(builder, /:product:generateProductAssets/u);
   assert.match(builder, /validate-product-package\.mjs/u);

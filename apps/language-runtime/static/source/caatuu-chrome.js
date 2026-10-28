@@ -2108,7 +2108,8 @@
     const valid = summary?.courseId === course.id && summary.totals && Array.isArray(summary.games);
     const counts = valid ? summary.totals : null;
     for (const [id, field] of [["coursePracticeItems", "encounteredItems"],
-      ["coursePracticeIndependent", "independentItems"], ["coursePracticeDue", "dueItems"]]) {
+      ["coursePracticeIndependent", "independentItems"], ["coursePracticeSupported", "supportedOnlyItems"],
+      ["coursePracticeOther", "unknownItems"], ["coursePracticeDue", "dueItems"]]) {
       const element = root.querySelector(`#${id}`);
       if (element) element.textContent = counts ? String(counts[field]) : "—";
     }
@@ -2627,6 +2628,14 @@
     if (progress && state !== "loading") progress.hidden = true;
   }
 
+  function renderSemanticSkillCompassCoverage(panel, counts = null) {
+    const known = Number.isSafeInteger(counts?.mappedItems) && Number.isSafeInteger(counts?.unmappedItems);
+    const mapped = panel.querySelector("#semanticSkillCompassMapped");
+    const unmapped = panel.querySelector("#semanticSkillCompassUnmapped");
+    if (mapped) mapped.textContent = known ? String(counts.mappedItems) : "—";
+    if (unmapped) unmapped.textContent = known ? String(counts.unmappedItems) : "—";
+  }
+
   function renderSemanticSkillCompassAxisList(panel, projectedAxes = []) {
     const list = panel.querySelector("#semanticSkillCompassAxes");
     if (!list) return;
@@ -2745,6 +2754,7 @@
     });
     svg.replaceChildren(title, description, grid, axes, practice, strength, strengthPoints, center);
     renderSemanticSkillCompassAxisList(panel);
+    renderSemanticSkillCompassCoverage(panel);
     setSemanticSkillCompassStatus(panel, "idle");
   }
 
@@ -2764,6 +2774,7 @@
     renderSemanticSkillCompassAxisList(panel);
     const description = panel.querySelector("#semanticSkillCompassChartDescription");
     if (description) description.textContent = semanticSkillCompassText("emptyChartDescription");
+    renderSemanticSkillCompassCoverage(panel, { mappedItems: 0, unmappedItems: 0 });
     setSemanticSkillCompassStatus(panel, "empty");
   }
 
@@ -2791,6 +2802,7 @@
       });
     }
     renderSemanticSkillCompassAxisList(panel, projectedAxes);
+    renderSemanticSkillCompassCoverage(panel, projection?.counts);
     const replacements = {
       mapped: projection?.counts?.mappedItems || 0,
       total: projection?.counts?.encounteredItems || 0,
@@ -2856,6 +2868,7 @@
         renderSemanticSkillCompassAxisList(panel);
         const description = panel.querySelector("#semanticSkillCompassChartDescription");
         if (description) description.textContent = semanticSkillCompassText("errorMessage");
+        renderSemanticSkillCompassCoverage(panel);
         setSemanticSkillCompassStatus(
           panel,
           "error",
@@ -4923,10 +4936,40 @@
                 </div>
               </header>
               <div id="backpackStatsMount">
-                <div class="skill-compass" id="semanticSkillCompass" data-state="idle">
+                <section class="course-practice-card" aria-labelledby="coursePracticeTitle">
+                  <header class="course-practice-heading"><small class="stats-eyebrow">${interfaceHtml("settings.practice.recorded")}</small>
+                    <h3 id="coursePracticeTitle">${interfaceHtml("settings.practice.title", { language: targetLanguageName })}</h3></header>
+                  <dl class="course-practice-totals">
+                    <div class="is-items"><dt>${interfaceHtml("settings.practice.items")}</dt><dd id="coursePracticeItems">—</dd></div>
+                    <div class="is-independent"><dt>${interfaceHtml("settings.practice.independent")}</dt><dd id="coursePracticeIndependent">—</dd></div>
+                    <div class="is-supported"><dt>${interfaceHtml("settings.practice.supported")}</dt><dd id="coursePracticeSupported">—</dd></div>
+                    <div class="is-unknown"><dt>${interfaceHtml("settings.practice.other")}</dt><dd id="coursePracticeOther">—</dd></div>
+                    <div class="is-due"><dt>${interfaceHtml("settings.practice.due")}</dt><dd id="coursePracticeDue">—</dd></div>
+                  </dl>
+                  <p class="course-practice-status" id="coursePracticeStatus" role="status" hidden></p>
+                  <p class="course-practice-empty" id="coursePracticeEmpty">${interfaceHtml("settings.practice.empty")}</p>
+                  <ul class="course-practice-legend" aria-label="${interfaceHtml("settings.practice.legend")}">
+                    <li><i class="practice-independent" aria-hidden="true"></i>${interfaceHtml("settings.practice.independent")}</li>
+                    <li><i class="practice-supported" aria-hidden="true"></i>${interfaceHtml("settings.practice.supported")}</li>
+                    <li><i class="practice-unknown" aria-hidden="true"></i>${interfaceHtml("settings.practice.other")}</li>
+                  </ul>
+                  <ul class="course-practice-games" id="coursePracticeGames" aria-label="${interfaceHtml("settings.practice.bygame")}"></ul>
+                  <p class="course-practice-note">${interfaceHtml("settings.practice.explanation")}</p>
+                  <p class="course-practice-note" id="coursePracticeLegacy" hidden>${interfaceHtml("settings.practice.legacy")}</p>
+                  <p class="course-practice-activity">${interfaceHtml("progress.activities")}: <strong id="courseProgressActivities">0</strong></p>
+                </section>
+                <section class="skill-compass" id="semanticSkillCompass" data-state="idle" aria-labelledby="semanticSkillCompassTitle">
+                  <header class="skill-compass-intro">
+                    <small class="stats-eyebrow">${interfaceHtml("settings.compass.eyebrow")}</small>
+                    <h3 id="semanticSkillCompassTitle">${interfaceHtml("settings.compass.title")}</h3>
+                  </header>
                   <div class="skill-compass-body" id="semanticSkillCompassBody" aria-busy="false">
                       <figure class="skill-compass-figure">
                         <svg class="skill-compass-chart" id="semanticSkillCompassChart" viewBox="0 0 340 290" role="img" aria-labelledby="semanticSkillCompassChartTitle semanticSkillCompassChartDescription"></svg>
+                        <dl class="skill-compass-coverage">
+                          <div><dt>${interfaceHtml("settings.compass.mapped")}</dt><dd id="semanticSkillCompassMapped">—</dd></div>
+                          <div><dt>${interfaceHtml("settings.compass.unmapped")}</dt><dd id="semanticSkillCompassUnmapped">—</dd></div>
+                        </dl>
                         <figcaption class="skill-compass-legend" aria-label="">
                           <span id="semanticSkillCompassLegendPractice"><i class="is-practice" aria-hidden="true"></i></span>
                           <span id="semanticSkillCompassLegendStrength"><i class="is-strength" aria-hidden="true"></i></span>
@@ -4936,13 +4979,12 @@
                     <p class="skill-compass-status" id="semanticSkillCompassStatus" role="status" aria-live="polite" hidden></p>
                     <button class="skill-compass-retry" id="semanticSkillCompassRetry" type="button" hidden>${interfaceHtml("settings.compass.retry")}</button>
                   </div>
-                </div>
+                </section>
                 <div class="stats-info">
                   <span class="stats-info-icon" aria-hidden="true">i</span>
                   <p>${interfaceHtml("settings.compass.help")}</p>
                 </div>
                 <div class="stats-detail-actions">
-                  <button type="button" data-stats-dialog="coursePracticeDetailsDialog" aria-haspopup="dialog" aria-controls="coursePracticeDetailsDialog">${interfaceHtml("settings.practice.details")}</button>
                   <button type="button" data-stats-dialog="skillCompassDetailsDialog" aria-haspopup="dialog" aria-controls="skillCompassDetailsDialog">${interfaceHtml("settings.compass.details")}</button>
                 </div>
                 <section class="learning-direction-card" aria-labelledby="learningDirectionTitle">
@@ -4964,34 +5006,6 @@
                     <ul class="skill-compass-axis-list" id="semanticSkillCompassAxes"></ul>
                   </div>
                 </dialog>
-                <dialog class="stats-details-dialog" id="coursePracticeDetailsDialog" aria-labelledby="coursePracticeDetailsTitle">
-                  <div class="stats-details-content">
-                    <header class="stats-details-heading"><h3 id="coursePracticeDetailsTitle">${interfaceHtml("settings.practice.details")}</h3>
-                      <button type="button" data-stats-dialog-close autofocus>${interfaceHtml("common.close")}</button></header>
-                <section class="course-practice-card" aria-labelledby="coursePracticeTitle">
-                  <header class="course-practice-heading"><small class="stats-eyebrow">${interfaceHtml("settings.practice.recorded")}</small>
-                    <h3 id="coursePracticeTitle">${interfaceHtml("settings.practice.title", { language: targetLanguageName })}</h3></header>
-                  <dl class="course-practice-totals">
-                    <div><dt>${interfaceHtml("settings.practice.items")}</dt><dd id="coursePracticeItems">—</dd></div>
-                    <div><dt>${interfaceHtml("settings.practice.independent")}</dt><dd id="coursePracticeIndependent">—</dd></div>
-                    <div><dt>${interfaceHtml("settings.practice.due")}</dt><dd id="coursePracticeDue">—</dd></div>
-                  </dl>
-                  <p class="course-practice-status" id="coursePracticeStatus" role="status" hidden></p>
-                  <p class="course-practice-empty" id="coursePracticeEmpty">${interfaceHtml("settings.practice.empty")}</p>
-                  <ul class="course-practice-legend" aria-label="${interfaceHtml("settings.practice.legend")}">
-                    <li><i class="practice-independent" aria-hidden="true"></i>${interfaceHtml("settings.practice.independent")}</li>
-                    <li><i class="practice-supported" aria-hidden="true"></i>${interfaceHtml("settings.practice.supported")}</li>
-                    <li><i class="practice-unknown" aria-hidden="true"></i>${interfaceHtml("settings.practice.other")}</li>
-                  </ul>
-                  <ul class="course-practice-games" id="coursePracticeGames" aria-label="${interfaceHtml("settings.practice.bygame")}"></ul>
-                  <p class="course-practice-note">${interfaceHtml("settings.practice.explanation")}</p>
-                  <p class="course-practice-note" id="coursePracticeLegacy" hidden>${interfaceHtml("settings.practice.legacy")}</p>
-                  <p class="course-practice-activity">${interfaceHtml("progress.activities")}: <strong id="courseProgressActivities">0</strong></p>
-                </section>
-                  </div>
-                </dialog>
-
-
               </div>
             </section>
           </section>

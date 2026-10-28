@@ -27,8 +27,9 @@ Caatuu product shell, enabled for browser, public Pages, and Android delivery.
 
 ## Current capabilities
 
-Word World, Verb Nebula, Conjugation Comet, Grammar Gravity, English-backed
-semantic search, and Spanish speech are available in this development preview.
+Word World, Verb Nebula, Conjugation Comet, Grammar Gravity, Sounds Quasar,
+English-backed semantic search, and Spanish speech are available
+in this development preview.
 The two grammar games load their declared course catalogs through the generated
 `gameContent` profile projection. Every assessed item retains explicit English
 audit text and the runtime performs neither dictionary lookup nor form
@@ -38,21 +39,23 @@ English lexical ranking remains available if local model inference cannot
 start.
 
 The separate full Dictionary workspace, pronunciation guides, LLM, chat,
-generated sentences, offline models, and Memory Moon are disabled. Android
-includes the development course in the shared APK. Memory Moon remains a
-shared coming-later planet. Sounds Quasar provides shared listen-and-choose
-practice using device speech and course-owned
-words and sentences. Correct answers earn XP; it does not provide pronunciation
-assessment. Word World's authored token glosses are not a declaration
-of full dictionary support. Campaign availability is derived by the shared
-shell from its playable planets.
+generated sentences, and offline models are disabled. Android includes the
+development course in the shared APK from version 170. Sounds Quasar provides
+shared listen-and-choose practice using device speech and course-owned words
+and sentences. Correct answers earn XP; it does not provide pronunciation
+assessment. Memory Moon is a playable sentence-meaning game with this
+course's own question bank. Word World's authored token glosses are not a declaration
+of full dictionary support. Campaign includes every implemented planet this
+course can play.
 
 The Spanish curriculum is machine-assisted and remains
-`native-review-required`. Its license gate is `release-review-required`; the
-course remains a disclosed development preview on Pages and Android, with
-`noindex` Pages delivery and its draft metadata preserved. Active-course
-promotion still requires recorded native-review and release-license clearance,
-along with the repository's applicable artwork/model notice gates.
+`native-review-required`. Its first-party license gate is `release-cleared`
+under `AGPL-3.0-only`, as recorded in the
+[9 September owner approval](../../../docs/CURRICULUM_LICENSE_APPROVAL_20260909.json).
+The course remains a disclosed development preview on Pages and Android, with
+`noindex` Pages delivery and its draft review metadata preserved. Active-course
+promotion still requires recorded native review, along with the repository's
+applicable artwork and model notice gates.
 
 ## Validation
 

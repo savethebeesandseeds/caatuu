@@ -1,6 +1,6 @@
 # Caatuu first Android release map
 
-Status: active release plan
+Status: Play `v0.1.0` plan. Direct development-preview APKs are a separate channel.
 Created: 13 August 2026
 Target: Google Play, free `v0.1.0`
 Application ID: `com.waajacu.caatuu`
@@ -9,6 +9,11 @@ This is the execution map for turning the current Caatuu development preview
 into its first governed Android release. It consolidates the product, content,
 technical, legal, privacy, business, store, and operational work that must be
 finished before publication.
+
+Direct Pages APKs through Android 195 already ship the registered courses and
+the games those courses declare, including Memory Moon.
+This map does not describe that preview channel. A Play build still needs an
+explicit include-or-exclude decision for each live game.
 
 The map is fail-closed: a failed or unknown required gate blocks promotion. A
 debug APK, a locally successful build, or a Play Console upload is not by
@@ -62,8 +67,8 @@ must contain only an explicit release allowlist.
 | Conjugation Comet | Candidate; include only if its six-verb pilot passes its gates |
 | Grammar Gravity | Stretch candidate; include only if its exact content and interface pass |
 | Case Cosmos | Defer by default; promote only if its exact content and interface pass |
-| Memory Moon placeholder | Hide and exclude |
-| Sounds Quasar placeholder / Battle of the Robots | Defer and exclude |
+| Memory Moon | Playable course game; include it with each course that declares it |
+| Sounds Quasar listening practice / Battle of the Robots | Sounds Quasar needs the same content-review gate; Battle of the Robots stays deferred |
 | Dictionary and Android Czech speech | Include |
 | MiniLM embeddings, vector database, image lookup, semantic evidence and statistics | Include |
 | Chat, text generation, model download/delete controls and generative settings | Exclude |
@@ -338,7 +343,7 @@ smaller fully reviewed course over a larger unapproved corpus.
 | Conjugation Comet | Make the five teaching verbs and one held-out verb explicit in JSON rather than deriving them from 59 records by order/filter; review every form, cue, accepted answer, hint and grammatical claim |
 | Grammar Gravity | Add stable identities and review the exact included adjective phrases; finish phone, keyboard, screen-reader and reduced-motion behavior; include only if green by content freeze |
 | Case Cosmos | Add stable identities and review all included case forms and complete sentences; finish its seven-choice interface and evidence behavior; otherwise leave it source-only for the next release |
-| Memory Moon | Remove from the release catalog and navigation while it remains a placeholder |
+| Memory Moon | Keep it in the playable catalog and review its question bank with the other course content |
 
 Qualified review must bind to bytes or a content hash. “Codex-reviewed” is
 useful development evidence but is not a substitute for independent Czech

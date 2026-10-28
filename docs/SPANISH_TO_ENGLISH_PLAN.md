@@ -3,8 +3,11 @@
 Add a Spanish-base course through the canonical shared Caatuu application.
 The initial course is `es-en` at `/es-en/`, with learner base/interface `es-ES`,
 target and speech locale `en-US`, and invariant English audit/retrieval `en`.
-It begins as a browser-enabled local development preview. Pages and Android
-distribution remain disabled while review and release gates are pending.
+It began as a browser-enabled local development preview. It is now a `noindex`
+Pages preview and has been in the Android bundle since version 168. Native
+review remains pending. Distribution licensing for the identified original
+curriculum is the 9 September 2026 owner approval. Memory Moon is a playable
+sentence-meaning game with this course's own question bank.
 
 ## Delivery plan
 

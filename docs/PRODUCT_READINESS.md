@@ -1,6 +1,6 @@
 # Caatuu product-readiness road map
 
-License and Android artifact status updated: 9 September 2026; other readiness gates retain their prior review.
+Public catalog and Android preview status updated: 27 October 2026. Governed-beta gates other than the published preview artifact retain their prior review.
 
 Caatuu is a public development preview. This document is the public release
 gate; it contains no personal runway, address, tax, identity-document, or
@@ -10,16 +10,16 @@ private financial information.
 
 | Area | Status | Release consequence |
 | --- | --- | --- |
-| First-party software and curriculum license | `CLOSED FOR IDENTIFIED FIRST-PARTY SCOPE` | `AGPL-3.0-only` covers first-party software and the original English, Mandarin, Spanish-course and Norwegian curriculum identified in [LICENSING.md](LICENSING.md#first-party-curriculum); third-party terms remain in force |
-| Spanish-course and Norwegian curriculum license | `OWNER APPROVAL RECORDED` | The [9 September owner approval](CURRICULUM_LICENSE_APPROVAL_20260909.json) clears the identified original curricula for distribution; formal catalog gates record `release-cleared`. Courses remain development previews and native-speaker/pronunciation reviews remain pending |
-| Exact deployed source | `RECORDED PER ARTIFACT` | Android 172 pins its clean, pushed source revision in the public manifest and sealed receipt; the website retains its separately verified snapshot. Preserve these identities and do not infer governed-beta readiness from publication alone |
+| First-party software and curriculum license | `CLOSED FOR IDENTIFIED FIRST-PARTY SCOPE` | `AGPL-3.0-only` covers first-party software and the original curricula identified in [LICENSING.md](LICENSING.md#first-party-curriculum), including the 9 September Spanish-course and Norwegian approval and the 4 October Arabic, Scientific Latin, and Georgian approval; third-party terms remain in force |
+| Development-course curriculum license | `OWNER APPROVAL RECORDED` | The [9 September](CURRICULUM_LICENSE_APPROVAL_20260909.json) and [4 October](CURRICULUM_LICENSE_APPROVAL_20261004.json) owner approvals clear the identified original curricula for distribution. Courses other than Czech remain development previews. Native-speaker and pronunciation reviews remain pending |
+| Exact deployed source | `RECORDED PER ARTIFACT` | The public stable manifest at `/android/caatuu.json` is Android 195 (`0.1.43`), source `4878e23f03b8ae42d515fc08d2119abc334aed5e`. `device_smoke` is `not-run`. Preserve each artifact's own identity and do not infer governed-beta readiness from publication alone |
 | Feedback collection | `BOUNDED EDGE CHANNEL READY` | The Pages app remains static. A separate Cloudflare Worker accepts only consented sentence reports and future-only opted-in dictionary gaps into EU D1. Old local queues are never migrated, general diagnostics remain disabled, and the private ledger stays outside Pages and GitHub Releases. |
 | AI interaction notice | `CLOSED FOR PREVIEW` | Shared product chrome explicitly tells users they are interacting with AI and warns that output may be wrong |
 | Models and training lineage | `IN PROGRESS` | Ship only artifacts whose base revision, adapter owner, training inputs, license, hashes, and model card are complete |
 | Dictionaries and datasets | `IN PROGRESS` | Preserve source, attribution, share-alike terms, modifications, and hashes in every distribution |
 | Third-party software notices | `BLOCKED` | Browser and APK notice bundles must include every distributed dependency and required license text |
 | Artwork and generated assets | `BLOCKED` | Exclude any asset without an author/provider, creation record, redistribution grant, modifications, and attribution decision |
-| Signed Android delivery | `VERIFIED ARTIFACT` | Android 172 (0.1.20) is signed, non-debuggable and published with verified APK/setup bytes; see the [release evidence](NORWEGIAN_BOKMAL_COURSE_20260909.md#android-release-result). This does not establish physical-device testing or clear governed-beta legal, privacy and support gates |
+| Signed Android delivery | `VERIFIED PREVIEW ARTIFACT` | Android 195 (`0.1.43`) is the public signed, non-debuggable stable alias. Its manifest records product-package and bundletool audits passed and device smoke not run. The [Android 172 evidence](NORWEGIAN_BOKMAL_COURSE_20260909.md#android-release-result) remains the historical record of that earlier candidate. Publication does not clear governed-beta legal, privacy, or support gates |
 | Privacy/operator record | `BLOCKED` | A governed beta needs the real controller record, processor list, lawful bases, retention, deletion, and transfer assessment |
 | Publisher and payments | `OWNER GATE` | No store or paid offer until the legal publisher, country, bank, tax treatment, contact, and signing-key custodian are settled |
 | Support and security | `PREVIEW BASELINE` | Private contact exists, but supported versions and response commitments begin only with a governed beta |

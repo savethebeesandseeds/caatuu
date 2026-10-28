@@ -1,6 +1,6 @@
 # Android release operations
 
-Last reviewed: 22 October 2026
+Last reviewed: 28 October 2026
 
 This is the operational handoff for maintainers and coding sessions. Use the
 maintained entrypoints, not a remembered sequence of repair commands.
@@ -246,8 +246,9 @@ website tests. Routine APK preflight stays small; the real compiler and final
 archive audit retain integrity checks.
 The inexpensive fallback course-chooser and shared-selector contracts run before
 Gradle, so missing course rows or offline flag coverage fail before an APK build.
-The publisher runs a fixed list of ten focused test files, including the authored
-topic-goal projection without repeated full-catalog validation. It does not
+The publisher runs a fixed list of twelve focused test files, including Memory
+Moon delivery, the Stats screen, and the authored topic-goal projection,
+without repeated full-catalog validation. It does not
 discover or run the repository-wide test collection. Run focused behavior tests
 for each changed boundary before publication; full-review failures must be
 assessed for relevance rather than becoming an unrelated global release gate.

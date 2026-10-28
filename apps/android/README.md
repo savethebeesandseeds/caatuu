@@ -10,23 +10,21 @@ embeddings, dictionary, speech, learning, and games follow each course manifest.
 
 The full development shell still loads the course selected by
 `caatuuCourseManifest`. The product shell loads the bundle selected by
-`caatuuCourseBundle`; Czech is the default course and Mandarin is another
-content pack in the same application. The store compiler does not
+`caatuuCourseBundle`. Czech is the default course. The bundle contains every
+course listed in `apps/android/course-bundle.json`. The store compiler does not
 delete or modify course source. It resolves the static root and Android asset
 catalog through each allowlisted manifest, then creates a fail-closed release surface under
 the `product` build directory. Standalone game artifacts under `artifacts/games`
 are excluded from both Android distributions.
-
-Spanish is intentionally absent from the bundle because its course manifest
-keeps Android disabled while content and release review remain pending.
 
 ## Runtime Shape
 
 - UI: one canonical shared app document loaded in a WebView from APK assets.
   The full module copies its selected development surface; `product` compiles
   shared runtime assets once and course data below `courses/<id>/`.
-- Games: no standalone game export is currently bundled. Memory Moon remains a
-  static application placeholder.
+- Games: no standalone Godot export is bundled. Memory Moon is the playable
+  sentence-meaning planet in each course's `games` list. The paused macaw
+  adventure remains outside both Android distributions.
 - Default Czech start URL: `https://caatuu.local/cz/index.html`; bundled course
   routes such as `/zh/index.html` resolve to the same shared document.
 - Course source assets are packaged for browser/Android parity. The shared

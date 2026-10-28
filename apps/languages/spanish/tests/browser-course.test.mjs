@@ -79,9 +79,10 @@ test("Spanish is a development course projected into the one shared browser app"
     "word-net",
     "conjugation-comet",
     "grammar-gravity",
-    "sound-quasar"
+    "sound-quasar",
+    "memory-moon"
   ]);
-  assert.deepEqual(course.upcomingGames, ["memory-moon"]);
+  assert.equal(course.upcomingGames, undefined);
   assert.deepEqual(course.linguisticFeatures, ["verb-conjugation", "grammatical-agreement"]);
   assert.equal(course.platforms.browser.enabled, true);
   assert.equal(course.platforms.browser.pagesEnabled, true);
@@ -114,7 +115,7 @@ test("Spanish identity and unavailable systems fail closed in the course contrac
     embeddings: true,
     semanticSearch: true,
     dictionary: false,
-    memory: false,
+    memory: true,
     verbs: false,
     wordWorld: true,
     conjugationComet: true,
@@ -157,6 +158,9 @@ test("the generated compatibility profile is exactly the catalog projection", as
       },
       "sound-quasar": {
         soundQuasarCatalog: `data/games/sound-quasar/content.json?v=${course.resources.soundQuasarCatalog.revision}`
+      },
+      "memory-moon": {
+        memoryMoonCatalog: `data/games/memory-moon/content.json?v=${course.resources.memoryMoonCatalog.revision}`
       }
     }
   );
@@ -275,7 +279,7 @@ test("Verb Nebula has course-owned Spanish text and explicit English audit text"
   assert.ok(Array.isArray(records) && records.length > 0);
   assert.equal(new Set(records.map(({ id }) => id)).size, records.length);
   for (const record of records) {
-    assert.match(record.id, /^es\./u);
+    assert.match(record.id, /^(?:es\.|zero-es-)/u, record.id);
     assert.equal(typeof record.target, "string");
     assert.ok(record.target.trim());
     assert.equal(typeof record.source, "string");

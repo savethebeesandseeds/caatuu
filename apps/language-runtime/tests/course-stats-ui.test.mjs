@@ -73,7 +73,7 @@ async function browser(t, { course = courses[0], storage = createMemoryStorage()
   const select = node("select", "learningGoal", direction);
   node("p", "learningGoalStatus", direction);
   const list = node("ul", "coursePracticeGames", stats);
-  for (const id of ["coursePracticeItems", "coursePracticeIndependent", "coursePracticeDue", "coursePracticeStatus", "courseProgressActivities"]) {
+  for (const id of ["coursePracticeItems", "coursePracticeIndependent", "coursePracticeSupported", "coursePracticeOther", "coursePracticeDue", "coursePracticeStatus", "courseProgressActivities"]) {
     node("p", id, stats);
   }
   node("p", "coursePracticeEmpty", stats, content.t("settings.practice.empty"));
@@ -137,6 +137,8 @@ test("every course renders its own assessed, supported, legacy, and due item cou
       assert.equal(app.stats.hidden, false);
       assert.equal(app.element("coursePracticeItems").textContent, String(index + 3));
       assert.equal(app.element("coursePracticeIndependent").textContent, String(index + 1), "independent errors are assessed tries");
+      assert.equal(app.element("coursePracticeSupported").textContent, "1");
+      assert.equal(app.element("coursePracticeOther").textContent, "1");
       assert.equal(app.element("coursePracticeDue").textContent, String(index + 2));
       assert.equal(app.element("coursePracticeStatus").hidden, true);
       assert.equal(app.element("coursePracticeEmpty").hidden, true);
@@ -227,7 +229,7 @@ test("visible Stats refreshes course item evidence saved by another tab without 
 
 test("zero practice shows real zeros and a useful empty state while goals remain available", async t => {
   const app = await browser(t);
-  for (const id of ["coursePracticeItems", "coursePracticeIndependent", "coursePracticeDue"]) assert.equal(app.element(id).textContent, "0");
+  for (const id of ["coursePracticeItems", "coursePracticeIndependent", "coursePracticeSupported", "coursePracticeOther", "coursePracticeDue"]) assert.equal(app.element(id).textContent, "0");
   assert.equal(app.element("coursePracticeEmpty").hidden, false);
   assert.equal(app.element("coursePracticeEmpty").textContent, app.content.t("settings.practice.empty"));
   assert.equal(app.element("coursePracticeStatus").hidden, true);
@@ -285,7 +287,7 @@ test("unavailable or wrong-course summaries never display fabricated zeros or an
   for (const summaryOverride of [() => () => { throw new Error("unavailable"); }, () => undefined,
     learning => () => ({ ...learning.practiceSummary(), courseId: "another-course" })]) {
     const app = await browser(t, { summaryOverride });
-    for (const id of ["coursePracticeItems", "coursePracticeIndependent", "coursePracticeDue"]) assert.equal(app.element(id).textContent, "—");
+    for (const id of ["coursePracticeItems", "coursePracticeIndependent", "coursePracticeSupported", "coursePracticeOther", "coursePracticeDue"]) assert.equal(app.element(id).textContent, "—");
     assert.equal(app.element("coursePracticeStatus").hidden, false);
     assert.equal(app.element("coursePracticeStatus").textContent, app.content.t("settings.practice.unavailable"));
     assert.equal(app.element("coursePracticeEmpty").hidden, true);

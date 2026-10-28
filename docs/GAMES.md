@@ -1,11 +1,21 @@
 # Language Games and Czech Planet Plan
 
-Status: product and implementation plan
+Status: product plan, aligned with the live registry on 27 October 2026
 
-This document defines the planned Czech language-game constellation, the
-content authority required for every game, and the implementation order for
-the missing planets. In the product, a language game is presented as a planet;
-the terms are interchangeable here.
+This document defines the Czech language-game constellation, the content
+authority required for every game, and the original implementation order for
+planets that were still missing when the plan was written. In the product, a
+language game is presented as a planet; the terms are interchangeable here.
+
+The live registry is
+`apps/language-runtime/static/source/shell-policy.js`. Course membership is
+each `course.json`. Campaign contains every implemented planet that course can
+play. Memory Moon is a playable sentence-meaning game. Its registry state is
+`implemented`, and every course lists it in `games`, so it joins Campaign.
+Each course keeps its own bank, described in
+[Memory Moon content](MEMORY_MOON_CONTENT.md). Later
+sections that describe pilots, investment gates, or Czech-only authoring are
+the original plan, not a second course catalog.
 
 The immediate product decisions are:
 
@@ -14,8 +24,9 @@ The immediate product decisions are:
 - Czech has two implemented additional game hypotheses: **Case Cosmos** and
   **Grammar Gravity**. **Sounds Quasar** is shared listening practice using
   device speech. Clitic placement is useful content but is not a separate planet.
-- Sounds Quasar supports listen-and-choose words and sentences in Czech,
-  Mandarin, and Spanish. Correct answers earn XP; device speech remains
+- Sounds Quasar supports listen-and-choose words and sentences in every course
+  that declares it: Czech, Mandarin, Spanish, English from Spanish, Norwegian
+  Bokmål, and Arabic. Correct answers earn XP; device speech remains
   unreviewed and provides no pronunciation assessment or mastery evidence.
 - Every enabled game must resolve all assessed challenges from reviewed JSON.
   A game may own that JSON directly or deterministically derive a frozen game
@@ -126,28 +137,23 @@ Examples:
 | Verb Nebula | Active | Recognize Czech verb lemmas and their meanings |
 | Conjugation Comet | Active, backbone incomplete | Understand and produce Czech verb forms and the rules connecting them |
 | Campaign Mode (route) | Initial mixed-play implementation | Complete one successful round, travel with the robots, and continue on another enabled planet |
-| Memory Moon | Placeholder | Recall weak material selected from all active planets |
+| Memory Moon | Playable sentence-meaning game | Choose the learner-base meaning of a target sentence |
 | Case Cosmos | Development slice handed off for interface refinement | Recognize why a Czech noun changes and compare its seven case forms |
 | Grammar Gravity | Content and gameplay slice implemented; interface refinement and review pending | Make related Czech words change together |
 | Sounds Quasar | Shared listening-practice pilot | Hear a word or sentence with device speech and choose its written form |
 | Battle of the Robots | Future main game | Use training and experience from the other planets to face the robot battles |
 
-Memory Moon is a review surface, not another grammar authority. It should draw
-stable challenge references and weak concept references from the other games;
-it must not maintain independent copies of their Czech answers.
+Memory Moon is playable in every course. The shared registry marks it
+`implemented`. Each course owns a `memoryMoonCatalog`, and that bank does not
+copy another planet's answer key.
 
-While Memory Moon remains a non-assessing placeholder, it is exempt from the
-enabled-game content-manifest gate. Before it becomes an active review game,
-it needs a reviewed policy/configuration JSON and a manifest for that config;
-its session queue may then be derived locally from progress and exact
-`gameId`, challenge ID, and revision references.
-
-Sounds Quasar is a non-assessing practice pilot. The shared shell owns its
-`sound-quasar` identity, presentation, emblem, and gameplay host. Czech,
-Mandarin, and Spanish declare course-owned word and sentence catalogs with
-provenance; no language forks its layout. Correct answers earn 1 XP, including
-correct retries. Reveals earn none. Synthesized speech remains unreviewed,
-and responses do not establish pronunciation mastery or Campaign completion.
+Sounds Quasar is listening practice. The shared shell owns its
+`sound-quasar` identity, presentation, emblem, and gameplay host. Each course
+that enables it declares a course-owned word and sentence catalog. No language
+forks its layout. Correct answers earn 1 XP, including correct retries.
+Reveals earn none. Synthesized speech remains unreviewed, and responses do
+not establish pronunciation mastery. Playable Sounds Quasar rounds are part
+of Campaign because the registry includes every implemented planet.
 
 ### Campaign Mode — mixed travel between planets
 
@@ -157,9 +163,9 @@ or independent evidence authority. The active source game continues to own the
 challenge, answer, revision, feedback, and learning record through its existing
 reviewed JSON.
 
-The initial route includes Word World, Verb Nebula, Conjugation Comet when the
-language enables it, Case Cosmos, and Grammar Gravity. It excludes Memory Moon
-while that surface remains a non-assessing placeholder. Entering Campaign Mode
+The current route includes every implemented planet the course can play,
+including Sounds Quasar and Naturalization Nucleus when that course declares
+them. Memory Moon is one of those planets. Entering Campaign Mode
 selects a ready implemented planet from a shuffled route. After a genuinely
 successful round—not a reveal, incomplete attempt, or incorrect submission—the
 shell shows only an existing robot loading image and opens another planet. The
@@ -167,8 +173,9 @@ same robot-only transition appears before the first Campaign planet. When more
 than one planet is playable, the next one must not immediately repeat the one
 just completed; a one-game course keeps sampling that game. Campaign Mode's
 own icon and title remain the visible route identity while the underlying
-planet changes. Sounds Quasar is excluded because its device-speech pilot
-provides practice only.
+planet changes. Sounds Quasar is included when the course declares it. Its
+device-speech rounds remain unreviewed practice and do not create
+pronunciation mastery.
 
 This random first version is variety, not curriculum guidance. It must not
 claim that a learner is ready, that a concept is mastered, or that a particular
@@ -377,7 +384,7 @@ linguistic facts are shared:
 | Case Cosmos | Directly authored bounded development sample; later shared reviewed paradigms, government records, lesson plan, and contexts only if evidence justifies them | `case-cosmos/content.json`, used directly by the game |
 | Grammar Gravity | Directly authored bounded development sample; add shared morphology only after demonstrated reuse | `grammar-gravity/content.json`, used directly by the game |
 | Sounds Quasar | Course-owned word and sentence records with upstream provenance and unreviewed device-speech metadata | `soundQuasarCatalog` pins `data/games/sound-quasar/content.json` at `sound-quasar-items-v2` |
-| Memory Moon | A game-owned review policy plus runtime references to exact challenges from the other manifests | Its own configuration JSON and reference queue; never copied Czech answers |
+| Memory Moon | Course-owned `static/data/games/memory-moon/content.json` | Playable shared host. Questions are not copies of another planet's answers |
 
 The general JSON modules authorize reusable Czech facts. The game-owned lesson
 plan or construction source authorizes what the planet may teach, in which
@@ -1495,9 +1502,9 @@ source metadata, and the practice-only audio contract.
 
 Words are selected from each course's existing Verb Nebula vocabulary.
 Sentences are selected from the existing Word World sentence resources.
-Their source review states are retained: the Czech source has no independent
-review declaration; Mandarin and Spanish require native review. Selection
-for this game does not grant content or release approval.
+Their source review states are retained. Selection for this game does not
+grant content or release approval. Native review remains pending wherever the
+course manifest still requires it.
 
 Speech uses the course's configured device locale and current speech settings.
 The waveform is synthesized at playback time and is explicitly unreviewed.
@@ -1510,7 +1517,7 @@ All courses open `/language-runtime/static/games/sound-quasar.html`.
 The registry requires the `speech` capability and the course catalog, and
 sets `campaignEligible: false`. Browser offline closure includes the shared
 host, controller, styles, and course data. Android packages the same assets
-for its enabled Czech and Mandarin courses; Spanish remains local-only.
+for every Android-enabled course that declares `soundQuasarCatalog`.
 
 ### 9.4 Later assessment work
 
@@ -1647,7 +1654,7 @@ enabled:
 - Verb Nebula currently derives some identities from array position. It needs
   a finite stable-ID challenge pack plus an explicit localStorage and semantic
   evidence crosswalk or retirement decision.
-- Memory Moon remains exempt while it is a non-assessing placeholder.
+- Memory Moon is playable from each course's own question bank.
 
 ### Milestone -1 — Product and data feasibility
 

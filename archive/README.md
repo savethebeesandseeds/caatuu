@@ -5,7 +5,7 @@ for history or future reference. Archived code is not part of the active
 runtime contract and should not be used as a source of current setup guidance.
 
 - [`caatuu-chinese`](caatuu-chinese/) preserves the earlier Chinese language
-  application while the active reference course is Czech.
+  application. It is not a current course pack.
 - [`demos`](demos/) preserves retired browser experiments without exposing
   them through the active runtime.
 

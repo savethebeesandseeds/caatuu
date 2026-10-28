@@ -80,11 +80,12 @@ retain local browser previews with public Pages delivery disabled.
 | <img src="apps/launcher/static/assets/icons/latin_mark.png" width="64" alt="Latin course emblem"> | English | Scientific Latin (Neo-Latin) | `/la/` | Local development preview |
 | <img src="apps/launcher/static/assets/icons/georgian_flag.png" width="64" alt="Georgian flag"> | English | Georgian | `/ka/` | Local development preview |
 
-Czech is the active reference course and the course shown in the game
-screenshots. Other courses retain their development status and pending reviews;
-Pages-enabled previews remain `noindex`. This table describes the current
-source checkout. Courses available on the public website or in an installed APK
-depend on the version that was published.
+Every course is the same application. A manifest declares that course's
+languages, content, and capabilities. The screenshots show Czech sentences
+because that art already existed. This table describes the current source
+checkout.
+Courses on the public website or in an installed APK depend on the version
+that was published.
 
 The [Norwegian course report](docs/NORWEGIAN_BOKMAL_COURSE_20260909.md) records its
 expanded banks, Bokmål conventions, validation, and remaining review. Registering

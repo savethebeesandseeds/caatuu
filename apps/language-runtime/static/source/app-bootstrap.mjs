@@ -756,7 +756,7 @@ async function loadCourseFeatureProviders() {
     origin: location.origin,
     routeBase,
     async initializeWorkspace() {
-      await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-58");
+      await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-59");
       const workspace = await globalThis.CaatuuWorkspaceReady;
       if (workspace?.ready !== true) {
         throw workspace?.error instanceof Error
@@ -791,7 +791,7 @@ async function start() {
     axes: sharedPracticeAxes,
     ...createPracticeCompass({ course, learning: globalThis.CaatuuLearning })
   });
-  await loadSharedScript("/language-runtime/static/source/caatuu-chrome.js?v=chrome-200");
+  await loadSharedScript("/language-runtime/static/source/caatuu-chrome.js?v=chrome-201");
   globalThis.CaatuuGameDynamics = installGameDynamics({
     scope: globalThis,
     onPauseChange(paused) {

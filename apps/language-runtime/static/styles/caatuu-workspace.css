@@ -1688,6 +1688,10 @@ button:focus-visible {
 .embedded-game-panel {
   min-height: 0;
 }
+/* Course selection belongs to the host, including its otherwise empty inline wrapper. */
+body.caatuu-embedded-shell > .course-selection-host {
+  display: none !important;
+}
 .word-net-embedded-stage {
   position: relative;
   width: 100%;

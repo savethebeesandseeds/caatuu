@@ -5030,7 +5030,7 @@ function handleCampaignGameMessage(event) {
   if (event.origin !== window.location.origin) return;
   const message = event.data;
   if (message?.source !== "caatuu-game" || !(message.type === "round-success"
-    || (message.type === "round-complete" && ["sound-quasar", "conjugation-comet", "memory-moon"].includes(message.gameId)))) return;
+    || (message.type === "round-complete" && ["sound-quasar", "conjugation-comet", "memory-moon", "case-cosmos"].includes(message.gameId)))) return;
   const gameId = String(message.gameId || "");
   if (["word-net", "naturalization-nucleus"].includes(gameId) && event.source === window) {
     void completeCampaignRound(gameId, window);

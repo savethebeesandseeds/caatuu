@@ -1,6 +1,8 @@
 # Adaptive learning: milestone checkpoint
 
-21 September 2026. This phase is complete. This checkpoint preserves the
+21 September 2026. This phase is complete. Counts of "five courses" below are
+the catalog at the time of those checks. The catalog now has eight courses.
+This checkpoint preserves the
 implementation and existing research; it starts no new learning objective and
 does not publish a website or APK. The previous source checkpoint is
 `f91554334e0c4a5a9e3f9d2e021519881d3516d3`; this document is committed with the
@@ -52,10 +54,13 @@ and checked for all five courses. No policy experiments or publication ran.
 - Goals persist per course and influence future sampling. Changing a goal
   does not rewrite learning records or reshape recorded practice evidence.
 - Stats and the seven-topic practice polygon use one shared implementation.
-  The map accumulates distinct practice evidence; independently assessed items
-  remain distinct from assisted/exposure evidence and include unaided mistakes.
-  It measures neither mastery, accuracy, recall probability nor course completion.
-  Topic and game details remain available in the shared Stats dialogs.
+  The Stats figure is the exact recorded counts: independent attempts, help
+  recorded, other practice, and due identities. The polygon under those counts
+  is a map of where English meanings landed. Landed and did-not-land counts
+  are shown with the shape. Independently assessed items remain distinct from
+  assisted and exposure evidence and include unaided mistakes. The screen
+  measures neither mastery, accuracy, recall probability nor course completion.
+  Game counts stay on the Stats screen. Topic counts stay in the map dialog.
 - Existing difficulty-change handling now replaces the active noun-practice
   queue without crediting an unfinished attempt or losing completed evidence.
 

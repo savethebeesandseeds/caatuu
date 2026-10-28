@@ -38,7 +38,7 @@ Mandarin offline/setup catalogs, while remaining absent from the Czech course.
 | Final dimensions | 1254 x 1254 pixels |
 | Final byte count | 790655 |
 | Final SHA-256 | `aca07dcd615c021c00896ecd8698f14cf2f47522a64dc9e2a2cb539dc9a88e64` |
-| Runtime status | Shared coming-later placeholder for every browser course |
+| Runtime status | Integrated on 2026-09-04 as a shared emblem. Sounds Quasar is now an implemented game. This record still does not grant redistribution rights |
 | Release status | Follow each course's release allowlist; the placeholder is not gameplay authority |
 | Attribution decision | Pending explicit owner decision |
 

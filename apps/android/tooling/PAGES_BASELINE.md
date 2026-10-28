@@ -1,8 +1,10 @@
 # Android Pages preservation baseline
 
 The large preservation archive permanently holds previous stable 162
-(`0.1.10`), transition 161, and their setup dependencies. Current stable 163
-(`0.1.11`) is a small separately pinned overlay. The Pages workflow does not
+(`0.1.10`), transition 161, and their setup dependencies. Stable 163
+(`0.1.11`) is the first small separately pinned overlay. The public alias
+follows the newest append-only entry. As of 27 October 2026 that entry is
+stable 195 (`0.1.43`). The Pages workflow does not
 run Gradle, change a version, or sign an APK.
 
 The deterministic preservation archive is:
@@ -87,8 +89,8 @@ runtime can remain opt-in for deliberate development and APK/API tests.
 Transition 161 remains available only at its immutable version path and the
 technical `caatuu-debug.*` compatibility aliases needed by already-installed
 preview clients. Pages does not publish `caatuu-preview.*`, and the public
-launcher currently advertises signed, non-debuggable stable 163; future
-descriptor appends advertise only the newest signed stable release. This
+launcher advertises the newest signed, non-debuggable stable release in the
+append-only descriptor. Stable 163 was the first of those overlays. This
 prevents the debuggable transition package from becoming an ungated automatic
 fallback.
 

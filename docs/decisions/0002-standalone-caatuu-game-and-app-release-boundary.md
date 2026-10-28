@@ -3,6 +3,10 @@
 Status: application separation remains accepted; prototype lifecycle superseded
 on 2026-09-06 by the [paused concept record](../../apps/games/lab/RESUME.md).
 
+A later sentence-meaning planet also uses the name Memory Moon. That planet
+is playable inside the language app, and it is not the Godot adventure this
+decision retires.
+
 The following records the historical Godot preview decision. Its source and
 export definitions are now archived, its game routes are retired, and the
 active game catalog is empty. Only the separate local art labs remain available.

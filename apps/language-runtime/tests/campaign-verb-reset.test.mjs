@@ -228,7 +228,7 @@ test("Next cannot skip an unsubmitted reconstruction", async () => {
   assert.equal(game.state.campaignTransitioning, false);
 });
 
-for (const gameId of ["sound-quasar", "conjugation-comet"]) test(`${gameId} batch completion uses the campaign transition only for the verified game frame`, () => {
+for (const gameId of ["sound-quasar", "conjugation-comet", "case-cosmos"]) test(`${gameId} batch completion uses the campaign transition only for the verified game frame`, () => {
   const calls = [];
   const messages = [];
   const frameWindow = { postMessage: (data, origin) => messages.push({ data, origin }) };

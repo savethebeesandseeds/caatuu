@@ -112,8 +112,8 @@ source locale must declare the same interface-catalog path and revision.
   `browserSetup.courses` separately contains browser-enabled active and
   development courses. Neither is a second configuration authority.
 - Each enabled authored game names a present, course-scoped content resource.
-  In Czech, game-owned data lives under
-  `apps/languages/czech/static/data/games/<game-id>`. Merely declaring a route
+  Game-owned data lives under
+  `apps/languages/<course>/static/data/games/<game-id>`. Merely declaring a route
   or capability must never make a planet playable without its declared data.
   That same shared planet registry names an `englishAuditContract` for each
   authored resource. Course validation reads the real catalogs (including the
@@ -178,8 +178,9 @@ language has Czech verbs, a Czech-English dictionary, or the same model slots.
 The mandatory English translation/audit anchor on each learning item is not
 the `dictionary` capability. `dictionary` means a complete interactive
 lexicon/search provider.
-Czech currently has that feature; Mandarin and Spanish have authored token
-glosses and English concepts but no full dictionary. A new full dictionary
+Only Czech currently declares that feature. The other registered courses keep
+English audit text and may supply token glosses, but they do not claim a full
+dictionary. A new full dictionary
 must supply a language-neutral provider and presentation contract instead of
 selecting the Czech implementation through a boolean flag. A dictionary-
 enabled manifest explicitly declares five present, course-scoped resources:
@@ -214,7 +215,7 @@ generated profile projects that resource directly as
 Czech runtime dependency or inferred path. The shared loader discriminates by
 schema rather than course ID: it accepts the legacy `models` artifact catalog
 used by the Czech vector database or the versioned course embedding-selection
-schema used by Mandarin, Spanish, and future courses. A course selection must name its
+schema used by every registered course after Czech. A course selection must name its
 own course, keep English `embeddingText` as the only model input, reject target
 text and pronunciation as embedding inputs, and declare its runtime notices.
 
@@ -234,33 +235,38 @@ example, Conjugation Comet requires `verb-conjugation`, Case Cosmos requires
 
 ## Current course and planet support
 
-| Course | Lifecycle | Manifest-declared planets | Upcoming | Full dictionary |
-| --- | --- | --- | --- | --- |
-| Czech (`cz`, target `cs-CZ`) | Active | Campaign, Verb Lab, Word World, Conjugation Comet, Case Cosmos, Grammar Gravity, Sounds Quasar | Memory Moon | Yes |
-| Mandarin (`zh`, target `zh-Hans`) | Development preview | Verb Lab, Word World, Naturalization Nucleus, Sounds Quasar | Memory Moon | No |
-| Spanish (`es`, target `es-ES`) | Local development preview | Verb Lab, Word World, Conjugation Comet, Grammar Gravity, Sounds Quasar | Memory Moon | No |
+`apps/languages/catalog.json` is the course list. Every course is the same
+application. Public Pages includes a course only when
+`platforms.browser.pagesEnabled` is true. Every course below is
+browser-enabled and Android-enabled. The Android column is that course's
+`minimumVersionCode`. Each row is that course's manifest. Czech's manifest
+records `status` `active` and publication contract `legacy-active-v1`. Every
+other course records `development` and `language-content-v1`.
 
-All three current courses use English as `sourceLanguage`. Their established
-`/cz`, `/zh`, and `/es` prefixes remain compatibility identities for those
-specific directional courses; they are not direction-neutral language routes
-that a reverse or other non-English-base course may reuse. No non-English-base
-course or translated interface catalog is registered yet.
+| Course | Route | Base → target | Pages | Android from | Declared games | Full dictionary |
+| --- | --- | --- | --- | --- | --- | --- |
+| Czech | `/cz/` | English → Czech (`cs-CZ`) | Yes | 160 | Campaign, Verb Nebula, Word World, Conjugation Comet, Case Cosmos, Grammar Gravity, Sounds Quasar, Memory Moon | Yes |
+| Mandarin | `/zh/` | English → Mandarin (`zh-Hans`) | Yes, `noindex` | 161 | Verb Nebula, Word World, Naturalization Nucleus, Sounds Quasar, Memory Moon | No |
+| Spanish | `/es/` | English → Spanish (`es-ES`) | Yes, `noindex` | 170 | Verb Nebula, Word World, Conjugation Comet, Grammar Gravity, Sounds Quasar, Memory Moon | No |
+| English from Spanish | `/es-en/` | Spanish → English (`en-US`) | Yes, `noindex` | 168 | Verb Nebula, Word World, Conjugation Comet, Grammar Gravity, Sounds Quasar, Memory Moon | No |
+| Norwegian Bokmål | `/nb/` | English → Norwegian Bokmål | Yes, `noindex` | 172 | Verb Nebula, Word World, Conjugation Comet, Grammar Gravity, Sounds Quasar, Memory Moon | No |
+| Modern Standard Arabic | `/ar/` | English → Arabic | No | 179 | Verb Nebula, Word World, Conjugation Comet, Grammar Gravity, Naturalization Nucleus, Sounds Quasar, Memory Moon | No |
+| Scientific Latin | `/la/` | English → Latin | No | 179 | Verb Nebula, Word World, Conjugation Comet, Grammar Gravity, Memory Moon | No |
+| Georgian | `/ka/` | English → Georgian | No | 179 | Verb Nebula, Word World, Conjugation Comet, Grammar Gravity, Memory Moon | No |
 
-All three are browser-enabled in source. Pages currently includes Czech and
-Mandarin; Android contains Czech and Mandarin only. Spanish remains local-only
-until a licensed publication is explicitly enabled.
+These prefixes belong to those directional courses. They are not
+direction-neutral language routes. English is the learner base except on
+`/es-en/`, which uses the Spanish interface catalog `es.v1.json`. Every
+English-base course uses `en.v1.json`.
 
-Spanish's current playable authored set is Verb Lab, Word World, Conjugation
-Comet, Grammar Gravity, and Sounds Quasar. The generated course profile exposes each
-course-owned, revisioned catalog through `gameContent`; shared game hosts read
-only that projection and never infer a language directory. Conjugation Comet
-and Grammar Gravity use the registry's exact language-neutral host routes,
-`/language-runtime/static/games/conjugation-comet.html` and
-`/language-runtime/static/games/grammar-gravity.html`. Czech, Spanish, and
-future courses therefore share the same game document, layout, styles, host,
-and core controller. Language-specific copy, rules, accepted answers, and
-custom presentation remain reviewed course content or adapter behavior inside
-the shared layout rather than course-owned game forks.
+The generated course profile exposes each course-owned, revisioned catalog
+through `gameContent`. Shared game hosts read only that projection and never
+infer a language directory. Conjugation Comet, Grammar Gravity, and Sounds
+Quasar use the registry's language-neutral hosts under
+`/language-runtime/static/games/`. Memory Moon uses that same shared host and
+is playable in every course through `memoryMoonCatalog`. Language-specific copy, rules, accepted
+answers, and custom presentation remain reviewed course content or adapter
+behavior inside the shared layout.
 
 Except for the exact `/` language selector and a route key's exact
 registry-declared shared host, course routes are confined relative paths.
@@ -288,23 +294,20 @@ Planet readiness is a conjunction, not a language allowlist:
 | Word World | `wordWorldManifest` | `wordWorld` capability and `routes.wordWorld` |
 | Conjugation Comet | `conjugationCometCatalog` | `conjugationComet`, `verb-conjugation`, and its route |
 | Case Cosmos | `caseCosmosCatalog` | `grammatical-case` and its route |
-| Grammar Gravity | `grammarGravityCatalog` | `grammatical-agreement` and its route |
-| Naturalization Nucleus | `naturalizationNucleusCatalog` | `hanzi-pinyin` with a Chinese target, or `arabic-romanization` with an Arabic target, and its route |
-| Memory Moon | No authored catalog yet | `memory` and its route when promoted from upcoming |
+| Grammar Gravity | `grammarGravityCatalog` and `grammarGravityNouns` | `grammatical-agreement` and its route |
+| Naturalization Nucleus | `naturalizationNucleusCatalog` | `hanzi-pinyin` or `arabic-romanization`, and its route |
+| Memory Moon | `memoryMoonCatalog` | `memory` capability and the shared `routes.memoryMoon` host |
 | Sounds Quasar | `soundQuasarCatalog` | `speech` and the shared `routes.soundQuasar` host; device speech is practice only |
-| Campaign | No separate catalog | Its route and at least one explicitly Campaign-eligible playable planet |
+| Campaign | No separate catalog | At least one playable implemented planet |
 
-Mandarin and Spanish do not declare Campaign directly; Spanish Campaign is
-derived by the shared shell from its eligible playable planets. One immutable shared registry now governs
-planet IDs, routes, capabilities, linguistic features, content resources, and
-Campaign eligibility in both browser runtime and language-pack validation.
-Verb Lab, Word World, Conjugation Comet, Case Cosmos, and Grammar Gravity are
-Campaign-eligible; Naturalization Nucleus, Memory Moon, and Sounds Quasar are
-intentionally not. The base Campaign mechanic is available after one eligible
-planet, whether its availability is derived by the shell or validated from an
-explicit course declaration. For a non-English learner base, every contained
-playable planet must additionally satisfy a registered learner-base
-presentation contract.
+Only Czech lists `campaign` in `games`. Availability for every course still
+comes from `apps/language-runtime/static/source/shell-policy.js`. That
+registry puts every implemented, playable planet into Campaign, including
+Sounds Quasar, Naturalization Nucleus, and Memory Moon when the course
+declares them. There is no second
+allowlist. Campaign is available once one
+eligible planet is playable. For a non-English learner base, every contained
+planet must also satisfy its learner-base presentation contract.
 
 ## Semantic and realization boundary
 

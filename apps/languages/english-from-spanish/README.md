@@ -38,23 +38,25 @@ to English nouns. Sounds Quasar uses 16 words and 16 sentences with Spanish
 meanings and unreviewed device speech for listening practice. Its vocabulary
 source is shared with Verb Nebula under the established vocabulary path.
 
-Campaign includes the four campaign-eligible games above; Sounds Quasar remains
-standalone. Case Cosmos has no English case curriculum, Naturalization Nucleus
-requires Hanzi/pinyin material, and Memory Moon has no implemented game, so none
-is enabled by this addition.
+Campaign includes every implemented planet this course can play, including
+Sounds Quasar and Memory Moon. Case
+Cosmos has no English case curriculum, and Naturalization Nucleus requires
+Hanzi or Arabic romanization, so neither is enabled.
 
 Spanish interface messages come from the shared `es.v1.json` catalog. The two
 grammar catalogs also own Spanish lesson instructions, cues, and feedback.
-Pronunciation guides, generated sentences, LLM, chat, full dictionary, Skill
-Compass, and Memory Moon are disabled. MiniLM and lexical retrieval continue to
-consume only the shared English `embeddingText` field.
+Pronunciation guides, generated sentences, LLM, chat, and the full dictionary
+are disabled. MiniLM and
+lexical retrieval continue to consume only the shared English `embeddingText`
+field.
 
 Target tokens, Spanish token meanings and grammar material receive iterative
-editorial review. The existing metadata records no independent human review or
-separate license clearance; the practical content review above does not invent
-either. Active-course promotion still requires recorded native-review and
-release-license clearance. Device speech is listening practice, not
-pronunciation assessment.
+editorial review. Native review remains pending. The identified original
+curriculum is `release-cleared` under the
+[9 September owner approval](../../../docs/CURRICULUM_LICENSE_APPROVAL_20260909.json).
+That approval is distribution licensing, not linguistic sign-off. Active-course
+promotion still requires recorded native review. Device speech is listening
+practice, not pronunciation assessment.
 
 Run focused checks in the established container:
 

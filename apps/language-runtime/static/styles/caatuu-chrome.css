@@ -583,7 +583,7 @@ html {
     min-width: 0;
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 2px;
+    gap: clamp(8px, 2.8vw, 14px);
   }
 
   .app-header .app-header-stat {
@@ -2484,10 +2484,13 @@ body.settings-open {
 @media (max-width: 480px) {
   .learning-direction-card .setting-select { grid-template-columns: minmax(0, 1fr); gap: 8px; }
 }
-.course-practice-totals { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; margin: 0; }
+.course-practice-totals { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; margin: 0; }
 .course-practice-totals > div { min-width: 0; padding: 12px 7px; border-radius: 12px; background: color-mix(in srgb, #519c91 15%, var(--panel)); }
-.course-practice-totals > div:nth-child(2) { background: color-mix(in srgb, #568bd9 17%, var(--panel)); }
-.course-practice-totals > div:nth-child(3) { background: color-mix(in srgb, #d79252 18%, var(--panel)); }
+.course-practice-totals > .is-items { grid-column: 1 / -1; }
+.course-practice-totals > .is-independent { background: color-mix(in srgb, #568bd9 17%, var(--panel)); }
+.course-practice-totals > .is-supported { background: color-mix(in srgb, #d79252 18%, var(--panel)); }
+.course-practice-totals > .is-unknown { background: color-mix(in srgb, #9d91b5 18%, var(--panel)); }
+.course-practice-totals > .is-due { background: color-mix(in srgb, #519c91 15%, var(--panel)); }
 .course-practice-totals dt { color: var(--muted); font-size: 0.65rem; font-weight: 750; line-height: 1.35; overflow-wrap: anywhere; }
 .course-practice-totals dd { margin: 5px 0 0; font-size: 1.45rem; font-weight: 850; }
 .course-practice-card p { margin: 0; font-size: 0.69rem; line-height: 1.5; }
@@ -2515,9 +2518,12 @@ body.settings-open {
 .course-practice-activity { padding-top: 8px; border-top: 1px solid var(--line); }
 @media (max-width: 380px) {
   .learning-direction-card, .course-practice-card { padding: 12px; }
-  .course-practice-totals { grid-template-columns: minmax(0, 1fr); gap: 5px; }
-  .course-practice-totals > div { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px; }
-  .course-practice-totals dd { margin: 0; font-size: 1.2rem; }
+  .course-practice-totals,
+  .skill-compass-coverage { grid-template-columns: minmax(0, 1fr); gap: 5px; }
+  .course-practice-totals > div,
+  .skill-compass-coverage > div { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px; }
+  .course-practice-totals dd,
+  .skill-compass-coverage dd { margin: 0; font-size: 1.2rem; }
 }
 
 .backpack-wallet {
@@ -2740,6 +2746,19 @@ body.settings-open {
 
 .skill-compass {
   min-width: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.skill-compass-intro {
+  display: grid;
+  gap: 2px;
+}
+
+.skill-compass-intro h3 {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.3;
 }
 
 .skill-compass-body {
@@ -2751,7 +2770,19 @@ body.settings-open {
 .skill-compass-status[hidden] { display: none; }
 .skill-compass-retry { justify-self: start; padding: 7px 10px; min-height: var(--caatuu-control-target-size, 44px); border: 1px solid var(--line); border-radius: 9px; background: var(--panel); color: var(--ink); font: inherit; font-size: 0.7rem; }
 .skill-compass-retry[hidden] { display: none; }
-.stats-detail-actions { display: flex; justify-content: space-evenly; gap: 12px; }
+.skill-compass-coverage {
+  width: 100%;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+  justify-self: stretch;
+}
+.skill-compass-coverage > div { min-width: 0; padding: 12px 7px; border-radius: 12px; background: color-mix(in srgb, #519c91 15%, var(--panel)); }
+.skill-compass-coverage > div:last-child { background: color-mix(in srgb, #9d91b5 18%, var(--panel)); }
+.skill-compass-coverage dt { color: var(--muted); font-size: 0.65rem; font-weight: 750; line-height: 1.35; overflow-wrap: anywhere; }
+.skill-compass-coverage dd { margin: 5px 0 0; font-size: 1.45rem; font-weight: 850; }
+.stats-detail-actions { display: flex; justify-content: flex-start; gap: 12px; }
 .stats-info {
   display: grid;
   grid-template-columns: 18px minmax(0, 1fr);

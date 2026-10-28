@@ -1,23 +1,18 @@
 # Caatuu Czech
 
-Caatuu Czech is a static browser app for Czech study and on-device WebLLM
-testing.
+This pack is the English-to-Czech course. The shared product document serves
+it at `/cz/`. This directory owns the Czech manifest, adapter, dictionaries,
+game catalogs, and optional local model assets. It does not own a separate
+application shell.
 
-The runtime app is Python-free. It serves files from `static/` and loads the
-current browser-ready Czech model export from `static/data/models/`.
+`course.json` is the identity and capability authority. Chat, the full
+dictionary, and the Czech model files under `static/data/models/` are
+capabilities declared by this manifest. Other courses declare their own.
 
-In the unified Caatuu container it is served at:
-
-```text
-/cz/
-/cz/index.html
-/cz/chat.html
-```
-
-Use the workspace README for container and Cloudflare commands:
+Use the workspace README for the local container:
 
 ```text
-C:\Work\caatuu\README.md
+../../../README.md
 ```
 
 The heavier ML workspace remains separate:

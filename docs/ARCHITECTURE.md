@@ -45,9 +45,11 @@ surface. It does not own language-specific learning logic.
 Owns the authoritative course catalog and one manifest-backed directory per
 target language. Each course owns its target realizations, language adapter,
 linguistic features, enabled games, platform enablement, capabilities, and narrow package asset
-catalog. Czech is the active reference course; Mandarin (`/zh/`) and Spanish
-(`/es/`) are development browser courses. Spanish is locally browser-enabled
-but withheld from Pages and Android while its release review is pending. The
+catalog. All eight courses use that same contract. Mandarin (`/zh/`),
+Spanish (`/es/`), English from Spanish (`/es-en/`), and Norwegian Bokmål
+(`/nb/`) are `noindex` Pages previews. Modern Standard Arabic (`/ar/`),
+Scientific Latin (`/la/`), and Georgian (`/ka/`) are local browser courses
+with public Pages delivery off. All eight courses are Android-enabled. The
 repository-only Chinese archive is not a course source.
 The exact shared-versus-language boundary is defined in
 [the language application contract](LANGUAGE_APP_CONTRACT.md).
@@ -67,8 +69,8 @@ inside the target pack and never enter the English embedding payload.
 Packages the catalog-selected set of Android-enabled courses behind the same
 shared document and supplies native capabilities such as offline llama.cpp
 inference, model lifecycle management, vector database installation, and
-application updates. The current bundle contains Czech, its default, and
-Mandarin. Spanish has Android disabled and is not packaged. BuildConfig and
+application updates. `apps/android/course-bundle.json` packages all eight
+catalog courses. The catalog default is `cz`. BuildConfig and
 asset selection are derived from the same course manifests and capability flags
 used by the browser/server contracts. The native bridge is an adapter; it must
 not silently fork browser behavior or expose a capability the selected course

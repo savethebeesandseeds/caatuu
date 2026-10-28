@@ -1,6 +1,6 @@
 # Grammar Gravity beginner-content review
 
-Date: 19 September 2026. Scope: every current Grammar Gravity phrase in Czech,
+Date: 19 September 2026. Later courses are outside this review. Scope: every current Grammar Gravity phrase in Czech,
 Spanish, English from Spanish and Norwegian Bokmål. Mandarin does not declare
 Grammar Gravity and has no corresponding agreement catalog to revise.
 

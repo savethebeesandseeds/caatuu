@@ -32,11 +32,13 @@ body.case-cosmos-page.case-cosmos-embedded > .app-shell > .app-footer { display:
   gap: 10px;
   width: 100%;
   margin-inline: auto;
+  padding-bottom: 10px;
 }
 .case-cosmos-vessel { display: grid; gap: 16px; min-width: 0; width: min(100%, 640px); margin: 90px auto 24px; touch-action: pan-y pinch-zoom; user-select: none; }
 .case-cosmos-boat { display: none; }
 .case-cosmos-noun-label { display: flex; align-items: baseline; gap: 8px; color: var(--theme-quiet, var(--muted)); font-size: 0.65rem; }
 .case-cosmos-noun-label strong { font-size: 0.8rem; color: var(--theme-ink, var(--ink)); }
+.case-cosmos-progress { position: absolute; inset-inline: 0; bottom: 4px; color: var(--theme-quiet, var(--muted)); font-size: 0.6rem; font-weight: 500; line-height: 1; text-align: center; pointer-events: none; }
 .case-cosmos-sentence-row { display: flex; align-items: center; justify-content: center; gap: 10px; min-width: 0; width: 100%; padding-block: 18px; }
 .case-cosmos-speak { grid-column: 3; grid-row: 1; display: grid; place-items: center; width: 52px; height: 52px; padding: 0; border: 0; border-radius: 8px; background: transparent; color: var(--theme-amber, #b77726); cursor: pointer; }
 .case-cosmos-speak:hover:not(:disabled) { color: color-mix(in srgb, var(--theme-amber, #b77726) 82%, var(--theme-ink, var(--ink))); }

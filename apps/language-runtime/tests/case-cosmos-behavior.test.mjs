@@ -295,7 +295,6 @@ test("Case Cosmos has one sentence, one proposed case, and two real answer butto
   assert.equal(game.element("Panel").contains(game.element("Info")), false);
   assert.equal(game.document.getElementById("caseCosmosPrompt"), null);
   assert.equal(game.element("Info").hidden, false);
-  assert.doesNotMatch(markup, /id="caseCosmosProgress"|One sentence at a time/u);
   assert.equal(game.document.body.classList.contains("case-cosmos-embedded"), true);
 });
 
@@ -564,12 +563,12 @@ test("English-to-Czech content cannot be mounted in a different course or learne
   }
 });
 
-test("a solved sentence earns once and stays until Continue hands off to Campaign", async () => {
+test("a solved sentence earns once and stays until Continue without ending the three-challenge round early", async () => {
   const game = await mountGame();
   const question = game.api.currentQuestion();
   game.element("Yes").click(); game.element("Yes").click(); game.api.chooseAnswer(false);
   assert.equal(game.api.state.phase, "solved");
-  assert.deepEqual(game.records[0].delta, { activities: 1, attempts: 1, successes: 1, rounds: 1, xp: 1 });
+  assert.deepEqual(game.records[0].delta, { activities: 1, attempts: 1, successes: 1, rounds: 0, xp: 1 });
   assert.equal(game.element("Next").hidden, false);
   assert.equal(game.element("Next").textContent, "Continue");
   await game.tick(120000);
@@ -581,8 +580,7 @@ test("a solved sentence earns once and stays until Continue hands off to Campaig
   game.element("Next").click(); game.element("Next").click();
   assert.equal(game.api.state.phase, "question");
   assert.equal(game.api.state.questionIndex, 1);
-  assert.equal(game.messages.length, 1);
-  assert.deepEqual({ ...game.messages[0].data }, { source: "caatuu-game", type: "round-success", gameId: "case-cosmos" });
+  assert.equal(game.messages.length, 0);
   assert.equal(game.records.length, 1);
   assert.equal(game.timers.length, 0);
 });
@@ -623,6 +621,8 @@ test("a correct No keeps the same noun form visible until Continue replaces only
   assert.equal(game.api.state.phase, "question");
   assert.notEqual(game.api.currentQuestion().form, old.form);
   assert.equal(game.api.currentChallenge(), challenge);
+  assert.equal(game.api.state.challengeIndex, 0, "rejecting an alternative stays within the same challenge");
+  assert.equal(game.api.state.roundCorrect, 0);
   assert.equal(game.element("Sentence").querySelector("mark"), mark);
   assert.equal(game.element("Sentence").childNodes[0], before);
   assert.equal(game.element("Translation").textContent, old.english);
@@ -650,9 +650,9 @@ for (const difficulty of [0, 1]) test(`band ${difficulty} sentence alternatives 
     }
     assert.equal(game.api.state.index, (noun + 1) % count);
   }
-  assert.equal(game.records.reduce((sum, entry) => sum + entry.delta.rounds, 0), total);
+  assert.equal(game.records.reduce((sum, entry) => sum + entry.delta.rounds, 0), Math.floor(total / 3));
   assert.equal(game.records.reduce((sum, entry) => sum + entry.delta.xp, 0), total);
-  assert.equal(game.messages.length, total);
+  assert.equal(game.messages.length, Math.floor(total / 3));
   assert.equal(game.timers.length, 0);
 });
 
@@ -737,7 +737,7 @@ test("review replay completion, failure and stop never dismiss a settled result"
     assert.equal(game.records.length, 1);
     game.element("Next").click(); game.element("Next").click();
     assert.equal(game.api.state.phase, "question");
-    assert.equal(game.messages.length, 1);
+    assert.equal(game.messages.length, 0);
     assert.equal(game.records.length, 1);
   }
 });
@@ -751,7 +751,7 @@ test("Continue may stop active review speech and late completion cannot consume 
   assert.equal(game.api.state.phase, "question");
   game.preferences.calls[0].complete(); await settle(); await game.tick(120000);
   assert.equal(game.api.currentQuestion(), question);
-  assert.equal(game.messages.length, 1);
+  assert.equal(game.messages.length, 0);
   assert.equal(game.records.length, 1);
 });
 test("difficulty changes rebuild eligible noun rounds and clear pending feedback without adding rewards", async () => {
@@ -829,7 +829,7 @@ test("campaign advance is origin-checked, cannot skip mistakes, and cannot doubl
   await game.tick(850);
   assert.equal(game.api.state.questionIndex, 2);
   assert.equal(game.api.state.phase, "question");
-  assert.equal(game.records.reduce((sum, entry) => sum + entry.delta.rounds, 0), 2);
+  assert.equal(game.records.reduce((sum, entry) => sum + entry.delta.rounds, 0), 0);
 });
 
 test("standalone success does not post a campaign message", async () => {
@@ -983,6 +983,12 @@ test("manual pronunciation reads the whole sentence and offers stop and replay",
 test("a verified Adventure reset prepares Case Cosmos silently after suspension", async () => {
   const game = await mountGame();
   game.shell.document.body.dataset.campaignActive = "true";
+  for (let index = 0; index < 2; index++) {
+    game.selectCandidate(true);
+    game.api.chooseAnswer(true);
+    game.element("Next").click();
+  }
+  game.selectCandidate(true);
   game.api.chooseAnswer(game.api.currentQuestion().matches);
   game.element("Next").click();
   assert.equal(game.api.state.phase, "solved");
@@ -1009,6 +1015,12 @@ test("returning to free play recovers a consumed Case Cosmos handoff without ski
   const send = active => game.window.dispatchEvent({ type: "message", origin: game.window.location.origin,
     source: game.window.parent, data: { source: "caatuu-app-shell", type: "visibility", active } });
   game.shell.document.body.dataset.campaignActive = "true";
+  for (let index = 0; index < 2; index++) {
+    game.selectCandidate(true);
+    game.api.chooseAnswer(true);
+    game.element("Next").click();
+  }
+  game.selectCandidate(true);
   game.api.chooseAnswer(game.api.currentQuestion().matches);
   send(false);
   game.shell.document.body.dataset.campaignActive = "false";
@@ -1021,7 +1033,57 @@ test("returning to free play recovers a consumed Case Cosmos handoff without ski
   game.shell.document.body.dataset.campaignActive = "false";
   send(true);
   assert.equal(game.api.state.phase, "question");
-  assert.equal(game.records.length, 1);
+  assert.equal(game.records.length, 3);
+});
+
+for (const difficulty of [0, 1, 2, 3]) test(`Case Cosmos completes a round after three reviewed challenges in band ${difficulty}`, async () => {
+  const exposures = [];
+  const game = await mountGame({ difficulty, duringLoad({ window }) {
+    window.CaatuuLearning.contentHistory = () => ({});
+    window.CaatuuLearning.recordExposure = (_gameId, event) => exposures.push(event);
+  } });
+  game.shell.document.body.dataset.campaignActive = "true";
+  for (let index = 0; index < 3; index++) {
+    assert.equal(game.element("Progress").textContent, `${index + 1} / 3`);
+    game.selectCandidate(true);
+    game.api.chooseAnswer(true);
+    game.api.chooseAnswer(true);
+    assert.equal(game.messages.length, 0, "the result waits for its review");
+    game.element("Next").click();
+    assert.equal(game.api.state.phase, index === 2 ? "solved" : "question");
+    assert.equal(game.messages.length, index === 2 ? 1 : 0);
+  }
+  assert.equal(exposures.length, 3, "each sentence retains its own learning evidence");
+  assert.equal(new Set(exposures.map(event => event.encounterId)).size, 3);
+  assert.equal(game.records.reduce((sum, entry) => sum + entry.delta.rounds, 0), 1);
+  assert.equal(game.records.reduce((sum, entry) => sum + entry.delta.xp, 0), 3);
+  game.element("Next").click();
+  assert.equal(game.messages.length, 1, "a consumed review cannot report the round twice");
+  game.window.dispatchEvent({ type: "message", origin: game.window.location.origin, source: game.window.parent,
+    data: { source: "caatuu-app-shell", type: "campaign-advance" } });
+  assert.equal(game.api.state.phase, "question");
+  assert.equal(game.element("Progress").textContent, "1 / 3");
+  assert.equal(game.api.state.roundCorrect, 0);
+});
+
+for (const correctCount of [0, 1]) test(`three challenges finish even with a final mistake and ${correctCount} correct answers`, async () => {
+  const game = await mountGame();
+  game.shell.document.body.dataset.campaignActive = "true";
+  for (let index = 0; index < 3; index++) {
+    game.selectCandidate(true);
+    game.api.chooseAnswer(index < correctCount);
+    game.element("Next").click();
+    if (index < 2) assert.equal(game.messages.length, 0);
+  }
+  assert.equal(game.api.state.phase, "mistake", "the third correction remains visible during handoff");
+  assert.equal(game.messages.length, 1);
+  assert.equal(game.messages[0].data.type, correctCount ? "round-success" : "round-complete");
+  assert.equal(game.records.reduce((sum, entry) => sum + entry.delta.rounds, 0), correctCount ? 1 : 0);
+  assert.equal(game.records.reduce((sum, entry) => sum + entry.delta.xp, 0), correctCount);
+  game.window.dispatchEvent({ type: "message", origin: game.window.location.origin, source: game.window.parent,
+    data: { source: "caatuu-app-shell", type: "campaign-advance" } });
+  assert.equal(game.api.state.phase, "question");
+  assert.equal(game.api.state.challengeIndex, 0);
 });
 
 test("mute is shared and prevents manual speech until the user unmutes", async () => {

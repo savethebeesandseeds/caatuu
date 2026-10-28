@@ -116,8 +116,8 @@ test("the compatibility course profile is generated exactly from course.json", a
   );
   assert.equal(context.window.CaatuuCourse.status, "development");
   assert.equal(context.window.CaatuuCourse.routePrefix, "/zh");
-  assert.deepEqual(JSON.parse(JSON.stringify(context.window.CaatuuCourse.games)), ["verb-lab", "word-net", "naturalization-nucleus", "sound-quasar"]);
-  assert.deepEqual(JSON.parse(JSON.stringify(context.window.CaatuuCourse.upcomingGames)), ["memory-moon"]);
+  assert.deepEqual(JSON.parse(JSON.stringify(context.window.CaatuuCourse.games)), ["verb-lab", "word-net", "naturalization-nucleus", "sound-quasar", "memory-moon"]);
+  assert.deepEqual(JSON.parse(JSON.stringify(context.window.CaatuuCourse.upcomingGames)), []);
   assert.equal(context.window.CaatuuCourse.capabilities.verbs, false);
   assert.equal(context.window.CaatuuCourse.routes.verbNebula, "index.html?game=verb-lab");
   assert.equal(context.window.CaatuuCourse.routes.naturalizationNucleus, "index.html?game=naturalization-nucleus");

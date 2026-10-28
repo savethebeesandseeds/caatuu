@@ -47,7 +47,7 @@
       schemaVersion: 1,
       locale: "en",
       direction: "ltr",
-      revision: "interface-en-54",
+      revision: "interface-en-55",
       catalog: "/language-runtime/static/data/interface/en.v1.json"
     },
     learnerBasePreview: false,
@@ -152,7 +152,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-54",
+            revision: "interface-en-55",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -212,7 +212,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-54",
+            revision: "interface-en-55",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -276,7 +276,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-54",
+            revision: "interface-en-55",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -340,7 +340,7 @@
             schemaVersion: 1,
             locale: "es-ES",
             direction: "ltr",
-            revision: "interface-es-29",
+            revision: "interface-es-30",
             catalog: "/language-runtime/static/data/interface/es.v1.json"
           },
           targetLanguage: {
@@ -379,7 +379,7 @@
                 grammarGravityNouns: "data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-1"
               },
               "sound-quasar": {
-                soundQuasarCatalog: "data/games/sound-quasar/content.json?v=sound-quasar-content-1"
+                soundQuasarCatalog: "data/games/sound-quasar/content.json?v=sound-quasar-content-2"
               },
               "memory-moon": {
                 memoryMoonCatalog: "data/games/memory-moon/content.json?v=memory-moon-1"
@@ -404,7 +404,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-54",
+            revision: "interface-en-55",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -471,7 +471,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-54",
+            revision: "interface-en-55",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -532,7 +532,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-54",
+            revision: "interface-en-55",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -593,7 +593,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-54",
+            revision: "interface-en-55",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {

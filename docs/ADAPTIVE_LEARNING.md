@@ -47,7 +47,7 @@ Backpack → Stats offers optional Balanced, Reinforce, Explore, Review and
 authored course topics. Balanced is the default; difficulty remains separate in
 Items. Goal changes apply when the next practice selection is made; an already
 assembled board is preserved. The direction card describes this future intent
-separately from the recorded-practice polygon above it.
+separately from the recorded practice counts and the meaning map above it.
 All five current course manifests provide optional `learningGoals`; courses may
 omit it. Each entry has exactly `id`, learner-base `label`, English `embeddingText`
 and `categories` matching existing course topics. The contract permits at most
@@ -64,12 +64,16 @@ the selected goal and the course's embedding capability.
 
 ## Shared course Stats
 
-Every course uses one practice polygon, defined in the shared runtime rather
-than a course manifest. Its seven everyday topics, geometry, evidence rules and
-formulas are identical; labels use the learner's interface language. Course
+Every course uses one Stats screen, defined in the shared runtime rather than
+a course manifest. The figure is the exact recorded counts: items practiced,
+independent attempts, help recorded, other practice, and identities due for
+review. The polygon under those counts is a map of where the English meanings
+of practiced items landed. Its seven everyday topics, geometry, evidence rules
+and formulas are identical; labels use the learner's interface language. Course
 catalogs supply exercise meanings and course-local journals supply evidence.
 There is no per-course Stats capability, axis pack or provider. Goal changes
-affect future selection, never the shape or recorded evidence.
+affect future selection, never the shape or recorded evidence. Readiness stays
+a practice-selection heuristic and is not shown on this screen.
 
 [practice-compass.mjs](../apps/language-runtime/static/source/practice-compass.mjs)
 resolves only encountered game/bank/item identities to authored English meanings
@@ -97,9 +101,9 @@ boundaries, not real-model semantic coverage; the browser check also shows
 partial maps for existing practice. Exact practice counts remain available
 regardless of topic placement.
 
-The optional Practice details disclosure reads
-`CaatuuLearning.practiceSummary({ now })` without model inference and provides
-exact counts alongside the polygon.
+The Stats figure reads `CaatuuLearning.practiceSummary({ now })` without model
+inference. The polygon is secondary. Landed and did-not-land counts sit with
+the shape, at the same visual weight as the practice figure.
 
 Each game/bank/item identity is counted once. Separate exercises and answer
 directions stay separate; there is no curriculum denominator or completion
@@ -111,9 +115,13 @@ reconstruct every historical unaided failure after later ambiguous events, so
 these are counts supported by retained records, not a new event ledger.
 
 The bar width is `100 × category count / largest game item count`. Colors also
-have text labels and exact counts. Totals show encountered identities, identities
-with independent evidence, and identities whose explicit modern due time is at
-or before `now`. Due items are a review schedule, not an estimate of forgetting.
+have text labels and exact counts. The figure shows encountered identities,
+identities with independent evidence, identities with help recorded, other
+practice, and identities whose explicit modern due time is at or before `now`.
+Due items are a review schedule, not an estimate of forgetting. The map's
+landed count is the identities that cleared the topic floor. The did-not-land
+count is the rest of the practiced identities, including grammar, sound, case,
+and other meanings that miss every topic.
 Activity totals use this course's history, while the header wallet remains a
 journey total. Empty, legacy, partial-read and unavailable states are explicit;
 an unavailable history does not appear as zero and the goal stays usable.

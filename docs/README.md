@@ -16,7 +16,7 @@ and implementation details stay beside the relevant app or tool.
 | [Static web hosting](STATIC_WEB_HOSTING.md) | Pages, Release assets, reporting Worker, DNS, validation, and rollback |
 | [Component release validators](COMPONENT_RELEASE_VALIDATORS.md) | Contract ownership, executable release checks, and explicit payload-closure gaps |
 | [Language application contract](LANGUAGE_APP_CONTRACT.md) | Rules separating the shared shell from language-owned behavior |
-| [Language games and Czech planet plan](GAMES.md) | Content authority, shared game backbone, and detailed plans for the missing Czech planets |
+| [Language games and Czech planet plan](GAMES.md) | Content authority, the live planet registry, and the Czech planet plan |
 | [Course content quality plan](COURSE_CONTENT_QUALITY_PLAN.md) | Scope, acceptance criteria and checkpoints for improving enabled course/game content to 85/100 |
 | [Current content execution plan](COURSE_CONTENT_EXECUTION_PLAN.md) | Content-only checkpoints, preserved gameplay and unchanged scoring gates |
 | [Retained content grading review](COURSE_CONTENT_RETAINED_REVIEW.md) | Item-level grading evidence, level counts and remaining review gaps |

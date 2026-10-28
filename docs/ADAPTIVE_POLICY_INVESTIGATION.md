@@ -3,6 +3,8 @@
 The [21 September follow-up](ADAPTIVE_POLICY_RUNTIME_ALIGNMENT.md) corrects
 the evaluator's recent-history input and reports five new policy comparisons.
 The frozen investigation below is a historical record under its original inputs.
+Its "five courses" are the courses registered for those runs. The catalog now
+has eight courses.
 
 This investigation continues the [adaptive-learning implementation](ADAPTIVE_LEARNING.md).
 It asks why the paced selectors performed worse than broad sampling in the

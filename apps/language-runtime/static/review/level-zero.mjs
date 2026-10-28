@@ -18,7 +18,7 @@ const response = await fetch('../data/interface/en.v1.json');
 if (!response.ok) throw new Error('Cannot load the review interface catalog.');
 installInterfaceContent(createInterfaceContent(await response.json()), window);
 await import('../source/learning-profile.js?v=learning-24');
-await import('../source/caatuu-chrome.js?v=chrome-200');
+await import('../source/caatuu-chrome.js?v=chrome-201');
 window.history.replaceState(window.history.state, '', reviewUrl.href);
 if (reviewOptions.get('game') === 'naturalization-nucleus') {
   const markupResponse = await fetch('../app/index.html');

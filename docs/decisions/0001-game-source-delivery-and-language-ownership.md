@@ -3,6 +3,8 @@
 Status: accepted
 
 Partially superseded by decision 0002 for the current standalone Caatuu Game.
+A later sentence-meaning planet also uses the name Memory Moon. That planet
+is playable in the language app, and it is outside this decision's Godot export.
 
 Date: 2026-08-03
 

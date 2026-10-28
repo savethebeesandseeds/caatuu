@@ -127,31 +127,54 @@ if (parameters.get("screen") !== "1") {
     setItem: (key, value) => saved.set(key, String(value)),
     removeItem: (key) => saved.delete(key),
   };
-  const totalBytes = 100_000_000;
-  const scope = {
-    document, CaatuuCourse: window.CaatuuCourse, CaatuuI18n: content,
-    location: { pathname: "/cz/index.html", origin: location.origin, href: `${location.origin}/cz/index.html` },
-    localStorage: memoryStorage, sessionStorage: memoryStorage,
-    setTimeout: window.setTimeout.bind(window), clearTimeout: window.clearTimeout.bind(window),
-    addEventListener: window.addEventListener.bind(window), removeEventListener: window.removeEventListener.bind(window),
-    matchMedia: window.matchMedia.bind(window),
-    CaatuuAndroid: {
-      isCourseBundled: (id) => id === window.CaatuuCourse.id,
-      postMessage(raw) {
-        const request = JSON.parse(raw);
-        const receive = (message) => queueMicrotask(() => scope.CaatuuNative.receive({ id: request.id, ...message }));
-        if (request.type === "setup_status" || request.type === "setup_abort") {
-          receive({ kind: "done", result: { ready: false, bytes: percent / 100 * totalBytes, expectedBytes: totalBytes } });
-        } else if (request.type === "setup_download") {
-          receive({ kind: "progress", phase: "asset_download", artifactIndex: 12, artifactCount: 28,
-            bytes: percent / 100 * totalBytes, totalBytes,
-            label: "Course illustrations", message: "Downloading course illustrations for offline use." });
-        }
+  if (parameters.has("app-update")) {
+    // Isolated update-availability review: production markup and controller,
+    // memory-only preferences, and no native download or installer access.
+    document.title = "Caatuu · Home update review";
+    document.body.classList.remove("setup-blocked");
+    saved.set("caatuu.appearance.theme.v1", theme);
+    Object.defineProperty(window, "localStorage", { value: memoryStorage });
+    Object.defineProperty(window, "sessionStorage", { value: memoryStorage });
+    window.CaatuuI18n = content;
+    window.CaatuuRuntime = { env: "android", maintenance: {
+      updateStatus: async () => ({ selfUpdateEnabled: true, currentVersionCode: 1,
+        latestVersionCode: 2, updateAvailable: parameters.get("app-update") !== "current" }),
+      updateApp: async () => { throw new Error("Local preview only; no update is started."); },
+    } };
+    window.CaatuuAndroid = { isCourseBundled: () => true };
+    const card = root.querySelector("#nativeSetup");
+    card.hidden = true;
+    card.classList.add("is-ready");
+    await import("../source/caatuu-chrome.js?v=chrome-201");
+    await import("../source/maintenance-ui.js?v=maintenance-27");
+    await window.CaatuuMaintenanceUi.getUpdateController().refresh({ announce: false });
+  } else {
+    const totalBytes = 100_000_000;
+    const scope = {
+      document, CaatuuCourse: window.CaatuuCourse, CaatuuI18n: content,
+      location: { pathname: "/cz/index.html", origin: location.origin, href: `${location.origin}/cz/index.html` },
+      localStorage: memoryStorage, sessionStorage: memoryStorage,
+      setTimeout: window.setTimeout.bind(window), clearTimeout: window.clearTimeout.bind(window),
+      addEventListener: window.addEventListener.bind(window), removeEventListener: window.removeEventListener.bind(window),
+      matchMedia: window.matchMedia.bind(window),
+      CaatuuAndroid: {
+        isCourseBundled: (id) => id === window.CaatuuCourse.id,
+        postMessage(raw) {
+          const request = JSON.parse(raw);
+          const receive = (message) => queueMicrotask(() => scope.CaatuuNative.receive({ id: request.id, ...message }));
+          if (request.type === "setup_status" || request.type === "setup_abort") {
+            receive({ kind: "done", result: { ready: false, bytes: percent / 100 * totalBytes, expectedBytes: totalBytes } });
+          } else if (request.type === "setup_download") {
+            receive({ kind: "progress", phase: "asset_download", artifactIndex: 12, artifactCount: 28,
+              bytes: percent / 100 * totalBytes, totalBytes,
+              label: "Course illustrations", message: "Downloading course illustrations for offline use." });
+          }
+        },
       },
-    },
-  };
-  // Incomplete by design: keep this one simulated download visible for review.
-  void initializeHomeCourseSetup(scope).catch((error) => {
-    if (error.name !== "AbortError") throw error;
-  });
+    };
+    // Incomplete by design: keep this one simulated download visible for review.
+    void initializeHomeCourseSetup(scope).catch((error) => {
+      if (error.name !== "AbortError") throw error;
+    });
+  }
 }

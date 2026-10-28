@@ -43,6 +43,8 @@ function mount(course, projection) {
     make("span", id, body);
   make("progress", "semanticSkillCompassProgress", body);
   make("button", "semanticSkillCompassRetry", body);
+  make("dd", "semanticSkillCompassMapped", body);
+  make("dd", "semanticSkillCompassUnmapped", body);
   const dialogs = ["skillCompassDetailsDialog", "coursePracticeDetailsDialog"].map(id => {
     const trigger = make("button", "", stats);
     trigger.dataset.statsDialog = id;
@@ -84,9 +86,17 @@ test("all courses render the same seven-axis polygon for the same evidence", asy
     await flush();
     assert.equal(practice.getAttribute("points"), reference, "goals do not change recorded shape");
     assert.equal(app.chart.querySelector("title").textContent, app.content.t("settings.compass.charttitle"));
-    assert.ok(app.panel.innerHTML.indexOf('id="semanticSkillCompass"') < app.panel.innerHTML.indexOf('class="learning-direction-card"'));
-    assert.ok(app.panel.innerHTML.includes('<div class="skill-compass"'));
-    assert.ok(app.panel.innerHTML.includes('<dialog class="stats-details-dialog" id="coursePracticeDetailsDialog"'));
+    assert.equal(app.document.querySelector("#semanticSkillCompassMapped").textContent, "1");
+    assert.equal(app.document.querySelector("#semanticSkillCompassUnmapped").textContent, "0");
+    const statsMarkup = app.panel.innerHTML.slice(
+      app.panel.innerHTML.indexOf('id="statsViewPanel"'),
+      app.panel.innerHTML.indexOf('id="settingsViewPanel"'));
+    assert.ok(statsMarkup.indexOf('id="coursePracticeItems"') < statsMarkup.indexOf('id="semanticSkillCompass"'));
+    assert.ok(statsMarkup.indexOf('id="semanticSkillCompass"') < statsMarkup.indexOf('class="learning-direction-card"'));
+    assert.ok(statsMarkup.includes('id="coursePracticeSupported"'));
+    assert.ok(statsMarkup.includes('id="semanticSkillCompassUnmapped"'));
+    assert.ok(statsMarkup.includes('<section class="skill-compass"'));
+    assert.equal(statsMarkup.includes('id="coursePracticeDetailsDialog"'), false);
     const detailsMarkup = app.panel.innerHTML.split('id="skillCompassDetailsDialog"')[1].split('</dialog>')[0];
     assert.ok(detailsMarkup.includes(app.content.t("settings.compass.explanation")),
       "Stats details retain the shared evidence interpretation in the learner's interface language");
@@ -107,6 +117,15 @@ test("empty, partial, unavailable and failed mapping preserve the common polygon
     const status = app.document.querySelector("#semanticSkillCompassStatus");
     assert.equal(status.hidden, projection.status === "empty");
     assert.equal(Boolean(status.textContent), projection.status !== "empty");
+    const mapped = app.document.querySelector("#semanticSkillCompassMapped").textContent;
+    const unmapped = app.document.querySelector("#semanticSkillCompassUnmapped").textContent;
+    if (projection instanceof Error) {
+      assert.equal(mapped, "—");
+      assert.equal(unmapped, "—");
+    } else {
+      assert.equal(mapped, "0");
+      assert.equal(unmapped, "0");
+    }
   }
 });
 
@@ -128,6 +147,8 @@ test("completed mapping keeps matched and unmatched item accounting visible", as
   assert.equal(status.textContent, app.content.t("settings.compass.completemessage", {
     mapped: 1, total: 2, unmatched: 1
   }));
+  assert.equal(app.document.querySelector("#semanticSkillCompassMapped").textContent, "1");
+  assert.equal(app.document.querySelector("#semanticSkillCompassUnmapped").textContent, "1");
   assert.equal(app.document.querySelector("#semanticSkillCompassRetry").hidden, true,
     "completed topic nonmatches do not need a retry control");
 });
@@ -166,6 +187,8 @@ test("reopening Stats refreshes without a learning event and failed refresh clea
     .fill(app.content.t("settings.compass.notmapped")));
   assert.notEqual(description.textContent, oldDescription);
   assert.equal(description.textContent, app.content.t("settings.compass.errormessage"));
+  assert.equal(app.document.querySelector("#semanticSkillCompassMapped").textContent, "—");
+  assert.equal(app.document.querySelector("#semanticSkillCompassUnmapped").textContent, "—");
   for (const selector of ["[data-semantic-compass-practice]", "[data-semantic-compass-strength]"]) {
     assert.equal(app.chart.querySelector(selector).classList.contains("is-hidden"), true);
   }

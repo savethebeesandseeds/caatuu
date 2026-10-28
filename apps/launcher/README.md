@@ -4,11 +4,10 @@ This app is the static browser landing page for the workspace. It is served at
 `/` by the Rust server in `apps/server`.
 
 The launcher discovers all supported courses from `static/languages.json`.
-Czech is the default active course; Mandarin, Spanish for English speakers,
-and English for Spanish speakers retain their development-preview labels.
-All four courses are enabled for the browser, Pages, and Android. The
-`browserSetup` projection, launcher registry, and course selectors preserve
-development status without hiding those courses. Only courses with
+Every registered course uses the same selector. The catalog default id is
+`cz`. The
+`browserSetup` projection, launcher registry, and course selectors keep each
+course visible. Only courses with
 `platforms.browser.pagesEnabled` enter Pages routes and generated views.
 Availability changes reach the published website and installed Android app
 through their respective release workflows. Earlier Chinese work is preserved

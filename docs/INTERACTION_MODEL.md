@@ -5,7 +5,9 @@ objective is consistent interpretation of deliberate input across the active
 browser application and Android WebView. Source implementation and browser
 validation are complete; final packaging and boundary checks are recorded below.
 Android hardware checks remain separately identified until performed;
-publication is not part of this source-change goal.
+publication is not part of this source-change goal. The validation table
+records the five browser courses registered on that date. The catalog now has
+eight courses.
 
 The six source-work phases below are complete. Coverage includes the launcher,
 shared shell, enabled games, declared optional/developer tools and Android asset

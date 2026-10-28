@@ -1511,7 +1511,9 @@ body.app-update-lock [data-caatuu-app-header] button {
 
 .home-app-update:not([hidden]) {
   display: grid;
-  justify-items: end;
+  max-width: 100%;
+  margin-top: 8px;
+  justify-items: center;
   gap: 8px;
 }
 

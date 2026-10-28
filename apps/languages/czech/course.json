@@ -237,7 +237,7 @@
       "path": "apps/language-runtime/static/data/interface/en.v1.json",
       "scope": "shared",
       "state": "present",
-      "revision": "interface-en-54"
+      "revision": "interface-en-55"
     },
     "courseProfile": {
       "kind": "file",

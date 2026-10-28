@@ -1,5 +1,9 @@
 # Memory Moon content
 
+Memory Moon is a playable game. The shared registry marks it `implemented`,
+and every course lists it in `games`. The banks below are the course-owned
+question catalogs that game loads.
+
 Memory Moon has one independent editable `content.json` for every registered
 course, under `apps/languages/<course>/static/data/games/memory-moon/`.
 `resources.memoryMoonCatalog` in each course manifest owns its exact path.
@@ -130,11 +134,10 @@ does not generate embeddings and does not alter saved learner profiles.
 
 ## Production selection and evidence
 
-All eight courses enable the shared production host at
-`/language-runtime/static/games/memory-moon.html`; each course supplies its own
-declared JSON through generated course authority. Runtime code ships with the
-app, and each bank belongs to that course's offline and Android delivery. The
-local interaction demo remains separate and is excluded from release assets.
+The shared host at `/language-runtime/static/games/memory-moon.html` is not a
+stable game entry. Courses do not enable it through `games`. Draft JSON stays
+with the course that owns it. The local interaction demo remains separate and
+is excluded from release assets.
 
 Each round samples three questions at exactly the selected badge. The selector
 reads retained mistake and assistance evidence across the current course's

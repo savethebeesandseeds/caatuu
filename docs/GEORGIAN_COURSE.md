@@ -112,15 +112,16 @@ numerals need separate agreement treatment.
 
 ## Games and language behavior
 
-Enabled: Word World, Verb Nebula, Conjugation Comet and Grammar Gravity. Case
-Cosmos stays disabled: its current engine explicitly accepts only English →
-Czech, validates Latin-script nouns, and hard-codes Czech cases including
-accusative and locative. Georgian needs a different inventory with ergative and
-adverbial cases. Turning on that engine would teach incorrect categories.
-Georgian's seven cases are introduced in contextual Word World examples and
-sentence hints; conjugation contexts show the relevant subject/object cases.
-Naturalization Nucleus is not an alphabet trainer for Georgian, and Memory Moon
-is not implemented. Sounds Quasar and speech recognition remain disabled.
+Enabled: Word World, Verb Nebula, Conjugation Comet, Grammar Gravity, and
+Memory Moon. Case Cosmos
+stays disabled: its current engine explicitly accepts only English → Czech,
+validates Latin-script nouns, and hard-codes Czech cases including accusative
+and locative. Georgian needs a different inventory with ergative and adverbial
+cases. Turning on that engine would teach incorrect categories. Georgian's
+seven cases are introduced in contextual Word World examples and sentence
+hints; conjugation contexts show the relevant subject/object cases.
+Naturalization Nucleus is not an alphabet trainer for Georgian.
+Sounds Quasar and speech recognition remain disabled.
 Speech uses the shared browser/Android device speech provider. Playback depends
 on the device's Georgian support; pronunciation review remains pending.
 

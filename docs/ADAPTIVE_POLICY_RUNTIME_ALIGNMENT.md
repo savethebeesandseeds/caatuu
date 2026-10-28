@@ -4,7 +4,8 @@ This manual follow-up to the [candidate-access investigation](ADAPTIVE_POLICY_IN
 was specified on 21 September 2026 after discovering that evaluator B's bridge
 omitted gameplay's four most recently seen identities. All experimental selection
 rules remain shared across courses. Production coefficients and default access
-rules are unchanged.
+rules are unchanged. "Five courses" in the recorded checks means the catalog
+at that date. The catalog now has eight courses.
 
 ## Input correction
 
