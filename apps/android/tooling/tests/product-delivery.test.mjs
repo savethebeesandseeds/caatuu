@@ -48,7 +48,8 @@ test("bootstrap keeps engine, provider descriptors and small interface UI, while
   }
   for (const path of ["assets/planets/world.png", "assets/miscellaneous/keymap.json",
     "courses/a/data/games/words.json", "courses/a/data/dictionaries/reference.html",
-    "language-runtime/static/data/english-concepts/words.json"]) {
+    "language-runtime/static/data/english-concepts/words.json",
+    "courses/cz/vendor/sql.js/sql-wasm.wasm"]) {
     assert.equal(isSetupDeliveredAsset(path, buffer("content"), options), true, path);
   }
   assert.equal(isSetupDeliveredAsset("assets/icons/course.png", Buffer.alloc(200_000), options), false);

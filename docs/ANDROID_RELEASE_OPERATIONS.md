@@ -522,6 +522,10 @@ the three approved curricula, exceeding the previous five-course 72 MB limit.
 The bounded companion budget is now 96 MB, with an executable overflow
 regression. The 8 MB bootstrap limit, selected-course installation and setup
 integrity checks remain intact.
+Android 200's shell reached 8,056,135 bytes after the learner-record module.
+The Czech SQLite engine (`courses/cz/vendor/sql.js/sql-wasm.wasm`, 659,806
+bytes) now travels with the course download, beside the database it opens.
+The JavaScript loader stays in the shell. The 8 MB limit is unchanged.
 
 The next attempt at source `3872933` passed both size limits, then stopped on
 the existing public `assets/macaw/actions/macaw (83).png`: its live receipt

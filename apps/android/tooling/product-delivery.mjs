@@ -132,6 +132,7 @@ export function isSetupDeliveredAsset(path, bytes, { bootstrapAssets = new Set()
   if (courseData && /\/(?:manifest|catalog|models)\.json$/u.test(path)
       && bytes.length <= BOOTSTRAP_SMALL_ASSET_BYTES) return false;
   if (courseData || path.startsWith("language-runtime/static/data/")) return true;
+  if (/^courses\/[^/]+\/vendor\/sql\.js\/sql-wasm\.wasm$/u.test(path)) return true;
   if (/\.(?:png|jpe?g|webp|avif|gif|mp3|ogg|wav|m4a)$/iu.test(path)) return true;
   if (path.startsWith("assets/") && /\.(?:json|svg)$/iu.test(path)) return true;
   return false;
@@ -154,7 +155,13 @@ function immutableObject(assetPath, bytes) {
 
 function logicalArtifactPath(artifact, courseId) {
   const path = artifact.asset_path;
-  if (!path) return null;
+  if (!path) {
+    // The Czech SQLite engine is URL-addressed in the browser catalog. Once it
+    // leaves the APK, the course download still has to find those exact bytes.
+    if (typeof artifact.url !== "string") return null;
+    const urlPath = decodeURIComponent(artifact.url.split(/[?#]/u)[0].replace(/^\//u, ""));
+    return urlPath === `${courseId}/vendor/sql.js/sql-wasm.wasm` ? `courses/${urlPath}` : null;
+  }
   return path.startsWith("assets/") || path.startsWith("language-runtime/")
     ? path : `courses/${courseId}/${path}`;
 }
