@@ -69,7 +69,7 @@ test("workspace and dictionary adaptation follows semantic setters, never Englis
 });
 
 test("corpus counts follow reviewed records and reject inconsistent metadata without freezing curriculum size", () => {
-  for (const difficulties of [[1], [2, 2, 3, 1]]) {
+  for (const difficulties of [[0, 1], [1], [2, 2, 3, 1]]) {
     const corpus = { records: difficulties.map((difficulty) => ({ difficulty })) };
     const distribution = {};
     for (const difficulty of difficulties) distribution[difficulty] = (distribution[difficulty] || 0) + 1;

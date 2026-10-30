@@ -28,6 +28,7 @@ import {
   STORE_LAUNCHER_ICON_FILES
 } from "../../android/tooling/build-product-assets.mjs";
 import { sourcePathForArtifact } from "../../server/tooling/refresh-setup-assets.mjs";
+import { evaluateCourseProfile, serializeCourseProfileSource } from "../../../tools/language-packs/lib/course-contract.mjs";
 
 const scriptPath = fileURLToPath(import.meta.url);
 const toolingDir = dirname(scriptPath);
@@ -336,29 +337,24 @@ function keptProductFiles() {
     .sort();
 }
 
-function transformCourseProfile(input) {
-  let source = normalizeText(input);
-  source = exactReplace(source, "      embeddings: true", "      embeddings: false", "static embeddings capability");
-  source = exactReplace(source, "      semanticSearch: true", "      semanticSearch: false", "static semantic-search capability");
-  source = replaceBetween(
-    source,
-    "    platforms: {",
-    "  });",
-    `    platforms: {
-      browser: {
-        enabled: true,
-        entryPath: "/cz/index.html",
-        backend: "static-dictionary"
-      },
-      android: {
-        enabled: false,
-        channels: []
-      }
-    }
-`,
-    "static browser-only platform configuration"
-  );
-  return source;
+export function transformCourseProfile(input) {
+  const profile = structuredClone(evaluateCourseProfile(normalizeText(input), "static course profile"));
+  assert.equal(profile.capabilities?.embeddings, true, "static embeddings capability: expected one enabled anchor");
+  assert.equal(profile.capabilities?.semanticSearch, true, "static semantic-search capability: expected one enabled anchor");
+  profile.capabilities.embeddings = false;
+  profile.capabilities.semanticSearch = false;
+  profile.platforms = {
+    browser: {
+      enabled: true,
+      entryPath: "/cz/index.html",
+      backend: "static-dictionary",
+    },
+    android: {
+      enabled: false,
+      channels: [],
+    },
+  };
+  return serializeCourseProfileSource(profile);
 }
 
 function transformRuntime(input) {
@@ -1410,7 +1406,7 @@ export function assertStaticCorpusMetadata(corpus, manifest) {
   assert.equal(manifest.recordCount, corpus.records.length, "Static Word World record count must match its actual corpus");
   const distribution = {};
   for (const record of corpus.records) {
-    assert.ok(Number.isInteger(record.difficulty) && record.difficulty > 0, "Static Word World record requires a valid difficulty");
+    assert.ok(Number.isInteger(record.difficulty) && record.difficulty >= 0, "Static Word World record requires a valid difficulty");
     distribution[record.difficulty] = (distribution[record.difficulty] || 0) + 1;
   }
   assert.deepEqual(manifest.difficultyDistribution, distribution, "Static Word World difficulty counts must match its actual corpus");
