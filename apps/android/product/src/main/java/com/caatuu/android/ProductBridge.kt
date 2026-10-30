@@ -642,6 +642,10 @@ class ProductBridge(
     private suspend fun updateApp(id: String) {
         check(updateMutex.tryLock()) { "An app update or cache operation is already running." }
         try {
+            if (!BuildConfig.CAATUU_SELF_UPDATE_ENABLED) {
+                emitDone(id, appUpdateManager.openWebsiteDownload())
+                return
+            }
             val result = appUpdateManager.downloadLatest { progress ->
                 emit(id, "progress", progress.put("phase", "download"))
             }

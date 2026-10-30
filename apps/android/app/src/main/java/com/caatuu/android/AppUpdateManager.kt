@@ -1,6 +1,7 @@
 package com.caatuu.android
 
 import android.app.DownloadManager
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ApplicationInfo
@@ -116,10 +117,25 @@ class AppUpdateManager(context: Context) {
         withContext(Dispatchers.IO) {
             val status = baseStatusJson()
             if (!BuildConfig.CAATUU_SELF_UPDATE_ENABLED) {
-                return@withContext status
-                    .put("serverReachable", false)
-                    .put("updateAvailable", false)
-                    .put("updateManagement", "store")
+                val requestContext = coroutineContext
+                return@withContext try {
+                    requestContext.ensureActive()
+                    val remote = updateTarget(fetchJson(updateManifestUrl), requireNewer = false)
+                    requestContext.ensureActive()
+                    status
+                        .put("updateManagement", "browser")
+                        .put("updateDelivery", "browser")
+                        .putManifestStatus(remote)
+                } catch (error: CancellationException) {
+                    throw error
+                } catch (error: Exception) {
+                    status
+                        .put("serverReachable", false)
+                        .put("updateAvailable", false)
+                        .put("updateManagement", "browser")
+                        .put("updateDelivery", "browser")
+                        .put("updateError", publicUpdateError(error))
+                }
             }
 
             takeObservationFailure()?.let { return@withContext status.putLocalSnapshot(it) }
@@ -369,6 +385,33 @@ class AppUpdateManager(context: Context) {
             appContext.startActivity(intent)
             "installer"
         }
+    }
+
+    suspend fun openWebsiteDownload(): JSONObject {
+        require(!BuildConfig.CAATUU_SELF_UPDATE_ENABLED) {
+            "This Caatuu build installs packages inside the app."
+        }
+        val target = withContext(Dispatchers.IO) {
+            updateTarget(fetchJson(updateManifestUrl), requireNewer = true)
+        }
+        withContext(Dispatchers.Main) {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(target.apkUrl))
+                .addCategory(Intent.CATEGORY_BROWSABLE)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            try {
+                appContext.startActivity(intent)
+            } catch (_: ActivityNotFoundException) {
+                error("No browser is available to open the Caatuu download.")
+            }
+        }
+        return JSONObject()
+            .put("opened", true)
+            .put("action", "browser")
+            .put("apkUrl", target.apkUrl)
+            .put("latestVersionCode", target.versionCode)
+            .put("latestVersionName", target.versionName)
+            .put("currentVersionCode", BuildConfig.VERSION_CODE)
+            .put("currentVersionName", BuildConfig.VERSION_NAME)
     }
 
     /** Also attached by status observation after a document/activity/process has been recreated. */

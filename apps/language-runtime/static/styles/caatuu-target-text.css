@@ -34,12 +34,16 @@
   font-family: "Noto Sans", "Segoe UI", sans-serif;
 }
 
+.caatuu-hebrew-reading-unit > .caatuu-target-text-glyph {
+  font-family: "Noto Sans Hebrew", "Segoe UI", sans-serif;
+}
+
 [data-verb-target-text-setting][hidden],
 [data-target-text-setting][hidden] { display: none; }
 
 .caatuu-reading-unit > .caatuu-target-text-notation,
 .caatuu-arabic-reading-unit > .caatuu-target-text-notation,
-.word-net-target-text-notation:is([lang="ar-Latn"], [lang="ka-Latn"], [lang="ru-Latn"]) {
+.word-net-target-text-notation:is([lang="ar-Latn"], [lang="ka-Latn"], [lang="ru-Latn"], [lang="he-Latn"]) {
   color: var(--theme-red, #985044);
   direction: ltr;
   unicode-bidi: isolate;

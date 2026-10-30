@@ -51,6 +51,10 @@
     {
       "id": "ru",
       "manifest": "apps/languages/russian/course.json"
+    },
+    {
+      "id": "he",
+      "manifest": "apps/languages/hebrew/course.json"
     }
   ]
 }

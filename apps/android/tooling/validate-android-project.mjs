@@ -264,6 +264,11 @@ export function validateAndroidProjectSources(sources) {
     ["release migration build gate", "BuildConfig.CAATUU_ACCEPT_RELEASE_MIGRATION"],
     ["release-shaped migration", 'buildType == "release"'],
     ["signing lineage check", "archiveLineage.containsAll(installedSigners)"],
+    ["website download handoff", "suspend fun openWebsiteDownload()"],
+    ["installer refusal", "This Caatuu build does not install packages."],
+  ]);
+  requireText(sources, issues, "productBridge", [
+    ["website download handoff", "appUpdateManager.openWebsiteDownload()"],
   ]);
   requireText(sources, issues, "updateFilePaths", [
     ["persistent FileProvider update path", 'path="updates/"'],

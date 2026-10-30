@@ -665,6 +665,67 @@
             flagClass: "russian-flag",
             flagSrc: "/assets/icons/russian_flag.svg"
           }
+        },
+        {
+          id: "he",
+          status: "development",
+          routePrefix: "/he",
+          entryPath: "/he/index.html",
+          storage: {
+            learningPerformance: "caatuu-he.learning.performance.v1"
+          },
+          developerContext: {
+            gameContent: {
+              "verb-lab": {
+                verbNebulaCatalog: "data/games/verb-nebula/content.json"
+              },
+              "word-net": {
+                wordWorldManifest: "data/games/word-world/manifest.json?v=word-world-content-1"
+              },
+              "conjugation-comet": {
+                conjugationCometCatalog: "data/games/conjugation-comet/content.json?v=conjugation-comet-content-1"
+              },
+              "grammar-gravity": {
+                grammarGravityCatalog: "data/games/grammar-gravity/content.json?v=grammar-gravity-content-1",
+                grammarGravityNouns: "data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-1"
+              },
+              "memory-moon": {
+                memoryMoonCatalog: "data/games/memory-moon/content.json?v=memory-moon-1"
+              }
+            },
+            dictionaryContent: null,
+            embeddingContent: {
+              catalog: "data/embeddings/catalog.json"
+            }
+          },
+          sourceLanguage: {
+            id: "en",
+            label: "English",
+            nativeLabel: "English",
+            shortCode: "EN",
+            locale: "en",
+            direction: "ltr",
+            flagClass: "en-flag",
+            flagSrc: "/assets/icons/english_flag.png"
+          },
+          interfaceContent: {
+            schemaVersion: 1,
+            locale: "en",
+            direction: "ltr",
+            revision: "interface-en-57",
+            catalog: "/language-runtime/static/data/interface/en.v1.json"
+          },
+          targetLanguage: {
+            id: "he",
+            label: "Hebrew",
+            nativeLabel: "עברית",
+            shortCode: "HE",
+            locale: "he",
+            speechLocale: "he-IL",
+            direction: "rtl",
+            flagClass: "hebrew-flag",
+            flagSrc: "/assets/icons/hebrew_flag.svg"
+          }
         }
       ]
     },

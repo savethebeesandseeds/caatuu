@@ -1,0 +1,249 @@
+{
+  "$schema": "../../../tools/language-packs/schemas/course-pack.v1.schema.json",
+  "schemaVersion": 1,
+  "id": "he",
+  "directoryName": "hebrew",
+  "status": "development",
+  "brandLabel": "Caatuu",
+  "workspaceLabel": "Caatuu Hebrew",
+  "routePrefix": "/he",
+  "entryPath": "/he/index.html",
+  "sourceLanguage": {
+    "id": "en",
+    "label": "English",
+    "nativeLabel": "English",
+    "shortCode": "EN",
+    "locale": "en",
+    "direction": "ltr",
+    "flagClass": "en-flag",
+    "flagSrc": "/assets/icons/english_flag.png"
+  },
+  "targetLanguage": {
+    "id": "he",
+    "label": "Hebrew",
+    "nativeLabel": "עברית",
+    "shortCode": "HE",
+    "locale": "he",
+    "script": "Hebr",
+    "speechLocale": "he-IL",
+    "direction": "rtl",
+    "flagClass": "hebrew-flag",
+    "flagSrc": "/assets/icons/hebrew_flag.svg"
+  },
+  "linguisticFeatures": [
+    "verb-conjugation",
+    "grammatical-agreement"
+  ],
+  "games": [
+    "verb-lab",
+    "word-net",
+    "conjugation-comet",
+    "grammar-gravity",
+    "memory-moon"
+  ],
+  "launcher": {
+    "flagClass": "flag-icon"
+  },
+  "routes": {
+    "conjugationComet": "/language-runtime/static/games/conjugation-comet.html",
+    "grammarGravity": "/language-runtime/static/games/grammar-gravity.html",
+    "languageSelection": "/",
+    "home": "index.html",
+    "games": "index.html",
+    "verbNebula": "index.html?game=verb-lab",
+    "wordWorld": "index.html?game=word-net",
+    "settings": "index.html",
+    "memoryMoon": "/language-runtime/static/games/memory-moon.html"
+  },
+  "storage": {
+    "namespace": "caatuu-he",
+    "theme": "caatuu-he.theme",
+    "fontSize": "caatuu-he.font-size",
+    "learningPreferences": "caatuu-he.learning.preferences.v1",
+    "learningGoal": "caatuu-he.learning.goal.v1",
+    "learningGameSettings": "caatuu-he.learning.game-settings.v1",
+    "learningPerformance": "caatuu-he.learning.performance.v1",
+    "learningPractice": "caatuu-he.learning.practice.v1",
+    "learningContent": "caatuu-he.learning.content.v2",
+    "speechVoice": "caatuu-he.speech.voice.v1",
+    "semanticLearningDatabase": "caatuu-he.semantic-learning",
+    "verbMemory": "caatuu-he.verb-memory.v3",
+    "wordWorldTranslationMode": "caatuu-he.word-world.translation-mode",
+    "wordWorldRecentSentences": "caatuu-he.word-world.recent-sentences.v1"
+  },
+  "cache": {
+    "prefix": "caatuu-he-pwa-",
+    "setupFallback": "caatuu-he-setup-v1"
+  },
+  "publication": {
+    "contract": "language-content-v1",
+    "concepts": "apps/languages/shared/english-concepts/word-world-he-v1.json",
+    "realizations": "apps/languages/hebrew/content/word-world/starter-v1.realizations.json",
+    "learnerBaseRealizations": null,
+    "runtimeProjection": {
+      "policyId": "hebrew-word-world-v1",
+      "conceptsRuntime": "apps/language-runtime/static/data/english-concepts/word-world-he-v1.json",
+      "targetRealizationsRuntime": "apps/languages/hebrew/static/data/games/word-world/content.json",
+      "learnerBaseRuntime": null,
+      "supplementalOutputs": {},
+      "manifest": "apps/languages/hebrew/static/data/games/word-world/manifest.json"
+    }
+  },
+  "capabilities": {
+    "llm": false,
+    "generation": false,
+    "chat": false,
+    "embeddings": true,
+    "semanticSearch": true,
+    "dictionary": false,
+    "memory": true,
+    "verbs": false,
+    "wordWorld": true,
+    "conjugationComet": true,
+    "offlineModels": false,
+    "speech": true,
+    "pronunciationGuides": false
+  },
+  "learningGoals": [
+    {
+      "id": "foundations",
+      "label": "Reading and first conversations",
+      "embeddingText": "Read pointed Hebrew in context and use greetings, introductions, basic questions and polite requests.",
+      "categories": ["alphabet", "greetings"]
+    },
+    {
+      "id": "daily-life",
+      "label": "Daily life",
+      "embeddingText": "Talk about home, food, shopping, time, work, study and family.",
+      "categories": ["home", "food", "shopping", "daily"]
+    },
+    {
+      "id": "getting-around",
+      "label": "Getting around and asking for help",
+      "embeddingText": "Ask for directions, use transport, and describe a practical problem.",
+      "categories": ["transport", "help"]
+    },
+    {
+      "id": "with-others",
+      "label": "With other people",
+      "embeddingText": "Listen, help, share, welcome a guest, apologize, and stay kind while talking about ordinary life.",
+      "categories": ["help", "people"]
+    }
+  ],
+  "platforms": {
+    "browser": {
+      "enabled": true,
+      "pagesEnabled": false,
+      "entryPath": "/he/index.html",
+      "backend": "static"
+    },
+    "android": {
+      "enabled": false,
+      "channels": []
+    }
+  },
+  "resources": {
+    "memoryMoonCatalog": {
+      "path": "apps/languages/hebrew/static/data/games/memory-moon/content.json",
+      "kind": "file",
+      "state": "present",
+      "scope": "course",
+      "revision": "memory-moon-1"
+    },
+    "staticRoot": {
+      "kind": "directory",
+      "path": "apps/languages/hebrew/static",
+      "scope": "course",
+      "state": "present"
+    },
+    "appEntry": {
+      "kind": "file",
+      "path": "apps/language-runtime/static/app/index.html",
+      "scope": "shared",
+      "state": "present"
+    },
+    "interfaceCatalog": {
+      "kind": "file",
+      "path": "apps/language-runtime/static/data/interface/en.v1.json",
+      "scope": "shared",
+      "state": "present",
+      "revision": "interface-en-57"
+    },
+    "courseProfile": {
+      "kind": "file",
+      "path": "apps/languages/hebrew/static/source/shared/course-profile.js",
+      "scope": "course",
+      "state": "present"
+    },
+    "languageAdapter": {
+      "kind": "file",
+      "path": "apps/languages/hebrew/static/source/language/adapter.mjs",
+      "scope": "course",
+      "state": "present"
+    },
+    "webManifest": {
+      "kind": "file",
+      "path": "apps/languages/hebrew/static/manifest.webmanifest",
+      "scope": "course",
+      "state": "present"
+    },
+    "setupCatalog": {
+      "kind": "file",
+      "path": "apps/languages/hebrew/static/setup-assets.json",
+      "scope": "course",
+      "state": "present"
+    },
+    "sourceLanguageFlag": {
+      "kind": "file",
+      "path": "apps/language-runtime/static/assets/home/english_flag.png",
+      "scope": "shared",
+      "state": "present"
+    },
+    "embeddingCatalog": {
+      "kind": "file",
+      "path": "apps/languages/hebrew/static/data/embeddings/catalog.json",
+      "scope": "course",
+      "state": "present"
+    },
+    "wordWorldManifest": {
+      "kind": "file",
+      "path": "apps/languages/hebrew/static/data/games/word-world/manifest.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "word-world-content-1"
+    },
+    "verbNebulaCatalog": {
+      "kind": "file",
+      "path": "apps/languages/hebrew/static/data/games/verb-nebula/content.json",
+      "scope": "course",
+      "state": "present"
+    },
+    "conjugationCometCatalog": {
+      "kind": "file",
+      "path": "apps/languages/hebrew/static/data/games/conjugation-comet/content.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "conjugation-comet-content-1"
+    },
+    "grammarGravityCatalog": {
+      "kind": "file",
+      "path": "apps/languages/hebrew/static/data/games/grammar-gravity/content.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "grammar-gravity-content-1"
+    },
+    "grammarGravityNouns": {
+      "kind": "file",
+      "path": "apps/languages/hebrew/static/data/games/grammar-gravity/nouns.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "grammar-gravity-nouns-1"
+    },
+    "launcherFlag": {
+      "kind": "file",
+      "path": "apps/language-runtime/static/assets/home/hebrew_flag.svg",
+      "scope": "shared",
+      "state": "present"
+    }
+  }
+}

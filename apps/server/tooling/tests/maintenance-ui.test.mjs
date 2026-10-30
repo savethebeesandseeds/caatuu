@@ -412,6 +412,45 @@ test("browser updates appear only when available and store-managed builds hide s
   assert.equal(button.hidden, true);
   assert.equal(button.disabled, true);
   assert.equal(row.hidden, true);
+  assert.match(ui.updateStatusLine({
+    selfUpdateEnabled: false,
+    currentVersionName: "0.1.48",
+    currentVersionCode: 200
+  }), /managed by the app store/i);
+});
+
+test("a browser-delivered Android update keeps the Update button and the available status", () => {
+  const { button, row } = control();
+  const status = {
+    selfUpdateEnabled: false,
+    updateDelivery: "browser",
+    updateAvailable: true,
+    serverReachable: true,
+    currentVersionCode: 200,
+    currentVersionName: "0.1.48",
+    latestVersionCode: 201,
+    latestVersionName: "0.1.49"
+  };
+  ui.setUpdateAppControl(button, { env: "android" }, status);
+  assert.equal(button.hidden, false);
+  assert.equal(button.disabled, false);
+  assert.equal(row.hidden, false);
+  assert.equal(button.textContent, "Update 0.1.49");
+  assert.equal(ui.hasNativeAppUpdate(status), true);
+  assert.equal(ui.updateStatusLine(status), "Update available: 0.1.49 (201). Installed: 0.1.48 (200).");
+  assert.equal(ui.updateStatusLine({
+    ...status,
+    updateAvailable: false,
+    latestVersionCode: 200,
+    latestVersionName: "0.1.48"
+  }), "Caatuu 0.1.48 (200). App is up to date.");
+  assert.equal(ui.updateStatusLine({
+    selfUpdateEnabled: false,
+    updateDelivery: "browser",
+    serverReachable: false,
+    currentVersionName: "0.1.48",
+    currentVersionCode: 200
+  }), "Caatuu 0.1.48 (200). Could not check for updates.");
 });
 
 test("the shared controller announces a single in-flight update check immediately", async () => {

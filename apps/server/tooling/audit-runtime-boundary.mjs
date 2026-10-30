@@ -2040,7 +2040,7 @@ function auditAndroidSource() {
   assert((gradle.match(/buildConfigField\("boolean", "CAATUU_SELF_UPDATE_ENABLED", "false"\)/g) || []).length === 1, "only the Android Play variant should disable self-updates");
   assert(playManifest.includes('android:name="android.permission.REQUEST_INSTALL_PACKAGES"'), "Android Play manifest should identify the sideload permission override");
   assert(playManifest.includes('tools:node="remove"'), "Android Play manifest should remove REQUEST_INSTALL_PACKAGES");
-  assert(maintenanceUi.includes("if (status?.selfUpdateEnabled === false) return false;"), "maintenance UI should treat store-managed builds as having no native self-update");
+  assert(maintenanceUi.includes('if (status?.selfUpdateEnabled === false && status?.updateDelivery !== "browser") return false;'), "maintenance UI should treat store-managed builds as having no native self-update");
   for (const issue of validateMaintenanceUpdateVisibility(maintenanceUi)) fail(issue);
   assert(
     maintenanceUi.includes('t("maintenance.action.updateversion", { version: latestName })')

@@ -85,6 +85,14 @@ The installed 0.1.46 app keeps showing its own version until 0.1.47 is
 installed over it. Android 199 does not install a later package by itself.
 New versions come from the website APK.
 
+Android 199 and 200 keep the update button hidden. Android 201 checks the
+public manifest while the installer stays off.
+`CAATUU_SELF_UPDATE_ENABLED` remains false, and the product still does not
+declare `REQUEST_INSTALL_PACKAGES`. `downloadLatest` and `openInstaller` still
+refuse. When that build finds a newer version, the existing Update button
+opens the manifest’s `apk_url` in the browser. The phone downloads the APK
+there. The app does not install it.
+
 ## Device result
 
 After Android 199 was installed, Play Protect accepted the app. Play Protect
@@ -120,8 +128,9 @@ key, turning the in-app installer back on, or removing course content.
 - Say on the maintenance screen that new versions come from the Caatuu
   website. That needs a new interface string and a catalog revision, which
   Android 199 skipped on purpose.
-- Put the website APK link in the release note. The installed app will not
-  offer the next package.
+- Put the website APK link in the release note. Android 199 and 200 do not
+  offer the next package. A later build can open that same website link from
+  the Update button. That does not turn the in-app installer back on.
 - If a build that already lacks the install permission is blocked, appeal that
   hash and write the **More details** category here before removing more
   behavior.

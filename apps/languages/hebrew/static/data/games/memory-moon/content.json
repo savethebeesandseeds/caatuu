@@ -1,0 +1,2926 @@
+{
+  "schemaVersion": "caatuu-memory-moon-content-v1",
+  "courseId": "he",
+  "gameId": "memory-moon",
+  "contentId": "he-memory-moon-v1",
+  "contentRevision": 1,
+  "status": "machine-assisted-preview",
+  "learnerBaseLanguage": "en",
+  "targetLanguage": "he",
+  "englishAuditLanguage": "en",
+  "review": {
+    "status": "native-review-required",
+    "humanApproved": false,
+    "reviewer": "Caatuu course authoring",
+    "reviewedAt": "2026-10-30",
+    "notes": "Author self-review only. Independent native Hebrew review is still required. The question bank is first-party and does not copy an outside course."
+  },
+  "license": {
+    "origin": "caatuu-first-party-authored",
+    "spdxExpression": "AGPL-3.0-only"
+  },
+  "embeddingPolicy": {
+    "inputLanguage": "en",
+    "inputField": "embeddingText"
+  },
+  "challenges": [
+    {
+      "id": "mm-he-hello",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 90,
+      "complexity": 12,
+      "topic": "greetings",
+      "familyId": "mm-he-hello",
+      "targetText": "שָׁלוֹם.",
+      "learnerBaseText": "Hello.",
+      "englishText": "Hello.",
+      "embeddingText": "Hello.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "Hello",
+          "greetings"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Hello.",
+          "englishAuditText": "Hello."
+        },
+        {
+          "id": "other-1",
+          "text": "Goodbye.",
+          "englishAuditText": "Goodbye.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means Hello. This choice is a farewell."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Thank you.",
+          "englishAuditText": "Thank you.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means Hello. This choice thanks someone."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-thanks",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 90,
+      "complexity": 12,
+      "topic": "greetings",
+      "familyId": "mm-he-thanks",
+      "targetText": "תּוֹדָה.",
+      "learnerBaseText": "Thank you.",
+      "englishText": "Thank you.",
+      "embeddingText": "Thank you.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "Thank you"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Thank you.",
+          "englishAuditText": "Thank you."
+        },
+        {
+          "id": "other-1",
+          "text": "Please.",
+          "englishAuditText": "Please.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "The target thanks someone. This choice makes a request."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Excuse me.",
+          "englishAuditText": "Excuse me.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target thanks someone. This choice asks for space."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-please",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 90,
+      "complexity": 12,
+      "topic": "greetings",
+      "familyId": "mm-he-please",
+      "targetText": "בְבַקָשָׁה.",
+      "learnerBaseText": "Please.",
+      "englishText": "Please.",
+      "embeddingText": "Please.",
+      "focus": {
+        "kind": "manner",
+        "englishConcepts": [
+          "Please"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Please.",
+          "englishAuditText": "Please."
+        },
+        {
+          "id": "other-1",
+          "text": "Thank you.",
+          "englishAuditText": "Thank you.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target makes a request. This choice thanks someone."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "No.",
+          "englishAuditText": "No.",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "The target makes a request. This choice refuses."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-excuse",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 90,
+      "complexity": 12,
+      "topic": "greetings",
+      "familyId": "mm-he-excuse",
+      "targetText": "סְלִיחָה.",
+      "learnerBaseText": "Excuse me.",
+      "englishText": "Excuse me.",
+      "embeddingText": "Excuse me.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "Excuse me"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Excuse me.",
+          "englishAuditText": "Excuse me."
+        },
+        {
+          "id": "other-1",
+          "text": "Hello.",
+          "englishAuditText": "Hello.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target asks for space. This choice greets someone."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Yes.",
+          "englishAuditText": "Yes.",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "The target asks for space. This choice agrees."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-morning",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 90,
+      "complexity": 12,
+      "topic": "greetings",
+      "familyId": "mm-he-morning",
+      "targetText": "בֹּקֶר טוֹב.",
+      "learnerBaseText": "Good morning.",
+      "englishText": "Good morning.",
+      "embeddingText": "Good morning.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "Good morning"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Good morning.",
+          "englishAuditText": "Good morning."
+        },
+        {
+          "id": "other-1",
+          "text": "Good night.",
+          "englishAuditText": "Good night.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target is a morning greeting. This choice is for night."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Hello.",
+          "englishAuditText": "Hello.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target names the morning. This choice is a general hello."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-night",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 90,
+      "complexity": 12,
+      "topic": "greetings",
+      "familyId": "mm-he-night",
+      "targetText": "לַיְלָה טוֹב.",
+      "learnerBaseText": "Good night.",
+      "englishText": "Good night.",
+      "embeddingText": "Good night.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "Good night"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Good night.",
+          "englishAuditText": "Good night."
+        },
+        {
+          "id": "other-1",
+          "text": "Good morning.",
+          "englishAuditText": "Good morning.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target is a night greeting. This choice is for morning."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Please.",
+          "englishAuditText": "Please.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "The target says good night. This choice makes a request."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-yes",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 90,
+      "complexity": 12,
+      "topic": "greetings",
+      "familyId": "mm-he-yes",
+      "targetText": "כֵּן.",
+      "learnerBaseText": "Yes.",
+      "englishText": "Yes.",
+      "embeddingText": "Yes.",
+      "focus": {
+        "kind": "polarity",
+        "englishConcepts": [
+          "Yes"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Yes.",
+          "englishAuditText": "Yes."
+        },
+        {
+          "id": "other-1",
+          "text": "No.",
+          "englishAuditText": "No.",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "The target agrees. This choice refuses."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Please.",
+          "englishAuditText": "Please.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "The target agrees. This choice makes a request."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-no",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 90,
+      "complexity": 12,
+      "topic": "greetings",
+      "familyId": "mm-he-no",
+      "targetText": "לֹא.",
+      "learnerBaseText": "No.",
+      "englishText": "No.",
+      "embeddingText": "No.",
+      "focus": {
+        "kind": "polarity",
+        "englishConcepts": [
+          "No"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "No.",
+          "englishAuditText": "No."
+        },
+        {
+          "id": "other-1",
+          "text": "Yes.",
+          "englishAuditText": "Yes.",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "The target refuses. This choice agrees."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Hello.",
+          "englishAuditText": "Hello.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target refuses. This choice greets someone."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-fine",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 90,
+      "complexity": 12,
+      "topic": "greetings",
+      "familyId": "mm-he-fine",
+      "targetText": "אֲנִי בְסֵדֶר.",
+      "learnerBaseText": "I am fine.",
+      "englishText": "I am fine.",
+      "embeddingText": "I am fine.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "I am fine"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I am fine.",
+          "englishAuditText": "I am fine."
+        },
+        {
+          "id": "other-1",
+          "text": "I am sorry.",
+          "englishAuditText": "I am sorry.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target says the speaker is fine. This choice apologizes."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Good night.",
+          "englishAuditText": "Good night.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target says the speaker is fine. This choice says good night."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-welcome",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 90,
+      "complexity": 12,
+      "topic": "greetings",
+      "familyId": "mm-he-welcome",
+      "targetText": "בָּרוּךְ הַבָּא.",
+      "learnerBaseText": "Welcome.",
+      "englishText": "Welcome.",
+      "embeddingText": "Welcome.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "Welcome"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Welcome.",
+          "englishAuditText": "Welcome."
+        },
+        {
+          "id": "other-1",
+          "text": "Goodbye.",
+          "englishAuditText": "Goodbye.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target welcomes someone in. This choice sends someone away."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Excuse me.",
+          "englishAuditText": "Excuse me.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target welcomes someone. This choice asks for space."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-seeyou",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 90,
+      "complexity": 12,
+      "topic": "greetings",
+      "familyId": "mm-he-seeyou",
+      "targetText": "לְהִתְרָאוֹת.",
+      "learnerBaseText": "See you.",
+      "englishText": "See you.",
+      "embeddingText": "See you.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "See you"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "See you.",
+          "englishAuditText": "See you."
+        },
+        {
+          "id": "other-1",
+          "text": "Hello.",
+          "englishAuditText": "Hello.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target looks ahead to another meeting. This choice opens a meeting."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Thank you.",
+          "englishAuditText": "Thank you.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target says see you. This choice thanks someone."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-nicetomeet",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 90,
+      "complexity": 12,
+      "topic": "greetings",
+      "familyId": "mm-he-nicetomeet",
+      "targetText": "נָעִים מְאֹד.",
+      "learnerBaseText": "Nice to meet you.",
+      "englishText": "Nice to meet you.",
+      "embeddingText": "Nice to meet you.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "Nice to meet you"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Nice to meet you.",
+          "englishAuditText": "Nice to meet you."
+        },
+        {
+          "id": "other-1",
+          "text": "Excuse me.",
+          "englishAuditText": "Excuse me.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target is glad to meet someone. This choice asks for space."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "No.",
+          "englishAuditText": "No.",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "The target is glad to meet someone. This choice refuses."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-rain",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 82,
+      "complexity": 18,
+      "topic": "weather",
+      "familyId": "mm-he-rain",
+      "targetText": "יֵשׁ גֶּשֶׁם.",
+      "learnerBaseText": "There is rain.",
+      "englishText": "There is rain.",
+      "embeddingText": "There is rain.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "rain"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "There is rain.",
+          "englishAuditText": "There is rain."
+        },
+        {
+          "id": "other-1",
+          "text": "The sun is warm.",
+          "englishAuditText": "The sun is warm.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target says rain is here. This choice describes the sun."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "It is cold today.",
+          "englishAuditText": "It is cold today.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target names rain. This choice names the cold."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-soup",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 82,
+      "complexity": 18,
+      "topic": "food",
+      "familyId": "mm-he-soup",
+      "targetText": "מָרָק חַם.",
+      "learnerBaseText": "The soup is warm.",
+      "englishText": "The soup is warm.",
+      "embeddingText": "The soup is warm.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "soup",
+          "warm"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The soup is warm.",
+          "englishAuditText": "The soup is warm."
+        },
+        {
+          "id": "other-1",
+          "text": "The soup is cold.",
+          "englishAuditText": "The soup is cold.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target says the soup is warm. This choice says it is cold."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Two tickets.",
+          "englishAuditText": "Two tickets.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target is about soup. This choice is about tickets."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-tickets",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 82,
+      "complexity": 18,
+      "topic": "transport",
+      "familyId": "mm-he-tickets",
+      "targetText": "שְׁנַיִם כַּרְטִיסִים.",
+      "learnerBaseText": "Two tickets.",
+      "englishText": "Two tickets.",
+      "embeddingText": "Two tickets.",
+      "focus": {
+        "kind": "quantity",
+        "englishConcepts": [
+          "two",
+          "tickets"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Two tickets.",
+          "englishAuditText": "Two tickets."
+        },
+        {
+          "id": "other-1",
+          "text": "One ticket.",
+          "englishAuditText": "One ticket.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "The target says two. This choice says one."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Where is the market?",
+          "englishAuditText": "Where is the market?",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target counts tickets. This choice asks where the market is."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-wheremarket",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 82,
+      "complexity": 18,
+      "topic": "shopping",
+      "familyId": "mm-he-wheremarket",
+      "targetText": "אַיֵּה הַשּׁוּק?",
+      "learnerBaseText": "Where is the market?",
+      "englishText": "Where is the market?",
+      "embeddingText": "Where is the market?",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "market",
+          "where"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Where is the market?",
+          "englishAuditText": "Where is the market?"
+        },
+        {
+          "id": "other-1",
+          "text": "Where is the station?",
+          "englishAuditText": "Where is the station?",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target asks about the market. This choice asks about the station."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "The market opens at nine.",
+          "englishAuditText": "The market opens at nine.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target asks where. This choice says when it opens."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-speak",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 82,
+      "complexity": 18,
+      "topic": "daily",
+      "familyId": "mm-he-speak",
+      "targetText": "אֲנִי מְדַבֵּר עִבְרִית.",
+      "learnerBaseText": "I speak Hebrew.",
+      "englishText": "I speak Hebrew.",
+      "embeddingText": "I speak Hebrew.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "speak",
+          "Hebrew"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I speak Hebrew.",
+          "englishAuditText": "I speak Hebrew."
+        },
+        {
+          "id": "other-1",
+          "text": "She speaks English.",
+          "englishAuditText": "She speaks English.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "The target is the speaker and Hebrew. This choice is someone else and English."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "I am fine.",
+          "englishAuditText": "I am fine.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target is about speaking. This choice is about feeling fine."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-bus",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 82,
+      "complexity": 18,
+      "topic": "transport",
+      "familyId": "mm-he-bus",
+      "targetText": "הָאוֹטוֹבּוּס מְאַחֵר.",
+      "learnerBaseText": "The bus is late.",
+      "englishText": "The bus is late.",
+      "embeddingText": "The bus is late.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "bus",
+          "late"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The bus is late.",
+          "englishAuditText": "The bus is late."
+        },
+        {
+          "id": "other-1",
+          "text": "The bus is here.",
+          "englishAuditText": "The bus is here.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target says the bus is late. This choice says it is here."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Two tickets.",
+          "englishAuditText": "Two tickets.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "The target is about the bus. This choice counts tickets."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-learn",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 82,
+      "complexity": 18,
+      "topic": "study",
+      "familyId": "mm-he-learn",
+      "targetText": "אֲנַחְנוּ לוֹמְדִים עִבְרִית.",
+      "learnerBaseText": "We learn Hebrew.",
+      "englishText": "We learn Hebrew.",
+      "embeddingText": "We learn Hebrew.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "learn",
+          "Hebrew"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "We learn Hebrew.",
+          "englishAuditText": "We learn Hebrew."
+        },
+        {
+          "id": "other-1",
+          "text": "We learn English.",
+          "englishAuditText": "We learn English.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target names Hebrew. This choice names English."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "I speak Hebrew.",
+          "englishAuditText": "I speak Hebrew.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "The target says we learn. This choice says I speak."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-evening",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 82,
+      "complexity": 18,
+      "topic": "greetings",
+      "familyId": "mm-he-evening",
+      "targetText": "עֶרֶב טוֹב.",
+      "learnerBaseText": "Good evening.",
+      "englishText": "Good evening.",
+      "embeddingText": "Good evening.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "Good evening"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Good evening.",
+          "englishAuditText": "Good evening."
+        },
+        {
+          "id": "other-1",
+          "text": "Good morning.",
+          "englishAuditText": "Good morning.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target is an evening greeting. This choice is for morning."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Good night.",
+          "englishAuditText": "Good night.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target is evening. This choice is night."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-opens",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 74,
+      "complexity": 24,
+      "topic": "shopping",
+      "familyId": "mm-he-opens",
+      "targetText": "הַשּׁוּק נִפְתָּח בְתֵשַׁע.",
+      "learnerBaseText": "The market opens at nine.",
+      "englishText": "The market opens at nine.",
+      "embeddingText": "The market opens at nine.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "market",
+          "nine"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The market opens at nine.",
+          "englishAuditText": "The market opens at nine."
+        },
+        {
+          "id": "other-1",
+          "text": "The market opens at eight.",
+          "englishAuditText": "The market opens at eight.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target says nine. This choice says eight."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Where is the market?",
+          "englishAuditText": "Where is the market?",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target says when. This choice asks where."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-station",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 74,
+      "complexity": 24,
+      "topic": "transport",
+      "familyId": "mm-he-station",
+      "targetText": "אַיֵּה הַתַּחֲנָה?",
+      "learnerBaseText": "Where is the station?",
+      "englishText": "Where is the station?",
+      "embeddingText": "Where is the station?",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "station"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Where is the station?",
+          "englishAuditText": "Where is the station?"
+        },
+        {
+          "id": "other-1",
+          "text": "Where is the market?",
+          "englishAuditText": "Where is the market?",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target asks about the station. This choice asks about the market."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "The bus is late.",
+          "englishAuditText": "The bus is late.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target asks where the station is. This choice says the bus is late."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-howmany",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 74,
+      "complexity": 24,
+      "topic": "transport",
+      "familyId": "mm-he-howmany",
+      "targetText": "כַּמָּה כַּרְטִיסִים?",
+      "learnerBaseText": "How many tickets?",
+      "englishText": "How many tickets?",
+      "embeddingText": "How many tickets?",
+      "focus": {
+        "kind": "quantity",
+        "englishConcepts": [
+          "tickets"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "How many tickets?",
+          "englishAuditText": "How many tickets?"
+        },
+        {
+          "id": "other-1",
+          "text": "Two tickets.",
+          "englishAuditText": "Two tickets.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "The target asks how many. This choice gives a number."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Where is the station?",
+          "englishAuditText": "Where is the station?",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target asks a quantity. This choice asks a place."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-play",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 74,
+      "complexity": 24,
+      "topic": "people",
+      "familyId": "mm-he-play",
+      "targetText": "הַיְלָדִים מְשַׂחֲקִים יַחַד.",
+      "learnerBaseText": "The children play together.",
+      "englishText": "The children play together.",
+      "embeddingText": "The children play together.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "children",
+          "play"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The children play together.",
+          "englishAuditText": "The children play together."
+        },
+        {
+          "id": "other-1",
+          "text": "The children sit together.",
+          "englishAuditText": "The children sit together.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target says they play. This choice says they sit."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "A guest sits with us.",
+          "englishAuditText": "A guest sits with us.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "The target is the children playing. This choice is a guest sitting."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-guest",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 74,
+      "complexity": 24,
+      "topic": "people",
+      "familyId": "mm-he-guest",
+      "targetText": "אוֹרֵחַ יוֹשֵׁב עִם אֲנַחְנוּ.",
+      "learnerBaseText": "A guest sits with us.",
+      "englishText": "A guest sits with us.",
+      "embeddingText": "A guest sits with us.",
+      "focus": {
+        "kind": "subject",
+        "englishConcepts": [
+          "guest"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "A guest sits with us.",
+          "englishAuditText": "A guest sits with us."
+        },
+        {
+          "id": "other-1",
+          "text": "A guest sits alone.",
+          "englishAuditText": "A guest sits alone.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "The target says the guest sits with us. This choice leaves the guest alone."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "We learn Hebrew.",
+          "englishAuditText": "We learn Hebrew.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target is a guest sitting. This choice is about learning."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-bread",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 74,
+      "complexity": 24,
+      "topic": "people",
+      "familyId": "mm-he-bread",
+      "targetText": "אֲנַחְנוּ חוֹלְקִים אֶת הַלֶּחֶם.",
+      "learnerBaseText": "We share the bread.",
+      "englishText": "We share the bread.",
+      "embeddingText": "We share the bread.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "share",
+          "bread"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "We share the bread.",
+          "englishAuditText": "We share the bread."
+        },
+        {
+          "id": "other-1",
+          "text": "We buy the bread.",
+          "englishAuditText": "We buy the bread.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target says we share. This choice says we buy."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "The soup is warm.",
+          "englishAuditText": "The soup is warm.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target is about bread. This choice is about soup."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-visit",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 74,
+      "complexity": 24,
+      "topic": "people",
+      "familyId": "mm-he-visit",
+      "targetText": "נוֹעַם מְבַקֵּר שָׁכֵן.",
+      "learnerBaseText": "Noam visits a neighbor.",
+      "englishText": "Noam visits a neighbor.",
+      "embeddingText": "Noam visits a neighbor.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "visit",
+          "neighbor"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Noam visits a neighbor.",
+          "englishAuditText": "Noam visits a neighbor."
+        },
+        {
+          "id": "other-1",
+          "text": "Noam visits a guest.",
+          "englishAuditText": "Noam visits a guest.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target names a neighbor. This choice names a guest."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Sara invites a guest.",
+          "englishAuditText": "Sara invites a guest.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "The target is Noam visiting. This choice is Sara inviting."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-invite",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 74,
+      "complexity": 24,
+      "topic": "people",
+      "familyId": "mm-he-invite",
+      "targetText": "שָׂרָה מַזְמִנָה אוֹרֵחַ.",
+      "learnerBaseText": "Sara invites a guest.",
+      "englishText": "Sara invites a guest.",
+      "embeddingText": "Sara invites a guest.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "invite",
+          "guest"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Sara invites a guest.",
+          "englishAuditText": "Sara invites a guest."
+        },
+        {
+          "id": "other-1",
+          "text": "Sara thanks a guest.",
+          "englishAuditText": "Sara thanks a guest.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target says Sara invites. This choice says she thanks."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Noam visits a neighbor.",
+          "englishAuditText": "Noam visits a neighbor.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "The target is Sara and a guest. This choice is Noam and a neighbor."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-room",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 66,
+      "complexity": 30,
+      "topic": "people",
+      "familyId": "mm-he-room",
+      "targetText": "בְבַקָשָׁה תַּפְנוּ לָהּ מָקוֹם.",
+      "learnerBaseText": "Please make room for her.",
+      "englishText": "Please make room for her.",
+      "embeddingText": "Please make room for her.",
+      "focus": {
+        "kind": "purpose",
+        "englishConcepts": [
+          "room",
+          "guest"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Please make room for her.",
+          "englishAuditText": "Please make room for her."
+        },
+        {
+          "id": "other-1",
+          "text": "Please close the door.",
+          "englishAuditText": "Please close the door.",
+          "contrast": {
+            "kind": "purpose",
+            "explanation": "The target asks people to make room. This choice asks them to close a door."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Thank you.",
+          "englishAuditText": "Thank you.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target asks for room. This choice thanks someone."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-lostbag",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 66,
+      "complexity": 30,
+      "topic": "people",
+      "familyId": "mm-he-lostbag",
+      "targetText": "הוּא מַחֲזִיר אֶת הַתִּיק הָאָבוּד.",
+      "learnerBaseText": "He returns the lost bag.",
+      "englishText": "He returns the lost bag.",
+      "embeddingText": "He returns the lost bag.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "return",
+          "bag"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "He returns the lost bag.",
+          "englishAuditText": "He returns the lost bag."
+        },
+        {
+          "id": "other-1",
+          "text": "He keeps the lost bag.",
+          "englishAuditText": "He keeps the lost bag.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target says he returns the bag. This choice says he keeps it."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Where is the station?",
+          "englishAuditText": "Where is the station?",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target is about a lost bag. This choice asks about a station."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-sorry",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 66,
+      "complexity": 30,
+      "topic": "people",
+      "familyId": "mm-he-sorry",
+      "targetText": "אֲנִי טָעִיתִּי אֲנִי מִצְטַעֵר.",
+      "learnerBaseText": "I was wrong, and I am sorry.",
+      "englishText": "I was wrong, and I am sorry.",
+      "embeddingText": "I was wrong, and I am sorry.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "sorry"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I was wrong, and I am sorry.",
+          "englishAuditText": "I was wrong, and I am sorry."
+        },
+        {
+          "id": "other-1",
+          "text": "I am fine.",
+          "englishAuditText": "I am fine.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target admits a mistake. This choice says the speaker is fine."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Thank you.",
+          "englishAuditText": "Thank you.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target apologizes. This choice thanks someone."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-table",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 66,
+      "complexity": 30,
+      "topic": "people",
+      "familyId": "mm-he-table",
+      "targetText": "שִׂנְאָה מַקְטִנָה אֶת הַשֻׁלְחָן.",
+      "learnerBaseText": "Hatred makes the table smaller.",
+      "englishText": "Hatred makes the table smaller.",
+      "embeddingText": "Hatred makes the table smaller.",
+      "focus": {
+        "kind": "manner",
+        "englishConcepts": [
+          "hatred",
+          "table"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Hatred makes the table smaller.",
+          "englishAuditText": "Hatred makes the table smaller."
+        },
+        {
+          "id": "other-1",
+          "text": "A guest makes the table larger.",
+          "englishAuditText": "A guest makes the table larger.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "The target says hatred shrinks the shared table. This choice brings a guest and more room."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "The soup is warm.",
+          "englishAuditText": "The soup is warm.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target is about the shared table. This choice is about soup."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-agreehelp",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 66,
+      "complexity": 30,
+      "topic": "people",
+      "familyId": "mm-he-agreehelp",
+      "targetText": "אֲנַחְנוּ מַסְכִּמִים וְאָז עוֹזְרִים.",
+      "learnerBaseText": "We agree, and then we help.",
+      "englishText": "We agree, and then we help.",
+      "embeddingText": "We agree, and then we help.",
+      "focus": {
+        "kind": "sequence",
+        "englishConcepts": [
+          "agree",
+          "help"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "We agree, and then we help.",
+          "englishAuditText": "We agree, and then we help."
+        },
+        {
+          "id": "other-1",
+          "text": "We argue, and then we leave.",
+          "englishAuditText": "We argue, and then we leave.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "The target moves from agreement to help. This choice moves from argument to leaving."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "We learn Hebrew.",
+          "englishAuditText": "We learn Hebrew.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target is about agreeing and helping. This choice is about learning."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-listenanswer",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 66,
+      "complexity": 30,
+      "topic": "people",
+      "familyId": "mm-he-listenanswer",
+      "targetText": "הִיא שׁוֹמַעַת וְאָז עוֹנָה.",
+      "learnerBaseText": "She listens, and then she answers.",
+      "englishText": "She listens, and then she answers.",
+      "embeddingText": "She listens, and then she answers.",
+      "focus": {
+        "kind": "sequence",
+        "englishConcepts": [
+          "listen",
+          "answer"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "She listens, and then she answers.",
+          "englishAuditText": "She listens, and then she answers."
+        },
+        {
+          "id": "other-1",
+          "text": "She answers, and then she leaves.",
+          "englishAuditText": "She answers, and then she leaves.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "The target listens before answering. This choice answers and then leaves."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "He returns the lost bag.",
+          "englishAuditText": "He returns the lost bag.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target is about listening. This choice is about a bag."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-apologize",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 66,
+      "complexity": 30,
+      "topic": "people",
+      "familyId": "mm-he-apologize",
+      "targetText": "עֹמָר מִתְנַצֵּל.",
+      "learnerBaseText": "Omar apologizes.",
+      "englishText": "Omar apologizes.",
+      "embeddingText": "Omar apologizes.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "apologize"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Omar apologizes.",
+          "englishAuditText": "Omar apologizes."
+        },
+        {
+          "id": "other-1",
+          "text": "Omar thanks a friend.",
+          "englishAuditText": "Omar thanks a friend.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target says Omar apologizes. This choice says he thanks."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "I am fine.",
+          "englishAuditText": "I am fine.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target is an apology. This choice says someone is fine."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-whybus",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 66,
+      "complexity": 30,
+      "topic": "transport",
+      "familyId": "mm-he-whybus",
+      "targetText": "לָמָּה הָאוֹטוֹבּוּס מְאַחֵר?",
+      "learnerBaseText": "Why is the bus late?",
+      "englishText": "Why is the bus late?",
+      "embeddingText": "Why is the bus late?",
+      "focus": {
+        "kind": "reason",
+        "englishConcepts": [
+          "bus",
+          "why"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Why is the bus late?",
+          "englishAuditText": "Why is the bus late?"
+        },
+        {
+          "id": "other-1",
+          "text": "The bus is late.",
+          "englishAuditText": "The bus is late.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target asks why. This choice only says that it is late."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Where is the station?",
+          "englishAuditText": "Where is the station?",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target asks for a reason. This choice asks for a place."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-goodday",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 88,
+      "complexity": 12,
+      "topic": "greetings",
+      "familyId": "mm-he-goodday",
+      "targetText": "יוֹם טוֹב.",
+      "learnerBaseText": "Good day.",
+      "englishText": "Good day.",
+      "embeddingText": "Good day.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "good day"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Good day.",
+          "englishAuditText": "Good day."
+        },
+        {
+          "id": "other-1",
+          "text": "Good night.",
+          "englishAuditText": "Good night.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target wishes a good day. This choice is for night."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Thank you.",
+          "englishAuditText": "Thank you.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target is a greeting. This choice thanks someone."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-hottea",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 88,
+      "complexity": 12,
+      "topic": "food",
+      "familyId": "mm-he-hottea",
+      "targetText": "תֵּה חַם.",
+      "learnerBaseText": "Hot tea.",
+      "englishText": "Hot tea.",
+      "embeddingText": "Hot tea.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "hot tea"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Hot tea.",
+          "englishAuditText": "Hot tea."
+        },
+        {
+          "id": "other-1",
+          "text": "Cold water.",
+          "englishAuditText": "Cold water.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target is hot tea. This choice is a cold drink."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Bread.",
+          "englishAuditText": "Bread.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target is a drink. This choice is food."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-onebook",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 88,
+      "complexity": 12,
+      "topic": "study",
+      "familyId": "mm-he-onebook",
+      "targetText": "סֵפֵר אֶחָד.",
+      "learnerBaseText": "One book.",
+      "englishText": "One book.",
+      "embeddingText": "One book.",
+      "focus": {
+        "kind": "quantity",
+        "englishConcepts": [
+          "one book"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "One book.",
+          "englishAuditText": "One book."
+        },
+        {
+          "id": "other-1",
+          "text": "Two books.",
+          "englishAuditText": "Two books.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "The target is one book. This choice is a larger number."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "A key.",
+          "englishAuditText": "A key.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target is a book. This choice is a key."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-today",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 88,
+      "complexity": 12,
+      "topic": "time",
+      "familyId": "mm-he-today",
+      "targetText": "הַיּוֹם.",
+      "learnerBaseText": "Today.",
+      "englishText": "Today.",
+      "embeddingText": "Today.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "today"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Today.",
+          "englishAuditText": "Today."
+        },
+        {
+          "id": "other-1",
+          "text": "Tomorrow.",
+          "englishAuditText": "Tomorrow.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target is today. This choice is the next day."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Yesterday.",
+          "englishAuditText": "Yesterday.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target is today. This choice is the previous day."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-library",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 80,
+      "complexity": 18,
+      "topic": "study",
+      "familyId": "mm-he-library",
+      "targetText": "אַיֵּה הַסִּפְרִיָּה?",
+      "learnerBaseText": "Where is the library?",
+      "englishText": "Where is the library?",
+      "embeddingText": "Where is the library?",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "library"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Where is the library?",
+          "englishAuditText": "Where is the library?"
+        },
+        {
+          "id": "other-1",
+          "text": "Where is the sea?",
+          "englishAuditText": "Where is the sea?",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target asks for the library. This choice asks for the sea."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "The shop is closed.",
+          "englishAuditText": "The shop is closed.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target asks where a place is. This choice describes a shop."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-milktea",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 80,
+      "complexity": 18,
+      "topic": "food",
+      "familyId": "mm-he-milktea",
+      "targetText": "תֵּה עִם חָלָב.",
+      "learnerBaseText": "Tea with milk.",
+      "englishText": "Tea with milk.",
+      "embeddingText": "Tea with milk.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "tea and milk"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Tea with milk.",
+          "englishAuditText": "Tea with milk."
+        },
+        {
+          "id": "other-1",
+          "text": "Tea with no milk.",
+          "englishAuditText": "Tea with no milk.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target includes milk. This choice leaves the milk out."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Hot soup.",
+          "englishAuditText": "Hot soup.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target is tea. This choice is soup."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-threemaps",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 80,
+      "complexity": 18,
+      "topic": "shopping",
+      "familyId": "mm-he-threemaps",
+      "targetText": "שְׁלוֹשָׁה מַפּוֹת.",
+      "learnerBaseText": "Three maps.",
+      "englishText": "Three maps.",
+      "embeddingText": "Three maps.",
+      "focus": {
+        "kind": "quantity",
+        "englishConcepts": [
+          "three maps"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Three maps.",
+          "englishAuditText": "Three maps."
+        },
+        {
+          "id": "other-1",
+          "text": "Two maps.",
+          "englishAuditText": "Two maps.",
+          "contrast": {
+            "kind": "quantity",
+            "explanation": "The target is three maps. This choice is two."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Three books.",
+          "englishAuditText": "Three books.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target is maps. This choice is books."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-opendoor",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 80,
+      "complexity": 18,
+      "topic": "home",
+      "familyId": "mm-he-opendoor",
+      "targetText": "דֶּלֶת פָּתוּחַ.",
+      "learnerBaseText": "An open door.",
+      "englishText": "An open door.",
+      "embeddingText": "An open door.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "open door"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "An open door.",
+          "englishAuditText": "An open door."
+        },
+        {
+          "id": "other-1",
+          "text": "A closed door.",
+          "englishAuditText": "A closed door.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target is open. This choice is closed."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "An open window.",
+          "englishAuditText": "An open window.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target is a door. This choice is a window."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-closeddoor",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 80,
+      "complexity": 18,
+      "topic": "home",
+      "familyId": "mm-he-closeddoor",
+      "targetText": "דֶּלֶת סָגוּרָה.",
+      "learnerBaseText": "The door is closed.",
+      "englishText": "The door is closed.",
+      "embeddingText": "The door is closed.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "closed door"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The door is closed.",
+          "englishAuditText": "The door is closed."
+        },
+        {
+          "id": "other-1",
+          "text": "The door is open.",
+          "englishAuditText": "The door is open.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target is closed. This choice is open."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "The window is closed.",
+          "englishAuditText": "The window is closed.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target is a door. This choice is a window."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-mother",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 80,
+      "complexity": 18,
+      "topic": "food",
+      "familyId": "mm-he-mother",
+      "targetText": "אִמָּא מְבַשֶּׁלֶת מָרָק.",
+      "learnerBaseText": "Mother cooks soup.",
+      "englishText": "Mother cooks soup.",
+      "embeddingText": "Mother cooks soup.",
+      "focus": {
+        "kind": "subject",
+        "englishConcepts": [
+          "mother cooks"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Mother cooks soup.",
+          "englishAuditText": "Mother cooks soup."
+        },
+        {
+          "id": "other-1",
+          "text": "Father cooks soup.",
+          "englishAuditText": "Father cooks soup.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "The target is mother. This choice is father."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Mother reads a book.",
+          "englishAuditText": "Mother reads a book.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target is cooking. This choice is reading."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-raincity",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 80,
+      "complexity": 18,
+      "topic": "weather",
+      "familyId": "mm-he-raincity",
+      "targetText": "יוֹרֵד גֶּשֶׁם בָּעִיר.",
+      "learnerBaseText": "It is raining in the city.",
+      "englishText": "It is raining in the city.",
+      "embeddingText": "It is raining in the city.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "rain in the city"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "It is raining in the city.",
+          "englishAuditText": "It is raining in the city."
+        },
+        {
+          "id": "other-1",
+          "text": "It is raining at the sea.",
+          "englishAuditText": "It is raining at the sea.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target is the city. This choice is the sea."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "It is hot today.",
+          "englishAuditText": "It is hot today.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target is rain. This choice is heat."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-askfriend",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 80,
+      "complexity": 18,
+      "topic": "people",
+      "familyId": "mm-he-askfriend",
+      "targetText": "דָנִי שׁוֹאֵל חָבֵר.",
+      "learnerBaseText": "Dani asks a friend.",
+      "englishText": "Dani asks a friend.",
+      "embeddingText": "Dani asks a friend.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "ask a friend"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Dani asks a friend.",
+          "englishAuditText": "Dani asks a friend."
+        },
+        {
+          "id": "other-1",
+          "text": "Dani answers a friend.",
+          "englishAuditText": "Dani answers a friend.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target is a question. This choice is an answer."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Maya asks a friend.",
+          "englishAuditText": "Maya asks a friend.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "The target is Dani. This choice is Maya."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-walkmarket",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 72,
+      "complexity": 24,
+      "topic": "daily",
+      "familyId": "mm-he-walkmarket",
+      "targetText": "דָנִי הוֹלֵך לַשּׁוּק.",
+      "learnerBaseText": "Dani walks to the market.",
+      "englishText": "Dani walks to the market.",
+      "embeddingText": "Dani walks to the market.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "walk to the market"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Dani walks to the market.",
+          "englishAuditText": "Dani walks to the market."
+        },
+        {
+          "id": "other-1",
+          "text": "Dani walks to the sea.",
+          "englishAuditText": "Dani walks to the sea.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target is the market. This choice is the sea."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Dani runs to the market.",
+          "englishAuditText": "Dani runs to the market.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target is walking. This choice is running."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-cookhome",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 72,
+      "complexity": 24,
+      "topic": "food",
+      "familyId": "mm-he-cookhome",
+      "targetText": "מָיָה מְבַשֶּׁלֶת מָרָק בַּבַּיִת.",
+      "learnerBaseText": "Maya cooks soup at home.",
+      "englishText": "Maya cooks soup at home.",
+      "embeddingText": "Maya cooks soup at home.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "cook at home"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Maya cooks soup at home.",
+          "englishAuditText": "Maya cooks soup at home."
+        },
+        {
+          "id": "other-1",
+          "text": "Maya cooks soup in the shop.",
+          "englishAuditText": "Maya cooks soup in the shop.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target is at home. This choice is the shop."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Maya eats soup at home.",
+          "englishAuditText": "Maya eats soup at home.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target is cooking. This choice is eating."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-closedshop",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 72,
+      "complexity": 24,
+      "topic": "shopping",
+      "familyId": "mm-he-closedshop",
+      "targetText": "הַחֲנוּת סָגוּר הַיּוֹם.",
+      "learnerBaseText": "The shop is closed today.",
+      "englishText": "The shop is closed today.",
+      "embeddingText": "The shop is closed today.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "closed shop"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The shop is closed today.",
+          "englishAuditText": "The shop is closed today."
+        },
+        {
+          "id": "other-1",
+          "text": "The shop is open today.",
+          "englishAuditText": "The shop is open today.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target is closed. This choice is open."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "The shop is closed tomorrow.",
+          "englishAuditText": "The shop is closed tomorrow.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target is today. This choice is tomorrow."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-learnlib",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 72,
+      "complexity": 24,
+      "topic": "study",
+      "familyId": "mm-he-learnlib",
+      "targetText": "עֹמָר לוֹמֵד בַּסִּפְרִיָּה.",
+      "learnerBaseText": "Omar learns at the library.",
+      "englishText": "Omar learns at the library.",
+      "embeddingText": "Omar learns at the library.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "learn at the library"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Omar learns at the library.",
+          "englishAuditText": "Omar learns at the library."
+        },
+        {
+          "id": "other-1",
+          "text": "Omar learns at home.",
+          "englishAuditText": "Omar learns at home.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target is the library. This choice is home."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Omar works at the library.",
+          "englishAuditText": "Omar works at the library.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target is learning. This choice is work."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-children",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 72,
+      "complexity": 24,
+      "topic": "people",
+      "familyId": "mm-he-children",
+      "targetText": "הַיְלָדִים מְשַׂחֲקִים בַּגִּנָה.",
+      "learnerBaseText": "The children play in the garden.",
+      "englishText": "The children play in the garden.",
+      "embeddingText": "The children play in the garden.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "children play"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The children play in the garden.",
+          "englishAuditText": "The children play in the garden."
+        },
+        {
+          "id": "other-1",
+          "text": "The children sit in the garden.",
+          "englishAuditText": "The children sit in the garden.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target is play. This choice is sitting."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "The children play at the sea.",
+          "englishAuditText": "The children play at the sea.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target is the garden. This choice is the sea."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-payticket",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 72,
+      "complexity": 24,
+      "topic": "shopping",
+      "familyId": "mm-he-payticket",
+      "targetText": "לֵאָה מְשַׁלֶּמֶת לְ כַּרְטִיס.",
+      "learnerBaseText": "Leah pays for a ticket.",
+      "englishText": "Leah pays for a ticket.",
+      "embeddingText": "Leah pays for a ticket.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "pay for a ticket"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Leah pays for a ticket.",
+          "englishAuditText": "Leah pays for a ticket."
+        },
+        {
+          "id": "other-1",
+          "text": "Leah pays for bread.",
+          "englishAuditText": "Leah pays for bread.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target is a ticket. This choice is bread."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Leah buys a ticket.",
+          "englishAuditText": "Leah buys a ticket.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target is paying. This choice is buying."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-windowmorning",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 72,
+      "complexity": 24,
+      "topic": "home",
+      "familyId": "mm-he-windowmorning",
+      "targetText": "נוֹעַם סוֹגֵר חַלּוֹן בַּבֹּקֶר.",
+      "learnerBaseText": "Noam closes a window in the morning.",
+      "englishText": "Noam closes a window in the morning.",
+      "embeddingText": "Noam closes a window in the morning.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "open the window"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Noam closes a window in the morning.",
+          "englishAuditText": "Noam closes a window in the morning."
+        },
+        {
+          "id": "other-1",
+          "text": "Noam closes a window at night.",
+          "englishAuditText": "Noam closes a window at night.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target is morning. This choice is night."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Noam opens a window in the morning.",
+          "englishAuditText": "Noam opens a window in the morning.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target is closing. This choice is opening."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-singevening",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 72,
+      "complexity": 24,
+      "topic": "daily",
+      "familyId": "mm-he-singevening",
+      "targetText": "שָׂרָה שָׁרָה שִׁיר בָּעֶרֶב.",
+      "learnerBaseText": "Sara sings a song in the evening.",
+      "englishText": "Sara sings a song in the evening.",
+      "embeddingText": "Sara sings a song in the evening.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "sing in the evening"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Sara sings a song in the evening.",
+          "englishAuditText": "Sara sings a song in the evening."
+        },
+        {
+          "id": "other-1",
+          "text": "Sara sings a song in the morning.",
+          "englishAuditText": "Sara sings a song in the morning.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target is evening. This choice is morning."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Sara reads a book in the evening.",
+          "englishAuditText": "Sara reads a book in the evening.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target is singing. This choice is reading."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-lostkey",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 64,
+      "complexity": 30,
+      "topic": "people",
+      "familyId": "mm-he-lostkey",
+      "targetText": "דָנִי מַחֲזִיר מַפְתֵּחַ אָבוּד הַיּוֹם.",
+      "learnerBaseText": "Dani returns a lost key today.",
+      "englishText": "Dani returns a lost key today.",
+      "embeddingText": "Dani returns a lost key today.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "return a lost key"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Dani returns a lost key today.",
+          "englishAuditText": "Dani returns a lost key today."
+        },
+        {
+          "id": "other-1",
+          "text": "Dani returns a lost bag today.",
+          "englishAuditText": "Dani returns a lost bag today.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target is a key. This choice is a bag."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Dani finds a lost key today.",
+          "englishAuditText": "Dani finds a lost key today.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target is returning the key. This choice is finding it."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-guesttea",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 64,
+      "complexity": 30,
+      "topic": "people",
+      "familyId": "mm-he-guesttea",
+      "targetText": "מָיָה מַזְמִינָה אוֹרֵחַ לְ תֵּה.",
+      "learnerBaseText": "Maya invites a guest for tea.",
+      "englishText": "Maya invites a guest for tea.",
+      "embeddingText": "Maya invites a guest for tea.",
+      "focus": {
+        "kind": "purpose",
+        "englishConcepts": [
+          "invite a guest"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Maya invites a guest for tea.",
+          "englishAuditText": "Maya invites a guest for tea."
+        },
+        {
+          "id": "other-1",
+          "text": "Maya invites a guest for soup.",
+          "englishAuditText": "Maya invites a guest for soup.",
+          "contrast": {
+            "kind": "purpose",
+            "explanation": "The target is tea. This choice is soup."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Maya thanks a guest for tea.",
+          "englishAuditText": "Maya thanks a guest for tea.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target is an invitation. This choice is thanks."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-waitstation",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 64,
+      "complexity": 30,
+      "topic": "people",
+      "familyId": "mm-he-waitstation",
+      "targetText": "עֹמָר מְחַכֶּה לְ חָבֵר בַּתַּחֲנָה.",
+      "learnerBaseText": "Omar waits for a friend at the station.",
+      "englishText": "Omar waits for a friend at the station.",
+      "embeddingText": "Omar waits for a friend at the station.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "wait for a friend"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Omar waits for a friend at the station.",
+          "englishAuditText": "Omar waits for a friend at the station."
+        },
+        {
+          "id": "other-1",
+          "text": "Omar waits for a friend at home.",
+          "englishAuditText": "Omar waits for a friend at home.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target is the station. This choice is home."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Omar walks with a friend at the station.",
+          "englishAuditText": "Omar walks with a friend at the station.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target is waiting. This choice is walking."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-visitnight",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 64,
+      "complexity": 30,
+      "topic": "people",
+      "familyId": "mm-he-visitnight",
+      "targetText": "יָעֵל מְבַקֶּרֶת שָׁכֵן בַּלַּיְלָה.",
+      "learnerBaseText": "Yael visits a neighbor at night.",
+      "englishText": "Yael visits a neighbor at night.",
+      "embeddingText": "Yael visits a neighbor at night.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "visit a neighbor"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Yael visits a neighbor at night.",
+          "englishAuditText": "Yael visits a neighbor at night."
+        },
+        {
+          "id": "other-1",
+          "text": "Yael visits a neighbor in the morning.",
+          "englishAuditText": "Yael visits a neighbor in the morning.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target is night. This choice is morning."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Yael thanks a neighbor at night.",
+          "englishAuditText": "Yael thanks a neighbor at night.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target is a visit. This choice is thanks."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-findfriend",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 64,
+      "complexity": 30,
+      "topic": "people",
+      "familyId": "mm-he-findfriend",
+      "targetText": "נוֹעַם מוֹצֵא חָבֵר בַּתַּחֲנָה.",
+      "learnerBaseText": "Noam finds a friend at the station.",
+      "englishText": "Noam finds a friend at the station.",
+      "embeddingText": "Noam finds a friend at the station.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "find a friend"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Noam finds a friend at the station.",
+          "englishAuditText": "Noam finds a friend at the station."
+        },
+        {
+          "id": "other-1",
+          "text": "Noam finds a friend at home.",
+          "englishAuditText": "Noam finds a friend at home.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target is the station. This choice is home."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Noam waits for a friend at the station.",
+          "englishAuditText": "Noam waits for a friend at the station.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target is finding. This choice is waiting."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-familymeal",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 64,
+      "complexity": 30,
+      "topic": "food",
+      "familyId": "mm-he-familymeal",
+      "targetText": "הַמִּשְׁפָּחָה אוֹכֶלֶת מָרָק יַחַד.",
+      "learnerBaseText": "The family eats soup together.",
+      "englishText": "The family eats soup together.",
+      "embeddingText": "The family eats soup together.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "family eats together"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The family eats soup together.",
+          "englishAuditText": "The family eats soup together."
+        },
+        {
+          "id": "other-1",
+          "text": "The family cooks soup together.",
+          "englishAuditText": "The family cooks soup together.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target is eating. This choice is cooking."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "The family eats soup tomorrow.",
+          "englishAuditText": "The family eats soup tomorrow.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target is together, with no new day. This choice is tomorrow."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-makeroom",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 64,
+      "complexity": 30,
+      "topic": "people",
+      "familyId": "mm-he-makeroom",
+      "targetText": "בְבַקָּשָׁה פַּנֵּה מָקוֹם לְ אוֹרֵחַ.",
+      "learnerBaseText": "Please make room for a guest.",
+      "englishText": "Please make room for a guest.",
+      "embeddingText": "Please make room for a guest.",
+      "focus": {
+        "kind": "purpose",
+        "englishConcepts": [
+          "make room"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Please make room for a guest.",
+          "englishAuditText": "Please make room for a guest."
+        },
+        {
+          "id": "other-1",
+          "text": "Please make room for a bag.",
+          "englishAuditText": "Please make room for a bag.",
+          "contrast": {
+            "kind": "purpose",
+            "explanation": "The target is a guest. This choice is a bag."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "Please close the door.",
+          "englishAuditText": "Please close the door.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target makes room. This choice closes a door."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-he-cleanmorning",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 64,
+      "complexity": 30,
+      "topic": "home",
+      "familyId": "mm-he-cleanmorning",
+      "targetText": "דָּוִד מְנַקֶּה חֶדֶר בַּבֹּקֶר וְאָז מְבַשֵּׁל מָרָק.",
+      "learnerBaseText": "David cleans a room in the morning, and then cooks soup.",
+      "englishText": "David cleans a room in the morning, and then cooks soup.",
+      "embeddingText": "David cleans a room in the morning, and then cooks soup.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "clean and then cook"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "David cleans a room in the morning, and then cooks soup.",
+          "englishAuditText": "David cleans a room in the morning, and then cooks soup."
+        },
+        {
+          "id": "other-1",
+          "text": "David cleans a room at night, and then cooks soup.",
+          "englishAuditText": "David cleans a room at night, and then cooks soup.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target is morning. This choice is night."
+          }
+        },
+        {
+          "id": "other-2",
+          "text": "David cooks soup, and then cleans a room.",
+          "englishAuditText": "David cooks soup, and then cleans a room.",
+          "contrast": {
+            "kind": "sequence",
+            "explanation": "The target cleans first. This choice cooks first."
+          }
+        }
+      ]
+    }
+  ]
+}

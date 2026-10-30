@@ -155,7 +155,7 @@
   }
 
   function hasNativeAppUpdate(status) {
-    if (status?.selfUpdateEnabled === false) return false;
+    if (status?.selfUpdateEnabled === false && status?.updateDelivery !== "browser") return false;
     const latest = Number(status?.latestVersionCode || status?.downloadedVersionCode || 0);
     const current = Number(status?.currentVersionCode || 0);
     if (updateDownloadState(status) !== "idle") return latest > current;
@@ -441,6 +441,26 @@
       // rather than silently becoming another check-only action.
       const status = await refresh({ announce: true });
       if (!hasNativeAppUpdate(status) || updateDownloadState(status) === "active") return status;
+      if (status.updateDelivery === "browser") {
+        phase = "opening";
+        render();
+        try {
+          const result = await runtime.maintenance.updateApp();
+          currentStatus = {
+            ...status,
+            ...result,
+            updateDelivery: "browser",
+            updateAvailable: true,
+            serverReachable: true
+          };
+          checkedAt = Date.now();
+          setMessage(updateStatusLine(currentStatus));
+          return result;
+        } catch (error) {
+          setMessage(t("maintenance.copy.checkfailed"));
+          return status;
+        }
+      }
 
       phase = "confirming";
       setMessage(t("maintenance.status.readyforconfirmation", {
@@ -621,7 +641,7 @@
     if (status?.downloadObservationFailed) return t("maintenance.download.observationfailed");
     const versionName = status?.currentVersionName || t("maintenance.version.unknownvalue");
     const versionCode = status?.currentVersionCode || "?";
-    if (status?.selfUpdateEnabled === false) {
+    if (status?.selfUpdateEnabled === false && status?.updateDelivery !== "browser") {
       return t("maintenance.status.storemanaged", { version: versionName, code: versionCode });
     }
     if (hasNativeAppUpdate(status)) {

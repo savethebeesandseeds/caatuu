@@ -328,7 +328,10 @@
       "/language-runtime/static/data/learner-record-registry.json?v=learner-record-1",
       "/language-runtime/static/source/russian-romanization.mjs?v=russian-romanization-1",
       "/language-runtime/static/data/english-concepts/word-world-ru-v1.json",
-      "/assets/icons/russian_flag.svg"
+      "/assets/icons/russian_flag.svg",
+      "/language-runtime/static/source/hebrew-romanization.mjs?v=hebrew-romanization-1",
+      "/language-runtime/static/data/english-concepts/word-world-he-v1.json",
+      "/assets/icons/hebrew_flag.svg"
     ]
   },
   "artifacts": [
@@ -353,8 +356,8 @@
       "kind": "course-contract",
       "url": "/nb/source/shared/course-profile.js",
       "browserRequired": true,
-      "bytes": 29561,
-      "sha256": "972b8b21775fb6cb06218a4ea3aca9e8c65ca76975ae614bb6bad1acb9e7a773"
+      "bytes": 31745,
+      "sha256": "4ebc71c33eaa7109b9d9731418536d85b8f96dfc5798a4f76c7aa93465596535"
     },
     {
       "key": "shared-app-bootstrap",
@@ -425,8 +428,8 @@
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/caatuu-workspace.js",
       "browserRequired": true,
-      "bytes": 201490,
-      "sha256": "184de3556da378e034079a3130ea016215dedf569fa6e718e3f6cd0797a56048"
+      "bytes": 201496,
+      "sha256": "e4e971b9fa68b601ed25105a06d524ee9bdea56043225bcb518ef5cc4ad93b46"
     },
     {
       "key": "child-facing-assets",
@@ -481,8 +484,8 @@
       "kind": "shared-interface",
       "url": "/language-runtime/static/source/learning-profile.js",
       "browserRequired": true,
-      "bytes": 113940,
-      "sha256": "a43eeee15d679fd31461847304d29d6603e04cad4d4cadef68c3e9a4bc297ecd"
+      "bytes": 114227,
+      "sha256": "2520ac69c5464894c7f274425e3f63874a3950bad2938173ad75dbffd2d35b97"
     },
     {
       "key": "product-word-world",

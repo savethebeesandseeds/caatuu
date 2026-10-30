@@ -4,6 +4,7 @@ import { createTargetReadingGuide } from "../source/target-reading-guide.mjs";
 import { arabicReadingUnits } from "../source/arabic-romanization.mjs";
 import { georgianReadingUnits } from "../source/georgian-romanization.mjs";
 import { russianReadingUnits } from "../source/russian-romanization.mjs";
+import { hebrewReadingUnits } from "../source/hebrew-romanization.mjs";
 import { fitVerbMatchLabels } from "../source/games/verb-nebula/verb-nebula-layout.mjs";
 
 // This exact-catalog review entry is deliberately absent from production app
@@ -56,6 +57,7 @@ function readingUnits(record, pair) {
   if (record.course.targetLanguage.id === "ar") return arabicReadingUnits(pair.target);
   if (record.course.targetLanguage.id === "ka") return georgianReadingUnits(pair.target);
   if (record.course.targetLanguage.id === "ru") return russianReadingUnits(pair.target);
+  if (record.course.targetLanguage.id === "he") return hebrewReadingUnits(pair.target);
   return record.rows[pair.sourceIndex]?.reading?.tokens?.flatMap(token => token.units) ?? [];
 }
 

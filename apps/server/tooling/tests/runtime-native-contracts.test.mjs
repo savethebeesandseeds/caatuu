@@ -49,7 +49,8 @@ test("update validation catches always-visible controls, lost browser refresh an
   for (const [before, after] of [
     ["const visible = available;", "const visible = true;"],
     ['native ? hasNativeAppUpdate(status) : status?.updateAvailable === true', "native && hasNativeAppUpdate(status)"],
-    ["if (status?.selfUpdateEnabled === false) return false;", ""],
+    ['if (status?.selfUpdateEnabled === false && status?.updateDelivery !== "browser") return false;', ""],
+    ['status?.updateDelivery !== "browser"', "false"],
     ['button.disabled = busy || !visible || downloadState === "active";', "button.disabled = false;"]
   ]) {
     assert.ok(maintenanceSource.includes(before), `mutation exists: ${before}`);

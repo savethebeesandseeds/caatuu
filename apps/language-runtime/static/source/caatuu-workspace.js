@@ -2193,7 +2193,7 @@ function saveVerbSpeakOnTap() {
 }
 
 function verbUsesRomanizationGuide() {
-  return ["ar", "ka", "ru"].includes(course.targetLanguage?.id);
+  return ["ar", "ka", "ru", "he"].includes(course.targetLanguage?.id);
 }
 
 function verbUsesTargetTextGuide() {

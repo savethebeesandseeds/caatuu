@@ -1,5 +1,19 @@
 # Changelog
 
+## Unreleased
+
+## Android 201 / 0.1.49
+
+- Add English → Hebrew as a local browser preview at `/he/`, with the
+  enlarged authored banks. Pages and Android stay off, so this package does
+  not install the Hebrew course. Native review is still required.
+- When a newer version is published, the Update button opens that APK in
+  the browser. The app still does not install packages.
+  `CAATUU_SELF_UPDATE_ENABLED` stays false, and the signing certificate is
+  unchanged. Installed copies of Android 199 and 200 keep the button hidden.
+- Physical-device installation and the Play Protect result remain unverified
+  for this candidate. Course review status is otherwise unchanged.
+
 ## Android 200 / 0.1.48
 
 - Add English → Russian as a local browser preview at `/ru/`. Pages and

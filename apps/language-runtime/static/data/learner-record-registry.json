@@ -825,6 +825,192 @@
       ]
     },
     {
+      "id": "he",
+      "namespace": "caatuu-he",
+      "semanticDatabase": "caatuu-he.semantic-learning",
+      "mirrors": {
+        "theme": "caatuu-he.theme",
+        "fontSize": "caatuu-he.font-size"
+      },
+      "records": [
+        {
+          "name": "learningContent",
+          "key": "caatuu-he.learning.content.v2",
+          "class": "progress",
+          "encoding": "json",
+          "maxSchemaVersion": 3
+        },
+        {
+          "name": "learningContentLegacy",
+          "key": "caatuu-he.learning.content.v1",
+          "class": "progress",
+          "encoding": "json",
+          "maxSchemaVersion": 1
+        },
+        {
+          "name": "learningGameSettings",
+          "key": "caatuu-he.learning.game-settings.v1",
+          "class": "preference",
+          "encoding": "json",
+          "maxSchemaVersion": null
+        },
+        {
+          "name": "learningGoal",
+          "key": "caatuu-he.learning.goal.v1",
+          "class": "preference",
+          "encoding": "json",
+          "maxSchemaVersion": 1
+        },
+        {
+          "name": "learningPerformance",
+          "key": "caatuu-he.learning.performance.v1",
+          "class": "progress",
+          "encoding": "json",
+          "maxSchemaVersion": 1
+        },
+        {
+          "name": "learningPractice",
+          "key": "caatuu-he.learning.practice.v1",
+          "class": "progress",
+          "encoding": "json",
+          "maxSchemaVersion": 2
+        },
+        {
+          "name": "learningPreferences",
+          "key": "caatuu-he.learning.preferences.v1",
+          "class": "preference",
+          "encoding": "json",
+          "maxSchemaVersion": 1
+        },
+        {
+          "name": "learningReset",
+          "key": "caatuu-he.learning.performance.v1.reset",
+          "class": "progress",
+          "encoding": "string",
+          "maxSchemaVersion": null
+        },
+        {
+          "name": "semanticProgressEpoch",
+          "key": "caatuu-he.semantic-learning.progress-epoch.v1",
+          "class": "progress",
+          "encoding": "string",
+          "maxSchemaVersion": null
+        },
+        {
+          "name": "speechVoice",
+          "key": "caatuu-he.speech.voice.v1",
+          "class": "preference",
+          "encoding": "string",
+          "maxSchemaVersion": null
+        },
+        {
+          "name": "verbMemory",
+          "key": "caatuu-he.verb-memory.v3",
+          "class": "progress",
+          "encoding": "json",
+          "maxSchemaVersion": 3
+        },
+        {
+          "name": "verbSpeakOnTap",
+          "key": "caatuu-he.verbNebula.speakOnTap.v1",
+          "class": "preference",
+          "encoding": "string",
+          "maxSchemaVersion": null
+        },
+        {
+          "name": "verbTargetTextPreferences",
+          "key": "caatuu-he.verbNebula.targetTextPreferences.v1",
+          "class": "preference",
+          "encoding": "json",
+          "maxSchemaVersion": null
+        },
+        {
+          "name": "wordNetChallengePromptMode",
+          "key": "caatuu-he.wordNet.challengePromptMode.v1",
+          "class": "preference",
+          "encoding": "string",
+          "maxSchemaVersion": null
+        },
+        {
+          "name": "wordNetContentMode",
+          "key": "caatuu-he.wordNet.contentMode.v1",
+          "class": "preference",
+          "encoding": "string",
+          "maxSchemaVersion": null
+        },
+        {
+          "name": "wordNetGenerationMode",
+          "key": "caatuu-he.wordNet.generationMode",
+          "class": "preference",
+          "encoding": "string",
+          "maxSchemaVersion": null
+        },
+        {
+          "name": "wordNetHistory",
+          "key": "caatuu-he.wordNet.history.v2",
+          "class": "progress",
+          "encoding": "json",
+          "maxSchemaVersion": null
+        },
+        {
+          "name": "wordNetHistoryLegacy",
+          "key": "caatuu-he.wordNet.history.v1",
+          "class": "progress",
+          "encoding": "json",
+          "maxSchemaVersion": null
+        },
+        {
+          "name": "wordNetLearningUnit",
+          "key": "caatuu-he.wordNet.learningUnit.v1",
+          "class": "preference",
+          "encoding": "json",
+          "maxSchemaVersion": null
+        },
+        {
+          "name": "wordNetPreparedQueue",
+          "key": "caatuu-he.wordNet.preparedQueue.v2",
+          "class": "progress",
+          "encoding": "json",
+          "maxSchemaVersion": null
+        },
+        {
+          "name": "wordNetSpeechAutoplay",
+          "key": "caatuu-he.wordNet.speechAutoplay.v2",
+          "class": "preference",
+          "encoding": "string",
+          "maxSchemaVersion": null
+        },
+        {
+          "name": "wordNetTargetTextPreferences",
+          "key": "caatuu-he.wordNet.targetTextPreferences.v1",
+          "class": "preference",
+          "encoding": "json",
+          "maxSchemaVersion": null
+        },
+        {
+          "name": "wordNetWordCardPreferences",
+          "key": "caatuu-he.wordNet.wordCardPreferences.v1",
+          "class": "preference",
+          "encoding": "json",
+          "maxSchemaVersion": null
+        },
+        {
+          "name": "wordWorldRecentSentences",
+          "key": "caatuu-he.word-world.recent-sentences.v1",
+          "class": "progress",
+          "encoding": "json",
+          "maxSchemaVersion": null
+        },
+        {
+          "name": "wordWorldTranslationMode",
+          "key": "caatuu-he.word-world.translation-mode",
+          "class": "preference",
+          "encoding": "string",
+          "maxSchemaVersion": null
+        }
+      ]
+    },
+    {
       "id": "ka",
       "namespace": "caatuu-ka",
       "semanticDatabase": "caatuu-ka.semantic-learning",

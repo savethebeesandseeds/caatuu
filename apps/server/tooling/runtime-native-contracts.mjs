@@ -49,6 +49,8 @@ export function validateMaintenanceUpdateVisibility(maintenanceSource) {
     const cases = [
       ["native without update", "android", { ...newer, updateAvailable: false }, false, false],
       ["store-managed native", "android", { ...newer, selfUpdateEnabled: false }, false, false],
+      ["browser-delivered native update", "android", { ...newer, selfUpdateEnabled: false, updateDelivery: "browser" }, true, false],
+      ["browser-delivered current native", "android", { ...newer, selfUpdateEnabled: false, updateDelivery: "browser", updateAvailable: false, latestVersionCode: 10 }, false, false],
       ["native newer update", "android", newer, true, false],
       ["native current version", "android", { ...newer, latestVersionCode: 10 }, false, false],
       ["native older version", "android", { ...newer, latestVersionCode: 9 }, false, false],

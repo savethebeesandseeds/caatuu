@@ -8,9 +8,10 @@ import { tokenizeMoonText, moonLabels } from '../static/source/games/memory-moon
 import { arabicReadingUnits } from '../static/source/arabic-romanization.mjs';
 import { georgianReadingUnits } from '../static/source/georgian-romanization.mjs';
 import { russianReadingUnits } from '../static/source/russian-romanization.mjs';
+import { hebrewReadingUnits } from '../static/source/hebrew-romanization.mjs';
 
 const directories = ['czech', 'mandarin-simplified', 'spanish', 'english-from-spanish',
-  'norwegian-bokmal', 'arabic-standard', 'latin-scientific', 'georgian', 'russian'];
+  'norwegian-bokmal', 'arabic-standard', 'latin-scientific', 'georgian', 'russian', 'hebrew'];
 const json = async relative => JSON.parse(await readFile(new URL(relative, import.meta.url), 'utf8'));
 const deferred = () => { let resolve; const promise = new Promise(done => { resolve = done; }); return { promise, resolve }; };
 async function flush() { for (let index = 0; index < 12; index++) await Promise.resolve(); }
@@ -126,12 +127,13 @@ test('every registered course renders its own target and learner-base choices in
     assert.notEqual(sentence.ownerDocument, app.shell.document);
     assert.equal(surfaceText(sentence), item.targetText);
     assert.equal(sentence.getAttribute('aria-label'), item.targetText);
-    const guided = ['arabic-standard', 'georgian', 'russian'].includes(directory);
+    const guided = ['arabic-standard', 'georgian', 'russian', 'hebrew'].includes(directory);
     assert.equal(app.controlsOptions.readingGuide.available, guided);
     if (guided) {
       const notations = sentence.querySelectorAll('rt');
       const project = directory === 'arabic-standard' ? arabicReadingUnits
         : directory === 'georgian' ? georgianReadingUnits
+        : directory === 'hebrew' ? hebrewReadingUnits
         : russianReadingUnits;
       const expectedReadings = project(item.targetText).filter(unit => unit.notation).map(unit => unit.notation);
       assert.deepEqual(notations.map(node => node.textContent), expectedReadings,

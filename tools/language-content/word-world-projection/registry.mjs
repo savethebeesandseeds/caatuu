@@ -3,6 +3,7 @@ import { arabicStandardWordWorldProjectionPolicy } from "./arabic-standard.mjs";
 import { latinScientificWordWorldProjectionPolicy } from "./latin-scientific.mjs";
 import { georgianWordWorldProjectionPolicy } from "./georgian.mjs";
 import { russianWordWorldProjectionPolicy } from "./russian.mjs";
+import { hebrewWordWorldProjectionPolicy } from "./hebrew.mjs";
 import { mandarinSimplifiedWordWorldProjectionPolicy } from "./mandarin-simplified.mjs";
 import { norwegianBokmalWordWorldProjectionPolicy } from "./norwegian-bokmal.mjs";
 import { spanishSpainWordWorldProjectionPolicy } from "./spanish-spain.mjs";
@@ -10,6 +11,7 @@ import { spanishSpainWordWorldProjectionPolicy } from "./spanish-spain.mjs";
 const POLICIES = new Map([
   [georgianWordWorldProjectionPolicy.contentPolicyId, georgianWordWorldProjectionPolicy],
   [russianWordWorldProjectionPolicy.contentPolicyId, russianWordWorldProjectionPolicy],
+  [hebrewWordWorldProjectionPolicy.contentPolicyId, hebrewWordWorldProjectionPolicy],
   [latinScientificWordWorldProjectionPolicy.contentPolicyId, latinScientificWordWorldProjectionPolicy],
   [arabicStandardWordWorldProjectionPolicy.contentPolicyId, arabicStandardWordWorldProjectionPolicy],
   [englishAmericanWordWorldProjectionPolicy.contentPolicyId, englishAmericanWordWorldProjectionPolicy],

@@ -116,7 +116,7 @@ test("the Android product bundle supports every Android-enabled catalog course i
   const input = currentInputs();
   const enabled = input.courses.filter(({ course }) => course.platforms.android.enabled === true);
   const held = input.courses.filter(({ course }) => course.platforms.android.enabled !== true);
-  assert.deepEqual(held.map(({ id }) => id), ["ru"]);
+  assert.deepEqual(held.map(({ id }) => id), ["ru", "he"]);
   const expected = createAndroidCourseBundlePlan(input);
   assert.deepEqual(expected, {
     defaultCourseId: input.bundleDeclaration.defaultCourseId,

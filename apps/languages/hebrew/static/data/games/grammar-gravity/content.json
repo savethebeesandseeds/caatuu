@@ -1,0 +1,3095 @@
+{
+  "schemaVersion": "caatuu-grammar-gravity-content-v3",
+  "courseId": "he",
+  "gameId": "grammar-gravity",
+  "contentId": "he.grammar.agreement.v1",
+  "contentRevision": 1,
+  "status": "machine-assisted-preview",
+  "learnerBaseLanguage": "en",
+  "targetLanguage": "he",
+  "englishAuditLanguage": "en",
+  "review": {
+    "status": "native-review-required",
+    "reviewer": null,
+    "reviewedAt": null,
+    "notes": "Original Hebrew teaching examples for English speakers. Independent native review is still required. Pointed Hebrew is the teaching script. No approved pronunciation or audio is claimed."
+  },
+  "license": {
+    "origin": "caatuu-first-party-authored",
+    "status": "release-review-required",
+    "spdxExpression": null,
+    "notes": "First-party Hebrew curriculum. Release review is still required."
+  },
+  "gameplay": {
+    "contract": "caatuu-grammar-gravity-journey-v1",
+    "stages": [
+      "meaning",
+      "category",
+      "form"
+    ],
+    "categoryFeature": "agreement",
+    "categoryOptions": [
+      {
+        "id": "masculine",
+        "label": "Masculine"
+      },
+      {
+        "id": "feminine",
+        "label": "Feminine"
+      },
+      {
+        "id": "masculine-plural",
+        "label": "Masculine plural"
+      },
+      {
+        "id": "feminine-plural",
+        "label": "Feminine plural"
+      }
+    ]
+  },
+  "presentation": {
+    "errorTitle": "Grammar Gravity could not load",
+    "errorDetail": "Return to the planets and try opening it again.",
+    "backLabel": "Back to games"
+  },
+  "axes": [
+    {
+      "id": "masculine",
+      "label": "Masculine",
+      "features": {
+        "agreement": "masculine"
+      }
+    },
+    {
+      "id": "feminine",
+      "label": "Feminine",
+      "features": {
+        "agreement": "feminine"
+      }
+    },
+    {
+      "id": "masculine-plural",
+      "label": "Masculine plural",
+      "features": {
+        "agreement": "masculine-plural"
+      }
+    },
+    {
+      "id": "feminine-plural",
+      "label": "Feminine plural",
+      "features": {
+        "agreement": "feminine-plural"
+      }
+    }
+  ],
+  "challenges": [
+    {
+      "id": "he.grammar.new",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 72,
+      "complexity": 16,
+      "focus": {
+        "kind": "adjective",
+        "label": "new",
+        "targetText": "חָדָשׁ",
+        "resultTitle": "Adjective agreement",
+        "summary": "The adjective follows the noun and repeats the article."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "הַחָדָשׁ",
+          "usefulness": 72,
+          "complexity": 16,
+          "examples": [
+            {
+              "id": "he.grammar.new.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "The new book is here.",
+              "englishAuditText": "The new book is here.",
+              "targetText": "הַסֵּפֶר הַחָדָשׁ כָּאָן.",
+              "anchor": {
+                "targetText": "הַסֵּפֶר",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "slot": {
+                "beforeText": "הַסֵּפֶר ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 16
+            },
+            {
+              "id": "he.grammar.new.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "The new bag is here.",
+              "englishAuditText": "The new bag is here.",
+              "targetText": "הַתִּיק הַחָדָשׁ כָּאָן.",
+              "anchor": {
+                "targetText": "הַתִּיק",
+                "learnerBaseText": "bag",
+                "englishAuditText": "bag"
+              },
+              "slot": {
+                "beforeText": "הַתִּיק ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 16
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "הַחֲדָשָׁה",
+          "usefulness": 72,
+          "complexity": 16,
+          "examples": [
+            {
+              "id": "he.grammar.new.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "The new garden is here.",
+              "englishAuditText": "The new garden is here.",
+              "targetText": "הַגִּנָּה הַחֲדָשָׁה כָּאָן.",
+              "anchor": {
+                "targetText": "הַגִּנָּה",
+                "learnerBaseText": "garden",
+                "englishAuditText": "garden"
+              },
+              "slot": {
+                "beforeText": "הַגִּנָּה ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 16
+            },
+            {
+              "id": "he.grammar.new.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "The new gift is here.",
+              "englishAuditText": "The new gift is here.",
+              "targetText": "הַמַּתָּנָה הַחֲדָשָׁה כָּאָן.",
+              "anchor": {
+                "targetText": "הַמַּתָּנָה",
+                "learnerBaseText": "gift",
+                "englishAuditText": "gift"
+              },
+              "slot": {
+                "beforeText": "הַמַּתָּנָה ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 16
+            }
+          ]
+        },
+        "masculine-plural": {
+          "displayForm": "הַחֲדָשִׁים",
+          "usefulness": 72,
+          "complexity": 16,
+          "examples": [
+            {
+              "id": "he.grammar.new.masculine-plural.1",
+              "revision": 1,
+              "learnerBaseText": "The new books are here.",
+              "englishAuditText": "The new books are here.",
+              "targetText": "הַסְפָרִים הַחֲדָשִׁים כָּאָן.",
+              "anchor": {
+                "targetText": "הַסְפָרִים",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "הַסְפָרִים ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 16
+            },
+            {
+              "id": "he.grammar.new.masculine-plural.2",
+              "revision": 1,
+              "learnerBaseText": "The new bags are here.",
+              "englishAuditText": "The new bags are here.",
+              "targetText": "הַתִּיקִים הַחֲדָשִׁים כָּאָן.",
+              "anchor": {
+                "targetText": "הַתִּיקִים",
+                "learnerBaseText": "bags",
+                "englishAuditText": "bags"
+              },
+              "slot": {
+                "beforeText": "הַתִּיקִים ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 16
+            }
+          ]
+        },
+        "feminine-plural": {
+          "displayForm": "הַחֲדָשׁוֹת",
+          "usefulness": 72,
+          "complexity": 16,
+          "examples": [
+            {
+              "id": "he.grammar.new.feminine-plural.1",
+              "revision": 1,
+              "learnerBaseText": "The new gardens are here.",
+              "englishAuditText": "The new gardens are here.",
+              "targetText": "הַגַּנּוֹת הַחֲדָשׁוֹת כָּאָן.",
+              "anchor": {
+                "targetText": "הַגַּנּוֹת",
+                "learnerBaseText": "gardens",
+                "englishAuditText": "gardens"
+              },
+              "slot": {
+                "beforeText": "הַגַּנּוֹת ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 16
+            },
+            {
+              "id": "he.grammar.new.feminine-plural.2",
+              "revision": 1,
+              "learnerBaseText": "The new gifts are here.",
+              "englishAuditText": "The new gifts are here.",
+              "targetText": "הַמַּתָּנוֹת הַחֲדָשׁוֹת כָּאָן.",
+              "anchor": {
+                "targetText": "הַמַּתָּנוֹת",
+                "learnerBaseText": "gifts",
+                "englishAuditText": "gifts"
+              },
+              "slot": {
+                "beforeText": "הַמַּתָּנוֹת ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 16
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "he.grammar.good",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 72,
+      "complexity": 18,
+      "focus": {
+        "kind": "adjective",
+        "label": "good",
+        "targetText": "טוֹב",
+        "resultTitle": "Adjective agreement",
+        "summary": "The adjective follows the noun and repeats the article."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "הַטּוֹב",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.good.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "The good book is here.",
+              "englishAuditText": "The good book is here.",
+              "targetText": "הַסֵּפֶר הַטּוֹב כָּאָן.",
+              "anchor": {
+                "targetText": "הַסֵּפֶר",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "slot": {
+                "beforeText": "הַסֵּפֶר ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.good.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "The good bag is here.",
+              "englishAuditText": "The good bag is here.",
+              "targetText": "הַתִּיק הַטּוֹב כָּאָן.",
+              "anchor": {
+                "targetText": "הַתִּיק",
+                "learnerBaseText": "bag",
+                "englishAuditText": "bag"
+              },
+              "slot": {
+                "beforeText": "הַתִּיק ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "הַטּוֹבָה",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.good.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "The good garden is here.",
+              "englishAuditText": "The good garden is here.",
+              "targetText": "הַגִּנָּה הַטּוֹבָה כָּאָן.",
+              "anchor": {
+                "targetText": "הַגִּנָּה",
+                "learnerBaseText": "garden",
+                "englishAuditText": "garden"
+              },
+              "slot": {
+                "beforeText": "הַגִּנָּה ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.good.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "The good gift is here.",
+              "englishAuditText": "The good gift is here.",
+              "targetText": "הַמַּתָּנָה הַטּוֹבָה כָּאָן.",
+              "anchor": {
+                "targetText": "הַמַּתָּנָה",
+                "learnerBaseText": "gift",
+                "englishAuditText": "gift"
+              },
+              "slot": {
+                "beforeText": "הַמַּתָּנָה ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        },
+        "masculine-plural": {
+          "displayForm": "הַטּוֹבִים",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.good.masculine-plural.1",
+              "revision": 1,
+              "learnerBaseText": "The good books are here.",
+              "englishAuditText": "The good books are here.",
+              "targetText": "הַסְפָרִים הַטּוֹבִים כָּאָן.",
+              "anchor": {
+                "targetText": "הַסְפָרִים",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "הַסְפָרִים ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.good.masculine-plural.2",
+              "revision": 1,
+              "learnerBaseText": "The good bags are here.",
+              "englishAuditText": "The good bags are here.",
+              "targetText": "הַתִּיקִים הַטּוֹבִים כָּאָן.",
+              "anchor": {
+                "targetText": "הַתִּיקִים",
+                "learnerBaseText": "bags",
+                "englishAuditText": "bags"
+              },
+              "slot": {
+                "beforeText": "הַתִּיקִים ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        },
+        "feminine-plural": {
+          "displayForm": "הַטּוֹבוֹת",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.good.feminine-plural.1",
+              "revision": 1,
+              "learnerBaseText": "The good gardens are here.",
+              "englishAuditText": "The good gardens are here.",
+              "targetText": "הַגַּנּוֹת הַטּוֹבוֹת כָּאָן.",
+              "anchor": {
+                "targetText": "הַגַּנּוֹת",
+                "learnerBaseText": "gardens",
+                "englishAuditText": "gardens"
+              },
+              "slot": {
+                "beforeText": "הַגַּנּוֹת ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.good.feminine-plural.2",
+              "revision": 1,
+              "learnerBaseText": "The good gifts are here.",
+              "englishAuditText": "The good gifts are here.",
+              "targetText": "הַמַּתָּנוֹת הַטּוֹבוֹת כָּאָן.",
+              "anchor": {
+                "targetText": "הַמַּתָּנוֹת",
+                "learnerBaseText": "gifts",
+                "englishAuditText": "gifts"
+              },
+              "slot": {
+                "beforeText": "הַמַּתָּנוֹת ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "he.grammar.small",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 72,
+      "complexity": 18,
+      "focus": {
+        "kind": "adjective",
+        "label": "small",
+        "targetText": "קָטָן",
+        "resultTitle": "Adjective agreement",
+        "summary": "The adjective follows the noun and repeats the article."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "הַקָּטָן",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.small.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "The small book is here.",
+              "englishAuditText": "The small book is here.",
+              "targetText": "הַסֵּפֶר הַקָּטָן כָּאָן.",
+              "anchor": {
+                "targetText": "הַסֵּפֶר",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "slot": {
+                "beforeText": "הַסֵּפֶר ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.small.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "The small bag is here.",
+              "englishAuditText": "The small bag is here.",
+              "targetText": "הַתִּיק הַקָּטָן כָּאָן.",
+              "anchor": {
+                "targetText": "הַתִּיק",
+                "learnerBaseText": "bag",
+                "englishAuditText": "bag"
+              },
+              "slot": {
+                "beforeText": "הַתִּיק ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "הַקְּטַנָּה",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.small.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "The small garden is here.",
+              "englishAuditText": "The small garden is here.",
+              "targetText": "הַגִּנָּה הַקְּטַנָּה כָּאָן.",
+              "anchor": {
+                "targetText": "הַגִּנָּה",
+                "learnerBaseText": "garden",
+                "englishAuditText": "garden"
+              },
+              "slot": {
+                "beforeText": "הַגִּנָּה ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.small.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "The small gift is here.",
+              "englishAuditText": "The small gift is here.",
+              "targetText": "הַמַּתָּנָה הַקְּטַנָּה כָּאָן.",
+              "anchor": {
+                "targetText": "הַמַּתָּנָה",
+                "learnerBaseText": "gift",
+                "englishAuditText": "gift"
+              },
+              "slot": {
+                "beforeText": "הַמַּתָּנָה ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        },
+        "masculine-plural": {
+          "displayForm": "הַקְּטַנִּים",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.small.masculine-plural.1",
+              "revision": 1,
+              "learnerBaseText": "The small books are here.",
+              "englishAuditText": "The small books are here.",
+              "targetText": "הַסְפָרִים הַקְּטַנִּים כָּאָן.",
+              "anchor": {
+                "targetText": "הַסְפָרִים",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "הַסְפָרִים ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.small.masculine-plural.2",
+              "revision": 1,
+              "learnerBaseText": "The small bags are here.",
+              "englishAuditText": "The small bags are here.",
+              "targetText": "הַתִּיקִים הַקְּטַנִּים כָּאָן.",
+              "anchor": {
+                "targetText": "הַתִּיקִים",
+                "learnerBaseText": "bags",
+                "englishAuditText": "bags"
+              },
+              "slot": {
+                "beforeText": "הַתִּיקִים ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        },
+        "feminine-plural": {
+          "displayForm": "הַקְּטַנּוֹת",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.small.feminine-plural.1",
+              "revision": 1,
+              "learnerBaseText": "The small gardens are here.",
+              "englishAuditText": "The small gardens are here.",
+              "targetText": "הַגַּנּוֹת הַקְּטַנּוֹת כָּאָן.",
+              "anchor": {
+                "targetText": "הַגַּנּוֹת",
+                "learnerBaseText": "gardens",
+                "englishAuditText": "gardens"
+              },
+              "slot": {
+                "beforeText": "הַגַּנּוֹת ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.small.feminine-plural.2",
+              "revision": 1,
+              "learnerBaseText": "The small gifts are here.",
+              "englishAuditText": "The small gifts are here.",
+              "targetText": "הַמַּתָּנוֹת הַקְּטַנּוֹת כָּאָן.",
+              "anchor": {
+                "targetText": "הַמַּתָּנוֹת",
+                "learnerBaseText": "gifts",
+                "englishAuditText": "gifts"
+              },
+              "slot": {
+                "beforeText": "הַמַּתָּנוֹת ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "he.grammar.big",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 72,
+      "complexity": 18,
+      "focus": {
+        "kind": "adjective",
+        "label": "big",
+        "targetText": "גָּדוֹל",
+        "resultTitle": "Adjective agreement",
+        "summary": "The adjective follows the noun and repeats the article."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "הַגָּדוֹל",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.big.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "The big book is here.",
+              "englishAuditText": "The big book is here.",
+              "targetText": "הַסֵּפֶר הַגָּדוֹל כָּאָן.",
+              "anchor": {
+                "targetText": "הַסֵּפֶר",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "slot": {
+                "beforeText": "הַסֵּפֶר ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.big.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "The big bag is here.",
+              "englishAuditText": "The big bag is here.",
+              "targetText": "הַתִּיק הַגָּדוֹל כָּאָן.",
+              "anchor": {
+                "targetText": "הַתִּיק",
+                "learnerBaseText": "bag",
+                "englishAuditText": "bag"
+              },
+              "slot": {
+                "beforeText": "הַתִּיק ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "הַגְדוֹלָה",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.big.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "The big garden is here.",
+              "englishAuditText": "The big garden is here.",
+              "targetText": "הַגִּנָּה הַגְדוֹלָה כָּאָן.",
+              "anchor": {
+                "targetText": "הַגִּנָּה",
+                "learnerBaseText": "garden",
+                "englishAuditText": "garden"
+              },
+              "slot": {
+                "beforeText": "הַגִּנָּה ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.big.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "The big gift is here.",
+              "englishAuditText": "The big gift is here.",
+              "targetText": "הַמַּתָּנָה הַגְדוֹלָה כָּאָן.",
+              "anchor": {
+                "targetText": "הַמַּתָּנָה",
+                "learnerBaseText": "gift",
+                "englishAuditText": "gift"
+              },
+              "slot": {
+                "beforeText": "הַמַּתָּנָה ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        },
+        "masculine-plural": {
+          "displayForm": "הַגְדוֹלִים",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.big.masculine-plural.1",
+              "revision": 1,
+              "learnerBaseText": "The big books are here.",
+              "englishAuditText": "The big books are here.",
+              "targetText": "הַסְפָרִים הַגְדוֹלִים כָּאָן.",
+              "anchor": {
+                "targetText": "הַסְפָרִים",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "הַסְפָרִים ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.big.masculine-plural.2",
+              "revision": 1,
+              "learnerBaseText": "The big bags are here.",
+              "englishAuditText": "The big bags are here.",
+              "targetText": "הַתִּיקִים הַגְדוֹלִים כָּאָן.",
+              "anchor": {
+                "targetText": "הַתִּיקִים",
+                "learnerBaseText": "bags",
+                "englishAuditText": "bags"
+              },
+              "slot": {
+                "beforeText": "הַתִּיקִים ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        },
+        "feminine-plural": {
+          "displayForm": "הַגְדוֹלוֹת",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.big.feminine-plural.1",
+              "revision": 1,
+              "learnerBaseText": "The big gardens are here.",
+              "englishAuditText": "The big gardens are here.",
+              "targetText": "הַגַּנּוֹת הַגְדוֹלוֹת כָּאָן.",
+              "anchor": {
+                "targetText": "הַגַּנּוֹת",
+                "learnerBaseText": "gardens",
+                "englishAuditText": "gardens"
+              },
+              "slot": {
+                "beforeText": "הַגַּנּוֹת ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.big.feminine-plural.2",
+              "revision": 1,
+              "learnerBaseText": "The big gifts are here.",
+              "englishAuditText": "The big gifts are here.",
+              "targetText": "הַמַּתָּנוֹת הַגְדוֹלוֹת כָּאָן.",
+              "anchor": {
+                "targetText": "הַמַּתָּנוֹת",
+                "learnerBaseText": "gifts",
+                "englishAuditText": "gifts"
+              },
+              "slot": {
+                "beforeText": "הַמַּתָּנוֹת ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "he.grammar.quiet",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 72,
+      "complexity": 18,
+      "focus": {
+        "kind": "adjective",
+        "label": "quiet",
+        "targetText": "שָׁקֵט",
+        "resultTitle": "Adjective agreement",
+        "summary": "The adjective follows the noun and repeats the article."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "הַשָּׁקֵט",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.quiet.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "The quiet book is here.",
+              "englishAuditText": "The quiet book is here.",
+              "targetText": "הַסֵּפֶר הַשָּׁקֵט כָּאָן.",
+              "anchor": {
+                "targetText": "הַסֵּפֶר",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "slot": {
+                "beforeText": "הַסֵּפֶר ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.quiet.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "The quiet bag is here.",
+              "englishAuditText": "The quiet bag is here.",
+              "targetText": "הַתִּיק הַשָּׁקֵט כָּאָן.",
+              "anchor": {
+                "targetText": "הַתִּיק",
+                "learnerBaseText": "bag",
+                "englishAuditText": "bag"
+              },
+              "slot": {
+                "beforeText": "הַתִּיק ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "הַשְׁקֵטָה",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.quiet.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "The quiet garden is here.",
+              "englishAuditText": "The quiet garden is here.",
+              "targetText": "הַגִּנָּה הַשְׁקֵטָה כָּאָן.",
+              "anchor": {
+                "targetText": "הַגִּנָּה",
+                "learnerBaseText": "garden",
+                "englishAuditText": "garden"
+              },
+              "slot": {
+                "beforeText": "הַגִּנָּה ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.quiet.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "The quiet gift is here.",
+              "englishAuditText": "The quiet gift is here.",
+              "targetText": "הַמַּתָּנָה הַשְׁקֵטָה כָּאָן.",
+              "anchor": {
+                "targetText": "הַמַּתָּנָה",
+                "learnerBaseText": "gift",
+                "englishAuditText": "gift"
+              },
+              "slot": {
+                "beforeText": "הַמַּתָּנָה ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        },
+        "masculine-plural": {
+          "displayForm": "הַשְׁקֵטִים",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.quiet.masculine-plural.1",
+              "revision": 1,
+              "learnerBaseText": "The quiet books are here.",
+              "englishAuditText": "The quiet books are here.",
+              "targetText": "הַסְפָרִים הַשְׁקֵטִים כָּאָן.",
+              "anchor": {
+                "targetText": "הַסְפָרִים",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "הַסְפָרִים ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.quiet.masculine-plural.2",
+              "revision": 1,
+              "learnerBaseText": "The quiet bags are here.",
+              "englishAuditText": "The quiet bags are here.",
+              "targetText": "הַתִּיקִים הַשְׁקֵטִים כָּאָן.",
+              "anchor": {
+                "targetText": "הַתִּיקִים",
+                "learnerBaseText": "bags",
+                "englishAuditText": "bags"
+              },
+              "slot": {
+                "beforeText": "הַתִּיקִים ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        },
+        "feminine-plural": {
+          "displayForm": "הַשְׁקֵטוֹת",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.quiet.feminine-plural.1",
+              "revision": 1,
+              "learnerBaseText": "The quiet gardens are here.",
+              "englishAuditText": "The quiet gardens are here.",
+              "targetText": "הַגַּנּוֹת הַשְׁקֵטוֹת כָּאָן.",
+              "anchor": {
+                "targetText": "הַגַּנּוֹת",
+                "learnerBaseText": "gardens",
+                "englishAuditText": "gardens"
+              },
+              "slot": {
+                "beforeText": "הַגַּנּוֹת ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.quiet.feminine-plural.2",
+              "revision": 1,
+              "learnerBaseText": "The quiet gifts are here.",
+              "englishAuditText": "The quiet gifts are here.",
+              "targetText": "הַמַּתָּנוֹת הַשְׁקֵטוֹת כָּאָן.",
+              "anchor": {
+                "targetText": "הַמַּתָּנוֹת",
+                "learnerBaseText": "gifts",
+                "englishAuditText": "gifts"
+              },
+              "slot": {
+                "beforeText": "הַמַּתָּנוֹת ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "he.grammar.kind",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 72,
+      "complexity": 18,
+      "focus": {
+        "kind": "adjective",
+        "label": "kind",
+        "targetText": "נֶחְמָד",
+        "resultTitle": "Adjective agreement",
+        "summary": "The adjective follows the noun and repeats the article."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "הַנֶּחְמָד",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.kind.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "The kind book is here.",
+              "englishAuditText": "The kind book is here.",
+              "targetText": "הַסֵּפֶר הַנֶּחְמָד כָּאָן.",
+              "anchor": {
+                "targetText": "הַסֵּפֶר",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "slot": {
+                "beforeText": "הַסֵּפֶר ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.kind.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "The kind bag is here.",
+              "englishAuditText": "The kind bag is here.",
+              "targetText": "הַתִּיק הַנֶּחְמָד כָּאָן.",
+              "anchor": {
+                "targetText": "הַתִּיק",
+                "learnerBaseText": "bag",
+                "englishAuditText": "bag"
+              },
+              "slot": {
+                "beforeText": "הַתִּיק ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "הַנֶּחְמָדָה",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.kind.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "The kind garden is here.",
+              "englishAuditText": "The kind garden is here.",
+              "targetText": "הַגִּנָּה הַנֶּחְמָדָה כָּאָן.",
+              "anchor": {
+                "targetText": "הַגִּנָּה",
+                "learnerBaseText": "garden",
+                "englishAuditText": "garden"
+              },
+              "slot": {
+                "beforeText": "הַגִּנָּה ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.kind.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "The kind gift is here.",
+              "englishAuditText": "The kind gift is here.",
+              "targetText": "הַמַּתָּנָה הַנֶּחְמָדָה כָּאָן.",
+              "anchor": {
+                "targetText": "הַמַּתָּנָה",
+                "learnerBaseText": "gift",
+                "englishAuditText": "gift"
+              },
+              "slot": {
+                "beforeText": "הַמַּתָּנָה ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        },
+        "masculine-plural": {
+          "displayForm": "הַנֶּחְמָדִים",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.kind.masculine-plural.1",
+              "revision": 1,
+              "learnerBaseText": "The kind books are here.",
+              "englishAuditText": "The kind books are here.",
+              "targetText": "הַסְפָרִים הַנֶּחְמָדִים כָּאָן.",
+              "anchor": {
+                "targetText": "הַסְפָרִים",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "הַסְפָרִים ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.kind.masculine-plural.2",
+              "revision": 1,
+              "learnerBaseText": "The kind bags are here.",
+              "englishAuditText": "The kind bags are here.",
+              "targetText": "הַתִּיקִים הַנֶּחְמָדִים כָּאָן.",
+              "anchor": {
+                "targetText": "הַתִּיקִים",
+                "learnerBaseText": "bags",
+                "englishAuditText": "bags"
+              },
+              "slot": {
+                "beforeText": "הַתִּיקִים ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        },
+        "feminine-plural": {
+          "displayForm": "הַנֶּחְמָדוֹת",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.kind.feminine-plural.1",
+              "revision": 1,
+              "learnerBaseText": "The kind gardens are here.",
+              "englishAuditText": "The kind gardens are here.",
+              "targetText": "הַגַּנּוֹת הַנֶּחְמָדוֹת כָּאָן.",
+              "anchor": {
+                "targetText": "הַגַּנּוֹת",
+                "learnerBaseText": "gardens",
+                "englishAuditText": "gardens"
+              },
+              "slot": {
+                "beforeText": "הַגַּנּוֹת ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.kind.feminine-plural.2",
+              "revision": 1,
+              "learnerBaseText": "The kind gifts are here.",
+              "englishAuditText": "The kind gifts are here.",
+              "targetText": "הַמַּתָּנוֹת הַנֶּחְמָדוֹת כָּאָן.",
+              "anchor": {
+                "targetText": "הַמַּתָּנוֹת",
+                "learnerBaseText": "gifts",
+                "englishAuditText": "gifts"
+              },
+              "slot": {
+                "beforeText": "הַמַּתָּנוֹת ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "he.grammar.open",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 72,
+      "complexity": 18,
+      "focus": {
+        "kind": "adjective",
+        "label": "open",
+        "targetText": "פָּתוּחַ",
+        "resultTitle": "Adjective agreement",
+        "summary": "The adjective follows the noun and repeats the article."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "הַפָּתוּחַ",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.open.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "The open book is here.",
+              "englishAuditText": "The open book is here.",
+              "targetText": "הַסֵּפֶר הַפָּתוּחַ כָּאָן.",
+              "anchor": {
+                "targetText": "הַסֵּפֶר",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "slot": {
+                "beforeText": "הַסֵּפֶר ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.open.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "The open bag is here.",
+              "englishAuditText": "The open bag is here.",
+              "targetText": "הַתִּיק הַפָּתוּחַ כָּאָן.",
+              "anchor": {
+                "targetText": "הַתִּיק",
+                "learnerBaseText": "bag",
+                "englishAuditText": "bag"
+              },
+              "slot": {
+                "beforeText": "הַתִּיק ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "הַפְּתוּחָה",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.open.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "The open garden is here.",
+              "englishAuditText": "The open garden is here.",
+              "targetText": "הַגִּנָּה הַפְּתוּחָה כָּאָן.",
+              "anchor": {
+                "targetText": "הַגִּנָּה",
+                "learnerBaseText": "garden",
+                "englishAuditText": "garden"
+              },
+              "slot": {
+                "beforeText": "הַגִּנָּה ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.open.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "The open gift is here.",
+              "englishAuditText": "The open gift is here.",
+              "targetText": "הַמַּתָּנָה הַפְּתוּחָה כָּאָן.",
+              "anchor": {
+                "targetText": "הַמַּתָּנָה",
+                "learnerBaseText": "gift",
+                "englishAuditText": "gift"
+              },
+              "slot": {
+                "beforeText": "הַמַּתָּנָה ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        },
+        "masculine-plural": {
+          "displayForm": "הַפְּתוּחִים",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.open.masculine-plural.1",
+              "revision": 1,
+              "learnerBaseText": "The open books are here.",
+              "englishAuditText": "The open books are here.",
+              "targetText": "הַסְפָרִים הַפְּתוּחִים כָּאָן.",
+              "anchor": {
+                "targetText": "הַסְפָרִים",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "הַסְפָרִים ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.open.masculine-plural.2",
+              "revision": 1,
+              "learnerBaseText": "The open bags are here.",
+              "englishAuditText": "The open bags are here.",
+              "targetText": "הַתִּיקִים הַפְּתוּחִים כָּאָן.",
+              "anchor": {
+                "targetText": "הַתִּיקִים",
+                "learnerBaseText": "bags",
+                "englishAuditText": "bags"
+              },
+              "slot": {
+                "beforeText": "הַתִּיקִים ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        },
+        "feminine-plural": {
+          "displayForm": "הַפְּתוּחוֹת",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.open.feminine-plural.1",
+              "revision": 1,
+              "learnerBaseText": "The open gardens are here.",
+              "englishAuditText": "The open gardens are here.",
+              "targetText": "הַגַּנּוֹת הַפְּתוּחוֹת כָּאָן.",
+              "anchor": {
+                "targetText": "הַגַּנּוֹת",
+                "learnerBaseText": "gardens",
+                "englishAuditText": "gardens"
+              },
+              "slot": {
+                "beforeText": "הַגַּנּוֹת ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.open.feminine-plural.2",
+              "revision": 1,
+              "learnerBaseText": "The open gifts are here.",
+              "englishAuditText": "The open gifts are here.",
+              "targetText": "הַמַּתָּנוֹת הַפְּתוּחוֹת כָּאָן.",
+              "anchor": {
+                "targetText": "הַמַּתָּנוֹת",
+                "learnerBaseText": "gifts",
+                "englishAuditText": "gifts"
+              },
+              "slot": {
+                "beforeText": "הַמַּתָּנוֹת ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "he.grammar.warm",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 72,
+      "complexity": 18,
+      "focus": {
+        "kind": "adjective",
+        "label": "warm",
+        "targetText": "חַם",
+        "resultTitle": "Adjective agreement",
+        "summary": "The adjective follows the noun and repeats the article."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "הַחַם",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.warm.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "The warm book is here.",
+              "englishAuditText": "The warm book is here.",
+              "targetText": "הַסֵּפֶר הַחַם כָּאָן.",
+              "anchor": {
+                "targetText": "הַסֵּפֶר",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "slot": {
+                "beforeText": "הַסֵּפֶר ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.warm.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "The warm bag is here.",
+              "englishAuditText": "The warm bag is here.",
+              "targetText": "הַתִּיק הַחַם כָּאָן.",
+              "anchor": {
+                "targetText": "הַתִּיק",
+                "learnerBaseText": "bag",
+                "englishAuditText": "bag"
+              },
+              "slot": {
+                "beforeText": "הַתִּיק ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "הַחַמָּה",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.warm.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "The warm garden is here.",
+              "englishAuditText": "The warm garden is here.",
+              "targetText": "הַגִּנָּה הַחַמָּה כָּאָן.",
+              "anchor": {
+                "targetText": "הַגִּנָּה",
+                "learnerBaseText": "garden",
+                "englishAuditText": "garden"
+              },
+              "slot": {
+                "beforeText": "הַגִּנָּה ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.warm.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "The warm gift is here.",
+              "englishAuditText": "The warm gift is here.",
+              "targetText": "הַמַּתָּנָה הַחַמָּה כָּאָן.",
+              "anchor": {
+                "targetText": "הַמַּתָּנָה",
+                "learnerBaseText": "gift",
+                "englishAuditText": "gift"
+              },
+              "slot": {
+                "beforeText": "הַמַּתָּנָה ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        },
+        "masculine-plural": {
+          "displayForm": "הַחַמִּים",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.warm.masculine-plural.1",
+              "revision": 1,
+              "learnerBaseText": "The warm books are here.",
+              "englishAuditText": "The warm books are here.",
+              "targetText": "הַסְפָרִים הַחַמִּים כָּאָן.",
+              "anchor": {
+                "targetText": "הַסְפָרִים",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "הַסְפָרִים ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.warm.masculine-plural.2",
+              "revision": 1,
+              "learnerBaseText": "The warm bags are here.",
+              "englishAuditText": "The warm bags are here.",
+              "targetText": "הַתִּיקִים הַחַמִּים כָּאָן.",
+              "anchor": {
+                "targetText": "הַתִּיקִים",
+                "learnerBaseText": "bags",
+                "englishAuditText": "bags"
+              },
+              "slot": {
+                "beforeText": "הַתִּיקִים ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        },
+        "feminine-plural": {
+          "displayForm": "הַחַמּוֹת",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.warm.feminine-plural.1",
+              "revision": 1,
+              "learnerBaseText": "The warm gardens are here.",
+              "englishAuditText": "The warm gardens are here.",
+              "targetText": "הַגַּנּוֹת הַחַמּוֹת כָּאָן.",
+              "anchor": {
+                "targetText": "הַגַּנּוֹת",
+                "learnerBaseText": "gardens",
+                "englishAuditText": "gardens"
+              },
+              "slot": {
+                "beforeText": "הַגַּנּוֹת ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.warm.feminine-plural.2",
+              "revision": 1,
+              "learnerBaseText": "The warm gifts are here.",
+              "englishAuditText": "The warm gifts are here.",
+              "targetText": "הַמַּתָּנוֹת הַחַמּוֹת כָּאָן.",
+              "anchor": {
+                "targetText": "הַמַּתָּנוֹת",
+                "learnerBaseText": "gifts",
+                "englishAuditText": "gifts"
+              },
+              "slot": {
+                "beforeText": "הַמַּתָּנוֹת ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "he.grammar.ready",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 72,
+      "complexity": 18,
+      "focus": {
+        "kind": "adjective",
+        "label": "ready",
+        "targetText": "מוּכָן",
+        "resultTitle": "Adjective agreement",
+        "summary": "The adjective follows the noun and repeats the article."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "הַמוּכָן",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.ready.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "The ready book is here.",
+              "englishAuditText": "The ready book is here.",
+              "targetText": "הַסֵּפֶר הַמוּכָן כָּאָן.",
+              "anchor": {
+                "targetText": "הַסֵּפֶר",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "slot": {
+                "beforeText": "הַסֵּפֶר ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.ready.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "The ready bag is here.",
+              "englishAuditText": "The ready bag is here.",
+              "targetText": "הַתִּיק הַמוּכָן כָּאָן.",
+              "anchor": {
+                "targetText": "הַתִּיק",
+                "learnerBaseText": "bag",
+                "englishAuditText": "bag"
+              },
+              "slot": {
+                "beforeText": "הַתִּיק ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "הַמוּכָנָה",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.ready.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "The ready garden is here.",
+              "englishAuditText": "The ready garden is here.",
+              "targetText": "הַגִּנָּה הַמוּכָנָה כָּאָן.",
+              "anchor": {
+                "targetText": "הַגִּנָּה",
+                "learnerBaseText": "garden",
+                "englishAuditText": "garden"
+              },
+              "slot": {
+                "beforeText": "הַגִּנָּה ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.ready.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "The ready gift is here.",
+              "englishAuditText": "The ready gift is here.",
+              "targetText": "הַמַּתָּנָה הַמוּכָנָה כָּאָן.",
+              "anchor": {
+                "targetText": "הַמַּתָּנָה",
+                "learnerBaseText": "gift",
+                "englishAuditText": "gift"
+              },
+              "slot": {
+                "beforeText": "הַמַּתָּנָה ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        },
+        "masculine-plural": {
+          "displayForm": "הַמוּכָנִים",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.ready.masculine-plural.1",
+              "revision": 1,
+              "learnerBaseText": "The ready books are here.",
+              "englishAuditText": "The ready books are here.",
+              "targetText": "הַסְפָרִים הַמוּכָנִים כָּאָן.",
+              "anchor": {
+                "targetText": "הַסְפָרִים",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "הַסְפָרִים ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.ready.masculine-plural.2",
+              "revision": 1,
+              "learnerBaseText": "The ready bags are here.",
+              "englishAuditText": "The ready bags are here.",
+              "targetText": "הַתִּיקִים הַמוּכָנִים כָּאָן.",
+              "anchor": {
+                "targetText": "הַתִּיקִים",
+                "learnerBaseText": "bags",
+                "englishAuditText": "bags"
+              },
+              "slot": {
+                "beforeText": "הַתִּיקִים ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        },
+        "feminine-plural": {
+          "displayForm": "הַמוּכָנוֹת",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.ready.feminine-plural.1",
+              "revision": 1,
+              "learnerBaseText": "The ready gardens are here.",
+              "englishAuditText": "The ready gardens are here.",
+              "targetText": "הַגַּנּוֹת הַמוּכָנוֹת כָּאָן.",
+              "anchor": {
+                "targetText": "הַגַּנּוֹת",
+                "learnerBaseText": "gardens",
+                "englishAuditText": "gardens"
+              },
+              "slot": {
+                "beforeText": "הַגַּנּוֹת ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.ready.feminine-plural.2",
+              "revision": 1,
+              "learnerBaseText": "The ready gifts are here.",
+              "englishAuditText": "The ready gifts are here.",
+              "targetText": "הַמַּתָּנוֹת הַמוּכָנוֹת כָּאָן.",
+              "anchor": {
+                "targetText": "הַמַּתָּנוֹת",
+                "learnerBaseText": "gifts",
+                "englishAuditText": "gifts"
+              },
+              "slot": {
+                "beforeText": "הַמַּתָּנוֹת ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "he.grammar.near",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 72,
+      "complexity": 18,
+      "focus": {
+        "kind": "adjective",
+        "label": "near",
+        "targetText": "קָרוֹב",
+        "resultTitle": "Adjective agreement",
+        "summary": "The adjective follows the noun and repeats the article."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "הַקָּרוֹב",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.near.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "The near book is here.",
+              "englishAuditText": "The near book is here.",
+              "targetText": "הַסֵּפֶר הַקָּרוֹב כָּאָן.",
+              "anchor": {
+                "targetText": "הַסֵּפֶר",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "slot": {
+                "beforeText": "הַסֵּפֶר ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.near.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "The near bag is here.",
+              "englishAuditText": "The near bag is here.",
+              "targetText": "הַתִּיק הַקָּרוֹב כָּאָן.",
+              "anchor": {
+                "targetText": "הַתִּיק",
+                "learnerBaseText": "bag",
+                "englishAuditText": "bag"
+              },
+              "slot": {
+                "beforeText": "הַתִּיק ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "הַקְרוֹבָה",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.near.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "The near garden is here.",
+              "englishAuditText": "The near garden is here.",
+              "targetText": "הַגִּנָּה הַקְרוֹבָה כָּאָן.",
+              "anchor": {
+                "targetText": "הַגִּנָּה",
+                "learnerBaseText": "garden",
+                "englishAuditText": "garden"
+              },
+              "slot": {
+                "beforeText": "הַגִּנָּה ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.near.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "The near gift is here.",
+              "englishAuditText": "The near gift is here.",
+              "targetText": "הַמַּתָּנָה הַקְרוֹבָה כָּאָן.",
+              "anchor": {
+                "targetText": "הַמַּתָּנָה",
+                "learnerBaseText": "gift",
+                "englishAuditText": "gift"
+              },
+              "slot": {
+                "beforeText": "הַמַּתָּנָה ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        },
+        "masculine-plural": {
+          "displayForm": "הַקְרוֹבִים",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.near.masculine-plural.1",
+              "revision": 1,
+              "learnerBaseText": "The near books are here.",
+              "englishAuditText": "The near books are here.",
+              "targetText": "הַסְפָרִים הַקְרוֹבִים כָּאָן.",
+              "anchor": {
+                "targetText": "הַסְפָרִים",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "הַסְפָרִים ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.near.masculine-plural.2",
+              "revision": 1,
+              "learnerBaseText": "The near bags are here.",
+              "englishAuditText": "The near bags are here.",
+              "targetText": "הַתִּיקִים הַקְרוֹבִים כָּאָן.",
+              "anchor": {
+                "targetText": "הַתִּיקִים",
+                "learnerBaseText": "bags",
+                "englishAuditText": "bags"
+              },
+              "slot": {
+                "beforeText": "הַתִּיקִים ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        },
+        "feminine-plural": {
+          "displayForm": "הַקְרוֹבוֹת",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.near.feminine-plural.1",
+              "revision": 1,
+              "learnerBaseText": "The near gardens are here.",
+              "englishAuditText": "The near gardens are here.",
+              "targetText": "הַגַּנּוֹת הַקְרוֹבוֹת כָּאָן.",
+              "anchor": {
+                "targetText": "הַגַּנּוֹת",
+                "learnerBaseText": "gardens",
+                "englishAuditText": "gardens"
+              },
+              "slot": {
+                "beforeText": "הַגַּנּוֹת ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.near.feminine-plural.2",
+              "revision": 1,
+              "learnerBaseText": "The near gifts are here.",
+              "englishAuditText": "The near gifts are here.",
+              "targetText": "הַמַּתָּנוֹת הַקְרוֹבוֹת כָּאָן.",
+              "anchor": {
+                "targetText": "הַמַּתָּנוֹת",
+                "learnerBaseText": "gifts",
+                "englishAuditText": "gifts"
+              },
+              "slot": {
+                "beforeText": "הַמַּתָּנוֹת ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "he.grammar.clean",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 72,
+      "complexity": 18,
+      "focus": {
+        "kind": "adjective",
+        "label": "clean",
+        "targetText": "נָקִי",
+        "resultTitle": "Adjective agreement",
+        "summary": "The adjective follows the noun and repeats the article."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "הַנָּקִי",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.clean.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "The clean book is here.",
+              "englishAuditText": "The clean book is here.",
+              "targetText": "הַסֵּפֶר הַנָּקִי כָּאָן.",
+              "anchor": {
+                "targetText": "הַסֵּפֶר",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "slot": {
+                "beforeText": "הַסֵּפֶר ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.clean.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "The clean bag is here.",
+              "englishAuditText": "The clean bag is here.",
+              "targetText": "הַתִּיק הַנָּקִי כָּאָן.",
+              "anchor": {
+                "targetText": "הַתִּיק",
+                "learnerBaseText": "bag",
+                "englishAuditText": "bag"
+              },
+              "slot": {
+                "beforeText": "הַתִּיק ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "הַנָּקִיָּה",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.clean.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "The clean garden is here.",
+              "englishAuditText": "The clean garden is here.",
+              "targetText": "הַגִּנָּה הַנָּקִיָּה כָּאָן.",
+              "anchor": {
+                "targetText": "הַגִּנָּה",
+                "learnerBaseText": "garden",
+                "englishAuditText": "garden"
+              },
+              "slot": {
+                "beforeText": "הַגִּנָּה ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.clean.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "The clean gift is here.",
+              "englishAuditText": "The clean gift is here.",
+              "targetText": "הַמַּתָּנָה הַנָּקִיָּה כָּאָן.",
+              "anchor": {
+                "targetText": "הַמַּתָּנָה",
+                "learnerBaseText": "gift",
+                "englishAuditText": "gift"
+              },
+              "slot": {
+                "beforeText": "הַמַּתָּנָה ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        },
+        "masculine-plural": {
+          "displayForm": "הַנָּקִיִּים",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.clean.masculine-plural.1",
+              "revision": 1,
+              "learnerBaseText": "The clean books are here.",
+              "englishAuditText": "The clean books are here.",
+              "targetText": "הַסְפָרִים הַנָּקִיִּים כָּאָן.",
+              "anchor": {
+                "targetText": "הַסְפָרִים",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "הַסְפָרִים ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.clean.masculine-plural.2",
+              "revision": 1,
+              "learnerBaseText": "The clean bags are here.",
+              "englishAuditText": "The clean bags are here.",
+              "targetText": "הַתִּיקִים הַנָּקִיִּים כָּאָן.",
+              "anchor": {
+                "targetText": "הַתִּיקִים",
+                "learnerBaseText": "bags",
+                "englishAuditText": "bags"
+              },
+              "slot": {
+                "beforeText": "הַתִּיקִים ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        },
+        "feminine-plural": {
+          "displayForm": "הַנָּקִיּוֹת",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.clean.feminine-plural.1",
+              "revision": 1,
+              "learnerBaseText": "The clean gardens are here.",
+              "englishAuditText": "The clean gardens are here.",
+              "targetText": "הַגַּנּוֹת הַנָּקִיּוֹת כָּאָן.",
+              "anchor": {
+                "targetText": "הַגַּנּוֹת",
+                "learnerBaseText": "gardens",
+                "englishAuditText": "gardens"
+              },
+              "slot": {
+                "beforeText": "הַגַּנּוֹת ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.clean.feminine-plural.2",
+              "revision": 1,
+              "learnerBaseText": "The clean gifts are here.",
+              "englishAuditText": "The clean gifts are here.",
+              "targetText": "הַמַּתָּנוֹת הַנָּקִיּוֹת כָּאָן.",
+              "anchor": {
+                "targetText": "הַמַּתָּנוֹת",
+                "learnerBaseText": "gifts",
+                "englishAuditText": "gifts"
+              },
+              "slot": {
+                "beforeText": "הַמַּתָּנוֹת ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "he.grammar.cold",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 72,
+      "complexity": 18,
+      "focus": {
+        "kind": "adjective",
+        "label": "cold",
+        "targetText": "קַר",
+        "resultTitle": "Adjective agreement",
+        "summary": "The adjective follows the noun and repeats the article."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "הַקַּר",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.cold.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "The cold book is here.",
+              "englishAuditText": "The cold book is here.",
+              "targetText": "הַסֵּפֶר הַקַּר כָּאָן.",
+              "anchor": {
+                "targetText": "הַסֵּפֶר",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "slot": {
+                "beforeText": "הַסֵּפֶר ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.cold.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "The cold bag is here.",
+              "englishAuditText": "The cold bag is here.",
+              "targetText": "הַתִּיק הַקַּר כָּאָן.",
+              "anchor": {
+                "targetText": "הַתִּיק",
+                "learnerBaseText": "bag",
+                "englishAuditText": "bag"
+              },
+              "slot": {
+                "beforeText": "הַתִּיק ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "הַקָּרָה",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.cold.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "The cold garden is here.",
+              "englishAuditText": "The cold garden is here.",
+              "targetText": "הַגִּנָּה הַקָּרָה כָּאָן.",
+              "anchor": {
+                "targetText": "הַגִּנָּה",
+                "learnerBaseText": "garden",
+                "englishAuditText": "garden"
+              },
+              "slot": {
+                "beforeText": "הַגִּנָּה ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.cold.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "The cold gift is here.",
+              "englishAuditText": "The cold gift is here.",
+              "targetText": "הַמַּתָּנָה הַקָּרָה כָּאָן.",
+              "anchor": {
+                "targetText": "הַמַּתָּנָה",
+                "learnerBaseText": "gift",
+                "englishAuditText": "gift"
+              },
+              "slot": {
+                "beforeText": "הַמַּתָּנָה ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        },
+        "masculine-plural": {
+          "displayForm": "הַקָּרִים",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.cold.masculine-plural.1",
+              "revision": 1,
+              "learnerBaseText": "The cold books are here.",
+              "englishAuditText": "The cold books are here.",
+              "targetText": "הַסְפָרִים הַקָּרִים כָּאָן.",
+              "anchor": {
+                "targetText": "הַסְפָרִים",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "הַסְפָרִים ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.cold.masculine-plural.2",
+              "revision": 1,
+              "learnerBaseText": "The cold bags are here.",
+              "englishAuditText": "The cold bags are here.",
+              "targetText": "הַתִּיקִים הַקָּרִים כָּאָן.",
+              "anchor": {
+                "targetText": "הַתִּיקִים",
+                "learnerBaseText": "bags",
+                "englishAuditText": "bags"
+              },
+              "slot": {
+                "beforeText": "הַתִּיקִים ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        },
+        "feminine-plural": {
+          "displayForm": "הַקָּרוֹת",
+          "usefulness": 72,
+          "complexity": 18,
+          "examples": [
+            {
+              "id": "he.grammar.cold.feminine-plural.1",
+              "revision": 1,
+              "learnerBaseText": "The cold gardens are here.",
+              "englishAuditText": "The cold gardens are here.",
+              "targetText": "הַגַּנּוֹת הַקָּרוֹת כָּאָן.",
+              "anchor": {
+                "targetText": "הַגַּנּוֹת",
+                "learnerBaseText": "gardens",
+                "englishAuditText": "gardens"
+              },
+              "slot": {
+                "beforeText": "הַגַּנּוֹת ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            },
+            {
+              "id": "he.grammar.cold.feminine-plural.2",
+              "revision": 1,
+              "learnerBaseText": "The cold gifts are here.",
+              "englishAuditText": "The cold gifts are here.",
+              "targetText": "הַמַּתָּנוֹת הַקָּרוֹת כָּאָן.",
+              "anchor": {
+                "targetText": "הַמַּתָּנוֹת",
+                "learnerBaseText": "gifts",
+                "englishAuditText": "gifts"
+              },
+              "slot": {
+                "beforeText": "הַמַּתָּנוֹת ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 18
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "he.grammar.happy",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 72,
+      "complexity": 24,
+      "focus": {
+        "kind": "adjective",
+        "label": "happy",
+        "targetText": "שָׂמֵחַ",
+        "resultTitle": "Adjective agreement",
+        "summary": "The adjective follows the noun and repeats the article."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "הַשָּׂמֵחַ",
+          "usefulness": 72,
+          "complexity": 24,
+          "examples": [
+            {
+              "id": "he.grammar.happy.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "The happy book is here.",
+              "englishAuditText": "The happy book is here.",
+              "targetText": "הַסֵּפֶר הַשָּׂמֵחַ כָּאָן.",
+              "anchor": {
+                "targetText": "הַסֵּפֶר",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "slot": {
+                "beforeText": "הַסֵּפֶר ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 24
+            },
+            {
+              "id": "he.grammar.happy.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "The happy bag is here.",
+              "englishAuditText": "The happy bag is here.",
+              "targetText": "הַתִּיק הַשָּׂמֵחַ כָּאָן.",
+              "anchor": {
+                "targetText": "הַתִּיק",
+                "learnerBaseText": "bag",
+                "englishAuditText": "bag"
+              },
+              "slot": {
+                "beforeText": "הַתִּיק ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 24
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "הַשָּׂמֵחָה",
+          "usefulness": 72,
+          "complexity": 24,
+          "examples": [
+            {
+              "id": "he.grammar.happy.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "The happy garden is here.",
+              "englishAuditText": "The happy garden is here.",
+              "targetText": "הַגִּנָּה הַשָּׂמֵחָה כָּאָן.",
+              "anchor": {
+                "targetText": "הַגִּנָּה",
+                "learnerBaseText": "garden",
+                "englishAuditText": "garden"
+              },
+              "slot": {
+                "beforeText": "הַגִּנָּה ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 24
+            },
+            {
+              "id": "he.grammar.happy.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "The happy gift is here.",
+              "englishAuditText": "The happy gift is here.",
+              "targetText": "הַמַּתָּנָה הַשָּׂמֵחָה כָּאָן.",
+              "anchor": {
+                "targetText": "הַמַּתָּנָה",
+                "learnerBaseText": "gift",
+                "englishAuditText": "gift"
+              },
+              "slot": {
+                "beforeText": "הַמַּתָּנָה ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 24
+            }
+          ]
+        },
+        "masculine-plural": {
+          "displayForm": "הַשָּׂמֵחִים",
+          "usefulness": 72,
+          "complexity": 24,
+          "examples": [
+            {
+              "id": "he.grammar.happy.masculine-plural.1",
+              "revision": 1,
+              "learnerBaseText": "The happy books are here.",
+              "englishAuditText": "The happy books are here.",
+              "targetText": "הַסְפָרִים הַשָּׂמֵחִים כָּאָן.",
+              "anchor": {
+                "targetText": "הַסְפָרִים",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "הַסְפָרִים ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 24
+            },
+            {
+              "id": "he.grammar.happy.masculine-plural.2",
+              "revision": 1,
+              "learnerBaseText": "The happy bags are here.",
+              "englishAuditText": "The happy bags are here.",
+              "targetText": "הַתִּיקִים הַשָּׂמֵחִים כָּאָן.",
+              "anchor": {
+                "targetText": "הַתִּיקִים",
+                "learnerBaseText": "bags",
+                "englishAuditText": "bags"
+              },
+              "slot": {
+                "beforeText": "הַתִּיקִים ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 24
+            }
+          ]
+        },
+        "feminine-plural": {
+          "displayForm": "הַשָּׂמֵחוֹת",
+          "usefulness": 72,
+          "complexity": 24,
+          "examples": [
+            {
+              "id": "he.grammar.happy.feminine-plural.1",
+              "revision": 1,
+              "learnerBaseText": "The happy gardens are here.",
+              "englishAuditText": "The happy gardens are here.",
+              "targetText": "הַגַּנּוֹת הַשָּׂמֵחוֹת כָּאָן.",
+              "anchor": {
+                "targetText": "הַגַּנּוֹת",
+                "learnerBaseText": "gardens",
+                "englishAuditText": "gardens"
+              },
+              "slot": {
+                "beforeText": "הַגַּנּוֹת ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 24
+            },
+            {
+              "id": "he.grammar.happy.feminine-plural.2",
+              "revision": 1,
+              "learnerBaseText": "The happy gifts are here.",
+              "englishAuditText": "The happy gifts are here.",
+              "targetText": "הַמַּתָּנוֹת הַשָּׂמֵחוֹת כָּאָן.",
+              "anchor": {
+                "targetText": "הַמַּתָּנוֹת",
+                "learnerBaseText": "gifts",
+                "englishAuditText": "gifts"
+              },
+              "slot": {
+                "beforeText": "הַמַּתָּנוֹת ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 24
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "he.grammar.long",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 72,
+      "complexity": 24,
+      "focus": {
+        "kind": "adjective",
+        "label": "long",
+        "targetText": "אָרֹך",
+        "resultTitle": "Adjective agreement",
+        "summary": "The adjective follows the noun and repeats the article."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "הָאָרֹך",
+          "usefulness": 72,
+          "complexity": 24,
+          "examples": [
+            {
+              "id": "he.grammar.long.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "The long book is here.",
+              "englishAuditText": "The long book is here.",
+              "targetText": "הַסֵּפֶר הָאָרֹך כָּאָן.",
+              "anchor": {
+                "targetText": "הַסֵּפֶר",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "slot": {
+                "beforeText": "הַסֵּפֶר ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 24
+            },
+            {
+              "id": "he.grammar.long.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "The long bag is here.",
+              "englishAuditText": "The long bag is here.",
+              "targetText": "הַתִּיק הָאָרֹך כָּאָן.",
+              "anchor": {
+                "targetText": "הַתִּיק",
+                "learnerBaseText": "bag",
+                "englishAuditText": "bag"
+              },
+              "slot": {
+                "beforeText": "הַתִּיק ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 24
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "הָאֲרֻכָּה",
+          "usefulness": 72,
+          "complexity": 24,
+          "examples": [
+            {
+              "id": "he.grammar.long.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "The long garden is here.",
+              "englishAuditText": "The long garden is here.",
+              "targetText": "הַגִּנָּה הָאֲרֻכָּה כָּאָן.",
+              "anchor": {
+                "targetText": "הַגִּנָּה",
+                "learnerBaseText": "garden",
+                "englishAuditText": "garden"
+              },
+              "slot": {
+                "beforeText": "הַגִּנָּה ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 24
+            },
+            {
+              "id": "he.grammar.long.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "The long gift is here.",
+              "englishAuditText": "The long gift is here.",
+              "targetText": "הַמַּתָּנָה הָאֲרֻכָּה כָּאָן.",
+              "anchor": {
+                "targetText": "הַמַּתָּנָה",
+                "learnerBaseText": "gift",
+                "englishAuditText": "gift"
+              },
+              "slot": {
+                "beforeText": "הַמַּתָּנָה ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 24
+            }
+          ]
+        },
+        "masculine-plural": {
+          "displayForm": "הָאֲרֻכִּים",
+          "usefulness": 72,
+          "complexity": 24,
+          "examples": [
+            {
+              "id": "he.grammar.long.masculine-plural.1",
+              "revision": 1,
+              "learnerBaseText": "The long books are here.",
+              "englishAuditText": "The long books are here.",
+              "targetText": "הַסְפָרִים הָאֲרֻכִּים כָּאָן.",
+              "anchor": {
+                "targetText": "הַסְפָרִים",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "הַסְפָרִים ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 24
+            },
+            {
+              "id": "he.grammar.long.masculine-plural.2",
+              "revision": 1,
+              "learnerBaseText": "The long bags are here.",
+              "englishAuditText": "The long bags are here.",
+              "targetText": "הַתִּיקִים הָאֲרֻכִּים כָּאָן.",
+              "anchor": {
+                "targetText": "הַתִּיקִים",
+                "learnerBaseText": "bags",
+                "englishAuditText": "bags"
+              },
+              "slot": {
+                "beforeText": "הַתִּיקִים ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 24
+            }
+          ]
+        },
+        "feminine-plural": {
+          "displayForm": "הָאֲרֻכּוֹת",
+          "usefulness": 72,
+          "complexity": 24,
+          "examples": [
+            {
+              "id": "he.grammar.long.feminine-plural.1",
+              "revision": 1,
+              "learnerBaseText": "The long gardens are here.",
+              "englishAuditText": "The long gardens are here.",
+              "targetText": "הַגַּנּוֹת הָאֲרֻכּוֹת כָּאָן.",
+              "anchor": {
+                "targetText": "הַגַּנּוֹת",
+                "learnerBaseText": "gardens",
+                "englishAuditText": "gardens"
+              },
+              "slot": {
+                "beforeText": "הַגַּנּוֹת ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 24
+            },
+            {
+              "id": "he.grammar.long.feminine-plural.2",
+              "revision": 1,
+              "learnerBaseText": "The long gifts are here.",
+              "englishAuditText": "The long gifts are here.",
+              "targetText": "הַמַּתָּנוֹת הָאֲרֻכּוֹת כָּאָן.",
+              "anchor": {
+                "targetText": "הַמַּתָּנוֹת",
+                "learnerBaseText": "gifts",
+                "englishAuditText": "gifts"
+              },
+              "slot": {
+                "beforeText": "הַמַּתָּנוֹת ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 24
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "he.grammar.closed",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 72,
+      "complexity": 30,
+      "focus": {
+        "kind": "adjective",
+        "label": "closed",
+        "targetText": "סָגוּר",
+        "resultTitle": "Adjective agreement",
+        "summary": "The adjective follows the noun and repeats the article."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "הַסָּגוּר",
+          "usefulness": 72,
+          "complexity": 30,
+          "examples": [
+            {
+              "id": "he.grammar.closed.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "The closed book is here.",
+              "englishAuditText": "The closed book is here.",
+              "targetText": "הַסֵּפֶר הַסָּגוּר כָּאָן.",
+              "anchor": {
+                "targetText": "הַסֵּפֶר",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "slot": {
+                "beforeText": "הַסֵּפֶר ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 30
+            },
+            {
+              "id": "he.grammar.closed.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "The closed bag is here.",
+              "englishAuditText": "The closed bag is here.",
+              "targetText": "הַתִּיק הַסָּגוּר כָּאָן.",
+              "anchor": {
+                "targetText": "הַתִּיק",
+                "learnerBaseText": "bag",
+                "englishAuditText": "bag"
+              },
+              "slot": {
+                "beforeText": "הַתִּיק ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 30
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "הַסָּגוּרָה",
+          "usefulness": 72,
+          "complexity": 30,
+          "examples": [
+            {
+              "id": "he.grammar.closed.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "The closed garden is here.",
+              "englishAuditText": "The closed garden is here.",
+              "targetText": "הַגִּנָּה הַסָּגוּרָה כָּאָן.",
+              "anchor": {
+                "targetText": "הַגִּנָּה",
+                "learnerBaseText": "garden",
+                "englishAuditText": "garden"
+              },
+              "slot": {
+                "beforeText": "הַגִּנָּה ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 30
+            },
+            {
+              "id": "he.grammar.closed.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "The closed gift is here.",
+              "englishAuditText": "The closed gift is here.",
+              "targetText": "הַמַּתָּנָה הַסָּגוּרָה כָּאָן.",
+              "anchor": {
+                "targetText": "הַמַּתָּנָה",
+                "learnerBaseText": "gift",
+                "englishAuditText": "gift"
+              },
+              "slot": {
+                "beforeText": "הַמַּתָּנָה ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 30
+            }
+          ]
+        },
+        "masculine-plural": {
+          "displayForm": "הַסָּגוּרִים",
+          "usefulness": 72,
+          "complexity": 30,
+          "examples": [
+            {
+              "id": "he.grammar.closed.masculine-plural.1",
+              "revision": 1,
+              "learnerBaseText": "The closed books are here.",
+              "englishAuditText": "The closed books are here.",
+              "targetText": "הַסְפָרִים הַסָּגוּרִים כָּאָן.",
+              "anchor": {
+                "targetText": "הַסְפָרִים",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "הַסְפָרִים ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 30
+            },
+            {
+              "id": "he.grammar.closed.masculine-plural.2",
+              "revision": 1,
+              "learnerBaseText": "The closed bags are here.",
+              "englishAuditText": "The closed bags are here.",
+              "targetText": "הַתִּיקִים הַסָּגוּרִים כָּאָן.",
+              "anchor": {
+                "targetText": "הַתִּיקִים",
+                "learnerBaseText": "bags",
+                "englishAuditText": "bags"
+              },
+              "slot": {
+                "beforeText": "הַתִּיקִים ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 30
+            }
+          ]
+        },
+        "feminine-plural": {
+          "displayForm": "הַסָּגוּרוֹת",
+          "usefulness": 72,
+          "complexity": 30,
+          "examples": [
+            {
+              "id": "he.grammar.closed.feminine-plural.1",
+              "revision": 1,
+              "learnerBaseText": "The closed gardens are here.",
+              "englishAuditText": "The closed gardens are here.",
+              "targetText": "הַגַּנּוֹת הַסָּגוּרוֹת כָּאָן.",
+              "anchor": {
+                "targetText": "הַגַּנּוֹת",
+                "learnerBaseText": "gardens",
+                "englishAuditText": "gardens"
+              },
+              "slot": {
+                "beforeText": "הַגַּנּוֹת ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 30
+            },
+            {
+              "id": "he.grammar.closed.feminine-plural.2",
+              "revision": 1,
+              "learnerBaseText": "The closed gifts are here.",
+              "englishAuditText": "The closed gifts are here.",
+              "targetText": "הַמַּתָּנוֹת הַסָּגוּרוֹת כָּאָן.",
+              "anchor": {
+                "targetText": "הַמַּתָּנוֹת",
+                "learnerBaseText": "gifts",
+                "englishAuditText": "gifts"
+              },
+              "slot": {
+                "beforeText": "הַמַּתָּנוֹת ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 30
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "he.grammar.short",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 72,
+      "complexity": 30,
+      "focus": {
+        "kind": "adjective",
+        "label": "short",
+        "targetText": "קָצָר",
+        "resultTitle": "Adjective agreement",
+        "summary": "The adjective follows the noun and repeats the article."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "הַקָּצָר",
+          "usefulness": 72,
+          "complexity": 30,
+          "examples": [
+            {
+              "id": "he.grammar.short.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "The short book is here.",
+              "englishAuditText": "The short book is here.",
+              "targetText": "הַסֵּפֶר הַקָּצָר כָּאָן.",
+              "anchor": {
+                "targetText": "הַסֵּפֶר",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "slot": {
+                "beforeText": "הַסֵּפֶר ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 30
+            },
+            {
+              "id": "he.grammar.short.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "The short bag is here.",
+              "englishAuditText": "The short bag is here.",
+              "targetText": "הַתִּיק הַקָּצָר כָּאָן.",
+              "anchor": {
+                "targetText": "הַתִּיק",
+                "learnerBaseText": "bag",
+                "englishAuditText": "bag"
+              },
+              "slot": {
+                "beforeText": "הַתִּיק ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 30
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "הַקָּצָרָה",
+          "usefulness": 72,
+          "complexity": 30,
+          "examples": [
+            {
+              "id": "he.grammar.short.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "The short garden is here.",
+              "englishAuditText": "The short garden is here.",
+              "targetText": "הַגִּנָּה הַקָּצָרָה כָּאָן.",
+              "anchor": {
+                "targetText": "הַגִּנָּה",
+                "learnerBaseText": "garden",
+                "englishAuditText": "garden"
+              },
+              "slot": {
+                "beforeText": "הַגִּנָּה ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 30
+            },
+            {
+              "id": "he.grammar.short.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "The short gift is here.",
+              "englishAuditText": "The short gift is here.",
+              "targetText": "הַמַּתָּנָה הַקָּצָרָה כָּאָן.",
+              "anchor": {
+                "targetText": "הַמַּתָּנָה",
+                "learnerBaseText": "gift",
+                "englishAuditText": "gift"
+              },
+              "slot": {
+                "beforeText": "הַמַּתָּנָה ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 30
+            }
+          ]
+        },
+        "masculine-plural": {
+          "displayForm": "הַקָּצָרִים",
+          "usefulness": 72,
+          "complexity": 30,
+          "examples": [
+            {
+              "id": "he.grammar.short.masculine-plural.1",
+              "revision": 1,
+              "learnerBaseText": "The short books are here.",
+              "englishAuditText": "The short books are here.",
+              "targetText": "הַסְפָרִים הַקָּצָרִים כָּאָן.",
+              "anchor": {
+                "targetText": "הַסְפָרִים",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "הַסְפָרִים ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 30
+            },
+            {
+              "id": "he.grammar.short.masculine-plural.2",
+              "revision": 1,
+              "learnerBaseText": "The short bags are here.",
+              "englishAuditText": "The short bags are here.",
+              "targetText": "הַתִּיקִים הַקָּצָרִים כָּאָן.",
+              "anchor": {
+                "targetText": "הַתִּיקִים",
+                "learnerBaseText": "bags",
+                "englishAuditText": "bags"
+              },
+              "slot": {
+                "beforeText": "הַתִּיקִים ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 30
+            }
+          ]
+        },
+        "feminine-plural": {
+          "displayForm": "הַקָּצָרוֹת",
+          "usefulness": 72,
+          "complexity": 30,
+          "examples": [
+            {
+              "id": "he.grammar.short.feminine-plural.1",
+              "revision": 1,
+              "learnerBaseText": "The short gardens are here.",
+              "englishAuditText": "The short gardens are here.",
+              "targetText": "הַגַּנּוֹת הַקָּצָרוֹת כָּאָן.",
+              "anchor": {
+                "targetText": "הַגַּנּוֹת",
+                "learnerBaseText": "gardens",
+                "englishAuditText": "gardens"
+              },
+              "slot": {
+                "beforeText": "הַגַּנּוֹת ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 30
+            },
+            {
+              "id": "he.grammar.short.feminine-plural.2",
+              "revision": 1,
+              "learnerBaseText": "The short gifts are here.",
+              "englishAuditText": "The short gifts are here.",
+              "targetText": "הַמַּתָּנוֹת הַקָּצָרוֹת כָּאָן.",
+              "anchor": {
+                "targetText": "הַמַּתָּנוֹת",
+                "learnerBaseText": "gifts",
+                "englishAuditText": "gifts"
+              },
+              "slot": {
+                "beforeText": "הַמַּתָּנוֹת ",
+                "afterText": " כָּאָן."
+              },
+              "usefulness": 72,
+              "complexity": 30
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

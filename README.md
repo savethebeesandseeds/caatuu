@@ -65,11 +65,11 @@ features through the [language-app contract](docs/LANGUAGE_APP_CONTRACT.md).
 The learner's base language selects the interface; shared English concepts
 provide the audit and semantic-search authority.
 
-Nine courses are registered in the browser catalog. Eight are enabled for
-Android delivery. Five enable Pages delivery; Arabic, Scientific Latin,
-Georgian, and Russian retain local browser previews with public Pages
-delivery disabled. Russian also stays out of the Android bundle until native
-review.
+Ten courses are registered in the browser catalog. Eight are enabled for
+Android delivery. Five enable Pages delivery. Arabic, Scientific Latin,
+Georgian, Russian, and Hebrew retain local browser previews with public Pages
+delivery disabled. Russian and Hebrew also stay out of the Android bundle
+until native review.
 
 | Flag or emblem | Learner language | Learning language | Route | Course status |
 | --- | --- | --- | --- | --- |
@@ -82,10 +82,12 @@ review.
 | <img src="apps/launcher/static/assets/icons/latin_mark.png" width="64" alt="Latin course emblem"> | English | Scientific Latin (Neo-Latin) | `/la/` | Local development preview |
 | <img src="apps/launcher/static/assets/icons/georgian_flag.png" width="64" alt="Georgian flag"> | English | Georgian | `/ka/` | Local development preview |
 | <img src="apps/launcher/static/assets/icons/russian_flag.png" width="64" alt="Russian flag"> | English | Russian | `/ru/` | Local development preview |
+| <img src="apps/launcher/static/assets/icons/hebrew_flag.png" width="64" alt="Hebrew flag"> | English | Hebrew | `/he/` | Local development preview |
 
 Every course is the same application. A manifest declares that course's
 languages, content, and capabilities. The Russian preview is described in
-[docs/RUSSIAN_COURSE.md](docs/RUSSIAN_COURSE.md). The screenshots show Czech sentences
+[docs/RUSSIAN_COURSE.md](docs/RUSSIAN_COURSE.md). The Hebrew preview is
+described in [docs/HEBREW_COURSE.md](docs/HEBREW_COURSE.md). The screenshots show Czech sentences
 because that art already existed. This table describes the current source
 checkout.
 Courses on the public website or in an installed APK depend on the version

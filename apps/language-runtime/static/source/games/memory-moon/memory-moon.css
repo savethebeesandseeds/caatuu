@@ -31,6 +31,7 @@ body { overflow-x: hidden; }
 .moon-sentence .caatuu-target-text, .moon-dictionary-slot .caatuu-target-text { display: inline; column-gap: 0; }
 .moon-sentence[lang^="ar"] { font-family: "Noto Sans Arabic", "Segoe UI", sans-serif; }
 .moon-sentence[lang^="ka"] { font-family: "Noto Sans Georgian", "Segoe UI", sans-serif; }
+.moon-sentence[lang^="he"] { font-family: "Noto Sans Hebrew", "Segoe UI", sans-serif; }
 [data-theme="dark"] .moon-word-token { color: color-mix(in srgb, var(--theme-ink) 82%, var(--theme-green) 18%); }
 .moon-speak { position: absolute; top: 50%; right: 0; transform: translateY(-50%); display: inline-grid; flex-shrink: 0; place-items: center; width: 44px; height: 44px; min-width: 44px; min-height: 44px; padding: 8px; border: 1px solid var(--theme-control-border); border-radius: 50%; background: var(--theme-panel-raised); color: var(--theme-green-strong); cursor: pointer; }
 .moon-speak[aria-pressed="true"] { background: var(--theme-selection); border-color: var(--theme-green); }

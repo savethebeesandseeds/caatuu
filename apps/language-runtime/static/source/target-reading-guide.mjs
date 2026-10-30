@@ -1,11 +1,13 @@
 import { arabicReadingUnits } from "./arabic-romanization.mjs?v=arabic-romanization-1";
 import { georgianReadingUnits } from "./georgian-romanization.mjs?v=georgian-romanization-1";
 import { russianReadingUnits } from "./russian-romanization.mjs?v=russian-romanization-1";
+import { hebrewReadingUnits } from "./hebrew-romanization.mjs?v=hebrew-romanization-1";
 
 const LANGUAGES = {
   ar: { units: arabicReadingUnits, script: /\p{Script=Arabic}/u, direction: "rtl", name: "arabic" },
   ka: { units: georgianReadingUnits, script: /\p{Script=Georgian}/u, direction: "ltr", name: "georgian" },
-  ru: { units: russianReadingUnits, script: /\p{Script=Cyrillic}/u, direction: "ltr", name: "russian" }
+  ru: { units: russianReadingUnits, script: /\p{Script=Cyrillic}/u, direction: "ltr", name: "russian" },
+  he: { units: hebrewReadingUnits, script: /\p{Script=Hebrew}/u, direction: "rtl", name: "hebrew" }
 };
 
 // A presentation preference, separate from answer keys, speech and reviewed

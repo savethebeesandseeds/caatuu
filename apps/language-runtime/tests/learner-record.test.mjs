@@ -37,7 +37,8 @@ const courseDirectories = [
   ["mandarin-simplified", "zh"],
   ["norwegian-bokmal", "nb"],
   ["spanish", "es"],
-  ["russian", "ru"]
+  ["russian", "ru"],
+  ["hebrew", "he"]
 ];
 
 async function loadCourses() {

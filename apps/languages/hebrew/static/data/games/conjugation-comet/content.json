@@ -1,0 +1,2635 @@
+{
+  "schemaVersion": "caatuu-conjugation-comet-catalog-v1",
+  "id": "he-authored-paradigms-v1",
+  "contentRevision": 1,
+  "courseId": "he",
+  "targetLanguageId": "he",
+  "targetLocale": "he",
+  "learnerBaseLanguageId": "en",
+  "auditLanguageId": "en",
+  "variety": {
+    "id": "he-standard",
+    "label": "Modern Hebrew",
+    "policyNoteEnglish": "An authored set: present participles in four forms, and past paradigms. Forms are written out. This is not a complete conjugator."
+  },
+  "review": {
+    "status": "native-review-required",
+    "noteEnglish": "Original Hebrew teaching examples for English speakers. Independent native review is still required. Pointed Hebrew is the teaching script. No approved pronunciation or audio is claimed."
+  },
+  "license": {
+    "origin": "first-party-authored",
+    "status": "release-review-required",
+    "spdx": null,
+    "noteEnglish": "First-party Hebrew curriculum. Release review is still required."
+  },
+  "authority": {
+    "kind": "authored-finite-catalog",
+    "dictionaryLookup": false,
+    "runtimeGeneration": false,
+    "englishAuditRequired": true
+  },
+  "copy": {
+    "title": "Conjugation Comet",
+    "meaningKicker": "Meaning check",
+    "meaningInstruction": "Choose the authored base-language meaning.",
+    "formsKicker": "Person and tense",
+    "formsInstruction": "Match each target-language form to its base-language cue.",
+    "meaningTargetHeading": "Target-language verb",
+    "meaningChoicesHeading": "Meaning choices",
+    "targetFormsHeading": "Target-language forms",
+    "baseCuesHeading": "Base-language cues",
+    "meaningBoardLabel": "Meaning matching board",
+    "formsBoardLabel": "Form matching board",
+    "infinitiveLabel": "Infinitive",
+    "hintLabel": "Show pattern",
+    "nextLabel": "Next verb",
+    "hearVerbTemplate": "Hear {verb}",
+    "hearFormTemplate": "Hear {form}",
+    "playingTemplate": "Playing {text}",
+    "matchedStateLabel": "matched",
+    "audioUnavailableTemplate": "{language} audio is unavailable on this device.",
+    "meaningStartFeedback": "Choose the base-language meaning before matching the forms.",
+    "wrongMeaningFeedback": "That is a different verb. Try another meaning.",
+    "correctMeaningTemplate": "Correct: {meaning}.",
+    "formsStartFeedback": "You may select either column first.",
+    "pairSelectedFeedback": "Now choose the matching card in the other column.",
+    "pairMatchedFeedback": "Matched. Keep going.",
+    "wrongPairFeedback": "Those cards use different person or number. Try again.",
+    "roundCompleteTemplate": "All forms matched for {verb}.",
+    "meaningProgressTemplate": "Verb {number} · meaning",
+    "formsProgressTemplate": "{matched} of {total} matched",
+    "progressLabel": "Round progress"
+  },
+  "verbs": [
+    {
+      "id": "he-read-present",
+      "revision": 1,
+      "targetText": "לִקְרוֹא",
+      "learnerBaseText": "to read",
+      "englishAuditText": "to read",
+      "meaningChoiceBaseText": "to read",
+      "difficulty": 0,
+      "family": "present",
+      "lessonId": "he-read-present",
+      "tags": [
+        "hebrew",
+        "present"
+      ],
+      "usefulness": 84,
+      "complexity": 16,
+      "teachingNoteBaseText": "The present board has four forms: a man, a woman, men, and women.",
+      "forms": [
+        {
+          "id": "man",
+          "revision": 1,
+          "subjectTargetText": "אִישׁ",
+          "subjectBaseText": "a man",
+          "targetText": "קוֹרֵא",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " סֵפֶר"
+          },
+          "learnerBaseCueText": "A man reads",
+          "englishAuditText": "A man reads",
+          "usefulness": 80,
+          "complexity": 16
+        },
+        {
+          "id": "woman",
+          "revision": 1,
+          "subjectTargetText": "אִשָּׁה",
+          "subjectBaseText": "a woman",
+          "targetText": "קוֹרֵת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " סֵפֶר"
+          },
+          "learnerBaseCueText": "A woman reads",
+          "englishAuditText": "A woman reads",
+          "usefulness": 80,
+          "complexity": 16
+        },
+        {
+          "id": "men",
+          "revision": 1,
+          "subjectTargetText": "אֲנָשִׁים",
+          "subjectBaseText": "men",
+          "targetText": "קוֹרְאִים",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " סֵפֶר"
+          },
+          "learnerBaseCueText": "Men read",
+          "englishAuditText": "Men read",
+          "usefulness": 80,
+          "complexity": 16
+        },
+        {
+          "id": "women",
+          "revision": 1,
+          "subjectTargetText": "נָשִׁים",
+          "subjectBaseText": "women",
+          "targetText": "קוֹרְאוֹת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " סֵפֶר"
+          },
+          "learnerBaseCueText": "Women read",
+          "englishAuditText": "Women read",
+          "usefulness": 80,
+          "complexity": 16
+        }
+      ]
+    },
+    {
+      "id": "he-know-present",
+      "revision": 1,
+      "targetText": "לָדַעַת",
+      "learnerBaseText": "to know",
+      "englishAuditText": "to know",
+      "meaningChoiceBaseText": "to know",
+      "difficulty": 0,
+      "family": "present",
+      "lessonId": "he-know-present",
+      "tags": [
+        "hebrew",
+        "present"
+      ],
+      "usefulness": 84,
+      "complexity": 16,
+      "teachingNoteBaseText": "The present board has four forms: a man, a woman, men, and women.",
+      "forms": [
+        {
+          "id": "man",
+          "revision": 1,
+          "subjectTargetText": "אִישׁ",
+          "subjectBaseText": "a man",
+          "targetText": "יוֹדֵעַ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "A man knows",
+          "englishAuditText": "A man knows",
+          "usefulness": 80,
+          "complexity": 16
+        },
+        {
+          "id": "woman",
+          "revision": 1,
+          "subjectTargetText": "אִשָּׁה",
+          "subjectBaseText": "a woman",
+          "targetText": "יוֹדַעַת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "A woman knows",
+          "englishAuditText": "A woman knows",
+          "usefulness": 80,
+          "complexity": 16
+        },
+        {
+          "id": "men",
+          "revision": 1,
+          "subjectTargetText": "אֲנָשִׁים",
+          "subjectBaseText": "men",
+          "targetText": "יוֹדְעִים",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "Men know",
+          "englishAuditText": "Men know",
+          "usefulness": 80,
+          "complexity": 16
+        },
+        {
+          "id": "women",
+          "revision": 1,
+          "subjectTargetText": "נָשִׁים",
+          "subjectBaseText": "women",
+          "targetText": "יוֹדְעוֹת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "Women know",
+          "englishAuditText": "Women know",
+          "usefulness": 80,
+          "complexity": 16
+        }
+      ]
+    },
+    {
+      "id": "he-live-present",
+      "revision": 1,
+      "targetText": "לָגוּר",
+      "learnerBaseText": "to live",
+      "englishAuditText": "to live",
+      "meaningChoiceBaseText": "to live",
+      "difficulty": 0,
+      "family": "present",
+      "lessonId": "he-live-present",
+      "tags": [
+        "hebrew",
+        "present"
+      ],
+      "usefulness": 84,
+      "complexity": 16,
+      "teachingNoteBaseText": "The present board has four forms: a man, a woman, men, and women.",
+      "forms": [
+        {
+          "id": "man",
+          "revision": 1,
+          "subjectTargetText": "אִישׁ",
+          "subjectBaseText": "a man",
+          "targetText": "גָּר",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " כָּאָן"
+          },
+          "learnerBaseCueText": "A man lives",
+          "englishAuditText": "A man lives",
+          "usefulness": 80,
+          "complexity": 16
+        },
+        {
+          "id": "woman",
+          "revision": 1,
+          "subjectTargetText": "אִשָּׁה",
+          "subjectBaseText": "a woman",
+          "targetText": "גָּרָה",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " כָּאָן"
+          },
+          "learnerBaseCueText": "A woman lives",
+          "englishAuditText": "A woman lives",
+          "usefulness": 80,
+          "complexity": 16
+        },
+        {
+          "id": "men",
+          "revision": 1,
+          "subjectTargetText": "אֲנָשִׁים",
+          "subjectBaseText": "men",
+          "targetText": "גָּרִים",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " כָּאָן"
+          },
+          "learnerBaseCueText": "Men live",
+          "englishAuditText": "Men live",
+          "usefulness": 80,
+          "complexity": 16
+        },
+        {
+          "id": "women",
+          "revision": 1,
+          "subjectTargetText": "נָשִׁים",
+          "subjectBaseText": "women",
+          "targetText": "גָּרוֹת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " כָּאָן"
+          },
+          "learnerBaseCueText": "Women live",
+          "englishAuditText": "Women live",
+          "usefulness": 80,
+          "complexity": 16
+        }
+      ]
+    },
+    {
+      "id": "he-speak-present",
+      "revision": 1,
+      "targetText": "לְדַבֵּר",
+      "learnerBaseText": "to speak",
+      "englishAuditText": "to speak",
+      "meaningChoiceBaseText": "to speak",
+      "difficulty": 1,
+      "family": "present",
+      "lessonId": "he-speak-present",
+      "tags": [
+        "hebrew",
+        "present"
+      ],
+      "usefulness": 76,
+      "complexity": 22,
+      "teachingNoteBaseText": "The present board has four forms: a man, a woman, men, and women.",
+      "forms": [
+        {
+          "id": "man",
+          "revision": 1,
+          "subjectTargetText": "אִישׁ",
+          "subjectBaseText": "a man",
+          "targetText": "מְדַבֵּר",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " עִבְרִית"
+          },
+          "learnerBaseCueText": "A man speaks",
+          "englishAuditText": "A man speaks",
+          "usefulness": 80,
+          "complexity": 22
+        },
+        {
+          "id": "woman",
+          "revision": 1,
+          "subjectTargetText": "אִשָּׁה",
+          "subjectBaseText": "a woman",
+          "targetText": "מְדַבֶּרֶת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " עִבְרִית"
+          },
+          "learnerBaseCueText": "A woman speaks",
+          "englishAuditText": "A woman speaks",
+          "usefulness": 80,
+          "complexity": 22
+        },
+        {
+          "id": "men",
+          "revision": 1,
+          "subjectTargetText": "אֲנָשִׁים",
+          "subjectBaseText": "men",
+          "targetText": "מְדַבְּרִים",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " עִבְרִית"
+          },
+          "learnerBaseCueText": "Men speak",
+          "englishAuditText": "Men speak",
+          "usefulness": 80,
+          "complexity": 22
+        },
+        {
+          "id": "women",
+          "revision": 1,
+          "subjectTargetText": "נָשִׁים",
+          "subjectBaseText": "women",
+          "targetText": "מְדַבְּרוֹת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " עִבְרִית"
+          },
+          "learnerBaseCueText": "Women speak",
+          "englishAuditText": "Women speak",
+          "usefulness": 80,
+          "complexity": 22
+        }
+      ]
+    },
+    {
+      "id": "he-listen-present",
+      "revision": 1,
+      "targetText": "לִשְׁמוֹעַ",
+      "learnerBaseText": "to listen",
+      "englishAuditText": "to listen",
+      "meaningChoiceBaseText": "to listen",
+      "difficulty": 1,
+      "family": "present",
+      "lessonId": "he-listen-present",
+      "tags": [
+        "hebrew",
+        "present"
+      ],
+      "usefulness": 76,
+      "complexity": 22,
+      "teachingNoteBaseText": "The present board has four forms: a man, a woman, men, and women.",
+      "forms": [
+        {
+          "id": "man",
+          "revision": 1,
+          "subjectTargetText": "אִישׁ",
+          "subjectBaseText": "a man",
+          "targetText": "שׁוֹמֵעַ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "A man listens",
+          "englishAuditText": "A man listens",
+          "usefulness": 80,
+          "complexity": 22
+        },
+        {
+          "id": "woman",
+          "revision": 1,
+          "subjectTargetText": "אִשָּׁה",
+          "subjectBaseText": "a woman",
+          "targetText": "שׁוֹמַעַת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "A woman listens",
+          "englishAuditText": "A woman listens",
+          "usefulness": 80,
+          "complexity": 22
+        },
+        {
+          "id": "men",
+          "revision": 1,
+          "subjectTargetText": "אֲנָשִׁים",
+          "subjectBaseText": "men",
+          "targetText": "שׁוֹמְעִים",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "Men listen",
+          "englishAuditText": "Men listen",
+          "usefulness": 80,
+          "complexity": 22
+        },
+        {
+          "id": "women",
+          "revision": 1,
+          "subjectTargetText": "נָשִׁים",
+          "subjectBaseText": "women",
+          "targetText": "שׁוֹמְעוֹת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "Women listen",
+          "englishAuditText": "Women listen",
+          "usefulness": 80,
+          "complexity": 22
+        }
+      ]
+    },
+    {
+      "id": "he-help-present",
+      "revision": 1,
+      "targetText": "לַעֲזוֹר",
+      "learnerBaseText": "to help",
+      "englishAuditText": "to help",
+      "meaningChoiceBaseText": "to help",
+      "difficulty": 1,
+      "family": "present",
+      "lessonId": "he-help-present",
+      "tags": [
+        "hebrew",
+        "present"
+      ],
+      "usefulness": 76,
+      "complexity": 22,
+      "teachingNoteBaseText": "The present board has four forms: a man, a woman, men, and women.",
+      "forms": [
+        {
+          "id": "man",
+          "revision": 1,
+          "subjectTargetText": "אִישׁ",
+          "subjectBaseText": "a man",
+          "targetText": "עוֹזֵר",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " אוֹרֵחַ"
+          },
+          "learnerBaseCueText": "A man helps",
+          "englishAuditText": "A man helps",
+          "usefulness": 80,
+          "complexity": 22
+        },
+        {
+          "id": "woman",
+          "revision": 1,
+          "subjectTargetText": "אִשָּׁה",
+          "subjectBaseText": "a woman",
+          "targetText": "עוֹזֶרֶת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " אוֹרֵחַ"
+          },
+          "learnerBaseCueText": "A woman helps",
+          "englishAuditText": "A woman helps",
+          "usefulness": 80,
+          "complexity": 22
+        },
+        {
+          "id": "men",
+          "revision": 1,
+          "subjectTargetText": "אֲנָשִׁים",
+          "subjectBaseText": "men",
+          "targetText": "עוֹזְרִים",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " אוֹרֵחַ"
+          },
+          "learnerBaseCueText": "Men help",
+          "englishAuditText": "Men help",
+          "usefulness": 80,
+          "complexity": 22
+        },
+        {
+          "id": "women",
+          "revision": 1,
+          "subjectTargetText": "נָשִׁים",
+          "subjectBaseText": "women",
+          "targetText": "עוֹזְרוֹת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " אוֹרֵחַ"
+          },
+          "learnerBaseCueText": "Women help",
+          "englishAuditText": "Women help",
+          "usefulness": 80,
+          "complexity": 22
+        }
+      ]
+    },
+    {
+      "id": "he-write-present",
+      "revision": 1,
+      "targetText": "לִכְתּוֹב",
+      "learnerBaseText": "to write",
+      "englishAuditText": "to write",
+      "meaningChoiceBaseText": "to write",
+      "difficulty": 1,
+      "family": "present",
+      "lessonId": "he-write-present",
+      "tags": [
+        "hebrew",
+        "present"
+      ],
+      "usefulness": 76,
+      "complexity": 22,
+      "teachingNoteBaseText": "The present board has four forms: a man, a woman, men, and women.",
+      "forms": [
+        {
+          "id": "man",
+          "revision": 1,
+          "subjectTargetText": "אִישׁ",
+          "subjectBaseText": "a man",
+          "targetText": "כּוֹתֵב",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " מִכְתָּב"
+          },
+          "learnerBaseCueText": "A man writes",
+          "englishAuditText": "A man writes",
+          "usefulness": 80,
+          "complexity": 22
+        },
+        {
+          "id": "woman",
+          "revision": 1,
+          "subjectTargetText": "אִשָּׁה",
+          "subjectBaseText": "a woman",
+          "targetText": "כּוֹתֶבֶת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " מִכְתָּב"
+          },
+          "learnerBaseCueText": "A woman writes",
+          "englishAuditText": "A woman writes",
+          "usefulness": 80,
+          "complexity": 22
+        },
+        {
+          "id": "men",
+          "revision": 1,
+          "subjectTargetText": "אֲנָשִׁים",
+          "subjectBaseText": "men",
+          "targetText": "כּוֹתְבִים",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " מִכְתָּב"
+          },
+          "learnerBaseCueText": "Men write",
+          "englishAuditText": "Men write",
+          "usefulness": 80,
+          "complexity": 22
+        },
+        {
+          "id": "women",
+          "revision": 1,
+          "subjectTargetText": "נָשִׁים",
+          "subjectBaseText": "women",
+          "targetText": "כּוֹתְבוֹת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " מִכְתָּב"
+          },
+          "learnerBaseCueText": "Women write",
+          "englishAuditText": "Women write",
+          "usefulness": 80,
+          "complexity": 22
+        }
+      ]
+    },
+    {
+      "id": "he-give-present",
+      "revision": 1,
+      "targetText": "לָתֵת",
+      "learnerBaseText": "to give",
+      "englishAuditText": "to give",
+      "meaningChoiceBaseText": "to give",
+      "difficulty": 2,
+      "family": "present",
+      "lessonId": "he-give-present",
+      "tags": [
+        "hebrew",
+        "present"
+      ],
+      "usefulness": 76,
+      "complexity": 22,
+      "teachingNoteBaseText": "The present board has four forms: a man, a woman, men, and women.",
+      "forms": [
+        {
+          "id": "man",
+          "revision": 1,
+          "subjectTargetText": "אִישׁ",
+          "subjectBaseText": "a man",
+          "targetText": "נוֹתֵן",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " מַיִם"
+          },
+          "learnerBaseCueText": "A man gives",
+          "englishAuditText": "A man gives",
+          "usefulness": 80,
+          "complexity": 22
+        },
+        {
+          "id": "woman",
+          "revision": 1,
+          "subjectTargetText": "אִשָּׁה",
+          "subjectBaseText": "a woman",
+          "targetText": "נוֹתֶנֶת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " מַיִם"
+          },
+          "learnerBaseCueText": "A woman gives",
+          "englishAuditText": "A woman gives",
+          "usefulness": 80,
+          "complexity": 22
+        },
+        {
+          "id": "men",
+          "revision": 1,
+          "subjectTargetText": "אֲנָשִׁים",
+          "subjectBaseText": "men",
+          "targetText": "נוֹתְנִים",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " מַיִם"
+          },
+          "learnerBaseCueText": "Men give",
+          "englishAuditText": "Men give",
+          "usefulness": 80,
+          "complexity": 22
+        },
+        {
+          "id": "women",
+          "revision": 1,
+          "subjectTargetText": "נָשִׁים",
+          "subjectBaseText": "women",
+          "targetText": "נוֹתְנוֹת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " מַיִם"
+          },
+          "learnerBaseCueText": "Women give",
+          "englishAuditText": "Women give",
+          "usefulness": 80,
+          "complexity": 22
+        }
+      ]
+    },
+    {
+      "id": "he-see-present",
+      "revision": 1,
+      "targetText": "לִרְאוֹת",
+      "learnerBaseText": "to see",
+      "englishAuditText": "to see",
+      "meaningChoiceBaseText": "to see",
+      "difficulty": 2,
+      "family": "present",
+      "lessonId": "he-see-present",
+      "tags": [
+        "hebrew",
+        "present"
+      ],
+      "usefulness": 76,
+      "complexity": 22,
+      "teachingNoteBaseText": "The present board has four forms: a man, a woman, men, and women.",
+      "forms": [
+        {
+          "id": "man",
+          "revision": 1,
+          "subjectTargetText": "אִישׁ",
+          "subjectBaseText": "a man",
+          "targetText": "רוֹאֶה",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " בַּיִת"
+          },
+          "learnerBaseCueText": "A man sees",
+          "englishAuditText": "A man sees",
+          "usefulness": 80,
+          "complexity": 22
+        },
+        {
+          "id": "woman",
+          "revision": 1,
+          "subjectTargetText": "אִשָּׁה",
+          "subjectBaseText": "a woman",
+          "targetText": "רוֹאָה",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " בַּיִת"
+          },
+          "learnerBaseCueText": "A woman sees",
+          "englishAuditText": "A woman sees",
+          "usefulness": 80,
+          "complexity": 22
+        },
+        {
+          "id": "men",
+          "revision": 1,
+          "subjectTargetText": "אֲנָשִׁים",
+          "subjectBaseText": "men",
+          "targetText": "רוֹאִים",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " בַּיִת"
+          },
+          "learnerBaseCueText": "Men see",
+          "englishAuditText": "Men see",
+          "usefulness": 80,
+          "complexity": 22
+        },
+        {
+          "id": "women",
+          "revision": 1,
+          "subjectTargetText": "נָשִׁים",
+          "subjectBaseText": "women",
+          "targetText": "רוֹאוֹת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " בַּיִת"
+          },
+          "learnerBaseCueText": "Women see",
+          "englishAuditText": "Women see",
+          "usefulness": 80,
+          "complexity": 22
+        }
+      ]
+    },
+    {
+      "id": "he-eat-present",
+      "revision": 1,
+      "targetText": "לֶאֱכוֹל",
+      "learnerBaseText": "to eat",
+      "englishAuditText": "to eat",
+      "meaningChoiceBaseText": "to eat",
+      "difficulty": 2,
+      "family": "present",
+      "lessonId": "he-eat-present",
+      "tags": [
+        "hebrew",
+        "present"
+      ],
+      "usefulness": 76,
+      "complexity": 22,
+      "teachingNoteBaseText": "The present board has four forms: a man, a woman, men, and women.",
+      "forms": [
+        {
+          "id": "man",
+          "revision": 1,
+          "subjectTargetText": "אִישׁ",
+          "subjectBaseText": "a man",
+          "targetText": "אוֹכֵל",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " לֶחֶם"
+          },
+          "learnerBaseCueText": "A man eats",
+          "englishAuditText": "A man eats",
+          "usefulness": 80,
+          "complexity": 22
+        },
+        {
+          "id": "woman",
+          "revision": 1,
+          "subjectTargetText": "אִשָּׁה",
+          "subjectBaseText": "a woman",
+          "targetText": "אוֹכֶלֶת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " לֶחֶם"
+          },
+          "learnerBaseCueText": "A woman eats",
+          "englishAuditText": "A woman eats",
+          "usefulness": 80,
+          "complexity": 22
+        },
+        {
+          "id": "men",
+          "revision": 1,
+          "subjectTargetText": "אֲנָשִׁים",
+          "subjectBaseText": "men",
+          "targetText": "אוֹכְלִים",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " לֶחֶם"
+          },
+          "learnerBaseCueText": "Men eat",
+          "englishAuditText": "Men eat",
+          "usefulness": 80,
+          "complexity": 22
+        },
+        {
+          "id": "women",
+          "revision": 1,
+          "subjectTargetText": "נָשִׁים",
+          "subjectBaseText": "women",
+          "targetText": "אוֹכְלוֹת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " לֶחֶם"
+          },
+          "learnerBaseCueText": "Women eat",
+          "englishAuditText": "Women eat",
+          "usefulness": 80,
+          "complexity": 22
+        }
+      ]
+    },
+    {
+      "id": "he-drink-present",
+      "revision": 1,
+      "targetText": "לִשְׁתּוֹת",
+      "learnerBaseText": "to drink",
+      "englishAuditText": "to drink",
+      "meaningChoiceBaseText": "to drink",
+      "difficulty": 2,
+      "family": "present",
+      "lessonId": "he-drink-present",
+      "tags": [
+        "hebrew",
+        "present"
+      ],
+      "usefulness": 76,
+      "complexity": 22,
+      "teachingNoteBaseText": "The present board has four forms: a man, a woman, men, and women.",
+      "forms": [
+        {
+          "id": "man",
+          "revision": 1,
+          "subjectTargetText": "אִישׁ",
+          "subjectBaseText": "a man",
+          "targetText": "שׁוֹתֶה",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " מַיִם"
+          },
+          "learnerBaseCueText": "A man drinks",
+          "englishAuditText": "A man drinks",
+          "usefulness": 80,
+          "complexity": 22
+        },
+        {
+          "id": "woman",
+          "revision": 1,
+          "subjectTargetText": "אִשָּׁה",
+          "subjectBaseText": "a woman",
+          "targetText": "שׁוֹתָה",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " מַיִם"
+          },
+          "learnerBaseCueText": "A woman drinks",
+          "englishAuditText": "A woman drinks",
+          "usefulness": 80,
+          "complexity": 22
+        },
+        {
+          "id": "men",
+          "revision": 1,
+          "subjectTargetText": "אֲנָשִׁים",
+          "subjectBaseText": "men",
+          "targetText": "שׁוֹתִים",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " מַיִם"
+          },
+          "learnerBaseCueText": "Men drink",
+          "englishAuditText": "Men drink",
+          "usefulness": 80,
+          "complexity": 22
+        },
+        {
+          "id": "women",
+          "revision": 1,
+          "subjectTargetText": "נָשִׁים",
+          "subjectBaseText": "women",
+          "targetText": "שׁוֹתוֹת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " מַיִם"
+          },
+          "learnerBaseCueText": "Women drink",
+          "englishAuditText": "Women drink",
+          "usefulness": 80,
+          "complexity": 22
+        }
+      ]
+    },
+    {
+      "id": "he-thank-present",
+      "revision": 1,
+      "targetText": "לְהוֹדוֹת",
+      "learnerBaseText": "to thank",
+      "englishAuditText": "to thank",
+      "meaningChoiceBaseText": "to thank",
+      "difficulty": 2,
+      "family": "present",
+      "lessonId": "he-thank-present",
+      "tags": [
+        "hebrew",
+        "present"
+      ],
+      "usefulness": 76,
+      "complexity": 22,
+      "teachingNoteBaseText": "The present board has four forms: a man, a woman, men, and women.",
+      "forms": [
+        {
+          "id": "man",
+          "revision": 1,
+          "subjectTargetText": "אִישׁ",
+          "subjectBaseText": "a man",
+          "targetText": "מוֹדֶה",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "A man thanks",
+          "englishAuditText": "A man thanks",
+          "usefulness": 80,
+          "complexity": 22
+        },
+        {
+          "id": "woman",
+          "revision": 1,
+          "subjectTargetText": "אִשָּׁה",
+          "subjectBaseText": "a woman",
+          "targetText": "מוֹדָה",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "A woman thanks",
+          "englishAuditText": "A woman thanks",
+          "usefulness": 80,
+          "complexity": 22
+        },
+        {
+          "id": "men",
+          "revision": 1,
+          "subjectTargetText": "אֲנָשִׁים",
+          "subjectBaseText": "men",
+          "targetText": "מוֹדִים",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "Men thank",
+          "englishAuditText": "Men thank",
+          "usefulness": 80,
+          "complexity": 22
+        },
+        {
+          "id": "women",
+          "revision": 1,
+          "subjectTargetText": "נָשִׁים",
+          "subjectBaseText": "women",
+          "targetText": "מוֹדוֹת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": ""
+          },
+          "learnerBaseCueText": "Women thank",
+          "englishAuditText": "Women thank",
+          "usefulness": 80,
+          "complexity": 22
+        }
+      ]
+    },
+    {
+      "id": "he-come-present",
+      "revision": 1,
+      "targetText": "לָבוֹא",
+      "learnerBaseText": "to come",
+      "englishAuditText": "to come",
+      "meaningChoiceBaseText": "to come",
+      "difficulty": 3,
+      "family": "present",
+      "lessonId": "he-come-present",
+      "tags": [
+        "hebrew",
+        "present"
+      ],
+      "usefulness": 76,
+      "complexity": 22,
+      "teachingNoteBaseText": "The present board has four forms: a man, a woman, men, and women.",
+      "forms": [
+        {
+          "id": "man",
+          "revision": 1,
+          "subjectTargetText": "אִישׁ",
+          "subjectBaseText": "a man",
+          "targetText": "בָּא",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " כָּאָן"
+          },
+          "learnerBaseCueText": "A man comes",
+          "englishAuditText": "A man comes",
+          "usefulness": 80,
+          "complexity": 22
+        },
+        {
+          "id": "woman",
+          "revision": 1,
+          "subjectTargetText": "אִשָּׁה",
+          "subjectBaseText": "a woman",
+          "targetText": "בָּאָה",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " כָּאָן"
+          },
+          "learnerBaseCueText": "A woman comes",
+          "englishAuditText": "A woman comes",
+          "usefulness": 80,
+          "complexity": 22
+        },
+        {
+          "id": "men",
+          "revision": 1,
+          "subjectTargetText": "אֲנָשִׁים",
+          "subjectBaseText": "men",
+          "targetText": "בָּאִים",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " כָּאָן"
+          },
+          "learnerBaseCueText": "Men come",
+          "englishAuditText": "Men come",
+          "usefulness": 80,
+          "complexity": 22
+        },
+        {
+          "id": "women",
+          "revision": 1,
+          "subjectTargetText": "נָשִׁים",
+          "subjectBaseText": "women",
+          "targetText": "בָּאוֹת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " כָּאָן"
+          },
+          "learnerBaseCueText": "Women come",
+          "englishAuditText": "Women come",
+          "usefulness": 80,
+          "complexity": 22
+        }
+      ]
+    },
+    {
+      "id": "he-work-present",
+      "revision": 1,
+      "targetText": "לַעֲבוֹד",
+      "learnerBaseText": "to work",
+      "englishAuditText": "to work",
+      "meaningChoiceBaseText": "to work",
+      "difficulty": 3,
+      "family": "present",
+      "lessonId": "he-work-present",
+      "tags": [
+        "hebrew",
+        "present"
+      ],
+      "usefulness": 76,
+      "complexity": 22,
+      "teachingNoteBaseText": "The present board has four forms: a man, a woman, men, and women.",
+      "forms": [
+        {
+          "id": "man",
+          "revision": 1,
+          "subjectTargetText": "אִישׁ",
+          "subjectBaseText": "a man",
+          "targetText": "עוֹבֵד",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " כָּאָן"
+          },
+          "learnerBaseCueText": "A man works",
+          "englishAuditText": "A man works",
+          "usefulness": 80,
+          "complexity": 22
+        },
+        {
+          "id": "woman",
+          "revision": 1,
+          "subjectTargetText": "אִשָּׁה",
+          "subjectBaseText": "a woman",
+          "targetText": "עוֹבֶדֶת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " כָּאָן"
+          },
+          "learnerBaseCueText": "A woman works",
+          "englishAuditText": "A woman works",
+          "usefulness": 80,
+          "complexity": 22
+        },
+        {
+          "id": "men",
+          "revision": 1,
+          "subjectTargetText": "אֲנָשִׁים",
+          "subjectBaseText": "men",
+          "targetText": "עוֹבְדִים",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " כָּאָן"
+          },
+          "learnerBaseCueText": "Men work",
+          "englishAuditText": "Men work",
+          "usefulness": 80,
+          "complexity": 22
+        },
+        {
+          "id": "women",
+          "revision": 1,
+          "subjectTargetText": "נָשִׁים",
+          "subjectBaseText": "women",
+          "targetText": "עוֹבְדוֹת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " כָּאָן"
+          },
+          "learnerBaseCueText": "Women work",
+          "englishAuditText": "Women work",
+          "usefulness": 80,
+          "complexity": 22
+        }
+      ]
+    },
+    {
+      "id": "he-learn-present",
+      "revision": 1,
+      "targetText": "לִלְמוֹד",
+      "learnerBaseText": "to learn",
+      "englishAuditText": "to learn",
+      "meaningChoiceBaseText": "to learn",
+      "difficulty": 3,
+      "family": "present",
+      "lessonId": "he-learn-present",
+      "tags": [
+        "hebrew",
+        "present"
+      ],
+      "usefulness": 76,
+      "complexity": 22,
+      "teachingNoteBaseText": "The present board has four forms: a man, a woman, men, and women.",
+      "forms": [
+        {
+          "id": "man",
+          "revision": 1,
+          "subjectTargetText": "אִישׁ",
+          "subjectBaseText": "a man",
+          "targetText": "לוֹמֵד",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " עִבְרִית"
+          },
+          "learnerBaseCueText": "A man learns",
+          "englishAuditText": "A man learns",
+          "usefulness": 80,
+          "complexity": 22
+        },
+        {
+          "id": "woman",
+          "revision": 1,
+          "subjectTargetText": "אִשָּׁה",
+          "subjectBaseText": "a woman",
+          "targetText": "לוֹמֶדֶת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " עִבְרִית"
+          },
+          "learnerBaseCueText": "A woman learns",
+          "englishAuditText": "A woman learns",
+          "usefulness": 80,
+          "complexity": 22
+        },
+        {
+          "id": "men",
+          "revision": 1,
+          "subjectTargetText": "אֲנָשִׁים",
+          "subjectBaseText": "men",
+          "targetText": "לוֹמְדִים",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " עִבְרִית"
+          },
+          "learnerBaseCueText": "Men learn",
+          "englishAuditText": "Men learn",
+          "usefulness": 80,
+          "complexity": 22
+        },
+        {
+          "id": "women",
+          "revision": 1,
+          "subjectTargetText": "נָשִׁים",
+          "subjectBaseText": "women",
+          "targetText": "לוֹמְדוֹת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " עִבְרִית"
+          },
+          "learnerBaseCueText": "Women learn",
+          "englishAuditText": "Women learn",
+          "usefulness": 80,
+          "complexity": 22
+        }
+      ]
+    },
+    {
+      "id": "he-share-present",
+      "revision": 1,
+      "targetText": "לַחֲלוֹק",
+      "learnerBaseText": "to share",
+      "englishAuditText": "to share",
+      "meaningChoiceBaseText": "to share",
+      "difficulty": 3,
+      "family": "present",
+      "lessonId": "he-share-present",
+      "tags": [
+        "hebrew",
+        "present"
+      ],
+      "usefulness": 76,
+      "complexity": 22,
+      "teachingNoteBaseText": "The present board has four forms: a man, a woman, men, and women.",
+      "forms": [
+        {
+          "id": "man",
+          "revision": 1,
+          "subjectTargetText": "אִישׁ",
+          "subjectBaseText": "a man",
+          "targetText": "חוֹלֵק",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " לֶחֶם"
+          },
+          "learnerBaseCueText": "A man shares",
+          "englishAuditText": "A man shares",
+          "usefulness": 80,
+          "complexity": 22
+        },
+        {
+          "id": "woman",
+          "revision": 1,
+          "subjectTargetText": "אִשָּׁה",
+          "subjectBaseText": "a woman",
+          "targetText": "חוֹלֶקֶת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " לֶחֶם"
+          },
+          "learnerBaseCueText": "A woman shares",
+          "englishAuditText": "A woman shares",
+          "usefulness": 80,
+          "complexity": 22
+        },
+        {
+          "id": "men",
+          "revision": 1,
+          "subjectTargetText": "אֲנָשִׁים",
+          "subjectBaseText": "men",
+          "targetText": "חוֹלְקִים",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " לֶחֶם"
+          },
+          "learnerBaseCueText": "Men share",
+          "englishAuditText": "Men share",
+          "usefulness": 80,
+          "complexity": 22
+        },
+        {
+          "id": "women",
+          "revision": 1,
+          "subjectTargetText": "נָשִׁים",
+          "subjectBaseText": "women",
+          "targetText": "חוֹלְקוֹת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " לֶחֶם"
+          },
+          "learnerBaseCueText": "Women share",
+          "englishAuditText": "Women share",
+          "usefulness": 80,
+          "complexity": 22
+        }
+      ]
+    },
+    {
+      "id": "he-write-past",
+      "revision": 1,
+      "targetText": "לִכְתּוֹב",
+      "learnerBaseText": "to write in the past",
+      "englishAuditText": "to write in the past",
+      "meaningChoiceBaseText": "to write in the past",
+      "difficulty": 3,
+      "family": "past",
+      "lessonId": "he-write-past",
+      "tags": [
+        "hebrew",
+        "past"
+      ],
+      "usefulness": 70,
+      "complexity": 28,
+      "teachingNoteBaseText": "The past board uses one you. I, he, she, we, and they are the other cards.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "אֲנִי",
+          "subjectBaseText": "I",
+          "targetText": "כָּתַבְתִּי",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " מִכְתָּב"
+          },
+          "learnerBaseCueText": "I wrote",
+          "englishAuditText": "I wrote",
+          "usefulness": 70,
+          "complexity": 28
+        },
+        {
+          "id": "you",
+          "revision": 1,
+          "subjectTargetText": "אַתָּה",
+          "subjectBaseText": "you",
+          "targetText": "כָּתַבְתָּ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " מִכְתָּב"
+          },
+          "learnerBaseCueText": "You wrote",
+          "englishAuditText": "You wrote",
+          "usefulness": 70,
+          "complexity": 28
+        },
+        {
+          "id": "he",
+          "revision": 1,
+          "subjectTargetText": "הוּא",
+          "subjectBaseText": "he",
+          "targetText": "כָּתַב",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " מִכְתָּב"
+          },
+          "learnerBaseCueText": "He wrote",
+          "englishAuditText": "He wrote",
+          "usefulness": 70,
+          "complexity": 28
+        },
+        {
+          "id": "she",
+          "revision": 1,
+          "subjectTargetText": "הִיא",
+          "subjectBaseText": "she",
+          "targetText": "כָּתְבָה",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " מִכְתָּב"
+          },
+          "learnerBaseCueText": "She wrote",
+          "englishAuditText": "She wrote",
+          "usefulness": 70,
+          "complexity": 28
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "אֲנַחְנוּ",
+          "subjectBaseText": "we",
+          "targetText": "כָּתַבְנוּ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " מִכְתָּב"
+          },
+          "learnerBaseCueText": "We wrote",
+          "englishAuditText": "We wrote",
+          "usefulness": 70,
+          "complexity": 28
+        },
+        {
+          "id": "they",
+          "revision": 1,
+          "subjectTargetText": "הֵם",
+          "subjectBaseText": "they",
+          "targetText": "כָּתְבוּ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " מִכְתָּב"
+          },
+          "learnerBaseCueText": "They wrote",
+          "englishAuditText": "They wrote",
+          "usefulness": 70,
+          "complexity": 28
+        }
+      ]
+    },
+    {
+      "id": "he-walk-present",
+      "revision": 1,
+      "targetText": "לָלֵכֶת",
+      "learnerBaseText": "to walk",
+      "englishAuditText": "to walk",
+      "meaningChoiceBaseText": "to walk",
+      "difficulty": 1,
+      "family": "present",
+      "lessonId": "he-walk-present",
+      "tags": [
+        "hebrew",
+        "present"
+      ],
+      "usefulness": 80,
+      "complexity": 20,
+      "teachingNoteBaseText": "The present board has four forms: a man, a woman, men, and women.",
+      "forms": [
+        {
+          "id": "man",
+          "revision": 1,
+          "subjectTargetText": "אִישׁ",
+          "subjectBaseText": "a man",
+          "targetText": "הוֹלֵך",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " הַבַּיְתָה"
+          },
+          "learnerBaseCueText": "A man walks",
+          "englishAuditText": "A man walks",
+          "usefulness": 80,
+          "complexity": 20
+        },
+        {
+          "id": "woman",
+          "revision": 1,
+          "subjectTargetText": "אִשָּׁה",
+          "subjectBaseText": "a woman",
+          "targetText": "הוֹלֶכֶת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " הַבַּיְתָה"
+          },
+          "learnerBaseCueText": "A woman walks",
+          "englishAuditText": "A woman walks",
+          "usefulness": 80,
+          "complexity": 20
+        },
+        {
+          "id": "men",
+          "revision": 1,
+          "subjectTargetText": "אֲנָשִׁים",
+          "subjectBaseText": "men",
+          "targetText": "הוֹלְכִים",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " הַבַּיְתָה"
+          },
+          "learnerBaseCueText": "Men walk",
+          "englishAuditText": "Men walk",
+          "usefulness": 80,
+          "complexity": 20
+        },
+        {
+          "id": "women",
+          "revision": 1,
+          "subjectTargetText": "נָשִׁים",
+          "subjectBaseText": "women",
+          "targetText": "הוֹלְכוֹת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " הַבַּיְתָה"
+          },
+          "learnerBaseCueText": "Women walk",
+          "englishAuditText": "Women walk",
+          "usefulness": 80,
+          "complexity": 20
+        }
+      ]
+    },
+    {
+      "id": "he-run-present",
+      "revision": 1,
+      "targetText": "לָרוּץ",
+      "learnerBaseText": "to run",
+      "englishAuditText": "to run",
+      "meaningChoiceBaseText": "to run",
+      "difficulty": 1,
+      "family": "present",
+      "lessonId": "he-run-present",
+      "tags": [
+        "hebrew",
+        "present"
+      ],
+      "usefulness": 80,
+      "complexity": 20,
+      "teachingNoteBaseText": "The present board has four forms: a man, a woman, men, and women.",
+      "forms": [
+        {
+          "id": "man",
+          "revision": 1,
+          "subjectTargetText": "אִישׁ",
+          "subjectBaseText": "a man",
+          "targetText": "רָץ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " בַּגִּנָה"
+          },
+          "learnerBaseCueText": "A man runs",
+          "englishAuditText": "A man runs",
+          "usefulness": 80,
+          "complexity": 20
+        },
+        {
+          "id": "woman",
+          "revision": 1,
+          "subjectTargetText": "אִשָּׁה",
+          "subjectBaseText": "a woman",
+          "targetText": "רָצָה",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " בַּגִּנָה"
+          },
+          "learnerBaseCueText": "A woman runs",
+          "englishAuditText": "A woman runs",
+          "usefulness": 80,
+          "complexity": 20
+        },
+        {
+          "id": "men",
+          "revision": 1,
+          "subjectTargetText": "אֲנָשִׁים",
+          "subjectBaseText": "men",
+          "targetText": "רָצִים",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " בַּגִּנָה"
+          },
+          "learnerBaseCueText": "Men run",
+          "englishAuditText": "Men run",
+          "usefulness": 80,
+          "complexity": 20
+        },
+        {
+          "id": "women",
+          "revision": 1,
+          "subjectTargetText": "נָשִׁים",
+          "subjectBaseText": "women",
+          "targetText": "רָצוֹת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " בַּגִּנָה"
+          },
+          "learnerBaseCueText": "Women run",
+          "englishAuditText": "Women run",
+          "usefulness": 80,
+          "complexity": 20
+        }
+      ]
+    },
+    {
+      "id": "he-sing-present",
+      "revision": 1,
+      "targetText": "לָשִׁיר",
+      "learnerBaseText": "to sing",
+      "englishAuditText": "to sing",
+      "meaningChoiceBaseText": "to sing",
+      "difficulty": 1,
+      "family": "present",
+      "lessonId": "he-sing-present",
+      "tags": [
+        "hebrew",
+        "present"
+      ],
+      "usefulness": 80,
+      "complexity": 20,
+      "teachingNoteBaseText": "The present board has four forms: a man, a woman, men, and women.",
+      "forms": [
+        {
+          "id": "man",
+          "revision": 1,
+          "subjectTargetText": "אִישׁ",
+          "subjectBaseText": "a man",
+          "targetText": "שָׁר",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " שִׁיר"
+          },
+          "learnerBaseCueText": "A man sings",
+          "englishAuditText": "A man sings",
+          "usefulness": 80,
+          "complexity": 20
+        },
+        {
+          "id": "woman",
+          "revision": 1,
+          "subjectTargetText": "אִשָּׁה",
+          "subjectBaseText": "a woman",
+          "targetText": "שָׁרָה",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " שִׁיר"
+          },
+          "learnerBaseCueText": "A woman sings",
+          "englishAuditText": "A woman sings",
+          "usefulness": 80,
+          "complexity": 20
+        },
+        {
+          "id": "men",
+          "revision": 1,
+          "subjectTargetText": "אֲנָשִׁים",
+          "subjectBaseText": "men",
+          "targetText": "שָׁרִים",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " שִׁיר"
+          },
+          "learnerBaseCueText": "Men sing",
+          "englishAuditText": "Men sing",
+          "usefulness": 80,
+          "complexity": 20
+        },
+        {
+          "id": "women",
+          "revision": 1,
+          "subjectTargetText": "נָשִׁים",
+          "subjectBaseText": "women",
+          "targetText": "שָׁרוֹת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " שִׁיר"
+          },
+          "learnerBaseCueText": "Women sing",
+          "englishAuditText": "Women sing",
+          "usefulness": 80,
+          "complexity": 20
+        }
+      ]
+    },
+    {
+      "id": "he-close-present",
+      "revision": 1,
+      "targetText": "לִסְגֹּר",
+      "learnerBaseText": "to close",
+      "englishAuditText": "to close",
+      "meaningChoiceBaseText": "to close",
+      "difficulty": 1,
+      "family": "present",
+      "lessonId": "he-close-present",
+      "tags": [
+        "hebrew",
+        "present"
+      ],
+      "usefulness": 80,
+      "complexity": 20,
+      "teachingNoteBaseText": "The present board has four forms: a man, a woman, men, and women.",
+      "forms": [
+        {
+          "id": "man",
+          "revision": 1,
+          "subjectTargetText": "אִישׁ",
+          "subjectBaseText": "a man",
+          "targetText": "סוֹגֵר",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " דֶּלֶת"
+          },
+          "learnerBaseCueText": "A man closes",
+          "englishAuditText": "A man closes",
+          "usefulness": 80,
+          "complexity": 20
+        },
+        {
+          "id": "woman",
+          "revision": 1,
+          "subjectTargetText": "אִשָּׁה",
+          "subjectBaseText": "a woman",
+          "targetText": "סוֹגֶרֶת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " דֶּלֶת"
+          },
+          "learnerBaseCueText": "A woman closes",
+          "englishAuditText": "A woman closes",
+          "usefulness": 80,
+          "complexity": 20
+        },
+        {
+          "id": "men",
+          "revision": 1,
+          "subjectTargetText": "אֲנָשִׁים",
+          "subjectBaseText": "men",
+          "targetText": "סוֹגְרִים",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " דֶּלֶת"
+          },
+          "learnerBaseCueText": "Men close",
+          "englishAuditText": "Men close",
+          "usefulness": 80,
+          "complexity": 20
+        },
+        {
+          "id": "women",
+          "revision": 1,
+          "subjectTargetText": "נָשִׁים",
+          "subjectBaseText": "women",
+          "targetText": "סוֹגְרוֹת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " דֶּלֶת"
+          },
+          "learnerBaseCueText": "Women close",
+          "englishAuditText": "Women close",
+          "usefulness": 80,
+          "complexity": 20
+        }
+      ]
+    },
+    {
+      "id": "he-wash-present",
+      "revision": 1,
+      "targetText": "לִרְחֹץ",
+      "learnerBaseText": "to wash",
+      "englishAuditText": "to wash",
+      "meaningChoiceBaseText": "to wash",
+      "difficulty": 2,
+      "family": "present",
+      "lessonId": "he-wash-present",
+      "tags": [
+        "hebrew",
+        "present"
+      ],
+      "usefulness": 76,
+      "complexity": 24,
+      "teachingNoteBaseText": "The present board has four forms: a man, a woman, men, and women.",
+      "forms": [
+        {
+          "id": "man",
+          "revision": 1,
+          "subjectTargetText": "אִישׁ",
+          "subjectBaseText": "a man",
+          "targetText": "רוֹחֵץ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " כּוֹס"
+          },
+          "learnerBaseCueText": "A man washes",
+          "englishAuditText": "A man washes",
+          "usefulness": 76,
+          "complexity": 24
+        },
+        {
+          "id": "woman",
+          "revision": 1,
+          "subjectTargetText": "אִשָּׁה",
+          "subjectBaseText": "a woman",
+          "targetText": "רוֹחֶצֶת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " כּוֹס"
+          },
+          "learnerBaseCueText": "A woman washes",
+          "englishAuditText": "A woman washes",
+          "usefulness": 76,
+          "complexity": 24
+        },
+        {
+          "id": "men",
+          "revision": 1,
+          "subjectTargetText": "אֲנָשִׁים",
+          "subjectBaseText": "men",
+          "targetText": "רוֹחֲצִים",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " כּוֹס"
+          },
+          "learnerBaseCueText": "Men wash",
+          "englishAuditText": "Men wash",
+          "usefulness": 76,
+          "complexity": 24
+        },
+        {
+          "id": "women",
+          "revision": 1,
+          "subjectTargetText": "נָשִׁים",
+          "subjectBaseText": "women",
+          "targetText": "רוֹחֲצוֹת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " כּוֹס"
+          },
+          "learnerBaseCueText": "Women wash",
+          "englishAuditText": "Women wash",
+          "usefulness": 76,
+          "complexity": 24
+        }
+      ]
+    },
+    {
+      "id": "he-ask-present",
+      "revision": 1,
+      "targetText": "לִשְׁאוֹל",
+      "learnerBaseText": "to ask",
+      "englishAuditText": "to ask",
+      "meaningChoiceBaseText": "to ask",
+      "difficulty": 2,
+      "family": "present",
+      "lessonId": "he-ask-present",
+      "tags": [
+        "hebrew",
+        "present"
+      ],
+      "usefulness": 76,
+      "complexity": 24,
+      "teachingNoteBaseText": "The present board has four forms: a man, a woman, men, and women.",
+      "forms": [
+        {
+          "id": "man",
+          "revision": 1,
+          "subjectTargetText": "אִישׁ",
+          "subjectBaseText": "a man",
+          "targetText": "שׁוֹאֵל",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " חָבֵר"
+          },
+          "learnerBaseCueText": "A man asks",
+          "englishAuditText": "A man asks",
+          "usefulness": 76,
+          "complexity": 24
+        },
+        {
+          "id": "woman",
+          "revision": 1,
+          "subjectTargetText": "אִשָּׁה",
+          "subjectBaseText": "a woman",
+          "targetText": "שׁוֹאֶלֶת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " חָבֵר"
+          },
+          "learnerBaseCueText": "A woman asks",
+          "englishAuditText": "A woman asks",
+          "usefulness": 76,
+          "complexity": 24
+        },
+        {
+          "id": "men",
+          "revision": 1,
+          "subjectTargetText": "אֲנָשִׁים",
+          "subjectBaseText": "men",
+          "targetText": "שׁוֹאֲלִים",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " חָבֵר"
+          },
+          "learnerBaseCueText": "Men ask",
+          "englishAuditText": "Men ask",
+          "usefulness": 76,
+          "complexity": 24
+        },
+        {
+          "id": "women",
+          "revision": 1,
+          "subjectTargetText": "נָשִׁים",
+          "subjectBaseText": "women",
+          "targetText": "שׁוֹאֲלוֹת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " חָבֵר"
+          },
+          "learnerBaseCueText": "Women ask",
+          "englishAuditText": "Women ask",
+          "usefulness": 76,
+          "complexity": 24
+        }
+      ]
+    },
+    {
+      "id": "he-answer-present",
+      "revision": 1,
+      "targetText": "לַעֲנוֹת",
+      "learnerBaseText": "to answer",
+      "englishAuditText": "to answer",
+      "meaningChoiceBaseText": "to answer",
+      "difficulty": 2,
+      "family": "present",
+      "lessonId": "he-answer-present",
+      "tags": [
+        "hebrew",
+        "present"
+      ],
+      "usefulness": 76,
+      "complexity": 24,
+      "teachingNoteBaseText": "The present board has four forms: a man, a woman, men, and women.",
+      "forms": [
+        {
+          "id": "man",
+          "revision": 1,
+          "subjectTargetText": "אִישׁ",
+          "subjectBaseText": "a man",
+          "targetText": "עוֹנֵה",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " חָבֵר"
+          },
+          "learnerBaseCueText": "A man answers",
+          "englishAuditText": "A man answers",
+          "usefulness": 76,
+          "complexity": 24
+        },
+        {
+          "id": "woman",
+          "revision": 1,
+          "subjectTargetText": "אִשָּׁה",
+          "subjectBaseText": "a woman",
+          "targetText": "עוֹנָה",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " חָבֵר"
+          },
+          "learnerBaseCueText": "A woman answers",
+          "englishAuditText": "A woman answers",
+          "usefulness": 76,
+          "complexity": 24
+        },
+        {
+          "id": "men",
+          "revision": 1,
+          "subjectTargetText": "אֲנָשִׁים",
+          "subjectBaseText": "men",
+          "targetText": "עוֹנִים",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " חָבֵר"
+          },
+          "learnerBaseCueText": "Men answer",
+          "englishAuditText": "Men answer",
+          "usefulness": 76,
+          "complexity": 24
+        },
+        {
+          "id": "women",
+          "revision": 1,
+          "subjectTargetText": "נָשִׁים",
+          "subjectBaseText": "women",
+          "targetText": "עוֹנוֹת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " חָבֵר"
+          },
+          "learnerBaseCueText": "Women answer",
+          "englishAuditText": "Women answer",
+          "usefulness": 76,
+          "complexity": 24
+        }
+      ]
+    },
+    {
+      "id": "he-pay-present",
+      "revision": 1,
+      "targetText": "לְשַׁלֵּם",
+      "learnerBaseText": "to pay",
+      "englishAuditText": "to pay",
+      "meaningChoiceBaseText": "to pay",
+      "difficulty": 2,
+      "family": "present",
+      "lessonId": "he-pay-present",
+      "tags": [
+        "hebrew",
+        "present"
+      ],
+      "usefulness": 76,
+      "complexity": 24,
+      "teachingNoteBaseText": "The present board has four forms: a man, a woman, men, and women.",
+      "forms": [
+        {
+          "id": "man",
+          "revision": 1,
+          "subjectTargetText": "אִישׁ",
+          "subjectBaseText": "a man",
+          "targetText": "מְשַׁלֵּם",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " כַּרְטִיס"
+          },
+          "learnerBaseCueText": "A man pays",
+          "englishAuditText": "A man pays",
+          "usefulness": 76,
+          "complexity": 24
+        },
+        {
+          "id": "woman",
+          "revision": 1,
+          "subjectTargetText": "אִשָּׁה",
+          "subjectBaseText": "a woman",
+          "targetText": "מְשַׁלֶּמֶת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " כַּרְטִיס"
+          },
+          "learnerBaseCueText": "A woman pays",
+          "englishAuditText": "A woman pays",
+          "usefulness": 76,
+          "complexity": 24
+        },
+        {
+          "id": "men",
+          "revision": 1,
+          "subjectTargetText": "אֲנָשִׁים",
+          "subjectBaseText": "men",
+          "targetText": "מְשַׁלְּמִים",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " כַּרְטִיס"
+          },
+          "learnerBaseCueText": "Men pay",
+          "englishAuditText": "Men pay",
+          "usefulness": 76,
+          "complexity": 24
+        },
+        {
+          "id": "women",
+          "revision": 1,
+          "subjectTargetText": "נָשִׁים",
+          "subjectBaseText": "women",
+          "targetText": "מְשַׁלְּמוֹת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " כַּרְטִיס"
+          },
+          "learnerBaseCueText": "Women pay",
+          "englishAuditText": "Women pay",
+          "usefulness": 76,
+          "complexity": 24
+        }
+      ]
+    },
+    {
+      "id": "he-take-present",
+      "revision": 1,
+      "targetText": "לָקַחַת",
+      "learnerBaseText": "to take",
+      "englishAuditText": "to take",
+      "meaningChoiceBaseText": "to take",
+      "difficulty": 3,
+      "family": "present",
+      "lessonId": "he-take-present",
+      "tags": [
+        "hebrew",
+        "present"
+      ],
+      "usefulness": 72,
+      "complexity": 28,
+      "teachingNoteBaseText": "The present board has four forms: a man, a woman, men, and women.",
+      "forms": [
+        {
+          "id": "man",
+          "revision": 1,
+          "subjectTargetText": "אִישׁ",
+          "subjectBaseText": "a man",
+          "targetText": "לוֹקֵחַ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " תִּיק"
+          },
+          "learnerBaseCueText": "A man takes",
+          "englishAuditText": "A man takes",
+          "usefulness": 72,
+          "complexity": 28
+        },
+        {
+          "id": "woman",
+          "revision": 1,
+          "subjectTargetText": "אִשָּׁה",
+          "subjectBaseText": "a woman",
+          "targetText": "לוֹקַחַת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " תִּיק"
+          },
+          "learnerBaseCueText": "A woman takes",
+          "englishAuditText": "A woman takes",
+          "usefulness": 72,
+          "complexity": 28
+        },
+        {
+          "id": "men",
+          "revision": 1,
+          "subjectTargetText": "אֲנָשִׁים",
+          "subjectBaseText": "men",
+          "targetText": "לוֹקְחִים",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " תִּיק"
+          },
+          "learnerBaseCueText": "Men take",
+          "englishAuditText": "Men take",
+          "usefulness": 72,
+          "complexity": 28
+        },
+        {
+          "id": "women",
+          "revision": 1,
+          "subjectTargetText": "נָשִׁים",
+          "subjectBaseText": "women",
+          "targetText": "לוֹקְחוֹת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " תִּיק"
+          },
+          "learnerBaseCueText": "Women take",
+          "englishAuditText": "Women take",
+          "usefulness": 72,
+          "complexity": 28
+        }
+      ]
+    },
+    {
+      "id": "he-find-present",
+      "revision": 1,
+      "targetText": "לִמְצֹא",
+      "learnerBaseText": "to find",
+      "englishAuditText": "to find",
+      "meaningChoiceBaseText": "to find",
+      "difficulty": 3,
+      "family": "present",
+      "lessonId": "he-find-present",
+      "tags": [
+        "hebrew",
+        "present"
+      ],
+      "usefulness": 72,
+      "complexity": 28,
+      "teachingNoteBaseText": "The present board has four forms: a man, a woman, men, and women.",
+      "forms": [
+        {
+          "id": "man",
+          "revision": 1,
+          "subjectTargetText": "אִישׁ",
+          "subjectBaseText": "a man",
+          "targetText": "מוֹצֵא",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " מַפְתֵּחַ"
+          },
+          "learnerBaseCueText": "A man finds",
+          "englishAuditText": "A man finds",
+          "usefulness": 72,
+          "complexity": 28
+        },
+        {
+          "id": "woman",
+          "revision": 1,
+          "subjectTargetText": "אִשָּׁה",
+          "subjectBaseText": "a woman",
+          "targetText": "מוֹצֵאת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " מַפְתֵּחַ"
+          },
+          "learnerBaseCueText": "A woman finds",
+          "englishAuditText": "A woman finds",
+          "usefulness": 72,
+          "complexity": 28
+        },
+        {
+          "id": "men",
+          "revision": 1,
+          "subjectTargetText": "אֲנָשִׁים",
+          "subjectBaseText": "men",
+          "targetText": "מוֹצְאִים",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " מַפְתֵּחַ"
+          },
+          "learnerBaseCueText": "Men find",
+          "englishAuditText": "Men find",
+          "usefulness": 72,
+          "complexity": 28
+        },
+        {
+          "id": "women",
+          "revision": 1,
+          "subjectTargetText": "נָשִׁים",
+          "subjectBaseText": "women",
+          "targetText": "מוֹצְאוֹת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " מַפְתֵּחַ"
+          },
+          "learnerBaseCueText": "Women find",
+          "englishAuditText": "Women find",
+          "usefulness": 72,
+          "complexity": 28
+        }
+      ]
+    },
+    {
+      "id": "he-travel-present",
+      "revision": 1,
+      "targetText": "לִנְסֹעַ",
+      "learnerBaseText": "to travel",
+      "englishAuditText": "to travel",
+      "meaningChoiceBaseText": "to travel",
+      "difficulty": 3,
+      "family": "present",
+      "lessonId": "he-travel-present",
+      "tags": [
+        "hebrew",
+        "present"
+      ],
+      "usefulness": 72,
+      "complexity": 28,
+      "teachingNoteBaseText": "The present board has four forms: a man, a woman, men, and women.",
+      "forms": [
+        {
+          "id": "man",
+          "revision": 1,
+          "subjectTargetText": "אִישׁ",
+          "subjectBaseText": "a man",
+          "targetText": "נוֹסֵעַ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " לָעִיר"
+          },
+          "learnerBaseCueText": "A man travels",
+          "englishAuditText": "A man travels",
+          "usefulness": 72,
+          "complexity": 28
+        },
+        {
+          "id": "woman",
+          "revision": 1,
+          "subjectTargetText": "אִשָּׁה",
+          "subjectBaseText": "a woman",
+          "targetText": "נוֹסַעַת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " לָעִיר"
+          },
+          "learnerBaseCueText": "A woman travels",
+          "englishAuditText": "A woman travels",
+          "usefulness": 72,
+          "complexity": 28
+        },
+        {
+          "id": "men",
+          "revision": 1,
+          "subjectTargetText": "אֲנָשִׁים",
+          "subjectBaseText": "men",
+          "targetText": "נוֹסְעִים",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " לָעִיר"
+          },
+          "learnerBaseCueText": "Men travel",
+          "englishAuditText": "Men travel",
+          "usefulness": 72,
+          "complexity": 28
+        },
+        {
+          "id": "women",
+          "revision": 1,
+          "subjectTargetText": "נָשִׁים",
+          "subjectBaseText": "women",
+          "targetText": "נוֹסְעוֹת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " לָעִיר"
+          },
+          "learnerBaseCueText": "Women travel",
+          "englishAuditText": "Women travel",
+          "usefulness": 72,
+          "complexity": 28
+        }
+      ]
+    },
+    {
+      "id": "he-clean-present",
+      "revision": 1,
+      "targetText": "לְנַקּוֹת",
+      "learnerBaseText": "to clean",
+      "englishAuditText": "to clean",
+      "meaningChoiceBaseText": "to clean",
+      "difficulty": 3,
+      "family": "present",
+      "lessonId": "he-clean-present",
+      "tags": [
+        "hebrew",
+        "present"
+      ],
+      "usefulness": 72,
+      "complexity": 28,
+      "teachingNoteBaseText": "The present board has four forms: a man, a woman, men, and women.",
+      "forms": [
+        {
+          "id": "man",
+          "revision": 1,
+          "subjectTargetText": "אִישׁ",
+          "subjectBaseText": "a man",
+          "targetText": "מְנַקֶּה",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " חֶדֶר"
+          },
+          "learnerBaseCueText": "A man cleans",
+          "englishAuditText": "A man cleans",
+          "usefulness": 72,
+          "complexity": 28
+        },
+        {
+          "id": "woman",
+          "revision": 1,
+          "subjectTargetText": "אִשָּׁה",
+          "subjectBaseText": "a woman",
+          "targetText": "מְנַקָּה",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " חֶדֶר"
+          },
+          "learnerBaseCueText": "A woman cleans",
+          "englishAuditText": "A woman cleans",
+          "usefulness": 72,
+          "complexity": 28
+        },
+        {
+          "id": "men",
+          "revision": 1,
+          "subjectTargetText": "אֲנָשִׁים",
+          "subjectBaseText": "men",
+          "targetText": "מְנַקִּים",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " חֶדֶר"
+          },
+          "learnerBaseCueText": "Men clean",
+          "englishAuditText": "Men clean",
+          "usefulness": 72,
+          "complexity": 28
+        },
+        {
+          "id": "women",
+          "revision": 1,
+          "subjectTargetText": "נָשִׁים",
+          "subjectBaseText": "women",
+          "targetText": "מְנַקּוֹת",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " חֶדֶר"
+          },
+          "learnerBaseCueText": "Women clean",
+          "englishAuditText": "Women clean",
+          "usefulness": 72,
+          "complexity": 28
+        }
+      ]
+    },
+    {
+      "id": "he-walk-past",
+      "revision": 1,
+      "targetText": "לָלֵכֶת",
+      "learnerBaseText": "to walk in the past",
+      "englishAuditText": "to walk in the past",
+      "meaningChoiceBaseText": "to walk in the past",
+      "difficulty": 3,
+      "family": "past",
+      "lessonId": "he-walk-past",
+      "tags": [
+        "hebrew",
+        "past"
+      ],
+      "usefulness": 70,
+      "complexity": 28,
+      "teachingNoteBaseText": "The past board uses one you. I, he, she, we, and they are the other cards.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "אֲנִי",
+          "subjectBaseText": "I",
+          "targetText": "הָלַכְתִּי",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " הַבַּיְתָה"
+          },
+          "learnerBaseCueText": "I walked",
+          "englishAuditText": "I walked",
+          "usefulness": 70,
+          "complexity": 28
+        },
+        {
+          "id": "you",
+          "revision": 1,
+          "subjectTargetText": "אַתָּה",
+          "subjectBaseText": "you",
+          "targetText": "הָלַכְתָּ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " הַבַּיְתָה"
+          },
+          "learnerBaseCueText": "You walked",
+          "englishAuditText": "You walked",
+          "usefulness": 70,
+          "complexity": 28
+        },
+        {
+          "id": "he",
+          "revision": 1,
+          "subjectTargetText": "הוּא",
+          "subjectBaseText": "he",
+          "targetText": "הָלַך",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " הַבַּיְתָה"
+          },
+          "learnerBaseCueText": "He walked",
+          "englishAuditText": "He walked",
+          "usefulness": 70,
+          "complexity": 28
+        },
+        {
+          "id": "she",
+          "revision": 1,
+          "subjectTargetText": "הִיא",
+          "subjectBaseText": "she",
+          "targetText": "הָלְכָה",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " הַבַּיְתָה"
+          },
+          "learnerBaseCueText": "She walked",
+          "englishAuditText": "She walked",
+          "usefulness": 70,
+          "complexity": 28
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "אֲנַחְנוּ",
+          "subjectBaseText": "we",
+          "targetText": "הָלַכְנוּ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " הַבַּיְתָה"
+          },
+          "learnerBaseCueText": "We walked",
+          "englishAuditText": "We walked",
+          "usefulness": 70,
+          "complexity": 28
+        },
+        {
+          "id": "they",
+          "revision": 1,
+          "subjectTargetText": "הֵם",
+          "subjectBaseText": "they",
+          "targetText": "הָלְכוּ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " הַבַּיְתָה"
+          },
+          "learnerBaseCueText": "They walked",
+          "englishAuditText": "They walked",
+          "usefulness": 70,
+          "complexity": 28
+        }
+      ]
+    },
+    {
+      "id": "he-buy-past",
+      "revision": 1,
+      "targetText": "לִקְנוֹת",
+      "learnerBaseText": "to buy in the past",
+      "englishAuditText": "to buy in the past",
+      "meaningChoiceBaseText": "to buy in the past",
+      "difficulty": 3,
+      "family": "past",
+      "lessonId": "he-buy-past",
+      "tags": [
+        "hebrew",
+        "past"
+      ],
+      "usefulness": 70,
+      "complexity": 28,
+      "teachingNoteBaseText": "The past board uses one you. I, he, she, we, and they are the other cards.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "אֲנִי",
+          "subjectBaseText": "I",
+          "targetText": "קָנִיתִי",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " לֶחֶם"
+          },
+          "learnerBaseCueText": "I bought",
+          "englishAuditText": "I bought",
+          "usefulness": 70,
+          "complexity": 28
+        },
+        {
+          "id": "you",
+          "revision": 1,
+          "subjectTargetText": "אַתָּה",
+          "subjectBaseText": "you",
+          "targetText": "קָנִיתָ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " לֶחֶם"
+          },
+          "learnerBaseCueText": "You bought",
+          "englishAuditText": "You bought",
+          "usefulness": 70,
+          "complexity": 28
+        },
+        {
+          "id": "he",
+          "revision": 1,
+          "subjectTargetText": "הוּא",
+          "subjectBaseText": "he",
+          "targetText": "קָנָה",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " לֶחֶם"
+          },
+          "learnerBaseCueText": "He bought",
+          "englishAuditText": "He bought",
+          "usefulness": 70,
+          "complexity": 28
+        },
+        {
+          "id": "she",
+          "revision": 1,
+          "subjectTargetText": "הִיא",
+          "subjectBaseText": "she",
+          "targetText": "קָנְתָה",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " לֶחֶם"
+          },
+          "learnerBaseCueText": "She bought",
+          "englishAuditText": "She bought",
+          "usefulness": 70,
+          "complexity": 28
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "אֲנַחְנוּ",
+          "subjectBaseText": "we",
+          "targetText": "קָנִינוּ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " לֶחֶם"
+          },
+          "learnerBaseCueText": "We bought",
+          "englishAuditText": "We bought",
+          "usefulness": 70,
+          "complexity": 28
+        },
+        {
+          "id": "they",
+          "revision": 1,
+          "subjectTargetText": "הֵם",
+          "subjectBaseText": "they",
+          "targetText": "קָנוּ",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " לֶחֶם"
+          },
+          "learnerBaseCueText": "They bought",
+          "englishAuditText": "They bought",
+          "usefulness": 70,
+          "complexity": 28
+        }
+      ]
+    }
+  ]
+}

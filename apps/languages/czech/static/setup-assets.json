@@ -374,7 +374,10 @@
       "/language-runtime/static/data/learner-record-registry.json?v=learner-record-1",
       "/language-runtime/static/source/russian-romanization.mjs?v=russian-romanization-1",
       "/language-runtime/static/data/english-concepts/word-world-ru-v1.json",
-      "/assets/icons/russian_flag.svg"
+      "/assets/icons/russian_flag.svg",
+      "/language-runtime/static/source/hebrew-romanization.mjs?v=hebrew-romanization-1",
+      "/language-runtime/static/data/english-concepts/word-world-he-v1.json",
+      "/assets/icons/hebrew_flag.svg"
     ]
   },
   "artifacts": [

@@ -400,6 +400,38 @@ test("Home confirmation escapes hidden Settings and supports cancel, download an
   }
 });
 
+test("a browser-delivered update opens the download without an install confirmation", async () => {
+  const h = harness({ confirm: false });
+  const controller = h.ui.getUpdateController();
+  const activated = controller.activate();
+  const available = {
+    selfUpdateEnabled: false,
+    updateDelivery: "browser",
+    updateAvailable: true,
+    serverReachable: true,
+    currentVersionCode: 200,
+    currentVersionName: "0.1.48",
+    latestVersionCode: 201,
+    latestVersionName: "0.1.49"
+  };
+  h.reply(h.requests[0], available);
+  await flush();
+  assert.equal(h.requests[1].type, "update_app");
+  const second = controller.activate();
+  h.reply(h.requests[1], {
+    opened: true,
+    action: "browser",
+    apkUrl: "https://caatuu.waajacu.com/android/releases/201/caatuu.apk",
+    latestVersionCode: 201,
+    latestVersionName: "0.1.49"
+  });
+  await Promise.all([activated, second]);
+  assert.equal(h.requests.filter(({ type }) => type === "update_app").length, 1);
+  const status = h.document.getElementById("maintenanceStatus").textContent;
+  assert.equal(status, "Update available: 0.1.49 (201). Installed: 0.1.48 (200).");
+  assert.equal(/installer opened/i.test(status), false);
+});
+
 test("declined updates make no download request and native failures remain retryable", async () => {
   const h = harness({ confirm: false });
   const activation = h.ui.getUpdateController().activate();
