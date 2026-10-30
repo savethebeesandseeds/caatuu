@@ -127,7 +127,7 @@ complete site artifact; that transport is not a website rebuild.
 
 The owner-approved [`pages-storage-policy.json`](../apps/android/tooling/pages-storage-policy.json)
 archives only the APK copies at `/android/releases/162/caatuu.apk` through
-`/android/releases/195/caatuu.apk`, reclaiming 331,918,364 bytes in total. The
+`/android/releases/197/caatuu.apk`, reclaiming 338,962,664 bytes in total. The
 original six copies (163–168, 216,904,912 bytes) were approved on 5 October 2026:
 "Yes, archive those six Pages APK copies". On 20 October 2026, the owner approved
 versions 169–184 and resuming Android 190, adding 16 copies and 53,062,004 bytes
@@ -146,11 +146,15 @@ of the Pages copies for baseline 162 (23,294,790 bytes) and versions 193–195
 Release downloads. Version 162 has no standalone GitHub APK asset; the live
 file matched the pinned preservation record, and its bytes remain in
 `caatuu-pages-v162.tar`.
+On 30 October 2026 the owner approved proceeding with Android 200 by removing
+the Pages copies of versions 196 and 197 (3,522,150 bytes each). Both GitHub
+Release downloads matched the descriptor and the live inventory before the
+policy was extended.
 Each policy entry pins the original APK byte count and digest. Overlay entries
 also pin the identical GitHub Release APK download. The baseline entry pins the
 preservation-archive download instead. Only those old Pages APK URLs cease to
 work; GitHub archives, Pages manifests/receipts, the version 161 compatibility
-package, versions 196 onward and every course setup object remain. The
+package, versions 198 onward and every course setup object remain. The
 immutable release-history descriptor is
 unchanged by archiving. Android retries, public verification and later website
 builds honor the policy; older website snapshots cannot reintroduce archived
