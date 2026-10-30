@@ -100,9 +100,10 @@ browser course's setup receipt against the final Pages bytes and verifies the ar
 every final byte/hash, same-origin Android URLs, alias equality, service-worker
 exclusions, range bypass, case collisions, and size ceiling before replacing
 generated output. The launcher offers only the newest signed stable release;
-older releases remain at their immutable version paths, and transition 161
-remains at its compatibility path. `/android/caatuu-debug.json` remains for
-already-installed clients. Pages does not publish `/android/caatuu-debug.apk`.
+older releases remain at their immutable version paths.
+`/android/caatuu-debug.json` and the transition JSON remain.
+Pages does not publish `/android/caatuu-debug.apk` or
+`/android/debug-releases/product-transition/161/caatuu-transition.apk`.
 The standalone
 `/games/caatuu-game/` preview is not published until its separate game and
 asset release gates pass. Dynamic application APIs are not added. The

@@ -30,15 +30,15 @@ function baselineArchivePin() {
   };
 }
 
-function debugApkAliasPin() {
+function archivedCompatibilityApkPin() {
   const baseline = readBaseline();
   const canonical = "android/debug-releases/product-transition/161/caatuu-transition.apk";
   assert.deepEqual(baseline.compatibility.apk.publicPaths, [canonical, debugApkAliasPath]);
   return {
-    path: debugApkAliasPath,
     bytes: baseline.compatibility.apk.bytes,
     sha256: baseline.compatibility.apk.sha256,
-    downloadUrl: `${baseline.canonicalOrigin}/${canonical}`,
+    downloadUrl: baseline.releaseArchive.downloadUrl,
+    paths: new Set([canonical, debugApkAliasPath]),
   };
 }
 
@@ -47,16 +47,16 @@ export function validatePagesStoragePolicy(value, descriptor) {
   assert.equal(value.schemaVersion, 1);
   assert.ok(Array.isArray(value.archivedApks));
   const seen = new Set();
+  const compatibility = archivedCompatibilityApkPin();
   for (const record of value.archivedApks) {
     assert.deepEqual(Object.keys(record).sort(), ["bytes", "downloadUrl", "path", "sha256"]);
     assert.ok(!seen.has(record.path), "Duplicate archived APK path");
     seen.add(record.path);
-    if (record.path === debugApkAliasPath) {
-      const pin = debugApkAliasPin();
-      assert.equal(record.bytes, pin.bytes, "Archived debug APK alias byte count changed");
-      assert.equal(record.sha256, pin.sha256, "Archived debug APK alias hash changed");
-      assert.equal(record.downloadUrl, pin.downloadUrl,
-        "Archived debug APK alias must point at the remaining transition APK");
+    if (compatibility.paths.has(record.path)) {
+      assert.equal(record.bytes, compatibility.bytes, "Archived compatibility APK byte count changed");
+      assert.equal(record.sha256, compatibility.sha256, "Archived compatibility APK hash changed");
+      assert.equal(record.downloadUrl, compatibility.downloadUrl,
+        "Archived compatibility APK must point at the preservation archive");
       continue;
     }
     const match = /^android\/releases\/([1-9][0-9]*)\/caatuu\.apk$/u.exec(record.path);

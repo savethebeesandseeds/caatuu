@@ -62,20 +62,20 @@ test("the baseline APK can be archived only against its preservation archive", (
   assert.throws(() => validatePagesStoragePolicy({ schemaVersion: 1, archivedApks: [approved] }, descriptor), /historical APK/);
 });
 
-test("the debug APK alias can be archived only against the remaining transition copy", () => {
+test("both compatibility APK copies can be archived only against the preservation archive", () => {
   const baseline = JSON.parse(readFileSync(fileURLToPath(new URL("../pages-baseline.json", import.meta.url)), "utf8"));
-  const approved = {
-    path: "android/caatuu-debug.apk",
+  const approved = baseline.compatibility.apk.publicPaths.map((path) => ({
+    path,
     bytes: baseline.compatibility.apk.bytes,
     sha256: baseline.compatibility.apk.sha256,
-    downloadUrl: `${baseline.canonicalOrigin}/${baseline.compatibility.apk.publicPaths[0]}`,
-  };
-  assert.deepEqual(validatePagesStoragePolicy({ schemaVersion: 1, archivedApks: [approved] }, descriptor), [approved]);
-  assert.throws(() => validatePagesStoragePolicy({ schemaVersion: 1, archivedApks: [{ ...approved, sha256: "b".repeat(64) }] }, descriptor), /hash/);
-  assert.throws(() => validatePagesStoragePolicy({ schemaVersion: 1, archivedApks: [{ ...approved, bytes: approved.bytes - 1 }] }, descriptor), /byte count/);
-  assert.throws(() => validatePagesStoragePolicy({ schemaVersion: 1, archivedApks: [{ ...approved, downloadUrl: baseline.releaseArchive.downloadUrl }] }, descriptor), /transition APK/);
-  for (const path of [baseline.compatibility.apk.publicPaths[0], "android/caatuu-debug.json", "android/caatuu-preview.apk"]) {
-    assert.throws(() => validatePagesStoragePolicy({ schemaVersion: 1, archivedApks: [{ ...approved, path }] }, descriptor), /historical APK/);
+    downloadUrl: baseline.releaseArchive.downloadUrl,
+  }));
+  assert.deepEqual(validatePagesStoragePolicy({ schemaVersion: 1, archivedApks: approved }, descriptor), approved);
+  assert.throws(() => validatePagesStoragePolicy({ schemaVersion: 1, archivedApks: [{ ...approved[0], sha256: "b".repeat(64) }] }, descriptor), /hash/);
+  assert.throws(() => validatePagesStoragePolicy({ schemaVersion: 1, archivedApks: [{ ...approved[0], bytes: approved[0].bytes - 1 }] }, descriptor), /byte count/);
+  assert.throws(() => validatePagesStoragePolicy({ schemaVersion: 1, archivedApks: [{ ...approved[0], downloadUrl: `${baseline.canonicalOrigin}/${approved[0].path}` }] }, descriptor), /preservation archive/);
+  for (const path of ["android/caatuu-debug.json", "android/caatuu-preview.apk", "android/debug-releases/product-transition/161/caatuu-transition.json"]) {
+    assert.throws(() => validatePagesStoragePolicy({ schemaVersion: 1, archivedApks: [{ ...approved[0], path }] }, descriptor), /historical APK/);
   }
 });
 

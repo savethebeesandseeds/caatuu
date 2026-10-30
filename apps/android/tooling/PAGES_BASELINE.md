@@ -86,9 +86,9 @@ preservation archive for byte-for-byte validation, while live requests for
 their original paths use the pinned setup Release through the Worker. The local
 runtime can remain opt-in for deliberate development and APK/API tests.
 
-Transition 161 remains available at its immutable version path.
-`/android/caatuu-debug.json` remains for already-installed preview clients.
-Pages does not publish `/android/caatuu-debug.apk` or `caatuu-preview.*`, and the public
+Transition 161 JSON remains at its immutable version path, with
+`/android/caatuu-debug.json` for already-installed preview clients.
+Pages does not publish either preview APK or `caatuu-preview.*`, and the public
 launcher advertises the newest signed, non-debuggable stable release in the
 append-only descriptor. Stable 163 was the first of those overlays. This
 prevents the debuggable transition package from becoming an ungated automatic

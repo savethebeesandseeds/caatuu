@@ -327,31 +327,32 @@ test("public verifier retains archive metadata without requiring retired Pages A
     fetchImpl: mock.fetchImpl, archivedApks: [archived] }), /republished/);
 });
 
-test("public verifier omits an archived debug APK alias and keeps the transition APK", async () => {
+test("public verifier omits both archived compatibility APKs and keeps their JSON files", async () => {
   const data = fixture();
   const baseline = JSON.parse(await readFile(new URL("../pages-baseline.json", import.meta.url), "utf8"));
-  const archived = {
-    path: "android/caatuu-debug.apk",
+  const archived = baseline.compatibility.apk.publicPaths.map((path) => ({
+    path,
     bytes: baseline.compatibility.apk.bytes,
     sha256: baseline.compatibility.apk.sha256,
-    downloadUrl: `${baseline.canonicalOrigin}/${baseline.compatibility.apk.publicPaths[0]}`,
-  };
-  data.bundle.archivedAndroidApks = [archived];
-  data.bundle.files = data.bundle.files.filter(({ path }) => path !== archived.path);
+    downloadUrl: baseline.releaseArchive.downloadUrl,
+  }));
+  data.bundle.archivedAndroidApks = archived;
+  data.bundle.files = data.bundle.files.filter(({ path }) => !archived.some((record) => record.path === path));
   const mock = mockPublicFetch(data);
   const result = await verifyPublicPagesReleaseOnce({
     descriptor: data.descriptor,
     baselineDescriptor: data.baselineDescriptor,
     fetchImpl: mock.fetchImpl,
-    archivedApks: [archived],
+    archivedApks: archived,
   });
   assert.equal(result.ok, true);
-  assert.deepEqual(result.archivedAndroidApks, [{ path: archived.path, downloadUrl: archived.downloadUrl }]);
+  assert.deepEqual(result.archivedAndroidApks, archived.map(({ path, downloadUrl }) => ({ path, downloadUrl })));
   assert.ok(!mock.calls.some((call) => call.path === "/android/caatuu-debug.apk"));
-  assert.ok(mock.calls.some((call) => call.path === "/android/debug-releases/product-transition/161/caatuu-transition.apk"));
+  assert.ok(!mock.calls.some((call) => call.path === "/android/debug-releases/product-transition/161/caatuu-transition.apk"));
   assert.ok(mock.calls.some((call) => call.path === "/android/caatuu-debug.json"));
+  assert.ok(mock.calls.some((call) => call.path === "/android/debug-releases/product-transition/161/caatuu-transition.json"));
   data.bundle.files.push({
-    path: archived.path,
+    path: archived[0].path,
     bytes: data.baselineDescriptor.compatibility.apk.bytes,
     sha256: data.baselineDescriptor.compatibility.apk.sha256,
   });
@@ -359,7 +360,7 @@ test("public verifier omits an archived debug APK alias and keeps the transition
     descriptor: data.descriptor,
     baselineDescriptor: data.baselineDescriptor,
     fetchImpl: mock.fetchImpl,
-    archivedApks: [archived],
+    archivedApks: archived,
   }), /republished/);
 });
 

@@ -7,9 +7,11 @@
 - Show the published APK version in Settings → About on the website. The
   heading uses the existing version line. The installed app still shows its
   own package version. Offline pages keep the loaded web revision.
-- Remove the Pages copy of `/android/caatuu-debug.apk`. The same bytes stay
-  at `/android/debug-releases/product-transition/161/caatuu-transition.apk`,
-  and `/android/caatuu-debug.json` stays.
+- Remove both public copies of the 30,571,799-byte preview APK:
+  `/android/caatuu-debug.apk` and
+  `/android/debug-releases/product-transition/161/caatuu-transition.apk`.
+  The bytes remain in `caatuu-pages-v162.tar`. `/android/caatuu-debug.json`
+  and the transition JSON stay. The public app remains `/android/caatuu.apk`.
 - List Arabic, Scientific Latin, Georgian, Russian, and Hebrew on the public
   website as `noindex` development previews. This package still does not
   install Russian or Hebrew. Native review is still required.

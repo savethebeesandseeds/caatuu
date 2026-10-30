@@ -218,10 +218,16 @@
       "downloadUrl": "https://github.com/savethebeesandseeds/caatuu/releases/download/caatuu-android-v197/caatuu-197.apk"
     },
     {
+      "path": "android/debug-releases/product-transition/161/caatuu-transition.apk",
+      "bytes": 30571799,
+      "sha256": "b89b7e904380eb06dc98d79177c5b5d5b5c47fd28c5cc9d5d8881e7d51de2981",
+      "downloadUrl": "https://github.com/savethebeesandseeds/caatuu/releases/download/caatuu-pages-v162/caatuu-pages-v162.tar"
+    },
+    {
       "path": "android/caatuu-debug.apk",
       "bytes": 30571799,
       "sha256": "b89b7e904380eb06dc98d79177c5b5d5b5c47fd28c5cc9d5d8881e7d51de2981",
-      "downloadUrl": "https://caatuu.waajacu.com/android/debug-releases/product-transition/161/caatuu-transition.apk"
+      "downloadUrl": "https://github.com/savethebeesandseeds/caatuu/releases/download/caatuu-pages-v162/caatuu-pages-v162.tar"
     }
   ]
 }

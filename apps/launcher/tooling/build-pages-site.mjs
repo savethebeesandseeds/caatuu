@@ -894,6 +894,16 @@ function validateFinalWebSetup({ siteDir, canonicalOrigin, course, courseId = co
   return { manifest, paths, offlinePaths };
 }
 
+function removeArchivedApks({ siteDir, archivedApks }) {
+  for (const record of archivedApks ?? []) {
+    const target = outputPath(siteDir, record.path);
+    if (!existsSync(target)) continue;
+    assert.equal(statSync(target).size, record.bytes, `Archived APK byte count changed: ${record.path}`);
+    assert.equal(sha256File(target), record.sha256, `Archived APK hash changed: ${record.path}`);
+    rmSync(target);
+  }
+}
+
 function createAndroidAliases({ baselineDescriptor, currentDescriptor, siteDir }) {
   const archived = new Set((currentDescriptor.archivedApks ?? []).map(({ path }) => path));
   for (const channel of [currentDescriptor.stable, baselineDescriptor.compatibility]) {
@@ -1401,7 +1411,9 @@ function validatePreparedPagesSite({ workspaceRoot, outputDir, baseline, current
   assert.ok(totalBytes <= maximumPagesBytes, `Pages bundle exceeds ${maximumPagesBytes} bytes`);
 
   const baselineSite = join(baseline.baselineDir, "site");
+  const archived = new Set((currentRelease.descriptor.archivedApks ?? []).map(({ path }) => path));
   for (const path of allFiles(baselineSite)) {
+    if (archived.has(path)) continue;
     const source = outputPath(baselineSite, path);
     const published = outputPath(siteDir, path);
     assert.ok(existsSync(published), `Pages output is missing baseline path: ${path}`);
@@ -1736,6 +1748,7 @@ export async function compilePagesSite({
       currentDescriptor: currentRelease.descriptor,
       siteDir: stagingDir,
     });
+    removeArchivedApks({ siteDir: stagingDir, archivedApks: currentRelease.descriptor.archivedApks });
     enableAndroidSurfaces({ workspaceRoot: workspace, siteDir: stagingDir, languagePlan });
     enableReportingSurfaces({ siteDir: stagingDir });
     enablePagesDurableBypassInCourseWorker(outputPath(stagingDir, sharedCourseWorkerPublicPath));

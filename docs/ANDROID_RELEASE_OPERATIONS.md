@@ -127,8 +127,8 @@ complete site artifact; that transport is not a website rebuild.
 
 The owner-approved [`pages-storage-policy.json`](../apps/android/tooling/pages-storage-policy.json)
 archives the APK copies at `/android/releases/162/caatuu.apk` through
-`/android/releases/197/caatuu.apk`, reclaiming 338,962,664 bytes, and the
-duplicate alias `/android/caatuu-debug.apk`. The
+`/android/releases/197/caatuu.apk`, reclaiming 338,962,664 bytes, plus both
+public copies of the 30,571,799-byte preview APK. The
 original six copies (163–168, 216,904,912 bytes) were approved on 5 October 2026:
 "Yes, archive those six Pages APK copies". On 20 October 2026, the owner approved
 versions 169–184 and resuming Android 190, adding 16 copies and 53,062,004 bytes
@@ -151,19 +151,19 @@ On 30 October 2026 the owner approved proceeding with Android 200 by removing
 the Pages copies of versions 196 and 197 (3,522,150 bytes each). Both GitHub
 Release downloads matched the descriptor and the live inventory before the
 policy was extended.
-On 30 October 2026 the owner approved removing only
-`/android/caatuu-debug.apk` (30,571,799 bytes, SHA-256
-`b89b7e904380eb06dc98d79177c5b5d5b5c47fd28c5cc9d5d8881e7d51de2981`). The live
-file matched the compatibility pin in the preservation baseline and the copy
-at `/android/debug-releases/product-transition/161/caatuu-transition.apk`.
-That transition URL, `/android/caatuu-debug.json`, and Android 198 onward stay.
+On 30 October 2026 the owner approved removing both public copies of the
+30,571,799-byte preview APK: `/android/caatuu-debug.apk` and
+`/android/debug-releases/product-transition/161/caatuu-transition.apk`.
+Both live files matched the compatibility pin in the preservation baseline,
+SHA-256 `b89b7e904380eb06dc98d79177c5b5d5b5c47fd28c5cc9d5d8881e7d51de2981`.
+Their bytes remain in `caatuu-pages-v162.tar`. `/android/caatuu-debug.json`,
+the transition JSON, and Android 198 onward stay.
 Each policy entry pins the original APK byte count and digest. Versioned
 overlay entries also pin the identical GitHub Release APK download. The
-baseline entry pins the preservation-archive download. The debug-alias entry
-pins the remaining transition APK. Those archived Pages URLs cease to work.
-GitHub archives, Pages manifests and receipts, the version 161 transition
-package, `/android/caatuu-debug.json`, versions 198 onward, and every course
-setup object remain. The
+baseline entry and both preview-APK entries pin the preservation-archive
+download. Those archived Pages URLs cease to work. GitHub archives, Pages
+manifests and receipts, `/android/caatuu-debug.json`, the transition JSON,
+versions 198 onward, and every course setup object remain. The
 immutable release-history descriptor is
 unchanged by archiving. Android retries, public verification and later website
 builds honor the policy; older website snapshots cannot reintroduce archived
