@@ -112,8 +112,36 @@ test("browser About does not use APK version metadata from a course provider", a
   } } });
   const controller = h.ui.getUpdateController();
   await controller.refresh();
+  await flush();
   assert.equal(h.document.getElementById("settingsVersion").textContent,
     englishInterfaceContent.t("maintenance.version.web", { version: "8124" }));
+});
+
+test("browser About shows the published APK version from the Android manifest", async () => {
+  const h = harness({ android: false, appRevision: 8127, existing: { env: "browser", maintenance: {
+    updateStatus: async () => ({ currentVersionName: "apk-release-9.9.9", currentVersionCode: 999,
+      selfUpdateEnabled: false, updateAvailable: false })
+  } } });
+  const requests = [];
+  h.context.fetch = async (url, options) => {
+    requests.push({ url: String(url), cache: options?.cache });
+    if (String(url) !== "/android/caatuu.json") return new h.context.Response("not found", { status: 404 });
+    return new h.context.Response(JSON.stringify({ version_name: "0.1.49", version_code: 201 }), {
+      status: 200,
+      headers: { "content-type": "application/json" }
+    });
+  };
+  const version = h.document.getElementById("settingsVersion");
+  const controller = h.ui.getUpdateController();
+  assert.equal(version.textContent, englishInterfaceContent.t("maintenance.version.web", { version: "8127" }));
+  await controller.refresh();
+  await flush();
+  assert.deepEqual(requests, [{ url: "/android/caatuu.json", cache: "no-store" }]);
+  assert.equal(version.textContent, englishInterfaceContent.t("maintenance.version.line", {
+    version: "0.1.49",
+    code: 201
+  }));
+  assert.equal(version.textContent.includes("9.9.9"), false);
 });
 
 test("browser About keeps its loaded version when a freshness check fails", async () => {

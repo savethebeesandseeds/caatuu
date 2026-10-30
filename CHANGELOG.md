@@ -2,9 +2,16 @@
 
 ## Unreleased
 
+## Android 202 / 0.1.50
+
+- Show the published APK version in Settings → About on the website. The
+  heading uses the existing version line. The installed app still shows its
+  own package version. Offline pages keep the loaded web revision.
 - List Arabic, Scientific Latin, Georgian, Russian, and Hebrew on the public
-  website as `noindex` development previews. Android still omits Russian and
-  Hebrew. Native review is still required.
+  website as `noindex` development previews. This package still does not
+  install Russian or Hebrew. Native review is still required.
+- Physical-device installation and the Play Protect result remain unverified
+  for this candidate. Course review status is otherwise unchanged.
 
 ## Android 201 / 0.1.49
 

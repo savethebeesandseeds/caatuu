@@ -264,6 +264,40 @@
     return "";
   }
 
+  // Browser About reads the published APK from /android/caatuu.json.
+  let publishedApkVersion;
+  let publishedApkVersionRequest = null;
+
+  function publishedApkVersionStatus() {
+    if (publishedApkVersion !== undefined) return Promise.resolve(publishedApkVersion);
+    if (typeof navigator !== "undefined" && navigator.onLine === false) return Promise.resolve(null);
+    if (typeof fetch !== "function") return Promise.resolve(null);
+    if (!publishedApkVersionRequest) {
+      publishedApkVersionRequest = fetch("/android/caatuu.json", { cache: "no-store" })
+        .then(async (response) => {
+          if (!response?.ok) return null;
+          const manifest = await response.json();
+          const nameValue = manifest?.version_name;
+          const currentVersionName = typeof nameValue === "string" || typeof nameValue === "number"
+            ? String(nameValue).trim()
+            : "";
+          const currentVersionCode = Number(manifest?.version_code);
+          const hasCode = Number.isInteger(currentVersionCode) && currentVersionCode > 0;
+          if (!currentVersionName && !hasCode) return null;
+          return {
+            currentVersionName,
+            currentVersionCode: hasCode ? currentVersionCode : undefined
+          };
+        })
+        .catch(() => null)
+        .then((status) => {
+          publishedApkVersion = status;
+          return status;
+        });
+    }
+    return publishedApkVersionRequest;
+  }
+
   function createUpdateController(runtime = window.CaatuuRuntime) {
     const buttons = () => [...document.querySelectorAll("#updateApp, [data-app-update-control]")];
     if (!buttons().length || !runtime?.maintenance) return null;
@@ -352,9 +386,17 @@
       if (runtime.env === "android") {
         setVersionNote(versionNode(), status);
       } else {
-        const version = browserVersionName();
         const element = versionNode();
-        if (version && element) element.textContent = t("maintenance.version.web", { version });
+        if (element) {
+          const version = browserVersionName();
+          if (version) element.textContent = t("maintenance.version.web", { version });
+          const applyPublished = (published) => {
+            if (!published || element.isConnected === false || element !== versionNode()) return;
+            element.textContent = versionLine(published, element.textContent);
+          };
+          if (publishedApkVersion !== undefined) applyPublished(publishedApkVersion);
+          else void publishedApkVersionStatus().then(applyPublished);
+        }
       }
       const browserInstall = document.querySelector("#browserInstallActions");
       if (browserInstall) browserInstall.hidden = runtime.env === "android";

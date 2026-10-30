@@ -146,7 +146,7 @@ if (parameters.get("screen") !== "1") {
     card.hidden = true;
     card.classList.add("is-ready");
     await import("../source/caatuu-chrome.js?v=chrome-201");
-    await import("../source/maintenance-ui.js?v=maintenance-27");
+    await import("../source/maintenance-ui.js?v=maintenance-28");
     await window.CaatuuMaintenanceUi.getUpdateController().refresh({ announce: false });
   } else {
     const totalBytes = 100_000_000;

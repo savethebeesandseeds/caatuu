@@ -743,7 +743,7 @@ async function loadCourseFeatureProviders() {
   if (courseRuntime) await loadScript(courseRuntime);
   installSharedSpeechRuntime();
   installSetupSpeechCheck();
-  await loadSharedScript("/language-runtime/static/source/maintenance-ui.js?v=maintenance-27");
+  await loadSharedScript("/language-runtime/static/source/maintenance-ui.js?v=maintenance-28");
   await loadSharedScript("/language-runtime/static/source/semantic-learning.js?v=semantic-learning-11");
   for (const providerName of ["setupProgressProvider", "setupProvider"]) {
     const providerModule = declaredBrowserProvider(providerName);
