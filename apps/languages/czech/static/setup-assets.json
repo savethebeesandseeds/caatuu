@@ -75,7 +75,7 @@
       "/language-runtime/static/source/caatuu-chrome.js?v=chrome-201",
       "/language-runtime/static/source/learning-profile.js?v=learning-24",
       "/language-runtime/static/assets/caatuu-shell-512.png",
-      "/language-runtime/static/data/interface/en.v1.json?v=interface-en-55",
+      "/language-runtime/static/data/interface/en.v1.json?v=interface-en-57",
       "/language-runtime/static/data/english-concepts/word-world-starter-v1.json",
       "/language-runtime/static/data/english-concepts/word-world-es-v1.json",
       "/language-runtime/static/data/english-concepts/word-world-es-en-v1.json",
@@ -369,7 +369,12 @@
       "/language-runtime/static/source/games/memory-moon/memory-moon-dictionary.mjs?v=memory-moon-dictionary-2",
       "/language-runtime/static/source/games/memory-moon/memory-moon-reading.mjs",
       "/language-runtime/static/source/games/practice-pacing.mjs?v=practice-pacing-3",
-      "/language-runtime/static/source/games/verb-nebula/verb-nebula-layout.mjs"
+      "/language-runtime/static/source/games/verb-nebula/verb-nebula-layout.mjs",
+      "/language-runtime/static/source/learner-record.mjs?v=learner-record-1",
+      "/language-runtime/static/data/learner-record-registry.json?v=learner-record-1",
+      "/language-runtime/static/source/russian-romanization.mjs?v=russian-romanization-1",
+      "/language-runtime/static/data/english-concepts/word-world-ru-v1.json",
+      "/assets/icons/russian_flag.svg"
     ]
   },
   "artifacts": [

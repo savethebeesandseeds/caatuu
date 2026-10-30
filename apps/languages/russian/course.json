@@ -1,0 +1,264 @@
+{
+  "$schema": "../../../tools/language-packs/schemas/course-pack.v1.schema.json",
+  "schemaVersion": 1,
+  "id": "ru",
+  "directoryName": "russian",
+  "status": "development",
+  "brandLabel": "Caatuu",
+  "workspaceLabel": "Caatuu Russian",
+  "routePrefix": "/ru",
+  "entryPath": "/ru/index.html",
+  "sourceLanguage": {
+    "id": "en",
+    "label": "English",
+    "nativeLabel": "English",
+    "shortCode": "EN",
+    "locale": "en",
+    "direction": "ltr",
+    "flagClass": "en-flag",
+    "flagSrc": "/assets/icons/english_flag.png"
+  },
+  "targetLanguage": {
+    "id": "ru",
+    "label": "Russian",
+    "nativeLabel": "русский",
+    "shortCode": "RU",
+    "locale": "ru",
+    "script": "Cyrl",
+    "speechLocale": "ru-RU",
+    "direction": "ltr",
+    "flagClass": "russian-flag",
+    "flagSrc": "/assets/icons/russian_flag.svg"
+  },
+  "linguisticFeatures": [
+    "verb-conjugation",
+    "grammatical-agreement",
+    "grammatical-case"
+  ],
+  "games": [
+    "verb-lab",
+    "word-net",
+    "conjugation-comet",
+    "grammar-gravity",
+    "memory-moon"
+  ],
+  "launcher": {
+    "flagClass": "flag-icon"
+  },
+  "routes": {
+    "conjugationComet": "/language-runtime/static/games/conjugation-comet.html",
+    "grammarGravity": "/language-runtime/static/games/grammar-gravity.html",
+    "languageSelection": "/",
+    "home": "index.html",
+    "games": "index.html",
+    "verbNebula": "index.html?game=verb-lab",
+    "wordWorld": "index.html?game=word-net",
+    "settings": "index.html",
+    "memoryMoon": "/language-runtime/static/games/memory-moon.html"
+  },
+  "storage": {
+    "namespace": "caatuu-ru",
+    "theme": "caatuu-ru.theme",
+    "fontSize": "caatuu-ru.font-size",
+    "learningPreferences": "caatuu-ru.learning.preferences.v1",
+    "learningGoal": "caatuu-ru.learning.goal.v1",
+    "learningGameSettings": "caatuu-ru.learning.game-settings.v1",
+    "learningPerformance": "caatuu-ru.learning.performance.v1",
+    "learningPractice": "caatuu-ru.learning.practice.v1",
+    "learningContent": "caatuu-ru.learning.content.v2",
+    "speechVoice": "caatuu-ru.speech.voice.v1",
+    "semanticLearningDatabase": "caatuu-ru.semantic-learning",
+    "verbMemory": "caatuu-ru.verb-memory.v3",
+    "wordWorldTranslationMode": "caatuu-ru.word-world.translation-mode",
+    "wordWorldRecentSentences": "caatuu-ru.word-world.recent-sentences.v1"
+  },
+  "cache": {
+    "prefix": "caatuu-ru-pwa-",
+    "setupFallback": "caatuu-ru-setup-v1"
+  },
+  "publication": {
+    "contract": "language-content-v1",
+    "concepts": "apps/languages/shared/english-concepts/word-world-ru-v1.json",
+    "realizations": "apps/languages/russian/content/word-world/starter-v1.realizations.json",
+    "learnerBaseRealizations": null,
+    "runtimeProjection": {
+      "policyId": "russian-word-world-v1",
+      "conceptsRuntime": "apps/language-runtime/static/data/english-concepts/word-world-ru-v1.json",
+      "targetRealizationsRuntime": "apps/languages/russian/static/data/games/word-world/content.json",
+      "learnerBaseRuntime": null,
+      "supplementalOutputs": {},
+      "manifest": "apps/languages/russian/static/data/games/word-world/manifest.json"
+    }
+  },
+  "capabilities": {
+    "llm": false,
+    "generation": false,
+    "chat": false,
+    "embeddings": true,
+    "semanticSearch": true,
+    "dictionary": false,
+    "memory": true,
+    "verbs": false,
+    "wordWorld": true,
+    "conjugationComet": true,
+    "offlineModels": false,
+    "speech": true,
+    "pronunciationGuides": false
+  },
+  "learningGoals": [
+    {
+      "id": "foundations",
+      "label": "Reading and first conversations",
+      "embeddingText": "Read Cyrillic in context and use greetings, introductions, basic questions and polite requests.",
+      "categories": [
+        "alphabet",
+        "greetings"
+      ]
+    },
+    {
+      "id": "daily-life",
+      "label": "Daily life",
+      "embeddingText": "Talk about home, food, shopping, time, work, study and family.",
+      "categories": [
+        "home",
+        "food",
+        "shopping",
+        "daily"
+      ]
+    },
+    {
+      "id": "getting-around",
+      "label": "Getting around and asking for help",
+      "embeddingText": "Ask for directions, use transport, and describe a practical problem.",
+      "categories": [
+        "transport",
+        "help"
+      ]
+    },
+    {
+      "id": "connected-speech",
+      "label": "Connecting ideas and actions",
+      "embeddingText": "Use present, future and past actions with aspect and case shown inside complete sentences.",
+      "categories": [
+        "aspect",
+        "case"
+      ]
+    }
+  ],
+  "platforms": {
+    "browser": {
+      "enabled": true,
+      "pagesEnabled": false,
+      "entryPath": "/ru/index.html",
+      "backend": "static"
+    },
+    "android": {
+      "enabled": false,
+      "channels": []
+    }
+  },
+  "resources": {
+    "memoryMoonCatalog": {
+      "path": "apps/languages/russian/static/data/games/memory-moon/content.json",
+      "kind": "file",
+      "state": "present",
+      "scope": "course",
+      "revision": "memory-moon-1"
+    },
+    "staticRoot": {
+      "kind": "directory",
+      "path": "apps/languages/russian/static",
+      "scope": "course",
+      "state": "present"
+    },
+    "appEntry": {
+      "kind": "file",
+      "path": "apps/language-runtime/static/app/index.html",
+      "scope": "shared",
+      "state": "present"
+    },
+    "interfaceCatalog": {
+      "kind": "file",
+      "path": "apps/language-runtime/static/data/interface/en.v1.json",
+      "scope": "shared",
+      "state": "present",
+      "revision": "interface-en-57"
+    },
+    "courseProfile": {
+      "kind": "file",
+      "path": "apps/languages/russian/static/source/shared/course-profile.js",
+      "scope": "course",
+      "state": "present"
+    },
+    "languageAdapter": {
+      "kind": "file",
+      "path": "apps/languages/russian/static/source/language/adapter.mjs",
+      "scope": "course",
+      "state": "present"
+    },
+    "webManifest": {
+      "kind": "file",
+      "path": "apps/languages/russian/static/manifest.webmanifest",
+      "scope": "course",
+      "state": "present"
+    },
+    "setupCatalog": {
+      "kind": "file",
+      "path": "apps/languages/russian/static/setup-assets.json",
+      "scope": "course",
+      "state": "present"
+    },
+    "sourceLanguageFlag": {
+      "kind": "file",
+      "path": "apps/language-runtime/static/assets/home/english_flag.png",
+      "scope": "shared",
+      "state": "present"
+    },
+    "embeddingCatalog": {
+      "kind": "file",
+      "path": "apps/languages/russian/static/data/embeddings/catalog.json",
+      "scope": "course",
+      "state": "present"
+    },
+    "wordWorldManifest": {
+      "kind": "file",
+      "path": "apps/languages/russian/static/data/games/word-world/manifest.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "word-world-content-1"
+    },
+    "verbNebulaCatalog": {
+      "kind": "file",
+      "path": "apps/languages/russian/static/data/games/verb-nebula/content.json",
+      "scope": "course",
+      "state": "present"
+    },
+    "conjugationCometCatalog": {
+      "kind": "file",
+      "path": "apps/languages/russian/static/data/games/conjugation-comet/content.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "conjugation-comet-content-1"
+    },
+    "grammarGravityCatalog": {
+      "kind": "file",
+      "path": "apps/languages/russian/static/data/games/grammar-gravity/content.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "grammar-gravity-content-1"
+    },
+    "grammarGravityNouns": {
+      "kind": "file",
+      "path": "apps/languages/russian/static/data/games/grammar-gravity/nouns.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "grammar-gravity-nouns-1"
+    },
+    "launcherFlag": {
+      "kind": "file",
+      "path": "apps/language-runtime/static/assets/home/russian_flag.svg",
+      "scope": "shared",
+      "state": "present"
+    }
+  }
+}

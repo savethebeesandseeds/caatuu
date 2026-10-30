@@ -261,7 +261,7 @@ test("the shared Grammar toolbar pauses both modes without a mode-transition del
   assert.equal(frames.size, 0);
 });
 
-for (const language of ["arabic-standard", "georgian"]) test(`${language} noun readings toggle in place without restarting the fall or changing the target`, async () => {
+for (const language of ["arabic-standard", "georgian", "russian"]) test(`${language} noun readings toggle in place without restarting the fall or changing the target`, async () => {
   const game = await mountGame({ language });
   const word = game.element("gravityNounWord");
   assert.ok(word.querySelector("rt"));

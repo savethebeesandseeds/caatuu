@@ -72,14 +72,17 @@
     "theme": "caatuu-czech.theme",
     "fontSize": "caatuu-czech.font-size",
     "learningPreferences": "caatuu-czech.learning.preferences.v1",
+    "learningGoal": "caatuu-czech.learning.goal.v1",
+    "learningGameSettings": "caatuu-czech.learning.game-settings.v1",
     "learningPerformance": "caatuu-czech.learning.performance.v1",
+    "learningPractice": "caatuu-czech.learning.practice.v1",
+    "learningContent": "caatuu-czech.learning.content.v2",
+    "speechVoice": "caatuu-czech.speech.voice.v1",
     "semanticLearningDatabase": "caatuu-czech.semantic-learning",
     "chatSettings": "caatuu-czech.chat.settings.v1",
     "verbMemory": "caatuu-czech.verb-memory.v3",
-    "verbMemoryLegacy": "caatuu-czech.verb-memory.v2",
-    "wordWorldTranslationMode": "caatuu-czech.wordNet.translationMode",
-    "wordWorldRecentSentences": "caatuu-czech.wordNet.recentSentences.v1",
-    "wordWorldTranslationCache": "caatuu-czech.wordNet.translationCache.v1"
+    "wordWorldTranslationMode": "caatuu-czech.word-world.translation-mode",
+    "wordWorldRecentSentences": "caatuu-czech.word-world.recent-sentences.v1"
   },
   "cache": {
     "prefix": "caatuu-czech-pwa-",
@@ -237,7 +240,7 @@
       "path": "apps/language-runtime/static/data/interface/en.v1.json",
       "scope": "shared",
       "state": "present",
-      "revision": "interface-en-55"
+      "revision": "interface-en-57"
     },
     "courseProfile": {
       "kind": "file",

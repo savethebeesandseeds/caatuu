@@ -1,0 +1,35 @@
+{
+  "name": "Caatuu Russian",
+  "short_name": "Caatuu RU",
+  "description": "Learn Russian from English: reading, everyday communication, verbs and agreement.",
+  "id": "/ru/",
+  "start_url": "/ru/index.html",
+  "scope": "/ru/",
+  "display": "standalone",
+  "background_color": "#fffaf0",
+  "theme_color": "#fffaf0",
+  "lang": "en",
+  "categories": [
+    "education"
+  ],
+  "icons": [
+    {
+      "src": "/assets/icons/russian_flag.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Verb Nebula",
+      "short_name": "Verbs",
+      "url": "/ru/index.html?game=verb-lab"
+    },
+    {
+      "name": "Word World",
+      "short_name": "Word World",
+      "url": "/ru/index.html?game=word-net"
+    }
+  ]
+}

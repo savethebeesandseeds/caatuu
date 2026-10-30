@@ -11,7 +11,7 @@ import { MEMORY_MOON_ROUND_COUNT, selectMemoryMoonChallenges, createMoonSession,
 import { buildRounds, buildQuestions } from "../../languages/czech/static/source/games/case-cosmos/case-cosmos-content.mjs";
 
 const directories = ["czech", "mandarin-simplified", "spanish", "english-from-spanish",
-  "norwegian-bokmal", "arabic-standard", "latin-scientific", "georgian"];
+  "norwegian-bokmal", "arabic-standard", "latin-scientific", "georgian", "russian"];
 const json = async path => JSON.parse(await readFile(new URL(path, import.meta.url), "utf8"));
 const workspace = await readFile(new URL("../static/source/caatuu-workspace.js", import.meta.url), "utf8");
 function between(start, end) {
@@ -64,7 +64,7 @@ for (const directory of directories) {
     }
   });
 
-  if (["latin-scientific", "georgian"].includes(directory)) continue;
+  if (["latin-scientific", "georgian", "russian"].includes(directory)) continue;
   test(`${course.id} listening honors four and six alternatives in both zero modes`, async () => {
     const pack = validateSoundQuasarCatalog(await json(`../../languages/${directory}/static/data/games/sound-quasar/content.json`));
     for (const mode of ["words", "sentences"]) for (const choiceCount of [4, 6]) {

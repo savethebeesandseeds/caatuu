@@ -1,0 +1,505 @@
+{
+  "schemaVersion": "caatuu-grammar-gravity-nouns-v2",
+  "courseId": "ru",
+  "gameId": "grammar-gravity",
+  "contentId": "ru.grammar.nouns.v1",
+  "contentRevision": 1,
+  "learnerBaseLanguage": "en",
+  "targetLanguage": "ru",
+  "englishAuditLanguage": "en",
+  "review": {
+    "status": "native-review-required",
+    "reviewer": null,
+    "reviewedAt": null,
+    "notes": "Original Russian teaching examples for English speakers. Independent native review is still required. Cyrillic is the teaching script. No approved pronunciation or audio is claimed."
+  },
+  "license": {
+    "origin": "caatuu-first-party-authored",
+    "status": "release-review-required",
+    "spdxExpression": null,
+    "notes": "First-party Russian curriculum. Release review is still required. See docs/LICENSING.md#first-party-curriculum."
+  },
+  "scope": "Nominative nouns in four agreement lanes: masculine singular, feminine singular, neuter singular, and one plural lane. Nominative plural adjectives do not mark gender, so plural is one lane rather than three gendered plurals.",
+  "lanes": [
+    {
+      "id": "masculine",
+      "label": "Masculine"
+    },
+    {
+      "id": "feminine",
+      "label": "Feminine"
+    },
+    {
+      "id": "neuter",
+      "label": "Neuter"
+    },
+    {
+      "id": "plural",
+      "label": "Plural"
+    }
+  ],
+  "items": [
+    {
+      "id": "ru.noun.table.masculine.0",
+      "revision": 1,
+      "difficulty": 0,
+      "targetText": "сто́л",
+      "learnerBaseText": "table",
+      "english": "table",
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 12
+    },
+    {
+      "id": "ru.noun.house.masculine.0",
+      "revision": 1,
+      "difficulty": 0,
+      "targetText": "до́м",
+      "learnerBaseText": "house",
+      "english": "house",
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 12
+    },
+    {
+      "id": "ru.noun.book.feminine.0",
+      "revision": 1,
+      "difficulty": 0,
+      "targetText": "кни́га",
+      "learnerBaseText": "book",
+      "english": "book",
+      "laneId": "feminine",
+      "usefulness": 76,
+      "complexity": 12
+    },
+    {
+      "id": "ru.noun.mom.feminine.0",
+      "revision": 1,
+      "difficulty": 0,
+      "targetText": "ма́ма",
+      "learnerBaseText": "mom",
+      "english": "mom",
+      "laneId": "feminine",
+      "usefulness": 76,
+      "complexity": 12
+    },
+    {
+      "id": "ru.noun.window.neuter.0",
+      "revision": 1,
+      "difficulty": 0,
+      "targetText": "окно́",
+      "learnerBaseText": "window",
+      "english": "window",
+      "laneId": "neuter",
+      "usefulness": 76,
+      "complexity": 12
+    },
+    {
+      "id": "ru.noun.morning.neuter.0",
+      "revision": 1,
+      "difficulty": 0,
+      "targetText": "у́тро",
+      "learnerBaseText": "morning",
+      "english": "morning",
+      "laneId": "neuter",
+      "usefulness": 76,
+      "complexity": 12
+    },
+    {
+      "id": "ru.noun.table.plural.0",
+      "revision": 1,
+      "difficulty": 0,
+      "targetText": "столы́",
+      "learnerBaseText": "tables",
+      "english": "tables",
+      "laneId": "plural",
+      "usefulness": 76,
+      "complexity": 12
+    },
+    {
+      "id": "ru.noun.book.plural.0",
+      "revision": 1,
+      "difficulty": 0,
+      "targetText": "кни́ги",
+      "learnerBaseText": "books",
+      "english": "books",
+      "laneId": "plural",
+      "usefulness": 76,
+      "complexity": 12
+    },
+    {
+      "id": "ru.noun.tea.masculine.1",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "ча́й",
+      "learnerBaseText": "tea",
+      "english": "tea",
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 26
+    },
+    {
+      "id": "ru.noun.bread.masculine.1",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "хле́б",
+      "learnerBaseText": "bread",
+      "english": "bread",
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 26
+    },
+    {
+      "id": "ru.noun.park.masculine.1",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "па́рк",
+      "learnerBaseText": "park",
+      "english": "park",
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 26
+    },
+    {
+      "id": "ru.noun.school.feminine.1",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "шко́ла",
+      "learnerBaseText": "school",
+      "english": "school",
+      "laneId": "feminine",
+      "usefulness": 76,
+      "complexity": 26
+    },
+    {
+      "id": "ru.noun.water.feminine.1",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "вода́",
+      "learnerBaseText": "water",
+      "english": "water",
+      "laneId": "feminine",
+      "usefulness": 76,
+      "complexity": 26
+    },
+    {
+      "id": "ru.noun.bag.feminine.1",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "су́мка",
+      "learnerBaseText": "bag",
+      "english": "bag",
+      "laneId": "feminine",
+      "usefulness": 76,
+      "complexity": 26
+    },
+    {
+      "id": "ru.noun.milk.neuter.1",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "молоко́",
+      "learnerBaseText": "milk",
+      "english": "milk",
+      "laneId": "neuter",
+      "usefulness": 76,
+      "complexity": 26
+    },
+    {
+      "id": "ru.noun.letter.neuter.1",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "письмо́",
+      "learnerBaseText": "letter",
+      "english": "letter",
+      "laneId": "neuter",
+      "usefulness": 76,
+      "complexity": 26
+    },
+    {
+      "id": "ru.noun.school.plural.1",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "шко́лы",
+      "learnerBaseText": "schools",
+      "english": "schools",
+      "laneId": "plural",
+      "usefulness": 76,
+      "complexity": 26
+    },
+    {
+      "id": "ru.noun.window.plural.1",
+      "revision": 1,
+      "difficulty": 1,
+      "targetText": "о́кна",
+      "learnerBaseText": "windows",
+      "english": "windows",
+      "laneId": "plural",
+      "usefulness": 76,
+      "complexity": 26
+    },
+    {
+      "id": "ru.noun.city.masculine.2",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "го́род",
+      "learnerBaseText": "city",
+      "english": "city",
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 40
+    },
+    {
+      "id": "ru.noun.shop.masculine.2",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "магази́н",
+      "learnerBaseText": "shop",
+      "english": "shop",
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 40
+    },
+    {
+      "id": "ru.noun.ticket.masculine.2",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "биле́т",
+      "learnerBaseText": "ticket",
+      "english": "ticket",
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 40
+    },
+    {
+      "id": "ru.noun.work.feminine.2",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "рабо́та",
+      "learnerBaseText": "work",
+      "english": "work",
+      "laneId": "feminine",
+      "usefulness": 76,
+      "complexity": 40
+    },
+    {
+      "id": "ru.noun.sister.feminine.2",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "сестра́",
+      "learnerBaseText": "sister",
+      "english": "sister",
+      "laneId": "feminine",
+      "usefulness": 76,
+      "complexity": 40
+    },
+    {
+      "id": "ru.noun.door.feminine.2",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "две́рь",
+      "learnerBaseText": "door",
+      "english": "door",
+      "laneId": "feminine",
+      "usefulness": 76,
+      "complexity": 40
+    },
+    {
+      "id": "ru.noun.apple.neuter.2",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "я́блоко",
+      "learnerBaseText": "apple",
+      "english": "apple",
+      "laneId": "neuter",
+      "usefulness": 76,
+      "complexity": 40
+    },
+    {
+      "id": "ru.noun.sea.neuter.2",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "мо́ре",
+      "learnerBaseText": "sea",
+      "english": "sea",
+      "laneId": "neuter",
+      "usefulness": 76,
+      "complexity": 40
+    },
+    {
+      "id": "ru.noun.city.plural.2",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "горо́да",
+      "learnerBaseText": "cities",
+      "english": "cities",
+      "laneId": "plural",
+      "usefulness": 76,
+      "complexity": 40
+    },
+    {
+      "id": "ru.noun.apple.plural.2",
+      "revision": 1,
+      "difficulty": 2,
+      "targetText": "я́блоки",
+      "learnerBaseText": "apples",
+      "english": "apples",
+      "laneId": "plural",
+      "usefulness": 76,
+      "complexity": 40
+    },
+    {
+      "id": "ru.noun.key.masculine.3",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "клю́ч",
+      "learnerBaseText": "key",
+      "english": "key",
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 54
+    },
+    {
+      "id": "ru.noun.phone.masculine.3",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "телефо́н",
+      "learnerBaseText": "phone",
+      "english": "phone",
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 54
+    },
+    {
+      "id": "ru.noun.friend.masculine.3",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "дру́г",
+      "learnerBaseText": "friend",
+      "english": "friend",
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 54
+    },
+    {
+      "id": "ru.noun.brother.masculine.3",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "бра́т",
+      "learnerBaseText": "brother",
+      "english": "brother",
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 54
+    },
+    {
+      "id": "ru.noun.child.masculine.3",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "ребё́нок",
+      "learnerBaseText": "child",
+      "english": "child",
+      "laneId": "masculine",
+      "usefulness": 76,
+      "complexity": 54
+    },
+    {
+      "id": "ru.noun.station.feminine.3",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "ста́нция",
+      "learnerBaseText": "station",
+      "english": "station",
+      "laneId": "feminine",
+      "usefulness": 76,
+      "complexity": 54
+    },
+    {
+      "id": "ru.noun.bed.feminine.3",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "крова́ть",
+      "learnerBaseText": "bed",
+      "english": "bed",
+      "laneId": "feminine",
+      "usefulness": 76,
+      "complexity": 54
+    },
+    {
+      "id": "ru.noun.place.neuter.3",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "ме́сто",
+      "learnerBaseText": "place",
+      "english": "place",
+      "laneId": "neuter",
+      "usefulness": 76,
+      "complexity": 54
+    },
+    {
+      "id": "ru.noun.matter.neuter.3",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "де́ло",
+      "learnerBaseText": "matter",
+      "english": "matter",
+      "laneId": "neuter",
+      "usefulness": 76,
+      "complexity": 54
+    },
+    {
+      "id": "ru.noun.time.neuter.3",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "вре́мя",
+      "learnerBaseText": "time",
+      "english": "time",
+      "laneId": "neuter",
+      "usefulness": 76,
+      "complexity": 54
+    },
+    {
+      "id": "ru.noun.friend.plural.3",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "друзья́",
+      "learnerBaseText": "friends",
+      "english": "friends",
+      "laneId": "plural",
+      "usefulness": 76,
+      "complexity": 54
+    },
+    {
+      "id": "ru.noun.chair.plural.3",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "сту́лья",
+      "learnerBaseText": "chairs",
+      "english": "chairs",
+      "laneId": "plural",
+      "usefulness": 76,
+      "complexity": 54
+    },
+    {
+      "id": "ru.noun.letter.plural.3",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "пи́сьма",
+      "learnerBaseText": "letters",
+      "english": "letters",
+      "laneId": "plural",
+      "usefulness": 76,
+      "complexity": 54
+    },
+    {
+      "id": "ru.noun.sister.plural.3",
+      "revision": 1,
+      "difficulty": 3,
+      "targetText": "сё́стры",
+      "learnerBaseText": "sisters",
+      "english": "sisters",
+      "laneId": "plural",
+      "usefulness": 76,
+      "complexity": 54
+    }
+  ]
+}

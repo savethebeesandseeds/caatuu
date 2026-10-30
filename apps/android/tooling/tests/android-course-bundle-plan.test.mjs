@@ -112,21 +112,21 @@ function publicationRecords(input) {
   });
 }
 
-test("the Android product bundle supports every catalog course in catalog order", () => {
+test("the Android product bundle supports every Android-enabled catalog course in catalog order", () => {
   const input = currentInputs();
-  for (const { id, course } of input.courses) {
-    assert.equal(course.platforms.android.enabled, true, `${id} must be available on Android`);
-  }
+  const enabled = input.courses.filter(({ course }) => course.platforms.android.enabled === true);
+  const held = input.courses.filter(({ course }) => course.platforms.android.enabled !== true);
+  assert.deepEqual(held.map(({ id }) => id), ["ru"]);
   const expected = createAndroidCourseBundlePlan(input);
   assert.deepEqual(expected, {
     defaultCourseId: input.bundleDeclaration.defaultCourseId,
-    courses: input.courses.map(({ id, manifestPath }) => ({ id, manifestPath })),
+    courses: enabled.map(({ id, manifestPath }) => ({ id, manifestPath })),
   });
   const loaded = loadAndroidCourseBundleCatalogPlan({ workspaceRoot });
   assert.deepEqual(loaded.plan, expected);
   assert.deepEqual(
     loaded.publicationPlan.courses.map(({ id, routePrefix, entryPath }) => ({ id, routePrefix, entryPath })),
-    input.courses.map(({ id, course }) => ({ id, routePrefix: course.routePrefix, entryPath: course.entryPath })),
+    enabled.map(({ id, course }) => ({ id, routePrefix: course.routePrefix, entryPath: course.entryPath })),
   );
 });
 

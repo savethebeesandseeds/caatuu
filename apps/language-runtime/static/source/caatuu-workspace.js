@@ -1332,7 +1332,7 @@ function formatBytes(bytes) {
 }
 
 const verbStorageKey = course.storage.verbMemory || `${course.storage.namespace}.verb-memory.v3`;
-const verbLegacyStorageKey = course.storage.verbMemoryLegacy;
+const verbLegacyStorageKey = `${course.storage.namespace}.verb-memory.v2`;
 const verbMemorySchemaVersion = 3;
 const verbHintKeymapUrl = "/assets/macaw/actions/keymaps.json";
 const verbHintExactAssets = new Map([
@@ -1876,9 +1876,23 @@ function persistVerbMemory(value) {
   return true;
 }
 
+function removeLegacyVerbMemory() {
+  if (!verbLegacyStorageKey) return;
+  try {
+    if (typeof window.CaatuuLearning?.removeGameState === "function") {
+      window.CaatuuLearning.removeGameState(verbLegacyStorageKey);
+    } else {
+      localStorage.removeItem(verbLegacyStorageKey);
+    }
+  } catch (error) {
+    console.warn("Older verb memory could not be removed.", error);
+  }
+}
+
 function readVerbMemoryEnvelope() {
   const current = parseStoredVerbMemory(verbStorageKey);
   if (current?.schemaVersion === verbMemorySchemaVersion) {
+    removeLegacyVerbMemory();
     return verbExerciseFamilyCore.migrateVerbMemoryToV3(current);
   }
   const legacy = verbLegacyStorageKey
@@ -1887,7 +1901,7 @@ function readVerbMemoryEnvelope() {
   if (legacy?.schemaVersion !== 2) return null;
   const migrated = verbExerciseFamilyCore.migrateVerbMemoryToV3(legacy);
   try {
-    persistVerbMemory(migrated);
+    if (persistVerbMemory(migrated) !== false) removeLegacyVerbMemory();
   } catch (error) {
     console.warn("Verb memory migration could not be persisted; using the migrated state in memory.", error);
   }
@@ -2179,7 +2193,7 @@ function saveVerbSpeakOnTap() {
 }
 
 function verbUsesRomanizationGuide() {
-  return ["ar", "ka"].includes(course.targetLanguage?.id);
+  return ["ar", "ka", "ru"].includes(course.targetLanguage?.id);
 }
 
 function verbUsesTargetTextGuide() {

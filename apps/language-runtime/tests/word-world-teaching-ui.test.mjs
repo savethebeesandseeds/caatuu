@@ -13,6 +13,7 @@ import { WordNetBranchQueue } from "../static/source/word-net-queue.mjs";
 import { renderTargetText } from "../static/source/target-text.mjs";
 import { createTargetReadingGuide } from "../static/source/target-reading-guide.mjs";
 import { afterInteractionPaint } from "../static/source/games/practice-pacing.mjs";
+import { migrateStorageAlias } from "../static/source/learner-record.mjs";
 
 const [controllerSource, markup, profile, mandarinAdapter, czechAdapter] = await Promise.all([
   readFile(new URL("../static/source/product-word-world.mjs", import.meta.url), "utf8"),
@@ -152,7 +153,7 @@ async function game(t, { czech = false, saved = {}, difficulty = 1, records = re
   browser.window.scrollTo = () => {};
   browser.window.navigator.locks = { request: async (_name, callback) => callback() };
   Object.assign(browser.context, core, teaching, progression, contentProgression, {
-    tokenizeLegacySentence: core.tokenizeCzechSentence, WordNetBranchQueue, renderTargetText, createTargetReadingGuide, afterInteractionPaint,
+    tokenizeLegacySentence: core.tokenizeCzechSentence, WordNetBranchQueue, renderTargetText, createTargetReadingGuide, afterInteractionPaint, migrateStorageAlias,
     performance: { now: () => 0 }, queueMicrotask,
     bindHorizontalGesture: () => ({ cancel() {}, destroy() {} }),
     localAiAvailability: () => ({ supported: generationEnabled, enabled: generationEnabled }),

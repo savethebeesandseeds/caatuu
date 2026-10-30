@@ -1,6 +1,6 @@
 # Caatuu development-preview privacy notice
 
-Last updated: 2 September 2026
+Last updated: 29 October 2026
 
 Caatuu is currently a development preview, not a governed public beta. It is
 operated by the individual maintainer publishing the project under the Waajacu
@@ -12,7 +12,10 @@ name. Privacy questions and data-rights requests can be sent to
 Caatuu does not currently require an account and does not include advertising
 or product analytics. Language progress, settings, downloaded models,
 dictionaries, and similar learning data are intended to remain on the user's
-device.
+device. The one local learner backup, when a replace saves one, also remains
+on the device and is not sent anywhere. A progress file saved from Settings
+is written only where the person chooses to keep it. Caatuu does not upload
+that file.
 
 Caatuu does not remotely collect general diagnostics. `/api/bug-report`
 remains retired. Existing reports in `caatuu.feedbackOutbox.v1` remain on the

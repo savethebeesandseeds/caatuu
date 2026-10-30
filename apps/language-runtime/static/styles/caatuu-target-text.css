@@ -30,12 +30,16 @@
   font-family: "Noto Sans Georgian", "Segoe UI", sans-serif;
 }
 
+.caatuu-russian-reading-unit > .caatuu-target-text-glyph {
+  font-family: "Noto Sans", "Segoe UI", sans-serif;
+}
+
 [data-verb-target-text-setting][hidden],
 [data-target-text-setting][hidden] { display: none; }
 
 .caatuu-reading-unit > .caatuu-target-text-notation,
 .caatuu-arabic-reading-unit > .caatuu-target-text-notation,
-.word-net-target-text-notation:is([lang="ar-Latn"], [lang="ka-Latn"]) {
+.word-net-target-text-notation:is([lang="ar-Latn"], [lang="ka-Latn"], [lang="ru-Latn"]) {
   color: var(--theme-red, #985044);
   direction: ltr;
   unicode-bidi: isolate;

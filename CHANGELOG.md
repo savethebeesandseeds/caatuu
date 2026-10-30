@@ -1,5 +1,15 @@
 # Changelog
 
+## Android 200 / 0.1.48
+
+- Add English → Russian as a local browser preview at `/ru/`. Pages and
+  Android stay off, so this package does not install the Russian course.
+  Native review is still required.
+- Keep the published app from installing its own updates. New versions still
+  come from the Caatuu website. The signing certificate is unchanged.
+- Physical-device installation and the Play Protect result remain unverified
+  for this candidate. Course review status is otherwise unchanged.
+
 ## Android 199 / 0.1.47
 
 - Stop requesting permission to install packages. The published app does not

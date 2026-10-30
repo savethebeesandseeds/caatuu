@@ -1,0 +1,2537 @@
+{
+  "schemaVersion": "caatuu-grammar-gravity-content-v3",
+  "courseId": "ru",
+  "gameId": "grammar-gravity",
+  "contentId": "ru.grammar.agreement.v1",
+  "contentRevision": 1,
+  "status": "machine-assisted-preview",
+  "learnerBaseLanguage": "en",
+  "targetLanguage": "ru",
+  "englishAuditLanguage": "en",
+  "review": {
+    "status": "native-review-required",
+    "reviewer": null,
+    "reviewedAt": null,
+    "notes": "Original Russian teaching examples for English speakers. Independent native review is still required. Cyrillic is the teaching script. No approved pronunciation or audio is claimed."
+  },
+  "license": {
+    "origin": "caatuu-first-party-authored",
+    "status": "release-review-required",
+    "spdxExpression": null,
+    "notes": "First-party Russian curriculum. Release review is still required. See docs/LICENSING.md#first-party-curriculum."
+  },
+  "gameplay": {
+    "contract": "caatuu-grammar-gravity-journey-v1",
+    "stages": [
+      "meaning",
+      "category",
+      "form"
+    ],
+    "categoryFeature": "agreement",
+    "categoryOptions": [
+      {
+        "id": "masculine",
+        "label": "Masculine"
+      },
+      {
+        "id": "feminine",
+        "label": "Feminine"
+      },
+      {
+        "id": "neuter",
+        "label": "Neuter"
+      },
+      {
+        "id": "plural",
+        "label": "Plural"
+      }
+    ]
+  },
+  "presentation": {
+    "errorTitle": "Grammar Gravity could not load",
+    "errorDetail": "Return to the planets and try opening it again.",
+    "backLabel": "Back to games"
+  },
+  "axes": [
+    {
+      "id": "masculine",
+      "label": "Masculine",
+      "features": {
+        "agreement": "masculine"
+      }
+    },
+    {
+      "id": "feminine",
+      "label": "Feminine",
+      "features": {
+        "agreement": "feminine"
+      }
+    },
+    {
+      "id": "neuter",
+      "label": "Neuter",
+      "features": {
+        "agreement": "neuter"
+      }
+    },
+    {
+      "id": "plural",
+      "label": "Plural",
+      "features": {
+        "agreement": "plural"
+      }
+    }
+  ],
+  "challenges": [
+    {
+      "id": "ru.grammar.new",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 72,
+      "complexity": 16,
+      "focus": {
+        "kind": "adjective",
+        "label": "new",
+        "targetText": "Но́вый",
+        "resultTitle": "Adjective agreement",
+        "summary": "Russian adjectives agree with the noun in gender. Nominative plural adjectives do not mark gender."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "Но́вый",
+          "usefulness": 72,
+          "complexity": 16,
+          "examples": [
+            {
+              "id": "ru.grammar.new.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "The new table is here.",
+              "englishAuditText": "The new table is here.",
+              "targetText": "Но́вый сто́л здесь.",
+              "anchor": {
+                "targetText": "сто́л",
+                "learnerBaseText": "table",
+                "englishAuditText": "table"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " сто́л здесь."
+              },
+              "usefulness": 72,
+              "complexity": 16
+            },
+            {
+              "id": "ru.grammar.new.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "The new house is here.",
+              "englishAuditText": "The new house is here.",
+              "targetText": "Но́вый до́м здесь.",
+              "anchor": {
+                "targetText": "до́м",
+                "learnerBaseText": "house",
+                "englishAuditText": "house"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " до́м здесь."
+              },
+              "usefulness": 72,
+              "complexity": 16
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "Но́вая",
+          "usefulness": 72,
+          "complexity": 16,
+          "examples": [
+            {
+              "id": "ru.grammar.new.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "The new book is here.",
+              "englishAuditText": "The new book is here.",
+              "targetText": "Но́вая кни́га здесь.",
+              "anchor": {
+                "targetText": "кни́га",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " кни́га здесь."
+              },
+              "usefulness": 72,
+              "complexity": 16
+            },
+            {
+              "id": "ru.grammar.new.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "The new school is here.",
+              "englishAuditText": "The new school is here.",
+              "targetText": "Но́вая шко́ла здесь.",
+              "anchor": {
+                "targetText": "шко́ла",
+                "learnerBaseText": "school",
+                "englishAuditText": "school"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " шко́ла здесь."
+              },
+              "usefulness": 72,
+              "complexity": 16
+            }
+          ]
+        },
+        "neuter": {
+          "displayForm": "Но́вое",
+          "usefulness": 72,
+          "complexity": 16,
+          "examples": [
+            {
+              "id": "ru.grammar.new.neuter.1",
+              "revision": 1,
+              "learnerBaseText": "The new window is here.",
+              "englishAuditText": "The new window is here.",
+              "targetText": "Но́вое окно́ здесь.",
+              "anchor": {
+                "targetText": "окно́",
+                "learnerBaseText": "window",
+                "englishAuditText": "window"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " окно́ здесь."
+              },
+              "usefulness": 72,
+              "complexity": 16
+            },
+            {
+              "id": "ru.grammar.new.neuter.2",
+              "revision": 1,
+              "learnerBaseText": "The new letter is here.",
+              "englishAuditText": "The new letter is here.",
+              "targetText": "Но́вое письмо́ здесь.",
+              "anchor": {
+                "targetText": "письмо́",
+                "learnerBaseText": "letter",
+                "englishAuditText": "letter"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " письмо́ здесь."
+              },
+              "usefulness": 72,
+              "complexity": 16
+            }
+          ]
+        },
+        "plural": {
+          "displayForm": "Но́вые",
+          "usefulness": 72,
+          "complexity": 16,
+          "examples": [
+            {
+              "id": "ru.grammar.new.plural.1",
+              "revision": 1,
+              "learnerBaseText": "The new tables are here.",
+              "englishAuditText": "The new tables are here.",
+              "targetText": "Но́вые столы́ здесь.",
+              "anchor": {
+                "targetText": "столы́",
+                "learnerBaseText": "tables",
+                "englishAuditText": "tables"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " столы́ здесь."
+              },
+              "usefulness": 72,
+              "complexity": 16
+            },
+            {
+              "id": "ru.grammar.new.plural.2",
+              "revision": 1,
+              "learnerBaseText": "The new books are here.",
+              "englishAuditText": "The new books are here.",
+              "targetText": "Но́вые кни́ги здесь.",
+              "anchor": {
+                "targetText": "кни́ги",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " кни́ги здесь."
+              },
+              "usefulness": 72,
+              "complexity": 16
+            }
+          ]
+        }
+      },
+      "axes": [
+        {
+          "id": "masculine",
+          "label": "Masculine",
+          "features": {
+            "agreement": "masculine"
+          }
+        },
+        {
+          "id": "feminine",
+          "label": "Feminine",
+          "features": {
+            "agreement": "feminine"
+          }
+        },
+        {
+          "id": "neuter",
+          "label": "Neuter",
+          "features": {
+            "agreement": "neuter"
+          }
+        },
+        {
+          "id": "plural",
+          "label": "Plural",
+          "features": {
+            "agreement": "plural"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "agreement",
+        "categoryOptions": [
+          {
+            "id": "masculine",
+            "label": "Masculine"
+          },
+          {
+            "id": "feminine",
+            "label": "Feminine"
+          },
+          {
+            "id": "neuter",
+            "label": "Neuter"
+          },
+          {
+            "id": "plural",
+            "label": "Plural"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru.grammar.old",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 72,
+      "complexity": 34,
+      "focus": {
+        "kind": "adjective",
+        "label": "old",
+        "targetText": "Ста́рый",
+        "resultTitle": "Adjective agreement",
+        "summary": "Russian adjectives agree with the noun in gender. Nominative plural adjectives do not mark gender."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "Ста́рый",
+          "usefulness": 72,
+          "complexity": 34,
+          "examples": [
+            {
+              "id": "ru.grammar.old.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "The old table is here.",
+              "englishAuditText": "The old table is here.",
+              "targetText": "Ста́рый сто́л здесь.",
+              "anchor": {
+                "targetText": "сто́л",
+                "learnerBaseText": "table",
+                "englishAuditText": "table"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " сто́л здесь."
+              },
+              "usefulness": 72,
+              "complexity": 34
+            },
+            {
+              "id": "ru.grammar.old.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "The old house is here.",
+              "englishAuditText": "The old house is here.",
+              "targetText": "Ста́рый до́м здесь.",
+              "anchor": {
+                "targetText": "до́м",
+                "learnerBaseText": "house",
+                "englishAuditText": "house"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " до́м здесь."
+              },
+              "usefulness": 72,
+              "complexity": 34
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "Ста́рая",
+          "usefulness": 72,
+          "complexity": 34,
+          "examples": [
+            {
+              "id": "ru.grammar.old.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "The old book is here.",
+              "englishAuditText": "The old book is here.",
+              "targetText": "Ста́рая кни́га здесь.",
+              "anchor": {
+                "targetText": "кни́га",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " кни́га здесь."
+              },
+              "usefulness": 72,
+              "complexity": 34
+            },
+            {
+              "id": "ru.grammar.old.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "The old school is here.",
+              "englishAuditText": "The old school is here.",
+              "targetText": "Ста́рая шко́ла здесь.",
+              "anchor": {
+                "targetText": "шко́ла",
+                "learnerBaseText": "school",
+                "englishAuditText": "school"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " шко́ла здесь."
+              },
+              "usefulness": 72,
+              "complexity": 34
+            }
+          ]
+        },
+        "neuter": {
+          "displayForm": "Ста́рое",
+          "usefulness": 72,
+          "complexity": 34,
+          "examples": [
+            {
+              "id": "ru.grammar.old.neuter.1",
+              "revision": 1,
+              "learnerBaseText": "The old window is here.",
+              "englishAuditText": "The old window is here.",
+              "targetText": "Ста́рое окно́ здесь.",
+              "anchor": {
+                "targetText": "окно́",
+                "learnerBaseText": "window",
+                "englishAuditText": "window"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " окно́ здесь."
+              },
+              "usefulness": 72,
+              "complexity": 34
+            },
+            {
+              "id": "ru.grammar.old.neuter.2",
+              "revision": 1,
+              "learnerBaseText": "The old letter is here.",
+              "englishAuditText": "The old letter is here.",
+              "targetText": "Ста́рое письмо́ здесь.",
+              "anchor": {
+                "targetText": "письмо́",
+                "learnerBaseText": "letter",
+                "englishAuditText": "letter"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " письмо́ здесь."
+              },
+              "usefulness": 72,
+              "complexity": 34
+            }
+          ]
+        },
+        "plural": {
+          "displayForm": "Ста́рые",
+          "usefulness": 72,
+          "complexity": 34,
+          "examples": [
+            {
+              "id": "ru.grammar.old.plural.1",
+              "revision": 1,
+              "learnerBaseText": "The old tables are here.",
+              "englishAuditText": "The old tables are here.",
+              "targetText": "Ста́рые столы́ здесь.",
+              "anchor": {
+                "targetText": "столы́",
+                "learnerBaseText": "tables",
+                "englishAuditText": "tables"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " столы́ здесь."
+              },
+              "usefulness": 72,
+              "complexity": 34
+            },
+            {
+              "id": "ru.grammar.old.plural.2",
+              "revision": 1,
+              "learnerBaseText": "The old books are here.",
+              "englishAuditText": "The old books are here.",
+              "targetText": "Ста́рые кни́ги здесь.",
+              "anchor": {
+                "targetText": "кни́ги",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " кни́ги здесь."
+              },
+              "usefulness": 72,
+              "complexity": 34
+            }
+          ]
+        }
+      },
+      "axes": [
+        {
+          "id": "masculine",
+          "label": "Masculine",
+          "features": {
+            "agreement": "masculine"
+          }
+        },
+        {
+          "id": "feminine",
+          "label": "Feminine",
+          "features": {
+            "agreement": "feminine"
+          }
+        },
+        {
+          "id": "neuter",
+          "label": "Neuter",
+          "features": {
+            "agreement": "neuter"
+          }
+        },
+        {
+          "id": "plural",
+          "label": "Plural",
+          "features": {
+            "agreement": "plural"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "agreement",
+        "categoryOptions": [
+          {
+            "id": "masculine",
+            "label": "Masculine"
+          },
+          {
+            "id": "feminine",
+            "label": "Feminine"
+          },
+          {
+            "id": "neuter",
+            "label": "Neuter"
+          },
+          {
+            "id": "plural",
+            "label": "Plural"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru.grammar.big",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 72,
+      "complexity": 34,
+      "focus": {
+        "kind": "adjective",
+        "label": "big",
+        "targetText": "Большо́й",
+        "resultTitle": "Adjective agreement",
+        "summary": "Russian adjectives agree with the noun in gender. Nominative plural adjectives do not mark gender."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "Большо́й",
+          "usefulness": 72,
+          "complexity": 34,
+          "examples": [
+            {
+              "id": "ru.grammar.big.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "The big table is here.",
+              "englishAuditText": "The big table is here.",
+              "targetText": "Большо́й сто́л здесь.",
+              "anchor": {
+                "targetText": "сто́л",
+                "learnerBaseText": "table",
+                "englishAuditText": "table"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " сто́л здесь."
+              },
+              "usefulness": 72,
+              "complexity": 34
+            },
+            {
+              "id": "ru.grammar.big.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "The big park is here.",
+              "englishAuditText": "The big park is here.",
+              "targetText": "Большо́й па́рк здесь.",
+              "anchor": {
+                "targetText": "па́рк",
+                "learnerBaseText": "park",
+                "englishAuditText": "park"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " па́рк здесь."
+              },
+              "usefulness": 72,
+              "complexity": 34
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "Больша́я",
+          "usefulness": 72,
+          "complexity": 34,
+          "examples": [
+            {
+              "id": "ru.grammar.big.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "The big door is here.",
+              "englishAuditText": "The big door is here.",
+              "targetText": "Больша́я две́рь здесь.",
+              "anchor": {
+                "targetText": "две́рь",
+                "learnerBaseText": "door",
+                "englishAuditText": "door"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " две́рь здесь."
+              },
+              "usefulness": 72,
+              "complexity": 34
+            },
+            {
+              "id": "ru.grammar.big.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "The big bag is here.",
+              "englishAuditText": "The big bag is here.",
+              "targetText": "Больша́я су́мка здесь.",
+              "anchor": {
+                "targetText": "су́мка",
+                "learnerBaseText": "bag",
+                "englishAuditText": "bag"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " су́мка здесь."
+              },
+              "usefulness": 72,
+              "complexity": 34
+            }
+          ]
+        },
+        "neuter": {
+          "displayForm": "Большо́е",
+          "usefulness": 72,
+          "complexity": 34,
+          "examples": [
+            {
+              "id": "ru.grammar.big.neuter.1",
+              "revision": 1,
+              "learnerBaseText": "The big window is here.",
+              "englishAuditText": "The big window is here.",
+              "targetText": "Большо́е окно́ здесь.",
+              "anchor": {
+                "targetText": "окно́",
+                "learnerBaseText": "window",
+                "englishAuditText": "window"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " окно́ здесь."
+              },
+              "usefulness": 72,
+              "complexity": 34
+            },
+            {
+              "id": "ru.grammar.big.neuter.2",
+              "revision": 1,
+              "learnerBaseText": "The big apple is here.",
+              "englishAuditText": "The big apple is here.",
+              "targetText": "Большо́е я́блоко здесь.",
+              "anchor": {
+                "targetText": "я́блоко",
+                "learnerBaseText": "apple",
+                "englishAuditText": "apple"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " я́блоко здесь."
+              },
+              "usefulness": 72,
+              "complexity": 34
+            }
+          ]
+        },
+        "plural": {
+          "displayForm": "Больши́е",
+          "usefulness": 72,
+          "complexity": 34,
+          "examples": [
+            {
+              "id": "ru.grammar.big.plural.1",
+              "revision": 1,
+              "learnerBaseText": "The big windows are here.",
+              "englishAuditText": "The big windows are here.",
+              "targetText": "Больши́е о́кна здесь.",
+              "anchor": {
+                "targetText": "о́кна",
+                "learnerBaseText": "windows",
+                "englishAuditText": "windows"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " о́кна здесь."
+              },
+              "usefulness": 72,
+              "complexity": 34
+            },
+            {
+              "id": "ru.grammar.big.plural.2",
+              "revision": 1,
+              "learnerBaseText": "The big apples are here.",
+              "englishAuditText": "The big apples are here.",
+              "targetText": "Больши́е я́блоки здесь.",
+              "anchor": {
+                "targetText": "я́блоки",
+                "learnerBaseText": "apples",
+                "englishAuditText": "apples"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " я́блоки здесь."
+              },
+              "usefulness": 72,
+              "complexity": 34
+            }
+          ]
+        }
+      },
+      "axes": [
+        {
+          "id": "masculine",
+          "label": "Masculine",
+          "features": {
+            "agreement": "masculine"
+          }
+        },
+        {
+          "id": "feminine",
+          "label": "Feminine",
+          "features": {
+            "agreement": "feminine"
+          }
+        },
+        {
+          "id": "neuter",
+          "label": "Neuter",
+          "features": {
+            "agreement": "neuter"
+          }
+        },
+        {
+          "id": "plural",
+          "label": "Plural",
+          "features": {
+            "agreement": "plural"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "agreement",
+        "categoryOptions": [
+          {
+            "id": "masculine",
+            "label": "Masculine"
+          },
+          {
+            "id": "feminine",
+            "label": "Feminine"
+          },
+          {
+            "id": "neuter",
+            "label": "Neuter"
+          },
+          {
+            "id": "plural",
+            "label": "Plural"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru.grammar.small",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 72,
+      "complexity": 34,
+      "focus": {
+        "kind": "adjective",
+        "label": "small",
+        "targetText": "Ма́ленький",
+        "resultTitle": "Adjective agreement",
+        "summary": "Russian adjectives agree with the noun in gender. Nominative plural adjectives do not mark gender."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "Ма́ленький",
+          "usefulness": 72,
+          "complexity": 34,
+          "examples": [
+            {
+              "id": "ru.grammar.small.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "The small key is here.",
+              "englishAuditText": "The small key is here.",
+              "targetText": "Ма́ленький клю́ч здесь.",
+              "anchor": {
+                "targetText": "клю́ч",
+                "learnerBaseText": "key",
+                "englishAuditText": "key"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " клю́ч здесь."
+              },
+              "usefulness": 72,
+              "complexity": 34
+            },
+            {
+              "id": "ru.grammar.small.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "The small ticket is here.",
+              "englishAuditText": "The small ticket is here.",
+              "targetText": "Ма́ленький биле́т здесь.",
+              "anchor": {
+                "targetText": "биле́т",
+                "learnerBaseText": "ticket",
+                "englishAuditText": "ticket"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " биле́т здесь."
+              },
+              "usefulness": 72,
+              "complexity": 34
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "Ма́ленькая",
+          "usefulness": 72,
+          "complexity": 34,
+          "examples": [
+            {
+              "id": "ru.grammar.small.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "The small bag is here.",
+              "englishAuditText": "The small bag is here.",
+              "targetText": "Ма́ленькая су́мка здесь.",
+              "anchor": {
+                "targetText": "су́мка",
+                "learnerBaseText": "bag",
+                "englishAuditText": "bag"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " су́мка здесь."
+              },
+              "usefulness": 72,
+              "complexity": 34
+            },
+            {
+              "id": "ru.grammar.small.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "The small book is here.",
+              "englishAuditText": "The small book is here.",
+              "targetText": "Ма́ленькая кни́га здесь.",
+              "anchor": {
+                "targetText": "кни́га",
+                "learnerBaseText": "book",
+                "englishAuditText": "book"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " кни́га здесь."
+              },
+              "usefulness": 72,
+              "complexity": 34
+            }
+          ]
+        },
+        "neuter": {
+          "displayForm": "Ма́ленькое",
+          "usefulness": 72,
+          "complexity": 34,
+          "examples": [
+            {
+              "id": "ru.grammar.small.neuter.1",
+              "revision": 1,
+              "learnerBaseText": "The small apple is here.",
+              "englishAuditText": "The small apple is here.",
+              "targetText": "Ма́ленькое я́блоко здесь.",
+              "anchor": {
+                "targetText": "я́блоко",
+                "learnerBaseText": "apple",
+                "englishAuditText": "apple"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " я́блоко здесь."
+              },
+              "usefulness": 72,
+              "complexity": 34
+            },
+            {
+              "id": "ru.grammar.small.neuter.2",
+              "revision": 1,
+              "learnerBaseText": "The small letter is here.",
+              "englishAuditText": "The small letter is here.",
+              "targetText": "Ма́ленькое письмо́ здесь.",
+              "anchor": {
+                "targetText": "письмо́",
+                "learnerBaseText": "letter",
+                "englishAuditText": "letter"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " письмо́ здесь."
+              },
+              "usefulness": 72,
+              "complexity": 34
+            }
+          ]
+        },
+        "plural": {
+          "displayForm": "Ма́ленькие",
+          "usefulness": 72,
+          "complexity": 34,
+          "examples": [
+            {
+              "id": "ru.grammar.small.plural.1",
+              "revision": 1,
+              "learnerBaseText": "The small apples are here.",
+              "englishAuditText": "The small apples are here.",
+              "targetText": "Ма́ленькие я́блоки здесь.",
+              "anchor": {
+                "targetText": "я́блоки",
+                "learnerBaseText": "apples",
+                "englishAuditText": "apples"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " я́блоки здесь."
+              },
+              "usefulness": 72,
+              "complexity": 34
+            },
+            {
+              "id": "ru.grammar.small.plural.2",
+              "revision": 1,
+              "learnerBaseText": "The small books are here.",
+              "englishAuditText": "The small books are here.",
+              "targetText": "Ма́ленькие кни́ги здесь.",
+              "anchor": {
+                "targetText": "кни́ги",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " кни́ги здесь."
+              },
+              "usefulness": 72,
+              "complexity": 34
+            }
+          ]
+        }
+      },
+      "axes": [
+        {
+          "id": "masculine",
+          "label": "Masculine",
+          "features": {
+            "agreement": "masculine"
+          }
+        },
+        {
+          "id": "feminine",
+          "label": "Feminine",
+          "features": {
+            "agreement": "feminine"
+          }
+        },
+        {
+          "id": "neuter",
+          "label": "Neuter",
+          "features": {
+            "agreement": "neuter"
+          }
+        },
+        {
+          "id": "plural",
+          "label": "Plural",
+          "features": {
+            "agreement": "plural"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "agreement",
+        "categoryOptions": [
+          {
+            "id": "masculine",
+            "label": "Masculine"
+          },
+          {
+            "id": "feminine",
+            "label": "Feminine"
+          },
+          {
+            "id": "neuter",
+            "label": "Neuter"
+          },
+          {
+            "id": "plural",
+            "label": "Plural"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru.grammar.good",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 72,
+      "complexity": 34,
+      "focus": {
+        "kind": "adjective",
+        "label": "good",
+        "targetText": "Хоро́ший",
+        "resultTitle": "Adjective agreement",
+        "summary": "Russian adjectives agree with the noun in gender. Nominative plural adjectives do not mark gender."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "Хоро́ший",
+          "usefulness": 72,
+          "complexity": 34,
+          "examples": [
+            {
+              "id": "ru.grammar.good.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "The good tea is here.",
+              "englishAuditText": "The good tea is here.",
+              "targetText": "Хоро́ший ча́й здесь.",
+              "anchor": {
+                "targetText": "ча́й",
+                "learnerBaseText": "tea",
+                "englishAuditText": "tea"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " ча́й здесь."
+              },
+              "usefulness": 72,
+              "complexity": 34
+            },
+            {
+              "id": "ru.grammar.good.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "The good bread is here.",
+              "englishAuditText": "The good bread is here.",
+              "targetText": "Хоро́ший хле́б здесь.",
+              "anchor": {
+                "targetText": "хле́б",
+                "learnerBaseText": "bread",
+                "englishAuditText": "bread"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " хле́б здесь."
+              },
+              "usefulness": 72,
+              "complexity": 34
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "Хоро́шая",
+          "usefulness": 72,
+          "complexity": 34,
+          "examples": [
+            {
+              "id": "ru.grammar.good.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "The good water is here.",
+              "englishAuditText": "The good water is here.",
+              "targetText": "Хоро́шая вода́ здесь.",
+              "anchor": {
+                "targetText": "вода́",
+                "learnerBaseText": "water",
+                "englishAuditText": "water"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " вода́ здесь."
+              },
+              "usefulness": 72,
+              "complexity": 34
+            },
+            {
+              "id": "ru.grammar.good.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "The good school is here.",
+              "englishAuditText": "The good school is here.",
+              "targetText": "Хоро́шая шко́ла здесь.",
+              "anchor": {
+                "targetText": "шко́ла",
+                "learnerBaseText": "school",
+                "englishAuditText": "school"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " шко́ла здесь."
+              },
+              "usefulness": 72,
+              "complexity": 34
+            }
+          ]
+        },
+        "neuter": {
+          "displayForm": "Хоро́шее",
+          "usefulness": 72,
+          "complexity": 34,
+          "examples": [
+            {
+              "id": "ru.grammar.good.neuter.1",
+              "revision": 1,
+              "learnerBaseText": "The good milk is here.",
+              "englishAuditText": "The good milk is here.",
+              "targetText": "Хоро́шее молоко́ здесь.",
+              "anchor": {
+                "targetText": "молоко́",
+                "learnerBaseText": "milk",
+                "englishAuditText": "milk"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " молоко́ здесь."
+              },
+              "usefulness": 72,
+              "complexity": 34
+            },
+            {
+              "id": "ru.grammar.good.neuter.2",
+              "revision": 1,
+              "learnerBaseText": "The good window is here.",
+              "englishAuditText": "The good window is here.",
+              "targetText": "Хоро́шее окно́ здесь.",
+              "anchor": {
+                "targetText": "окно́",
+                "learnerBaseText": "window",
+                "englishAuditText": "window"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " окно́ здесь."
+              },
+              "usefulness": 72,
+              "complexity": 34
+            }
+          ]
+        },
+        "plural": {
+          "displayForm": "Хоро́шие",
+          "usefulness": 72,
+          "complexity": 34,
+          "examples": [
+            {
+              "id": "ru.grammar.good.plural.1",
+              "revision": 1,
+              "learnerBaseText": "The good books are here.",
+              "englishAuditText": "The good books are here.",
+              "targetText": "Хоро́шие кни́ги здесь.",
+              "anchor": {
+                "targetText": "кни́ги",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " кни́ги здесь."
+              },
+              "usefulness": 72,
+              "complexity": 34
+            },
+            {
+              "id": "ru.grammar.good.plural.2",
+              "revision": 1,
+              "learnerBaseText": "The good apples are here.",
+              "englishAuditText": "The good apples are here.",
+              "targetText": "Хоро́шие я́блоки здесь.",
+              "anchor": {
+                "targetText": "я́блоки",
+                "learnerBaseText": "apples",
+                "englishAuditText": "apples"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " я́блоки здесь."
+              },
+              "usefulness": 72,
+              "complexity": 34
+            }
+          ]
+        }
+      },
+      "axes": [
+        {
+          "id": "masculine",
+          "label": "Masculine",
+          "features": {
+            "agreement": "masculine"
+          }
+        },
+        {
+          "id": "feminine",
+          "label": "Feminine",
+          "features": {
+            "agreement": "feminine"
+          }
+        },
+        {
+          "id": "neuter",
+          "label": "Neuter",
+          "features": {
+            "agreement": "neuter"
+          }
+        },
+        {
+          "id": "plural",
+          "label": "Plural",
+          "features": {
+            "agreement": "plural"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "agreement",
+        "categoryOptions": [
+          {
+            "id": "masculine",
+            "label": "Masculine"
+          },
+          {
+            "id": "feminine",
+            "label": "Feminine"
+          },
+          {
+            "id": "neuter",
+            "label": "Neuter"
+          },
+          {
+            "id": "plural",
+            "label": "Plural"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru.grammar.beautiful",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 72,
+      "complexity": 34,
+      "focus": {
+        "kind": "adjective",
+        "label": "beautiful",
+        "targetText": "Краси́вый",
+        "resultTitle": "Adjective agreement",
+        "summary": "Russian adjectives agree with the noun in gender. Nominative plural adjectives do not mark gender."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "Краси́вый",
+          "usefulness": 72,
+          "complexity": 34,
+          "examples": [
+            {
+              "id": "ru.grammar.beautiful.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "The beautiful city is here.",
+              "englishAuditText": "The beautiful city is here.",
+              "targetText": "Краси́вый го́род здесь.",
+              "anchor": {
+                "targetText": "го́род",
+                "learnerBaseText": "city",
+                "englishAuditText": "city"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " го́род здесь."
+              },
+              "usefulness": 72,
+              "complexity": 34
+            },
+            {
+              "id": "ru.grammar.beautiful.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "The beautiful park is here.",
+              "englishAuditText": "The beautiful park is here.",
+              "targetText": "Краси́вый па́рк здесь.",
+              "anchor": {
+                "targetText": "па́рк",
+                "learnerBaseText": "park",
+                "englishAuditText": "park"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " па́рк здесь."
+              },
+              "usefulness": 72,
+              "complexity": 34
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "Краси́вая",
+          "usefulness": 72,
+          "complexity": 34,
+          "examples": [
+            {
+              "id": "ru.grammar.beautiful.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "The beautiful school is here.",
+              "englishAuditText": "The beautiful school is here.",
+              "targetText": "Краси́вая шко́ла здесь.",
+              "anchor": {
+                "targetText": "шко́ла",
+                "learnerBaseText": "school",
+                "englishAuditText": "school"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " шко́ла здесь."
+              },
+              "usefulness": 72,
+              "complexity": 34
+            },
+            {
+              "id": "ru.grammar.beautiful.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "The beautiful sister is here.",
+              "englishAuditText": "The beautiful sister is here.",
+              "targetText": "Краси́вая сестра́ здесь.",
+              "anchor": {
+                "targetText": "сестра́",
+                "learnerBaseText": "sister",
+                "englishAuditText": "sister"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " сестра́ здесь."
+              },
+              "usefulness": 72,
+              "complexity": 34
+            }
+          ]
+        },
+        "neuter": {
+          "displayForm": "Краси́вое",
+          "usefulness": 72,
+          "complexity": 34,
+          "examples": [
+            {
+              "id": "ru.grammar.beautiful.neuter.1",
+              "revision": 1,
+              "learnerBaseText": "The beautiful sea is here.",
+              "englishAuditText": "The beautiful sea is here.",
+              "targetText": "Краси́вое мо́ре здесь.",
+              "anchor": {
+                "targetText": "мо́ре",
+                "learnerBaseText": "sea",
+                "englishAuditText": "sea"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " мо́ре здесь."
+              },
+              "usefulness": 72,
+              "complexity": 34
+            },
+            {
+              "id": "ru.grammar.beautiful.neuter.2",
+              "revision": 1,
+              "learnerBaseText": "The beautiful letter is here.",
+              "englishAuditText": "The beautiful letter is here.",
+              "targetText": "Краси́вое письмо́ здесь.",
+              "anchor": {
+                "targetText": "письмо́",
+                "learnerBaseText": "letter",
+                "englishAuditText": "letter"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " письмо́ здесь."
+              },
+              "usefulness": 72,
+              "complexity": 34
+            }
+          ]
+        },
+        "plural": {
+          "displayForm": "Краси́вые",
+          "usefulness": 72,
+          "complexity": 34,
+          "examples": [
+            {
+              "id": "ru.grammar.beautiful.plural.1",
+              "revision": 1,
+              "learnerBaseText": "The beautiful books are here.",
+              "englishAuditText": "The beautiful books are here.",
+              "targetText": "Краси́вые кни́ги здесь.",
+              "anchor": {
+                "targetText": "кни́ги",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " кни́ги здесь."
+              },
+              "usefulness": 72,
+              "complexity": 34
+            },
+            {
+              "id": "ru.grammar.beautiful.plural.2",
+              "revision": 1,
+              "learnerBaseText": "The beautiful windows are here.",
+              "englishAuditText": "The beautiful windows are here.",
+              "targetText": "Краси́вые о́кна здесь.",
+              "anchor": {
+                "targetText": "о́кна",
+                "learnerBaseText": "windows",
+                "englishAuditText": "windows"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " о́кна здесь."
+              },
+              "usefulness": 72,
+              "complexity": 34
+            }
+          ]
+        }
+      },
+      "axes": [
+        {
+          "id": "masculine",
+          "label": "Masculine",
+          "features": {
+            "agreement": "masculine"
+          }
+        },
+        {
+          "id": "feminine",
+          "label": "Feminine",
+          "features": {
+            "agreement": "feminine"
+          }
+        },
+        {
+          "id": "neuter",
+          "label": "Neuter",
+          "features": {
+            "agreement": "neuter"
+          }
+        },
+        {
+          "id": "plural",
+          "label": "Plural",
+          "features": {
+            "agreement": "plural"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "agreement",
+        "categoryOptions": [
+          {
+            "id": "masculine",
+            "label": "Masculine"
+          },
+          {
+            "id": "feminine",
+            "label": "Feminine"
+          },
+          {
+            "id": "neuter",
+            "label": "Neuter"
+          },
+          {
+            "id": "plural",
+            "label": "Plural"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru.grammar.warm",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 72,
+      "complexity": 48,
+      "focus": {
+        "kind": "adjective",
+        "label": "warm",
+        "targetText": "Тё́плый",
+        "resultTitle": "Adjective agreement",
+        "summary": "Russian adjectives agree with the noun in gender. Nominative plural adjectives do not mark gender."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "Тё́плый",
+          "usefulness": 72,
+          "complexity": 48,
+          "examples": [
+            {
+              "id": "ru.grammar.warm.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "The warm tea is here.",
+              "englishAuditText": "The warm tea is here.",
+              "targetText": "Тё́плый ча́й здесь.",
+              "anchor": {
+                "targetText": "ча́й",
+                "learnerBaseText": "tea",
+                "englishAuditText": "tea"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " ча́й здесь."
+              },
+              "usefulness": 72,
+              "complexity": 48
+            },
+            {
+              "id": "ru.grammar.warm.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "The warm bread is here.",
+              "englishAuditText": "The warm bread is here.",
+              "targetText": "Тё́плый хле́б здесь.",
+              "anchor": {
+                "targetText": "хле́б",
+                "learnerBaseText": "bread",
+                "englishAuditText": "bread"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " хле́б здесь."
+              },
+              "usefulness": 72,
+              "complexity": 48
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "Тё́плая",
+          "usefulness": 72,
+          "complexity": 48,
+          "examples": [
+            {
+              "id": "ru.grammar.warm.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "The warm water is here.",
+              "englishAuditText": "The warm water is here.",
+              "targetText": "Тё́плая вода́ здесь.",
+              "anchor": {
+                "targetText": "вода́",
+                "learnerBaseText": "water",
+                "englishAuditText": "water"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " вода́ здесь."
+              },
+              "usefulness": 72,
+              "complexity": 48
+            },
+            {
+              "id": "ru.grammar.warm.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "The warm bed is here.",
+              "englishAuditText": "The warm bed is here.",
+              "targetText": "Тё́плая крова́ть здесь.",
+              "anchor": {
+                "targetText": "крова́ть",
+                "learnerBaseText": "bed",
+                "englishAuditText": "bed"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " крова́ть здесь."
+              },
+              "usefulness": 72,
+              "complexity": 48
+            }
+          ]
+        },
+        "neuter": {
+          "displayForm": "Тё́плое",
+          "usefulness": 72,
+          "complexity": 48,
+          "examples": [
+            {
+              "id": "ru.grammar.warm.neuter.1",
+              "revision": 1,
+              "learnerBaseText": "The warm milk is here.",
+              "englishAuditText": "The warm milk is here.",
+              "targetText": "Тё́плое молоко́ здесь.",
+              "anchor": {
+                "targetText": "молоко́",
+                "learnerBaseText": "milk",
+                "englishAuditText": "milk"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " молоко́ здесь."
+              },
+              "usefulness": 72,
+              "complexity": 48
+            },
+            {
+              "id": "ru.grammar.warm.neuter.2",
+              "revision": 1,
+              "learnerBaseText": "The warm sea is here.",
+              "englishAuditText": "The warm sea is here.",
+              "targetText": "Тё́плое мо́ре здесь.",
+              "anchor": {
+                "targetText": "мо́ре",
+                "learnerBaseText": "sea",
+                "englishAuditText": "sea"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " мо́ре здесь."
+              },
+              "usefulness": 72,
+              "complexity": 48
+            }
+          ]
+        },
+        "plural": {
+          "displayForm": "Тё́плые",
+          "usefulness": 72,
+          "complexity": 48,
+          "examples": [
+            {
+              "id": "ru.grammar.warm.plural.1",
+              "revision": 1,
+              "learnerBaseText": "The warm apples are here.",
+              "englishAuditText": "The warm apples are here.",
+              "targetText": "Тё́плые я́блоки здесь.",
+              "anchor": {
+                "targetText": "я́блоки",
+                "learnerBaseText": "apples",
+                "englishAuditText": "apples"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " я́блоки здесь."
+              },
+              "usefulness": 72,
+              "complexity": 48
+            },
+            {
+              "id": "ru.grammar.warm.plural.2",
+              "revision": 1,
+              "learnerBaseText": "The warm books are here.",
+              "englishAuditText": "The warm books are here.",
+              "targetText": "Тё́плые кни́ги здесь.",
+              "anchor": {
+                "targetText": "кни́ги",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " кни́ги здесь."
+              },
+              "usefulness": 72,
+              "complexity": 48
+            }
+          ]
+        }
+      },
+      "axes": [
+        {
+          "id": "masculine",
+          "label": "Masculine",
+          "features": {
+            "agreement": "masculine"
+          }
+        },
+        {
+          "id": "feminine",
+          "label": "Feminine",
+          "features": {
+            "agreement": "feminine"
+          }
+        },
+        {
+          "id": "neuter",
+          "label": "Neuter",
+          "features": {
+            "agreement": "neuter"
+          }
+        },
+        {
+          "id": "plural",
+          "label": "Plural",
+          "features": {
+            "agreement": "plural"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "agreement",
+        "categoryOptions": [
+          {
+            "id": "masculine",
+            "label": "Masculine"
+          },
+          {
+            "id": "feminine",
+            "label": "Feminine"
+          },
+          {
+            "id": "neuter",
+            "label": "Neuter"
+          },
+          {
+            "id": "plural",
+            "label": "Plural"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru.grammar.cold",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 72,
+      "complexity": 48,
+      "focus": {
+        "kind": "adjective",
+        "label": "cold",
+        "targetText": "Холо́дный",
+        "resultTitle": "Adjective agreement",
+        "summary": "Russian adjectives agree with the noun in gender. Nominative plural adjectives do not mark gender."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "Холо́дный",
+          "usefulness": 72,
+          "complexity": 48,
+          "examples": [
+            {
+              "id": "ru.grammar.cold.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "The cold tea is here.",
+              "englishAuditText": "The cold tea is here.",
+              "targetText": "Холо́дный ча́й здесь.",
+              "anchor": {
+                "targetText": "ча́й",
+                "learnerBaseText": "tea",
+                "englishAuditText": "tea"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " ча́й здесь."
+              },
+              "usefulness": 72,
+              "complexity": 48
+            },
+            {
+              "id": "ru.grammar.cold.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "The cold soup is here.",
+              "englishAuditText": "The cold soup is here.",
+              "targetText": "Холо́дный су́п здесь.",
+              "anchor": {
+                "targetText": "су́п",
+                "learnerBaseText": "soup",
+                "englishAuditText": "soup"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " су́п здесь."
+              },
+              "usefulness": 72,
+              "complexity": 48
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "Холо́дная",
+          "usefulness": 72,
+          "complexity": 48,
+          "examples": [
+            {
+              "id": "ru.grammar.cold.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "The cold water is here.",
+              "englishAuditText": "The cold water is here.",
+              "targetText": "Холо́дная вода́ здесь.",
+              "anchor": {
+                "targetText": "вода́",
+                "learnerBaseText": "water",
+                "englishAuditText": "water"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " вода́ здесь."
+              },
+              "usefulness": 72,
+              "complexity": 48
+            },
+            {
+              "id": "ru.grammar.cold.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "The cold bed is here.",
+              "englishAuditText": "The cold bed is here.",
+              "targetText": "Холо́дная крова́ть здесь.",
+              "anchor": {
+                "targetText": "крова́ть",
+                "learnerBaseText": "bed",
+                "englishAuditText": "bed"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " крова́ть здесь."
+              },
+              "usefulness": 72,
+              "complexity": 48
+            }
+          ]
+        },
+        "neuter": {
+          "displayForm": "Холо́дное",
+          "usefulness": 72,
+          "complexity": 48,
+          "examples": [
+            {
+              "id": "ru.grammar.cold.neuter.1",
+              "revision": 1,
+              "learnerBaseText": "The cold milk is here.",
+              "englishAuditText": "The cold milk is here.",
+              "targetText": "Холо́дное молоко́ здесь.",
+              "anchor": {
+                "targetText": "молоко́",
+                "learnerBaseText": "milk",
+                "englishAuditText": "milk"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " молоко́ здесь."
+              },
+              "usefulness": 72,
+              "complexity": 48
+            },
+            {
+              "id": "ru.grammar.cold.neuter.2",
+              "revision": 1,
+              "learnerBaseText": "The cold sea is here.",
+              "englishAuditText": "The cold sea is here.",
+              "targetText": "Холо́дное мо́ре здесь.",
+              "anchor": {
+                "targetText": "мо́ре",
+                "learnerBaseText": "sea",
+                "englishAuditText": "sea"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " мо́ре здесь."
+              },
+              "usefulness": 72,
+              "complexity": 48
+            }
+          ]
+        },
+        "plural": {
+          "displayForm": "Холо́дные",
+          "usefulness": 72,
+          "complexity": 48,
+          "examples": [
+            {
+              "id": "ru.grammar.cold.plural.1",
+              "revision": 1,
+              "learnerBaseText": "The cold apples are here.",
+              "englishAuditText": "The cold apples are here.",
+              "targetText": "Холо́дные я́блоки здесь.",
+              "anchor": {
+                "targetText": "я́блоки",
+                "learnerBaseText": "apples",
+                "englishAuditText": "apples"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " я́блоки здесь."
+              },
+              "usefulness": 72,
+              "complexity": 48
+            },
+            {
+              "id": "ru.grammar.cold.plural.2",
+              "revision": 1,
+              "learnerBaseText": "The cold windows are here.",
+              "englishAuditText": "The cold windows are here.",
+              "targetText": "Холо́дные о́кна здесь.",
+              "anchor": {
+                "targetText": "о́кна",
+                "learnerBaseText": "windows",
+                "englishAuditText": "windows"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " о́кна здесь."
+              },
+              "usefulness": 72,
+              "complexity": 48
+            }
+          ]
+        }
+      },
+      "axes": [
+        {
+          "id": "masculine",
+          "label": "Masculine",
+          "features": {
+            "agreement": "masculine"
+          }
+        },
+        {
+          "id": "feminine",
+          "label": "Feminine",
+          "features": {
+            "agreement": "feminine"
+          }
+        },
+        {
+          "id": "neuter",
+          "label": "Neuter",
+          "features": {
+            "agreement": "neuter"
+          }
+        },
+        {
+          "id": "plural",
+          "label": "Plural",
+          "features": {
+            "agreement": "plural"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "agreement",
+        "categoryOptions": [
+          {
+            "id": "masculine",
+            "label": "Masculine"
+          },
+          {
+            "id": "feminine",
+            "label": "Feminine"
+          },
+          {
+            "id": "neuter",
+            "label": "Neuter"
+          },
+          {
+            "id": "plural",
+            "label": "Plural"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru.grammar.white",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 72,
+      "complexity": 40,
+      "focus": {
+        "kind": "adjective",
+        "label": "white",
+        "targetText": "Бе́лый",
+        "resultTitle": "Adjective agreement",
+        "summary": "Russian adjectives agree with the noun in gender. Nominative plural adjectives do not mark gender."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "Бе́лый",
+          "usefulness": 72,
+          "complexity": 40,
+          "examples": [
+            {
+              "id": "ru.grammar.white.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "The white bread is here.",
+              "englishAuditText": "The white bread is here.",
+              "targetText": "Бе́лый хле́б здесь.",
+              "anchor": {
+                "targetText": "хле́б",
+                "learnerBaseText": "bread",
+                "englishAuditText": "bread"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " хле́б здесь."
+              },
+              "usefulness": 72,
+              "complexity": 40
+            },
+            {
+              "id": "ru.grammar.white.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "The white house is here.",
+              "englishAuditText": "The white house is here.",
+              "targetText": "Бе́лый до́м здесь.",
+              "anchor": {
+                "targetText": "до́м",
+                "learnerBaseText": "house",
+                "englishAuditText": "house"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " до́м здесь."
+              },
+              "usefulness": 72,
+              "complexity": 40
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "Бе́лая",
+          "usefulness": 72,
+          "complexity": 40,
+          "examples": [
+            {
+              "id": "ru.grammar.white.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "The white school is here.",
+              "englishAuditText": "The white school is here.",
+              "targetText": "Бе́лая шко́ла здесь.",
+              "anchor": {
+                "targetText": "шко́ла",
+                "learnerBaseText": "school",
+                "englishAuditText": "school"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " шко́ла здесь."
+              },
+              "usefulness": 72,
+              "complexity": 40
+            },
+            {
+              "id": "ru.grammar.white.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "The white bag is here.",
+              "englishAuditText": "The white bag is here.",
+              "targetText": "Бе́лая су́мка здесь.",
+              "anchor": {
+                "targetText": "су́мка",
+                "learnerBaseText": "bag",
+                "englishAuditText": "bag"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " су́мка здесь."
+              },
+              "usefulness": 72,
+              "complexity": 40
+            }
+          ]
+        },
+        "neuter": {
+          "displayForm": "Бе́лое",
+          "usefulness": 72,
+          "complexity": 40,
+          "examples": [
+            {
+              "id": "ru.grammar.white.neuter.1",
+              "revision": 1,
+              "learnerBaseText": "The white milk is here.",
+              "englishAuditText": "The white milk is here.",
+              "targetText": "Бе́лое молоко́ здесь.",
+              "anchor": {
+                "targetText": "молоко́",
+                "learnerBaseText": "milk",
+                "englishAuditText": "milk"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " молоко́ здесь."
+              },
+              "usefulness": 72,
+              "complexity": 40
+            },
+            {
+              "id": "ru.grammar.white.neuter.2",
+              "revision": 1,
+              "learnerBaseText": "The white window is here.",
+              "englishAuditText": "The white window is here.",
+              "targetText": "Бе́лое окно́ здесь.",
+              "anchor": {
+                "targetText": "окно́",
+                "learnerBaseText": "window",
+                "englishAuditText": "window"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " окно́ здесь."
+              },
+              "usefulness": 72,
+              "complexity": 40
+            }
+          ]
+        },
+        "plural": {
+          "displayForm": "Бе́лые",
+          "usefulness": 72,
+          "complexity": 40,
+          "examples": [
+            {
+              "id": "ru.grammar.white.plural.1",
+              "revision": 1,
+              "learnerBaseText": "The white books are here.",
+              "englishAuditText": "The white books are here.",
+              "targetText": "Бе́лые кни́ги здесь.",
+              "anchor": {
+                "targetText": "кни́ги",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " кни́ги здесь."
+              },
+              "usefulness": 72,
+              "complexity": 40
+            },
+            {
+              "id": "ru.grammar.white.plural.2",
+              "revision": 1,
+              "learnerBaseText": "The white letters are here.",
+              "englishAuditText": "The white letters are here.",
+              "targetText": "Бе́лые пи́сьма здесь.",
+              "anchor": {
+                "targetText": "пи́сьма",
+                "learnerBaseText": "letters",
+                "englishAuditText": "letters"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " пи́сьма здесь."
+              },
+              "usefulness": 72,
+              "complexity": 40
+            }
+          ]
+        }
+      },
+      "axes": [
+        {
+          "id": "masculine",
+          "label": "Masculine",
+          "features": {
+            "agreement": "masculine"
+          }
+        },
+        {
+          "id": "feminine",
+          "label": "Feminine",
+          "features": {
+            "agreement": "feminine"
+          }
+        },
+        {
+          "id": "neuter",
+          "label": "Neuter",
+          "features": {
+            "agreement": "neuter"
+          }
+        },
+        {
+          "id": "plural",
+          "label": "Plural",
+          "features": {
+            "agreement": "plural"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "agreement",
+        "categoryOptions": [
+          {
+            "id": "masculine",
+            "label": "Masculine"
+          },
+          {
+            "id": "feminine",
+            "label": "Feminine"
+          },
+          {
+            "id": "neuter",
+            "label": "Neuter"
+          },
+          {
+            "id": "plural",
+            "label": "Plural"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ru.grammar.black",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 72,
+      "complexity": 40,
+      "focus": {
+        "kind": "adjective",
+        "label": "black",
+        "targetText": "Чё́рный",
+        "resultTitle": "Adjective agreement",
+        "summary": "Russian adjectives agree with the noun in gender. Nominative plural adjectives do not mark gender."
+      },
+      "forms": {
+        "masculine": {
+          "displayForm": "Чё́рный",
+          "usefulness": 72,
+          "complexity": 40,
+          "examples": [
+            {
+              "id": "ru.grammar.black.masculine.1",
+              "revision": 1,
+              "learnerBaseText": "The black tea is here.",
+              "englishAuditText": "The black tea is here.",
+              "targetText": "Чё́рный ча́й здесь.",
+              "anchor": {
+                "targetText": "ча́й",
+                "learnerBaseText": "tea",
+                "englishAuditText": "tea"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " ча́й здесь."
+              },
+              "usefulness": 72,
+              "complexity": 40
+            },
+            {
+              "id": "ru.grammar.black.masculine.2",
+              "revision": 1,
+              "learnerBaseText": "The black phone is here.",
+              "englishAuditText": "The black phone is here.",
+              "targetText": "Чё́рный телефо́н здесь.",
+              "anchor": {
+                "targetText": "телефо́н",
+                "learnerBaseText": "phone",
+                "englishAuditText": "phone"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " телефо́н здесь."
+              },
+              "usefulness": 72,
+              "complexity": 40
+            }
+          ]
+        },
+        "feminine": {
+          "displayForm": "Чё́рная",
+          "usefulness": 72,
+          "complexity": 40,
+          "examples": [
+            {
+              "id": "ru.grammar.black.feminine.1",
+              "revision": 1,
+              "learnerBaseText": "The black bag is here.",
+              "englishAuditText": "The black bag is here.",
+              "targetText": "Чё́рная су́мка здесь.",
+              "anchor": {
+                "targetText": "су́мка",
+                "learnerBaseText": "bag",
+                "englishAuditText": "bag"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " су́мка здесь."
+              },
+              "usefulness": 72,
+              "complexity": 40
+            },
+            {
+              "id": "ru.grammar.black.feminine.2",
+              "revision": 1,
+              "learnerBaseText": "The black door is here.",
+              "englishAuditText": "The black door is here.",
+              "targetText": "Чё́рная две́рь здесь.",
+              "anchor": {
+                "targetText": "две́рь",
+                "learnerBaseText": "door",
+                "englishAuditText": "door"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " две́рь здесь."
+              },
+              "usefulness": 72,
+              "complexity": 40
+            }
+          ]
+        },
+        "neuter": {
+          "displayForm": "Чё́рное",
+          "usefulness": 72,
+          "complexity": 40,
+          "examples": [
+            {
+              "id": "ru.grammar.black.neuter.1",
+              "revision": 1,
+              "learnerBaseText": "The black sea is here.",
+              "englishAuditText": "The black sea is here.",
+              "targetText": "Чё́рное мо́ре здесь.",
+              "anchor": {
+                "targetText": "мо́ре",
+                "learnerBaseText": "sea",
+                "englishAuditText": "sea"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " мо́ре здесь."
+              },
+              "usefulness": 72,
+              "complexity": 40
+            },
+            {
+              "id": "ru.grammar.black.neuter.2",
+              "revision": 1,
+              "learnerBaseText": "The black window is here.",
+              "englishAuditText": "The black window is here.",
+              "targetText": "Чё́рное окно́ здесь.",
+              "anchor": {
+                "targetText": "окно́",
+                "learnerBaseText": "window",
+                "englishAuditText": "window"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " окно́ здесь."
+              },
+              "usefulness": 72,
+              "complexity": 40
+            }
+          ]
+        },
+        "plural": {
+          "displayForm": "Чё́рные",
+          "usefulness": 72,
+          "complexity": 40,
+          "examples": [
+            {
+              "id": "ru.grammar.black.plural.1",
+              "revision": 1,
+              "learnerBaseText": "The black tables are here.",
+              "englishAuditText": "The black tables are here.",
+              "targetText": "Чё́рные столы́ здесь.",
+              "anchor": {
+                "targetText": "столы́",
+                "learnerBaseText": "tables",
+                "englishAuditText": "tables"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " столы́ здесь."
+              },
+              "usefulness": 72,
+              "complexity": 40
+            },
+            {
+              "id": "ru.grammar.black.plural.2",
+              "revision": 1,
+              "learnerBaseText": "The black books are here.",
+              "englishAuditText": "The black books are here.",
+              "targetText": "Чё́рные кни́ги здесь.",
+              "anchor": {
+                "targetText": "кни́ги",
+                "learnerBaseText": "books",
+                "englishAuditText": "books"
+              },
+              "slot": {
+                "beforeText": "",
+                "afterText": " кни́ги здесь."
+              },
+              "usefulness": 72,
+              "complexity": 40
+            }
+          ]
+        }
+      },
+      "axes": [
+        {
+          "id": "masculine",
+          "label": "Masculine",
+          "features": {
+            "agreement": "masculine"
+          }
+        },
+        {
+          "id": "feminine",
+          "label": "Feminine",
+          "features": {
+            "agreement": "feminine"
+          }
+        },
+        {
+          "id": "neuter",
+          "label": "Neuter",
+          "features": {
+            "agreement": "neuter"
+          }
+        },
+        {
+          "id": "plural",
+          "label": "Plural",
+          "features": {
+            "agreement": "plural"
+          }
+        }
+      ],
+      "gameplay": {
+        "contract": "caatuu-grammar-gravity-journey-v1",
+        "stages": [
+          "meaning",
+          "category",
+          "form"
+        ],
+        "categoryFeature": "agreement",
+        "categoryOptions": [
+          {
+            "id": "masculine",
+            "label": "Masculine"
+          },
+          {
+            "id": "feminine",
+            "label": "Feminine"
+          },
+          {
+            "id": "neuter",
+            "label": "Neuter"
+          },
+          {
+            "id": "plural",
+            "label": "Plural"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -18,6 +18,7 @@ import {
   stripModelEcho,
   tokenizeCzechSentence as tokenizeLegacySentence
 } from "./word-net-core.mjs?v=word-net-core-22";
+import { migrateStorageAlias } from "./learner-record.mjs?v=learner-record-1";
 import { WordNetBranchQueue } from "./word-net-queue.mjs?v=word-net-queue-6";
 import { bindHorizontalGesture } from "./horizontal-gesture.mjs";
 import { localAiAvailability } from "./shell-policy.mjs";
@@ -78,6 +79,9 @@ let wordWorldReadingGuide = null;
 let lifecycleOptions = Object.freeze({});
 let mounted = false;
 const TRANSLATION_MODE_STORAGE_KEY = course.storage.wordWorldTranslationMode;
+if (typeof localStorage !== "undefined") {
+  migrateStorageAlias(localStorage, TRANSLATION_MODE_STORAGE_KEY, `${course.storage.namespace}.wordNet.translationMode`);
+}
 const GENERATION_MODE_STORAGE_KEY = `${course.storage.namespace}.wordNet.generationMode`;
 const CONTENT_MODE_STORAGE_KEY = `${course.storage.namespace}.wordNet.contentMode.v1`;
 const STANDARD_USAGE_STORAGE_KEY = `${course.storage.namespace}.wordNet.standardUsage.v1`;
@@ -85,7 +89,11 @@ const PREPARED_QUEUE_STORAGE_KEY = `${course.storage.namespace}.wordNet.prepared
 const HISTORY_STORAGE_KEY = `${course.storage.namespace}.wordNet.history.v2`;
 const LEGACY_HISTORY_STORAGE_KEY = `${course.storage.namespace}.wordNet.history.v1`;
 const RECENT_SENTENCES_STORAGE_KEY = course.storage.wordWorldRecentSentences;
-const TRANSLATION_CACHE_STORAGE_KEY = course.storage.wordWorldTranslationCache;
+if (typeof localStorage !== "undefined") {
+  migrateStorageAlias(localStorage, RECENT_SENTENCES_STORAGE_KEY, `${course.storage.namespace}.wordNet.recentSentences.v1`);
+}
+const TRANSLATION_CACHE_STORAGE_KEY = course.storage.wordWorldTranslationCache
+  || `${course.storage.namespace}.word-world.translation-cache.v1`;
 const WORD_CARD_PREFERENCES_STORAGE_KEY = `${course.storage.namespace}.wordNet.wordCardPreferences.v1`;
 const TARGET_TEXT_PREFERENCES_STORAGE_KEY = `${course.storage.namespace}.wordNet.targetTextPreferences.v1`;
 const CHALLENGE_PROMPT_MODE_STORAGE_KEY = `${course.storage.namespace}.wordNet.challengePromptMode.v1`;

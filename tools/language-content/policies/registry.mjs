@@ -2,12 +2,14 @@ import { englishAmericanContentPolicy } from "./english-american.mjs";
 import { arabicStandardContentPolicy } from "./arabic-standard.mjs";
 import { latinScientificContentPolicy } from "./latin-scientific.mjs";
 import { georgianContentPolicy } from "./georgian.mjs";
+import { russianContentPolicy } from "./russian.mjs";
 import { mandarinSimplifiedContentPolicy } from "./mandarin-simplified.mjs";
 import { norwegianBokmalContentPolicy } from "./norwegian-bokmal.mjs";
 import { spanishSpainContentPolicy } from "./spanish-spain.mjs";
 
 const POLICIES = new Map([
   [georgianContentPolicy.id, georgianContentPolicy],
+  [russianContentPolicy.id, russianContentPolicy],
   [latinScientificContentPolicy.id, latinScientificContentPolicy],
   [arabicStandardContentPolicy.id, arabicStandardContentPolicy],
   [englishAmericanContentPolicy.id, englishAmericanContentPolicy],

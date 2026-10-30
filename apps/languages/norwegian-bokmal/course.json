@@ -62,7 +62,12 @@
     "theme": "caatuu-nb.theme",
     "fontSize": "caatuu-nb.font-size",
     "learningPreferences": "caatuu-nb.learning.preferences.v1",
+    "learningGoal": "caatuu-nb.learning.goal.v1",
+    "learningGameSettings": "caatuu-nb.learning.game-settings.v1",
     "learningPerformance": "caatuu-nb.learning.performance.v1",
+    "learningPractice": "caatuu-nb.learning.practice.v1",
+    "learningContent": "caatuu-nb.learning.content.v2",
+    "speechVoice": "caatuu-nb.speech.voice.v1",
     "semanticLearningDatabase": "caatuu-nb.semantic-learning",
     "verbMemory": "caatuu-nb.verb-memory.v3",
     "wordWorldTranslationMode": "caatuu-nb.word-world.translation-mode",
@@ -279,7 +284,7 @@
       "path": "apps/language-runtime/static/data/interface/en.v1.json",
       "scope": "shared",
       "state": "present",
-      "revision": "interface-en-55"
+      "revision": "interface-en-57"
     },
     "courseProfile": {
       "kind": "file",

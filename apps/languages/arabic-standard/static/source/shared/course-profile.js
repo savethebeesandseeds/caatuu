@@ -47,7 +47,7 @@
       schemaVersion: 1,
       locale: "en",
       direction: "ltr",
-      revision: "interface-en-55",
+      revision: "interface-en-57",
       catalog: "/language-runtime/static/data/interface/en.v1.json"
     },
     learnerBasePreview: false,
@@ -161,7 +161,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-55",
+            revision: "interface-en-57",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -221,7 +221,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-55",
+            revision: "interface-en-57",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -285,7 +285,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-55",
+            revision: "interface-en-57",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -349,7 +349,7 @@
             schemaVersion: 1,
             locale: "es-ES",
             direction: "ltr",
-            revision: "interface-es-30",
+            revision: "interface-es-32",
             catalog: "/language-runtime/static/data/interface/es.v1.json"
           },
           targetLanguage: {
@@ -413,7 +413,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-55",
+            revision: "interface-en-57",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -480,7 +480,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-55",
+            revision: "interface-en-57",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -541,7 +541,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-55",
+            revision: "interface-en-57",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -602,7 +602,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-55",
+            revision: "interface-en-57",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -615,6 +615,67 @@
             direction: "ltr",
             flagClass: "georgian-flag",
             flagSrc: "/assets/icons/georgian_flag.svg"
+          }
+        },
+        {
+          id: "ru",
+          status: "development",
+          routePrefix: "/ru",
+          entryPath: "/ru/index.html",
+          storage: {
+            learningPerformance: "caatuu-ru.learning.performance.v1"
+          },
+          developerContext: {
+            gameContent: {
+              "verb-lab": {
+                verbNebulaCatalog: "data/games/verb-nebula/content.json"
+              },
+              "word-net": {
+                wordWorldManifest: "data/games/word-world/manifest.json?v=word-world-content-1"
+              },
+              "conjugation-comet": {
+                conjugationCometCatalog: "data/games/conjugation-comet/content.json?v=conjugation-comet-content-1"
+              },
+              "grammar-gravity": {
+                grammarGravityCatalog: "data/games/grammar-gravity/content.json?v=grammar-gravity-content-1",
+                grammarGravityNouns: "data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-1"
+              },
+              "memory-moon": {
+                memoryMoonCatalog: "data/games/memory-moon/content.json?v=memory-moon-1"
+              }
+            },
+            dictionaryContent: null,
+            embeddingContent: {
+              catalog: "data/embeddings/catalog.json"
+            }
+          },
+          sourceLanguage: {
+            id: "en",
+            label: "English",
+            nativeLabel: "English",
+            shortCode: "EN",
+            locale: "en",
+            direction: "ltr",
+            flagClass: "en-flag",
+            flagSrc: "/assets/icons/english_flag.png"
+          },
+          interfaceContent: {
+            schemaVersion: 1,
+            locale: "en",
+            direction: "ltr",
+            revision: "interface-en-57",
+            catalog: "/language-runtime/static/data/interface/en.v1.json"
+          },
+          targetLanguage: {
+            id: "ru",
+            label: "Russian",
+            nativeLabel: "русский",
+            shortCode: "RU",
+            locale: "ru",
+            speechLocale: "ru-RU",
+            direction: "ltr",
+            flagClass: "russian-flag",
+            flagSrc: "/assets/icons/russian_flag.svg"
           }
         }
       ]
@@ -637,7 +698,12 @@
       theme: "caatuu-ar.theme",
       fontSize: "caatuu-ar.font-size",
       learningPreferences: "caatuu-ar.learning.preferences.v1",
+      learningGoal: "caatuu-ar.learning.goal.v1",
+      learningGameSettings: "caatuu-ar.learning.game-settings.v1",
       learningPerformance: "caatuu-ar.learning.performance.v1",
+      learningPractice: "caatuu-ar.learning.practice.v1",
+      learningContent: "caatuu-ar.learning.content.v2",
+      speechVoice: "caatuu-ar.speech.voice.v1",
       semanticLearningDatabase: "caatuu-ar.semantic-learning",
       verbMemory: "caatuu-ar.verb-memory.v3",
       wordWorldTranslationMode: "caatuu-ar.word-world.translation-mode",

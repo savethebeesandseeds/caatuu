@@ -1,0 +1,1765 @@
+{
+  "schemaVersion": "caatuu-conjugation-comet-catalog-v1",
+  "id": "ru-authored-paradigms-v1",
+  "contentRevision": 1,
+  "courseId": "ru",
+  "targetLanguageId": "ru",
+  "targetLocale": "ru",
+  "learnerBaseLanguageId": "en",
+  "auditLanguageId": "en",
+  "variety": {
+    "id": "ru-standard",
+    "label": "Modern Russian",
+    "policyNoteEnglish": "A small authored set: present, past, imperfective future with быть, and one perfective future. Forms are written out. This is not a complete conjugator."
+  },
+  "review": {
+    "status": "native-review-required",
+    "noteEnglish": "Original Russian teaching examples for English speakers. Independent native review is still required. Cyrillic is the teaching script. No approved pronunciation or audio is claimed."
+  },
+  "license": {
+    "origin": "first-party-authored",
+    "status": "release-review-required",
+    "spdx": null,
+    "noteEnglish": "First-party Russian curriculum. Release review is still required. See docs/LICENSING.md#first-party-curriculum."
+  },
+  "authority": {
+    "kind": "authored-finite-catalog",
+    "dictionaryLookup": false,
+    "runtimeGeneration": false,
+    "englishAuditRequired": true
+  },
+  "copy": {
+    "title": "Conjugation Comet",
+    "meaningKicker": "Meaning check",
+    "meaningInstruction": "Choose the authored base-language meaning.",
+    "formsKicker": "Person and tense",
+    "formsInstruction": "Match each target-language form to its base-language cue.",
+    "meaningTargetHeading": "Target-language verb",
+    "meaningChoicesHeading": "Meaning choices",
+    "targetFormsHeading": "Target-language forms",
+    "baseCuesHeading": "Base-language cues",
+    "meaningBoardLabel": "Meaning matching board",
+    "formsBoardLabel": "Form matching board",
+    "infinitiveLabel": "Infinitive",
+    "hintLabel": "Show pattern",
+    "nextLabel": "Next verb",
+    "hearVerbTemplate": "Hear {verb}",
+    "hearFormTemplate": "Hear {form}",
+    "playingTemplate": "Playing {text}",
+    "matchedStateLabel": "matched",
+    "audioUnavailableTemplate": "{language} audio is unavailable on this device.",
+    "meaningStartFeedback": "Choose the base-language meaning before matching the forms.",
+    "wrongMeaningFeedback": "That is a different verb. Try another meaning.",
+    "correctMeaningTemplate": "Correct: {meaning}.",
+    "formsStartFeedback": "You may select either column first.",
+    "pairSelectedFeedback": "Now choose the matching card in the other column.",
+    "pairMatchedFeedback": "Matched. Keep going.",
+    "wrongPairFeedback": "Those cards use different person or number. Try again.",
+    "roundCompleteTemplate": "All forms matched for {verb}.",
+    "meaningProgressTemplate": "Verb {number} · meaning",
+    "formsProgressTemplate": "{matched} of {total} matched",
+    "progressLabel": "Round progress"
+  },
+  "verbs": [
+    {
+      "id": "ru-read-present",
+      "revision": 1,
+      "targetText": "чита́ть",
+      "learnerBaseText": "to read",
+      "englishAuditText": "to read",
+      "meaningChoiceBaseText": "to read",
+      "difficulty": 0,
+      "family": "present",
+      "lessonId": "ru-read-present",
+      "tags": [
+        "russian",
+        "present"
+      ],
+      "usefulness": 84,
+      "complexity": 16,
+      "teachingNoteBaseText": "Six present forms. She uses the same form as he, so she is not a separate card.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "я",
+          "subjectBaseText": "I",
+          "targetText": "чита́ю",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " кни́гу"
+          },
+          "learnerBaseCueText": "I read",
+          "englishAuditText": "I read",
+          "usefulness": 80,
+          "complexity": 16
+        },
+        {
+          "id": "you",
+          "revision": 1,
+          "subjectTargetText": "ты",
+          "subjectBaseText": "you",
+          "targetText": "чита́ешь",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " кни́гу"
+          },
+          "learnerBaseCueText": "You read",
+          "englishAuditText": "You read",
+          "usefulness": 80,
+          "complexity": 16
+        },
+        {
+          "id": "he",
+          "revision": 1,
+          "subjectTargetText": "он",
+          "subjectBaseText": "he",
+          "targetText": "чита́ет",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " кни́гу"
+          },
+          "learnerBaseCueText": "He reads",
+          "englishAuditText": "He reads",
+          "usefulness": 80,
+          "complexity": 16
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "мы",
+          "subjectBaseText": "we",
+          "targetText": "чита́ем",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " кни́гу"
+          },
+          "learnerBaseCueText": "We read",
+          "englishAuditText": "We read",
+          "usefulness": 80,
+          "complexity": 16
+        },
+        {
+          "id": "you-all",
+          "revision": 1,
+          "subjectTargetText": "вы",
+          "subjectBaseText": "you all",
+          "targetText": "чита́ете",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " кни́гу"
+          },
+          "learnerBaseCueText": "You all read",
+          "englishAuditText": "You all read",
+          "usefulness": 80,
+          "complexity": 16
+        },
+        {
+          "id": "they",
+          "revision": 1,
+          "subjectTargetText": "они",
+          "subjectBaseText": "they",
+          "targetText": "чита́ют",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " кни́гу"
+          },
+          "learnerBaseCueText": "They read",
+          "englishAuditText": "They read",
+          "usefulness": 80,
+          "complexity": 16
+        }
+      ]
+    },
+    {
+      "id": "ru-know-present",
+      "revision": 1,
+      "targetText": "зна́ть",
+      "learnerBaseText": "to know",
+      "englishAuditText": "to know",
+      "meaningChoiceBaseText": "to know",
+      "difficulty": 0,
+      "family": "present",
+      "lessonId": "ru-read-present",
+      "tags": [
+        "russian",
+        "present"
+      ],
+      "usefulness": 84,
+      "complexity": 16,
+      "teachingNoteBaseText": "Six present forms. She uses the same form as he, so she is not a separate card.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "я",
+          "subjectBaseText": "I",
+          "targetText": "зна́ю",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " отве́т"
+          },
+          "learnerBaseCueText": "I know",
+          "englishAuditText": "I know",
+          "usefulness": 80,
+          "complexity": 16
+        },
+        {
+          "id": "you",
+          "revision": 1,
+          "subjectTargetText": "ты",
+          "subjectBaseText": "you",
+          "targetText": "зна́ешь",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " отве́т"
+          },
+          "learnerBaseCueText": "You know",
+          "englishAuditText": "You know",
+          "usefulness": 80,
+          "complexity": 16
+        },
+        {
+          "id": "he",
+          "revision": 1,
+          "subjectTargetText": "он",
+          "subjectBaseText": "he",
+          "targetText": "зна́ет",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " отве́т"
+          },
+          "learnerBaseCueText": "He knows",
+          "englishAuditText": "He knows",
+          "usefulness": 80,
+          "complexity": 16
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "мы",
+          "subjectBaseText": "we",
+          "targetText": "зна́ем",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " отве́т"
+          },
+          "learnerBaseCueText": "We know",
+          "englishAuditText": "We know",
+          "usefulness": 80,
+          "complexity": 16
+        },
+        {
+          "id": "you-all",
+          "revision": 1,
+          "subjectTargetText": "вы",
+          "subjectBaseText": "you all",
+          "targetText": "зна́ете",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " отве́т"
+          },
+          "learnerBaseCueText": "You all know",
+          "englishAuditText": "You all know",
+          "usefulness": 80,
+          "complexity": 16
+        },
+        {
+          "id": "they",
+          "revision": 1,
+          "subjectTargetText": "они",
+          "subjectBaseText": "they",
+          "targetText": "зна́ют",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " отве́т"
+          },
+          "learnerBaseCueText": "They know",
+          "englishAuditText": "They know",
+          "usefulness": 80,
+          "complexity": 16
+        }
+      ]
+    },
+    {
+      "id": "ru-live-present",
+      "revision": 1,
+      "targetText": "жи́ть",
+      "learnerBaseText": "to live",
+      "englishAuditText": "to live",
+      "meaningChoiceBaseText": "to live",
+      "difficulty": 0,
+      "family": "present",
+      "lessonId": "ru-read-present",
+      "tags": [
+        "russian",
+        "present"
+      ],
+      "usefulness": 84,
+      "complexity": 16,
+      "teachingNoteBaseText": "Six present forms. She uses the same form as he, so she is not a separate card.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "я",
+          "subjectBaseText": "I",
+          "targetText": "живу́",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " зде́сь"
+          },
+          "learnerBaseCueText": "I live",
+          "englishAuditText": "I live",
+          "usefulness": 80,
+          "complexity": 16
+        },
+        {
+          "id": "you",
+          "revision": 1,
+          "subjectTargetText": "ты",
+          "subjectBaseText": "you",
+          "targetText": "живё́шь",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " зде́сь"
+          },
+          "learnerBaseCueText": "You live",
+          "englishAuditText": "You live",
+          "usefulness": 80,
+          "complexity": 16
+        },
+        {
+          "id": "he",
+          "revision": 1,
+          "subjectTargetText": "он",
+          "subjectBaseText": "he",
+          "targetText": "живё́т",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " зде́сь"
+          },
+          "learnerBaseCueText": "He lives",
+          "englishAuditText": "He lives",
+          "usefulness": 80,
+          "complexity": 16
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "мы",
+          "subjectBaseText": "we",
+          "targetText": "живё́м",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " зде́сь"
+          },
+          "learnerBaseCueText": "We live",
+          "englishAuditText": "We live",
+          "usefulness": 80,
+          "complexity": 16
+        },
+        {
+          "id": "you-all",
+          "revision": 1,
+          "subjectTargetText": "вы",
+          "subjectBaseText": "you all",
+          "targetText": "живё́те",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " зде́сь"
+          },
+          "learnerBaseCueText": "You all live",
+          "englishAuditText": "You all live",
+          "usefulness": 80,
+          "complexity": 16
+        },
+        {
+          "id": "they",
+          "revision": 1,
+          "subjectTargetText": "они",
+          "subjectBaseText": "they",
+          "targetText": "живу́т",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " зде́сь"
+          },
+          "learnerBaseCueText": "They live",
+          "englishAuditText": "They live",
+          "usefulness": 80,
+          "complexity": 16
+        }
+      ]
+    },
+    {
+      "id": "ru-speak-present",
+      "revision": 1,
+      "targetText": "говори́ть",
+      "learnerBaseText": "to speak",
+      "englishAuditText": "to speak",
+      "meaningChoiceBaseText": "to speak",
+      "difficulty": 1,
+      "family": "present",
+      "lessonId": "ru-present",
+      "tags": [
+        "russian",
+        "present"
+      ],
+      "usefulness": 84,
+      "complexity": 28,
+      "teachingNoteBaseText": "Six present forms. She uses the same form as he, so she is not a separate card.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "я",
+          "subjectBaseText": "I",
+          "targetText": "говорю́",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " по-ру́сски"
+          },
+          "learnerBaseCueText": "I speak",
+          "englishAuditText": "I speak",
+          "usefulness": 80,
+          "complexity": 28
+        },
+        {
+          "id": "you",
+          "revision": 1,
+          "subjectTargetText": "ты",
+          "subjectBaseText": "you",
+          "targetText": "говори́шь",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " по-ру́сски"
+          },
+          "learnerBaseCueText": "You speak",
+          "englishAuditText": "You speak",
+          "usefulness": 80,
+          "complexity": 28
+        },
+        {
+          "id": "he",
+          "revision": 1,
+          "subjectTargetText": "он",
+          "subjectBaseText": "he",
+          "targetText": "говори́т",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " по-ру́сски"
+          },
+          "learnerBaseCueText": "He speaks",
+          "englishAuditText": "He speaks",
+          "usefulness": 80,
+          "complexity": 28
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "мы",
+          "subjectBaseText": "we",
+          "targetText": "говори́м",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " по-ру́сски"
+          },
+          "learnerBaseCueText": "We speak",
+          "englishAuditText": "We speak",
+          "usefulness": 80,
+          "complexity": 28
+        },
+        {
+          "id": "you-all",
+          "revision": 1,
+          "subjectTargetText": "вы",
+          "subjectBaseText": "you all",
+          "targetText": "говори́те",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " по-ру́сски"
+          },
+          "learnerBaseCueText": "You all speak",
+          "englishAuditText": "You all speak",
+          "usefulness": 80,
+          "complexity": 28
+        },
+        {
+          "id": "they",
+          "revision": 1,
+          "subjectTargetText": "они",
+          "subjectBaseText": "they",
+          "targetText": "говоря́т",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " по-ру́сски"
+          },
+          "learnerBaseCueText": "They speak",
+          "englishAuditText": "They speak",
+          "usefulness": 80,
+          "complexity": 28
+        }
+      ]
+    },
+    {
+      "id": "ru-work-present",
+      "revision": 1,
+      "targetText": "рабо́тать",
+      "learnerBaseText": "to work",
+      "englishAuditText": "to work",
+      "meaningChoiceBaseText": "to work",
+      "difficulty": 1,
+      "family": "present",
+      "lessonId": "ru-present",
+      "tags": [
+        "russian",
+        "present"
+      ],
+      "usefulness": 84,
+      "complexity": 28,
+      "teachingNoteBaseText": "Six present forms. She uses the same form as he, so she is not a separate card.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "я",
+          "subjectBaseText": "I",
+          "targetText": "рабо́таю",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " до́ма"
+          },
+          "learnerBaseCueText": "I work",
+          "englishAuditText": "I work",
+          "usefulness": 80,
+          "complexity": 28
+        },
+        {
+          "id": "you",
+          "revision": 1,
+          "subjectTargetText": "ты",
+          "subjectBaseText": "you",
+          "targetText": "рабо́таешь",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " до́ма"
+          },
+          "learnerBaseCueText": "You work",
+          "englishAuditText": "You work",
+          "usefulness": 80,
+          "complexity": 28
+        },
+        {
+          "id": "he",
+          "revision": 1,
+          "subjectTargetText": "он",
+          "subjectBaseText": "he",
+          "targetText": "рабо́тает",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " до́ма"
+          },
+          "learnerBaseCueText": "He works",
+          "englishAuditText": "He works",
+          "usefulness": 80,
+          "complexity": 28
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "мы",
+          "subjectBaseText": "we",
+          "targetText": "рабо́таем",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " до́ма"
+          },
+          "learnerBaseCueText": "We work",
+          "englishAuditText": "We work",
+          "usefulness": 80,
+          "complexity": 28
+        },
+        {
+          "id": "you-all",
+          "revision": 1,
+          "subjectTargetText": "вы",
+          "subjectBaseText": "you all",
+          "targetText": "рабо́таете",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " до́ма"
+          },
+          "learnerBaseCueText": "You all work",
+          "englishAuditText": "You all work",
+          "usefulness": 80,
+          "complexity": 28
+        },
+        {
+          "id": "they",
+          "revision": 1,
+          "subjectTargetText": "они",
+          "subjectBaseText": "they",
+          "targetText": "рабо́тают",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " до́ма"
+          },
+          "learnerBaseCueText": "They work",
+          "englishAuditText": "They work",
+          "usefulness": 80,
+          "complexity": 28
+        }
+      ]
+    },
+    {
+      "id": "ru-write-present",
+      "revision": 1,
+      "targetText": "писа́ть",
+      "learnerBaseText": "to write",
+      "englishAuditText": "to write",
+      "meaningChoiceBaseText": "to write",
+      "difficulty": 1,
+      "family": "present",
+      "lessonId": "ru-present",
+      "tags": [
+        "russian",
+        "present"
+      ],
+      "usefulness": 84,
+      "complexity": 28,
+      "teachingNoteBaseText": "Six present forms. She uses the same form as he, so she is not a separate card.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "я",
+          "subjectBaseText": "I",
+          "targetText": "пишу́",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " письмо́"
+          },
+          "learnerBaseCueText": "I write",
+          "englishAuditText": "I write",
+          "usefulness": 80,
+          "complexity": 28
+        },
+        {
+          "id": "you",
+          "revision": 1,
+          "subjectTargetText": "ты",
+          "subjectBaseText": "you",
+          "targetText": "пи́шешь",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " письмо́"
+          },
+          "learnerBaseCueText": "You write",
+          "englishAuditText": "You write",
+          "usefulness": 80,
+          "complexity": 28
+        },
+        {
+          "id": "he",
+          "revision": 1,
+          "subjectTargetText": "он",
+          "subjectBaseText": "he",
+          "targetText": "пи́шет",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " письмо́"
+          },
+          "learnerBaseCueText": "He writes",
+          "englishAuditText": "He writes",
+          "usefulness": 80,
+          "complexity": 28
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "мы",
+          "subjectBaseText": "we",
+          "targetText": "пи́шем",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " письмо́"
+          },
+          "learnerBaseCueText": "We write",
+          "englishAuditText": "We write",
+          "usefulness": 80,
+          "complexity": 28
+        },
+        {
+          "id": "you-all",
+          "revision": 1,
+          "subjectTargetText": "вы",
+          "subjectBaseText": "you all",
+          "targetText": "пи́шете",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " письмо́"
+          },
+          "learnerBaseCueText": "You all write",
+          "englishAuditText": "You all write",
+          "usefulness": 80,
+          "complexity": 28
+        },
+        {
+          "id": "they",
+          "revision": 1,
+          "subjectTargetText": "они",
+          "subjectBaseText": "they",
+          "targetText": "пи́шут",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " письмо́"
+          },
+          "learnerBaseCueText": "They write",
+          "englishAuditText": "They write",
+          "usefulness": 80,
+          "complexity": 28
+        }
+      ]
+    },
+    {
+      "id": "ru-see-present",
+      "revision": 1,
+      "targetText": "ви́деть",
+      "learnerBaseText": "to see",
+      "englishAuditText": "to see",
+      "meaningChoiceBaseText": "to see",
+      "difficulty": 1,
+      "family": "present",
+      "lessonId": "ru-present",
+      "tags": [
+        "russian",
+        "present"
+      ],
+      "usefulness": 84,
+      "complexity": 28,
+      "teachingNoteBaseText": "Six present forms. She uses the same form as he, so she is not a separate card.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "я",
+          "subjectBaseText": "I",
+          "targetText": "ви́жу",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " до́м"
+          },
+          "learnerBaseCueText": "I see",
+          "englishAuditText": "I see",
+          "usefulness": 80,
+          "complexity": 28
+        },
+        {
+          "id": "you",
+          "revision": 1,
+          "subjectTargetText": "ты",
+          "subjectBaseText": "you",
+          "targetText": "ви́дишь",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " до́м"
+          },
+          "learnerBaseCueText": "You see",
+          "englishAuditText": "You see",
+          "usefulness": 80,
+          "complexity": 28
+        },
+        {
+          "id": "he",
+          "revision": 1,
+          "subjectTargetText": "он",
+          "subjectBaseText": "he",
+          "targetText": "ви́дит",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " до́м"
+          },
+          "learnerBaseCueText": "He sees",
+          "englishAuditText": "He sees",
+          "usefulness": 80,
+          "complexity": 28
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "мы",
+          "subjectBaseText": "we",
+          "targetText": "ви́дим",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " до́м"
+          },
+          "learnerBaseCueText": "We see",
+          "englishAuditText": "We see",
+          "usefulness": 80,
+          "complexity": 28
+        },
+        {
+          "id": "you-all",
+          "revision": 1,
+          "subjectTargetText": "вы",
+          "subjectBaseText": "you all",
+          "targetText": "ви́дите",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " до́м"
+          },
+          "learnerBaseCueText": "You all see",
+          "englishAuditText": "You all see",
+          "usefulness": 80,
+          "complexity": 28
+        },
+        {
+          "id": "they",
+          "revision": 1,
+          "subjectTargetText": "они",
+          "subjectBaseText": "they",
+          "targetText": "ви́дят",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " до́м"
+          },
+          "learnerBaseCueText": "They see",
+          "englishAuditText": "They see",
+          "usefulness": 80,
+          "complexity": 28
+        }
+      ]
+    },
+    {
+      "id": "ru-want-present",
+      "revision": 1,
+      "targetText": "хоте́ть",
+      "learnerBaseText": "to want",
+      "englishAuditText": "to want",
+      "meaningChoiceBaseText": "to want",
+      "difficulty": 2,
+      "family": "present",
+      "lessonId": "ru-present",
+      "tags": [
+        "russian",
+        "present"
+      ],
+      "usefulness": 84,
+      "complexity": 40,
+      "teachingNoteBaseText": "Six present forms. She uses the same form as he, so she is not a separate card.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "я",
+          "subjectBaseText": "I",
+          "targetText": "хочу́",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ча́й"
+          },
+          "learnerBaseCueText": "I want",
+          "englishAuditText": "I want",
+          "usefulness": 80,
+          "complexity": 40
+        },
+        {
+          "id": "you",
+          "revision": 1,
+          "subjectTargetText": "ты",
+          "subjectBaseText": "you",
+          "targetText": "хо́чешь",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ча́й"
+          },
+          "learnerBaseCueText": "You want",
+          "englishAuditText": "You want",
+          "usefulness": 80,
+          "complexity": 40
+        },
+        {
+          "id": "he",
+          "revision": 1,
+          "subjectTargetText": "он",
+          "subjectBaseText": "he",
+          "targetText": "хо́чет",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ча́й"
+          },
+          "learnerBaseCueText": "He wants",
+          "englishAuditText": "He wants",
+          "usefulness": 80,
+          "complexity": 40
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "мы",
+          "subjectBaseText": "we",
+          "targetText": "хоти́м",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ча́й"
+          },
+          "learnerBaseCueText": "We want",
+          "englishAuditText": "We want",
+          "usefulness": 80,
+          "complexity": 40
+        },
+        {
+          "id": "you-all",
+          "revision": 1,
+          "subjectTargetText": "вы",
+          "subjectBaseText": "you all",
+          "targetText": "хоти́те",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ча́й"
+          },
+          "learnerBaseCueText": "You all want",
+          "englishAuditText": "You all want",
+          "usefulness": 80,
+          "complexity": 40
+        },
+        {
+          "id": "they",
+          "revision": 1,
+          "subjectTargetText": "они",
+          "subjectBaseText": "they",
+          "targetText": "хотя́т",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " ча́й"
+          },
+          "learnerBaseCueText": "They want",
+          "englishAuditText": "They want",
+          "usefulness": 80,
+          "complexity": 40
+        }
+      ]
+    },
+    {
+      "id": "ru-can-present",
+      "revision": 1,
+      "targetText": "мо́чь",
+      "learnerBaseText": "to be able to",
+      "englishAuditText": "to be able to",
+      "meaningChoiceBaseText": "to be able to",
+      "difficulty": 2,
+      "family": "present",
+      "lessonId": "ru-present",
+      "tags": [
+        "russian",
+        "present"
+      ],
+      "usefulness": 84,
+      "complexity": 40,
+      "teachingNoteBaseText": "Six present forms of мочь with one infinitive. She uses the same form as he.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "я",
+          "subjectBaseText": "I",
+          "targetText": "могу́",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " чита́ть"
+          },
+          "learnerBaseCueText": "I can read",
+          "englishAuditText": "I can read",
+          "usefulness": 80,
+          "complexity": 40
+        },
+        {
+          "id": "you",
+          "revision": 1,
+          "subjectTargetText": "ты",
+          "subjectBaseText": "you",
+          "targetText": "мо́жешь",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " чита́ть"
+          },
+          "learnerBaseCueText": "You can read",
+          "englishAuditText": "You can read",
+          "usefulness": 80,
+          "complexity": 40
+        },
+        {
+          "id": "he",
+          "revision": 1,
+          "subjectTargetText": "он",
+          "subjectBaseText": "he",
+          "targetText": "мо́жет",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " чита́ть"
+          },
+          "learnerBaseCueText": "He can read",
+          "englishAuditText": "He can read",
+          "usefulness": 80,
+          "complexity": 40
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "мы",
+          "subjectBaseText": "we",
+          "targetText": "мо́жем",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " чита́ть"
+          },
+          "learnerBaseCueText": "We can read",
+          "englishAuditText": "We can read",
+          "usefulness": 80,
+          "complexity": 40
+        },
+        {
+          "id": "you-all",
+          "revision": 1,
+          "subjectTargetText": "вы",
+          "subjectBaseText": "you all",
+          "targetText": "мо́жете",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " чита́ть"
+          },
+          "learnerBaseCueText": "You all can read",
+          "englishAuditText": "You all can read",
+          "usefulness": 80,
+          "complexity": 40
+        },
+        {
+          "id": "they",
+          "revision": 1,
+          "subjectTargetText": "они",
+          "subjectBaseText": "they",
+          "targetText": "мо́гут",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " чита́ть"
+          },
+          "learnerBaseCueText": "They can read",
+          "englishAuditText": "They can read",
+          "usefulness": 80,
+          "complexity": 40
+        }
+      ]
+    },
+    {
+      "id": "ru-go-present",
+      "revision": 1,
+      "targetText": "идти́",
+      "learnerBaseText": "to go on foot (one way)",
+      "englishAuditText": "to go on foot (one way)",
+      "meaningChoiceBaseText": "to go on foot (one way)",
+      "difficulty": 2,
+      "family": "present",
+      "lessonId": "ru-present",
+      "tags": [
+        "russian",
+        "present"
+      ],
+      "usefulness": 84,
+      "complexity": 40,
+      "teachingNoteBaseText": "Six present forms of one-way motion. She uses the same form as he.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "я",
+          "subjectBaseText": "I",
+          "targetText": "иду́",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " в па́рк"
+          },
+          "learnerBaseCueText": "I go",
+          "englishAuditText": "I go",
+          "usefulness": 80,
+          "complexity": 40
+        },
+        {
+          "id": "you",
+          "revision": 1,
+          "subjectTargetText": "ты",
+          "subjectBaseText": "you",
+          "targetText": "идё́шь",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " в па́рк"
+          },
+          "learnerBaseCueText": "You go",
+          "englishAuditText": "You go",
+          "usefulness": 80,
+          "complexity": 40
+        },
+        {
+          "id": "he",
+          "revision": 1,
+          "subjectTargetText": "он",
+          "subjectBaseText": "he",
+          "targetText": "идё́т",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " в па́рк"
+          },
+          "learnerBaseCueText": "He goes",
+          "englishAuditText": "He goes",
+          "usefulness": 80,
+          "complexity": 40
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "мы",
+          "subjectBaseText": "we",
+          "targetText": "идё́м",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " в па́рк"
+          },
+          "learnerBaseCueText": "We go",
+          "englishAuditText": "We go",
+          "usefulness": 80,
+          "complexity": 40
+        },
+        {
+          "id": "you-all",
+          "revision": 1,
+          "subjectTargetText": "вы",
+          "subjectBaseText": "you all",
+          "targetText": "идё́те",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " в па́рк"
+          },
+          "learnerBaseCueText": "You all go",
+          "englishAuditText": "You all go",
+          "usefulness": 80,
+          "complexity": 40
+        },
+        {
+          "id": "they",
+          "revision": 1,
+          "subjectTargetText": "они",
+          "subjectBaseText": "they",
+          "targetText": "иду́т",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " в па́рк"
+          },
+          "learnerBaseCueText": "They go",
+          "englishAuditText": "They go",
+          "usefulness": 80,
+          "complexity": 40
+        }
+      ]
+    },
+    {
+      "id": "ru-drink-present",
+      "revision": 1,
+      "targetText": "пи́ть",
+      "learnerBaseText": "to drink",
+      "englishAuditText": "to drink",
+      "meaningChoiceBaseText": "to drink",
+      "difficulty": 2,
+      "family": "present",
+      "lessonId": "ru-present",
+      "tags": [
+        "russian",
+        "present"
+      ],
+      "usefulness": 84,
+      "complexity": 40,
+      "teachingNoteBaseText": "Six present forms. She uses the same form as he, so she is not a separate card.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "я",
+          "subjectBaseText": "I",
+          "targetText": "пью́",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " во́ду"
+          },
+          "learnerBaseCueText": "I drink",
+          "englishAuditText": "I drink",
+          "usefulness": 80,
+          "complexity": 40
+        },
+        {
+          "id": "you",
+          "revision": 1,
+          "subjectTargetText": "ты",
+          "subjectBaseText": "you",
+          "targetText": "пьё́шь",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " во́ду"
+          },
+          "learnerBaseCueText": "You drink",
+          "englishAuditText": "You drink",
+          "usefulness": 80,
+          "complexity": 40
+        },
+        {
+          "id": "he",
+          "revision": 1,
+          "subjectTargetText": "он",
+          "subjectBaseText": "he",
+          "targetText": "пьё́т",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " во́ду"
+          },
+          "learnerBaseCueText": "He drinks",
+          "englishAuditText": "He drinks",
+          "usefulness": 80,
+          "complexity": 40
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "мы",
+          "subjectBaseText": "we",
+          "targetText": "пьё́м",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " во́ду"
+          },
+          "learnerBaseCueText": "We drink",
+          "englishAuditText": "We drink",
+          "usefulness": 80,
+          "complexity": 40
+        },
+        {
+          "id": "you-all",
+          "revision": 1,
+          "subjectTargetText": "вы",
+          "subjectBaseText": "you all",
+          "targetText": "пьё́те",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " во́ду"
+          },
+          "learnerBaseCueText": "You all drink",
+          "englishAuditText": "You all drink",
+          "usefulness": 80,
+          "complexity": 40
+        },
+        {
+          "id": "they",
+          "revision": 1,
+          "subjectTargetText": "они",
+          "subjectBaseText": "they",
+          "targetText": "пью́т",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " во́ду"
+          },
+          "learnerBaseCueText": "They drink",
+          "englishAuditText": "They drink",
+          "usefulness": 80,
+          "complexity": 40
+        }
+      ]
+    },
+    {
+      "id": "ru-eat-present",
+      "revision": 1,
+      "targetText": "е́сть",
+      "learnerBaseText": "to eat",
+      "englishAuditText": "to eat",
+      "meaningChoiceBaseText": "to eat",
+      "difficulty": 2,
+      "family": "present",
+      "lessonId": "ru-present",
+      "tags": [
+        "russian",
+        "present"
+      ],
+      "usefulness": 84,
+      "complexity": 40,
+      "teachingNoteBaseText": "Six present forms of есть, to eat. She uses the same form as he.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "я",
+          "subjectBaseText": "I",
+          "targetText": "е́м",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " хле́б"
+          },
+          "learnerBaseCueText": "I eat",
+          "englishAuditText": "I eat",
+          "usefulness": 80,
+          "complexity": 40
+        },
+        {
+          "id": "you",
+          "revision": 1,
+          "subjectTargetText": "ты",
+          "subjectBaseText": "you",
+          "targetText": "е́шь",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " хле́б"
+          },
+          "learnerBaseCueText": "You eat",
+          "englishAuditText": "You eat",
+          "usefulness": 80,
+          "complexity": 40
+        },
+        {
+          "id": "he",
+          "revision": 1,
+          "subjectTargetText": "он",
+          "subjectBaseText": "he",
+          "targetText": "е́ст",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " хле́б"
+          },
+          "learnerBaseCueText": "He eats",
+          "englishAuditText": "He eats",
+          "usefulness": 80,
+          "complexity": 40
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "мы",
+          "subjectBaseText": "we",
+          "targetText": "еди́м",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " хле́б"
+          },
+          "learnerBaseCueText": "We eat",
+          "englishAuditText": "We eat",
+          "usefulness": 80,
+          "complexity": 40
+        },
+        {
+          "id": "you-all",
+          "revision": 1,
+          "subjectTargetText": "вы",
+          "subjectBaseText": "you all",
+          "targetText": "еди́те",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " хле́б"
+          },
+          "learnerBaseCueText": "You all eat",
+          "englishAuditText": "You all eat",
+          "usefulness": 80,
+          "complexity": 40
+        },
+        {
+          "id": "they",
+          "revision": 1,
+          "subjectTargetText": "они",
+          "subjectBaseText": "they",
+          "targetText": "едя́т",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " хле́б"
+          },
+          "learnerBaseCueText": "They eat",
+          "englishAuditText": "They eat",
+          "usefulness": 80,
+          "complexity": 40
+        }
+      ]
+    },
+    {
+      "id": "ru-read-future",
+      "revision": 1,
+      "targetText": "бы́ть чита́ть",
+      "learnerBaseText": "to read later",
+      "englishAuditText": "to read later",
+      "meaningChoiceBaseText": "to read later",
+      "difficulty": 3,
+      "family": "present",
+      "lessonId": "ru-present",
+      "tags": [
+        "russian",
+        "present"
+      ],
+      "usefulness": 84,
+      "complexity": 60,
+      "teachingNoteBaseText": "Imperfective future is быть plus the infinitive. Each card is one authored phrase.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "я",
+          "subjectBaseText": "I",
+          "targetText": "бу́ду чита́ть",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " кни́гу"
+          },
+          "learnerBaseCueText": "I will read",
+          "englishAuditText": "I will read",
+          "usefulness": 80,
+          "complexity": 60
+        },
+        {
+          "id": "you",
+          "revision": 1,
+          "subjectTargetText": "ты",
+          "subjectBaseText": "you",
+          "targetText": "бу́дешь чита́ть",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " кни́гу"
+          },
+          "learnerBaseCueText": "You will read",
+          "englishAuditText": "You will read",
+          "usefulness": 80,
+          "complexity": 60
+        },
+        {
+          "id": "he",
+          "revision": 1,
+          "subjectTargetText": "он",
+          "subjectBaseText": "he",
+          "targetText": "бу́дет чита́ть",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " кни́гу"
+          },
+          "learnerBaseCueText": "He will read",
+          "englishAuditText": "He will read",
+          "usefulness": 80,
+          "complexity": 60
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "мы",
+          "subjectBaseText": "we",
+          "targetText": "бу́дем чита́ть",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " кни́гу"
+          },
+          "learnerBaseCueText": "We will read",
+          "englishAuditText": "We will read",
+          "usefulness": 80,
+          "complexity": 60
+        },
+        {
+          "id": "you-all",
+          "revision": 1,
+          "subjectTargetText": "вы",
+          "subjectBaseText": "you all",
+          "targetText": "бу́дете чита́ть",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " кни́гу"
+          },
+          "learnerBaseCueText": "You all will read",
+          "englishAuditText": "You all will read",
+          "usefulness": 80,
+          "complexity": 60
+        },
+        {
+          "id": "they",
+          "revision": 1,
+          "subjectTargetText": "они",
+          "subjectBaseText": "they",
+          "targetText": "бу́дут чита́ть",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " кни́гу"
+          },
+          "learnerBaseCueText": "They will read",
+          "englishAuditText": "They will read",
+          "usefulness": 80,
+          "complexity": 60
+        }
+      ]
+    },
+    {
+      "id": "ru-finish-future",
+      "revision": 1,
+      "targetText": "прочита́ть",
+      "learnerBaseText": "to finish reading",
+      "englishAuditText": "to finish reading",
+      "meaningChoiceBaseText": "to finish reading",
+      "difficulty": 3,
+      "family": "present",
+      "lessonId": "ru-present",
+      "tags": [
+        "russian",
+        "present"
+      ],
+      "usefulness": 84,
+      "complexity": 68,
+      "teachingNoteBaseText": "Perfective future uses the present-tense endings. This is not the same board as imperfective читать.",
+      "forms": [
+        {
+          "id": "i",
+          "revision": 1,
+          "subjectTargetText": "я",
+          "subjectBaseText": "I",
+          "targetText": "прочита́ю",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " кни́гу"
+          },
+          "learnerBaseCueText": "I will finish",
+          "englishAuditText": "I will finish",
+          "usefulness": 80,
+          "complexity": 68
+        },
+        {
+          "id": "you",
+          "revision": 1,
+          "subjectTargetText": "ты",
+          "subjectBaseText": "you",
+          "targetText": "прочита́ешь",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " кни́гу"
+          },
+          "learnerBaseCueText": "You will finish",
+          "englishAuditText": "You will finish",
+          "usefulness": 80,
+          "complexity": 68
+        },
+        {
+          "id": "he",
+          "revision": 1,
+          "subjectTargetText": "он",
+          "subjectBaseText": "he",
+          "targetText": "прочита́ет",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " кни́гу"
+          },
+          "learnerBaseCueText": "He will finish",
+          "englishAuditText": "He will finish",
+          "usefulness": 80,
+          "complexity": 68
+        },
+        {
+          "id": "we",
+          "revision": 1,
+          "subjectTargetText": "мы",
+          "subjectBaseText": "we",
+          "targetText": "прочита́ем",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " кни́гу"
+          },
+          "learnerBaseCueText": "We will finish",
+          "englishAuditText": "We will finish",
+          "usefulness": 80,
+          "complexity": 68
+        },
+        {
+          "id": "you-all",
+          "revision": 1,
+          "subjectTargetText": "вы",
+          "subjectBaseText": "you all",
+          "targetText": "прочита́ете",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " кни́гу"
+          },
+          "learnerBaseCueText": "You all will finish",
+          "englishAuditText": "You all will finish",
+          "usefulness": 80,
+          "complexity": 68
+        },
+        {
+          "id": "they",
+          "revision": 1,
+          "subjectTargetText": "они",
+          "subjectBaseText": "they",
+          "targetText": "прочита́ют",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " кни́гу"
+          },
+          "learnerBaseCueText": "They will finish",
+          "englishAuditText": "They will finish",
+          "usefulness": 80,
+          "complexity": 68
+        }
+      ]
+    },
+    {
+      "id": "ru-be-past",
+      "revision": 1,
+      "targetText": "бы́ть",
+      "learnerBaseText": "to be in the past",
+      "englishAuditText": "to be in the past",
+      "meaningChoiceBaseText": "to be in the past",
+      "difficulty": 2,
+      "family": "past",
+      "lessonId": "ru-past",
+      "tags": [
+        "russian",
+        "past"
+      ],
+      "usefulness": 80,
+      "complexity": 44,
+      "teachingNoteBaseText": "The past board has four distinct forms: he, she, it, and they.",
+      "forms": [
+        {
+          "id": "he",
+          "revision": 1,
+          "subjectTargetText": "он",
+          "subjectBaseText": "he",
+          "targetText": "бы́л",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " до́ма"
+          },
+          "learnerBaseCueText": "He was",
+          "englishAuditText": "He was",
+          "usefulness": 80,
+          "complexity": 44
+        },
+        {
+          "id": "she",
+          "revision": 1,
+          "subjectTargetText": "она",
+          "subjectBaseText": "she",
+          "targetText": "была́",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " до́ма"
+          },
+          "learnerBaseCueText": "She was",
+          "englishAuditText": "She was",
+          "usefulness": 80,
+          "complexity": 44
+        },
+        {
+          "id": "it",
+          "revision": 1,
+          "subjectTargetText": "оно",
+          "subjectBaseText": "it",
+          "targetText": "бы́ло",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " до́ма"
+          },
+          "learnerBaseCueText": "It was",
+          "englishAuditText": "It was",
+          "usefulness": 80,
+          "complexity": 44
+        },
+        {
+          "id": "they",
+          "revision": 1,
+          "subjectTargetText": "они",
+          "subjectBaseText": "they",
+          "targetText": "бы́ли",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " до́ма"
+          },
+          "learnerBaseCueText": "They were",
+          "englishAuditText": "They were",
+          "usefulness": 80,
+          "complexity": 44
+        }
+      ]
+    },
+    {
+      "id": "ru-read-past",
+      "revision": 1,
+      "targetText": "чита́ть",
+      "learnerBaseText": "to read in the past",
+      "englishAuditText": "to read in the past",
+      "meaningChoiceBaseText": "to read in the past",
+      "difficulty": 3,
+      "family": "past",
+      "lessonId": "ru-past",
+      "tags": [
+        "russian",
+        "past"
+      ],
+      "usefulness": 74,
+      "complexity": 55,
+      "teachingNoteBaseText": "The past board has four distinct forms: he, she, it, and they. The я masculine form matches он, so it is not repeated.",
+      "forms": [
+        {
+          "id": "he",
+          "revision": 1,
+          "subjectTargetText": "он",
+          "subjectBaseText": "he",
+          "targetText": "чита́л",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " кни́гу"
+          },
+          "learnerBaseCueText": "He read",
+          "englishAuditText": "He read",
+          "usefulness": 80,
+          "complexity": 55
+        },
+        {
+          "id": "she",
+          "revision": 1,
+          "subjectTargetText": "она",
+          "subjectBaseText": "she",
+          "targetText": "чита́ла",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " кни́гу"
+          },
+          "learnerBaseCueText": "She read",
+          "englishAuditText": "She read",
+          "usefulness": 80,
+          "complexity": 55
+        },
+        {
+          "id": "it",
+          "revision": 1,
+          "subjectTargetText": "оно",
+          "subjectBaseText": "it",
+          "targetText": "чита́ло",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " кни́гу"
+          },
+          "learnerBaseCueText": "It read",
+          "englishAuditText": "It read",
+          "usefulness": 80,
+          "complexity": 55
+        },
+        {
+          "id": "they",
+          "revision": 1,
+          "subjectTargetText": "они",
+          "subjectBaseText": "they",
+          "targetText": "чита́ли",
+          "targetPhraseFrame": {
+            "beforeText": "",
+            "afterText": " кни́гу"
+          },
+          "learnerBaseCueText": "They read",
+          "englishAuditText": "They read",
+          "usefulness": 80,
+          "complexity": 55
+        }
+      ]
+    }
+  ]
+}

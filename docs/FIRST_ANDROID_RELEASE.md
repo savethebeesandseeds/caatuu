@@ -39,7 +39,9 @@ users bypassing or disabling Play Protect.
 not for background installation. The dedicated Google Play variant must omit
 that permission and leave updates to the store. The signed direct-download
 variant may retain the updater only if its user interaction, provenance,
-privacy implications, and failure recovery are reviewed explicitly.
+privacy implications, and failure recovery are reviewed explicitly. That review
+is recorded in [Play Protect warnings](PLAY_PROTECT_WARNINGS.md): Android 199
+ships the direct product without the permission and without an in-app installer.
 
 ## Maintainer decisions before release work
 

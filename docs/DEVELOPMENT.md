@@ -148,10 +148,12 @@ Android command-line tools and build dependencies belong to the maintained
 container workflow under [`apps/android/tooling`](../apps/android/tooling/).
 Development APKs are written to the ignored `artifacts/android/` directory.
 The Android bundle is `apps/android/course-bundle.json`. It contains every
-course in `apps/languages/catalog.json`. Each course manifest sets
-`platforms.android.enabled` and the first `minimumVersionCode` that may carry
-it. Arabic, Scientific Latin, and Georgian keep `pagesEnabled` false while
-remaining in that Android bundle.
+catalog course whose Android platform is enabled. Each course manifest sets
+`platforms.android.enabled` and, when Android is enabled, the first
+`minimumVersionCode` that may carry it. Russian is registered for the browser
+with Android disabled, so the bundle does not include it. Arabic, Scientific
+Latin, and Georgian keep `pagesEnabled` false while remaining in that Android
+bundle.
 
 Phone-debug exposure is a deliberate trusted-LAN override:
 

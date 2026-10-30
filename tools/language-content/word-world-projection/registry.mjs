@@ -2,12 +2,14 @@ import { englishAmericanWordWorldProjectionPolicy } from "./english-american.mjs
 import { arabicStandardWordWorldProjectionPolicy } from "./arabic-standard.mjs";
 import { latinScientificWordWorldProjectionPolicy } from "./latin-scientific.mjs";
 import { georgianWordWorldProjectionPolicy } from "./georgian.mjs";
+import { russianWordWorldProjectionPolicy } from "./russian.mjs";
 import { mandarinSimplifiedWordWorldProjectionPolicy } from "./mandarin-simplified.mjs";
 import { norwegianBokmalWordWorldProjectionPolicy } from "./norwegian-bokmal.mjs";
 import { spanishSpainWordWorldProjectionPolicy } from "./spanish-spain.mjs";
 
 const POLICIES = new Map([
   [georgianWordWorldProjectionPolicy.contentPolicyId, georgianWordWorldProjectionPolicy],
+  [russianWordWorldProjectionPolicy.contentPolicyId, russianWordWorldProjectionPolicy],
   [latinScientificWordWorldProjectionPolicy.contentPolicyId, latinScientificWordWorldProjectionPolicy],
   [arabicStandardWordWorldProjectionPolicy.contentPolicyId, arabicStandardWordWorldProjectionPolicy],
   [englishAmericanWordWorldProjectionPolicy.contentPolicyId, englishAmericanWordWorldProjectionPolicy],

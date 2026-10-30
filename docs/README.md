@@ -34,6 +34,8 @@ and implementation details stay beside the relevant app or tool.
 | [First Android release map](RELEASE_MAP.md) | Ordered product, content, packaging, legal, business, testing, and Play gates for `v0.1.0` |
 | [Release policy](RELEASING.md) | Channels, versioning, artifact integrity, and release gates |
 | [First Android release](FIRST_ANDROID_RELEASE.md) | Planning decisions, signing posture, Play Protect notes, and candidate evidence |
+| [Play Protect warnings](PLAY_PROTECT_WARNINGS.md) | Sideload warning record, the Android 199 fix, and ideas for the next warning |
+| [Learner data](LEARNER_DATA.md) | On-device progress record, the one backup slot, and the later export boundary |
 
 ## Governance
 

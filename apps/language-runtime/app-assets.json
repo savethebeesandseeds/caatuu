@@ -571,6 +571,14 @@
       "output": "language-runtime/static/source/maintenance-ui.js"
     },
     {
+      "source": "apps/language-runtime/static/source/learner-record.mjs",
+      "output": "language-runtime/static/source/learner-record.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/data/learner-record-registry.json",
+      "output": "language-runtime/static/data/learner-record-registry.json"
+    },
+    {
       "source": "apps/language-runtime/static/source/product-word-world.mjs",
       "output": "language-runtime/static/source/product-word-world.mjs"
     },
@@ -601,6 +609,10 @@
     {
       "source": "apps/language-runtime/static/source/georgian-romanization.mjs",
       "output": "language-runtime/static/source/georgian-romanization.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/russian-romanization.mjs",
+      "output": "language-runtime/static/source/russian-romanization.mjs"
     },
     {
       "source": "apps/language-runtime/static/source/target-reading-guide.mjs",
@@ -1383,8 +1395,16 @@
       "output": "assets/icons/georgian_flag.svg"
     },
     {
+      "source": "apps/language-runtime/static/assets/home/russian_flag.svg",
+      "output": "assets/icons/russian_flag.svg"
+    },
+    {
       "source": "apps/language-runtime/static/data/english-concepts/word-world-ka-v1.json",
       "output": "language-runtime/static/data/english-concepts/word-world-ka-v1.json"
+    },
+    {
+      "source": "apps/language-runtime/static/data/english-concepts/word-world-ru-v1.json",
+      "output": "language-runtime/static/data/english-concepts/word-world-ru-v1.json"
     },
     {
       "source": "apps/language-runtime/static/source/games/naturalization-nucleus/naturalization-nucleus.js",

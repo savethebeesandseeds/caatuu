@@ -1,0 +1,1684 @@
+{
+  "schemaVersion": "caatuu-memory-moon-content-v1",
+  "courseId": "ru",
+  "gameId": "memory-moon",
+  "contentId": "ru-memory-moon-v1",
+  "contentRevision": 1,
+  "status": "machine-assisted-preview",
+  "learnerBaseLanguage": "en",
+  "targetLanguage": "ru",
+  "englishAuditLanguage": "en",
+  "review": {
+    "status": "native-review-required",
+    "humanApproved": false,
+    "reviewer": "Caatuu course authoring",
+    "reviewedAt": "2026-10-29",
+    "notes": "Author self-review only. Independent native Russian review is still required. The question bank is first-party and does not copy an outside course."
+  },
+  "license": {
+    "origin": "caatuu-first-party-authored",
+    "spdxExpression": "AGPL-3.0-only"
+  },
+  "embeddingPolicy": {
+    "inputLanguage": "en",
+    "inputField": "embeddingText"
+  },
+  "challenges": [
+    {
+      "id": "mm-ru-hello",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 90,
+      "complexity": 8,
+      "topic": "greetings",
+      "familyId": "mm-ru-hello",
+      "targetText": "Здра́вствуйте.",
+      "learnerBaseText": "Hello.",
+      "englishText": "Hello.",
+      "embeddingText": "Hello.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "Hello",
+          "greetings"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Hello.",
+          "englishAuditText": "Hello."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Goodbye.",
+          "englishAuditText": "Goodbye.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means Hello. This choice is a farewell."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Thank you.",
+          "englishAuditText": "Thank you.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means Hello. This choice thanks someone."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ru-hi",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 90,
+      "complexity": 8,
+      "topic": "greetings",
+      "familyId": "mm-ru-hi",
+      "targetText": "Приве́т.",
+      "learnerBaseText": "Hi.",
+      "englishText": "Hi.",
+      "embeddingText": "Hi.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "Hi",
+          "greetings"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Hi.",
+          "englishAuditText": "Hi."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Good night.",
+          "englishAuditText": "Good night.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means Hi. This choice is a night greeting."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Please.",
+          "englishAuditText": "Please.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "The target means Hi. This choice makes a request."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ru-yes",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 90,
+      "complexity": 8,
+      "topic": "daily",
+      "familyId": "mm-ru-yes",
+      "targetText": "Да́.",
+      "learnerBaseText": "Yes.",
+      "englishText": "Yes.",
+      "embeddingText": "Yes.",
+      "focus": {
+        "kind": "polarity",
+        "englishConcepts": [
+          "Yes",
+          "daily"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Yes.",
+          "englishAuditText": "Yes."
+        },
+        {
+          "id": "contrast-1",
+          "text": "No.",
+          "englishAuditText": "No.",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "The target means Yes. This choice is the opposite."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Please.",
+          "englishAuditText": "Please.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "The target means Yes. This choice makes a request."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ru-no",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 90,
+      "complexity": 8,
+      "topic": "daily",
+      "familyId": "mm-ru-no",
+      "targetText": "Не́т.",
+      "learnerBaseText": "No.",
+      "englishText": "No.",
+      "embeddingText": "No.",
+      "focus": {
+        "kind": "polarity",
+        "englishConcepts": [
+          "No",
+          "daily"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "No.",
+          "englishAuditText": "No."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Yes.",
+          "englishAuditText": "Yes.",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "The target means No. This choice is the opposite."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Hello.",
+          "englishAuditText": "Hello.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means No. This choice is a greeting."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ru-thanks",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 90,
+      "complexity": 10,
+      "topic": "greetings",
+      "familyId": "mm-ru-thanks",
+      "targetText": "Спаси́бо.",
+      "learnerBaseText": "Thank you.",
+      "englishText": "Thank you.",
+      "embeddingText": "Thank you.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "Thank you",
+          "greetings"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Thank you.",
+          "englishAuditText": "Thank you."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Please.",
+          "englishAuditText": "Please.",
+          "contrast": {
+            "kind": "manner",
+            "explanation": "The target means Thank you. This choice makes a request."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Hello.",
+          "englishAuditText": "Hello.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means Thank you. This choice is a greeting."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ru-please",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 90,
+      "complexity": 10,
+      "topic": "greetings",
+      "familyId": "mm-ru-please",
+      "targetText": "Пожа́луйста.",
+      "learnerBaseText": "Please.",
+      "englishText": "Please.",
+      "embeddingText": "Please.",
+      "focus": {
+        "kind": "manner",
+        "englishConcepts": [
+          "Please",
+          "greetings"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Please.",
+          "englishAuditText": "Please."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Thank you.",
+          "englishAuditText": "Thank you.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means Please. This choice gives thanks."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Goodbye.",
+          "englishAuditText": "Goodbye.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means Please. This choice is a farewell."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ru-morning",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 90,
+      "complexity": 12,
+      "topic": "time",
+      "familyId": "mm-ru-morning",
+      "targetText": "До́брое у́тро.",
+      "learnerBaseText": "Good morning.",
+      "englishText": "Good morning.",
+      "embeddingText": "Good morning.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "Good morning",
+          "time"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Good morning.",
+          "englishAuditText": "Good morning."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Good evening.",
+          "englishAuditText": "Good evening.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means Good morning. This choice changes the time of day."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Good night.",
+          "englishAuditText": "Good night.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means Good morning. This choice is for night."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ru-evening",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 90,
+      "complexity": 12,
+      "topic": "time",
+      "familyId": "mm-ru-evening",
+      "targetText": "До́брый ве́чер.",
+      "learnerBaseText": "Good evening.",
+      "englishText": "Good evening.",
+      "embeddingText": "Good evening.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "Good evening",
+          "time"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Good evening.",
+          "englishAuditText": "Good evening."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Good morning.",
+          "englishAuditText": "Good morning.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target means Good evening. This choice changes the time of day."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Hello.",
+          "englishAuditText": "Hello.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means Good evening. This choice has no time of day."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ru-book",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 90,
+      "complexity": 14,
+      "topic": "identity",
+      "familyId": "mm-ru-book",
+      "targetText": "Э́то кни́га.",
+      "learnerBaseText": "This is a book.",
+      "englishText": "This is a book.",
+      "embeddingText": "This is a book.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "This is a book",
+          "identity"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This is a book.",
+          "englishAuditText": "This is a book."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This is a house.",
+          "englishAuditText": "This is a house.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means This is a book. This choice changes the object."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Where is the book?",
+          "englishAuditText": "Where is the book?",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target names the book. This choice asks where it is."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ru-house",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 90,
+      "complexity": 14,
+      "topic": "identity",
+      "familyId": "mm-ru-house",
+      "targetText": "Э́то до́м.",
+      "learnerBaseText": "This is a house.",
+      "englishText": "This is a house.",
+      "embeddingText": "This is a house.",
+      "focus": {
+        "kind": "object",
+        "englishConcepts": [
+          "This is a house",
+          "identity"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "This is a house.",
+          "englishAuditText": "This is a house."
+        },
+        {
+          "id": "contrast-1",
+          "text": "This is a book.",
+          "englishAuditText": "This is a book.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means This is a house. This choice changes the object."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Here is the tea.",
+          "englishAuditText": "Here is the tea.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means This is a house. This choice changes the object."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ru-where-book",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 90,
+      "complexity": 16,
+      "topic": "home",
+      "familyId": "mm-ru-where-book",
+      "targetText": "Где́ кни́га?",
+      "learnerBaseText": "Where is the book?",
+      "englishText": "Where is the book?",
+      "embeddingText": "Where is the book?",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "Where is the book",
+          "home"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Where is the book?",
+          "englishAuditText": "Where is the book?"
+        },
+        {
+          "id": "contrast-1",
+          "text": "Here is the book.",
+          "englishAuditText": "Here is the book.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target asks where the book is. This choice says it is here."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "This is a book.",
+          "englishAuditText": "This is a book.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target asks where the book is. This choice only names it."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ru-here-tea",
+      "revision": 1,
+      "difficulty": 0,
+      "usefulness": 90,
+      "complexity": 14,
+      "topic": "food",
+      "familyId": "mm-ru-here-tea",
+      "targetText": "Во́т ча́й.",
+      "learnerBaseText": "Here is the tea.",
+      "englishText": "Here is the tea.",
+      "embeddingText": "Here is the tea.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "Here is the tea",
+          "food"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Here is the tea.",
+          "englishAuditText": "Here is the tea."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Here is the water.",
+          "englishAuditText": "Here is the water.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means Here is the tea. This choice changes the drink."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Where is the tea?",
+          "englishAuditText": "Where is the tea?",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target says the tea is here. This choice asks where it is."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ru-have-book",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 78,
+      "complexity": 28,
+      "topic": "possession",
+      "familyId": "mm-ru-have-book",
+      "targetText": "У меня́ е́сть кни́га.",
+      "learnerBaseText": "I have a book.",
+      "englishText": "I have a book.",
+      "embeddingText": "I have a book.",
+      "focus": {
+        "kind": "possession",
+        "englishConcepts": [
+          "I have a book",
+          "possession"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I have a book.",
+          "englishAuditText": "I have a book."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I have a house.",
+          "englishAuditText": "I have a house.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means I have a book. This choice changes the object."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I do not have a book.",
+          "englishAuditText": "I do not have a book.",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "The target says the book is there. This choice denies it."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ru-cold-water",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 78,
+      "complexity": 30,
+      "topic": "food",
+      "familyId": "mm-ru-cold-water",
+      "targetText": "Вода́ холо́дная.",
+      "learnerBaseText": "The water is cold.",
+      "englishText": "The water is cold.",
+      "embeddingText": "The water is cold.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "The water is cold",
+          "food"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The water is cold.",
+          "englishAuditText": "The water is cold."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The water is warm.",
+          "englishAuditText": "The water is warm.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means The water is cold. This choice changes the state."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The tea is cold.",
+          "englishAuditText": "The tea is cold.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means The water is cold. This choice changes the drink."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ru-mom-home",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 78,
+      "complexity": 24,
+      "topic": "home",
+      "familyId": "mm-ru-mom-home",
+      "targetText": "Ма́ма до́ма.",
+      "learnerBaseText": "Mom is at home.",
+      "englishText": "Mom is at home.",
+      "embeddingText": "Mom is at home.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "Mom is at home",
+          "home"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "Mom is at home.",
+          "englishAuditText": "Mom is at home."
+        },
+        {
+          "id": "contrast-1",
+          "text": "Mom is at school.",
+          "englishAuditText": "Mom is at school.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means Mom is at home. This choice changes the place."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Dad is at home.",
+          "englishAuditText": "Dad is at home.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "The target means Mom is at home. This choice changes the person."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ru-need-tea",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 78,
+      "complexity": 30,
+      "topic": "food",
+      "familyId": "mm-ru-need-tea",
+      "targetText": "Мне́ ну́жен ча́й.",
+      "learnerBaseText": "I need tea.",
+      "englishText": "I need tea.",
+      "embeddingText": "I need tea.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "I need tea",
+          "food"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I need tea.",
+          "englishAuditText": "I need tea."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I need water.",
+          "englishAuditText": "I need water.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means I need tea. This choice changes the drink."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I have tea.",
+          "englishAuditText": "I have tea.",
+          "contrast": {
+            "kind": "possession",
+            "explanation": "The target says tea is needed. This choice says it is already there."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ru-read-book",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 78,
+      "complexity": 30,
+      "topic": "daily",
+      "familyId": "mm-ru-read-book",
+      "targetText": "Я чита́ю кни́гу.",
+      "learnerBaseText": "I read a book.",
+      "englishText": "I read a book.",
+      "embeddingText": "I read a book.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "I read a book",
+          "daily"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I read a book.",
+          "englishAuditText": "I read a book."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I read a letter.",
+          "englishAuditText": "I read a letter.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means I read a book. This choice changes the object."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "She reads a book.",
+          "englishAuditText": "She reads a book.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "The target means I read a book. This choice changes the person."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ru-book-table",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 78,
+      "complexity": 34,
+      "topic": "home",
+      "familyId": "mm-ru-book-table",
+      "targetText": "Кни́га на столе́.",
+      "learnerBaseText": "The book is on the table.",
+      "englishText": "The book is on the table.",
+      "embeddingText": "The book is on the table.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "The book is on the table",
+          "home"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The book is on the table.",
+          "englishAuditText": "The book is on the table."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The book is at home.",
+          "englishAuditText": "The book is at home.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target puts the book on the table. This choice changes the place."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The tea is on the table.",
+          "englishAuditText": "The tea is on the table.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means the book is on the table. This choice changes the object."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ru-new-table",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 78,
+      "complexity": 34,
+      "topic": "agreement",
+      "familyId": "mm-ru-new-table",
+      "targetText": "Но́вый сто́л зде́сь.",
+      "learnerBaseText": "The new table is here.",
+      "englishText": "The new table is here.",
+      "embeddingText": "The new table is here.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "The new table is here",
+          "agreement"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The new table is here.",
+          "englishAuditText": "The new table is here."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The old table is here.",
+          "englishAuditText": "The old table is here.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means the table is new. This choice says it is old."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The new book is here.",
+          "englishAuditText": "The new book is here.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means the new table. This choice changes the object."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ru-go-park",
+      "revision": 1,
+      "difficulty": 1,
+      "usefulness": 78,
+      "complexity": 32,
+      "topic": "transport",
+      "familyId": "mm-ru-go-park",
+      "targetText": "Я иду́ в па́рк.",
+      "learnerBaseText": "I go to the park.",
+      "englishText": "I go to the park.",
+      "embeddingText": "I go to the park.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "I go to the park",
+          "transport"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I go to the park.",
+          "englishAuditText": "I go to the park."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I go to school.",
+          "englishAuditText": "I go to school.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means I go to the park. This choice changes the place."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I live in the park.",
+          "englishAuditText": "I live in the park.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target is one-way motion. This choice is where someone lives."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ru-no-book",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 78,
+      "complexity": 40,
+      "topic": "possession",
+      "familyId": "mm-ru-no-book",
+      "targetText": "У меня́ не́т кни́ги.",
+      "learnerBaseText": "I do not have a book.",
+      "englishText": "I do not have a book.",
+      "embeddingText": "I do not have a book.",
+      "focus": {
+        "kind": "polarity",
+        "englishConcepts": [
+          "I do not have a book",
+          "possession"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I do not have a book.",
+          "englishAuditText": "I do not have a book."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I have a book.",
+          "englishAuditText": "I have a book.",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "The target denies the book. This choice says it is there."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I do not have a ticket.",
+          "englishAuditText": "I do not have a ticket.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means no book. This choice changes the object."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ru-was-reading",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 78,
+      "complexity": 48,
+      "topic": "aspect",
+      "familyId": "mm-ru-was-reading",
+      "targetText": "Он чита́л кни́гу.",
+      "learnerBaseText": "He was reading a book.",
+      "englishText": "He was reading a book.",
+      "embeddingText": "He was reading a book.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "He was reading a book",
+          "aspect"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "He was reading a book.",
+          "englishAuditText": "He was reading a book."
+        },
+        {
+          "id": "contrast-1",
+          "text": "She was reading a book.",
+          "englishAuditText": "She was reading a book.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "The target means he was reading. This choice changes the person."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "He reads a book.",
+          "englishAuditText": "He reads a book.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target is past. This choice is present."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ru-morning-read",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 78,
+      "complexity": 42,
+      "topic": "time",
+      "familyId": "mm-ru-morning-read",
+      "targetText": "Я чита́ю кни́гу у́тром.",
+      "learnerBaseText": "I read a book in the morning.",
+      "englishText": "I read a book in the morning.",
+      "embeddingText": "I read a book in the morning.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "I read a book in the morning",
+          "time"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I read a book in the morning.",
+          "englishAuditText": "I read a book in the morning."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I read a book at night.",
+          "englishAuditText": "I read a book at night.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target is in the morning. This choice changes the time."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I read a letter in the morning.",
+          "englishAuditText": "I read a letter in the morning.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means a book. This choice changes the object."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ru-need-ticket",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 78,
+      "complexity": 40,
+      "topic": "shopping",
+      "familyId": "mm-ru-need-ticket",
+      "targetText": "Мне́ ну́жен биле́т.",
+      "learnerBaseText": "I need a ticket.",
+      "englishText": "I need a ticket.",
+      "embeddingText": "I need a ticket.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "I need a ticket",
+          "shopping"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I need a ticket.",
+          "englishAuditText": "I need a ticket."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I need a book.",
+          "englishAuditText": "I need a book.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means a ticket. This choice changes the object."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "She needs a ticket.",
+          "englishAuditText": "She needs a ticket.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "The target means I need a ticket. This choice changes the person."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ru-sister-home",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 78,
+      "complexity": 36,
+      "topic": "home",
+      "familyId": "mm-ru-sister-home",
+      "targetText": "Сестра́ до́ма.",
+      "learnerBaseText": "The sister is at home.",
+      "englishText": "The sister is at home.",
+      "embeddingText": "The sister is at home.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "The sister is at home",
+          "home"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The sister is at home.",
+          "englishAuditText": "The sister is at home."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The sister is at school.",
+          "englishAuditText": "The sister is at school.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means at home. This choice changes the place."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "Mom is at home.",
+          "englishAuditText": "Mom is at home.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "The target means the sister. This choice changes the person."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ru-not-read",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 78,
+      "complexity": 42,
+      "topic": "daily",
+      "familyId": "mm-ru-not-read",
+      "targetText": "Я не́ чита́ю кни́гу.",
+      "learnerBaseText": "I do not read a book.",
+      "englishText": "I do not read a book.",
+      "embeddingText": "I do not read a book.",
+      "focus": {
+        "kind": "polarity",
+        "englishConcepts": [
+          "I do not read a book",
+          "daily"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I do not read a book.",
+          "englishAuditText": "I do not read a book."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I read a book.",
+          "englishAuditText": "I read a book.",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "The target is negative. This choice is positive."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I do not read a letter.",
+          "englishAuditText": "I do not read a letter.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means a book. This choice changes the object."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ru-apple-good",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 78,
+      "complexity": 30,
+      "topic": "food",
+      "familyId": "mm-ru-apple-good",
+      "targetText": "Я́блоко хоро́шее.",
+      "learnerBaseText": "The apple is good.",
+      "englishText": "The apple is good.",
+      "embeddingText": "The apple is good.",
+      "focus": {
+        "kind": "state",
+        "englishConcepts": [
+          "The apple is good",
+          "food"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The apple is good.",
+          "englishAuditText": "The apple is good."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The apple is bad.",
+          "englishAuditText": "The apple is bad.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means the apple is good. This choice changes the state."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The bread is good.",
+          "englishAuditText": "The bread is good.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means the apple. This choice changes the food."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ru-city-live",
+      "revision": 1,
+      "difficulty": 2,
+      "usefulness": 78,
+      "complexity": 36,
+      "topic": "home",
+      "familyId": "mm-ru-city-live",
+      "targetText": "Я живу́ в го́роде.",
+      "learnerBaseText": "I live in the city.",
+      "englishText": "I live in the city.",
+      "embeddingText": "I live in the city.",
+      "focus": {
+        "kind": "location",
+        "englishConcepts": [
+          "I live in the city",
+          "home"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I live in the city.",
+          "englishAuditText": "I live in the city."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I live at home.",
+          "englishAuditText": "I live at home.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means in the city. This choice changes the place."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I work in the city.",
+          "englishAuditText": "I work in the city.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target means live. This choice changes the action."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ru-will-read",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 78,
+      "complexity": 60,
+      "topic": "aspect",
+      "familyId": "mm-ru-will-read",
+      "targetText": "Я бу́ду чита́ть кни́гу.",
+      "learnerBaseText": "I will read a book.",
+      "englishText": "I will read a book.",
+      "embeddingText": "I will read a book.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "I will read a book",
+          "aspect"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I will read a book.",
+          "englishAuditText": "I will read a book."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I read a book.",
+          "englishAuditText": "I read a book.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target is future. This choice is present."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I will read a letter.",
+          "englishAuditText": "I will read a letter.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means a book. This choice changes the object."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ru-finish-book",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 78,
+      "complexity": 68,
+      "topic": "aspect",
+      "familyId": "mm-ru-finish-book",
+      "targetText": "Я прочита́ю кни́гу.",
+      "learnerBaseText": "I will finish the book.",
+      "englishText": "I will finish the book.",
+      "embeddingText": "I will finish the book.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "I will finish the book",
+          "aspect"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I will finish the book.",
+          "englishAuditText": "I will finish the book."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I will read a book.",
+          "englishAuditText": "I will read a book.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target is finishing the book. This choice is the open-ended future."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "She will finish the book.",
+          "englishAuditText": "She will finish the book.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "The target means I will finish the book. This choice changes the person."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ru-help-mom",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 78,
+      "complexity": 48,
+      "topic": "help",
+      "familyId": "mm-ru-help-mom",
+      "targetText": "Я помога́ю ма́ме.",
+      "learnerBaseText": "I help mom.",
+      "englishText": "I help mom.",
+      "embeddingText": "I help mom.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "I help mom",
+          "help"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I help mom.",
+          "englishAuditText": "I help mom."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I help a friend.",
+          "englishAuditText": "I help a friend.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means mom. This choice changes the person."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I see mom.",
+          "englishAuditText": "I see mom.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target means help. This choice changes the action."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ru-yesterday",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 78,
+      "complexity": 62,
+      "topic": "aspect",
+      "familyId": "mm-ru-yesterday",
+      "targetText": "Он чита́л кни́гу вчера́.",
+      "learnerBaseText": "He was reading a book yesterday.",
+      "englishText": "He was reading a book yesterday.",
+      "embeddingText": "He was reading a book yesterday.",
+      "focus": {
+        "kind": "time",
+        "englishConcepts": [
+          "He was reading a book yesterday",
+          "aspect"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "He was reading a book yesterday.",
+          "englishAuditText": "He was reading a book yesterday."
+        },
+        {
+          "id": "contrast-1",
+          "text": "He was reading a book.",
+          "englishAuditText": "He was reading a book.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target includes yesterday. This choice has no day."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "She was reading a book yesterday.",
+          "englishAuditText": "She was reading a book yesterday.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "The target means he. This choice changes the person."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ru-station",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 78,
+      "complexity": 52,
+      "topic": "transport",
+      "familyId": "mm-ru-station",
+      "targetText": "Я иду́ на ста́нцию.",
+      "learnerBaseText": "I go to the station.",
+      "englishText": "I go to the station.",
+      "embeddingText": "I go to the station.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "I go to the station",
+          "transport"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I go to the station.",
+          "englishAuditText": "I go to the station."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I go to the park.",
+          "englishAuditText": "I go to the park.",
+          "contrast": {
+            "kind": "location",
+            "explanation": "The target means the station. This choice changes the place."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I live at the station.",
+          "englishAuditText": "I live at the station.",
+          "contrast": {
+            "kind": "action",
+            "explanation": "The target is one-way motion. This choice is a place to live."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ru-friends",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 78,
+      "complexity": 48,
+      "topic": "agreement",
+      "familyId": "mm-ru-friends",
+      "targetText": "Но́вые друзья́ зде́сь.",
+      "learnerBaseText": "The new friends are here.",
+      "englishText": "The new friends are here.",
+      "embeddingText": "The new friends are here.",
+      "focus": {
+        "kind": "number",
+        "englishConcepts": [
+          "The new friends are here",
+          "agreement"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "The new friends are here.",
+          "englishAuditText": "The new friends are here."
+        },
+        {
+          "id": "contrast-1",
+          "text": "The new friend is here.",
+          "englishAuditText": "The new friend is here.",
+          "contrast": {
+            "kind": "number",
+            "explanation": "The target is plural. This choice is singular."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "The old friends are here.",
+          "englishAuditText": "The old friends are here.",
+          "contrast": {
+            "kind": "state",
+            "explanation": "The target means new friends. This choice changes the adjective."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ru-no-ticket",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 78,
+      "complexity": 55,
+      "topic": "possession",
+      "familyId": "mm-ru-no-ticket",
+      "targetText": "У неё́ не́т биле́та.",
+      "learnerBaseText": "She does not have a ticket.",
+      "englishText": "She does not have a ticket.",
+      "embeddingText": "She does not have a ticket.",
+      "focus": {
+        "kind": "polarity",
+        "englishConcepts": [
+          "She does not have a ticket",
+          "possession"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "She does not have a ticket.",
+          "englishAuditText": "She does not have a ticket."
+        },
+        {
+          "id": "contrast-1",
+          "text": "She has a ticket.",
+          "englishAuditText": "She has a ticket.",
+          "contrast": {
+            "kind": "polarity",
+            "explanation": "The target denies the ticket. This choice says it is there."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "He does not have a ticket.",
+          "englishAuditText": "He does not have a ticket.",
+          "contrast": {
+            "kind": "subject",
+            "explanation": "The target means she. This choice changes the person."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mm-ru-open-door",
+      "revision": 1,
+      "difficulty": 3,
+      "usefulness": 78,
+      "complexity": 60,
+      "topic": "home",
+      "familyId": "mm-ru-open-door",
+      "targetText": "Я бу́ду открыва́ть две́рь.",
+      "learnerBaseText": "I will open the door.",
+      "englishText": "I will open the door.",
+      "embeddingText": "I will open the door.",
+      "focus": {
+        "kind": "action",
+        "englishConcepts": [
+          "I will open the door",
+          "home"
+        ]
+      },
+      "correctChoiceId": "correct",
+      "choices": [
+        {
+          "id": "correct",
+          "text": "I will open the door.",
+          "englishAuditText": "I will open the door."
+        },
+        {
+          "id": "contrast-1",
+          "text": "I open the door.",
+          "englishAuditText": "I open the door.",
+          "contrast": {
+            "kind": "time",
+            "explanation": "The target is future. This choice is present."
+          }
+        },
+        {
+          "id": "contrast-2",
+          "text": "I will open the window.",
+          "englishAuditText": "I will open the window.",
+          "contrast": {
+            "kind": "object",
+            "explanation": "The target means the door. This choice changes the object."
+          }
+        }
+      ]
+    }
+  ]
+}

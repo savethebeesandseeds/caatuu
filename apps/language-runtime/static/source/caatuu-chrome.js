@@ -78,6 +78,10 @@
   let browserSpeechVoiceEventsBound = false;
   let activeBrowserSpeechSession = null;
   let speechRequest = 0;
+  let pendingLearnerFile = null;
+  let learnerToolsPromise = null;
+  const learnerFileName = "caatuu-progress.caatuu";
+  const learnerFileType = "application/vnd.caatuu.progress+json";
   let lastSpeechPlayback = null;
   const defaultSpeechVolume = 0.5;
   let speechVolumeFallback = defaultSpeechVolume;
@@ -2979,7 +2983,135 @@
     });
   }
 
+  function learnerLocalStore() {
+    return {
+      getItem: (key) => window.localStorage.getItem(key),
+      setItem: (key, value) => window.localStorage.setItem(key, value),
+      removeItem: (key) => window.localStorage.removeItem(key),
+      keys() {
+        const names = [];
+        for (let index = 0; index < window.localStorage.length; index += 1) names.push(window.localStorage.key(index));
+        return names;
+      }
+    };
+  }
+
+  function learnerTools() {
+    learnerToolsPromise ||= Promise.all([
+      import("./learner-record.mjs?v=learner-record-1"),
+      fetch("/language-runtime/static/data/learner-record-registry.json?v=learner-record-1").then((response) => {
+        if (!response.ok) throw new Error("Learner registry could not be loaded.");
+        return response.json();
+      })
+    ]).then(([api, registry]) => ({ api, registry }));
+    return learnerToolsPromise;
+  }
+
+  function learnerPorts(api) {
+    const ports = { local: learnerLocalStore() };
+    if (typeof window.CaatuuLearning?.retryPendingSaves === "function") {
+      ports.flush = () => window.CaatuuLearning.retryPendingSaves();
+    }
+    if (window.indexedDB) {
+      ports.semantic = api.createSemanticPort(window.indexedDB);
+      ports.backup = api.createIndexedDbBackup(window.indexedDB);
+    }
+    return ports;
+  }
+
+  function setLearnerStatus(message) {
+    const status = document.querySelector("#settingsLearnerStatus");
+    if (!status) return;
+    status.hidden = !message;
+    status.textContent = message || "";
+  }
+
+  async function refreshLearnerBackupOffer() {
+    const row = document.querySelector("#settingsRestoreLearnerRow");
+    if (!row) return;
+    try {
+      const { api } = await learnerTools();
+      const ports = learnerPorts(api);
+      const snapshot = typeof ports.backup?.read === "function" ? await ports.backup.read() : null;
+      row.hidden = !snapshot;
+    } catch {
+      row.hidden = true;
+    }
+  }
+
+  async function saveLearnerFile() {
+    const { api, registry } = await learnerTools();
+    const file = await api.createLearnerFile(registry, learnerPorts(api));
+    const blob = new Blob([JSON.stringify(file)], { type: learnerFileType });
+    const named = new File([blob], learnerFileName, { type: learnerFileType });
+    if (typeof window.showSaveFilePicker === "function") {
+      try {
+        const handle = await window.showSaveFilePicker({
+          suggestedName: learnerFileName,
+          types: [{ description: "Caatuu progress", accept: { [learnerFileType]: [".caatuu"] } }]
+        });
+        const writable = await handle.createWritable();
+        await writable.write(blob);
+        await writable.close();
+        return true;
+      } catch (error) {
+        if (error?.name === "AbortError") return false;
+        throw error;
+      }
+    }
+    if (typeof navigator.canShare === "function" && navigator.canShare({ files: [named] })) {
+      try {
+        await navigator.share({ files: [named] });
+        return true;
+      } catch (error) {
+        if (error?.name === "AbortError") return false;
+      }
+    }
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = learnerFileName;
+    document.body.append(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+    return true;
+  }
+
   function bindLearningControls() {
+    document.addEventListener("change", async (event) => {
+      if (event.target?.id !== "settingsLearnerFile") return;
+      const input = event.target;
+      const selected = input.files?.[0];
+      input.value = "";
+      pendingLearnerFile = null;
+      if (!selected) return;
+      const button = document.querySelector("#settingsImportLearner");
+      try {
+        const parsed = JSON.parse(await selected.text());
+        const { api, registry } = await learnerTools();
+        await api.readLearnerFile(parsed);
+        let prepared;
+        try {
+          prepared = await api.prepareLearnerReplace(registry, learnerPorts(api));
+        } catch {
+          resetConfirmButton(button);
+          setLearnerStatus(interfaceMessage("settings.learner.import.failed"));
+          return;
+        }
+        pendingLearnerFile = parsed;
+        const promptId = prepared.backup ? "settings.learner.import.prompt" : "settings.learner.import.promptempty";
+        setLearnerStatus(interfaceMessage(promptId));
+        confirmButtonPress(button, {
+          confirmLabel: interfaceMessage("settings.learner.import.confirm"),
+          message: interfaceMessage(promptId)
+        });
+        await refreshLearnerBackupOffer();
+      } catch {
+        resetConfirmButton(button);
+        setLearnerStatus(interfaceMessage("settings.learner.import.unreadable"));
+      }
+    });
     document.addEventListener("change", (event) => {
       if (event.target?.id !== "learningGoal" || !learning?.setGoal) return;
       const selected = learning.setGoal(event.target.value);
@@ -2990,6 +3122,66 @@
       });
     });
     document.addEventListener("click", async (event) => {
+      const exportButton = event.target.closest?.("#settingsExportLearner");
+      if (exportButton) {
+        event.preventDefault();
+        exportButton.disabled = true;
+        try {
+          const saved = await saveLearnerFile();
+          if (saved) setLearnerStatus(interfaceMessage("settings.learner.export.done"));
+        } catch {
+          setLearnerStatus(interfaceMessage("settings.learner.export.failed"));
+        } finally {
+          exportButton.disabled = false;
+        }
+        return;
+      }
+
+      const importButton = event.target.closest?.("#settingsImportLearner");
+      if (importButton) {
+        event.preventDefault();
+        if (importButton.dataset.confirmArmed !== "true" || !pendingLearnerFile) {
+          pendingLearnerFile = null;
+          document.querySelector("#settingsLearnerFile")?.click();
+          return;
+        }
+        if (!confirmButtonPress(importButton, {
+          confirmLabel: interfaceMessage("settings.learner.import.confirm"),
+          message: interfaceMessage("settings.learner.import.prompt")
+        })) return;
+        const file = pendingLearnerFile;
+        pendingLearnerFile = null;
+        importButton.disabled = true;
+        try {
+          const { api, registry } = await learnerTools();
+          const result = await api.importLearnerFile(registry, learnerPorts(api), file, async () => true);
+          if (result.imported) window.location.reload();
+        } catch {
+          setLearnerStatus(interfaceMessage("settings.learner.import.failed"));
+          importButton.disabled = false;
+        }
+        return;
+      }
+
+      const restoreButton = event.target.closest?.("#settingsRestoreLearner");
+      if (restoreButton) {
+        event.preventDefault();
+        if (!confirmButtonPress(restoreButton, {
+          confirmLabel: interfaceMessage("settings.learner.restore.confirm"),
+          message: interfaceMessage("settings.learner.restore.prompt")
+        })) return;
+        restoreButton.disabled = true;
+        try {
+          const { api, registry } = await learnerTools();
+          await api.restoreLearnerBackup(registry, learnerPorts(api));
+          window.location.reload();
+        } catch {
+          setLearnerStatus(interfaceMessage("settings.learner.restore.failed"));
+          restoreButton.disabled = false;
+        }
+        return;
+      }
+
       const streakReminderButton = event.target.closest?.("[data-streak-reminder-toggle]");
       if (streakReminderButton) {
         event.preventDefault();
@@ -5254,6 +5446,25 @@
               </div>
               <div class="maintenance-action-row">
                 <span class="maintenance-action-copy">
+                  <strong>${interfaceHtml("settings.learner.title")}</strong>
+                  <small>${interfaceHtml("settings.learner.description")}</small>
+                </span>
+                <span class="maintenance-install-actions">
+                  <button class="maintenance-row-control" type="button" id="settingsExportLearner">${interfaceHtml("settings.learner.export")}</button>
+                  <button class="maintenance-row-control" type="button" id="settingsImportLearner">${interfaceHtml("settings.learner.import")}</button>
+                </span>
+              </div>
+              <div class="maintenance-action-row" id="settingsRestoreLearnerRow" hidden>
+                <span class="maintenance-action-copy">
+                  <strong>${interfaceHtml("settings.learner.restore")}</strong>
+                  <small>${interfaceHtml("settings.learner.restore.prompt")}</small>
+                </span>
+                <button class="maintenance-row-control" type="button" id="settingsRestoreLearner">${interfaceHtml("settings.learner.restore")}</button>
+              </div>
+              <p class="settings-summary" id="settingsLearnerStatus" role="status" hidden></p>
+              <input id="settingsLearnerFile" type="file" accept=".caatuu,application/vnd.caatuu.progress+json" hidden>
+              <div class="maintenance-action-row">
+                <span class="maintenance-action-copy">
                   <strong>${interfaceHtml("settings.progress.title")}</strong>
                   <small>${interfaceHtml("settings.progress.description")}</small>
                 </span>
@@ -5627,6 +5838,7 @@
     setSettingsNavActive(true);
     announceShellOverlayChange();
     document.dispatchEvent(new CustomEvent("caatuu:settings-open"));
+    void refreshLearnerBackupOffer();
     panel.querySelector(".settings-sheet-body")?.focus?.();
   }
 

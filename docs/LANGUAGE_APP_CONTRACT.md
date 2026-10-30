@@ -238,8 +238,9 @@ example, Conjugation Comet requires `verb-conjugation`, Case Cosmos requires
 `apps/languages/catalog.json` is the course list. Every course is the same
 application. Public Pages includes a course only when
 `platforms.browser.pagesEnabled` is true. Every course below is
-browser-enabled and Android-enabled. The Android column is that course's
-`minimumVersionCode`. Each row is that course's manifest. Czech's manifest
+browser-enabled. Android is on for each except Russian, a local browser
+preview until native review. The Android column is that course's
+`minimumVersionCode`, or No when Android is disabled. Each row is that course's manifest. Czech's manifest
 records `status` `active` and publication contract `legacy-active-v1`. Every
 other course records `development` and `language-content-v1`.
 
@@ -253,6 +254,7 @@ other course records `development` and `language-content-v1`.
 | Modern Standard Arabic | `/ar/` | English → Arabic | No | 179 | Verb Nebula, Word World, Conjugation Comet, Grammar Gravity, Naturalization Nucleus, Sounds Quasar, Memory Moon | No |
 | Scientific Latin | `/la/` | English → Latin | No | 179 | Verb Nebula, Word World, Conjugation Comet, Grammar Gravity, Memory Moon | No |
 | Georgian | `/ka/` | English → Georgian | No | 179 | Verb Nebula, Word World, Conjugation Comet, Grammar Gravity, Memory Moon | No |
+| Russian | `/ru/` | English → Russian | No | No | Verb Nebula, Word World, Conjugation Comet, Grammar Gravity, Memory Moon | No |
 
 These prefixes belong to those directional courses. They are not
 direction-neutral language routes. English is the learner base except on

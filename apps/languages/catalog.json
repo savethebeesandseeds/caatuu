@@ -47,6 +47,10 @@
     {
       "id": "ka",
       "manifest": "apps/languages/georgian/course.json"
+    },
+    {
+      "id": "ru",
+      "manifest": "apps/languages/russian/course.json"
     }
   ]
 }
