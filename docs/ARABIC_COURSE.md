@@ -85,8 +85,8 @@ the course's Arabic device speech. Both recognition banks feed shared Stats.
 
 Local browser delivery and its offline graph are prepared. The Android source
 allowlist and provider declarations are present, including the target speech
-locale. Android delivery is enabled for the eight-course version 179 bundle;
-public Pages delivery remains off. Browser review
+locale. Android delivery is enabled for the eight-course version 179 bundle.
+The public website lists the course as a `noindex` preview. Browser review
 verified RTL targets, LTR cues and all 13 conjugation rows with reachable controls
 at normal and narrow widths. Audio uses the shared browser/Android device speech
 provider. This browser has no enumerated Arabic voice; audible Arabic remains

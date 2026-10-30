@@ -147,7 +147,7 @@
   "platforms": {
     "browser": {
       "enabled": true,
-      "pagesEnabled": false,
+      "pagesEnabled": true,
       "entryPath": "/ka/index.html",
       "backend": "static"
     },

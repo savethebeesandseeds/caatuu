@@ -66,10 +66,9 @@ The learner's base language selects the interface; shared English concepts
 provide the audit and semantic-search authority.
 
 Ten courses are registered in the browser catalog. Eight are enabled for
-Android delivery. Five enable Pages delivery. Arabic, Scientific Latin,
-Georgian, Russian, and Hebrew retain local browser previews with public Pages
-delivery disabled. Russian and Hebrew also stay out of the Android bundle
-until native review.
+Android delivery. All ten are on the public website. Czech is the active
+course. The other nine are `noindex` development previews. Russian and Hebrew
+stay out of the Android bundle until native review.
 
 | Flag or emblem | Learner language | Learning language | Route | Course status |
 | --- | --- | --- | --- | --- |
@@ -78,11 +77,11 @@ until native review.
 | <img src="apps/launcher/static/assets/icons/spain_flag.png" width="64" alt="Spanish flag"> | English | Spanish | `/es/` | Development preview |
 | <img src="apps/launcher/static/assets/icons/english_flag.png" width="64" alt="English course flag"> | Spanish | English (American) | `/es-en/` | Development preview |
 | <img src="apps/launcher/static/assets/icons/norway_flag.png" width="64" alt="Norwegian flag"> | English | Norwegian Bokmål | `/nb/` | Development preview |
-| <img src="apps/launcher/static/assets/icons/arabic_mark.png" width="64" alt="Arabic course emblem"> | English | Modern Standard Arabic | `/ar/` | Local development preview |
-| <img src="apps/launcher/static/assets/icons/latin_mark.png" width="64" alt="Latin course emblem"> | English | Scientific Latin (Neo-Latin) | `/la/` | Local development preview |
-| <img src="apps/launcher/static/assets/icons/georgian_flag.png" width="64" alt="Georgian flag"> | English | Georgian | `/ka/` | Local development preview |
-| <img src="apps/launcher/static/assets/icons/russian_flag.png" width="64" alt="Russian flag"> | English | Russian | `/ru/` | Local development preview |
-| <img src="apps/launcher/static/assets/icons/hebrew_flag.png" width="64" alt="Hebrew flag"> | English | Hebrew | `/he/` | Local development preview |
+| <img src="apps/launcher/static/assets/icons/arabic_mark.png" width="64" alt="Arabic course emblem"> | English | Modern Standard Arabic | `/ar/` | Development preview |
+| <img src="apps/launcher/static/assets/icons/latin_mark.png" width="64" alt="Latin course emblem"> | English | Scientific Latin (Neo-Latin) | `/la/` | Development preview |
+| <img src="apps/launcher/static/assets/icons/georgian_flag.png" width="64" alt="Georgian flag"> | English | Georgian | `/ka/` | Development preview |
+| <img src="apps/launcher/static/assets/icons/russian_flag.png" width="64" alt="Russian flag"> | English | Russian | `/ru/` | Development preview |
+| <img src="apps/launcher/static/assets/icons/hebrew_flag.png" width="64" alt="Hebrew flag"> | English | Hebrew | `/he/` | Development preview |
 
 Every course is the same application. A manifest declares that course's
 languages, content, and capabilities. The Russian preview is described in
@@ -119,8 +118,8 @@ starting with version 179.
 The [Russian course note](docs/RUSSIAN_COURSE.md) describes the English-to-Russian
 preview: 2,500 sentences, 600 verb-meaning pairs, a small authored conjugation
 set, and four-lane adjective agreement. A red Latin reading line uses BGN/PCGN
-romanization. Case Cosmos, listening, and public delivery stay off until native
-review. The course is browser-only and is not in the Android bundle.
+romanization. Case Cosmos and listening stay off. The website lists it as a
+`noindex` preview. It stays out of the Android bundle until native review.
 
 New courses follow the [language-pack guide](tools/language-packs/README.md).
 Registration, content review, licensing, and publication remain separate steps.

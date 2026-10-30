@@ -45,12 +45,13 @@ surface. It does not own language-specific learning logic.
 Owns the authoritative course catalog and one manifest-backed directory per
 target language. Each course owns its target realizations, language adapter,
 linguistic features, enabled games, platform enablement, capabilities, and narrow package asset
-catalog. All eight courses use that same contract. Mandarin (`/zh/`),
-Spanish (`/es/`), English from Spanish (`/es-en/`), and Norwegian Bokmål
-(`/nb/`) are `noindex` Pages previews. Modern Standard Arabic (`/ar/`),
-Scientific Latin (`/la/`), and Georgian (`/ka/`) are local browser courses
-with public Pages delivery off. All eight courses are Android-enabled. The
-repository-only Chinese archive is not a course source.
+catalog. Every course uses that same contract. Mandarin (`/zh/`),
+Spanish (`/es/`), English from Spanish (`/es-en/`), Norwegian Bokmål
+(`/nb/`), Modern Standard Arabic (`/ar/`), Scientific Latin (`/la/`),
+Georgian (`/ka/`), Russian (`/ru/`), and Hebrew (`/he/`) are `noindex`
+Pages previews. Czech, Mandarin, Spanish, English from Spanish, Norwegian,
+Arabic, Latin, and Georgian are Android-enabled. Russian and Hebrew are not.
+The repository-only Chinese archive is not a course source.
 The exact shared-versus-language boundary is defined in
 [the language application contract](LANGUAGE_APP_CONTRACT.md).
 

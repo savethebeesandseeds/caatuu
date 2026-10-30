@@ -251,7 +251,7 @@
   "platforms": {
     "browser": {
       "enabled": true,
-      "pagesEnabled": false,
+      "pagesEnabled": true,
       "entryPath": "/ar/index.html",
       "backend": "static"
     },

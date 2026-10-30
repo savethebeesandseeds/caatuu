@@ -6,11 +6,11 @@ to English speakers through the shared application and game engines. The
 course ID is `ru`, the script is `Cyrl`, speech uses `ru-RU`, and storage
 and cache names start with `caatuu-ru`. The interface catalog is English.
 
-The course is `development`. The browser is on. Public Pages and Android are
-off, so the next APK does not pick the course up and
-`apps/android/course-bundle.json` does not list it. License status is
-`release-review-required`. Native review is `native-review-required`. This
-course does not have the 2026-10-04 owner approval that cleared Georgian.
+The course is `development`. The browser is on, and the public website lists
+it as a `noindex` preview. Android stays off, so the APK does not pick the
+course up and `apps/android/course-bundle.json` does not list it. License
+status is `release-review-required`. Native review is `native-review-required`.
+This course does not have the 2026-10-04 owner approval that cleared Georgian.
 
 ## Games
 

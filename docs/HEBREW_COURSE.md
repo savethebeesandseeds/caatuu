@@ -7,8 +7,8 @@ course ID is `he`, the script is `Hebr`, speech uses `he-IL`, text direction
 is right to left, and storage and cache names start with `caatuu-he`. The
 interface catalog is English `interface-en-57`.
 
-The course is `development`. The browser is on. Public Pages and Android are
-off, so the published packages do not pick the course up and
+The course is `development`. The browser is on, and the public website lists
+it as a `noindex` preview. Android stays off, so
 `apps/android/course-bundle.json` does not list it. License status is
 `release-review-required`. Native review is `native-review-required`.
 

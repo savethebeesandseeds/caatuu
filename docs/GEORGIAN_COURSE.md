@@ -175,8 +175,8 @@ checks cannot approve those linguistic judgments. Pronunciation and audio are
 not approved. Distribution licensing is cleared under AGPL-3.0-only by the
 [4 October owner approval](CURRICULUM_LICENSE_APPROVAL_20261004.json).
 
-Browser and Android delivery are enabled. Public Pages delivery remains
-disabled. The eight-course version 179 bundle uses the Android source allowlist,
+Browser and Android delivery are enabled. The public website lists the course
+as a `noindex` preview. The eight-course version 179 bundle uses the Android source allowlist,
 shared English embedding provider and standard device-speech declaration.
 The original course onboarding did not build or publish an APK;
 physical-device checks remain separate from release publication.

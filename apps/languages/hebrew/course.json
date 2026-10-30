@@ -133,7 +133,7 @@
   "platforms": {
     "browser": {
       "enabled": true,
-      "pagesEnabled": false,
+      "pagesEnabled": true,
       "entryPath": "/he/index.html",
       "backend": "static"
     },

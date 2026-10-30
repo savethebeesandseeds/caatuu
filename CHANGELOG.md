@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- List Arabic, Scientific Latin, Georgian, Russian, and Hebrew on the public
+  website as `noindex` development previews. Android still omits Russian and
+  Hebrew. Native review is still required.
+
 ## Android 201 / 0.1.49
 
 - Add English → Hebrew as a local browser preview at `/he/`, with the

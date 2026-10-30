@@ -238,9 +238,10 @@ example, Conjugation Comet requires `verb-conjugation`, Case Cosmos requires
 `apps/languages/catalog.json` is the course list. Every course is the same
 application. Public Pages includes a course only when
 `platforms.browser.pagesEnabled` is true. Every course below is
-browser-enabled. Android is on for Czech, Mandarin, Spanish, English from
-Spanish, Norwegian, Arabic, Latin, and Georgian. Russian and Hebrew are
-local browser previews until native review. The Android column is that course's
+browser-enabled. Public Pages includes every course below as the active Czech
+course or a `noindex` development preview. Android is on for Czech, Mandarin,
+Spanish, English from Spanish, Norwegian, Arabic, Latin, and Georgian. Russian
+and Hebrew stay out of Android until native review. The Android column is that course's
 `minimumVersionCode`, or No when Android is disabled. Each row is that course's manifest. Czech's manifest
 records `status` `active` and publication contract `legacy-active-v1`. Every
 other course records `development` and `language-content-v1`.
@@ -252,11 +253,11 @@ other course records `development` and `language-content-v1`.
 | Spanish | `/es/` | English → Spanish (`es-ES`) | Yes, `noindex` | 170 | Verb Nebula, Word World, Conjugation Comet, Grammar Gravity, Sounds Quasar, Memory Moon | No |
 | English from Spanish | `/es-en/` | Spanish → English (`en-US`) | Yes, `noindex` | 168 | Verb Nebula, Word World, Conjugation Comet, Grammar Gravity, Sounds Quasar, Memory Moon | No |
 | Norwegian Bokmål | `/nb/` | English → Norwegian Bokmål | Yes, `noindex` | 172 | Verb Nebula, Word World, Conjugation Comet, Grammar Gravity, Sounds Quasar, Memory Moon | No |
-| Modern Standard Arabic | `/ar/` | English → Arabic | No | 179 | Verb Nebula, Word World, Conjugation Comet, Grammar Gravity, Naturalization Nucleus, Sounds Quasar, Memory Moon | No |
-| Scientific Latin | `/la/` | English → Latin | No | 179 | Verb Nebula, Word World, Conjugation Comet, Grammar Gravity, Memory Moon | No |
-| Georgian | `/ka/` | English → Georgian | No | 179 | Verb Nebula, Word World, Conjugation Comet, Grammar Gravity, Memory Moon | No |
-| Russian | `/ru/` | English → Russian | No | No | Verb Nebula, Word World, Conjugation Comet, Grammar Gravity, Memory Moon | No |
-| Hebrew | `/he/` | English → Hebrew | No | No | Verb Nebula, Word World, Conjugation Comet, Grammar Gravity, Memory Moon | No |
+| Modern Standard Arabic | `/ar/` | English → Arabic | Yes, `noindex` | 179 | Verb Nebula, Word World, Conjugation Comet, Grammar Gravity, Naturalization Nucleus, Sounds Quasar, Memory Moon | No |
+| Scientific Latin | `/la/` | English → Latin | Yes, `noindex` | 179 | Verb Nebula, Word World, Conjugation Comet, Grammar Gravity, Memory Moon | No |
+| Georgian | `/ka/` | English → Georgian | Yes, `noindex` | 179 | Verb Nebula, Word World, Conjugation Comet, Grammar Gravity, Memory Moon | No |
+| Russian | `/ru/` | English → Russian | Yes, `noindex` | No | Verb Nebula, Word World, Conjugation Comet, Grammar Gravity, Memory Moon | No |
+| Hebrew | `/he/` | English → Hebrew | Yes, `noindex` | No | Verb Nebula, Word World, Conjugation Comet, Grammar Gravity, Memory Moon | No |
 
 These prefixes belong to those directional courses. They are not
 direction-neutral language routes. English is the learner base except on

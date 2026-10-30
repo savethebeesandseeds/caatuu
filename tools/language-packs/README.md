@@ -257,8 +257,9 @@ before publication output is mutated. Active modern courses require recorded
 native review and release-cleared licensing. Pages-enabled development previews
 retain their declared draft review and provenance status and remain `noindex`;
 they use the same shared app and offline graph. Delivery flags are authoritative
-per course. Arabic, Scientific Latin, and Georgian are browser-enabled and
-Android-enabled from version 179, with `pagesEnabled` false. Czech's manifest
+per course. Arabic, Scientific Latin, and Georgian are browser-enabled,
+`noindex` Pages previews, and Android-enabled from version 179. Russian and
+Hebrew are the same kind of Pages preview and stay out of Android. Czech's manifest
 records `active` and `legacy-active-v1`. The other packs record
 `language-content-v1`.
 

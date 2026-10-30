@@ -85,8 +85,8 @@ node tools/language-packs/validate.mjs --sync-views
 node apps/server/tooling/refresh-setup-assets.mjs --all-browser-courses
 ```
 
-Local browser and Android delivery are enabled. Public Pages delivery remains
-off. The Android source allowlist and English embedding-provider declaration
+Local browser and Android delivery are enabled. The public website lists the
+course as a `noindex` preview. The Android source allowlist and English embedding-provider declaration
 are prepared for a later build, including the standard device speech declaration.
 Curriculum distribution is cleared under AGPL-3.0-only by the
 [4 October owner approval](CURRICULUM_LICENSE_APPROVAL_20261004.json).

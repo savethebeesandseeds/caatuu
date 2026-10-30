@@ -84,9 +84,11 @@ local imports, resolves HTML and service-worker references, confirms the
 Its deterministic manifest is `caatuu-web-bundle.json`.
 
 The final Pages builder derives its browser routes from the course catalog and
-the explicit `platforms.browser.pagesEnabled` gate. All four current courses
-are enabled: Czech at `/cz/`, Mandarin at `/zh/`, Spanish at `/es/`, and
-English for Spanish speakers at `/es-en/`. Development courses keep their
+the explicit `platforms.browser.pagesEnabled` gate. Every registered course
+is enabled: Czech at `/cz/`, Mandarin at `/zh/`, Spanish at `/es/`,
+English for Spanish speakers at `/es-en/`, Norwegian Bokmål at `/nb/`,
+Arabic at `/ar/`, Scientific Latin at `/la/`, Georgian at `/ka/`, Russian at
+`/ru/`, and Hebrew at `/he/`. Development courses keep their
 preview labels and `noindex` policy while appearing in the launcher and course
 selectors. The builder
 restores the stable 162 / compatibility 161 preservation archive and overlays

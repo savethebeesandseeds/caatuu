@@ -148,7 +148,7 @@
   "platforms": {
     "browser": {
       "enabled": true,
-      "pagesEnabled": false,
+      "pagesEnabled": true,
       "entryPath": "/la/index.html",
       "backend": "static"
     },
