@@ -14,13 +14,31 @@ export function assertNewApkFitsPagesReserve(bytes) {
   return bytes;
 }
 
+const debugApkAliasPath = "android/caatuu-debug.apk";
+
+function readBaseline() {
+  return JSON.parse(readFileSync(fileURLToPath(new URL("./pages-baseline.json", import.meta.url)), "utf8"));
+}
+
 function baselineArchivePin() {
-  const baseline = JSON.parse(readFileSync(fileURLToPath(new URL("./pages-baseline.json", import.meta.url)), "utf8"));
+  const baseline = readBaseline();
   return {
     versionCode: baseline.stable.versionCode,
     bytes: baseline.stable.apk.bytes,
     sha256: baseline.stable.apk.sha256,
     downloadUrl: baseline.releaseArchive.downloadUrl,
+  };
+}
+
+function debugApkAliasPin() {
+  const baseline = readBaseline();
+  const canonical = "android/debug-releases/product-transition/161/caatuu-transition.apk";
+  assert.deepEqual(baseline.compatibility.apk.publicPaths, [canonical, debugApkAliasPath]);
+  return {
+    path: debugApkAliasPath,
+    bytes: baseline.compatibility.apk.bytes,
+    sha256: baseline.compatibility.apk.sha256,
+    downloadUrl: `${baseline.canonicalOrigin}/${canonical}`,
   };
 }
 
@@ -31,10 +49,18 @@ export function validatePagesStoragePolicy(value, descriptor) {
   const seen = new Set();
   for (const record of value.archivedApks) {
     assert.deepEqual(Object.keys(record).sort(), ["bytes", "downloadUrl", "path", "sha256"]);
-    const match = /^android\/releases\/([1-9][0-9]*)\/caatuu\.apk$/u.exec(record.path);
-    assert.ok(match, "Only explicitly approved historical APK copies may be archived");
     assert.ok(!seen.has(record.path), "Duplicate archived APK path");
     seen.add(record.path);
+    if (record.path === debugApkAliasPath) {
+      const pin = debugApkAliasPin();
+      assert.equal(record.bytes, pin.bytes, "Archived debug APK alias byte count changed");
+      assert.equal(record.sha256, pin.sha256, "Archived debug APK alias hash changed");
+      assert.equal(record.downloadUrl, pin.downloadUrl,
+        "Archived debug APK alias must point at the remaining transition APK");
+      continue;
+    }
+    const match = /^android\/releases\/([1-9][0-9]*)\/caatuu\.apk$/u.exec(record.path);
+    assert.ok(match, "Only explicitly approved historical APK copies may be archived");
     const version = Number(match[1]);
     const release = descriptor.releases.find(({ versionCode }) => versionCode === version);
     assert.ok(version < descriptor.releases.at(-2)?.versionCode,

@@ -895,12 +895,14 @@ function validateFinalWebSetup({ siteDir, canonicalOrigin, course, courseId = co
 }
 
 function createAndroidAliases({ baselineDescriptor, currentDescriptor, siteDir }) {
+  const archived = new Set((currentDescriptor.archivedApks ?? []).map(({ path }) => path));
   for (const channel of [currentDescriptor.stable, baselineDescriptor.compatibility]) {
     for (const artifact of [channel.manifest, channel.apk]) {
       const canonical = outputPath(siteDir, artifact.publicPaths[0]);
       assert.equal(statSync(canonical).size, artifact.bytes);
       assert.equal(sha256File(canonical), artifact.sha256);
       for (const alias of artifact.publicPaths.slice(1)) {
+        if (archived.has(alias)) continue;
         copyVerified(canonical, outputPath(siteDir, alias), artifact, `Android alias ${alias}`);
       }
     }

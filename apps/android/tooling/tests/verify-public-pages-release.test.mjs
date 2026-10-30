@@ -327,6 +327,42 @@ test("public verifier retains archive metadata without requiring retired Pages A
     fetchImpl: mock.fetchImpl, archivedApks: [archived] }), /republished/);
 });
 
+test("public verifier omits an archived debug APK alias and keeps the transition APK", async () => {
+  const data = fixture();
+  const baseline = JSON.parse(await readFile(new URL("../pages-baseline.json", import.meta.url), "utf8"));
+  const archived = {
+    path: "android/caatuu-debug.apk",
+    bytes: baseline.compatibility.apk.bytes,
+    sha256: baseline.compatibility.apk.sha256,
+    downloadUrl: `${baseline.canonicalOrigin}/${baseline.compatibility.apk.publicPaths[0]}`,
+  };
+  data.bundle.archivedAndroidApks = [archived];
+  data.bundle.files = data.bundle.files.filter(({ path }) => path !== archived.path);
+  const mock = mockPublicFetch(data);
+  const result = await verifyPublicPagesReleaseOnce({
+    descriptor: data.descriptor,
+    baselineDescriptor: data.baselineDescriptor,
+    fetchImpl: mock.fetchImpl,
+    archivedApks: [archived],
+  });
+  assert.equal(result.ok, true);
+  assert.deepEqual(result.archivedAndroidApks, [{ path: archived.path, downloadUrl: archived.downloadUrl }]);
+  assert.ok(!mock.calls.some((call) => call.path === "/android/caatuu-debug.apk"));
+  assert.ok(mock.calls.some((call) => call.path === "/android/debug-releases/product-transition/161/caatuu-transition.apk"));
+  assert.ok(mock.calls.some((call) => call.path === "/android/caatuu-debug.json"));
+  data.bundle.files.push({
+    path: archived.path,
+    bytes: data.baselineDescriptor.compatibility.apk.bytes,
+    sha256: data.baselineDescriptor.compatibility.apk.sha256,
+  });
+  await assert.rejects(verifyPublicPagesReleaseOnce({
+    descriptor: data.descriptor,
+    baselineDescriptor: data.baselineDescriptor,
+    fetchImpl: mock.fetchImpl,
+    archivedApks: [archived],
+  }), /republished/);
+});
+
 test("public verifier checks Pages, all retained Android routes, aliases, and data-free health", async () => {
   const data = fixture();
   const mock = mockPublicFetch(data);

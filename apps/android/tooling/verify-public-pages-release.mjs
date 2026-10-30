@@ -419,6 +419,7 @@ async function publicBundle(request, origin, current, baseline, languageRegistry
       inventoryRecord(bundle, alias, baseline.compatibility.manifest, "compatibility Android manifest alias");
     }
     for (const alias of baseline.compatibility.apk.aliases) {
+      if (archivedApks.some(({ path }) => `/${path}` === alias)) continue;
       inventoryRecord(bundle, alias, baseline.compatibility.apk, "compatibility Android APK alias");
     }
     const stable = overlayChannel(current.stable);
@@ -504,6 +505,7 @@ export async function verifyPublicPagesReleaseOnce({
     await rangedFile(timedFetch, origin, channel.apk, `Android ${channel.versionCode} immutable APK`);
   }
   for (const alias of baseline.compatibility.apk.aliases) {
+    if (archivedApks.some(({ path }) => `/${path}` === alias)) continue;
     await rangedFile(
       timedFetch,
       origin,

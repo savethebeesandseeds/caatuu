@@ -731,7 +731,8 @@ verification; native completion supplies the verified version and installer resu
 The legacy persisted setup handoff remains readable for older entrypoints.
 
 - `caatuu-debug.apk` is the frozen version 161 compatibility artifact, not a
-  current development channel.
+  current development channel. The public Pages URL `/android/caatuu-debug.apk`
+  is archived. The transition APK path and `caatuu-debug.json` remain.
 - `publish-release.sh` creates the local `caatuu.apk` and `caatuu.json` aliases.
   The Pages builder creates the public `/android/caatuu.{apk,json}` aliases from
   the newest release in the append-only descriptor; those public aliases are

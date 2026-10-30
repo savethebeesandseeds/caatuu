@@ -101,8 +101,9 @@ every final byte/hash, same-origin Android URLs, alias equality, service-worker
 exclusions, range bypass, case collisions, and size ceiling before replacing
 generated output. The launcher offers only the newest signed stable release;
 older releases remain at their immutable version paths, and transition 161
-remains at its compatibility path and technical
-`caatuu-debug.*` aliases for already-installed clients. The standalone
+remains at its compatibility path. `/android/caatuu-debug.json` remains for
+already-installed clients. Pages does not publish `/android/caatuu-debug.apk`.
+The standalone
 `/games/caatuu-game/` preview is not published until its separate game and
 asset release gates pass. Dynamic application APIs are not added. The
 Cloudflare Worker owns three reporting routes plus four exact large-asset

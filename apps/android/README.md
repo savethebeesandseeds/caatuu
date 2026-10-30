@@ -187,8 +187,9 @@ cleartext disabled and should use an HTTPS update host.
 Android release identities are intentionally separate:
 
 - Local `artifacts/android/caatuu-debug.apk` remains a debuggable developer
-  artifact only. The public `/android/caatuu-debug.{apk,json}` routes are
-  different: they remain frozen compatibility aliases for transition 161.
+  artifact only. The public `/android/caatuu-debug.json` route remains the
+  frozen compatibility alias for transition 161. Pages does not serve
+  `/android/caatuu-debug.apk`; those bytes stay at the transition APK URL.
 - `caatuu.apk` and `caatuu.json` are the canonical non-debuggable product and
   stable in-app update channel.
 - The public `/android/caatuu-debug.json` alias is retained temporarily as an

@@ -119,6 +119,9 @@ same-origin Android contracts as exact byte copies:
 - the technical compatibility aliases `/android/caatuu-debug.{json,apk}` used
   by already-installed preview clients.
 
+Pages later stopped serving `/android/caatuu-debug.apk`. The transition APK
+and `/android/caatuu-debug.json` remain.
+
 The public launcher advertises only the signed, non-debuggable newest descriptor
 release. As of 28 October 2026 that alias is stable 196 (`0.1.44`), source
 `56cd751a435770991fb30ba231e52fa9869aafe8`, with `device_smoke` recorded as

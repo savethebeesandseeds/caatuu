@@ -27,8 +27,9 @@ The stable Android paths `/android/caatuu.json` and
 `/android/caatuu.apk` are reserved for a signed, non-debuggable artifact. The
 launcher may try the gated `/android/caatuu-preview.json` and
 `/android/caatuu-preview.apk` aliases only after stable is absent, and must call
-that channel a preview. The technical `caatuu-debug.*` compatibility paths are
-reserved for already-installed preview clients and are never advertised. Debug
+that channel a preview. The technical `/android/caatuu-debug.json` compatibility path is
+reserved for already-installed preview clients and is never advertised.
+Pages does not publish `/android/caatuu-debug.apk`. Debug
 paths must never be used as an automatic public fallback; only the explicitly
 labeled, gated preview aliases may follow an unavailable stable channel.
 
