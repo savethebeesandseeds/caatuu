@@ -91,6 +91,10 @@ object StreakNotifications {
             .setCategory(NotificationCompat.CATEGORY_REMINDER)
             .setAutoCancel(true)
         launchIntent(context)?.let(builder::setContentIntent)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+            ContextCompat.checkSelfPermission(context, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            return
+        }
         NotificationManagerCompat.from(context).notify(reminder.tag, 0, builder.build())
         markShown(context, reminder.tag)
     }
