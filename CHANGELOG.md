@@ -12,9 +12,10 @@
   planet. No course lists it as a game, and there is no campaign content file.
 - Add Sounds Quasar for Scientific Latin, Georgian, Russian, and Hebrew from
   each course's own verbs and sentences. Latin and Georgian include that bank
-  in the Android asset list. This package still does not install Russian or
-  Hebrew. Device speech stays unreviewed listening practice. "Can't hear now"
-  skips the current listening item.
+  in the Android asset list. The Latin listening bank omits the gloss "kill"
+  because the child-release safety check blocks it. This package still does
+  not install Russian or Hebrew. Device speech stays unreviewed listening
+  practice. "Can't hear now" skips the current listening item.
 - In Mandarin Word World, a single character looks up the word it belongs to
   inside the same sentence, then grows to a short Han sequence when that word
   has no gloss.

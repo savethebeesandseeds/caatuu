@@ -364,7 +364,6 @@
       "la.verb.v0347",
       "la.verb.v0348",
       "la.verb.v0349",
-      "la.verb.v0350",
       "la.verb.v0351",
       "la.verb.v0352",
       "la.verb.v0353",
@@ -7439,18 +7438,6 @@
       "sourceId": "la.verb.v0349",
       "sourceReviewStatus": "native-review-required",
       "englishAuditText": "bury",
-      "usefulness": 54,
-      "complexity": 29
-    },
-    {
-      "id": "la.verb.v0350",
-      "difficulty": 2,
-      "revision": "1",
-      "target": "occīdere",
-      "meaning": "kill",
-      "sourceId": "la.verb.v0350",
-      "sourceReviewStatus": "native-review-required",
-      "englishAuditText": "kill",
       "usefulness": 54,
       "complexity": 29
     },
