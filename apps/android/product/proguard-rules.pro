@@ -1,4 +1,5 @@
 -keep class com.caatuu.android.ProductBridge { *; }
+-keep class com.caatuu.android.StreakNotificationReceiver { *; }
 -keep class com.caatuu.android.AppUpdateManager { *; }
 -keep class com.caatuu.android.CaatuuAssetClient { *; }
 -keep class com.caatuu.android.VectorDatabaseManager { *; }

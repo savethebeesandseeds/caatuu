@@ -572,7 +572,9 @@ test("versioned schemas and both authoritative manifests are valid JSON", async 
   assert.ok(courseSchema.$defs.presentCourseDataFileResource);
   assert.ok(courseSchema.$defs.platforms.properties.browser.required.includes("pagesEnabled"));
   assert.equal(courseSchema.$defs.platforms.properties.browser.properties.pagesEnabled.type, "boolean");
-  assert.deepEqual(courseSchema.properties.games.items.enum, GAME_IDS);
+  assert.deepEqual(courseSchema.properties.games.items.enum, NON_CAMPAIGN_GAME_IDS);
+  assert.deepEqual(GAME_IDS, ["campaign", ...NON_CAMPAIGN_GAME_IDS]);
+  assert.equal(loaded.courses.some(({ course }) => course.games?.includes("campaign")), false);
   assert.deepEqual(courseSchema.properties.upcomingGames.items.enum, NON_CAMPAIGN_GAME_IDS);
   assert.equal(NON_CAMPAIGN_GAME_IDS.includes("sound-quasar"), true);
   assert.equal(PLANET_GAME_CONTRACT.planets["sound-quasar"].route, "soundQuasar");
@@ -1663,12 +1665,11 @@ test("browser courses declare only known, unique linguistic features and games",
       }
     },
     {
-      name: "campaign without a campaign-eligible game",
-      code: "game.campaign",
-      message: /campaign requires at least 1 campaign-eligible enabled game/,
+      name: "campaign is shell orchestration and cannot be declared as a course game",
+      code: "game.invalid",
+      message: /games\[0\] names unsupported value "campaign"/,
       mutate(candidate) {
         candidate.courses[1].course.games = ["campaign"];
-        candidate.courses[1].course.routes.campaign = "index.html";
       }
     }
   ];
@@ -1755,6 +1756,10 @@ test("every playable authored planet requires its declared course content", asyn
     ["cz", "sound-quasar", "soundQuasarCatalog"],
     ["zh", "sound-quasar", "soundQuasarCatalog"],
     ["es", "sound-quasar", "soundQuasarCatalog"],
+    ["la", "sound-quasar", "soundQuasarCatalog"],
+    ["ka", "sound-quasar", "soundQuasarCatalog"],
+    ["ru", "sound-quasar", "soundQuasarCatalog"],
+    ["he", "sound-quasar", "soundQuasarCatalog"],
     ["cz", "verb-lab", "verbNebulaCatalog"],
     ["cz", "word-net", "wordWorldManifest"],
     ["cz", "conjugation-comet", "conjugationCometCatalog"],

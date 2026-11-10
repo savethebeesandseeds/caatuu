@@ -583,6 +583,10 @@
       "output": "language-runtime/static/source/product-word-world.mjs"
     },
     {
+      "source": "apps/language-runtime/static/source/sentence-character-meaning.mjs",
+      "output": "language-runtime/static/source/sentence-character-meaning.mjs"
+    },
+    {
       "source": "apps/language-runtime/static/source/shell-policy.js",
       "output": "language-runtime/static/source/shell-policy.js"
     },

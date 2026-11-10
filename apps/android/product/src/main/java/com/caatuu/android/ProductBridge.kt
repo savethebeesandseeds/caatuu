@@ -3,6 +3,7 @@ package com.caatuu.android
 import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.os.Build
 import android.provider.Settings
 import android.speech.tts.TextToSpeech
 import android.webkit.JavascriptInterface
@@ -31,6 +32,7 @@ class ProductBridge(
     private val courseRuntimes: Map<String, ProductCourseRuntime>,
     private val appUpdateManager: AppUpdateManager,
     private val onThemeChanged: (String) -> Unit,
+    private val onRequestNotificationPermission: () -> Unit,
 ) {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     private val artifactMutex = Mutex()
@@ -90,6 +92,34 @@ class ProductBridge(
     fun isCourseBundled(id: String): Boolean = courseRegistry.isBundled(id)
 
     @JavascriptInterface
+    fun notificationPermission(): String = StreakNotifications.permission(activity)
+
+    @JavascriptInterface
+    fun requestNotificationPermission() {
+        activity.runOnUiThread {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                StreakNotifications.rememberAsked(activity)
+                onRequestNotificationPermission()
+            } else {
+                publishNotificationPermission(StreakNotifications.permission(activity) == "granted")
+            }
+        }
+    }
+
+    @JavascriptInterface
+    fun openNotificationSettings() {
+        activity.runOnUiThread { StreakNotifications.openSettings(activity) }
+    }
+
+    fun publishNotificationPermission(granted: Boolean) {
+        val permission = if (granted) "granted" else "denied"
+        webView.evaluateJavascript(
+            "window.dispatchEvent(new CustomEvent('caatuu:notification-permission',{detail:{permission:'$permission',prompt:true}}));",
+            null,
+        )
+    }
+
+    @JavascriptInterface
     fun postMessage(rawMessage: String) {
         scope.launch {
             val request = runCatching { JSONObject(rawMessage) }.getOrNull() ?: return@launch
@@ -110,32 +140,36 @@ class ProductBridge(
             }
 
             try {
-                val runtime = currentCourseRuntime()
                 val requestType = request.optString("type")
-                if (requestType in setOf("vector_search", "dictionary_search", "speech_speak")) {
-                    check(withContext(Dispatchers.IO) { runtime.isSetupCommitted() }) { "Finish installing this course before using it." }
-                }
-                when (requestType) {
-                    "cancel_request" -> cancelNativeRequest(id, request, runtime)
-                    "setup_status" -> emitDone(id, setupStatusJson(runtime))
-                    "storage_preflight" -> emitDone(id, storagePreflightJson(runtime))
-                    "setup_download" -> runSetupDownload(id, runtime)
-                    "setup_abort" -> abortSetup(id, runtime)
-                    "vector_status" -> emitDone(id, withContext(Dispatchers.IO) { requireVectorDatabaseManager(runtime).statusJson() })
-                    "vector_download" -> downloadVectorDatabase(id, runtime)
-                    "vector_search" -> searchVectorDatabase(id, request, runtime)
-                    "dictionary_status" -> emitDone(id, withContext(Dispatchers.IO) { requireDictionaryManager(runtime).statusJson() })
-                    "dictionary_download" -> downloadDictionary(id, runtime)
-                    "dictionary_search" -> searchDictionary(id, request, runtime)
-                    "speech_status" -> speechStatus(id, request, runtime)
-                    "speech_speak" -> speakSpeech(id, request, runtime)
-                    "speech_stop" -> stopSpeech(id, runtime)
-                    "speech_install_data" -> installSpeechData(id, request, runtime)
-                    "delete_local_pack" -> deleteLocalPack(id, runtime)
-                    "clear_cache" -> clearCache(id, runtime)
-                    "update_app_status" -> emitDone(id, appUpdateManager.statusJson())
-                    "update_app" -> updateApp(id)
-                    else -> throw IllegalArgumentException("Unknown native request type.")
+                if (requestType == "notification_schedule") {
+                    emitDone(id, StreakNotifications.schedule(activity, request))
+                } else {
+                    val runtime = currentCourseRuntime()
+                    if (requestType in setOf("vector_search", "dictionary_search", "speech_speak")) {
+                        check(withContext(Dispatchers.IO) { runtime.isSetupCommitted() }) { "Finish installing this course before using it." }
+                    }
+                    when (requestType) {
+                        "cancel_request" -> cancelNativeRequest(id, request, runtime)
+                        "setup_status" -> emitDone(id, setupStatusJson(runtime))
+                        "storage_preflight" -> emitDone(id, storagePreflightJson(runtime))
+                        "setup_download" -> runSetupDownload(id, runtime)
+                        "setup_abort" -> abortSetup(id, runtime)
+                        "vector_status" -> emitDone(id, withContext(Dispatchers.IO) { requireVectorDatabaseManager(runtime).statusJson() })
+                        "vector_download" -> downloadVectorDatabase(id, runtime)
+                        "vector_search" -> searchVectorDatabase(id, request, runtime)
+                        "dictionary_status" -> emitDone(id, withContext(Dispatchers.IO) { requireDictionaryManager(runtime).statusJson() })
+                        "dictionary_download" -> downloadDictionary(id, runtime)
+                        "dictionary_search" -> searchDictionary(id, request, runtime)
+                        "speech_status" -> speechStatus(id, request, runtime)
+                        "speech_speak" -> speakSpeech(id, request, runtime)
+                        "speech_stop" -> stopSpeech(id, runtime)
+                        "speech_install_data" -> installSpeechData(id, request, runtime)
+                        "delete_local_pack" -> deleteLocalPack(id, runtime)
+                        "clear_cache" -> clearCache(id, runtime)
+                        "update_app_status" -> emitDone(id, appUpdateManager.statusJson())
+                        "update_app" -> updateApp(id)
+                        else -> throw IllegalArgumentException("Unknown native request type.")
+                    }
                 }
             } catch (error: Exception) {
                 emitError(id, error)

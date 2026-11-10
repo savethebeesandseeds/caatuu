@@ -48,7 +48,7 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     active: !scope.frameElement?.closest?.("[data-train-panel]")?.hidden,
     finished: false, destroyed: false, speechRequest: 0, voiceRequest: 0,
     voiceBackend: "", audioContext: null, report: null, reported: new Set(), mode: "words", artwork: "", sessionCorrect: 0,
-    pageHidden: false, pendingAutoplay: false, audioFailed: false, choiceCount: 4,
+    pageHidden: false, pendingAutoplay: false, suppressNextAutoplay: false, audioFailed: false, choiceCount: 4,
     waitingCampaign: false, dictionaryWord: ""
   };
   const loadingLabel = t("verbnebula.round.preparing");
@@ -162,6 +162,11 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
       && !state.pageHidden && shell.document.visibilityState !== "hidden" && !state.playing
       && !state.report && !controls.isOpen() && (automaticAudioOff() || !state.audioReady || state.audioFailed);
   }
+  function canDeclineHearing() {
+    return !state.resolved && !state.skipped && !state.finished && state.active && !state.destroyed
+      && !state.pageHidden && shell.document.visibilityState !== "hidden"
+      && !state.report && !controls.isOpen();
+  }
   function canAdvance() {
     return (state.resolved || state.skipped) && state.active && !state.destroyed && !state.finished
       && !state.pageHidden && shell.document.visibilityState !== "hidden"
@@ -232,6 +237,7 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     node("quasarGame").classList.toggle("is-playing", state.playing);
     node("quasarSkip").hidden = state.finished || state.resolved || state.skipped || !(automaticAudioOff() || !state.audioReady || state.audioFailed);
     node("quasarSkip").disabled = !canSkip();
+    node("quasarCantHear").hidden = !canDeclineHearing();
     node("quasarReport").disabled = unavailable || state.finished || state.reported.has(current()?.id);
     node("quasarReport").textContent = t(state.reported.has(current()?.id) ? "wordworld.report.savedaction" : "soundquasar.report.action");
     for (const button of node("quasarChoices").querySelectorAll("button")) {
@@ -316,7 +322,8 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     node("quasarAnswerArea").classList.remove("is-result");
     node("quasarResult").hidden = true;
     feedback();
-    state.pendingAutoplay = !automaticAudioOff();
+    state.pendingAutoplay = !automaticAudioOff() && !state.suppressNextAutoplay;
+    state.suppressNextAutoplay = false;
     syncButtons();
   }
   function startSession() {
@@ -331,6 +338,7 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
       state.rounds = [];
       state.finished = true;
       state.pendingAutoplay = false;
+      state.suppressNextAutoplay = false;
       transitionScreen.hide();
       node("quasarChoices").replaceChildren();
       node("quasarGame").hidden = true;
@@ -440,6 +448,31 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     stopSpeech();
     showResult(false);
     syncButtons();
+  }
+  // Leave this listening round without credit. Campaign advances. Free play
+  // stays open, and the replacement batch does not speak on its own.
+  function declineHearing() {
+    if (!canDeclineHearing()) return;
+    state.pendingAutoplay = false;
+    state.skipped = true;
+    if (shell.document.body?.dataset.campaignActive === "true") {
+      state.finished = true;
+      stopSpeech();
+      dictionary.reset();
+      review.clear();
+      node("quasarPlayArea").hidden = true;
+      node("quasarResult").hidden = true;
+      transitionScreen.show();
+      node("quasarPanel").classList.add("is-transitioning");
+      state.waitingCampaign = true;
+      syncButtons();
+      shell.postMessage({ source: "caatuu-game", type: "round-complete", gameId: GAME_ID }, scope.location.origin);
+      return;
+    }
+    state.suppressNextAutoplay = true;
+    stopSpeech();
+    startSession();
+    node("quasarListen").focus();
   }
   function next() {
     if (!canAdvance()) return;
@@ -579,6 +612,7 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     node("quasarListen").focus();
   });
   listen(node("quasarSkip"), "click", skip);
+  listen(node("quasarCantHear"), "click", declineHearing);
   listen(node("quasarChoiceOptions"), "click", (event) => {
     const button = event.target?.closest?.("button[data-count]");
     const count = Number(button?.dataset.count);

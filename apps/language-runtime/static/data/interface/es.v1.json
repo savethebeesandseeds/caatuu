@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "locale": "es-ES",
   "direction": "ltr",
-  "revision": "interface-es-32",
+  "revision": "interface-es-33",
   "messages": {
     "campaign.progress.unavailable": "Tu progreso no está disponible temporalmente. Vuelve a abrir la aplicación para intentarlo de nuevo.",
     "campaign.stage.progress": "{cycles} de {target} ciclos",
@@ -921,6 +921,7 @@
     "soundquasar.audio.retry": "Comprobar audio",
     "soundquasar.audio.stopped": "La reproducción se ha detenido. Escucha de nuevo antes de elegir.",
     "soundquasar.audio.unavailable": "No hay ninguna voz en {language} preparada. Comprueba los controles de audio.",
+    "soundquasar.canthear": "Ahora no puedo oír",
     "soundquasar.choices": "Elige la palabra que escuchas",
     "soundquasar.choices.sentences": "Elige la frase que escuchas",
     "soundquasar.choose": "Elige la palabra que has escuchado.",

@@ -121,7 +121,8 @@ cases. Turning on that engine would teach incorrect categories. Georgian's
 seven cases are introduced in contextual Word World examples and sentence
 hints; conjugation contexts show the relevant subject/object cases.
 Naturalization Nucleus is not an alphabet trainer for Georgian.
-Sounds Quasar and speech recognition remain disabled.
+Sounds Quasar is listening practice from this course's own verbs and sentences.
+Device speech is unreviewed and is not speech recognition or pronunciation mastery.
 Speech uses the shared browser/Android device speech provider. Playback depends
 on the device's Georgian support; pronunciation review remains pending.
 

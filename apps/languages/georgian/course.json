@@ -40,12 +40,14 @@
     "word-net",
     "conjugation-comet",
     "grammar-gravity",
+    "sound-quasar",
     "memory-moon"
   ],
   "launcher": {
     "flagClass": "flag-icon"
   },
   "routes": {
+    "soundQuasar": "/language-runtime/static/games/sound-quasar.html",
     "conjugationComet": "/language-runtime/static/games/conjugation-comet.html",
     "grammarGravity": "/language-runtime/static/games/grammar-gravity.html",
     "languageSelection": "/",
@@ -177,6 +179,13 @@
       "scope": "course",
       "revision": "memory-moon-1"
     },
+    "soundQuasarCatalog": {
+      "kind": "file",
+      "path": "apps/languages/georgian/static/data/games/sound-quasar/content.json",
+      "scope": "course",
+      "state": "present",
+      "revision": "sound-quasar-all-courses-1"
+    },
     "androidAssetCatalog": {
       "kind": "file",
       "path": "apps/languages/georgian/android-assets.json",
@@ -200,7 +209,7 @@
       "path": "apps/language-runtime/static/data/interface/en.v1.json",
       "scope": "shared",
       "state": "present",
-      "revision": "interface-en-57"
+      "revision": "interface-en-58"
     },
     "courseProfile": {
       "kind": "file",

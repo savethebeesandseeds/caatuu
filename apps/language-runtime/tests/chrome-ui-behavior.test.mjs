@@ -1175,6 +1175,220 @@ test("visible streak units refresh plural forms for current and best counts", ()
   harness.window.dispatchEvent({ type: "pagehide" });
 });
 
+function streakExpiringIn(millis, extra = {}) {
+  const expiresAt = new Date(Date.now() + millis).toISOString();
+  return {
+    currentDays: 4,
+    highestDays: 6,
+    expiresAt,
+    remindersEnabled: false,
+    reminderCycle: {
+      expiresAt,
+      imagePath: "/assets/miscellaneous/burrow-review_001.png",
+      deliveredHours: []
+    },
+    ...extra
+  };
+}
+
+function learningWithStreak(streak, { dueReminders = [], onDelivered = null } = {}) {
+  return {
+    snapshot: () => ({ difficulty: 1, difficultyOption: { summary: "", label: "Traveler" }, summary: {}, streak }),
+    dueStreakReminders: () => dueReminders,
+    markStreakReminderDelivered: (expiresAt, hours) => onDelivered?.(expiresAt, hours),
+    setStreakRemindersEnabled: (enabled) => {
+      streak.remindersEnabled = enabled === true;
+    }
+  };
+}
+
+function androidNotificationBridge(permissionValue) {
+  const state = { permission: permissionValue, requests: 0, settings: 0, messages: [] };
+  return {
+    state,
+    bridge: {
+      notificationPermission: () => state.permission,
+      requestNotificationPermission() { state.requests += 1; },
+      openNotificationSettings() { state.settings += 1; },
+      postMessage(raw) { state.messages.push(JSON.parse(raw)); }
+    }
+  };
+}
+
+async function flushStreakReminder() {
+  await new Promise((resolve) => setTimeout(resolve, 0));
+}
+
+test("five-hour and three-hour streak reminders stay a small notice", async () => {
+  assert.match(chromeStyles, /\.streak-reminder-notice\s*\{[^}]*z-index:\s*38/u);
+  assert.match(chromeStyles, /\.streak-reminder-copy\s*\{[^}]*font-size:\s*0\.68rem/u);
+  assert.doesNotMatch(chromeStyles, /\.streak-reminder-practice/u);
+
+  const quiet = createBrowserHarness({
+    course: fixtureCourse(),
+    window: { CaatuuLearning: learningWithStreak(streakExpiringIn(20 * 60 * 60 * 1000)) }
+  });
+  runChrome(quiet);
+  await flushStreakReminder();
+  assert.equal(quiet.document.getElementById("streakReminderNotice"), null);
+  quiet.window.dispatchEvent({ type: "pagehide" });
+
+  const five = streakExpiringIn(4 * 60 * 60 * 1000, { remindersEnabled: true });
+  const deliveries = [];
+  const shown = [];
+  class RecordingNotification {
+    static permission = "granted";
+    constructor(title, options) { shown.push({ title, options }); }
+  }
+  const harness = createBrowserHarness({
+    course: fixtureCourse(),
+    window: {
+      Notification: RecordingNotification,
+      isSecureContext: true,
+      CaatuuLearning: learningWithStreak(five, {
+        dueReminders: [{ hours: 5, currentDays: 4, expiresAt: five.expiresAt, imagePath: five.reminderCycle.imagePath }],
+        onDelivered: (expiresAt, hours) => deliveries.push({ expiresAt, hours })
+      })
+    }
+  });
+  runChrome(harness);
+  await flushStreakReminder();
+  const notice = harness.document.getElementById("streakReminderNotice");
+  assert.equal(notice.getAttribute("role"), "status");
+  assert.equal(notice.querySelector("strong").textContent, englishInterfaceCatalog.messages["progress.reminders.fivehourtitle"]);
+  assert.equal(notice.querySelector("button").textContent, englishInterfaceCatalog.messages["common.gotit"]);
+  assert.equal(notice.querySelector(".streak-reminder-practice"), null);
+  assert.equal(shown.length, 1);
+  assert.equal(shown[0].options.requireInteraction, undefined);
+  assert.deepEqual(deliveries, [{ expiresAt: five.expiresAt, hours: 5 }]);
+  notice.querySelector("button").click();
+  assert.equal(notice.hidden, true);
+  harness.window.dispatchEvent({ type: "pagehide" });
+
+  const three = streakExpiringIn(2 * 60 * 60 * 1000, { remindersEnabled: true });
+  const blocked = [];
+  class BlockedNotification {
+    static permission = "granted";
+    constructor() { throw new Error("blocked"); }
+  }
+  const blockedHarness = createBrowserHarness({
+    course: fixtureCourse(),
+    window: {
+      Notification: BlockedNotification,
+      isSecureContext: true,
+      CaatuuLearning: learningWithStreak(three, {
+        dueReminders: [{ hours: 3, currentDays: 4, expiresAt: three.expiresAt, imagePath: three.reminderCycle.imagePath }],
+        onDelivered: (expiresAt, hours) => blocked.push({ expiresAt, hours })
+      })
+    }
+  });
+  runChrome(blockedHarness);
+  await flushStreakReminder();
+  assert.equal(
+    blockedHarness.document.querySelector("#streakReminderNotice strong").textContent,
+    englishInterfaceCatalog.messages["progress.reminders.threehourtitle"]
+  );
+  assert.deepEqual(blocked, [{ expiresAt: three.expiresAt, hours: 3 }]);
+  blockedHarness.window.dispatchEvent({ type: "pagehide" });
+});
+
+test("android asks once for notification permission and then schedules streak reminders", async () => {
+  const streak = streakExpiringIn(10 * 60 * 60 * 1000);
+  const native = androidNotificationBridge("default");
+  const harness = createBrowserHarness({
+    course: fixtureCourse(),
+    runtime: { env: "android" },
+    window: {
+      CaatuuAndroid: native.bridge,
+      CaatuuLearning: learningWithStreak(streak)
+    }
+  });
+  runChrome(harness);
+  assert.equal(native.state.requests, 1);
+  native.state.permission = "granted";
+  harness.window.dispatchEvent(new harness.window.CustomEvent("caatuu:notification-permission", {
+    detail: { permission: "granted", prompt: true }
+  }));
+  await flushStreakReminder();
+  assert.equal(native.state.requests, 1);
+  assert.equal(streak.remindersEnabled, true);
+  const scheduled = native.state.messages.filter((message) => message.reminders.length === 2);
+  assert.equal(scheduled.length > 0, true);
+  const reminders = scheduled.at(-1).reminders;
+  assert.deepEqual(reminders.map((reminder) => reminder.hours), [5, 3]);
+  assert.equal(reminders[0].title, englishInterfaceCatalog.messages["progress.reminders.fivehourtitle"]);
+  assert.equal(reminders[1].title, englishInterfaceCatalog.messages["progress.reminders.threehourtitle"]);
+  assert.equal(reminders[0].body, englishInterfaceCatalog.messages["progress.reminders.fivehourbody"].replace("{count}", "4"));
+  assert.ok(reminders.every((reminder) => reminder.at > Date.now() && reminder.expiresAtMillis > Date.now()));
+  assert.equal(scheduled.at(-1).type, "notification_schedule");
+  harness.window.dispatchEvent({ type: "pagehide" });
+});
+
+test("android schedules allowed streak reminders without asking again", async () => {
+  const streak = streakExpiringIn(10 * 60 * 60 * 1000, { remindersEnabled: true });
+  const native = androidNotificationBridge("granted");
+  const harness = createBrowserHarness({
+    course: fixtureCourse(),
+    runtime: { env: "android" },
+    window: {
+      CaatuuAndroid: native.bridge,
+      CaatuuLearning: learningWithStreak(streak)
+    }
+  });
+  runChrome(harness);
+  await flushStreakReminder();
+  assert.equal(native.state.requests, 0);
+  const reminders = native.state.messages.at(-1).reminders;
+  assert.deepEqual(reminders.map((reminder) => reminder.hours), [5, 3]);
+  harness.window.dispatchEvent({ type: "pagehide" });
+
+  const openWindow = streakExpiringIn(4.5 * 60 * 60 * 1000, { remindersEnabled: true });
+  const late = androidNotificationBridge("granted");
+  const lateHarness = createBrowserHarness({
+    course: fixtureCourse(),
+    runtime: { env: "android" },
+    window: {
+      CaatuuAndroid: late.bridge,
+      CaatuuLearning: learningWithStreak(openWindow)
+    }
+  });
+  const before = Date.now();
+  runChrome(lateHarness);
+  await flushStreakReminder();
+  const lateReminders = late.state.messages.at(-1).reminders;
+  assert.deepEqual(lateReminders.map((reminder) => reminder.hours), [5, 3]);
+  assert.ok(lateReminders[0].at >= before && lateReminders[0].at < before + 5000);
+  assert.ok(lateReminders[1].at > before + (60 * 60 * 1000));
+  lateHarness.window.dispatchEvent({ type: "pagehide" });
+});
+
+test("android notification denial keeps the control available and opens system settings", async () => {
+  const native = androidNotificationBridge("denied");
+  const streak = streakExpiringIn(10 * 60 * 60 * 1000);
+  const harness = createBrowserHarness({
+    course: fixtureCourse(),
+    runtime: { env: "android" },
+    window: {
+      CaatuuAndroid: native.bridge,
+      CaatuuLearning: learningWithStreak(streak)
+    }
+  });
+  const button = harness.document.createElement("button");
+  button.setAttribute("data-streak-reminder-toggle", "");
+  harness.document.body.append(button);
+  runChrome(harness);
+  await flushStreakReminder();
+  assert.equal(native.state.requests, 0);
+  assert.equal(button.hidden, false);
+  assert.equal(button.disabled, false);
+  assert.equal(button.textContent, englishInterfaceCatalog.messages["progress.reminders.blocked"]);
+  assert.equal(button.getAttribute("aria-label"), englishInterfaceCatalog.messages["progress.reminders.turnon"]);
+  button.click();
+  assert.equal(native.state.settings, 1);
+  assert.equal(native.state.requests, 0);
+  harness.window.dispatchEvent({ type: "pagehide" });
+});
+
 test("denied notification permission has calm copy and explains that progress still works", () => {
   const harness = createBrowserHarness({ course: fixtureCourse(), window: {
     CaatuuRuntime: { env: "browser", registerServiceWorker: async () => true }, Notification: { permission: "denied" },

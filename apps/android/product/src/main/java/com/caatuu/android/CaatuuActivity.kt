@@ -15,6 +15,7 @@ import android.webkit.WebView
 import android.widget.FrameLayout
 import androidx.activity.ComponentActivity
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -26,6 +27,11 @@ class CaatuuActivity : ComponentActivity() {
     private lateinit var webView: WebView
     private lateinit var bridge: ProductBridge
     private var systemTheme = DARK_THEME
+    private val notificationPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission(),
+    ) { granted ->
+        if (::bridge.isInitialized) bridge.publishNotificationPermission(granted)
+    }
     private var backRequestInFlight = false
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -137,6 +143,9 @@ class CaatuuActivity : ComponentActivity() {
             courseRuntimes = courseRuntimes,
             appUpdateManager = AppUpdateManager(applicationContext),
             onThemeChanged = { theme -> applySystemTheme(theme) },
+            onRequestNotificationPermission = {
+                notificationPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+            },
         )
 
         val coursePreferences = getSharedPreferences("caatuu-course-selection", Context.MODE_PRIVATE)

@@ -24,6 +24,7 @@ Each enabled game has one authored content file.
 | Grammar Gravity | `static/data/games/grammar-gravity/content.json` | Adjective agreement |
 | Grammar Gravity nouns | `static/data/games/grammar-gravity/nouns.json` | The same game's noun bank, not a sixth game |
 | Memory Moon | `static/data/games/memory-moon/content.json` | One question bank from the same course |
+| Sounds Quasar | `static/data/games/sound-quasar/content.json` | Listening practice from this course's verbs and sentences |
 
 Case Cosmos stays off. That engine still teaches English-to-Czech cases with
 Latin-script nouns. Russian's six cases would be taught wrongly there. Case
@@ -31,9 +32,9 @@ still appears inside Word World sentences and conjugation frames. Declaring
 `grammatical-case` does not turn the planet on.
 
 Naturalization Nucleus stays off. Its gate is only Mandarin tone color or
-Arabic romanization. Sounds Quasar stays off because there is no reviewed
-audio. Dictionary, chat, generation, and a listed campaign are off. Device
-speech is on, through the shared provider. `pronunciationGuides` is false.
+Arabic romanization. Dictionary, chat, generation, and a listed campaign are
+off. Device speech is on, through the shared provider, and Sounds Quasar uses
+it only as unreviewed listening practice. `pronunciationGuides` is false.
 The content carries no pronunciation objects.
 
 ## How Russian is written

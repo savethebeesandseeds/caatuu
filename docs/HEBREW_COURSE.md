@@ -5,7 +5,7 @@ The first Hebrew course is a local browser development preview at
 to English speakers through the shared application and game engines. The
 course ID is `he`, the script is `Hebr`, speech uses `he-IL`, text direction
 is right to left, and storage and cache names start with `caatuu-he`. The
-interface catalog is English `interface-en-57`.
+interface catalog is English `interface-en-58`.
 
 The course is `development`. The browser is on, and the public website lists
 it as a `noindex` preview. Android stays off, so
@@ -24,11 +24,12 @@ Each enabled game has one authored content file.
 | Grammar Gravity | `static/data/games/grammar-gravity/content.json` | Adjective agreement |
 | Grammar Gravity nouns | `static/data/games/grammar-gravity/nouns.json` | The same game's noun bank, not a sixth game |
 | Memory Moon | `static/data/games/memory-moon/content.json` | One question bank from the same course |
+| Sounds Quasar | `static/data/games/sound-quasar/content.json` | Listening practice from this course's verbs and sentences |
 
 Case Cosmos stays off. Hebrew is not given a `grammatical-case` feature.
-Naturalization Nucleus stays off. Sounds Quasar stays off because there is
-no reviewed audio. Dictionary, chat, generation, and a listed campaign are
-off. Device speech is on, through the shared provider. `pronunciationGuides`
+Naturalization Nucleus stays off. Dictionary, chat, generation, and a listed
+campaign are off. Device speech is on, through the shared provider, and
+Sounds Quasar uses it only as unreviewed listening practice. `pronunciationGuides`
 is false. The content carries no pronunciation objects. `capabilities.verbs`
 is false. Verb Lab still runs from its own content file.
 

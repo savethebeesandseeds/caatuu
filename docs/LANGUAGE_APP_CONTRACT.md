@@ -305,7 +305,7 @@ Planet readiness is a conjunction, not a language allowlist:
 | Sounds Quasar | `soundQuasarCatalog` | `speech` and the shared `routes.soundQuasar` host; device speech is practice only |
 | Campaign | No separate catalog | At least one playable implemented planet |
 
-Only Czech lists `campaign` in `games`. Availability for every course still
+No course lists `campaign` in `games`. Availability for every course
 comes from `apps/language-runtime/static/source/shell-policy.js`. That
 registry puts every implemented, playable planet into Campaign, including
 Sounds Quasar, Naturalization Nucleus, and Memory Moon when the course

@@ -212,15 +212,21 @@ export function validateAndroidProjectSources(sources) {
     ["cleartext transport prohibition", 'android:usesCleartextTraffic="false"'],
     ["private FileProvider", 'android:name="androidx.core.content.FileProvider"'],
     ["Android back integration", 'android:enableOnBackInvokedCallback="true"'],
+    ["notification permission", "android.permission.POST_NOTIFICATIONS"],
+    ["boot completed permission", "android.permission.RECEIVE_BOOT_COMPLETED"],
+    ["streak notification receiver", 'android:name=".StreakNotificationReceiver"'],
   ]);
   forbidText(sources, issues, "productManifest", [
     ["microphone permission", "android.permission.RECORD_AUDIO"],
     ["sideload install permission", "android.permission.REQUEST_INSTALL_PACKAGES"],
+    ["exact alarm schedule permission", "android.permission.SCHEDULE_EXACT_ALARM"],
+    ["exact alarm use permission", "android.permission.USE_EXACT_ALARM"],
   ]);
   requireText(sources, issues, "productActivity", [
     ["bundled course registry", "BundledCourseRegistry.load"],
     ["manifest-native provider configuration", "NativeProviderConfiguration.fromBundled"],
     ["product bridge installation", "ProductBridge("],
+    ["notification permission launcher", "ActivityResultContracts.RequestPermission()"],
     ["edge-to-edge system UI", "WindowCompat.enableEdgeToEdge(window)"],
   ]);
   requireText(sources, issues, "productRuntime", [
@@ -233,6 +239,10 @@ export function validateAndroidProjectSources(sources) {
     ["bundled course query", "courseRegistry.isBundled(id)"],
     ["non-preview product bridge", "fun isDeveloperPreview(): Boolean = false"],
     ["native theme bridge", "fun setTheme(theme: String)"],
+    ["notification permission query", "fun notificationPermission()"],
+    ["notification permission request", "fun requestNotificationPermission()"],
+    ["notification settings", "fun openNotificationSettings()"],
+    ["streak notification schedule", '"notification_schedule"'],
   ]);
   forbidText(sources, issues, "productBridge", [
     ["legacy model manager", "ModelManager"],

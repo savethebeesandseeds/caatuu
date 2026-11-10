@@ -47,7 +47,7 @@
       schemaVersion: 1,
       locale: "en",
       direction: "ltr",
-      revision: "interface-en-57",
+      revision: "interface-en-58",
       catalog: "/language-runtime/static/data/interface/en.v1.json"
     },
     learnerBasePreview: false,
@@ -61,6 +61,7 @@
       "word-net",
       "conjugation-comet",
       "grammar-gravity",
+      "sound-quasar",
       "memory-moon"
     ],
     upcomingGames: [],
@@ -82,6 +83,9 @@
       "grammar-gravity": {
         grammarGravityCatalog: "data/games/grammar-gravity/content.json?v=grammar-gravity-content-1",
         grammarGravityNouns: "data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-1"
+      },
+      "sound-quasar": {
+        soundQuasarCatalog: "data/games/sound-quasar/content.json?v=sound-quasar-all-courses-1"
       },
       "memory-moon": {
         memoryMoonCatalog: "data/games/memory-moon/content.json?v=memory-moon-1"
@@ -152,7 +156,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-57",
+            revision: "interface-en-58",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -212,7 +216,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-57",
+            revision: "interface-en-58",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -276,7 +280,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-57",
+            revision: "interface-en-58",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -340,7 +344,7 @@
             schemaVersion: 1,
             locale: "es-ES",
             direction: "ltr",
-            revision: "interface-es-32",
+            revision: "interface-es-33",
             catalog: "/language-runtime/static/data/interface/es.v1.json"
           },
           targetLanguage: {
@@ -404,7 +408,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-57",
+            revision: "interface-en-58",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -471,7 +475,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-57",
+            revision: "interface-en-58",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -509,6 +513,9 @@
                 grammarGravityCatalog: "data/games/grammar-gravity/content.json?v=grammar-gravity-content-1",
                 grammarGravityNouns: "data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-1"
               },
+              "sound-quasar": {
+                soundQuasarCatalog: "data/games/sound-quasar/content.json?v=sound-quasar-all-courses-1"
+              },
               "memory-moon": {
                 memoryMoonCatalog: "data/games/memory-moon/content.json?v=memory-moon-2"
               }
@@ -532,7 +539,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-57",
+            revision: "interface-en-58",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -570,6 +577,9 @@
                 grammarGravityCatalog: "data/games/grammar-gravity/content.json?v=grammar-gravity-content-1",
                 grammarGravityNouns: "data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-2"
               },
+              "sound-quasar": {
+                soundQuasarCatalog: "data/games/sound-quasar/content.json?v=sound-quasar-all-courses-1"
+              },
               "memory-moon": {
                 memoryMoonCatalog: "data/games/memory-moon/content.json?v=memory-moon-1"
               }
@@ -593,7 +603,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-57",
+            revision: "interface-en-58",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -631,6 +641,9 @@
                 grammarGravityCatalog: "data/games/grammar-gravity/content.json?v=grammar-gravity-content-1",
                 grammarGravityNouns: "data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-1"
               },
+              "sound-quasar": {
+                soundQuasarCatalog: "data/games/sound-quasar/content.json?v=sound-quasar-all-courses-1"
+              },
               "memory-moon": {
                 memoryMoonCatalog: "data/games/memory-moon/content.json?v=memory-moon-1"
               }
@@ -654,7 +667,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-57",
+            revision: "interface-en-58",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -692,6 +705,9 @@
                 grammarGravityCatalog: "data/games/grammar-gravity/content.json?v=grammar-gravity-content-1",
                 grammarGravityNouns: "data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-1"
               },
+              "sound-quasar": {
+                soundQuasarCatalog: "data/games/sound-quasar/content.json?v=sound-quasar-all-courses-1"
+              },
               "memory-moon": {
                 memoryMoonCatalog: "data/games/memory-moon/content.json?v=memory-moon-1"
               }
@@ -715,7 +731,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-57",
+            revision: "interface-en-58",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -733,6 +749,7 @@
       ]
     },
     routes: {
+      soundQuasar: "/language-runtime/static/games/sound-quasar.html",
       conjugationComet: "/language-runtime/static/games/conjugation-comet.html",
       grammarGravity: "/language-runtime/static/games/grammar-gravity.html",
       languageSelection: "/",

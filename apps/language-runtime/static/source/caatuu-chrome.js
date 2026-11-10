@@ -94,6 +94,7 @@
   let languageSelectorDismissalBound = false;
   let streakReminderTimer = 0;
   let streakReminderCheckPromise = null;
+  let nativeNotificationEventsBound = false;
   const speechTestText = String(targetLanguage.nativeLabel || targetLanguageName).trim();
   const themeOptions = {
     light: { themeColor: "#f5efe5", label: interfaceMessage("settings.theme.usedark") },
@@ -2269,21 +2270,39 @@
     renderStreakReminderControls(root, streak);
   }
 
+  function nativeNotificationBridge() {
+    const bridge = window.CaatuuAndroid;
+    return window.CaatuuRuntime?.env === "android"
+      && typeof bridge?.notificationPermission === "function"
+      && typeof bridge?.requestNotificationPermission === "function"
+      && typeof bridge?.openNotificationSettings === "function"
+      && typeof bridge?.postMessage === "function";
+  }
+
   function streakNotificationSupported() {
-    return window.CaatuuRuntime?.env === "browser"
+    return nativeNotificationBridge() || (
+      window.CaatuuRuntime?.env === "browser"
       && Boolean(window.Notification)
-      && window.isSecureContext !== false;
+      && window.isSecureContext !== false
+    );
   }
 
   function streakNotificationPermission() {
+    if (nativeNotificationBridge()) {
+      const value = String(window.CaatuuAndroid.notificationPermission() || "default");
+      if (value === "granted" || value === "denied") return value;
+      return "default";
+    }
     return streakNotificationSupported() ? String(window.Notification.permission || "default") : "unavailable";
   }
 
   function renderStreakReminderControls(root, streak = learning?.snapshot?.().streak) {
+    const native = nativeNotificationBridge();
     const permission = streakNotificationPermission();
+    const deniedHint = interfaceMessage("progress.reminders.permissionhint");
     root.querySelectorAll("[data-streak-reminder-toggle]").forEach((button) => {
       button.hidden = permission === "unavailable";
-      button.disabled = permission === "denied";
+      button.disabled = permission === "denied" && !native;
       const enabled = permission === "granted" && streak?.remindersEnabled === true;
       button.setAttribute("aria-pressed", String(enabled));
       button.textContent = permission === "denied"
@@ -2291,11 +2310,12 @@
         : enabled
           ? interfaceMessage("progress.reminders.on")
           : interfaceMessage("progress.reminders.enable");
-      button.title = permission === "denied" ? interfaceMessage("progress.reminders.permissionhint") : "";
+      button.title = permission === "denied" && !native ? deniedHint : "";
       button.setAttribute("aria-label", permission === "denied"
-        ? interfaceMessage("progress.reminders.permissionhint") : enabled
-        ? interfaceMessage("progress.reminders.turnoff")
-        : interfaceMessage("progress.reminders.turnon"));
+        ? (native ? interfaceMessage("progress.reminders.turnon") : deniedHint)
+        : enabled
+          ? interfaceMessage("progress.reminders.turnoff")
+          : interfaceMessage("progress.reminders.turnon"));
     });
   }
 
@@ -2349,6 +2369,7 @@
   }
 
   async function showStreakSystemNotification(reminder) {
+    if (nativeNotificationBridge()) return false;
     const streak = learning?.snapshot?.().streak;
     if (
       streakNotificationPermission() !== "granted"
@@ -2375,6 +2396,65 @@
     } catch (error) {
       return false;
     }
+  }
+
+  function nativeReminderPlan(streak, now = Date.now()) {
+    const expiry = Date.parse(streak?.expiresAt || "");
+    if (!streak?.currentDays || !Number.isFinite(expiry) || expiry <= now) return [];
+    const hour = 60 * 60 * 1000;
+    return [5, 3].flatMap((hours) => {
+      const at = expiry - (hours * hour);
+      const copy = streakReminderCopy({ hours, currentDays: streak.currentDays });
+      let when = at;
+      if (when <= now) {
+        if (now - when >= hour || expiry <= now) return [];
+        when = now + 1000;
+      }
+      return [{
+        hours,
+        at: when,
+        expiresAt: streak.expiresAt,
+        expiresAtMillis: expiry,
+        title: copy.title,
+        body: copy.body
+      }];
+    });
+  }
+
+  function syncNativeStreakReminders() {
+    if (!nativeNotificationBridge()) return;
+    const streak = learning?.snapshot?.().streak;
+    const enabled = streakNotificationPermission() === "granted" && streak?.remindersEnabled === true;
+    const reminders = enabled ? nativeReminderPlan(streak) : [];
+    window.CaatuuAndroid.postMessage(JSON.stringify({
+      id: `streak-reminders-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`,
+      type: "notification_schedule",
+      reminders
+    }));
+  }
+
+  function prepareNativeNotifications() {
+    if (!nativeNotificationBridge()) return;
+    if (!nativeNotificationEventsBound) {
+      nativeNotificationEventsBound = true;
+      window.addEventListener("caatuu:notification-permission", (event) => {
+        const permission = String(event?.detail?.permission || "");
+        if (event?.detail?.prompt === true && permission === "granted" && learning) {
+          learning.setStreakRemindersEnabled(true);
+        }
+        syncNativeStreakReminders();
+        renderLearningControls(document);
+        const status = document.querySelector("#learningStatus");
+        if (status && event?.detail?.prompt === true && permission === "granted") {
+          status.textContent = interfaceMessage("progress.reminders.enabledstatus");
+        }
+      });
+    }
+    if (streakNotificationPermission() === "default") {
+      window.CaatuuAndroid.requestNotificationPermission();
+      return;
+    }
+    syncNativeStreakReminders();
   }
 
   function nextStreakReminderDelay(streak, now = Date.now()) {
@@ -2404,15 +2484,18 @@
     if (streakReminderCheckPromise) return streakReminderCheckPromise;
     streakReminderCheckPromise = (async () => {
       const reminders = learning?.dueStreakReminders?.(new Date()) || [];
-      const mayNotifyInBackground = streakNotificationPermission() === "granted"
+      const native = nativeNotificationBridge();
+      const mayNotifyInBackground = !native
+        && streakNotificationPermission() === "granted"
         && learning?.snapshot?.().streak?.remindersEnabled === true;
       if (document.visibilityState === "visible" || mayNotifyInBackground) {
         for (const reminder of reminders) {
           if (document.visibilityState === "visible") renderStreakReminderNotice(reminder);
-          await showStreakSystemNotification(reminder);
+          if (!native) await showStreakSystemNotification(reminder);
           learning.markStreakReminderDelivered?.(reminder.expiresAt, reminder.hours);
         }
       }
+      if (native) syncNativeStreakReminders();
       renderLearningControls(document);
     })().finally(() => {
       streakReminderCheckPromise = null;
@@ -2423,17 +2506,43 @@
 
   async function toggleStreakReminders(button) {
     if (!learning || !streakNotificationSupported()) return;
+    const native = nativeNotificationBridge();
+    const permission = streakNotificationPermission();
+    if (native && permission === "denied") {
+      window.CaatuuAndroid.openNotificationSettings();
+      button?.focus?.();
+      return;
+    }
     const active = learning.snapshot().streak.remindersEnabled === true
-      && streakNotificationPermission() === "granted";
+      && permission === "granted";
     if (active) {
       learning.setStreakRemindersEnabled(false);
       renderLearningControls(document);
+      if (native) syncNativeStreakReminders();
+      button?.focus?.();
       return;
     }
-    let permission = streakNotificationPermission();
-    if (permission === "default") permission = await window.Notification.requestPermission();
+    if (permission === "default") {
+      if (native) {
+        window.CaatuuAndroid.requestNotificationPermission();
+        button?.focus?.();
+        return;
+      }
+      const next = await window.Notification.requestPermission();
+      learning.setStreakRemindersEnabled(next === "granted");
+      renderLearningControls(document);
+      const status = document.querySelector("#learningStatus");
+      if (status) {
+        status.textContent = next === "granted"
+          ? interfaceMessage("progress.reminders.enabledstatus")
+          : interfaceMessage("progress.reminders.inappstatus");
+      }
+      button?.focus?.();
+      return;
+    }
     learning.setStreakRemindersEnabled(permission === "granted");
     renderLearningControls(document);
+    if (native) syncNativeStreakReminders();
     const status = document.querySelector("#learningStatus");
     if (status) {
       status.textContent = permission === "granted"
@@ -6225,6 +6334,7 @@
     syncCourseGameTriggers();
     bindProgressSaveStatus();
     bindAppFreshness();
+    prepareNativeNotifications();
     scheduleStreakReminderCheck({ immediate: true });
   }
 

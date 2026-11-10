@@ -32,6 +32,7 @@ import { progressiveWordWorldSelection,
   wordWorldEvidenceBank, wordWorldPracticeHistory } from "./word-world-progression.mjs";
 import { wordWorldLearningRows, wordWorldLearningUnits, selectWordWorldFoundationRecord }
   from "./word-world-teaching.mjs";
+import { resolveSentenceCharacterMeaning } from "./sentence-character-meaning.mjs?v=sentence-character-meaning-1";
 
 let WORD_NET_MODEL_KEY = "";
 let TRANSLATION_MODEL_KEY = "";
@@ -509,6 +510,9 @@ const state = {
   wordMeaningCache: new Map(),
   selectedWordMeaningKey: "",
   selectedTokenIndex: null,
+  selectedSpan: null,
+  selectionGloss: "",
+  glossDictionary: null,
   dictionaryGapKeys: loadDictionaryGapKeys(),
   wordLookupController: null,
   wordLookupRequestId: 0,
@@ -4620,6 +4624,19 @@ async function lookupSelectedWord(word) {
         }
       : null;
     let lookupReturned = result ? 1 : 0;
+    if (!result && state.selectionGloss) {
+      result = {
+        lemma: selectedWord,
+        pos: "",
+        formTags: [],
+        senseTags: [],
+        synonyms: [],
+        meaning: state.selectionGloss,
+        languageTag: providerContext?.learnerBase?.languageTag || "en",
+        metadata: ""
+      };
+      lookupReturned = 1;
+    }
     if (!result && !Array.isArray(authored?.record?.learnerTokenMeanings)
         && providerContext?.session?.course?.capabilities?.dictionary === true) {
       const dictionary = runtimeAdapter()?.dictionary;
@@ -4659,7 +4676,52 @@ async function lookupSelectedWord(word) {
   }
 }
 
-function selectWord(word, { lookup = true, render = true, userInitiated = false, revealCard = false, tokenIndex = null } = {}) {
+function courseGlossDictionary() {
+  if (state.glossDictionary) return state.glossDictionary;
+  const dictionary = new Map();
+  const records = Array.isArray(providerContext?.session?.records) ? providerContext.session.records : [];
+  for (const record of records) {
+    const tokens = record?.target?.tokens;
+    if (!Array.isArray(tokens)) continue;
+    for (const token of tokens) {
+      const surface = String(token?.surface || "").normalize("NFC");
+      const gloss = String(token?.gloss || "").normalize("NFC").trim();
+      if (!surface || !gloss || dictionary.has(surface)) continue;
+      dictionary.set(surface, gloss);
+    }
+  }
+  state.glossDictionary = dictionary;
+  return dictionary;
+}
+
+function expandCharacterSelection(word, tokenIndex, characterOffset) {
+  if (!Number.isInteger(characterOffset) || characterOffset < 0) {
+    return { word, tokenIndex, span: null, gloss: "" };
+  }
+  const record = typeof providerContext?.sessionRecord === "function"
+    ? providerContext.sessionRecord(state.currentEntryId)
+    : null;
+  const resolved = resolveSentenceCharacterMeaning({
+    text: record?.target?.text || state.currentSentence,
+    tokens: record?.target?.tokens,
+    offset: characterOffset,
+    dictionary: courseGlossDictionary()
+  });
+  if (!resolved?.surface) return { word, tokenIndex, span: null, gloss: "" };
+  return {
+    word: resolved.surface,
+    tokenIndex: Number.isInteger(resolved.tokenIndex) ? resolved.tokenIndex : tokenIndex,
+    span: { start: resolved.start, end: resolved.end },
+    gloss: resolved.gloss || ""
+  };
+}
+
+function selectWord(word, { lookup = true, render = true, userInitiated = false, revealCard = false, tokenIndex = null, characterOffset = null } = {}) {
+  const expanded = expandCharacterSelection(word, tokenIndex, characterOffset);
+  word = expanded.word;
+  tokenIndex = expanded.tokenIndex;
+  state.selectedSpan = expanded.span;
+  state.selectionGloss = expanded.gloss;
   const selectedWord = normalizeWord(word);
   if (!selectedWord) return;
   state.cancelOptionSpeech?.();
@@ -4711,11 +4773,12 @@ function handleWordWorldDictionarySelection(event) {
   }
   selectWord(button.dataset.word, {
     userInitiated: true,
-    tokenIndex: Number(button.dataset.tokenIndex)
+    tokenIndex: Number(button.dataset.tokenIndex),
+    characterOffset: button.dataset.characterOffset ? Number(button.dataset.characterOffset) : null
   });
   setStatus(state.guidedMode && !resultReview
-    ? interfaceText("wordworld.word.guidedsupport", { word: button.dataset.word })
-    : interfaceText("wordworld.word.selected", { word: button.dataset.word }), { tone: "muted" });
+    ? interfaceText("wordworld.word.guidedsupport", { word: state.selectedWord })
+    : interfaceText("wordworld.word.selected", { word: state.selectedWord }), { tone: "muted" });
 }
 
 function queueSelectedWordSpeech() {
@@ -5496,6 +5559,19 @@ function segmentedSentence(sentence, authoredTokens = null) {
   return tokenizeLegacySentence(sentence);
 }
 
+function tokenButtonSelected(button, selectedWord) {
+  if (!state.wordSelectionRequested) return false;
+  const span = state.selectedSpan;
+  if (span && button.dataset.characterOffset) {
+    const offset = Number(button.dataset.characterOffset);
+    if (offset >= span.start && offset < span.end) return true;
+  }
+  const tokenIndex = Number(button.dataset.tokenIndex);
+  if (state.selectedTokenIndex !== null && state.selectedTokenIndex !== tokenIndex) return false;
+  if (wordMatchesTarget(button.dataset.word, selectedWord)) return true;
+  return Boolean(button.dataset.tokenSurface) && wordMatchesTarget(button.dataset.tokenSurface, selectedWord);
+}
+
 function syncCzechSentenceSelection(selectedWord) {
   const resultHost = reconstructionDictionaryHost();
   const host = resultHost || $("#wordNetSentence");
@@ -5506,13 +5582,23 @@ function syncCzechSentenceSelection(selectedWord) {
   const words = host.querySelectorAll(".cz-word-token");
   if (!words.length) return false;
   for (const button of words) {
-    const selected = state.wordSelectionRequested && wordMatchesTarget(button.dataset.word, selectedWord)
-      && (state.selectedTokenIndex === null
-        || state.selectedTokenIndex === Number(button.dataset.tokenIndex));
+    const selected = tokenButtonSelected(button, selectedWord);
     button.classList.toggle("is-selected", selected);
     button.setAttribute("aria-pressed", String(selected));
   }
   return true;
+}
+
+function singleGraphemeUnits(units, surface) {
+  if (!Array.isArray(units) || units.length < 2) return null;
+  const graphemes = [];
+  for (const unit of units) {
+    const text = String(unit?.surface || "").normalize("NFC");
+    if ([...text].length !== 1) return null;
+    graphemes.push({ ...unit, surface: text });
+  }
+  if (graphemes.map((unit) => unit.surface).join("") !== String(surface || "").normalize("NFC")) return null;
+  return graphemes;
 }
 
 function renderCzechSentence(
@@ -5569,9 +5655,6 @@ function renderCzechSentence(
     cluster.className = "cz-token-cluster";
     cluster.append(...openingPunctuation);
     openingPunctuation = [];
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "cz-word-token";
     let tokenIndex = wordIndex;
     if (!mainPrompt && sentence !== state.currentSentence && preparedTokens.length) {
       const key = normalizeWord(token.text).toLocaleLowerCase(targetLocale);
@@ -5580,31 +5663,56 @@ function renderCzechSentence(
       if (canonicalIndex >= 0) tokenIndex = canonicalIndex;
     }
     usedPreparedIndices.add(tokenIndex);
-    replaceTargetText(button, token.text, {
+    const prepared = preparedTokens[tokenIndex] || token;
+    const units = singleGraphemeUnits(targetTextUnits({
       record: currentRecord,
-      token: preparedTokens[tokenIndex] || token,
+      token: prepared,
       tokenIndex
-    });
-    button.dataset.word = normalizeWord(token.text);
-    button.dataset.tokenIndex = String(tokenIndex);
-    const curriculumFocused = Number(curriculumFocus?.tokenIndex) === wordIndex
-      && wordMatchesTarget(button.dataset.word, curriculumFocus?.normalized);
-    const label = curriculumFocused
-      ? interfaceText("wordworld.word.curriculumfocus", { word: token.text })
-      : interfaceText("wordworld.word.selectmeaning", { word: token.text });
-    button.setAttribute("aria-label", label);
-    const selected = state.wordSelectionRequested && wordMatchesTarget(button.dataset.word, selectedWord)
-      && (state.selectedTokenIndex === null || state.selectedTokenIndex === tokenIndex);
-    button.setAttribute("aria-pressed", selected ? "true" : "false");
-    if (selected) {
-      button.classList.add("is-selected");
-    }
-    if (curriculumFocused) {
-      button.classList.add("is-curriculum-focus");
-      button.dataset.curriculumFocus = "true";
+    }), token.text);
+    const surfaces = units || [{ surface: token.text }];
+    const tokenStart = Number.isInteger(token.start) ? token.start : String(sentence).indexOf(token.text);
+    let unitOffset = 0;
+    for (const unit of surfaces) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "cz-word-token";
+      const visible = unit.surface;
+      if (units) {
+        button.dataset.characterOffset = String((tokenStart >= 0 ? tokenStart : 0) + unitOffset);
+        button.dataset.tokenSurface = normalizeWord(token.text);
+        renderTargetText(document, button, visible, {
+          units: [unit],
+          showGuide: state.targetTextPreferences.showGuide,
+          colorTones: state.targetTextPreferences.colorTones,
+          guideLanguage: providerContext?.targetTextGuide?.languageTag || ""
+        });
+      } else {
+        replaceTargetText(button, token.text, {
+          record: currentRecord,
+          token: prepared,
+          tokenIndex
+        });
+      }
+      button.dataset.word = normalizeWord(visible);
+      button.dataset.tokenIndex = String(tokenIndex);
+      const labelWord = units ? visible : token.text;
+      const curriculumFocused = Number(curriculumFocus?.tokenIndex) === wordIndex
+        && wordMatchesTarget(units ? button.dataset.tokenSurface : button.dataset.word, curriculumFocus?.normalized);
+      const label = curriculumFocused
+        ? interfaceText("wordworld.word.curriculumfocus", { word: labelWord })
+        : interfaceText("wordworld.word.selectmeaning", { word: labelWord });
+      button.setAttribute("aria-label", label);
+      const selected = tokenButtonSelected(button, selectedWord);
+      button.setAttribute("aria-pressed", selected ? "true" : "false");
+      if (selected) button.classList.add("is-selected");
+      if (curriculumFocused) {
+        button.classList.add("is-curriculum-focus");
+        button.dataset.curriculumFocus = "true";
+      }
+      unitOffset += visible.length;
+      cluster.append(button);
     }
     wordIndex += 1;
-    cluster.append(button);
     nodes.push(cluster);
   }
   nodes.push(...openingPunctuation);

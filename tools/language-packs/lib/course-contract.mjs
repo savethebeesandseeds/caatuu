@@ -35,8 +35,6 @@ import { validateVerbNebulaCatalog } from "../../../apps/language-runtime/static
 import { validateEnglishEmbeddingPayload } from "../../../apps/language-runtime/static/source/english-minilm-ranker.mjs";
 import { resolveWordWorldGenerationStrategy } from "../../../apps/language-runtime/static/source/word-world-provider.mjs";
 import {
-  campaignGameIds,
-  GAME_IDS,
   LEARNER_BASE_PRESENTATION_CONTRACT,
   NON_CAMPAIGN_GAME_IDS,
   NON_CAMPAIGN_GAME_REGISTRY,
@@ -603,7 +601,7 @@ function validateCourseShape(course, issues) {
     );
   }
   if (course.games !== undefined) {
-    validateKnownUniqueStringArray(course.games, GAME_IDS, `${courseId}.games`, "game.invalid", issues);
+    validateKnownUniqueStringArray(course.games, NON_CAMPAIGN_GAME_IDS, `${courseId}.games`, "game.invalid", issues);
   }
   if (course.upcomingGames !== undefined) {
     validateKnownUniqueStringArray(
@@ -1117,21 +1115,6 @@ function validateCapabilityResources(course, issues) {
       }
     }
   }
-  const campaign = PLANET_GAME_CONTRACT.campaign;
-  if (declaredGames.has(campaign.id)) {
-    const eligibleGames = campaignGameIds(course);
-    if (eligibleGames.length < campaign.minimumEligibleGames) {
-      const gameLabel = campaign.minimumEligibleGames === 1 ? "game" : "games";
-      issues.push({
-        code: "game.campaign",
-        message: `${course.id}.games ${campaign.id} requires at least ${campaign.minimumEligibleGames} campaign-eligible enabled ${gameLabel}.`
-      });
-    }
-    if (typeof course.routes?.[campaign.route] !== "string" || !course.routes[campaign.route].trim()) {
-      issues.push({ code: "game.route", message: `${course.id}.games enables ${campaign.id} but routes.${campaign.route} is missing.` });
-    }
-  }
-
   issues.push(...browserBackendContractIssues(course));
 }
 

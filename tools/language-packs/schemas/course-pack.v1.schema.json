@@ -149,9 +149,9 @@
     "games": {
       "type": "array",
       "uniqueItems": true,
+      "description": "Playable planets. Campaign Mode is shell orchestration and is not a course game.",
       "items": {
         "enum": [
-          "campaign",
           "verb-lab",
           "word-net",
           "conjugation-comet",

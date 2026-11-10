@@ -1866,6 +1866,61 @@ test("unmuted prompts autoplay once, hide skip, and autoplay the next prompt", a
   game.controller.destroy();
 });
 
+test("can't hear now is available while audio works, stops the round, and does not speak again", async () => {
+  const game = await mountGame({ muted: false });
+  const cantHear = game.element("CantHear");
+  assert.equal(game.element("Skip").hidden, true);
+  assert.equal(cantHear.hidden, false);
+  assert.equal(cantHear.tagName, "BUTTON");
+  assert.equal(cantHear.classList.contains("quasar-text-button"), true);
+  assert.ok(cantHear.closest(".quasar-audio-state"));
+  assert.equal(cantHear.textContent, "Can't hear now");
+  assert.equal(game.speechCalls.length, 1);
+  game.click(cantHear);
+  await settle();
+  assert.equal(game.speechCalls.length, 1);
+  assert.equal(game.element("Skip").hidden, true);
+  assert.equal(game.element("CantHear").hidden, false);
+  assert.equal(game.element("PlayArea").hidden, false);
+  assert.equal(game.element("Transition").hidden, true);
+  assert.equal(game.messages.filter(({ message }) => message.type === "round-complete").length, 0);
+  game.noCredit();
+  game.controller.destroy();
+});
+
+test("can't hear now during playback stops speech without awarding the round", async () => {
+  const pending = deferred();
+  const game = await mountGame({ muted: false, speechResult: pending.promise });
+  assert.equal(game.element("Listen").getAttribute("aria-pressed"), "true");
+  assert.equal(game.element("Skip").hidden, true);
+  game.click(game.element("CantHear"));
+  assert.ok(game.preferences.stops >= 1);
+  pending.resolve({ outcome: "completed" });
+  await settle();
+  assert.equal(game.speechCalls.length, 1);
+  assert.ok(game.choices().every((button) => button.disabled));
+  game.noCredit();
+  game.controller.destroy();
+});
+
+test("can't hear now in a campaign hands the round off once without credit", async () => {
+  const game = await mountGame({ muted: false });
+  game.shell.document.body.dataset.campaignActive = "true";
+  game.click(game.element("CantHear"));
+  await settle();
+  assert.equal(game.messages.filter(({ message }) => message.type === "round-complete").length, 1);
+  assert.equal(game.element("Transition").hidden, false);
+  assert.equal(game.element("PlayArea").hidden, true);
+  assert.equal(game.speechCalls.length, 1);
+  game.noCredit();
+  const advance = { source: "caatuu-app-shell", type: "campaign-advance" };
+  game.window.dispatchEvent({ type: "message", origin: "https://caatuu.test", source: game.shell, data: advance });
+  assert.equal(game.element("Transition").hidden, true);
+  assert.equal(game.element("Listen").disabled, true);
+  assert.equal(game.speechCalls.length, 1);
+  game.controller.destroy();
+});
+
 test("failed automatic audio exposes skip and a successful retry removes it", async () => {
   const game = await mountGame({ muted: false, speechResult: { outcome: "failed" } });
   assert.equal(game.element("Skip").hidden, false);

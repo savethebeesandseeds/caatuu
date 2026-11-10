@@ -2,6 +2,25 @@
 
 ## Unreleased
 
+## Android 203 / 0.1.51
+
+- Ask for reminder notifications the way other Android apps do, and schedule
+  at most two inexact streak reminders. The app still does not install its
+  own updates. `CAATUU_SELF_UPDATE_ENABLED` stays false, and the signing
+  certificate is unchanged.
+- Campaign Mode stays shell orchestration for every course that can play a
+  planet. No course lists it as a game, and there is no campaign content file.
+- Add Sounds Quasar for Scientific Latin, Georgian, Russian, and Hebrew from
+  each course's own verbs and sentences. Latin and Georgian include that bank
+  in the Android asset list. This package still does not install Russian or
+  Hebrew. Device speech stays unreviewed listening practice. "Can't hear now"
+  skips the current listening item.
+- In Mandarin Word World, a single character looks up the word it belongs to
+  inside the same sentence, then grows to a short Han sequence when that word
+  has no gloss.
+- Physical-device installation and the Play Protect result remain unverified
+  for this candidate. Course review status is otherwise unchanged.
+
 ## Android 202 / 0.1.50
 
 - Show the published APK version in Settings → About on the website. The

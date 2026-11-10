@@ -11,6 +11,7 @@ import * as progression from "../static/source/word-world-progression.mjs";
 import * as contentProgression from "../static/source/games/content-progression.mjs";
 import { WordNetBranchQueue } from "../static/source/word-net-queue.mjs";
 import { renderTargetText } from "../static/source/target-text.mjs";
+import { resolveSentenceCharacterMeaning } from "../static/source/sentence-character-meaning.mjs";
 import { createTargetReadingGuide } from "../static/source/target-reading-guide.mjs";
 import { afterInteractionPaint } from "../static/source/games/practice-pacing.mjs";
 import { migrateStorageAlias } from "../static/source/learner-record.mjs";
@@ -81,7 +82,7 @@ function preparedContext(course, adapter, records) {
 }
 
 async function game(t, { czech = false, saved = {}, difficulty = 1, records = recordsFixture(czech), dictionaryReporting = false,
-  generationEnabled = false, lookupMeaning } = {}) {
+  generationEnabled = false, lookupMeaning, contextExtras = null } = {}) {
   const course = courseFixture(czech);
   course.capabilities.generation = generationEnabled;
   course.capabilities.llm = generationEnabled;
@@ -153,7 +154,7 @@ async function game(t, { czech = false, saved = {}, difficulty = 1, records = re
   browser.window.scrollTo = () => {};
   browser.window.navigator.locks = { request: async (_name, callback) => callback() };
   Object.assign(browser.context, core, teaching, progression, contentProgression, {
-    tokenizeLegacySentence: core.tokenizeCzechSentence, WordNetBranchQueue, renderTargetText, createTargetReadingGuide, afterInteractionPaint, migrateStorageAlias,
+    tokenizeLegacySentence: core.tokenizeCzechSentence, WordNetBranchQueue, renderTargetText, resolveSentenceCharacterMeaning, createTargetReadingGuide, afterInteractionPaint, migrateStorageAlias,
     performance: { now: () => 0 }, queueMicrotask,
     bindHorizontalGesture: () => ({ cancel() {}, destroy() {} }),
     localAiAvailability: () => ({ supported: generationEnabled, enabled: generationEnabled }),
@@ -166,7 +167,7 @@ async function game(t, { czech = false, saved = {}, difficulty = 1, records = re
   const learning = browser.window.CaatuuLearning;
   learning.setDifficulty(difficulty);
   vm.runInContext(executable, browser.context, { filename: "product-word-world.mjs" });
-  const context = preparedContext(course, adapter, records);
+  const context = { ...preparedContext(course, adapter, records), ...contextExtras };
   if (lookupMeaning) context.lookupMeaning = lookupMeaning;
   if (generationEnabled) context.generationStrategy = { id: 'fixture-word-world-v1' };
   browser.context.__prepared = context;
@@ -1059,6 +1060,95 @@ test("dictionary tap highlights paint before optional speech and remain responsi
   clock.flush();
   assert.deepEqual(clock.calls, [buttons[1].dataset.word, buttons[0].dataset.word]);
   assert.deepEqual(host.querySelectorAll(".cz-word-token"), buttons);
+});
+
+test("tapping one Mandarin character resolves the word written around it", async t => {
+  const records = [{
+    conceptId: "ww.test.hello",
+    englishText: "Hello!",
+    sceneQuery: "Hello!",
+    difficulty: 1,
+    topic: "greetings",
+    target: { text: "你好！", tokens: [{ surface: "你好", gloss: "hello", playable: true }] }
+  }, {
+    conceptId: "ww.test.thanks",
+    englishText: "Thank you.",
+    sceneQuery: "Thank you.",
+    difficulty: 1,
+    topic: "greetings",
+    target: {
+      text: "谢谢你。",
+      tokens: [
+        { surface: "谢谢", gloss: "thank", playable: true },
+        { surface: "你", gloss: "you", playable: true }
+      ]
+    }
+  }];
+  const lookedUp = [];
+  const g = await game(t, {
+    records,
+    lookupMeaning: async ({ token }) => {
+      lookedUp.push(token.surface);
+      return { meaning: token.gloss };
+    },
+    contextExtras: {
+      targetTextUnits({ token }) {
+        const units = {
+          "你好": [{ surface: "你", notation: "nǐ", tone: 3 }, { surface: "好", notation: "hǎo", tone: 3 }],
+          "谢谢": [{ surface: "谢", notation: "xiè", tone: 4 }, { surface: "谢", notation: "xie", tone: 5 }]
+        };
+        return units[token?.surface] || null;
+      }
+    }
+  });
+  g.run('setTranslationMode("visible")');
+  g.run('state.currentEntryId = "ww.test.hello"');
+  g.run('state.currentSentence = "你好！"');
+  g.run('renderCzechSentence(state.currentSentence, "")');
+  const hello = connectedPrompt(g);
+  const helloButtons = [...hello.querySelectorAll(".cz-word-token")];
+  assert.deepEqual(helloButtons.map(button => button.dataset.word), ["你", "好"]);
+  g.run('state.selectedWord = ""');
+  g.run('state.selectedWordMeaning = ""');
+  g.run('state.selectedWordMeaningKey = ""');
+  g.run("state.wordMeaningCache.clear()");
+  lookedUp.length = 0;
+  helloButtons[1].click();
+  for (let attempt = 0; attempt < 20 && g.state.selectedWordMeaning !== "hello"; attempt += 1) {
+    await Promise.resolve();
+  }
+  assert.equal(g.state.selectedWord, "你好");
+  assert.equal(g.state.selectedWordMeaning, "hello");
+  assert.deepEqual(lookedUp, ["你好"]);
+  const highlighted = [...hello.querySelectorAll(".cz-word-token")].map(button => button.classList.contains("is-selected"));
+  assert.deepEqual(highlighted, [true, true]);
+
+  g.run('state.selectedWord = ""');
+  g.run('state.selectedWordMeaning = ""');
+  g.run('state.selectedWordMeaningKey = ""');
+  g.run("state.wordMeaningCache.clear()");
+  lookedUp.length = 0;
+  g.run('state.currentEntryId = "ww.test.thanks"');
+  g.run('state.currentSentence = "谢谢你。"');
+  g.run('state.selectedSpan = null');
+  g.run('state.wordSelectionRequested = false');
+  g.run('renderCzechSentence(state.currentSentence, "")');
+  const thanksButtons = [...hello.querySelectorAll(".cz-word-token")];
+  assert.deepEqual(thanksButtons.map(button => button.dataset.word), ["谢", "谢", "你"]);
+  thanksButtons[0].click();
+  for (let attempt = 0; attempt < 20 && g.state.selectedWordMeaning !== "thank"; attempt += 1) {
+    await Promise.resolve();
+  }
+  assert.equal(g.state.selectedWord, "谢谢");
+  assert.equal(g.state.selectedWordMeaning, "thank");
+  assert.equal(lookedUp.at(-1), "谢谢");
+  thanksButtons[2].click();
+  for (let attempt = 0; attempt < 20 && g.state.selectedWordMeaning !== "you"; attempt += 1) {
+    await Promise.resolve();
+  }
+  assert.equal(g.state.selectedWord, "你");
+  assert.equal(g.state.selectedWordMeaning, "you");
+  assert.equal(lookedUp.at(-1), "你");
 });
 
 for (const retired of ["pause-and-resume", "new-phrase", "programmatic-selection", "disabled-pronunciation", "translation-off"]) {
