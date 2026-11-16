@@ -41,7 +41,7 @@ export const HOME_BOOTSTRAP_ARTWORK = Object.freeze([
 ]);
 // Separate residency, curriculum and native vector database budgets. Stable
 // model and dictionary downloads remain independently hosted.
-export const PRODUCT_BOOTSTRAP_MAX_BYTES = 8_000_000;
+export const PRODUCT_BOOTSTRAP_MAX_BYTES = 8_200_000;
 // The complete eight-course companion is currently about 83 MB. This bounded
 // download budget covers the three approved 2,500-sentence courses; it is not
 // APK residency, and a device installs only its selected course plus shared art.

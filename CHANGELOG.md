@@ -22,6 +22,9 @@
   files are synchronized to the catalogs that ship.
 - Mandarin Stats has one topic goal, Everyday sentences, because the
   published sentences share the topic `general`.
+- The APK bootstrap budget is 8,200,000 bytes. Russian and Hebrew add their
+  setup catalogs to the package, and the previous 8,000,000-byte budget was
+  118,374 bytes short.
 - Describe the public site as a free released language-learning app for ten
   courses. The homepage and each course page name the courses, say the app is
   free and safe for children, and stay indexable. The Android control says

@@ -4,6 +4,7 @@ import test from "node:test";
 import {
   HOME_BOOTSTRAP_ARTWORK,
   HOME_BOOTSTRAP_ASSET_MAX_BYTES,
+  PRODUCT_BOOTSTRAP_MAX_BYTES,
   PRODUCT_SETUP_PAYLOAD_MAX_BYTES,
   PRODUCT_NATIVE_VECTOR_PAYLOAD_MAX_BYTES,
   homeBootstrapAssets,
@@ -210,7 +211,7 @@ test("native provider manifest references stay bundled independently of their na
 
 test("an engine-sized regression trips the bootstrap budget instead of moving it into a course download", () => {
   const input = fixture();
-  input.files.set("language-runtime/static/source/oversized.mjs", Buffer.alloc(8_000_001));
+  input.files.set("language-runtime/static/source/oversized.mjs", Buffer.alloc(PRODUCT_BOOTSTRAP_MAX_BYTES + 1));
   assert.throws(() => planProductDelivery(input), /Bootstrap APK assets exceed the reviewed/u);
 });
 

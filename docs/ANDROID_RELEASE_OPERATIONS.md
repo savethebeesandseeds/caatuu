@@ -61,6 +61,7 @@ accounts for pending finalized releases, applies only the explicitly approved
 APK archive policy, and reserves the full 96 MB content companion, a separate
 32 MB native vector payload and two 16 MB APK copies. New signed builds enforce
 that per-APK bound before sealing; historical receipts retain their exact bytes.
+The APK-resident bootstrap budget is 8,200,000 bytes from Android 204.
 It does not repeat
 product transforms or website builds. The final
 overlay still verifies its actual complete payload against the 1 GB limit.
