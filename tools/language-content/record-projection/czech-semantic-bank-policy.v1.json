@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "caatuu-czech-semantic-bank-policy-v1",
+  "minimumRecordsPerDifficulty": 8,
+  "branchableTargetMinimumRecords": 2,
+  "strongTargetMinimumRecords": 5,
+  "reviewStatus": "machine-assisted-preview",
+  "humanApprovalAllowed": false
+}

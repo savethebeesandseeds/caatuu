@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "id": "he",
   "directoryName": "hebrew",
-  "status": "development",
+  "status": "active",
   "brandLabel": "Caatuu",
   "workspaceLabel": "Caatuu Hebrew",
   "routePrefix": "/he",
@@ -140,8 +140,21 @@
       "backend": "static"
     },
     "android": {
-      "enabled": false,
-      "channels": []
+      "enabled": true,
+      "channels": [
+        {
+          "kind": "release",
+          "manifest": "/android/caatuu.json",
+          "artifact": "/android/caatuu.apk",
+          "minimumVersionCode": 204
+        },
+        {
+          "kind": "preview",
+          "manifest": "/android/caatuu-preview.json",
+          "artifact": "/android/caatuu-preview.apk",
+          "minimumVersionCode": 204
+        }
+      ]
     }
   },
   "resources": {
@@ -158,6 +171,12 @@
       "scope": "course",
       "state": "present",
       "revision": "sound-quasar-all-courses-1"
+    },
+    "androidAssetCatalog": {
+      "kind": "file",
+      "path": "apps/languages/hebrew/android-assets.json",
+      "scope": "course",
+      "state": "present"
     },
     "staticRoot": {
       "kind": "directory",
@@ -176,7 +195,7 @@
       "path": "apps/language-runtime/static/data/interface/en.v1.json",
       "scope": "shared",
       "state": "present",
-      "revision": "interface-en-58"
+      "revision": "interface-en-60"
     },
     "courseProfile": {
       "kind": "file",

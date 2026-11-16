@@ -1189,15 +1189,15 @@ The existing artwork, immutable artwork keys, and stable content evidence IDs
 are intentionally retained. This is still one shared game, not a new course or
 a second renderer.
 
-### Noun landing (implemented development preview)
+### Noun landing
 
 Grammar Gravity now opens with a falling-noun flight. Its shared engine loads
 each course's `data/games/grammar-gravity/nouns.json` through the declared
 `grammarGravityNouns` resource. Czech supplies three lanes and Spanish two;
 neither categories nor spelling-based gender rules are embedded in the renderer.
-Each bank supplies an expanding pool of explicit singular nouns. Native review remains
-pending in content metadata and publication gates; review status is not a badge
-in the learner's play area.
+Each bank supplies an expanding pool of explicit singular nouns. Native-review
+metadata stays on the content records. It is not a badge in the learner's play
+area, and it does not block the game.
 
 The flight starts immediately. Selecting a gender lane lands the noun, plays a
 short landing animation, highlights the correct lane and colors the card for
@@ -1503,8 +1503,8 @@ source metadata, and the practice-only audio contract.
 Words are selected from each course's existing Verb Nebula vocabulary.
 Sentences are selected from the existing Word World sentence resources.
 Their source review states are retained. Selection for this game does not
-grant content or release approval. Native review remains pending wherever the
-course manifest still requires it.
+grant content or release approval. Native-review metadata stays on the content
+records and does not block play.
 
 Speech uses the course's configured device locale and current speech settings.
 The waveform is synthesized at playback time and is explicitly unreviewed.

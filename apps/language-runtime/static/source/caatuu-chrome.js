@@ -4161,9 +4161,6 @@
     const statusLabels = [];
     if (current) statusLabels.push(interfaceMessage("common.current"));
     else if (selected) statusLabels.push(interfaceMessage("common.selected"));
-    if (record.status === "development") {
-      statusLabels.push(interfaceMessage("common.preview"));
-    }
     if (unavailableInNativeShell) {
       statusLabels.push(interfaceMessage("common.browseronly"));
     }
@@ -4675,11 +4672,6 @@
 
       const copy = document.createElement("span");
       copy.className = "home-language-switch-copy";
-      const kicker = document.createElement("span");
-      kicker.className = "home-language-switch-kicker";
-      kicker.textContent = record.status === "development"
-        ? interfaceMessage("common.preview")
-        : "";
       const routeLabel = document.createElement("strong");
       const sourceName = interfaceLanguageName(record.sourceLanguage);
       const targetName = interfaceLanguageName(record.targetLanguage);
@@ -4691,7 +4683,6 @@
       const meta = document.createElement("span");
       meta.className = "home-language-switch-meta";
       meta.append(effortLabel);
-      if (kicker.textContent) meta.append(kicker);
       copy.append(routeLabel, meta);
 
       const action = document.createElement("span");
@@ -4711,12 +4702,8 @@
       button.dataset.languageEffort = effortLabels.visible;
       button.dataset.languageEffortExact = effortLabels.exact;
       const quickSwitchMessageId = available
-        ? record.status === "development"
-          ? "courseselector.quick.preview"
-          : "courseselector.quick.available"
-        : record.status === "development"
-          ? "courseselector.quick.unavailablepreview"
-          : "courseselector.quick.unavailable";
+        ? "courseselector.quick.available"
+        : "courseselector.quick.unavailable";
       button.setAttribute("aria-label", interfaceMessage(quickSwitchMessageId, {
         source: interfaceLanguageName(record.sourceLanguage),
         target: interfaceLanguageName(record.targetLanguage),
@@ -5932,6 +5919,33 @@
     if (status) status.textContent = interfaceMessage("settings.install.temporarilyunavailable");
   }
 
+  const settingsBackgroundInert = new Map();
+
+  function isolateSettingsBackground(panel) {
+    if (settingsBackgroundInert.size) return;
+    // The dock remains usable to leave Backpack; native course dialogs keep
+    // their own focus ownership above the sheet.
+    const allowed = [panel, ...document.querySelectorAll("[data-caatuu-bottom-dock], [data-caatuu-bottom-nav], [data-language-selector-menu]")];
+    function isolate(parent) {
+      for (const child of Array.from(parent.children)) {
+        if (allowed.includes(child)) continue;
+        if (allowed.some((element) => child.contains(element))) isolate(child);
+        else {
+          settingsBackgroundInert.set(child, child.hasAttribute("inert"));
+          child.setAttribute("inert", "");
+        }
+      }
+    }
+    isolate(document.body);
+  }
+
+  function restoreSettingsBackground() {
+    for (const [element, wasInert] of settingsBackgroundInert) {
+      if (!wasInert) element.removeAttribute("inert");
+    }
+    settingsBackgroundInert.clear();
+  }
+
   function openSharedSettings({ view = readRememberedBackpackView() } = {}) {
     const panel = document.querySelector("#settingsPanel");
     if (!panel) return;
@@ -5939,7 +5953,7 @@
     closeLanguageSelectorHost(activeLanguageSelectorHost);
     closeHomeMenu({ restoreFocus: false });
     closeGameMenu({ restoreFocus: false });
-    sharedSettingsTrigger = document.activeElement;
+    if (panel.hidden) sharedSettingsTrigger = document.activeElement;
     setSettingsView(panel, view);
     panel.hidden = false;
     setBottomDockMenu();
@@ -5948,6 +5962,7 @@
     announceShellOverlayChange();
     document.dispatchEvent(new CustomEvent("caatuu:settings-open"));
     void refreshLearnerBackupOffer();
+    isolateSettingsBackground(panel);
     panel.querySelector(".settings-sheet-body")?.focus?.();
   }
 
@@ -5959,13 +5974,20 @@
     closeLanguageSelectorHost(activeLanguageSelectorHost);
     cancelSettingsViewTransition(panel);
     pauseSemanticSkillCompass(panel);
+    restoreSettingsBackground();
     void stopSpeech();
     panel.hidden = true;
     setBottomDockMenu();
     document.body.classList.remove("settings-open");
     setSettingsNavActive(false);
     announceShellOverlayChange();
-    if (restoreFocus && typeof sharedSettingsTrigger?.focus === "function") sharedSettingsTrigger.focus();
+    if (restoreFocus) {
+      const triggerVisible = sharedSettingsTrigger?.isConnected
+        && !sharedSettingsTrigger.closest("[hidden], [inert]")
+        && (typeof sharedSettingsTrigger.getClientRects !== "function" || sharedSettingsTrigger.getClientRects().length > 0);
+      const trigger = triggerVisible ? sharedSettingsTrigger : document.querySelector("#openSettings");
+      trigger?.focus?.();
+    }
   }
 
   function bindSharedSettingsPanel() {
@@ -6023,7 +6045,10 @@
         }
       }
       const panel = document.querySelector("#settingsPanel");
-      if (event.key === "Escape" && panel && !panel.hidden) closeSharedSettings();
+      if (event.key === "Escape" && panel && !panel.hidden) {
+        event.preventDefault();
+        closeSharedSettings();
+      }
     });
   }
 

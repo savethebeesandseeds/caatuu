@@ -65,10 +65,10 @@ function resolveServedUrl(url) {
   throw new Error(`Unexpected served URL: ${url}`);
 }
 
-test("Spanish is a development course projected into the one shared browser app", async () => {
+test("Spanish is a released course projected into the one shared browser app", async () => {
   const course = await json("course.json");
   assert.equal(course.id, "es");
-  assert.equal(course.status, "development");
+  assert.equal(course.status, "active");
   assert.equal(course.routePrefix, "/es");
   assert.equal(course.entryPath, "/es/index.html");
   assert.equal(course.sourceLanguage.id, "en");

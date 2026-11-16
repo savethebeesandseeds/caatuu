@@ -4,7 +4,6 @@ import {
   buildWordReconstructionChallenge,
   cleanTranslation,
   isMiscellaneousAssetPath,
-  isPlausibleSentence,
   isRecentSentence,
   isWordReconstructionCorrect,
   isSpeechSynthesisSupported,
@@ -12,12 +11,10 @@ import {
   selectDictionaryMeaning,
   selectSpeechSynthesisVoice,
   sentenceFingerprint,
-  sentenceIncludesWord,
   sentenceTargets,
   resolveSpeechPace,
-  stripModelEcho,
   tokenizeCzechSentence as tokenizeLegacySentence
-} from "./word-net-core.mjs?v=word-net-core-22";
+} from "./word-net-core.mjs?v=word-net-core-23";
 import { migrateStorageAlias } from "./learner-record.mjs?v=learner-record-1";
 import { WordNetBranchQueue } from "./word-net-queue.mjs?v=word-net-queue-6";
 import { bindHorizontalGesture } from "./horizontal-gesture.mjs";
@@ -155,7 +152,7 @@ const DICTIONARY_GAP_NOTICE_ID = "wordworld.dictionary.missingqueued";
 const DICTIONARY_GAP_LIMIT = 80;
 const RECONSTRUCTION_DISTRACTOR_COUNT = 4;
 const SENTENCE_REWARD_LIMIT = 128;
-const CZECH_SPEECH_TIMEOUT_MS = 30_000;
+const TARGET_SPEECH_TIMEOUT_MS = 30_000;
 const EXPECTED_SPEECH_CANCELLATIONS = new Set(["canceled", "cancelled", "interrupted"]);
 const RECENT_SENTENCE_LIMIT = 48;
 const HISTORY_LIMIT = 256;
@@ -176,9 +173,7 @@ const PRESERVABLE_BACKGROUND_ACTIVITIES = new Set(["prefetch", "translation-batc
 const FOREGROUND_TRANSLATION_TIMEOUT_MS = 5000;
 const MIN_SENTENCE_TRANSITION_MS = 800;
 const LOADING_FADE_MS = 240;
-const PREFETCH_STOPWORDS = new Set([
-  "a", "ale", "do", "i", "je", "jsou", "k", "na", "ne", "o", "od", "po", "pro", "se", "si", "s", "u", "v", "ve", "z", "za", "že"
-]);
+let PREFETCH_STOPWORDS = new Set();
 const translationModes = {
   off: { labelId: "wordworld.mode.answer.off", delayMs: null },
   "timer-0": { labelId: "wordworld.mode.answer.delayzero", delayMs: 0 },
@@ -439,65 +434,7 @@ export async function runOwnedSemanticSelection({
   }
 }
 
-const seedWords = [
-  "dům",
-  "škola",
-  "máma",
-  "táta",
-  "pes",
-  "kočka",
-  "voda",
-  "jablko",
-  "kniha",
-  "kamarád",
-  "město",
-  "zahrada",
-  "hra",
-  "slunce",
-  "stůl",
-  "vlak",
-  "ruka",
-  "okno",
-  "les",
-  "dítě"
-];
-
-const fallbackTemplates = [
-  (word) => `Ve větě se objevuje slovo „${word}“.`,
-  (word) => `Dnes zkoumáme slovo „${word}“.`,
-  (word) => `Slovo „${word}“ patří do našeho příběhu.`,
-  (word) => `Na kartě je napsáno „${word}“.`,
-  (word) => `Hra nám ukazuje slovo „${word}“.`,
-  (word) => `Učitel dnes vysvětluje slovo „${word}“.`,
-  (word) => `V příběhu jsme našli slovo „${word}“.`,
-  (word) => `Dítě si zapisuje slovo „${word}“.`,
-  (word) => `Na tabuli vidíme slovo „${word}“.`,
-  (word) => `Kamarád se ptá na význam slova „${word}“.`
-];
-
-const seedEnglish = {
-  dům: "house",
-  škola: "school",
-  máma: "mom",
-  táta: "dad",
-  pes: "dog",
-  kočka: "cat",
-  voda: "water",
-  jablko: "apple",
-  kniha: "book",
-  kamarád: "friend",
-  město: "city",
-  zahrada: "garden",
-  hra: "game",
-  slunce: "sun",
-  stůl: "table",
-  vlak: "train",
-  ruka: "hand",
-  okno: "window",
-  les: "forest",
-  dítě: "child"
-};
-
+let seedWords = [];
 const state = {
   busy: false,
   currentWord: "",
@@ -852,7 +789,8 @@ function preferredSpeechVoice() {
   return String(window.CaatuuChrome?.getSpeechVoicePreference?.() || "").trim().slice(0, 256);
 }
 
-function sharedCzechSpeechApi() {
+function sharedTargetSpeechApi() {
+  // Accept legacy Chrome method aliases for older embedded course shells.
   const api = window.CaatuuChrome;
   const speak = api?.speakText || api?.speakCzechText;
   const stop = api?.stopSpeech || api?.stopCzechSpeech;
@@ -866,7 +804,7 @@ function sharedCzechSpeechApi() {
   });
 }
 
-function czechSpeechPace() {
+function targetSpeechPace() {
   const difficulty = learningDifficulty();
   const persistedPreference = window.CaatuuChrome?.getSpeechPacePreference?.() || "";
   const pace = resolveWordWorldSpeechPace(
@@ -934,7 +872,7 @@ function syncSpeechControl() {
   const wordButton = $("#wordNetSelectedWordSound");
   if (!sentenceButton && !resultButton && !wordButton) return;
 
-  const speechPace = czechSpeechPace();
+  const speechPace = targetSpeechPace();
   const paceDescription = interfaceText("speech.speed.description", { speed: speechPaceLabel(speechPace) });
   const supported = speechControlSupported();
   const muted = speechGloballyMuted();
@@ -1024,7 +962,7 @@ function syncAudioSettingsControl() {
   const toggle = $("#wordNetSound");
   const autoplay = $("#wordNetAudioAutoplay");
   const speed = $("#wordNetAudioSpeed");
-  const pace = czechSpeechPace();
+  const pace = targetSpeechPace();
   const paceDescription = interfaceText("speech.speed.description", { speed: speechPaceLabel(pace) });
   if (toggle) {
     toggle.dataset.speechPace = pace.label;
@@ -1104,21 +1042,21 @@ function targetSentenceSpeechAllowed() {
     || state.reconstruction?.promptSide === "target";
 }
 
-function previewCurrentCzechSentenceFromAudioMenu() {
+function previewCurrentTargetSentenceFromAudioMenu() {
   if (!speechPresentationActive() || !targetSentenceSpeechAllowed()) {
     syncSpeechControl();
     return;
   }
   const sentence = String(state.currentSentence || "").normalize("NFC").trim();
   if (!sentence) return;
-  cancelCzechSpeech({ force: true });
-  toggleCzechSpeech(sentence, "sentence");
+  cancelTargetSpeech({ force: true });
+  toggleTargetSpeech(sentence, "sentence");
 }
 
-async function installCzechVoiceFromAudioMenu() {
+async function installTargetVoiceFromAudioMenu() {
   const button = $("#wordNetAudioInstallVoice");
   const status = $("#wordNetAudioVoiceStatus");
-  const install = sharedCzechSpeechApi()?.install;
+  const install = sharedTargetSpeechApi()?.install;
   if (!button || button.disabled || !install || !androidSpeechRuntime()) return;
   button.disabled = true;
   if (status) status.textContent = interfaceText("speech.install.opening");
@@ -1228,13 +1166,13 @@ function toggleAudioMenu() {
   else closeAudioMenu({ restoreFocus: true });
 }
 
-function clearCzechSpeechTimeout() {
+function clearTargetSpeechTimeout() {
   if (!state.speechTimeoutId) return;
   window.clearTimeout(state.speechTimeoutId);
   state.speechTimeoutId = 0;
 }
 
-function cancelCzechSpeech({ force = false } = {}) {
+function cancelTargetSpeech({ force = false } = {}) {
   state.cancelOptionSpeech?.();
   state.cancelOptionSpeech = null;
   const session = state.speechSession;
@@ -1245,7 +1183,7 @@ function cancelCzechSpeech({ force = false } = {}) {
   }
 
   const backend = state.speechBackend;
-  clearCzechSpeechTimeout();
+  clearTargetSpeechTimeout();
   state.speechRequestId += 1;
   state.speechSession = null;
   state.speechBackend = "";
@@ -1253,7 +1191,7 @@ function cancelCzechSpeech({ force = false } = {}) {
   state.speechText = "";
   state.speechState = "idle";
   if (backend === "shared") {
-    void sharedCzechSpeechApi()?.stop?.();
+    void sharedTargetSpeechApi()?.stop?.();
   } else if (backend === "android") {
     session?.controller?.abort?.();
   } else if (backend === "browser" || (force && browserSpeechSynthesisSupported())) {
@@ -1267,31 +1205,31 @@ function cancelCzechSpeech({ force = false } = {}) {
   return active;
 }
 
-function reportCzechSpeechFailure() {
+function reportTargetSpeechFailure() {
   setStatus(
     interfaceText("speech.pronunciation.failed", { language: targetLanguageLabel }),
     { tone: "error" }
   );
 }
 
-function finishCzechSpeech(session, requestId, errorCode = "") {
+function finishTargetSpeech(session, requestId, errorCode = "") {
   if (state.speechSession !== session || state.speechRequestId !== requestId) return;
   state.speechSession = null;
   state.speechBackend = "";
   state.speechSource = "";
   state.speechText = "";
   state.speechState = "idle";
-  clearCzechSpeechTimeout();
+  clearTargetSpeechTimeout();
   syncSpeechControl();
 
   const normalizedError = String(errorCode || "").toLocaleLowerCase("en-US");
   if (normalizedError && !EXPECTED_SPEECH_CANCELLATIONS.has(normalizedError)) {
-    reportCzechSpeechFailure();
+    reportTargetSpeechFailure();
   }
 }
 
-function speakCzechWithSharedService(text, source, pace) {
-  const api = sharedCzechSpeechApi();
+function speakTargetWithSharedService(text, source, pace) {
+  const api = sharedTargetSpeechApi();
   if (!api) return false;
 
   const session = { backend: "shared", text, source };
@@ -1316,15 +1254,15 @@ function speakCzechWithSharedService(text, source, pace) {
     }
   }).then((result) => {
     const errorCode = result?.outcome === "error" ? "synthesis-failed" : "";
-    finishCzechSpeech(session, requestId, errorCode);
+    finishTargetSpeech(session, requestId, errorCode);
   }).catch((error) => {
     const errorCode = error?.name === "AbortError" ? "canceled" : "synthesis-failed";
-    finishCzechSpeech(session, requestId, errorCode);
+    finishTargetSpeech(session, requestId, errorCode);
   });
   return true;
 }
 
-function speakCzechWithAndroid(text, source, pace) {
+function speakTargetWithAndroid(text, source, pace) {
   const speech = androidSpeechRuntime();
   if (!speech || !state.nativeSpeechAvailable) {
     syncSpeechControl();
@@ -1359,14 +1297,14 @@ function speakCzechWithAndroid(text, source, pace) {
     }
   ).then((result) => {
     const errorCode = result?.outcome === "error" ? "native-synthesis-failed" : "";
-    finishCzechSpeech(session, requestId, errorCode);
+    finishTargetSpeech(session, requestId, errorCode);
   }).catch((error) => {
     const errorCode = error?.name === "AbortError" ? "canceled" : "native-synthesis-failed";
-    finishCzechSpeech(session, requestId, errorCode);
+    finishTargetSpeech(session, requestId, errorCode);
   });
 }
 
-function speakCzechWithBrowser(text, source, pace) {
+function speakTargetWithBrowser(text, source, pace) {
   const synthesis = window.speechSynthesis;
   const requestId = state.speechRequestId + 1;
   state.speechRequestId = requestId;
@@ -1391,7 +1329,7 @@ function speakCzechWithBrowser(text, source, pace) {
     }
   } catch (error) {
     syncSpeechControl();
-    reportCzechSpeechFailure();
+    reportTargetSpeechFailure();
     return;
   }
 
@@ -1400,8 +1338,8 @@ function speakCzechWithBrowser(text, source, pace) {
     state.speechState = "speaking";
     syncSpeechControl();
   };
-  utterance.onend = () => finishCzechSpeech(utterance, requestId);
-  utterance.onerror = (event) => finishCzechSpeech(utterance, requestId, event?.error);
+  utterance.onend = () => finishTargetSpeech(utterance, requestId);
+  utterance.onerror = (event) => finishTargetSpeech(utterance, requestId, event?.error);
   state.speechSession = utterance;
   state.speechBackend = "browser";
   state.speechSource = source;
@@ -1412,11 +1350,11 @@ function speakCzechWithBrowser(text, source, pace) {
   try {
     synthesis.cancel();
     state.speechTimeoutId = window.setTimeout(() => {
-      finishCzechSpeech(utterance, requestId, "synthesis-timeout");
-    }, CZECH_SPEECH_TIMEOUT_MS);
+      finishTargetSpeech(utterance, requestId, "synthesis-timeout");
+    }, TARGET_SPEECH_TIMEOUT_MS);
     synthesis.speak(utterance);
   } catch (error) {
-    finishCzechSpeech(utterance, requestId, "synthesis-failed");
+    finishTargetSpeech(utterance, requestId, "synthesis-failed");
   }
 }
 
@@ -1424,7 +1362,7 @@ function speechPresentationActive() {
   return state.loadingActive && !state.loadingPageHidden && document.visibilityState !== "hidden";
 }
 
-function toggleCzechSpeech(text, source, { restart = false } = {}) {
+function toggleTargetSpeech(text, source, { restart = false } = {}) {
   const normalizedText = String(text || "").normalize("NFC").trim();
   if (!speechPresentationActive() || course.capabilities?.speech !== true || speechGloballyMuted()) {
     syncSpeechControl();
@@ -1440,7 +1378,7 @@ function toggleCzechSpeech(text, source, { restart = false } = {}) {
     && state.speechText === normalizedText
   );
   if (state.speechSession || state.speechState === "speaking") {
-    cancelCzechSpeech();
+    cancelTargetSpeech();
     if (sameSpeech && !restart) return;
   }
   if (!speechControlSupported() || state.busy || !normalizedText) {
@@ -1448,19 +1386,19 @@ function toggleCzechSpeech(text, source, { restart = false } = {}) {
     return;
   }
 
-  const pace = czechSpeechPace();
-  if (speakCzechWithSharedService(normalizedText, source, pace)) return;
-  if (androidSpeechRuntime()) speakCzechWithAndroid(normalizedText, source, pace);
-  else speakCzechWithBrowser(normalizedText, source, pace);
+  const pace = targetSpeechPace();
+  if (speakTargetWithSharedService(normalizedText, source, pace)) return;
+  if (androidSpeechRuntime()) speakTargetWithAndroid(normalizedText, source, pace);
+  else speakTargetWithBrowser(normalizedText, source, pace);
 }
 
-function speakCurrentCzechSentence() {
-  toggleCzechSpeech(state.currentSentence, "sentence");
+function speakCurrentTargetSentence() {
+  toggleTargetSpeech(state.currentSentence, "sentence");
 }
 
-function speakSelectedCzechWord() {
+function speakSelectedTargetWord() {
   if (state.translationMode === "off") return;
-  toggleCzechSpeech(state.selectedWord, "word");
+  toggleTargetSpeech(state.selectedWord, "word");
 }
 
 function maybeAutoplayCurrentSentence({ force = false } = {}) {
@@ -1482,7 +1420,7 @@ function maybeAutoplayCurrentSentence({ force = false } = {}) {
   }
   state.pendingSpeechAutoplayFingerprint = "";
   state.lastAutoplayFingerprint = fingerprint;
-  toggleCzechSpeech(state.currentSentence, "sentence");
+  toggleTargetSpeech(state.currentSentence, "sentence");
 }
 
 async function refreshAndroidSpeechStatus({ force = false } = {}) {
@@ -1559,22 +1497,22 @@ function initializeSpeechControl() {
   syncSpeechControl();
   window.addEventListener("caatuu:speech-autoplay-change", () => {
     state.audioAutoplay = loadAudioAutoplay();
-    if (!state.audioAutoplay) cancelCzechSpeech();
+    if (!state.audioAutoplay) cancelTargetSpeech();
     syncAudioSettingsControl();
   });
   window.addEventListener("caatuu:speech-mute-change", () => {
-    if (speechGloballyMuted()) cancelCzechSpeech();
+    if (speechGloballyMuted()) cancelTargetSpeech();
     syncSpeechControl();
   });
   window.addEventListener("caatuu:speech-voice-change", async () => {
-    cancelCzechSpeech();
+    cancelTargetSpeech();
     if (androidSpeechRuntime()) await refreshAndroidSpeechStatus({ force: true });
     else syncSpeechControl();
   });
   window.addEventListener("caatuu:speech-pace-change", (event) => {
     state.speechPacePreference = normalizeWordWorldSpeechPaceKey(event?.detail?.preference);
-    cancelCzechSpeech();
-    const pace = czechSpeechPace();
+    cancelTargetSpeech();
+    const pace = targetSpeechPace();
     syncSpeechControl();
     setStatus(
       pace.source === "override"
@@ -1591,7 +1529,7 @@ function initializeSpeechControl() {
     );
   });
   window.addEventListener("caatuu:speech-voices-refresh", async () => {
-    cancelCzechSpeech();
+    cancelTargetSpeech();
     if (androidSpeechRuntime()) await refreshAndroidSpeechStatus({ force: true });
     const menu = $("#wordNetAudioMenu");
     if (menu && !menu.hidden) await refreshAudioVoiceOptions();
@@ -1903,7 +1841,7 @@ async function restoreSavedGenerativePhraseAtInit() {
     beginWordWorldEncounter();
     selectWord(saved.word, { lookup: state.translationMode !== "off", render: false });
     setTranslation(saved.en || "");
-    renderCzechSentence(saved.sentence, saved.word);
+    renderTargetSentence(saved.sentence, saved.word);
     resetSentenceFeedback();
     renderTrail();
     syncDiagnostics();
@@ -1922,25 +1860,18 @@ async function restoreSavedGenerativePhraseAtInit() {
   return true;
 }
 
+function requireGenerationProvider() {
+  const provider = providerContext?.generationProvider;
+  if (!provider) throw new Error("Word World generation requires a supported course provider.");
+  return provider;
+}
+
 function wordNetPrompt(word, { attempt = 0 } = {}) {
-  const variations = [
-    "Popiš konkrétní každodenní děj.",
-    "Použij jiný slovesný děj a přirozený kontext.",
-    "Napiš živou, ale jednoduchou větu z běžného života."
-  ];
-  const avoid = generationAvoidList().slice(0, 5).map((sentence) => `- ${sentence}`).join("\n");
-  return [
-    `Cíl: ${word}`,
-    "Napiš jednu krátkou běžnou českou větu, která přirozeně použije cílové slovo nebo jeho správný tvar.",
-    variations[Math.min(attempt, variations.length - 1)],
-    avoid ? `Neopakuj tyto nedávné věty:\n${avoid}` : "",
-    "Nevysvětluj. Vrať pouze větu.",
-    "Věta:"
-  ].filter(Boolean).join("\n");
+  return requireGenerationProvider().sentencePrompt(word, { attempt, recentSentences: generationAvoidList() });
 }
 
 function translationPrompt(sentence) {
-  return `Translate this Czech sentence into simple English.\nReturn only the English sentence.\nCzech: ${sentence}\nEnglish:`;
+  return requireGenerationProvider().translationPrompt(sentence);
 }
 
 function nativeWordNetRuntimeAvailable() {
@@ -1956,31 +1887,16 @@ function nativeTranslationRuntimeAvailable() {
 }
 
 function localSentence(word, recentSentences = state.recentSentences) {
-  const candidates = fallbackTemplates.map((template) => template(word));
+  const candidates = requireGenerationProvider().fallbackSentences(word);
   return candidates.find((sentence) => !isRecentSentence(sentence, recentSentences)) || randomItem(candidates);
 }
 
-function englishWordFor(word) {
-  const normalized = normalizeWord(word).toLocaleLowerCase(targetLocale);
-  const key = seedWords.find((seed) => wordMatchesTarget(normalized, seed)) || normalized;
-  return seedEnglish[key] || key || "word";
-}
-
 function fallbackWordMeaning(word) {
-  const normalized = normalizeWord(word).toLocaleLowerCase(targetLocale);
-  const key = seedWords.find((seed) => wordMatchesTarget(normalized, seed)) || normalized;
-  return seedEnglish[key] || "";
+  return providerContext?.generationProvider?.fallbackMeaning(word) || "";
 }
 
 function localTranslation(sentence, word) {
-  const english = englishWordFor(word);
-  const capitalEnglish = english.charAt(0).toLocaleUpperCase("en-US") + english.slice(1);
-  if (/^Vidím\s/i.test(sentence)) return `I see ${english} at home.`;
-  if (/^Dnes máme\s/i.test(sentence)) return `Today we have ${english} in the game.`;
-  if (/^Malé dítě říká\s/i.test(sentence)) return `A small child says ${english}.`;
-  if (/^Ve škole slyším\s/i.test(sentence)) return `At school I hear ${english}.`;
-  if (sentence.includes(" je tady")) return `${capitalEnglish} is here.`;
-  return `A sentence with ${english}.`;
+  return providerContext?.generationProvider?.fallbackTranslation(sentence, word) || "";
 }
 
 function currentReconstructionInstruction(round = state.reconstruction) {
@@ -2032,8 +1948,8 @@ function diagnosticsPhaseLabel(phase) {
 function diagnosticsModel(phase) {
   if (state.contentMode === "standard") return interfaceText("wordworld.diagnostics.model.curated");
   if (runtimeAdapter()?.env !== "android") return interfaceText("wordworld.diagnostics.model.browserfallback");
-  if (phase === "translating" || phase === "translating-queue") return "Czech → English Qwen";
-  return "Word Sentence CZ";
+  if (phase === "translating" || phase === "translating-queue") return requireGenerationProvider().translationModelLabel;
+  return requireGenerationProvider().sentenceModelLabel;
 }
 
 function diagnosticsSource() {
@@ -2284,7 +2200,7 @@ function toggleTargetTextPreference(key) {
   state.targetTextPreferences[key] = !state.targetTextPreferences[key];
   saveTargetTextPreferences();
   syncTranslationMenu();
-  if (state.currentSentence) renderCzechSentence(state.currentSentence, state.selectedWord);
+  if (state.currentSentence) renderTargetSentence(state.currentSentence, state.selectedWord);
   syncWordTranslation();
   renderReconstruction();
 }
@@ -3046,6 +2962,7 @@ async function showStandardPhrase(selection, {
     state.currentTranslation = guidedLifecycle ? "" : record.en;
     state.currentSceneQuery = record.sceneQuery || record.en;
     state.currentEntryId = record.id;
+    state.currentSemanticBankId = record.semanticBankId || "";
     state.currentCorpusVersion = provider.corpusVersion;
     state.currentDifficulty = record.difficulty;
     state.currentStandardRecord = record;
@@ -3054,7 +2971,7 @@ async function showStandardPhrase(selection, {
     beginWordWorldEncounter();
     renderWordWorldLearning(record, { reset: true });
     selectWord(target, { lookup: false, render: false });
-    renderCzechSentence(record.cs, target);
+    renderTargetSentence(record.cs, target);
     renderWordGuidedStatus();
     if (guidedLifecycle) {
       setBusy(false, { immediate: true });
@@ -3548,7 +3465,7 @@ function renderReconstructionAttempt(round, host) {
     if (round.answerSide === "target") {
       const authoredTokens = selected.every((option) => option.part?.prepared?.token)
         ? selected.map((option) => option.part.prepared.token) : null;
-      renderCzechSentence(sentence, state.selectedWord, null, host, authoredTokens);
+      renderTargetSentence(sentence, state.selectedWord, null, host, authoredTokens);
     }
     else {
       host.classList.remove("has-target-text-guide", "has-target-text-colors");
@@ -3614,7 +3531,7 @@ function renderReconstructionAttempt(round, host) {
 
 function renderReconstructionCorrection(round, host) {
   if (round.answerSide === "target") {
-    renderCzechSentence(round.answerText, state.selectedWord, null, host);
+    renderTargetSentence(round.answerText, state.selectedWord, null, host);
     const buttons = host.querySelectorAll(".cz-word-token");
     let index = 0;
     for (const operation of reconstructionFeedbackOperations(round)) {
@@ -3724,7 +3641,7 @@ function renderReconstructionResult(round, result) {
   if (sound) sound.hidden = course.capabilities?.speech !== true;
   initializeReconstructionDictionary(round);
   if (title) {
-    if (round.promptSide === "target") renderCzechSentence(round.promptText, state.selectedWord, null, title);
+    if (round.promptSide === "target") renderTargetSentence(round.promptText, state.selectedWord, null, title);
     else {
       title.classList.remove("has-target-text-guide", "has-target-text-colors");
       title.textContent = round.promptText;
@@ -3821,7 +3738,7 @@ function syncReconstructionPresentation(round = null) {
       sentence.textContent = round?.promptText || state.currentTranslation;
     } else if (sentence.classList.contains("is-source-language-prompt")) {
       sentence.classList.remove("is-source-language-prompt");
-      renderCzechSentence(state.currentSentence, state.selectedWord);
+      renderTargetSentence(state.currentSentence, state.selectedWord);
     }
     if (promptLocale) sentence.lang = promptLocale;
     sentence.dir = promptDirection;
@@ -3830,7 +3747,7 @@ function syncReconstructionPresentation(round = null) {
     phraseSound.hidden = promptSide === "source" || course.capabilities?.speech !== true;
   }
   if (promptSide === "source" && state.speechSource === "sentence") {
-    cancelCzechSpeech();
+    cancelTargetSpeech();
   }
   if (root) {
     root.setAttribute("aria-label", interfaceText("wordworld.reconstruction.region", {
@@ -3941,7 +3858,7 @@ function speakReconstructionOption(round, option) {
   state.cancelOptionSpeech = afterInteractionPaint(window, () => {
     state.cancelOptionSpeech = null;
     if (state.reconstruction !== round || round.submitted || state.busy || !speechPresentationActive()) return;
-    toggleCzechSpeech(option.text, "word", { restart: true });
+    toggleTargetSpeech(option.text, "word", { restart: true });
   });
 }
 
@@ -4083,7 +4000,7 @@ function retryReconstructionChallenge() {
     return;
   }
   if (round.correct) return;
-  cancelCzechSpeech();
+  cancelTargetSpeech();
   round.isRetry = true;
   round.submitted = false;
   round.correct = false;
@@ -4095,7 +4012,7 @@ function retryReconstructionChallenge() {
   round.announcement = interfaceText("wordworld.reconstruction.retrydetail");
   state.contentEncounterSupported = true;
   renderReconstruction();
-  syncCzechSentenceSelection("");
+  syncTargetSentenceSelection("");
   stabilizeReconstructionResultViewport();
   $("#wordNetReconstructionAnswer")?.querySelector("button")?.focus({ preventScroll: true });
 }
@@ -4307,7 +4224,7 @@ function setTranslationMode(mode, { closeMenu = true } = {}) {
   setStatus(currentPlayInstruction());
   if (closeMenu) closeTranslationMenu({ restoreFocus: true });
   if (mode === "off") {
-    if (state.speechSource === "word") cancelCzechSpeech();
+    if (state.speechSource === "word") cancelTargetSpeech();
     abortWordLookup();
   } else if (state.selectedWord && !state.selectedWordMeaning) {
     void lookupSelectedWord(state.selectedWord);
@@ -4734,7 +4651,7 @@ function selectWord(word, { lookup = true, render = true, userInitiated = false,
   state.wordSelectionRequested = userInitiated || revealCard;
   if (previousKey !== nextKey || state.selectedWordMeaningKey !== nextMeaningKey) {
     state.selectedWordMeaningKey = nextMeaningKey;
-    if (state.speechSource === "word") cancelCzechSpeech();
+    if (state.speechSource === "word") cancelTargetSpeech();
     abortWordLookup();
     state.selectedWordGapNotice = state.dictionaryGapKeys.includes(nextKey)
       ? interfaceText(DICTIONARY_GAP_NOTICE_ID)
@@ -4746,8 +4663,8 @@ function selectWord(word, { lookup = true, render = true, userInitiated = false,
     }
   }
   if (render && state.currentSentence
-    && (!userInitiated || !syncCzechSentenceSelection(selectedWord))) {
-    renderCzechSentence(state.currentSentence, selectedWord);
+    && (!userInitiated || !syncTargetSentenceSelection(selectedWord))) {
+    renderTargetSentence(state.currentSentence, selectedWord);
   }
   syncGenerationControl();
   syncWordTranslation();
@@ -4791,7 +4708,7 @@ function queueSelectedWordSpeech() {
       || state.phraseRequestId !== phraseRequestId || state.speechRequestId !== speechRequestId
       || state.busy || !speechPresentationActive() || state.translationMode === "off"
       || !state.wordCardPreferences.autoPronounce) return;
-    speakSelectedCzechWord();
+    speakSelectedTargetWord();
   });
 }
 
@@ -4862,7 +4779,7 @@ function setBusy(busy, { cover = busy, immediate = false } = {}) {
   if (busy) {
     closeAudioMenu();
     closeTranslationMenu();
-    cancelCzechSpeech();
+    cancelTargetSpeech();
   }
   document.querySelectorAll(".word-net-generation-toggle, .word-net-generation-menu button, .word-net-translation-toggle, .word-net-translation-menu button, .word-net-word-pronounce, .word-net-side-nav, .cz-word-token, .word-net-reconstruction button, #wordNetReconstructionSubmit, .word-net-reconstruction-result button, [data-content-mode]").forEach((button) => {
     button.disabled = busy;
@@ -5330,7 +5247,7 @@ function schedulePrefetch(
 }
 
 function prefetchPriorityWords() {
-  const sentenceWords = sentenceTargets(state.prefetchSourceSentence, { limit: 14 });
+  const sentenceWords = requireGenerationProvider().sentenceTargets(state.prefetchSourceSentence, { limit: 14 });
   const currentSelection = normalizeWord(state.selectedWord || state.currentWord);
   const seedOffset = state.history.length % Math.max(1, seedWords.length);
   const rotatedSeeds = [...seedWords.slice(seedOffset), ...seedWords.slice(0, seedOffset)];
@@ -5520,7 +5437,7 @@ async function requestSentenceCandidate(target, { signal, speculative = false, o
       },
       {
         timeoutMs: 180000,
-        timeoutMessage: "Czech phrase generation took too long.",
+        timeoutMessage: "Phrase generation took too long.",
         signal,
         onEvent(message) {
           if (message.kind === "token") output += message.token || "";
@@ -5529,10 +5446,9 @@ async function requestSentenceCandidate(target, { signal, speculative = false, o
       }
     );
     signal?.throwIfAborted?.();
-    const sentence = stripModelEcho(output || result?.output || "");
+    const sentence = requireGenerationProvider().prepareSentence(output || result?.output || "");
     if (
-      sentenceIncludesWord(sentence, target) &&
-      isPlausibleSentence(sentence) &&
+      requireGenerationProvider().sentenceValid(sentence, target) &&
       !isRecentSentence(sentence, generationAvoidList())
     ) {
       return { sentence, source: "native", settings: result?.settings || {} };
@@ -5572,7 +5488,7 @@ function tokenButtonSelected(button, selectedWord) {
   return Boolean(button.dataset.tokenSurface) && wordMatchesTarget(button.dataset.tokenSurface, selectedWord);
 }
 
-function syncCzechSentenceSelection(selectedWord) {
+function syncTargetSentenceSelection(selectedWord) {
   const resultHost = reconstructionDictionaryHost();
   const host = resultHost || $("#wordNetSentence");
   const presentation = state.sentencePresentation;
@@ -5601,7 +5517,7 @@ function singleGraphemeUnits(units, surface) {
   return graphemes;
 }
 
-function renderCzechSentence(
+function renderTargetSentence(
   sentence,
   selectedWord = "",
   curriculumFocus = state.guidedMode ? state.guidedFocusTarget : null,
@@ -5851,7 +5767,7 @@ async function showPreviousSentence() {
     }
     selectWord(previous.word, { lookup: state.translationMode !== "off", render: false });
     setTranslation(previous.en || "");
-    renderCzechSentence(previous.sentence, previous.word);
+    renderTargetSentence(previous.sentence, previous.word);
     resetSentenceFeedback();
     setProgress(null);
     const sceneText = previous.sceneQuery || previous.en || localTranslation(previous.sentence, previous.word);
@@ -5929,7 +5845,7 @@ async function generateSentenceForWord(word, { source = "choice" } = {}) {
 
   const transitionStartedAt = performance.now();
   setBusy(true);
-  renderCzechSentence(state.currentSentence, target);
+  renderTargetSentence(state.currentSentence, target);
 
   const firstRun = source === "initial" || source === "seed";
   setStatus(firstRun
@@ -5974,7 +5890,7 @@ async function showPreparedPhrase(target, candidate) {
   beginWordWorldEncounter();
   hideSceneAsset({ cancel: true });
   setTranslation("");
-  renderCzechSentence(sentence, target);
+  renderTargetSentence(sentence, target);
   rememberPreparedCandidate(target, candidate, { used: true });
   rememberStep(target, sentence, {
     en: candidate?.translation || "",
@@ -6033,6 +5949,10 @@ function openSentenceFeedback() {
     contentMode: state.currentContentMode || state.contentMode,
     corpusVersion: state.currentCorpusVersion,
     difficulty: state.currentDifficulty,
+    semanticBankId: state.currentSemanticBankId || "",
+    contentId: state.currentEntryId || "",
+    englishAtFlag: state.currentTranslation || "",
+    translationAtFlag: state.currentSentence || "",
     generationSource: state.currentGenerationSource,
     translationMode: state.translationMode,
     recentSentences: state.recentSentences.slice(1, 5)
@@ -6069,6 +5989,13 @@ async function submitSentenceFeedback(event) {
   const submit = $("#wordNetFeedbackSubmit");
   const status = $("#wordNetFeedbackStatus");
   const reason = $("#wordNetFeedbackReason")?.value || "nonsense_or_incorrect";
+  const flagTarget = reason === "wrong_translation" || reason === "unnatural_target_language" || reason === "unnatural_czech"
+    ? "translation"
+    : reason === "nonsense_or_incorrect"
+      ? "content"
+      : reason === "repeated_too_soon"
+        ? "play"
+        : "";
   const comment = String($("#wordNetFeedbackComment")?.value || "").trim().slice(0, 400);
   const clientReportId = createClientReportId();
   const reportedAt = new Date().toISOString();
@@ -6077,6 +6004,7 @@ async function submitSentenceFeedback(event) {
     reportedAt,
     kind: "word_world_sentence",
     reason,
+    flagTarget,
     comment,
     ...snapshot,
     ...(snapshot.contentMode === "generative" ? {
@@ -6097,7 +6025,10 @@ async function submitSentenceFeedback(event) {
     const preparedRecord = typeof providerContext?.sessionRecord === "function"
       ? providerContext.sessionRecord(snapshot.entryId)
       : null;
-    const queued = providerContext?.providerKind === "authored-realizations"
+    const maintenance = runtimeAdapter()?.maintenance;
+    const sharedReporting = maintenance?.sentenceFeedbackSharing?.()?.enabled === true
+      && typeof maintenance.enqueueReport === "function";
+    const queued = !sharedReporting && providerContext?.providerKind === "authored-realizations"
         && preparedRecord
         && typeof providerContext.report === "function"
       ? await providerContext.report({
@@ -6106,7 +6037,7 @@ async function submitSentenceFeedback(event) {
           reason,
           comment
         })
-      : await runtimeAdapter()?.maintenance?.enqueueReport?.(payload, {
+      : await maintenance?.enqueueReport?.(payload, {
           id: clientReportId,
           dedupeKey
         });
@@ -6278,16 +6209,16 @@ function bindUi() {
   $("#wordNetAudioVoice")?.addEventListener("change", async (event) => {
     window.CaatuuChrome?.setSpeechVoicePreference?.(event.currentTarget.value);
     if (androidSpeechRuntime()) await refreshAndroidSpeechStatus({ force: true });
-    previewCurrentCzechSentenceFromAudioMenu();
+    previewCurrentTargetSentenceFromAudioMenu();
   });
-  $("#wordNetAudioInstallVoice")?.addEventListener("click", installCzechVoiceFromAudioMenu);
+  $("#wordNetAudioInstallVoice")?.addEventListener("click", installTargetVoiceFromAudioMenu);
   $("#wordNetAudioSpeed")?.addEventListener("input", (event) => {
     const option = audioSpeedOptions[Number(event.currentTarget.value)] || audioSpeedOptions[0];
     state.speechPacePreference = option.key;
     window.CaatuuChrome?.setSpeechPacePreference?.(option.key);
     syncAudioSettingsControl();
   });
-  $("#wordNetAudioSpeed")?.addEventListener("change", previewCurrentCzechSentenceFromAudioMenu);
+  $("#wordNetAudioSpeed")?.addEventListener("change", previewCurrentTargetSentenceFromAudioMenu);
   $("#wordNetAudioMenu")?.addEventListener("click", async (event) => {
     if (event.target.closest("#wordNetAudioAutoplay")) {
       state.audioAutoplay = !state.audioAutoplay;
@@ -6302,9 +6233,9 @@ function bindUi() {
     event.preventDefault();
     closeAudioMenu({ restoreFocus: true });
   });
-  $("#wordNetPhraseSound")?.addEventListener("click", speakCurrentCzechSentence);
-  $("#wordNetReconstructionResultSound")?.addEventListener("click", speakCurrentCzechSentence);
-  $("#wordNetSelectedWordSound")?.addEventListener("click", speakSelectedCzechWord);
+  $("#wordNetPhraseSound")?.addEventListener("click", speakCurrentTargetSentence);
+  $("#wordNetReconstructionResultSound")?.addEventListener("click", speakCurrentTargetSentence);
+  $("#wordNetSelectedWordSound")?.addEventListener("click", speakSelectedTargetWord);
   $("#wordNetReconstruction")?.addEventListener("click", (event) => {
     const option = event.target.closest("[data-reconstruction-option-id]");
     if (option) {
@@ -6345,7 +6276,7 @@ function bindUi() {
     syncRobotLoadingActivity();
     if (document.visibilityState === "hidden") {
       clearTranslationTimer();
-      cancelCzechSpeech();
+      cancelTargetSpeech();
       cancelBackgroundWork();
       abortWordLookup();
     } else {
@@ -6362,7 +6293,7 @@ function bindUi() {
   window.addEventListener("pagehide", () => {
     state.loadingPageHidden = true;
     syncRobotLoadingActivity();
-    cancelCzechSpeech();
+    cancelTargetSpeech();
   });
   window.addEventListener("pageshow", () => {
     state.loadingPageHidden = false;
@@ -6386,8 +6317,8 @@ function bindUi() {
     if (state.contentMode === "standard" && !state.guidedRequested) {
       void generateStandardFromConfiguredMode("random");
     }
-    const pace = czechSpeechPace();
-    cancelCzechSpeech();
+    const pace = targetSpeechPace();
+    cancelTargetSpeech();
     syncDiagnostics();
     setStatus(
       pace.source === "override"
@@ -6403,12 +6334,6 @@ function bindUi() {
           }),
       { tone: "active" }
     );
-  });
-  window.addEventListener("storage", (event) => {
-    const performanceKey = window.CaatuuLearning?.storage?.performanceStorageKey;
-    if (!performanceKey || event.key !== `${performanceKey}.reset` || event.oldValue === event.newValue) return;
-    if (state.guidedRequested) void restartGuidedWordWorldAfterReset();
-    else restartStandardWordWorldAfterReset();
   });
 }
 
@@ -6428,7 +6353,7 @@ async function init() {
   const diagnostics = $("#wordNetDiagnostics");
   if (diagnostics) diagnostics.open = false;
   applyTranslationMode();
-  renderCzechSentence("");
+  renderTargetSentence("");
   syncGenerationControl();
   syncContentControl();
   syncWordTranslation();
@@ -6556,7 +6481,7 @@ function applyWordWorldCapabilities(root) {
   const capabilities = providerContext.session.course?.capabilities || {};
   const generationSupported = capabilities.llm === true
     && capabilities.generation === true
-    && Boolean(providerContext.generationStrategy);
+    && Boolean(providerContext.generationProvider);
   for (const node of root.querySelectorAll('[data-content-mode="generative"]')) {
     node.hidden = !generationSupported;
     node.disabled = !generationSupported;
@@ -6585,7 +6510,7 @@ function requirePreparedContext(value) {
     throw new Error("The prepared Word World context does not match the active course.");
   }
   const generationEnabled = value.session.course?.capabilities?.generation === true;
-  if (generationEnabled !== Boolean(value.generationStrategy)) {
+  if (generationEnabled !== Boolean(value.generationStrategy) || generationEnabled !== Boolean(value.generationProvider)) {
     throw new Error(
       generationEnabled
         ? "Word World generation is unavailable without an explicit course-owned versioned strategy."
@@ -6596,7 +6521,7 @@ function requirePreparedContext(value) {
 }
 
 /**
- * Mounts the Czech-authoritative Word World controller over the pre-existing
+ * Mounts the shared Word World controller over the pre-existing
  * shared component tree. Language packs may supply data and narrow linguistic
  * seams through the prepared context; they never supply markup or a renderer.
  */
@@ -6610,8 +6535,10 @@ export async function mountProductWordWorld(root, preparedContext, options = {})
     if (!root.querySelector(id)) throw new Error(`Word World authority markup is missing ${id}.`);
   }
 
-  WORD_NET_MODEL_KEY = context.generationStrategy?.sentenceModelKey || "";
-  TRANSLATION_MODEL_KEY = context.generationStrategy?.translationModelKey || "";
+  WORD_NET_MODEL_KEY = context.generationProvider?.sentenceModelKey || "";
+  TRANSLATION_MODEL_KEY = context.generationProvider?.translationModelKey || "";
+  seedWords = context.generationProvider?.seedWords || [];
+  PREFETCH_STOPWORDS = new Set(context.generationProvider?.stopWords || []);
   mountRoot = root;
   state.loadingActive = !root.closest?.("[data-train-panel]")?.hidden;
   state.loadingScreen = mountRobotLoadingScreen({
@@ -6661,7 +6588,7 @@ export async function mountProductWordWorld(root, preparedContext, options = {})
     pause() {
       state.loadingActive = false;
       syncRobotLoadingActivity();
-      cancelCzechSpeech();
+      cancelTargetSpeech();
       suspendStarterWordPresentation();
     },
     resume() {

@@ -101,7 +101,7 @@ test("the runtime audit plans the bundled product APK from every course", () => 
   assert.ok(plan.requiredEntries.includes("assets/courses/zh/setup-assets.json"));
   assert.ok(plan.requiredEntries.includes("assets/courses/cz/data/embeddings/models.json"));
   assert.ok(plan.requiredEntries.includes("assets/courses/zh/data/embeddings/catalog.json"));
-  assert.ok(plan.requiredEntries.includes("assets/courses/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/manifest.json"));
+
   assert.ok(plan.requiredEntries.includes("assets/courses/cz/data/dictionaries/catalog.json"));
   assert.ok(plan.requiredEntries.includes("assets/language-runtime/embedding-runtimes.json"));
   assert.ok(!plan.requiredEntries.includes("assets/language-runtime/vendor/transformers/transformers.min.js"));
@@ -167,4 +167,37 @@ test("archive fallback is reserved for a missing unzip executable", () => {
   };
   assert.equal(unzip(["-Z1", "app.apk"], fallback), "assets/index.html\n");
   assert.deepEqual(calls.map(([command]) => command), ["unzip", "tar"]);
+});
+
+
+test("APK audit requirements follow provider metadata under an ordinary default course ID", () => {
+  const makeCourse = id => ({ id, assetPrefix: `courses/${id}`,
+    capabilities: { embeddings: true, dictionary: true, wordWorldStandardOnly: true },
+    nativeProviders: { providers: {
+      embeddings: { implementation: "vector-database-catalog-v1", catalogAsset: `courses/${id}/data/embeddings/catalog.json` },
+      dictionary: { implementation: "sqlite-dictionary-catalog-v1", catalogAsset: `courses/${id}/data/dictionaries/catalog.json` },
+    } },
+  });
+  const readAsset = path => Buffer.from(JSON.stringify(path.includes("embeddings")
+    ? { models: [{ status: "active", manifest_file: "replacement/metadata.json" }] }
+    : { dictionaries: [{ status: "active", manifest_file: "reviewed-dictionary/metadata.json" }] }));
+  const plans = ["cz", "zh", "other"].map(id => {
+    const bundle = { defaultCourseId: id, courses: [makeCourse(id)] };
+    assert.equal(androidCourseBundleCoverage(bundle, structuredClone(bundle)).matches, true);
+    return productApkAuditPlan(bundle, { readAsset }).requiredEntries
+      .map(path => path.replace(`courses/${id}/`, "courses/example/"));
+  });
+  assert.deepEqual(plans[0], plans[1]);
+  assert.deepEqual(plans[1], plans[2]);
+  assert.ok(plans[0].includes("assets/courses/example/data/embeddings/replacement/metadata.json"));
+  assert.ok(plans[0].includes("assets/courses/example/data/dictionaries/reviewed-dictionary/metadata.json"));
+  assert.ok(plans[0].includes("assets/courses/example/data/games/word-world/content.json"));
+  assert.throws(() => productApkAuditPlan({ courses: [makeCourse("other")] }, {
+    readAsset: () => Buffer.from(JSON.stringify({ models: [{ status: "active", manifest_file: "../../escape" }] })),
+  }), /unsafe/u);
+  for (const empty of [{}, { models: [] }, { models: [{ status: "inactive" }] }]) {
+    assert.throws(() => productApkAuditPlan({ courses: [makeCourse("other")] }, {
+      readAsset: () => Buffer.from(JSON.stringify(empty)),
+    }), /must declare active/u);
+  }
 });

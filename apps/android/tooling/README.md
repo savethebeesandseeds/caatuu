@@ -136,6 +136,9 @@ older source without the declaration keeps its original HTML projection.
 The complete eight-course companion has a bounded 96 MB content budget plus
 a separate 32 MB native vector-database budget; each device still downloads
 shared assets and only its selected course content.
+Release preflight validates all registered modern language-content publications
+with `validate.mjs --all --release`; the default compatibility target alone is
+insufficient. The builder also checks the course-pack publication contracts.
 Release preflight scans the learner content of every Android-enabled course
 before Gradle, using the same extractors and rules as the final compiler.
 It also checks the fallback course chooser and shared language-selector flag

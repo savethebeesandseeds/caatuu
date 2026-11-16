@@ -161,6 +161,10 @@ export function validateEnglishConceptCatalog(catalog) {
     const id = conceptId(concept.id, `concepts[${index}].id`);
     if (seen.has(id)) throw new CourseCatalogError(`Duplicate concept ID: ${id}.`);
     seen.add(id);
+    if (Object.hasOwn(concept, "semanticBankId") && (typeof concept.semanticBankId !== "string"
+        || !/^sb\.word-net\.\d{6}$/u.test(concept.semanticBankId))) {
+      throw new CourseCatalogError(`concepts[${index}].semanticBankId must name a Word Net bank row.`);
+    }
     nonEmptyString(concept.englishText, `concepts[${index}].englishText`);
     assertNoTargetScript(concept.embeddingText, `concepts[${index}].embeddingText`);
     nonEmptyString(concept.topic, `concepts[${index}].topic`);
@@ -219,6 +223,7 @@ export function joinConceptCatalogs(englishCatalog, realizationCatalog) {
     const realization = realizations.get(concept.id);
     return {
       conceptId: concept.id,
+      ...(concept.semanticBankId ? { semanticBankId: concept.semanticBankId } : {}),
       englishText: nonEmptyString(concept.englishText, `${concept.id}.englishText`),
       embeddingText: assertNoTargetScript(concept.embeddingText, `${concept.id}.embeddingText`),
       sceneQuery: nonEmptyString(concept.sceneQuery, `${concept.id}.sceneQuery`),

@@ -97,6 +97,7 @@
       ],
       "properties": {
         "id": { "$ref": "#/$defs/conceptId" },
+        "semanticBankId": { "type": "string", "pattern": "^sb\\.word-net\\.\\d{6}$" },
         "englishText": { "$ref": "#/$defs/nonEmptyString" },
         "embeddingText": { "$ref": "#/$defs/nonEmptyString" },
         "sceneQuery": { "$ref": "#/$defs/nonEmptyString" },

@@ -193,6 +193,7 @@ test("embedded shell hides its duplicate global freshness notice while preservin
 for (const pause of ["languageReviewOpen", "shellReviewOpen"]) test(`a late iframe load respects ${pause} set during loading`, () => {
   const f = fixture("grammar-gravity"), messages = [];
   const frame = f.document.createElement("iframe");
+  frame.contentDocument = createBrowserHarness().document;
   frame.id = "deferredGameFrame";
   frame.dataset.src = "/cz/grammar-gravity.html";
   frame.contentWindow = { postMessage: message => messages.push(message) };
@@ -205,8 +206,15 @@ for (const pause of ["languageReviewOpen", "shellReviewOpen"]) test(`a late ifra
   vm.runInContext(between("function syncEmbeddedGameVisibility(", "function campaignAvailableTabs("), f.context);
   f.context.ensureEmbeddedGameLoaded("grammar-gravity");
   frame.dispatchEvent({ type: "load" });
-  assert.equal(frame.dataset.ready, "true");
+  assert.equal(frame.dataset.documentReady, "true");
+  assert.equal(frame.dataset.ready, "false", "a document load is not asynchronous content readiness");
   assert.equal(messages.at(-1).active, false, "load completion must respect the current global shell pause");
+  Object.assign(frame.contentDocument.documentElement.dataset, { caatuuGameId: "grammar-gravity", caatuuGameStatus: "ready" });
+  f.context.handleEmbeddedGameStartup({ origin: f.window.location.origin, source: frame.contentWindow,
+    data: { source: "caatuu-game", type: "startup", gameId: "grammar-gravity", status: "ready" } });
+  assert.equal(frame.dataset.ready, "true");
+  assert.equal(frame.dataset.loading, "false");
+  assert.equal(messages.at(-1).active, false, "actual content readiness also preserves the current shell pause");
   f.state[pause] = false;
   f.context.syncEmbeddedGameVisibility(f.state.trainTab);
   assert.equal(messages.at(-1).active, true);

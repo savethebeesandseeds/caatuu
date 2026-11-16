@@ -6,6 +6,14 @@
   "workers_dev": false,
   "routes": [
     {
+      "pattern": "caatuu.waajacu.com/api/v2/sentence-reports*",
+      "zone_name": "waajacu.com"
+    },
+    {
+      "pattern": "caatuu.waajacu.com/api/v2/dictionary-gaps*",
+      "zone_name": "waajacu.com"
+    },
+    {
       "pattern": "caatuu.waajacu.com/cz/api/dictionary/gaps*",
       "zone_name": "waajacu.com"
     },

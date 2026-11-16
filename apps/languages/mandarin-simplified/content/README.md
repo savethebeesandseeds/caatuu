@@ -13,16 +13,14 @@ boundaries, and generic authored pronunciation objects. This pack explicitly
 selects `mandarin-simplified-v1`; that named policy—not the shared schema—owns
 the Hans, pinyin, and contextual polyphone checks.
 
-The starter realization pack is a machine-assisted draft. Its language review
-gate is intentionally `native-review-required`; it must not make the course
-active or authorize approved authored pronunciation guidance until a qualified
-Mandarin reviewer records approval. The first-party English concepts and Mandarin
-realizations are release-cleared under `AGPL-3.0-only`. The disclosed
-development course may be packaged and published in browser and APK builds;
-pending native review is advisory for that distribution, not a publication
-block. It may expose a separate catalog explicitly marked
+The starter realization pack records `native-review-required`. That record
+does not block the active course, and it does not authorize approved
+pronunciation until a qualified Mandarin reviewer records approval. The
+first-party English concepts and Mandarin realizations are release-cleared
+under `AGPL-3.0-only`. The course is packaged and published in browser and
+APK builds. It may expose a separate catalog explicitly marked
 `machine-assisted-preview`. That catalog does not alter the learner projection
-or satisfy the activation and approved-pronunciation gate.
+or satisfy the approved-pronunciation check.
 
 The pack declares `authored-word-tokens` with contextual token pronunciation.
 Consumers must preserve those boundaries; deriving pronunciation from one Han
@@ -58,10 +56,8 @@ borrow an unrelated sense of the same written word. In particular, 还 means
 returning something borrowed here and reads `huán`, while 系 means tying and
 reads `jì`.
 
-These readings remain `machine-assisted-preview`. All verb rows retain
-`native-review-required`, and the course's approved-pronunciation capability
-remains disabled. Tone colors and the optional pinyin display do not constitute
-native review or pronunciation assessment. Syllables use lexical teaching
+Pronunciation guides stay off. Tone colors and the optional pinyin display
+are teaching aids. Syllables use lexical teaching
 forms, including authored neutral tones, rather than predicting sentence-level
 tone sandhi.
 
@@ -80,8 +76,10 @@ neutral syllables, listening-catalog consistency and retained review gates.
 
 ## Catalog fill
 
-The English semantic banks remain the meaning source. Native review is not
-claimed.
+The English semantic banks remain the meaning source. Mandarin is the only
+course currently derived from those banks. The other courses are using their
+13 November catalogs until they are reinstated to that standard. Native
+review is not claimed.
 
 - Word World serves 8,994 sentences. Eight bank rows stay untranslated: five
   ask for a personal name, and three contain letters the English authority
@@ -94,4 +92,3 @@ claimed.
   already in the catalog stay empty.
 - Sounds Quasar has 2,072 words and 8,925 sentences projected from those
   verbs and sentences.
-

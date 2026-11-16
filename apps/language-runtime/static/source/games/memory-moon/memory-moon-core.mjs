@@ -25,12 +25,19 @@ export function validateMemoryMoonCatalog(pack, { course } = {}) {
       || pack.learnerBaseLanguage !== course.sourceLanguage?.locale)) fail('catalog belongs to another course');
   const ids = new Set();
   for (const item of pack.challenges) {
+    if (item?.reviewStatus === 'untranslated') {
+      if (!text(item.id) || !item.id.startsWith(`mm-${pack.courseId}-`) || ids.has(item.id)
+          || !/^sb\.memory-moon\.\d{6}$/u.test(item.semanticBankId || '') || !text(item.englishText)) fail(item.id || 'untranslated question');
+      ids.add(item.id);
+      continue;
+    }
     if (!text(item?.id) || item.id.length > 256 || !item.id.startsWith(`mm-${pack.courseId}-`) || ids.has(item.id)
         || !Number.isSafeInteger(item.revision) || item.revision < 1 || ![0,1,2,3].includes(item.difficulty)
         || !text(item.targetText) || !text(item.learnerBaseText) || !text(item.familyId) || !text(item.topic)
         || !kinds.has(item.focus?.kind) || !Array.isArray(item.focus?.englishConcepts)
         || !item.focus.englishConcepts.length || item.focus.englishConcepts.some(value => !text(value))) fail(item?.id || 'question');
     if (['usefulness','complexity'].some(field => !Number.isInteger(item[field]) || item[field] < 1 || item[field] > 100)) fail(`${item.id} grades`);
+    if (Object.hasOwn(item, 'semanticBankId') && !/^sb\.memory-moon\.\d{6}$/u.test(item.semanticBankId || '')) fail(`${item.id} semanticBankId`);
     const mandarin = /^zh(?:-|$)/u.test(pack.targetLanguage);
     if (item.targetReading !== undefined && !mandarin) fail(`${item.id} reading language`);
     validateMoonTargetReading(item.targetReading, item.targetText, { required: mandarin });
@@ -129,7 +136,7 @@ export function selectMemoryMoonChallenges(pack, { difficulty = 1, weaknesses = 
   history = {}, recentIds = [], recentFamilies = [], random = Math.random, limit = MEMORY_MOON_ROUND_COUNT, now = Date.now() } = {}) {
   validateMemoryMoonCatalog(pack);
   if (![0,1,2,3].includes(difficulty) || !Number.isSafeInteger(limit) || limit < 1) throw new TypeError('Invalid Moon badge or round size.');
-  const eligible = pack.challenges.filter(item => item.difficulty === difficulty);
+  const eligible = pack.challenges.filter(item => item.reviewStatus !== 'untranslated' && item.difficulty === difficulty);
   const count = Math.min(limit,eligible.length), excluded = new Set(recentIds), families = new Set(recentFamilies);
   for (const item of eligible) if (now - Date.parse(history[item.id]?.lastSeenAt) < 300000) {
     excluded.add(item.id);families.add(item.familyId);

@@ -1,7 +1,7 @@
 # English → Modern Standard Georgian
 
-The finite first course is a local browser development preview at
-[`/ka/`](http://127.0.0.1:8765/ka/). It teaches the Georgian language of Georgia,
+The finite first course is a released public course at
+[`/ka/`](https://caatuu.waajacu.com/ka/). It teaches the Georgian language of Georgia,
 labelled **ქართული**, through the existing shared application and game engines.
 The learner base and interface are English. The course ID is `ka`, the script
 is `Geor`, and its own storage/cache namespaces start with `caatuu-ka`.
@@ -18,8 +18,7 @@ Latin romanization appears above whole Georgian words by default in all four
 games: Word World, Verb Nebula, Conjugation Comet and Grammar Gravity. Each
 game has its own saved **Show romanization** setting. The guide uses the same
 red as translations and leaves the authored Georgian spelling, answer keys and
-speech text intact. It is a presentation aid; independent native pronunciation
-review remains pending.
+speech text intact. It is a presentation aid. Pronunciation guides stay off.
 
 The guide follows the modern Georgian national romanization system adopted in
 2002, documented in the
@@ -113,11 +112,11 @@ numerals need separate agreement treatment.
 ## Games and language behavior
 
 Enabled: Word World, Verb Nebula, Conjugation Comet, Grammar Gravity, and
-Memory Moon. Case Cosmos
-stays disabled: its current engine explicitly accepts only English → Czech,
-validates Latin-script nouns, and hard-codes Czech cases including accusative
-and locative. Georgian needs a different inventory with ergative and adverbial
-cases. Turning on that engine would teach incorrect categories. Georgian's
+Memory Moon. Case Cosmos stays disabled until a Georgian catalog declares its
+case system, contrasts, and practice contexts. The shared engine accepts
+Unicode forms and an explicit course-owned case inventory; Czech's inventory
+is confined to its own course provider. Georgian needs its own inventory with
+ergative and adverbial cases. Georgian's
 seven cases are introduced in contextual Word World examples and sentence
 hints; conjugation contexts show the relevant subject/object cases.
 Naturalization Nucleus is not an alphabet trainer for Georgian.
@@ -169,16 +168,14 @@ Home and its current-course card, with local setup reporting Ready.
 
 ## Review and delivery
 
-This is AI-authored content with an author self-review. **Independent native
-Georgian review is pending**, including naturalness, translations, verb forms,
-case selection and the learning sequence. Automated playability and inventory
-checks cannot approve those linguistic judgments. Pronunciation and audio are
-not approved. Distribution licensing is cleared under AGPL-3.0-only by the
+This is AI-authored content. Pronunciation guides stay off. Distribution
+licensing is cleared under AGPL-3.0-only by the
 [4 October owner approval](CURRICULUM_LICENSE_APPROVAL_20261004.json).
 
 Browser and Android delivery are enabled. The public website lists the course
-as a `noindex` preview. The eight-course version 179 bundle uses the Android source allowlist,
-shared English embedding provider and standard device-speech declaration.
+as a released, indexable course. Android includes the course from version 179.
+It uses the Android source allowlist, the shared English embedding provider,
+and the standard device-speech declaration.
 The original course onboarding did not build or publish an APK;
 physical-device checks remain separate from release publication.
 

@@ -95,6 +95,14 @@ function optionalText(value, location, options) {
   return requiredText(value, location, options);
 }
 
+function semanticBankReference(value, location) {
+  const reference = requiredText(value, location, { maximum: 80 });
+  if (!/^sb\.conjugation-comet\.\d{6}$/u.test(reference)) {
+    throw catalogError("CONJUGATION_COMET_CONTENT_INVALID", `${location} must reference a Conjugation Comet bank row.`);
+  }
+  return reference;
+}
+
 function contentId(value, location) {
   const id = requiredText(value, location, { maximum: 160 });
   if (!CONTENT_ID_PATTERN.test(id)) {
@@ -354,6 +362,19 @@ function normalizeVerb(verb, index, { legacy = false } = {}) {
       `${location} must be an object.`
     );
   }
+  if (verb.reviewStatus === "untranslated") {
+    return {
+      id: contentId(verb.id, `${location}.id`),
+      semanticBankId: semanticBankReference(verb.semanticBankId, `${location}.semanticBankId`),
+      reviewStatus: "untranslated",
+      revision: positiveInteger(verb.revision ?? 1, `${location}.revision`),
+      difficulty: boundedDifficulty(verb.difficulty, `${location}.difficulty`),
+      ...normalizeContentProgression(verb, location),
+      meaningChoiceBaseText: requiredText(verb.meaningChoiceBaseText || verb.englishAuditText, `${location}.meaningChoiceBaseText`),
+      englishAuditText: requiredText(verb.englishAuditText, `${location}.englishAuditText`),
+      forms: []
+    };
+  }
   if (!Array.isArray(verb.forms) || verb.forms.length < 2 || verb.forms.length > MAX_AUTHORED_CONJUGATION_FORMS) {
     throw catalogError(
       "CONJUGATION_COMET_CONTENT_INVALID",
@@ -394,6 +415,9 @@ function normalizeVerb(verb, index, { legacy = false } = {}) {
       `${location}.id`
     ),
     revision: positiveInteger(legacy ? verb.revision ?? 1 : verb.revision, `${location}.revision`),
+    ...(verb.semanticBankId !== undefined ? {
+      semanticBankId: semanticBankReference(verb.semanticBankId, `${location}.semanticBankId`)
+    } : {}),
     targetText,
     learnerBaseText,
     englishAuditText,
@@ -524,7 +548,11 @@ export function validateConjugationCometCatalog(value, {
       "Conjugation Comet needs at least four authored verbs."
     );
   }
-  const verbs = value.verbs.map((verb, index) => normalizeVerb(verb, index, { legacy }));
+  const sourceVerbs = value.verbs.map((verb, index) => normalizeVerb(verb, index, { legacy }));
+  const verbs = sourceVerbs.filter(verb => verb.reviewStatus !== "untranslated");
+  if (verbs.length > 0 && verbs.length < 4) {
+    throw catalogError("CONJUGATION_COMET_CONTENT_INVALID", "Conjugation Comet needs at least four authored verbs when any are playable.");
+  }
   const targetLocale = languageTag(
     legacy ? expectedTargetLocale : value.targetLocale,
     "targetLocale"
@@ -538,7 +566,7 @@ export function validateConjugationCometCatalog(value, {
       `Catalog locale ${targetLocale} cannot be used for ${expectedTargetLocale}.`
     );
   }
-  const verbIds = verbs.map((verb) => verb.id);
+  const verbIds = sourceVerbs.map((verb) => verb.id);
   if (new Set(verbIds).size !== verbIds.length) {
     throw catalogError(
       "CONJUGATION_COMET_CONTENT_INVALID",

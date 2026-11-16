@@ -299,7 +299,7 @@ if [[ "$mode" == "build-once" ]]; then
     export CAATUU_RELEASE_CANDIDATE_RECEIPT="$candidate_receipt"
     export CAATUU_RELEASE_SOURCE_REVISION="$(git -C "$repo_root" rev-parse HEAD)"
     start_phase "Validate release source"
-    node "$repo_root/tools/language-content/validate.mjs" --release
+    node "$repo_root/tools/language-content/validate.mjs" --all --release
     node "$repo_root/tools/czech-ml/scripts/validate-learner-content-safety.mjs" --android --compact
     # This focused preflight is the release source checkpoint. Full review
     # suites run independently; Gradle validates the actual assets once,

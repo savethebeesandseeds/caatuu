@@ -40,8 +40,8 @@ the Word World concepts, target realizations and learner-base translations,
 Verb Nebula, Conjugation Comet, Grammar Gravity (including nouns), and the
 reused Sounds Quasar records. The [approval receipt](CURRICULUM_LICENSE_APPROVAL_20260909.json)
 records the owner's decision, exact source hashes and previous license metadata.
-Formal catalog license gates now record `release-cleared`; native-speaker and
-pronunciation reviews remain separate and unchanged.
+Formal catalog license gates now record `release-cleared`. Pronunciation
+guides stay off.
 
 The same approval covers the original geometric Norwegian flag SVG and its
 two PNG copies created for the course, under `AGPL-3.0-only`. Their exact paths
@@ -52,8 +52,16 @@ The project owner authorized `AGPL-3.0-only` and distribution for the original
 Arabic, Scientific Latin and Georgian curricula on 4 October 2026. The
 [approval receipt](CURRICULUM_LICENSE_APPROVAL_20261004.json) records the exact
 authorization and content hashes. This covers their English concepts, target
-realizations, vocabulary, conjugation and agreement exercises. Language and
-pronunciation reviews remain pending; third-party terms are unchanged.
+realizations, vocabulary, conjugation and agreement exercises. Pronunciation
+guides stay off. Third-party terms are unchanged.
+
+On 11 November 2026 the project owner authorized `AGPL-3.0-only` and
+distribution for the original Russian and Hebrew curricula and directed that
+both courses be included in the app. The
+[approval receipt](CURRICULUM_LICENSE_APPROVAL_20261111.json) records that
+decision. Formal catalog license gates now record `release-cleared`. The published
+Android 203 package was built before this decision and does not install these
+courses. They are in the Android source bundle from version 204.
 
 ## Material with separate terms
 

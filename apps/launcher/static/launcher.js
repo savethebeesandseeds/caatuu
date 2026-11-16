@@ -18,6 +18,8 @@
   let interfaceContent = null;
   let currentRegistry = null;
   let courseBounce = null;
+  let selectedDialogCourseId = null;
+  let availableAndroid = null;
 
   function t(messageId, parameters = {}) {
     return interfaceContent?.t(messageId, parameters) || "";
@@ -70,6 +72,7 @@
   }
 
   function setDownloadChecking() {
+    availableAndroid = null;
     if (!download) return;
     download.removeAttribute("href");
     download.removeAttribute("download");
@@ -84,6 +87,7 @@
   }
 
   function setDownloadUnavailable(message = t("launcher.android.unpublished")) {
+    availableAndroid = null;
     if (!download) return;
     if (!interfaceContent) { download.hidden = true; return; }
     download.removeAttribute("href");
@@ -129,6 +133,7 @@
         const manifest = await response.json();
         if (request !== channelRequest) return;
         if (!validChannelManifest(channel, manifest)) continue;
+        availableAndroid = { channel, manifest };
         download.href = versionedArtifactUrl(channel.artifact, manifest);
         download.setAttribute("download", "");
         download.removeAttribute("aria-disabled");
@@ -163,7 +168,16 @@
   function syncCourseDownload() {
     if (!courseDialog?.open || !courseAndroid) return;
     const status = courseDialog.querySelector("[data-course-dialog-status]");
-    if (download?.dataset.state === "available") {
+    const course = currentRegistry?.languages.find((record) => record.id === selectedDialogCourseId);
+    const android = course?.platforms?.android;
+    const supported = android?.enabled && Array.isArray(android.channels);
+    const compatible = supported && availableAndroid && android.channels.some((channel) => (
+      channel.kind === availableAndroid.channel.kind
+      && channel.artifact === availableAndroid.channel.artifact
+      && channel.manifest === availableAndroid.channel.manifest
+      && validChannelManifest(channel, availableAndroid.manifest)
+    ));
+    if (download?.dataset.state === "available" && compatible) {
       courseAndroid.href = download.href;
       courseAndroid.setAttribute("download", "");
       courseAndroid.removeAttribute("aria-disabled");
@@ -175,11 +189,12 @@
     courseAndroid.removeAttribute("download");
     courseAndroid.setAttribute("aria-disabled", "true");
     courseAndroid.setAttribute("tabindex", "-1");
-    status.textContent = t(download?.dataset.state === "checking"
+    status.textContent = t(supported && download?.dataset.state === "checking"
       ? "launcher.android.checking" : "launcher.choose.unavailable");
   }
 
   function showCourseChoices(courseRecord) {
+    selectedDialogCourseId = courseRecord.id;
     courseDialog.querySelector("[data-course-dialog-title]").textContent = interfaceContent.languageName(courseRecord.targetLanguage);
     courseDialog.querySelector("[data-course-dialog-flag]").src = versionedLauncherAsset(courseRecord.targetLanguage.flagSrc);
     courseDialog.querySelector("[data-course-dialog-browser]").href = courseRecord.entryPath;
@@ -204,13 +219,12 @@
       const item = document.createElement("li");
       item.dataset.languageId = courseRecord.id;
       item.dataset.courseStatus = courseRecord.status;
-      const preview = courseRecord.status === "development";
       item.setAttribute(
         "aria-label",
-        `${t("course.direction", {
+        t("course.direction", {
           source: interfaceContent.languageName(courseRecord.sourceLanguage),
           target: interfaceContent.languageName(language)
-        })}${preview ? `, ${t("common.preview")}` : ""}`
+        })
       );
       const choice = document.createElement("a");
       choice.className = "language-choice";
@@ -237,12 +251,6 @@
       name.className = "language-choice-name";
       name.textContent = interfaceContent.languageName(language);
       choice.append(flag, name, code);
-      if (preview) {
-        const status = document.createElement("span");
-        status.className = "language-choice-status";
-        status.textContent = t("common.preview");
-        choice.append(status);
-      }
       const start = document.createElement("span");
       start.className = "language-choice-start";
       start.textContent = t("launcher.start");
@@ -254,7 +262,7 @@
 
   async function renderLanguages(registry) {
     const request = ++interfaceRequest;
-    const { loadLauncherInterface, launcherLocales } = await import("/language-runtime/static/source/launcher-interface.mjs?v=launcher-interface-10");
+    const { loadLauncherInterface, launcherLocales } = await import("/language-runtime/static/source/launcher-interface.mjs?v=launcher-interface-11");
     const { course, content } = await loadLauncherInterface(registry, localePreferences());
     if (request !== interfaceRequest) return;
     interfaceContent = content;

@@ -27,6 +27,7 @@ class MainActivity : ComponentActivity() {
     private lateinit var bridge: CaatuuBridge
     private var systemTheme = DARK_THEME
     private var backRequestInFlight = false
+    private val fileChooser = CaatuuFileChooser(this)
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -105,6 +106,7 @@ class MainActivity : ComponentActivity() {
             vectorDatabaseManager = vectorDatabaseManager,
             staticAssetManagers = mapOf(BuildConfig.CAATUU_LANGUAGE_ID to staticAssetManager),
         )
+        webView.webChromeClient = fileChooser
         webView.addJavascriptInterface(bridge, "CaatuuAndroid")
         webView.loadUrl(CaatuuAssetClient.START_URL)
 
@@ -251,6 +253,7 @@ class MainActivity : ComponentActivity() {
     }
 
     override fun onDestroy() {
+        fileChooser.destroy()
         if (::bridge.isInitialized) bridge.destroy()
         if (::webView.isInitialized) webView.destroy()
         super.onDestroy()

@@ -11,9 +11,10 @@
   ]);
   const ROUND_SETTING_KEYS = new Set(["pieceCounts", "defaultPieceCount", "artwork"]);
   const REVIEW_KEYS = new Set(["status", "reviewer", "reviewedAt", "notes"]);
-  const CHALLENGE_KEYS = new Set(["id", "hanzi", "pinyin", "tone", "translation", "englishAuditText", "context", "sourceConceptIds", "difficulty", "usefulness", "complexity", "urgency", "subdifficulty"]);
+  const CHALLENGE_KEYS = new Set(["id", "semanticBankId", "hanzi", "pinyin", "tone", "translation", "englishAuditText", "context", "sourceConceptIds", "difficulty", "usefulness", "complexity", "urgency", "subdifficulty"]);
   const CONTEXT_KEYS = new Set(["text", "notation", "meaning", "sourceConceptId"]);
-  const WORD_CHALLENGE_KEYS = new Set(["id", "target", "reading", "translation", "englishAuditText", "sourceItemIds", "difficulty", "usefulness", "complexity"]);
+  const WORD_CHALLENGE_KEYS = new Set(["id", "semanticBankId", "target", "reading", "translation", "englishAuditText", "sourceItemIds", "difficulty", "usefulness", "complexity"]);
+  const UNTRANSLATED_KEYS = new Set(["id", "semanticBankId", "reviewStatus", "target", "reading", "translation", "englishAuditText", "difficulty", "usefulness", "complexity"]);
   const CONTENT_STATUSES = new Set(["machine-assisted-preview", "native-reviewed"]);
   const REVIEW_STATUSES = new Set(["native-review-required", "native-reviewed"]);
   const TONE_MARKS = Object.freeze({
@@ -204,9 +205,10 @@
     assert(isPlainObject(value), `${label} must be an object.`);
     assertExactKeys(value, wordNotation ? WORD_CHALLENGE_KEYS : CHALLENGE_KEYS, label);
     const id = requiredText(value.id, `${label}.id`, 80);
+    const bankId = validateBankIdentity(value, label, wordNotation);
     let scriptFields;
     if (wordNotation) {
-      assert(/^ar\.reading\.[a-z0-9-]+$/u.test(id), `${label}.id must use the ar.reading.* namespace.`);
+      assert(/^ar\.reading\.[a-z0-9-]+$/u.test(id) || (bankId && /^ar\.naturalization-nucleus\.\d{6}$/u.test(id)), `${label}.id must use the ar.reading.* or linked ar.naturalization-nucleus.* namespace.`);
       const target = requiredText(value.target, `${label}.target`, 48);
       assert(/^[\u0621-\u063a\u0641-\u0652\u0670]+$/u.test(target) && /[\u0621-\u063a\u0641-\u064a]/u.test(target) && /[\u064b-\u0652]/u.test(target), `${label}.target must be a vowel-marked Arabic word.`);
       const reading = requiredText(value.reading, `${label}.reading`, 60);
@@ -217,7 +219,7 @@
       assertLearnerSafe(englishAuditText, `${label}.englishAuditText`);
       scriptFields = { target, reading, englishAuditText };
     } else {
-      assert(/^zh\.hanzi\.[a-z0-9-]+$/u.test(id), `${label}.id must use the zh.hanzi.* namespace.`);
+      assert(/^zh\.hanzi\.[a-z0-9-]+$/u.test(id) || (bankId && /^zh\.naturalization-nucleus\.\d{6}$/u.test(id)), `${label}.id must use the zh.hanzi.* or linked zh.naturalization-nucleus.* namespace.`);
       const hanzi = requiredText(value.hanzi, `${label}.hanzi`, 1);
       assert(/^[\u3400-\u9fff\uf900-\ufaff]$/u.test(hanzi), `${label}.hanzi must be one Han character.`);
       assertLearnerSafe(hanzi, `${label}.hanzi`);
@@ -261,8 +263,11 @@
       ? englishAuditText(value.englishAuditText, `${label}.englishAuditText`) : null;
     const context = !wordNotation && value.context !== undefined
       ? validateContext(value.context, scriptFields, sources, `${label}.context`) : null;
+    if (bankId && !wordNotation) assert(context, `${label}: bank-derived Hanzi require an authored context.`);
+    if (bankId) assert(sources.every(source => !source.startsWith("sb.")), `${label}: English bank rows are not target reading sources.`);
     return Object.freeze({
       id,
+      ...(bankId ? { semanticBankId: bankId } : {}),
       ...scriptFields,
       translation,
       ...(audit ? { englishAuditText: audit } : {}),
@@ -271,6 +276,33 @@
       ...progression,
       [sourceField]: Object.freeze(sources)
     });
+  }
+
+  function validateBankIdentity(value, label, wordNotation) {
+    if (!Object.hasOwn(value, "semanticBankId")) return null;
+    const bankId = requiredText(value.semanticBankId, `${label}.semanticBankId`, 80);
+    assert(/^sb\.naturalization-nucleus\.\d{6}$/u.test(bankId), `${label}.semanticBankId must name a Nucleus bank row.`);
+    if (/\.naturalization-nucleus\./u.test(value.id)) {
+      const courseId = wordNotation ? "ar" : "zh";
+      assert(value.id === `${courseId}.naturalization-nucleus.${bankId.slice(-6)}`, `${label}.id must match its course and bank suffix.`);
+    }
+    return bankId;
+  }
+
+  function validateUntranslatedChallenge(value, index, wordNotation) {
+    const label = `challenges[${index}]`;
+    assert(isPlainObject(value), `${label} must be an object.`);
+    assertExactKeys(value, UNTRANSLATED_KEYS, label);
+    assert(Object.keys(value).length === UNTRANSLATED_KEYS.size, `${label}: untranslated fields must be complete.`);
+    assert(value.reviewStatus === "untranslated", `${label}.reviewStatus must be untranslated.`);
+    const id = requiredText(value.id, `${label}.id`, 80);
+    const bankId = validateBankIdentity(value, label, wordNotation);
+    assert(bankId && id === `${wordNotation ? "ar" : "zh"}.naturalization-nucleus.${bankId.slice(-6)}`, `${label}: untranslated ID must match its bank row.`);
+    for (const field of ["target", "reading", "translation"]) assert(value[field] === "", `${label}.${field} must be empty while untranslated.`);
+    englishAuditText(value.englishAuditText, `${label}.englishAuditText`);
+    assert(Number.isInteger(value.difficulty) && value.difficulty >= 0 && value.difficulty <= 3, `${label}.difficulty must be 0-3.`);
+    for (const field of ["usefulness", "complexity"]) assert(Number.isInteger(value[field]) && value[field] >= 1 && value[field] <= 100, `${label}.${field} must be 1-100.`);
+    return null;
   }
 
   function readingKey(challenge) {
@@ -319,12 +351,15 @@
     const review = validateReview(value.review, value.status);
     assert(Array.isArray(value.challenges), "challenges must be an array.");
     const requiredCount = Math.max(...roundSettings.pieceCounts);
-    assert(value.challenges.length >= requiredCount, `challenges must contain at least ${requiredCount} entries.`);
-    const challenges = value.challenges.map((challenge, index) => validateChallenge(challenge, index, wordNotation));
+    assert(value.challenges.length > 0, "challenges must contain authored rows or untranslated placeholders.");
+    assert(new Set(value.challenges.map(challenge => challenge?.id)).size === value.challenges.length, "challenge ids must be unique, including untranslated rows.");
+    const challenges = value.challenges.map((challenge, index) => challenge?.reviewStatus === "untranslated"
+      ? validateUntranslatedChallenge(challenge, index, wordNotation)
+      : validateChallenge(challenge, index, wordNotation)).filter(Boolean);
     assert(new Set(challenges.map(({ id }) => id)).size === challenges.length, "challenge ids must be unique.");
     assert(new Set(challenges.map(challenge => `${challenge.difficulty === 0 ? "zero:" : ""}${targetText(challenge)}`)).size === challenges.length, wordNotation ? "challenge target words must be unique." : "challenge Hanzi must be unique.");
-    assert(new Set(challenges.map(readingKey)).size >= requiredCount, `challenges must provide at least ${requiredCount} distinct pinyin readings.`);
-    for (let difficulty = challenges.some(challenge => challenge.difficulty === 0) ? 0 : 1; difficulty <= 3; difficulty += 1) {
+    if (challenges.length) assert(new Set(challenges.map(readingKey)).size >= requiredCount, `challenges must provide at least ${requiredCount} distinct pinyin readings.`);
+    for (let difficulty = challenges.some(challenge => challenge.difficulty === 0) ? 0 : 1; challenges.length && difficulty <= 3; difficulty += 1) {
       const eligible = filterChallengesForDifficulty(challenges, difficulty);
       assert(
         new Set(eligible.map(readingKey)).size >= requiredCount,

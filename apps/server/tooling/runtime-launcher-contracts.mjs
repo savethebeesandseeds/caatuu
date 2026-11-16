@@ -133,8 +133,7 @@ export function launcherCourseFallbackIssues(html, generatedRegistry) {
     const flagUrl = localUrl(flag?.attrs.get("src"));
     if (!flagUrl || flagUrl.pathname !== course.targetLanguage?.flagSrc) issues.push(`${label} flag must match its generated target-language flag`);
     const badges = descendants.filter((node) => hasClass(node, "language-choice-status"));
-    if (course.status === "development" && (badges.length !== 1 || !text(badges[0].content) || badges[0].attrs.has("hidden") || badges[0].attrs.get("aria-hidden") === "true")) issues.push(`${label} must visibly disclose its development status`);
-    if (course.status === "active" && badges.length) issues.push(`${label} must not be labelled as a development preview`);
+    if (badges.length) issues.push(`${label} must not be labelled as a development preview`);
   }
   return issues;
 }

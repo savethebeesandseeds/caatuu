@@ -21,8 +21,7 @@ function fixture(courses = registry.browserSetup.courses) {
     <a data-browser-entry href="/first/index.html">Learn online</a>
     <a data-android-download aria-disabled="true">Check app availability</a>
     <ul data-language-list>${courses.map((course) => `<li data-language-id="${course.id}" aria-label="${course.id}"${course.status === "development" ? ' data-course-status="development"' : ""}>
-      <a class="language-choice" href="${course.entryPath}"><img class="flag-icon" src="${course.targetLanguage.flagSrc}?caatuu_asset=unrelated-revision" alt=""><strong>${course.id}</strong>
-      ${course.status === "development" ? '<span class="language-choice-status">Development preview</span>' : ""}</a></li>`).join("")}</ul>
+      <a class="language-choice" href="${course.entryPath}"><img class="flag-icon" src="${course.targetLanguage.flagSrc}?caatuu_asset=unrelated-revision" alt=""><strong>${course.id}</strong></a></li>`).join("")}</ul>
     <dialog data-course-dialog aria-labelledby="course-title">
       <h2 data-course-dialog-title id="course-title"></h2><img data-course-dialog-flag alt="">
       <a data-course-dialog-browser href="#courses">Browser</a>
@@ -95,10 +94,7 @@ for (const [label, before, after, issue] of [
   ["wrong course route", 'class="language-choice" href="/second/index.html"', 'class="language-choice" href="/first/index.html"', "declared course entry"],
   ["foreign flag", "/assets/flags/second.png?", "https://another.invalid/assets/flags/second.png?", "generated target-language flag"],
   ["wrong course flag", "/assets/flags/second.png?", "/assets/flags/first.png?", "generated target-language flag"],
-  ["preview promotion", 'data-course-status="development"', 'data-course-status="active"', "retain registry status"],
-  ["missing preview badge", 'class="language-choice-status"', 'class="removed-status"', "visibly disclose"],
-  ["hidden preview badge", 'class="language-choice-status"', 'class="language-choice-status" hidden', "visibly disclose"],
-  ["empty preview badge", "Development preview", " ", "visibly disclose"]
+  ["preview promotion", 'data-course-status="development"', 'data-course-status="active"', "retain registry status"]
 ]) {
   test(`launcher fallback detects ${label}`, () => {
     const html = fixture();
@@ -107,9 +103,10 @@ for (const [label, before, after, issue] of [
   });
 }
 
-test("a declared active course cannot inherit a preview badge", () => {
-  const promoted = structuredClone(registry);
-  promoted.browserSetup.courses[1].status = "active";
-  const html = fixture().replace('data-course-status="development"', 'data-course-status="active"');
-  assert.ok(launcherCourseFallbackIssues(html, promoted).some((issue) => issue.includes("must not be labelled")));
+test("a course row cannot carry a preview badge", () => {
+  const html = fixture().replace(
+    "<strong>second</strong>",
+    '<strong>second</strong><span class="language-choice-status">Preview</span>'
+  );
+  assert.ok(launcherCourseFallbackIssues(html, registry).some((issue) => issue.includes("must not be labelled")));
 });

@@ -30,13 +30,11 @@ Sentence and token pronunciation fields are deliberately `null`: ordinary
 Spanish orthography and platform speech may be used, but no reviewed phonetic
 guide is claimed.
 
-This is a machine-assisted first-party development draft. Its language gate is
-`native-review-required`; `reviewer` and `reviewedAt` remain null until a
-qualified European Spanish reviewer approves it. The target-content license in
+This is original first-party curriculum. Pronunciation guides stay off.
+The target-content license in
 `content/word-world/content.json` is `release-cleared` under `AGPL-3.0-only`,
-reviewed by the project owner on 9 September 2026. That distribution clearance
-does not replace native review. No external dictionary or corpus was copied
-into these files.
+reviewed by the project owner on 9 September 2026. No external dictionary or
+corpus was copied into these files.
 
 ## Game content and limits
 
@@ -44,7 +42,7 @@ Word World receives the 250 authored realizations. Verb Lab receives 180 common
 Spanish infinitives and infinitive phrases in
 `static/data/games/verb-nebula/content.json`, divided into difficulty
 blocks of 60, 70, and 50. Every verb record has a stable `es.verb.*` ID, an
-English audit cue, and `native-review-required` status.
+English audit cue.
 
 Those contextual token glosses and verb cues are course content, not a
 dictionary. This repository does not contain the provenance, reference

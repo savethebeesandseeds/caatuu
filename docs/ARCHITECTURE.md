@@ -48,9 +48,10 @@ linguistic features, enabled games, platform enablement, capabilities, and narro
 catalog. Every course uses that same contract. Mandarin (`/zh/`),
 Spanish (`/es/`), English from Spanish (`/es-en/`), Norwegian Bokmål
 (`/nb/`), Modern Standard Arabic (`/ar/`), Scientific Latin (`/la/`),
-Georgian (`/ka/`), Russian (`/ru/`), and Hebrew (`/he/`) are `noindex`
-Pages previews. Czech, Mandarin, Spanish, English from Spanish, Norwegian,
-Arabic, Latin, and Georgian are Android-enabled. Russian and Hebrew are not.
+Georgian (`/ka/`), Russian (`/ru/`), and Hebrew (`/he/`) are released,
+indexable Pages courses. All ten courses are Android-enabled. Russian and
+Hebrew enter the source bundle from version 204. The published Android 203
+package does not install them.
 The repository-only Chinese archive is not a course source.
 The exact shared-versus-language boundary is defined in
 [the language application contract](LANGUAGE_APP_CONTRACT.md).
@@ -70,8 +71,9 @@ inside the target pack and never enter the English embedding payload.
 Packages the catalog-selected set of Android-enabled courses behind the same
 shared document and supplies native capabilities such as offline llama.cpp
 inference, model lifecycle management, vector database installation, and
-application updates. `apps/android/course-bundle.json` packages all eight
-catalog courses. The catalog default is `cz`. BuildConfig and
+application updates. `apps/android/course-bundle.json` packages all ten
+catalog courses. The catalog default is `cz`. Russian and Hebrew enter that
+bundle from version 204. The published Android 203 package does not install them. BuildConfig and
 asset selection are derived from the same course manifests and capability flags
 used by the browser/server contracts. The native bridge is an adapter; it must
 not silently fork browser behavior or expose a capability the selected course

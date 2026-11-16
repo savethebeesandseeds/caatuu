@@ -1,0 +1,3488 @@
+[
+  {
+    "id": "sb.conjugation-comet.000001",
+    "englishText": "achieve",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000002",
+    "englishText": "adapt (adjust)",
+    "difficulty": 3,
+    "usefulness": 58
+  },
+  {
+    "id": "sb.conjugation-comet.000003",
+    "englishText": "allow",
+    "difficulty": 2,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.conjugation-comet.000004",
+    "englishText": "answer",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000005",
+    "englishText": "apologize",
+    "difficulty": 3,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.conjugation-comet.000006",
+    "englishText": "apply (imperfect active)",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000007",
+    "englishText": "apply (perfect active)",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000008",
+    "englishText": "apply (present active)",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000009",
+    "englishText": "apply (present passive)",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000010",
+    "englishText": "arrange",
+    "difficulty": 3,
+    "usefulness": 82
+  },
+  {
+    "id": "sb.conjugation-comet.000011",
+    "englishText": "arrive by vehicle",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000012",
+    "englishText": "ask",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000013",
+    "englishText": "ask (past)",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000014",
+    "englishText": "ask (present)",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000015",
+    "englishText": "ask for or request",
+    "difficulty": 2,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.conjugation-comet.000016",
+    "englishText": "ask once",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000017",
+    "englishText": "attribute",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000018",
+    "englishText": "avoid",
+    "difficulty": 3,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.conjugation-comet.000019",
+    "englishText": "bake",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000020",
+    "englishText": "be",
+    "difficulty": 1,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.conjugation-comet.000021",
+    "englishText": "be (past)",
+    "difficulty": 2,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.conjugation-comet.000022",
+    "englishText": "be (present)",
+    "difficulty": 3,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.conjugation-comet.000023",
+    "englishText": "be able (past)",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.conjugation-comet.000024",
+    "englishText": "be able (present)",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.conjugation-comet.000025",
+    "englishText": "be afraid",
+    "difficulty": 2,
+    "usefulness": 70
+  },
+  {
+    "id": "sb.conjugation-comet.000026",
+    "englishText": "be at home",
+    "difficulty": 0,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.conjugation-comet.000027",
+    "englishText": "be at home (completed past)",
+    "difficulty": 3,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.conjugation-comet.000028",
+    "englishText": "be at home (future)",
+    "difficulty": 2,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.conjugation-comet.000029",
+    "englishText": "be at home (present)",
+    "difficulty": 1,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.conjugation-comet.000030",
+    "englishText": "be at rest",
+    "difficulty": 0,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.conjugation-comet.000031",
+    "englishText": "be called",
+    "difficulty": 1,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.conjugation-comet.000032",
+    "englishText": "be for a state or location",
+    "difficulty": 1,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.conjugation-comet.000033",
+    "englishText": "be for identity or a defining characteristic",
+    "difficulty": 1,
+    "usefulness": 33
+  },
+  {
+    "id": "sb.conjugation-comet.000034",
+    "englishText": "begin",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000035",
+    "englishText": "believe",
+    "difficulty": 2,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.conjugation-comet.000036",
+    "englishText": "boil",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000037",
+    "englishText": "borrow",
+    "difficulty": 2,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.conjugation-comet.000038",
+    "englishText": "break (past)",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000039",
+    "englishText": "break (present)",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000040",
+    "englishText": "build",
+    "difficulty": 2,
+    "usefulness": 58
+  },
+  {
+    "id": "sb.conjugation-comet.000041",
+    "englishText": "buy",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000042",
+    "englishText": "buy (past)",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000043",
+    "englishText": "buy (present)",
+    "difficulty": 3,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000044",
+    "englishText": "buy a book (completed past)",
+    "difficulty": 3,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.conjugation-comet.000045",
+    "englishText": "buy a book (future)",
+    "difficulty": 2,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.conjugation-comet.000046",
+    "englishText": "buy a book (present)",
+    "difficulty": 1,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.conjugation-comet.000047",
+    "englishText": "calculate (imperfect active)",
+    "difficulty": 2,
+    "usefulness": 33
+  },
+  {
+    "id": "sb.conjugation-comet.000048",
+    "englishText": "calculate (perfect active)",
+    "difficulty": 3,
+    "usefulness": 33
+  },
+  {
+    "id": "sb.conjugation-comet.000049",
+    "englishText": "calculate (present active)",
+    "difficulty": 1,
+    "usefulness": 33
+  },
+  {
+    "id": "sb.conjugation-comet.000050",
+    "englishText": "calculate (present passive)",
+    "difficulty": 3,
+    "usefulness": 33
+  },
+  {
+    "id": "sb.conjugation-comet.000051",
+    "englishText": "call",
+    "difficulty": 1,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.conjugation-comet.000052",
+    "englishText": "call (past)",
+    "difficulty": 3,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.conjugation-comet.000053",
+    "englishText": "call (present)",
+    "difficulty": 3,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.conjugation-comet.000054",
+    "englishText": "can / be able",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000055",
+    "englishText": "carry",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000056",
+    "englishText": "carry (past)",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000057",
+    "englishText": "carry (present)",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000058",
+    "englishText": "carry out",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000059",
+    "englishText": "celebrate",
+    "difficulty": 2,
+    "usefulness": 63
+  },
+  {
+    "id": "sb.conjugation-comet.000060",
+    "englishText": "change",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000061",
+    "englishText": "change (imperfect active)",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000062",
+    "englishText": "change (past)",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000063",
+    "englishText": "change (perfect active)",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000064",
+    "englishText": "change (present active)",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000065",
+    "englishText": "change (present passive)",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000066",
+    "englishText": "change (present)",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000067",
+    "englishText": "choose",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000068",
+    "englishText": "clean",
+    "difficulty": 1,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.conjugation-comet.000069",
+    "englishText": "clean (past)",
+    "difficulty": 2,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.conjugation-comet.000070",
+    "englishText": "clean (present)",
+    "difficulty": 3,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.conjugation-comet.000071",
+    "englishText": "close",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000072",
+    "englishText": "close (past)",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000073",
+    "englishText": "close (present)",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000074",
+    "englishText": "collaborate",
+    "difficulty": 3,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.conjugation-comet.000075",
+    "englishText": "collect",
+    "difficulty": 2,
+    "usefulness": 58
+  },
+  {
+    "id": "sb.conjugation-comet.000076",
+    "englishText": "come",
+    "difficulty": 0,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.conjugation-comet.000077",
+    "englishText": "come (past)",
+    "difficulty": 2,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.conjugation-comet.000078",
+    "englishText": "come (present)",
+    "difficulty": 3,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.conjugation-comet.000079",
+    "englishText": "come / arrive by foot",
+    "difficulty": 3,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.conjugation-comet.000080",
+    "englishText": "come home",
+    "difficulty": 0,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.conjugation-comet.000081",
+    "englishText": "come home (completed past)",
+    "difficulty": 3,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.conjugation-comet.000082",
+    "englishText": "come home (future)",
+    "difficulty": 2,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.conjugation-comet.000083",
+    "englishText": "come home (present)",
+    "difficulty": 1,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.conjugation-comet.000084",
+    "englishText": "compare",
+    "difficulty": 3,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.conjugation-comet.000085",
+    "englishText": "compare (imperfect active)",
+    "difficulty": 2,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.conjugation-comet.000086",
+    "englishText": "compare (past)",
+    "difficulty": 2,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.conjugation-comet.000087",
+    "englishText": "compare (perfect active)",
+    "difficulty": 3,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.conjugation-comet.000088",
+    "englishText": "compare (present active)",
+    "difficulty": 1,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.conjugation-comet.000089",
+    "englishText": "compare (present passive)",
+    "difficulty": 3,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.conjugation-comet.000090",
+    "englishText": "compare (present)",
+    "difficulty": 3,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.conjugation-comet.000091",
+    "englishText": "compose",
+    "difficulty": 3,
+    "usefulness": 58
+  },
+  {
+    "id": "sb.conjugation-comet.000092",
+    "englishText": "contain",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000093",
+    "englishText": "continue",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000094",
+    "englishText": "contribute",
+    "difficulty": 3,
+    "usefulness": 44
+  },
+  {
+    "id": "sb.conjugation-comet.000095",
+    "englishText": "cook",
+    "difficulty": 1,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.conjugation-comet.000096",
+    "englishText": "cook (past)",
+    "difficulty": 1,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.conjugation-comet.000097",
+    "englishText": "cook (present)",
+    "difficulty": 2,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.conjugation-comet.000098",
+    "englishText": "cooperate",
+    "difficulty": 3,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.conjugation-comet.000099",
+    "englishText": "cooperate (past)",
+    "difficulty": 2,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.conjugation-comet.000100",
+    "englishText": "cooperate (present)",
+    "difficulty": 3,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.conjugation-comet.000101",
+    "englishText": "count",
+    "difficulty": 0,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.conjugation-comet.000102",
+    "englishText": "count (imperfect active)",
+    "difficulty": 2,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.conjugation-comet.000103",
+    "englishText": "count (perfect active)",
+    "difficulty": 3,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.conjugation-comet.000104",
+    "englishText": "count (present active)",
+    "difficulty": 1,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.conjugation-comet.000105",
+    "englishText": "count (present passive)",
+    "difficulty": 3,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.conjugation-comet.000106",
+    "englishText": "cry",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000107",
+    "englishText": "cycle",
+    "difficulty": 2,
+    "usefulness": 34
+  },
+  {
+    "id": "sb.conjugation-comet.000108",
+    "englishText": "dance",
+    "difficulty": 1,
+    "usefulness": 62
+  },
+  {
+    "id": "sb.conjugation-comet.000109",
+    "englishText": "dance (completed past)",
+    "difficulty": 3,
+    "usefulness": 62
+  },
+  {
+    "id": "sb.conjugation-comet.000110",
+    "englishText": "dance (future)",
+    "difficulty": 2,
+    "usefulness": 62
+  },
+  {
+    "id": "sb.conjugation-comet.000111",
+    "englishText": "dance (present)",
+    "difficulty": 1,
+    "usefulness": 62
+  },
+  {
+    "id": "sb.conjugation-comet.000112",
+    "englishText": "decide",
+    "difficulty": 2,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.conjugation-comet.000113",
+    "englishText": "decide (settle a question)",
+    "difficulty": 3,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.conjugation-comet.000114",
+    "englishText": "decorate",
+    "difficulty": 2,
+    "usefulness": 58
+  },
+  {
+    "id": "sb.conjugation-comet.000115",
+    "englishText": "define (imperfect active)",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000116",
+    "englishText": "define (perfect active)",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000117",
+    "englishText": "define (present active)",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000118",
+    "englishText": "define (present passive)",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000119",
+    "englishText": "demonstrate",
+    "difficulty": 3,
+    "usefulness": 34
+  },
+  {
+    "id": "sb.conjugation-comet.000120",
+    "englishText": "describe",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000121",
+    "englishText": "determine (imperfect active)",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000122",
+    "englishText": "determine (perfect active)",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000123",
+    "englishText": "determine (present active)",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000124",
+    "englishText": "determine (present passive)",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000125",
+    "englishText": "develop",
+    "difficulty": 3,
+    "usefulness": 44
+  },
+  {
+    "id": "sb.conjugation-comet.000126",
+    "englishText": "direct",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000127",
+    "englishText": "discover",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000128",
+    "englishText": "discover (past)",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000129",
+    "englishText": "discover (present)",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000130",
+    "englishText": "discuss (past)",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000131",
+    "englishText": "discuss (present)",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000132",
+    "englishText": "distinguish",
+    "difficulty": 3,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.conjugation-comet.000133",
+    "englishText": "distribute",
+    "difficulty": 3,
+    "usefulness": 44
+  },
+  {
+    "id": "sb.conjugation-comet.000134",
+    "englishText": "do",
+    "difficulty": 1,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.conjugation-comet.000135",
+    "englishText": "do / make",
+    "difficulty": 1,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.conjugation-comet.000136",
+    "englishText": "draw",
+    "difficulty": 1,
+    "usefulness": 62
+  },
+  {
+    "id": "sb.conjugation-comet.000137",
+    "englishText": "draw (past)",
+    "difficulty": 2,
+    "usefulness": 62
+  },
+  {
+    "id": "sb.conjugation-comet.000138",
+    "englishText": "draw (present)",
+    "difficulty": 3,
+    "usefulness": 62
+  },
+  {
+    "id": "sb.conjugation-comet.000139",
+    "englishText": "dream",
+    "difficulty": 1,
+    "usefulness": 70
+  },
+  {
+    "id": "sb.conjugation-comet.000140",
+    "englishText": "drink",
+    "difficulty": 0,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000141",
+    "englishText": "drink (past)",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000142",
+    "englishText": "drink (present)",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000143",
+    "englishText": "drink water",
+    "difficulty": 0,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.conjugation-comet.000144",
+    "englishText": "drink water (completed past)",
+    "difficulty": 3,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.conjugation-comet.000145",
+    "englishText": "drink water (future)",
+    "difficulty": 2,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.conjugation-comet.000146",
+    "englishText": "drink water (present)",
+    "difficulty": 1,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.conjugation-comet.000147",
+    "englishText": "drive",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000148",
+    "englishText": "eat",
+    "difficulty": 0,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000149",
+    "englishText": "eat (past)",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000150",
+    "englishText": "eat (present)",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000151",
+    "englishText": "eat bread",
+    "difficulty": 0,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.conjugation-comet.000152",
+    "englishText": "eat bread (completed past)",
+    "difficulty": 3,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.conjugation-comet.000153",
+    "englishText": "eat bread (future)",
+    "difficulty": 2,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.conjugation-comet.000154",
+    "englishText": "eat bread (present)",
+    "difficulty": 1,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.conjugation-comet.000155",
+    "englishText": "encourage",
+    "difficulty": 3,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.conjugation-comet.000156",
+    "englishText": "enter (past)",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000157",
+    "englishText": "enter (present)",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000158",
+    "englishText": "estimate",
+    "difficulty": 3,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.conjugation-comet.000159",
+    "englishText": "evaluate",
+    "difficulty": 3,
+    "usefulness": 33
+  },
+  {
+    "id": "sb.conjugation-comet.000160",
+    "englishText": "examine (imperfect active)",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000161",
+    "englishText": "examine (perfect active)",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000162",
+    "englishText": "examine (present active)",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000163",
+    "englishText": "examine (present passive)",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000164",
+    "englishText": "exist",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000165",
+    "englishText": "experience",
+    "difficulty": 3,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.conjugation-comet.000166",
+    "englishText": "explain",
+    "difficulty": 3,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.conjugation-comet.000167",
+    "englishText": "explain (imperfect active)",
+    "difficulty": 2,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.conjugation-comet.000168",
+    "englishText": "explain (past)",
+    "difficulty": 2,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.conjugation-comet.000169",
+    "englishText": "explain (perfect active)",
+    "difficulty": 3,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.conjugation-comet.000170",
+    "englishText": "explain (present active)",
+    "difficulty": 1,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.conjugation-comet.000171",
+    "englishText": "explain (present passive)",
+    "difficulty": 3,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.conjugation-comet.000172",
+    "englishText": "explain (present)",
+    "difficulty": 3,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.conjugation-comet.000173",
+    "englishText": "explore",
+    "difficulty": 2,
+    "usefulness": 58
+  },
+  {
+    "id": "sb.conjugation-comet.000174",
+    "englishText": "express",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000175",
+    "englishText": "fall",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000176",
+    "englishText": "feel",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000177",
+    "englishText": "find",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000178",
+    "englishText": "find (imperfect active)",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000179",
+    "englishText": "find (past)",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000180",
+    "englishText": "find (perfect active)",
+    "difficulty": 3,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000181",
+    "englishText": "find (present active)",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000182",
+    "englishText": "find (present passive)",
+    "difficulty": 3,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000183",
+    "englishText": "find (present)",
+    "difficulty": 3,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000184",
+    "englishText": "finish (past)",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000185",
+    "englishText": "finish (present)",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000186",
+    "englishText": "fly",
+    "difficulty": 2,
+    "usefulness": 71
+  },
+  {
+    "id": "sb.conjugation-comet.000187",
+    "englishText": "fold",
+    "difficulty": 2,
+    "usefulness": 58
+  },
+  {
+    "id": "sb.conjugation-comet.000188",
+    "englishText": "follow",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000189",
+    "englishText": "forget",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000190",
+    "englishText": "forgive",
+    "difficulty": 3,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.conjugation-comet.000191",
+    "englishText": "fry",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000192",
+    "englishText": "get dressed",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000193",
+    "englishText": "get somewhere",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000194",
+    "englishText": "get up",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000195",
+    "englishText": "give",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000196",
+    "englishText": "give (past)",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000197",
+    "englishText": "give (present)",
+    "difficulty": 3,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000198",
+    "englishText": "give / put",
+    "difficulty": 3,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000199",
+    "englishText": "go",
+    "difficulty": 0,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.conjugation-comet.000200",
+    "englishText": "go (past)",
+    "difficulty": 1,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.conjugation-comet.000201",
+    "englishText": "go (present)",
+    "difficulty": 2,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.conjugation-comet.000202",
+    "englishText": "go by foot",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000203",
+    "englishText": "go by vehicle",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000204",
+    "englishText": "go by vehicle regularly",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000205",
+    "englishText": "go home",
+    "difficulty": 0,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.conjugation-comet.000206",
+    "englishText": "go home (completed past)",
+    "difficulty": 3,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.conjugation-comet.000207",
+    "englishText": "go home (future)",
+    "difficulty": 2,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.conjugation-comet.000208",
+    "englishText": "go home (present)",
+    "difficulty": 1,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.conjugation-comet.000209",
+    "englishText": "go out",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000210",
+    "englishText": "go out (past)",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000211",
+    "englishText": "go out (present)",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000212",
+    "englishText": "go regularly / walk",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000213",
+    "englishText": "go up",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000214",
+    "englishText": "grow",
+    "difficulty": 1,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.conjugation-comet.000215",
+    "englishText": "hang (be suspended)",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000216",
+    "englishText": "harvest (past)",
+    "difficulty": 2,
+    "usefulness": 46
+  },
+  {
+    "id": "sb.conjugation-comet.000217",
+    "englishText": "harvest (present)",
+    "difficulty": 3,
+    "usefulness": 46
+  },
+  {
+    "id": "sb.conjugation-comet.000218",
+    "englishText": "have",
+    "difficulty": 0,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.conjugation-comet.000219",
+    "englishText": "have a book",
+    "difficulty": 0,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.conjugation-comet.000220",
+    "englishText": "have a book (present)",
+    "difficulty": 1,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.conjugation-comet.000221",
+    "englishText": "have a friend (present)",
+    "difficulty": 1,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.conjugation-comet.000222",
+    "englishText": "have as an auxiliary verb",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000223",
+    "englishText": "have or possess",
+    "difficulty": 2,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.conjugation-comet.000224",
+    "englishText": "hear",
+    "difficulty": 0,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000225",
+    "englishText": "hear (imperfect active)",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000226",
+    "englishText": "hear (past)",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000227",
+    "englishText": "hear (perfect active)",
+    "difficulty": 3,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000228",
+    "englishText": "hear (present active)",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000229",
+    "englishText": "hear (present passive)",
+    "difficulty": 3,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000230",
+    "englishText": "hear (present)",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000231",
+    "englishText": "help",
+    "difficulty": 1,
+    "usefulness": 99
+  },
+  {
+    "id": "sb.conjugation-comet.000232",
+    "englishText": "help (past)",
+    "difficulty": 2,
+    "usefulness": 98
+  },
+  {
+    "id": "sb.conjugation-comet.000233",
+    "englishText": "help (present)",
+    "difficulty": 3,
+    "usefulness": 98
+  },
+  {
+    "id": "sb.conjugation-comet.000234",
+    "englishText": "hold",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000235",
+    "englishText": "hold (imperfect active)",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000236",
+    "englishText": "hold (perfect active)",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000237",
+    "englishText": "hold (present active)",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000238",
+    "englishText": "hold (present passive)",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000239",
+    "englishText": "imagine",
+    "difficulty": 2,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.conjugation-comet.000240",
+    "englishText": "improve",
+    "difficulty": 3,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.conjugation-comet.000241",
+    "englishText": "include",
+    "difficulty": 3,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.conjugation-comet.000242",
+    "englishText": "investigate",
+    "difficulty": 3,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.conjugation-comet.000243",
+    "englishText": "invite",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000244",
+    "englishText": "jump",
+    "difficulty": 1,
+    "usefulness": 63
+  },
+  {
+    "id": "sb.conjugation-comet.000245",
+    "englishText": "justify",
+    "difficulty": 3,
+    "usefulness": 33
+  },
+  {
+    "id": "sb.conjugation-comet.000246",
+    "englishText": "justify (give reasons)",
+    "difficulty": 3,
+    "usefulness": 33
+  },
+  {
+    "id": "sb.conjugation-comet.000247",
+    "englishText": "keep",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000248",
+    "englishText": "know",
+    "difficulty": 1,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.conjugation-comet.000249",
+    "englishText": "know (a fact)",
+    "difficulty": 2,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.conjugation-comet.000250",
+    "englishText": "know (be familiar with)",
+    "difficulty": 2,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.conjugation-comet.000251",
+    "englishText": "know (past)",
+    "difficulty": 1,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.conjugation-comet.000252",
+    "englishText": "know (present)",
+    "difficulty": 2,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.conjugation-comet.000253",
+    "englishText": "know / be familiar with",
+    "difficulty": 2,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.conjugation-comet.000254",
+    "englishText": "know Georgian (present)",
+    "difficulty": 1,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.conjugation-comet.000255",
+    "englishText": "know a fact",
+    "difficulty": 2,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.conjugation-comet.000256",
+    "englishText": "know how to",
+    "difficulty": 2,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.conjugation-comet.000257",
+    "englishText": "laugh",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000258",
+    "englishText": "laugh / smile",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000259",
+    "englishText": "lay (put down)",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000260",
+    "englishText": "lead (imperfect active)",
+    "difficulty": 2,
+    "usefulness": 44
+  },
+  {
+    "id": "sb.conjugation-comet.000261",
+    "englishText": "lead (perfect active)",
+    "difficulty": 3,
+    "usefulness": 44
+  },
+  {
+    "id": "sb.conjugation-comet.000262",
+    "englishText": "lead (present active)",
+    "difficulty": 1,
+    "usefulness": 44
+  },
+  {
+    "id": "sb.conjugation-comet.000263",
+    "englishText": "lead (present passive)",
+    "difficulty": 3,
+    "usefulness": 44
+  },
+  {
+    "id": "sb.conjugation-comet.000264",
+    "englishText": "learn",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000265",
+    "englishText": "learn (past)",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000266",
+    "englishText": "learn (present)",
+    "difficulty": 3,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000267",
+    "englishText": "leave by foot",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000268",
+    "englishText": "leave by vehicle",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000269",
+    "englishText": "lie (be lying down)",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000270",
+    "englishText": "lift",
+    "difficulty": 0,
+    "usefulness": 82
+  },
+  {
+    "id": "sb.conjugation-comet.000271",
+    "englishText": "like",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000272",
+    "englishText": "like music (present)",
+    "difficulty": 1,
+    "usefulness": 62
+  },
+  {
+    "id": "sb.conjugation-comet.000273",
+    "englishText": "listen",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000274",
+    "englishText": "listen (past)",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000275",
+    "englishText": "listen (present)",
+    "difficulty": 3,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000276",
+    "englishText": "live",
+    "difficulty": 0,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000277",
+    "englishText": "live (completed past)",
+    "difficulty": 3,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000278",
+    "englishText": "live (future)",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000279",
+    "englishText": "live (present)",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000280",
+    "englishText": "live (reside)",
+    "difficulty": 0,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000281",
+    "englishText": "live / reside",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000282",
+    "englishText": "look",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000283",
+    "englishText": "look for",
+    "difficulty": 1,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.conjugation-comet.000284",
+    "englishText": "look forward",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000285",
+    "englishText": "lose",
+    "difficulty": 1,
+    "usefulness": 82
+  },
+  {
+    "id": "sb.conjugation-comet.000286",
+    "englishText": "lose (past)",
+    "difficulty": 2,
+    "usefulness": 82
+  },
+  {
+    "id": "sb.conjugation-comet.000287",
+    "englishText": "lose (present)",
+    "difficulty": 3,
+    "usefulness": 82
+  },
+  {
+    "id": "sb.conjugation-comet.000288",
+    "englishText": "love (imperfect active)",
+    "difficulty": 2,
+    "usefulness": 70
+  },
+  {
+    "id": "sb.conjugation-comet.000289",
+    "englishText": "love (perfect active)",
+    "difficulty": 3,
+    "usefulness": 70
+  },
+  {
+    "id": "sb.conjugation-comet.000290",
+    "englishText": "love (present active)",
+    "difficulty": 1,
+    "usefulness": 70
+  },
+  {
+    "id": "sb.conjugation-comet.000291",
+    "englishText": "love (present passive)",
+    "difficulty": 3,
+    "usefulness": 70
+  },
+  {
+    "id": "sb.conjugation-comet.000292",
+    "englishText": "maintain",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000293",
+    "englishText": "make",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000294",
+    "englishText": "mean",
+    "difficulty": 2,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.conjugation-comet.000295",
+    "englishText": "measure",
+    "difficulty": 2,
+    "usefulness": 58
+  },
+  {
+    "id": "sb.conjugation-comet.000296",
+    "englishText": "meet",
+    "difficulty": 2,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.conjugation-comet.000297",
+    "englishText": "memorize (past)",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000298",
+    "englishText": "memorize (present)",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000299",
+    "englishText": "mix",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000300",
+    "englishText": "move",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000301",
+    "englishText": "move (imperfect active)",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000302",
+    "englishText": "move (perfect active)",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000303",
+    "englishText": "move (present active)",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000304",
+    "englishText": "move (present passive)",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000305",
+    "englishText": "must / have to",
+    "difficulty": 1,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.conjugation-comet.000306",
+    "englishText": "need",
+    "difficulty": 1,
+    "usefulness": 98
+  },
+  {
+    "id": "sb.conjugation-comet.000307",
+    "englishText": "observe",
+    "difficulty": 3,
+    "usefulness": 58
+  },
+  {
+    "id": "sb.conjugation-comet.000308",
+    "englishText": "observe (imperfect active)",
+    "difficulty": 2,
+    "usefulness": 58
+  },
+  {
+    "id": "sb.conjugation-comet.000309",
+    "englishText": "observe (perfect active)",
+    "difficulty": 3,
+    "usefulness": 58
+  },
+  {
+    "id": "sb.conjugation-comet.000310",
+    "englishText": "observe (present active)",
+    "difficulty": 1,
+    "usefulness": 58
+  },
+  {
+    "id": "sb.conjugation-comet.000311",
+    "englishText": "observe (present passive)",
+    "difficulty": 3,
+    "usefulness": 58
+  },
+  {
+    "id": "sb.conjugation-comet.000312",
+    "englishText": "obtain",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000313",
+    "englishText": "offer",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000314",
+    "englishText": "open",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000315",
+    "englishText": "open (past)",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000316",
+    "englishText": "open (present)",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000317",
+    "englishText": "order / book",
+    "difficulty": 3,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.conjugation-comet.000318",
+    "englishText": "organize (past)",
+    "difficulty": 2,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.conjugation-comet.000319",
+    "englishText": "organize (present)",
+    "difficulty": 3,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.conjugation-comet.000320",
+    "englishText": "pack",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000321",
+    "englishText": "paint",
+    "difficulty": 1,
+    "usefulness": 62
+  },
+  {
+    "id": "sb.conjugation-comet.000322",
+    "englishText": "participate",
+    "difficulty": 3,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.conjugation-comet.000323",
+    "englishText": "participate (past)",
+    "difficulty": 2,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.conjugation-comet.000324",
+    "englishText": "participate (present)",
+    "difficulty": 3,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.conjugation-comet.000325",
+    "englishText": "pay",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000326",
+    "englishText": "pay (past)",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000327",
+    "englishText": "pay (present)",
+    "difficulty": 3,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000328",
+    "englishText": "persuade",
+    "difficulty": 3,
+    "usefulness": 52
+  },
+  {
+    "id": "sb.conjugation-comet.000329",
+    "englishText": "pick up",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000330",
+    "englishText": "place",
+    "difficulty": 0,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.conjugation-comet.000331",
+    "englishText": "place (imperfect active)",
+    "difficulty": 2,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.conjugation-comet.000332",
+    "englishText": "place (perfect active)",
+    "difficulty": 3,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.conjugation-comet.000333",
+    "englishText": "place (present active)",
+    "difficulty": 1,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.conjugation-comet.000334",
+    "englishText": "place (present passive)",
+    "difficulty": 3,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.conjugation-comet.000335",
+    "englishText": "plan",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000336",
+    "englishText": "plant",
+    "difficulty": 2,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.conjugation-comet.000337",
+    "englishText": "plant (past)",
+    "difficulty": 2,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.conjugation-comet.000338",
+    "englishText": "plant (present)",
+    "difficulty": 3,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.conjugation-comet.000339",
+    "englishText": "play",
+    "difficulty": 0,
+    "usefulness": 62
+  },
+  {
+    "id": "sb.conjugation-comet.000340",
+    "englishText": "play (a children's game)",
+    "difficulty": 0,
+    "usefulness": 62
+  },
+  {
+    "id": "sb.conjugation-comet.000341",
+    "englishText": "play (a game or instrument)",
+    "difficulty": 1,
+    "usefulness": 62
+  },
+  {
+    "id": "sb.conjugation-comet.000342",
+    "englishText": "play (past)",
+    "difficulty": 1,
+    "usefulness": 62
+  },
+  {
+    "id": "sb.conjugation-comet.000343",
+    "englishText": "play (present)",
+    "difficulty": 2,
+    "usefulness": 62
+  },
+  {
+    "id": "sb.conjugation-comet.000344",
+    "englishText": "practice",
+    "difficulty": 2,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.conjugation-comet.000345",
+    "englishText": "prefer",
+    "difficulty": 3,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.conjugation-comet.000346",
+    "englishText": "prepare",
+    "difficulty": 3,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.conjugation-comet.000347",
+    "englishText": "prepare (past)",
+    "difficulty": 2,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.conjugation-comet.000348",
+    "englishText": "prepare (present)",
+    "difficulty": 3,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.conjugation-comet.000349",
+    "englishText": "preserve",
+    "difficulty": 3,
+    "usefulness": 44
+  },
+  {
+    "id": "sb.conjugation-comet.000350",
+    "englishText": "produce",
+    "difficulty": 3,
+    "usefulness": 44
+  },
+  {
+    "id": "sb.conjugation-comet.000351",
+    "englishText": "propose",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000352",
+    "englishText": "protect",
+    "difficulty": 3,
+    "usefulness": 82
+  },
+  {
+    "id": "sb.conjugation-comet.000353",
+    "englishText": "prove",
+    "difficulty": 3,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.conjugation-comet.000354",
+    "englishText": "prove (imperfect active)",
+    "difficulty": 2,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.conjugation-comet.000355",
+    "englishText": "prove (perfect active)",
+    "difficulty": 3,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.conjugation-comet.000356",
+    "englishText": "prove (present active)",
+    "difficulty": 1,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.conjugation-comet.000357",
+    "englishText": "prove (present passive)",
+    "difficulty": 3,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.conjugation-comet.000358",
+    "englishText": "pull",
+    "difficulty": 0,
+    "usefulness": 82
+  },
+  {
+    "id": "sb.conjugation-comet.000359",
+    "englishText": "pull (imperfect active)",
+    "difficulty": 2,
+    "usefulness": 82
+  },
+  {
+    "id": "sb.conjugation-comet.000360",
+    "englishText": "pull (perfect active)",
+    "difficulty": 3,
+    "usefulness": 82
+  },
+  {
+    "id": "sb.conjugation-comet.000361",
+    "englishText": "pull (present active)",
+    "difficulty": 1,
+    "usefulness": 82
+  },
+  {
+    "id": "sb.conjugation-comet.000362",
+    "englishText": "pull (present passive)",
+    "difficulty": 3,
+    "usefulness": 82
+  },
+  {
+    "id": "sb.conjugation-comet.000363",
+    "englishText": "put",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000364",
+    "englishText": "put (set in position)",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000365",
+    "englishText": "read",
+    "difficulty": 0,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000366",
+    "englishText": "read (imperfect active)",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000367",
+    "englishText": "read (past)",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000368",
+    "englishText": "read (perfect active)",
+    "difficulty": 3,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000369",
+    "englishText": "read (present active)",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000370",
+    "englishText": "read (present passive)",
+    "difficulty": 3,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000371",
+    "englishText": "read (present)",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000372",
+    "englishText": "read a book (completed past)",
+    "difficulty": 3,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.conjugation-comet.000373",
+    "englishText": "read a book (future)",
+    "difficulty": 2,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.conjugation-comet.000374",
+    "englishText": "read a book (present)",
+    "difficulty": 1,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.conjugation-comet.000375",
+    "englishText": "receive",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000376",
+    "englishText": "receive (past)",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000377",
+    "englishText": "receive (present)",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000378",
+    "englishText": "recognize",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000379",
+    "englishText": "recommend",
+    "difficulty": 3,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.conjugation-comet.000380",
+    "englishText": "reduce",
+    "difficulty": 3,
+    "usefulness": 44
+  },
+  {
+    "id": "sb.conjugation-comet.000381",
+    "englishText": "remember",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000382",
+    "englishText": "remember (past)",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000383",
+    "englishText": "remember (present)",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000384",
+    "englishText": "repair",
+    "difficulty": 3,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.conjugation-comet.000385",
+    "englishText": "repair (past)",
+    "difficulty": 2,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.conjugation-comet.000386",
+    "englishText": "repair (present)",
+    "difficulty": 3,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.conjugation-comet.000387",
+    "englishText": "repeat",
+    "difficulty": 2,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.conjugation-comet.000388",
+    "englishText": "repeat (past)",
+    "difficulty": 2,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.conjugation-comet.000389",
+    "englishText": "repeat (present)",
+    "difficulty": 3,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.conjugation-comet.000390",
+    "englishText": "replace",
+    "difficulty": 3,
+    "usefulness": 82
+  },
+  {
+    "id": "sb.conjugation-comet.000391",
+    "englishText": "respect (past)",
+    "difficulty": 2,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.conjugation-comet.000392",
+    "englishText": "respect (present)",
+    "difficulty": 3,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.conjugation-comet.000393",
+    "englishText": "return",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000394",
+    "englishText": "return (past)",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000395",
+    "englishText": "return (present)",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000396",
+    "englishText": "return home (completed past)",
+    "difficulty": 3,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.conjugation-comet.000397",
+    "englishText": "return home (future)",
+    "difficulty": 2,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.conjugation-comet.000398",
+    "englishText": "return home (present)",
+    "difficulty": 1,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.conjugation-comet.000399",
+    "englishText": "reuse",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000400",
+    "englishText": "run",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000401",
+    "englishText": "say",
+    "difficulty": 1,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.conjugation-comet.000402",
+    "englishText": "say (past)",
+    "difficulty": 2,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.conjugation-comet.000403",
+    "englishText": "say (present)",
+    "difficulty": 3,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.conjugation-comet.000404",
+    "englishText": "say / tell",
+    "difficulty": 3,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.conjugation-comet.000405",
+    "englishText": "search (past)",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000406",
+    "englishText": "search (present)",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000407",
+    "englishText": "see",
+    "difficulty": 0,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000408",
+    "englishText": "see (imperfect active)",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000409",
+    "englishText": "see (past)",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000410",
+    "englishText": "see (perfect active)",
+    "difficulty": 3,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000411",
+    "englishText": "see (present active)",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000412",
+    "englishText": "see (present passive)",
+    "difficulty": 3,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000413",
+    "englishText": "see (present)",
+    "difficulty": 3,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000414",
+    "englishText": "see a book",
+    "difficulty": 0,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.conjugation-comet.000415",
+    "englishText": "see a book (completed past)",
+    "difficulty": 3,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.conjugation-comet.000416",
+    "englishText": "see a book (future)",
+    "difficulty": 2,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.conjugation-comet.000417",
+    "englishText": "see a book (present)",
+    "difficulty": 1,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.conjugation-comet.000418",
+    "englishText": "sell",
+    "difficulty": 1,
+    "usefulness": 82
+  },
+  {
+    "id": "sb.conjugation-comet.000419",
+    "englishText": "send",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000420",
+    "englishText": "send (past)",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000421",
+    "englishText": "send (present)",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000422",
+    "englishText": "serve",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000423",
+    "englishText": "sew",
+    "difficulty": 2,
+    "usefulness": 58
+  },
+  {
+    "id": "sb.conjugation-comet.000424",
+    "englishText": "share",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000425",
+    "englishText": "show",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000426",
+    "englishText": "sing",
+    "difficulty": 1,
+    "usefulness": 63
+  },
+  {
+    "id": "sb.conjugation-comet.000427",
+    "englishText": "sing (completed past)",
+    "difficulty": 3,
+    "usefulness": 63
+  },
+  {
+    "id": "sb.conjugation-comet.000428",
+    "englishText": "sing (future)",
+    "difficulty": 2,
+    "usefulness": 63
+  },
+  {
+    "id": "sb.conjugation-comet.000429",
+    "englishText": "sing (present)",
+    "difficulty": 1,
+    "usefulness": 63
+  },
+  {
+    "id": "sb.conjugation-comet.000430",
+    "englishText": "sit",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000431",
+    "englishText": "sit (past)",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000432",
+    "englishText": "sit (present)",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000433",
+    "englishText": "sleep",
+    "difficulty": 0,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000434",
+    "englishText": "sleep (past)",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000435",
+    "englishText": "sleep (present)",
+    "difficulty": 3,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000436",
+    "englishText": "smile",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000437",
+    "englishText": "smile (past)",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000438",
+    "englishText": "smile (present)",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000439",
+    "englishText": "solve",
+    "difficulty": 3,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.conjugation-comet.000440",
+    "englishText": "speak",
+    "difficulty": 0,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.conjugation-comet.000441",
+    "englishText": "speak Georgian (completed past)",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000442",
+    "englishText": "speak Georgian (future)",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000443",
+    "englishText": "speak Georgian (present)",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000444",
+    "englishText": "speak or talk",
+    "difficulty": 1,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.conjugation-comet.000445",
+    "englishText": "spell",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000446",
+    "englishText": "stand",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000447",
+    "englishText": "stand (past)",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000448",
+    "englishText": "stand (present)",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000449",
+    "englishText": "start",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000450",
+    "englishText": "stay",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000451",
+    "englishText": "stop (finish an activity)",
+    "difficulty": 2,
+    "usefulness": 98
+  },
+  {
+    "id": "sb.conjugation-comet.000452",
+    "englishText": "study",
+    "difficulty": 0,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.conjugation-comet.000453",
+    "englishText": "study (past)",
+    "difficulty": 1,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.conjugation-comet.000454",
+    "englishText": "study (present)",
+    "difficulty": 2,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.conjugation-comet.000455",
+    "englishText": "study Georgian (completed past)",
+    "difficulty": 3,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.conjugation-comet.000456",
+    "englishText": "study Georgian (future)",
+    "difficulty": 2,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.conjugation-comet.000457",
+    "englishText": "study Georgian (present)",
+    "difficulty": 1,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.conjugation-comet.000458",
+    "englishText": "suggest",
+    "difficulty": 3,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.conjugation-comet.000459",
+    "englishText": "suggest (past)",
+    "difficulty": 2,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.conjugation-comet.000460",
+    "englishText": "suggest (present)",
+    "difficulty": 3,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.conjugation-comet.000461",
+    "englishText": "summarize",
+    "difficulty": 3,
+    "usefulness": 44
+  },
+  {
+    "id": "sb.conjugation-comet.000462",
+    "englishText": "support",
+    "difficulty": 3,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.conjugation-comet.000463",
+    "englishText": "suppose",
+    "difficulty": 3,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.conjugation-comet.000464",
+    "englishText": "swim",
+    "difficulty": 1,
+    "usefulness": 63
+  },
+  {
+    "id": "sb.conjugation-comet.000465",
+    "englishText": "swim (past)",
+    "difficulty": 2,
+    "usefulness": 63
+  },
+  {
+    "id": "sb.conjugation-comet.000466",
+    "englishText": "swim (present)",
+    "difficulty": 3,
+    "usefulness": 63
+  },
+  {
+    "id": "sb.conjugation-comet.000467",
+    "englishText": "take",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000468",
+    "englishText": "take (past)",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000469",
+    "englishText": "take (present)",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000470",
+    "englishText": "talk",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000471",
+    "englishText": "talk (past)",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000472",
+    "englishText": "talk (present)",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000473",
+    "englishText": "teach",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000474",
+    "englishText": "teach (imperfect active)",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000475",
+    "englishText": "teach (past)",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000476",
+    "englishText": "teach (perfect active)",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000477",
+    "englishText": "teach (present active)",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000478",
+    "englishText": "teach (present passive)",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000479",
+    "englishText": "teach (present)",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000480",
+    "englishText": "tell",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000481",
+    "englishText": "thank",
+    "difficulty": 1,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.conjugation-comet.000482",
+    "englishText": "think",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000483",
+    "englishText": "think (past)",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000484",
+    "englishText": "think (present)",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000485",
+    "englishText": "tidy",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000486",
+    "englishText": "to answer",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000487",
+    "englishText": "to ask",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000488",
+    "englishText": "to be able to",
+    "difficulty": 2,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.conjugation-comet.000489",
+    "englishText": "to be in the past",
+    "difficulty": 2,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.conjugation-comet.000490",
+    "englishText": "to buy in the past",
+    "difficulty": 3,
+    "usefulness": 70
+  },
+  {
+    "id": "sb.conjugation-comet.000491",
+    "englishText": "to clean",
+    "difficulty": 3,
+    "usefulness": 72
+  },
+  {
+    "id": "sb.conjugation-comet.000492",
+    "englishText": "to close",
+    "difficulty": 1,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.conjugation-comet.000493",
+    "englishText": "to come",
+    "difficulty": 3,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.conjugation-comet.000494",
+    "englishText": "to drink",
+    "difficulty": 2,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.conjugation-comet.000495",
+    "englishText": "to eat",
+    "difficulty": 2,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.conjugation-comet.000496",
+    "englishText": "to find",
+    "difficulty": 3,
+    "usefulness": 72
+  },
+  {
+    "id": "sb.conjugation-comet.000497",
+    "englishText": "to finish reading",
+    "difficulty": 3,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.conjugation-comet.000498",
+    "englishText": "to give",
+    "difficulty": 2,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.conjugation-comet.000499",
+    "englishText": "to go on foot (one way)",
+    "difficulty": 2,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.conjugation-comet.000500",
+    "englishText": "to help",
+    "difficulty": 1,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.conjugation-comet.000501",
+    "englishText": "to know",
+    "difficulty": 0,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.conjugation-comet.000502",
+    "englishText": "to learn",
+    "difficulty": 3,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.conjugation-comet.000503",
+    "englishText": "to listen",
+    "difficulty": 1,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.conjugation-comet.000504",
+    "englishText": "to live",
+    "difficulty": 0,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.conjugation-comet.000505",
+    "englishText": "to pay",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000506",
+    "englishText": "to read",
+    "difficulty": 0,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.conjugation-comet.000507",
+    "englishText": "to read in the past",
+    "difficulty": 3,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.conjugation-comet.000508",
+    "englishText": "to read later",
+    "difficulty": 3,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.conjugation-comet.000509",
+    "englishText": "to run",
+    "difficulty": 1,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.conjugation-comet.000510",
+    "englishText": "to see",
+    "difficulty": 1,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.conjugation-comet.000511",
+    "englishText": "to share",
+    "difficulty": 3,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.conjugation-comet.000512",
+    "englishText": "to sing",
+    "difficulty": 1,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.conjugation-comet.000513",
+    "englishText": "to speak",
+    "difficulty": 1,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.conjugation-comet.000514",
+    "englishText": "to take",
+    "difficulty": 3,
+    "usefulness": 72
+  },
+  {
+    "id": "sb.conjugation-comet.000515",
+    "englishText": "to thank",
+    "difficulty": 2,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.conjugation-comet.000516",
+    "englishText": "to travel",
+    "difficulty": 3,
+    "usefulness": 72
+  },
+  {
+    "id": "sb.conjugation-comet.000517",
+    "englishText": "to walk",
+    "difficulty": 1,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.conjugation-comet.000518",
+    "englishText": "to walk in the past",
+    "difficulty": 3,
+    "usefulness": 70
+  },
+  {
+    "id": "sb.conjugation-comet.000519",
+    "englishText": "to want",
+    "difficulty": 2,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.conjugation-comet.000520",
+    "englishText": "to wash",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000521",
+    "englishText": "to work",
+    "difficulty": 1,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.conjugation-comet.000522",
+    "englishText": "to write",
+    "difficulty": 1,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.conjugation-comet.000523",
+    "englishText": "to write in the past",
+    "difficulty": 3,
+    "usefulness": 70
+  },
+  {
+    "id": "sb.conjugation-comet.000524",
+    "englishText": "touch",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000525",
+    "englishText": "translate",
+    "difficulty": 3,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.conjugation-comet.000526",
+    "englishText": "travel",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000527",
+    "englishText": "travel (past)",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000528",
+    "englishText": "travel (present)",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000529",
+    "englishText": "try",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000530",
+    "englishText": "try (past)",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000531",
+    "englishText": "try (present)",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000532",
+    "englishText": "understand",
+    "difficulty": 2,
+    "usefulness": 98
+  },
+  {
+    "id": "sb.conjugation-comet.000533",
+    "englishText": "understand (past)",
+    "difficulty": 1,
+    "usefulness": 98
+  },
+  {
+    "id": "sb.conjugation-comet.000534",
+    "englishText": "understand (present)",
+    "difficulty": 2,
+    "usefulness": 98
+  },
+  {
+    "id": "sb.conjugation-comet.000535",
+    "englishText": "use (past)",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000536",
+    "englishText": "use (present)",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000537",
+    "englishText": "visit",
+    "difficulty": 2,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.conjugation-comet.000538",
+    "englishText": "wait",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000539",
+    "englishText": "wait (past)",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000540",
+    "englishText": "wait (present)",
+    "difficulty": 3,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000541",
+    "englishText": "wake up",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000542",
+    "englishText": "walk",
+    "difficulty": 1,
+    "usefulness": 63
+  },
+  {
+    "id": "sb.conjugation-comet.000543",
+    "englishText": "walk (past)",
+    "difficulty": 2,
+    "usefulness": 63
+  },
+  {
+    "id": "sb.conjugation-comet.000544",
+    "englishText": "walk (present)",
+    "difficulty": 3,
+    "usefulness": 63
+  },
+  {
+    "id": "sb.conjugation-comet.000545",
+    "englishText": "want",
+    "difficulty": 0,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.conjugation-comet.000546",
+    "englishText": "want (past)",
+    "difficulty": 2,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.conjugation-comet.000547",
+    "englishText": "want (present)",
+    "difficulty": 3,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.conjugation-comet.000548",
+    "englishText": "want or love",
+    "difficulty": 2,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.conjugation-comet.000549",
+    "englishText": "want water",
+    "difficulty": 0,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.conjugation-comet.000550",
+    "englishText": "want water (present)",
+    "difficulty": 1,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.conjugation-comet.000551",
+    "englishText": "warn (imperfect active)",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000552",
+    "englishText": "warn (perfect active)",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000553",
+    "englishText": "warn (present active)",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000554",
+    "englishText": "warn (present passive)",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.conjugation-comet.000555",
+    "englishText": "wash",
+    "difficulty": 2,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.conjugation-comet.000556",
+    "englishText": "wash (past)",
+    "difficulty": 1,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.conjugation-comet.000557",
+    "englishText": "wash (present)",
+    "difficulty": 2,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.conjugation-comet.000558",
+    "englishText": "watch",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000559",
+    "englishText": "watch (past)",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000560",
+    "englishText": "watch (present)",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.conjugation-comet.000561",
+    "englishText": "water",
+    "difficulty": 2,
+    "usefulness": 98
+  },
+  {
+    "id": "sb.conjugation-comet.000562",
+    "englishText": "water (a plant)",
+    "difficulty": 2,
+    "usefulness": 98
+  },
+  {
+    "id": "sb.conjugation-comet.000563",
+    "englishText": "weave",
+    "difficulty": 2,
+    "usefulness": 58
+  },
+  {
+    "id": "sb.conjugation-comet.000564",
+    "englishText": "weigh",
+    "difficulty": 2,
+    "usefulness": 58
+  },
+  {
+    "id": "sb.conjugation-comet.000565",
+    "englishText": "win (past)",
+    "difficulty": 2,
+    "usefulness": 71
+  },
+  {
+    "id": "sb.conjugation-comet.000566",
+    "englishText": "win (present)",
+    "difficulty": 3,
+    "usefulness": 71
+  },
+  {
+    "id": "sb.conjugation-comet.000567",
+    "englishText": "work",
+    "difficulty": 0,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000568",
+    "englishText": "work (completed past)",
+    "difficulty": 3,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000569",
+    "englishText": "work (future)",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000570",
+    "englishText": "work (past)",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000571",
+    "englishText": "work (present)",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000572",
+    "englishText": "write",
+    "difficulty": 0,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000573",
+    "englishText": "write (imperfect active)",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000574",
+    "englishText": "write (past)",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000575",
+    "englishText": "write (perfect active)",
+    "difficulty": 3,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000576",
+    "englishText": "write (present active)",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000577",
+    "englishText": "write (present passive)",
+    "difficulty": 3,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000578",
+    "englishText": "write (present)",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.conjugation-comet.000579",
+    "englishText": "write a letter (completed past)",
+    "difficulty": 3,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.conjugation-comet.000580",
+    "englishText": "write a letter (future)",
+    "difficulty": 2,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.conjugation-comet.000581",
+    "englishText": "write a letter (present)",
+    "difficulty": 1,
+    "usefulness": 73
+  }
+]

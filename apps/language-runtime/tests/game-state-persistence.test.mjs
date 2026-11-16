@@ -16,7 +16,7 @@ function between(source, startMarker, endMarker) {
 }
 
 function harness({ reliable = true } = {}) {
-  const browser = createBrowserHarness({ course: { id: "cz", storage: { namespace: "caatuu-czech" } } });
+  const browser = createBrowserHarness({ course: { id: "cz", storage: { namespace: "caatuu-czech", verbMemory: "caatuu-czech.verb-memory.v3" } } });
   if (reliable) vm.runInContext(learning, browser.context);
   return browser;
 }
@@ -104,6 +104,7 @@ test("Word World preserves malformed history and usage, recovering only from val
 function installVerbStorage(browser) {
   const state = {
     verbMemoryLoaded: true, verbGuidedRequested: false, verbDifficulty: 1,
+    verbContentGeneration: browser.window.CaatuuLearning?.contentGeneration?.() ?? null,
     verbPairs: [{ id: "be" }], verbPairCount: 4, verbQueueIds: [],
     verbRound: [{ id: "be" }], verbEnglishRound: [{ id: "be" }],
     verbMatchedIds: new Set(["be"]), verbHintsEnabled: true, verbRoundNumber: 2,
@@ -216,4 +217,50 @@ test("Verb reset removes recovery copies and stops the reset if storage refuses 
       }
     }
   }
+});
+
+for (const failedSave of [false, true]) test(`a cross-tab reset fences Verb ${failedSave ? "retry" : "ordinary"} saves before and after storage notification`, async () => {
+  const first = harness();
+  const state = installVerbStorage(first);
+  const learningA = first.window.CaatuuLearning;
+  const write = first.localStorage.setItem.bind(first.localStorage);
+  if (failedSave) first.localStorage.setItem = () => { throw new Error("Storage full"); };
+  first.context.saveVerbMemory();
+  first.localStorage.setItem = write;
+  const second = createBrowserHarness({ course: first.window.CaatuuCourse, window: { localStorage: first.localStorage } });
+  vm.runInContext(learning, second.context);
+  second.window.CaatuuLearning.resetProgress();
+  first.context.saveVerbMemory();
+  await learningA.retryPendingSaves();
+  const key = first.context.verbStorageKey;
+  assert.equal(first.localStorage.getItem(key), null);
+  assert.equal(first.localStorage.getItem(`${key}.backup`), null);
+  const notifications = [];
+  first.window.addEventListener("caatuu:learning-change", event => {
+    if (event.detail.reason === "progress-reset") notifications.push(event.detail);
+  });
+  const resetKey = learningA.storage.performanceStorageKey + ".reset";
+  first.window.dispatchEvent({ type: "storage", key: resetKey, storageArea: first.localStorage });
+  first.window.dispatchEvent({ type: "storage", key: resetKey, storageArea: first.localStorage });
+  assert.equal(notifications.length, 1);
+  assert.equal(notifications[0].external, true);
+  first.context.saveVerbMemory();
+  assert.equal(first.localStorage.getItem(key), null);
+  state.verbContentGeneration = learningA.contentGeneration();
+  state.verbStats = vm.runInContext("({ attempts: 1, matches: 1, rounds: 0 })", first.context);
+  first.context.saveVerbMemory();
+  assert.equal(JSON.parse(first.localStorage.getItem(key)).families.meaning.stats.matches, 1);
+});
+
+test("performance credit carries the same reset fence as assessment evidence", () => {
+  const browser = harness();
+  const profile = browser.window.CaatuuLearning;
+  const generation = profile.contentGeneration();
+  profile.resetProgress();
+  profile.record("conjugation-comet", { attempts: 1, successes: 1, xp: 6, rounds: 1, streakEligible: true, generation });
+  assert.equal(profile.snapshot().summary.xp, 0);
+  assert.equal(profile.snapshot().summary.rounds, 0);
+  assert.equal(profile.snapshot().streak.currentDays, 0);
+  profile.record("conjugation-comet", { attempts: 1, successes: 1, xp: 6, generation: profile.contentGeneration() });
+  assert.equal(profile.snapshot().summary.xp, 6);
 });

@@ -173,13 +173,13 @@ export async function mountVerbDifficulty({ root, course, host = globalThis, t, 
       });
       status.textContent = t("devtools.catalog.verbcount", { visible: matching.length, total: verbs.length });
       groups.replaceChildren();
-      for (const level of ["1", "2", "3", "unassigned"]) {
+      for (const level of ["0", "1", "2", "3", "unassigned"]) {
         if (difficulty.value !== "all" && difficulty.value !== level) continue;
         const rows = matching.filter((verb) => (verb.difficultyIsAuthored ? String(verb.difficulty) : "unassigned") === level);
         if (!rows.length) continue;
         const group = node("section", "developer-tool-catalog-group");
         group.dataset.difficulty = level;
-        const title = t(level === "unassigned" ? "devtools.catalog.unassigned" : `devtools.catalog.level${level}`);
+        const title = level === "unassigned" ? t("devtools.catalog.unassigned") : t("progress.level", { level });
         group.append(node("h3", "", `${title} · ${rows.length}`));
         if (level === "unassigned") group.append(node("p", "developer-tool-source", t("devtools.catalog.defaultnote")));
         const table = node("table", "developer-tool-table");

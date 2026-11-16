@@ -10,8 +10,11 @@ import {
   mountVerbDifficulty
 } from "../static/source/developer-tools/catalog-inspectors.mjs";
 import { createBrowserHarness } from "./helpers/fake-browser.mjs";
+import { englishInterfaceContent } from "./helpers/english-interface-content.mjs";
+import { extractCoreVerbPairs } from "../static/source/games/verb-nebula/verb-nebula-core.mjs";
 
 function t(id, parameters = {}) {
+  if (id === "progress.level") return englishInterfaceContent.t(id, parameters);
   assert.equal(typeof catalogInspectorMessages[id], "string", `Undeclared message: ${id}`);
   return catalogInspectorMessages[id].replace(/\{(\w+)\}/gu, (_match, key) => {
     assert.ok(Object.hasOwn(parameters, key), `Missing ${id} parameter: ${key}`);
@@ -83,7 +86,9 @@ for (const { name, course, readResource } of courses) {
     assert.equal(harness.requests.length, 1);
     assert.equal(harness.requests[0].url, `https://caatuu.test${course.routePrefix}/${path}`);
     assert.equal(harness.requests[0].options.redirect, "error");
-    assert.ok(harness.root.querySelectorAll("[data-verb-id]").length > 30);
+    const playable = extractCoreVerbPairs(catalog);
+    assert.equal(harness.root.querySelectorAll("[data-verb-id]").length, playable.length);
+    assert.ok(harness.root.querySelector('[data-difficulty="0"]'));
     assert.ok(harness.root.querySelector('[data-difficulty="1"]'));
     assert.ok(harness.root.querySelector('[data-difficulty="2"]'));
     assert.ok(harness.root.querySelector('[data-difficulty="3"]'));
@@ -93,6 +98,11 @@ for (const { name, course, readResource } of courses) {
     assert.equal(JSON.stringify(course), snapshot);
     assert.equal(harness.host.CaatuuCourse, course);
     assert.deepEqual(harness.localStorage.snapshot(), { progress: "preserved" });
+    setControl(harness.root, "[data-verb-difficulty]", "0");
+    const levelZero = playable.filter((verb) => verb.difficultyIsAuthored && verb.difficulty === 0);
+    assert.ok(levelZero.length > 0);
+    assert.equal(harness.root.querySelectorAll("[data-verb-id]").length, levelZero.length);
+    assert.match(harness.root.querySelector('[data-difficulty="0"] h3').textContent, /Level 0/u);
     cleanup();
   });
 }
@@ -102,8 +112,8 @@ test("verb search accepts accents and difficulty selection narrows real Spanish 
   const harness = harnessFor(course, async () => Response.json(JSON.parse(await readResource(course.gameContent["verb-lab"].verbNebulaCatalog))));
   const cleanup = await mountVerbDifficulty(harness);
   setControl(harness.root, "[data-verb-search]", "oir", "input");
-  assert.equal(harness.root.querySelectorAll("[data-verb-id]").length, 1);
-  assert.equal(harness.root.querySelector("[data-verb-id]").dataset.verbId, "es.verb.oir");
+  assert.ok(harness.root.querySelector('[data-verb-id="es.verb.oir"]'));
+  assert.ok(harness.root.querySelectorAll("[data-verb-id]").every((row) => row.textContent.includes("oír")));
   setControl(harness.root, "[data-verb-difficulty]", "3");
   assert.equal(harness.root.querySelectorAll("[data-verb-id]").length, 0);
   assert.match(harness.root.textContent, /No matching entries/);

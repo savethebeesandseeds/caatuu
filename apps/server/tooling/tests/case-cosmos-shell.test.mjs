@@ -28,3 +28,8 @@ test("all declared content reaches its difficulty without pinning vocabulary or 
     }
   }
 });
+
+test("Case Cosmos recovery leaves its embedded frame", async () => {
+  const html = await readFile(new URL("static/case-cosmos.html", courseRoot), "utf8");
+  assert.match(html, /<a\s+href="index\.html"\s+target="_top">/u);
+});

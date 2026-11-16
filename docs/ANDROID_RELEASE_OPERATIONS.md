@@ -50,6 +50,12 @@ retries skip source tests and building; the deployer still authenticates the
 receipt and exact artifacts. The lower-level publisher uses the same mandatory
 local checkpoint.
 
+The content preflight uses `tools/language-content/validate.mjs --all --release`
+to cover every registered modern course. The default compatibility invocation
+checks Mandarin alone and is insufficient for the multi-course package. Czech's
+record publication and all course resource contracts remain covered by the
+builder's course-pack validation.
+
 The builder's metadata-only Pages capacity preflight runs before Gradle. It
 accounts for pending finalized releases, applies only the explicitly approved
 APK archive policy, and reserves the full 96 MB content companion, a separate

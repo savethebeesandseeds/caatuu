@@ -187,6 +187,10 @@
       "output": "language-runtime/static/source/badge-recommendation.mjs"
     },
     {
+      "source": "apps/language-runtime/static/source/feedback-outbox.mjs",
+      "output": "language-runtime/static/source/feedback-outbox.mjs"
+    },
+    {
       "source": "apps/language-runtime/static/source/badge-progression.mjs",
       "output": "language-runtime/static/source/badge-progression.mjs"
     },
@@ -1485,6 +1489,14 @@
     {
       "source": "apps/language-runtime/static/source/games/memory-moon/memory-moon.css",
       "output": "language-runtime/static/source/games/memory-moon/memory-moon.css"
+    },
+    {
+      "source": "apps/language-runtime/static/source/games/case-cosmos/case-cosmos-core.mjs",
+      "output": "language-runtime/static/source/games/case-cosmos/case-cosmos-core.mjs"
+    },
+    {
+      "source": "apps/language-runtime/static/source/generation-model-policy.mjs",
+      "output": "language-runtime/static/source/generation-model-policy.mjs"
     }
   ]
 }

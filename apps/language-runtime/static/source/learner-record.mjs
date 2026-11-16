@@ -380,7 +380,13 @@ export async function restoreLearnerRecord(registry, ports, snapshot) {
   if (snapshot?.schemaVersion !== SNAPSHOT_SCHEMA) throw new Error("Learner snapshot is not the current format.");
   if (registry?.schemaVersion !== REGISTRY_SCHEMA) throw new Error("Learner registry is not the current format.");
   const local = requireLocal(ports);
-  for (const record of registry.shared) writeRecord(local, record, snapshot.shared?.[record.name] ?? null);
+  for (const record of registry.shared) {
+    writeRecord(local, record, snapshot.shared?.[record.name] ?? null);
+    // A replacement also replaces recovery state; otherwise an absent imported
+    // streak can be resurrected from the previous learner's backup on reload.
+    local.removeItem(`${record.key}.backup`);
+    local.removeItem(`${record.key}.damaged`);
+  }
   const known = new Set(registry.courses.map((course) => course.id));
   for (const courseId of Object.keys(snapshot.courses || {})) {
     if (!known.has(courseId)) throw new Error(`Learner snapshot names an unknown course ${courseId}.`);

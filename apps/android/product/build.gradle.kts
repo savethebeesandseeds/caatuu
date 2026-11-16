@@ -49,19 +49,6 @@ fun normalizedAssetPath(value: Any?, label: String): String {
     return path
 }
 
-val courseManifestRelativePath = confinedWorkspaceRelativePath(
-    providers.gradleProperty("caatuuCourseManifest")
-        .orElse("apps/languages/czech/course.json")
-        .get(),
-    "caatuuCourseManifest",
-)
-val courseManifestFile = workspaceRootDir.file(courseManifestRelativePath)
-val courseManifest = requiredObject(
-    groovy.json.JsonSlurper().parse(courseManifestFile.asFile),
-    "course manifest",
-)
-check(courseManifest["schemaVersion"] == 1) { "Course manifest schemaVersion must be 1." }
-val bundledLanguageId = requiredString(courseManifest["id"], "course id")
 val courseBundleRelativePath = confinedWorkspaceRelativePath(
     providers.gradleProperty("caatuuCourseBundle")
         .orElse("apps/android/course-bundle.json")
@@ -93,9 +80,6 @@ check(courseBundle.keys.map { it.toString() }.toSet() == setOf("\$schema", "sche
 }
 check(courseBundle["schemaVersion"] == 1) { "Android course bundle schemaVersion must be 1." }
 val defaultCourseId = requiredString(courseBundle["defaultCourseId"], "Android default course id")
-check(defaultCourseId == bundledLanguageId) {
-    "Android course bundle defaultCourseId must match the default course manifest."
-}
 data class BundledCourseInput(
     val id: String,
     val manifestFile: File,
@@ -144,6 +128,23 @@ check(bundledCourseInputs.map { it.id }.toSet().size == bundledCourseInputs.size
 }
 check(bundledCourseInputs.any { it.id == defaultCourseId }) {
     "Android course bundle defaultCourseId must select a bundled course."
+}
+val defaultCourseInput = bundledCourseInputs.single { it.id == defaultCourseId }
+val courseManifestRelativePath = confinedWorkspaceRelativePath(
+    providers.gradleProperty("caatuuCourseManifest")
+        .orElse(workspaceRootPath.relativize(defaultCourseInput.manifestFile.toPath()).toString())
+        .get(),
+    "caatuuCourseManifest",
+)
+val courseManifestFile = workspaceRootDir.file(courseManifestRelativePath)
+val courseManifest = requiredObject(
+    groovy.json.JsonSlurper().parse(courseManifestFile.asFile),
+    "course manifest",
+)
+check(courseManifest["schemaVersion"] == 1) { "Course manifest schemaVersion must be 1." }
+val bundledLanguageId = requiredString(courseManifest["id"], "course id")
+check(courseManifestFile.asFile == defaultCourseInput.manifestFile) {
+    "caatuuCourseManifest must match the selected bundle default course manifest."
 }
 val embeddingRuntimeCatalogRelativePath = confinedWorkspaceRelativePath(
     "apps/language-runtime/embedding-runtimes.json",
@@ -374,7 +375,12 @@ fun catalogProvider(
 }
 
 val embeddingNativeProvider = if (courseEmbeddingsEnabled) {
-    catalogProvider("embeddings", "vector-database-catalog-v1", "embeddingCatalog")
+    val declaration = requiredObject(nativeProviderDeclarations["embeddings"], "Android native provider embeddings")
+    val implementation = requiredString(declaration["implementation"], "Android embeddings implementation")
+    check(implementation in setOf("vector-database-catalog-v1", "webview-english-minilm-v1")) {
+        "Android native provider embeddings implementation is unsupported."
+    }
+    catalogProvider("embeddings", implementation, "embeddingCatalog")
 } else {
     "" to ""
 }
@@ -426,9 +432,9 @@ val assetCompiler = workspaceRootDir.file("apps/android/tooling/build-product-as
 val courseBundlePlanner = workspaceRootDir.file("apps/android/tooling/android-course-bundle-plan.mjs")
 val androidArtifactContract = workspaceRootDir.file("apps/android/tooling/android-artifact-contract.mjs")
 val generatedAssetsDir = layout.buildDirectory.dir("generated/assets/product")
-val productIconRelativePath = androidAssetFiles.singleOrNull { Regex("^icons/[A-Za-z0-9._-]+-512\\.png$").matches(it) }
-    ?: error("Android asset catalog must contain exactly one icons/*-512.png product icon.")
-val productIconSource = languageStaticDir.file(productIconRelativePath)
+val productIconRelativePath = sharedAppAssets.singleOrNull { (_, output) -> output == "assets/caatuu-shell-512.png" }?.first
+    ?: error("Shared app asset catalog must declare the canonical product icon.")
+val productIconSource = workspaceRootDir.file(productIconRelativePath)
 val generatedProductIconResDir = layout.buildDirectory.dir("generated/res/product-icon")
 val releaseKeystorePath = providers.environmentVariable("CAATUU_ANDROID_KEYSTORE")
 val releaseKeystorePassword = providers.environmentVariable("CAATUU_ANDROID_KEYSTORE_PASSWORD")
@@ -442,8 +448,8 @@ val androidTargetSdk = providers.environmentVariable("CAATUU_ANDROID_TARGET_SDK"
     .orElse(36)
 val androidUpdateBaseUrl = providers.environmentVariable("CAATUU_ANDROID_UPDATE_BASE_URL")
     .orElse("https://caatuu.waajacu.com/android")
-val caatuuVersionCode = providers.gradleProperty("caatuuVersionCode").map(String::toInt).orElse(203)
-val caatuuVersionName = providers.gradleProperty("caatuuVersionName").orElse("0.1.51")
+val caatuuVersionCode = providers.gradleProperty("caatuuVersionCode").map(String::toInt).orElse(204)
+val caatuuVersionName = providers.gradleProperty("caatuuVersionName").orElse("0.1.52")
 val releaseSigningValues = listOf(
     releaseKeystorePath,
     releaseKeystorePassword,

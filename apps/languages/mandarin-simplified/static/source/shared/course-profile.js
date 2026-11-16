@@ -8,7 +8,7 @@
   window.CaatuuCourse = deepFreeze({
     schemaVersion: 1,
     id: "zh",
-    status: "development",
+    status: "active",
     brandLabel: "Caatuu",
     workspaceLabel: "Caatuu Mandarin",
     routePrefix: "/zh",
@@ -47,7 +47,7 @@
       schemaVersion: 1,
       locale: "en",
       direction: "ltr",
-      revision: "interface-en-58",
+      revision: "interface-en-60",
       catalog: "/language-runtime/static/data/interface/en.v1.json"
     },
     learnerBasePreview: false,
@@ -111,7 +111,7 @@
                 conjugationCometCatalog: "data/games/conjugation-comet/content.json?v=conjugation-comet-verbs-6"
               },
               "case-cosmos": {
-                caseCosmosCatalog: "data/games/case-cosmos/content.json?v=case-cosmos-data-8"
+                caseCosmosCatalog: "data/games/case-cosmos/content.json?v=case-cosmos-data-9"
               },
               "grammar-gravity": {
                 grammarGravityCatalog: "data/games/grammar-gravity/content.json?v=grammar-gravity-data-7",
@@ -149,7 +149,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-58",
+            revision: "interface-en-60",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -166,7 +166,7 @@
         },
         {
           id: "zh",
-          status: "development",
+          status: "active",
           routePrefix: "/zh",
           entryPath: "/zh/index.html",
           storage: {
@@ -209,7 +209,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-58",
+            revision: "interface-en-60",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -226,7 +226,7 @@
         },
         {
           id: "es",
-          status: "development",
+          status: "active",
           routePrefix: "/es",
           entryPath: "/es/index.html",
           storage: {
@@ -273,7 +273,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-58",
+            revision: "interface-en-60",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -290,7 +290,7 @@
         },
         {
           id: "es-en",
-          status: "development",
+          status: "active",
           routePrefix: "/es-en",
           entryPath: "/es-en/index.html",
           storage: {
@@ -337,7 +337,7 @@
             schemaVersion: 1,
             locale: "es-ES",
             direction: "ltr",
-            revision: "interface-es-33",
+            revision: "interface-es-35",
             catalog: "/language-runtime/static/data/interface/es.v1.json"
           },
           targetLanguage: {
@@ -354,7 +354,7 @@
         },
         {
           id: "nb",
-          status: "development",
+          status: "active",
           routePrefix: "/nb",
           entryPath: "/nb/index.html",
           storage: {
@@ -401,7 +401,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-58",
+            revision: "interface-en-60",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -418,7 +418,7 @@
         },
         {
           id: "ar",
-          status: "development",
+          status: "active",
           routePrefix: "/ar",
           entryPath: "/ar/index.html",
           storage: {
@@ -468,7 +468,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-58",
+            revision: "interface-en-60",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -485,7 +485,7 @@
         },
         {
           id: "la",
-          status: "development",
+          status: "active",
           routePrefix: "/la",
           entryPath: "/la/index.html",
           storage: {
@@ -532,7 +532,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-58",
+            revision: "interface-en-60",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -549,7 +549,7 @@
         },
         {
           id: "ka",
-          status: "development",
+          status: "active",
           routePrefix: "/ka",
           entryPath: "/ka/index.html",
           storage: {
@@ -596,7 +596,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-58",
+            revision: "interface-en-60",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -613,7 +613,7 @@
         },
         {
           id: "ru",
-          status: "development",
+          status: "active",
           routePrefix: "/ru",
           entryPath: "/ru/index.html",
           storage: {
@@ -660,7 +660,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-58",
+            revision: "interface-en-60",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {
@@ -677,7 +677,7 @@
         },
         {
           id: "he",
-          status: "development",
+          status: "active",
           routePrefix: "/he",
           entryPath: "/he/index.html",
           storage: {
@@ -724,7 +724,7 @@
             schemaVersion: 1,
             locale: "en",
             direction: "ltr",
-            revision: "interface-en-58",
+            revision: "interface-en-60",
             catalog: "/language-runtime/static/data/interface/en.v1.json"
           },
           targetLanguage: {

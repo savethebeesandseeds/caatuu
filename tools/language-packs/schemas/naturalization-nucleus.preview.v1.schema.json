@@ -35,9 +35,22 @@
         "artwork": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "pattern": "^/assets/ships/[A-Za-z0-9%._()-]+\\.png$" } }
       }
     },
-    "challenges": { "type": "array", "minItems": 9, "items": { "$ref": "#/$defs/challenge" } }
+    "challenges": { "type": "array", "minItems": 1, "items": { "oneOf": [{ "$ref": "#/$defs/challenge" }, { "$ref": "#/$defs/untranslated" }] } }
   },
   "$defs": {
+    "untranslated": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "semanticBankId", "reviewStatus", "target", "reading", "translation", "englishAuditText", "difficulty", "usefulness", "complexity"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^zh\\.naturalization-nucleus\\.\\d{6}$" },
+        "semanticBankId": { "type": "string", "pattern": "^sb\\.naturalization-nucleus\\.\\d{6}$" },
+        "reviewStatus": { "const": "untranslated" },
+        "target": { "const": "" }, "reading": { "const": "" }, "translation": { "const": "" },
+        "englishAuditText": { "$ref": "#/$defs/englishAuditText" },
+        "difficulty": { "type": "integer", "minimum": 0, "maximum": 3 },
+        "usefulness": { "$ref": "#/$defs/grade" }, "complexity": { "$ref": "#/$defs/grade" }
+      }
+    },
     "englishAuditText": { "type": "string", "minLength": 1, "maxLength": 300, "pattern": "^[\\p{Script=Latin}\\p{M}\\p{P}\\p{N}\\p{Zs}]+$" },
     "grade": { "type": "integer", "minimum": 1, "maximum": 100 },
     "context": {
@@ -53,8 +66,19 @@
     "challenge": {
       "type": "object", "additionalProperties": false,
       "required": ["id", "hanzi", "pinyin", "tone", "translation", "difficulty", "sourceConceptIds"],
+      "allOf": [
+        {
+          "if": { "properties": { "id": { "pattern": "^zh\\.naturalization-nucleus\\." } }, "required": ["id"] },
+          "then": { "required": ["semanticBankId", "englishAuditText", "context", "usefulness", "complexity"] }
+        },
+        {
+          "if": { "required": ["semanticBankId"] },
+          "then": { "required": ["context"] }
+        }
+      ],
       "properties": {
-        "id": { "type": "string", "maxLength": 80, "pattern": "^zh\\.hanzi\\.[a-z0-9-]+$" },
+        "id": { "type": "string", "maxLength": 80, "pattern": "^zh\\.(?:hanzi\\.[a-z0-9-]+|naturalization-nucleus\\.\\d{6})$" },
+        "semanticBankId": { "type": "string", "pattern": "^sb\\.naturalization-nucleus\\.\\d{6}$" },
         "hanzi": { "type": "string", "minLength": 1, "maxLength": 1, "pattern": "^[㐀-鿿豈-﫿]$" },
         "pinyin": { "type": "string", "minLength": 1, "maxLength": 24, "pattern": "^[A-Za-zÀ-ɏ]+$" },
         "tone": { "type": "integer", "minimum": 1, "maximum": 5 },

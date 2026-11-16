@@ -1794,7 +1794,7 @@ test("the Home language form is wired at startup and confirms a course switch", 
   assert.equal(preview.dataset.languageEffort, "Not started");
   assert.equal(preview.href, "");
   assert.match(preview.textContent, /简体中文/u);
-  assert.match(preview.textContent, /Preview/u);
+  assert.doesNotMatch(preview.textContent, /Preview/u);
   assert.equal(review.textContent, "Continue");
   assert.equal(review.disabled, true);
 
@@ -3311,4 +3311,60 @@ test("dismissing Home or Games above Backpack retains the underlying modal pause
     assert.equal(changes.at(-1).settings, false);
     assert.equal(changes.at(-1).paused, false, "the second Back releases the remaining Backpack pause");
   }
+});
+
+test("workspace Back and Escape preserve the Chrome overlay hierarchy and composition", async () => {
+  const workspace = await readFile(new URL("../static/source/caatuu-workspace.js", import.meta.url), "utf8");
+  const app = backpackLanguageHarness();
+  app.context.$ = (selector) => app.document.querySelector(selector);
+  app.context.closeSettingsPanel = () => { throw new Error("Workspace bypassed Chrome ownership"); };
+  vm.runInContext(workspace.slice(workspace.indexOf("window.CaatuuHandleAndroidBack ="), workspace.indexOf("function isPwaInstalled()")), app.context);
+  const escape = workspace.match(/document\.addEventListener\("keydown", \(event\) => \{\s*if \(event.defaultPrevented[^}]+closeSettingsPanel\(\);\s*\}\s*\}\);/u)?.[0];
+  assert.ok(escape, "exercise the production workspace Escape listener alongside Chrome");
+  vm.runInContext(escape, app.context);
+  app.flag.click();
+  app.change.click();
+  app.selector.querySelector("[data-course-selection-new-language]").click();
+  assert.equal(app.selector.dataset.courseSelectionStage, "new-language");
+  assert.equal(app.window.CaatuuHandleAndroidBack(), true);
+  assert.equal(app.selector.dataset.courseSelectionStage, "courses");
+  assert.equal(app.settings.hidden, false);
+  assert.equal(app.window.CaatuuHandleAndroidBack(), true);
+  app.flag.click();
+  app.change.click();
+  app.selector.dispatchEvent({ type: "keydown", key: "Escape" });
+  assert.equal(app.settings.hidden, false);
+  app.document.dispatchEvent({ type: "keydown", key: "Escape", isComposing: true });
+  assert.equal(app.settings.hidden, false);
+  app.document.dispatchEvent({ type: "keydown", key: "Escape", defaultPrevented: true });
+  assert.equal(app.settings.hidden, false);
+});
+
+test("Backpack isolates covered content, retains dock access and restores visible focus", () => {
+  const app = backpackLanguageHarness();
+  const background = app.document.createElement("main");
+  const iframe = app.document.createElement("iframe");
+  background.append(iframe);
+  const alreadyInert = app.document.createElement("aside");
+  alreadyInert.setAttribute("inert", "");
+  const dock = app.document.createElement("nav");
+  dock.setAttribute("data-caatuu-bottom-dock", "");
+  const opener = app.document.createElement("button");
+  opener.id = "openSettings";
+  const menu = app.document.createElement("div");
+  const settingsTab = app.document.createElement("button");
+  menu.append(settingsTab);
+  dock.append(opener, menu);
+  app.document.body.append(background, alreadyInert, dock);
+  app.settings.hidden = true;
+  settingsTab.focus();
+  app.window.CaatuuChrome.openSharedSettings();
+  menu.hidden = true;
+  assert.equal(background.hasAttribute("inert"), true);
+  assert.equal(dock.hasAttribute("inert"), false);
+  assert.equal(app.settings.hasAttribute("inert"), false);
+  app.window.CaatuuChrome.closeSharedSettings();
+  assert.equal(background.hasAttribute("inert"), false);
+  assert.equal(alreadyInert.hasAttribute("inert"), true);
+  assertNodeIdentity(app.document.activeElement, opener);
 });

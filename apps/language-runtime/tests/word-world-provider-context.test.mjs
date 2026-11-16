@@ -1,12 +1,15 @@
+import { wordWorldGenerationProvider } from "../../languages/czech/static/source/games/word-world/word-world-generation.mjs";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
+import { joinConceptCatalogs } from "../static/source/catalog-runtime.mjs";
 
 import { importBrowserLanguageAdapter } from "./browser-module-loader.mjs";
 import {
   mountWordWorld,
   prepareWordWorldContext,
-  resolveWordWorldGenerationStrategy
+  resolveWordWorldGenerationStrategy,
+  loadWordWorldGenerationProvider
 } from "../static/source/word-world-provider.mjs";
 
 const [czechAdapter, mandarinAdapter] = await Promise.all([
@@ -431,6 +434,22 @@ test("the legacy standard corpus cannot bypass the learner-base concept join", a
   );
 });
 
+test("Word Net bank references survive modern joins and standard session preparation", async () => {
+  const modern = structuredClone(englishCatalog);
+  modern.concepts[0].semanticBankId = "sb.word-net.000042";
+  const joined = joinConceptCatalogs(modern, realizationCatalog);
+  assert.equal(joined[0].semanticBankId, "sb.word-net.000042");
+  modern.concepts[0].semanticBankId = "sb.verb-lab.000042";
+  assert.throws(() => joinConceptCatalogs(modern, realizationCatalog), /semanticBankId/u);
+  const { record, provider } = standardFixture();
+  record.semanticBankId = "sb.word-net.000043";
+  const context = await prepareWordWorldContext(czechCourse, standardManifest, {
+    adapter: czechAdapter, standardProvider: provider, embeddingRanker: null,
+    meaningSelector: () => null, runtime: null
+  });
+  assert.equal(context.sessionRecord(record.id).semanticBankId, record.semanticBankId);
+});
+
 function standardFixture() {
   const record = {
     id: "standard-cat-sleeps",
@@ -611,12 +630,14 @@ test("the Czech standard provider resolves dictionary selection from the shared 
     runtime: null,
     async importModule(specifier) {
       imported.push(specifier);
-      return { selectDictionaryMeaning: () => null };
+      return specifier.includes("/word-world-generation.mjs")
+        ? { wordWorldGenerationProvider } : { selectDictionaryMeaning: () => null };
     }
   });
 
   assert.deepEqual(imported, [
-    "https://caatuu.test/language-runtime/static/source/word-net-core.mjs?v=word-net-core-21"
+    "https://caatuu.test/cz/" + czechWordWorldManifest.generationStrategy.module,
+    "https://caatuu.test" + czechWordWorldManifest.sessionProvider.meaningSelectorModule
   ]);
   assert.equal(
     czechWordWorldManifest.sessionProvider.meaningSelectorModule,
@@ -624,52 +645,52 @@ test("the Czech standard provider resolves dictionary selection from the shared 
   );
 });
 
-test("generation strategy declarations cannot forge entry into the Czech implementation", () => {
-  const futureCourse = {
-    ...czechCourse,
-    id: "es",
-    targetLanguage: {
-      id: "es",
-      label: "Spanish",
-      locale: "es-ES",
-      script: "Latn",
-      speechLocale: "es-ES",
-      direction: "ltr"
-    },
-    capabilities: {
-      ...czechCourse.capabilities,
-      generation: true,
-      llm: true
-    }
-  };
-  assert.throws(
-    () => resolveWordWorldGenerationStrategy(futureCourse, {
-      generationStrategy: {
-        id: "spanish-local-word-world-v1",
-        targetLanguageTag: "es-ES",
-        auditLanguageTag: "en",
-        sentenceModelKey: "spanish-sentence-model-v1",
-        translationModelKey: "spanish-english-model-v1"
-      }
-    }),
-    /has no registered shared-runtime implementation/u
-  );
-  assert.throws(
-    () => resolveWordWorldGenerationStrategy({
-      ...czechCourse,
-      capabilities: {
-        ...czechCourse.capabilities,
-        generation: true,
-        llm: true
-      }
-    }, {
-      generationStrategy: {
-        ...czechWordWorldManifest.generationStrategy,
-        sentenceModelKey: "forged-czech-sentence-model-v1"
-      }
-    }),
-    /sentenceModelKey must exactly match the registered/u
-  );
+test("generation declarations require an explicit implementation and cannot impersonate another language or model", async () => {
+  const enabledCourse = { ...czechCourse, capabilities: { ...czechCourse.capabilities, generation: true, llm: true } };
+  const declaration = resolveWordWorldGenerationStrategy(enabledCourse, czechWordWorldManifest);
+  const options = { origin: "https://caatuu.test", importModule: async () => ({ wordWorldGenerationProvider }) };
+  const prepared = await loadWordWorldGenerationProvider(enabledCourse, declaration, options);
+  assert.equal(prepared.fallbackMeaning("dům"), "house");
+  assert.equal(prepared.sentenceValid("Vidím kočku.", "kočka"), true);
+  assert.equal(prepared.sentenceValid("Kočka spí.", "pes"), false);
+  await assert.rejects(loadWordWorldGenerationProvider({ ...enabledCourse, sourceLanguage: { locale: "es" } }, declaration, options), /learner base does not match/u);
+
+  const future = { ...enabledCourse, id: "es", routePrefix: "/es", targetLanguage: { locale: "es-ES" } };
+  const futureDeclaration = resolveWordWorldGenerationStrategy(future, { generationStrategy: {
+    ...declaration, id: "spanish-local-word-world-v1", targetLanguageTag: "es-ES",
+    sentenceModelKey: "spanish-sentence-v1", translationModelKey: "spanish-english-v1"
+  } });
+  await assert.rejects(loadWordWorldGenerationProvider(future, futureDeclaration, {
+    origin: "https://caatuu.test", importModule: async () => ({})
+  }), /supported wordWorldGenerationProvider/u);
+  await assert.rejects(loadWordWorldGenerationProvider(future, futureDeclaration, options), /does not match its course declaration/u);
+  await assert.rejects(loadWordWorldGenerationProvider(enabledCourse, { ...declaration, sentenceModelKey: "forged-model" }, options), /sentenceModelKey does not match/u);
+  for (const module of ["../outside.mjs?v=1", "/cz/source/provider.mjs?v=1", "https://other.test/provider.mjs?v=1", "source/games/provider.mjs"]) {
+    assert.throws(() => resolveWordWorldGenerationStrategy(enabledCourse, {
+      generationStrategy: { ...declaration, module }
+    }), /revisioned course-local/u);
+  }
+});
+
+test("an explicitly implemented future-language provider uses the same loader without a language registry", async () => {
+  const future = { ...czechCourse, id: "es", routePrefix: "/es", targetLanguage: { locale: "es-ES" },
+    capabilities: { ...czechCourse.capabilities, generation: true } };
+  const declaration = resolveWordWorldGenerationStrategy(future, { generationStrategy: {
+    id: "fixture-spanish-v1", module: "source/games/word-world/fixture-provider.mjs?v=fixture-1",
+    targetLanguageTag: "es-ES", auditLanguageTag: "en", sentenceModelKey: "fixture-sentence", translationModelKey: "fixture-translation"
+  } });
+  const fixture = { ...declaration, schemaVersion: 1, learnerBaseLanguageTag: "en", seedWords: ["casa"], stopWords: [],
+    sentenceModelLabel: "Fixture sentence", translationModelLabel: "Fixture translation",
+    sentencePrompt: word => "Use " + word, translationPrompt: sentence => "Translate " + sentence,
+    fallbackSentences: () => ["La casa está aquí."], fallbackMeaning: () => "house",
+    fallbackTranslation: () => "The house is here.", prepareSentence: value => value,
+    sentenceValid: sentence => sentence.includes("casa"), sentenceTargets: () => ["casa"] };
+  const imported = [];
+  const provider = await loadWordWorldGenerationProvider(future, declaration, { origin: "https://caatuu.test",
+    importModule: async url => { imported.push(url); return { wordWorldGenerationProvider: fixture }; } });
+  assert.deepEqual(provider.seedWords, ["casa"]);
+  assert.equal(provider.fallbackTranslation(), "The house is here.");
+  assert.deepEqual(imported, ["https://caatuu.test/es/" + declaration.module]);
 });
 
 test("standard corpus construction hydrates validated course-scoped usage before selection", async () => {

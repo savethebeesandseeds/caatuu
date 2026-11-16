@@ -16,7 +16,7 @@ const ENGLISH_KEYS = [
   "license",
   "concepts"
 ];
-const CONCEPT_KEYS = ["id", "englishText", "embeddingText", "sceneQuery", "topic", "difficulty", "usefulness", "complexity"];
+const CONCEPT_KEYS = ["id", "semanticBankId", "englishText", "embeddingText", "sceneQuery", "topic", "difficulty", "usefulness", "complexity"];
 const TARGET_KEYS = [
   "$schema",
   "schemaVersion",
@@ -70,7 +70,11 @@ export function validateEnglishConceptRuntimeProjection(projection, {
   } else {
     for (const [index, concept] of projection.concepts.entries()) {
       const label = `concepts[${index}]`;
-      strictKeys(concept, CONCEPT_KEYS, CONCEPT_KEYS.filter(key => !["usefulness", "complexity"].includes(key)), label, issues);
+      strictKeys(concept, CONCEPT_KEYS, CONCEPT_KEYS.filter(key => !["semanticBankId", "usefulness", "complexity"].includes(key)), label, issues);
+      if (concept && Object.hasOwn(concept, "semanticBankId") && (typeof concept.semanticBankId !== "string"
+        || !/^sb\.word-net\.\d{6}$/u.test(concept.semanticBankId))) {
+        issues.push(`${label}.semanticBankId must name a Word Net bank row.`);
+      }
       if (!CONCEPT_ID_PATTERN.test(String(concept?.id ?? ""))) issues.push(`${label}.id is invalid.`);
       else ids.push(concept.id);
       for (const field of ["englishText", "embeddingText", "sceneQuery", "topic"]) {

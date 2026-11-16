@@ -33,6 +33,7 @@ class CaatuuActivity : ComponentActivity() {
         if (::bridge.isInitialized) bridge.publishNotificationPermission(granted)
     }
     private var backRequestInFlight = false
+    private val fileChooser = CaatuuFileChooser(this)
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -165,6 +166,7 @@ class CaatuuActivity : ComponentActivity() {
             },
         )
         webView.webViewClient = assetClient
+        webView.webChromeClient = fileChooser
         webView.addJavascriptInterface(bridge, "CaatuuAndroid")
         webView.loadUrl(assetClient.startUrl)
 
@@ -299,6 +301,7 @@ class CaatuuActivity : ComponentActivity() {
     }
 
     override fun onDestroy() {
+        fileChooser.destroy()
         if (::bridge.isInitialized) bridge.destroy()
         if (::webView.isInitialized) webView.destroy()
         super.onDestroy()

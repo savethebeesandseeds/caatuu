@@ -102,6 +102,30 @@ test("a synthetic third-language adapter uses the same canonical dictionary audi
   assert.deepEqual(issues, []);
 });
 
+test("dictionary audit accepts pending rows beside authored entries without hiding authored defects", () => {
+  const pending = { id: "pending", reviewStatus: "untranslated", target: "", source: "write" };
+  const base = {
+    adapter: czech,
+    catalog: { default_dictionary: "fixture", dictionaries: [{
+      key: "fixture", status: "active", lookupLanguage: "cs", lookupLanguageTag: "cs-CZ",
+      meaningLanguage: "en", meaningLanguageTag: "en"
+    }] },
+    coreEntries: [pending, { target: "číst", source: "read" }],
+    scripts: [{ lines: [{ target: "Ahoj.", source: "Hello." }] }],
+    sourceLanguageId: "en", targetLanguageId: "cs", targetLanguageLocale: "cs-CZ"
+  };
+  assert.deepEqual(auditDictionaryContentDocuments(base), []);
+  const blankAuthored = auditDictionaryContentDocuments({
+    ...base, coreEntries: [pending, { target: "", source: "read" }]
+  });
+  assert.ok(blankAuthored.some(({ code, message }) => code === "dictionary.presentation"
+    && message.includes("core entries[1]")));
+  assert.ok(auditDictionaryContentDocuments({ ...base, coreEntries: [pending] })
+    .some(({ code }) => code === "dictionary.records"));
+  assert.ok(auditDictionaryContentDocuments({ ...base, sourceLanguageId: "es" })
+    .some(({ code }) => code === "dictionary.presentation"));
+});
+
 test("dictionary audit distinguishes target script variants with the same primary ID", () => {
   const simplifiedAdapter = {
     ...czech,

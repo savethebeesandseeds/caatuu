@@ -20,6 +20,8 @@ import {
   compilePagesSite,
   deriveCoursePagesCacheName,
   enablePagesDurableBypassInCourseWorker,
+  enableReportingSurfaces,
+  rewriteServiceWorker,
   enableStableAndroidCourseProfile,
   projectPagesCourseProfileSource,
   projectPagesLanguageRegistry,
@@ -27,11 +29,13 @@ import {
   projectStableAndroidChannels,
   retainPagesManagedCourseOfflineAssets,
   rewritePagesCourseProfileReceipt,
+  rewriteFinalCourseSetup,
   stagePagesBrowserCourses,
   transformPagesSentenceReporting,
   validatePagesSite,
   validatePagesArtwork,
 } from "../build-pages-site.mjs";
+import { serviceWorkerSource } from "../build-static-site.mjs";
 import { evaluateCourseProfile, serializeCourseProfileSource } from "../../../../tools/language-packs/lib/course-contract.mjs";
 
 const testDir = dirname(fileURLToPath(import.meta.url));
@@ -41,7 +45,7 @@ const source = readFileSync(join(testDir, "../build-pages-site.mjs"), "utf8");
 test("renamed current artwork preserves the baseline URL and validates both byte identities", () => {
   const temporaryDirectory = mkdtempSync(join(tmpdir(), "caatuu-pages-artwork-test-"));
   try {
-    const manifest = JSON.parse(readFileSync(join(workspaceRoot, "apps/languages/czech/static/setup-assets.json"), "utf8"));
+    const manifest = JSON.parse(readFileSync(join(workspaceRoot, "apps/launcher/static/assets/browser-assets.json"), "utf8"));
     const current = manifest.artifacts.find(artifact => artifact.key === "planet-agreement-aurora");
     const baseline = JSON.parse(readFileSync(join(workspaceRoot, "apps/android/tooling/pages-baseline.json"), "utf8"));
     const historical = baseline.sourceOverrides.find(artifact => artifact.key === "legacy-agreement-aurora");
@@ -71,16 +75,18 @@ test("renamed current artwork preserves the baseline URL and validates both byte
   }
 });
 
-test("Pages reporting projects the current interface-key call and keeps other courses local-only", () => {
+test("Pages reporting shows retry copy only for an explicitly authorized remote queue", () => {
   const wordWorld = readFileSync(join(workspaceRoot, "apps/language-runtime/static/source/product-word-world.mjs"), "utf8");
   const transformed = transformPagesSentenceReporting(wordWorld);
-  assert.match(transformed, /course\.id === "cz"[\s\S]*public site will retry later[\s\S]*interfaceText\("wordworld\.report\.savedlocal"\)/u);
+  assert.match(transformed, /queued\.localOnly === false && queued\.authorized === true/u);
   const syntax = spawnSync(process.execPath, ["--input-type=module", "--check"], { input: transformed, encoding: "utf8" });
   assert.equal(syntax.status, 0, syntax.stderr);
   const expression = transformPagesSentenceReporting('interfaceText("wordworld.report.savedlocal")');
-  const render = new Function("course", "interfaceText", `return ${expression};`);
-  assert.match(render({ id: "cz" }, () => "local-only"), /public site will retry later/u);
-  assert.equal(render({ id: "zh" }, () => "local-only"), "local-only");
+  const render = new Function("queued", "interfaceText", `return ${expression};`);
+  assert.equal(render({ localOnly: false, authorized: true }, id => id), "reporting.sentence.saved");
+  for (const queue of [{ localOnly: true }, {}, { localOnly: false, authorized: false }]) {
+    assert.equal(render(queue, id => id), "wordworld.report.savedlocal");
+  }
   assert.throws(() => transformPagesSentenceReporting("changed boundary"), /anchor count/u);
 });
 
@@ -296,7 +302,7 @@ test("the Pages builder derives browser course staging and final setup rewrites 
   assert.doesNotMatch(source, /mandarin|Mandarin|"\/zh\/", "\/zh\/index\.html"/u);
 });
 
-test("a synthetic third browser course stages from its catalog resources without builder constants", () => {
+test("a non-Czech default stages without a Czech course or pre-existing default entry", () => {
   const temporaryDirectory = mkdtempSync(join(tmpdir(), "caatuu-pages-third-course-test-"));
   const fixtureWorkspace = join(temporaryDirectory, "workspace");
   const siteDir = join(temporaryDirectory, "site");
@@ -346,23 +352,23 @@ test("a synthetic third browser course stages from its catalog resources without
     ],
   };
   const languagePlan = {
-    defaultCourseId: "cz",
-    defaultCourse: { id: "cz", entryPath: "/cz/index.html" },
-    browserCourses: [
-      { id: "cz", entryPath: "/cz/index.html" },
-      course,
-    ],
+    defaultCourseId: course.id,
+    defaultCourse: course,
+    browserCourses: [course],
   };
   try {
     for (const directory of [
-      join(siteDir, "cz"),
+      siteDir,
+      join(fixtureWorkspace, "apps/language-runtime/static/app"),
       join(staticRoot, "source/shared"),
       join(fixtureWorkspace, "apps/language-runtime/static/source"),
     ]) mkdirSync(directory, { recursive: true });
-    writeFileSync(join(siteDir, "cz/index.html"), "<main>Shared app shell</main>\n");
+    writeFileSync(join(fixtureWorkspace, "apps/language-runtime/static/app/index.html"),
+      readFileSync(join(workspaceRoot, "apps/language-runtime/static/app/index.html")));
+    writeFileSync(join(fixtureWorkspace, course.manifestPath), JSON.stringify({ id: course.id, resources: {} }));
     writeFileSync(join(staticRoot, "source/shared/course-profile.js"), "globalThis.fixtureCourse = true;\n");
     writeFileSync(join(staticRoot, "offline-only.txt"), "fixture offline bytes\n");
-    writeFileSync(join(staticRoot, "sw.js"), "// Offline catalog revision: caatuu-xy-pwa-v1\n");
+    writeFileSync(join(staticRoot, "sw.js"), '// Offline catalog revision: caatuu-xy-pwa-v1\nself.CAATUU_OFFLINE_CACHE_NAME = "caatuu-xy-pwa-v1";\n');
     writeFileSync(
       join(fixtureWorkspace, "apps/language-runtime/static/source/course-service-worker.js"),
       "globalThis.fixtureSharedWorker = true;\n",
@@ -383,10 +389,9 @@ test("a synthetic third browser course stages from its catalog resources without
         deferredReleaseAssetCount: 0,
       }],
     );
-    assert.equal(
-      readFileSync(join(siteDir, "learn-xy/index.html"), "utf8"),
-      readFileSync(join(siteDir, "cz/index.html"), "utf8"),
-    );
+    assert.ok(readFileSync(join(siteDir, "learn-xy/index.html"), "utf8").includes("app-bootstrap.mjs"));
+    assert.equal(existsSync(join(siteDir, "cz")), false);
+    assert.equal(existsSync(join(fixtureWorkspace, "apps/languages/czech")), false);
     for (const path of [
       "learn-xy/setup-assets.json",
       "learn-xy/source/shared/course-profile.js",
@@ -463,7 +468,7 @@ test("a synthetic third browser course stages from its catalog resources without
 test("each planned course cache revision covers offline-only bytes and excludes durable assets", () => {
   const temporaryDirectory = mkdtempSync(join(tmpdir(), "caatuu-pages-course-cache-test-"));
   const siteDir = join(temporaryDirectory, "site");
-  const workerSource = '"use strict";\n\n// Offline catalog revision: caatuu-zh-hans-pwa-v1\n';
+  const workerSource = '"use strict";\n\n// Offline catalog revision: caatuu-zh-hans-pwa-v1\nself.CAATUU_OFFLINE_CACHE_NAME = "caatuu-zh-hans-pwa-v1";\n';
   const course = {
     id: "zh",
     publicRoute: "/zh/",
@@ -514,6 +519,16 @@ test("each planned course cache revision covers offline-only bytes and excludes 
       localWorkerSource: workerSource,
     };
     const first = deriveCoursePagesCacheName(options);
+    // Published revisions must update both the catalog and executable loader.
+    course.profilePath = "/zh/course-profile.js";
+    course.profileRelativePath = "course-profile.js";
+    manifest.courseId = "zh";
+    writeFileSync(join(siteDir, "zh/course-profile.js"), "globalThis.fixtureCourse = true;\n");
+    writeFileSync(join(siteDir, "zh/setup-assets.json"), JSON.stringify(manifest));
+    const rewritten = rewriteFinalCourseSetup({ course, siteDir, canonicalOrigin: options.canonicalOrigin });
+    const publishedWorker = readFileSync(join(siteDir, "zh/sw.js"), "utf8");
+    assert.ok(publishedWorker.includes(`self.CAATUU_OFFLINE_CACHE_NAME = "${rewritten.cacheName}";`));
+    assert.equal(rewriteFinalCourseSetup({ course, siteDir, canonicalOrigin: options.canonicalOrigin }).cacheName, rewritten.cacheName);
     assert.equal(deriveCoursePagesCacheName(options), first);
     writeFileSync(join(siteDir, "zh/offline-only.txt"), "second\n");
     const changedBytes = deriveCoursePagesCacheName(options);
@@ -545,8 +560,10 @@ test("the published course worker bypasses durable release paths idempotently", 
   }
 });
 
-test("the Pages bundle keeps Czech reporting scoped and excludes the standalone preview game", () => {
-  assert.match(source, /course\.id === "cz"[\s\S]*public site will retry later/u);
+test("the Pages bundle declares course-scoped reporting and excludes the standalone preview game", () => {
+  assert.match(source, /buildReportingCourseCatalog/u);
+  assert.match(source, /reporting-courses\.v2\.json/u);
+  assert.doesNotMatch(transformPagesSentenceReporting('interfaceText("wordworld.report.savedlocal")'), /course\.id/u);
   assert.match(source, /standaloneGamePrefix/u);
   assert.match(source, /local-preview-only standalone Caatuu Game/u);
   assert.match(source, /assert\.doesNotMatch\(rootIndex/u);
@@ -609,4 +626,71 @@ test("the Pages builder stages and validates before replacing generated output",
   assert.ok(replacement > validation);
   assert.match(source, /Pages staging output already exists/u);
   assert.match(source, /Refusing to replace output without the Pages sentinel/u);
+});
+
+test("Spanish-only reporting installs and precaches shared delivery without Czech files", () => {
+  const temporaryRoot = mkdtempSync(join(tmpdir(), "caatuu-reporting-spanish-"));
+  const fixtureWorkspace = join(temporaryRoot, "workspace");
+  const siteDir = join(temporaryRoot, "site");
+  const shared = "language-runtime/static/source";
+  const course = { id: "es", routePrefix: "/es", publicRoute: "/es/",
+    entryPath: "/es/index.html", setupPath: "/es/setup-assets.json" };
+  const languagePlan = { defaultCourseId: "es", defaultCourse: course, browserCourses: [course] };
+  const setup = { courseId: "es", artifacts: [] };
+  const channel = { manifest: { publicPaths: ["/android/review.json"] }, apk: { publicPaths: ["/android/review.apk"] } };
+  try {
+    for (const directory of [join(fixtureWorkspace, "apps/languages/spanish"), join(siteDir, shared), join(siteDir, "es")]) {
+      mkdirSync(directory, { recursive: true });
+    }
+    writeFileSync(join(fixtureWorkspace, "apps/languages/catalog.json"), JSON.stringify({
+      courses: [{ id: "es", manifest: "apps/languages/spanish/course.json" }],
+    }));
+    writeFileSync(join(fixtureWorkspace, "apps/languages/spanish/course.json"), JSON.stringify({
+      id: "es", sourceLanguage: { locale: "en" }, targetLanguage: { locale: "es-ES" },
+      platforms: { browser: { enabled: true, pagesEnabled: true } }, capabilities: {}, resources: {},
+    }));
+    writeFileSync(join(siteDir, shared, "app-bootstrap.mjs"),
+      'async function start() {\n  await loadSharedScript("/language-runtime/static/source/maintenance-ui.js?v=maintenance-28");\n}\n');
+    writeFileSync(join(siteDir, shared, "product-word-world.mjs"),
+      'const saved = (queued) => interfaceText("wordworld.report.savedlocal");\n');
+    writeFileSync(join(siteDir, shared, "feedback-outbox.mjs"),
+      readFileSync(join(workspaceRoot, "apps/language-runtime/static/source/feedback-outbox.mjs")));
+    writeFileSync(join(siteDir, "es/caatuu-profile.json"), JSON.stringify({ capabilities: { stats: true }, privacy: {} }));
+    writeFileSync(join(siteDir, "es/index.html"), "<main>Spanish</main>");
+    writeFileSync(join(siteDir, "es/setup-assets.json"), JSON.stringify(setup));
+    writeFileSync(join(siteDir, "es/retained.bin"), "historical release bytes");
+    writeFileSync(join(siteDir, "index.html"), "<main>Caatuu</main>");
+    enableReportingSurfaces({ workspaceRoot: fixtureWorkspace, siteDir, languagePlan });
+    const catalogPath = "language-runtime/static/data/reporting-courses.v2.json";
+    const catalog = JSON.parse(readFileSync(join(siteDir, catalogPath), "utf8"));
+    assert.deepEqual(catalog, { schemaVersion: 2, courses: [{
+      courseId: "es", sourceLanguage: "en", targetLanguage: "es-ES", sentenceReports: true, dictionary: null,
+    }] });
+    const bootstrap = readFileSync(join(siteDir, shared, "app-bootstrap.mjs"), "utf8");
+    assert.ok(bootstrap.includes("/" + catalogPath));
+    assert.ok(bootstrap.includes("/" + shared + "/pages-reporting.mjs"));
+    assert.equal(existsSync(join(siteDir, "cz")), false);
+    assert.equal(existsSync(join(fixtureWorkspace, "apps/languages/czech")), false);
+    const profile = JSON.parse(readFileSync(join(siteDir, "es/caatuu-profile.json"), "utf8"));
+    assert.equal(profile.capabilities.reportingApi, true);
+    assert.equal(profile.privacy.sentenceFeedbackRemoteConsent, true);
+    assert.equal(profile.privacy.dictionaryGapReportsLocalOnly, true);
+    writeFileSync(join(siteDir, "sw.js"), serviceWorkerSource([
+      "/", "/es/retained.bin", "/" + shared + "/app-bootstrap.mjs",
+      "/" + shared + "/product-word-world.mjs", "/" + shared + "/feedback-outbox.mjs",
+    ], "ab12"));
+    const worker = rewriteServiceWorker({
+      siteDir, languagePlan, baselinePublicPaths: new Set(["es/retained.bin"]),
+      baselineDescriptor: { stable: channel, compatibility: channel, canonicalOrigin: "https://caatuu.waajacu.com" },
+      currentDescriptor: { stable: channel, releases: [channel] },
+      courseSetups: new Map([["es", { manifest: setup }]]),
+    });
+    for (const asset of ["/" + catalogPath, "/" + shared + "/pages-reporting.mjs", "/" + shared + "/feedback-outbox.mjs"]) {
+      assert.ok(worker.coreAssets.includes(asset), "Reporting must be available after offline return: " + asset);
+    }
+    assert.equal(worker.coreAssets.includes("/es/retained.bin"), false);
+    assert.ok(worker.cacheName.startsWith("caatuu-web-static-"));
+  } finally {
+    rmSync(temporaryRoot, { recursive: true, force: true });
+  }
 });

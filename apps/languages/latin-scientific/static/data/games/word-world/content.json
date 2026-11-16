@@ -6,7 +6,7 @@
   "projectionPolicy": {
     "tokenization": "authored",
     "pronunciationIncluded": false,
-    "reason": "Scientific Neo-Latin with pedagogical macrons. Device speech uses the shared browser/Android provider and does not establish Newton-era pronunciation. Qualified Latinist and pronunciation review remain pending."
+    "reason": "Scientific Neo-Latin with pedagogical macrons. Device speech uses the shared browser/Android provider and does not establish Newton-era pronunciation. Pronunciation guides stay off."
   },
   "targetLanguage": {
     "languageTag": "la",

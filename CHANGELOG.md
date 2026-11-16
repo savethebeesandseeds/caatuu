@@ -1,12 +1,25 @@
 # Changelog
 
-## Unreleased
+## Android 204 / 0.1.52
 
+- Restore the non-Mandarin course catalogs from the 13 November snapshot so
+  those courses keep the playable files they already had. Mandarin remains the
+  only course derived from the English semantic banks. The other courses are
+  waiting to be reinstated to that standard.
 - Fill the Mandarin catalogs from the English semantic banks. Word World
   serves 8,994 sentences, Verb Nebula 2,326 rows, Naturalization Nucleus 500
   characters, and Memory Moon 598 sentences. Sounds Quasar is rebuilt from
   those verbs and sentences. Rows the game checks refuse stay empty. Native
   review is not claimed.
+- Describe the public site as a free released language-learning app for ten
+  courses. The homepage and each course page name the courses, say the app is
+  free and safe for children, and stay indexable. The Android control says
+  "Android app" and "Download Caatuu".
+- Mark every course manifest `active`. Czech stays the default course.
+  Include Russian and Hebrew in the Android source bundle from version 204.
+  The published Android 203 package does not install them. Game lab stays in
+  development.
+
 ## Android 203 / 0.1.51
 
 - Ask for reminder notifications the way other Android apps do, and schedule

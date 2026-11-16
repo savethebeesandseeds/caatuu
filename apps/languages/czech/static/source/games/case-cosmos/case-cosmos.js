@@ -1,11 +1,12 @@
+import { reportEmbeddedGameStatus } from "/language-runtime/static/source/games/course-game-content.mjs";
 import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "/language-runtime/static/source/games/embedded-game-controls.mjs?v=embedded-game-controls-11";
 import { bindHorizontalGesture } from "/language-runtime/static/source/horizontal-gesture.mjs";
 
-import { CZECH_CASES, validatePack, buildRounds, buildQuestions, buildCasePracticeRounds } from "./case-cosmos-content.mjs?v=case-cosmos-content-6";
+import { CZECH_CASES, validatePack, buildRounds, buildQuestions, buildCasePracticeRounds } from "./case-cosmos-content.mjs?v=case-cosmos-content-7";
 import { newContentEncounterId } from "../../../../../../language-runtime/static/source/games/content-progression.mjs";
-import { assertEnglishCzechCourse } from "./case-cosmos-cs-policy.mjs?v=case-cosmos-policy-2";
+import { assertEnglishCzechCourse } from "./case-cosmos-cs-policy.mjs?v=case-cosmos-policy-3";
 
-const DATA_URL = "data/games/case-cosmos/content.json?v=case-cosmos-data-8";
+const DATA_URL = "data/games/case-cosmos/content.json?v=case-cosmos-data-9";
 const CHALLENGES_PER_ROUND = 3;
 const BOAT_ARTWORK = [
   "/assets/macaw/cases/floating_boat%20(1).png?v=cases-2",
@@ -218,8 +219,19 @@ function mountControls() {
   });
 }
 
-function record(delta) {
-  window.CaatuuLearning?.record?.("case-cosmos", delta);
+function record(delta, generation) {
+  const learning = window.CaatuuLearning;
+  learning?.record?.("case-cosmos", { ...delta, ...(learning.contentGeneration ? { generation } : {}) });
+}
+function currentGeneration(generation = state.contentGeneration) {
+  return generation === state.contentGeneration
+    && generation === (window.CaatuuLearning?.contentGeneration?.() ?? null);
+}
+function ensureCurrentRound() {
+  if (currentGeneration()) return true;
+  configureDifficulty();
+  render();
+  return false;
 }
 
 function roundComplete() {
@@ -378,7 +390,9 @@ function render() {
 }
 
 function chooseAnswer(answer) {
-  if (!engaged() || state.menuOpen || state.phase !== "question" || typeof answer !== "boolean") return;
+  if (!engaged() || state.menuOpen || state.phase !== "question" || typeof answer !== "boolean"
+      || !ensureCurrentRound()) return;
+  const generation = state.contentGeneration;
   resetSwipe();
   stopSentence();
   const correct = answer === currentQuestion().matches;
@@ -391,10 +405,12 @@ function chooseAnswer(answer) {
     itemId: currentChallenge().id, encounterId: state.encounterId, generation: state.contentGeneration, correct,
     evidence: state.candidateIndex === 0 ? "independent" : "assisted"
   });
+  if (!currentGeneration(generation)) return;
   render();
   $("#caseCosmosExample").focus();
   record({ activities: 1, attempts: 1, successes: correct ? 1 : 0,
-    rounds: roundComplete() && state.roundCorrect > 0 ? 1 : 0, xp: correct && answer ? 1 : 0 });
+    rounds: roundComplete() && state.roundCorrect > 0 ? 1 : 0, xp: correct && answer ? 1 : 0 }, generation);
+  if (!currentGeneration(generation)) return;
   $("#caseCosmosNext").focus();
 }
 
@@ -409,7 +425,7 @@ function reopenQuestion() {
 async function nextRound({ campaignAdvance = false } = {}) {
   if (state.continuation?.pending || (!campaignAdvance && (!engaged() || state.menuOpen))
       || (campaignAdvance && !roundComplete())
-      || !["solved", "mistake"].includes(state.phase)) return;
+      || !["solved", "mistake"].includes(state.phase) || !ensureCurrentRound()) return;
   cancelTransition();
   resetSwipe();
   stopSentence();
@@ -461,7 +477,7 @@ function bindUi() {
     chooseAnswer(key === "y" || key === "1");
   });
   listen(state.shell, "caatuu:learning-change", (event) => {
-    if (event.detail?.reason !== "difficulty" || !(state.pack.length || state.pack.contexts?.length)) return;
+    if (!["difficulty", "progress-reset"].includes(event.detail?.reason) || !(state.pack.length || state.pack.contexts?.length)) return;
     configureDifficulty();
     render();
     if (engaged()) $("#caseCosmosExample").focus({ preventScroll: true });
@@ -496,6 +512,7 @@ function bindUi() {
 }
 
 function showError(error) {
+  reportEmbeddedGameStatus(window, "case-cosmos", "error");
   cancelTransition();
   resetSwipe();
   stopSentence();
@@ -516,6 +533,7 @@ async function init() {
     state.pack = pack;
     configureDifficulty();
     render();
+    reportEmbeddedGameStatus(window, "case-cosmos", "ready");
     window.CaatuuRuntime?.registerServiceWorker?.().catch(() => {});
   } catch (error) {
     if (!state.destroyed) showError(error);

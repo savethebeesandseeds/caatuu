@@ -1,0 +1,4292 @@
+[
+  {
+    "id": "sb.naturalization-nucleus.000001",
+    "englishText": "Han; Chinese (word part)",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000002",
+    "englishText": "Hello",
+    "difficulty": 0,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.naturalization-nucleus.000003",
+    "englishText": "I",
+    "difficulty": 0,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000004",
+    "englishText": "I come",
+    "difficulty": 0,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000005",
+    "englishText": "I drink",
+    "difficulty": 0,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.naturalization-nucleus.000006",
+    "englishText": "I eat",
+    "difficulty": 0,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.naturalization-nucleus.000007",
+    "englishText": "I go",
+    "difficulty": 0,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000008",
+    "englishText": "I read",
+    "difficulty": 0,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.naturalization-nucleus.000009",
+    "englishText": "I see",
+    "difficulty": 0,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000010",
+    "englishText": "I sleep",
+    "difficulty": 0,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.naturalization-nucleus.000011",
+    "englishText": "I write",
+    "difficulty": 0,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.naturalization-nucleus.000012",
+    "englishText": "I; me",
+    "difficulty": 0,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000013",
+    "englishText": "No",
+    "difficulty": 0,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.naturalization-nucleus.000014",
+    "englishText": "Sorry",
+    "difficulty": 0,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.naturalization-nucleus.000015",
+    "englishText": "Thank you",
+    "difficulty": 0,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.naturalization-nucleus.000016",
+    "englishText": "Yes",
+    "difficulty": 0,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.naturalization-nucleus.000017",
+    "englishText": "accumulate; pile up",
+    "difficulty": 2,
+    "usefulness": 44
+  },
+  {
+    "id": "sb.naturalization-nucleus.000018",
+    "englishText": "accurate; allow",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000019",
+    "englishText": "add",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000020",
+    "englishText": "admit",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000021",
+    "englishText": "advise",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000022",
+    "englishText": "affair; task",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000023",
+    "englishText": "again",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000024",
+    "englishText": "again; also",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000025",
+    "englishText": "air; gas",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000026",
+    "englishText": "alive; live",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000027",
+    "englishText": "allow; perhaps",
+    "difficulty": 3,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.naturalization-nucleus.000028",
+    "englishText": "alone",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000029",
+    "englishText": "and; harmony",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000030",
+    "englishText": "announce",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000031",
+    "englishText": "another",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000032",
+    "englishText": "answer",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000033",
+    "englishText": "appear; present",
+    "difficulty": 2,
+    "usefulness": 71
+  },
+  {
+    "id": "sb.naturalization-nucleus.000034",
+    "englishText": "apple",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000035",
+    "englishText": "apple (word part)",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000036",
+    "englishText": "appreciate; reward",
+    "difficulty": 3,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.naturalization-nucleus.000037",
+    "englishText": "area; district",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000038",
+    "englishText": "arrive",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000039",
+    "englishText": "arrive; reach",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000040",
+    "englishText": "art; technique",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000041",
+    "englishText": "ask; question",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000042",
+    "englishText": "assimilate",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000043",
+    "englishText": "assume",
+    "difficulty": 3,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.naturalization-nucleus.000044",
+    "englishText": "at; be in",
+    "difficulty": 1,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.naturalization-nucleus.000045",
+    "englishText": "attach; near",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000046",
+    "englishText": "aunt",
+    "difficulty": 2,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.naturalization-nucleus.000047",
+    "englishText": "autumn",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000048",
+    "englishText": "back; after",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000049",
+    "englishText": "bag",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000050",
+    "englishText": "bag; wrap",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000051",
+    "englishText": "ball",
+    "difficulty": 0,
+    "usefulness": 63
+  },
+  {
+    "id": "sb.naturalization-nucleus.000052",
+    "englishText": "bamboo",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000053",
+    "englishText": "banana (word part)",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000054",
+    "englishText": "bank",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000055",
+    "englishText": "be (past)",
+    "difficulty": 1,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.naturalization-nucleus.000056",
+    "englishText": "be away from; distance",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.naturalization-nucleus.000057",
+    "englishText": "be called; call",
+    "difficulty": 1,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.naturalization-nucleus.000058",
+    "englishText": "bean",
+    "difficulty": 2,
+    "usefulness": 78
+  },
+  {
+    "id": "sb.naturalization-nucleus.000059",
+    "englishText": "bear",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000060",
+    "englishText": "beard; mustache",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000061",
+    "englishText": "beautiful",
+    "difficulty": 1,
+    "usefulness": 70
+  },
+  {
+    "id": "sb.naturalization-nucleus.000062",
+    "englishText": "become",
+    "difficulty": 1,
+    "usefulness": 71
+  },
+  {
+    "id": "sb.naturalization-nucleus.000063",
+    "englishText": "become; succeed",
+    "difficulty": 2,
+    "usefulness": 71
+  },
+  {
+    "id": "sb.naturalization-nucleus.000064",
+    "englishText": "bed",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000065",
+    "englishText": "bee",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000066",
+    "englishText": "begin",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000067",
+    "englishText": "benefit; useful",
+    "difficulty": 3,
+    "usefulness": 52
+  },
+  {
+    "id": "sb.naturalization-nucleus.000068",
+    "englishText": "beside",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000069",
+    "englishText": "big",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000070",
+    "englishText": "bird",
+    "difficulty": 2,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.naturalization-nucleus.000071",
+    "englishText": "black",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000072",
+    "englishText": "blow air",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000073",
+    "englishText": "blue",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000074",
+    "englishText": "board",
+    "difficulty": 2,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.naturalization-nucleus.000075",
+    "englishText": "boat",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000076",
+    "englishText": "body",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000077",
+    "englishText": "body; form",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000078",
+    "englishText": "book",
+    "difficulty": 0,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.naturalization-nucleus.000079",
+    "englishText": "book measure word; root",
+    "difficulty": 2,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.naturalization-nucleus.000080",
+    "englishText": "borrow; lend",
+    "difficulty": 2,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.naturalization-nucleus.000081",
+    "englishText": "bottom; base",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000082",
+    "englishText": "bowl",
+    "difficulty": 1,
+    "usefulness": 78
+  },
+  {
+    "id": "sb.naturalization-nucleus.000083",
+    "englishText": "box",
+    "difficulty": 2,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.naturalization-nucleus.000084",
+    "englishText": "box; trunk",
+    "difficulty": 2,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.naturalization-nucleus.000085",
+    "englishText": "brain",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000086",
+    "englishText": "bread",
+    "difficulty": 0,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.naturalization-nucleus.000087",
+    "englishText": "bridge",
+    "difficulty": 2,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.naturalization-nucleus.000088",
+    "englishText": "brief; omit",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000089",
+    "englishText": "bright",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000090",
+    "englishText": "bright; clear",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000091",
+    "englishText": "bring; belt",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000092",
+    "englishText": "broad; extensive",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000093",
+    "englishText": "brush",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000094",
+    "englishText": "bundle; bind",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000095",
+    "englishText": "busy",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000096",
+    "englishText": "but",
+    "difficulty": 2,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.naturalization-nucleus.000097",
+    "englishText": "butterfly",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000098",
+    "englishText": "button; link",
+    "difficulty": 2,
+    "usefulness": 72
+  },
+  {
+    "id": "sb.naturalization-nucleus.000099",
+    "englishText": "buy",
+    "difficulty": 3,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000100",
+    "englishText": "cabinet",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000101",
+    "englishText": "cake; flatbread",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000102",
+    "englishText": "can; ability",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000103",
+    "englishText": "car",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000104",
+    "englishText": "carry; bear",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000105",
+    "englishText": "carry; move",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000106",
+    "englishText": "cat",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000107",
+    "englishText": "cause; because",
+    "difficulty": 3,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.naturalization-nucleus.000108",
+    "englishText": "certain; true",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000109",
+    "englishText": "chair",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000110",
+    "englishText": "change",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000111",
+    "englishText": "change; replace",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000112",
+    "englishText": "change; revise",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000113",
+    "englishText": "charge a device",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000114",
+    "englishText": "check; inspect",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000115",
+    "englishText": "check; investigate",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000116",
+    "englishText": "chicken",
+    "difficulty": 1,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.naturalization-nucleus.000117",
+    "englishText": "child",
+    "difficulty": 0,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000118",
+    "englishText": "child; son",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000119",
+    "englishText": "choose",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000120",
+    "englishText": "choose; select",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000121",
+    "englishText": "city; market",
+    "difficulty": 2,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.naturalization-nucleus.000122",
+    "englishText": "city; town",
+    "difficulty": 2,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.naturalization-nucleus.000123",
+    "englishText": "claim",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000124",
+    "englishText": "clarify",
+    "difficulty": 2,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.naturalization-nucleus.000125",
+    "englishText": "class; lesson",
+    "difficulty": 3,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.naturalization-nucleus.000126",
+    "englishText": "class; shift",
+    "difficulty": 2,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.naturalization-nucleus.000127",
+    "englishText": "clean",
+    "difficulty": 2,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.naturalization-nucleus.000128",
+    "englishText": "clear; bright",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000129",
+    "englishText": "clear; clean",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000130",
+    "englishText": "clear; sunny",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000131",
+    "englishText": "clinic",
+    "difficulty": 3,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.naturalization-nucleus.000132",
+    "englishText": "clock; bell",
+    "difficulty": 2,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.naturalization-nucleus.000133",
+    "englishText": "close; dear",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000134",
+    "englishText": "close; shut",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000135",
+    "englishText": "close; turn off",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000136",
+    "englishText": "cloth",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000137",
+    "englishText": "cloth; towel",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000138",
+    "englishText": "clothing",
+    "difficulty": 2,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.naturalization-nucleus.000139",
+    "englishText": "clothing; serve",
+    "difficulty": 3,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.naturalization-nucleus.000140",
+    "englishText": "cloud",
+    "difficulty": 2,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.naturalization-nucleus.000141",
+    "englishText": "code; clothing size",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000142",
+    "englishText": "cold",
+    "difficulty": 0,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.naturalization-nucleus.000143",
+    "englishText": "color",
+    "difficulty": 1,
+    "usefulness": 63
+  },
+  {
+    "id": "sb.naturalization-nucleus.000144",
+    "englishText": "color; colorful",
+    "difficulty": 1,
+    "usefulness": 63
+  },
+  {
+    "id": "sb.naturalization-nucleus.000145",
+    "englishText": "come",
+    "difficulty": 1,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.naturalization-nucleus.000146",
+    "englishText": "community; society",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000147",
+    "englishText": "compare",
+    "difficulty": 3,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.naturalization-nucleus.000148",
+    "englishText": "compartment",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000149",
+    "englishText": "confirm",
+    "difficulty": 2,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.naturalization-nucleus.000150",
+    "englishText": "contemplate",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000151",
+    "englishText": "convenient",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000152",
+    "englishText": "convince oneself",
+    "difficulty": 2,
+    "usefulness": 52
+  },
+  {
+    "id": "sb.naturalization-nucleus.000153",
+    "englishText": "cook in water",
+    "difficulty": 1,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.naturalization-nucleus.000154",
+    "englishText": "cooked rice",
+    "difficulty": 0,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.naturalization-nucleus.000155",
+    "englishText": "cooked rice; meal",
+    "difficulty": 1,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.naturalization-nucleus.000156",
+    "englishText": "core; check",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000157",
+    "englishText": "corner; angle",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000158",
+    "englishText": "correct; toward",
+    "difficulty": 2,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.naturalization-nucleus.000159",
+    "englishText": "corridor",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000160",
+    "englishText": "count",
+    "difficulty": 2,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.naturalization-nucleus.000161",
+    "englishText": "count; plan",
+    "difficulty": 2,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.naturalization-nucleus.000162",
+    "englishText": "counter for animals",
+    "difficulty": 1,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.naturalization-nucleus.000163",
+    "englishText": "counter for flowers",
+    "difficulty": 1,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.naturalization-nucleus.000164",
+    "englishText": "counter for items or matters",
+    "difficulty": 2,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.naturalization-nucleus.000165",
+    "englishText": "countryside; home region",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000166",
+    "englishText": "cover; set",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000167",
+    "englishText": "cow; ox",
+    "difficulty": 2,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.naturalization-nucleus.000168",
+    "englishText": "coworker",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000169",
+    "englishText": "crawl; climb",
+    "difficulty": 2,
+    "usefulness": 71
+  },
+  {
+    "id": "sb.naturalization-nucleus.000170",
+    "englishText": "crow; black",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000171",
+    "englishText": "cup",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000172",
+    "englishText": "dance",
+    "difficulty": 2,
+    "usefulness": 62
+  },
+  {
+    "id": "sb.naturalization-nucleus.000173",
+    "englishText": "day; sky",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000174",
+    "englishText": "decide",
+    "difficulty": 2,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.naturalization-nucleus.000175",
+    "englishText": "deduce from evidence",
+    "difficulty": 3,
+    "usefulness": 33
+  },
+  {
+    "id": "sb.naturalization-nucleus.000176",
+    "englishText": "deer",
+    "difficulty": 2,
+    "usefulness": 48
+  },
+  {
+    "id": "sb.naturalization-nucleus.000177",
+    "englishText": "deny",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000178",
+    "englishText": "describe",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000179",
+    "englishText": "device; utensil",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000180",
+    "englishText": "difference",
+    "difficulty": 3,
+    "usefulness": 52
+  },
+  {
+    "id": "sb.naturalization-nucleus.000181",
+    "englishText": "difficult",
+    "difficulty": 2,
+    "usefulness": 70
+  },
+  {
+    "id": "sb.naturalization-nucleus.000182",
+    "englishText": "disappear; diminish",
+    "difficulty": 2,
+    "usefulness": 71
+  },
+  {
+    "id": "sb.naturalization-nucleus.000183",
+    "englishText": "discuss",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000184",
+    "englishText": "discuss; theory",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000185",
+    "englishText": "dish; vegetables",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000186",
+    "englishText": "disperse; stroll (word part)",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000187",
+    "englishText": "distinguish",
+    "difficulty": 3,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.naturalization-nucleus.000188",
+    "englishText": "divide; minute",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000189",
+    "englishText": "do",
+    "difficulty": 1,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.naturalization-nucleus.000190",
+    "englishText": "do not; other",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000191",
+    "englishText": "do; compose",
+    "difficulty": 2,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.naturalization-nucleus.000192",
+    "englishText": "do; make",
+    "difficulty": 2,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.naturalization-nucleus.000193",
+    "englishText": "doctor",
+    "difficulty": 3,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000194",
+    "englishText": "dog",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000195",
+    "englishText": "door",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000196",
+    "englishText": "dot; point",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000197",
+    "englishText": "dragon",
+    "difficulty": 2,
+    "usefulness": 43
+  },
+  {
+    "id": "sb.naturalization-nucleus.000198",
+    "englishText": "drama; play",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000199",
+    "englishText": "draw; picture",
+    "difficulty": 1,
+    "usefulness": 62
+  },
+  {
+    "id": "sb.naturalization-nucleus.000200",
+    "englishText": "dream",
+    "difficulty": 3,
+    "usefulness": 70
+  },
+  {
+    "id": "sb.naturalization-nucleus.000201",
+    "englishText": "drink",
+    "difficulty": 0,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000202",
+    "englishText": "drum",
+    "difficulty": 2,
+    "usefulness": 58
+  },
+  {
+    "id": "sb.naturalization-nucleus.000203",
+    "englishText": "dry",
+    "difficulty": 1,
+    "usefulness": 71
+  },
+  {
+    "id": "sb.naturalization-nucleus.000204",
+    "englishText": "duck",
+    "difficulty": 1,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.naturalization-nucleus.000205",
+    "englishText": "each; every",
+    "difficulty": 1,
+    "usefulness": 84
+  },
+  {
+    "id": "sb.naturalization-nucleus.000206",
+    "englishText": "ear",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000207",
+    "englishText": "early; morning",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000208",
+    "englishText": "earth; ground",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000209",
+    "englishText": "east",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000210",
+    "englishText": "eat",
+    "difficulty": 0,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000211",
+    "englishText": "eight",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000212",
+    "englishText": "elephant",
+    "difficulty": 1,
+    "usefulness": 48
+  },
+  {
+    "id": "sb.naturalization-nucleus.000213",
+    "englishText": "empty",
+    "difficulty": 1,
+    "usefulness": 84
+  },
+  {
+    "id": "sb.naturalization-nucleus.000214",
+    "englishText": "end",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000215",
+    "englishText": "enter",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000216",
+    "englishText": "enter; advance",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000217",
+    "englishText": "establish",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000218",
+    "englishText": "evidence; according to",
+    "difficulty": 3,
+    "usefulness": 33
+  },
+  {
+    "id": "sb.naturalization-nucleus.000219",
+    "englishText": "examine; consider",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000220",
+    "englishText": "example",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000221",
+    "englishText": "exclude",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000222",
+    "englishText": "exit",
+    "difficulty": 1,
+    "usefulness": 83
+  },
+  {
+    "id": "sb.naturalization-nucleus.000223",
+    "englishText": "explain; release",
+    "difficulty": 3,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.naturalization-nucleus.000224",
+    "englishText": "explore",
+    "difficulty": 3,
+    "usefulness": 58
+  },
+  {
+    "id": "sb.naturalization-nucleus.000225",
+    "englishText": "explore; seek",
+    "difficulty": 3,
+    "usefulness": 58
+  },
+  {
+    "id": "sb.naturalization-nucleus.000226",
+    "englishText": "extract",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000227",
+    "englishText": "eye",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000228",
+    "englishText": "fall; land",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000229",
+    "englishText": "far",
+    "difficulty": 2,
+    "usefulness": 70
+  },
+  {
+    "id": "sb.naturalization-nucleus.000230",
+    "englishText": "fast",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000231",
+    "englishText": "fasten; button",
+    "difficulty": 2,
+    "usefulness": 82
+  },
+  {
+    "id": "sb.naturalization-nucleus.000232",
+    "englishText": "father",
+    "difficulty": 0,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000233",
+    "englishText": "fear; be afraid",
+    "difficulty": 2,
+    "usefulness": 70
+  },
+  {
+    "id": "sb.naturalization-nucleus.000234",
+    "englishText": "feather",
+    "difficulty": 2,
+    "usefulness": 48
+  },
+  {
+    "id": "sb.naturalization-nucleus.000235",
+    "englishText": "feel; sense",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000236",
+    "englishText": "few; less",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000237",
+    "englishText": "fill",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000238",
+    "englishText": "fine; detailed",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000239",
+    "englishText": "finish",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000240",
+    "englishText": "fire",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000241",
+    "englishText": "firm; solid",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000242",
+    "englishText": "firm; strong",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000243",
+    "englishText": "first; before",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000244",
+    "englishText": "fish",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000245",
+    "englishText": "five",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000246",
+    "englishText": "flat; even",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000247",
+    "englishText": "float in the air",
+    "difficulty": 2,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.naturalization-nucleus.000248",
+    "englishText": "flow",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000249",
+    "englishText": "flower",
+    "difficulty": 2,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.naturalization-nucleus.000250",
+    "englishText": "fly",
+    "difficulty": 3,
+    "usefulness": 71
+  },
+  {
+    "id": "sb.naturalization-nucleus.000251",
+    "englishText": "fold; bend",
+    "difficulty": 3,
+    "usefulness": 58
+  },
+  {
+    "id": "sb.naturalization-nucleus.000252",
+    "englishText": "food; eat",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000253",
+    "englishText": "foot",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000254",
+    "englishText": "foot; sufficient",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000255",
+    "englishText": "forget",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000256",
+    "englishText": "four",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000257",
+    "englishText": "fragrant",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000258",
+    "englishText": "fresh",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000259",
+    "englishText": "friend",
+    "difficulty": 0,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000260",
+    "englishText": "frog",
+    "difficulty": 1,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.naturalization-nucleus.000261",
+    "englishText": "from; follow",
+    "difficulty": 2,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.naturalization-nucleus.000262",
+    "englishText": "from; reason",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.naturalization-nucleus.000263",
+    "englishText": "front; before",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000264",
+    "englishText": "fruit",
+    "difficulty": 3,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.naturalization-nucleus.000265",
+    "englishText": "garden; park",
+    "difficulty": 2,
+    "usefulness": 62
+  },
+  {
+    "id": "sb.naturalization-nucleus.000266",
+    "englishText": "gather",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000267",
+    "englishText": "general counter for things",
+    "difficulty": 1,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.naturalization-nucleus.000268",
+    "englishText": "give a reason",
+    "difficulty": 3,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.naturalization-nucleus.000269",
+    "englishText": "give; to",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000270",
+    "englishText": "go",
+    "difficulty": 1,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.naturalization-nucleus.000271",
+    "englishText": "go out",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000272",
+    "englishText": "go through; connect",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000273",
+    "englishText": "good",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000274",
+    "englishText": "good; well",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000275",
+    "englishText": "grandfather (word part)",
+    "difficulty": 2,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.naturalization-nucleus.000276",
+    "englishText": "grandmother",
+    "difficulty": 2,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.naturalization-nucleus.000277",
+    "englishText": "grasp; object marker",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000278",
+    "englishText": "grass",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000279",
+    "englishText": "green",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000280",
+    "englishText": "green; blue-green",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000281",
+    "englishText": "group; organize",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000282",
+    "englishText": "group; round mass",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000283",
+    "englishText": "grow; life",
+    "difficulty": 1,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.naturalization-nucleus.000284",
+    "englishText": "guest",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000285",
+    "englishText": "hair; fur",
+    "difficulty": 1,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.naturalization-nucleus.000286",
+    "englishText": "half",
+    "difficulty": 2,
+    "usefulness": 84
+  },
+  {
+    "id": "sb.naturalization-nucleus.000287",
+    "englishText": "half a kilogram",
+    "difficulty": 2,
+    "usefulness": 84
+  },
+  {
+    "id": "sb.naturalization-nucleus.000288",
+    "englishText": "hand",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000289",
+    "englishText": "hand over",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000290",
+    "englishText": "hand over; associate",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000291",
+    "englishText": "handle; do",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000292",
+    "englishText": "hat",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000293",
+    "englishText": "have",
+    "difficulty": 0,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.naturalization-nucleus.000294",
+    "englishText": "have; there is",
+    "difficulty": 1,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.naturalization-nucleus.000295",
+    "englishText": "he; him",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000296",
+    "englishText": "head",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000297",
+    "englishText": "head; first",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000298",
+    "englishText": "heart; mind",
+    "difficulty": 1,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.naturalization-nucleus.000299",
+    "englishText": "heavy",
+    "difficulty": 3,
+    "usefulness": 70
+  },
+  {
+    "id": "sb.naturalization-nucleus.000300",
+    "englishText": "help",
+    "difficulty": 2,
+    "usefulness": 99
+  },
+  {
+    "id": "sb.naturalization-nucleus.000301",
+    "englishText": "hide; store",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000302",
+    "englishText": "hold in the arms",
+    "difficulty": 1,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.naturalization-nucleus.000303",
+    "englishText": "hold; maintain",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000304",
+    "englishText": "home; family",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000305",
+    "englishText": "honey",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000306",
+    "englishText": "horse",
+    "difficulty": 1,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.naturalization-nucleus.000307",
+    "englishText": "hot",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000308",
+    "englishText": "house",
+    "difficulty": 0,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000309",
+    "englishText": "how many; a few",
+    "difficulty": 1,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.naturalization-nucleus.000310",
+    "englishText": "hurt; ache",
+    "difficulty": 3,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000311",
+    "englishText": "ice",
+    "difficulty": 2,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.naturalization-nucleus.000312",
+    "englishText": "identify",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000313",
+    "englishText": "imagine",
+    "difficulty": 3,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.naturalization-nucleus.000314",
+    "englishText": "in advance",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.naturalization-nucleus.000315",
+    "englishText": "infer",
+    "difficulty": 3,
+    "usefulness": 33
+  },
+  {
+    "id": "sb.naturalization-nucleus.000316",
+    "englishText": "insect",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000317",
+    "englishText": "inside",
+    "difficulty": 2,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.naturalization-nucleus.000318",
+    "englishText": "interest; enjoyment",
+    "difficulty": 2,
+    "usefulness": 33
+  },
+  {
+    "id": "sb.naturalization-nucleus.000319",
+    "englishText": "interest; fun",
+    "difficulty": 3,
+    "usefulness": 33
+  },
+  {
+    "id": "sb.naturalization-nucleus.000320",
+    "englishText": "interpret",
+    "difficulty": 3,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.naturalization-nucleus.000321",
+    "englishText": "is; to be",
+    "difficulty": 0,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000322",
+    "englishText": "join; fit",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000323",
+    "englishText": "journey; procedure",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000324",
+    "englishText": "joy; like",
+    "difficulty": 1,
+    "usefulness": 70
+  },
+  {
+    "id": "sb.naturalization-nucleus.000325",
+    "englishText": "joyful",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000326",
+    "englishText": "judge; determine",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000327",
+    "englishText": "jump",
+    "difficulty": 1,
+    "usefulness": 63
+  },
+  {
+    "id": "sb.naturalization-nucleus.000328",
+    "englishText": "justify",
+    "difficulty": 3,
+    "usefulness": 33
+  },
+  {
+    "id": "sb.naturalization-nucleus.000329",
+    "englishText": "kick",
+    "difficulty": 2,
+    "usefulness": 71
+  },
+  {
+    "id": "sb.naturalization-nucleus.000330",
+    "englishText": "kind; seed",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000331",
+    "englishText": "kitchen; cooking",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000332",
+    "englishText": "know",
+    "difficulty": 2,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.naturalization-nucleus.000333",
+    "englishText": "know how to; can",
+    "difficulty": 1,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.naturalization-nucleus.000334",
+    "englishText": "ladder; stairs",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000335",
+    "englishText": "lamp; light",
+    "difficulty": 2,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.naturalization-nucleus.000336",
+    "englishText": "language; speech",
+    "difficulty": 3,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.naturalization-nucleus.000337",
+    "englishText": "late; evening",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000338",
+    "englishText": "laugh; smile",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000339",
+    "englishText": "lead (the metal)",
+    "difficulty": 2,
+    "usefulness": 44
+  },
+  {
+    "id": "sb.naturalization-nucleus.000340",
+    "englishText": "lead to; send",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.naturalization-nucleus.000341",
+    "englishText": "lead; attract",
+    "difficulty": 3,
+    "usefulness": 44
+  },
+  {
+    "id": "sb.naturalization-nucleus.000342",
+    "englishText": "leaf",
+    "difficulty": 2,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.naturalization-nucleus.000343",
+    "englishText": "lean on; depend on",
+    "difficulty": 3,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.naturalization-nucleus.000344",
+    "englishText": "leave",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000345",
+    "englishText": "left",
+    "difficulty": 2,
+    "usefulness": 70
+  },
+  {
+    "id": "sb.naturalization-nucleus.000346",
+    "englishText": "let; yield",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000347",
+    "englishText": "letter",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000348",
+    "englishText": "library",
+    "difficulty": 3,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.naturalization-nucleus.000349",
+    "englishText": "light",
+    "difficulty": 1,
+    "usefulness": 70
+  },
+  {
+    "id": "sb.naturalization-nucleus.000350",
+    "englishText": "light in weight",
+    "difficulty": 1,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.naturalization-nucleus.000351",
+    "englishText": "like; as",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000352",
+    "englishText": "line; set off",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000353",
+    "englishText": "listen",
+    "difficulty": 0,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000354",
+    "englishText": "live; stay",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000355",
+    "englishText": "long",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000356",
+    "englishText": "look",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000357",
+    "englishText": "look at; watch",
+    "difficulty": 1,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.naturalization-nucleus.000358",
+    "englishText": "look for",
+    "difficulty": 2,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.naturalization-nucleus.000359",
+    "englishText": "look into the distance; hope",
+    "difficulty": 3,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.naturalization-nucleus.000360",
+    "englishText": "love",
+    "difficulty": 1,
+    "usefulness": 70
+  },
+  {
+    "id": "sb.naturalization-nucleus.000361",
+    "englishText": "machine; device",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000362",
+    "englishText": "magnetism",
+    "difficulty": 3,
+    "usefulness": 34
+  },
+  {
+    "id": "sb.naturalization-nucleus.000363",
+    "englishText": "main; host",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000364",
+    "englishText": "make a phone call",
+    "difficulty": 3,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.naturalization-nucleus.000365",
+    "englishText": "make; establish",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000366",
+    "englishText": "many; much",
+    "difficulty": 2,
+    "usefulness": 84
+  },
+  {
+    "id": "sb.naturalization-nucleus.000367",
+    "englishText": "marks an ordinal number",
+    "difficulty": 2,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.naturalization-nucleus.000368",
+    "englishText": "match; allocate",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000369",
+    "englishText": "material; expect",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000370",
+    "englishText": "material; talent",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000371",
+    "englishText": "meal",
+    "difficulty": 2,
+    "usefulness": 78
+  },
+  {
+    "id": "sb.naturalization-nucleus.000372",
+    "englishText": "meaning; intention",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000373",
+    "englishText": "measure",
+    "difficulty": 2,
+    "usefulness": 58
+  },
+  {
+    "id": "sb.naturalization-nucleus.000374",
+    "englishText": "measure; survey",
+    "difficulty": 3,
+    "usefulness": 58
+  },
+  {
+    "id": "sb.naturalization-nucleus.000375",
+    "englishText": "medicine",
+    "difficulty": 3,
+    "usefulness": 85
+  },
+  {
+    "id": "sb.naturalization-nucleus.000376",
+    "englishText": "melon; gourd",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000377",
+    "englishText": "member; person with a role",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000378",
+    "englishText": "mend; make up for",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000379",
+    "englishText": "mention",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000380",
+    "englishText": "method; rule",
+    "difficulty": 3,
+    "usefulness": 34
+  },
+  {
+    "id": "sb.naturalization-nucleus.000381",
+    "englishText": "middle; center",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000382",
+    "englishText": "milk",
+    "difficulty": 0,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.naturalization-nucleus.000383",
+    "englishText": "mirror; lens",
+    "difficulty": 2,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.naturalization-nucleus.000384",
+    "englishText": "mistake; misunderstand",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000385",
+    "englishText": "mix",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000386",
+    "englishText": "model; pattern",
+    "difficulty": 3,
+    "usefulness": 58
+  },
+  {
+    "id": "sb.naturalization-nucleus.000387",
+    "englishText": "model; type",
+    "difficulty": 3,
+    "usefulness": 58
+  },
+  {
+    "id": "sb.naturalization-nucleus.000388",
+    "englishText": "money",
+    "difficulty": 3,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000389",
+    "englishText": "month; moon",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000390",
+    "englishText": "more; even more",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000391",
+    "englishText": "mother",
+    "difficulty": 0,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000392",
+    "englishText": "mother; female",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000393",
+    "englishText": "mountain",
+    "difficulty": 2,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.naturalization-nucleus.000394",
+    "englishText": "mouse; rat",
+    "difficulty": 2,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.naturalization-nucleus.000395",
+    "englishText": "mouth; opening",
+    "difficulty": 2,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.naturalization-nucleus.000396",
+    "englishText": "move",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000397",
+    "englishText": "mud",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000398",
+    "englishText": "music",
+    "difficulty": 2,
+    "usefulness": 62
+  },
+  {
+    "id": "sb.naturalization-nucleus.000399",
+    "englishText": "name",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000400",
+    "englishText": "narrate; state",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000401",
+    "englishText": "near",
+    "difficulty": 3,
+    "usefulness": 70
+  },
+  {
+    "id": "sb.naturalization-nucleus.000402",
+    "englishText": "need",
+    "difficulty": 1,
+    "usefulness": 98
+  },
+  {
+    "id": "sb.naturalization-nucleus.000403",
+    "englishText": "negate",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000404",
+    "englishText": "neighbor",
+    "difficulty": 2,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.naturalization-nucleus.000405",
+    "englishText": "nest; animal home",
+    "difficulty": 2,
+    "usefulness": 48
+  },
+  {
+    "id": "sb.naturalization-nucleus.000406",
+    "englishText": "net; internet",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000407",
+    "englishText": "new",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000408",
+    "englishText": "night",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000409",
+    "englishText": "nine",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000410",
+    "englishText": "noon",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000411",
+    "englishText": "nose",
+    "difficulty": 1,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.naturalization-nucleus.000412",
+    "englishText": "not",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000413",
+    "englishText": "not have; did not",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000414",
+    "englishText": "now; present",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000415",
+    "englishText": "oak; rubber (word part)",
+    "difficulty": 2,
+    "usefulness": 48
+  },
+  {
+    "id": "sb.naturalization-nucleus.000416",
+    "englishText": "observe; examine",
+    "difficulty": 3,
+    "usefulness": 58
+  },
+  {
+    "id": "sb.naturalization-nucleus.000417",
+    "englishText": "observe; view",
+    "difficulty": 3,
+    "usefulness": 58
+  },
+  {
+    "id": "sb.naturalization-nucleus.000418",
+    "englishText": "office; situation",
+    "difficulty": 3,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.naturalization-nucleus.000419",
+    "englishText": "often; ordinary",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000420",
+    "englishText": "old",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000421",
+    "englishText": "older sister",
+    "difficulty": 2,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.naturalization-nucleus.000422",
+    "englishText": "on; above",
+    "difficulty": 2,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.naturalization-nucleus.000423",
+    "englishText": "one",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000424",
+    "englishText": "oneself",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000425",
+    "englishText": "only then; talent",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000426",
+    "englishText": "open area; field",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000427",
+    "englishText": "open; begin",
+    "difficulty": 3,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000428",
+    "englishText": "open; turn on",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000429",
+    "englishText": "outside",
+    "difficulty": 1,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.naturalization-nucleus.000430",
+    "englishText": "own",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000431",
+    "englishText": "pack; install",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000432",
+    "englishText": "page",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000433",
+    "englishText": "palm of the hand",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000434",
+    "englishText": "paper",
+    "difficulty": 2,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.naturalization-nucleus.000435",
+    "englishText": "pat; clap",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000436",
+    "englishText": "path; way",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000437",
+    "englishText": "pay; hand over",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000438",
+    "englishText": "peaceful; safe",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000439",
+    "englishText": "pear",
+    "difficulty": 2,
+    "usefulness": 78
+  },
+  {
+    "id": "sb.naturalization-nucleus.000440",
+    "englishText": "pen",
+    "difficulty": 0,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.naturalization-nucleus.000441",
+    "englishText": "pen; writing tool",
+    "difficulty": 1,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.naturalization-nucleus.000442",
+    "englishText": "perform",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000443",
+    "englishText": "period of time",
+    "difficulty": 2,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.naturalization-nucleus.000444",
+    "englishText": "person; people",
+    "difficulty": 1,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.naturalization-nucleus.000445",
+    "englishText": "persuade",
+    "difficulty": 2,
+    "usefulness": 52
+  },
+  {
+    "id": "sb.naturalization-nucleus.000446",
+    "englishText": "pick up",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000447",
+    "englishText": "picture mentally",
+    "difficulty": 3,
+    "usefulness": 63
+  },
+  {
+    "id": "sb.naturalization-nucleus.000448",
+    "englishText": "picture; diagram",
+    "difficulty": 1,
+    "usefulness": 63
+  },
+  {
+    "id": "sb.naturalization-nucleus.000449",
+    "englishText": "piece together",
+    "difficulty": 2,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.naturalization-nucleus.000450",
+    "englishText": "piece; chunk",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000451",
+    "englishText": "pine tree",
+    "difficulty": 2,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.naturalization-nucleus.000452",
+    "englishText": "place; that which",
+    "difficulty": 3,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.naturalization-nucleus.000453",
+    "englishText": "plant; grow",
+    "difficulty": 3,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.naturalization-nucleus.000454",
+    "englishText": "platform; counter for machines",
+    "difficulty": 2,
+    "usefulness": 83
+  },
+  {
+    "id": "sb.naturalization-nucleus.000455",
+    "englishText": "play",
+    "difficulty": 1,
+    "usefulness": 62
+  },
+  {
+    "id": "sb.naturalization-nucleus.000456",
+    "englishText": "play a stringed or keyboard instrument",
+    "difficulty": 2,
+    "usefulness": 62
+  },
+  {
+    "id": "sb.naturalization-nucleus.000457",
+    "englishText": "play; drama",
+    "difficulty": 2,
+    "usefulness": 62
+  },
+  {
+    "id": "sb.naturalization-nucleus.000458",
+    "englishText": "please; request",
+    "difficulty": 1,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.naturalization-nucleus.000459",
+    "englishText": "pond",
+    "difficulty": 2,
+    "usefulness": 46
+  },
+  {
+    "id": "sb.naturalization-nucleus.000460",
+    "englishText": "pool; pond",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000461",
+    "englishText": "portion; share",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000462",
+    "englishText": "position; polite counter for people",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000463",
+    "englishText": "post; mail",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000464",
+    "englishText": "powder",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000465",
+    "englishText": "practice",
+    "difficulty": 2,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.naturalization-nucleus.000466",
+    "englishText": "practice; learn",
+    "difficulty": 2,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.naturalization-nucleus.000467",
+    "englishText": "precious",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000468",
+    "englishText": "prepare",
+    "difficulty": 2,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.naturalization-nucleus.000469",
+    "englishText": "print; mark",
+    "difficulty": 2,
+    "usefulness": 61
+  },
+  {
+    "id": "sb.naturalization-nucleus.000470",
+    "englishText": "promise",
+    "difficulty": 2,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.naturalization-nucleus.000471",
+    "englishText": "proof; evidence",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000472",
+    "englishText": "proposal; case",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000473",
+    "englishText": "protect",
+    "difficulty": 2,
+    "usefulness": 82
+  },
+  {
+    "id": "sb.naturalization-nucleus.000474",
+    "englishText": "protect; keep",
+    "difficulty": 2,
+    "usefulness": 82
+  },
+  {
+    "id": "sb.naturalization-nucleus.000475",
+    "englishText": "prove",
+    "difficulty": 3,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.naturalization-nucleus.000476",
+    "englishText": "public; shared",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000477",
+    "englishText": "pull",
+    "difficulty": 2,
+    "usefulness": 82
+  },
+  {
+    "id": "sb.naturalization-nucleus.000478",
+    "englishText": "pull out",
+    "difficulty": 2,
+    "usefulness": 82
+  },
+  {
+    "id": "sb.naturalization-nucleus.000479",
+    "englishText": "puppet; pair",
+    "difficulty": 2,
+    "usefulness": 58
+  },
+  {
+    "id": "sb.naturalization-nucleus.000480",
+    "englishText": "purple",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000481",
+    "englishText": "put; place",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000482",
+    "englishText": "question; topic",
+    "difficulty": 2,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.naturalization-nucleus.000483",
+    "englishText": "quiet; still",
+    "difficulty": 2,
+    "usefulness": 70
+  },
+  {
+    "id": "sb.naturalization-nucleus.000484",
+    "englishText": "rabbit",
+    "difficulty": 1,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.naturalization-nucleus.000485",
+    "englishText": "rack; frame",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000486",
+    "englishText": "rain",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000487",
+    "englishText": "rainbow",
+    "difficulty": 2,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.naturalization-nucleus.000488",
+    "englishText": "reach",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000489",
+    "englishText": "read",
+    "difficulty": 0,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000490",
+    "englishText": "real; true",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000491",
+    "englishText": "reason; former",
+    "difficulty": 3,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.naturalization-nucleus.000492",
+    "englishText": "reason; put in order",
+    "difficulty": 3,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.naturalization-nucleus.000493",
+    "englishText": "receive; put away",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000494",
+    "englishText": "recognize",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000495",
+    "englishText": "recognize mentally",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000496",
+    "englishText": "recommend",
+    "difficulty": 2,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.naturalization-nucleus.000497",
+    "englishText": "red",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000498",
+    "englishText": "reduce; subtract",
+    "difficulty": 3,
+    "usefulness": 44
+  },
+  {
+    "id": "sb.naturalization-nucleus.000499",
+    "englishText": "reflect; shine",
+    "difficulty": 3,
+    "usefulness": 52
+  },
+  {
+    "id": "sb.naturalization-nucleus.000500",
+    "englishText": "remember",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000501",
+    "englishText": "remember; record",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000502",
+    "englishText": "remind",
+    "difficulty": 2,
+    "usefulness": 82
+  },
+  {
+    "id": "sb.naturalization-nucleus.000503",
+    "englishText": "repair; improve",
+    "difficulty": 3,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.naturalization-nucleus.000504",
+    "englishText": "repeat; return",
+    "difficulty": 3,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.naturalization-nucleus.000505",
+    "englishText": "report; newspaper",
+    "difficulty": 2,
+    "usefulness": 82
+  },
+  {
+    "id": "sb.naturalization-nucleus.000506",
+    "englishText": "request formally",
+    "difficulty": 2,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.naturalization-nucleus.000507",
+    "englishText": "resemble; image",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000508",
+    "englishText": "reside",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000509",
+    "englishText": "rest",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000510",
+    "englishText": "return",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000511",
+    "englishText": "rice",
+    "difficulty": 0,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.naturalization-nucleus.000512",
+    "englishText": "right",
+    "difficulty": 2,
+    "usefulness": 70
+  },
+  {
+    "id": "sb.naturalization-nucleus.000513",
+    "englishText": "rise; begin",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000514",
+    "englishText": "river",
+    "difficulty": 1,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.naturalization-nucleus.000515",
+    "englishText": "road; way",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000516",
+    "englishText": "room",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000517",
+    "englishText": "room; house",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000518",
+    "englishText": "root",
+    "difficulty": 1,
+    "usefulness": 46
+  },
+  {
+    "id": "sb.naturalization-nucleus.000519",
+    "englishText": "round",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000520",
+    "englishText": "row; arrange in a line",
+    "difficulty": 2,
+    "usefulness": 71
+  },
+  {
+    "id": "sb.naturalization-nucleus.000521",
+    "englishText": "rule",
+    "difficulty": 3,
+    "usefulness": 44
+  },
+  {
+    "id": "sb.naturalization-nucleus.000522",
+    "englishText": "rule; principle",
+    "difficulty": 3,
+    "usefulness": 44
+  },
+  {
+    "id": "sb.naturalization-nucleus.000523",
+    "englishText": "ruler",
+    "difficulty": 2,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.naturalization-nucleus.000524",
+    "englishText": "run",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000525",
+    "englishText": "same; together",
+    "difficulty": 2,
+    "usefulness": 70
+  },
+  {
+    "id": "sb.naturalization-nucleus.000526",
+    "englishText": "sand",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000527",
+    "englishText": "scenery; scene",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000528",
+    "englishText": "school",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000529",
+    "englishText": "sea",
+    "difficulty": 2,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.naturalization-nucleus.000530",
+    "englishText": "seal; counter for letters",
+    "difficulty": 3,
+    "usefulness": 48
+  },
+  {
+    "id": "sb.naturalization-nucleus.000531",
+    "englishText": "seat; counter for buildings",
+    "difficulty": 2,
+    "usefulness": 83
+  },
+  {
+    "id": "sb.naturalization-nucleus.000532",
+    "englishText": "section; festival",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000533",
+    "englishText": "see",
+    "difficulty": 0,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000534",
+    "englishText": "see; meet",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000535",
+    "englishText": "seedling",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000536",
+    "englishText": "seek; rope",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000537",
+    "englishText": "self; from",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000538",
+    "englishText": "send out; develop",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000539",
+    "englishText": "settle; decide",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000540",
+    "englishText": "seven",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000541",
+    "englishText": "shadow",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000542",
+    "englishText": "she; her",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000543",
+    "englishText": "sheep; goat",
+    "difficulty": 1,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.naturalization-nucleus.000544",
+    "englishText": "shell",
+    "difficulty": 2,
+    "usefulness": 46
+  },
+  {
+    "id": "sb.naturalization-nucleus.000545",
+    "englishText": "shine; reflect",
+    "difficulty": 2,
+    "usefulness": 71
+  },
+  {
+    "id": "sb.naturalization-nucleus.000546",
+    "englishText": "shirt; garment",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000547",
+    "englishText": "shoe",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000548",
+    "englishText": "shop",
+    "difficulty": 3,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.naturalization-nucleus.000549",
+    "englishText": "short",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000550",
+    "englishText": "side; edge",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000551",
+    "englishText": "simple",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000552",
+    "englishText": "sing",
+    "difficulty": 2,
+    "usefulness": 63
+  },
+  {
+    "id": "sb.naturalization-nucleus.000553",
+    "englishText": "single",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000554",
+    "englishText": "sit",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000555",
+    "englishText": "sit; ride",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000556",
+    "englishText": "six",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000557",
+    "englishText": "skin; outer covering",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000558",
+    "englishText": "sleep",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000559",
+    "englishText": "slice; piece",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000560",
+    "englishText": "slide; slippery",
+    "difficulty": 2,
+    "usefulness": 63
+  },
+  {
+    "id": "sb.naturalization-nucleus.000561",
+    "englishText": "slow",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000562",
+    "englishText": "small",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000563",
+    "englishText": "smell; hear of",
+    "difficulty": 1,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.naturalization-nucleus.000564",
+    "englishText": "snow",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000565",
+    "englishText": "sock",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000566",
+    "englishText": "soft",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000567",
+    "englishText": "soil; earth",
+    "difficulty": 2,
+    "usefulness": 46
+  },
+  {
+    "id": "sb.naturalization-nucleus.000568",
+    "englishText": "solve; untie",
+    "difficulty": 3,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.naturalization-nucleus.000569",
+    "englishText": "some",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000570",
+    "englishText": "song",
+    "difficulty": 2,
+    "usefulness": 63
+  },
+  {
+    "id": "sb.naturalization-nucleus.000571",
+    "englishText": "sound",
+    "difficulty": 1,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.naturalization-nucleus.000572",
+    "englishText": "sound; voice",
+    "difficulty": 2,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.naturalization-nucleus.000573",
+    "englishText": "soup",
+    "difficulty": 1,
+    "usefulness": 78
+  },
+  {
+    "id": "sb.naturalization-nucleus.000574",
+    "englishText": "source",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000575",
+    "englishText": "south",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000576",
+    "englishText": "space between; room",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000577",
+    "englishText": "speak; say",
+    "difficulty": 1,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.naturalization-nucleus.000578",
+    "englishText": "spicy",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000579",
+    "englishText": "spoon",
+    "difficulty": 1,
+    "usefulness": 78
+  },
+  {
+    "id": "sb.naturalization-nucleus.000580",
+    "englishText": "spring",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000581",
+    "englishText": "square; direction",
+    "difficulty": 2,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.naturalization-nucleus.000582",
+    "englishText": "square; pattern",
+    "difficulty": 2,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.naturalization-nucleus.000583",
+    "englishText": "stand",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000584",
+    "englishText": "star",
+    "difficulty": 1,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.naturalization-nucleus.000585",
+    "englishText": "station; stand",
+    "difficulty": 3,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000586",
+    "englishText": "stay; leave behind",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000587",
+    "englishText": "steam; vapor",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000588",
+    "englishText": "steel",
+    "difficulty": 2,
+    "usefulness": 44
+  },
+  {
+    "id": "sb.naturalization-nucleus.000589",
+    "englishText": "step",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000590",
+    "englishText": "stick on",
+    "difficulty": 2,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.naturalization-nucleus.000591",
+    "englishText": "stir",
+    "difficulty": 2,
+    "usefulness": 78
+  },
+  {
+    "id": "sb.naturalization-nucleus.000592",
+    "englishText": "stone",
+    "difficulty": 2,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.naturalization-nucleus.000593",
+    "englishText": "stop",
+    "difficulty": 2,
+    "usefulness": 99
+  },
+  {
+    "id": "sb.naturalization-nucleus.000594",
+    "englishText": "store; exist",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000595",
+    "englishText": "straight",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000596",
+    "englishText": "stream",
+    "difficulty": 2,
+    "usefulness": 46
+  },
+  {
+    "id": "sb.naturalization-nucleus.000597",
+    "englishText": "strength; force",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000598",
+    "englishText": "stringed instrument",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000599",
+    "englishText": "strip; counter for long things",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000600",
+    "englishText": "study; learn",
+    "difficulty": 1,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.naturalization-nucleus.000601",
+    "englishText": "style; form",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000602",
+    "englishText": "subway",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000603",
+    "englishText": "suggest",
+    "difficulty": 2,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.naturalization-nucleus.000604",
+    "englishText": "suitable",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000605",
+    "englishText": "sum of money",
+    "difficulty": 3,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.naturalization-nucleus.000606",
+    "englishText": "summarize",
+    "difficulty": 2,
+    "usefulness": 44
+  },
+  {
+    "id": "sb.naturalization-nucleus.000607",
+    "englishText": "sun; day",
+    "difficulty": 1,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.naturalization-nucleus.000608",
+    "englishText": "sun; sunny",
+    "difficulty": 1,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.naturalization-nucleus.000609",
+    "englishText": "sunflower; mallow",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000610",
+    "englishText": "surface; face",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000611",
+    "englishText": "survey",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000612",
+    "englishText": "sweet",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000613",
+    "englishText": "swim",
+    "difficulty": 2,
+    "usefulness": 63
+  },
+  {
+    "id": "sb.naturalization-nucleus.000614",
+    "englishText": "table",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000615",
+    "englishText": "table; express",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000616",
+    "englishText": "tail; end",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000617",
+    "englishText": "take; obtain",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000618",
+    "englishText": "tall; high",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000619",
+    "englishText": "taste; meaning",
+    "difficulty": 3,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.naturalization-nucleus.000620",
+    "englishText": "taste; try",
+    "difficulty": 3,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.naturalization-nucleus.000621",
+    "englishText": "tea",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000622",
+    "englishText": "teach",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000623",
+    "englishText": "teacher",
+    "difficulty": 3,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000624",
+    "englishText": "team",
+    "difficulty": 1,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.naturalization-nucleus.000625",
+    "englishText": "tell",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000626",
+    "englishText": "tell; explain",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000627",
+    "englishText": "tell; inform",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000628",
+    "englishText": "ten",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000629",
+    "englishText": "test; verify",
+    "difficulty": 3,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.naturalization-nucleus.000630",
+    "englishText": "thank",
+    "difficulty": 1,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.naturalization-nucleus.000631",
+    "englishText": "that",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000632",
+    "englishText": "that; the other",
+    "difficulty": 3,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000633",
+    "englishText": "thing; object",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000634",
+    "englishText": "think",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000635",
+    "englishText": "think; would like",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000636",
+    "englishText": "this",
+    "difficulty": 0,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000637",
+    "englishText": "three",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000638",
+    "englishText": "thunder",
+    "difficulty": 2,
+    "usefulness": 46
+  },
+  {
+    "id": "sb.naturalization-nucleus.000639",
+    "englishText": "ticket",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000640",
+    "englishText": "tie; conclude",
+    "difficulty": 2,
+    "usefulness": 58
+  },
+  {
+    "id": "sb.naturalization-nucleus.000641",
+    "englishText": "time",
+    "difficulty": 2,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.naturalization-nucleus.000642",
+    "englishText": "tiny; slight",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000643",
+    "englishText": "tired",
+    "difficulty": 2,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.naturalization-nucleus.000644",
+    "englishText": "to be",
+    "difficulty": 1,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.naturalization-nucleus.000645",
+    "englishText": "together; shared",
+    "difficulty": 2,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.naturalization-nucleus.000646",
+    "englishText": "too; very",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000647",
+    "englishText": "tool; utensil",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000648",
+    "englishText": "tooth",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000649",
+    "englishText": "touch; feel",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000650",
+    "englishText": "toward; direction",
+    "difficulty": 2,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.naturalization-nucleus.000651",
+    "englishText": "toward; go to",
+    "difficulty": 2,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.naturalization-nucleus.000652",
+    "englishText": "trailing plant; vine",
+    "difficulty": 2,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.naturalization-nucleus.000653",
+    "englishText": "transform",
+    "difficulty": 3,
+    "usefulness": 34
+  },
+  {
+    "id": "sb.naturalization-nucleus.000654",
+    "englishText": "travel",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000655",
+    "englishText": "treasure",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000656",
+    "englishText": "tree",
+    "difficulty": 2,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.naturalization-nucleus.000657",
+    "englishText": "try; test",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000658",
+    "englishText": "tube; manage",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000659",
+    "englishText": "turn over",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000660",
+    "englishText": "turn; transfer",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000661",
+    "englishText": "turtle",
+    "difficulty": 1,
+    "usefulness": 48
+  },
+  {
+    "id": "sb.naturalization-nucleus.000662",
+    "englishText": "two",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000663",
+    "englishText": "umbrella",
+    "difficulty": 2,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.naturalization-nucleus.000664",
+    "englishText": "under; below",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000665",
+    "englishText": "understand",
+    "difficulty": 3,
+    "usefulness": 98
+  },
+  {
+    "id": "sb.naturalization-nucleus.000666",
+    "englishText": "undertake; responsibility",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000667",
+    "englishText": "upright; correct",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000668",
+    "englishText": "use",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000669",
+    "englishText": "vehicle; car",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000670",
+    "englishText": "very",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000671",
+    "englishText": "wait",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000672",
+    "englishText": "wake up",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000673",
+    "englishText": "walk",
+    "difficulty": 1,
+    "usefulness": 63
+  },
+  {
+    "id": "sb.naturalization-nucleus.000674",
+    "englishText": "walk; leave",
+    "difficulty": 3,
+    "usefulness": 63
+  },
+  {
+    "id": "sb.naturalization-nucleus.000675",
+    "englishText": "walk; work; be acceptable",
+    "difficulty": 2,
+    "usefulness": 63
+  },
+  {
+    "id": "sb.naturalization-nucleus.000676",
+    "englishText": "want",
+    "difficulty": 0,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.naturalization-nucleus.000677",
+    "englishText": "want; need",
+    "difficulty": 1,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.naturalization-nucleus.000678",
+    "englishText": "warm",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000679",
+    "englishText": "warn",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000680",
+    "englishText": "wash",
+    "difficulty": 1,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.naturalization-nucleus.000681",
+    "englishText": "water",
+    "difficulty": 0,
+    "usefulness": 98
+  },
+  {
+    "id": "sb.naturalization-nucleus.000682",
+    "englishText": "wave; swing",
+    "difficulty": 2,
+    "usefulness": 63
+  },
+  {
+    "id": "sb.naturalization-nucleus.000683",
+    "englishText": "wear; pass through",
+    "difficulty": 2,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.naturalization-nucleus.000684",
+    "englishText": "week; around",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000685",
+    "englishText": "welcome; meet",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000686",
+    "englishText": "west",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000687",
+    "englishText": "wheel; turn",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000688",
+    "englishText": "which",
+    "difficulty": 1,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000689",
+    "englishText": "white",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000690",
+    "englishText": "whole; complete",
+    "difficulty": 2,
+    "usefulness": 84
+  },
+  {
+    "id": "sb.naturalization-nucleus.000691",
+    "englishText": "whole; put in order",
+    "difficulty": 3,
+    "usefulness": 84
+  },
+  {
+    "id": "sb.naturalization-nucleus.000692",
+    "englishText": "wide",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000693",
+    "englishText": "wild; open countryside",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000694",
+    "englishText": "wind",
+    "difficulty": 3,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.naturalization-nucleus.000695",
+    "englishText": "window",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000696",
+    "englishText": "winter",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000697",
+    "englishText": "wish well",
+    "difficulty": 2,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.naturalization-nucleus.000698",
+    "englishText": "wish; be willing",
+    "difficulty": 3,
+    "usefulness": 55
+  },
+  {
+    "id": "sb.naturalization-nucleus.000699",
+    "englishText": "wood",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000700",
+    "englishText": "woods; grove",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000701",
+    "englishText": "word",
+    "difficulty": 2,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.naturalization-nucleus.000702",
+    "englishText": "work",
+    "difficulty": 3,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000703",
+    "englishText": "work; occupation",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000704",
+    "englishText": "world; generation",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000705",
+    "englishText": "write",
+    "difficulty": 0,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000706",
+    "englishText": "writing; language",
+    "difficulty": 1,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.naturalization-nucleus.000707",
+    "englishText": "written character",
+    "difficulty": 2,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.naturalization-nucleus.000708",
+    "englishText": "wrong; mistake",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000709",
+    "englishText": "year",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000710",
+    "englishText": "year of age",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.naturalization-nucleus.000711",
+    "englishText": "yellow",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.naturalization-nucleus.000712",
+    "englishText": "yes-no question particle",
+    "difficulty": 2,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.naturalization-nucleus.000713",
+    "englishText": "yesterday (word part)",
+    "difficulty": 2,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000714",
+    "englishText": "you",
+    "difficulty": 0,
+    "usefulness": 89
+  },
+  {
+    "id": "sb.naturalization-nucleus.000715",
+    "englishText": "younger brother",
+    "difficulty": 2,
+    "usefulness": 79
+  }
+]

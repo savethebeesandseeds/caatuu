@@ -3,7 +3,7 @@ import { acceptedTokenOrderIssues } from "./word-world-learning.mjs";
 export function capitalizeWord(word) {
   const value = String(word || "").trim();
   if (!value) return value;
-  return value.charAt(0).toLocaleUpperCase("cs-CZ") + value.slice(1);
+  return value.charAt(0).toUpperCase() + value.slice(1);
 }
 
 export function normalizeWord(word) {
@@ -44,7 +44,7 @@ export function interpretHorizontalSwipe(start, end, {
 }
 
 function dictionaryKey(value) {
-  return normalizeWord(value).toLocaleLowerCase("cs-CZ");
+  return normalizeWord(value).toLowerCase();
 }
 
 function usableDictionarySenses(entry) {
@@ -422,7 +422,7 @@ export function stripModelEcho(text) {
   let value = String(text || "").replace(/\r/g, "\n").trim();
   value = value.replace(/<\|[^>]+?\|>/g, " ").replace(/\s+/g, " ").trim();
 
-  const sentenceMarker = value.match(/(?:věta|veta|sentence)\s*:\s*(.+)$/iu);
+  const sentenceMarker = value.match(/(?:sentence)\s*:\s*(.+)$/iu);
   if (sentenceMarker) value = sentenceMarker[1].trim();
 
   value = value
@@ -435,54 +435,13 @@ export function stripModelEcho(text) {
   return value;
 }
 
-const irregularTargetForms = Object.freeze({
-  pes: ["psa", "psovi", "psem", "psi", "psy", "psů", "psům", "pse"],
-  dům: ["domu", "domě", "domem", "domy", "domů", "domům"],
-  den: ["dne", "dni", "dny", "dnů", "dnům", "dnem"],
-  dítě: ["dítěte", "dítěti", "dítětem", "děti", "dětí", "dětem", "dětmi"],
-  člověk: ["člověka", "člověku", "člověkem", "člověče", "lidé", "lidí", "lidem", "lidmi"],
-  stůl: ["stolu", "stole", "stolem", "stoly", "stolů", "stolům"],
-  přítel: ["přítele", "příteli", "přítelem", "přátelé", "přátel", "přátelům", "přáteli"],
-  kočka: ["kočce"],
-  ruka: ["ruce", "rukou"],
-  kniha: ["knize"],
-  práce: ["práci", "prací"]
-});
-
-const vowelEndingSuffixes = Object.freeze({
-  a: /^(?:a|y|u|ou|e|ě|o|ám|ami|ách)$/u,
-  o: /^(?:o|a|u|ě|em|y|ům|ech)$/u,
-  e: /^(?:e|i|í|eho|emu|em|eti|ete|etem|mi)$/u,
-  ě: /^(?:ě|i|í|eho|emu|em|eti|ete|etem|mi)$/u
-});
-
-const consonantEndingSuffix = /^(?:a|u|ovi|em|e|i|y|ů|ům|ech|ové|é|mi)$/u;
-
-function matchesInflectedForm(candidate, target) {
-  const token = normalizeWord(candidate).toLocaleLowerCase("cs-CZ");
-  const lemma = normalizeWord(target).toLocaleLowerCase("cs-CZ");
-  if (!token || !lemma) return false;
-  if (token === lemma) return true;
-  if (irregularTargetForms[lemma]?.includes(token)) return true;
-
-  const finalLetter = lemma.slice(-1);
-  const vowelSuffixPattern = vowelEndingSuffixes[finalLetter];
-  if (vowelSuffixPattern) {
-    const stem = lemma.slice(0, -1);
-    return stem.length >= 2 && token.startsWith(stem) && vowelSuffixPattern.test(token.slice(stem.length));
-  }
-
-  return token.startsWith(lemma) && consonantEndingSuffix.test(token.slice(lemma.length));
-}
-
-export function wordMatchesTarget(candidate, target) {
-  return matchesInflectedForm(candidate, target) || matchesInflectedForm(target, candidate);
+export function wordMatchesTarget(candidate, target, { searchKey = value => normalizeWord(value).toLowerCase() } = {}) {
+  const key = searchKey(candidate);
+  return Boolean(key && key === searchKey(target));
 }
 
 export function sentenceIncludesWord(sentence, word) {
-  return tokenizeCzechSentence(sentence)
-    .filter((token) => token.type === "word")
-    .some((token) => wordMatchesTarget(token.text, word));
+  return tokenizeCzechSentence(sentence).some(token => token.type === "word" && wordMatchesTarget(token.text, word));
 }
 
 export function cleanGeneratedSentence(output, word, fallbackSentence) {
@@ -504,7 +463,7 @@ export function cleanTranslation(output) {
 export function sentenceFingerprint(sentence) {
   return tokenizeCzechSentence(sentence)
     .filter((token) => token.type === "word")
-    .map((token) => normalizeWord(token.text).toLocaleLowerCase("cs-CZ"))
+    .map((token) => normalizeWord(token.text).toLowerCase())
     .filter(Boolean)
     .join(" ");
 }
@@ -538,7 +497,7 @@ export function isPlausibleSentence(sentence) {
   const words = tokenizeCzechSentence(text).filter((token) => token.type === "word");
   if (text.length < 5 || text.length > 180 || words.length < 2 || words.length > 24) return false;
   if (/(?:https?:\/\/|www\.|<\|)/iu.test(text)) return false;
-  const normalizedWords = words.map((token) => normalizeWord(token.text).toLocaleLowerCase("cs-CZ"));
+  const normalizedWords = words.map((token) => normalizeWord(token.text).toLowerCase());
   for (let index = 2; index < normalizedWords.length; index += 1) {
     if (normalizedWords[index] === normalizedWords[index - 1] && normalizedWords[index] === normalizedWords[index - 2]) {
       return false;
@@ -549,14 +508,14 @@ export function isPlausibleSentence(sentence) {
 
 export function sentenceTargets(sentence, { exclude = [], limit = 8 } = {}) {
   const excluded = new Set((Array.isArray(exclude) ? exclude : [exclude])
-    .map((word) => normalizeWord(word).toLocaleLowerCase("cs-CZ"))
+    .map((word) => normalizeWord(word).toLowerCase())
     .filter(Boolean));
   const seen = new Set();
   const result = [];
   for (const token of tokenizeCzechSentence(sentence)) {
     if (token.type !== "word") continue;
     const word = normalizeWord(token.text);
-    const key = word.toLocaleLowerCase("cs-CZ");
+    const key = word.toLowerCase();
     if (word.length < 2 || excluded.has(key) || seen.has(key)) continue;
     seen.add(key);
     result.push(word);

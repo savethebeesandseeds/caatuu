@@ -87,11 +87,11 @@
     "setupFallback": "caatuu-czech-setup-v1"
   },
   "publication": {
-    "contract": "legacy-active-v1",
-    "concepts": null,
-    "realizations": null,
-    "learnerBaseRealizations": null,
-    "runtimeProjection": null
+    "contract": "word-world-records-v1",
+    "authoring": "apps/languages/czech/content/word-world/content.json",
+    "provider": "czech-semantic-bank-records-v1",
+    "runtime": "apps/languages/czech/static/data/games/word-world/content.json",
+    "manifest": "apps/languages/czech/static/data/games/word-world/manifest.json"
   },
   "capabilities": {
     "llm": true,
@@ -238,7 +238,7 @@
       "path": "apps/language-runtime/static/data/interface/en.v1.json",
       "scope": "shared",
       "state": "present",
-      "revision": "interface-en-58"
+      "revision": "interface-en-60"
     },
     "courseProfile": {
       "kind": "file",
@@ -317,7 +317,7 @@
       "path": "apps/languages/czech/static/source/shared/runtime.js",
       "scope": "course",
       "state": "present",
-      "revision": "runtime-43"
+      "revision": "runtime-44"
     },
     "setupProgressProvider": {
       "kind": "file",
@@ -331,7 +331,7 @@
       "path": "apps/languages/czech/static/source/features/setup/setup.js",
       "scope": "course",
       "state": "present",
-      "revision": "setup-44"
+      "revision": "setup-45"
     },
     "modelCatalog": {
       "kind": "file",
@@ -364,7 +364,7 @@
       "path": "apps/languages/czech/static/data/games/case-cosmos/content.json",
       "scope": "course",
       "state": "present",
-      "revision": "case-cosmos-data-8"
+      "revision": "case-cosmos-data-9"
     },
     "grammarGravityCatalog": {
       "kind": "file",

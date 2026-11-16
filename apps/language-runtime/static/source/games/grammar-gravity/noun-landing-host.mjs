@@ -26,6 +26,7 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
   let pack;
   let session;
   let cycleEncounterId;
+  let cycleGeneration;
   let frame = 0;
   let lastTime = null;
   let active = Boolean(initialActive);
@@ -240,8 +241,15 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
     updateClock();
     review.sync();
   }
+  function ensureCurrentCycle() {
+    if (cycleGeneration === (shell.CaatuuLearning?.contentGeneration?.() ?? null)) return true;
+    rebaseDifficulty();
+    return false;
+  }
   function recordLanding(previous, fraction = fallFraction(previous), timedOut = false) {
-    if (previous.phase !== "falling" || session.phase !== "feedback") return;
+    if (previous.phase !== "falling" || session.phase !== "feedback" || !ensureCurrentCycle()) return;
+    const landing = session;
+    const generation = cycleGeneration;
     restorePlayFocus = !inControls(document.activeElement) && element("gravityNounArena").contains(document.activeElement);
     segmentCount += 1;
     cancelFrame();
@@ -260,9 +268,12 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
         evidence: timedOut ? "exposure" : assistedNouns.has(session.item.id) || previous.attemptsByItem[session.item.id]
           ? "assisted" : "independent"
       });
+      if (session !== landing || !ensureCurrentCycle()) return;
       shell.CaatuuLearning?.record?.("grammar-gravity", {
-        activities: 1, attempts: 1, successes: session.correct ? 1 : 0, xp: earned ? 1 : 0
+        activities: 1, attempts: 1, successes: session.correct ? 1 : 0, xp: earned ? 1 : 0,
+        ...(shell.CaatuuLearning.contentGeneration ? { generation } : {})
       });
+      if (session !== landing) return;
     }
     render();
     schedule();
@@ -301,7 +312,7 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
       return;
     }
     // Only the shared button handler clears pending before entering here.
-    if (review.pending || !engaged() || !resultVisible()) return;
+    if (review.pending || !engaged() || !resultVisible() || !ensureCurrentCycle()) return;
     const focusInPlay = !inControls(document.activeElement) && (document.activeElement === document.body
       || element("gravityNounArena").contains(document.activeElement) || document.activeElement === continueButton);
     const restoreArena = restorePlayFocus && focusInPlay;
@@ -314,7 +325,10 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
     soundError = false;
     if (session.phase === "complete" && !roundRecorded) {
       roundRecorded = true;
-      shell.CaatuuLearning?.record?.("grammar-gravity", { rounds: 1 });
+      const completed = session;
+      shell.CaatuuLearning?.record?.("grammar-gravity", { rounds: 1, streakEligible: session.correctCount > 0,
+        ...(shell.CaatuuLearning.contentGeneration ? { generation: cycleGeneration } : {}) });
+      if (session !== completed || !ensureCurrentCycle()) return;
       if (session.correctCount === session.total && shell !== scope) {
         shell.postMessage({
           source: "caatuu-game", type: "round-success", gameId: "grammar-gravity",
@@ -353,6 +367,7 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
     soundError = false;
     const difficulty = Math.max(0, Math.min(3, Math.floor(Number(shell.CaatuuLearning?.difficulty?.() ?? 1))));
     cycleEncounterId = newContentEncounterId();
+    cycleGeneration = shell.CaatuuLearning?.contentGeneration?.() ?? null;
     try {
       session = startNounLanding(createNounLandingSession(pack, { avoidFirstItemId, durationMs, difficulty,
         history: shell.CaatuuLearning?.contentHistory?.("grammar-gravity", "nouns"),
@@ -490,7 +505,7 @@ export async function mountNounLanding({ course, shell, scope = globalThis, docu
   listen(scope, "pagehide", () => { loadingPageHidden = true; syncLoadingScreen(); });
   listen(scope, "pageshow", () => { loadingPageHidden = false; syncLoadingScreen(); });
   listen(shell, "caatuu:learning-change", event => {
-    if (event.detail?.reason === "difficulty") rebaseDifficulty();
+    if (["difficulty", "progress-reset"].includes(event.detail?.reason)) rebaseDifficulty();
   });
   loadingScreen.show();
   element("gravityNounHelp").textContent = t("help");

@@ -12,11 +12,10 @@ import {
 assert.equal(SOUND_QUASAR_ROUND_COUNT, 3);
 
 const repositoryRoot = new URL("../../../", import.meta.url);
-const courses = [
-  { courseId: "cz", targetLanguageId: "cs", directory: "czech", locale: "cs-CZ" },
-  { courseId: "zh", targetLanguageId: "zh", directory: "mandarin-simplified", locale: "zh-CN" },
-  { courseId: "es", targetLanguageId: "es", directory: "spanish", locale: "es-ES" }
-];
+const courses = await Promise.all(["czech", "mandarin-simplified", "spanish"].map(async directory => {
+  const course = JSON.parse(await readFile(new URL(`apps/languages/${directory}/course.json`, repositoryRoot), "utf8"));
+  return { courseId: course.id, targetLanguageId: course.targetLanguage.id, directory, locale: course.targetLanguage.speechLocale };
+}));
 const documents = new Map(await Promise.all(courses.map(async (course) => [
   course.courseId,
   JSON.parse(await readFile(new URL(`apps/languages/${course.directory}/static/data/games/sound-quasar/content.json`, repositoryRoot), "utf8"))
@@ -25,8 +24,9 @@ const documents = new Map(await Promise.all(courses.map(async (course) => [
 function sample() {
   const document = structuredClone(documents.get("es"));
   // Keep randomized mechanics tests bounded independently of the live catalog.
-  document.items = document.items.slice(0, 16);
-  document.sentences = document.sentences.slice(0, 16);
+  const balanced = rows => [0, 1, 2, 3].flatMap(difficulty => rows.filter(row => row.difficulty === difficulty).slice(0, 4));
+  document.items = balanced(document.items);
+  document.sentences = balanced(document.sentences);
   document.provenance.sourceItemIds = document.items.map(item => item.sourceId);
   document.sentenceProvenance.sourceItemIds = document.sentences.map(item => item.sourceId);
   return document;
@@ -106,14 +106,20 @@ for (const course of courses) {
 
 test("Mandarin word and sentence readings preserve the exact source units and target order", async () => {
   const catalog = validateSoundQuasarCatalog(documents.get("zh"));
-  const guides = JSON.parse(await readFile(new URL(catalog.sentences[0].reading.sourcePath, repositoryRoot), "utf8"));
+  const sources = new Map();
   for (const item of [...catalog.items, ...catalog.sentences]) {
     const reading = item.reading;
-    const original = guides.entries.find(entry => entry.conceptId === reading.sourceId);
-    assert.equal(reading.status, guides.status);
-    assert.equal(reading.system, guides.system);
+    if (!sources.has(reading.sourcePath)) sources.set(reading.sourcePath,
+      JSON.parse(await readFile(new URL(reading.sourcePath, repositoryRoot), "utf8")));
+    const source = sources.get(reading.sourcePath);
+    const original = Array.isArray(source)
+      ? source.find(entry => entry.id === reading.sourceId)?.reading
+      : source.entries.find(entry => entry.conceptId === reading.sourceId);
+    assert.ok(original, `Reading source exists: ${reading.sourcePath}:${reading.sourceId}`);
+    assert.equal(reading.status, original.status ?? source.status);
+    assert.equal(reading.system, original.system ?? source.system);
+    assert.deepEqual(reading.tokens, original.tokens, "Source reading order and contextual units remain exact");
     for (const token of reading.tokens) {
-      assert.deepEqual(token, original.tokens.find(source => source.surface === token.surface));
       assert.equal(token.units.map(({ surface }) => surface).join(""), token.surface);
       assert.equal(Object.isFrozen(token.units), true);
       assert.equal(Object.isFrozen(token.units[0]), true);

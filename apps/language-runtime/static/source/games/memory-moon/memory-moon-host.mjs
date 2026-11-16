@@ -1,4 +1,4 @@
-import { fetchDeclaredCourseGameJson } from '../course-game-content.mjs';
+import { fetchDeclaredCourseGameJson, reportEmbeddedGameStatus } from '../course-game-content.mjs';
 import { mountEmbeddedGameControls } from '../embedded-game-controls.mjs?v=embedded-game-controls-11';
 import { createMemoryMoonPractice } from './memory-moon-practice.mjs?v=memory-moon-practice-3';
 import { validateMemoryMoonCatalog, moonIllumination, moonShadePath } from './memory-moon-core.mjs?v=memory-moon-5';
@@ -80,6 +80,7 @@ export async function mountMemoryMoon({ root, shell = globalThis,
       else { snapshot = practice.advance(); question += 1; }
       render();
       autoplayPrompt();
+      reportEmbeddedGameStatus(view, 'memory-moon', 'ready');
       renderer.focusChoice();
     }
   });
@@ -217,12 +218,14 @@ export async function mountMemoryMoon({ root, shell = globalThis,
       phase.set(snapshot.progress || 0, { immediate: true });
       render();
       autoplayPrompt();
+      reportEmbeddedGameStatus(view, 'memory-moon', 'ready');
     } catch (failure) {
       if (!valid()) return;
       pending = false;
       abort = null;
       loading = false;
       error = true;
+      reportEmbeddedGameStatus(view, 'memory-moon', 'error');
       render();
     }
   }

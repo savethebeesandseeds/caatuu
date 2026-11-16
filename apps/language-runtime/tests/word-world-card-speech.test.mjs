@@ -6,7 +6,7 @@ import { afterInteractionPaint } from "../static/source/games/practice-pacing.mj
 
 const source = readFileSync(new URL("../static/source/product-word-world.mjs", import.meta.url), "utf8");
 const implementation = ["speechGloballyMuted", "speechPresentationActive", "targetSentenceSpeechAllowed",
-  "toggleCzechSpeech", "speakCzechWithSharedService", "speakReconstructionOption",
+  "toggleTargetSpeech", "speakTargetWithSharedService", "speakReconstructionOption",
   "selectReconstructionOption", "removeReconstructionOption"].map((name) => {
   const start = source.indexOf(`function ${name}(`);
   assert.ok(start >= 0, `${name} exists`);
@@ -34,12 +34,12 @@ function fixture({ answerSide = "target", speech = true, muted = false,
     interfaceText: () => "", renderReconstruction() { renders.push([...round.selectedIds]); }, animateReconstructionTransfer() {},
     afterInteractionPaint,
     syncSpeechControl() {}, speechControlSupported: () => available,
-    czechSpeechPace: () => ({ rate: 0.6 }), preferredSpeechVoice: () => "saved-voice",
-    sharedCzechSpeechApi: () => ({ speak(text, options) {
+    targetSpeechPace: () => ({ rate: 0.6 }), preferredSpeechVoice: () => "saved-voice",
+    sharedTargetSpeechApi: () => ({ speak(text, options) {
       calls.push({ text, options });
       return new Promise(() => {});
     } }),
-    cancelCzechSpeech() { state.speechSession = null; state.speechState = "idle"; }
+    cancelTargetSpeech() { state.speechSession = null; state.speechState = "idle"; }
   });
   vm.runInContext(implementation, context);
   const flush = queue => { const pending = [...queue.values()]; queue.clear(); pending.forEach(callback => callback()); };
@@ -66,7 +66,7 @@ for (const [locale, text] of [["cs-CZ", "kočka"], ["zh-CN", "银行"], ["en-US"
     assert.equal(game.round.selectedIds.length, 0);
     game.flushAudio();
     assert.equal(game.calls.length, 2, "tapping the same card replays it even during speech");
-    game.context.toggleCzechSpeech("The full target answer", "sentence");
+    game.context.toggleTargetSpeech("The full target answer", "sentence");
     assert.equal(game.calls.length, 2, "the target sentence stays silent for a base-language prompt");
   });
 }
@@ -102,8 +102,8 @@ test("a course without speech cannot preview words or sentences through the shar
   // A target-language prompt and hover mode would ordinarily permit sentence
   // audio; even an available service must respect the course declaration.
   game.state.translationMode = "hover";
-  game.context.toggleCzechSpeech("Corpus movētur.", "sentence");
-  game.context.toggleCzechSpeech("Corpus", "word");
+  game.context.toggleTargetSpeech("Corpus movētur.", "sentence");
+  game.context.toggleTargetSpeech("Corpus", "word");
   assert.equal(game.calls.length, 0);
 });
 

@@ -144,6 +144,36 @@ function nonEnglishLearnerBaseCatalog() {
   };
 }
 
+test("playable conjugation records retain their semantic bank identity", () => {
+  const source = nonEnglishLearnerBaseCatalog();
+  source.verbs[0].semanticBankId = "sb.conjugation-comet.000042";
+  const normalized = validateConjugationCometCatalog(source);
+  assert.equal(normalized.verbs[0].semanticBankId, source.verbs[0].semanticBankId);
+  assert.equal(Object.hasOwn(normalized.verbs[1], "semanticBankId"), false);
+  source.verbs[0].semanticBankId = "";
+  assert.throws(() => validateConjugationCometCatalog(source), /semanticBankId/u);
+  source.verbs[0].semanticBankId = "sb.word-net.000042";
+  assert.throws(() => validateConjugationCometCatalog(source), /semanticBankId/u);
+});
+
+test("untranslated conjugation records cannot enter queues or meaning choices", () => {
+  const source = nonEnglishLearnerBaseCatalog();
+  const pending = {id:'pending-verb', semanticBankId:'sb.conjugation-comet.000099', reviewStatus:'untranslated',
+    englishAuditText:'an unfinished verb', meaningChoiceBaseText:'an unfinished verb', revision:1,
+    difficulty:1, usefulness:80, complexity:30, forms:[]};
+  source.verbs.unshift(pending);
+  const normalized = validateConjugationCometCatalog(source);
+  assert.equal(normalized.verbs.length, 4);
+  assert.ok(buildConjugationVerbQueue(normalized.verbs).every(verb => verb.id !== pending.id));
+  assert.ok(buildConjugationMeaningRound(normalized, normalized.verbs[0].id).options.every(option => option.id !== pending.id));
+  assert.throws(() => buildConjugationMeaningRound(normalized, pending.id), /Unknown/u);
+  pending.difficulty = 4;
+  assert.throws(() => validateConjugationCometCatalog(source), /difficulty/u);
+  pending.difficulty = 1;
+  source.verbs.splice(1, 1);
+  assert.throws(() => validateConjugationCometCatalog(source), /four authored/u);
+});
+
 test("shared game resources resolve only inside the declared course game directory", () => {
   const course = exampleCourse();
   assert.equal(

@@ -53,13 +53,14 @@ function shuffled(values, random) {
   return result;
 }
 
-function readingGuide(value, target, targetLanguageId, label) {
+function readingGuide(value, target, targetLanguageId, label, vocabularySourcePath) {
   if (value === undefined) return undefined;
   const reading = record(value, label);
   requireCondition(targetLanguageId === "zh" && reading.system === "pinyin", `${label} must use the target language's reading system.`);
   requireCondition(reading.status === "machine-assisted-preview", `${label} must preserve the source reading-guide status.`);
   const sourcePath = text(reading.sourcePath, `${label}.sourcePath`, 220);
-  requireCondition(sourcePath === "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json", `${label} must name the existing reading-guide file.`);
+  requireCondition(sourcePath === "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json"
+    || (label.startsWith('items[') && sourcePath === vocabularySourcePath), `${label} must name the existing reading-guide or vocabulary source file.`);
   requireCondition(Array.isArray(reading.tokens) && reading.tokens.length > 0 && reading.tokens.length <= 100, `${label} must contain reading tokens.`);
   let cursor = 0;
   const tokens = reading.tokens.map((value, tokenIndex) => {
@@ -184,7 +185,7 @@ export function validateSoundQuasarCatalog(document, { courseId, targetLanguageI
         sourceReviewStatus,
         ...(difficulty === undefined ? {} : { difficulty }),
         ...(item.sourceKind ? { sourceKind: item.sourceKind } : {}),
-        ...(item.reading === undefined ? {} : { reading: readingGuide(item.reading, target, actualTargetId, `${label}[${index}].reading`) })
+        ...(item.reading === undefined ? {} : { reading: readingGuide(item.reading, target, actualTargetId, `${label}[${index}].reading`, sourcePath) })
       });
     }));
   }

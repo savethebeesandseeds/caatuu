@@ -538,6 +538,8 @@ test("durable asset queries stay inside the Worker boundary but not the pinned r
   const expectedPatterns = new Set([
     "caatuu.waajacu.com/cz/api/dictionary/gaps*",
     "caatuu.waajacu.com/api/sentence-reports*",
+    "caatuu.waajacu.com/api/v2/sentence-reports*",
+    "caatuu.waajacu.com/api/v2/dictionary-gaps*",
     "caatuu.waajacu.com/api/reporting/health*",
     ...Object.keys(DURABLE_ASSETS).map((assetPath) => `caatuu.waajacu.com${assetPath}*`)
   ]);

@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-11-11T19:08:14Z",
+  "authority": "Caatuu project owner",
+  "approvalKind": "License and distribution authorization; not linguistic review",
+  "spdxExpression": "AGPL-3.0-only",
+  "authorizationPrompt": "Russian and Hebrew were left out of the Android app. Include them on the same footing as the other courses. Native review is still pending.",
+  "ownerResponse": "Russian and Hebrew should be included. There is no valid reason for them to have been left outside the app. Every course is equally developed as Czech. Native review is pending and is the only thing missing, but it is not a blocker.",
+  "scope": "Original Caatuu-authored English-to-Russian and English-to-Hebrew curricula, including English concepts, target realizations, vocabulary, conjugation, and agreement exercises.",
+  "exclusions": "No replacement of third-party software, model, dictionary, corpus, artwork, audio, or font terms. No language, pronunciation, or physical-device approval is claimed. The already published Android 203 package is unchanged and does not install these courses.",
+  "nativeReviewUnchanged": true,
+  "minimumAndroidVersionCode": 204,
+  "files": [
+    "apps/languages/shared/english-concepts/word-world-ru-v1.json",
+    "apps/languages/shared/english-concepts/word-world-he-v1.json",
+    "apps/languages/russian/content/word-world/content.json",
+    "apps/languages/russian/content/word-world/starter-v1.realizations.json",
+    "apps/languages/russian/static/data/games/word-world/content.json",
+    "apps/languages/russian/static/data/games/word-world/manifest.json",
+    "apps/languages/russian/static/data/games/conjugation-comet/content.json",
+    "apps/languages/russian/static/data/games/grammar-gravity/content.json",
+    "apps/languages/russian/static/data/games/grammar-gravity/nouns.json",
+    "apps/languages/hebrew/content/word-world/content.json",
+    "apps/languages/hebrew/content/word-world/starter-v1.realizations.json",
+    "apps/languages/hebrew/static/data/games/word-world/content.json",
+    "apps/languages/hebrew/static/data/games/word-world/manifest.json",
+    "apps/languages/hebrew/static/data/games/conjugation-comet/content.json",
+    "apps/languages/hebrew/static/data/games/grammar-gravity/content.json",
+    "apps/languages/hebrew/static/data/games/grammar-gravity/nouns.json"
+  ]
+}

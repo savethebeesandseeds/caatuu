@@ -110,14 +110,21 @@ for (const [name, script] of [['server', source], ['Pages', projectPagesLauncher
       assert.equal(app.dialogBrowser.href, course.entryPath);
       const { content } = await launcherInterface.loadLauncherInterface(registry, [app.document.documentElement.lang]);
       assert.equal(app.dialog.querySelector('[data-course-dialog-title]').textContent, content.languageName(course.targetLanguage));
-      assert.match(app.dialogAndroid.href, /caatuu_release=/u);
-      assert.equal(app.dialogAndroid.hasAttribute('aria-disabled'), false);
+      const supported = registry.languages.find(record => record.id === course.id)?.platforms.android.enabled;
+      if (supported) {
+        assert.match(app.dialogAndroid.href, /caatuu_release=/u);
+        assert.equal(app.dialogAndroid.hasAttribute('aria-disabled'), false);
+      } else {
+        assert.equal(app.dialogAndroid.hasAttribute('href'), false);
+        assert.equal(app.dialogAndroid.getAttribute('aria-disabled'), 'true');
+        assert.ok(app.dialogStatus.textContent);
+      }
       app.dismiss.click();
       assert.equal(app.dialog.open, false);
     }
   });
 
-  test(`${name}: the popup offers the main app download without choosing a learner base`, async () => {
+  test(`${name}: the popup respects the selected course minimum Android version`, async () => {
     const courses = structuredClone(registry);
     const spanish = courses.languages.find(course => course.id === 'es');
     const defaultCourse = courses.languages.find(course => course.id === courses.defaultLanguage);
@@ -126,8 +133,9 @@ for (const [name, script] of [['server', source], ['Pages', projectPagesLauncher
     const app = await launch(script, { courses, versionCode });
     const index = courses.browserSetup.courses.findIndex(course => course.id === 'es');
     app.list.children[index].querySelector('a').click();
-    assert.equal(app.dialogAndroid.href, app.download.href);
-    assert.equal(app.dialogAndroid.hasAttribute('aria-disabled'), false);
+    assert.equal(app.download.dataset.state, 'available');
+    assert.equal(app.dialogAndroid.hasAttribute('href'), false);
+    assert.equal(app.dialogAndroid.getAttribute('aria-disabled'), 'true');
     assert.equal(app.dialogBrowser.href, courses.browserSetup.courses[index].entryPath);
   });
 
@@ -142,9 +150,10 @@ for (const [name, script] of [['server', source], ['Pages', projectPagesLauncher
     assert.ok(app.dialogStatus.textContent);
   });
 
-  test(`${name}: development courses retain preview disclosure and an enabled Android download`, async () => {
+  test(`${name}: development courses stay listed without a preview badge`, async () => {
     const courses = structuredClone(registry);
-    const preview = courses.browserSetup.courses.find(course => course.status === 'development');
+    const preview = structuredClone(courses.browserSetup.courses.find(course => course.id === 'zh'));
+    preview.status = 'development';
     const android = courses.languages.find(course => course.platforms?.android?.enabled);
     assert.ok(preview, 'fixture must exercise a development course');
     assert.ok(android, 'fixture must include an enabled Android channel');
@@ -155,7 +164,7 @@ for (const [name, script] of [['server', source], ['Pages', projectPagesLauncher
     const app = await launch(script, { courses });
     assert.deepEqual(app.list.children.map(item => item.dataset.languageId), [preview.id]);
     assert.equal(app.list.children[0].dataset.courseStatus, 'development');
-    assert.ok(app.list.children[0].querySelector('.language-choice-status')?.textContent);
+    assert.equal(app.list.children[0].querySelector('.language-choice-status'), null);
     assert.equal(app.download.dataset.state, 'available');
   });
 
@@ -187,7 +196,7 @@ for (const [name, script] of [['server', source], ['Pages', projectPagesLauncher
         assert.equal(link.href, course.entryPath, 'course cards must open their declared course');
         assert.equal(link.querySelector('.language-choice-name').textContent, content.languageName(course.targetLanguage));
         assert.equal(link.querySelector('.language-choice-start').textContent, content.t('launcher.start'));
-        assert.equal(Boolean(link.querySelector('.language-choice-status')), course.status === 'development');
+        assert.equal(link.querySelector('.language-choice-status'), null);
       }
       assert.equal(app.document.querySelector('[data-browser-entry]'), app.entry);
       assert.equal(app.document.querySelector('[data-android-download]'), app.download);

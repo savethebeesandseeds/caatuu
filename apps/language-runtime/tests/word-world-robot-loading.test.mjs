@@ -85,7 +85,7 @@ function runtimeFixture({ active = true, deferredMinimum = false } = {}) {
     state, MIN_SENTENCE_TRANSITION_MS: 800, LOADING_FADE_MS: 240,
     $: (selector) => document.querySelector(selector)
   });
-  for (const name of ["closeAudioMenu", "closeTranslationMenu", "cancelCzechSpeech", "syncGenerationControl",
+  for (const name of ["closeAudioMenu", "closeTranslationMenu", "cancelTargetSpeech", "syncGenerationControl",
     "syncContentControl", "syncPreviousSentenceControl", "renderReconstruction", "syncSpeechControl",
     "syncDiagnostics", "maybeAutoplayCurrentSentence"]) harness.context[name] = () => {};
   vm.runInContext(loadingFunctions, harness.context);

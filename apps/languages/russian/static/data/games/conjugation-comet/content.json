@@ -18,9 +18,9 @@
   },
   "license": {
     "origin": "first-party-authored",
-    "status": "release-review-required",
-    "spdx": null,
-    "noteEnglish": "First-party Russian curriculum. Release review is still required. See docs/LICENSING.md#first-party-curriculum."
+    "status": "release-cleared",
+    "spdx": "AGPL-3.0-only",
+    "noteEnglish": "Caatuu project owner approved AGPL-3.0-only and distribution on 2026-11-11. See docs/CURRICULUM_LICENSE_APPROVAL_20261111.json. Language and pronunciation reviews remain pending."
   },
   "authority": {
     "kind": "authored-finite-catalog",

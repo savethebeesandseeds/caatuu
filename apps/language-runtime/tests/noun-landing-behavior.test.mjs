@@ -172,7 +172,7 @@ async function mountGame({ language = "czech", syntheticBase = false, reducedMot
     .replace(/^import\s+[\s\S]*?\sfrom\s+["'][^"']+["'];\r?\n/gmu, "")
     .replace(/\bexport async function /gu, "async function ");
   vm.runInContext(executable, harness.context, { filename: "noun-landing-host.mjs" });
-  const companion = beforeMount?.({ document: harness.document, scope: harness.window, shell, course });
+  const companion = beforeMount?.({ ...harness, document: harness.document, scope: harness.window, shell, course });
   const mounting = vm.runInContext("mountNounLanding({ course, shell, scope: window, ...mountOptions })", harness.context);
   let controller;
   if (deferFetch) await settle();
@@ -390,7 +390,6 @@ test("noun cohorts create exposure only at landing and use one encounter across 
   assert.ok(game.controller.snapshot().total < game.raw.items.length);
   assert.equal(exposures.length, 0);
   const id = game.controller.snapshot().item.id;
-  generation = "after-reset";
   const wrong = game.controller.snapshot().lanes.find(lane => !(game.controller.snapshot().item.acceptedLaneIds || [game.controller.snapshot().item.laneId]).includes(lane.id));
   game.answer(wrong.id);
   assert.equal(exposures.length, 1);
@@ -405,7 +404,7 @@ test("noun cohorts create exposure only at landing and use one encounter across 
   assert.equal(exposures.length, 2);
   assert.equal(exposures[1].encounterId, exposures[0].encounterId);
   assert.notEqual(exposures[1].itemId, id);
-  assert.equal(exposures[1].generation, "after-reset", "the next newly presented noun captures the new generation");
+  assert.equal(exposures[1].generation, "before-reset");
   assert.equal(exposures[1].evidence, "independent");
   game.controller.destroy();
 });
@@ -771,6 +770,7 @@ test("Grammar phrases preserve an Adventure completion and accept a silent verif
   Object.assign(harness.context, { state, shell, calls,
     addEventListener: harness.window.addEventListener.bind(harness.window),
     recordLearning: value => calls.push(["record", value.rounds]),
+    currentGeneration: () => true,
     currentRound: () => state.rounds[state.index],
     announceRoundSuccess: () => calls.push(["success"]),
     playingFocus: () => true,
@@ -1655,5 +1655,44 @@ test("illustration visibility changes only decorative lane art and does not paus
   assert.equal(game.controller.snapshot().elapsedMs, 500);
   game.controller.setIconsVisible(true);
   for (const lane of game.raw.lanes) assert.equal(game.lane(lane.id).querySelector("img").hidden, false);
+  game.controller.destroy();
+});
+
+const realProfileSource = await readFile(new URL("../static/source/learning-profile.js", import.meta.url), "utf8");
+async function mountWithLearning() {
+  return mountGame({ reducedMotion: true, difficulty: 1, beforeMount(h) {
+    h.window.CaatuuCourse = { id: "cz", storage: { namespace: "caatuu-czech" } };
+    h.window.navigator.locks = { request: async (_, action) => action() };
+    vm.runInContext(realProfileSource, h.context);
+    h.shell.CaatuuLearning = h.window.CaatuuLearning;
+  } });
+}
+for (const correct of [true, false]) test(`noun completion ${correct ? "qualifies" : "does not qualify"} the real streak after ${correct ? "successful" : "unsuccessful"} answers`, async () => {
+  const game = await mountWithLearning();
+  const learning = game.shell.CaatuuLearning;
+  const limit = game.controller.snapshot().total * 2 + 1;
+  for (let attempt = 0; learning.snapshot().summary.rounds === 0 && attempt < limit; attempt++) {
+    const state = game.controller.snapshot();
+    const wrong = state.lanes.find(lane => !(state.item.acceptedLaneIds || [state.item.laneId]).includes(lane.id));
+    game.answer(correct ? state.item.laneId : wrong.id);
+    game.finishFeedback();
+  }
+  assert.equal(learning.snapshot().summary.rounds, 1);
+  assert.equal(learning.snapshot().streak.currentDays, correct ? 1 : 0);
+  game.controller.destroy();
+});
+
+test("noun reset clears feedback and a new landing records matching evidence and performance", async () => {
+  const game = await mountWithLearning();
+  const learning = game.shell.CaatuuLearning;
+  game.answer();
+  learning.resetProgress();
+  assert.equal(game.controller.snapshot().phase, "falling");
+  assert.equal(game.controller.snapshot().correctCount, 0);
+  assert.equal(learning.snapshot().summary.xp, 0);
+  const id = game.controller.snapshot().item.id;
+  game.answer();
+  assert.equal(learning.snapshot().summary.attempts, 1);
+  assert.equal(learning.contentHistory("grammar-gravity", "nouns")[id].exposures, 1);
   game.controller.destroy();
 });

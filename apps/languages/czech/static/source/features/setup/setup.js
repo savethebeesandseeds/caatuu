@@ -143,12 +143,6 @@
     code.className = "language-selector-option-code";
     code.textContent = setupLanguageShortCode(language);
     meta.append(code);
-    if (status === "development") {
-      const statusLabel = document.createElement("span");
-      statusLabel.className = "language-selector-status";
-      statusLabel.textContent = "Preview";
-      meta.append(statusLabel);
-    }
 
     choice.append(input, flag, copy, meta);
     return { choice, input };

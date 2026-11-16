@@ -3,7 +3,8 @@ import { readFile, realpath } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { prepareLanguageRoleContent } from "./language-role-contract.mjs";
-import { validateRecords, toRuntimeRecord } from "../../czech-ml/scripts/word-world-standard-lib.mjs";
+import { resolveRecordProjectionProvider } from "../record-projection/registry.mjs";
+export { standardCorpusAuthoringRecords as czechAuthoringRecords, standardCorpusRuntimeRecords as czechRuntimeRecords } from "../record-projection/standard-corpus.mjs";
 import { normalizeContentProgression } from "../../../apps/language-runtime/static/source/games/content-progression.mjs";
 import { targetLearningFieldIssues } from "../../../apps/language-runtime/static/source/word-world-learning.mjs";
 
@@ -63,29 +64,48 @@ export function validateWordWorldContent(document, course) {
   assert.ok(Array.isArray(document.records) && document.records.length, "Word World needs records");
   const ids = new Set();
   for (const item of document.records) {
-    exactKeys(item, fields, `Word World ${item?.id}`);
+    const untranslated = item?.reviewStatus === "untranslated";
+    const keys = [...fields];
+    if (Object.hasOwn(item, "semanticBankId")) keys.push("semanticBankId");
+    if (Object.hasOwn(item, "reviewStatus")) keys.push("reviewStatus");
+    exactKeys(item, keys, `Word World ${item?.id}`);
     text(item.id, "Record ID");
     assert.ok(!ids.has(item.id), `Duplicate Word World ID ${item.id}`);
     ids.add(item.id);
     assert.ok([0, 1, 2, 3].includes(item.difficulty), `${item.id}: difficulty must be 0, 1, 2 or 3`);
     normalizeContentProgression(item, item.id);
-    for (const key of ["topic", "englishText", "embeddingText", "targetText", "sceneQuery"]) text(item[key], `${item.id}.${key}`);
+    const requiredText = untranslated
+      ? ["topic", "englishText", "embeddingText", "sceneQuery"]
+      : ["topic", "englishText", "embeddingText", "targetText", "sceneQuery"];
+    for (const key of requiredText) text(item[key], `${item.id}.${key}`);
+    if (untranslated) {
+      assert.equal(item.targetText, "", `${item.id}: an untranslated record has no target text yet`);
+      assert.match(item.semanticBankId, /^sb\.word-net\.\d{6}$/u, `${item.id}: semanticBankId`);
+      assert.equal(item.embeddingText, item.englishText, `${item.id}: embeddingText`);
+    }
     assert.ok(Array.isArray(item.englishAlternates) && Array.isArray(item.sceneAssetIds) && Array.isArray(item.tokens), `${item.id}: invalid lists`);
     item.englishAlternates.forEach(value => text(value, `${item.id}.englishAlternates`));
     assert.ok(item.annotations && typeof item.annotations === "object" && !Array.isArray(item.annotations));
     if (document.sourceLanguage.startsWith("en")) assert.equal(item.learnerBase, null, "English learner text comes from englishText");
-    else {
+    else if (untranslated) {
+      exactKeys(item.learnerBase, ["text", "tokenMeanings"], `${item.id}.learnerBase`);
+      assert.equal(item.learnerBase.text, "", `${item.id}: learner base waits for translation`);
+      assert.deepEqual(item.learnerBase.tokenMeanings, []);
+    } else {
       exactKeys(item.learnerBase, ["text", "tokenMeanings"], `${item.id}.learnerBase`);
       text(item.learnerBase.text, `${item.id}.learnerBase.text`);
       assert.ok(Array.isArray(item.learnerBase.tokenMeanings));
     }
   }
-  if (course.publication.contract === "language-content-v1") {
-    const { concepts, realizations, learnerBase } = modernCatalogs(document, course);
+  const playable = { ...document, records: document.records.filter(item => item.reviewStatus !== "untranslated") };
+  if (playable.records.length && course.publication.contract === "language-content-v1") {
+    const { concepts, realizations, learnerBase } = modernCatalogs(playable, course);
     prepareLanguageRoleContent(concepts, realizations, { sourceLanguage: document.sourceLanguage, learnerBaseRealizations: learnerBase });
-  } else {
-    assert.equal(course.id, "cz", "Unsupported legacy Word World projection");
-    czechAuthoringRecords(document);
+  } else if (playable.records.length) {
+    assert.equal(course.publication.contract, "word-world-records-v1", "Unsupported Word World publication contract");
+    const provider = resolveRecordProjectionProvider(course.publication.provider);
+    assert.ok(provider, "Unsupported Word World record provider");
+    provider.validate(playable, course);
   }
   return document;
 }
@@ -93,9 +113,10 @@ export function validateWordWorldContent(document, course) {
 // Reconstruct the existing validated publication contracts in memory. The
 // compatibility JSON files written from these objects are generated outputs.
 export function modernCatalogs(document, course) {
+  const records = document.records.filter(item => item.reviewStatus !== "untranslated");
   const { english, target, learnerBase: baseMetadata } = document.metadata;
   assert.ok(english && target, "Missing publication review/licensing metadata");
-  const concepts = { ...structuredClone(english), concepts: document.records.map(item => {
+  const concepts = { ...structuredClone(english), concepts: records.map(item => {
     assert.equal(item.englishAlternates.length, 0, `${item.id}: this provider has no alternate-English field`);
     assert.equal(item.sceneAssetIds.length, 0, `${item.id}: this provider uses embedding image retrieval`);
     assert.ok(Object.keys(item.annotations).every(key => ["learning", "acceptedTokenOrders"].includes(key)),
@@ -108,56 +129,19 @@ export function modernCatalogs(document, course) {
     }
     return { id: item.id, englishText: item.englishText, embeddingText: item.embeddingText,
       sceneQuery: item.sceneQuery, topic: item.topic, difficulty: item.difficulty,
+      ...(item.semanticBankId ? { semanticBankId: item.semanticBankId } : {}),
       ...normalizeContentProgression(item, item.id) };
   }) };
   const realizations = { ...structuredClone(target), sourceCatalog: course.publication.concepts,
-    realizations: document.records.map(item => ({ conceptId: item.id, text: item.targetText,
+    realizations: records.map(item => ({ conceptId: item.id, text: item.targetText,
       pronunciation: structuredClone(item.pronunciation), tokens: structuredClone(item.tokens),
       ...(Object.hasOwn(item.annotations, "learning") ? { learning: structuredClone(item.annotations.learning) } : {}),
       ...(Object.hasOwn(item.annotations, "acceptedTokenOrders")
         ? { acceptedTokenOrders: structuredClone(item.annotations.acceptedTokenOrders) } : {}) })) };
   const learnerBase = baseMetadata ? { ...structuredClone(baseMetadata), sourceCatalog: course.publication.concepts,
-    realizations: document.records.map(item => ({ conceptId: item.id, ...structuredClone(item.learnerBase) })) } : null;
+    realizations: records.map(item => ({ conceptId: item.id, ...structuredClone(item.learnerBase) })) } : null;
   assert.equal(Boolean(learnerBase), Boolean(course.publication.learnerBaseRealizations));
   return { concepts, realizations, learnerBase };
-}
-
-export function czechAuthoringRecords(document) {
-  return document.records.map(item => {
-    assert.equal(item.embeddingText, item.englishText, `${item.id}: the Czech provider ranks the included English sentence`);
-    assert.equal(item.pronunciation, null, `${item.id}: Czech standard speech uses the sentence text`);
-    exactKeys(item.annotations, ["cefr", "learning", "grammar", "provenance", "review"], `${item.id}.annotations`);
-    return {
-      schemaVersion: "caatuu-word-world-record-v1", id: item.id,
-      languages: { en: { text: item.englishText, alternates: [...item.englishAlternates] }, cs: { text: item.targetText } },
-      difficulty: item.difficulty, cefr: item.annotations.cefr, topic: item.topic,
-      targets: item.tokens.map(token => {
-        exactKeys(token, ["surface", "normalized", "tokenIndex", "playable", "gloss"], `${item.id}.token`);
-        if (token.gloss !== null) text(token.gloss, `${item.id}.token.gloss`);
-        const { gloss, ...target } = token;
-        return target;
-      }),
-      learning: structuredClone(item.annotations.learning), grammar: structuredClone(item.annotations.grammar),
-      scene: { query: item.sceneQuery, assetIds: [...item.sceneAssetIds] },
-      provenance: structuredClone(item.annotations.provenance), review: structuredClone(item.annotations.review)
-    };
-  });
-}
-
-export function czechRuntimeRecords(document, rubric) {
-  const authoring = czechAuthoringRecords(document);
-  const validation = validateRecords(authoring, rubric);
-  assert.ok(validation.valid, validation.errors.join("\n"));
-  const runtime = authoring.map((record, index) => {
-    const output = toRuntimeRecord(record);
-    Object.assign(output, normalizeContentProgression(document.records[index], record.id));
-    output.targets.forEach((target, tokenIndex) => {
-      const gloss = document.records[index].tokens[tokenIndex].gloss;
-      if (gloss !== null) target.gloss = gloss;
-    });
-    return output;
-  });
-  return { authoring, runtime, validation };
 }
 
 // Reusing a concept ID preserves its English meaning, but does not require

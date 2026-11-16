@@ -6,7 +6,7 @@
   "projectionPolicy": {
     "tokenization": "authored",
     "pronunciationIncluded": false,
-    "reason": "Modern Standard Georgian in Mkhedruli. Device speech uses the shared browser/Android provider; independent native and pronunciation review remain pending."
+    "reason": "Modern Standard Georgian in Mkhedruli. Device speech uses the shared browser/Android provider. Pronunciation guides stay off."
   },
   "targetLanguage": {
     "languageTag": "ka",

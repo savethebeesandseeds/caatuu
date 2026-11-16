@@ -907,7 +907,7 @@
   async function getFeedbackOutbox() {
     if (feedbackOutbox) return feedbackOutbox;
     if (!feedbackOutboxPromise) {
-      feedbackOutboxPromise = import("./feedback-outbox.mjs?v=feedback-outbox-5")
+      feedbackOutboxPromise = import("./feedback-outbox.mjs?v=feedback-outbox-6")
         .then(({ FeedbackOutbox }) => {
           feedbackOutbox = new FeedbackOutbox({
             storage: feedbackStorage(),
@@ -962,37 +962,8 @@
     return { ...result, disabled: true, localOnly: true };
   }
 
-  async function sendDictionaryGapReport(payload) {
-    if (env === "android") {
-      const result = await nativeCall("report_dictionary_gap", { payload }, {
-        timeoutMs: 8_000,
-        timeoutMessage: "The dictionary-gap server did not respond."
-      });
-      if (result?.ok !== true || result?.stored !== true) {
-        throw new Error(result?.message || "The dictionary-gap server did not acknowledge the report.");
-      }
-      return { ok: true };
-    }
-
-    const controller = new AbortController();
-    const timer = window.setTimeout(() => controller.abort(), 8_000);
-    try {
-      const response = await fetch("/cz/api/dictionary/gaps", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(payload),
-        cache: "no-store",
-        credentials: "same-origin",
-        signal: controller.signal
-      });
-      const result = await response.json().catch(() => ({}));
-      if (!response.ok || result?.ok !== true || result?.stored !== true) {
-        throw new Error(result?.message || `Dictionary-gap delivery returned HTTP ${response.status}.`);
-      }
-      return { ok: true };
-    } finally {
-      window.clearTimeout(timer);
-    }
+  async function sendDictionaryGapReport(_payload) {
+    throw new Error("Retained dictionary reports are device-local. Remote sharing requires an explicit reporting provider and consent.");
   }
 
   async function migrateLegacyDictionaryGaps(outbox, collectLegacyDictionaryGapReports) {
@@ -1020,21 +991,19 @@
   async function getDictionaryGapOutbox() {
     if (dictionaryGapOutbox) return dictionaryGapOutbox;
     if (!dictionaryGapOutboxPromise) {
-      dictionaryGapOutboxPromise = Promise.all([
-        import("./feedback-outbox.mjs?v=feedback-outbox-5"),
-        import("../features/dictionary/dictionary-gap-report.mjs?v=dictionary-gap-report-1")
-      ])
-        .then(async ([{ FeedbackOutbox }, { collectLegacyDictionaryGapReports }]) => {
+      dictionaryGapOutboxPromise = import("./feedback-outbox.mjs?v=feedback-outbox-6")
+        .then(({ FeedbackOutbox }) => {
           dictionaryGapOutbox = new FeedbackOutbox({
             storage: feedbackStorage(),
-            storageKey: "caatuu.dictionaryGapOutbox.v1",
+            // Keep previous global queues untouched. New retained-page reports
+            // remain device-local and never become a remote consent migration.
+            storageKey: course.storage.namespace + ".dictionaryGapLocalOutbox.v1",
             send: sendDictionaryGapReport,
-            online: () => navigator.onLine !== false,
+            online: () => false,
             visible: () => document.visibilityState !== "hidden",
             saveData: () => false,
             maxItems: 128
           });
-          await migrateLegacyDictionaryGaps(dictionaryGapOutbox, collectLegacyDictionaryGapReports);
           return dictionaryGapOutbox;
         })
         .catch((error) => {
@@ -1067,19 +1036,14 @@
     const result = outbox.enqueue(report, {
       dedupeKey: [report.dictionaryKey, report.dictionaryDirection, report.normalizedWord].join("|")
     });
-    scheduleDictionaryGapFlush(0);
-    return { ...result, pending: outbox.list().length, automaticDelivery: true };
+    return { ...result, pending: outbox.list().length, automaticDelivery: false, localOnly: true };
   }
 
   async function flushQueuedDictionaryGaps() {
     const outbox = await getDictionaryGapOutbox();
     const result = await outbox.flush({ maxItems: 4 });
     clearDictionaryGapFlushTimer();
-    if (!result.paused && result.pending > 0) {
-      const delay = outbox.nextDelayMs();
-      scheduleDictionaryGapFlush(delay === null ? 30_000 : Math.max(1_000, delay));
-    }
-    return { ...result, automaticDelivery: true };
+    return { ...result, automaticDelivery: false, disabled: true, localOnly: true };
   }
 
   async function loadModelCatalog() {
@@ -1646,10 +1610,7 @@
     }
   };
 
-  window.addEventListener("online", () => scheduleDictionaryGapFlush(0));
-  document.addEventListener("visibilitychange", () => {
-    if (document.visibilityState === "visible") scheduleDictionaryGapFlush(0);
-  });
-  scheduleDictionaryGapFlush(1_000);
+  // Retained pages never start a reporting queue or migrate old reports on
+  // startup, online, or visibility changes. Explicit providers own remote sharing.
   clearNativeBrowserState();
 })();

@@ -1,6 +1,6 @@
 "use strict";
 
-// Contract revision 8: offline updates bypass stale HTTP cache entries.
+// Contract revision 9: each worker keeps its installed offline catalog revision.
 
 const CAATUU_CANONICAL_APP_ENTRY = "apps/language-runtime/static/app/index.html";
 // Shared application revision: memory-moon-contrast-1. Updating this imported worker
@@ -30,9 +30,14 @@ let courseOfflineConfigPromise;
 
 self.addEventListener("install", (event) => {
   event.waitUntil((async () => {
-    const config = await courseOfflineConfig();
+    const config = await courseOfflineConfig({ installing: true });
     const cache = await caches.open(config.cacheName);
     await cache.addAll(config.precacheUrls.map((url) => new Request(url, { cache: "reload" })));
+    // Keep the catalog used for this installation, even if a deployment changes
+    // setup-assets.json while the remaining precache requests are in flight.
+    await cache.put(setupCatalogUrl().href, new Response(config.catalogJson, {
+      headers: { "content-type": "application/json" }
+    }));
     await self.skipWaiting();
   })());
 });
@@ -168,17 +173,28 @@ function setupCatalogUrl() {
   return new URL("setup-assets.json", courseScopeUrl());
 }
 
-async function readSetupCatalog() {
+async function readSetupCatalog({ installing = false } = {}) {
+  const cacheName = self.CAATUU_OFFLINE_CACHE_NAME;
+  if (typeof cacheName !== "string" || !/^caatuu-.+-pwa-v\d+$/u.test(cacheName)) {
+    throw new Error("Course worker must bind its offline catalog revision.");
+  }
   const catalogUrl = setupCatalogUrl();
-  try {
+  // The loader belongs to the installed worker, while the network may already
+  // serve a later deployment. Never discover this worker's revision globally.
+  const cache = await caches.open(cacheName);
+  const cached = installing ? null : await cache.match(catalogUrl.href);
+  let catalog;
+  if (cached) {
+    catalog = await cached.json();
+  } else {
     const response = await fetch(catalogUrl.href, { cache: "no-store" });
     if (!response.ok) throw new Error(`Setup catalog returned HTTP ${response.status}.`);
-    return response.json();
-  } catch (networkError) {
-    const cached = await caches.match(catalogUrl.href);
-    if (!cached) throw networkError;
-    return cached.json();
+    catalog = await response.json();
   }
+  if (catalog?.offline?.cacheName !== cacheName) {
+    throw new Error("Setup catalog does not match this worker's offline revision.");
+  }
+  return catalog;
 }
 
 function validateSetupCatalog(catalog) {
@@ -243,14 +259,18 @@ function validateSetupCatalog(catalog) {
   return Object.freeze({
     cacheName,
     cachePrefix,
+    catalogJson: JSON.stringify(catalog),
     scope,
     entryUrl,
     precacheUrls: Object.freeze([...precacheUrls])
   });
 }
 
-async function courseOfflineConfig() {
-  courseOfflineConfigPromise ||= readSetupCatalog().then(validateSetupCatalog).catch((error) => {
+async function courseOfflineConfig({ installing = false } = {}) {
+  // Imported worker updates can change the closure without changing the cache
+  // name. Installation refreshes that closure; an active worker keeps its copy.
+  if (installing) courseOfflineConfigPromise = undefined;
+  courseOfflineConfigPromise ||= readSetupCatalog({ installing }).then(validateSetupCatalog).catch((error) => {
     // A cleared or evicted cache may leave a restarted worker without a catalog.
     // Let a later request retry after a temporary network failure.
     courseOfflineConfigPromise = undefined;
@@ -335,6 +355,9 @@ async function currentCacheMatch(request, config) {
 async function cacheResponse(request, response, config) {
   const url = new URL(typeof request === "string" ? request : request.url);
   if (isLegacyMiniAppUrl(url) || isRetiredRuntimeUrl(url)) return;
+  // Setup requests may discover an update, but cannot replace this worker's
+  // installed catalog. Only a successful worker installation writes it.
+  if (url.origin === self.location.origin && url.pathname === setupCatalogUrl().pathname) return;
   if (!response || (response.status !== 200 && response.type !== "opaque")) return;
   try {
     const cache = await caches.open(config.cacheName);

@@ -8,7 +8,7 @@ async function read(relativePath) {
   return readFile(new URL(relativePath, repoRoot), "utf8");
 }
 
-test("public-product governance remains local-first, bounded, and explicitly preview-only", async () => {
+test("public-product governance remains local-first and describes a released free app", async () => {
   const [privacy, readiness, chrome, runtime, config, routes, compose, dictionaryGap, androidBridge, interfaceSource] = await Promise.all([
     read("docs/PRIVACY.md"),
     read("docs/PRODUCT_READINESS.md"),
@@ -50,7 +50,9 @@ test("public-product governance remains local-first, bounded, and explicitly pre
   assert.match(chrome, /interfaceHtml\("settings\.ai\.legalnotice"\)/u);
   assert.match(messages["settings.ai.legalnotice"], /You are interacting with an AI system/u);
   assert.match(chrome, /interfaceHtml\("settings\.about\.preview"\)/u);
-  assert.match(messages["settings.about.preview"], /A governed public beta has not been declared/u);
+  assert.match(messages["settings.about.preview"], /Released free language-learning app/u);
+  assert.doesNotMatch(messages["settings.about.preview"], /Development preview|governed public beta/u);
+  assert.doesNotMatch(messages["launcher.description"], /agentic|development preview/iu);
   assert.match(readiness, /BOUNDED EDGE CHANNEL READY/u);
   assert.match(readiness, /future-only opted-in\s+dictionary gaps/u);
   assert.match(readiness, /Exact deployed source/u);

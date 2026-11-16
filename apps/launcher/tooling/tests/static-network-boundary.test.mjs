@@ -1,10 +1,11 @@
 import assert from "node:assert/strict";
-import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
 import test from "node:test";
 import {
   assertStaticNetworkBoundary,
+  transformStaticFeedbackOutbox,
   assertWordWorldRuntimeBoundary
 } from "../build-static-site.mjs";
 
@@ -74,7 +75,7 @@ test("Word World runtime manifest rejects a data-driven remote corpus", () => {
       "utf8"
     );
     assert.throws(
-      () => assertWordWorldRuntimeBoundary(root),
+      () => assertWordWorldRuntimeBoundary(root, "/cz"),
       /requires a network resource/u
     );
   } finally {
@@ -97,6 +98,52 @@ test("only declared landing-page course links may wait for final Pages staging",
     writeFileSync(join(root, "es/index.html"), "Spanish course");
     writeFileSync(join(root, "index.html"), '<a href="/es/index.html">Spanish</a>');
     assert.doesNotThrow(() => assertStaticNetworkBoundary(root, ["index.html"]));
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+test("course feedback compatibility wrapper resolves to the shared published outbox", () => {
+  const root = mkdtempSync(join(tmpdir(), "caatuu-static-outbox-"));
+  const wrapperPath = "other-course/source/shared/feedback-outbox.mjs";
+  const sharedPath = "language-runtime/static/source/feedback-outbox.mjs";
+  try {
+    mkdirSync(dirname(join(root, wrapperPath)), { recursive: true });
+    mkdirSync(dirname(join(root, sharedPath)), { recursive: true });
+    const wrapper = readFileSync(new URL("../../../languages/czech/static/source/shared/feedback-outbox.mjs", import.meta.url), "utf8");
+    const shared = readFileSync(new URL("../../../language-runtime/static/source/feedback-outbox.mjs", import.meta.url), "utf8");
+    writeFileSync(join(root, wrapperPath), transformStaticFeedbackOutbox(wrapper));
+    writeFileSync(join(root, sharedPath), shared);
+    assert.doesNotThrow(() => assertStaticNetworkBoundary(root, [wrapperPath, sharedPath]));
+    rmSync(join(root, sharedPath));
+    assert.throws(() => assertStaticNetworkBoundary(root, [wrapperPath]), /missing module import/u);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+test("canonical publisher metadata is local-page evidence, never a remote resource exemption", () => {
+  const root = mkdtempSync(join(tmpdir(), "caatuu-static-canonical-"));
+  const page = join(root, "index.html");
+  const check = (source) => {
+    writeFileSync(page, source);
+    assertStaticNetworkBoundary(root, ["index.html"]);
+  };
+  try {
+    assert.doesNotThrow(() => check('<link href="https://caatuu.waajacu.com/" rel="canonical">'));
+    for (const rel of ["stylesheet", "preload", "canonical stylesheet", "canonical preload"]) {
+      assert.throws(() => check('<link rel="' + rel + '" href="https://caatuu.waajacu.com/">'),
+        /requires a network resource/u);
+    }
+    assert.throws(() => check('<link rel="canonical" href="https://unapproved.example/">'),
+      /metadata origin is not the publisher/u);
+    assert.throws(() => check('<link rel="canonical" href="https://caatuu.waajacu.com/missing.html">'),
+      /missing canonical page/u);
+    assert.throws(() => check('<link rel="canonical" rel="stylesheet" href="https://caatuu.waajacu.com/">'),
+      /requires a network resource/u);
+    for (const attributes of ['rel=stylesheet rel="canonical"', 'rel="canonical" rel=preload', 'rel rel="canonical"']) {
+      assert.throws(() => check('<link ' + attributes + ' href="https://caatuu.waajacu.com/">'),
+        /requires a network resource/u);
+    }
+    assert.doesNotThrow(() => check('<link data-note="rel=stylesheet" rel="canonical" href="https://caatuu.waajacu.com/">'));
   } finally {
     rmSync(root, { recursive: true, force: true });
   }

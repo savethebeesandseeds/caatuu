@@ -6,6 +6,16 @@ import { migrateProgressionRecord, stripProgression, matchingListeningSource } f
 
 const graded = extra => ({ usefulness: 78, complexity: 24, ...extra });
 
+test('unfinished structured records stay visible without inventing nested learning records', () => {
+  const pending = graded({id:'pending', difficulty:1, reviewStatus:'untranslated'});
+  const ready = graded({id:'ready', difficulty:1, forms:{singular:graded({examples:[graded({id:'example'})]})}});
+  const rows = progressionRecords('grammar-gravity',{challenges:[pending,ready]});
+  assert.deepEqual(rows.map(row=>row.location),['challenges[0]','challenges[1]','challenges[1].forms.singular','challenges[1].forms.singular.examples[0]']);
+  assert.equal(rows[0].item,pending);
+  assert.equal(progressionRecords('conjugation-comet',{verbs:[pending]}).length,1);
+  assert.throws(()=>progressionRecords('grammar-gravity',{challenges:[{id:'malformed'}]}),TypeError);
+});
+
 test('nested independent examples must each carry both numbers', () => {
   const document = { challenges: [graded({ difficulty: 1,
     forms: { singular: graded({ examples: [graded({ id: 'synthetic.example' })] }) } })] };

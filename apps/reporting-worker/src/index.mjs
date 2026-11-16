@@ -1,3 +1,4 @@
+import { REPORTING_POLICY_V2, SENTENCE_REPORT_SCHEMA_V3, canonicalSentencePayloadV2, canonicalSentencePayloadV3, validateDictionaryGapV2, validateSentenceReportV2, validateSentenceReportV3 } from "./contracts-v2.mjs";
 import {
   CANONICAL_ORIGIN,
   REPORTING_POLICY,
@@ -7,12 +8,14 @@ import {
   validateSentenceReport
 } from "./contracts.mjs";
 
-export const DEPLOYMENT_VERSION = "2026-09-03.v5";
+export const DEPLOYMENT_VERSION = "2026-11-11.v2";
 
 const DURABLE_ASSET_RELEASE_BASE_URL =
   "https://github.com/savethebeesandseeds/caatuu/releases/download/caatuu-setup-assets-v1";
 
 const routes = Object.freeze({
+  dictionaryV2: "/api/v2/dictionary-gaps",
+  sentenceV2: "/api/v2/sentence-reports",
   dictionary: "/cz/api/dictionary/gaps",
   sentence: "/api/sentence-reports",
   health: "/api/reporting/health"
@@ -237,8 +240,8 @@ function assertExactRoute(url, expected) {
   }
 }
 
-function assertPostPolicy(request) {
-  if (request.headers.get(REPORTING_POLICY_HEADER) !== REPORTING_POLICY) {
+function assertPostPolicy(request, policy = REPORTING_POLICY) {
+  if (request.headers.get(REPORTING_POLICY_HEADER) !== policy) {
     throw new RequestError(428, "reporting_policy_required", "This client is not authorized for the current reporting policy.");
   }
   const contentType = request.headers.get("content-type") || "";
@@ -392,6 +395,57 @@ async function storeSentenceReport(env, report, now) {
   return { deduplicated: false };
 }
 
+async function storeDictionaryGapV2(env, report, now) {
+  const identity = [report.courseId, report.sourceLanguage, report.targetLanguage, report.providerId,
+    report.dictionaryKey, report.dictionaryDirection, report.normalizedWord];
+  const where = "course_id = ?1 AND source_language = ?2 AND target_language = ?3 AND provider_id = ?4 AND dictionary_key = ?5 AND dictionary_direction = ?6 AND normalized_word = ?7";
+  const existing = await env.DB.prepare(`SELECT 1 AS present FROM dictionary_gaps_v2 WHERE ${where}`).bind(...identity).first();
+  const result = await env.DB.prepare(`
+    INSERT INTO dictionary_gaps_v2 (
+      course_id, source_language, target_language, provider_id, dictionary_key, dictionary_direction,
+      normalized_word, target_word, lookup_outcome, lookup_returned, first_seen_at_unix_ms, last_seen_at_unix_ms, observation_count
+    ) SELECT ?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?11, 1
+    WHERE (SELECT COUNT(*) FROM dictionary_gaps_v2 WHERE course_id = ?1 AND source_language = ?2 AND target_language = ?3 AND provider_id = ?4) < 4096
+      OR EXISTS (SELECT 1 FROM dictionary_gaps_v2 WHERE ${where})
+    ON CONFLICT (course_id, source_language, target_language, provider_id, dictionary_key, dictionary_direction, normalized_word) DO UPDATE SET
+      target_word = excluded.target_word, lookup_outcome = excluded.lookup_outcome, lookup_returned = excluded.lookup_returned,
+      last_seen_at_unix_ms = MAX(dictionary_gaps_v2.last_seen_at_unix_ms, excluded.last_seen_at_unix_ms),
+      observation_count = dictionary_gaps_v2.observation_count + 1
+  `).bind(...identity, report.targetWord, report.lookupOutcome, report.lookupReturned, now).run();
+  if (result?.success !== true) throw new Error("D1 did not acknowledge the dictionary write.");
+  if (result.meta?.changes === 0) throw new RequestError(507, "dictionary_capacity_reached", "Dictionary maintenance storage is full.");
+  return { deduplicated: Boolean(existing) };
+}
+
+async function storeSentenceReportV2(env, report, now) {
+  const identity = [report.courseId, report.sourceLanguage, report.targetLanguage, report.clientReportId];
+  const payloadSha256 = await sha256(report.schema === SENTENCE_REPORT_SCHEMA_V3 ? canonicalSentencePayloadV3(report) : canonicalSentencePayloadV2(report));
+  const lookup = () => env.DB.prepare(`SELECT payload_sha256 FROM sentence_reports_v2
+    WHERE course_id = ?1 AND source_language = ?2 AND target_language = ?3 AND client_report_id = ?4`).bind(...identity).first();
+  const samePayload = stored => {
+    if (stored.payload_sha256 !== payloadSha256) throw new RequestError(409, "report_id_conflict", "That report identifier was already used for different content.");
+    return { deduplicated: true };
+  };
+  const existing = await lookup();
+  if (existing) return samePayload(existing);
+  const result = await env.DB.prepare(`
+    INSERT INTO sentence_reports_v2 (
+      course_id, source_language, target_language, client_report_id, payload_sha256, sentence, translation,
+      reason, comment, entry_id, content_mode, corpus_version, received_at_unix_ms,
+      semantic_bank_id, content_id, flag_target, english_at_flag, translation_at_flag
+    ) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15, ?16, ?17, ?18)
+    ON CONFLICT (course_id, source_language, target_language, client_report_id) DO NOTHING
+  `).bind(...identity, payloadSha256, report.sentence, report.translation, report.reason, report.comment,
+    report.entryId, report.contentMode, report.corpusVersion, now, report.semanticBankId || "", report.contentId || "", report.flagTarget || "", report.englishAtFlag || "", report.translationAtFlag || "").run();
+  if (result?.success !== true) throw new Error("D1 did not acknowledge the sentence write.");
+  if (result.meta?.changes === 0) {
+    const stored = await lookup();
+    if (!stored) throw new Error("D1 did not retain the conflicting sentence report.");
+    return samePayload(stored);
+  }
+  return { deduplicated: false };
+}
+
 function retentionDays(value, fallback) {
   const parsed = Number(value);
   return Number.isInteger(parsed) && parsed >= 1 && parsed <= 3650 ? parsed : fallback;
@@ -410,6 +464,8 @@ export async function runRetentionIfDue(env, now = Date.now()) {
   await env.DB.batch([
     env.DB.prepare("DELETE FROM sentence_reports WHERE received_at_unix_ms < ?1").bind(sentenceCutoff),
     env.DB.prepare("DELETE FROM dictionary_gaps WHERE last_seen_at_unix_ms < ?1").bind(dictionaryCutoff),
+    env.DB.prepare("DELETE FROM sentence_reports_v2 WHERE received_at_unix_ms < ?1").bind(sentenceCutoff),
+    env.DB.prepare("DELETE FROM dictionary_gaps_v2 WHERE last_seen_at_unix_ms < ?1").bind(dictionaryCutoff),
     env.DB.prepare(`
       INSERT INTO service_state (state_key, integer_value, text_value, updated_at_unix_ms)
       VALUES ('last_retention_at_unix_ms', ?1, NULL, ?1)
@@ -431,25 +487,31 @@ async function handleHealth(request, env, url) {
   return json(200, { ok: true, ready: true, version: DEPLOYMENT_VERSION });
 }
 
-async function handlePost(request, env, context, url, kind) {
-  const expected = kind === "dictionary" ? routes.dictionary : routes.sentence;
+async function handlePost(request, env, context, url, kind, version = 1) {
+  const expected = routes[`${kind}${version === 2 ? "V2" : ""}`];
   assertExactRoute(url, expected);
   if (request.method !== "POST") {
     throw new RequestError(405, "method_not_allowed", "Use POST for this route.");
   }
-  assertPostPolicy(request);
+  assertPostPolicy(request, version === 2 ? REPORTING_POLICY_V2 : REPORTING_POLICY);
   await enforceRateLimit(
     kind === "dictionary" ? env.DICTIONARY_RATE_LIMITER : env.SENTENCE_RATE_LIMITER,
     request,
     kind
   );
   const body = await readJson(request, kind === "dictionary" ? 2 * 1024 : 4 * 1024);
-  const report = kind === "dictionary" ? validateDictionaryGap(body) : validateSentenceReport(body);
+  const validate = version === 2
+    ? (kind === "dictionary" ? validateDictionaryGapV2 : validateSentenceReportV2)
+    : (kind === "dictionary" ? validateDictionaryGap : validateSentenceReport);
+  const report = body?.schema === SENTENCE_REPORT_SCHEMA_V3 && kind === "sentence" && version === 2
+    ? validateSentenceReportV3(body)
+    : validate(body);
   if (!report) throw new RequestError(422, "invalid_report", "The report does not match the accepted schema.");
   const now = Date.now();
-  const stored = kind === "dictionary"
-    ? await storeDictionaryGap(env, report, now)
-    : await storeSentenceReport(env, report, now);
+  const store = version === 2
+    ? (kind === "dictionary" ? storeDictionaryGapV2 : storeSentenceReportV2)
+    : (kind === "dictionary" ? storeDictionaryGap : storeSentenceReport);
+  const stored = await store(env, report, now);
   if (context?.waitUntil) {
     context.waitUntil(runRetentionIfDue(env, now).catch(() => ({ ran: false })));
   }
@@ -462,6 +524,8 @@ export async function handleRequest(request, env, context = {}, fetchImpl = fetc
     const asset = DURABLE_ASSETS[url.pathname];
     if (asset) return await handleDurableAsset(request, asset, fetchImpl);
     if (url.pathname === routes.health) return await handleHealth(request, env, url);
+    if (url.pathname === routes.dictionaryV2) return await handlePost(request, env, context, url, "dictionary", 2);
+    if (url.pathname === routes.sentenceV2) return await handlePost(request, env, context, url, "sentence", 2);
     if (url.pathname === routes.dictionary) return await handlePost(request, env, context, url, "dictionary");
     if (url.pathname === routes.sentence) return await handlePost(request, env, context, url, "sentence");
     throw new RequestError(404, "not_found", "This reporting route does not exist.");

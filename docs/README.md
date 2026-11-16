@@ -43,7 +43,7 @@ and implementation details stay beside the relevant app or tool.
 | --- | --- |
 | [Licensing](LICENSING.md) | Scope of the project license and separately governed material |
 | [Legal inventory](LEGAL_INVENTORY.md) | Component provenance and distribution decisions |
-| [Privacy](PRIVACY.md) | Current development-preview data practices |
+| [Privacy](PRIVACY.md) | Current data practices for the released app |
 | [Security](../.github/SECURITY.md) | Vulnerability reporting and support status |
 | [Support](../.github/SUPPORT.md) | Support boundaries and reporting channels |
 | [Contributing](../.github/CONTRIBUTING.md) | Current contribution policy |

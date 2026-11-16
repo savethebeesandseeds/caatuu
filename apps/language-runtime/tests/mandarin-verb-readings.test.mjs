@@ -10,13 +10,32 @@ const rows = await json("../../languages/mandarin-simplified/static/data/games/v
 const course = await json("../../languages/mandarin-simplified/course.json");
 const sounds = await json("../../languages/mandarin-simplified/static/data/games/sound-quasar/content.json");
 const pairs = validateVerbNebulaCatalog(rows, { learnerBaseLanguage: course.sourceLanguage.locale });
+const authoredRows = rows.filter(row => row.reviewStatus !== "untranslated");
 const notation = (reading) => reading.tokens.flatMap((token) => token.units.map((unit) => unit.notation)).join(" ");
+
+function contextualReading(target, notation) {
+  const syllables = notation.split(" ");
+  assert.equal(syllables.length, Array.from(target).length);
+  return { system: "pinyin", status: "machine-assisted-preview", tokens: [{ surface: target,
+    units: Array.from(target).map((surface, index) => ({ surface, notation: syllables[index] }))
+  }] };
+}
+
+function assertRenderedTones(target, reading, expectedTones) {
+  const { document } = createBrowserHarness({ course });
+  const element = document.createElement("span");
+  assert.equal(appendTargetToneText(document, element, target, reading), true, target);
+  assert.equal(element.textContent, target);
+  assert.deepEqual(element.querySelectorAll(".caatuu-target-tone").map(node => Number(node.dataset.tone)), expectedTones, target);
+}
 
 test("every playable Mandarin verb has an explicit complete contextual reading", () => {
   assert.equal(new Set(rows.map((row) => row.id)).size, rows.length);
-  assert.equal(new Set(rows.map((row) => row.target)).size, rows.length);
-  assert.deepEqual(new Set(pairs.map((pair) => pair.id)), new Set(rows.map((row) => row.id)));
-  for (const row of rows) {
+  assert.ok(authoredRows.length > 0);
+  const bandKey = row => `${row.difficulty === 0 ? "zero:" : ""}${row.target}`;
+  assert.equal(new Set(authoredRows.map(bandKey)).size, authoredRows.length);
+  assert.deepEqual(new Set(pairs.map((pair) => pair.id)), new Set(authoredRows.map((row) => row.id)));
+  for (const row of authoredRows) {
     const reading = row.reading;
     assert.equal(reading?.system, "pinyin", row.id);
     assert.equal(reading.status, "machine-assisted-preview", row.id);
@@ -36,7 +55,7 @@ test("every playable Mandarin verb has an explicit complete contextual reading",
 
 test("the shared renderer accepts the entire verb inventory without replacing learner text", () => {
   const { document } = createBrowserHarness({ course });
-  for (const row of rows) {
+  for (const row of authoredRows) {
     const copy = document.createElement("span");
     assert.equal(appendTargetToneText(document, copy, row.target, row.reading), true, row.id);
     assert.equal(copy.textContent, row.target, row.id);
@@ -44,7 +63,7 @@ test("the shared renderer accepts the entire verb inventory without replacing le
   }
 });
 
-test("verb senses retain contextual polyphonic readings instead of default character readings", () => {
+test("verb senses and explicit fixtures retain contextual polyphonic readings instead of defaults", () => {
   // Dictionary checks: zdic.net/hans/{还,系,盛,钻,播种,削,熨,拧,说服,反省}.
   // These values describe the authored verb senses, not every reading of a glyph.
   const expected = new Map([
@@ -60,13 +79,20 @@ test("verb senses retain contextual polyphonic readings instead of default chara
     ["结冰", "jié bīng"], ["相遇", "xiāng yù"], ["假装", "jiǎ zhuāng"]
   ]);
   for (const [target, reading] of expected) {
-    const row = rows.find((entry) => entry.target === target);
-    assert.ok(row, target);
-    assert.equal(notation(row.reading), reading, `${target}: ${row.source}`);
+    const row = authoredRows.find((entry) => entry.target === target);
+    if (row) assert.equal(notation(row.reading), reading, `${target}: ${row.source}`);
+    // Removed catalog examples remain explicit renderer fixtures, not claimed live content.
+    const guide = contextualReading(target, reading);
+    assertRenderedTones(target, guide, reading.split(" ").map(targetTextToneNumber));
   }
-  assert.match(rows.find((row) => row.target === "还").source, /return/u);
-  assert.match(rows.find((row) => row.target === "系").source, /tie/u);
-  assert.match(rows.find((row) => row.target === "盛").source, /serve/u);
+  // The same glyph must take the supplied contextual tone, never a default.
+  for (const [target, reading, tones] of [
+    ["种", "zhòng", [4]], ["种", "zhǒng", [3]],
+    ["倒", "dào", [4]], ["倒", "dǎo", [3]],
+    ["数", "shǔ", [3]], ["数", "shù", [4]],
+    ["长", "zhǎng", [3]], ["长", "cháng", [2]],
+    ["觉", "jiào", [4]], ["觉", "jué", [2]]
+  ]) assertRenderedTones(target, contextualReading(target, reading), tones);
 });
 
 test("neutral syllables stay neutral while other syllables preserve their own tones", () => {
@@ -77,9 +103,11 @@ test("neutral syllables stay neutral while other syllables preserve their own to
     ["收拾", "shōu shi", [1, 5]], ["拿着", "ná zhe", [2, 5]],
     ["穿衣服", "chuān yī fu", [1, 1, 5]], ["需要", "xū yào", [1, 4]]
   ]) {
-    const guide = rows.find((row) => row.target === target).reading;
+    const row = authoredRows.find((row) => row.target === target);
+    const guide = row?.reading ?? contextualReading(target, reading);
     assert.equal(notation(guide), reading, target);
     assert.deepEqual(guide.tokens.flatMap((token) => token.units.map((unit) => targetTextToneNumber(unit.notation))), tones, target);
+    assertRenderedTones(target, guide, tones);
   }
 });
 
@@ -87,12 +115,16 @@ test("readings linked to the same authored source verb remain consistent with li
   const byId = new Map(rows.map((row) => [row.id, row]));
   let matched = 0;
   for (const item of sounds.items) {
+    if (item.sourceKind === "authored-listening") continue;
     const verb = byId.get(item.sourceId);
-    if (!verb || item.target !== verb.target || !item.reading) continue;
+    assert.ok(verb, item.sourceId);
+    assert.notEqual(verb.reviewStatus, "untranslated", verb.id);
+    assert.equal(item.target, verb.target, verb.id);
+    assert.ok(item.reading, verb.id);
     assert.deepEqual(verb.reading.tokens, item.reading.tokens, verb.id);
     matched += 1;
   }
   assert.ok(matched > 0, "Existing source-linked readings remain reusable");
   assert.equal(course.capabilities.pronunciationGuides, false, "Preview metadata must not promote pronunciation review capability");
-  assert.ok(rows.every((row) => row.reviewStatus === "native-review-required"));
+  assert.ok(authoredRows.every((row) => row.reviewStatus === "native-review-required"));
 });

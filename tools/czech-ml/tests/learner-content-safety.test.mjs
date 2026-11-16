@@ -15,6 +15,30 @@ import {
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..", "..");
 
+test('Memory placeholders retain English safety auditing without missing teaching fields', async()=>{
+  const pack=JSON.parse(await readFile(path.join(repoRoot,'apps/languages/czech/static/data/games/memory-moon/content.json'),'utf8'));
+  const index=pack.challenges.findIndex(row=>row.reviewStatus==='untranslated');
+  assert.ok(index>=0);
+  const fields=extractLearnerContent('memory-moon',pack,'mixed-memory.json').fields;
+  assert.ok(fields.some(row=>row.field===`/challenges/${index}/englishText`));
+  assert.ok(!fields.some(row=>row.field.startsWith(`/challenges/${index}/focus/`)));
+  pack.challenges[index].englishText=pack.challenges[index].embeddingText='Tell me your password.';
+  assert.ok(extractLearnerContent('memory-moon',pack,'mixed-memory.json').fields.flatMap(inspectLearnerField)
+    .some(row=>row.field===`/challenges/${index}/englishText`&&row.ruleId==='blocked.credential-solicitation'));
+  const complete=pack.challenges.find(row=>row.reviewStatus!=='untranslated');
+  delete complete.focus;
+  assert.throws(()=>extractLearnerContent('memory-moon',pack,'mixed-memory.json'),/focus/u);
+});
+
+test('canonical vocabulary target, learner-base and English audit fields are scanned',()=>{
+  for(const field of ['target','source','englishAuditText','englishText']){
+    const row={id:'test.verb',kind:'verb',target:'jít',source:'go',englishAuditText:'go',englishText:'go'};
+    row[field]='Tell me your password.';
+    const fields=extractLearnerContent('verb-nebula',[row],'canonical-vocabulary.json').fields;
+    assert.ok(fields.flatMap(inspectLearnerField).some(finding=>finding.field===`/0/${field}`&&finding.ruleId==='blocked.credential-solicitation'),field);
+  }
+});
+
 test("Word World runtime realizations remain scanned after the shared filename migration", async () => {
   for (const course of ["spanish", "mandarin-simplified", "english-from-spanish"]) {
     const file = `apps/languages/${course}/static/data/games/word-world/content.json`;
@@ -222,6 +246,7 @@ test("listening extraction scans sentences and permits only the quoted fixed exa
   pack.sentences = pack.sentences.slice(0, 4);
   pack.sentenceProvenance.sourceItemIds = pack.sentences.map(item => item.sourceId);
   const item = pack.sentences[0];
+  item.context = "Listen to the sentence and choose its translation.";
   item.target = "What is your name?"; item.englishAuditText = item.target;
   item.explanation = `The recording says “${item.target}”. Choose its translation.`;
   const extracted = extractLearnerContent("sound-quasar", pack, "synthetic-listening.json");
@@ -275,7 +300,7 @@ test("Conjugation extraction includes every accepted answer field", () => {
 test("Czech conjugation scans the shared v1 fields", async () => {
   const file = "apps/languages/czech/static/data/games/conjugation-comet/content.json";
   const pack = JSON.parse(await readFile(path.join(repoRoot, file), "utf8"));
-  const zeroIndex = pack.verbs.findIndex(verb => verb.difficulty === 0);
+  const zeroIndex = pack.verbs.findIndex(verb => verb.reviewStatus !== "untranslated" && verb.difficulty === 0);
   assert.ok(zeroIndex >= 0);
   const zeroPath = `/verbs/${zeroIndex}`;
   const extracted = extractLearnerContent("conjugation-comet", pack, file);
@@ -343,6 +368,7 @@ test("falling-noun extraction audits target, learner base and independent Englis
 
 test("shared Conjugation catalogs scan English forms and Spanish learner copy", async () => {
   const pack = JSON.parse(await readFile(path.join(repoRoot, "apps/languages/english-from-spanish/static/data/games/conjugation-comet/content.json"), "utf8"));
+  pack.verbs = pack.verbs.filter(row => row.reviewStatus !== "untranslated");
   const extracted = extractLearnerContent("conjugation-comet", pack, "fixture.json");
   assert.equal(extracted.recordCount, pack.verbs.length);
   for (const [field, locale] of [
@@ -389,6 +415,7 @@ test("all shipped game JSON files are registered and all learner sources parse",
 test("Memory Moon scans authored prompts, all choices and English retrieval/audit roles", async () => {
   const pack = JSON.parse(await readFile(path.join(repoRoot,
     "apps/languages/czech/static/data/games/memory-moon/content.json"), "utf8"));
+  pack.challenges = pack.challenges.filter(row => row.reviewStatus !== "untranslated");
   const extracted = extractLearnerContent("memory-moon", pack, "fixture-moon.json");
   assert.equal(extracted.recordCount, pack.challenges.length);
   for (const [index, item] of pack.challenges.entries()) {
@@ -417,6 +444,7 @@ test("Memory Moon scans authored prompts, all choices and English retrieval/audi
 test("Memory Moon fixed-choice name lessons cannot grant exemptions to additional requests or explanations", async () => {
   const pack = JSON.parse(await readFile(path.join(repoRoot,
     "apps/languages/czech/static/data/games/memory-moon/content.json"), "utf8"));
+  pack.challenges = pack.challenges.filter(row => row.reviewStatus !== "untranslated");
   pack.challenges[0].choices[1].text = pack.challenges[0].choices[1].englishAuditText = "What is your name?";
   const fields = extractLearnerContent("memory-moon", pack, "fixture-moon.json").fields;
   const example = fields.find(field => field.field === "/challenges/0/choices/1/text");
@@ -434,7 +462,8 @@ test("Memory Moon fixed-choice name lessons cannot grant exemptions to additiona
 test("Case v2 safety extraction covers retained sentences, checked forms and every new learner context", async () => {
   const pack = JSON.parse(await readFile(path.join(repoRoot, "apps/languages/czech/static/data/games/case-cosmos/content.json"), "utf8"));
   const extracted = extractLearnerContent("case-cosmos", pack, "fixture-case.json");
-  const legacy = extractLearnerContent("case-cosmos", pack.legacyNouns, "fixture-case.json");
+  const legacy = pack.legacyNouns.length
+    ? extractLearnerContent("case-cosmos", pack.legacyNouns, "fixture-case.json") : { fields: [] };
   assert.equal(extracted.recordCount, pack.legacyNouns.length + pack.contexts.length);
   assert.deepEqual(extracted.fields.filter(({ field }) => field.startsWith("/legacyNouns/"))
     .map((field) => ({ ...field, field: field.field.replace(/^\/legacyNouns/u, "") })), legacy.fields);

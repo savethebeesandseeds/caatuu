@@ -10,7 +10,7 @@ import { createBrowserHarness } from "./helpers/fake-browser.mjs";
 import { createInterfaceContent } from "../static/source/interface-content.mjs";
 import { appendTargetToneText } from "../static/source/target-text-tones.mjs";
 import { createArabicReadingGuide } from "../static/source/arabic-reading-guide.mjs";
-import { fetchDeclaredCourseGameJson, readEmbeddedCourseProfile } from "../static/source/games/course-game-content.mjs";
+import { fetchDeclaredCourseGameJson, readEmbeddedCourseProfile, reportEmbeddedGameStatus } from "../static/source/games/course-game-content.mjs";
 import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../static/source/games/embedded-game-controls.mjs";
 import { SOUND_QUASAR_ROUND_COUNT, createSoundQuasarSession, evaluateSoundQuasarChoice, validateSoundQuasarCatalog, soundQuasarItemsForDifficulty }
   from "../static/source/games/sound-quasar/sound-quasar-core.mjs";
@@ -176,7 +176,7 @@ async function mountGame({ language = "mandarin-simplified", muted = true, voice
     createResultDictionary, testServices: { resolveWord },
     newContentEncounterId,
     createArabicReadingGuide,
-    fetchDeclaredCourseGameJson, readEmbeddedCourseProfile, createSpeechIcon,
+    fetchDeclaredCourseGameJson, readEmbeddedCourseProfile, reportEmbeddedGameStatus, createSpeechIcon,
     mountEmbeddedGameControls, mountRobotLoadingScreen, createSoundQuasarSession, evaluateSoundQuasarChoice,
     validateSoundQuasarCatalog, soundQuasarItemsForDifficulty, appendTargetToneText, testRandom: random,
     fetch: async (url) => {
@@ -353,12 +353,13 @@ test("a listening exercise shown before reset cannot add exposure to the new gen
   const learning = game.shell.CaatuuLearning;
   const before = learning.contentGeneration();
   await game.listen();
-  const staleId = game.current().id;
+  const staleChoice = game.choice(game.current().id);
   learning.resetProgress();
   assert.notEqual(learning.contentGeneration(), before);
-  game.click(game.choice(staleId));
+  staleChoice.click();
   assert.equal(Object.keys(learning.contentHistory("sound-quasar", "words")).length, 0);
-  await game.continue();
+  assert.equal(learning.snapshot().summary.xp, 0);
+  assert.ok(game.choices().every(button => button.disabled), "the replacement requires new listening");
   await game.listen();
   const freshId = game.current().id;
   game.click(game.choice(freshId));
@@ -2140,5 +2141,18 @@ test("Arabic dictionary selection keeps complete vowel-marked words and their re
   game.document.querySelector('[data-arabic-romanization-setting="sound-quasar"]').click();
   assert.equal(target.textContent, item.target);
   assert.deepEqual(target.querySelectorAll("button.quasar-result-word").map(button => button.dataset.word), expected);
+  game.controller.destroy();
+});
+
+test("insufficient initial listening content reports startup error without claiming readiness", async () => {
+  const game = await mountGame({ difficulty: 3, mutateCatalog(raw) {
+    for (const bank of [raw.items, raw.sentences]) {
+      const last = bank.find(item => item.difficulty === 3);
+      bank.forEach(item => { if (item.difficulty === 3 && item !== last) item.difficulty = 1; });
+    }
+  } });
+  assert.equal(game.element("Error").hidden, false);
+  assert.deepEqual(game.messages.filter(({ message }) => message.type === "startup").map(({ message }) => message.status), ["error"]);
+  game.noCredit();
   game.controller.destroy();
 });

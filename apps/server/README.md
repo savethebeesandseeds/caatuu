@@ -10,7 +10,7 @@ It owns the route split:
 /cz/              active Czech course
 /zh/ /es/ /es-en/ /nb/
 /ar/ /la/ /ka/ /ru/ /he/
-                  Pages-enabled development courses
+                  Pages-enabled released courses
 /language-runtime narrowly shared course runtime and English embedding assets
 /games/lab        paused adventure art labs, gated for local review
 /android/         signed stable and explicit debug Android artifacts
@@ -20,8 +20,9 @@ Browser language mounts are loaded from `apps/languages/catalog.json` and each
 course manifest; the server does not maintain a parallel hard-coded language
 list. A local mount is not proof that the course is on the public Pages site.
 Pages follows each course's `platforms.browser.pagesEnabled` flag. The Android
-bundle follows `apps/android/course-bundle.json`, which names the eight
-Android-enabled courses. Russian and Hebrew stay out of that bundle. The deprecated Chinese trainer source remains
+bundle follows `apps/android/course-bundle.json`, which names all ten
+Android-enabled courses. Russian and Hebrew are included from version 204.
+The published Android 203 package does not install them. The deprecated Chinese trainer source remains
 repository-only under `archive/caatuu-chinese`; it is not mounted or routed.
 `/zh-hans/*` redirects to the canonical `/zh/*` course.
 

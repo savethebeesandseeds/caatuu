@@ -11,6 +11,7 @@ import { createTargetReadingGuide } from "../static/source/target-reading-guide.
 import { createReviewContinuation, preventRepeatedReviewKey } from "../static/source/games/practice-pacing.mjs";
 import {
   fetchDeclaredCourseGameJson,
+  reportEmbeddedGameStatus,
   readEmbeddedCourseProfile
 } from "../static/source/games/course-game-content.mjs";
 import {
@@ -60,7 +61,7 @@ function seedGameMarkup(harness) {
   }
 }
 
-async function mountGame({ language = "czech", difficulty = 3, syntheticBase = false, framed = false, syncretic = false, speech = false, autoplay = false, muted = false, speechResult, duringLoad, reducedMotion = false, localStorageValues = {}, mutateCatalog } = {}) {
+async function mountGame({ language = "czech", difficulty = 3, syntheticBase = false, framed = false, syncretic = false, speech = false, autoplay = false, muted = false, speechResult, duringLoad, duringPresentation, reducedMotion = false, localStorageValues = {}, mutateCatalog } = {}) {
   const raw = JSON.parse(await readFile(new URL(
     `../../languages/${language}/static/data/games/conjugation-comet/content.json`, import.meta.url
   ), "utf8"));
@@ -156,6 +157,7 @@ async function mountGame({ language = "czech", difficulty = 3, syntheticBase = f
   const languageNames = createInterfaceContent(interfaceCatalog);
   const records = [];
   const messages = [];
+  const startupMessages = [];
   const timers = new Map();
   const builtRounds = [];
   const toolbarCalls = [];
@@ -180,7 +182,7 @@ async function mountGame({ language = "czech", difficulty = 3, syntheticBase = f
       speakText: async (text) => { speechCalls.push(text); await speechResult; },
       stopSpeech: async () => { speechStops += 1; }
     },
-    postMessage: (message, origin) => messages.push({ message, origin })
+    postMessage: (message, origin) => (message.type === "startup" ? startupMessages : messages).push({ message, origin })
   };
   harness.window.parent = shell;
   harness.window.setTimeout = (callback, delay) => {
@@ -200,6 +202,7 @@ async function mountGame({ language = "czech", difficulty = 3, syntheticBase = f
     createArabicReadingGuide: createTargetReadingGuide,
     selectConjugationPracticeVerbs, newContentEncounterId, matchesContentDifficulty,
     fetchDeclaredCourseGameJson,
+    reportEmbeddedGameStatus,
     readEmbeddedCourseProfile,
     buildConjugationHelixRound(...args) {
       const round = buildConjugationHelixRound(...args);
@@ -217,6 +220,10 @@ async function mountGame({ language = "czech", difficulty = 3, syntheticBase = f
       loaderCalls.push(call);
       return Object.freeze({ ...controller, minimumVisible(milliseconds) {
         call.minimumDurations.push(milliseconds);
+        if (duringPresentation) {
+          const waiting = controller.minimumVisible(milliseconds);
+          return Promise.resolve(duringPresentation({ ...harness, shell, timers, startupMessages, speechCalls })).then(() => waiting);
+        }
         // Real visible-time accounting is exercised in robot-loading.test.mjs.
         return Promise.resolve();
       } });
@@ -329,7 +336,7 @@ async function mountGame({ language = "czech", difficulty = 3, syntheticBase = f
     autoplay = value;
     harness.window.dispatchEvent({ type: "caatuu:speech-autoplay-change" });
   }
-  return { ...harness, shell, course, catalog, records, messages, toolbarCalls, toolbarLifecycle, loaderCalls,
+  return { ...harness, shell, course, catalog, records, messages, startupMessages, toolbarCalls, toolbarLifecycle, loaderCalls,
     timers, controller, element, current, click, advance, advanceMotion, languageNames, round, items, strandButtons,
     selectedButton, selected, offset, assessment, choose, align, submit, setControlsOpen, setActive, setAutoplay,
     attempts: () => records.filter((entry) => entry.attempts),
@@ -486,7 +493,6 @@ test("conjugation records the assessed verb and each authored form once, after s
     shell.CaatuuLearning.recordExposure = (gameId, event) => exposures.push({ gameId, ...event });
   } });
   assert.equal(exposures.length, 0);
-  generation = "after-reset";
   game.submit(false);
   const verb = exposures.filter(event => event.bankId === undefined);
   const forms = exposures.filter(event => event.bankId === "forms");
@@ -1625,4 +1631,101 @@ test("the feather still works when preference storage is unavailable", async () 
   game.toolbarCalls[0].illustrations.onChange(false);
   assert.equal(game.element("conjugationCometCard").dataset.illustrations, "hidden");
   game.controller.destroy();
+});
+
+const realProfileSource = await readFile(new URL("../static/source/learning-profile.js", import.meta.url), "utf8");
+async function mountWithLearning() {
+  return mountGame({ difficulty: 1, duringLoad(h) {
+    h.window.CaatuuCourse = { id: "cz", storage: { namespace: "caatuu-czech" } };
+    h.window.navigator.locks = { request: async (_, action) => action() };
+    vm.runInContext(realProfileSource, h.context);
+    h.shell.CaatuuLearning = h.window.CaatuuLearning;
+  } });
+}
+
+test("a completed Conjugation board qualifies the real course streak exactly once", async () => {
+  const game = await mountWithLearning();
+  finishBatch(game);
+  game.element("conjugationCometSummaryNext").click();
+  const snapshot = game.shell.CaatuuLearning.snapshot();
+  assert.equal(snapshot.summary.rounds, 1);
+  assert.equal(snapshot.summary.successes, 1);
+  assert.equal(snapshot.streak.currentDays, 1);
+  game.controller.destroy();
+});
+
+for (const phase of ["question", "summary"]) test(`progress reset retires a Conjugation ${phase} and lets a fresh board score with evidence`, async () => {
+  const game = await mountWithLearning();
+  const learning = game.shell.CaatuuLearning;
+  if (phase === "summary") game.submit(true);
+  const oldRound = game.round();
+  learning.resetProgress();
+  assert.notEqual(game.round(), oldRound);
+  assert.equal(game.element("conjugationCometSummary").open, false);
+  assert.equal(game.element("conjugationCometGame").dataset.phase, "question");
+  assert.equal(learning.snapshot().summary.xp, 0);
+  finishBatch(game);
+  assert.equal(learning.snapshot().summary.attempts, 1);
+  assert.equal(learning.snapshot().summary.rounds, 1);
+  assert.equal(Object.keys(learning.contentHistory("conjugation-comet")).length, 1);
+  game.controller.destroy();
+});
+
+test("Conjugation rejects a late answer before a cross-tab reset event is delivered", async () => {
+  const game = await mountWithLearning();
+  const learning = game.shell.CaatuuLearning;
+  const other = createBrowserHarness({ course: game.window.CaatuuCourse, window: { localStorage: game.localStorage } });
+  vm.runInContext(realProfileSource, other.context);
+  other.window.CaatuuLearning.resetProgress();
+  game.submit(true);
+  assert.equal(learning.snapshot().summary.xp, 0);
+  assert.equal(Object.keys(learning.contentHistory("conjugation-comet")).length, 0);
+  assert.equal(game.element("conjugationCometGame").dataset.phase, "question");
+  finishBatch(game);
+  assert.equal(learning.snapshot().summary.attempts, 1);
+  game.controller.destroy();
+});
+
+test("reset inside a Conjugation evidence listener cannot leak the interrupted answer into the new profile", async () => {
+  const game = await mountWithLearning();
+  const learning = game.shell.CaatuuLearning;
+  game.window.addEventListener("caatuu:content-practice-change", () => learning.resetProgress(), { once: true });
+  game.submit(true);
+  assert.equal(learning.snapshot().summary.xp, 0);
+  assert.equal(Object.keys(learning.contentHistory("conjugation-comet")).length, 0);
+  assert.equal(game.element("conjugationCometGame").dataset.phase, "question");
+  game.controller.destroy();
+});
+
+test("cold campaign preload reports ready before its paused presentation timer can finish", async () => {
+  const game = await mountGame({ framed: true, speech: true, autoplay: true,
+    duringLoad({ window, shell }) {
+      window.dispatchEvent({ type: "message", origin: "https://caatuu.test", source: shell,
+        data: { source: "caatuu-app-shell", type: "visibility", active: false } });
+    },
+    duringPresentation({ window, document, shell, timers, startupMessages, speechCalls }) {
+      assert.equal(startupMessages.length, 1);
+      assert.equal(startupMessages[0].message.status, "ready");
+      assert.equal(document.getElementById("conjugationCometLoading").dataset.active, "false");
+      assert.equal(timers.size, 0, "the real visible-time gate cannot run while the frame is inactive");
+      assert.deepEqual(speechCalls, []);
+      window.dispatchEvent({ type: "message", origin: "https://caatuu.test", source: shell,
+        data: { source: "caatuu-app-shell", type: "visibility", active: true } });
+      assert.equal(timers.size, 1, "the ready signal lets the shell activate the cold frame");
+      [...timers.values()][0].callback();
+    }
+  });
+  assert.equal(game.element("conjugationCometGame").hidden, false);
+  assert.equal(game.element("conjugationCometSubmit").disabled, false);
+  game.controller.destroy();
+});
+
+test("an empty initial Conjugation badge reports error without a ready signal", async () => {
+  const game = await mountGame({ framed: true, difficulty: 3,
+    mutateCatalog(raw) { raw.verbs = raw.verbs.filter(verb => verb.difficulty !== 3); }
+  });
+  assert.deepEqual(game.startupMessages.map(({ message }) => message.status), ["error"]);
+  assert.equal(game.element("conjugationCometError").hidden, false);
+  assert.equal(game.controller, null);
+  game.window.dispatchEvent({ type: "pagehide", persisted: false });
 });

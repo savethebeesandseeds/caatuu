@@ -102,7 +102,10 @@ export const fixtureCatalogs = [
     // structural-parent English absence while the actual game validator rejects
     // playability. A complete bank needs every case and all difficulty levels.
     document: {
-      schemaVersion: 'caatuu-case-cosmos-content-v2', courseId: 'cz', contentRevision: 1,
+      schemaVersion: 'caatuu-case-cosmos-content-v3', courseId: 'cz', contentRevision: 1,
+      caseSystem: { targetLocale: 'cs-CZ', sourceLocale: 'en-US',
+        cases: [{ case: 'Nominative', meaning: 'subject', question: 'Who?' }, { case: 'Accusative', meaning: 'object', question: 'Whom?' }],
+        contrasts: { Nominative: ['Accusative'], Accusative: ['Nominative'] } },
       curriculum: { schemaVersion: 1, objectives: [] }, paradigms: [], contexts: [],
       legacyNouns: [{
         noun: 'Petr', difficulty: 1, usefulness: 80, complexity: 30,

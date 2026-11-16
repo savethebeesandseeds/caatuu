@@ -1,0 +1,1268 @@
+[
+  {
+    "id": "sb.case-cosmos.000001",
+    "englishText": "A friend is waiting.",
+    "difficulty": 1,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.case-cosmos.000002",
+    "englishText": "A little water is enough for the small flower.",
+    "difficulty": 1,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.case-cosmos.000003",
+    "englishText": "A paper bookmark fell out of the book.",
+    "difficulty": 1,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.case-cosmos.000004",
+    "englishText": "A path leads through the park to the pond.",
+    "difficulty": 2,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.case-cosmos.000005",
+    "englishText": "A snowman with a red scarf stands in front of the house.",
+    "difficulty": 2,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.case-cosmos.000006",
+    "englishText": "A sunflower is growing around the corner of the house.",
+    "difficulty": 1,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.case-cosmos.000007",
+    "englishText": "After lunch we return to school.",
+    "difficulty": 2,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.case-cosmos.000008",
+    "englishText": "Anna is drawing.",
+    "difficulty": 1,
+    "usefulness": 63
+  },
+  {
+    "id": "sb.case-cosmos.000009",
+    "englishText": "Anna, wait!",
+    "difficulty": 1,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000010",
+    "englishText": "Colorful lanterns are reflected in the windows.",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000011",
+    "englishText": "Dad is working.",
+    "difficulty": 2,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.case-cosmos.000012",
+    "englishText": "Dad, wait!",
+    "difficulty": 2,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000013",
+    "englishText": "David is running.",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000014",
+    "englishText": "David, listen!",
+    "difficulty": 1,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000015",
+    "englishText": "Dear dog, in our fairy tale you can talk.",
+    "difficulty": 3,
+    "usefulness": 43
+  },
+  {
+    "id": "sb.case-cosmos.000016",
+    "englishText": "Doctor, please come in!",
+    "difficulty": 1,
+    "usefulness": 85
+  },
+  {
+    "id": "sb.case-cosmos.000017",
+    "englishText": "Eva is swimming.",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000018",
+    "englishText": "Eva, come in!",
+    "difficulty": 1,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000019",
+    "englishText": "Friend, wait!",
+    "difficulty": 1,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.case-cosmos.000020",
+    "englishText": "From the window we can see a nest in the treetop.",
+    "difficulty": 1,
+    "usefulness": 48
+  },
+  {
+    "id": "sb.case-cosmos.000021",
+    "englishText": "Hero, come back!",
+    "difficulty": 3,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000022",
+    "englishText": "I am adding antennae to the butterfly drawing with a thin pencil.",
+    "difficulty": 2,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.case-cosmos.000023",
+    "englishText": "I am coming back from school.",
+    "difficulty": 1,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.case-cosmos.000024",
+    "englishText": "I am eating soup with a spoon.",
+    "difficulty": 2,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.case-cosmos.000025",
+    "englishText": "I am giving Karel the key.",
+    "difficulty": 2,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000026",
+    "englishText": "I am giving Martin a map.",
+    "difficulty": 1,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000027",
+    "englishText": "I am giving Petr a book.",
+    "difficulty": 1,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.case-cosmos.000028",
+    "englishText": "I am giving Tomas the key.",
+    "difficulty": 2,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000029",
+    "englishText": "I am giving the doctor a document.",
+    "difficulty": 1,
+    "usefulness": 61
+  },
+  {
+    "id": "sb.case-cosmos.000030",
+    "englishText": "I am giving the dog water.",
+    "difficulty": 1,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.case-cosmos.000031",
+    "englishText": "I am giving the flower water.",
+    "difficulty": 1,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.case-cosmos.000032",
+    "englishText": "I am giving the hero a map.",
+    "difficulty": 3,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000033",
+    "englishText": "I am giving the kitten water.",
+    "difficulty": 3,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.case-cosmos.000034",
+    "englishText": "I am giving the teacher a ticket.",
+    "difficulty": 1,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.case-cosmos.000035",
+    "englishText": "I am going with Anna.",
+    "difficulty": 1,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000036",
+    "englishText": "I am going with Dad.",
+    "difficulty": 2,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000037",
+    "englishText": "I am going with Jana.",
+    "difficulty": 1,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000038",
+    "englishText": "I am going with Karel.",
+    "difficulty": 2,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000039",
+    "englishText": "I am going with Marie.",
+    "difficulty": 2,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000040",
+    "englishText": "I am going with Mom.",
+    "difficulty": 1,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000041",
+    "englishText": "I am going with Petr.",
+    "difficulty": 1,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000042",
+    "englishText": "I am going with Tomas.",
+    "difficulty": 2,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000043",
+    "englishText": "I am going with the hero.",
+    "difficulty": 3,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000044",
+    "englishText": "I am going with the kitten.",
+    "difficulty": 3,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000045",
+    "englishText": "I am going with the neighbor.",
+    "difficulty": 1,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.case-cosmos.000046",
+    "englishText": "I am going with the teacher.",
+    "difficulty": 1,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.case-cosmos.000047",
+    "englishText": "I am going without an umbrella.",
+    "difficulty": 1,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.case-cosmos.000048",
+    "englishText": "I am helping a friend.",
+    "difficulty": 1,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.case-cosmos.000049",
+    "englishText": "I am helping the student.",
+    "difficulty": 1,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.case-cosmos.000050",
+    "englishText": "I am lending Anna a pencil.",
+    "difficulty": 1,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.case-cosmos.000051",
+    "englishText": "I am opening the window.",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000052",
+    "englishText": "I am putting the book on the table.",
+    "difficulty": 2,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.case-cosmos.000053",
+    "englishText": "I am reading a book.",
+    "difficulty": 1,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.case-cosmos.000054",
+    "englishText": "I am reading books.",
+    "difficulty": 3,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.case-cosmos.000055",
+    "englishText": "I am running in the park.",
+    "difficulty": 2,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.case-cosmos.000056",
+    "englishText": "I am showing Eva the map.",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000057",
+    "englishText": "I am talking about Anna.",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000058",
+    "englishText": "I am talking about Dad.",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000059",
+    "englishText": "I am talking about David.",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000060",
+    "englishText": "I am talking about Eva.",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000061",
+    "englishText": "I am talking about Jana.",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000062",
+    "englishText": "I am talking about Karel.",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000063",
+    "englishText": "I am talking about Marie.",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000064",
+    "englishText": "I am talking about Martin.",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000065",
+    "englishText": "I am talking about Mom.",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000066",
+    "englishText": "I am talking about Petr.",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000067",
+    "englishText": "I am talking about Tomas.",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000068",
+    "englishText": "I am talking about a friend.",
+    "difficulty": 1,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.case-cosmos.000069",
+    "englishText": "I am talking about the doctor.",
+    "difficulty": 1,
+    "usefulness": 85
+  },
+  {
+    "id": "sb.case-cosmos.000070",
+    "englishText": "I am talking about the hero.",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000071",
+    "englishText": "I am talking about the kitten.",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000072",
+    "englishText": "I am talking about the student.",
+    "difficulty": 1,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.case-cosmos.000073",
+    "englishText": "I am talking about the teacher.",
+    "difficulty": 1,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.case-cosmos.000074",
+    "englishText": "I am talking with the doctor.",
+    "difficulty": 1,
+    "usefulness": 85
+  },
+  {
+    "id": "sb.case-cosmos.000075",
+    "englishText": "I am talking with the neighbors.",
+    "difficulty": 3,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.case-cosmos.000076",
+    "englishText": "I am talking with the students.",
+    "difficulty": 3,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.case-cosmos.000077",
+    "englishText": "I am travelling by bus.",
+    "difficulty": 2,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.case-cosmos.000078",
+    "englishText": "I am travelling with Martin.",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000079",
+    "englishText": "I am travelling with a friend.",
+    "difficulty": 1,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.case-cosmos.000080",
+    "englishText": "I am walking with the dog.",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000081",
+    "englishText": "I am working with David.",
+    "difficulty": 1,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.case-cosmos.000082",
+    "englishText": "I am working with Eva.",
+    "difficulty": 1,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.case-cosmos.000083",
+    "englishText": "I am working with the student.",
+    "difficulty": 1,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.case-cosmos.000084",
+    "englishText": "I am writing to Dad.",
+    "difficulty": 2,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.case-cosmos.000085",
+    "englishText": "I am writing to David.",
+    "difficulty": 1,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.case-cosmos.000086",
+    "englishText": "I am writing to Jana.",
+    "difficulty": 1,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.case-cosmos.000087",
+    "englishText": "I am writing to Marie.",
+    "difficulty": 2,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.case-cosmos.000088",
+    "englishText": "I am writing to Mom.",
+    "difficulty": 1,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.case-cosmos.000089",
+    "englishText": "I am writing with a pencil.",
+    "difficulty": 2,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.case-cosmos.000090",
+    "englishText": "I have a shoe.",
+    "difficulty": 0,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000091",
+    "englishText": "I have rice.",
+    "difficulty": 0,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.case-cosmos.000092",
+    "englishText": "I have soup.",
+    "difficulty": 0,
+    "usefulness": 78
+  },
+  {
+    "id": "sb.case-cosmos.000093",
+    "englishText": "I know David.",
+    "difficulty": 1,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000094",
+    "englishText": "I know Jana.",
+    "difficulty": 1,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000095",
+    "englishText": "I know Marie.",
+    "difficulty": 2,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000096",
+    "englishText": "I see Anna.",
+    "difficulty": 1,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000097",
+    "englishText": "I see Dad.",
+    "difficulty": 0,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000098",
+    "englishText": "I see Eva.",
+    "difficulty": 1,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000099",
+    "englishText": "I see Karel.",
+    "difficulty": 2,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000100",
+    "englishText": "I see Martin.",
+    "difficulty": 1,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000101",
+    "englishText": "I see Mom.",
+    "difficulty": 0,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000102",
+    "englishText": "I see Petr.",
+    "difficulty": 1,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000103",
+    "englishText": "I see Tomas.",
+    "difficulty": 2,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000104",
+    "englishText": "I see a bag.",
+    "difficulty": 0,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000105",
+    "englishText": "I see a book.",
+    "difficulty": 0,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.case-cosmos.000106",
+    "englishText": "I see a brother.",
+    "difficulty": 0,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.case-cosmos.000107",
+    "englishText": "I see a cat.",
+    "difficulty": 0,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000108",
+    "englishText": "I see a chair.",
+    "difficulty": 0,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000109",
+    "englishText": "I see a dog.",
+    "difficulty": 0,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000110",
+    "englishText": "I see a friend.",
+    "difficulty": 1,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.case-cosmos.000111",
+    "englishText": "I see a hand.",
+    "difficulty": 0,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000112",
+    "englishText": "I see a sister.",
+    "difficulty": 0,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.case-cosmos.000113",
+    "englishText": "I see the doctor.",
+    "difficulty": 1,
+    "usefulness": 85
+  },
+  {
+    "id": "sb.case-cosmos.000114",
+    "englishText": "I see the hero.",
+    "difficulty": 3,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000115",
+    "englishText": "I see the kitten.",
+    "difficulty": 3,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000116",
+    "englishText": "I see the neighbor.",
+    "difficulty": 1,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.case-cosmos.000117",
+    "englishText": "I see the student.",
+    "difficulty": 1,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.case-cosmos.000118",
+    "englishText": "I see the students.",
+    "difficulty": 3,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.case-cosmos.000119",
+    "englishText": "I see the teacher.",
+    "difficulty": 1,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.case-cosmos.000120",
+    "englishText": "I see water.",
+    "difficulty": 0,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.case-cosmos.000121",
+    "englishText": "I welcome Grandma with a flower in my hand.",
+    "difficulty": 2,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.case-cosmos.000122",
+    "englishText": "Jana is working.",
+    "difficulty": 1,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.case-cosmos.000123",
+    "englishText": "Jana, listen!",
+    "difficulty": 1,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000124",
+    "englishText": "Jana, wait!",
+    "difficulty": 3,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000125",
+    "englishText": "Jana, your drawing is on the noticeboard.",
+    "difficulty": 3,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.case-cosmos.000126",
+    "englishText": "Karel is waiting.",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000127",
+    "englishText": "Karel, call me!",
+    "difficulty": 2,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.case-cosmos.000128",
+    "englishText": "Kitten, come here!",
+    "difficulty": 3,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000129",
+    "englishText": "Marie is working.",
+    "difficulty": 2,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.case-cosmos.000130",
+    "englishText": "Marie, call me!",
+    "difficulty": 3,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.case-cosmos.000131",
+    "englishText": "Marie, come here!",
+    "difficulty": 2,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000132",
+    "englishText": "Marie, would you like to invent a name for our dragon?",
+    "difficulty": 3,
+    "usefulness": 43
+  },
+  {
+    "id": "sb.case-cosmos.000133",
+    "englishText": "Martin is taking photographs.",
+    "difficulty": 1,
+    "usefulness": 58
+  },
+  {
+    "id": "sb.case-cosmos.000134",
+    "englishText": "Martin, look!",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000135",
+    "englishText": "Mom is reading.",
+    "difficulty": 1,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.case-cosmos.000136",
+    "englishText": "Mom, listen!",
+    "difficulty": 1,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000137",
+    "englishText": "Neighbor, please wait!",
+    "difficulty": 1,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.case-cosmos.000138",
+    "englishText": "Pavel, come here!",
+    "difficulty": 3,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000139",
+    "englishText": "Pavel, will you play something for us on the flute?",
+    "difficulty": 3,
+    "usefulness": 62
+  },
+  {
+    "id": "sb.case-cosmos.000140",
+    "englishText": "Petr is reading.",
+    "difficulty": 1,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.case-cosmos.000141",
+    "englishText": "Petr, come here!",
+    "difficulty": 1,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000142",
+    "englishText": "Petr, listen!",
+    "difficulty": 3,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000143",
+    "englishText": "Petr, thank you for helping with the scenery.",
+    "difficulty": 3,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000144",
+    "englishText": "Student, please come in!",
+    "difficulty": 1,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.case-cosmos.000145",
+    "englishText": "Teacher, please look!",
+    "difficulty": 1,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.case-cosmos.000146",
+    "englishText": "The book about animals has colorful pictures.",
+    "difficulty": 1,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.case-cosmos.000147",
+    "englishText": "The book is lying on the table.",
+    "difficulty": 1,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.case-cosmos.000148",
+    "englishText": "The book is on the table.",
+    "difficulty": 2,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.case-cosmos.000149",
+    "englishText": "The children are drawing a dog with long ears.",
+    "difficulty": 1,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.case-cosmos.000150",
+    "englishText": "The doctor is waiting.",
+    "difficulty": 1,
+    "usefulness": 85
+  },
+  {
+    "id": "sb.case-cosmos.000151",
+    "englishText": "The door of the house is closed.",
+    "difficulty": 1,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.case-cosmos.000152",
+    "englishText": "The email is from Tomas.",
+    "difficulty": 2,
+    "usefulness": 72
+  },
+  {
+    "id": "sb.case-cosmos.000153",
+    "englishText": "The gift is from Dad.",
+    "difficulty": 2,
+    "usefulness": 63
+  },
+  {
+    "id": "sb.case-cosmos.000154",
+    "englishText": "The gift is from Jana.",
+    "difficulty": 1,
+    "usefulness": 63
+  },
+  {
+    "id": "sb.case-cosmos.000155",
+    "englishText": "The gift is from Mom.",
+    "difficulty": 1,
+    "usefulness": 63
+  },
+  {
+    "id": "sb.case-cosmos.000156",
+    "englishText": "The hero is arriving.",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000157",
+    "englishText": "The kitten is sleeping.",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000158",
+    "englishText": "The letter is from Marie.",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000159",
+    "englishText": "The letter is from Martin.",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000160",
+    "englishText": "The letter is from Petr.",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000161",
+    "englishText": "The letter is from the hero.",
+    "difficulty": 3,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000162",
+    "englishText": "The message is from Eva.",
+    "difficulty": 1,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.case-cosmos.000163",
+    "englishText": "The message is from Karel.",
+    "difficulty": 2,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.case-cosmos.000164",
+    "englishText": "The message is from a friend.",
+    "difficulty": 1,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.case-cosmos.000165",
+    "englishText": "The message is from the doctor.",
+    "difficulty": 1,
+    "usefulness": 85
+  },
+  {
+    "id": "sb.case-cosmos.000166",
+    "englishText": "The message is from the neighbor.",
+    "difficulty": 1,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.case-cosmos.000167",
+    "englishText": "The message is from the teacher.",
+    "difficulty": 1,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.case-cosmos.000168",
+    "englishText": "The neighbor is resting.",
+    "difficulty": 1,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.case-cosmos.000169",
+    "englishText": "The package is from David.",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000170",
+    "englishText": "The pencil rolled under the desk.",
+    "difficulty": 1,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.case-cosmos.000171",
+    "englishText": "The postcard is from Anna.",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000172",
+    "englishText": "The strawberries taste sweet even without sugar.",
+    "difficulty": 1,
+    "usefulness": 78
+  },
+  {
+    "id": "sb.case-cosmos.000173",
+    "englishText": "The student is asking a question.",
+    "difficulty": 1,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.case-cosmos.000174",
+    "englishText": "The students are waiting in front of the school.",
+    "difficulty": 3,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.case-cosmos.000175",
+    "englishText": "The tea is without sugar.",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000176",
+    "englishText": "The teacher is speaking.",
+    "difficulty": 1,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.case-cosmos.000177",
+    "englishText": "The windows are open.",
+    "difficulty": 3,
+    "usefulness": 68
+  },
+  {
+    "id": "sb.case-cosmos.000178",
+    "englishText": "This book is from the student.",
+    "difficulty": 1,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.case-cosmos.000179",
+    "englishText": "This is Dad.",
+    "difficulty": 0,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000180",
+    "englishText": "This is Mom.",
+    "difficulty": 0,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000181",
+    "englishText": "This is a bag.",
+    "difficulty": 0,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000182",
+    "englishText": "This is a book.",
+    "difficulty": 0,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.case-cosmos.000183",
+    "englishText": "This is a brother.",
+    "difficulty": 0,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.case-cosmos.000184",
+    "englishText": "This is a cat.",
+    "difficulty": 0,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000185",
+    "englishText": "This is a chair.",
+    "difficulty": 0,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000186",
+    "englishText": "This is a dog.",
+    "difficulty": 0,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000187",
+    "englishText": "This is a hand.",
+    "difficulty": 0,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000188",
+    "englishText": "This is a shoe.",
+    "difficulty": 0,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000189",
+    "englishText": "This is a sister.",
+    "difficulty": 0,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.case-cosmos.000190",
+    "englishText": "This is rice.",
+    "difficulty": 0,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.case-cosmos.000191",
+    "englishText": "This is soup.",
+    "difficulty": 0,
+    "usefulness": 78
+  },
+  {
+    "id": "sb.case-cosmos.000192",
+    "englishText": "This is the kitten's bowl.",
+    "difficulty": 3,
+    "usefulness": 78
+  },
+  {
+    "id": "sb.case-cosmos.000193",
+    "englishText": "This is water.",
+    "difficulty": 0,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.case-cosmos.000194",
+    "englishText": "Tomas is calling.",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000195",
+    "englishText": "Tomas, sit down!",
+    "difficulty": 2,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.case-cosmos.000196",
+    "englishText": "We also invite the neighbors to the school concert.",
+    "difficulty": 3,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.case-cosmos.000197",
+    "englishText": "We are at school.",
+    "difficulty": 2,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.case-cosmos.000198",
+    "englishText": "We are bringing the neighbor a package.",
+    "difficulty": 1,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.case-cosmos.000199",
+    "englishText": "We are building a paper school for teddy bears.",
+    "difficulty": 1,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.case-cosmos.000200",
+    "englishText": "We are going into the garden.",
+    "difficulty": 2,
+    "usefulness": 62
+  },
+  {
+    "id": "sb.case-cosmos.000201",
+    "englishText": "We are going to school.",
+    "difficulty": 2,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.case-cosmos.000202",
+    "englishText": "We are looking for hedgehog tracks in the garden.",
+    "difficulty": 2,
+    "usefulness": 62
+  },
+  {
+    "id": "sb.case-cosmos.000203",
+    "englishText": "We are playing in the garden.",
+    "difficulty": 2,
+    "usefulness": 62
+  },
+  {
+    "id": "sb.case-cosmos.000204",
+    "englishText": "We are taking the bus on our trip to the museum.",
+    "difficulty": 2,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.case-cosmos.000205",
+    "englishText": "We are talking about the neighbor.",
+    "difficulty": 1,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.case-cosmos.000206",
+    "englishText": "We choose a fairy tale for the evening from several books.",
+    "difficulty": 3,
+    "usefulness": 43
+  },
+  {
+    "id": "sb.case-cosmos.000207",
+    "englishText": "We found our dog's ball.",
+    "difficulty": 1,
+    "usefulness": 82
+  },
+  {
+    "id": "sb.case-cosmos.000208",
+    "englishText": "We go for short walks with our dog.",
+    "difficulty": 2,
+    "usefulness": 63
+  },
+  {
+    "id": "sb.case-cosmos.000209",
+    "englishText": "We have a map of the island tucked between the books.",
+    "difficulty": 3,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.case-cosmos.000210",
+    "englishText": "We put the map on the table.",
+    "difficulty": 2,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.case-cosmos.000211",
+    "englishText": "We show the students a model of the solar system.",
+    "difficulty": 3,
+    "usefulness": 75
+  }
+]

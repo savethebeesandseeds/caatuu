@@ -9,9 +9,9 @@ The server container serves:
 /       apps/launcher/static
 /cz/    apps/languages/czech/static
 /zh/
-        shared application with the Mandarin development course pack
+        shared application with the Mandarin course pack
 /es/
-        shared application with the Spanish development course pack
+        shared application with the Spanish course pack
 /android/
         signed caatuu.apk/json and explicit caatuu-debug.apk/json artifacts
 ```

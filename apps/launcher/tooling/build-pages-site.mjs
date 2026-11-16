@@ -20,7 +20,11 @@ import {
 import { basename, dirname, extname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
-import { assertHtmlReferences, compileStaticSite } from "./build-static-site.mjs";
+import { buildReportingCourseCatalog } from "../../reporting-worker/tooling/course-catalog.mjs";
+import {
+  assertHtmlReferences, compileStaticSite, SHARED_BROWSER_ASSET_CATALOG,
+  stageStaticDictionaryCourse, usesStaticDictionaryProvider, createStaticSharedEntry, transformStaticMaintenance,
+} from "./build-static-site.mjs";
 import {
   checkGeneratedViews,
   evaluateCourseProfile,
@@ -44,6 +48,13 @@ import {
   loadPagesLanguagePlan,
   normalizePagesCourseSetupMarker,
 } from "./pages-language-plan.mjs";
+
+import {
+  launcherFallbackCourseIds, projectBrowserGameFrames, projectPagesCourseProfileSource,
+  projectPagesLanguageRegistry, projectPagesLauncherFallback,
+} from "./browser-view-projection.mjs";
+export { projectPagesCourseProfileSource, projectPagesLanguageRegistry, projectPagesLauncherFallback }
+  from "./browser-view-projection.mjs";
 
 const scriptPath = fileURLToPath(import.meta.url);
 const toolingDir = dirname(scriptPath);
@@ -69,9 +80,12 @@ const durableReleasePrefixes = [
 const edgeDynamicRoutes = Object.freeze([
   "/cz/api/dictionary/gaps",
   "/api/sentence-reports",
+  "/api/v2/sentence-reports",
+  "/api/v2/dictionary-gaps",
   "/api/reporting/health"
 ]);
-const reportingModulePublicPath = "cz/source/shared/pages-reporting.mjs";
+const reportingModulePublicPath = "language-runtime/static/source/pages-reporting.mjs";
+const reportingCatalogPublicPath = "language-runtime/static/data/reporting-courses.v2.json";
 
 export async function assertDeclaredPagesLanguageCoverage({ workspaceRoot = defaultWorkspaceRoot } = {}) {
   const workspace = resolve(workspaceRoot);
@@ -193,93 +207,6 @@ function writeText(path, value) {
 
 function writeJson(path, value) {
   writeText(path, JSON.stringify(value, null, 2));
-}
-
-function projectRecordsById(records, expectedIds, label) {
-  assert.ok(Array.isArray(records), `${label} must be an array`);
-  const byId = new Map();
-  for (const record of records) {
-    const id = String(record?.id || "");
-    assert.ok(id, `${label} contains a record without an ID`);
-    assert.ok(!byId.has(id), `${label} repeats course ${id}`);
-    byId.set(id, record);
-  }
-  return expectedIds.map((id) => {
-    const record = byId.get(id);
-    assert.ok(record, `${label} is missing Pages-enabled course ${id}`);
-    return record;
-  });
-}
-
-function pagesCourseIds(languagePlan) {
-  assert.ok(Array.isArray(languagePlan?.browserCourses), "Pages language plan has no browser courses");
-  const ids = languagePlan.browserCourses.map(({ id }) => id);
-  assert.equal(new Set(ids).size, ids.length, "Pages language plan repeats a browser course");
-  return ids;
-}
-
-export function projectPagesLanguageRegistry({ registry, languagePlan }) {
-  assert.ok(registry && typeof registry === "object" && !Array.isArray(registry), "Pages language registry must be an object");
-  assert.equal(registry.browserSetup?.schemaVersion, 1, "Pages browser setup must use schema version 1");
-  const projected = structuredClone(registry);
-  const courseIds = pagesCourseIds(languagePlan);
-  projected.browserSetup.entryPath = languagePlan.defaultCourse.entryPath;
-  projected.browserSetup.courses = projectRecordsById(
-    projected.browserSetup.courses,
-    courseIds,
-    "Pages browser setup",
-  );
-  projected.languages = projectRecordsById(
-    projected.languages,
-    courseIds,
-    "Pages language registry",
-  );
-  return projected;
-}
-
-function launcherFallbackCourseIds(source, label = "launcher fallback") {
-  const lists = [...source.matchAll(/<ul\b(?=[^>]*\bclass="language-list")(?=[^>]*\bdata-language-list(?:\s|=|>))[^>]*>/gu)];
-  assert.equal(lists.length, 1, `${label} list anchor changed`);
-  const open = lists[0][0];
-  const start = lists[0].index + open.length;
-  const end = source.indexOf("</ul>", start);
-  assert.ok(end > start, `${label} list has no closing tag`);
-  const body = source.slice(start, end);
-  const rowPattern = /<li\b(?=[^>]*\bdata-language-id="([^"]+)")[\s\S]*?<\/li>/gu;
-  const rows = [...body.matchAll(rowPattern)];
-  const ids = rows.map((match) => match[1]);
-  assert.equal(new Set(ids).size, ids.length, `${label} repeats a course row`);
-  return { body, end, ids, open, rowPattern, rows, start };
-}
-
-export function projectPagesLauncherFallback({ source, languagePlan }) {
-  assert.equal(typeof source, "string", "Pages launcher fallback source must be text");
-  const expectedIds = pagesCourseIds(languagePlan);
-  const expected = new Set(expectedIds);
-  const parsed = launcherFallbackCourseIds(source);
-  for (const id of expectedIds) {
-    assert.ok(parsed.ids.includes(id), `Launcher fallback is missing Pages-enabled course ${id}`);
-  }
-  const body = parsed.body.replace(parsed.rowPattern, (row, id) => expected.has(id) ? row : "");
-  const projected = `${source.slice(0, parsed.start)}${body}${source.slice(parsed.end)}`;
-  assert.deepEqual(
-    launcherFallbackCourseIds(projected, "projected launcher fallback").ids,
-    expectedIds,
-    "Projected launcher fallback must exactly match Pages course order",
-  );
-  return projected;
-}
-
-export function projectPagesCourseProfileSource({ source, languagePlan, courseId, label }) {
-  const profile = JSON.parse(JSON.stringify(evaluateCourseProfile(source, label)));
-  assert.equal(profile.id, courseId, `${label} belongs to the wrong course`);
-  assert.equal(profile.courseSelector?.schemaVersion, 1, `${label} has an unsupported course selector`);
-  profile.courseSelector.courses = projectRecordsById(
-    profile.courseSelector.courses,
-    pagesCourseIds(languagePlan),
-    `${label} course selector`,
-  );
-  return serializeCourseProfileSource(profile);
 }
 
 export function projectPagesBrowserViews({ siteDir, languagePlan }) {
@@ -448,14 +375,23 @@ function copyVerified(source, destination, expected, label) {
 }
 
 function currentAgreementArtworkContract({ workspaceRoot }) {
-  const currentManifest = JSON.parse(readText(resolve(workspaceRoot, "apps/languages/czech/static/setup-assets.json")));
+  const authorityRoot = resolve(workspaceRoot, "apps/launcher/static/assets");
+  const catalogPath = assertExactRepositorySource({
+    workspaceRoot, authorityRoot, source: resolve(workspaceRoot, SHARED_BROWSER_ASSET_CATALOG),
+    label: "Shared browser asset catalog",
+  });
+  const currentManifest = JSON.parse(readText(catalogPath));
   const artifacts = currentManifest.artifacts.filter((item) => item.key === agreementArtworkKey);
   assert.equal(artifacts.length, 1, "Current Agreement Aurora setup artifact is missing or repeated");
   const artifact = artifacts[0];
   assert.equal(artifact.url, `/${agreementArtworkAssetPath}`, "Current Agreement Aurora source URL changed");
   assert.equal(artifact.asset_path, agreementArtworkAssetPath, "Current Agreement Aurora local asset path changed");
   assert.match(String(artifact.sha256 || ""), /^[a-f0-9]{64}$/u, "Current Agreement Aurora SHA-256 is invalid");
-  const source = resolve(workspaceRoot, "apps/launcher/static", agreementArtworkAssetPath);
+  const source = assertExactRepositorySource({
+    workspaceRoot, authorityRoot,
+    source: resolve(workspaceRoot, "apps/launcher/static", agreementArtworkAssetPath),
+    label: "Current Agreement Aurora artwork",
+  });
   assert.equal(statSync(source).size, Number(artifact.bytes));
   assert.equal(sha256File(source), String(artifact.sha256).toLowerCase());
   const versionedPath = `assets/planets/releases/${artifact.sha256.slice(0, 16)}/agreement-aurora.png`;
@@ -619,7 +555,10 @@ function normalizedCourseSetupForCacheRevision({ course, manifest, canonicalOrig
 function normalizeCourseWorkerForCacheRevision(source, course) {
   const pattern = /^\/\/ Offline catalog revision: [^\r\n]+$/gmu;
   assert.equal([...source.matchAll(pattern)].length, 1, `${course.id} course worker revision comment changed`);
-  return source.replace(pattern, `// Offline catalog revision: ${courseCacheRevisionSentinel}`);
+  const binding = /^self\.CAATUU_OFFLINE_CACHE_NAME = "[^"\r\n]+";$/gmu;
+  assert.equal([...source.matchAll(binding)].length, 1, `${course.id} course worker revision binding changed`);
+  return source.replace(pattern, `// Offline catalog revision: ${courseCacheRevisionSentinel}`)
+    .replace(binding, `self.CAATUU_OFFLINE_CACHE_NAME = "${courseCacheRevisionSentinel}";`);
 }
 
 export function deriveCoursePagesCacheName({ course, siteDir, canonicalOrigin, manifest, localWorkerSource }) {
@@ -703,8 +642,7 @@ let courseOfflineConfigPromise;`,
   writeText(path, source);
 }
 
-function courseSourcePath({ workspaceRoot, siteDir, defaultCourse, course, publicPath: assetPath }) {
-  if (assetPath === course.entryPath.slice(1)) return outputPath(siteDir, defaultCourse.entryPath.slice(1));
+function courseSourcePath({ workspaceRoot, siteDir, course, publicPath: assetPath }) {
   if (assetPath === course.setupPath.slice(1)) {
     return assertExactRepositorySource({
       workspaceRoot,
@@ -747,13 +685,22 @@ function courseSourcePath({ workspaceRoot, siteDir, defaultCourse, course, publi
 }
 
 export function stagePagesBrowserCourses({ workspaceRoot, siteDir, canonicalOrigin, languagePlan }) {
-  const defaultEntry = outputPath(siteDir, languagePlan.defaultCourse.entryPath.slice(1));
-  assert.ok(existsSync(defaultEntry), "Pages static core is missing the default shared application entry");
+  const sharedEntry = createStaticSharedEntry(workspaceRoot);
   const stagedCourses = [];
   for (const course of languagePlan.browserCourses) {
-    if (course.id === languagePlan.defaultCourseId) continue;
-    const routeDirectory = outputPath(siteDir, course.publicRoute.slice(1, -1));
-    assert.ok(!existsSync(routeDirectory), `${course.id} browser route already exists before course staging`);
+    const manifestSource = assertExactRepositorySource({
+      workspaceRoot,
+      authorityRoot: resolve(workspaceRoot, ...course.staticRootPath.split("/"), ".."),
+      source: resolve(workspaceRoot, course.manifestPath),
+      label: `${course.id} manifest`,
+    });
+    const declaration = JSON.parse(readText(manifestSource));
+    assert.equal(declaration.id, course.id, "Staged course manifest ID must match the Pages plan");
+    if (usesStaticDictionaryProvider(declaration)) {
+      stageStaticDictionaryCourse({ workspaceRoot, siteDir, course });
+      stagedCourses.push(Object.freeze({ id: course.id, provider: declaration.resources.dictionaryProvider.providerId }));
+      continue;
+    }
     const setupSource = assertExactRepositorySource({
       workspaceRoot,
       authorityRoot: resolve(workspaceRoot, ...course.staticRootPath.split("/")),
@@ -795,15 +742,22 @@ export function stagePagesBrowserCourses({ workspaceRoot, siteDir, canonicalOrig
     const deferredReleaseAssets = new Set();
     for (const assetPath of requestedPaths) {
       const destination = outputPath(siteDir, assetPath);
+      assertNoSymlinkAncestors(destination, siteDir, "Course asset");
+      if (assetPath === course.entryPath.slice(1)) {
+        assertNoSymlinkAncestors(destination, siteDir, "Course entry");
+        writeText(destination, projectBrowserGameFrames({ source: sharedEntry, course: declaration }));
+        continue;
+      }
       if (existsSync(destination)) {
         const stats = lstatSync(destination);
         assert.ok(stats.isFile() && !stats.isSymbolicLink(), `${course.id} destination is not a regular file: ${assetPath}`);
-        continue;
+        // Shared files already passed the core transformation; course files are
+        // projected uniformly, including the course selected as the default.
+        if (!assetPath.startsWith(course.publicRoute.slice(1))) continue;
       }
       const source = courseSourcePath({
         workspaceRoot,
         siteDir,
-        defaultCourse: languagePlan.defaultCourse,
         course,
         publicPath: assetPath,
       });
@@ -827,14 +781,15 @@ export function stagePagesBrowserCourses({ workspaceRoot, siteDir, canonicalOrig
   return Object.freeze(stagedCourses);
 }
 
-function restoreWebSetupCompatibility({ siteDir, releaseSetup }) {
-  const path = join(siteDir, "cz/setup-assets.json");
+function restoreCourseSetupCompatibility({ siteDir, releaseSetup, course }) {
+  const path = outputPath(siteDir, course.setupPath.slice(1));
   const manifest = JSON.parse(readText(path));
   const releaseByKey = new Map(releaseSetup.artifacts.map((artifact) => [artifact.key, artifact]));
   for (const key of ["misc-character-keymap", "macaw-action-keymap", "robot-keymap"]) {
     const current = manifest.artifacts.find((artifact) => artifact.key === key);
+    if (!current) continue;
     const release = releaseByKey.get(key);
-    assert.ok(current && release, `Missing keymap compatibility record: ${key}`);
+    assert.ok(release, `Missing keymap compatibility record: ${key}`);
     assert.equal(current.url, release.url);
     current.bytes = release.bytes;
     current.sha256 = release.sha256;
@@ -874,6 +829,7 @@ function validateFinalWebSetup({ siteDir, canonicalOrigin, course, courseId = co
 
   const offlinePaths = [];
   const courseOrigin = new URL(course.publicRoute, canonicalOrigin);
+  // Exact retained v1 receipt compatibility; new course staging is plan/provider-driven.
   const legacyCzechSetup = courseId === "cz"
     && manifest.version === 1
     && manifest.cache_name === "caatuu-czech-setup-v1";
@@ -949,6 +905,22 @@ export function enableStableAndroidCourseProfile(path, label, declaredAndroid) {
   writeText(path, source);
 }
 
+export function restorePagesMaintenance({ workspaceRoot, siteDir }) {
+  const publicPath = "language-runtime/static/source/maintenance-ui.js";
+  const source = assertExactRepositorySource({
+    workspaceRoot,
+    authorityRoot: resolve(workspaceRoot, "apps/language-runtime"),
+    source: resolve(workspaceRoot, "apps", publicPath),
+    label: "Pages shared maintenance",
+  });
+  const canonical = readText(source);
+  const destination = outputPath(siteDir, publicPath);
+  assertNoSymlinkAncestors(destination, siteDir, "Pages shared maintenance");
+  assert.equal(readText(destination), transformStaticMaintenance(canonical),
+    "Pages maintenance must restore only its reviewed standalone static projection");
+  writeText(destination, canonical);
+}
+
 function enableAndroidSurfaces({ workspaceRoot, siteDir, languagePlan }) {
   const registryPath = join(siteDir, "languages.json");
   const registry = JSON.parse(readText(registryPath));
@@ -1008,30 +980,34 @@ export function projectPagesLauncherSource(source) {
 export function transformPagesSentenceReporting(input) {
   return exactReplace(input,
     'interfaceText("wordworld.report.savedlocal")',
-    `(course.id === "cz"
-            ? "Saved on this device. If sending is interrupted, the public site will retry later."
+    `(queued.localOnly === false && queued.authorized === true
+            ? interfaceText("reporting.sentence.saved")
             : interfaceText("wordworld.report.savedlocal"))`,
     "Pages sentence-report retry copy");
 }
 
-function enableReportingSurfaces({ siteDir }) {
+export function enableReportingSurfaces({ workspaceRoot = defaultWorkspaceRoot, siteDir, languagePlan }) {
   const reportingSource = join(toolingDir, "templates/pages-reporting.mjs");
   const reportingDestination = outputPath(siteDir, reportingModulePublicPath);
   copyVerified(reportingSource, reportingDestination, null, "Pages reporting client");
+  const courseIds = new Set(languagePlan.browserCourses.map(course => course.id));
+  const catalog = buildReportingCourseCatalog({ workspaceRoot });
+  catalog.courses = catalog.courses.filter(course => courseIds.has(course.courseId));
+  assert.equal(catalog.courses.length, courseIds.size, "Every Pages course must declare a reporting tuple");
+  writeJson(outputPath(siteDir, reportingCatalogPublicPath), catalog);
 
   const bootstrapPath = join(siteDir, "language-runtime/static/source/app-bootstrap.mjs");
   const bootstrap = exactReplace(
     readText(bootstrapPath),
-    `  const courseRuntime = declaredBrowserProvider("courseRuntime");
-  if (courseRuntime) await loadScript(courseRuntime);`,
-    `  const courseRuntime = declaredBrowserProvider("courseRuntime");
-  if (courseRuntime) {
-    await loadScript(courseRuntime);
-    if (course.id === "cz") {
-      const { installPagesReporting } = await import("/cz/source/shared/pages-reporting.mjs?v=pages-reporting-1");
-      await installPagesReporting();
-    }
-  }`,
+    '  await loadSharedScript("/language-runtime/static/source/maintenance-ui.js?v=maintenance-28");',
+    `  await loadSharedScript("/language-runtime/static/source/maintenance-ui.js?v=maintenance-28");
+  try {
+    const response = await fetch("/${reportingCatalogPublicPath}");
+    if (!response.ok) throw new Error("Reporting catalog is unavailable");
+    const configuration = await response.json();
+    const { installPagesReporting } = await import("/${reportingModulePublicPath}?v=pages-reporting-2");
+    await installPagesReporting({ configuration });
+  } catch { /* Keep the course's local reporting available when initialization fails. */ }`,
     "Pages reporting bootstrap"
   );
   writeText(bootstrapPath, bootstrap);
@@ -1040,14 +1016,17 @@ function enableReportingSurfaces({ siteDir }) {
   const wordWorld = transformPagesSentenceReporting(readText(wordWorldPath));
   writeText(wordWorldPath, wordWorld);
 
-  const profilePath = join(siteDir, "cz/caatuu-profile.json");
-  const profile = JSON.parse(readText(profilePath));
-  profile.capabilities.reportingApi = true;
-  profile.privacy.dictionaryGapReportsLocalOnly = false;
-  profile.privacy.sentenceFeedbackRemoteConsent = true;
-  profile.privacy.dictionaryGapReportsFutureOptIn = true;
-  profile.privacy.legacyReportingQueuesLocalOnly = true;
-  writeJson(profilePath, profile);
+  for (const course of languagePlan.browserCourses) {
+    const profilePath = outputPath(siteDir, `${course.routePrefix}/caatuu-profile.json`.replace(/^\//u, ""));
+    if (!existsSync(profilePath)) continue;
+    const declaration = catalog.courses.find(item => item.courseId === course.id);
+    const profile = JSON.parse(readText(profilePath));
+    profile.capabilities = { ...profile.capabilities, reportingApi: true };
+    profile.privacy = { ...profile.privacy, dictionaryGapReportsLocalOnly: !declaration.dictionary,
+      sentenceFeedbackRemoteConsent: true, dictionaryGapReportsFutureOptIn: Boolean(declaration.dictionary),
+      legacyReportingQueuesLocalOnly: true };
+    writeJson(profilePath, profile);
+  }
 }
 
 function nativeRequiredArtifact(artifact) {
@@ -1155,8 +1134,8 @@ export function rewriteFinalCourseSetup({ course, siteDir, canonicalOrigin }) {
   manifest.offline.cacheName = cacheName;
   const worker = exactReplace(
     originalWorker,
-    `// Offline catalog revision: ${previousCacheName}`,
-    `// Offline catalog revision: ${cacheName}`,
+    `// Offline catalog revision: ${previousCacheName}\nself.CAATUU_OFFLINE_CACHE_NAME = "${previousCacheName}";`,
+    `// Offline catalog revision: ${cacheName}\nself.CAATUU_OFFLINE_CACHE_NAME = "${cacheName}";`,
     `${course.id} course-worker revision`
   );
   writeText(workerPath, worker);
@@ -1187,7 +1166,7 @@ function publicPathForCoreAsset(asset) {
   return path;
 }
 
-function rewriteServiceWorker({
+export function rewriteServiceWorker({
   siteDir,
   baselinePublicPaths,
   baselineDescriptor,
@@ -1212,6 +1191,7 @@ function rewriteServiceWorker({
   const reportingAsset = `/${reportingModulePublicPath}`;
   assert.ok(existsSync(pathForCoreAsset(siteDir, reportingAsset)), "Pages reporting client is missing");
   coreAssets.add(reportingAsset);
+  coreAssets.add(`/${reportingCatalogPublicPath}`);
   for (const course of languagePlan.browserCourses) {
     for (const asset of [course.publicRoute, course.entryPath, course.setupPath]) {
       assert.ok(existsSync(pathForCoreAsset(siteDir, asset)), `Pages course core asset is missing: ${asset}`);
@@ -1225,9 +1205,13 @@ function rewriteServiceWorker({
     }
   }
   for (const course of languagePlan.browserCourses) {
-    if (course.id === languagePlan.defaultCourseId) continue;
     const routeDirectory = outputPath(siteDir, course.publicRoute.slice(1, -1));
-    for (const path of allFiles(routeDirectory)) coreAssets.add(`${course.publicRoute}${path}`);
+    for (const path of allFiles(routeDirectory)) {
+      const asset = `${course.publicRoute}${path}`;
+      const publishedPath = publicPathForCoreAsset(asset);
+      if (!baselinePublicPaths.has(publishedPath) && !androidPaths.has(publishedPath)
+        && !isDurableReleasePublicPath(publishedPath)) coreAssets.add(asset);
+    }
     const setup = courseSetups.get(course.id)?.manifest;
     assert.ok(setup, `Pages setup rewrite is missing ${course.id}`);
     for (const artifact of setup.artifacts.filter(browserRequiredArtifact)) {
@@ -1259,11 +1243,11 @@ function isDurableReleasePath(pathname) {
     `policy:${pagesWorkerPolicyVersion}`,
     ...sortedCoreAssets.map((asset) => `${asset}\0${sha256File(pathForCoreAsset(siteDir, asset))}`)
   ].join("\n")).slice(0, 16);
-  const cacheDeclaration = /const CACHE_NAME = "caatuu-czech-web-static-[a-f0-9]+";/gu;
+  const cacheDeclaration = /const CACHE_NAME = "caatuu-web-static-[a-f0-9]+";/gu;
   assert.equal([...source.matchAll(cacheDeclaration)].length, 1, "Service-worker cache declaration changed");
-  source = source.replace(cacheDeclaration, `const CACHE_NAME = "caatuu-czech-web-static-${digest}";`);
+  source = source.replace(cacheDeclaration, `const CACHE_NAME = "caatuu-web-static-${digest}";`);
   writeText(path, source);
-  return { cacheName: `caatuu-czech-web-static-${digest}`, coreAssets: sortedCoreAssets };
+  return { cacheName: `caatuu-web-static-${digest}`, coreAssets: sortedCoreAssets };
 }
 
 function inventoryFor(siteDir) {
@@ -1483,8 +1467,6 @@ function validatePreparedPagesSite({ workspaceRoot, outputDir, baseline, current
       });
     }
   }
-  const czech = registry.languages.find((language) => language.id === "cz");
-  assert.ok(czech, "Pages registry is missing the active Czech baseline course");
   const rootIndex = readText(join(siteDir, "index.html"));
   assertHtmlReferences(siteDir, ["index.html"]);
   assert.doesNotMatch(rootIndex, /\/games\/caatuu-game\//u);
@@ -1505,17 +1487,14 @@ function validatePreparedPagesSite({ workspaceRoot, outputDir, baseline, current
       validateFinalWebSetup({ siteDir, canonicalOrigin: descriptor.canonicalOrigin, course }),
     );
   }
-  const czechCourse = languagePlan.browserCourses.find(({ id }) => id === "cz");
-  assert.ok(czechCourse, "Pages language plan is missing Czech");
-  const finalCzechSetup = finalSetups.get("cz");
-  const finalAgreement = finalCzechSetup.manifest.artifacts.filter(
-    (item) => item.key === agreementArtworkKey,
-  );
-  assert.equal(finalAgreement.length, 1);
-  assert.equal(finalAgreement[0].url, `/${currentAgreement.versionedPath}`);
-  assert.equal(finalAgreement[0].asset_path, currentAgreement.assetPath);
   for (const course of languagePlan.browserCourses) {
     const finalSetup = finalSetups.get(course.id);
+    const artwork = finalSetup.manifest.artifacts.filter((item) => item.key === agreementArtworkKey);
+    assert.ok(artwork.length <= 1, `${course.id} repeats Agreement Aurora`);
+    for (const artifact of artwork) {
+      assert.equal(artifact.url, `/${currentAgreement.versionedPath}`);
+      assert.equal(artifact.asset_path, currentAgreement.assetPath);
+    }
     const offlineAssets = finalSetup.manifest.offline?.assets ?? [];
     assert.ok(offlineAssets.every(
       (value) => !String(value).startsWith(`/${currentAgreement.assetPath}`),
@@ -1540,7 +1519,7 @@ function validatePreparedPagesSite({ workspaceRoot, outputDir, baseline, current
       assert.match(courseProfile, /"kind": "release"[\s\S]*"manifest": "\/android\/caatuu\.json"/u, `${course.id} stable Android channel is missing`);
       assert.doesNotMatch(courseProfile, /"kind": "preview"|caatuu-preview/u, `${course.id} retained a preview Android channel`);
     }
-    if (course.id === languagePlan.defaultCourseId) continue;
+    if (!finalSetup.manifest.offline) continue;
     const courseWorker = readText(outputPath(siteDir, courseWorkerPublicPath(course)));
     assert.match(
       courseWorker,
@@ -1583,7 +1562,7 @@ function validatePreparedPagesSite({ workspaceRoot, outputDir, baseline, current
   assert.equal(corePublicPaths.filter((path) => retainedAndroidPaths.has(path)).length, 0);
   assert.equal(corePublicPaths.filter((path) => isDurableReleasePublicPath(path)).length, 0);
   for (const course of languagePlan.browserCourses) {
-    if (course.id === languagePlan.defaultCourseId) continue;
+    if (!finalSetups.get(course.id).manifest.offline) continue;
     for (const path of [course.publicRoute, course.entryPath, course.setupPath, `/${courseWorkerPublicPath(course)}`]) {
       assert.ok(coreAssets.includes(path), `Pages service worker is missing ${course.id} core asset ${path}`);
     }
@@ -1606,21 +1585,21 @@ function validatePreparedPagesSite({ workspaceRoot, outputDir, baseline, current
 
   const reportingClient = readText(outputPath(siteDir, reportingModulePublicPath));
   assert.match(reportingClient, /X-Caatuu-Reporting-Policy/u);
-  assert.match(reportingClient, /2026-09-02\.v1/u);
-  assert.match(reportingClient, /caatuu\.sentenceFeedbackAuthorizedOutbox\.v2/u);
-  assert.match(reportingClient, /caatuu\.dictionaryGapAuthorizedOutbox\.v2/u);
+  assert.match(reportingClient, /2026-11-11\.v2/u);
+  assert.match(reportingClient, /caatuu\.sentenceFeedbackAuthorizedOutbox\.v3/u);
+  assert.match(reportingClient, /caatuu\.dictionaryGapAuthorizedOutbox\.v3/u);
   assert.match(reportingClient, /credentials:\s*"omit"/u);
   assert.match(reportingClient, /referrerPolicy:\s*"no-referrer"/u);
   assert.doesNotMatch(reportingClient, /caatuu\.(?:feedbackOutbox|dictionaryGapOutbox)\.v1/u);
   const bootstrap = readText(join(siteDir, "language-runtime/static/source/app-bootstrap.mjs"));
-  assert.match(bootstrap, /declaredBrowserProvider\("courseRuntime"\)[\s\S]*await loadScript\(courseRuntime\);[\s\S]*course\.id === "cz"[\s\S]*await import\("\/cz\/source\/shared\/pages-reporting\.mjs/u);
-  assert.match(bootstrap, /course\.status !== "active"[\s\S]*robots\.content = "noindex, nofollow"/u);
+  assert.match(bootstrap, /maintenance-ui\.js[^\n]*\n[\s\S]*reporting-courses\.v2\.json[\s\S]*await import\("\/language-runtime\/static\/source\/pages-reporting\.mjs/u);
+  assert.doesNotMatch(bootstrap, /robots\.content = "noindex, nofollow"/u);
+  assert.doesNotMatch(bootstrap, /course\.status !== "active"/u);
   const wordWorld = readText(join(siteDir, "language-runtime/static/source/product-word-world.mjs"));
-  assert.match(wordWorld, /course\.id === "cz"[\s\S]*public site will retry later[\s\S]*interfaceText\("wordworld\.report\.savedlocal"\)/u);
-  const profile = JSON.parse(readText(join(siteDir, "cz/caatuu-profile.json")));
-  assert.equal(profile.capabilities.reportingApi, true);
-  assert.equal(profile.privacy.dictionaryGapReportsFutureOptIn, true);
-  assert.equal(profile.privacy.legacyReportingQueuesLocalOnly, true);
+  assert.match(wordWorld, /queued\.localOnly === false && queued\.authorized === true[\s\S]*interfaceText\("reporting\.sentence\.saved"\)/u);
+  const reportingCatalog = JSON.parse(readText(outputPath(siteDir, reportingCatalogPublicPath)));
+  assert.deepEqual(reportingCatalog.courses.map(course => course.courseId).sort(), languagePlan.browserCourses.map(course => course.id).sort());
+  assert.deepEqual(reportingCatalog, buildReportingCourseCatalog({ workspaceRoot: workspace }));
 
   const manifest = JSON.parse(readText(join(siteDir, "caatuu-web-bundle.json")));
   const previousStable = currentDescriptor.releases.length > 1
@@ -1719,7 +1698,7 @@ export async function compilePagesSite({
     stagingDir = join(stagingRoot, "site");
     assertSafeOutputDirectory(stagingDir, workspace);
     assert.ok(!existsSync(stagingDir), `Pages staging output already exists: ${stagingDir}`);
-    compileStaticSite({ workspaceRoot: workspace, outputDir: stagingDir });
+    compileStaticSite({ workspaceRoot: workspace, outputDir: stagingDir, languagePlan });
     stagePagesBrowserCourses({
       workspaceRoot: workspace,
       siteDir: stagingDir,
@@ -1741,7 +1720,9 @@ export async function compilePagesSite({
     );
     const baselineFiles = overlayDurableBaseline({ baseline, siteDir: stagingDir });
     overlayAndroidReleases({ currentRelease, siteDir: stagingDir });
-    restoreWebSetupCompatibility({ siteDir: stagingDir, releaseSetup: baseline.setupManifest });
+    for (const course of languagePlan.browserCourses) {
+      restoreCourseSetupCompatibility({ siteDir: stagingDir, releaseSetup: baseline.setupManifest, course });
+    }
     projectPagesBrowserViews({ siteDir: stagingDir, languagePlan });
     createAndroidAliases({
       baselineDescriptor: baseline.descriptor,
@@ -1750,11 +1731,13 @@ export async function compilePagesSite({
     });
     removeArchivedApks({ siteDir: stagingDir, archivedApks: currentRelease.descriptor.archivedApks });
     enableAndroidSurfaces({ workspaceRoot: workspace, siteDir: stagingDir, languagePlan });
-    enableReportingSurfaces({ siteDir: stagingDir });
+    restorePagesMaintenance({ workspaceRoot: workspace, siteDir: stagingDir });
+    enableReportingSurfaces({ workspaceRoot: workspace, siteDir: stagingDir, languagePlan });
     enablePagesDurableBypassInCourseWorker(outputPath(stagingDir, sharedCourseWorkerPublicPath));
     const courseSetups = new Map();
     for (const course of languagePlan.browserCourses) {
-      const result = course.id === languagePlan.defaultCourseId
+      const setup = JSON.parse(readText(outputPath(stagingDir, course.setupPath.slice(1))));
+      const result = !setup.offline
         ? rewritePagesCourseProfileReceipt({
             course,
             siteDir: stagingDir,

@@ -10,7 +10,7 @@ embeddings, dictionary, speech, learning, and games follow each course manifest.
 
 The full development shell still loads the course selected by
 `caatuuCourseManifest`. The product shell loads the bundle selected by
-`caatuuCourseBundle`. Czech is the default course. The bundle contains every
+`caatuuCourseBundle`; its declared default selects the initial course. The bundle contains every
 course listed in `apps/android/course-bundle.json`. The store compiler does not
 delete or modify course source. It resolves the static root and Android asset
 catalog through each allowlisted manifest, then creates a fail-closed release surface under
@@ -25,8 +25,8 @@ are excluded from both Android distributions.
 - Games: no standalone Godot export is bundled. Memory Moon is the playable
   sentence-meaning planet in each course's `games` list. The paused macaw
   adventure remains outside both Android distributions.
-- Default Czech start URL: `https://caatuu.local/cz/index.html`; bundled course
-  routes such as `/zh/index.html` resolve to the same shared document.
+- The initial URL follows the configured default course; every bundled course
+  route resolves to the same shared document.
 - Course source assets are packaged for browser/Android parity. The shared
   English MiniLM runtime is downloaded once during setup and reused from the
   app-private cache by every course that declares it.
@@ -62,8 +62,9 @@ Every bundled course must enable Android and provide a present static root and
 `caatuu-course-bundle.json`, one `index.html`, shared runtime/assets once, and
 course-owned files below `courses/<id>/`. Provider catalog paths are resolved
 inside those namespaces. Native vector and dictionary managers are created only
-for courses that declare their matching native implementation; Mandarin instead
-declares the setup-delivered WebView English-MiniLM provider and Android TTS. The full
+for courses that declare their matching native implementation. Courses may instead
+declare the setup-delivered WebView English-MiniLM provider. The product icon
+comes from the shared app catalog and does not depend on the default course. The full
 `app` shell remains deliberately Czech-specific.
 
 ## Prepare Vendor Code

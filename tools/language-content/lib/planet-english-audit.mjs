@@ -50,7 +50,7 @@ function requireEnglishText(
     addIssue(issues, location, "must be an object with an English audit translation.");
     return;
   }
-  const explicitEnglishFields = ["englishAuditText", "english", "en"];
+  const explicitEnglishFields = ["englishAuditText", "englishText", "english", "en"];
   if (explicitEnglishFields.some((field) => nonEmptyString(record[field]))) return;
   if (
     sourceLanguageId === ENGLISH_AUDIT_LANGUAGE
@@ -67,6 +67,11 @@ function requireEnglishText(
 
 function validateVerbNebula(document, context, issues) {
   for (const [index, item] of requireArray(issues, document, context.location).entries()) {
+    // Bank-derived English-target courses retain their English authority in
+    // target even while the Spanish learner-base translation is unfinished.
+    if (item?.reviewStatus === 'untranslated' && context.targetLanguageId === ENGLISH_AUDIT_LANGUAGE
+      && /^sb\.verb-lab\.\d{6}$/u.test(item?.semanticBankId ?? '')
+      && nonEmptyString(item?.target)) continue;
     requireEnglishText(issues, item, `${context.location}[${index}]`, {
       sourceLanguageId: context.sourceLanguageId,
       sourceRoleFields: ["source"]
@@ -77,6 +82,9 @@ function validateVerbNebula(document, context, issues) {
 function validateSoundQuasar(document, context, issues) {
   for (const [index, item] of requireArray(issues, document?.items, `${context.location}.items`).entries()) {
     requireEnglishText(issues, item, `${context.location}.items[${index}]`);
+  }
+  if (document?.sentences !== undefined) for (const [index, item] of requireArray(issues, document.sentences, `${context.location}.sentences`).entries()) {
+    requireEnglishText(issues, item, `${context.location}.sentences[${index}]`);
   }
 }
 
@@ -90,6 +98,7 @@ function validateMemoryMoon(document, context, issues) {
     const location = `${context.location}.challenges[${index}]`;
     if (!nonEmptyString(item?.englishText)) addIssue(issues, location, "requires a non-empty independent englishText audit meaning.");
     if (item?.embeddingText !== item?.englishText) addIssue(issues, `${location}.embeddingText`, "must equal the authored English meaning.");
+    if (item?.reviewStatus === 'untranslated') continue;
     for (const [choiceIndex, choice] of requireArray(issues, item?.choices, `${location}.choices`).entries()) {
       requireEnglishText(issues, choice, `${location}.choices[${choiceIndex}]`);
     }
@@ -104,6 +113,7 @@ function validateConjugationComet(document, context, issues) {
       sourceLanguageId: context.sourceLanguageId,
       sourceRoleFields: ["meaning"]
     });
+    if (verb?.reviewStatus === 'untranslated') continue;
     for (const [formIndex, form] of requireArray(
       issues,
       verb?.forms,
@@ -118,12 +128,14 @@ function validateConjugationComet(document, context, issues) {
 }
 
 function validateCaseCosmos(document, context, issues) {
-  const versioned = document?.schemaVersion === "caatuu-case-cosmos-content-v2";
-  for (const [challengeIndex, challenge] of requireArray(
+  const versioned = ["caatuu-case-cosmos-content-v2", "caatuu-case-cosmos-content-v3"].includes(document?.schemaVersion);
+  // Context-only versioned banks need not invent legacy noun records.
+  const legacy = versioned && Array.isArray(document.legacyNouns) && document.legacyNouns.length === 0 ? [] : requireArray(
     issues,
     versioned ? document.legacyNouns : document,
     versioned ? `${context.location}.legacyNouns` : context.location
-  ).entries()) {
+  );
+  for (const [challengeIndex, challenge] of legacy.entries()) {
     const cases = isRecord(challenge?.cases) ? Object.entries(challenge.cases) : [];
     if (!cases.length) {
       addIssue(issues, `${context.location}[${challengeIndex}].cases`, "must contain authored cases.");
@@ -156,6 +168,8 @@ function validateGrammarGravity(document, context, issues) {
     const challengeLocation = Array.isArray(document)
       ? `${context.location}[${challengeIndex}]`
       : `${context.location}.challenges[${challengeIndex}]`;
+    if (challenge?.semanticBankId) requireEnglishText(issues, challenge, challengeLocation);
+    if (challenge?.reviewStatus === 'untranslated') continue;
     const forms = isRecord(challenge?.forms) ? Object.entries(challenge.forms) : [];
     if (!forms.length) {
       addIssue(issues, `${challengeLocation}.forms`, "must contain authored forms.");
@@ -272,6 +286,7 @@ export function validatePlanetEnglishAuditDocument(contractId, document, context
   VALIDATORS[normalizedContractId](document, {
     location: context.location || "content",
     sourceLanguageId: String(context.sourceLanguageId || "").trim(),
+    targetLanguageId: String(context.targetLanguageId || "").trim(),
     publicationContract: String(context.publicationContract || "").trim()
   }, issues);
   return issues;
@@ -308,6 +323,7 @@ export async function auditPlanetEnglishResource({
   absolutePath,
   repositoryPath,
   sourceLanguageId,
+  targetLanguageId,
   publicationContract,
   allowedRoot = null
 }) {
@@ -343,6 +359,7 @@ export async function auditPlanetEnglishResource({
   issues.push(...validatePlanetEnglishAuditDocument(contractId, document, {
     location,
     sourceLanguageId,
+    targetLanguageId,
     publicationContract
   }));
 

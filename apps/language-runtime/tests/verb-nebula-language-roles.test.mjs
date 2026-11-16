@@ -145,8 +145,8 @@ for (const assisted of [false, true]) {
   });
 }
 
-for (const savedGeneration of ["before-reset", undefined]) {
-  test(`restored Nebula rounds preserve their saved generation (${savedGeneration ?? "legacy unknown"})`, () => {
+for (const savedGeneration of ["before-reset", "after-reset", undefined]) {
+  test(`Nebula restores only a round from the current generation (${savedGeneration ?? "legacy unknown"})`, () => {
     const game = harness();
     const round = pairs.filter(pair => pair.difficulty === 1).slice(0, 4);
     const memory = { difficulty: 1, pairCount: 4, roundIds: round.map(pair => pair.id),
@@ -169,18 +169,21 @@ for (const savedGeneration of ["before-reset", undefined]) {
       between("function applyVerbRound(plan", "async function startVerbRound")
     ].join("\n"), game.context);
     game.context.loadVerbMemory();
-    assert.equal(game.state.verbContentEncounterId, "saved-encounter");
-    assert.equal(game.state.verbContentGeneration, savedGeneration ?? null);
-    game.context.recordVerbContentExposure(round[0], true);
-    assert.equal(exposures[0].generation, savedGeneration ?? null);
-    game.context.saveVerbMemory();
-    assert.equal(persisted.at(-1).families.meaning.contentGeneration, savedGeneration ?? null);
+    if (savedGeneration === generation) assert.equal(game.state.verbContentEncounterId, "saved-encounter");
+    else {
+      assert.notEqual(game.state.verbContentEncounterId, "saved-encounter");
+      assert.equal(game.state.verbStats.attempts, 0);
+    }
+    assert.equal(game.state.verbContentGeneration, generation);
     game.context.applyVerbRound({ round, englishRound: round, queueIds: [] });
     assert.notEqual(game.state.verbContentEncounterId, "saved-encounter");
     assert.equal(game.state.verbContentGeneration, generation);
     generation = "another-reset";
     game.context.recordVerbContentExposure(round[0], true);
-    assert.equal(exposures[1].generation, "after-reset");
+    assert.equal(exposures[0].generation, "after-reset");
+    const saves = persisted.length;
+    game.context.saveVerbMemory();
+    assert.equal(persisted.length, saves, "a board cannot be saved after another reset");
     assert.equal(persisted.at(-1).families.meaning.contentGeneration, "after-reset");
   });
 }
@@ -401,4 +404,25 @@ test("unsupported verb clues stay empty instead of showing unrelated actions or 
   const slot = context.renderVerbHintSlot(listen);
   assert.equal(slot.hidden, false);
   assert.ok(keymap[slot.querySelector("img").src].action.split("_").includes("listen"));
+});
+
+
+test("a Verb answer after an undelivered cross-tab reset is retired without score or semantic credit", async () => {
+  const game = harness();
+  vm.runInContext(learningProfile, game.context);
+  const learning = game.window.CaatuuLearning;
+  game.state.verbContentGeneration = learning.contentGeneration();
+  game.state.verbSelectedCzechId = game.state.verbRound[0].id;
+  game.state.verbSelectedEnglishId = game.state.verbRound[0].id;
+  const other = createBrowserHarness({ course, window: { localStorage: game.localStorage } });
+  vm.runInContext(learningProfile, other.context);
+  other.window.CaatuuLearning.resetProgress();
+  const resets = [];
+  game.context.clearVerbMemory = options => resets.push(options);
+  await game.context.settleVerbMatch();
+  assert.equal(resets.length, 1);
+  assert.equal(resets[0].preserveStored, true);
+  assert.equal(game.state.verbStats.attempts, 0);
+  assert.equal(learning.snapshot().summary.xp, 0);
+  assert.equal(game.attempts.length, 0);
 });

@@ -1,11 +1,10 @@
 # English to Scientific Neo-Latin
 
-The local `/la/` course delivers the agreed first-course scope: 2,500 unique
-bilingual sentences and 600 distinct verb pairs. It teaches scientific reading
-in the tradition of Newton's *Principia*, using classical grammar and scientific
-vocabulary. Qualified Latinist review remains pending. The original onboarding
-did not build or publish an APK. Curriculum distribution is now approved for
-the eight-course Android bundle.
+The `/la/` course is a released public course. It delivers the agreed
+first-course scope: 2,500 unique bilingual sentences and 600 distinct verb
+pairs. It teaches scientific reading in the tradition of Newton's *Principia*,
+using classical grammar and scientific vocabulary. Android includes the course
+from version 179. Pronunciation guides stay off.
 
 ## Language choices and finite inventory
 
@@ -26,8 +25,8 @@ Assessment preserves contrasts such as `puella / puellā`, `os / ōs` and
 `legit / lēgit`. Search tolerates missing macrons and historical ligatures
 `æ / ae`, `œ / oe`. Word tokens keep enclitics attached and have contextual
 English hints. Speech uses the shared browser/Android device speech provider.
-Audible Latin depends on device support. Pronunciation review is pending;
-device speech does not establish Newton-era pronunciation.
+Audible Latin depends on device support. Pronunciation guides stay off.
+Device speech does not establish Newton-era pronunciation.
 
 | Game | Delivered content |
 | --- | --- |
@@ -69,7 +68,7 @@ uses the canonical shared app and engines. English remains the audit/retrieval
 authority; Latin never becomes embedding input. The LTR adapter preserves
 quantity distinctions through the shared language contract. The shared authored
 projection helper declares speech independently of authored pronunciation guides.
-Speech is enabled while pronunciation review remains pending.
+Speech is enabled. Pronunciation guides stay off.
 
 [Word World content](../apps/languages/latin-scientific/content/word-world/content.json)
 is the editable sentence authority. The shared builder generates English
@@ -87,12 +86,11 @@ node apps/server/tooling/refresh-setup-assets.mjs --all-browser-courses
 ```
 
 Local browser and Android delivery are enabled. The public website lists the
-course as a `noindex` preview. The Android source allowlist and English embedding-provider declaration
+course as a released, indexable course. The Android source allowlist and English embedding-provider declaration
 are prepared for a later build, including the standard device speech declaration.
 Curriculum distribution is cleared under AGPL-3.0-only by the
 [4 October owner approval](CURRICULUM_LICENSE_APPROVAL_20261004.json).
-The schema's `native-review-required`
-status means qualified Latinist review here, not a claim of modern native speakers.
+Pronunciation guides stay off.
 
 ## Verification and limits
 

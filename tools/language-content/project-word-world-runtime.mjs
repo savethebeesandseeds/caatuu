@@ -644,12 +644,14 @@ Options:
   --catalog <path>      Course catalog (default: ${DEFAULT_LANGUAGE_CATALOG_PATH})
   --repo-root <path>    Repository root (defaults to this checkout)
   --check               Report projection drift without writing
+  --allow-partial       Explicitly select the playable subset of an unfinished source
   --help                Show this help`;
 }
 
 function parseArguments(argv) {
   const options = {
     all: false,
+    allowPartial: false,
     catalogPath: DEFAULT_LANGUAGE_CATALOG_PATH,
     check: false,
     courseId: null,
@@ -673,6 +675,8 @@ function parseArguments(argv) {
       if (!options.repositoryRoot) throw new Error("--repo-root requires a path.");
     } else if (argument === "--check") {
       options.check = true;
+    } else if (argument === "--allow-partial") {
+      options.allowPartial = true;
     } else if (argument === "--help") {
       options.help = true;
     } else {
@@ -704,6 +708,7 @@ async function main() {
     catalogPath: options.catalogPath,
     courseId: options.courseId,
     includeLegacy: false,
+    allowPartial: options.allowPartial,
     check: options.check
   });
   for (const course of report.courses) {

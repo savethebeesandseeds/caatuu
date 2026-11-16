@@ -91,22 +91,27 @@ source locale must declare the same interface-catalog path and revision.
   that same prefix. A copied prefix from another course is invalid: service
   workers use this boundary when replacing their own caches and must never be
   able to select a sibling course's cache namespace.
-- Each manifest also names its publication contract. New packs use
-  `language-content-v1` with authoritative English-concept and target-
+- Each manifest also names its publication contract. `language-content-v1`
+  packs declare authoritative English-concept and target-
   realization paths. The concept catalog language is always English and does
   not have to equal `sourceLanguage`, which is the learner's base language.
-  Word World courses additionally declare `publication.runtimeProjection`,
+  Those Word World courses additionally declare `publication.runtimeProjection`,
   binding a versioned projection policy to the exact shared English output,
   course-owned target output, optional learner-base output, supplemental
   outputs, and runtime manifest. The manifest must be the declared
   `resources.wordWorldManifest`, and its references must resolve exactly to
   those outputs.
-  Development validation permits explicit draft gates;
-  active-course validation and launcher generation require native review and
-  release-cleared licenses. The Czech-only `legacy-active-v1` marker is a
-  confined migration exception and cannot be selected by another course.
-  Native review is not a packaging or APK-publication gate for an explicitly
-  disclosed development course; licensing remains a distribution gate.
+  Record-based packs may use `word-world-records-v1` with exactly `contract`,
+  `authoring`, `provider`, `runtime` and `manifest`. Authoring is the owning
+  course's `content/word-world/content.json`; runtime and manifest are distinct
+  JSON outputs inside its static root, with manifest equal to
+  `resources.wordWorldManifest`. A registered provider validates and projects
+  the records; publication verifies the exact runtime bytes and manifest,
+  including the content hash. `czech-standard-records-v1` is the current
+  English-base/Czech-target standard-corpus adapter. Its language and format
+  rules belong to that provider; no course ID bypasses publication validation.
+  Active course status does not withhold the course. Pronunciation guides stay
+  off. Public Pages indexes every course whose `pagesEnabled` flag is true.
 - `apps/launcher/static/languages.json` is a checked launcher projection. Its
   release-capable `languages` collection contains active courses only;
   `browserSetup.courses` separately contains browser-enabled active and
@@ -238,26 +243,27 @@ example, Conjugation Comet requires `verb-conjugation`, Case Cosmos requires
 `apps/languages/catalog.json` is the course list. Every course is the same
 application. Public Pages includes a course only when
 `platforms.browser.pagesEnabled` is true. Every course below is
-browser-enabled. Public Pages includes every course below as the active Czech
-course or a `noindex` development preview. Android is on for Czech, Mandarin,
-Spanish, English from Spanish, Norwegian, Arabic, Latin, and Georgian. Russian
-and Hebrew stay out of Android until native review. The Android column is that course's
-`minimumVersionCode`, or No when Android is disabled. Each row is that course's manifest. Czech's manifest
-records `status` `active` and publication contract `legacy-active-v1`. Every
-other course records `development` and `language-content-v1`.
+browser-enabled and released on the public website. Android is on for every
+course. Russian and Hebrew enter the source bundle at version 204, so the
+published Android 203 package does not install them. The Android column is that
+course's `minimumVersionCode`. Each row is that course's manifest. Every
+manifest records `status` `active`. The Czech pack currently declares
+`word-world-records-v1` with provider `czech-standard-records-v1`; the other
+packs declare `language-content-v1`. Both paths validate their authoring
+sources and generated runtime authority. Pronunciation guides stay off.
 
 | Course | Route | Base → target | Pages | Android from | Declared games | Full dictionary |
 | --- | --- | --- | --- | --- | --- | --- |
 | Czech | `/cz/` | English → Czech (`cs-CZ`) | Yes | 160 | Campaign, Verb Nebula, Word World, Conjugation Comet, Case Cosmos, Grammar Gravity, Sounds Quasar, Memory Moon | Yes |
-| Mandarin | `/zh/` | English → Mandarin (`zh-Hans`) | Yes, `noindex` | 161 | Verb Nebula, Word World, Naturalization Nucleus, Sounds Quasar, Memory Moon | No |
-| Spanish | `/es/` | English → Spanish (`es-ES`) | Yes, `noindex` | 170 | Verb Nebula, Word World, Conjugation Comet, Grammar Gravity, Sounds Quasar, Memory Moon | No |
-| English from Spanish | `/es-en/` | Spanish → English (`en-US`) | Yes, `noindex` | 168 | Verb Nebula, Word World, Conjugation Comet, Grammar Gravity, Sounds Quasar, Memory Moon | No |
-| Norwegian Bokmål | `/nb/` | English → Norwegian Bokmål | Yes, `noindex` | 172 | Verb Nebula, Word World, Conjugation Comet, Grammar Gravity, Sounds Quasar, Memory Moon | No |
-| Modern Standard Arabic | `/ar/` | English → Arabic | Yes, `noindex` | 179 | Verb Nebula, Word World, Conjugation Comet, Grammar Gravity, Naturalization Nucleus, Sounds Quasar, Memory Moon | No |
-| Scientific Latin | `/la/` | English → Latin | Yes, `noindex` | 179 | Verb Nebula, Word World, Conjugation Comet, Grammar Gravity, Memory Moon | No |
-| Georgian | `/ka/` | English → Georgian | Yes, `noindex` | 179 | Verb Nebula, Word World, Conjugation Comet, Grammar Gravity, Memory Moon | No |
-| Russian | `/ru/` | English → Russian | Yes, `noindex` | No | Verb Nebula, Word World, Conjugation Comet, Grammar Gravity, Memory Moon | No |
-| Hebrew | `/he/` | English → Hebrew | Yes, `noindex` | No | Verb Nebula, Word World, Conjugation Comet, Grammar Gravity, Memory Moon | No |
+| Mandarin | `/zh/` | English → Mandarin (`zh-Hans`) | Yes | 161 | Verb Nebula, Word World, Naturalization Nucleus, Sounds Quasar, Memory Moon | No |
+| Spanish | `/es/` | English → Spanish (`es-ES`) | Yes | 170 | Verb Nebula, Word World, Conjugation Comet, Grammar Gravity, Sounds Quasar, Memory Moon | No |
+| English from Spanish | `/es-en/` | Spanish → English (`en-US`) | Yes | 168 | Verb Nebula, Word World, Conjugation Comet, Grammar Gravity, Sounds Quasar, Memory Moon | No |
+| Norwegian Bokmål | `/nb/` | English → Norwegian Bokmål | Yes | 172 | Verb Nebula, Word World, Conjugation Comet, Grammar Gravity, Sounds Quasar, Memory Moon | No |
+| Modern Standard Arabic | `/ar/` | English → Arabic | Yes | 179 | Verb Nebula, Word World, Conjugation Comet, Grammar Gravity, Naturalization Nucleus, Sounds Quasar, Memory Moon | No |
+| Scientific Latin | `/la/` | English → Latin | Yes | 179 | Verb Nebula, Word World, Conjugation Comet, Grammar Gravity, Memory Moon | No |
+| Georgian | `/ka/` | English → Georgian | Yes | 179 | Verb Nebula, Word World, Conjugation Comet, Grammar Gravity, Memory Moon | No |
+| Russian | `/ru/` | English → Russian | Yes | 204 | Verb Nebula, Word World, Conjugation Comet, Grammar Gravity, Memory Moon | No |
+| Hebrew | `/he/` | English → Hebrew | Yes | 204 | Verb Nebula, Word World, Conjugation Comet, Grammar Gravity, Memory Moon | No |
 
 These prefixes belong to those directional courses. They are not
 direction-neutral language routes. English is the learner base except on
@@ -403,17 +409,19 @@ do not replace linguistic review or introduce a new publication gate.
    language pair,
    and one provider identity shared by the manifest and runtime registration.
 8. If Android is enabled, add the course manifest and asset catalog in catalog
-   order. Otherwise keep `platforms.android.enabled` false and leave the course
-   out of the bundle. Declare capability-matched native providers and both
+   order. Declare capability-matched native providers and both
    source and target presentation; the catalog-derived bundle plan rejects
    omissions, extras, and reordering.
 9. Run language-pack, content, semantic, browser/offline, server, publication,
    and Android audits. Pages and Android both compare their declared delivery
    sets against the browser- or Android-enabled catalog courses and fail closed
    on omissions, extras, duplicates, reordering, and default-course drift. Add
-   each enabled platform's delivery implementation deliberately before launch. Change `status`
-   to `active` only after linguistic, licensing, route, and platform review;
-   then regenerate/check the launcher projection.
+   each enabled platform's delivery implementation deliberately before launch.
+   `status` `active` means the course is released for learners on the same
+   footing as the other courses. Pending native review stays recorded, withholds
+   approved pronunciation, and does not block that status. Distribution still
+   requires the course's first-party license gate to be release-cleared.
+   Regenerate and check the launcher projection after a manifest change.
 
 The manifest model keeps English audit authority independent from the learner
 base. Any browser, Android, or launcher delivery whose source locale is not
@@ -454,13 +462,14 @@ output. Missing, remapped, or duplicate English authority mappings fail before
 Gradle. These packaging requirements prevent a valid authoring join from
 becoming a partially available offline app.
 
-Word World's deterministic authored-content renderer is language-neutral.
-Its optional local generation strategy is not yet: the registered models,
-prompts, and fallbacks are Czech-specific. Validation and runtime therefore
-reject `generation: true` for a non-Czech Word World course until that course
-declares and implements an explicit versioned generation strategy. This keeps
-new languages on the shared layout without silently generating the wrong
-language.
+Word World's renderer is shared across languages. Optional generation requires
+an explicit `generationStrategy` in the course-owned Word World runtime
+manifest, including a versioned ID and revisioned, course-relative module.
+The module exports `wordWorldGenerationProvider`; its strategy, target,
+English-audit and learner-base language identities and model keys must match
+the declaration and course. Prompts and fallbacks belong to that provider.
+A missing or unsupported implementation fails closed regardless of course ID;
+no language receives an implicit generation strategy.
 
 Archived experiments are not active language apps. Moving an archive into the
 registry requires behavior parity, not only a redirect or a matching screen.

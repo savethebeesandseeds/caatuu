@@ -1,6 +1,6 @@
 # Caatuu Mandarin
 
-This is an English-to-Mandarin development course pack rendered by the shared
+This is an English-to-Mandarin course pack rendered by the shared
 Caatuu product shell, enabled for browser, public Pages, and Android delivery.
 
 ## Product boundary
@@ -31,15 +31,12 @@ the course-owned `zh-CN` locale, and authored token glosses remain available
 inside Word World. LLM, chat, generated sentences, the separate full
 Dictionary workspace, pronunciation guides, and offline model packaging are
 disabled. Browser, public Pages, and Android distribution are enabled,
-including bundling this disclosed development course in the shared APK.
-Pending native Mandarin review is a visible quality
-note and does not block Pages or APK preview publication. The shared shell hides
-only the unsupported controls; it does not choose another renderer or layout.
-The course remains
-`development`, `noindex`, and blocked from active-course promotion and approved
-pronunciation guidance until native Mandarin review passes. Its first-party
-English and Mandarin curriculum licensing is release-cleared under
-`AGPL-3.0-only`.
+including this released course in the shared APK.
+The manifest status is `active`, the same as the other released courses.
+Pronunciation guides stay off. The shared shell hides only the unsupported
+controls; it does not choose another renderer or layout. The course is
+indexable on Pages. Its first-party English and Mandarin curriculum licensing
+is release-cleared under `AGPL-3.0-only`.
 
 ## Foundation path and sentence patterns
 
@@ -59,14 +56,15 @@ orders accept only reviewed permutations; the game never guesses valid grammar.
 Sounds Quasar excludes exact authored homophones from isolated-word choices.
 Naturalization Nucleus connects each authored character to a cited Word World
 sentence after a correct match. **Play example** speaks that context; character
-playback remains separate. Contexts and pronunciation remain machine-assisted
-previews, with qualified native and actual voice review pending.
+playback remains separate. Pronunciation guides stay off.
 
 ## Authored catalogs
 
 These counts are the playable Mandarin catalogs built from the English semantic
-banks. Native review is not claimed. A row stays empty when that game's checks
-refuse it.
+banks. Mandarin is the only course currently derived from those banks. The
+other courses are using their 13 November catalogs until they are reinstated
+to that standard. Native review is not claimed. A row stays empty when that
+game's checks refuse it.
 
 - Word World serves 8,994 sentences. Eight bank rows stay untranslated: five
   ask for a personal name, and three contain letters the English authority
@@ -82,7 +80,6 @@ refuse it.
 - Sounds Quasar has 2,072 words and 8,925 sentences, rebuilt from the Verb
   Nebula pairs and Word World sentences. Duplicate spoken sentences are kept
   once.
-
 
 Refresh the character context projection after its cited Word World text changes:
 

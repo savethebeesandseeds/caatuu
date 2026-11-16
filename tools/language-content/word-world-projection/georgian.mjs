@@ -11,5 +11,5 @@ export const georgianWordWorldProjectionPolicy = defineAuthoredWordWorldProjecti
     realizationsRuntime: 'apps/languages/georgian/static/data/games/word-world/content.json',
     manifest: 'apps/languages/georgian/static/data/games/word-world/manifest.json'
   },
-  pronunciationNote: 'Modern Standard Georgian in Mkhedruli. Device speech uses the shared browser/Android provider; independent native and pronunciation review remain pending.'
+  pronunciationNote: 'Modern Standard Georgian in Mkhedruli. Device speech uses the shared browser/Android provider. Pronunciation guides stay off.'
 });

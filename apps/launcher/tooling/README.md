@@ -11,7 +11,7 @@ its output as an immutable GitHub Release artifact for later Android updates.
 `build-static-site.mjs` creates the reviewed browser-only `web-static-core`
 intermediate. `build-pages-site.mjs` turns that intermediate into the final
 `web-static-pages-cutover` bundle by adding every catalog-declared,
-Pages-enabled browser preview, every Android overlay in the append-only release
+Pages-enabled browser course, every Android overlay in the append-only release
 descriptor, and the fixed Android 162/161 preservation archive. Both builders
 change only generated output; they do not edit the live server sources, Android
 product, models, or canonical language source trees.
@@ -40,10 +40,16 @@ final Pages publication command.
 
 ## Static profile
 
-The Czech-only browser core preserves the launcher, Czech interface, ordinary
-local progress, the 865-record curated dictionary, the six embedded browser
-learning games, and all
-662 reviewed visual assets. A 2.5 MB static supplement preserves exact
+The browser core derives its selected course from the Pages language plan.
+The shared application entry, launcher branding and common asset receipts have
+no course owner. Every Pages course is staged from the same application entry;
+a different default, or a catalog without Czech, does not require a Czech source
+tree. Local progress and the selected course's reviewed games remain available.
+
+The supported full-dictionary provider has an explicit static adaptation that
+preserves its 865-record curated dictionary and form supplement. This adaptation
+is selected by its declared provider, independently of the default course.
+The common asset catalog preserves all 662 reviewed visual assets. A 2.5 MB static supplement preserves exact
 dictionary matches for every Standard Word World surface resolved by the
 existing pinned full dictionary (1,195 of 1,277 surfaces); its 82 source
 dictionary misses retain the existing local gap behavior. First setup requires
@@ -88,9 +94,8 @@ the explicit `platforms.browser.pagesEnabled` gate. Every registered course
 is enabled: Czech at `/cz/`, Mandarin at `/zh/`, Spanish at `/es/`,
 English for Spanish speakers at `/es-en/`, Norwegian Bokmål at `/nb/`,
 Arabic at `/ar/`, Scientific Latin at `/la/`, Georgian at `/ka/`, Russian at
-`/ru/`, and Hebrew at `/he/`. Development courses keep their
-preview labels and `noindex` policy while appearing in the launcher and course
-selectors. The builder
+`/ru/`, and Hebrew at `/he/`. Every course manifest is `active`, and the
+public pages are indexable. The builder
 restores the stable 162 / compatibility 161 preservation archive and overlays
 every exact Android release in the append-only descriptor.
 It includes all retained aliases, all 662 release-162 native setup artifacts,
@@ -119,6 +124,31 @@ catalog receipts, and the frozen archive plus final Pages validation must supply
 and match every declared byte and SHA-256. Normal Android product builds keep
 the stricter default and fail when those local runtime files are absent.
 
+## Shared browser asset receipts
+
+`apps/launcher/static/assets/browser-assets.json` is the authored publication
+allowlist and hash/size authority for shared visuals, keymaps, music and credits.
+Its URLs and receipts were preserved from the prior delivery catalog. Course
+setup catalogs remain delivery projections; none owns this shared authority.
+Adding or removing a shared asset requires an explicit reviewed catalog edit.
+
+After an intentional shared asset edit, refresh the declared receipts first,
+then refresh the course delivery receipts using the existing generator:
+
+```powershell
+docker exec -w /workspace caatuu-dev node apps/launcher/tooling/refresh-browser-assets.mjs --write
+docker exec -w /workspace caatuu-dev node apps/server/tooling/refresh-setup-assets.mjs --all-browser-courses
+```
+
+Use `--check` instead of `--write` to detect drift without changing the shared
+catalog. The refresher never discovers or adds files, and rejects source aliases,
+paths outside the shared authority, and duplicate destinations. Publication
+still validates every declared hash and byte count against the actual file.
+
+New shared worker caches use `caatuu-web-static-*`. Activation removes superseded
+shared caches, including the historical Czech-prefixed shared caches, while
+retaining other courses' caches and the verified shared music cache.
+
 ## Hosting boundary
 
 For APK publication and retries, use the
@@ -141,11 +171,19 @@ preservation descriptor. Current artwork uses a separate content-addressed URL;
 renaming its local source must not require renaming the historical download.
 The Pages artwork regression checks both files' hashes independently.
 
-The Pages sentence-report copy is projected at the shared interface-key call,
-not by replacing an English literal inside JavaScript. The existing Czech-only
-reporting scope stays intact, and other courses retain their localized
-local-only message. A focused contract checks both outcomes and module syntax
-before release signing; deployment repairs reuse the finalized APK receipt.
+Pages reporting uses the v2 course catalog generated from the selected course
+declarations. Sentence sharing requires consent for each report; dictionary
+sharing requires a declared dictionary provider and a separate, default-off,
+future-only opt-in. Queues are scoped to the course/language tuple. Existing
+legacy queues stay local, and unavailable reporting initialization leaves local
+reporting available. Status copy follows the actual authorized queue result.
+
+The additive reporting database migration must be applied before deploying the
+v2 Worker, and that Worker must be ready before publishing the new Pages client.
+These source changes and tests do not apply migrations or deploy either service.
+See the [reporting Worker guide](../../reporting-worker/README.md) for the
+authorized rollout sequence. Android deployment repairs continue to reuse the
+finalized APK receipt.
 
 The published UI uses origin-root asset and course paths, including `/assets/`,
 `/cz/`, `/zh/`, `/es/`, and `/es-en/`.

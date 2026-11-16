@@ -3,10 +3,50 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Learn languages. Explore new worlds. Free guided practice, games, and language tools with Caatuu.">
-    <title>Caatuu · Learn languages. Explore new worlds.</title>
+    <meta name="description" content="Caatuu is a free language-learning app for Czech, Mandarin, Spanish, English, Norwegian, Arabic, Latin, Georgian, Russian, and Hebrew. Guided practice and games also work offline. Safe for children. No account and no ads.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://caatuu.waajacu.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Caatuu">
+    <meta property="og:url" content="https://caatuu.waajacu.com/">
+    <meta property="og:title" content="Caatuu · Free language learning">
+    <meta property="og:description" content="Caatuu is a free language-learning app for Czech, Mandarin, Spanish, English, Norwegian, Arabic, Latin, Georgian, Russian, and Hebrew. Guided practice and games also work offline. Safe for children. No account and no ads.">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Caatuu · Free language learning">
+    <meta name="twitter:description" content="Caatuu is a free language-learning app for Czech, Mandarin, Spanish, English, Norwegian, Arabic, Latin, Georgian, Russian, and Hebrew. Guided practice and games also work offline. Safe for children. No account and no ads.">
+    <title>Caatuu · Free language learning</title>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Caatuu",
+        "url": "https://caatuu.waajacu.com/",
+        "applicationCategory": "EducationalApplication",
+        "applicationSubCategory": "Language learning",
+        "operatingSystem": "Android, Web",
+        "isAccessibleForFree": true,
+        "description": "Caatuu is a free language-learning app for Czech, Mandarin, Spanish, English, Norwegian, Arabic, Latin, Georgian, Russian, and Hebrew. Guided practice and games also work offline. Safe for children. No account and no ads.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "audience": {
+          "@type": "EducationalAudience",
+          "educationalRole": "student"
+        },
+        "featureList": [
+          "Guided language practice",
+          "Learning games",
+          "Offline use",
+          "On-device progress",
+          "Safe for children"
+        ],
+        "inLanguage": ["en", "cs", "zh", "es", "nb", "ar", "la", "ka", "ru", "he"]
+      }
+    </script>
     <link rel="stylesheet" href="/app.css?v=49">
-    <script src="/launcher.js?v=33" defer></script>
+    <script src="/launcher.js?v=35" defer></script>
   </head>
   <body class="home-page landing-page">
     <a class="landing-skip" href="#learn" data-i18n="launcher.skip">Skip to content</a>
@@ -15,7 +55,7 @@
       <header class="landing-header">
         <div class="landing-nav-panel">
           <a class="landing-brand" href="#learn" aria-label="Caatuu">
-            <img src="/cz/icons/caatuu-czech-192.png" width="56" height="56" alt="">
+            <img src="/language-runtime/static/assets/caatuu-shell-512.png" width="56" height="56" alt="">
             <strong>Caatuu</strong>
           </a>
           <nav class="landing-nav" aria-label="Main navigation" data-i18n-aria-label="launcher.navigation">
@@ -34,7 +74,7 @@
         <section class="landing-hero" id="learn" aria-labelledby="homeTitle">
           <div class="landing-hero-copy">
             <h1 id="homeTitle"><span data-i18n="launcher.hero.title">Learn languages.</span><span data-i18n="launcher.hero.worlds">Explore new worlds.</span></h1>
-            <p data-i18n="launcher.description">Caatuu is a free language-learning app for guided practice with words, phrases, translation, and tools that also work offline.</p>
+            <p data-i18n="launcher.description">Caatuu is a free language-learning app for Czech, Mandarin, Spanish, English, Norwegian, Arabic, Latin, Georgian, Russian, and Hebrew. Guided practice and games also work offline. Safe for children. No account and no ads.</p>
             <a class="landing-primary" href="#courses"><span aria-hidden="true">🚀</span><span data-i18n="launcher.getstarted">Get started</span><span aria-hidden="true">→</span></a>
           </div>
         </section>
@@ -50,59 +90,50 @@
                   <img class="flag-icon" src="/assets/icons/czech_flag_ui.png?caatuu_asset=33" alt="" decoding="async">
                   <strong class="language-choice-name" data-i18n="languages.cs">Czech</strong><span class="language-choice-code">CZ</span>
                 <span class="language-choice-start" data-i18n="launcher.start">Start</span></a></li>
-              <li aria-label="Mandarin (中文), Preview" data-language-id="zh" data-course-status="development">
+              <li aria-label="Mandarin (中文)" data-language-id="zh">
                 <a class="language-choice" href="/zh/index.html">
                   <img class="flag-icon" src="/assets/icons/china_flag.png?caatuu_asset=33" alt="" decoding="async">
                   <strong class="language-choice-name" data-i18n="languages.zh.hans">Chinese</strong><span class="language-choice-code">ZH</span>
-                  <span class="language-choice-status">Preview</span>
                 <span class="language-choice-start" data-i18n="launcher.start">Start</span></a></li>
-              <li aria-label="Spanish (Español), Preview" data-language-id="es" data-course-status="development">
+              <li aria-label="Spanish (Español)" data-language-id="es">
                 <a class="language-choice" href="/es/index.html">
                   <img class="flag-icon" src="/assets/icons/spain_flag.png?caatuu_asset=33" alt="" decoding="async">
                   <strong class="language-choice-name" data-i18n="languages.es">Spanish</strong><span class="language-choice-code">ES</span>
-                  <span class="language-choice-status">Preview</span>
                 <span class="language-choice-start" data-i18n="launcher.start">Start</span></a></li>
-              <li aria-label="English, Preview" data-language-id="es-en" data-course-status="development">
+              <li aria-label="English" data-language-id="es-en">
                 <a class="language-choice" href="/es-en/index.html">
                   <img class="flag-icon" src="/assets/icons/english_flag.png?caatuu_asset=33" alt="" decoding="async">
                   <strong class="language-choice-name" data-i18n="languages.en">English</strong><span class="language-choice-code">EN</span>
-                  <span class="language-choice-status">Preview</span>
                 <span class="language-choice-start" data-i18n="launcher.start">Start</span></a></li>
-              <li aria-label="Norwegian Bokmål (Norsk bokmål), Preview" data-language-id="nb" data-course-status="development">
+              <li aria-label="Norwegian Bokmål (Norsk bokmål)" data-language-id="nb">
                 <a class="language-choice" href="/nb/index.html">
                   <img class="flag-icon" src="/assets/icons/norway_flag.png?caatuu_asset=33" alt="" decoding="async">
                   <strong class="language-choice-name">Norwegian Bokmål</strong><span class="language-choice-code">NB</span>
-                  <span class="language-choice-status">Preview</span>
                 <span class="language-choice-start" data-i18n="launcher.start">Start</span></a></li>
-              <li aria-label="Arabic (العربية الفصحى), Preview" data-language-id="ar" data-course-status="development">
+              <li aria-label="Arabic (العربية الفصحى)" data-language-id="ar">
                 <a class="language-choice" href="/ar/index.html">
                   <img class="flag-icon" src="/assets/icons/arabic_mark.png?caatuu_asset=33" alt="" decoding="async">
                   <strong class="language-choice-name" data-i18n="languages.ar">Arabic</strong><span class="language-choice-code">AR</span>
-                  <span class="language-choice-status">Preview</span>
                 <span class="language-choice-start" data-i18n="launcher.start">Start</span></a></li>
-              <li aria-label="Scientific Latin (Latīnum scientificum), Preview" data-language-id="la" data-course-status="development">
+              <li aria-label="Scientific Latin (Latīnum scientificum)" data-language-id="la">
                 <a class="language-choice" href="/la/index.html">
                   <img class="flag-icon" src="/assets/icons/latin_mark.png?caatuu_asset=33" alt="" decoding="async">
                   <strong class="language-choice-name" data-i18n="languages.la">Scientific Latin</strong><span class="language-choice-code">LA</span>
-                  <span class="language-choice-status">Preview</span>
                 <span class="language-choice-start" data-i18n="launcher.start">Start</span></a></li>
-              <li aria-label="Georgian (ქართული), Preview" data-language-id="ka" data-course-status="development">
+              <li aria-label="Georgian (ქართული)" data-language-id="ka">
                 <a class="language-choice" href="/ka/index.html">
                   <img class="flag-icon" src="/assets/icons/georgian_flag.svg?caatuu_asset=33" alt="" decoding="async">
                   <strong class="language-choice-name" data-i18n="languages.ka">Georgian</strong><span class="language-choice-code">KA</span>
-                  <span class="language-choice-status">Preview</span>
                 <span class="language-choice-start" data-i18n="launcher.start">Start</span></a></li>
-              <li aria-label="Russian (русский), Preview" data-language-id="ru" data-course-status="development">
+              <li aria-label="Russian (русский)" data-language-id="ru">
                 <a class="language-choice" href="/ru/index.html">
                   <img class="flag-icon" src="/assets/icons/russian_flag.svg?caatuu_asset=33" alt="" decoding="async">
                   <strong class="language-choice-name" data-i18n="languages.ru">Russian</strong><span class="language-choice-code">RU</span>
-                  <span class="language-choice-status">Preview</span>
                 <span class="language-choice-start" data-i18n="launcher.start">Start</span></a></li>
-              <li aria-label="Hebrew (עברית), Preview" data-language-id="he" data-course-status="development">
+              <li aria-label="Hebrew (עברית)" data-language-id="he">
                 <a class="language-choice" href="/he/index.html">
                   <img class="flag-icon" src="/assets/icons/hebrew_flag.svg?caatuu_asset=33" alt="" decoding="async">
                   <strong class="language-choice-name" data-i18n="languages.he">Hebrew</strong><span class="language-choice-code">HE</span>
-                  <span class="language-choice-status">Preview</span>
                 <span class="language-choice-start" data-i18n="launcher.start">Start</span></a></li>
             </ul>
           <button class="landing-course-arrow landing-course-next" type="button" data-course-next aria-label="Next courses" data-i18n-aria-label="launcher.courses.next" aria-controls="courseList"><span aria-hidden="true">›</span></button>
@@ -111,7 +142,7 @@
         <nav class="entry-options" aria-label="App entry options" data-i18n-aria-label="launcher.entryoptions">
           <a class="entry-option entry-download" data-android-download aria-disabled="true">
             <svg class="landing-entry-art landing-android-art" viewBox="0 0 64 64" aria-hidden="true"><path d="m20 14-5-8m29 8 5-8M14 26a18 18 0 0 1 36 0zM14 30h36v22H14zM21 52v8m22-8v8M7 31v18m50-18v18"/><path class="android-eyes" d="M23 20h1m16 0h1"/></svg>
-            <span class="entry-copy"><small data-i18n="launcher.android.preview">Android preview</small><b data-i18n="launcher.android.checking">Checking Android build</b><span data-i18n="launcher.android.detail">Learn on the go, even offline.</span></span>
+            <span class="entry-copy"><small data-i18n="launcher.android.beta">Android app</small><b data-i18n="launcher.android.downloadbeta">Download Caatuu</b><span data-i18n="launcher.android.detail">Learn on the go, even offline.</span></span>
             <span class="landing-entry-arrow" aria-hidden="true">→</span>
           </a>
           <a class="entry-option entry-browser" href="/cz/index.html" data-browser-entry aria-label="Continue online in the browser" data-i18n-aria-label="launcher.continuearia">
@@ -158,7 +189,7 @@ No registration, no credit cards, no cookies. Open source. Truly free.</p></div>
         <p class="landing-dialog-status" data-course-dialog-status role="status"></p>
       </dialog>
       <footer class="app-footer">
-        <a class="footer-brand" href="https://www.waajacu.com/" rel="noopener"><img class="footer-logo" src="/cz/icons/caatuu-czech-512.png" alt=""><span><span data-i18n="launcher.by">by Waajacu</span><sup class="brand-trademark" aria-hidden="true">™</sup></span></a>
+        <a class="footer-brand" href="https://www.waajacu.com/" rel="noopener"><img class="footer-logo" src="/language-runtime/static/assets/caatuu-shell-512.png" alt=""><span><span data-i18n="launcher.by">by Waajacu</span><sup class="brand-trademark" aria-hidden="true">™</sup></span></a>
       </footer>
     </div>
   </body>

@@ -30,6 +30,7 @@ function hasVerbDifficultyMetadata(value) {
 }
 
 function projectCoreVerbPair(row, sourceIndex, { learnerBaseLanguage = "en" } = {}) {
+  if (row?.reviewStatus === "untranslated") return null;
   const canonicalPair = normalizedLabel(row?.target) && normalizedLabel(row?.source);
   const kind = normalizedLabel(row?.kind);
   if (!canonicalPair && !verbKindPattern.test(kind)) return null;
@@ -45,9 +46,14 @@ function projectCoreVerbPair(row, sourceIndex, { learnerBaseLanguage = "en" } = 
   if (!englishAuditText) {
     throw new Error(`Verb Nebula ${row.id || sourceIndex} requires explicit English audit text for a non-English learner base.`);
   }
+  if (Object.hasOwn(row, "semanticBankId") && (typeof row.semanticBankId !== "string"
+      || !/^sb\.verb-lab\.\d{6}$/u.test(row.semanticBankId))) {
+    throw new Error(`Verb Nebula ${row.id || sourceIndex} has an invalid semanticBankId.`);
+  }
 
   return {
     id: normalizedLabel(row.id) || `core-verb-${sourceIndex}`,
+    ...(row.semanticBankId ? { semanticBankId: row.semanticBankId } : {}),
     target,
     source,
     englishAuditText,
@@ -108,7 +114,8 @@ export function validateVerbNebulaCatalog(dictionary, options = {}) {
   const pairs = extractCoreVerbPairs(dictionary, options);
   if (pairs.length < 2) throw new Error("Verb Nebula requires at least two distinct playable verb pairs.");
   if (String(options.learnerBaseLanguage || "en").split("-")[0] !== "en") {
-    if (pairs.length !== dictionary.length || dictionary.some((row) => ["id", "target", "source"].some(
+    const authored = dictionary.filter(row => row?.reviewStatus !== "untranslated");
+    if (pairs.length !== authored.length || authored.some((row) => ["id", "target", "source"].some(
       (field) => typeof row[field] !== "string" || !row[field].trim()
     ))) {
       throw new Error("Non-English Verb Nebula catalogs require distinct authored IDs, targets, and learner-base meanings for every item.");

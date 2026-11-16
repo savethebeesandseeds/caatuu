@@ -1,11 +1,11 @@
-# Caatuu development-preview privacy notice
+# Caatuu privacy notice
 
-Last updated: 29 October 2026
+Last updated: 11 November 2026
 
-Caatuu is currently a development preview, not a governed public beta. It is
-operated by the individual maintainer publishing the project under the Waajacu
-name. Privacy questions and data-rights requests can be sent to
-`contact@waajacu.com`.
+Caatuu is a released free language-learning app. It does not require an account
+and it does not include advertising. It is operated by the individual maintainer
+publishing the project under the Waajacu name. Privacy questions and data-rights
+requests can be sent to `contact@waajacu.com`.
 
 ## Product data
 

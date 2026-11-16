@@ -424,3 +424,30 @@ async function sourceFiles(directory) {
   }
   return files;
 }
+
+test("replacing shared records clears old recovery state and cannot resurrect an imported empty streak", async () => {
+  const registry = buildLearnerRegistry(await loadCourses());
+  const profileSource = await readFile(new URL("../static/source/learning-profile.js", import.meta.url), "utf8");
+  for (const importedDays of [0, 3]) {
+    const harness = createBrowserHarness({ course: { id: "cz", storage: { namespace: "caatuu-czech" } } });
+    vm.runInContext(profileSource, harness.context);
+    harness.window.CaatuuLearning.qualifyStreak(new Date());
+    const local = adaptLocalStorage(harness.localStorage);
+    const snapshot = await captureLearnerSnapshot(registry, { local });
+    snapshot.shared.streak = importedDays ? { ...snapshot.shared.streak, currentDays: importedDays, highestDays: importedDays } : null;
+    for (const record of registry.shared) {
+      local.setItem(`${record.key}.backup`, local.getItem(record.key) ?? "previous learner");
+      local.setItem(`${record.key}.damaged`, "previous damaged record");
+    }
+    await restoreLearnerRecord(registry, { local }, snapshot);
+    for (const record of registry.shared) {
+      assert.equal(local.getItem(`${record.key}.backup`), null, record.name);
+      assert.equal(local.getItem(`${record.key}.damaged`), null, record.name);
+    }
+    vm.runInContext(profileSource, harness.context);
+    const restored = harness.window.CaatuuLearning.snapshot().streak;
+    assert.equal(restored.currentDays, importedDays);
+    assert.equal(restored.highestDays, importedDays);
+    assert.equal((await captureLearnerSnapshot(registry, { local })).shared.streak?.currentDays ?? 0, importedDays);
+  }
+});

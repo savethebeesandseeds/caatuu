@@ -3,18 +3,16 @@ import assert from "node:assert/strict";
 import { readFile, writeFile, rename, realpath } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { createHash } from "node:crypto";
 import { repositoryRoot, loadWordWorldCourses, loadWordWorldContent, readRepositoryJson,
-  modernCatalogs, czechRuntimeRecords, validateSharedEnglishMeanings } from "./lib/word-world-course-content.mjs";
+  modernCatalogs, validateSharedEnglishMeanings } from "./lib/word-world-course-content.mjs";
+import { planRecordPublication, RECORD_PUBLICATION_CONTRACT } from "./lib/record-publication.mjs";
 import { buildWordWorldRuntimeProjections } from "./project-word-world-runtime.mjs";
 import { resolveWordWorldProjectionPolicy } from "./word-world-projection/registry.mjs";
-import { buildCoverageReport } from "../czech-ml/scripts/word-world-standard-lib.mjs";
 
 const serialize = value => JSON.stringify(value, null, 2) + "\n";
-const sha = bytes => createHash("sha256").update(bytes).digest("hex");
 
 export async function planWordWorldContent({ root = repositoryRoot, catalogPath = "apps/languages/catalog.json",
-  courseId = null, includeLegacy = true } = {}) {
+  courseId = null, includeLegacy = true, allowPartial = false } = {}) {
   const courses = await loadWordWorldCourses({ root, catalogPath });
   const loaded = await Promise.all(courses.map(async entry => ({ ...entry, ...await loadWordWorldContent(entry.course, { root }) })));
   validateSharedEnglishMeanings(loaded.map(entry => entry.document));
@@ -24,6 +22,14 @@ export async function planWordWorldContent({ root = repositoryRoot, catalogPath 
   const result = [];
   for (const entry of selected) {
     const { course, document, sourcePath } = entry;
+    const playableCount = document.records.filter(item => item.reviewStatus !== "untranslated").length;
+    const untranslatedCount = document.records.length - playableCount;
+    assert.ok(playableCount > 0,
+      `${course.id}: no playable records; publication is blocked. Existing generated files remain unchanged, not synchronized. `
+      + "Removing the last playable record requires an explicit catalog withdrawal; this builder cannot withdraw a course.");
+    assert.ok(allowPartial || untranslatedCount === 0,
+      `${course.id}: ${playableCount} playable and ${untranslatedCount} untranslated records; publication is blocked. `
+      + "Use --allow-partial only for an intentional replacement of the published catalog with this playable subset.");
     const outputs = new Map();
     const add = (file, value) => outputs.set(file, typeof value === "string" ? value : serialize(value));
     if (course.publication.contract === "language-content-v1") {
@@ -54,40 +60,23 @@ export async function planWordWorldContent({ root = repositoryRoot, catalogPath 
       if (learnerBase) add(runtime.learnerBaseRuntime, projections.learnerBaseProjection);
       for (const key of Object.keys(policy.supplementalOutputs)) add(runtime.supplementalOutputs[key], projections[key]);
       add(runtime.manifest, projections.runtimeManifest);
-    } else {
-      const rubric = await readRepositoryJson(root, "tools/czech-ml/data/word-world/standard-v0.1/rubric.json");
-      const { authoring, runtime, validation } = czechRuntimeRecords(document, rubric);
-      const manifestPath = course.resources.wordWorldManifest.path;
-      const manifest = await readRepositoryJson(root, manifestPath);
-      const coverage = buildCoverageReport(authoring, rubric, validation, [sourcePath]);
-      const bytes = JSON.stringify({ schemaVersion: "caatuu-word-world-runtime-v1", corpusVersion: document.metadata.corpusVersion, records: runtime }) + "\n";
-      const contentSha256 = sha(bytes);
-      const oldRuntimeFile = manifest.runtimeFile;
-      Object.assign(manifest, {
-        corpusVersion: document.metadata.corpusVersion, runtimeFile: `content.json?v=${contentSha256.slice(0, 16)}`,
-        recordCount: runtime.length, contentSha256, difficultyDistribution: coverage.records.byDifficulty,
-        difficultyShare: coverage.records.difficultyShare, playableTargets: coverage.targets.uniquePlayable,
-        branchability: { ...manifest.branchability, branchableTargets: coverage.targets.branchable.targetCount,
-          strongTargets: coverage.targets.strong.targetCount },
-        authoringFile: sourcePath, authoringSchema: document.schemaVersion
-      });
-      add(path.posix.join(path.posix.dirname(manifestPath), "content.json"), bytes);
-      add(manifestPath, manifest);
-      add("tools/czech-ml/data/word-world/standard-v0.1/reports/coverage.json", coverage);
-      add("tools/czech-ml/data/word-world/standard-v0.1/reports/validation.json", {
-        schemaVersion: "caatuu-word-world-validation-v1", corpusVersion: document.metadata.corpusVersion,
-        inputFiles: [sourcePath], ...validation
-      });
-      // Preserve the content-addressed offline URL when only this JSON changes.
-      const setupPath = `apps/languages/${course.directoryName}/static/setup-assets.json`;
+    } else if (course.publication.contract === RECORD_PUBLICATION_CONTRACT) {
+      const projection = await planRecordPublication({ root, course, document });
+      for (const [file, bytes] of projection.outputs) add(file, bytes);
+      // The runtime keeps its existing content-addressed URL and record IDs.
+      const setupPath = course.resources.setupCatalog.path;
       const setup = await readRepositoryJson(root, setupPath);
-      const base = "./data/games/word-world/";
-      const previous = base + oldRuntimeFile, next = base + manifest.runtimeFile;
+      const manifestDirectory = path.posix.dirname(course.publication.manifest);
+      const base = './' + path.posix.relative(course.resources.staticRoot.path, manifestDirectory) + '/';
+      const previous = base + projection.previousRuntimeFile;
+      const next = base + projection.manifest.runtimeFile;
       if (previous !== next) {
-        assert.ok(setup.offline.assets.includes(previous), "Czech offline content URL is missing");
+        assert.ok(setup.offline.assets.includes(previous), `${course.id} offline content URL is missing`);
         setup.offline.assets = setup.offline.assets.map(value => value === previous ? next : value);
         add(setupPath, setup);
       }
+    } else {
+      throw new Error(`Unsupported publication contract: ${course.publication.contract}`);
     }
     const runtimeChanged = (await Promise.all([...outputs].filter(([file]) => file.includes("/static/")).map(async ([file, bytes]) => {
       const existing = await readFile(path.resolve(root, file), "utf8").catch(error => { if (error.code === "ENOENT") return null; throw error; });
@@ -104,12 +93,16 @@ export async function planWordWorldContent({ root = repositoryRoot, catalogPath 
       assert.ok(sw.includes(`Offline catalog revision: ${previous}`), "Service worker cache marker mismatch");
       setup.offline.cacheName = next;
       add(setupPath, setup);
-      add(swPath, sw.replace(`Offline catalog revision: ${previous}`, `Offline catalog revision: ${next}`));
+      const binding = `self.CAATUU_OFFLINE_CACHE_NAME = "${previous}";`;
+      assert.ok(sw.includes(binding), "Service worker cache binding mismatch");
+      add(swPath, sw.replace(`Offline catalog revision: ${previous}`, `Offline catalog revision: ${next}`)
+        .replace(binding, `self.CAATUU_OFFLINE_CACHE_NAME = "${next}";`));
     }
     // Resolve every destination before any course is written. A malformed
     // source or escaped path cannot partially update earlier courses.
     for (const file of outputs.keys()) await outputPath(root, file);
-    result.push({ courseId: course.id, sourcePath, recordCount: document.records.length, outputs });
+    result.push({ courseId: course.id, sourcePath, recordCount: playableCount,
+      sourceRecordCount: document.records.length, untranslatedCount, outputs });
   }
   const owners = new Map();
   for (const plan of result) for (const [file, bytes] of plan.outputs) {
@@ -136,7 +129,8 @@ export async function buildWordWorldContent(options = {}) {
         await rename(temporary, destination);
       }
     }
-    courses.push({ courseId: plan.courseId, sourcePath: plan.sourcePath, recordCount: plan.recordCount, changes });
+    courses.push({ courseId: plan.courseId, sourcePath: plan.sourcePath, recordCount: plan.recordCount,
+      sourceRecordCount: plan.sourceRecordCount, untranslatedCount: plan.untranslatedCount, changes });
   }
   return { check: Boolean(options.check), courses, changes: courses.flatMap(item => item.changes),
     recordCount: courses.reduce((sum, item) => sum + item.recordCount, 0) };
@@ -159,12 +153,13 @@ async function main() {
     const arg = process.argv[i];
     if (arg === "--all") continue;
     if (arg === "--check") options.check = true;
+    else if (arg === "--allow-partial") options.allowPartial = true;
     else if (arg === "--course") { options.courseId = process.argv[++i]; assert.ok(options.courseId, "--course needs an ID"); }
     else if (arg === "--repo-root") options.root = process.argv[++i];
     else throw new Error(`Unknown argument ${arg}`);
   }
   const report = await buildWordWorldContent(options);
-  for (const course of report.courses) console.log(`${course.courseId}: ${course.recordCount} records; ${course.changes.length} ${report.check ? "stale" : "updated"} generated files (${course.sourcePath}).`);
+  for (const course of report.courses) console.log(`${course.courseId}: ${course.recordCount} playable records, ${course.untranslatedCount} untranslated; ${course.changes.length} ${report.check ? "stale" : "updated"} generated files (${course.sourcePath}).`);
   if (report.check && report.changes.length) process.exitCode = 1;
 }
 

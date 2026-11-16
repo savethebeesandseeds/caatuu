@@ -65,11 +65,11 @@ Regeneration and verification commands are documented in the
 - On 8 September 2026, Spanish and Spanish-to-English content was still
   `release-review-required`. The [9 September](CURRICULUM_LICENSE_APPROVAL_20260909.json)
   and [4 October](CURRICULUM_LICENSE_APPROVAL_20261004.json) owner approvals
-  later cleared the identified original curricula for distribution. Native
-  review remains pending. The reviewed Android APK includes these development
-  courses, so the older inventory statement that Spanish was absent from
-  Android was inaccurate. Notice corrections do not constitute linguistic
-  clearance or active-course promotion.
+  later cleared the identified original curricula for distribution. The courses
+  are released. Pronunciation guides stay off. The reviewed Android APK includes
+  these courses, so the older inventory statement that Spanish was absent from
+  Android was inaccurate. Notice corrections do not constitute a pronunciation
+  approval.
 - The Rust server and the full development Android application's additional
   native generation dependencies require their own inventories. This product
   audit does not close those entries or authorize a release containing them.

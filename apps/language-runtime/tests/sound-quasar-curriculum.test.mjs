@@ -4,7 +4,7 @@ import test from 'node:test';
 import {validateSoundQuasarCatalog,createSoundQuasarSession,buildSoundQuasarRound} from '../static/source/games/sound-quasar/sound-quasar-core.mjs';
 const raw=JSON.parse(await readFile(new URL('../../languages/english-from-spanish/static/data/games/sound-quasar/content.json',import.meta.url),'utf8'));
 const catalog=validateSoundQuasarCatalog(raw);
-test('all reviewed listening content is reachable in the original manually selected modes',()=>{
+test('all published listening content is reachable in the original manually selected modes',()=>{
   assert.equal(catalog.items.length,raw.items.length);assert.equal(catalog.sentences.length,raw.sentences.length);
   for(const mode of ['words','sentences']) {
     const bank=mode==='words'?catalog.items:catalog.sentences;
@@ -17,11 +17,17 @@ test('all reviewed listening content is reachable in the original manually selec
   assert.equal(catalog.curriculum,undefined);
 });
 test('first-party authoring has honest provenance and cannot impersonate a source-linked record',()=>{
-  const authored=[...catalog.items,...catalog.sentences].filter(i=>i.sourceKind==='authored-listening');
-  assert.equal(authored.length,[...raw.items,...raw.sentences].filter(i=>i.sourceKind==='authored-listening').length);
-  assert.ok(authored.length>0);
-  assert.ok(authored.every(i=>i.sourceId===i.id && i.sourceReviewStatus===catalog.authoredProvenance.reviewStatus));
+  // Explicit contract fixture: publication need not include first-party additions.
+  const fixture=structuredClone(raw);
+  fixture.authoredProvenance={kind:'first-party-authored',reviewStatus:'ai-editorial-pending',reviewer:null,reviewedAt:null,notes:'Synthetic provenance regression; no reviewed content is claimed.'};
+  const item=fixture.items[0];
+  item.sourceKind='authored-listening';item.sourceId=item.id;item.sourceReviewStatus=fixture.authoredProvenance.reviewStatus;
+  fixture.provenance.sourceItemIds=fixture.items.map(i=>i.sourceId);
+  const authoredCatalog=validateSoundQuasarCatalog(fixture);
+  assert.equal(authoredCatalog.items[0].sourceKind,'authored-listening');
+  assert.equal(authoredCatalog.items[0].sourceId,item.id);
+  assert.equal(authoredCatalog.items[0].sourceReviewStatus,'ai-editorial-pending');
   for(const mutate of [r=>{delete r.authoredProvenance;},r=>{r.authoredProvenance.reviewStatus='native-approved';},r=>{r.items.find(i=>i.sourceKind).sourceId='wrong.source';}]) {
-    const changed=structuredClone(raw);mutate(changed);assert.throws(()=>validateSoundQuasarCatalog(changed));
+    const changed=structuredClone(fixture);mutate(changed);assert.throws(()=>validateSoundQuasarCatalog(changed));
   }
 });

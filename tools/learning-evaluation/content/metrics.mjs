@@ -79,6 +79,7 @@ export function categoryDistribution(rows) {
 
 function describe(records, units, adapters) {
   return { authoredRecords: records.length, authoredKinds: countBy(records, row => row.kind),
+    untranslatedRecords: records.filter(row => row.reviewStatus === 'untranslated').length,
     recordRoles: countBy(records, row => row.recordRole), playableAssessmentUnits: units.length,
     playableKinds: countBy(units, row => row.kind), semanticDocuments: new Set(records.map(row => row.semanticDocumentId).filter(Boolean)).size,
     playableCountComplete: adapters.every(row => row.status === 'ok'), unavailablePlayableBanks: adapters.filter(row => row.status !== 'ok').length,

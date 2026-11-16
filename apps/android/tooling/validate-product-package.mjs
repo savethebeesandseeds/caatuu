@@ -92,9 +92,7 @@ const BASE_REQUIRED_ASSET_PATHS = [
   ...SHARED_APP_REQUIRED_ASSET_PATHS,
 ];
 
-const CZECH_EMBEDDING_REQUIRED_COURSE_PATHS = [
-  "data/embeddings/models.json",
-  "data/embeddings/all-minilm-l6-v2-qint8-v0.1/manifest.json",
+const NATIVE_VECTOR_REQUIRED_COURSE_PATHS = [
   "source/shared/runtime.js",
   "source/shared/vector-db.js",
   "vendor/sql.js/sql-wasm.js",
@@ -102,9 +100,7 @@ const CZECH_EMBEDDING_REQUIRED_COURSE_PATHS = [
   "vendor/sql.js/LICENSE",
 ];
 
-const CZECH_DICTIONARY_REQUIRED_COURSE_PATHS = [
-  "data/dictionaries/catalog.json",
-  "data/dictionaries/kaikki-cs-en-2026-07-09/manifest.json",
+const SQLITE_DICTIONARY_REQUIRED_COURSE_PATHS = [
   "vendor/sql.js/sql-wasm.js",
   "vendor/sql.js/sql-wasm.wasm",
   "vendor/sql.js/LICENSE",
@@ -271,12 +267,12 @@ export function requiredAssetPaths(contract) {
     const embeddingCatalog = course?.nativeProviders?.providers?.embeddings?.catalogAsset;
     const dictionaryCatalog = course?.nativeProviders?.providers?.dictionary?.catalogAsset;
     if (course.capabilities?.embeddings && embeddingCatalog) required.push(embeddingCatalog);
-    if (course.capabilities?.embeddings && course.id === "cz") {
-      required.push(...CZECH_EMBEDDING_REQUIRED_COURSE_PATHS.map((path) => courseAssetPath(course, path)));
+    if (course.capabilities?.embeddings && course.nativeProviders?.providers?.embeddings?.implementation === "vector-database-catalog-v1") {
+      required.push(...NATIVE_VECTOR_REQUIRED_COURSE_PATHS.map((path) => courseAssetPath(course, path)));
     }
     if (course.capabilities?.dictionary && dictionaryCatalog) required.push(dictionaryCatalog);
-    if (course.capabilities?.dictionary && course.id === "cz") {
-      required.push(...CZECH_DICTIONARY_REQUIRED_COURSE_PATHS.map((path) => courseAssetPath(course, path)));
+    if (course.capabilities?.dictionary && course.nativeProviders?.providers?.dictionary?.implementation === "sqlite-dictionary-catalog-v1") {
+      required.push(...SQLITE_DICTIONARY_REQUIRED_COURSE_PATHS.map((path) => courseAssetPath(course, path)));
     }
   }
   if (productCourses(contract).some(usesSharedEmbeddingRuntime)) {
@@ -639,23 +635,6 @@ export function assertCourseBundleContract(
     );
   }
 
-  const czech = bundle.courses.find((course) => course.id === "cz");
-  if (czech) {
-    assert(czech.targetLanguage.id === "cs", `${label} Czech target language must be cs`);
-    assert(
-      czech.nativeProviders.providers.embeddings?.implementation === "vector-database-catalog-v1",
-      `${label} Czech embeddings must use the native vector database catalog`,
-    );
-  }
-  const mandarin = bundle.courses.find((course) => course.id === "zh");
-  if (mandarin) {
-    assert(mandarin.targetLanguage.id === "zh", `${label} Mandarin target language must be zh`);
-    assert(
-      mandarin.nativeProviders.providers.embeddings?.implementation === "webview-english-minilm-v1",
-      `${label} Mandarin embeddings must use the shared WebView MiniLM runtime`,
-    );
-  }
-
   for (const asset of packagedAssets.filter((path) => path.startsWith("courses/"))) {
     assert(
       bundle.courses.some((course) => asset.startsWith(`${course.assetPrefix}/`)),
@@ -777,8 +756,7 @@ export function assertStoreProfile(profile, label, defaultCourse) {
   });
 }
 
-function assertEmbeddingCatalog(catalog, manifest, label) {
-  assert(catalog?.default_model === "all-minilm-l6-v2-qint8-v0.1", `${label} must select MiniLM`);
+export function assertNativeEmbeddingRuntime(catalog, manifest, label) {
   const active = catalog?.models?.find((model) => model?.key === catalog.default_model);
   assert(active?.status === "active", `${label} MiniLM embedding catalog entry must be active`);
   assert(
@@ -938,13 +916,17 @@ function assertSharedEmbeddingRuntimeCatalog(unzip, archive, entries, kind, labe
   return runtime.artifacts;
 }
 
-function providerReferenceAsset(catalogAsset, reference) {
+export function providerReferenceAsset(catalogAsset, reference) {
+  assert(isSafeAssetPath(catalogAsset), "provider catalog asset is unsafe");
+  assert(isSafeAssetPath(reference), "provider manifest reference is unsafe");
   const catalogDirectory = catalogAsset.includes("/")
     ? catalogAsset.slice(0, catalogAsset.lastIndexOf("/"))
     : "";
-  const resolved = catalogDirectory && !reference.startsWith(`${catalogDirectory}/`)
-    ? `${catalogDirectory}/${reference}`
-    : reference;
+  const coursePrefix = /^courses\/[^/]+\//u.exec(catalogAsset)?.[0] ?? "";
+  const courseDirectory = coursePrefix ? catalogDirectory.slice(coursePrefix.length) : catalogDirectory;
+  const resolved = reference.startsWith(`${catalogDirectory}/`) ? reference
+    : courseDirectory && reference.startsWith(`${courseDirectory}/`) ? `${coursePrefix}${reference}`
+      : catalogDirectory ? `${catalogDirectory}/${reference}` : reference;
   assert(isSafeAssetPath(resolved), "provider manifest reference is unsafe");
   return resolved;
 }
@@ -959,33 +941,8 @@ export function assertGenericEmbeddingManifest(active, manifest, baseUrl, label)
   assert(Number.isSafeInteger(manifest?.schema_version) && manifest.schema_version > 0, `${label} embedding manifest schema_version is invalid`);
 }
 
-function assertDictionaryCatalog(catalog, manifest, label) {
-  assert(
-    catalog?.default_dictionary === "kaikki-cs-en-2026-07-09",
-    `${label} must select the reviewed Czech-English dictionary`,
-  );
-  const active = catalog?.dictionaries?.find(
-    (dictionary) => dictionary?.key === catalog.default_dictionary,
-  );
-  assert(active?.status === "active", `${label} default dictionary catalog entry must be active`);
-  assert(active?.artifact_kind === "dictionary-database", `${label} default dictionary kind is incorrect`);
-  assert(active?.direction === "cs-en", `${label} default dictionary direction must be cs-en`);
-  assert(
-    Number.isSafeInteger(active?.bytes) && active.bytes > 0,
-    `${label} default dictionary must declare a positive byte count`,
-  );
-  assert(
-    /^[a-f0-9]{64}$/u.test(active?.sha256 ?? ""),
-    `${label} default dictionary must have a SHA-256`,
-  );
-  assert(
-    /^https:\/\/[a-z0-9.-]+(?:\/|$)/iu.test(active?.download_url ?? ""),
-    `${label} default dictionary must use an HTTPS download URL`,
-  );
-  assert(
-    active?.manifest_file === `${catalog.default_dictionary}/manifest.json`,
-    `${label} default dictionary must identify its packaged manifest`,
-  );
+export function assertDictionaryManifest(active, manifest, label) {
+  assert(isSafeAssetPath(active?.manifest_file), `${label} dictionary manifest_file is unsafe`);
   const manifestDatabaseFile = assertSafeFileBasename(
     manifest?.database_file,
     `${label} dictionary manifest database_file`,
@@ -1144,7 +1101,6 @@ function assertAssetBoundary(unzip, archive, entries, kind, label, setupPayload 
   const setupAssetBuffers = new Map();
   for (const course of bundle.courses) {
     const courseLabel = `${label} ${course.id} course`;
-    const strictCzech = course.id === "cz";
     const setupAsset = courseAssetPath(course, "setup-assets.json");
     const setup = parseJsonAsset(unzip, archive, setupAsset, kind, courseLabel);
     assert(Array.isArray(setup?.artifacts), `${courseLabel} setup catalog must list artifacts`);
@@ -1202,7 +1158,7 @@ function assertAssetBoundary(unzip, archive, entries, kind, label, setupPayload 
           course.id,
           `${courseLabel} active embedding`,
         ));
-        if (strictCzech) assertEmbeddingCatalog(catalog, embeddingManifest, courseLabel);
+        assertNativeEmbeddingRuntime(catalog, embeddingManifest, courseLabel);
         const vectorSourceAsset = courseAssetPath(course, "source/shared/vector-db.js");
         if (profile.assets.includes(vectorSourceAsset)) {
           assertEmbeddingConfinement(
@@ -1226,22 +1182,17 @@ function assertAssetBoundary(unzip, archive, entries, kind, label, setupPayload 
       for (const [index, activeDictionary] of dictionaryCatalog.dictionaries
         .filter((dictionary) => dictionary?.status === "active")
         .entries()) {
+        assert(isSafeAssetPath(activeDictionary.manifest_file), `${courseLabel} dictionary manifest_file is unsafe`);
+        const manifestAsset = providerReferenceAsset(dictionaryCatalogAsset, activeDictionary.manifest_file);
+        assert(profile.assets.includes(manifestAsset), `${courseLabel} dictionary provider manifest is not packaged`);
+        const dictionaryManifest = parseJsonAsset(unzip, archive, manifestAsset, kind, courseLabel);
+        assertDictionaryManifest(activeDictionary, dictionaryManifest, courseLabel);
         sharedStorageRecords.push(dictionaryStorageRecord(
           activeDictionary,
           course,
           course.id,
           `${courseLabel} active dictionary ${index}`,
         ));
-      }
-      if (strictCzech) {
-        const dictionaryManifest = parseJsonAsset(
-          unzip,
-          archive,
-          courseAssetPath(course, "data/dictionaries/kaikki-cs-en-2026-07-09/manifest.json"),
-          kind,
-          courseLabel,
-        );
-        assertDictionaryCatalog(dictionaryCatalog, dictionaryManifest, courseLabel);
       }
     }
   }

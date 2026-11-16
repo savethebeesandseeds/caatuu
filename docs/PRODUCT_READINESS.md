@@ -1,8 +1,8 @@
 # Caatuu product-readiness road map
 
-Public catalog and Android preview status updated: 27 October 2026. Governed-beta gates other than the published preview artifact retain their prior review.
+Public catalog status updated: 11 November 2026. Ten courses are released on the public website. Governed-beta legal gates other than publication retain their prior review.
 
-Caatuu is a public development preview. This document is the public release
+Caatuu is a released free language-learning app. This document is the public release
 gate; it contains no personal runway, address, tax, identity-document, or
 private financial information.
 
@@ -10,8 +10,8 @@ private financial information.
 
 | Area | Status | Release consequence |
 | --- | --- | --- |
-| First-party software and curriculum license | `CLOSED FOR IDENTIFIED FIRST-PARTY SCOPE` | `AGPL-3.0-only` covers first-party software and the original curricula identified in [LICENSING.md](LICENSING.md#first-party-curriculum), including the 9 September Spanish-course and Norwegian approval and the 4 October Arabic, Scientific Latin, and Georgian approval; third-party terms remain in force |
-| Development-course curriculum license | `OWNER APPROVAL RECORDED` | The [9 September](CURRICULUM_LICENSE_APPROVAL_20260909.json) and [4 October](CURRICULUM_LICENSE_APPROVAL_20261004.json) owner approvals clear the identified original curricula for distribution. Courses other than Czech remain development previews. Native-speaker and pronunciation reviews remain pending |
+| First-party software and curriculum license | `CLOSED FOR IDENTIFIED FIRST-PARTY SCOPE` | `AGPL-3.0-only` covers first-party software and the original curricula identified in [LICENSING.md](LICENSING.md#first-party-curriculum), including the 9 September Spanish-course and Norwegian approval, the 4 October Arabic, Scientific Latin, and Georgian approval, and the 11 November Russian and Hebrew approval; third-party terms remain in force |
+| Course curriculum license | `OWNER APPROVAL RECORDED` | The [9 September](CURRICULUM_LICENSE_APPROVAL_20260909.json), [4 October](CURRICULUM_LICENSE_APPROVAL_20261004.json), and [11 November](CURRICULUM_LICENSE_APPROVAL_20261111.json) owner approvals clear the identified original curricula for distribution. All ten course manifests are `active`. Czech remains the default course. Pronunciation guides stay off |
 | Exact deployed source | `RECORDED PER ARTIFACT` | The public stable manifest at `/android/caatuu.json` is Android 196 (`0.1.44`), source `56cd751a435770991fb30ba231e52fa9869aafe8`. `device_smoke` is `not-run`. Preserve each artifact's own identity and do not infer governed-beta readiness from publication alone |
 | Feedback collection | `BOUNDED EDGE CHANNEL READY` | The Pages app remains static. A separate Cloudflare Worker accepts only consented sentence reports and future-only opted-in dictionary gaps into EU D1. Old local queues are never migrated, general diagnostics remain disabled, and the private ledger stays outside Pages and GitHub Releases. |
 | AI interaction notice | `CLOSED FOR PREVIEW` | Shared product chrome explicitly tells users they are interacting with AI and warns that output may be wrong |

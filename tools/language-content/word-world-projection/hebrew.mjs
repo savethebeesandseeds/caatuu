@@ -11,5 +11,5 @@ export const hebrewWordWorldProjectionPolicy = defineAuthoredWordWorldProjection
     realizationsRuntime: 'apps/languages/hebrew/static/data/games/word-world/content.json',
     manifest: 'apps/languages/hebrew/static/data/games/word-world/manifest.json'
   },
-  pronunciationNote: 'Modern Hebrew in pointed Hebrew script. Device speech uses the shared browser/Android provider; independent native and pronunciation review remain pending.'
+  pronunciationNote: 'Modern Hebrew in pointed Hebrew script. Device speech uses the shared browser/Android provider. Pronunciation guides stay off.'
 });

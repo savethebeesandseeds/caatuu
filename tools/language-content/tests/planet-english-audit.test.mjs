@@ -131,6 +131,46 @@ test("explicit English audit text keeps non-English-base content valid", () => {
   }], { sourceLanguageId: "fr" }), []);
 });
 
+test('unfinished semantic-bank families still audit English without requiring unauthored forms',()=>{
+  for(const [contract,document] of [
+    ['conjugation-comet-items-v1',{verbs:[{reviewStatus:'untranslated',englishAuditText:'go',forms:[]}]}],
+    ['grammar-gravity-items-v1',{challenges:[{reviewStatus:'untranslated',semanticBankId:'sb.grammar-gravity.000001',englishText:'a doctor',forms:{}}]}],
+    ['naturalization-nucleus-items-v1',{challenges:[{reviewStatus:'untranslated',englishText:'water'}]}],
+    ['memory-moon-items-v1',{englishAuditLanguage:'en',embeddingPolicy:{inputLanguage:'en',inputField:'embeddingText'},
+      challenges:[{reviewStatus:'untranslated',englishText:'Water.',embeddingText:'Water.',choices:[]}]}]
+  ]){
+    assert.deepEqual(validatePlanetEnglishAuditDocument(contract,document,{sourceLanguageId:'es'}),[]);
+    const broken=JSON.parse(JSON.stringify(document).replaceAll('"englishText":"','"missingEnglish":"').replaceAll('"englishAuditText":"','"missingAudit":"'));
+    assert.ok(validatePlanetEnglishAuditDocument(contract,broken,{sourceLanguageId:'es'}).length>0);
+  }
+});
+
+test('English-target bank vocabulary needs a declared English target role',()=>{
+  const rows=[{semanticBankId:'sb.verb-lab.000001',reviewStatus:'untranslated',source:'',target:'go'}];
+  assert.deepEqual(validatePlanetEnglishAuditDocument('verb-nebula-items-v1',rows,{sourceLanguageId:'es',targetLanguageId:'en'}),[]);
+  assert.ok(validatePlanetEnglishAuditDocument('verb-nebula-items-v1',rows,{sourceLanguageId:'es',targetLanguageId:'fr'}).length>0);
+  rows[0].reviewStatus='native-review-required';
+  assert.ok(validatePlanetEnglishAuditDocument('verb-nebula-items-v1',rows,{sourceLanguageId:'es',targetLanguageId:'en'}).length>0,
+    'Completed vocabulary still needs explicit audit text as required by the game reader.');
+  rows[0].reviewStatus='untranslated';
+  rows[0].target='';
+  assert.ok(validatePlanetEnglishAuditDocument('verb-nebula-items-v1',rows,{sourceLanguageId:'es',targetLanguageId:'en'}).length>0);
+});
+
+test('listening sentences retain independent English audit evidence',()=>{
+  const document={items:[{englishAuditText:'go'}],sentences:[{target:'Vamos.',meaning:'Vamos.'}]};
+  assert.ok(validatePlanetEnglishAuditDocument('sound-quasar-items-v2',document).some(issue=>issue.message.includes('sentences[0]')));
+});
+
+test('context-only Case banks audit every context without requiring unused legacy nouns',()=>{
+  const document={schemaVersion:'caatuu-case-cosmos-content-v3',legacyNouns:[],contexts:[{id:'case-one',englishAuditText:'I see the dog.'}]};
+  assert.deepEqual(validatePlanetEnglishAuditDocument('case-cosmos-items-v1',document),[]);
+  delete document.contexts[0].englishAuditText;
+  assert.ok(validatePlanetEnglishAuditDocument('case-cosmos-items-v1',document).length>0);
+  document.contexts=[];
+  assert.ok(validatePlanetEnglishAuditDocument('case-cosmos-items-v1',document).length>0);
+});
+
 test("legacy Word World follows its confined runtime file and audits every record", async () => {
   const root = await mkdtemp(path.join(tmpdir(), "caatuu-english-audit-"));
   try {

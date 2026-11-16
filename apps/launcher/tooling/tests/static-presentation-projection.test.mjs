@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
+import { projectBrowserGameFrames } from "../browser-view-projection.mjs";
 import {
   assertStaticCorpusMetadata,
   transformDictionaryUi,
@@ -8,6 +9,7 @@ import {
   transformLauncherIndex,
   transformSharedWorkspace,
   transformStaticInterfaceCatalog,
+  usesStaticDictionaryProvider,
 } from "../build-static-site.mjs";
 
 const root = new URL("../../../../", import.meta.url);
@@ -45,12 +47,12 @@ test("static dictionary projection follows translation keys despite copy, quotes
 });
 
 test("launcher projection keeps the download control but removes development translation bindings independently of text", () => {
-  const source = `<a data-android-download><small title='a > b' data-i18n = 'launcher.android.preview'>Aplicación móvil</small><b data-i18n='launcher.android.checking' class='new'>Otra frase</b></a>`;
+  const source = `<a data-android-download><small title='a > b' data-i18n = 'launcher.android.beta'>Aplicación móvil</small><b data-i18n='launcher.android.downloadbeta' class='new'>Otra frase</b></a>`;
   const output = transformLauncherIndex(source);
   assert.match(output, /data-android-download/u);
   assert.match(output, /title='a > b'/u);
   assert.doesNotMatch(output, /data-i18n|Aplicación móvil|Otra frase/u);
-  assert.throws(() => transformLauncherIndex(source.replace("launcher.android.preview", "missing.key")), /structural anchor/u);
+  assert.throws(() => transformLauncherIndex(source.replace("launcher.android.beta", "missing.key")), /structural anchor/u);
 });
 
 test("workspace and dictionary adaptation follows semantic setters, never English message spelling", () => {
@@ -79,4 +81,35 @@ test("corpus counts follow reviewed records and reject inconsistent metadata wit
     assert.throws(() => assertStaticCorpusMetadata(corpus, { ...manifest, difficultyDistribution: {} }), /difficulty counts/u);
   }
   assert.throws(() => assertStaticCorpusMetadata({ records: [] }, {}), /must contain records/u);
+});
+
+
+test("static dictionary adaptation follows an enabled present provider, never the course ID", () => {
+  const course = { id: "ordinary-course", capabilities: { dictionary: true },
+    resources: { dictionaryProvider: { state: "present", providerId: "czech-full-dictionary-v1" } } };
+  assert.equal(usesStaticDictionaryProvider(course), true);
+  assert.equal(usesStaticDictionaryProvider({ ...course, capabilities: { dictionary: false } }), false);
+  assert.equal(usesStaticDictionaryProvider({ ...course, resources: {
+    dictionaryProvider: { ...course.resources.dictionaryProvider, state: "planned" },
+  } }), false);
+  assert.equal(usesStaticDictionaryProvider({ ...course, resources: {} }), false);
+});
+test("browser game frames follow declared games and routes independently of course identity", () => {
+  const source = read("apps/language-runtime/static/app/index.html");
+  const course = { id: "other-course", games: ["case-cosmos"],
+    routes: { caseCosmos: "other-case.html", memoryMoon: "unused.html" } };
+  const output = projectBrowserGameFrames({ source, course });
+  const frames = [...output.matchAll(/<iframe\b[^>]*data-embedded-game="([^"]+)"[^>]*>/gu)];
+  assert.equal(frames.length, 5);
+  for (const [frame, id] of frames) {
+    if (id === "case-cosmos") assert.match(frame, /data-src="other-case.html"/u);
+    else assert.doesNotMatch(frame, /\s(?:data-src|src)=/u);
+  }
+  const spanish = JSON.parse(read("apps/languages/spanish/course.json"));
+  const inactive = projectBrowserGameFrames({ source, course: spanish });
+  const inactiveCase = inactive.match(/<iframe\b[^>]*data-embedded-game="case-cosmos"[^>]*>/u)?.[0];
+  assert.ok(inactiveCase);
+  assert.doesNotMatch(inactiveCase, /\s(?:data-src|src)=/u);
+  assert.throws(() => projectBrowserGameFrames({ source, course: { games: ["case-cosmos"] } }),
+    /Enabled game has no browser route/u);
 });

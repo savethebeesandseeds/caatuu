@@ -22,8 +22,9 @@ import { applyTokenMeanings } from "./word-world-token-meanings.mjs";
 const legacyInputFlags = ["--input-file", "--input-dir", "--editorial-overrides", "--token-meanings", "--rubric"];
 if (!legacyInputFlags.some(flag => process.argv.includes(flag))) {
   const { buildWordWorldContent, planWordWorldContent } = await import("../../language-content/build-word-world-content.mjs");
+  const allowPartial = process.argv.includes("--allow-partial");
   if (process.argv.includes("--runtime-root") || process.argv.includes("--coverage-report")) {
-    const [plan] = await planWordWorldContent({ courseId: "cz" });
+    const [plan] = await planWordWorldContent({ courseId: "cz", allowPartial });
     const outputRoot = path.resolve(argValue("--runtime-root", path.join(appDataRoot, "games", "word-world")));
     const coveragePath = path.resolve(argValue("--coverage-report", fromRoot("data", "word-world", "standard-v0.1", "reports", "coverage.json")));
     for (const [file, bytes] of plan.outputs) {
@@ -35,7 +36,7 @@ if (!legacyInputFlags.some(flag => process.argv.includes(flag))) {
     }
     console.log(JSON.stringify({ source: plan.sourcePath, records: plan.recordCount, outputRoot, coveragePath }));
   } else {
-    const report = await buildWordWorldContent({ courseId: "cz", check: process.argv.includes("--check") });
+    const report = await buildWordWorldContent({ courseId: "cz", check: process.argv.includes("--check"), allowPartial });
     console.log(JSON.stringify(report));
     if (report.check && report.changes.length) process.exitCode = 1;
   }

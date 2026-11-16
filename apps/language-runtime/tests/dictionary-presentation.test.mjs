@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
+import { runInNewContext } from "node:vm";
 
 import {
   LANGUAGE_CAPABILITIES,
@@ -76,26 +77,74 @@ test("Mandarin only treats source as English when the learner base is English", 
   );
 });
 
+test("Czech canonical source text is English only under an English learner base", () => {
+  const record = { target: "číst", source: "read", kind: "verb" };
+  assert.equal(presentDictionaryEntry(czech, record, {
+    sourceLanguageId: "en-US"
+  }).englishAuditText, "read");
+  assert.throws(() => presentDictionaryEntry(czech, record, {
+    sourceLanguageId: "es"
+  }), /englishAuditText must be a non-empty string/u);
+  assert.equal(presentDictionaryEntry(czech, {
+    ...record, source: "leer", englishAuditText: "read"
+  }, { sourceLanguageId: "es" }).englishAuditText, "read");
+});
+
 test("both current course-owned core catalogs satisfy the presentation seam", async () => {
   const [czechRecords, mandarinRecords] = await Promise.all([
     readJson("../../languages/czech/static/data/games/verb-nebula/content.json"),
     readJson("../../languages/mandarin-simplified/static/data/games/verb-nebula/content.json")
   ]);
-  const czechPresentations = czechRecords.map((record, recordIndex) => presentDictionaryEntry(
+  const authoredCzech = czechRecords.filter((record) => record.reviewStatus !== "untranslated");
+  const authoredMandarin = mandarinRecords.filter((record) => record.reviewStatus !== "untranslated");
+  const czechPresentations = authoredCzech.map((record, recordIndex) => presentDictionaryEntry(
     czech,
     record,
     { sourceLanguageId: "en", targetLanguageId: "cs", recordIndex }
   ));
-  const mandarinPresentations = mandarinRecords.map((record, recordIndex) => presentDictionaryEntry(
+  const mandarinPresentations = authoredMandarin.map((record, recordIndex) => presentDictionaryEntry(
     mandarin,
     record,
     { sourceLanguageId: "en", targetLanguageId: "zh", recordIndex }
   ));
 
-  assert.equal(czechPresentations.length, czechRecords.length);
-  assert.equal(mandarinPresentations.length, mandarinRecords.length);
+  assert.ok(czechPresentations.length > 0);
+  assert.ok(mandarinPresentations.length > 0);
+  assert.equal(czechPresentations.length, authoredCzech.length);
+  assert.equal(mandarinPresentations.length, authoredMandarin.length);
   assert.equal(czechPresentations.every((entry) => entry.targetText && entry.englishAuditText), true);
   assert.equal(mandarinPresentations.every((entry) => entry.targetText && entry.englishAuditText), true);
+});
+
+test("workspace dictionaries omit only explicit pending rows and preserve source indexes", async () => {
+  const workspace = await readFile(new URL("../static/source/caatuu-workspace.js", import.meta.url), "utf8");
+  const source = workspace.slice(
+    workspace.indexOf("async function presentDictionaryRecords("),
+    workspace.indexOf("async function loadContentData()")
+  );
+  const presentedIndexes = [];
+  const present = runInNewContext(`(${source.trim()})`, {
+    dictionaryPresentationRuntime: async () => ({
+      contractModule: { presentDictionaryEntry(adapter, record, context) {
+        presentedIndexes.push(context.recordIndex);
+        return presentDictionaryEntry(adapter, record, context);
+      } },
+      adapter: czech
+    }),
+    course: { id: "cs" }, sourceLanguage: { id: "en" }, targetLanguage: { id: "cs" }
+  });
+  const pending = { id: "pending", reviewStatus: "untranslated", target: "", source: "write" };
+  const rows = await present([
+    pending,
+    { target: "číst", source: "read", reviewStatus: "ai-authored-native-review-required" }
+  ], { recordKind: "core-entry" });
+  assert.equal(rows.length, 1);
+  assert.equal(rows[0].targetText, "číst");
+  assert.equal(rows[0].englishAuditText, "read");
+  assert.deepEqual(presentedIndexes, [1]);
+  await assert.rejects(present([pending]), /at least one authored entry/u);
+  await assert.rejects(present([{ target: "", source: "write" }]), /targetText must be a non-empty string/u);
+  await assert.rejects(present([{ target: "psát" }]), /englishAuditText must be a non-empty string/u);
 });
 
 test("current Czech script lines use the same target/English presentation contract", async () => {

@@ -1,5 +1,4 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
 import test from "node:test";
 import { buildSoundQuasarRound, createSoundQuasarSession, evaluateSoundQuasarChoice, soundQuasarItemsForDifficulty, validateSoundQuasarCatalog } from "../static/source/games/sound-quasar/sound-quasar-core.mjs";
 
@@ -13,7 +12,9 @@ function catalogFor(words, { mandarin = false, sentences } = {}) {
       ...(notation ? { reading: {
         system: "pinyin", status: "machine-assisted-preview",
         sourcePath: "apps/languages/mandarin-simplified/static/data/games/word-world/reading-guides.json",
-        sourceId: id, tokens: [{ surface: target, units: [{ surface: target, notation }] }]
+        sourceId: id, tokens: [{ surface: target, units: Array.from(target).map((surface, index) => ({
+          surface, notation: notation.split(" ")[index]
+        })) }]
       } } : {})
     };
   });
@@ -98,7 +99,7 @@ test("word alternatives prefer matching written length over a tempting longer pr
 test("Mandarin length matching counts written characters rather than Pinyin letters", () => {
   const expected = new Set(["远", "吃", "喝", "书"]);
   const words = [["远", "yuǎn"], ["吃", "chī"], ["喝", "hē"], ["书", "shū"],
-    ["远方", "yuǎnfāng"], ["元气", "yuánqì"], ["园区", "yuánqū"]];
+    ["远方", "yuǎn fāng"], ["元气", "yuán qì"], ["园区", "yuán qū"]];
   const catalog = catalogFor(words.map(([target, notation]) => ({ target, notation })), { mandarin: true });
   for (let seed = 1; seed <= 24; seed += 1) {
     const round = buildSoundQuasarRound(catalog, { difficulty: 1, random: seededRandom(seed) });
@@ -184,10 +185,13 @@ test("adaptive answers keep their order while alternatives use matching-length p
   }
 });
 
-test("real Mandarin homophones never compete as isolated-word listening answers", async () => {
-  const catalog = validateSoundQuasarCatalog(JSON.parse(await readFile(new URL(
-    "../../languages/mandarin-simplified/static/data/games/sound-quasar/content.json", import.meta.url
-  ), "utf8")));
+test("Mandarin homophone fixtures never compete as isolated-word listening answers", () => {
+  // Keep these linguistic regressions independent of the published subset.
+  const catalog = catalogFor([
+    ["是", "shì"], ["试", "shì"], ["事", "shì"], ["浇水", "jiāo shuǐ"], ["胶水", "jiāo shuǐ"],
+    ["页", "yè"], ["夜", "yè"], ["响起", "xiǎng qǐ"], ["想起", "xiǎng qǐ"],
+    ["书", "shū"], ["猫", "māo"], ["走", "zǒu"], ["茶", "chá"], ["吃", "chī"]
+  ].map(([target, notation]) => ({target, notation})), {mandarin:true});
   for (const peers of [["是", "试", "事"], ["浇水", "胶水"], ["页", "夜"], ["响起", "想起"]]) {
     for (const target of peers) {
       const item = catalog.items.find(item => item.target === target);

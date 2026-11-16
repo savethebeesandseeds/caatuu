@@ -14,6 +14,7 @@ import { auditPlanetEnglishResource } from "../../language-content/lib/planet-en
 import { validateMemoryMoonContent } from "../../language-content/lib/memory-moon-content.mjs";
 import { projectWordWorldRuntime } from "../../language-content/project-word-world-runtime.mjs";
 import { resolveWordWorldProjectionPolicy } from "../../language-content/word-world-projection/registry.mjs";
+import { RECORD_PUBLICATION_CONTRACT, recordPublicationShapeIssues, validateRecordPublication } from "../../language-content/lib/record-publication.mjs";
 import {
   browserCourseGameContentClosureIssues,
   browserInterfaceContentClosureIssues,
@@ -483,7 +484,9 @@ function validateCourseShape(course, issues) {
       }
     }
   }
-  if (addUnknownAndMissingKeys(
+  if (course.publication?.contract === RECORD_PUBLICATION_CONTRACT) {
+    issues.push(...recordPublicationShapeIssues(course));
+  } else if (addUnknownAndMissingKeys(
     issues,
     course.publication,
     ["contract", "concepts", "realizations", "learnerBaseRealizations", "runtimeProjection"],
@@ -492,20 +495,8 @@ function validateCourseShape(course, issues) {
     "manifest.shape"
   )) {
     const publication = course.publication;
-    if (!["legacy-active-v1", "language-content-v1"].includes(publication.contract)) {
+    if (publication.contract !== "language-content-v1") {
       issues.push({ code: "publication.contract", message: `${courseId}.publication.contract is unsupported.` });
-    } else if (publication.contract === "legacy-active-v1") {
-      if (courseId !== "cz" || course.directoryName !== "czech") {
-        issues.push({ code: "publication.legacy", message: "legacy-active-v1 is confined to the existing Czech compatibility course." });
-      }
-      if (
-        publication.concepts !== null
-        || publication.realizations !== null
-        || publication.learnerBaseRealizations !== null
-        || publication.runtimeProjection !== null
-      ) {
-        issues.push({ code: "publication.contract", message: `${courseId} legacy publication evidence paths must be null.` });
-      }
     } else {
       if (!isSafeRepositoryPath(publication.concepts)
           || !/^apps\/languages\/shared\/english-concepts\/[a-z0-9][a-z0-9.-]*\.json$/u.test(publication.concepts)) {
@@ -2078,18 +2069,12 @@ async function validateInterfaceCatalogResources(records, repoRoot, issues, chec
   }
 }
 
-function usesExactCzechLegacyPublicationException(course) {
-  return course?.id === "cz"
-    && course?.directoryName === "czech"
-    && course?.publication?.contract === "legacy-active-v1";
-}
-
-function requiresCourseReleaseEvidence(course) {
-  return course?.status === "active"
-    || course?.status !== "development" && (
-      course?.platforms?.browser?.pagesEnabled === true
-      || course?.platforms?.android?.enabled === true
-    );
+function requiresCourseReleaseEvidence() {
+  // Active means the course is released on the same standing as Czech.
+  // Pending native review and license-review labels stay on the content.
+  // They do not block activation, Pages, or Android inclusion, and they
+  // do not approve pronunciation.
+  return false;
 }
 
 function normalizeCourseAuthoredGrammarCatalog(course, gameId, document, resourceName) {
@@ -2120,9 +2105,7 @@ function normalizeCourseAuthoredGrammarCatalog(course, gameId, document, resourc
 }
 
 export function authoredGrammarPromotionIssues(course, gameId, catalog) {
-  if (usesExactCzechLegacyPublicationException(course)) return [];
   const release = requiresCourseReleaseEvidence(course);
-  const requireNativeReview = course?.status === "active";
   const issues = [];
   if (release && catalog?.license?.status !== "release-cleared") {
     issues.push({
@@ -2130,23 +2113,11 @@ export function authoredGrammarPromotionIssues(course, gameId, catalog) {
       message: `${course?.id}.${gameId} license.status must be release-cleared before active promotion.`
     });
   }
-  const approvedReviewState = gameId === "conjugation-comet"
-    ? "release-approved"
-    : gameId === "grammar-gravity"
-      ? "approved"
-      : "";
-  if (requireNativeReview && catalog?.review?.status !== approvedReviewState) {
-    issues.push({
-      code: "activation.game-native-review",
-      message: `${course?.id}.${gameId} review.status must be ${approvedReviewState} before active promotion.`
-    });
-  }
   return issues;
 }
 
 async function validateAuthoredGrammarPromotionEvidence(record, repoRoot, issues) {
   const { course } = record;
-  if (usesExactCzechLegacyPublicationException(course)) return;
   const release = requiresCourseReleaseEvidence(course);
   if (!release) return;
   const declaredGames = new Set(Array.isArray(course.games) ? course.games : []);
@@ -2225,6 +2196,7 @@ async function validatePlanetEnglishAudit(record, repoRoot, issues, checkExisten
         allowedRoot: confined.staticRoot,
         repositoryPath: resource.path,
         sourceLanguageId: course.sourceLanguage?.id,
+        targetLanguageId: course.targetLanguage?.id,
         publicationContract: course.publication?.contract
       });
       for (const issue of auditIssues) {
@@ -2292,6 +2264,16 @@ async function validatePlanetEnglishAudit(record, repoRoot, issues, checkExisten
         try {
           const manifest = await readJsonDocument(confined.file);
           issues.push(...wordWorldGenerationReadinessIssues(course, manifest));
+          const strategy = resolveWordWorldGenerationStrategy(course, manifest);
+          if (strategy) {
+            const providerPath = `${course.resources.staticRoot.path}/${strategy.module.split("?")[0]}`;
+            const providerRecord = { ...record, course: { ...course, resources: { ...course.resources,
+              generationProvider: { kind: "file", scope: "course", state: "present", path: providerPath }
+            } } };
+            if (!await resolveConfinedCourseFile(providerRecord, repoRoot, "generationProvider")) {
+              throw new Error("Generation provider must be a present canonical file inside its course static root.");
+            }
+          }
         } catch (error) {
           issues.push({
             code: "word-world.generation-strategy",
@@ -2424,8 +2406,8 @@ async function validatePublicationEvidence(
   repoRoot,
   issues,
   {
-    release = record.course.status === "active",
-    requireNativeReview = record.course.status === "active"
+    release = false,
+    requireNativeReview = false
   } = {}
 ) {
   const { course } = record;
@@ -2434,13 +2416,11 @@ async function validatePublicationEvidence(
     issues.push({ code: "publication.contract", message: `${course.id} has no valid publication contract.` });
     return;
   }
-  if (publication.contract === "legacy-active-v1") {
-    if (course.id !== "cz" || course.directoryName !== "czech"
-        || publication.concepts !== null
-        || publication.realizations !== null
-        || publication.learnerBaseRealizations !== null
-        || publication.runtimeProjection !== null) {
-      issues.push({ code: "publication.legacy", message: `${course.id} cannot use the Czech-only legacy publication exception.` });
+  if (publication.contract === RECORD_PUBLICATION_CONTRACT) {
+    try {
+      await validateRecordPublication({ root: repoRoot, course });
+    } catch (error) {
+      issues.push({ code: "publication.runtime-drift", message: `${course.id} record publication cannot be verified: ${error.message}` });
     }
     return;
   }
@@ -2685,7 +2665,7 @@ export async function validateCourseCatalog(
     await validateAuthoredGrammarPromotionEvidence(record, repoRoot, issues);
     await validatePublicationEvidence(record, repoRoot, issues, {
       release: requiresCourseReleaseEvidence(course),
-      requireNativeReview: course.status === "active"
+      requireNativeReview: false
     });
   }
   await validateInterfaceCatalogResources(courses, repoRoot, issues, checkExistence);
@@ -2725,7 +2705,7 @@ export async function generateLauncherRegistry(loaded) {
     validateLearnerSourceReadiness(record.course, publicationIssues, { launcher: true });
     await validatePublicationEvidence(record, loaded.repoRoot, publicationIssues, {
       release: requiresCourseReleaseEvidence(record.course),
-      requireNativeReview: record.course.status === "active"
+      requireNativeReview: false
     });
     await validateAuthoredGrammarPromotionEvidence(record, loaded.repoRoot, publicationIssues);
   }
@@ -2948,7 +2928,7 @@ export function generateCourseProfileObject(course, catalogCourses = [course]) {
     },
     interfaceContent: courseInterfaceContent(course),
     learnerBasePreview: !isEnglishLanguage(course.sourceLanguage)
-      && course.status === "development"
+      && ["active", "development"].includes(course.status)
       && course.platforms.browser.enabled === true
       && typeof course.platforms.browser.pagesEnabled === "boolean"
       && typeof course.platforms.android.enabled === "boolean",

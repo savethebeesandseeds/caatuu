@@ -277,7 +277,7 @@ export function createPracticeCompass({ course, learning, runtimeHref = globalTh
         const pack = validateMemoryMoonCatalog(document, { course });
         result = { translations: englishRows(pack.challenges, row => row.id, row => row.englishText) };
       } else if (gameId === "case-cosmos") {
-        if (document.schemaVersion !== "caatuu-case-cosmos-content-v2") throw new Error("Unsupported case-context schema.");
+        if (!["caatuu-case-cosmos-content-v2", "caatuu-case-cosmos-content-v3"].includes(document.schemaVersion)) throw new Error("Unsupported case-context schema.");
         // The game retains old noun/case identities alongside authored context
         // IDs. Resolve their authored English without inferring any case skill.
         const legacy = (document.legacyNouns || []).flatMap(noun => Object.entries(noun.cases || {}).map(([name, row]) => ({

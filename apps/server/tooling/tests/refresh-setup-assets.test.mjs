@@ -107,6 +107,7 @@ async function fixture({
   await writeFile(
     join(languageStaticDir, "sw.js"),
     `"use strict";\n\n// Offline catalog revision: caatuu-${directoryName}-pwa-v1\n` +
+      `self.CAATUU_OFFLINE_CACHE_NAME = "caatuu-${directoryName}-pwa-v1";\n` +
       'importScripts("/language-runtime/static/source/course-service-worker.js");\n'
   );
 
@@ -430,6 +431,7 @@ test("refresh fails closed when the worker revision does not match the offline c
   await writeFile(
     join(paths.languageStaticDir, "sw.js"),
     '"use strict";\n\n// Offline catalog revision: caatuu-czech-pwa-v0\n' +
+      'self.CAATUU_OFFLINE_CACHE_NAME = "caatuu-czech-pwa-v0";\n' +
       'importScripts("/language-runtime/static/source/course-service-worker.js");\n'
   );
 
@@ -1133,5 +1135,16 @@ test("remaining legacy public asset URLs resolve to descriptive source folders",
   for (const [key, , source] of aliases) {
     const change = report.changes.find((item) => item.key === key);
     assert.equal(change?.sourcePath, join(paths.launcherStaticDir, source));
+  }
+});
+
+test("refresh rejects a missing or mismatched executable worker revision", async (t) => {
+  const paths = await fixture();
+  t.after(() => rm(paths.workspaceRoot, { recursive: true, force: true }));
+  const workerPath = join(paths.languageStaticDir, "sw.js");
+  const source = await readFile(workerPath, "utf8");
+  for (const binding of ["", 'self.CAATUU_OFFLINE_CACHE_NAME = "caatuu-czech-pwa-v0";']) {
+    await writeFile(workerPath, source.replace('self.CAATUU_OFFLINE_CACHE_NAME = "caatuu-czech-pwa-v1";', binding));
+    assert.throws(() => refreshSetupAssetManifest(paths), /must bind its declared offline catalog revision/u);
   }
 });

@@ -249,12 +249,16 @@ well as wording:
 docker exec -w /workspace caatuu-dev python3 apps/launcher/tooling/build-static-word-world-dictionary.py
 ```
 
-Then validate content, behavior and generated assets:
+Then validate content, behavior and generated assets. The current Word Net
+sources retain untranslated rows, so checking their intentionally published
+playable subsets requires `--allow-partial`. Without that flag, partial sources
+remain blocked:
 
 ```powershell
 docker exec -w /workspace caatuu-dev node tools/language-content/quality/content-progression-catalogs.mjs
 docker exec -w /workspace caatuu-dev node --test apps/language-runtime/tests/content-progression.test.mjs apps/language-runtime/tests/content-exposure-persistence.test.mjs apps/language-runtime/tests/content-progression-games.test.mjs apps/language-runtime/tests/word-world-progression.test.mjs apps/language-runtime/tests/word-world-exposure-lifecycle.test.mjs tools/language-content/quality/content-progression-catalogs.test.mjs
-docker exec -w /workspace caatuu-dev node tools/language-content/build-word-world-content.mjs --all --check
+docker exec -w /workspace caatuu-dev node tools/language-content/build-word-world-content.mjs --all --allow-partial --check
+docker exec -w /workspace caatuu-dev node tools/language-content/build-sound-quasar-content.mjs --all --check
 docker exec -w /workspace caatuu-dev node tools/language-packs/validate.mjs --check-views
 docker exec -w /workspace caatuu-dev node apps/server/tooling/refresh-setup-assets.mjs --all-browser-courses --check
 ```

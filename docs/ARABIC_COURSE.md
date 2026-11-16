@@ -1,10 +1,10 @@
 # English to Modern Standard Arabic course
 
-The local `/ar/` development course delivers the agreed first-course scope:
-2,500 unique Word World sentences and 600 distinct verb pairs. It uses the
-shared application and remains pending independent linguistic and audible speech
-review. The original onboarding did not build or deploy an APK. Curriculum
-distribution is now approved for the eight-course Android bundle.
+The `/ar/` course is a released public course. It delivers the agreed
+first-course scope: 2,500 unique Word World sentences and 600 distinct verb
+pairs. It uses the shared application. Android includes the course from
+version 179. The public website lists it as a released, indexable course.
+Pronunciation guides stay off.
 
 ## Architecture and content authority
 
@@ -63,8 +63,7 @@ noninitial hamza. Initial hamza is omitted. Readings retain written citation-ver
 endings and use `ā` for alif maqṣūra. They are a pedagogical notation informed
 by the [ALA-LC Arabic table](https://www.loc.gov/catdir/cpso/romanization/arabic-2011.pdf),
 not a claim of full bibliographic ALA-LC compliance. Readings are authored,
-not guessed from unvocalized text, and remain a machine-assisted preview pending
-qualified native review. Every Arabic game also enables a Latin reading above
+not guessed from unvocalized text. Pronunciation guides stay off. Every Arabic game also enables a Latin reading above
 the Arabic by default, using the same red as translation. Each game's settings
 include an independent, persistent **Show romanization** toggle; changing it
 preserves the active round. Campaign reuses these settings.
@@ -75,7 +74,7 @@ preserves colored conjugation endings. Unvocalized words without a declared
 exception remain plain Arabic. This presentation aid does not replace answer
 keys, Arabic speech or reviewed pronunciation metadata. Naturalization Nucleus
 uses its authored readings and records matching while the reading aid was shown
-as assisted practice. Native pronunciation review remains pending.
+as assisted practice. Pronunciation guides stay off.
 
 The shared renderer alternates Arabic
 and Latin matching directions, preserves RTL/LTR language metadata, and uses
@@ -85,14 +84,14 @@ the course's Arabic device speech. Both recognition banks feed shared Stats.
 
 Local browser delivery and its offline graph are prepared. The Android source
 allowlist and provider declarations are present, including the target speech
-locale. Android delivery is enabled for the eight-course version 179 bundle.
-The public website lists the course as a `noindex` preview. Browser review
+locale. Android includes the course from version 179.
+The public website lists the course as a released, indexable course. Browser review
 verified RTL targets, LTR cues and all 13 conjugation rows with reachable controls
 at normal and narrow widths. Audio uses the shared browser/Android device speech
 provider. This browser has no enumerated Arabic voice; audible Arabic remains
-dependent on device support. Pronunciation review remains pending.
+dependent on device support. Pronunciation guides stay off.
 
-Content is original AI-assisted authoring with self-review, not native approval.
+Content is original AI-assisted authoring.
 The Arabic curriculum is cleared for AGPL-3.0-only distribution in the
 [4 October owner approval](CURRICULUM_LICENSE_APPROVAL_20261004.json);
 the [earlier owner grant](LICENSING.md) did not include Arabic. These explicit

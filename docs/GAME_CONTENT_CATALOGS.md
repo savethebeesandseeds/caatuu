@@ -22,10 +22,62 @@ Android source asset mappings, dictionary references and maintained tests use
 those declarations. The filename contract is checked by
 [game-content-filenames.test.mjs](../tools/language-packs/tests/game-content-filenames.test.mjs).
 
+## Semantic banks
+
+Each authored game has one hand-editable semantic bank under
+`apps/languages/shared/semantic-banks/`. A row is one English line with a
+permanent `id`, `englishText`, `difficulty` (0–3), and `usefulness` (1–100).
+The id has the shape `sb.<game>.<six digits>`. Where course records stored
+different grades for the same line, the bank keeps the pair that appears on
+the most records. An equal count keeps the lower difficulty, then the higher
+usefulness. The bank carries no course list, translation, tokens, readings,
+pronunciation, or complexity. A later hand edit can store the bank id on the
+matching course line.
+
+| Semantic bank | Courses |
+| --- | --- |
+| `word-net.json` | all ten |
+| `verb-lab.json` | all ten, playable rows that already have a difficulty |
+| `memory-moon.json` | all ten |
+| `conjugation-comet.json` | every course that has the game |
+| `grammar-gravity.json` | every course that has the game |
+| `naturalization-nucleus.json` | Mandarin and Arabic |
+| `case-cosmos.json` | Czech noun-case sentences and lesson contexts |
+
+Sounds Quasar has no semantic bank. Its listening bank is rebuilt from that
+course's playable Verb Lab pairs and published Word World sentences with
+`tools/language-content/build-sound-quasar-content.mjs --all`. The builder checks
+source synchronization and all four difficulty pools; `--check` reports drift
+without writing. Campaign has no content
+bank. Grammar Gravity's noun bank and the Case Cosmos paradigm tables stay in
+the course file.
+
+The game reads the course content JSON. The bank supplies the English line,
+the difficulty, and the usefulness. A course record that has been derived
+keeps its own id and stores `semanticBankId`. An empty target means the line
+is untranslated and is not playable.
+
+Mandarin is the only course whose playable catalogs are derived from these
+banks. On 2026-11-16 the other courses' `content.json` files were restored
+from `artifacts/content-json-2026-11-13` so the app keeps the catalogs that
+were already playable. Those courses are waiting to be reinstated to the
+bank standard. Their Sounds Quasar files were not in that snapshot, so those
+listening catalogs stay at the last commit. Games, course manifests, runtime
+loaders, and the build leave the bank folder alone.
+
+Use the [content authoring plan](SEMANTIC_BANK_CONTENT_AUTHORING.md) for the
+translation work. It distinguishes language-specific exercise writing from
+mechanical projection and records the remaining reader migrations. Word Net
+publication rejects empty sources and requires explicit `--allow-partial` for
+mixed translated/untranslated sources; a partial build replaces the published
+catalog with that subset. An empty source does not withdraw the old catalog.
+
 ## Word World: one editable JSON per course
 
-All eight courses use `caatuu-word-world-course-content-v1`, with one complete
-record per word or sentence. Edit only the corresponding authoring file:
+All registered courses use `caatuu-word-world-course-content-v1`, with one
+record per English meaning. Unfinished records retain `reviewStatus:
+"untranslated"` until their teaching fields are authored. Edit only the
+corresponding authoring file; this table retains the original migration inventory:
 
 | Course | Editable file | Records at migration |
 | --- | --- | ---: |
@@ -70,15 +122,21 @@ its `embeddingText` must equal `englishText`. Modern courses retain their
 separately authored English retrieval descriptions. Image retrieval and the
 optional Czech generative mode are unchanged.
 
-Run the same build command for any course, in the established container:
+Run the same build command for any course, in the established container. These
+commands explicitly select the current authored subsets while untranslated
+records remain in the sources. `--allow-partial` replaces the published catalog
+with its playable subset; omit it when requiring a fully translated source:
 
 ```powershell
-docker exec -w /workspace caatuu-dev node tools/language-content/build-word-world-content.mjs --all
+docker exec -w /workspace caatuu-dev node tools/language-content/build-word-world-content.mjs --all --allow-partial
+docker exec -w /workspace caatuu-dev node tools/language-content/build-sound-quasar-content.mjs --all
 docker exec -w /workspace caatuu-dev node apps/server/tooling/refresh-setup-assets.mjs --all-browser-courses
-docker exec -w /workspace caatuu-dev node tools/language-content/build-word-world-content.mjs --all --check
+docker exec -w /workspace caatuu-dev node tools/language-content/build-word-world-content.mjs --all --allow-partial --check
+docker exec -w /workspace caatuu-dev node tools/language-content/build-sound-quasar-content.mjs --all --check
 ```
 
-Use `--course cz`, `zh`, `es`, `es-en`, `nb`, `ar`, `la`, or `ka` instead of `--all` to build one course.
+Use `--course cz`, `zh`, `es`, `es-en`, `nb`, `ar`, `la`, `ka`, `ru`, or `he`
+instead of `--all` to build one course.
 The builder validates before writing, preserves the existing game formats,
 refreshes changed course cache markers, and maintains Czech's content-addressed
 offline URL. Setup refresh updates existing integrity metadata. No APK build or
@@ -93,6 +151,13 @@ The old Czech JSONL batches, correction ledgers and review receipts are retained
 as historical evidence and are not inputs to normal builds. Existing Czech
 build/validation commands and the modern projector CLI now read the new files;
 explicit legacy-input tools remain available for historical import tests.
+
+The compatibility commands also require the explicit partial-source flag:
+
+```powershell
+docker exec -w /workspace caatuu-dev node tools/czech-ml/scripts/build-word-world-standard.mjs --allow-partial --check
+docker exec -w /workspace caatuu-dev node tools/language-content/project-word-world-runtime.mjs --all --allow-partial --check
+```
 
 Each modern course has its own generated English projection, so adding a new
 record to Spanish does not require adding it to Mandarin or English. Reusing

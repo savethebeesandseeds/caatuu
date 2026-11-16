@@ -169,6 +169,7 @@ export function prepareLanguageRoleContent(
 
   const records = concepts.concepts.map((concept) => ({
     conceptId: concept.id,
+    ...(concept.semanticBankId ? { semanticBankId: concept.semanticBankId } : {}),
     englishText: concept.englishText,
     embeddingText: concept.embeddingText,
     sceneQuery: concept.sceneQuery,

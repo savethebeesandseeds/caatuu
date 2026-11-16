@@ -594,7 +594,8 @@ function extractVocabulary(value, file) {
     expectObject(row, `${file}/${rowIndex}`);
     const label = typeof row.cs === "string" && row.cs.trim() ? row.cs.trim() : `row-${rowIndex + 1}`;
     const contentId = `vocabulary:${rowIndex + 1}:${label}`;
-    for (const [name, locale] of [["cat", "en"], ["cs", "cs"], ["en", "en"], ["kind", "und"], ["cue", "und"], ["use", "cs"]]) {
+    for (const [name, locale] of [["cat", "en"], ["cs", "cs"], ["en", "en"], ["kind", "und"], ["cue", "und"], ["use", "cs"],
+      ["target", "und"], ["source", "und"], ["englishAuditText", "en"], ["englishText", "en"]]) {
       if (row[name] !== undefined) addField(fields, { file, contentId, field: pointer(rowIndex, name), locale, text: row[name] });
     }
   });
@@ -657,6 +658,9 @@ function extractMemoryMoon(value, file) {
     // appended requests, credentials and every other safety rule still apply.
     for (const [name, locale] of [["targetText", targetLocale], ["learnerBaseText", baseLocale],
       ["englishText", "en"], ["embeddingText", "en"]]) add([name], item[name], locale, true);
+    // The strict content validator already checked the placeholder shape.
+    // Retain its English audit above, without traversing unauthored teaching data.
+    if (item.reviewStatus === "untranslated") return;
     item.focus.englishConcepts.forEach((text, conceptIndex) => add(["focus", "englishConcepts", conceptIndex], text, "en"));
     item.choices.forEach((choice, choiceIndex) => {
       add(["choices", choiceIndex, "text"], choice.text, baseLocale, true);

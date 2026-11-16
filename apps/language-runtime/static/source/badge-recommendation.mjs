@@ -1,3 +1,4 @@
+import { caseCosmosContentForCourse } from "./games/case-cosmos/case-cosmos-core.mjs?v=case-cosmos-core-1";
 import { learnerItemState } from "./learner-state.mjs";
 import { fetchDeclaredCourseGameJson } from "./games/course-game-content.mjs?v=course-game-content-1";
 import { extractCoreVerbPairs } from "./games/verb-nebula/verb-nebula-core.mjs?v=verb-nebula-core-17";
@@ -117,52 +118,13 @@ function catalogBank(gameId, bankId) {
 // Match the legacy hosts' playable task construction rather than assuming
 // that one catalog row can form a valid question or domino board. These checks
 // resolve task identity and feasibility, not language review or proficiency.
-function caseCatalog(document) {
-  if (document.schemaVersion !== "caatuu-case-cosmos-content-v2" || !Array.isArray(document.contexts)
-    || !Array.isArray(document.paradigms) || !Array.isArray(document.legacyNouns)) throw new Error("Unsupported Case Cosmos catalog.");
-  const names = ["Nominative", "Genitive", "Dative", "Accusative", "Vocative", "Locative", "Instrumental"];
-  const nounForm = value => text(value) && value === value.normalize("NFC") && /^[\p{Script=Latin}\p{M}]+$/u.test(value);
-  const targetSpan = (sentence, form) => {
-    if (!text(sentence) || !nounForm(form)) throw new Error("Missing case sentence or form.");
-    const matches = [...sentence.matchAll(/[\p{L}\p{M}\p{N}_]+(?:[-’'][\p{L}\p{M}\p{N}_]+)*/gu)]
-      .filter(([token]) => token.toLocaleLowerCase("cs-CZ") === form.toLocaleLowerCase("cs-CZ"));
-    if (matches.length !== 1) throw new Error("Case task requires exactly one whole-word target.");
-  };
-  const paradigms = new Map();
-  for (const paradigm of document.paradigms) {
-    if (!text(paradigm.id) || paradigms.has(paradigm.id) || !nounForm(paradigm.noun) || !["singular", "plural"].includes(paradigm.number)
-      || !Array.isArray(paradigm.forms) || paradigm.forms.length < 2 || paradigm.forms.some(form => !nounForm(form))
-      || new Set(paradigm.forms).size !== paradigm.forms.length) throw new Error("Invalid case paradigm.");
-    paradigms.set(paradigm.id, paradigm);
-  }
-  const rows = [], sentences = new Set(), nouns = new Set();
-  const checkSentence = (row, pool, accepted) => {
-    targetSpan(row.czech, row.form);
-    if (!text(row.english) || accepted.some(form => !pool.includes(form))
-      || new Set(accepted).size !== accepted.length || !pool.some(form => !accepted.includes(form))) throw new Error("Case task has no genuine contrast.");
-    const sentence = row.czech.toLocaleLowerCase("cs-CZ");
-    if (sentences.has(sentence)) throw new Error("Repeated case sentence.");
-    sentences.add(sentence);
-  };
-  for (const noun of document.legacyNouns) {
-    if (!text(noun.noun) || nouns.has(noun.noun.toLocaleLowerCase("cs-CZ")) || !record(noun.cases)
-      || Object.keys(noun.cases).length !== 7 || names.some(name => !record(noun.cases[name]))) throw new Error("Invalid legacy case noun.");
-    nouns.add(noun.noun.toLocaleLowerCase("cs-CZ"));
-    const pool = [...new Set(names.map(name => noun.cases[name].form))];
-    for (const name of names) {
-      const row = noun.cases[name]; checkSentence(row, pool, [row.form]);
-      rows.push({ id: `legacy-${Array.from(noun.noun).map(character => character.codePointAt(0).toString(16)).join("-")}-${name.toLowerCase()}`,
-        difficulty: noun.difficulty });
-    }
-  }
-  for (const context of document.contexts) {
-    const paradigm = paradigms.get(context.paradigmId);
-    if (!paradigm || !names.includes(context.case) || !Array.isArray(context.acceptedForms)) throw new Error("Invalid authored case context.");
-    checkSentence(context, paradigm.forms, [context.form, ...context.acceptedForms]);
-    rows.push(context);
-  }
-  const index = indexRows(rows);
-  return { banks: { default: index }, playable: level => rows.some(row => row.difficulty === level) };
+function caseCatalog(document, course) {
+  const content = caseCosmosContentForCourse(document, course);
+  const checked = content.validatePack(document);
+  const rows = [0, 1, 2, 3].flatMap(level => content.casePracticeItems(checked, level, () => .5));
+  const unique = [...new Map(rows.map(row => [row.id, row])).values()];
+  const index = indexRows(unique);
+  return { banks: { default: index }, playable: level => unique.some(row => row.difficulty === level) };
 }
 
 function nucleusCatalog(document) {
@@ -294,7 +256,7 @@ export function createBadgeRecommendation({ course, learning, runtimeHref = glob
       return { banks: { translations: indexRows(pack.challenges, row => row.familyId) },
         playable: level => pack.challenges.filter(row => row.difficulty === level).length >= 6 };
     }
-    if (gameId === "case-cosmos") return caseCatalog(document);
+    if (gameId === "case-cosmos") return caseCatalog(document, course);
     if (gameId === "naturalization-nucleus") return nucleusCatalog(document);
     throw new Error("Unsupported catalog adapter.");
   }

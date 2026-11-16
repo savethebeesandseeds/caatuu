@@ -198,17 +198,13 @@ const themeOptions = {
 const chatSettingsStorageKey = course.storage.chatSettings;
 const verbSpeakOnTapStorageKey = `${course.storage.namespace}.verbNebula.speakOnTap.v1`;
 const verbTargetTextStorageKey = `${course.storage.namespace}.verbNebula.targetTextPreferences.v1`;
-const defaultModelKey = "cstinyllama-1.2b-czech-word-sentence-001";
+let defaultModelKey = "";
+let generationCatalogReady = false;
 const browserFallbackModel = "Qwen3-0.6B-q4f16_1-MLC";
 const browserFallbackLabel = "Browser fallback";
 const browserFallbackSummary = `Browser: ${browserFallbackModel}. Android: local GGUF models.`;
 const legacyModelNotice = "Legacy/deprecated: kept for compatibility until the curriculum LoRA GGUF replacements are published.";
-const supportedModelKeys = new Set([
-  "cstinyllama-1.2b-base",
-  "cstinyllama-1.2b-translation-cs-en-001",
-  "qwen3-1.7b-translation-cs-en-001",
-  "cstinyllama-1.2b-czech-word-sentence-001"
-]);
+const supportedModelKeys = new Set();
 let modelLicenseCatalog = [];
 const generationPresets = {
   fast: {
@@ -227,7 +223,7 @@ const generationPresets = {
     temperature: 0.2,
     contextSize: 2048,
     reasoningDisplay: "collapsed",
-    summary: "Good default for Czech chat and spelling checks."
+    summary: "Default settings for chat and spelling checks."
   },
   careful: {
     label: "Careful",
@@ -362,7 +358,7 @@ async function presentDictionaryRecords(records, context = {}) {
   if (typeof contractModule.presentDictionaryEntry !== "function") {
     throw new Error("Dictionary capability requires the shared dictionary presentation contract.");
   }
-  return records.map((record, index) => contractModule.presentDictionaryEntry(
+  const presentations = records.flatMap((record, index) => record?.reviewStatus === "untranslated" ? [] : [contractModule.presentDictionaryEntry(
     adapter,
     record,
     {
@@ -372,7 +368,11 @@ async function presentDictionaryRecords(records, context = {}) {
       sourceLanguageId: sourceLanguage.id,
       targetLanguageId: targetLanguage.id
     }
-  ));
+  )]);
+  if (presentations.length === 0) {
+    throw new Error("Dictionary records require at least one authored entry.");
+  }
+  return presentations;
 }
 
 async function loadContentData() {
@@ -748,13 +748,15 @@ async function loadArtifactLicenseCatalog() {
   const runtime = courseUsesModels() ? runtimeAdapter() : null;
   if (courseUsesModels()) {
     const modelCatalog = await runtime.models.catalog();
+    const { defaultGenerationModelKey } = await import("/language-runtime/static/source/generation-model-policy.mjs?v=generation-model-policy-1");
+    defaultModelKey = defaultGenerationModelKey(modelCatalog);
     if (Array.isArray(modelCatalog.models)) {
       modelCatalog.models.forEach((model) => {
         if (model.key) supportedModelKeys.add(model.key);
       });
       nextCatalog.push(...modelCatalog.models.map((model) => ({
         ...normalizeCatalogModel(model),
-        status: model.deprecated ? "Legacy option" : "Optional generation model"
+        status: model.status || "active"
       })));
     }
   }
@@ -818,11 +820,12 @@ async function loadArtifactLicenseCatalog() {
           nextCatalog.findIndex(({ key }) => key === artifact.key) === index
         ));
   }
+  generationCatalogReady = true;
   generationSettings = normalizeGenerationSettings(generationSettings);
 }
 
 function modelSummary(model) {
-  if (!model) return "General Czech assistant and spelling checks.";
+  if (!model) return "No generation model is selected.";
   return [
     model.intendedUse,
     model.deprecated ? legacyModelNotice : "",
@@ -846,7 +849,10 @@ function loadStoredGenerationSettings() {
 }
 
 function normalizeGenerationSettings(input = {}) {
-  const modelKey = supportedModelKeys.has(input.modelKey) ? input.modelKey : defaultModelKey;
+  const available = generationCatalogReady
+    ? generationModelCatalog().some(model => model.key === input.modelKey)
+    : typeof input.modelKey === "string" && /^[A-Za-z0-9][A-Za-z0-9._-]{2,127}$/u.test(input.modelKey);
+  const modelKey = available ? input.modelKey : defaultModelKey;
   const preset = Object.prototype.hasOwnProperty.call(generationPresets, input.preset) ? input.preset : "chat";
   const base = generationPresets[preset];
   const maxTokens = Number(input.maxTokens ?? base.maxTokens);
@@ -947,8 +953,8 @@ function syncSettingsModelOptions() {
   }
 
   const models = generationModelCatalog();
-  settingsModel.disabled = false;
-  settingsModel.title = "";
+  settingsModel.disabled = models.length === 0;
+  settingsModel.title = models.length ? "" : "No supported generation model is declared.";
   settingsModel.replaceChildren(
     ...models.map((model) => {
       const option = document.createElement("option");
@@ -1087,6 +1093,7 @@ function bindThemeControls() {
 }
 
 function openSettingsPanel() {
+  if (window.CaatuuChrome?.openSharedSettings) return window.CaatuuChrome.openSharedSettings();
   const panel = $("#settingsPanel");
   if (!panel) return;
   lastAppSettingsTrigger = document.activeElement;
@@ -1100,6 +1107,7 @@ function openSettingsPanel() {
 }
 
 function closeSettingsPanel({ restoreFocus = true } = {}) {
+  if (window.CaatuuChrome?.closeSharedSettings) return window.CaatuuChrome.closeSharedSettings({ restoreFocus });
   const panel = $("#settingsPanel");
   if (!panel) return;
   panel.hidden = true;
@@ -1112,6 +1120,7 @@ function closeSettingsPanel({ restoreFocus = true } = {}) {
 }
 
 window.CaatuuHandleAndroidBack = () => {
+  if (window.CaatuuChrome?.handleAndroidBack) return window.CaatuuChrome.handleAndroidBack();
   const panel = $("#settingsPanel");
   if (panel && !panel.hidden) {
     closeSettingsPanel({ restoreFocus: false });
@@ -1928,6 +1937,8 @@ function readVerbMemory() {
 
 function saveVerbMemory() {
   if (!state.verbMemoryLoaded || state.verbGuidedRequested) return;
+  if (typeof window.CaatuuLearning?.contentGeneration === "function"
+      && state.verbContentGeneration !== window.CaatuuLearning.contentGeneration()) return;
   try {
     const legacyMeaning = {
       schemaVersion: 2,
@@ -2002,7 +2013,10 @@ function loadVerbMemory() {
     state.verbDifficulty
   );
   const pairById = new Map(state.verbPairs.map((pair) => [pair.id, pair]));
-  const memory = readVerbMemory();
+  const storedMemory = readVerbMemory();
+  const generation = window.CaatuuLearning?.contentGeneration?.() ?? null;
+  const memory = storedMemory && (generation === null || storedMemory.contentGeneration === generation
+    || !storedMemory.contentGeneration && generation === "legacy") ? storedMemory : null;
   const sameDifficulty = Number(memory?.difficulty) === state.verbDifficulty;
   const defaultPairCount = [2, 4, 6, 8][state.verbDifficulty] ?? 4;
   state.verbPairCount = verbNebulaCore.normalizeVerbPairCount(
@@ -2013,7 +2027,7 @@ function loadVerbMemory() {
   state.verbContentEncounterId = typeof memory?.contentEncounterId === "string" && memory.contentEncounterId
     ? memory.contentEncounterId : verbNebulaCore.newContentEncounterId();
   state.verbContentGeneration = typeof memory?.contentGeneration === "string"
-    ? memory.contentGeneration : null;
+    ? memory.contentGeneration : generation;
   state.verbContentAttemptedIds = new Set(validVerbIds(memory?.contentAttemptedIds, pairById));
   state.verbContentAssistedIds = new Set(validVerbIds(memory?.contentAssistedIds, pairById));
   state.verbStats = {
@@ -3061,6 +3075,12 @@ function recordVerbContentExposure(pair, correct) {
 }
 
 async function settleVerbMatch() {
+  const generation = state.verbContentGeneration;
+  if (!state.verbGuidedMode && typeof window.CaatuuLearning?.contentGeneration === "function"
+      && generation !== window.CaatuuLearning.contentGeneration()) {
+    clearVerbMemory({ confirmed: true, preserveStored: true });
+    return;
+  }
   const czechId = state.verbSelectedCzechId;
   const englishId = state.verbSelectedEnglishId;
   if (
@@ -3119,13 +3139,20 @@ async function settleVerbMatch() {
     }
     if (!state.verbGuidedMode) {
       recordVerbContentExposure(pair, true);
+      if (generation !== state.verbContentGeneration
+        || typeof window.CaatuuLearning?.contentGeneration === "function"
+        && generation !== window.CaatuuLearning.contentGeneration()) return;
       window.CaatuuLearning?.record("verb-nebula", {
+        ...(window.CaatuuLearning.contentGeneration ? { generation } : {}),
         activities: 1,
         attempts: 1,
         successes: 1,
         xp: 1,
         rounds: roundComplete ? 1 : 0
       });
+      if (generation !== state.verbContentGeneration
+        || typeof window.CaatuuLearning?.contentGeneration === "function"
+        && generation !== window.CaatuuLearning.contentGeneration()) return;
       recordVerbSemanticAttempt(pair, {
         correct: true,
         chosenSource: pair?.source ?? pair?.eng ?? "",
@@ -3159,7 +3186,14 @@ async function settleVerbMatch() {
   const chosenPair = state.verbEnglishRound.find((item) => item.id === englishId);
   if (!state.verbGuidedMode) {
     recordVerbContentExposure(pair, false);
-    window.CaatuuLearning?.record("verb-nebula", { activities: 1, attempts: 1 });
+    if (generation !== state.verbContentGeneration
+        || typeof window.CaatuuLearning?.contentGeneration === "function"
+        && generation !== window.CaatuuLearning.contentGeneration()) return;
+    window.CaatuuLearning?.record("verb-nebula", { activities: 1, attempts: 1,
+      ...(window.CaatuuLearning.contentGeneration ? { generation } : {}) });
+    if (generation !== state.verbContentGeneration
+        || typeof window.CaatuuLearning?.contentGeneration === "function"
+        && generation !== window.CaatuuLearning.contentGeneration()) return;
     recordVerbSemanticAttempt(pair, {
       correct: false,
       chosenSource: chosenPair?.source ?? chosenPair?.eng ?? ""
@@ -3529,7 +3563,7 @@ function restartGuidedVerbRuntimeAfterReset({ resetCompleted = true } = {}) {
   });
 }
 
-function clearVerbMemory({ confirmed = false } = {}) {
+function clearVerbMemory({ confirmed = false, preserveStored = false } = {}) {
   const resetButton = $("#settingsResetCourseProgress");
   if (!confirmed && !confirmDestructiveAction(resetButton, {
     confirmLabel: "Confirm restart",
@@ -3540,7 +3574,7 @@ function clearVerbMemory({ confirmed = false } = {}) {
   }
 
   try {
-    for (const key of [verbStorageKey, verbLegacyStorageKey].filter(Boolean)) {
+    for (const key of (preserveStored ? [] : [verbStorageKey, verbLegacyStorageKey].filter(Boolean))) {
       if (typeof window.CaatuuLearning?.removeGameState === "function") {
         if (!window.CaatuuLearning.removeGameState(key)) throw new Error("Verb memory could not be cleared.");
       } else {
@@ -4788,7 +4822,7 @@ function prepareEmbeddedGameDocument(frame) {
 function syncEmbeddedGameVisibility(activeTab) {
   Object.entries(embeddedGameTabs).forEach(([gameId, config]) => {
     const frame = document.getElementById(config.frameId);
-    if (!frame?.contentWindow || frame.dataset.ready !== "true") return;
+    if (!frame?.contentWindow || frame.dataset.documentReady !== "true") return;
     frame.contentWindow.postMessage({
       source: "caatuu-app-shell",
       type: "visibility",
@@ -4800,6 +4834,53 @@ function syncEmbeddedGameVisibility(activeTab) {
   });
 }
 
+function setEmbeddedGameStartup(gameId, startup) {
+  const config = embeddedGameTabs[gameId];
+  const frame = config ? document.getElementById(config.frameId) : null;
+  if (!frame) return;
+  const stage = document.getElementById(config.stageId);
+  const status = document.getElementById(config.statusId);
+  window.clearTimeout(frame._caatuuStartupTimer);
+  if (frame._caatuuStartupLoad) frame.removeEventListener("load", frame._caatuuStartupLoad);
+  frame.dataset.ready = String(startup === "ready");
+  frame.dataset.loading = "false";
+  frame.dataset.failed = String(startup === "error");
+  stage?.setAttribute("aria-busy", "false");
+  setShellRobotLoading(status, false);
+  if (startup === "error") {
+    frame.classList.remove("is-ready");
+    frame.setAttribute("aria-hidden", "true");
+    frame.setAttribute("tabindex", "-1");
+    if (status) {
+      status.hidden = false;
+      status.classList.add("is-error");
+      const title = status.querySelector("strong");
+      const copy = status.querySelector("small");
+      if (title) title.textContent = interfaceText("games.embedded.startfailure", { game: sharedGameTitle(gameId) });
+      if (copy) copy.textContent = interfaceText("games.embedded.retry");
+    }
+  } else {
+    frame.classList.add("is-ready");
+    frame.removeAttribute("aria-hidden");
+    frame.removeAttribute("tabindex");
+    syncEmbeddedGameVisibility(state.trainTab);
+  }
+}
+
+function handleEmbeddedGameStartup(event) {
+  const message = event.data;
+  if (event.origin !== window.location.origin || message?.source !== "caatuu-game"
+    || message.type !== "startup" || !["ready", "error"].includes(message.status)) return;
+  const config = embeddedGameTabs[message.gameId];
+  const frame = config ? document.getElementById(config.frameId) : null;
+  if (!frame || event.source !== frame.contentWindow || frame.dataset.documentReady !== "true") return;
+  // A queued message from a retired document must not initialize its replacement.
+  const current = frame.contentDocument?.documentElement?.dataset;
+  if (current?.caatuuGameId !== message.gameId || current.caatuuGameStatus !== message.status) return;
+  if (frame.dataset.failed === "true") return;
+  setEmbeddedGameStartup(message.gameId, message.status);
+}
+
 function ensureEmbeddedGameLoaded(gameId) {
   const config = embeddedGameTabs[gameId];
   const frame = config ? document.getElementById(config.frameId) : null;
@@ -4809,32 +4890,42 @@ function ensureEmbeddedGameLoaded(gameId) {
   const source = frame.dataset.src;
   if (!source) return;
   frame.dataset.loading = "true";
+  frame.dataset.failed = "false";
+  frame.dataset.documentReady = "false";
+  frame.dataset.ready = "false";
+  frame.classList.remove("is-ready");
+  frame.setAttribute("aria-hidden", "true");
+  frame.setAttribute("tabindex", "-1");
+  status?.classList.remove("is-error");
+  stage?.setAttribute("aria-busy", "true");
   setShellRobotLoading(status, true);
 
-  frame.addEventListener("load", () => {
+  frame._caatuuStartupLoad = () => {
     try {
       prepareEmbeddedGameDocument(frame);
-      frame.dataset.ready = "true";
-      frame.dataset.loading = "false";
-      frame.classList.add("is-ready");
-      frame.removeAttribute("aria-hidden");
-      frame.removeAttribute("tabindex");
-      stage?.setAttribute("aria-busy", "false");
-      setShellRobotLoading(status, false);
+      frame.dataset.documentReady = "true";
+      const startup = frame.contentDocument?.documentElement?.dataset;
+      // load can precede asynchronous content fetching, or follow a cached start.
+      if (startup?.caatuuGameId === gameId && ["ready", "error"].includes(startup.caatuuGameStatus)) {
+        setEmbeddedGameStartup(gameId, startup.caatuuGameStatus);
+      } else {
+        frame.classList.add("is-ready");
+        frame.removeAttribute("aria-hidden");
+        frame.removeAttribute("tabindex");
+        setShellRobotLoading(status, false);
+      }
       syncEmbeddedGameVisibility(state.trainTab);
     } catch (error) {
-      const gameTitle = sharedGameTitle(gameId);
-      console.error(`Could not prepare embedded ${gameTitle}.`, error);
-      if (status) {
-        status.classList.add("is-error");
-        syncShellRobotLoading();
-        const title = status.querySelector("strong");
-        const copy = status.querySelector("small");
-        if (title) title.textContent = interfaceText("games.embedded.startfailure", { game: gameTitle });
-        if (copy) copy.textContent = interfaceText("games.embedded.retry");
-      }
+      console.error(`Could not prepare embedded ${sharedGameTitle(gameId)}.`, error);
+      setEmbeddedGameStartup(gameId, "error");
     }
-  }, { once: true });
+  };
+  window.clearTimeout(frame._caatuuStartupTimer);
+  if (frame._caatuuStartupLoad) frame.removeEventListener("load", frame._caatuuStartupLoad);
+  frame.addEventListener("load", frame._caatuuStartupLoad, { once: true });
+  frame._caatuuStartupTimer = window.setTimeout(() => {
+    if (frame.dataset.loading === "true") setEmbeddedGameStartup(gameId, "error");
+  }, 30000);
   frame.src = source;
 }
 
@@ -4888,6 +4979,7 @@ async function waitForCampaignGameReady(gameId, transitionId) {
   const startedAt = performance.now();
   while (gameId === "word-net"
     ? window.CaatuuWordWorldHost?.ready?.() !== true
+    : gameId === "memory-moon" ? frame.dataset.documentReady !== "true"
     : frame.dataset.ready !== "true") {
     if (transitionId !== state.campaignTransitionId || !state.campaignActive) return;
     if (performance.now() - startedAt >= campaignGameReadyTimeoutMillis) return;
@@ -5174,6 +5266,7 @@ function bindUi() {
     });
   }
   window.addEventListener("message", handleCampaignGameMessage);
+  window.addEventListener("message", handleEmbeddedGameStartup);
   document.addEventListener("click", (event) => {
     const tab = event.target.closest(".nav-tab");
     if (tab) setView(tab.dataset.view);
@@ -5202,6 +5295,7 @@ function bindUi() {
     if (event.target === $("#settingsPanel")) closeSettingsPanel();
   });
   document.addEventListener("keydown", (event) => {
+    if (event.defaultPrevented || event.isComposing || event.keyCode === 229) return;
     if (event.key === "Escape" && $("#settingsPanel") && !$("#settingsPanel").hidden) {
       closeSettingsPanel();
     }
@@ -5220,7 +5314,7 @@ function bindUi() {
   }
   if (courseGameAvailable("verb-lab")) {
     window.addEventListener("caatuu:learning-change", (event) => {
-      if (event.detail?.reason === "progress-reset") clearVerbMemory({ confirmed: true });
+      if (event.detail?.reason === "progress-reset") clearVerbMemory({ confirmed: true, preserveStored: event.detail.external === true });
       else if (event.detail?.reason === "difficulty") rebaseVerbDifficulty({ resetSettings: event.detail.settingsReset === true });
     });
   }

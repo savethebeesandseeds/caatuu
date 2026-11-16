@@ -3,9 +3,9 @@ import { initializeHomeCourseSetup } from "./course-setup.mjs?v=course-setup-5";
 import { installMusic } from "./music.mjs";
 import { installGameDynamics } from "./game-dynamics.mjs?v=game-dynamics-11";
 import * as practicePacing from "./games/practice-pacing.mjs?v=practice-pacing-3";
-import { installBadgeProgression } from "./badge-progression.mjs?v=badge-progression-9";
+import { installBadgeProgression } from "./badge-progression.mjs?v=badge-progression-10";
 import { installCampaignRoadmap } from "./campaign-roadmap.mjs?v=campaign-roadmap-5";
-import { createPracticeCompass, sharedPracticeAxes } from "./practice-compass.mjs?v=practice-compass-11";
+import { createPracticeCompass, sharedPracticeAxes } from "./practice-compass.mjs?v=practice-compass-12";
 import {
   installInterfaceContent,
   loadInterfaceContent
@@ -315,12 +315,6 @@ function setCourseIdentity() {
   document.title = t("app.title", { target: targetLabel });
   const manifest = document.querySelector('link[rel="manifest"]');
   if (manifest) manifest.href = courseUrl("manifest.webmanifest");
-  if (course.status !== "active") {
-    const robots = document.createElement("meta");
-    robots.name = "robots";
-    robots.content = "noindex, nofollow";
-    document.head.append(robots);
-  }
   const nav = document.querySelector("[data-caatuu-bottom-nav]");
   nav?.setAttribute("aria-label", t("navigation.sections", { target: targetLabel }));
 }
@@ -756,7 +750,7 @@ async function loadCourseFeatureProviders() {
     origin: location.origin,
     routeBase,
     async initializeWorkspace() {
-      await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-59");
+      await loadSharedScript("/language-runtime/static/source/caatuu-workspace.js?v=workspace-60");
       const workspace = await globalThis.CaatuuWorkspaceReady;
       if (workspace?.ready !== true) {
         throw workspace?.error instanceof Error
@@ -808,7 +802,7 @@ async function start() {
   await initializeHomeCourseSetup(globalThis, { onSetupRequired: revealApplication });
   configureGameRoutes();
   applyCapabilityBoundaries();
-  await import("./word-world-host.mjs?v=word-world-host-43");
+  await import("./word-world-host.mjs?v=word-world-host-44");
   await loadCourseFeatureProviders();
   // Publish the usable-controls and voice results together. Further voice
   // retries can recover a late engine without delaying entry to the app.

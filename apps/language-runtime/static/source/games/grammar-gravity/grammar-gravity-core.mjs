@@ -54,6 +54,13 @@ function requiredRevision(value, location) {
   return value;
 }
 
+function bankReference(value, location) {
+  if (typeof value !== "string" || !/^sb\.grammar-gravity\.\d{6}$/u.test(value)) {
+    throw new Error(`${location} must name a Grammar Gravity semantic bank row.`);
+  }
+  return value;
+}
+
 function exactKeys(value, expected, location) {
   if (!isRecord(value)) throw new Error(`${location} must be an object.`);
   const actual = Object.keys(value).sort();
@@ -231,8 +238,10 @@ function validateExamples(examples, {
       "targetText",
       "anchor",
       "slot",
+      ...["semanticBankId"].filter(key => Object.hasOwn(example, key)),
       ...["usefulness", "complexity", "urgency", "subdifficulty"].filter(key => Object.hasOwn(example, key))
     ], exampleLocation);
+    if (Object.hasOwn(example, "semanticBankId")) bankReference(example.semanticBankId, `${exampleLocation}.semanticBankId`);
     normalizeContentProgression(example, exampleLocation);
     const id = requiredId(example.id, `${exampleLocation}.id`);
     if (exampleIds.has(id)) throw new Error(`Grammar Gravity repeats example ID ${id}.`);
@@ -274,7 +283,24 @@ function validateExamples(examples, {
 }
 
 function validateChallenges(pack, axisIds) {
-  if (!Array.isArray(pack.challenges) || pack.challenges.length < 4) {
+  if (!Array.isArray(pack.challenges) || pack.challenges.length < 1) {
+    throw new Error("challenges must contain at least one challenge.");
+  }
+  const authored = pack.challenges.filter(challenge => challenge.reviewStatus !== "untranslated");
+  const allIds = new Set();
+  for (const [index, challenge] of pack.challenges.entries()) {
+    const id = requiredId(challenge.id, `challenges[${index}].id`);
+    if (allIds.has(id)) throw new Error(`Grammar Gravity repeats challenge ID ${id}.`);
+    allIds.add(id);
+    if (challenge.reviewStatus !== "untranslated") continue;
+    bankReference(challenge.semanticBankId, `challenges[${index}].semanticBankId`);
+    requiredText(challenge.englishAuditText, `challenges[${index}].englishAuditText`);
+    requiredRevision(challenge.revision, `challenges[${index}].revision`);
+    normalizeContentProgression(challenge, `challenges[${index}]`);
+    if (![0, 1, 2, 3].includes(challenge.difficulty)) throw new Error(`challenges[${index}].difficulty must be 0, 1, 2, or 3.`);
+  }
+  if (authored.length === 0) return;
+  if (authored.length < 4) {
     throw new Error("challenges must contain at least four authored challenges.");
   }
   const challengeIds = new Set();
@@ -282,8 +308,11 @@ function validateChallenges(pack, axisIds) {
   const difficulties = new Set();
   pack.challenges.forEach((challenge, index) => {
     const location = `challenges[${index}]`;
+    if (challenge.reviewStatus === "untranslated") return;
     const scoped = Object.hasOwn(challenge, "axes") || Object.hasOwn(challenge, "gameplay");
-    exactKeys(challenge, ["id", "revision", "difficulty", "focus", "forms", ...["usefulness", "complexity", "urgency", "subdifficulty"].filter(key => Object.hasOwn(challenge, key)), ...(scoped ? ["axes", "gameplay"] : [])], location);
+    exactKeys(challenge, ["id", "revision", "difficulty", "focus", "forms", ...["semanticBankId", "englishAuditText", "usefulness", "complexity", "urgency", "subdifficulty"].filter(key => Object.hasOwn(challenge, key)), ...(scoped ? ["axes", "gameplay"] : [])], location);
+    if (Object.hasOwn(challenge, "semanticBankId")) bankReference(challenge.semanticBankId, `${location}.semanticBankId`);
+    if (Object.hasOwn(challenge, "englishAuditText")) requiredText(challenge.englishAuditText, `${location}.englishAuditText`);
     normalizeContentProgression(challenge, location);
     const familyAxisIds = scoped ? validateAxes(challenge.axes) : axisIds;
     if (scoped) validateGameplay(challenge.gameplay, challenge.axes);
@@ -335,7 +364,7 @@ function validateChallenges(pack, axisIds) {
   }
   if (pack.gameplay.stages.includes("meaning")) {
     for (const difficulty of [1, 2, 3]) {
-      const meanings = new Set(pack.challenges.filter((challenge) => matchesContentDifficulty(challenge, difficulty))
+      const meanings = new Set(authored.filter((challenge) => matchesContentDifficulty(challenge, difficulty))
         .flatMap((challenge) => Object.values(challenge.forms).flatMap((form) => form.examples
           .map((example) => normalizedText(example.anchor.learnerBaseText, pack.learnerBaseLanguage)))));
       if (meanings.size < 2) throw new Error(`Difficulty ${difficulty} must provide at least two distinct authored anchor meanings.`);
@@ -411,7 +440,7 @@ export function buildGrammarGravityRounds(pack, difficulty, random = Math.random
   validateGrammarGravityPack(pack);
   const level = Number(difficulty);
   if (!Number.isInteger(level) || level < 0 || level > 3) throw new Error("Grammar Gravity difficulty must be 0, 1, 2, or 3.");
-  const challenges = pack.challenges.filter((challenge) => matchesContentDifficulty(challenge, level));
+  const challenges = pack.challenges.filter((challenge) => challenge.reviewStatus !== "untranslated" && matchesContentDifficulty(challenge, level));
   const meaningPool = [...new Set(challenges.flatMap((challenge) => Object.values(challenge.forms).flatMap((form) =>
     form.examples.map((example) => example.anchor.learnerBaseText))))];
   const rounds = challenges.flatMap((challenge) => {
@@ -444,6 +473,7 @@ export function buildGrammarGravityRounds(pack, difficulty, random = Math.random
           revision: example.revision,
           challengeId: challenge.id,
           challengeRevision: challenge.revision,
+          ...(example.semanticBankId ? { semanticBankId: example.semanticBankId } : {}),
           englishAuditText: example.englishAuditText,
           difficulty: challenge.difficulty,
           ...normalizeContentProgression({ ...challenge, ...form, ...example }, example.id),

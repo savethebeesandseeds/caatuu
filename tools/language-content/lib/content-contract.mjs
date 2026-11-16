@@ -51,6 +51,7 @@ const ENGLISH_CATALOG_KEYS = [
 ];
 const ENGLISH_CONCEPT_KEYS = [
   "id",
+  "semanticBankId",
   "englishText",
   "embeddingText",
   "sceneQuery",
@@ -234,7 +235,11 @@ function validateEnglishConceptCatalog(catalog, issues, { release }) {
       continue;
     }
     scanForbiddenEmbeddingKeys(concept, issues, label);
-    addUnknownAndMissingKeys(issues, concept, ENGLISH_CONCEPT_KEYS, ENGLISH_CONCEPT_KEYS.filter(key => !["usefulness", "complexity"].includes(key)), label, "concepts.shape");
+    addUnknownAndMissingKeys(issues, concept, ENGLISH_CONCEPT_KEYS, ENGLISH_CONCEPT_KEYS.filter(key => !["semanticBankId", "usefulness", "complexity"].includes(key)), label, "concepts.shape");
+    if (Object.hasOwn(concept, "semanticBankId") && (typeof concept.semanticBankId !== "string"
+      || !/^sb\.word-net\.\d{6}$/u.test(concept.semanticBankId))) {
+      addIssue(issues, "concepts.shape", `${label}.semanticBankId must name a Word Net bank row.`);
+    }
     if (typeof concept.id !== "string" || !CONCEPT_ID_PATTERN.test(concept.id)) {
       addIssue(issues, "concepts.id", `${label}.id must be a stable namespaced concept ID.`);
     } else {

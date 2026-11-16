@@ -143,14 +143,18 @@ function dictionaryEntryText(value) {
   return String(value).normalize("NFC").trim();
 }
 
-function presentDictionaryEntry(record) {
+function presentDictionaryEntry(record, context = {}) {
   if (!record || typeof record !== "object" || Array.isArray(record)) {
     throw new TypeError("Czech dictionary presentation requires an object record.");
   }
+  const sourceLanguageId = String(
+    context.sourceLanguageId ?? context.course?.sourceLanguage?.id ?? ""
+  ).toLowerCase();
+  const sourceIsEnglish = sourceLanguageId === "en" || sourceLanguageId.startsWith("en-");
   return {
     targetText: dictionaryEntryText(record.targetText ?? record.target ?? record.cs),
     englishAuditText: dictionaryEntryText(
-      record.englishAuditText ?? record.englishText ?? record.en
+      record.englishAuditText ?? record.englishText ?? record.en ?? (sourceIsEnglish ? record.source : undefined)
     ),
     category: dictionaryEntryText(record.category ?? record.cat),
     partOfSpeech: dictionaryEntryText(record.partOfSpeech ?? record.kind),

@@ -4,6 +4,7 @@ import test from "node:test";
 import vm from "node:vm";
 import { normalizeGameId } from "../static/source/shell-policy.mjs";
 import * as licenseCatalog from "../static/source/license-catalog.mjs";
+import { createBrowserHarness } from "./helpers/fake-browser.mjs";
 
 const promotedUrl = new URL("../static/source/caatuu-workspace.js", import.meta.url);
 // Resolve the browser's absolute module URL to its real exports in this VM.
@@ -407,7 +408,7 @@ test("workspace headers and embedded shells consume the shared catalog-backed ga
   assert.equal(browser.chromeCalls.gamePresentation.includes("word-net"), true);
   assert.doesNotMatch(promoted, /const trainTitles\s*=/u);
   assert.doesNotMatch(promoted, /title:\s*"Conjugation Comet"/u);
-  assert.match(promoted, /interfaceText\("games\.embedded\.startfailure", \{ game: gameTitle \}\)/u);
+  assert.match(promoted, /interfaceText\("games\.embedded\.startfailure", \{ game: sharedGameTitle\(gameId\) \}\)/u);
   assert.match(promoted, /interfaceText\("games\.embedded\.retry"\)/u);
   assert.match(appEntry, /data-i18n-aria-label="games\.conjugationcomet\.title"/u);
   assert.match(appEntry, /data-i18n-title="games\.grammargravity\.title"/u);
@@ -570,14 +571,11 @@ test("Home recovery deactivates Word World and returning to Games restores its v
 test("Home recovery deactivates embedded games and a late iframe load stays inactive until Games is visible", async () => {
   const browser = wordWorldOnlyBrowser({ gameTitles: { "grammar-gravity": "Grammar Gravity" } });
   const messages = [];
-  const frameListeners = new Map();
-  const frame = {
-    dataset: { src: "/language-runtime/static/games/grammar-gravity.html" },
-    classList: new FakeClassList(),
-    contentWindow: { postMessage(message, origin) { messages.push({ message, origin }); } },
-    addEventListener(type, listener) { frameListeners.set(type, listener); },
-    removeAttribute() {}
-  };
+  const child = createBrowserHarness();
+  const frame = child.document.createElement("iframe");
+  frame.dataset.src = "/language-runtime/static/games/grammar-gravity.html";
+  frame.contentDocument = child.document;
+  frame.contentWindow = { postMessage(message, origin) { messages.push({ message, origin }); } };
   const originalGetElementById = browser.context.document.getElementById;
   browser.context.document.getElementById = (id) => id === "grammarGravityEmbeddedGame" ? frame : originalGetElementById(id);
   browser.window.CaatuuShellPolicy.gameAvailable = (_course, gameId) => ["word-net", "grammar-gravity"].includes(gameId);
@@ -591,9 +589,16 @@ test("Home recovery deactivates embedded games and a late iframe load stays inac
 
   browser.dispatchDocumentEvent("caatuu:home-request");
   assert.equal(browser.context.document.body.classList.contains("embedded-game-active"), false);
-  frameListeners.get("load")();
-  assert.equal(frame.dataset.ready, "true");
+  frame.dispatchEvent({ type: "load" });
+  assert.equal(frame.dataset.documentReady, "true");
+  assert.equal(frame.dataset.ready, "false");
   assert.equal(messages.at(-1).message.active, false, "loading after Home recovery must not restart the hidden falling-word timer");
+  Object.assign(child.document.documentElement.dataset, { caatuuGameId: "grammar-gravity", caatuuGameStatus: "ready" });
+  browser.dispatchWindowEvent("message", { origin: browser.window.location.origin, source: frame.contentWindow,
+    data: { source: "caatuu-game", type: "startup", gameId: "grammar-gravity", status: "ready" } });
+  assert.equal(frame.dataset.ready, "true");
+  assert.equal(frame.dataset.loading, "false");
+  assert.equal(messages.at(-1).message.active, false, "actual startup completion must also preserve Home recovery");
   shell.setView("verbs");
   assert.equal(messages.at(-1).message.active, true);
   assert.equal(browser.context.document.body.classList.contains("embedded-game-active"), true);

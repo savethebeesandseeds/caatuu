@@ -1,3 +1,4 @@
+import { wordWorldGenerationProvider } from "../../languages/czech/static/source/games/word-world/word-world-generation.mjs";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
@@ -169,7 +170,10 @@ async function game(t, { czech = false, saved = {}, difficulty = 1, records = re
   vm.runInContext(executable, browser.context, { filename: "product-word-world.mjs" });
   const context = { ...preparedContext(course, adapter, records), ...contextExtras };
   if (lookupMeaning) context.lookupMeaning = lookupMeaning;
-  if (generationEnabled) context.generationStrategy = { id: 'fixture-word-world-v1' };
+  if (generationEnabled) {
+    context.generationStrategy = { id: 'fixture-word-world-v1' };
+    context.generationProvider = wordWorldGenerationProvider;
+  }
   browser.context.__prepared = context;
   browser.context.__root = root;
   const controller = await vm.runInContext("mountProductWordWorld(__root, __prepared)", browser.context);
@@ -1002,7 +1006,7 @@ test("dictionary selection preserves rendered reading guides and settings still 
   g.prepared.targetTextGuide = { languageTag: "zh-Latn-pinyin",
     labels: { section: "Reading", showGuide: "Show pinyin", colorTones: "Color tones" } };
   g.prepared.targetTextUnits = ({ token }) => [{ surface: token.surface, notation: "wǒ", tone: 3 }];
-  g.run("renderCzechSentence(state.currentSentence, state.selectedWord)");
+  g.run("renderTargetSentence(state.currentSentence, state.selectedWord)");
   const host = connectedPrompt(g);
   const original = host.querySelectorAll(".cz-word-token");
   const guide = original[0].querySelector("rt");
@@ -1104,7 +1108,7 @@ test("tapping one Mandarin character resolves the word written around it", async
   g.run('setTranslationMode("visible")');
   g.run('state.currentEntryId = "ww.test.hello"');
   g.run('state.currentSentence = "你好！"');
-  g.run('renderCzechSentence(state.currentSentence, "")');
+  g.run('renderTargetSentence(state.currentSentence, "")');
   const hello = connectedPrompt(g);
   const helloButtons = [...hello.querySelectorAll(".cz-word-token")];
   assert.deepEqual(helloButtons.map(button => button.dataset.word), ["你", "好"]);
@@ -1132,7 +1136,7 @@ test("tapping one Mandarin character resolves the word written around it", async
   g.run('state.currentSentence = "谢谢你。"');
   g.run('state.selectedSpan = null');
   g.run('state.wordSelectionRequested = false');
-  g.run('renderCzechSentence(state.currentSentence, "")');
+  g.run('renderTargetSentence(state.currentSentence, "")');
   const thanksButtons = [...hello.querySelectorAll(".cz-word-token")];
   assert.deepEqual(thanksButtons.map(button => button.dataset.word), ["谢", "谢", "你"]);
   thanksButtons[0].click();
@@ -1198,4 +1202,19 @@ test("paused Word World cannot navigate to another phrase through queued Next", 
   await g.controller.next();
   assert.equal(g.state.phraseRequestId, request);
   assert.equal(g.state.currentEntryId, entry);
+});
+
+test("explicit shared sentence reporting takes precedence over authored local reports", async t => {
+  const calls = [];
+  const g = await game(t, { contextExtras: { providerKind: "authored-realizations", report: async () => { calls.push("local"); return { ok: true }; } } });
+  const maintenance = { sentenceFeedbackSharing: () => ({ enabled: true }),
+    enqueueReport: async payload => { calls.push(payload.kind); return { queued: true }; } };
+  g.window.CaatuuRuntime.maintenance = maintenance;
+  g.state.feedbackSnapshot = { entryId: g.state.currentEntryId, sentence: g.state.currentSentence, contentMode: "standard" };
+  await g.run("submitSentenceFeedback({ preventDefault() {} })");
+  assert.deepEqual(calls, ["word_world_sentence_feedback"]);
+  maintenance.sentenceFeedbackSharing = () => ({ enabled: false });
+  g.state.feedbackSnapshot = { entryId: g.state.currentEntryId, sentence: g.state.currentSentence, contentMode: "standard" };
+  await g.run("submitSentenceFeedback({ preventDefault() {} })");
+  assert.deepEqual(calls, ["word_world_sentence_feedback", "local"]);
 });

@@ -83,6 +83,7 @@ function boundSnapshotProjection(value = {}) {
   const grammar = value.grammar && !Array.isArray(value.grammar) ? value.grammar : {};
   return {
     id: String(value.id || "").trim(),
+    ...(value.semanticBankId ? { semanticBankId: value.semanticBankId } : {}),
     cs: normalizeBoundText(value.cs),
     en: normalizeBoundText(value.en),
     difficulty: Math.floor(Number(value.difficulty)),
@@ -144,6 +145,7 @@ export function normalizeStandardRecord(record = {}, index = 0) {
     });
   return {
     id,
+    ...(record.semanticBankId ? { semanticBankId: record.semanticBankId } : {}),
     cs,
     en,
     enAlternates,

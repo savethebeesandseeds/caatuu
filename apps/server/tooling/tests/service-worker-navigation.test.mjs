@@ -33,6 +33,8 @@ class FakeRequest {
 function serviceWorkerContext({
   scope = "https://caatuu.test/zh/",
   cachedResponses = new Map(),
+  boundCacheName = "caatuu-zh-hans-pwa-v17",
+  cacheStorage = null,
   precacheImplementation = async () => {},
   fetchImplementation = async () => { throw new Error("offline"); }
 } = {}) {
@@ -56,7 +58,7 @@ function serviceWorkerContext({
     Response,
     Headers,
     fetch: fetchImplementation,
-    caches: {
+    caches: cacheStorage || {
       async match(request) {
         const key = typeof request === "string" ? request : request.url;
         lookups.push(key);
@@ -73,6 +75,7 @@ function serviceWorkerContext({
       }
     },
     self: {
+      CAATUU_OFFLINE_CACHE_NAME: boundCacheName,
       location: { origin: "https://caatuu.test" },
       registration: { scope },
       addEventListener(type, handler) { handlers.set(type, handler); },
@@ -555,6 +558,10 @@ test("offline updates keep refreshed artwork when the HTTP cache still holds old
   const cachedResponses = new Map();
   const worker = serviceWorkerContext({
     cachedResponses,
+    fetchImplementation: async () => new Response(JSON.stringify({
+      application: { entryPath: "/zh/index.html", appEntry: "apps/language-runtime/static/app/index.html" },
+      offline: { cacheName: "caatuu-zh-hans-pwa-v17", cachePrefix: "caatuu-zh-hans-pwa-", assets: [flagUrl] }
+    })),
     precacheImplementation: async (requests) => {
       for (const request of requests) {
         const url = typeof request === "string" ? request : request.url;
@@ -570,4 +577,130 @@ test("offline updates keep refreshed artwork when the HTTP cache still holds old
   await installation;
   const response = await fetchThroughWorker(worker, new FakeRequest(flagUrl, { destination: "image" }), config);
   assert.equal(await response.text(), "updated-artwork");
+});
+
+function workerLifecycleFixture() {
+  const catalogUrl = "https://caatuu.test/zh/setup-assets.json";
+  const scriptUrl = "https://caatuu.test/language-runtime/static/source/app-bootstrap.mjs?v=fixture";
+  const catalog = (revision) => ({
+    application: { entryPath: "/zh/index.html", appEntry: "apps/language-runtime/static/app/index.html" },
+    offline: { cacheName: `caatuu-zh-hans-pwa-v${revision}`, cachePrefix: "caatuu-zh-hans-pwa-", assets: [scriptUrl] }
+  });
+  const network = { online: true, catalog: catalog(17), failPrecache: false, requests: [] };
+  const buckets = new Map();
+  const fetchImplementation = async (request) => {
+    const url = typeof request === "string" ? request : request.url;
+    network.requests.push(url);
+    if (!network.online || (network.failPrecache && url === scriptUrl)) throw new Error("offline fixture");
+    const response = new Response(url === catalogUrl ? JSON.stringify(network.catalog) : `installed asset ${network.catalog.offline.cacheName}`);
+    if (url === catalogUrl) network.afterCatalogRead?.();
+    return response;
+  };
+  const cacheStorage = {
+    async match() { throw new Error("Global cache searches must not choose an installed revision"); },
+    async keys() { return [...buckets.keys()]; },
+    async delete(name) { return buckets.delete(name); },
+    async open(name) {
+      if (!buckets.has(name)) buckets.set(name, new Map());
+      const bucket = buckets.get(name);
+      const key = request => typeof request === "string" ? request : request.url;
+      return {
+        async match(request) { return bucket.get(key(request))?.clone(); },
+        async put(request, response) { bucket.set(key(request), response.clone()); },
+        async addAll(requests) {
+          const responses = await Promise.all(requests.map(fetchImplementation));
+          requests.forEach((request, index) => bucket.set(key(request), responses[index].clone()));
+        }
+      };
+    }
+  };
+  const worker = revision => serviceWorkerContext({ cacheStorage, fetchImplementation, boundCacheName: `caatuu-zh-hans-pwa-v${revision}` });
+  const lifecycle = async (instance, type) => {
+    let completion;
+    instance.handlers.get(type)({ waitUntil(value) { completion = value; } });
+    await completion;
+  };
+  const request = (instance, url, options = {}) => {
+    let response;
+    instance.handlers.get("fetch")({ request: new FakeRequest(url, options), respondWith(value) { response = value; } });
+    return response;
+  };
+  return { catalog, catalogUrl, scriptUrl, network, buckets, cacheStorage, worker, lifecycle, request };
+}
+
+test("a restarted installed worker stays on its own revision after a newer catalog is published", async () => {
+  const fixture = workerLifecycleFixture();
+  const installed = fixture.worker(17);
+  await fixture.lifecycle(installed, "install");
+  await fixture.lifecycle(installed, "activate");
+  fixture.network.catalog = fixture.catalog(18);
+  fixture.network.requests.length = 0;
+  const restarted = fixture.worker(17);
+  const config = await call(restarted.context, "courseOfflineConfig()", {});
+  assert.equal(config.cacheName, "caatuu-zh-hans-pwa-v17");
+  assert.deepEqual(fixture.network.requests, [], "restarting does not discover a different deployment");
+  const latest = await fixture.request(restarted, fixture.catalogUrl, { cache: "reload" });
+  assert.equal((await latest.json()).offline.cacheName, "caatuu-zh-hans-pwa-v18");
+  fixture.network.online = false;
+  const offline = fixture.worker(17);
+  assert.equal(await (await fixture.request(offline, fixture.scriptUrl, { destination: "script" })).text(), "installed asset caatuu-zh-hans-pwa-v17");
+  assert.equal((await call(offline.context, "courseOfflineConfig()", {})).cacheName, "caatuu-zh-hans-pwa-v17");
+});
+
+test("failed updates preserve the installed cache and successful activation adopts only its bound revision", async () => {
+  const fixture = workerLifecycleFixture();
+  await fixture.lifecycle(fixture.worker(17), "install");
+  fixture.network.catalog = fixture.catalog(18);
+  fixture.network.failPrecache = true;
+  await assert.rejects(fixture.lifecycle(fixture.worker(18), "install"), /offline fixture/u);
+  assert.ok(fixture.buckets.has("caatuu-zh-hans-pwa-v17"));
+  fixture.network.online = false;
+  assert.equal(await (await fixture.request(fixture.worker(17), fixture.scriptUrl, { destination: "script" })).text(), "installed asset caatuu-zh-hans-pwa-v17");
+  fixture.network.online = true;
+  fixture.network.failPrecache = false;
+  const updated = fixture.worker(18);
+  await fixture.lifecycle(updated, "install");
+  // A later deployment cannot redirect activation's cleanup to another cache.
+  fixture.network.catalog = fixture.catalog(19);
+  await fixture.lifecycle(fixture.worker(18), "activate");
+  assert.deepEqual([...fixture.buckets.keys()], ["caatuu-zh-hans-pwa-v18"]);
+  fixture.network.online = false;
+  assert.equal(await (await fixture.request(fixture.worker(18), fixture.scriptUrl, { destination: "script" })).text(), "installed asset caatuu-zh-hans-pwa-v18");
+});
+
+test("a worker rejects an uninstalled catalog revision instead of searching unrelated caches", async () => {
+  const fixture = workerLifecycleFixture();
+  fixture.network.catalog = fixture.catalog(18);
+  const other = await fixture.cacheStorage.open("caatuu-zh-hans-pwa-v16");
+  await other.put(fixture.catalogUrl, new Response(JSON.stringify(fixture.catalog(16))));
+  await assert.rejects(fixture.lifecycle(fixture.worker(17), "install"), /does not match this worker/u);
+  fixture.network.online = false;
+  await assert.rejects(call(fixture.worker(17).context, "courseOfflineConfig()", {}), /offline fixture/u);
+  const mismatched = await fixture.cacheStorage.open("caatuu-zh-hans-pwa-v17");
+  await mismatched.put(fixture.catalogUrl, new Response(JSON.stringify(fixture.catalog(18))));
+  await assert.rejects(call(fixture.worker(17).context, "courseOfflineConfig()", {}), /does not match this worker/u);
+  const unbound = serviceWorkerContext({ boundCacheName: null });
+  await assert.rejects(call(unbound.context, "courseOfflineConfig()", {}), /must bind its offline catalog revision/u);
+});
+
+test("installation preserves its validated catalog when publication changes during precache", async () => {
+  const fixture = workerLifecycleFixture();
+  const worker = fixture.worker(17);
+  fixture.network.afterCatalogRead = () => { fixture.network.catalog = fixture.catalog(18); };
+  await fixture.lifecycle(worker, "install");
+  fixture.network.online = false;
+  assert.equal((await call(fixture.worker(17).context, "courseOfflineConfig()", {})).cacheName, "caatuu-zh-hans-pwa-v17");
+});
+
+test("installation refreshes a same-revision closure while restarted workers keep that installed copy", async () => {
+  const fixture = workerLifecycleFixture();
+  await fixture.lifecycle(fixture.worker(17), "install");
+  const newAsset = "https://caatuu.test/language-runtime/static/source/new-feature.mjs?v=2";
+  fixture.network.catalog.offline.assets.push(newAsset);
+  await fixture.lifecycle(fixture.worker(17), "install");
+  fixture.network.online = false;
+  const restarted = fixture.worker(17);
+  const config = await call(restarted.context, "courseOfflineConfig()", {});
+  assert.ok(config.precacheUrls.includes(newAsset));
+  assert.equal(await (await fixture.request(restarted, newAsset, { destination: "script" })).text(), "installed asset caatuu-zh-hans-pwa-v17");
 });

@@ -25,7 +25,7 @@
               "conjugationCometCatalog": "data/games/conjugation-comet/content.json?v=conjugation-comet-verbs-6"
             },
             "case-cosmos": {
-              "caseCosmosCatalog": "data/games/case-cosmos/content.json?v=case-cosmos-data-8"
+              "caseCosmosCatalog": "data/games/case-cosmos/content.json?v=case-cosmos-data-9"
             },
             "grammar-gravity": {
               "grammarGravityCatalog": "data/games/grammar-gravity/content.json?v=grammar-gravity-data-7",
@@ -63,7 +63,7 @@
           "schemaVersion": 1,
           "locale": "en",
           "direction": "ltr",
-          "revision": "interface-en-58",
+          "revision": "interface-en-60",
           "catalog": "/language-runtime/static/data/interface/en.v1.json"
         },
         "targetLanguage": {
@@ -80,7 +80,7 @@
       },
       {
         "id": "zh",
-        "status": "development",
+        "status": "active",
         "routePrefix": "/zh",
         "entryPath": "/zh/index.html",
         "storage": {
@@ -123,7 +123,7 @@
           "schemaVersion": 1,
           "locale": "en",
           "direction": "ltr",
-          "revision": "interface-en-58",
+          "revision": "interface-en-60",
           "catalog": "/language-runtime/static/data/interface/en.v1.json"
         },
         "targetLanguage": {
@@ -140,7 +140,7 @@
       },
       {
         "id": "es",
-        "status": "development",
+        "status": "active",
         "routePrefix": "/es",
         "entryPath": "/es/index.html",
         "storage": {
@@ -187,7 +187,7 @@
           "schemaVersion": 1,
           "locale": "en",
           "direction": "ltr",
-          "revision": "interface-en-58",
+          "revision": "interface-en-60",
           "catalog": "/language-runtime/static/data/interface/en.v1.json"
         },
         "targetLanguage": {
@@ -204,7 +204,7 @@
       },
       {
         "id": "es-en",
-        "status": "development",
+        "status": "active",
         "routePrefix": "/es-en",
         "entryPath": "/es-en/index.html",
         "storage": {
@@ -251,7 +251,7 @@
           "schemaVersion": 1,
           "locale": "es-ES",
           "direction": "ltr",
-          "revision": "interface-es-33",
+          "revision": "interface-es-35",
           "catalog": "/language-runtime/static/data/interface/es.v1.json"
         },
         "targetLanguage": {
@@ -268,7 +268,7 @@
       },
       {
         "id": "nb",
-        "status": "development",
+        "status": "active",
         "routePrefix": "/nb",
         "entryPath": "/nb/index.html",
         "storage": {
@@ -315,7 +315,7 @@
           "schemaVersion": 1,
           "locale": "en",
           "direction": "ltr",
-          "revision": "interface-en-58",
+          "revision": "interface-en-60",
           "catalog": "/language-runtime/static/data/interface/en.v1.json"
         },
         "targetLanguage": {
@@ -332,7 +332,7 @@
       },
       {
         "id": "ar",
-        "status": "development",
+        "status": "active",
         "routePrefix": "/ar",
         "entryPath": "/ar/index.html",
         "storage": {
@@ -382,7 +382,7 @@
           "schemaVersion": 1,
           "locale": "en",
           "direction": "ltr",
-          "revision": "interface-en-58",
+          "revision": "interface-en-60",
           "catalog": "/language-runtime/static/data/interface/en.v1.json"
         },
         "targetLanguage": {
@@ -399,7 +399,7 @@
       },
       {
         "id": "la",
-        "status": "development",
+        "status": "active",
         "routePrefix": "/la",
         "entryPath": "/la/index.html",
         "storage": {
@@ -446,7 +446,7 @@
           "schemaVersion": 1,
           "locale": "en",
           "direction": "ltr",
-          "revision": "interface-en-58",
+          "revision": "interface-en-60",
           "catalog": "/language-runtime/static/data/interface/en.v1.json"
         },
         "targetLanguage": {
@@ -463,7 +463,7 @@
       },
       {
         "id": "ka",
-        "status": "development",
+        "status": "active",
         "routePrefix": "/ka",
         "entryPath": "/ka/index.html",
         "storage": {
@@ -510,7 +510,7 @@
           "schemaVersion": 1,
           "locale": "en",
           "direction": "ltr",
-          "revision": "interface-en-58",
+          "revision": "interface-en-60",
           "catalog": "/language-runtime/static/data/interface/en.v1.json"
         },
         "targetLanguage": {
@@ -527,7 +527,7 @@
       },
       {
         "id": "ru",
-        "status": "development",
+        "status": "active",
         "routePrefix": "/ru",
         "entryPath": "/ru/index.html",
         "storage": {
@@ -574,7 +574,7 @@
           "schemaVersion": 1,
           "locale": "en",
           "direction": "ltr",
-          "revision": "interface-en-58",
+          "revision": "interface-en-60",
           "catalog": "/language-runtime/static/data/interface/en.v1.json"
         },
         "targetLanguage": {
@@ -591,7 +591,7 @@
       },
       {
         "id": "he",
-        "status": "development",
+        "status": "active",
         "routePrefix": "/he",
         "entryPath": "/he/index.html",
         "storage": {
@@ -638,7 +638,7 @@
           "schemaVersion": 1,
           "locale": "en",
           "direction": "ltr",
-          "revision": "interface-en-58",
+          "revision": "interface-en-60",
           "catalog": "/language-runtime/static/data/interface/en.v1.json"
         },
         "targetLanguage": {
@@ -709,7 +709,7 @@
     },
     {
       "id": "zh",
-      "status": "development",
+      "status": "active",
       "label": "Mandarin",
       "nativeLabel": "中文",
       "shortCode": "ZH",
@@ -755,7 +755,7 @@
     },
     {
       "id": "es",
-      "status": "development",
+      "status": "active",
       "label": "Spanish",
       "nativeLabel": "Español",
       "shortCode": "ES",
@@ -802,7 +802,7 @@
     },
     {
       "id": "es-en",
-      "status": "development",
+      "status": "active",
       "label": "English",
       "nativeLabel": "English",
       "shortCode": "EN",
@@ -849,7 +849,7 @@
     },
     {
       "id": "nb",
-      "status": "development",
+      "status": "active",
       "label": "Norwegian Bokmål",
       "nativeLabel": "Norsk bokmål",
       "shortCode": "NB",
@@ -896,7 +896,7 @@
     },
     {
       "id": "ar",
-      "status": "development",
+      "status": "active",
       "label": "Modern Standard Arabic",
       "nativeLabel": "العربية الفصحى",
       "shortCode": "AR",
@@ -943,7 +943,7 @@
     },
     {
       "id": "la",
-      "status": "development",
+      "status": "active",
       "label": "Scientific Latin",
       "nativeLabel": "Latīnum scientificum",
       "shortCode": "LA",
@@ -990,7 +990,7 @@
     },
     {
       "id": "ka",
-      "status": "development",
+      "status": "active",
       "label": "Georgian",
       "nativeLabel": "ქართული",
       "shortCode": "KA",
@@ -1037,7 +1037,7 @@
     },
     {
       "id": "ru",
-      "status": "development",
+      "status": "active",
       "label": "Russian",
       "nativeLabel": "русский",
       "shortCode": "RU",
@@ -1064,14 +1064,27 @@
           "entryPath": "/ru/index.html"
         },
         "android": {
-          "enabled": false,
-          "channels": []
+          "enabled": true,
+          "channels": [
+            {
+              "kind": "release",
+              "manifest": "/android/caatuu.json",
+              "artifact": "/android/caatuu.apk",
+              "minimumVersionCode": 204
+            },
+            {
+              "kind": "preview",
+              "manifest": "/android/caatuu-preview.json",
+              "artifact": "/android/caatuu-preview.apk",
+              "minimumVersionCode": 204
+            }
+          ]
         }
       }
     },
     {
       "id": "he",
-      "status": "development",
+      "status": "active",
       "label": "Hebrew",
       "nativeLabel": "עברית",
       "shortCode": "HE",
@@ -1098,8 +1111,21 @@
           "entryPath": "/he/index.html"
         },
         "android": {
-          "enabled": false,
-          "channels": []
+          "enabled": true,
+          "channels": [
+            {
+              "kind": "release",
+              "manifest": "/android/caatuu.json",
+              "artifact": "/android/caatuu.apk",
+              "minimumVersionCode": 204
+            },
+            {
+              "kind": "preview",
+              "manifest": "/android/caatuu-preview.json",
+              "artifact": "/android/caatuu-preview.apk",
+              "minimumVersionCode": 204
+            }
+          ]
         }
       }
     }

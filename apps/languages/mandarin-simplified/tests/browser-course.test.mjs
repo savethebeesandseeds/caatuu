@@ -114,7 +114,7 @@ test("the compatibility course profile is generated exactly from course.json", a
     JSON.parse(JSON.stringify(context.window.CaatuuCourse)),
     generateCourseProfileObject(course, catalog.courses)
   );
-  assert.equal(context.window.CaatuuCourse.status, "development");
+  assert.equal(context.window.CaatuuCourse.status, "active");
   assert.equal(context.window.CaatuuCourse.routePrefix, "/zh");
   assert.deepEqual(JSON.parse(JSON.stringify(context.window.CaatuuCourse.games)), ["verb-lab", "word-net", "naturalization-nucleus", "sound-quasar", "memory-moon"]);
   assert.deepEqual(JSON.parse(JSON.stringify(context.window.CaatuuCourse.upcomingGames)), []);
@@ -190,7 +190,7 @@ test("setup and service-worker catalogs cover every required offline URL", async
   assert.match(setup.offline.cacheName, /^caatuu-zh-hans-pwa-v[1-9]\d*$/u);
   assert.ok(courseWorker.includes(`// Offline catalog revision: ${setup.offline.cacheName}`));
   assert.match(czechWorker, /^\/\/ Offline catalog revision: caatuu-czech-pwa-v[1-9]\d*$/mu);
-  const withoutRevision = (source) => source.replace(/^\/\/ Offline catalog revision: .+\r?\n/mu, "");
+  const withoutRevision = (source) => source.replace(/^(?:\/\/ Offline catalog revision: .+|self\.CAATUU_OFFLINE_CACHE_NAME = .+;)\r?\n/gmu, "");
   assert.equal(withoutRevision(courseWorker), withoutRevision(czechWorker));
   assert.match(
     courseWorker,
@@ -283,21 +283,23 @@ test("Word World and embedding manifests declare the English-only shared MiniLM 
   assert.doesNotMatch(appSource, /(?:zh-hans|mandarin-simplified|course\.id\s*[!=]==?)/iu);
 });
 
-test("the canonical page has no inline executable code while development noindex is course-driven", async () => {
+test("the canonical page has no inline executable code and released courses stay indexable", async () => {
   const [html, bootstrap, course] = await Promise.all([
     readFile(canonicalEntry, "utf8"),
     readFile(path.join(runtimeStaticRoot, "source/app-bootstrap.mjs"), "utf8"),
     json("course.json")
   ]);
   assert.doesNotMatch(html, /<script>(?:.|\n)*?<\/script>/u);
-  assert.match(bootstrap, /course\.status !== "active"/u);
-  assert.match(bootstrap, /robots\.content = "noindex, nofollow"/u);
+  assert.match(html, /name="robots" content="index, follow"/u);
+  assert.match(html, /Free language learning/u);
+  assert.doesNotMatch(bootstrap, /course\.status !== "active"/u);
+  assert.doesNotMatch(bootstrap, /robots\.content = "noindex, nofollow"/u);
   assert.match(bootstrap, /interface-content\.mjs\?v=interface-runtime-2/u);
   assert.match(
     bootstrap,
     /loadInterfaceContent\(course\);[\s\S]*installInterfaceContent\(interfaceContent\);[\s\S]*caatuu-chrome\.js\?v=chrome-\d+/u
   );
-  assert.equal(course.status, "development");
+  assert.equal(course.status, "active");
 });
 
 test("Czech and Mandarin resolve one authoritative Caatuu document and bootstrap", async () => {

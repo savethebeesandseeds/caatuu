@@ -1,3 +1,4 @@
+import { cleanGeneratedSentence, sentenceIncludesWord, stripModelEcho, wordMatchesTarget } from "../../../languages/czech/static/source/games/word-world/word-world-generation.mjs";
 import assert from "node:assert/strict";
 import test from "node:test";
 
@@ -6,7 +7,6 @@ import {
   buildTokenReconstructionChallenge,
   buildWordReconstructionChallenge,
   capitalizeWord,
-  cleanGeneratedSentence,
   cleanTranslation,
   dotProduct,
   isMiscellaneousAssetPath,
@@ -20,7 +20,6 @@ import {
   normalizeWord,
   parseSceneKeymap,
   sentenceFingerprint,
-  sentenceIncludesWord,
   sentenceSimilarity,
   sentenceTargets,
   selectDictionaryMeaning,
@@ -28,10 +27,8 @@ import {
   resolveSpeechPace,
   speechPaceForDifficulty,
   speechPaceForPreference,
-  stripModelEcho,
   tokenizeCzechSentence,
   tokenizeEnglishReconstruction,
-  wordMatchesTarget
 } from "../../../../apps/language-runtime/static/source/word-net-core.mjs";
 
 test("normalizes and capitalizes Czech words without losing diacritics", () => {

@@ -82,7 +82,7 @@ test("the language landing page uses the registered Czech PNG without a frame", 
   assert.match(launcherHtml, /<span class="language-choice-code">CZ<\/span>/, "the fallback language row should name Czech explicitly");
   assert.match(launcherHtml, /<img class="flag-icon" src="\/assets\/icons\/china_flag\.png\?caatuu_asset=[0-9]+" alt=""[^>]*>/);
   assert.match(launcherHtml, /<span class="language-choice-code">ZH<\/span>/, "the fallback language row should name Mandarin explicitly");
-  assert.match(launcherHtml, /<span class="language-choice-status">Preview<\/span>/, "the fallback language row should disclose Mandarin's preview status");
+  assert.doesNotMatch(launcherHtml, /<span class="language-choice-status">Preview<\/span>/, "released courses are not labelled as previews");
   assert.match(languageRegistry, /"flagSrc": "\/assets\/icons\/czech_flag_ui\.png"/);
   assert.match(languageRegistry, /"flagSrc": "\/assets\/icons\/china_flag\.png"/);
   assert.match(

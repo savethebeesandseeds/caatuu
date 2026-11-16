@@ -24,9 +24,10 @@ import {
   loadAndroidCourseConfiguration,
   setHtmlAttribute,
   transformHtmlElement,
-  STORE_LANGUAGE_FILES,
-  STORE_LAUNCHER_ICON_FILES
+  transformIndex,
 } from "../../android/tooling/build-product-assets.mjs";
+import { projectBrowserGameFrames, projectPagesCourseProfileSource, projectPagesLanguageRegistry, projectPagesLauncherFallback } from "./browser-view-projection.mjs";
+import { loadPagesLanguagePlan } from "./pages-language-plan.mjs";
 import { sourcePathForArtifact } from "../../server/tooling/refresh-setup-assets.mjs";
 import { evaluateCourseProfile, serializeCourseProfileSource } from "../../../tools/language-packs/lib/course-contract.mjs";
 
@@ -36,6 +37,24 @@ const defaultWorkspaceRoot = resolve(toolingDir, "../../..");
 const templateDir = join(toolingDir, "templates");
 const toolingDataDir = join(toolingDir, "data");
 const defaultOutputDir = join(defaultWorkspaceRoot, "artifacts/web/github-pages");
+export const SHARED_BROWSER_ASSET_CATALOG = "apps/launcher/static/assets/browser-assets.json";
+export const SHARED_BROWSER_ENTRY = "apps/language-runtime/static/app/index.html";
+
+export function usesStaticDictionaryProvider(course) {
+  return course?.capabilities?.dictionary === true
+    && course.resources?.dictionaryProvider?.state === "present"
+    && course.resources.dictionaryProvider.providerId === "czech-full-dictionary-v1";
+}
+
+function staticCourseConfiguration(workspaceRoot, languagePlan = loadPagesLanguagePlan({ workspaceRoot })) {
+  const configuration = loadAndroidCourseConfiguration({
+    workspaceRoot, courseManifestPath: languagePlan.defaultCourse.manifestPath, platform: "browser",
+  });
+  assert.equal(configuration.course.id, languagePlan.defaultCourse.id, "Static course ID must match its Pages plan");
+  assert.equal(configuration.course.entryPath, languagePlan.defaultCourse.entryPath, "Static course entry must match its Pages plan");
+  return configuration;
+}
+
 const maximumBundleBytes = 800_000_000;
 const maximumFileBytes = 100_000_000;
 const staticWorkerPolicyVersion = 2;
@@ -198,7 +217,7 @@ function assertSafeOutputDirectory(outputDir, workspaceRoot) {
     workspace,
     join(workspace, "apps"),
     join(workspace, "apps/launcher/static"),
-    join(workspace, "apps/languages/czech/static")
+    join(workspace, "apps/languages")
   ]) {
     assert.notEqual(output.toLowerCase(), resolve(protectedPath).toLowerCase(), `Refusing to replace protected path: ${output}`);
   }
@@ -291,7 +310,7 @@ function launcherIconPaths(launcherStaticDir) {
   const registry = JSON.parse(readSafeText(join(launcherStaticDir, "languages.json"), launcherStaticDir));
   assert.equal(registry?.browserSetup?.schemaVersion, 1, "Launcher browser setup must use schema version 1");
   assert.ok(Array.isArray(registry.browserSetup.courses), "Launcher browser setup must declare its courses");
-  const paths = new Set(STORE_LAUNCHER_ICON_FILES.map((icon) => `assets/icons/${icon}`));
+  const paths = new Set();
   for (const courseRecord of registry.browserSetup.courses) {
     const path = publicPathFromUrl(
       courseRecord?.targetLanguage?.flagSrc,
@@ -331,23 +350,22 @@ function sha256File(path) {
   return sha256Bytes(readFileSync(path));
 }
 
-function keptProductFiles() {
-  return [...new Set([...STORE_LANGUAGE_FILES, "caatuu-profile.json"])]
+function keptProductFiles(configuration) {
+  return [...new Set([...configuration.languageFiles, "caatuu-profile.json"])]
     .filter((path) => !excludedProductPaths.some((pattern) => pattern.test(path)))
     .sort();
 }
 
 export function transformCourseProfile(input) {
   const profile = structuredClone(evaluateCourseProfile(normalizeText(input), "static course profile"));
-  assert.equal(profile.capabilities?.embeddings, true, "static embeddings capability: expected one enabled anchor");
-  assert.equal(profile.capabilities?.semanticSearch, true, "static semantic-search capability: expected one enabled anchor");
+  assert.ok(profile.capabilities && profile.platforms?.browser?.entryPath, "Static course profile must declare capabilities and its browser entry");
   profile.capabilities.embeddings = false;
   profile.capabilities.semanticSearch = false;
   profile.platforms = {
     browser: {
       enabled: true,
-      entryPath: "/cz/index.html",
-      backend: "static-dictionary",
+      entryPath: profile.platforms.browser.entryPath,
+      backend: profile.capabilities.dictionary ? "static-dictionary" : "static",
     },
     android: {
       enabled: false,
@@ -508,6 +526,25 @@ export function transformSharedWorkspace(input) {
   return source;
 }
 
+export function transformStaticFeedbackOutbox(input) {
+  return exactReplace(normalizeText(input),
+    "../../../../../language-runtime/static/source/feedback-outbox.mjs",
+    "/language-runtime/static/source/feedback-outbox.mjs",
+    "published feedback outbox compatibility import");
+}
+
+export function transformStaticMaintenance(input) {
+  let source = normalizeText(input);
+  // The standalone core has no release registry. Full Pages restores this
+  // optional published-APK probe after its durable release overlay is present.
+  source = source.replace(/^ *\/\/[^\n]*\/android\/caatuu\.json[^\n]*\n/gmu, "");
+  return replaceBetween(source,
+    "  let publishedApkVersion;",
+    "  function createUpdateController(",
+    '  const publishedApkVersion = null;\n  function publishedApkVersionStatus() {\n    return Promise.resolve(null);\n  }\n\n',
+    "static maintenance without the optional APK registry");
+}
+
 function transformSharedCourseServiceWorker(input) {
   return replaceBetween(
     normalizeText(input),
@@ -532,6 +569,11 @@ const staticDictionaryMessages = Object.freeze([
   ["dictionary.full.search.help", "Results come from the curated learning dictionary, with a compact Standard-game form supplement.", "small"],
   ["dictionary.full.download", "Static dictionary", "button"]
 ]);
+
+export function createStaticSharedEntry(workspaceRoot) {
+  const authority = join(workspaceRoot, "apps/language-runtime");
+  return transformLanguageIndex(transformIndex(readSafeText(join(workspaceRoot, SHARED_BROWSER_ENTRY), authority)));
+}
 
 export function transformLanguageIndex(input) {
   let source = normalizeText(input);
@@ -573,7 +615,7 @@ export function transformDictionaryUi(input) {
 
 export function transformLauncherIndex(input) {
   let source = normalizeText(input);
-  for (const [tag, key, value] of [["small", "launcher.android.preview", "Android app"], ["b", "launcher.android.checking", "Published separately"]]) {
+  for (const [tag, key, value] of [["small", "launcher.android.beta", "Android app"], ["b", "launcher.android.downloadbeta", "Download Caatuu"]]) {
     source = transformHtmlElement(source, tag, "data-i18n", key, (opening, content, closing) =>
       `${opening.replace(/\sdata-i18n\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/giu, "")}${value}${closing}`);
   }
@@ -621,44 +663,64 @@ function transformKeymap(input, publishedVisualPaths, artifactKey) {
   return `${JSON.stringify(transformed, null, 2)}\n`;
 }
 
-function transformProductOutput(workspaceRoot, stagingDir) {
-  const czDir = join(stagingDir, "cz");
+function transformProductOutput(workspaceRoot, stagingDir, configuration, { shared = true, languagePlan } = {}) {
+  const courseDir = join(stagingDir, configuration.course.routePrefix.slice(1));
+  const dictionary = usesStaticDictionaryProvider(configuration.course);
   const sharedSourceDir = join(stagingDir, "language-runtime/static/source");
-  for (const [moduleName, importCount] of [["case-cosmos-content.mjs", 2], ["case-cosmos.js", 1]]) {
-    const modulePath = join(czDir, "source/games/case-cosmos", moduleName);
+  if (dictionary) for (const [moduleName, importCount] of [["case-cosmos-content.mjs", 1], ["case-cosmos.js", 1]]) {
+    const modulePath = join(courseDir, "source/games/case-cosmos", moduleName);
     writeText(modulePath, exactReplace(readText(modulePath),
       "../../../../../../language-runtime/static/source/",
       "/language-runtime/static/source/",
       `published ${moduleName} shared imports`, importCount));
   }
-  writeText(join(czDir, "source/shared/course-profile.js"), transformCourseProfile(readText(join(czDir, "source/shared/course-profile.js"))));
-  writeText(join(czDir, "source/shared/runtime.js"), transformRuntime(readText(join(czDir, "source/shared/runtime.js"))));
-  writeText(join(czDir, "index.html"), transformLanguageIndex(readText(join(czDir, "index.html"))));
-  const interfaceCatalogPath = join(stagingDir, "language-runtime/static/data/interface/en.v1.json");
-  writeText(interfaceCatalogPath, transformStaticInterfaceCatalog(readText(interfaceCatalogPath)));
+  if (dictionary) {
+    const compatibilityPath = join(courseDir, "source/shared/feedback-outbox.mjs");
+    writeText(compatibilityPath, transformStaticFeedbackOutbox(readText(compatibilityPath)));
+  }
+  const profilePath = join(courseDir, "source/shared/course-profile.js");
+  const staticProfile = transformCourseProfile(readText(profilePath));
+  writeText(profilePath, languagePlan ? projectPagesCourseProfileSource({
+    source: staticProfile, languagePlan, courseId: configuration.course.id, label: "static course profile",
+  }) : staticProfile);
+  if (dictionary) writeText(join(courseDir, "source/shared/runtime.js"), transformRuntime(readText(join(courseDir, "source/shared/runtime.js"))));
+  writeText(join(courseDir, "index.html"), projectBrowserGameFrames({
+    source: transformLanguageIndex(readText(join(courseDir, "index.html"))),
+    course: configuration.course,
+  }));
+  if (shared) {
+    const interfaceCatalogPath = join(stagingDir, "language-runtime/static/data/interface/en.v1.json");
+    writeText(interfaceCatalogPath, transformStaticInterfaceCatalog(readText(interfaceCatalogPath)));
+    writeText(
+      join(sharedSourceDir, "caatuu-workspace.js"),
+      transformSharedWorkspace(readText(join(sharedSourceDir, "caatuu-workspace.js")))
+    );
+    writeText(
+      join(sharedSourceDir, "course-service-worker.js"),
+      transformSharedCourseServiceWorker(readText(join(sharedSourceDir, "course-service-worker.js")))
+    );
+    const maintenancePath = join(sharedSourceDir, "maintenance-ui.js");
+    writeText(maintenancePath, transformStaticMaintenance(readText(maintenancePath)));
+    const wordWorldPath = join(stagingDir, "language-runtime/static/source/product-word-world.mjs");
+    const courseSetupPath = join(sharedSourceDir, "course-setup.mjs");
+    writeText(courseSetupPath, replacePattern(
+      readText(courseSetupPath),
+      /export async function initializeCourseSetup\(scope = globalThis\) \{[\s\S]*$/u,
+      "// Standalone Android installer entry is omitted from the browser bundle.\n",
+      "browser Home setup without the standalone Android installer",
+    ));
+    assert.match(readText(wordWorldPath), /const DICTIONARY_GAP_NOTICE_ID = "wordworld\.dictionary\.missingqueued";/u,
+      "Word World must use the translated dictionary-gap notice");
+  }
+  writeJson(join(courseDir, "caatuu-profile.json"), { ...webProfile,
+    capabilities: { ...webProfile.capabilities, dictionary },
+  });
+  if (!dictionary) return;
   writeText(
-    join(czDir, "source/features/dictionary/dictionary-full.js"),
-    transformDictionaryUi(readText(join(czDir, "source/features/dictionary/dictionary-full.js")))
+    join(courseDir, "source/features/dictionary/dictionary-full.js"),
+    transformDictionaryUi(readText(join(courseDir, "source/features/dictionary/dictionary-full.js")))
   );
-  writeText(
-    join(sharedSourceDir, "caatuu-workspace.js"),
-    transformSharedWorkspace(readText(join(sharedSourceDir, "caatuu-workspace.js")))
-  );
-  writeText(
-    join(sharedSourceDir, "course-service-worker.js"),
-    transformSharedCourseServiceWorker(readText(join(sharedSourceDir, "course-service-worker.js")))
-  );
-  const wordWorldPath = join(stagingDir, "language-runtime/static/source/product-word-world.mjs");
-  const courseSetupPath = join(sharedSourceDir, "course-setup.mjs");
-  writeText(courseSetupPath, replacePattern(
-    readText(courseSetupPath),
-    /export async function initializeCourseSetup\(scope = globalThis\) \{[\s\S]*$/u,
-    "// Standalone Android installer entry is omitted from the browser bundle.\n",
-    "browser Home setup without the standalone Android installer",
-  ));
-  assert.match(readText(wordWorldPath), /const DICTIONARY_GAP_NOTICE_ID = "wordworld\.dictionary\.missingqueued";/u,
-    "Word World must use the translated dictionary-gap notice");
-  const setupPath = join(czDir, "source/features/setup/setup.js");
+  const setupPath = join(courseDir, "source/features/setup/setup.js");
   writeText(
     setupPath,
     exactReplace(
@@ -668,21 +730,20 @@ function transformProductOutput(workspaceRoot, stagingDir) {
       "local setup report completion copy"
     )
   );
-  writeJson(join(czDir, "caatuu-profile.json"), webProfile);
   copyFile(
     join(templateDir, "dictionary-static-core.mjs"),
-    join(czDir, "source/features/dictionary/dictionary-static-core.mjs"),
+    join(courseDir, "source/features/dictionary/dictionary-static-core.mjs"),
     templateDir
   );
   copyFile(
     join(toolingDataDir, "word-world-static-dictionary.v1.json"),
-    join(czDir, "data/games/word-world/static-dictionary.v1.json"),
+    join(courseDir, "data/games/word-world/static-dictionary.v1.json"),
     toolingDataDir
   );
-  const dictionarySourceDir = join(workspaceRoot, "apps/languages/czech/static/data/dictionaries");
+  const dictionarySourceDir = join(configuration.languageStaticDir, "data/dictionaries");
   copyFile(
     join(dictionarySourceDir, "ATTRIBUTION.md"),
-    join(czDir, "data/dictionaries/ATTRIBUTION.md"),
+    join(courseDir, "data/dictionaries/ATTRIBUTION.md"),
     dictionarySourceDir
   );
 }
@@ -701,11 +762,13 @@ function sharedAppAssetsForStatic(courseConfiguration) {
   return courseConfiguration.appAssets.filter(({ output }) => !published.has(output) && !androidInstallerAssets.has(output));
 }
 
-function copyProductOutput(productDir, stagingDir, courseConfiguration) {
-  for (const path of keptProductFiles()) {
-    copyFile(join(productDir, path), join(stagingDir, "cz", path), productDir);
+function copyProductOutput(productDir, stagingDir, courseConfiguration, { shared = true } = {}) {
+  const courseRoot = join(stagingDir, courseConfiguration.course.routePrefix.slice(1));
+  for (const path of keptProductFiles(courseConfiguration)) {
+    copyFile(join(productDir, path), join(courseRoot, path), productDir);
   }
-  copyFile(join(productDir, "index.html"), join(stagingDir, "cz/index.html"), productDir);
+  copyFile(join(productDir, "index.html"), join(courseRoot, "index.html"), productDir);
+  if (!shared) return;
   for (const { output } of sharedAppAssetsForStatic(courseConfiguration)) {
     copyFile(join(productDir, output), join(stagingDir, output), productDir);
   }
@@ -714,8 +777,8 @@ function copyProductOutput(productDir, stagingDir, courseConfiguration) {
   }
 }
 
-function assertStaticCompilerSources(languageStaticDir, launcherStaticDir) {
-  for (const path of STORE_LANGUAGE_FILES) {
+function assertStaticCompilerSources(languageStaticDir, launcherStaticDir, configuration) {
+  for (const path of configuration.languageFiles) {
     assertSafeSourceFile(join(languageStaticDir, path), languageStaticDir);
   }
   for (const path of launcherIconPaths(launcherStaticDir)) {
@@ -727,12 +790,12 @@ function assertStaticCompilerSources(languageStaticDir, launcherStaticDir) {
   );
 }
 
-function copyLauncherSurface(workspaceRoot, stagingDir) {
+function copyLauncherSurface(workspaceRoot, stagingDir, languagePlan) {
   const launcherDir = join(workspaceRoot, "apps/launcher/static");
-  writeText(join(stagingDir, "index.html"), transformLauncherIndex(readSafeText(join(launcherDir, "index.html"), launcherDir)));
+  writeText(join(stagingDir, "index.html"), projectPagesLauncherFallback({ source: transformLauncherIndex(readSafeText(join(launcherDir, "index.html"), launcherDir)), languagePlan }));
   copyFile(join(launcherDir, "app.css"), join(stagingDir, "app.css"), launcherDir);
   copyFile(join(templateDir, "launcher-static.js"), join(stagingDir, "launcher.js"), templateDir);
-  writeText(join(stagingDir, "languages.json"), transformLanguageRegistry(readSafeText(join(launcherDir, "languages.json"), launcherDir)));
+  writeText(join(stagingDir, "languages.json"), transformLanguageRegistry(JSON.stringify(projectPagesLanguageRegistry({ registry: JSON.parse(readSafeText(join(launcherDir, "languages.json"), launcherDir)), languagePlan }))));
   writeText(join(stagingDir, "404.html"), transformNotFound(readSafeText(join(launcherDir, "not-found.html"), launcherDir)));
   for (const path of launcherIconPaths(launcherDir)) {
     copyFile(join(launcherDir, path), join(stagingDir, path), launcherDir);
@@ -744,13 +807,16 @@ function copyLauncherSurface(workspaceRoot, stagingDir) {
 
 function selectedStaticArtifacts(workspaceRoot) {
   const launcherStaticDir = join(workspaceRoot, "apps/launcher/static");
-  const languageStaticDir = join(workspaceRoot, "apps/languages/czech/static");
-  const manifestPath = join(languageStaticDir, "setup-assets.json");
-  assertSafeSourceFile(manifestPath, languageStaticDir);
-  const sourceManifest = JSON.parse(readSafeText(manifestPath, languageStaticDir));
+  const languageStaticDir = launcherStaticDir;
+  const manifestPath = join(workspaceRoot, SHARED_BROWSER_ASSET_CATALOG);
+  const sourceManifest = JSON.parse(readSafeText(manifestPath, launcherStaticDir));
+  assert.equal(sourceManifest.version, 1, "Shared browser asset catalog version changed");
+  assert.equal(sourceManifest.cache_name, "caatuu-shared-browser-assets-v1");
+  assert.ok(Array.isArray(sourceManifest.artifacts), "Shared browser asset catalog must list artifacts");
   const selected = (sourceManifest.artifacts || []).filter((artifact) =>
     ["visual-asset", "asset-keymap", "music", "music-license"].includes(artifact?.artifact_kind)
   );
+  assert.equal(selected.length, sourceManifest.artifacts.length, "Shared browser catalog may contain only reviewed visual, keymap and music receipts");
   const artifactKeys = selected.map((artifact) => String(artifact.key || ""));
   assert.ok(artifactKeys.every(Boolean), "Every published artifact must have a key");
   assert.equal(new Set(artifactKeys).size, artifactKeys.length, "Published artifact keys must be unique");
@@ -771,7 +837,7 @@ function selectedStaticArtifacts(workspaceRoot) {
   return { launcherStaticDir, languageStaticDir, sourceManifest, selected, publishedVisualPaths };
 }
 
-export function expectedStaticSetupManifest(workspaceRoot = defaultWorkspaceRoot) {
+export function expectedStaticSetupManifest(workspaceRoot = defaultWorkspaceRoot, configuration = staticCourseConfiguration(workspaceRoot)) {
   const {
     launcherStaticDir,
     languageStaticDir,
@@ -788,7 +854,7 @@ export function expectedStaticSetupManifest(workspaceRoot = defaultWorkspaceRoot
       artifact,
       launcherStaticDir,
       languageStaticDir,
-      languageRoutePrefix: "/cz"
+      languageRoutePrefix: "/shared-browser-assets"
     });
     assertSafeSourceFile(sourcePath, [launcherStaticDir, languageStaticDir]);
     assert.equal(statSync(sourcePath).size, Number(artifact.bytes), `${artifact.key} source byte count changed`);
@@ -802,10 +868,11 @@ export function expectedStaticSetupManifest(workspaceRoot = defaultWorkspaceRoot
       browser_required: true
     };
   });
-  return { version: sourceManifest.version, cache_name: sourceManifest.cache_name, artifacts };
+  const courseSetup = JSON.parse(readSafeText(join(configuration.languageStaticDir, "setup-assets.json"), configuration.languageStaticDir));
+  return { version: 1, cache_name: courseSetup.cache_name || courseSetup.cacheName, artifacts };
 }
 
-function copyPublishedAssets(workspaceRoot, stagingDir) {
+function copyPublishedAssets(workspaceRoot, stagingDir, configuration) {
   const {
     launcherStaticDir,
     languageStaticDir,
@@ -829,7 +896,7 @@ function copyPublishedAssets(workspaceRoot, stagingDir) {
       artifact,
       launcherStaticDir,
       languageStaticDir,
-      languageRoutePrefix: "/cz"
+      languageRoutePrefix: "/shared-browser-assets"
     });
     const destination = outputPath(stagingDir, publicPath);
     if (artifact.artifact_kind === "asset-keymap") {
@@ -856,21 +923,17 @@ function copyPublishedAssets(workspaceRoot, stagingDir) {
     });
   }
 
-  const outputManifest = {
-    version: sourceManifest.version,
-    cache_name: sourceManifest.cache_name,
-    artifacts
-  };
-  assert.deepEqual(outputManifest, expectedStaticSetupManifest(workspaceRoot));
-  writeJson(join(stagingDir, "cz/setup-assets.json"), outputManifest);
+  const outputManifest = { ...expectedStaticSetupManifest(workspaceRoot, configuration), artifacts };
+  assert.deepEqual(outputManifest, expectedStaticSetupManifest(workspaceRoot, configuration));
+  writeJson(join(stagingDir, configuration.course.routePrefix.slice(1), "setup-assets.json"), outputManifest);
   return outputManifest;
 }
 
-function coreAssetPaths(stagingDir, setupManifest) {
+function coreAssetPaths(stagingDir, setupManifest, configuration) {
   const files = allFiles(stagingDir).filter((path) => !["sw.js", "caatuu-web-bundle.json"].includes(path));
-  const paths = new Set(["/", "/index.html", "/cz/", "/cz/index.html"]);
+  const paths = new Set(["/", "/index.html", `${configuration.course.routePrefix}/`, configuration.course.entryPath]);
   for (const path of files) {
-    if (path.startsWith("cz/")) paths.add(`/${path}`);
+    if (path.startsWith(`${configuration.course.routePrefix.slice(1)}/`)) paths.add(`/${path}`);
     if (path.startsWith("language-runtime/")) paths.add(`/${path}`);
     if (["app.css", "launcher.js", "languages.json", "404.html"].includes(path)) paths.add(`/${path}`);
     if (path.startsWith("assets/icons/")) paths.add(`/${path}`);
@@ -892,8 +955,9 @@ function coreAssetPaths(stagingDir, setupManifest) {
 
 export function serviceWorkerSource(coreAssets, cacheDigest) {
   return `const WORKER_POLICY_VERSION = ${staticWorkerPolicyVersion};
-const CACHE_NAME = "caatuu-czech-web-static-${cacheDigest}";
-const CACHE_PREFIX = "caatuu-czech-web-static-";
+const CACHE_NAME = "caatuu-web-static-${cacheDigest}";
+const CACHE_PREFIX = "caatuu-web-static-";
+const LEGACY_WEB_CACHE_PREFIX = "caatuu-czech-web-static-";
 const LEGACY_PWA_CACHE_PREFIX = "caatuu-czech-pwa-";
 const CORE_ASSETS = ${JSON.stringify(coreAssets, null, 2)};
 
@@ -907,7 +971,7 @@ self.addEventListener("activate", (event) => {
   event.waitUntil(caches.keys()
     .then((keys) => Promise.all(keys
       .filter((key) => (
-        (key.startsWith(CACHE_PREFIX) || key.startsWith(LEGACY_PWA_CACHE_PREFIX))
+        (key.startsWith(CACHE_PREFIX) || key.startsWith(LEGACY_WEB_CACHE_PREFIX) || key.startsWith(LEGACY_PWA_CACHE_PREFIX))
         && key !== CACHE_NAME
       ))
       .map((key) => caches.delete(key))))
@@ -987,12 +1051,12 @@ async function cacheResponse(request, response) {
 
 function resolveCoreAsset(outputDir, asset) {
   if (asset === "/") return join(outputDir, "index.html");
-  if (asset === "/cz/") return join(outputDir, "cz/index.html");
+  if (asset.endsWith("/")) return outputPath(outputDir, `${asset.slice(1)}index.html`);
   return outputPath(outputDir, publicPathFromUrl(asset, "service-worker core asset"));
 }
 
-function generateServiceWorker(stagingDir, setupManifest) {
-  const coreAssets = coreAssetPaths(stagingDir, setupManifest);
+function generateServiceWorker(stagingDir, setupManifest, configuration) {
+  const coreAssets = coreAssetPaths(stagingDir, setupManifest, configuration);
   for (const asset of coreAssets) {
     const path = resolveCoreAsset(stagingDir, asset);
     assert.ok(existsSync(path) && statSync(path).isFile(), `Core asset is missing: ${asset}`);
@@ -1019,7 +1083,7 @@ function inventoryDigest(files) {
   return sha256Bytes(files.map((file) => `${file.path}\0${file.bytes}\0${file.sha256}`).join("\n"));
 }
 
-function generateBundleManifest(stagingDir, setupManifest, cacheDigest) {
+function generateBundleManifest(stagingDir, setupManifest, cacheDigest, configuration) {
   const files = inventoryFor(stagingDir);
   const payloadBytes = files.reduce((sum, file) => sum + file.bytes, 0);
   const manifest = {
@@ -1028,8 +1092,8 @@ function generateBundleManifest(stagingDir, setupManifest, cacheDigest) {
     profile: webProfile.profile,
     basePath: "/",
     canonicalOrigin: "https://caatuu.waajacu.com",
-    entrypoints: ["/", "/cz/", "/cz/index.html"],
-    serviceWorkerCache: `caatuu-czech-web-static-${cacheDigest}`,
+    entrypoints: ["/", `${configuration.course.routePrefix}/`, configuration.course.entryPath],
+    serviceWorkerCache: `caatuu-web-static-${cacheDigest}`,
     requiredSetupArtifacts: setupManifest.artifacts.filter((artifact) => artifact.browser_required).length,
     publishedVisualAssets: setupManifest.artifacts.filter((artifact) => artifact.artifact_kind === "visual-asset").length,
     payloadFileCount: files.length,
@@ -1041,8 +1105,8 @@ function generateBundleManifest(stagingDir, setupManifest, cacheDigest) {
   return manifest;
 }
 
-function expectedFiles(workspaceRoot, setupManifest) {
-  const courseConfiguration = loadAndroidCourseConfiguration({ workspaceRoot });
+function expectedFiles(workspaceRoot, setupManifest, courseConfiguration) {
+  const prefix = courseConfiguration.course.routePrefix.slice(1);
   const expected = new Set([
     "index.html",
     "app.css",
@@ -1052,12 +1116,12 @@ function expectedFiles(workspaceRoot, setupManifest) {
     "sw.js",
     "caatuu-web-bundle.json",
     "assets/loading_animation/animations_manifest.json",
-    "cz/source/features/dictionary/dictionary-static-core.mjs",
-    "cz/data/games/word-world/static-dictionary.v1.json",
-    "cz/data/dictionaries/ATTRIBUTION.md",
-    "cz/index.html"
+    `${prefix}/index.html`
   ]);
-  for (const path of keptProductFiles()) expected.add(`cz/${path}`);
+  if (usesStaticDictionaryProvider(courseConfiguration.course)) {
+    for (const path of ["source/features/dictionary/dictionary-static-core.mjs", "data/games/word-world/static-dictionary.v1.json", "data/dictionaries/ATTRIBUTION.md"]) expected.add(`${prefix}/${path}`);
+  }
+  for (const path of keptProductFiles(courseConfiguration)) expected.add(`${prefix}/${path}`);
   for (const { output } of rootExtraFiles) expected.add(output);
   for (const { output } of sharedAppAssetsForStatic(courseConfiguration)) {
     expected.add(output);
@@ -1165,12 +1229,29 @@ export function assertHtmlReferences(outputDir, files, { deferredCourseEntries =
     const source = readText(join(outputDir, path));
     for (const tagMatch of source.matchAll(/<([a-z][\w:-]*)\b[^>]*>/gisu)) {
       const tagName = tagMatch[1].toLowerCase();
+      // Consume whole attribute values so a quoted data value cannot invent a
+      // relation, and count unquoted/boolean duplicates before allowing metadata.
+      const relationAttributes = [...tagMatch[0].matchAll(/\s+([^\s"'<>/=]+)(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s"'=<>`]+))?/gu)]
+        .filter((attribute) => attribute[1].toLowerCase() === "rel");
+      const relations = [...tagMatch[0].matchAll(/\srel\s*=\s*["']([^"']*)["']/giu)];
+      const canonicalMetadata = tagName === "link" && relationAttributes.length === 1 && relations.length === 1
+        && relations[0][1].trim().toLowerCase() === "canonical";
       for (const attribute of tagMatch[0].matchAll(/\b(src|href|data-src|poster|srcset)\s*=\s*["']([^"']+)["']/giu)) {
         const attributeName = attribute[1].toLowerCase();
         const references = attributeName === "srcset"
           ? attribute[2].split(",").map((candidate) => candidate.trim().split(/\s+/u, 1)[0]).filter(Boolean)
           : [attribute[2]];
         for (const reference of references) {
+          // A canonical URL describes this document; it does not fetch a
+          // resource. Keep that distinction limited to the known publisher and
+          // an existing local page. Fetching/mixed link relations stay strict.
+          if (canonicalMetadata && attributeName === "href" && /^https:/iu.test(reference)) {
+            const canonical = new URL(reference);
+            assert.equal(canonical.origin, "https://caatuu.waajacu.com", "Canonical metadata origin is not the publisher");
+            assert.equal(canonical.username + canonical.password, "", "Canonical metadata must not contain credentials");
+            assertPublishedReference(outputDir, path, canonical.pathname, "canonical page");
+            continue;
+          }
           const disposition = referenceDisposition(path, reference, `HTML ${attributeName}`, {
             allowExternalAnchor: tagName === "a" && attributeName === "href"
           });
@@ -1288,7 +1369,7 @@ function assertNoServerOrModelBoundary(outputDir, files) {
 
 function assertSetupManifest(outputDir, manifest) {
   assert.equal(manifest.version, 1);
-  assert.equal(manifest.cache_name, "caatuu-czech-setup-v1");
+  assert.ok(typeof manifest.cache_name === "string" && manifest.cache_name, "Static setup must retain its declared cache identity");
   const visual = manifest.artifacts.filter((artifact) => artifact.artifact_kind === "visual-asset");
   const keymaps = manifest.artifacts.filter((artifact) => artifact.artifact_kind === "asset-keymap");
   const music = manifest.artifacts.filter((artifact) => ["music", "music-license"].includes(artifact.artifact_kind));
@@ -1318,20 +1399,21 @@ function assertSetupManifest(outputDir, manifest) {
   }
 }
 
-function assertServiceWorker(outputDir, setupManifest) {
+function assertServiceWorker(outputDir, setupManifest, configuration) {
   const source = readText(join(outputDir, "sw.js"));
   const match = /const CORE_ASSETS = (\[[\s\S]*?\]);/u.exec(source);
   assert.ok(match, "Static service worker must declare CORE_ASSETS");
   const assets = JSON.parse(match[1]);
-  const expectedAssets = coreAssetPaths(outputDir, setupManifest);
+  const expectedAssets = coreAssetPaths(outputDir, setupManifest, configuration);
   assert.deepEqual(assets, expectedAssets, "Static service worker must precache the exact reviewed core");
   const expectedDigest = sha256Bytes([`policy:${staticWorkerPolicyVersion}`, ...expectedAssets.map((asset) => {
     const path = resolveCoreAsset(outputDir, asset);
     return `${asset}\0${sha256File(path)}`;
   })].join("\n")).slice(0, 16);
-  assert.match(source, new RegExp(`CACHE_NAME = "caatuu-czech-web-static-${expectedDigest}"`, "u"));
+  assert.match(source, new RegExp(`CACHE_NAME = "caatuu-web-static-${expectedDigest}"`, "u"));
   assert.match(source, new RegExp(`WORKER_POLICY_VERSION = ${staticWorkerPolicyVersion}`, "u"));
   assert.match(source, /LEGACY_PWA_CACHE_PREFIX/u);
+  assert.match(source, /LEGACY_WEB_CACHE_PREFIX/u);
   assert.match(source, /caatuu_setup_sha256/u);
   assert.match(source, /ignoreSearch: true/u);
   assert.doesNotMatch(source, /\bcaches\.match\(/u, "Static worker may not fall through to legacy caches");
@@ -1342,14 +1424,14 @@ function assertServiceWorker(outputDir, setupManifest) {
   }
 }
 
-function assertBundleManifest(outputDir, setupManifest) {
+function assertBundleManifest(outputDir, setupManifest, configuration) {
   const manifest = JSON.parse(readText(join(outputDir, "caatuu-web-bundle.json")));
   assert.equal(manifest.schema_name, "caatuu-web-bundle");
   assert.equal(manifest.schema_version, 1);
   assert.equal(manifest.profile, webProfile.profile);
   assert.equal(manifest.basePath, "/");
   assert.equal(manifest.canonicalOrigin, "https://caatuu.waajacu.com");
-  assert.deepEqual(manifest.entrypoints, ["/", "/cz/", "/cz/index.html"]);
+  assert.deepEqual(manifest.entrypoints, ["/", `${configuration.course.routePrefix}/`, configuration.course.entryPath]);
   assert.equal(manifest.requiredSetupArtifacts, setupManifest.artifacts.filter((artifact) => artifact.browser_required).length);
   assert.equal(manifest.publishedVisualAssets, setupManifest.artifacts.filter((artifact) => artifact.artifact_kind === "visual-asset").length);
   const inventory = inventoryFor(outputDir);
@@ -1379,8 +1461,9 @@ function dictionaryEntryMatchesSurface(entry, surface) {
   ].some((value) => exactCzechKey(value) === key);
 }
 
-export function assertWordWorldRuntimeBoundary(outputDir) {
-  const manifestPath = "cz/data/games/word-world/manifest.json";
+export function assertWordWorldRuntimeBoundary(outputDir, routePrefix) {
+  assert.match(String(routePrefix || ""), /^\/[a-z0-9]+(?:-[a-z0-9]+)*$/u, "Word World boundary requires its explicit course route");
+  const manifestPath = `${routePrefix.slice(1)}/data/games/word-world/manifest.json`;
   const manifest = JSON.parse(readText(join(outputDir, manifestPath)));
   assert.equal(manifest.schemaVersion, "caatuu-word-world-runtime-manifest-v1");
   assert.equal(manifest.mode, "standard");
@@ -1413,16 +1496,18 @@ export function assertStaticCorpusMetadata(corpus, manifest) {
   return corpus.records;
 }
 
-function assertGameBoundary(outputDir, workspaceRoot) {
-  const { manifest: wordWorldManifest, recordsPath } = assertWordWorldRuntimeBoundary(outputDir);
+function assertGameBoundary(outputDir, workspaceRoot, configuration) {
+  if (!usesStaticDictionaryProvider(configuration.course)) return;
+  const courseRoot = join(outputDir, configuration.course.routePrefix.slice(1));
+  const { manifest: wordWorldManifest, recordsPath } = assertWordWorldRuntimeBoundary(outputDir, configuration.course.routePrefix);
   const corpus = JSON.parse(readText(recordsPath));
   const records = assertStaticCorpusMetadata(corpus, wordWorldManifest);
   assert.equal(wordWorldManifest.mode, "standard");
   assert.equal(sha256File(recordsPath), wordWorldManifest.contentSha256);
-  const supplement = JSON.parse(readText(join(outputDir, "cz/data/games/word-world/static-dictionary.v1.json")));
+  const supplement = JSON.parse(readText(join(courseRoot, "data/games/word-world/static-dictionary.v1.json")));
   const dictionaryManifest = JSON.parse(readSafeText(
-    join(workspaceRoot, "apps/languages/czech/static/data/dictionaries/kaikki-cs-en-2026-07-09/manifest.json"),
-    join(workspaceRoot, "apps/languages/czech/static")
+    join(configuration.languageStaticDir, "data/dictionaries/kaikki-cs-en-2026-07-09/manifest.json"),
+    configuration.languageStaticDir
   ));
   assert.equal(supplement.schema_name, "caatuu-static-word-world-dictionary");
   assert.equal(supplement.schema_version, 1);
@@ -1458,7 +1543,7 @@ function assertGameBoundary(outputDir, workspaceRoot) {
       `Static dictionary supplement cannot resolve claimed Word World surface: ${surface}`
     );
   }
-  assert.ok(existsSync(join(outputDir, "cz/data/dictionaries/ATTRIBUTION.md")));
+  assert.ok(existsSync(join(courseRoot, "data/dictionaries/ATTRIBUTION.md")));
   const wordWorld = readText(join(outputDir, "language-runtime/static/source/product-word-world.mjs"));
   assert.match(wordWorld, /contentMode: "standard"/u);
   assert.match(wordWorld, /DICTIONARY_GAP_NOTICE_ID = "wordworld\.dictionary\.missingqueued"/u);
@@ -1468,13 +1553,13 @@ function assertGameBoundary(outputDir, workspaceRoot) {
   )));
   assert.equal(JSON.parse(readText(join(outputDir, "language-runtime/static/data/interface/en.v1.json"))).messages["wordworld.dictionary.missingqueued"],
     projectedInterface.messages["wordworld.dictionary.missingqueued"]);
-  const courseProfile = readText(join(outputDir, "cz/source/shared/course-profile.js"));
+  const courseProfile = readText(join(courseRoot, "source/shared/course-profile.js"));
   assert.match(courseProfile, /embeddings:\s*false/u);
   assert.match(courseProfile, /semanticSearch:\s*false/u);
   assert.doesNotMatch(courseProfile, /\b(?:skillCompass|semanticLearningProvider)\s*:/u,
     "Stats definitions and providers belong to the shared runtime");
   assert.doesNotMatch(courseProfile, /\/android\//u);
-  const runtime = readText(join(outputDir, "cz/source/shared/runtime.js"));
+  const runtime = readText(join(courseRoot, "source/shared/runtime.js"));
   assert.match(runtime, /runtime: "static-keymap-only"/u);
   assert.match(runtime, /results: \[\]/u);
   assert.match(runtime, /dictionary:\s*\{/u);
@@ -1486,20 +1571,23 @@ function assertGameBoundary(outputDir, workspaceRoot) {
 
 export function validateStaticSite({
   workspaceRoot = defaultWorkspaceRoot,
-  outputDir = defaultOutputDir
+  outputDir = defaultOutputDir,
+  languagePlan = loadPagesLanguagePlan({ workspaceRoot }),
 } = {}) {
   const resolvedWorkspace = resolve(workspaceRoot);
   const resolvedOutput = resolve(outputDir);
   assertSafeOutputDirectory(resolvedOutput, resolvedWorkspace);
   assert.ok(existsSync(resolvedOutput), `Static output does not exist: ${resolvedOutput}`);
   const files = allFiles(resolvedOutput);
-  const setupManifest = JSON.parse(readText(join(resolvedOutput, "cz/setup-assets.json")));
+  const configuration = staticCourseConfiguration(resolvedWorkspace, languagePlan);
+  const courseRoot = join(resolvedOutput, configuration.course.routePrefix.slice(1));
+  const setupManifest = JSON.parse(readText(join(courseRoot, "setup-assets.json")));
   assert.deepEqual(
     setupManifest,
-    expectedStaticSetupManifest(resolvedWorkspace),
+    expectedStaticSetupManifest(resolvedWorkspace, configuration),
     "Static setup manifest must derive exactly from the authoritative source manifest"
   );
-  assert.deepEqual(files, expectedFiles(resolvedWorkspace, setupManifest), "Static output must equal the exact reviewed file set");
+  assert.deepEqual(files, expectedFiles(resolvedWorkspace, setupManifest, configuration), "Static output must equal the exact reviewed file set");
   const caseFolded = files.map((path) => path.toLocaleLowerCase("en-US"));
   assert.equal(new Set(caseFolded).size, caseFolded.length, "Static output contains a case-insensitive path collision");
   const totalBytes = files.reduce((sum, path) => {
@@ -1511,17 +1599,17 @@ export function validateStaticSite({
 
   assertNoServerOrModelBoundary(resolvedOutput, files);
   assertSetupManifest(resolvedOutput, setupManifest);
-  assertServiceWorker(resolvedOutput, setupManifest);
+  assertServiceWorker(resolvedOutput, setupManifest, configuration);
   const coreRegistry = JSON.parse(readText(join(resolvedOutput, "languages.json")));
   assertStaticNetworkBoundary(resolvedOutput, files, {
     deferredCourseEntries: coreRegistry.browserSetup.courses.map(({ entryPath }) => entryPath),
   });
-  assertGameBoundary(resolvedOutput, resolvedWorkspace);
-  assertBundleManifest(resolvedOutput, setupManifest);
+  assertGameBoundary(resolvedOutput, resolvedWorkspace, configuration);
+  assertBundleManifest(resolvedOutput, setupManifest, configuration);
 
-  const profile = JSON.parse(readText(join(resolvedOutput, "cz/caatuu-profile.json")));
-  assert.deepEqual(profile, webProfile);
-  const course = readText(join(resolvedOutput, "cz/source/shared/course-profile.js"));
+  const profile = JSON.parse(readText(join(courseRoot, "caatuu-profile.json")));
+  assert.deepEqual(profile, { ...webProfile, capabilities: { ...webProfile.capabilities, dictionary: usesStaticDictionaryProvider(configuration.course) } });
+  const course = readText(join(courseRoot, "source/shared/course-profile.js"));
   assert.match(course, /chat: false/u);
   assert.match(course, /embeddings: false/u);
   assert.match(course, /offlineModels: false/u);
@@ -1529,17 +1617,17 @@ export function validateStaticSite({
   assert.doesNotMatch(course, /\b(?:skillCompass|semanticLearningProvider)\s*:/u,
     "Static course profiles must not restore course-specific Stats configuration");
   const registry = JSON.parse(readText(join(resolvedOutput, "languages.json")));
-  const czech = registry.languages.find((language) => language.id === "cz");
-  assert.ok(czech?.platforms?.browser?.enabled);
-  assert.equal(czech?.platforms?.android?.enabled, false);
-  assert.deepEqual(czech?.platforms?.android?.channels, []);
+  const selectedCourse = registry.languages.find((language) => language.id === configuration.course.id);
+  assert.ok(selectedCourse?.platforms?.browser?.enabled);
+  assert.equal(selectedCourse?.platforms?.android?.enabled, false);
+  assert.deepEqual(selectedCourse?.platforms?.android?.channels, []);
   for (const unavailableCapability of ["embeddings", "semanticSearch", "skillCompass"]) {
-    assert.ok(!czech.capabilities.includes(unavailableCapability), `static languages.json must omit ${unavailableCapability}`);
+    assert.ok(!selectedCourse.capabilities.includes(unavailableCapability), `static languages.json must omit ${unavailableCapability}`);
   }
   for (const [label, reference] of [
-    ["flagSrc", czech.flagSrc],
-    ["entryPath", czech.entryPath],
-    ["browser entryPath", czech.platforms.browser.entryPath]
+    ["flagSrc", selectedCourse.flagSrc],
+    ["entryPath", selectedCourse.entryPath],
+    ["browser entryPath", selectedCourse.platforms.browser.entryPath]
   ]) {
     assert.equal(
       referenceDisposition("languages.json", reference, `language ${label}`),
@@ -1565,17 +1653,18 @@ export function validateStaticSite({
 
 export function compileStaticSite({
   workspaceRoot = defaultWorkspaceRoot,
-  outputDir = defaultOutputDir
+  outputDir = defaultOutputDir,
+  languagePlan = loadPagesLanguagePlan({ workspaceRoot }),
 } = {}) {
   const resolvedWorkspace = resolve(workspaceRoot);
   const resolvedOutput = resolve(outputDir);
   assertSafeOutputDirectory(resolvedOutput, resolvedWorkspace);
-  const languageStaticDir = join(resolvedWorkspace, "apps/languages/czech/static");
+  const courseConfiguration = staticCourseConfiguration(resolvedWorkspace, languagePlan);
+  const languageStaticDir = courseConfiguration.languageStaticDir;
   const launcherStaticDir = join(resolvedWorkspace, "apps/launcher/static");
-  assert.ok(existsSync(languageStaticDir), `Czech source is missing: ${languageStaticDir}`);
+  assert.ok(existsSync(languageStaticDir), `Course source is missing: ${languageStaticDir}`);
   assert.ok(existsSync(launcherStaticDir), `Launcher source is missing: ${launcherStaticDir}`);
-  assertStaticCompilerSources(languageStaticDir, launcherStaticDir);
-  const courseConfiguration = loadAndroidCourseConfiguration({ workspaceRoot: resolvedWorkspace });
+  assertStaticCompilerSources(languageStaticDir, launcherStaticDir, courseConfiguration);
 
   const productTempRoot = mkdtempSync(join(tmpdir(), "caatuu-web-product-"));
   const productDir = join(productTempRoot, "product");
@@ -1586,23 +1675,43 @@ export function compileStaticSite({
   try {
     compileProductAssets({
       deliveryMode: "full",
+      platform: "browser",
+      courseManifestPath: courseConfiguration.courseManifestPath,
       workspaceRoot: resolvedWorkspace,
       languageStaticDir,
       launcherStaticDir,
       outputDir: productDir
     });
     copyProductOutput(productDir, stagingDir, courseConfiguration);
-    transformProductOutput(resolvedWorkspace, stagingDir);
-    copyLauncherSurface(resolvedWorkspace, stagingDir);
-    const setupManifest = copyPublishedAssets(resolvedWorkspace, stagingDir);
-    const { cacheDigest } = generateServiceWorker(stagingDir, setupManifest);
-    generateBundleManifest(stagingDir, setupManifest, cacheDigest);
-    const staged = validateStaticSite({ workspaceRoot: resolvedWorkspace, outputDir: stagingDir });
+    transformProductOutput(resolvedWorkspace, stagingDir, courseConfiguration, { languagePlan });
+    copyLauncherSurface(resolvedWorkspace, stagingDir, languagePlan);
+    const setupManifest = copyPublishedAssets(resolvedWorkspace, stagingDir, courseConfiguration);
+    const { cacheDigest } = generateServiceWorker(stagingDir, setupManifest, courseConfiguration);
+    generateBundleManifest(stagingDir, setupManifest, cacheDigest, courseConfiguration);
+    const staged = validateStaticSite({ workspaceRoot: resolvedWorkspace, outputDir: stagingDir, languagePlan });
     replaceGeneratedOutput(stagingDir, resolvedOutput, resolvedWorkspace);
     return { ...staged, outputDir: resolvedOutput };
   } finally {
     rmSync(productTempRoot, { recursive: true, force: true });
     rmSync(stagingDir, { recursive: true, force: true });
+  }
+}
+
+export function stageStaticDictionaryCourse({ workspaceRoot, siteDir, course }) {
+  const configuration = loadAndroidCourseConfiguration({
+    workspaceRoot, courseManifestPath: course.manifestPath, platform: "browser",
+  });
+  assert.ok(usesStaticDictionaryProvider(configuration.course), "Static dictionary projection requires its declared provider");
+  const temporaryRoot = mkdtempSync(join(tmpdir(), "caatuu-static-provider-"));
+  try {
+    const productDir = join(temporaryRoot, "product");
+    compileProductAssets({ workspaceRoot, courseManifestPath: course.manifestPath,
+      platform: "browser", outputDir: productDir });
+    copyProductOutput(productDir, siteDir, configuration, { shared: false });
+    transformProductOutput(workspaceRoot, siteDir, configuration, { shared: false });
+    writeJson(join(siteDir, course.setupPath.slice(1)), expectedStaticSetupManifest(workspaceRoot, configuration));
+  } finally {
+    rmSync(temporaryRoot, { recursive: true, force: true });
   }
 }
 

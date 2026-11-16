@@ -1,16 +1,18 @@
 # English → Russian
 
-The first Russian course is a local browser development preview at
-[`/ru/`](http://127.0.0.1:8765/ru/). It teaches Russian, labelled **русский**,
+The first Russian course is a released public course at
+[`/ru/`](https://caatuu.waajacu.com/ru/). It teaches Russian, labelled **русский**,
 to English speakers through the shared application and game engines. The
 course ID is `ru`, the script is `Cyrl`, speech uses `ru-RU`, and storage
 and cache names start with `caatuu-ru`. The interface catalog is English.
 
-The course is `development`. The browser is on, and the public website lists
-it as a `noindex` preview. Android stays off, so the APK does not pick the
-course up and `apps/android/course-bundle.json` does not list it. License
-status is `release-review-required`. Native review is `native-review-required`.
-This course does not have the 2026-10-04 owner approval that cleared Georgian.
+The course manifest status is `active`, the same as every other released course.
+The browser is on, and the public website lists it as a released, indexable
+course. Android is on in the source bundle from version 204, so
+`apps/android/course-bundle.json` includes it. The published Android 203
+package does not install it. The 11 November 2026 owner approval cleared the
+first-party license for distribution under `AGPL-3.0-only`. Pronunciation
+guides stay off.
 
 ## Games
 
@@ -96,7 +98,5 @@ English meanings differ. Conjugation forms are authored, not generated. The
 imperfective future is быть plus the infinitive. One perfective future board
 is прочитать. Present "to be" is not given a six-slot board.
 
-Memory Moon's content file records `spdxExpression` `AGPL-3.0-only` because
-the content validator requires that project license expression. That
-expression is not a release clearance. Independent native review is still
-required for every bank.
+Memory Moon's content file records the project license expression
+`AGPL-3.0-only`.

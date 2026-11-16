@@ -17,7 +17,7 @@ test('Bokmål course declares only applicable games and separate English learner
   assert.equal(course.targetLanguage.speechLocale, 'nb-NO');
   assert.equal(course.publication.runtimeProjection.policyId, 'norwegian-bokmal-word-world-v1');
   assert.deepEqual(new Set(course.games), new Set(['verb-lab', 'word-net', 'conjugation-comet', 'grammar-gravity', 'sound-quasar', 'memory-moon']));
-  assert.equal(course.status, 'development');
+  assert.equal(course.status, 'active');
   assert.equal(course.capabilities.pronunciationGuides, false);
 });
 

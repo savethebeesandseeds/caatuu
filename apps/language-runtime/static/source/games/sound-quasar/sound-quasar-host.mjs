@@ -1,4 +1,4 @@
-import { readEmbeddedCourseProfile, fetchDeclaredCourseGameJson } from "../course-game-content.mjs?v=course-game-content-1";
+import { readEmbeddedCourseProfile, fetchDeclaredCourseGameJson, reportEmbeddedGameStatus } from "../course-game-content.mjs?v=course-game-content-1";
 import { validateSoundQuasarCatalog, createSoundQuasarSession, evaluateSoundQuasarChoice, soundQuasarItemsForDifficulty } from "./sound-quasar-core.mjs?v=sound-quasar-13";
 import { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen } from "../embedded-game-controls.mjs?v=embedded-game-controls-11";
 import { appendTargetToneText } from "../../target-text-tones.mjs?v=target-text-tones-1";
@@ -412,8 +412,18 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
       }
     }
   }
+  function currentGeneration(generation = state.contentGeneration) {
+    return generation === state.contentGeneration
+      && generation === (shell.CaatuuLearning?.contentGeneration?.() ?? null);
+  }
+  function ensureCurrentSession() {
+    if (currentGeneration()) return true;
+    startSession();
+    return false;
+  }
   function choose(choiceId) {
-    if (!canChoose() || state.missed.has(choiceId)) return;
+    if (!canChoose() || state.missed.has(choiceId) || !ensureCurrentSession()) return;
+    const generation = state.contentGeneration;
     const round = current();
     const button = node("quasarChoices").querySelector(`[data-choice-id="${choiceId}"]`);
     if (!button) return;
@@ -438,7 +448,9 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
       generation: state.contentGeneration,
       evidence, correct
     });
-    shell.CaatuuLearning?.record?.(GAME_ID, { activities: 1, attempts: 1, successes: correct ? 1 : 0, xp: correct ? 1 : 0 });
+    if (!currentGeneration(generation)) return;
+    shell.CaatuuLearning?.record?.(GAME_ID, { activities: 1, attempts: 1, successes: correct ? 1 : 0, xp: correct ? 1 : 0,
+      ...(shell.CaatuuLearning.contentGeneration ? { generation } : {}) });
     syncButtons();
   }
   function skip() {
@@ -475,7 +487,8 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
     node("quasarListen").focus();
   }
   function next() {
-    if (!canAdvance()) return;
+    if (!canAdvance() || !ensureCurrentSession()) return;
+    const generation = state.contentGeneration;
     state.resolved = false;
     state.skipped = false;
     review.clear();
@@ -488,7 +501,9 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
       return;
     }
     state.finished = true;
-    if (state.sessionCorrect > 0) shell.CaatuuLearning?.record?.(GAME_ID, { rounds: 1, streakEligible: true });
+    if (state.sessionCorrect > 0) shell.CaatuuLearning?.record?.(GAME_ID, { rounds: 1, streakEligible: true,
+      ...(shell.CaatuuLearning.contentGeneration ? { generation } : {}) });
+    if (!currentGeneration(generation)) return;
     node("quasarPlayArea").hidden = true;
     node("quasarResult").hidden = true;
     transitionScreen.show();
@@ -627,7 +642,7 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
   });
   listen(node("quasarRetryAudio"), "click", () => { void checkAudio(); });
   listen(shell, "caatuu:learning-change", (event) => {
-    if (event.detail?.reason !== "difficulty" || state.destroyed) return;
+    if (!["difficulty", "progress-reset"].includes(event.detail?.reason) || state.destroyed) return;
     applyDifficultySettings();
     if (!catalog) return;
     controls.close();
@@ -690,10 +705,12 @@ export async function mountSharedSoundQuasar({ scope = globalThis, fetchImpl = g
   loadingScreen.hide();
   node("quasarRoot").setAttribute("aria-busy", "false");
   void checkAudio();
+  reportEmbeddedGameStatus(scope, GAME_ID, state.rounds.length ? "ready" : "error");
   return Object.freeze({ destroy });
 }
 
 function showError(error) {
+  reportEmbeddedGameStatus(globalThis, GAME_ID, "error");
   const doc = globalThis.document;
   doc.getElementById("quasarRoot").setAttribute("aria-busy", "false");
   doc.getElementById("quasarLoading").hidden = true;

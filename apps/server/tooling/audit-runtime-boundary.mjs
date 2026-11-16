@@ -9,6 +9,7 @@ import { basename, dirname, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { isDeepStrictEqual } from "node:util";
 
+import { providerReferenceAsset } from "../../android/tooling/validate-product-package.mjs";
 import { verifyEmbeddingRuntimeAssets } from "../../language-runtime/tooling/verify-embedding-runtime.mjs";
 import {
   loadAndroidCourseBundleCatalogPlan,
@@ -479,10 +480,11 @@ async function auditHttpRoutes(validatedLanguageCatalog) {
     assert(page.status === 200, `${path} should return 200, got ${page.status}`);
     assert(page.body === czechHome.body, `${path} should serve byte-identical canonical app HTML`);
   }
-  assert(czechHome.body.includes("<title>Caatuu</title>"), "the canonical app should serve the shared Caatuu title");
+  assert(czechHome.body.includes("<title>Caatuu · Free language learning</title>"), "the canonical app should serve the shared Caatuu title");
+  assert(czechHome.body.includes('name="robots" content="index, follow"'), "the canonical app should be indexable");
   assert(!czechHome.body.includes("archive/chinese"), "the canonical app should not include archive links");
-  assert(mandarinHome.headers["x-robots-tag"] === "noindex, nofollow", "Mandarin development routes must remain noindex");
-  assert(mandarinIndex.headers["x-robots-tag"] === "noindex, nofollow", "Mandarin development index must remain noindex");
+  assert(mandarinHome.headers["x-robots-tag"] == null, "released course routes must not send noindex");
+  assert(mandarinIndex.headers["x-robots-tag"] == null, "released course indexes must not send noindex");
   const czechWordWorldCompatibility = await request("/cz/word-net.html");
   assert(czechWordWorldCompatibility.status === 200, "the retired Czech Word World URL should remain a compatibility document");
   assert(czechWordWorldCompatibility.body.includes('url=index.html?game=word-net'), "the retired Czech Word World URL should enter the canonical game route");
@@ -561,7 +563,7 @@ async function auditHttpRoutes(validatedLanguageCatalog) {
   ]) {
     assert(response.status === 200, `${label} should return 200, got ${response.status}`);
   }
-  assert(appBootstrap.body.includes('robots.content = "noindex, nofollow"'), "the shared bootstrap should apply the development noindex gate");
+  assert(!appBootstrap.body.includes('robots.content = "noindex, nofollow"'), "the shared bootstrap should leave released course routes indexable");
   assert(appBootstrap.body.includes("frame.dataset.src = typeof path === \"string\" ? path : \"\""), "the shared bootstrap should bind game routes from the course profile");
   assert(appBootstrap.body.includes('./interface-content.mjs?v=interface-runtime-2'), "the shared bootstrap should load the revisioned interface runtime");
   const interfaceLoadIndex = appBootstrap.body.indexOf("loadInterfaceContent(course)");
@@ -579,7 +581,7 @@ async function auditHttpRoutes(validatedLanguageCatalog) {
     assert(reference, `${importer} should load one revisioned shared ${target}`);
     return reference;
   }).filter(Boolean);
-  assert(mandarinProfile.body.includes('status: "development"'), "the Mandarin profile should declare its development status");
+  assert(mandarinProfile.body.includes('status: "active"'), "the Mandarin profile should declare the same active status as the other released courses");
   assert(mandarinProfile.body.includes('wordWorld: "index.html?game=word-net"'), "the Mandarin profile should route Word World through the canonical app");
   const mandarinWordWorldManifest = parseHttpJson(mandarinWordWorldManifestResponse, "Mandarin Word World manifest");
   assert(mandarinWordWorldManifest?.mode === "authored", "Mandarin Word World should use authored target content");
@@ -857,7 +859,7 @@ export function unzipBuffer(archive, entry, execute = execFileSync) {
   }
 }
 
-export function productApkAuditPlan(profile) {
+export function productApkAuditPlan(profile, { readAsset } = {}) {
   const bundledCourses = Array.isArray(profile?.courses) ? profile.courses : null;
   if (bundledCourses) {
     const requiredEntries = [
@@ -892,7 +894,6 @@ export function productApkAuditPlan(profile) {
         requiredEntries.push(`assets/${embeddingProvider.catalogAsset}`);
         if (embeddingProvider.implementation === "vector-database-catalog-v1") {
           requiredEntries.push(
-            `assets/${prefix}/data/embeddings/all-minilm-l6-v2-qint8-v0.1/manifest.json`,
             `assets/${prefix}/source/shared/runtime.js`,
             `assets/${prefix}/source/shared/vector-db.js`,
             "assets/language-runtime/static/source/semantic-learning.js",
@@ -904,8 +905,16 @@ export function productApkAuditPlan(profile) {
       }
       if (course?.capabilities?.dictionary === true && dictionaryProvider?.catalogAsset) {
         requiredEntries.push(`assets/${dictionaryProvider.catalogAsset}`);
-        if (course.id === "cz") {
-          requiredEntries.push(`assets/${prefix}/data/dictionaries/kaikki-cs-en-2026-07-09/manifest.json`);
+      }
+      if (readAsset) {
+        for (const [provider, field] of [[embeddingProvider, "models"], [dictionaryProvider, "dictionaries"]]) {
+          if (!provider?.catalogAsset || !["vector-database-catalog-v1", "sqlite-dictionary-catalog-v1"].includes(provider.implementation)) continue;
+          const catalog = JSON.parse(readAsset(provider.catalogAsset).toString("utf8"));
+          const activeEntries = Array.isArray(catalog[field]) ? catalog[field].filter(entry => entry?.status === "active") : [];
+          if (activeEntries.length === 0) throw new Error(`Native provider catalog must declare active ${field}: ${provider.catalogAsset}`);
+          for (const active of activeEntries) {
+            requiredEntries.push(`assets/${providerReferenceAsset(provider.catalogAsset, active.manifest_file)}`);
+          }
         }
       }
       if (course?.capabilities?.wordWorldStandardOnly === true) {
@@ -913,12 +922,7 @@ export function productApkAuditPlan(profile) {
           `assets/${prefix}/source/games/word-world/word-net-standard.mjs`,
           `assets/${prefix}/data/games/word-world/manifest.json`,
         );
-        if (course.id === "cz") {
-          requiredEntries.push(`assets/${prefix}/data/games/word-world/content.json`);
-        }
-        if (course.id === "zh") {
-          requiredEntries.push(`assets/${prefix}/data/games/word-world/content.json`);
-        }
+        requiredEntries.push(`assets/${prefix}/data/games/word-world/content.json`);
       }
     }
     return Object.freeze({
@@ -1293,7 +1297,9 @@ function auditApk(androidPublicationPlan) {
     "assets/vendor/sql.js/sql-wasm.wasm",
     "assets/vendor/transformers/transformers.min.js"
   ];
-  const productPlan = productProfile ? productApkAuditPlan(packagedBundle ?? packagedProfile) : null;
+  const productPlan = productProfile ? productApkAuditPlan(packagedBundle ?? packagedProfile, {
+    readAsset: (path) => unzipBuffer(apkRel, `assets/${path}`),
+  }) : null;
   const requiredEntries = productPlan?.requiredEntries ?? legacyRequiredEntries;
   for (const entry of requiredEntries) {
     assert(entrySet.has(entry), `APK is missing ${entry}`);
@@ -1303,7 +1309,6 @@ function auditApk(androidPublicationPlan) {
     assert([1, 2].includes(Number(packagedProfile.schemaVersion)), `APK product profile schema should be 1 or 2, got ${packagedProfile.schemaVersion}`);
     if (packagedBundle) {
       assert(packagedBundle.schemaVersion === 1, `APK product course bundle schema should be 1, got ${packagedBundle.schemaVersion}`);
-      assert(androidPublicationPlan?.defaultCourseId === "cz", "authoritative Android publication plan should retain Czech as the default course");
       const androidCourseCoverage = androidCourseBundleCoverage(packagedBundle, androidPublicationPlan);
       assert(
         androidCourseCoverage.defaultMatches,

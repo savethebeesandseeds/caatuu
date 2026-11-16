@@ -6,7 +6,8 @@ import {
 } from "./grammar-gravity-core.mjs?v=grammar-gravity-core-10";
 import {
   fetchDeclaredCourseGameJson,
-  readEmbeddedCourseProfile
+  readEmbeddedCourseProfile,
+  reportEmbeddedGameStatus
 } from "../course-game-content.mjs?v=course-game-content-1";
 import { mountNounLanding } from "./noun-landing-host.mjs?v=noun-landing-host-33";
 import { mountGrammarFlight } from "./adjective-flight-host.mjs?v=adjective-flight-host-28";
@@ -87,8 +88,13 @@ function learningDifficulty() {
   return Number.isInteger(value) && value >= 0 && value <= 3 ? value : 1;
 }
 
-function recordLearning(delta) {
-  state.shell?.CaatuuLearning?.record?.(GAME_ID, delta);
+function recordLearning(delta, generation = state.contentGeneration) {
+  const learning = state.shell?.CaatuuLearning;
+  learning?.record?.(GAME_ID, { ...delta, ...(learning.contentGeneration ? { generation } : {}) });
+}
+function currentGeneration(generation = state.contentGeneration) {
+  return generation === state.contentGeneration
+    && generation === (state.shell?.CaatuuLearning?.contentGeneration?.() ?? null);
 }
 
 function announceRoundSuccess(round) {
@@ -283,7 +289,7 @@ function bindShellMessages() {
 
 function bindUi() {
   listen(state.shell, "caatuu:learning-change", (event) => {
-    if (event.detail?.reason !== "difficulty" || !state.pack || state.phase === "error") return;
+    if (!["difficulty", "progress-reset"].includes(event.detail?.reason) || !state.pack || state.phase === "error") return;
     const destination = state.mode;
     configureDifficulty();
     if (destination === "phrases") enterMode("phrases", playingFocus());
@@ -425,6 +431,7 @@ function configurePackPresentation() {
 }
 
 function showError(error) {
+
   console.error("Grammar Gravity failed", error);
   state.error = state.pack?.presentation?.errorDetail || state.shell?.CaatuuI18n?.t("games.grammargravity.unavailable") || "Grammar Gravity is unavailable.";
   state.phase = "error";
@@ -433,6 +440,7 @@ function showError(error) {
   selectMode(state.practiceMode === "nouns" && state.nounGame?.ready() ? "nouns" : "phrases");
   syncPracticeChoices();
   render();
+  reportEmbeddedGameStatus(globalThis, GAME_ID, state.mode === "nouns" && state.nounGame?.ready() ? "ready" : "error");
 }
 
 export async function mountGrammarGravity() {
@@ -457,15 +465,21 @@ export async function mountGrammarGravity() {
     readingGuide: state.readingGuide,
     copy: (key, values) => state.shell.CaatuuI18n.t(`games.grammargravity.journey.${key}`, values),
     onAttempt({ correct, answerCorrect, evidence = "exposure" }) {
+      if (!currentGeneration()) { configureDifficulty(); enterMode("phrases"); return; }
+      const generation = state.contentGeneration;
       state.shell.CaatuuLearning?.recordExposure?.(GAME_ID, {
         bankId: `phrases-${state.practiceMode}`, itemId: currentRound().id, encounterId: state.encounterId,
         generation: state.contentGeneration, correct: answerCorrect ?? correct, evidence
       });
-      recordLearning({ activities: 1, attempts: 1, successes: correct ? 1 : 0, xp: correct ? 1 : 0 });
+      if (!currentGeneration(generation)) return;
+      recordLearning({ activities: 1, attempts: 1, successes: correct ? 1 : 0, xp: correct ? 1 : 0 }, generation);
     },
     onComplete({ correctCount, total }) {
+      if (!currentGeneration()) { configureDifficulty(); enterMode("phrases"); return; }
+      const generation = state.contentGeneration;
       state.phase = "complete";
-      recordLearning({ rounds: 1, xp: correctCount === total ? 1 : 0 });
+      recordLearning({ rounds: 1, xp: correctCount === total ? 1 : 0 }, generation);
+      if (!currentGeneration(generation)) return;
       if (correctCount === total) announceRoundSuccess(currentRound());
       if (state.shell.document.body?.dataset.campaignActive !== "true" || correctCount !== total) nextRound();
     }
@@ -511,6 +525,7 @@ export async function mountGrammarGravity() {
     if (choice?.input.disabled) throw new Error(`Unavailable Grammar Gravity mode: ${requestedPractice}`);
     syncPracticeChoices();
     if (requestedPractice !== "nouns") enterMode("phrases");
+    reportEmbeddedGameStatus(globalThis, GAME_ID, "ready");
     render();
   } catch (error) {
     if (!state.destroyed) showError(error);

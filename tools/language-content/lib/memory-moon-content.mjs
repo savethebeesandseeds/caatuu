@@ -14,6 +14,9 @@ const nonempty = value => typeof value === 'string' && value.trim().length > 0;
 const normalized = value => String(value ?? '').normalize('NFC').toLocaleLowerCase('en')
   .replace(/[\p{P}\p{Z}\s]+/gu, ' ').trim();
 const englishBase = locale => /^en(?:-|$)/u.test(locale || '');
+// Spanish and English share this complete reply. Identical spelling is not a
+// missing translation here; ordinary copied English sentences remain invalid.
+const sharedEnglishReply = (locale, value) => /^es(?:-|$)/u.test(locale || '') && normalized(value) === 'no';
 const idPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/u;
 const kindSet = new Set(MEMORY_MOON_CONTRAST_KINDS);
 const english = value => nonempty(value) && !/[\p{Script=Arabic}\p{Script=Han}\p{Script=Georgian}\p{Script=Cyrillic}\p{Script=Devanagari}]/u.test(value);
@@ -54,7 +57,16 @@ export function validateMemoryMoonContent(document, { course } = {}) {
   for (const [index, item] of challenges.entries()) {
     const where = `challenges[${index}] (${item?.id || 'missing ID'})`;
     if (!item || typeof item !== 'object' || Array.isArray(item)) { check(false, where, 'must be an object'); continue; }
+    if (item.reviewStatus === 'untranslated') {
+      check(idPattern.test(item.id || '') && item.id.startsWith(`mm-${document.courseId}-`) && !ids.has(item.id), `${where}.id`, 'must be a unique course-scoped stable ID');
+      check(/^sb\.memory-moon\.\d{6}$/u.test(item.semanticBankId || ''), `${where}.semanticBankId`, 'must point at a Memory Moon bank row');
+      check(english(item.englishText) && item.embeddingText === item.englishText, `${where}.englishText`, 'must contain the bank English line');
+      check(levels.has(item.difficulty), `${where}.difficulty`, 'must be one of 0, 1, 2, 3');
+      ids.add(item.id);
+      continue;
+    }
     const mandarin = /^zh(?:-|$)/u.test(document.targetLanguage);
+    if (Object.hasOwn(item, 'semanticBankId')) check(/^sb\.memory-moon\.\d{6}$/u.test(item.semanticBankId || ''), `${where}.semanticBankId`, 'must point at a Memory Moon bank row');
     check(item.targetReading === undefined || mandarin, `${where}.targetReading`, 'pinyin belongs only to Mandarin content');
     try { validateMoonTargetReading(item.targetReading, item.targetText, { required: mandarin }); }
     catch (failure) { check(false, `${where}.targetReading`, failure.message); }
@@ -93,7 +105,8 @@ export function validateMemoryMoonContent(document, { course } = {}) {
       check(!audit.has(normalized(choice.englishAuditText)), `${at}.englishAuditText`, 'duplicates another choice meaning');
       visible.add(normalized(choice.text)); audit.add(normalized(choice.englishAuditText));
       if (englishBase(document.learnerBaseLanguage)) check(choice.text === choice.englishAuditText, `${at}.text`, 'must use the declared English learner base');
-      else check(normalized(choice.text) !== normalized(choice.englishAuditText), `${at}.text`, 'must retain its non-English learner-base realization');
+      else check(normalized(choice.text) !== normalized(choice.englishAuditText)
+        || sharedEnglishReply(document.learnerBaseLanguage, choice.englishAuditText), `${at}.text`, 'must retain its non-English learner-base realization');
       if (choice.id !== item.correctChoiceId) {
         check(kindSet.has(choice.contrast?.kind), `${at}.contrast.kind`, 'must declare the changed meaning');
         check(english(choice.contrast?.explanation), `${at}.contrast.explanation`, 'must explain why this is not the translation');
@@ -103,23 +116,27 @@ export function validateMemoryMoonContent(document, { course } = {}) {
     check(correct && correct.text === item.learnerBaseText && correct.englishAuditText === item.englishText,
       `${where}.correctChoiceId`, 'must select the authored learner-base translation and English meaning');
     if (englishBase(document.learnerBaseLanguage)) check(item.learnerBaseText === item.englishText, `${where}.learnerBaseText`, 'must equal the English translation');
-    else check(normalized(item.learnerBaseText) !== normalized(item.englishText), `${where}.learnerBaseText`, 'must retain the non-English learner-base realization');
+    else check(normalized(item.learnerBaseText) !== normalized(item.englishText)
+      || sharedEnglishReply(document.learnerBaseLanguage, item.englishText), `${where}.learnerBaseText`, 'must retain the non-English learner-base realization');
     if (englishBase(document.targetLanguage)) check(item.targetText === item.englishText, `${where}.targetText`, 'must equal the English target meaning');
     check(!Object.hasOwn(item, 'sourceReference'), where, 'must own its learning content rather than depend on another game');
   }
-  for (const [level, count] of levels) check(count >= 6, `difficulty ${level}`, 'needs at least six distinct questions to fill a moon');
+  const translated = challenges.filter(item => item?.reviewStatus !== 'untranslated');
+  if (translated.length) for (const [level, count] of levels) check(count >= 6, `difficulty ${level}`, 'needs at least six distinct questions to fill a moon');
   if (issues.length) throw new Error(`Invalid Memory Moon content:\n${issues.join('\n')}`);
   return document;
 }
 
 export function memoryMoonContentSummary(document) {
   validateMemoryMoonContent(document);
-  return { courseId: document.courseId, challenges: document.challenges.length,
-    choices: document.challenges.reduce((sum, item) => sum + item.choices.length, 0),
-    difficulty: Object.fromEntries([0, 1, 2, 3].map(level => [level, document.challenges.filter(item => item.difficulty === level).length])),
-    topics: [...new Set(document.challenges.map(item => item.topic))].sort(),
-    families: new Set(document.challenges.map(item => item.familyId)).size,
-    contrasts: [...new Set(document.challenges.map(item => item.focus.kind))].sort(),
+  const authored = document.challenges.filter(item => item.reviewStatus !== 'untranslated');
+  return { courseId: document.courseId, challenges: authored.length,
+    untranslated: document.challenges.length - authored.length,
+    choices: authored.reduce((sum, item) => sum + item.choices.length, 0),
+    difficulty: Object.fromEntries([0, 1, 2, 3].map(level => [level, authored.filter(item => item.difficulty === level).length])),
+    topics: [...new Set(authored.map(item => item.topic))].sort(),
+    families: new Set(authored.map(item => item.familyId)).size,
+    contrasts: [...new Set(authored.map(item => item.focus.kind))].sort(),
     review: document.review.status };
 }
 

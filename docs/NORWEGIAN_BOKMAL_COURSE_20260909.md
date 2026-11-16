@@ -1,7 +1,7 @@
 # English → Norwegian Bokmål course
 
-This is the 9 September 2026 onboarding record. The course is now one of eight
-registered courses, with `noindex` Pages delivery and Android delivery from
+This is the 9 September 2026 onboarding record. The course is now one of the
+released public courses, with indexable Pages delivery and Android delivery from
 version 172. The public stable alias has since moved past the Android 172
 candidate described below.
 
@@ -9,8 +9,7 @@ Added on 2026-09-09 in the canonical checkout on `main`, following the user's
 explicit request to onboard Norwegian and adapt applicable games. The user
 selected Bokmål. The course is available locally at
 `http://127.0.0.1:8765/nb/index.html` and in the shared course picker. It is a
-development preview: AI review is recorded honestly, with native-speaker
-approval still outstanding. Licensing was pending at onboarding and was later
+released course. Licensing was pending at onboarding and was later
 approved by the owner for release preparation; see the
 [license receipt](CURRICULUM_LICENSE_APPROVAL_20260909.json). Onboarding itself
 did not build or publish an APK or deploy a public site.

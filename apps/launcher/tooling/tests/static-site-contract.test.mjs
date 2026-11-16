@@ -1,9 +1,12 @@
 import assert from "node:assert/strict";
-import { mkdtempSync, readFileSync, rmSync, statSync } from "node:fs";
+import fs, { mkdtempSync, readFileSync, rmSync, statSync } from "node:fs";
+import { syncBuiltinESMExports } from "node:module";
+import { fileURLToPath } from "node:url";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
 import test from "node:test";
 import { compileStaticSite, validateStaticSite } from "../build-static-site.mjs";
+import { createPagesLanguagePlan } from "../pages-language-plan.mjs";
 import { createInterfaceContent } from "../../../language-runtime/static/source/interface-content.mjs";
 
 test("static compiler closes the complete Pages payload", { timeout: 300_000 }, () => {
@@ -108,6 +111,50 @@ test("static compiler closes the complete Pages payload", { timeout: 300_000 }, 
       assert.ok(serviceWorker.includes(JSON.stringify(sharedAsset)), `${sharedAsset} must be available on the first offline return`);
     }
   } finally {
+    rmSync(temporaryRoot, { recursive: true, force: true });
+  }
+});
+
+
+test("static compiler uses a Spanish default without reading any Czech source", { timeout: 300_000 }, () => {
+  const workspaceRoot = fileURLToPath(new URL("../../../../", import.meta.url));
+  const catalog = JSON.parse(readFileSync(join(workspaceRoot, "apps/languages/catalog.json"), "utf8"));
+  catalog.defaultCourseId = "es";
+  catalog.courses = catalog.courses.filter(({ id }) => id !== "cz");
+  const courses = catalog.courses.map((entry) => ({
+    id: entry.id, manifestPath: entry.manifest,
+    course: JSON.parse(readFileSync(join(workspaceRoot, entry.manifest), "utf8")),
+  }));
+  const languagePlan = createPagesLanguagePlan({ catalog, courses });
+  const temporaryRoot = mkdtempSync(join(tmpdir(), "caatuu-static-without-czech-"));
+  const outputDir = join(temporaryRoot, "site");
+  const originalRead = fs.readFileSync;
+  let czechReadAttempts = 0;
+  fs.readFileSync = (path, ...options) => {
+    if (String(path).replaceAll(String.fromCharCode(92), "/").includes("/apps/languages/czech/")) {
+      czechReadAttempts += 1;
+      throw new Error("Czech is absent from this browser catalog");
+    }
+    return originalRead(path, ...options);
+  };
+  syncBuiltinESMExports();
+  try {
+    const built = compileStaticSite({ workspaceRoot, outputDir, languagePlan });
+    assert.equal(built.profile, "web-static-core");
+    const bundle = JSON.parse(readFileSync(join(outputDir, "caatuu-web-bundle.json"), "utf8"));
+    assert.deepEqual(bundle.entrypoints, ["/", "/es/", "/es/index.html"]);
+    assert.equal(bundle.files.some(({ path }) => path.startsWith("cz/")), false);
+    const registry = JSON.parse(readFileSync(join(outputDir, "languages.json"), "utf8"));
+    assert.equal(registry.defaultLanguage, "es");
+    assert.equal(registry.browserSetup.entryPath, "/es/index.html");
+    assert.equal(registry.languages.some(({ id }) => id === "cz"), false);
+    const index = readFileSync(join(outputDir, "index.html"), "utf8");
+    assert.equal(index.includes('href="/cz/'), false);
+    assert.ok(index.match(/<a[^>]*data-browser-entry[^>]*>/u)?.[0].includes('href="/es/index.html"'));
+    assert.equal(czechReadAttempts, 0);
+  } finally {
+    fs.readFileSync = originalRead;
+    syncBuiltinESMExports();
     rmSync(temporaryRoot, { recursive: true, force: true });
   }
 });

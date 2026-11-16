@@ -5,8 +5,8 @@ Created: 13 August 2026
 Target: Google Play, free `v0.1.0`
 Application ID: `com.waajacu.caatuu`
 
-This is the execution map for turning the current Caatuu development preview
-into its first governed Android release. It consolidates the product, content,
+This is the execution map for turning the current public Caatuu app
+into its first governed Android store release. It consolidates the product, content,
 technical, legal, privacy, business, store, and operational work that must be
 finished before publication.
 

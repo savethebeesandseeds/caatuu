@@ -4,7 +4,7 @@ import test from "node:test";
 import vm from "node:vm";
 
 const source = readFileSync(new URL("../static/source/product-word-world.mjs", import.meta.url), "utf8");
-const functions = ["speechGloballyMuted", "speechPresentationActive", "syncSpeechControl", "toggleCzechSpeech", "previewCurrentCzechSentenceFromAudioMenu", "maybeAutoplayCurrentSentence", "refreshAndroidSpeechStatus", "resumeSpeechControl", "initializeSpeechControl"];
+const functions = ["speechGloballyMuted", "speechPresentationActive", "syncSpeechControl", "toggleTargetSpeech", "previewCurrentTargetSentenceFromAudioMenu", "maybeAutoplayCurrentSentence", "refreshAndroidSpeechStatus", "resumeSpeechControl", "initializeSpeechControl"];
 const implementation = functions.map((name) => {
   let start = source.indexOf(`function ${name}(`);
   assert.ok(start >= 0, `${name} exists`);
@@ -48,7 +48,7 @@ function fixture({ native = false } = {}) {
       addEventListener: (name, callback) => listeners.set(name, callback)
     },
     $: (selector) => selector === "#wordNetPhraseSound" ? sentence : selector === "#wordNetSelectedWordSound" ? word : null,
-    czechSpeechPace: () => ({ label: "normal", source: "override", rate: 1 }),
+    targetSpeechPace: () => ({ label: "normal", source: "override", rate: 1 }),
     speechPaceLabel: () => "Normal",
     interfaceText: (key) => key,
     targetLanguageLabel: "Chinese",
@@ -63,12 +63,12 @@ function fixture({ native = false } = {}) {
     unavailableSpeechLabel: () => "unavailable",
     unavailableSpeechTitle: () => "unavailable",
     targetSentenceSpeechAllowed: () => true,
-    cancelCzechSpeech() {
+    cancelTargetSpeech() {
       counters.cancelled += 1;
       state.speechSession = null;
       state.speechState = "idle";
     },
-    speakCzechWithSharedService() { counters.spoken += 1; return true; }
+    speakTargetWithSharedService() { counters.spoken += 1; return true; }
   };
   vm.createContext(context);
   vm.runInContext(implementation, context);
@@ -129,8 +129,8 @@ test("unmuting preserves busy, unsupported, missing sentence, and dictionary gua
 test("global mute blocks programmatic playback and autoplay without consuming the next autoplay", () => {
   const game = fixture();
   game.setMuted(true);
-  game.context.toggleCzechSpeech("我", "word");
-  game.context.toggleCzechSpeech("我在这里。", "sentence");
+  game.context.toggleTargetSpeech("我", "word");
+  game.context.toggleTargetSpeech("我在这里。", "sentence");
   game.context.maybeAutoplayCurrentSentence();
   assert.equal(game.counters.spoken, 0);
   assert.equal(game.state.lastAutoplayFingerprint, "");
@@ -146,10 +146,10 @@ for (const hidden of ["inactive-game", "hidden-document", "pagehide"]) {
     if (hidden === "inactive-game") game.state.loadingActive = false;
     if (hidden === "hidden-document") game.context.document.visibilityState = "hidden";
     if (hidden === "pagehide") game.state.loadingPageHidden = true;
-    game.context.toggleCzechSpeech("我", "word");
+    game.context.toggleTargetSpeech("我", "word");
     game.context.maybeAutoplayCurrentSentence();
     game.context.maybeAutoplayCurrentSentence({ force: true });
-    game.context.previewCurrentCzechSentenceFromAudioMenu();
+    game.context.previewCurrentTargetSentenceFromAudioMenu();
     assert.equal(game.counters.spoken, 0);
     assert.equal(game.counters.cancelled, 0, "a late voice preview cannot stop the newly visible game's speech");
     assert.equal(game.state.lastAutoplayFingerprint, "", "hidden preparation must not consume visible autoplay");

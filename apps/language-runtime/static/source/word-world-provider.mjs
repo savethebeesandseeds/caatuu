@@ -29,18 +29,9 @@ const DEFAULT_ENGLISH_EMBEDDING_POLICY = Object.freeze({
 });
 const LEGACY_STANDARD_PROVIDER_MODULE = "source/games/word-world/word-net-standard.mjs";
 const SHARED_STANDARD_MEANING_SELECTOR = "/language-runtime/static/source/word-net-core.mjs";
-const DEFAULT_RENDERER_MODULE = "./product-word-world.mjs?v=shared-renderer-51";
+const DEFAULT_RENDERER_MODULE = "./product-word-world.mjs?v=shared-renderer-52";
 const STANDARD_USAGE_CAPACITY = 8192;
 const TARGET_TEXT_GUIDE_STATUSES = new Set(["machine-assisted-preview", "native-reviewed"]);
-const WORD_WORLD_GENERATION_IMPLEMENTATIONS = Object.freeze({
-  "czech-local-word-world-v1": Object.freeze({
-    id: "czech-local-word-world-v1",
-    targetLanguageTag: "cs-CZ",
-    auditLanguageTag: "en",
-    sentenceModelKey: "cstinyllama-1.2b-czech-word-sentence-001",
-    translationModelKey: "qwen3-1.7b-translation-cs-en-001"
-  })
-});
 const LEARNER_BASE_RUNTIME_SCHEMA =
   "https://caatuu.org/schemas/runtime/learner-base-realizations.runtime.v1.schema.json";
 const LEARNER_BASE_RUNTIME_KEYS = Object.freeze([
@@ -128,12 +119,17 @@ export function resolveWordWorldGenerationStrategy(course, manifest = {}) {
   }
   exactObjectKeys(declaration, [
     "id",
+    "module",
     "targetLanguageTag",
     "auditLanguageTag",
     "sentenceModelKey",
     "translationModelKey"
   ], "Word World generationStrategy");
   const id = String(declaration.id || "").trim();
+  const module = String(declaration.module || "");
+  if (!/^source\/(?:[a-z0-9-]+\/)+[a-z0-9-]+\.mjs\?v=[A-Za-z0-9._-]+$/u.test(module)) {
+    throw new Error("Word World generationStrategy.module must be a revisioned course-local source module.");
+  }
   const targetLanguageTag = canonicalLanguageTag(
     declaration.targetLanguageTag,
     "Word World generationStrategy.targetLanguageTag"
@@ -163,33 +159,45 @@ export function resolveWordWorldGenerationStrategy(course, manifest = {}) {
       throw new Error(`Word World generationStrategy.${field} must name a bounded model key.`);
     }
   }
-  const strategy = Object.freeze({
-    id,
-    targetLanguageTag,
-    auditLanguageTag,
-    sentenceModelKey,
-    translationModelKey
-  });
-  const implementation = Object.hasOwn(WORD_WORLD_GENERATION_IMPLEMENTATIONS, id)
-    ? WORD_WORLD_GENERATION_IMPLEMENTATIONS[id]
-    : null;
-  if (!implementation) {
-    throw new Error(`Word World generation strategy ${id} has no registered shared-runtime implementation.`);
+  return Object.freeze({ id, module, targetLanguageTag, auditLanguageTag, sentenceModelKey, translationModelKey });
+}
+
+export async function loadWordWorldGenerationProvider(course, strategy, options = {}) {
+  if (!strategy) return null;
+  strategy = resolveWordWorldGenerationStrategy(course, { generationStrategy: strategy });
+  const module = await (options.importModule || importModule)(routeUrl(course, strategy.module, options));
+  const provider = module?.wordWorldGenerationProvider;
+  if (!provider || provider.schemaVersion !== 1) {
+    throw new Error("Word World generation module must export a supported wordWorldGenerationProvider.");
   }
-  for (const field of [
-    "id",
-    "targetLanguageTag",
-    "auditLanguageTag",
-    "sentenceModelKey",
-    "translationModelKey"
-  ]) {
-    if (strategy[field] !== implementation[field]) {
-      throw new Error(
-        `Word World generationStrategy.${field} must exactly match the registered ${id} implementation.`
-      );
+  for (const field of ["id", "targetLanguageTag", "auditLanguageTag", "sentenceModelKey", "translationModelKey"]) {
+    if (provider[field] !== strategy[field]) {
+      throw new Error("Word World generation provider " + field + " does not match its course declaration.");
     }
   }
-  return strategy;
+  if (provider.learnerBaseLanguageTag !== course?.sourceLanguage?.locale) {
+    throw new Error("Word World generation provider learner base does not match the selected course.");
+  }
+  for (const method of ["sentencePrompt", "translationPrompt", "fallbackSentences", "fallbackMeaning",
+    "fallbackTranslation", "prepareSentence", "sentenceValid", "sentenceTargets"]) {
+    if (typeof provider[method] !== "function") throw new Error("Word World generation provider requires " + method + ".");
+  }
+  const words = (value, location, allowEmpty = false) => {
+    if (!Array.isArray(value) || (!allowEmpty && !value.length) || value.length > 1024
+        || value.some(word => typeof word !== "string" || !word.trim() || word.length > 200)) {
+      throw new Error("Word World generation provider needs bounded " + location + ".");
+    }
+    return Object.freeze([...value]);
+  };
+  const seedWords = words(provider.seedWords, "seedWords");
+  const stopWords = words(provider.stopWords, "stopWords", true);
+  for (const field of ["sentenceModelLabel", "translationModelLabel"]) {
+    if (typeof provider[field] !== "string" || !provider[field].trim()) {
+      throw new Error("Word World generation provider requires " + field + ".");
+    }
+  }
+  words(provider.fallbackSentences(seedWords[0]), "fallback sentences");
+  return Object.freeze({ ...provider, seedWords, stopWords });
 }
 
 function validReviewTimestamp(value) {
@@ -596,6 +604,7 @@ function standardTokens(adapter, record) {
 function adaptStandardRecord(adapter, record) {
   return Object.freeze({
     conceptId: record.id,
+    ...(record.semanticBankId ? { semanticBankId: record.semanticBankId } : {}),
     englishText: record.en,
     embeddingText: englishEmbeddingText(`${record.en}. ${record.sceneQuery || ""}`),
     sceneQuery: record.sceneQuery || record.en,
@@ -1044,6 +1053,13 @@ async function saveReport({ courseId, record, reason, comment }, runtime = globa
     sentence: record.target.text,
     translation: record.englishText,
     entryId: record.conceptId,
+    semanticBankId: record.semanticBankId || "",
+    contentId: record.id || record.conceptId || "",
+    flagTarget: reason === "wrong_translation" || reason === "unnatural_target_language" ? "translation"
+      : reason === "nonsense_or_incorrect" ? "content"
+        : reason === "repeated_too_soon" ? "play" : "",
+    englishAtFlag: record.englishText || "",
+    translationAtFlag: record.target?.text || "",
     contentMode: record.sourceRecord ? "standard" : "authored"
   };
   return enqueue({
@@ -1067,6 +1083,7 @@ export async function prepareWordWorldContext(course, manifest, options = {}) {
   }
   const adapter = await loadLanguageAdapter(course, options);
   const generationStrategy = resolveWordWorldGenerationStrategy(course, manifest);
+  const generationProvider = await loadWordWorldGenerationProvider(course, generationStrategy, options);
   const providerKind = String(manifest.sessionProvider?.kind || manifest.mode || "");
   const sourceLanguage = canonicalLanguageTag(
     course?.sourceLanguage?.locale ?? course?.sourceLanguage?.id,
@@ -1109,6 +1126,7 @@ export async function prepareWordWorldContext(course, manifest, options = {}) {
     searchEnglish: (queryEmbeddingText) => prepared.session.searchWithStatus(queryEmbeddingText),
     embeddingPolicy: Object.freeze({ ...policy }),
     generationStrategy,
+    generationProvider,
     generate: prepared.generate
   });
 }

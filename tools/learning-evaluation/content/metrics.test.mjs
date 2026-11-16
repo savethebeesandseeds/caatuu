@@ -13,6 +13,15 @@ const row = (id, documentId, complexity, extra = {}) => ({ id, courseId: 'a', ga
   kind: 'lexeme', recordRole: 'leaf', metadata: { complexity, usefulness: 50, difficulty: complexity > 50 ? 3 : 1 },
   english: { text: documentId, field: 'english', reason: null }, categories: { topic: ['movement'] }, translation: {}, semanticDocumentId: documentId, ...extra });
 
+test('inventory reports unfinished source records separately from playable units',()=>{
+ const catalogs=structuredClone(fixtureCatalogs);
+ catalogs[0].document.unshift({id:'pending',semanticBankId:'sb.verb-lab.999999',kind:'verb',source:'pending',target:'',reviewStatus:'untranslated',difficulty:1,usefulness:70,complexity:30});
+ const metadata=inspectMetadata(buildEvaluationCorpus(catalogs),config.diagnostics);
+ assert.equal(metadata.overall.untranslatedRecords,1);
+ assert.equal(metadata.overall.authoredRecords,17);
+ assert.equal(metadata.overall.playableAssessmentUnits,7);
+});
+
 test('grade summaries separate missing and invalid authoring; no numeric-string coercion', () => {
   const result = gradeDistribution([1, 100, null, '90', 0, 101, 2.5].map(complexity => ({ metadata: { complexity } })), 'complexity');
   assert.equal(result.total, 7);

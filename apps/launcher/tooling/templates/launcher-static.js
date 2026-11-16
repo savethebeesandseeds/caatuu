@@ -48,10 +48,9 @@
       const item = document.createElement("li");
       item.dataset.languageId = courseRecord.id;
       item.dataset.courseStatus = courseRecord.status;
-      const preview = courseRecord.status === "development";
       item.setAttribute(
         "aria-label",
-        `${language.label} (${language.nativeLabel})${preview ? ", Preview" : ""}`
+        `${language.label} (${language.nativeLabel})`
       );
       const choice = document.createElement("a");
       choice.className = "language-choice";
@@ -70,12 +69,6 @@
       name.className = "language-choice-name";
       name.textContent = language.label;
       choice.append(flag, name, code);
-      if (preview) {
-        const status = document.createElement("span");
-        status.className = "language-choice-status";
-        status.textContent = "Preview";
-        choice.append(status);
-      }
       const start = document.createElement("span");
       start.className = "language-choice-start";
       start.textContent = "Start";

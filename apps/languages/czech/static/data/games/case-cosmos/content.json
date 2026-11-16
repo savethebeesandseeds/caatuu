@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "caatuu-case-cosmos-content-v2",
+  "schemaVersion": "caatuu-case-cosmos-content-v3",
   "courseId": "cz",
   "contentRevision": 7,
   "curriculum": {
@@ -3065,5 +3065,76 @@
       "usefulness": 54,
       "complexity": 34
     }
-  ]
+  ],
+  "caseSystem": {
+    "targetLocale": "cs-CZ",
+    "sourceLocale": "en",
+    "cases": [
+      {
+        "case": "Nominative",
+        "meaning": "naming or subject",
+        "question": "Who or what is the subject?"
+      },
+      {
+        "case": "Genitive",
+        "meaning": "belonging, origin, or absence",
+        "question": "Whose? From or without whom or what?"
+      },
+      {
+        "case": "Dative",
+        "meaning": "receiver or beneficiary",
+        "question": "Who or what receives or benefits?"
+      },
+      {
+        "case": "Accusative",
+        "meaning": "direct target",
+        "question": "Who or what is the target?"
+      },
+      {
+        "case": "Vocative",
+        "meaning": "direct address",
+        "question": "Who or what is addressed?"
+      },
+      {
+        "case": "Locative",
+        "meaning": "place or topic after a preposition",
+        "question": "Where, or about whom or what?"
+      },
+      {
+        "case": "Instrumental",
+        "meaning": "companion or means",
+        "question": "With whom, or using what?"
+      }
+    ],
+    "contrasts": {
+      "Nominative": [
+        "Accusative",
+        "Vocative"
+      ],
+      "Genitive": [
+        "Accusative",
+        "Dative"
+      ],
+      "Dative": [
+        "Locative",
+        "Accusative"
+      ],
+      "Accusative": [
+        "Nominative",
+        "Genitive"
+      ],
+      "Vocative": [
+        "Nominative",
+        "Accusative"
+      ],
+      "Locative": [
+        "Dative",
+        "Instrumental"
+      ],
+      "Instrumental": [
+        "Locative",
+        "Dative"
+      ]
+    }
+  }
 }

@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "id": "es-en",
   "directoryName": "english-from-spanish",
-  "status": "development",
+  "status": "active",
   "brandLabel": "Caatuu",
   "workspaceLabel": "Caatuu Inglés",
   "routePrefix": "/es-en",
@@ -290,7 +290,7 @@
       "path": "apps/language-runtime/static/data/interface/es.v1.json",
       "scope": "shared",
       "state": "present",
-      "revision": "interface-es-33"
+      "revision": "interface-es-35"
     },
     "courseProfile": {
       "kind": "file",

@@ -63,6 +63,7 @@ export function progressionRecords(game, document) {
   } else if (game === 'conjugation-comet') {
     document.verbs.forEach((verb, i) => {
       add(verb, `verbs[${i}]`, 'conjugation');
+      if (verb.reviewStatus === 'untranslated') return;
       for (const [key, form] of Object.entries(verb.forms)) {
         add(form, `verbs[${i}].forms[${key}]`, 'conjugation-form', verb, form.id || form.label || key);
       }
@@ -79,6 +80,7 @@ export function progressionRecords(game, document) {
   } else if (game === 'grammar-gravity') {
     document.challenges.forEach((challenge, i) => {
       add(challenge, `challenges[${i}]`, 'agreement');
+      if (challenge.reviewStatus === 'untranslated') return;
       for (const [axis, form] of Object.entries(challenge.forms)) {
         add(form, `challenges[${i}].forms.${axis}`, 'agreement-form', challenge, axis);
         form.examples.forEach((example, j) => add(example, `challenges[${i}].forms.${axis}.examples[${j}]`, 'agreement-example', challenge, axis));

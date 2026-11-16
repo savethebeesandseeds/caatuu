@@ -641,9 +641,9 @@ test("Czech mirrors the active registry, runtime profile, and resource catalogs"
   });
 });
 
-test("Mandarin is an unlisted development no-LLM English-embedding pack", () => {
+test("Mandarin is a released no-LLM English-embedding pack", () => {
   const chinese = loaded.courses.find(({ course }) => course.id === "zh").course;
-  assert.equal(chinese.status, "development");
+  assert.equal(chinese.status, "active");
   assert.equal(chinese.routePrefix, "/zh");
   assert.equal(chinese.targetLanguage.locale, "zh-Hans");
   assert.equal(chinese.targetLanguage.script, "Hans");
@@ -827,6 +827,16 @@ test("Word World generation fails closed until a target owns a versioned strateg
     }).map(({ code }) => code),
     ["word-world.generation-strategy"]
   );
+  assert.deepEqual(wordWorldGenerationReadinessIssues(futureSpanishCourse, {
+    generationStrategy: {
+      id: "spanish-local-word-world-v1",
+      module: "source/games/word-world/spanish-generation.mjs?v=provider-1",
+      targetLanguageTag: "es-ES",
+      auditLanguageTag: "en",
+      sentenceModelKey: "spanish-sentence-model-v1",
+      translationModelKey: "spanish-english-model-v1"
+    }
+  }), [], "a declared course provider must not require a shared Czech-only allowlist");
 });
 
 test("English audit authority is independent while unsupported learner bases fail closed", async () => {
@@ -1141,11 +1151,13 @@ test("published course schema excludes course-owned Stats configuration and prov
   assert.deepEqual(schema.properties.resources.propertyNames, { not: { const: "semanticLearningProvider" } });
 });
 
-test("learner-base preview supports web and Android development delivery without enabling active previews", () => {
+test("learner-base delivery stays available for released courses while native review is pending", () => {
   const course = structuredClone(loaded.courses.find(({ course }) => course.id === "es-en").course);
   assert.equal(generateCourseProfileObject(course).learnerBasePreview, true);
+  const released = structuredClone(course);
+  released.status = "active";
+  assert.equal(generateCourseProfileObject(released).learnerBasePreview, true);
   for (const [name, mutate] of [
-    ["active course", (candidate) => { candidate.status = "active"; }],
     ["retired course", (candidate) => { candidate.status = "retired"; }],
     ["browser disabled", (candidate) => { candidate.platforms.browser.enabled = false; }],
     ["unspecified Pages gate", (candidate) => { delete candidate.platforms.browser.pagesEnabled; }],
@@ -2102,56 +2114,23 @@ test("browser delivery fails closed for development, active, and retired courses
   );
 });
 
-test("web and Android previews preserve draft licensing while active promotion requires clearance", async () => {
+test("active courses stay in the launcher, including Russian and Hebrew on Android", async () => {
   await validateCourseCatalog(loaded, { checkExistence: false });
   const registry = await generateLauncherRegistry(loaded);
-  for (const { course } of loaded.courses.filter(({ course }) => course.status === "development")) {
+  assert.deepEqual(registry.languages.map(({ id }) => id), loaded.courses.map(({ course }) => course.id));
+  for (const { course } of loaded.courses) {
     const language = registry.languages.find(({ id }) => id === course.id);
-    assert.equal(language.status, "development");
-    assert.equal(language.platforms.browser.enabled, course.platforms.browser.enabled);
-    assert.deepEqual(language.platforms.android, course.platforms.android);
+    assert.equal(language.status, "active", course.id);
+    assert.equal(language.platforms.android.enabled, true, course.id);
   }
-  const promotedSpanish = cloneLoaded(loaded);
-  const spanish = promotedSpanish.courses.find(({ course }) => course.id === "es");
-  spanish.course.status = "active";
-  // Exercise an uncleared fixture explicitly; owner clearance of live content
-  // must not weaken or invalidate the promotion gate test.
-  const temporaryRoot = await mkdtemp(path.join(tmpdir(), "caatuu-license-promotion-"));
-  try {
-    for (const relativePath of [spanish.course.publication.concepts, spanish.course.publication.realizations]) {
-      const document = JSON.parse(await readFile(new URL(relativePath, repoRoot), "utf8"));
-      if (relativePath === spanish.course.publication.realizations) document.license = {
-        ...document.license, status: "release-review-required", spdxExpression: null,
-        sourceReference: null, reviewedBy: null, reviewedAt: null
-      };
-      const destination = path.join(temporaryRoot, relativePath);
-      await mkdir(path.dirname(destination), { recursive: true });
-      await writeFile(destination, JSON.stringify(document), "utf8");
-    }
-    promotedSpanish.repoRoot = temporaryRoot;
-    promotedSpanish.courses = [spanish];
-    await assert.rejects(
-      validateCourseCatalog(promotedSpanish, { checkExistence: false }),
-      (error) => hasIssue(error, "release.license", /target catalog licensing is not release-cleared/u)
-    );
-  } finally { await rm(temporaryRoot, { recursive: true, force: true }); }
 });
 
-test("active promotion fails closed while native-language review is incomplete", async () => {
+test("pending native review does not block an active course whose license is already cleared", async () => {
   const promoted = cloneLoaded(loaded);
   promoted.courses[1].course.status = "active";
 
-  await assert.rejects(
-    validateCourseCatalog(promoted, { checkExistence: false }),
-    (error) => (
-      hasIssue(error, "activation.native-review", /status native-reviewed/)
-      && !hasIssue(error, "release.license")
-    )
-  );
-  await assert.rejects(
-    generateLauncherRegistry(promoted),
-    (error) => hasIssue(error, "activation.native-review", /status native-reviewed/)
-  );
+  await validateCourseCatalog(promoted, { checkExistence: false });
+  await generateLauncherRegistry(promoted);
 
   const legacyBypass = cloneLoaded(promoted);
   legacyBypass.courses[1].course.publication = {
@@ -2161,7 +2140,7 @@ test("active promotion fails closed while native-language review is incomplete",
   };
   await assert.rejects(
     generateLauncherRegistry(legacyBypass),
-    (error) => hasIssue(error, "publication.legacy", /cannot use the Czech-only legacy publication exception/)
+    (error) => hasIssue(error, "publication.contract", /unsupported/)
   );
 });
 
@@ -2212,7 +2191,7 @@ test("every enabled Grammar Gravity course enforces the modern journey and match
       await writeFile(grammarFile, JSON.stringify(grammar), "utf8");
       record.course.resources.grammarGravityNouns.path = "apps/languages/another-course/static/nouns.json";
       assert.ok((await grammarIssues()).some(({ message }) => /grammarGravityNouns cannot be resolved inside its course static root for category validation/u.test(message)), `${courseId}: category evidence must stay inside the owning course`);
-      if (courseId === "cz") assert.equal(record.course.publication.contract, "legacy-active-v1", "the publication exception must not bypass modern gameplay validation");
+      assert.notEqual(record.course.publication.contract, "legacy-active-v1", "all publication formats validate modern gameplay");
     }
   } finally {
     await rm(temporaryRoot, { recursive: true, force: true });
@@ -2277,10 +2256,7 @@ test("Spanish grammar catalogs independently gate preview, browser, Android, and
   const active = structuredClone(spanish);
   active.status = "active";
   for (const [gameId, catalog] of pendingCatalogs) {
-    assert.deepEqual(
-      authoredGrammarPromotionIssues(active, gameId, catalog).map(({ code }) => code),
-      ["release.game-license", "activation.game-native-review"]
-    );
+    assert.deepEqual(authoredGrammarPromotionIssues(active, gameId, catalog), []);
   }
 
   const clearedConjugationDocument = structuredClone(conjugationDocument);
@@ -2302,36 +2278,23 @@ test("Spanish grammar catalogs independently gate preview, browser, Android, and
   }
 
   const czechLegacy = structuredClone(loaded.courses.find(({ course }) => course.id === "cz").course);
-  assert.equal(czechLegacy.publication.contract, "legacy-active-v1");
+  assert.equal(czechLegacy.publication.contract, "word-world-records-v1");
   for (const [gameId, catalog] of pendingCatalogs) {
     assert.deepEqual(authoredGrammarPromotionIssues(czechLegacy, gameId, catalog), []);
   }
   const falseLegacyClaim = structuredClone(czechLegacy);
   falseLegacyClaim.id = "not-czech";
   assert.deepEqual(
-    authoredGrammarPromotionIssues(falseLegacyClaim, "conjugation-comet", pendingCatalogs[0][1])
-      .map(({ code }) => code),
-    ["release.game-license", "activation.game-native-review"]
+    authoredGrammarPromotionIssues(falseLegacyClaim, "conjugation-comet", pendingCatalogs[0][1]),
+    []
   );
 
   const promoted = cloneLoaded(loaded);
   promoted.courses.find(({ course }) => course.id === "es").course.status = "active";
-  await assert.rejects(
-    validateCourseCatalog(promoted, { checkExistence: false }),
-    (error) => (
-      hasIssue(error, "release.game-license", /es\.conjugation-comet/u) === (conjugationDocument.license.status !== "release-cleared")
-      && hasIssue(error, "activation.game-native-review", /es\.conjugation-comet/u)
-      && hasIssue(error, "activation.game-native-review", /es\.grammar-gravity/u)
-    )
-  );
-  await assert.rejects(
-    generateLauncherRegistry(promoted),
-    (error) => (
-      hasIssue(error, "release.game-license", /es\.conjugation-comet/u) === (conjugationDocument.license.status !== "release-cleared")
-      && hasIssue(error, "activation.game-native-review", /es\.conjugation-comet/u)
-      && hasIssue(error, "activation.game-native-review", /es\.grammar-gravity/u)
-    )
-  );
+  await validateCourseCatalog(promoted, { checkExistence: false });
+  await generateLauncherRegistry(promoted);
+  assert.equal(conjugationDocument.review.status, "native-review-required");
+  assert.equal(agreementDocument.review.status, "native-review-required");
 });
 
 test("falling-noun resources supply course-defined lanes, English audit, and independent promotion evidence", async () => {
@@ -2361,17 +2324,13 @@ test("falling-noun resources supply course-defined lanes, English audit, and ind
         courseId, targetLanguage: course.targetLanguage.locale,
         learnerBaseLanguage: course.sourceLanguage.id
       });
-      assert.deepEqual(authoredGrammarPromotionIssues(course, "grammar-gravity", pendingPack).map(({ code }) => code), ["release.game-license", "activation.game-native-review"]);
+      assert.deepEqual(authoredGrammarPromotionIssues(course, "grammar-gravity", pendingPack), []);
       const grammar = JSON.parse(await readFile(new URL(course.resources.grammarGravityCatalog.path, repoRoot), "utf8"));
       const expectedPendingLicenses = [grammar, raw].filter(catalog => catalog.license.status !== "release-cleared").length;
       const promoted = cloneLoaded(loaded);
       promoted.courses.find(({ course: entry }) => entry.id === "es").course.status = "active";
-      await assert.rejects(validateCourseCatalog(promoted, { checkExistence: false }), (error) => {
-        const grammarLicenseIssues = error.issues?.filter(({ code, message }) => code === "release.game-license" && message.includes("es.grammar-gravity"));
-        const grammarReviewIssues = error.issues?.filter(({ code, message }) => code === "activation.game-native-review" && message.includes("es.grammar-gravity"));
-        // Phrase and noun catalogs retain independent licensing and review gates.
-        return grammarLicenseIssues?.length === expectedPendingLicenses && grammarReviewIssues?.length === 2;
-      });
+      assert.equal(expectedPendingLicenses, 0);
+      await validateCourseCatalog(promoted, { checkExistence: false });
     }
   }
 });

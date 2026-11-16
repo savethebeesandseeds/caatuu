@@ -4,6 +4,9 @@ import test from "node:test";
 
 import {
   assertCourseBundleContract,
+  assertDictionaryManifest,
+  assertNativeEmbeddingRuntime,
+  providerReferenceAsset,
   assertGenericDictionaryCatalog,
   assertGenericEmbeddingCatalog,
   assertGenericEmbeddingManifest,
@@ -510,4 +513,66 @@ test("the release builder validates one product AAB-derived APK boundary", async
     assert.ok(builder.includes(contract), `missing release boundary: ${contract}`);
   }
   assert.doesNotMatch(builder, /:app:|:llamaLib:|prepare-llama-vendor/u);
+});
+
+
+test("equivalent provider declarations have the same contract and requirements for every course ID", () => {
+  for (const implementation of ["vector-database-catalog-v1", "webview-english-minilm-v1"]) {
+    const paths = [];
+    for (const id of ["cz", "zh", "other"]) {
+      const { bundle, profile } = packageFixture();
+      const selected = bundle.courses[0];
+      bundle.courses = [selected];
+      bundle.defaultCourseId = id;
+      selected.id = id;
+      selected.routePrefix = `/${id}`;
+      selected.entryPath = `/${id}/index.html`;
+      selected.assetPrefix = `courses/${id}`;
+      selected.nativeProviders.providers.embeddings.implementation = implementation;
+      for (const provider of Object.values(selected.nativeProviders.providers)) {
+        if (provider.catalogAsset) provider.catalogAsset = provider.catalogAsset.replace("courses/cz/", `${selected.assetPrefix}/`);
+      }
+      profile.course.id = id;
+      profile.course.routePrefix = selected.routePrefix;
+      profile.assets = profile.assets.filter(path => !path.startsWith("courses/zh/"))
+        .map(path => path.replace("courses/cz/", `${selected.assetPrefix}/`));
+      const authority = publicationPlanFor(bundle);
+      assert.equal(assertCourseBundleContract(bundle, profile, "equivalent provider", authority), bundle);
+      paths.push(requiredAssetPaths(bundle).map(path => path.replace(`${selected.assetPrefix}/`, "courses/example/")));
+      const drifted = structuredClone(bundle);
+      drifted.courses[0].nativeProviders.providers.embeddings.implementation = "unsupported";
+      assert.throws(() => assertCourseBundleContract(drifted, profile, "drift", authority), /implementation/u);
+    }
+    assert.deepEqual(paths[0], paths[1]);
+    assert.deepEqual(paths[1], paths[2]);
+    assert.equal(paths[0].includes("courses/example/source/shared/vector-db.js"), implementation === "vector-database-catalog-v1");
+    assert.ok(paths[0].includes("courses/example/vendor/sql.js/sql-wasm.js"));
+  }
+});
+
+test("native provider metadata retains integrity without pinning a course or dictionary release", async () => {
+  const read = async path => JSON.parse(await readFile(new URL(`../../../languages/czech/static/${path}`, import.meta.url), "utf8"));
+  const catalog = await read("data/embeddings/models.json");
+  const selected = catalog.models.find(model => model.key === catalog.default_model);
+  const manifest = await read(`data/embeddings/${selected.manifest_file}`);
+  selected.key = catalog.default_model = manifest.model_id = "renamed-dataset";
+  assert.doesNotThrow(() => assertNativeEmbeddingRuntime(catalog, manifest, "renamed native dataset"));
+  for (const patch of [
+    { model_revision: "unreviewed" }, { model_license: "unknown" },
+    { runtime: { ...manifest.runtime, artifacts: [] } },
+  ]) assert.throws(() => assertNativeEmbeddingRuntime(catalog, { ...manifest, ...patch }, "tampered runtime"));
+
+  const dictionaries = await read("data/dictionaries/catalog.json");
+  const active = dictionaries.dictionaries.find(entry => entry.key === dictionaries.default_dictionary);
+  const dictionaryManifest = await read(`data/dictionaries/${active.manifest_file}`);
+  active.key = dictionaryManifest.key = "reviewed-replacement";
+  active.manifest_file = "reviewed-replacement/metadata.json";
+  assert.doesNotThrow(() => assertDictionaryManifest(active, dictionaryManifest, "replacement dictionary"));
+  for (const patch of [{ sha256: "f".repeat(64) }, { bytes: active.bytes + 1 },
+    { direction: "other-en" }, { database_file: "../escape.sqlite" }, { download_url: "http://example.test/file" }]) {
+    assert.throws(() => assertDictionaryManifest(active, { ...dictionaryManifest, ...patch }, "tampered dictionary"));
+  }
+  assert.equal(providerReferenceAsset("courses/other/data/dictionaries/catalog.json", active.manifest_file),
+    "courses/other/data/dictionaries/reviewed-replacement/metadata.json");
+  assert.throws(() => providerReferenceAsset("courses/other/data/dictionaries/catalog.json", "../escape.json"), /unsafe/u);
 });

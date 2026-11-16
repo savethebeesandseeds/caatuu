@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 import vm from "node:vm";
+import { reportEmbeddedGameStatus } from "../static/source/games/course-game-content.mjs";
 import { newContentEncounterId } from "../static/source/games/content-progression.mjs";
 import { bindHorizontalGesture } from "../static/source/horizontal-gesture.mjs";
 
@@ -66,6 +67,7 @@ async function mountGame({ difficulty = 1, pack = catalog, status = 200, duringL
   let selectedDifficulty = difficulty;
   const records = [];
   const messages = [];
+  const startupMessages = [];
   const timers = [];
   const errors = [];
   const fetches = [];
@@ -75,7 +77,7 @@ async function mountGame({ difficulty = 1, pack = catalog, status = 200, duringL
   };
   const parentHarness = createBrowserHarness({ course, location: { origin: parentOrigin } });
   const parent = parentHarness.window;
-  parent.postMessage = (data, origin) => messages.push({ data, origin });
+  parent.postMessage = (data, origin) => (data.type === "startup" ? startupMessages : messages).push({ data, origin });
   const harness = createBrowserHarness({
     course,
     location: {
@@ -185,7 +187,7 @@ async function mountGame({ difficulty = 1, pack = catalog, status = 200, duringL
   harness.context.setTimeout = harness.window.setTimeout = setTimer;
   harness.context.clearTimeout = harness.window.clearTimeout = clearTimer;
   harness.context.console = { ...console, error: (...values) => errors.push(values) };
-  Object.assign(harness.context, { createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen,
+  Object.assign(harness.context, { reportEmbeddedGameStatus, createSpeechIcon, mountEmbeddedGameControls, mountRobotLoadingScreen,
     CZECH_CASES, validatePack, buildRounds, buildQuestions, buildCasePracticeRounds, newContentEncounterId, assertEnglishCzechCourse,
     bindHorizontalGesture });
   // Capture the actual initialization promise, without exposing test APIs in production.
@@ -199,7 +201,7 @@ async function mountGame({ difficulty = 1, pack = catalog, status = 200, duringL
     harness.context
   );
   const game = {
-    ...harness, api, records, messages, timers, errors, fetches, shell, parentHarness, tick,
+    ...harness, api, records, messages, startupMessages, timers, errors, fetches, shell, parentHarness, tick,
     preferences: chromeStates.get(shell), chromeStates,
     element: (id) => harness.document.getElementById(`caseCosmos${id}`),
     selectCandidate(matches) {
@@ -256,7 +258,6 @@ test("case progression schedules individual sentences and credits only the compl
     window.CaatuuLearning.recordExposure = (gameId, event) => exposures.push({ gameId, ...event });
   } });
   assert.equal(game.api.state.questions.length, 1);
-  generation = "after-reset";
   assert.equal(exposures.length, 0);
   const id = game.api.currentChallenge().id;
   game.selectCandidate(false);
@@ -1261,4 +1262,40 @@ test("a foreign-origin parent is rejected before catalog loading or speech acces
     assert.equal(preferences.calls.length, 0);
     assert.equal(preferences.stops, 0);
   }
+});
+
+const realProfileSource = await readFile(new URL("../static/source/learning-profile.js", import.meta.url), "utf8");
+async function mountWithLearning() {
+  return mountGame({ duringLoad(game) {
+    game.parentHarness.window.CaatuuCourse.storage = { namespace: "caatuu-czech" };
+    vm.runInContext(realProfileSource, game.parentHarness.context);
+    game.window.CaatuuLearning = game.parentHarness.window.CaatuuLearning;
+  } });
+}
+for (const answered of [false, true]) test(`Case reset retires an ${answered ? "answered" : "unanswered"} question before fresh assessment`, async () => {
+  const game = await mountWithLearning();
+  const learning = game.window.CaatuuLearning;
+  if (answered) game.api.chooseAnswer(true);
+  const oldEncounter = game.api.state.encounterId;
+  learning.resetProgress();
+  assert.notEqual(game.api.state.encounterId, oldEncounter);
+  assert.equal(game.api.state.phase, "question");
+  assert.equal(game.api.state.roundCorrect, 0);
+  assert.equal(learning.snapshot().summary.xp, 0);
+  game.selectCandidate(true);
+  game.api.chooseAnswer(true);
+  assert.equal(learning.snapshot().summary.attempts, 1);
+  assert.equal(Object.keys(learning.contentHistory("case-cosmos")).length, 1);
+  game.window.dispatchEvent({ type: "pagehide", persisted: false });
+});
+
+test("Case scoring cannot cross a reset inside its content evidence callback", async () => {
+  const game = await mountWithLearning();
+  const learning = game.window.CaatuuLearning;
+  game.shell.addEventListener("caatuu:content-practice-change", () => learning.resetProgress(), { once: true });
+  game.api.chooseAnswer(true);
+  assert.equal(game.api.state.phase, "question");
+  assert.equal(learning.snapshot().summary.xp, 0);
+  assert.equal(Object.keys(learning.contentHistory("case-cosmos")).length, 0);
+  game.window.dispatchEvent({ type: "pagehide", persisted: false });
 });

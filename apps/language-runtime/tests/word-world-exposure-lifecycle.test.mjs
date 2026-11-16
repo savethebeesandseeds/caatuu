@@ -46,7 +46,7 @@ function game(storage) {
     sourcePrimaryLanguage: "en", newContentEncounterId: () => `visit-${++sequence}`, wordWorldEvidenceBank,
     learningDifficulty: () => 1, normalizeWord: value => String(value || ""), sentenceFingerprint: value => value,
     setBusy: value => { state.busy = value; }, setTranslation: value => { state.currentTranslation = value; },
-    selectWord() {}, abortWordLookup() {}, syncCzechSentenceSelection() {}, renderCzechSentence() {},
+    selectWord() {}, abortWordLookup() {}, syncTargetSentenceSelection() {}, renderTargetSentence() {},
     renderWordGuidedStatus() {}, renderWordWorldLearning() {}, renderReconstruction() {},
     setStatus() {}, setProgress() {}, cancelBackgroundWork() {}, hideSceneAsset() {},
     resetSentenceFeedback() {}, saveStandardUsage() {}, rememberStep() {}, recordStandardSemanticExposure() {},
@@ -58,7 +58,7 @@ function game(storage) {
     guidedWordInteractionLocked: () => false,
     reconstructionSelectedOptions: round => round.challenge.options.filter(option => round.selectedIds.includes(option.id)),
     reconstructionSelectedText: () => "answer", isWordReconstructionCorrect: selected => selected[0] === "target",
-    claimSentenceReward: () => true, cancelCzechSpeech() {}, stabilizeReconstructionResultViewport() {}, announceCampaignRoundSuccess() {},
+    claimSentenceReward: () => true, cancelTargetSpeech() {}, stabilizeReconstructionResultViewport() {}, announceCampaignRoundSuccess() {},
     generateFromConfiguredMode: (...args) => generated.push(args),
     generateStandardFromConfiguredMode: (...args) => generated.push(args),
     generateGuidedStandardPhrase: async (...args) => generated.push(args),
@@ -259,12 +259,13 @@ test("same-tab and cross-tab reset handlers retire the active encounter and pend
     controller.indexOf("\n}\n\nasync function init()"));
   for (const crossTab of [false, true]) {
     const a = game(); await a.present();
-    const listeners = {};
-    a.window.addEventListener = (type, handler) => { listeners[type] = handler; };
     vm.runInContext(registration, a.context);
     const requestId = a.state.phraseRequestId;
-    if (crossTab) listeners.storage({ key: `${a.learning.storage.performanceStorageKey}.reset`, oldValue: "a", newValue: "b" });
-    else listeners["caatuu:learning-change"]({ detail: { reason: "progress-reset" } });
+    if (crossTab) {
+      const other = browser(a.window.localStorage);
+      other.window.CaatuuLearning.resetProgress();
+      a.window.dispatchEvent({ type: "storage", key: `${a.learning.storage.performanceStorageKey}.reset`, storageArea: a.window.localStorage });
+    } else a.learning.resetProgress();
     assert.equal(a.state.contentEncounterId, ""); assert.equal(a.state.reconstruction, null);
     assert.ok(a.state.phraseRequestId > requestId);
     assert.equal(a.generated.length, 1);

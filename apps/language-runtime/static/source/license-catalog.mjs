@@ -65,7 +65,7 @@ export function wordWorldLicenseArtifact(manifest, { courseId, sourceUrl }) {
     license,
     licenseUrl: license === "AGPL-3.0-only" ? CAATUU_LICENSE_URL
       : czechStandard ? "/language-runtime/static/legal/CZECH-WORD-WORLD-NOTICE.txt" : "",
-    intendedUse: `Course ${courseId} · ${manifest.corpusVersion}. ${manifest.license?.status || (czechStandard ? "Historical MIT corpus grant" : "License review pending")}. Content review: ${manifest.review?.status || manifest.reviewStatus || "not recorded"}.`,
+    intendedUse: `Course ${courseId} · ${manifest.corpusVersion}. ${czechStandard ? "Historical MIT corpus grant." : "First-party learning content."}`,
     artifactKind: "guided-learning-corpus",
     entryCount: manifest.recordCount
   };

@@ -7,7 +7,10 @@
     "test": "node --test tests/*.test.mjs",
     "deploy": "wrangler deploy",
     "d1:migrate:remote": "wrangler d1 migrations apply caatuu-reporting-production --remote",
-    "d1:export:remote": "wrangler d1 export caatuu-reporting-production --remote --output ../../artifacts/reporting-worker/private/caatuu-reporting-production.sql"
+    "d1:export:remote": "wrangler d1 export caatuu-reporting-production --remote --output ../../artifacts/reporting-worker/private/caatuu-reporting-production.sql",
+    "catalog:generate": "node tooling/course-catalog.mjs",
+    "catalog:check": "node tooling/course-catalog.mjs --check",
+    "predeploy": "npm run catalog:check"
   },
   "devDependencies": {
     "wrangler": "4.128.0"

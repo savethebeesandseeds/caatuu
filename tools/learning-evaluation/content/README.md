@@ -1,5 +1,14 @@
 # Independent content evaluator (C)
 
+Mixed semantic-bank sources retain `reviewStatus: "untranslated"` in the source
+inventory. Reports show that count separately; placeholders never count as
+playable questions or conjugation forms. Grammar placeholders have no nested
+forms to enumerate. The source audit in
+[`audit-semantic-bank-content.mjs`](../../language-content/audit-semantic-bank-content.mjs)
+checks bank coverage and separates root records from nested teaching examples.
+Existing Word Net runtime/source drift remains an explicit adapter failure;
+the evaluator does not publish or silently substitute authoring candidates.
+
 ## Shared practice-map audit mode
 
 The same entrypoint also audits the actual shared practice polygon. First open

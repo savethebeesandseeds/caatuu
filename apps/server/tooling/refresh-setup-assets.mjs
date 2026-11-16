@@ -404,11 +404,16 @@ function validateServiceWorkerRevision(manifest, languageStaticDir) {
   if (!existsSync(serviceWorkerPath) || !statSync(serviceWorkerPath).isFile()) {
     throw new Error(`Course service worker does not exist: ${serviceWorkerPath}`);
   }
-  const source = readFileSync(serviceWorkerPath, "utf8");
+  const source = readFileSync(serviceWorkerPath, "utf8").replaceAll("\r\n", "\n");
   const revisions = [...source.matchAll(/^\/\/ Offline catalog revision: (.+)$/gmu)]
     .map((match) => match[1].trim());
   if (revisions.length !== 1) {
     throw new Error("Course service worker must declare exactly one offline catalog revision.");
+  }
+  const bindings = [...source.matchAll(/^self\.CAATUU_OFFLINE_CACHE_NAME = "([^"\r\n]+)";$/gmu)]
+    .map((match) => match[1]);
+  if (bindings.length !== 1 || bindings[0] !== revisions[0]) {
+    throw new Error("Course service worker must bind its declared offline catalog revision.");
   }
   if (revisions[0] !== manifest.offline.cacheName) {
     throw new Error(

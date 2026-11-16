@@ -18,7 +18,7 @@ const json = async path => JSON.parse(await readFile(new URL(path, root), 'utf8'
 const catalog = await json('apps/languages/catalog.json');
 const courses = await Promise.all(catalog.courses.map(entry => json(entry.manifest)));
 const random = () => 0.37;
-const eligible = (rows, level) => rows.filter(row => (row.difficulty ?? 1) === level);
+const eligible = (rows, level) => rows.filter(row => row.reviewStatus !== 'untranslated' && (row.difficulty ?? 1) === level);
 const sameIds = (actual, expected) => assert.deepEqual(new Set(actual.map(row => row.id)), new Set(expected.map(row => row.id)));
 const difficulties = [0, 1, 2, 3];
 
@@ -238,7 +238,13 @@ for (const course of courses) {
           pack: await json(`${staticRoot}/data/games/word-world/${manifest.runtimeFile.split('?')[0]}`), random }) : undefined;
         const context = await prepareWordWorldContext({ ...course, learnerBasePreview: true }, manifest, {
           adapter, loadJson, standardProvider, meaningSelector: () => null, origin: 'https://caatuu.test',
-          runtime: null, random, embeddingRanker: async () => []
+          runtime: null, random, embeddingRanker: async () => [],
+          importModule: url => {
+            const pathname = new URL(url, 'https://caatuu.test').pathname;
+            if (pathname.startsWith('/language-runtime/')) return import(new URL(`apps${pathname}`, root));
+            assert.ok(pathname.startsWith(`${course.routePrefix}/`));
+            return import(new URL(`${staticRoot}/${pathname.slice(course.routePrefix.length + 1)}`, root));
+          }
         });
         const provider = context.selectionProvider;
         assert.equal(provider.records.length, manifest.recordCount, 'Normalization must not silently discard content.');

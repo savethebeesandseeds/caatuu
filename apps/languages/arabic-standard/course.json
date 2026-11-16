@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "id": "ar",
   "directoryName": "arabic-standard",
-  "status": "development",
+  "status": "active",
   "brandLabel": "Caatuu",
   "workspaceLabel": "Caatuu Arabic",
   "routePrefix": "/ar",
@@ -311,7 +311,7 @@
       "path": "apps/language-runtime/static/data/interface/en.v1.json",
       "scope": "shared",
       "state": "present",
-      "revision": "interface-en-58"
+      "revision": "interface-en-60"
     },
     "courseProfile": {
       "kind": "file",

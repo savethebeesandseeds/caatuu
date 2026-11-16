@@ -1,0 +1,3620 @@
+[
+  {
+    "id": "sb.memory-moon.000001",
+    "englishText": "A big body.",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000002",
+    "englishText": "A big car.",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000003",
+    "englishText": "A big dog.",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000004",
+    "englishText": "A big house.",
+    "difficulty": 0,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000005",
+    "englishText": "A big line.",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000006",
+    "englishText": "A big sphere.",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000007",
+    "englishText": "A big stone.",
+    "difficulty": 0,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.memory-moon.000008",
+    "englishText": "A cat.",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000009",
+    "englishText": "A dog.",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000010",
+    "englishText": "A green book.",
+    "difficulty": 0,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.memory-moon.000011",
+    "englishText": "A guest sits with us.",
+    "difficulty": 2,
+    "usefulness": 74
+  },
+  {
+    "id": "sb.memory-moon.000012",
+    "englishText": "A new book.",
+    "difficulty": 0,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.memory-moon.000013",
+    "englishText": "A red car.",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000014",
+    "englishText": "A small body.",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000015",
+    "englishText": "A small book.",
+    "difficulty": 0,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.memory-moon.000016",
+    "englishText": "A small cat.",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000017",
+    "englishText": "A small circle.",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000018",
+    "englishText": "A small line.",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000019",
+    "englishText": "A small star.",
+    "difficulty": 0,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.memory-moon.000020",
+    "englishText": "A small stone.",
+    "difficulty": 0,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.memory-moon.000021",
+    "englishText": "After crossing the bridge, I turn right.",
+    "difficulty": 3,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.memory-moon.000022",
+    "englishText": "After the final lamp is switched off, check that the emergency light is still on.",
+    "difficulty": 3,
+    "usefulness": 85
+  },
+  {
+    "id": "sb.memory-moon.000023",
+    "englishText": "After the rain stops, the birds begin to sing.",
+    "difficulty": 3,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.memory-moon.000024",
+    "englishText": "After the shower, the roof is dry and the garden is still wet.",
+    "difficulty": 2,
+    "usefulness": 62
+  },
+  {
+    "id": "sb.memory-moon.000025",
+    "englishText": "After you cross the bridge, turn right.",
+    "difficulty": 3,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.memory-moon.000026",
+    "englishText": "Although I am tired, I keep working.",
+    "difficulty": 3,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000027",
+    "englishText": "Although it will be cloudy tomorrow, we still plan to go on a picnic.",
+    "difficulty": 3,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.memory-moon.000028",
+    "englishText": "Although she had labeled every jar carefully, two labels came loose during the journey.",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000029",
+    "englishText": "Although she is tired, she is finishing her work.",
+    "difficulty": 3,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000030",
+    "englishText": "Although the seed is small, a large plant grows from it.",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000031",
+    "englishText": "An apple.",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000032",
+    "englishText": "An open door.",
+    "difficulty": 1,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.memory-moon.000033",
+    "englishText": "Anyone who borrows the small ruler must return it before the art lesson begins.",
+    "difficulty": 3,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.memory-moon.000034",
+    "englishText": "Because the riverside path was flooded, we took the longer route behind the mill.",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000035",
+    "englishText": "Before I leave the house, I call my mother.",
+    "difficulty": 3,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000036",
+    "englishText": "Before I weigh the stone, I remove the soil from it.",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000037",
+    "englishText": "Before breakfast, Lena feeds the fish.",
+    "difficulty": 2,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.memory-moon.000038",
+    "englishText": "Before buying another pair of gloves, let us look for the missing one; it may be in the schoolbag.",
+    "difficulty": 3,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.memory-moon.000039",
+    "englishText": "Before coming in, please leave your shoes beside the door.",
+    "difficulty": 2,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000040",
+    "englishText": "Before opening the window, please put away the papers on the table so they do not blow away.",
+    "difficulty": 3,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.memory-moon.000041",
+    "englishText": "Before putting this map away, please fold it carefully.",
+    "difficulty": 2,
+    "usefulness": 58
+  },
+  {
+    "id": "sb.memory-moon.000042",
+    "englishText": "Before we leave, I will water the plants and then put the watering can back on the shelf.",
+    "difficulty": 3,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.memory-moon.000043",
+    "englishText": "Both of these parcels must arrive before noon tomorrow.",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000044",
+    "englishText": "Both of these windows are closed.",
+    "difficulty": 2,
+    "usefulness": 70
+  },
+  {
+    "id": "sb.memory-moon.000045",
+    "englishText": "Bring your boots because the path is muddy.",
+    "difficulty": 2,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000046",
+    "englishText": "Bring your coloured pencils tomorrow so we can share them.",
+    "difficulty": 2,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.memory-moon.000047",
+    "englishText": "By the time we reached the platform, the coffee I had bought was already cold.",
+    "difficulty": 3,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000048",
+    "englishText": "Call me before you leave the office.",
+    "difficulty": 3,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.memory-moon.000049",
+    "englishText": "Cold water.",
+    "difficulty": 0,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.memory-moon.000050",
+    "englishText": "Could you explain it again, more slowly this time? I want to understand every step.",
+    "difficulty": 3,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.memory-moon.000051",
+    "englishText": "Dad walks to school.",
+    "difficulty": 1,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000052",
+    "englishText": "Dani asks a friend.",
+    "difficulty": 1,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.memory-moon.000053",
+    "englishText": "Dani returns a lost key today.",
+    "difficulty": 3,
+    "usefulness": 64
+  },
+  {
+    "id": "sb.memory-moon.000054",
+    "englishText": "Dani walks to the market.",
+    "difficulty": 2,
+    "usefulness": 72
+  },
+  {
+    "id": "sb.memory-moon.000055",
+    "englishText": "David cleans a room in the morning, and then cooks soup.",
+    "difficulty": 3,
+    "usefulness": 64
+  },
+  {
+    "id": "sb.memory-moon.000056",
+    "englishText": "Each plant has two leaves.",
+    "difficulty": 2,
+    "usefulness": 84
+  },
+  {
+    "id": "sb.memory-moon.000057",
+    "englishText": "Even if the bus is late, keep my seat free until I send you a message.",
+    "difficulty": 3,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000058",
+    "englishText": "Excuse me.",
+    "difficulty": 0,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.memory-moon.000059",
+    "englishText": "Father is a doctor.",
+    "difficulty": 1,
+    "usefulness": 85
+  },
+  {
+    "id": "sb.memory-moon.000060",
+    "englishText": "First I read the text, then I write the answer.",
+    "difficulty": 3,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.memory-moon.000061",
+    "englishText": "First I wash the vegetables, then I cut them.",
+    "difficulty": 3,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.memory-moon.000062",
+    "englishText": "First we compare the specimens, then we write down the differences.",
+    "difficulty": 3,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.memory-moon.000063",
+    "englishText": "Free entry is available only to visitors who registered before Friday.",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000064",
+    "englishText": "Good day.",
+    "difficulty": 0,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.memory-moon.000065",
+    "englishText": "Good evening!",
+    "difficulty": 0,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.memory-moon.000066",
+    "englishText": "Good evening.",
+    "difficulty": 0,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.memory-moon.000067",
+    "englishText": "Good morning!",
+    "difficulty": 0,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.memory-moon.000068",
+    "englishText": "Good morning.",
+    "difficulty": 0,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.memory-moon.000069",
+    "englishText": "Good night!",
+    "difficulty": 0,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.memory-moon.000070",
+    "englishText": "Good night.",
+    "difficulty": 0,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.memory-moon.000071",
+    "englishText": "Goodbye!",
+    "difficulty": 0,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.memory-moon.000072",
+    "englishText": "Grandma is drawing a moon.",
+    "difficulty": 1,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.memory-moon.000073",
+    "englishText": "Grandma waters the mint.",
+    "difficulty": 1,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.memory-moon.000074",
+    "englishText": "He needs some rest.",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000075",
+    "englishText": "He returns the lost bag.",
+    "difficulty": 3,
+    "usefulness": 66
+  },
+  {
+    "id": "sb.memory-moon.000076",
+    "englishText": "He was reading a book yesterday.",
+    "difficulty": 3,
+    "usefulness": 78
+  },
+  {
+    "id": "sb.memory-moon.000077",
+    "englishText": "He was reading a book.",
+    "difficulty": 2,
+    "usefulness": 78
+  },
+  {
+    "id": "sb.memory-moon.000078",
+    "englishText": "Hello!",
+    "difficulty": 0,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.memory-moon.000079",
+    "englishText": "Hello, father!",
+    "difficulty": 0,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000080",
+    "englishText": "Hello, friend!",
+    "difficulty": 0,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000081",
+    "englishText": "Hello, mother!",
+    "difficulty": 0,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000082",
+    "englishText": "Hello.",
+    "difficulty": 0,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.memory-moon.000083",
+    "englishText": "Help!",
+    "difficulty": 0,
+    "usefulness": 99
+  },
+  {
+    "id": "sb.memory-moon.000084",
+    "englishText": "Here is the tea.",
+    "difficulty": 0,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.memory-moon.000085",
+    "englishText": "Hi.",
+    "difficulty": 0,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.memory-moon.000086",
+    "englishText": "Hot tea.",
+    "difficulty": 0,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.memory-moon.000087",
+    "englishText": "Hot water.",
+    "difficulty": 0,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.memory-moon.000088",
+    "englishText": "How many tickets?",
+    "difficulty": 2,
+    "usefulness": 74
+  },
+  {
+    "id": "sb.memory-moon.000089",
+    "englishText": "I am asking which bag contains lunch, not which one contains the keys.",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000090",
+    "englishText": "I am at home.",
+    "difficulty": 0,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000091",
+    "englishText": "I am borrowing a book from the library.",
+    "difficulty": 2,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.memory-moon.000092",
+    "englishText": "I am buying one kilogram of apples.",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000093",
+    "englishText": "I am carrying this box.",
+    "difficulty": 1,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.memory-moon.000094",
+    "englishText": "I am drinking water from this cup.",
+    "difficulty": 1,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.memory-moon.000095",
+    "englishText": "I am fine.",
+    "difficulty": 0,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.memory-moon.000096",
+    "englishText": "I am going to another room to read because it is too noisy here.",
+    "difficulty": 2,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.memory-moon.000097",
+    "englishText": "I am here.",
+    "difficulty": 0,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.memory-moon.000098",
+    "englishText": "I am leaving by train tomorrow morning.",
+    "difficulty": 2,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000099",
+    "englishText": "I am looking for a blue shirt.",
+    "difficulty": 2,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000100",
+    "englishText": "I am looking for a quiet place because I want to study.",
+    "difficulty": 3,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.memory-moon.000101",
+    "englishText": "I am reading a book.",
+    "difficulty": 1,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.memory-moon.000102",
+    "englishText": "I am saving money so that I can travel in the summer.",
+    "difficulty": 3,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000103",
+    "englishText": "I am sending a message to my mother.",
+    "difficulty": 2,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000104",
+    "englishText": "I am staying at home because it is raining heavily.",
+    "difficulty": 3,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000105",
+    "englishText": "I am still waiting for her reply.",
+    "difficulty": 2,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000106",
+    "englishText": "I am waiting for the doctor in the corridor.",
+    "difficulty": 2,
+    "usefulness": 85
+  },
+  {
+    "id": "sb.memory-moon.000107",
+    "englishText": "I am waiting for the doctor in the waiting room.",
+    "difficulty": 2,
+    "usefulness": 85
+  },
+  {
+    "id": "sb.memory-moon.000108",
+    "englishText": "I am working from home today because my son is ill.",
+    "difficulty": 3,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000109",
+    "englishText": "I am writing a name.",
+    "difficulty": 1,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.memory-moon.000110",
+    "englishText": "I am writing an email because the phone is broken.",
+    "difficulty": 3,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.memory-moon.000111",
+    "englishText": "I arrived late, not because I forgot the agreed time, but because the bus was delayed.",
+    "difficulty": 3,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000112",
+    "englishText": "I ask the teacher to repeat the question slowly.",
+    "difficulty": 3,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000113",
+    "englishText": "I asked him to repeat the question slowly.",
+    "difficulty": 3,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.memory-moon.000114",
+    "englishText": "I attach the label to the vessel so that it is not lost.",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000115",
+    "englishText": "I buy bread every morning.",
+    "difficulty": 2,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000116",
+    "englishText": "I buy bread from the bakery every morning.",
+    "difficulty": 2,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000117",
+    "englishText": "I can hear the owl.",
+    "difficulty": 1,
+    "usefulness": 48
+  },
+  {
+    "id": "sb.memory-moon.000118",
+    "englishText": "I cannot enter the museum because I lost my ticket.",
+    "difficulty": 3,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000119",
+    "englishText": "I check the price before I pay.",
+    "difficulty": 3,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000120",
+    "englishText": "I check the price before paying.",
+    "difficulty": 3,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000121",
+    "englishText": "I count ten seeds on the table.",
+    "difficulty": 2,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.memory-moon.000122",
+    "englishText": "I do not have a book.",
+    "difficulty": 2,
+    "usefulness": 78
+  },
+  {
+    "id": "sb.memory-moon.000123",
+    "englishText": "I do not read a book.",
+    "difficulty": 2,
+    "usefulness": 78
+  },
+  {
+    "id": "sb.memory-moon.000124",
+    "englishText": "I drink milk.",
+    "difficulty": 1,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.memory-moon.000125",
+    "englishText": "I drink tea without sugar.",
+    "difficulty": 2,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.memory-moon.000126",
+    "englishText": "I drink tea.",
+    "difficulty": 1,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.memory-moon.000127",
+    "englishText": "I empty the vessel after use.",
+    "difficulty": 2,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.memory-moon.000128",
+    "englishText": "I go to school on foot.",
+    "difficulty": 2,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000129",
+    "englishText": "I go to the park.",
+    "difficulty": 1,
+    "usefulness": 78
+  },
+  {
+    "id": "sb.memory-moon.000130",
+    "englishText": "I go to the station.",
+    "difficulty": 3,
+    "usefulness": 78
+  },
+  {
+    "id": "sb.memory-moon.000131",
+    "englishText": "I had already finished my homework before my younger sister came home.",
+    "difficulty": 3,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000132",
+    "englishText": "I handle the specimen carefully because it is fragile.",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000133",
+    "englishText": "I have a book.",
+    "difficulty": 1,
+    "usefulness": 78
+  },
+  {
+    "id": "sb.memory-moon.000134",
+    "englishText": "I have a pen.",
+    "difficulty": 0,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.memory-moon.000135",
+    "englishText": "I have enough money for food, but not for clothes.",
+    "difficulty": 3,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.memory-moon.000136",
+    "englishText": "I have enough money to buy food, but not clothes.",
+    "difficulty": 3,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.memory-moon.000137",
+    "englishText": "I have five green leaves.",
+    "difficulty": 1,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.memory-moon.000138",
+    "englishText": "I have less time today than yesterday.",
+    "difficulty": 3,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.memory-moon.000139",
+    "englishText": "I have three apples.",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000140",
+    "englishText": "I have three books.",
+    "difficulty": 1,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.memory-moon.000141",
+    "englishText": "I help mom.",
+    "difficulty": 3,
+    "usefulness": 78
+  },
+  {
+    "id": "sb.memory-moon.000142",
+    "englishText": "I know when the train leaves, but I am still not sure which platform to go to.",
+    "difficulty": 3,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000143",
+    "englishText": "I live in the city.",
+    "difficulty": 2,
+    "usefulness": 78
+  },
+  {
+    "id": "sb.memory-moon.000144",
+    "englishText": "I look at the map so that I can find the station.",
+    "difficulty": 3,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000145",
+    "englishText": "I measure the length of the leaf.",
+    "difficulty": 2,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.memory-moon.000146",
+    "englishText": "I need a pen.",
+    "difficulty": 1,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.memory-moon.000147",
+    "englishText": "I need a ticket.",
+    "difficulty": 2,
+    "usefulness": 78
+  },
+  {
+    "id": "sb.memory-moon.000148",
+    "englishText": "I need help carrying the suitcase.",
+    "difficulty": 2,
+    "usefulness": 97
+  },
+  {
+    "id": "sb.memory-moon.000149",
+    "englishText": "I need help.",
+    "difficulty": 1,
+    "usefulness": 97
+  },
+  {
+    "id": "sb.memory-moon.000150",
+    "englishText": "I need more time to understand the text, not to copy it.",
+    "difficulty": 3,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.memory-moon.000151",
+    "englishText": "I need more time to understand the text, not to read it.",
+    "difficulty": 3,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.memory-moon.000152",
+    "englishText": "I need tea.",
+    "difficulty": 1,
+    "usefulness": 78
+  },
+  {
+    "id": "sb.memory-moon.000153",
+    "englishText": "I need three spoons.",
+    "difficulty": 1,
+    "usefulness": 78
+  },
+  {
+    "id": "sb.memory-moon.000154",
+    "englishText": "I need two hours.",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000155",
+    "englishText": "I observe the insect through a glass lens.",
+    "difficulty": 2,
+    "usefulness": 58
+  },
+  {
+    "id": "sb.memory-moon.000156",
+    "englishText": "I open the window to let cool air in.",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000157",
+    "englishText": "I prefer tea without sugar.",
+    "difficulty": 2,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000158",
+    "englishText": "I prefer the small table by the window.",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000159",
+    "englishText": "I promised to water the seedlings every afternoon except on days when it rains.",
+    "difficulty": 3,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.memory-moon.000160",
+    "englishText": "I read a book before going to sleep.",
+    "difficulty": 2,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.memory-moon.000161",
+    "englishText": "I read a book in the morning.",
+    "difficulty": 2,
+    "usefulness": 78
+  },
+  {
+    "id": "sb.memory-moon.000162",
+    "englishText": "I read a book.",
+    "difficulty": 0,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.memory-moon.000163",
+    "englishText": "I read before lunch.",
+    "difficulty": 1,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.memory-moon.000164",
+    "englishText": "I read in Arabic.",
+    "difficulty": 1,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.memory-moon.000165",
+    "englishText": "I read the plant's name with the teacher.",
+    "difficulty": 2,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000166",
+    "englishText": "I remove the leaf without breaking the stem.",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000167",
+    "englishText": "I repair the old chair instead of buying a new one.",
+    "difficulty": 3,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.memory-moon.000168",
+    "englishText": "I see a ball.",
+    "difficulty": 0,
+    "usefulness": 63
+  },
+  {
+    "id": "sb.memory-moon.000169",
+    "englishText": "I see a book.",
+    "difficulty": 0,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.memory-moon.000170",
+    "englishText": "I see a cat.",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000171",
+    "englishText": "I see a dog.",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000172",
+    "englishText": "I see a door.",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000173",
+    "englishText": "I see a house.",
+    "difficulty": 0,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000174",
+    "englishText": "I see a pen.",
+    "difficulty": 0,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.memory-moon.000175",
+    "englishText": "I see a table.",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000176",
+    "englishText": "I sent a message to the friend who was absent from class to tell him the meeting time had changed.",
+    "difficulty": 3,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000177",
+    "englishText": "I sleep.",
+    "difficulty": 0,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.memory-moon.000178",
+    "englishText": "I speak Hebrew.",
+    "difficulty": 1,
+    "usefulness": 82
+  },
+  {
+    "id": "sb.memory-moon.000179",
+    "englishText": "I start work after breakfast.",
+    "difficulty": 2,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000180",
+    "englishText": "I study Arabic with my friend.",
+    "difficulty": 2,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000181",
+    "englishText": "I study Georgian so that I can understand my neighbours.",
+    "difficulty": 3,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.memory-moon.000182",
+    "englishText": "I take an umbrella because it may rain.",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000183",
+    "englishText": "I visit my grandmother once a week.",
+    "difficulty": 2,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.memory-moon.000184",
+    "englishText": "I wait here until my brother arrives.",
+    "difficulty": 3,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.memory-moon.000185",
+    "englishText": "I walk for half an hour every day.",
+    "difficulty": 2,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000186",
+    "englishText": "I want a book.",
+    "difficulty": 0,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.memory-moon.000187",
+    "englishText": "I want a little coffee.",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000188",
+    "englishText": "I want a pen.",
+    "difficulty": 0,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.memory-moon.000189",
+    "englishText": "I want an apple.",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000190",
+    "englishText": "I want bread.",
+    "difficulty": 0,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.memory-moon.000191",
+    "englishText": "I want milk.",
+    "difficulty": 0,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.memory-moon.000192",
+    "englishText": "I want one ticket.",
+    "difficulty": 1,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000193",
+    "englishText": "I want rice.",
+    "difficulty": 0,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.memory-moon.000194",
+    "englishText": "I want tea.",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000195",
+    "englishText": "I want water.",
+    "difficulty": 0,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.memory-moon.000196",
+    "englishText": "I was wrong, and I am sorry.",
+    "difficulty": 3,
+    "usefulness": 66
+  },
+  {
+    "id": "sb.memory-moon.000197",
+    "englishText": "I wash the vegetables first, then cut them.",
+    "difficulty": 3,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.memory-moon.000198",
+    "englishText": "I wash the vessel before the experiment.",
+    "difficulty": 2,
+    "usefulness": 33
+  },
+  {
+    "id": "sb.memory-moon.000199",
+    "englishText": "I water the flowers in the evening.",
+    "difficulty": 2,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.memory-moon.000200",
+    "englishText": "I water these plants twice a week.",
+    "difficulty": 2,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.memory-moon.000201",
+    "englishText": "I will finish the book.",
+    "difficulty": 3,
+    "usefulness": 78
+  },
+  {
+    "id": "sb.memory-moon.000202",
+    "englishText": "I will open the door.",
+    "difficulty": 3,
+    "usefulness": 78
+  },
+  {
+    "id": "sb.memory-moon.000203",
+    "englishText": "I will read a book.",
+    "difficulty": 3,
+    "usefulness": 78
+  },
+  {
+    "id": "sb.memory-moon.000204",
+    "englishText": "I will return tomorrow morning.",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000205",
+    "englishText": "I will send this parcel after breakfast tomorrow.",
+    "difficulty": 2,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.memory-moon.000206",
+    "englishText": "I will wait here until my brother arrives.",
+    "difficulty": 3,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.memory-moon.000207",
+    "englishText": "I would like a cup of tea with no sugar at all.",
+    "difficulty": 2,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000208",
+    "englishText": "I would rather repair this broken chair than buy a new one.",
+    "difficulty": 3,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000209",
+    "englishText": "I write a description of the place in a notebook.",
+    "difficulty": 2,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.memory-moon.000210",
+    "englishText": "I write down observations immediately so that I remember them later.",
+    "difficulty": 3,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.memory-moon.000211",
+    "englishText": "I write on the label where the specimen was collected.",
+    "difficulty": 3,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.memory-moon.000212",
+    "englishText": "I write.",
+    "difficulty": 0,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.memory-moon.000213",
+    "englishText": "If I had known the footbridge was closed, I would have taken the road around the lake.",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000214",
+    "englishText": "If I still have not received a reply tomorrow, I will ask the teacher.",
+    "difficulty": 3,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000215",
+    "englishText": "If each recipe uses half a cup of flour, we will have enough for three cakes.",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000216",
+    "englishText": "If internet access is unavailable, I will call you by phone.",
+    "difficulty": 3,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.memory-moon.000217",
+    "englishText": "If the bus is late, we go on foot.",
+    "difficulty": 3,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000218",
+    "englishText": "If the bus is late, we will go on foot.",
+    "difficulty": 3,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000219",
+    "englishText": "If the internet is not working, I call by phone.",
+    "difficulty": 3,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000220",
+    "englishText": "If the leaf is damaged, we choose another one.",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000221",
+    "englishText": "If the name is unknown, we consult a book.",
+    "difficulty": 3,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.memory-moon.000222",
+    "englishText": "If the pain continues, I will call the doctor.",
+    "difficulty": 3,
+    "usefulness": 85
+  },
+  {
+    "id": "sb.memory-moon.000223",
+    "englishText": "If the plants lack water, their leaves dry out.",
+    "difficulty": 3,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.memory-moon.000224",
+    "englishText": "If the shop has brown rice, we will buy a bag.",
+    "difficulty": 2,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000225",
+    "englishText": "If the shop is closed, I return tomorrow.",
+    "difficulty": 3,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000226",
+    "englishText": "If the soil is dry, we water the plant.",
+    "difficulty": 3,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.memory-moon.000227",
+    "englishText": "If the station staff had not warned us, we would have waited on the wrong platform.",
+    "difficulty": 3,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000228",
+    "englishText": "If we do not water the plants, their leaves will dry out.",
+    "difficulty": 3,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.memory-moon.000229",
+    "englishText": "If you are late tomorrow, call me.",
+    "difficulty": 2,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.memory-moon.000230",
+    "englishText": "If you had kept the receipt, you could have exchanged the boots before the shop closed.",
+    "difficulty": 3,
+    "usefulness": 57
+  },
+  {
+    "id": "sb.memory-moon.000231",
+    "englishText": "It has stopped raining, and we can go out now.",
+    "difficulty": 2,
+    "usefulness": 70
+  },
+  {
+    "id": "sb.memory-moon.000232",
+    "englishText": "It is raining in the city.",
+    "difficulty": 1,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.memory-moon.000233",
+    "englishText": "It is raining in the mountains today.",
+    "difficulty": 2,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000234",
+    "englishText": "It is raining now.",
+    "difficulty": 1,
+    "usefulness": 70
+  },
+  {
+    "id": "sb.memory-moon.000235",
+    "englishText": "It is snowing in the mountains today.",
+    "difficulty": 2,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000236",
+    "englishText": "It is very windy today.",
+    "difficulty": 1,
+    "usefulness": 70
+  },
+  {
+    "id": "sb.memory-moon.000237",
+    "englishText": "It was the gardener, not the courier, who left the small parcel beside the gate.",
+    "difficulty": 3,
+    "usefulness": 83
+  },
+  {
+    "id": "sb.memory-moon.000238",
+    "englishText": "Leah pays for a ticket.",
+    "difficulty": 2,
+    "usefulness": 72
+  },
+  {
+    "id": "sb.memory-moon.000239",
+    "englishText": "Lena asked whether the last train had already left when we reached the station.",
+    "difficulty": 3,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000240",
+    "englishText": "Lena opens the drawer.",
+    "difficulty": 1,
+    "usefulness": 70
+  },
+  {
+    "id": "sb.memory-moon.000241",
+    "englishText": "Lend me the green pencil.",
+    "difficulty": 1,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.memory-moon.000242",
+    "englishText": "Marek repaired the cracked pot so that he could plant mint in it.",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000243",
+    "englishText": "Maya cooks soup at home.",
+    "difficulty": 2,
+    "usefulness": 72
+  },
+  {
+    "id": "sb.memory-moon.000244",
+    "englishText": "Maya drinks lemonade.",
+    "difficulty": 1,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.memory-moon.000245",
+    "englishText": "Maya invites a guest for tea.",
+    "difficulty": 3,
+    "usefulness": 64
+  },
+  {
+    "id": "sb.memory-moon.000246",
+    "englishText": "Mom is at home.",
+    "difficulty": 1,
+    "usefulness": 78
+  },
+  {
+    "id": "sb.memory-moon.000247",
+    "englishText": "More than five birds are sitting on the branch.",
+    "difficulty": 3,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.memory-moon.000248",
+    "englishText": "Mosses grow where water collects.",
+    "difficulty": 3,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.memory-moon.000249",
+    "englishText": "Mother cooks soup.",
+    "difficulty": 1,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.memory-moon.000250",
+    "englishText": "Mother is at home.",
+    "difficulty": 1,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000251",
+    "englishText": "Mum is cutting up a pear.",
+    "difficulty": 1,
+    "usefulness": 78
+  },
+  {
+    "id": "sb.memory-moon.000252",
+    "englishText": "My aunt sells flowers.",
+    "difficulty": 1,
+    "usefulness": 82
+  },
+  {
+    "id": "sb.memory-moon.000253",
+    "englishText": "My boots are under the chair.",
+    "difficulty": 1,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.memory-moon.000254",
+    "englishText": "My coat is drying on the balcony.",
+    "difficulty": 2,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.memory-moon.000255",
+    "englishText": "My daughter reads a book before going to sleep.",
+    "difficulty": 2,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.memory-moon.000256",
+    "englishText": "My friend helps me with translation.",
+    "difficulty": 2,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.memory-moon.000257",
+    "englishText": "My friend is a doctor.",
+    "difficulty": 1,
+    "usefulness": 85
+  },
+  {
+    "id": "sb.memory-moon.000258",
+    "englishText": "My mother is at home.",
+    "difficulty": 1,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000259",
+    "englishText": "My name is Salim.",
+    "difficulty": 1,
+    "usefulness": 92
+  },
+  {
+    "id": "sb.memory-moon.000260",
+    "englishText": "My older brother is wearing a red hat.",
+    "difficulty": 1,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.memory-moon.000261",
+    "englishText": "My passport is in the drawer.",
+    "difficulty": 2,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000262",
+    "englishText": "My pencil is blue.",
+    "difficulty": 1,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.memory-moon.000263",
+    "englishText": "My phone is in the bag.",
+    "difficulty": 2,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.memory-moon.000264",
+    "englishText": "My phone is not working now.",
+    "difficulty": 2,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000265",
+    "englishText": "My room has a small balcony.",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000266",
+    "englishText": "My sister drives the car to work.",
+    "difficulty": 2,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000267",
+    "englishText": "My sister is tired.",
+    "difficulty": 1,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.memory-moon.000268",
+    "englishText": "My uncle left his umbrella at the office.",
+    "difficulty": 2,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000269",
+    "englishText": "My younger sister has already finished this puzzle.",
+    "difficulty": 2,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.memory-moon.000270",
+    "englishText": "My younger sister is reading a map.",
+    "difficulty": 1,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.memory-moon.000271",
+    "englishText": "My younger sister wants to eat some bread.",
+    "difficulty": 1,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.memory-moon.000272",
+    "englishText": "Nice to meet you.",
+    "difficulty": 0,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.memory-moon.000273",
+    "englishText": "No, thank you.",
+    "difficulty": 0,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.memory-moon.000274",
+    "englishText": "No.",
+    "difficulty": 0,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.memory-moon.000275",
+    "englishText": "Noam closes a window in the morning.",
+    "difficulty": 2,
+    "usefulness": 72
+  },
+  {
+    "id": "sb.memory-moon.000276",
+    "englishText": "Noam finds a friend at the station.",
+    "difficulty": 3,
+    "usefulness": 64
+  },
+  {
+    "id": "sb.memory-moon.000277",
+    "englishText": "Noam visits a neighbor.",
+    "difficulty": 2,
+    "usefulness": 74
+  },
+  {
+    "id": "sb.memory-moon.000278",
+    "englishText": "Nora wants mint tea, not coffee.",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000279",
+    "englishText": "Omar apologizes.",
+    "difficulty": 3,
+    "usefulness": 66
+  },
+  {
+    "id": "sb.memory-moon.000280",
+    "englishText": "Omar learns at the library.",
+    "difficulty": 2,
+    "usefulness": 72
+  },
+  {
+    "id": "sb.memory-moon.000281",
+    "englishText": "Omar waits for a friend at the station.",
+    "difficulty": 3,
+    "usefulness": 64
+  },
+  {
+    "id": "sb.memory-moon.000282",
+    "englishText": "Omar works near home, so he goes to work by bike.",
+    "difficulty": 2,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000283",
+    "englishText": "On the label, I write the name first and then the date.",
+    "difficulty": 2,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.memory-moon.000284",
+    "englishText": "One body.",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000285",
+    "englishText": "One book.",
+    "difficulty": 0,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.memory-moon.000286",
+    "englishText": "One candle is burning.",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000287",
+    "englishText": "One line.",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000288",
+    "englishText": "One stone.",
+    "difficulty": 0,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.memory-moon.000289",
+    "englishText": "Only three of the ten seeds germinate.",
+    "difficulty": 3,
+    "usefulness": 33
+  },
+  {
+    "id": "sb.memory-moon.000290",
+    "englishText": "Our dog found a glove under the wooden bench.",
+    "difficulty": 2,
+    "usefulness": 82
+  },
+  {
+    "id": "sb.memory-moon.000291",
+    "englishText": "Paint the stars silver.",
+    "difficulty": 1,
+    "usefulness": 62
+  },
+  {
+    "id": "sb.memory-moon.000292",
+    "englishText": "Please attach the label to the outside of the box.",
+    "difficulty": 2,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000293",
+    "englishText": "Please buy a loaf of bread without seeds.",
+    "difficulty": 2,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000294",
+    "englishText": "Please carry only the small box upstairs, not both boxes.",
+    "difficulty": 3,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.memory-moon.000295",
+    "englishText": "Please choose two ribbons of the same colour.",
+    "difficulty": 2,
+    "usefulness": 70
+  },
+  {
+    "id": "sb.memory-moon.000296",
+    "englishText": "Please make room for a guest.",
+    "difficulty": 3,
+    "usefulness": 64
+  },
+  {
+    "id": "sb.memory-moon.000297",
+    "englishText": "Please make room for her.",
+    "difficulty": 3,
+    "usefulness": 66
+  },
+  {
+    "id": "sb.memory-moon.000298",
+    "englishText": "Please put the ticket in the blue folder and leave the receipt on the table.",
+    "difficulty": 3,
+    "usefulness": 57
+  },
+  {
+    "id": "sb.memory-moon.000299",
+    "englishText": "Please return this book to me on Friday.",
+    "difficulty": 2,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.memory-moon.000300",
+    "englishText": "Please save the last piece for my sister.",
+    "difficulty": 2,
+    "usefulness": 61
+  },
+  {
+    "id": "sb.memory-moon.000301",
+    "englishText": "Please take an umbrella even if it is not raining yet when you go out.",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000302",
+    "englishText": "Please.",
+    "difficulty": 0,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.memory-moon.000303",
+    "englishText": "Rain is falling.",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000304",
+    "englishText": "Repairing one damaged wheel costs less than replacing the whole cart.",
+    "difficulty": 3,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000305",
+    "englishText": "Sara invites a guest.",
+    "difficulty": 2,
+    "usefulness": 74
+  },
+  {
+    "id": "sb.memory-moon.000306",
+    "englishText": "Sara sings a song in the evening.",
+    "difficulty": 2,
+    "usefulness": 72
+  },
+  {
+    "id": "sb.memory-moon.000307",
+    "englishText": "Save the file before turning off the computer so you will not have to do the work again tomorrow.",
+    "difficulty": 3,
+    "usefulness": 61
+  },
+  {
+    "id": "sb.memory-moon.000308",
+    "englishText": "See you.",
+    "difficulty": 0,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.memory-moon.000309",
+    "englishText": "She checked whether the letter she had written earlier still needed a stamp before posting it.",
+    "difficulty": 3,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.memory-moon.000310",
+    "englishText": "She does not have a ticket.",
+    "difficulty": 3,
+    "usefulness": 78
+  },
+  {
+    "id": "sb.memory-moon.000311",
+    "englishText": "She is holding a key in her hand.",
+    "difficulty": 1,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000312",
+    "englishText": "She listens, and then she answers.",
+    "difficulty": 3,
+    "usefulness": 66
+  },
+  {
+    "id": "sb.memory-moon.000313",
+    "englishText": "She showed me the map so that I could find the station easily.",
+    "difficulty": 3,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000314",
+    "englishText": "She speaks quietly.",
+    "difficulty": 1,
+    "usefulness": 70
+  },
+  {
+    "id": "sb.memory-moon.000315",
+    "englishText": "Since the light has already been repaired, we can use this room tonight.",
+    "difficulty": 3,
+    "usefulness": 70
+  },
+  {
+    "id": "sb.memory-moon.000316",
+    "englishText": "Six rolls cost twice as much as three rolls.",
+    "difficulty": 2,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000317",
+    "englishText": "Sorry!",
+    "difficulty": 0,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.memory-moon.000318",
+    "englishText": "Take an umbrella because it may start raining soon.",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000319",
+    "englishText": "Take only the paper you need and leave the rest for the others.",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000320",
+    "englishText": "Take the path along the river, not the one uphill.",
+    "difficulty": 2,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.memory-moon.000321",
+    "englishText": "Take the soup out of the fridge ten minutes before the meal.",
+    "difficulty": 2,
+    "usefulness": 78
+  },
+  {
+    "id": "sb.memory-moon.000322",
+    "englishText": "Tea with milk.",
+    "difficulty": 1,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.memory-moon.000323",
+    "englishText": "Thank you!",
+    "difficulty": 0,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.memory-moon.000324",
+    "englishText": "Thank you.",
+    "difficulty": 0,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.memory-moon.000325",
+    "englishText": "That glass jar is ours, not our neighbors’.",
+    "difficulty": 2,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.memory-moon.000326",
+    "englishText": "The apple is good.",
+    "difficulty": 2,
+    "usefulness": 78
+  },
+  {
+    "id": "sb.memory-moon.000327",
+    "englishText": "The apples are in the basket.",
+    "difficulty": 1,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000328",
+    "englishText": "The bag is heavy.",
+    "difficulty": 1,
+    "usefulness": 70
+  },
+  {
+    "id": "sb.memory-moon.000329",
+    "englishText": "The baker brings the rolls.",
+    "difficulty": 1,
+    "usefulness": 71
+  },
+  {
+    "id": "sb.memory-moon.000330",
+    "englishText": "The baker wrote that the loaf had cooled before he sliced it.",
+    "difficulty": 3,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.memory-moon.000331",
+    "englishText": "The bee flies above the flower.",
+    "difficulty": 1,
+    "usefulness": 71
+  },
+  {
+    "id": "sb.memory-moon.000332",
+    "englishText": "The bird builds a nest in the tree.",
+    "difficulty": 2,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000333",
+    "englishText": "The bird is in the nest.",
+    "difficulty": 1,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000334",
+    "englishText": "The blue scarf on the chair belongs to Dad.",
+    "difficulty": 2,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.memory-moon.000335",
+    "englishText": "The book is here.",
+    "difficulty": 0,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.memory-moon.000336",
+    "englishText": "The book is on the table.",
+    "difficulty": 1,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.memory-moon.000337",
+    "englishText": "The book that I am reading is very interesting.",
+    "difficulty": 3,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.memory-moon.000338",
+    "englishText": "The book that I borrowed from you is very useful.",
+    "difficulty": 3,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.memory-moon.000339",
+    "englishText": "The bread is fresh.",
+    "difficulty": 1,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.memory-moon.000340",
+    "englishText": "The bus is here.",
+    "difficulty": 1,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000341",
+    "englishText": "The bus is late.",
+    "difficulty": 1,
+    "usefulness": 82
+  },
+  {
+    "id": "sb.memory-moon.000342",
+    "englishText": "The bus is near the bridge.",
+    "difficulty": 1,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000343",
+    "englishText": "The bus left before we reached the stop.",
+    "difficulty": 2,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000344",
+    "englishText": "The bus stop is very near here.",
+    "difficulty": 1,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000345",
+    "englishText": "The bus ticket is cheaper than the train ticket.",
+    "difficulty": 2,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000346",
+    "englishText": "The cafe is behind the museum.",
+    "difficulty": 2,
+    "usefulness": 83
+  },
+  {
+    "id": "sb.memory-moon.000347",
+    "englishText": "The cat is sleeping.",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000348",
+    "englishText": "The child eats an apple.",
+    "difficulty": 1,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000349",
+    "englishText": "The child eats bread.",
+    "difficulty": 1,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000350",
+    "englishText": "The child wears mittens.",
+    "difficulty": 1,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000351",
+    "englishText": "The children are playing in the garden.",
+    "difficulty": 2,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000352",
+    "englishText": "The children play in the garden.",
+    "difficulty": 2,
+    "usefulness": 72
+  },
+  {
+    "id": "sb.memory-moon.000353",
+    "englishText": "The children play together.",
+    "difficulty": 2,
+    "usefulness": 74
+  },
+  {
+    "id": "sb.memory-moon.000354",
+    "englishText": "The cup is empty.",
+    "difficulty": 1,
+    "usefulness": 84
+  },
+  {
+    "id": "sb.memory-moon.000355",
+    "englishText": "The date is missing from the label.",
+    "difficulty": 2,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.memory-moon.000356",
+    "englishText": "The desk is bigger than the stool.",
+    "difficulty": 1,
+    "usefulness": 70
+  },
+  {
+    "id": "sb.memory-moon.000357",
+    "englishText": "The doctor drinks water.",
+    "difficulty": 1,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.memory-moon.000358",
+    "englishText": "The doctor examines the foot.",
+    "difficulty": 2,
+    "usefulness": 85
+  },
+  {
+    "id": "sb.memory-moon.000359",
+    "englishText": "The doctor will arrive after lunch but before three.",
+    "difficulty": 2,
+    "usefulness": 85
+  },
+  {
+    "id": "sb.memory-moon.000360",
+    "englishText": "The dog is small.",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000361",
+    "englishText": "The door is closed.",
+    "difficulty": 1,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.memory-moon.000362",
+    "englishText": "The door is open.",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000363",
+    "englishText": "The eyes are closed.",
+    "difficulty": 1,
+    "usefulness": 70
+  },
+  {
+    "id": "sb.memory-moon.000364",
+    "englishText": "The family eats soup together.",
+    "difficulty": 3,
+    "usefulness": 64
+  },
+  {
+    "id": "sb.memory-moon.000365",
+    "englishText": "The fish is small.",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000366",
+    "englishText": "The fish swims in the water.",
+    "difficulty": 1,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.memory-moon.000367",
+    "englishText": "The flower is red.",
+    "difficulty": 1,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.memory-moon.000368",
+    "englishText": "The flower is white.",
+    "difficulty": 1,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.memory-moon.000369",
+    "englishText": "The flower that is closed at night opens in the morning.",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000370",
+    "englishText": "The flowers close at night.",
+    "difficulty": 2,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000371",
+    "englishText": "The forest is nearby.",
+    "difficulty": 1,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.memory-moon.000372",
+    "englishText": "The fox has a long tail.",
+    "difficulty": 1,
+    "usefulness": 48
+  },
+  {
+    "id": "sb.memory-moon.000373",
+    "englishText": "The fox sleeps near the tent.",
+    "difficulty": 1,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.memory-moon.000374",
+    "englishText": "The fruit is sweet.",
+    "difficulty": 1,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.memory-moon.000375",
+    "englishText": "The garden is beautiful.",
+    "difficulty": 1,
+    "usefulness": 62
+  },
+  {
+    "id": "sb.memory-moon.000376",
+    "englishText": "The gardener picks pears.",
+    "difficulty": 1,
+    "usefulness": 78
+  },
+  {
+    "id": "sb.memory-moon.000377",
+    "englishText": "The glass bottle is heavy.",
+    "difficulty": 1,
+    "usefulness": 70
+  },
+  {
+    "id": "sb.memory-moon.000378",
+    "englishText": "The glass is empty.",
+    "difficulty": 1,
+    "usefulness": 84
+  },
+  {
+    "id": "sb.memory-moon.000379",
+    "englishText": "The group that finished sorting early helped the group that was still checking the labels.",
+    "difficulty": 3,
+    "usefulness": 70
+  },
+  {
+    "id": "sb.memory-moon.000380",
+    "englishText": "The hand is clean.",
+    "difficulty": 1,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.memory-moon.000381",
+    "englishText": "The hotel is near the station, but its rooms are small.",
+    "difficulty": 3,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000382",
+    "englishText": "The hotel is near the station, but the rooms are small.",
+    "difficulty": 3,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000383",
+    "englishText": "The insect has two wings.",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000384",
+    "englishText": "The jacket stays on the chair because it is wet.",
+    "difficulty": 2,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.memory-moon.000385",
+    "englishText": "The key is in the pocket.",
+    "difficulty": 1,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000386",
+    "englishText": "The leaf is green.",
+    "difficulty": 1,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.memory-moon.000387",
+    "englishText": "The leaf that grows in the shade is wider.",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000388",
+    "englishText": "The leaves fall in autumn.",
+    "difficulty": 2,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000389",
+    "englishText": "The lesson is easy.",
+    "difficulty": 1,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.memory-moon.000390",
+    "englishText": "The letter is addressed to the woman who lived in the corner house last winter.",
+    "difficulty": 3,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000391",
+    "englishText": "The librarian asks us to speak more quietly.",
+    "difficulty": 2,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000392",
+    "englishText": "The library closes one hour earlier than usual today, so we need to go early.",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000393",
+    "englishText": "The library is closed on Friday.",
+    "difficulty": 2,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.memory-moon.000394",
+    "englishText": "The manager said that the report is not finished yet.",
+    "difficulty": 3,
+    "usefulness": 82
+  },
+  {
+    "id": "sb.memory-moon.000395",
+    "englishText": "The market opens at nine.",
+    "difficulty": 2,
+    "usefulness": 74
+  },
+  {
+    "id": "sb.memory-moon.000396",
+    "englishText": "The meeting has been postponed rather than canceled because the technician cannot come today.",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000397",
+    "englishText": "The meeting was moved from Monday to Tuesday.",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000398",
+    "englishText": "The milk is in the fridge.",
+    "difficulty": 1,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.memory-moon.000399",
+    "englishText": "The museum is closed on Monday.",
+    "difficulty": 2,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.memory-moon.000400",
+    "englishText": "The name is on the label.",
+    "difficulty": 1,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.memory-moon.000401",
+    "englishText": "The new friends are here.",
+    "difficulty": 3,
+    "usefulness": 78
+  },
+  {
+    "id": "sb.memory-moon.000402",
+    "englishText": "The new table is here.",
+    "difficulty": 1,
+    "usefulness": 78
+  },
+  {
+    "id": "sb.memory-moon.000403",
+    "englishText": "The next bus arrives in ten minutes.",
+    "difficulty": 2,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000404",
+    "englishText": "The notice only says the activity has moved to Saturday; it does not say it has been cancelled.",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000405",
+    "englishText": "The nurse carries the tray.",
+    "difficulty": 1,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.memory-moon.000406",
+    "englishText": "The office is a five-minute walk away.",
+    "difficulty": 2,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.memory-moon.000407",
+    "englishText": "The parcel was not delivered until the recipient confirmed the address.",
+    "difficulty": 3,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000408",
+    "englishText": "The park is not open.",
+    "difficulty": 1,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.memory-moon.000409",
+    "englishText": "The park we are going to is right beside the museum.",
+    "difficulty": 2,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000410",
+    "englishText": "The passport is kept in the drawer.",
+    "difficulty": 2,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000411",
+    "englishText": "The pharmacy is on the left side of the street.",
+    "difficulty": 2,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000412",
+    "englishText": "The plant grows slowly because it receives little light.",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000413",
+    "englishText": "The plant grows.",
+    "difficulty": 1,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.memory-moon.000414",
+    "englishText": "The plant needs light.",
+    "difficulty": 2,
+    "usefulness": 70
+  },
+  {
+    "id": "sb.memory-moon.000415",
+    "englishText": "The printer needs paper, but it has enough ink.",
+    "difficulty": 2,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000416",
+    "englishText": "The pumpkin soup is warm.",
+    "difficulty": 1,
+    "usefulness": 78
+  },
+  {
+    "id": "sb.memory-moon.000417",
+    "englishText": "The puppy is behind the fence.",
+    "difficulty": 1,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.memory-moon.000418",
+    "englishText": "The rabbit is under the cart.",
+    "difficulty": 1,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.memory-moon.000419",
+    "englishText": "The red cup is empty.",
+    "difficulty": 1,
+    "usefulness": 84
+  },
+  {
+    "id": "sb.memory-moon.000420",
+    "englishText": "The report explains why the water level rose after the sluice gates were adjusted.",
+    "difficulty": 3,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.memory-moon.000421",
+    "englishText": "The report is not ready yet, but work is continuing.",
+    "difficulty": 3,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000422",
+    "englishText": "The river flows towards the sea.",
+    "difficulty": 2,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.memory-moon.000423",
+    "englishText": "The river flows.",
+    "difficulty": 1,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.memory-moon.000424",
+    "englishText": "The room has a small balcony.",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000425",
+    "englishText": "The room is bright.",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000426",
+    "englishText": "The room is clean.",
+    "difficulty": 1,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.memory-moon.000427",
+    "englishText": "The room would be quieter if the window facing the street were closed.",
+    "difficulty": 3,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000428",
+    "englishText": "The root absorbs water from the soil.",
+    "difficulty": 2,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.memory-moon.000429",
+    "englishText": "The root is under the soil.",
+    "difficulty": 1,
+    "usefulness": 46
+  },
+  {
+    "id": "sb.memory-moon.000430",
+    "englishText": "The scarf is on the hook.",
+    "difficulty": 1,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.memory-moon.000431",
+    "englishText": "The scarf you left on the chair belongs to Amina, who lives upstairs.",
+    "difficulty": 3,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.memory-moon.000432",
+    "englishText": "The sea is calm.",
+    "difficulty": 1,
+    "usefulness": 70
+  },
+  {
+    "id": "sb.memory-moon.000433",
+    "englishText": "The seed is small.",
+    "difficulty": 1,
+    "usefulness": 46
+  },
+  {
+    "id": "sb.memory-moon.000434",
+    "englishText": "The shop is closed today.",
+    "difficulty": 2,
+    "usefulness": 72
+  },
+  {
+    "id": "sb.memory-moon.000435",
+    "englishText": "The shop is open until eight o'clock.",
+    "difficulty": 2,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000436",
+    "englishText": "The shop stays open until eight.",
+    "difficulty": 2,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000437",
+    "englishText": "The sister is at home.",
+    "difficulty": 2,
+    "usefulness": 78
+  },
+  {
+    "id": "sb.memory-moon.000438",
+    "englishText": "The small bell is quiet.",
+    "difficulty": 1,
+    "usefulness": 70
+  },
+  {
+    "id": "sb.memory-moon.000439",
+    "englishText": "The small bird feeds on insects.",
+    "difficulty": 2,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.memory-moon.000440",
+    "englishText": "The snail moves slowly.",
+    "difficulty": 1,
+    "usefulness": 48
+  },
+  {
+    "id": "sb.memory-moon.000441",
+    "englishText": "The soil is dry.",
+    "difficulty": 1,
+    "usefulness": 71
+  },
+  {
+    "id": "sb.memory-moon.000442",
+    "englishText": "The soup is warm.",
+    "difficulty": 1,
+    "usefulness": 82
+  },
+  {
+    "id": "sb.memory-moon.000443",
+    "englishText": "The station is nearby.",
+    "difficulty": 1,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000444",
+    "englishText": "The station is on the right side of the street.",
+    "difficulty": 2,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000445",
+    "englishText": "The stem is long.",
+    "difficulty": 1,
+    "usefulness": 46
+  },
+  {
+    "id": "sb.memory-moon.000446",
+    "englishText": "The stone is heavy, but it contains no iron.",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000447",
+    "englishText": "The stone is here.",
+    "difficulty": 0,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.memory-moon.000448",
+    "englishText": "The stone is red.",
+    "difficulty": 1,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.memory-moon.000449",
+    "englishText": "The student is writing.",
+    "difficulty": 1,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.memory-moon.000450",
+    "englishText": "The student works slowly and carefully.",
+    "difficulty": 2,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000451",
+    "englishText": "The sun is bright.",
+    "difficulty": 1,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.memory-moon.000452",
+    "englishText": "The sun is shining.",
+    "difficulty": 1,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.memory-moon.000453",
+    "englishText": "The swimming pool is closed this week because of repair work.",
+    "difficulty": 3,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000454",
+    "englishText": "The swimming pool is closed this week because of repairs.",
+    "difficulty": 3,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.memory-moon.000455",
+    "englishText": "The teacher reads a book.",
+    "difficulty": 1,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000456",
+    "englishText": "The teacher speaks slowly.",
+    "difficulty": 2,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000457",
+    "englishText": "The teacher wants a brief summary, not just a title.",
+    "difficulty": 2,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000458",
+    "englishText": "The train arrives at noon.",
+    "difficulty": 2,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000459",
+    "englishText": "The train arrives before noon.",
+    "difficulty": 2,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000460",
+    "englishText": "The train leaves at nine.",
+    "difficulty": 1,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000461",
+    "englishText": "The train leaves at noon.",
+    "difficulty": 1,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000462",
+    "englishText": "The vessel is empty.",
+    "difficulty": 1,
+    "usefulness": 84
+  },
+  {
+    "id": "sb.memory-moon.000463",
+    "englishText": "The warning was posted after the fault was found but before the machine was restarted.",
+    "difficulty": 3,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.memory-moon.000464",
+    "englishText": "The water is cold.",
+    "difficulty": 1,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.memory-moon.000465",
+    "englishText": "The water is lukewarm, not hot.",
+    "difficulty": 2,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.memory-moon.000466",
+    "englishText": "The weather is hot.",
+    "difficulty": 1,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.memory-moon.000467",
+    "englishText": "The window is open.",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000468",
+    "englishText": "The worm is hiding under a stone.",
+    "difficulty": 2,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.memory-moon.000469",
+    "englishText": "There are fewer people at the market than yesterday.",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000470",
+    "englishText": "There are six apples left in this basket.",
+    "difficulty": 2,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000471",
+    "englishText": "There are three flowers.",
+    "difficulty": 1,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.memory-moon.000472",
+    "englishText": "There are two chairs here.",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000473",
+    "englishText": "There are two empty cups here.",
+    "difficulty": 1,
+    "usefulness": 84
+  },
+  {
+    "id": "sb.memory-moon.000474",
+    "englishText": "There are two stones.",
+    "difficulty": 1,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.memory-moon.000475",
+    "englishText": "There are two white buttons.",
+    "difficulty": 1,
+    "usefulness": 72
+  },
+  {
+    "id": "sb.memory-moon.000476",
+    "englishText": "There is less juice in this jug than in that one.",
+    "difficulty": 2,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000477",
+    "englishText": "There is less salt in the soup this time than last time, but it still tastes very good.",
+    "difficulty": 3,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.memory-moon.000478",
+    "englishText": "There is rain.",
+    "difficulty": 1,
+    "usefulness": 82
+  },
+  {
+    "id": "sb.memory-moon.000479",
+    "englishText": "These shoes are too small; I need the next size up.",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000480",
+    "englishText": "These two plants belong to the same species.",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000481",
+    "englishText": "This bag is mine.",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000482",
+    "englishText": "This basket is lighter than my bag.",
+    "difficulty": 2,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000483",
+    "englishText": "This bird is on the roof.",
+    "difficulty": 1,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.memory-moon.000484",
+    "englishText": "This book is about history.",
+    "difficulty": 2,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.memory-moon.000485",
+    "englishText": "This book is mine.",
+    "difficulty": 1,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.memory-moon.000486",
+    "englishText": "This bowl is for giving the cat water.",
+    "difficulty": 2,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.memory-moon.000487",
+    "englishText": "This dog is sleeping.",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000488",
+    "englishText": "This is a bag.",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000489",
+    "englishText": "This is a ball.",
+    "difficulty": 0,
+    "usefulness": 63
+  },
+  {
+    "id": "sb.memory-moon.000490",
+    "englishText": "This is a bed.",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000491",
+    "englishText": "This is a book.",
+    "difficulty": 0,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.memory-moon.000492",
+    "englishText": "This is a car.",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000493",
+    "englishText": "This is a cat.",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000494",
+    "englishText": "This is a chair.",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000495",
+    "englishText": "This is a dog.",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000496",
+    "englishText": "This is a door.",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000497",
+    "englishText": "This is a hand.",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000498",
+    "englishText": "This is a house.",
+    "difficulty": 0,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000499",
+    "englishText": "This is a pen.",
+    "difficulty": 0,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.memory-moon.000500",
+    "englishText": "This is a table.",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000501",
+    "englishText": "This is an apple.",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000502",
+    "englishText": "This is an eye.",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000503",
+    "englishText": "This is bread.",
+    "difficulty": 0,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.memory-moon.000504",
+    "englishText": "This is milk.",
+    "difficulty": 0,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.memory-moon.000505",
+    "englishText": "This is my house.",
+    "difficulty": 1,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000506",
+    "englishText": "This is rice.",
+    "difficulty": 0,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.memory-moon.000507",
+    "englishText": "This is tea.",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000508",
+    "englishText": "This is the earth.",
+    "difficulty": 0,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.memory-moon.000509",
+    "englishText": "This is the sun.",
+    "difficulty": 0,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.memory-moon.000510",
+    "englishText": "This is water.",
+    "difficulty": 0,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.memory-moon.000511",
+    "englishText": "This lamp is not working because the battery is empty.",
+    "difficulty": 2,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000512",
+    "englishText": "This leaf is wider than that one.",
+    "difficulty": 2,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.memory-moon.000513",
+    "englishText": "This part is a stem, not a root.",
+    "difficulty": 3,
+    "usefulness": 46
+  },
+  {
+    "id": "sb.memory-moon.000514",
+    "englishText": "This plant's root is longer but thinner.",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000515",
+    "englishText": "This rabbit is under the bench.",
+    "difficulty": 1,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.memory-moon.000516",
+    "englishText": "This route has fewer stops, but it still takes longer to reach the library.",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000517",
+    "englishText": "This route is longer, but it is quieter.",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000518",
+    "englishText": "This soup is lukewarm.",
+    "difficulty": 1,
+    "usefulness": 78
+  },
+  {
+    "id": "sb.memory-moon.000519",
+    "englishText": "This stone is heavier than that one.",
+    "difficulty": 2,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.memory-moon.000520",
+    "englishText": "This ticket is valid up to and including Sunday.",
+    "difficulty": 2,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000521",
+    "englishText": "This time I want to borrow a raincoat instead of buying one.",
+    "difficulty": 2,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.memory-moon.000522",
+    "englishText": "This tree does not bear fruit yet.",
+    "difficulty": 2,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.memory-moon.000523",
+    "englishText": "This umbrella belongs to Omar.",
+    "difficulty": 1,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000524",
+    "englishText": "This water is clearer than that water.",
+    "difficulty": 2,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.memory-moon.000525",
+    "englishText": "This window is open.",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000526",
+    "englishText": "This wooden spoon is for stirring the soup.",
+    "difficulty": 2,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000527",
+    "englishText": "Three maps.",
+    "difficulty": 1,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.memory-moon.000528",
+    "englishText": "Three points.",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000529",
+    "englishText": "Today.",
+    "difficulty": 0,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.memory-moon.000530",
+    "englishText": "Tomorrow we will walk home unless it rains.",
+    "difficulty": 3,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000531",
+    "englishText": "Turn down the heat as soon as the water boils; there is no need to wait another five minutes.",
+    "difficulty": 3,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.memory-moon.000532",
+    "englishText": "Two bodies.",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000533",
+    "englishText": "Two bottles of water are enough for our picnic.",
+    "difficulty": 2,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.memory-moon.000534",
+    "englishText": "Two lines.",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000535",
+    "englishText": "Two stones.",
+    "difficulty": 0,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.memory-moon.000536",
+    "englishText": "Two tickets.",
+    "difficulty": 1,
+    "usefulness": 82
+  },
+  {
+    "id": "sb.memory-moon.000537",
+    "englishText": "Uncle will bring tools to repair the bike tomorrow.",
+    "difficulty": 2,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.memory-moon.000538",
+    "englishText": "Unless the wooden box is completely dry, do not put the tools back inside it.",
+    "difficulty": 3,
+    "usefulness": 71
+  },
+  {
+    "id": "sb.memory-moon.000539",
+    "englishText": "Wash the brushes before the paint dries.",
+    "difficulty": 2,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.memory-moon.000540",
+    "englishText": "Water flows from the spring to the river's mouth.",
+    "difficulty": 3,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.memory-moon.000541",
+    "englishText": "We agree, and then we help.",
+    "difficulty": 3,
+    "usefulness": 66
+  },
+  {
+    "id": "sb.memory-moon.000542",
+    "englishText": "We are at the library.",
+    "difficulty": 1,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000543",
+    "englishText": "We are repairing the chair instead of buying a new one.",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000544",
+    "englishText": "We are staying at home because the rain is heavy.",
+    "difficulty": 3,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000545",
+    "englishText": "We are visiting the museum after lunch tomorrow.",
+    "difficulty": 2,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.memory-moon.000546",
+    "englishText": "We can go to the village even without a car.",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000547",
+    "englishText": "We can visit the village even without a car.",
+    "difficulty": 3,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.memory-moon.000548",
+    "englishText": "We chose the widest plank so that the cart could cross the stream without tipping over.",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000549",
+    "englishText": "We collect only leaves.",
+    "difficulty": 2,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.memory-moon.000550",
+    "englishText": "We describe the flowers so that we can identify the plant.",
+    "difficulty": 3,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.memory-moon.000551",
+    "englishText": "We do not use the vessel unless it is clean.",
+    "difficulty": 3,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.memory-moon.000552",
+    "englishText": "We dry the leaves between sheets of paper.",
+    "difficulty": 2,
+    "usefulness": 71
+  },
+  {
+    "id": "sb.memory-moon.000553",
+    "englishText": "We have already missed that bus, so let us wait for the next one instead of running.",
+    "difficulty": 3,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000554",
+    "englishText": "We have the soup first and the bread afterwards.",
+    "difficulty": 2,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.memory-moon.000555",
+    "englishText": "We hear a drum.",
+    "difficulty": 1,
+    "usefulness": 58
+  },
+  {
+    "id": "sb.memory-moon.000556",
+    "englishText": "We hear the bird, although we do not see it.",
+    "difficulty": 3,
+    "usefulness": 65
+  },
+  {
+    "id": "sb.memory-moon.000557",
+    "englishText": "We keep the specimen in a glass vessel.",
+    "difficulty": 2,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000558",
+    "englishText": "We keep the vessels separate so that the specimens do not get mixed.",
+    "difficulty": 3,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000559",
+    "englishText": "We learn Hebrew.",
+    "difficulty": 1,
+    "usefulness": 82
+  },
+  {
+    "id": "sb.memory-moon.000560",
+    "englishText": "We need three eggs.",
+    "difficulty": 1,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000561",
+    "englishText": "We opened the window because the rain had stopped.",
+    "difficulty": 2,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000562",
+    "englishText": "We order fish with rice.",
+    "difficulty": 2,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.memory-moon.000563",
+    "englishText": "We play chess on Friday.",
+    "difficulty": 1,
+    "usefulness": 62
+  },
+  {
+    "id": "sb.memory-moon.000564",
+    "englishText": "We put lunch in the bag to keep it warm.",
+    "difficulty": 2,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000565",
+    "englishText": "We put the specimens away only when they are dry.",
+    "difficulty": 3,
+    "usefulness": 71
+  },
+  {
+    "id": "sb.memory-moon.000566",
+    "englishText": "We put the vessel in a dark place, not in the light.",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000567",
+    "englishText": "We share the bread.",
+    "difficulty": 2,
+    "usefulness": 74
+  },
+  {
+    "id": "sb.memory-moon.000568",
+    "englishText": "We share the markers with the other group.",
+    "difficulty": 2,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000569",
+    "englishText": "We sow seeds in the garden in spring.",
+    "difficulty": 2,
+    "usefulness": 62
+  },
+  {
+    "id": "sb.memory-moon.000570",
+    "englishText": "We speak quietly in the library.",
+    "difficulty": 2,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000571",
+    "englishText": "We visit the village at the weekend.",
+    "difficulty": 2,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.memory-moon.000572",
+    "englishText": "We wait until the water is clear.",
+    "difficulty": 3,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.memory-moon.000573",
+    "englishText": "We walk into the forest at dawn.",
+    "difficulty": 2,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.memory-moon.000574",
+    "englishText": "We water the flowers in the evening.",
+    "difficulty": 2,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.memory-moon.000575",
+    "englishText": "We weighed the basket twice because it seemed to weigh more than the wooden box.",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000576",
+    "englishText": "We will book the room only after the date is confirmed.",
+    "difficulty": 3,
+    "usefulness": 73
+  },
+  {
+    "id": "sb.memory-moon.000577",
+    "englishText": "We will meet at the entrance after the swimming lesson tomorrow.",
+    "difficulty": 2,
+    "usefulness": 79
+  },
+  {
+    "id": "sb.memory-moon.000578",
+    "englishText": "We will not start the game until everyone is ready.",
+    "difficulty": 3,
+    "usefulness": 62
+  },
+  {
+    "id": "sb.memory-moon.000579",
+    "englishText": "We will walk to the station instead of taking the bus.",
+    "difficulty": 2,
+    "usefulness": 81
+  },
+  {
+    "id": "sb.memory-moon.000580",
+    "englishText": "Welcome.",
+    "difficulty": 0,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.memory-moon.000581",
+    "englishText": "When choosing dumplings, I care most about the filling, not the colour of the wrapper.",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000582",
+    "englishText": "When the rain stops, we go out for a walk.",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000583",
+    "englishText": "Where is the book?",
+    "difficulty": 0,
+    "usefulness": 90
+  },
+  {
+    "id": "sb.memory-moon.000584",
+    "englishText": "Where is the library?",
+    "difficulty": 1,
+    "usefulness": 80
+  },
+  {
+    "id": "sb.memory-moon.000585",
+    "englishText": "Where is the market?",
+    "difficulty": 1,
+    "usefulness": 82
+  },
+  {
+    "id": "sb.memory-moon.000586",
+    "englishText": "Where is the station?",
+    "difficulty": 2,
+    "usefulness": 74
+  },
+  {
+    "id": "sb.memory-moon.000587",
+    "englishText": "Whereas the first jar contains dried herbs, the second contains fresh leaves from the garden.",
+    "difficulty": 3,
+    "usefulness": 62
+  },
+  {
+    "id": "sb.memory-moon.000588",
+    "englishText": "While Dad cooks the soup, we set the table.",
+    "difficulty": 2,
+    "usefulness": 75
+  },
+  {
+    "id": "sb.memory-moon.000589",
+    "englishText": "Whoever finishes first should help those who have not finished yet.",
+    "difficulty": 3,
+    "usefulness": 88
+  },
+  {
+    "id": "sb.memory-moon.000590",
+    "englishText": "Why is the bus late?",
+    "difficulty": 3,
+    "usefulness": 66
+  },
+  {
+    "id": "sb.memory-moon.000591",
+    "englishText": "Yael visits a neighbor at night.",
+    "difficulty": 3,
+    "usefulness": 64
+  },
+  {
+    "id": "sb.memory-moon.000592",
+    "englishText": "Yes, please.",
+    "difficulty": 0,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.memory-moon.000593",
+    "englishText": "Yes, thank you.",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000594",
+    "englishText": "Yes.",
+    "difficulty": 0,
+    "usefulness": 94
+  },
+  {
+    "id": "sb.memory-moon.000595",
+    "englishText": "You are at home.",
+    "difficulty": 0,
+    "usefulness": 77
+  },
+  {
+    "id": "sb.memory-moon.000596",
+    "englishText": "You are here.",
+    "difficulty": 0,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.memory-moon.000597",
+    "englishText": "You may copy this drawing only if you have her permission.",
+    "difficulty": 3,
+    "usefulness": 91
+  },
+  {
+    "id": "sb.memory-moon.000598",
+    "englishText": "five",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000599",
+    "englishText": "four",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000600",
+    "englishText": "one",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000601",
+    "englishText": "point",
+    "difficulty": 0,
+    "usefulness": 54
+  },
+  {
+    "id": "sb.memory-moon.000602",
+    "englishText": "three",
+    "difficulty": 0,
+    "usefulness": 76
+  },
+  {
+    "id": "sb.memory-moon.000603",
+    "englishText": "two",
+    "difficulty": 0,
+    "usefulness": 76
+  }
+]

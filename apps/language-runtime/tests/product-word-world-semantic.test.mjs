@@ -508,7 +508,7 @@ test("difficulty changes replace a pending Word World turn and discard prepared 
     cancelBackgroundWork() { backgroundCancelled = true; },
     savePreparedQueue() { savedQueue = [...state.branchQueue.entries]; },
     setBusy(value) { state.busy = value; },
-    czechSpeechPace: () => ({}), cancelCzechSpeech() {}, syncDiagnostics() {}, setStatus() {},
+    targetSpeechPace: () => ({}), cancelTargetSpeech() {}, syncDiagnostics() {}, setStatus() {},
     interfaceText: () => "", targetLanguageLabel: "Mandarin", speechPaceLabel: () => ""
   });
   vm.runInContext(generation + registration, context);

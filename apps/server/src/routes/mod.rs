@@ -160,14 +160,6 @@ pub fn build_router(state: Arc<AppState>, features: RuntimeFeatures) -> Router {
             .route_service(&entry_route, ServeFile::new(spec.app_entry.clone()))
             .route_service(&index_route, ServeFile::new(spec.app_entry.clone()))
             .nest(&spec.route_prefix, build_language_app(spec));
-        let language_router = if spec.status == "development" {
-            language_router.layer(SetResponseHeaderLayer::overriding(
-                HeaderName::from_static("x-robots-tag"),
-                HeaderValue::from_static("noindex, nofollow"),
-            ))
-        } else {
-            language_router
-        };
         router.merge(language_router)
     });
 
@@ -615,20 +607,11 @@ mod tests {
                     .await
                     .unwrap();
                 assert_eq!(response.status(), StatusCode::OK, "{} at {path}", spec.id);
-                if spec.status == "development" {
-                    assert_eq!(
-                        response.headers().get("x-robots-tag").unwrap(),
-                        "noindex, nofollow",
-                        "{} at {path}",
-                        spec.id,
-                    );
-                } else {
-                    assert!(
-                        response.headers().get("x-robots-tag").is_none(),
-                        "{} at {path}",
-                        spec.id,
-                    );
-                }
+                assert!(
+                    response.headers().get("x-robots-tag").is_none(),
+                    "{} at {path}",
+                    spec.id,
+                );
                 let body = to_bytes(response.into_body(), canonical.len() + 1)
                     .await
                     .expect("language application response should be readable");

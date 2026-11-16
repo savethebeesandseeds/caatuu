@@ -75,8 +75,10 @@ Backend or dependency changes require a rebuild. Static browser files are
 mounted read-only and normally need only a reload.
 
 Mandarin, Spanish, English-from-Spanish, Norwegian Bokmål, Arabic, Scientific
-Latin, Georgian, Russian, and Hebrew are `noindex` Pages courses. Russian and
-Hebrew stay out of the Android bundle.
+Latin, Georgian, Russian, and Hebrew are released, indexable Pages courses.
+All ten courses are in the Android source bundle. Russian and Hebrew enter
+that bundle from version 204. The published Android 203 package does not
+install them.
 Runtime startup verifies every shared Transformers/MiniLM artifact against
 `apps/language-runtime/embedding-runtimes.json` before serving any browser
 course. Missing or mismatched model-only assets are a deployment failure, not a
@@ -86,7 +88,7 @@ These routes describe checked-in local browser availability. Public availability
 follows the generated Pages registry and release receipts and must be verified
 separately. The [9 September owner approval](CURRICULUM_LICENSE_APPROVAL_20260909.json)
 clears the identified original Spanish-course and Norwegian curricula for
-distribution; native-speaker and pronunciation reviews remain pending.
+distribution. Pronunciation guides stay off.
 
 ## Public hosting boundary
 
@@ -149,12 +151,9 @@ Android command-line tools and build dependencies belong to the maintained
 container workflow under [`apps/android/tooling`](../apps/android/tooling/).
 Development APKs are written to the ignored `artifacts/android/` directory.
 The Android bundle is `apps/android/course-bundle.json`. It contains every
-catalog course whose Android platform is enabled. Each course manifest sets
-`platforms.android.enabled` and, when Android is enabled, the first
-`minimumVersionCode` that may carry it. Russian and Hebrew are registered for
-the browser and the public website with Android disabled, so the bundle does
-not include them. Arabic, Scientific Latin, and Georgian are in that Android
-bundle and on the public website.
+catalog course. Each course manifest sets `platforms.android.enabled` and the
+first `minimumVersionCode` that may carry it. Russian and Hebrew use 204.
+Arabic, Scientific Latin, and Georgian use 179.
 
 Phone-debug exposure is a deliberate trusted-LAN override:
 
@@ -185,9 +184,9 @@ docker exec -w /workspace caatuu-dev bash -lc `
 
 Reviewed game data is validated by the browser/runtime contract suite. New or
 changed language data requires human language review before active-course
-promotion or approved pronunciation guidance. A disclosed development course
-may be packaged before that review when its distribution licensing and all
-other applicable release gates are clear.
+promotion or approved pronunciation guidance. A course whose manifest remains
+`development` may be packaged before that review when its distribution licensing
+and all other applicable release gates are clear.
 
 After route, browser shell, packaged asset, or Android changes, start the local
 runtime and run the boundary audit in the established dev container:

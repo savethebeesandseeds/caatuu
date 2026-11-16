@@ -16,7 +16,7 @@ import { joinConceptCatalogs } from '../../../apps/language-runtime/static/sourc
 import { canonicalEnglishInput } from './semantic-cache.mjs';
 
 export const CORPUS_SCHEMA_VERSION = 1;
-export const CORPUS_ADAPTER_VERSION = 'english-authority-and-static-assessment-units-v2';
+export const CORPUS_ADAPTER_VERSION = 'english-authority-and-static-assessment-units-v3';
 const repositoryRoot = fileURLToPath(new URL('../../../', import.meta.url));
 const NATURALIZATION_SOURCE = 'apps/language-runtime/static/source/games/naturalization-nucleus/naturalization-nucleus.js';
 const IMPLEMENTATION_SOURCES = [
@@ -50,7 +50,8 @@ export function englishAuthority(catalog, row) {
   const { item, kind } = row;
   let fields;
   switch (catalog.game) {
-    case 'verb-nebula': fields = ['englishAuditText', 'english', 'en', ...(englishBase(catalog.course) ? ['source'] : [])]; break;
+    case 'verb-nebula': fields = ['englishAuditText', 'english', 'en', ...(englishBase(catalog.course) ? ['source'] : []),
+      ...(catalog.course.targetLanguage?.id === 'en' && /^sb\.verb-lab\.\d{6}$/u.test(item.semanticBankId || '') ? ['target'] : [])]; break;
     case 'word-world': fields = ['englishText']; break;
     case 'conjugation-comet': {
       const legacy = catalog.document.schemaVersion === undefined && typeof catalog.document.language === 'string' && Array.isArray(catalog.document.verbs);
@@ -58,7 +59,7 @@ export function englishAuthority(catalog, row) {
       break;
     }
     case 'case-cosmos': fields = kind === 'case-context' ? ['english'] : []; break;
-    case 'grammar-gravity': fields = kind === 'agreement-example' ? ['englishAuditText'] : []; break;
+    case 'grammar-gravity': fields = kind === 'agreement-example' || item.semanticBankId ? ['englishAuditText'] : []; break;
     case 'grammar-gravity-nouns': fields = ['english']; break;
     case 'sound-quasar': fields = ['englishAuditText']; break;
     case 'memory-moon': fields = ['englishText']; break;
@@ -84,7 +85,8 @@ function translations(catalog, row, english) {
     case 'memory-moon': targetText = text(item.targetText); learnerBaseText = text(item.learnerBaseText); break;
     case 'naturalization-nucleus': targetText = text(item.target ?? item.hanzi); learnerBaseText = englishBase(catalog.course) ? text(item.translation) : null; break;
   }
-  const structural = english.reason === 'structural-record-without-independent-English';
+  const structural = english.reason === 'structural-record-without-independent-English'
+    || (kind === 'agreement' && item.reviewStatus !== 'untranslated');
   return { targetText, learnerBaseText, missingTarget: !targetText && !structural, missingLearnerBase: !learnerBaseText && !structural };
 }
 
@@ -128,6 +130,7 @@ function actualPlayableUnits(catalog, rows, { naturalizationValidator } = {}) {
   const byItemId = new Map(rows.filter(row => row.item.id).map(row => [row.item.id, row]));
   const byLocation = new Map(rows.map(row => [row.location, row]));
   const add = (item, kind, sourceRows, normalizer, itemId = item.id, extra = {}) => {
+    if (item.reviewStatus === 'untranslated') return;
     if (!sourceRows.length || sourceRows.some(row => !row)) throw new Error(`Runtime unit ${itemId} has no exact authoring record match.`);
     const learnerIdentity = { courseId: course.id, gameId: gameIdFor(game), bankId: catalog.resource, itemId: String(itemId) };
     output.push({ ...learnerIdentity, id: identityKey(learnerIdentity), learnerIdentity, kind,
@@ -162,11 +165,13 @@ function actualPlayableUnits(catalog, rows, { naturalizationValidator } = {}) {
     normalizer = 'validateConjugationCometCatalog + buildConjugationHelixRound';
     const pack = validateConjugationCometCatalog(document, { expectedCourseId: course.id, expectedTargetLanguageId: course.targetLanguage.id,
       expectedLearnerBaseLanguageId: course.sourceLanguage.id, expectedTargetLocale: course.targetLanguage.locale });
-    pack.verbs.forEach((verb, index) => {
+    pack.verbs.forEach((verb) => {
+      const sourceVerb = byItemId.get(verb.id);
+      if (!sourceVerb) throw new Error(`Conjugation verb ${verb.id} has no authored source.`);
       const round = buildConjugationHelixRound(pack, verb.id, { rng: () => 0.5 });
       for (const subject of round.subjects) {
         const formIndex = verb.forms.findIndex(form => form.id === subject.id);
-        add({ ...verb, ...subject }, 'conjugation-form', [byLocation.get(`verbs[${index}].forms[${formIndex}]`)], normalizer, `${verb.id}/${subject.id}`,
+        add({ ...verb, ...subject }, 'conjugation-form', [byLocation.get(`${sourceVerb.location}.forms[${formIndex}]`)], normalizer, `${verb.id}/${subject.id}`,
           { parentItemId: verb.id, assessmentGroup: 'helix-paradigm' });
       }
     });
@@ -232,6 +237,7 @@ export function buildEvaluationCorpus(catalogs, { sources = [], naturalizationVa
       const english = englishAuthority(catalog, row);
       const translation = translations(catalog, row, english);
       const record = { id, ...scope, itemId: String(row.item.id || row.location), kind: row.kind, recordRole,
+        reviewStatus: row.item.reviewStatus || null, semanticBankId: row.item.semanticBankId || null,
         parentId: row.parent ? recordKey(catalog, rowByObject.get(row.parent).location) : null,
         source: { path: catalog.path, location: row.location }, metadata: metadata(row.item), ...categoriesFor(row, catalog),
         english, translation, semanticDocumentId: null };

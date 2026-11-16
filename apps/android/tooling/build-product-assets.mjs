@@ -50,7 +50,6 @@ import { evaluateCourseProfile } from "../../../tools/language-packs/lib/course-
 
 const scriptPath = fileURLToPath(import.meta.url);
 const defaultWorkspaceRoot = resolve(dirname(scriptPath), "../../..");
-export const DEFAULT_COURSE_MANIFEST_PATH = "apps/languages/czech/course.json";
 export const PRODUCT_STATIC_TEXT_FORMAT = "indentation-v1";
 export const DEFAULT_COURSE_BUNDLE_PATH = "apps/android/course-bundle.json";
 export const DEFAULT_LANGUAGE_CATALOG_PATH = "apps/languages/catalog.json";
@@ -385,14 +384,27 @@ function loadAndroidInterfaceContentConfiguration({
   });
 }
 
+function defaultCourseManifestPath(workspaceRoot, courseBundlePath) {
+  const bundle = readJson(confinedWorkspacePath(workspaceRoot, courseBundlePath,
+    "Android course bundle", { allowAbsolute: true, kind: "file" }), "Android course bundle");
+  const catalog = readJson(confinedWorkspacePath(workspaceRoot, DEFAULT_LANGUAGE_CATALOG_PATH,
+    "language catalog", { kind: "file" }), "language catalog");
+  const selected = catalog.courses?.find(({ id }) => id === bundle.defaultCourseId);
+  assert.ok(selected && bundle.courses?.some(({ manifest }) => manifest === selected.manifest),
+    "Android bundle default must select a declared language catalog course");
+  return selected.manifest;
+}
+
 export function loadAndroidCourseConfiguration({
   workspaceRoot = defaultWorkspaceRoot,
-  courseManifestPath = DEFAULT_COURSE_MANIFEST_PATH,
+  courseManifestPath,
+  courseBundlePath = DEFAULT_COURSE_BUNDLE_PATH,
+  platform = "android",
 } = {}) {
   const resolvedWorkspace = realpathSync(resolve(workspaceRoot));
   const resolvedManifest = confinedWorkspacePath(
     resolvedWorkspace,
-    courseManifestPath,
+    courseManifestPath ?? defaultCourseManifestPath(resolvedWorkspace, courseBundlePath),
     "course manifest",
     { allowAbsolute: true, kind: "file" },
   );
@@ -405,7 +417,8 @@ export function loadAndroidCourseConfiguration({
     String(course.entryPath || "").startsWith(`${course.routePrefix}/`),
     "course entryPath must be inside routePrefix",
   );
-  assert.equal(course.platforms?.android?.enabled, true, `course ${course.id} is not enabled for Android`);
+  assert.ok(["android", "browser"].includes(platform), "course platform must be android or browser");
+  assert.equal(course.platforms?.[platform]?.enabled, true, `course ${course.id} is not enabled for ${platform}`);
 
   const staticRoot = resourcePath(course, "staticRoot", resolvedWorkspace);
   assert.equal(staticRoot.resource.kind, "directory", "course staticRoot must be a directory");
@@ -619,14 +632,6 @@ export function loadAndroidCourseConfiguration({
     productProfile,
   });
 }
-
-const DEFAULT_COURSE_CONFIGURATION = loadAndroidCourseConfiguration();
-
-// Compatibility exports remain the default Czech course views. The canonical
-// source is apps/languages/czech/android-assets.json through course.json.
-export const STORE_LANGUAGE_FILES = DEFAULT_COURSE_CONFIGURATION.languageFiles;
-export const STORE_LAUNCHER_ICON_FILES = DEFAULT_COURSE_CONFIGURATION.launcherIconFiles;
-export const PRODUCT_PROFILE = DEFAULT_COURSE_CONFIGURATION.productProfile;
 
 function prefixedNativeProviders(nativeProviders, assetPrefix) {
   const providers = {};
@@ -1765,7 +1770,7 @@ export function transformRuntime(input) {
   source = exactReplace(
     source,
     "    return /caatuu-czech|webllm|mlc|tvm|wasm|model/i.test(name);",
-    "    return /caatuu-czech/i.test(name);",
+    "    return /^caatuu-(?:web-static-|czech(?:-|$))/i.test(name);",
     "runtime cache scope"
   );
   source = exactReplace(
@@ -1790,18 +1795,24 @@ export function transformRuntime(input) {
   async function sendDictionaryGapReport() {
     throw new Error("Remote dictionary-gap reporting is disabled for the Caatuu product.");
   }`, { indent: "  " });
-  source = exactReplace(
-    source,
-    "            online: () => navigator.onLine !== false,",
-    "            online: () => false,",
-    "dictionary-gap outbox network gate"
-  );
-  source = exactReplace(
-    source,
-    "    scheduleDictionaryGapFlush(0);\n    return { ...result, pending: outbox.list().length, automaticDelivery: true };",
-    "    return { ...result, pending: outbox.list().length, automaticDelivery: false, localOnly: true };",
-    "dictionary-gap enqueue policy"
-  );
+  const outboxRange = topLevelFunctionRange(source, "getDictionaryGapOutbox", { indent: "  " });
+  let outboxSource = source.slice(outboxRange.start, outboxRange.end);
+  const oldOnline = "            online: () => navigator.onLine !== false,";
+  const disabledOnline = "            online: () => false,";
+  assert.equal((outboxSource.match(/online\s*:/gu) || []).length, 1, "dictionary-gap outbox must have one network gate");
+  if (outboxSource.includes(oldOnline)) {
+    outboxSource = exactReplace(outboxSource, oldOnline, disabledOnline, "dictionary-gap outbox network gate");
+  } else {
+    assert.equal(countOccurrences(outboxSource, disabledOnline), 1, "dictionary-gap outbox must already disable the network");
+  }
+  source = source.slice(0, outboxRange.start) + outboxSource + source.slice(outboxRange.end);
+  const oldEnqueue = "    scheduleDictionaryGapFlush(0);\n    return { ...result, pending: outbox.list().length, automaticDelivery: true };";
+  const localEnqueue = "    return { ...result, pending: outbox.list().length, automaticDelivery: false, localOnly: true };";
+  if (source.includes(oldEnqueue)) {
+    source = exactReplace(source, oldEnqueue, localEnqueue, "dictionary-gap enqueue policy");
+  } else {
+    assert.equal(countOccurrences(source, localEnqueue), 1, "dictionary-gap enqueue must already be local-only");
+  }
   source = replaceTopLevelFunction(source, "flushQueuedDictionaryGaps", `
   async function flushQueuedDictionaryGaps() {
     const outbox = await getDictionaryGapOutbox();
@@ -1854,17 +1865,16 @@ export function transformRuntime(input) {
     '? nativeCall("delete_local_pack", {}, handlers)',
     "runtime local pack deletion"
   );
-  source = exactReplace(
-    source,
-    `  window.addEventListener("online", () => scheduleDictionaryGapFlush(0));
+  const oldTriggers = `  window.addEventListener("online", () => scheduleDictionaryGapFlush(0));
   document.addEventListener("visibilitychange", () => {
     if (document.visibilityState === "visible") scheduleDictionaryGapFlush(0);
   });
   scheduleDictionaryGapFlush(1_000);
-`,
-    "",
-    "dictionary-gap automatic delivery triggers"
-  );
+`;
+  if (source.includes(oldTriggers)) {
+    source = exactReplace(source, oldTriggers, "", "dictionary-gap automatic delivery triggers");
+  }
+  assert.doesNotMatch(source, /scheduleDictionaryGapFlush\(/u, "dictionary-gap automatic delivery must be absent");
   return source;
 }
 
@@ -2287,10 +2297,17 @@ function providerReferenceAsset(catalogAsset, reference, label) {
 
 function assertEmbeddingProviderBoundary(outputDir, profile) {
   const provider = nativeProvider(profile, "embeddings");
-  assert.equal(provider.implementation, "vector-database-catalog-v1", "Embedding provider implementation is unsupported");
   const catalogPath = join(outputDir, provider.catalogAsset);
   assert.ok(existsSync(catalogPath), "embedding provider catalog must be packaged");
   const catalog = JSON.parse(readFileSync(catalogPath, "utf8"));
+  if (provider.implementation === "webview-english-minilm-v1") {
+    assertWebViewEmbeddingCatalog(catalog, profile.course);
+    assert.equal(catalog.runtime.modelDelivery, "browser-on-demand", "Single-course WebView MiniLM must retain browser delivery");
+    assert.equal(catalog.runtime.modelPrecached, false, "WebView MiniLM must not claim precached model bytes");
+    assert.equal(catalog.runtime.androidPackaged, false, "WebView MiniLM must not claim packaged model bytes");
+    return;
+  }
+  assert.equal(provider.implementation, "vector-database-catalog-v1", "Embedding provider implementation is unsupported");
   assertHttpsUrl(catalog.base_url, "embedding provider catalog base_url");
   const models = Array.isArray(catalog.models) ? catalog.models : [];
   const active = models.find((model) => model.key === catalog.default_model && model.status === "active");
@@ -2601,7 +2618,7 @@ function assertLearnerContentSafety(outputDir) {
 function assertServiceWorkerBoundary(outputDir) {
   const source = readSourceText(join(outputDir, "sw.js"));
   assert.doesNotMatch(source, /isModelRuntimeRequest|huggingface|esm\.run|github\.com|chat/i);
-  const loader = /^"use strict";\s+\/\/ Offline catalog revision: ([^\r\n]+)\s+importScripts\("\/language-runtime\/static\/source\/course-service-worker\.js"\);\s*$/u.exec(source);
+  const loader = /^"use strict";\s+\/\/ Offline catalog revision: ([^\r\n]+)\s+self\.CAATUU_OFFLINE_CACHE_NAME = "\1";\s+importScripts\("\/language-runtime\/static\/source\/course-service-worker\.js"\);\s*$/u.exec(source);
   assert.ok(
     loader,
     "course service worker must be the canonical shared-worker loader",
@@ -2957,7 +2974,7 @@ function validateFullProductAssetBundle({
 export function validateProductAssets({
   outputDir,
   workspaceRoot = defaultWorkspaceRoot,
-  courseManifestPath = DEFAULT_COURSE_MANIFEST_PATH,
+  courseManifestPath,
   languageStaticDir,
   configuration,
 }) {
@@ -3365,14 +3382,15 @@ function compileFullProductAssetBundle({
 
 export function compileProductAssets({
   workspaceRoot = defaultWorkspaceRoot,
-  courseManifestPath = DEFAULT_COURSE_MANIFEST_PATH,
+  courseManifestPath,
+  platform = "android",
   languageStaticDir,
   launcherStaticDir = join(workspaceRoot, "apps/launcher/static"),
   outputDir = join(workspaceRoot, "apps/android/product/build/generated/assets/product"),
   deliveryMode = "full",
 } = {}) {
   assert.equal(deliveryMode, "full", "Single-course compilation is the complete Pages/test delivery surface");
-  const courseConfiguration = loadAndroidCourseConfiguration({ workspaceRoot, courseManifestPath });
+  const courseConfiguration = loadAndroidCourseConfiguration({ workspaceRoot, courseManifestPath, platform });
   const resolvedWorkspace = courseConfiguration.workspaceRoot;
   const resolvedLanguage = languageStaticDir
     ? confinedWorkspacePath(

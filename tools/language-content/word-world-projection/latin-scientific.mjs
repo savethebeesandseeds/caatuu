@@ -11,5 +11,5 @@ export const latinScientificWordWorldProjectionPolicy = defineAuthoredWordWorldP
     realizationsRuntime: "apps/languages/latin-scientific/static/data/games/word-world/content.json",
     manifest: "apps/languages/latin-scientific/static/data/games/word-world/manifest.json"
   },
-  pronunciationNote: "Scientific Neo-Latin with pedagogical macrons. Device speech uses the shared browser/Android provider and does not establish Newton-era pronunciation. Qualified Latinist and pronunciation review remain pending."
+  pronunciationNote: "Scientific Neo-Latin with pedagogical macrons. Device speech uses the shared browser/Android provider and does not establish Newton-era pronunciation. Pronunciation guides stay off."
 });

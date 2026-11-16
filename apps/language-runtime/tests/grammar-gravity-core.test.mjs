@@ -4,6 +4,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 import vm from "node:vm";
 import { mountRobotLoadingScreen } from "../static/source/games/embedded-game-controls.mjs";
+import { reportEmbeddedGameStatus } from "../static/source/games/course-game-content.mjs";
 import { createBrowserHarness } from "./helpers/fake-browser.mjs";
 import { createInterfaceContent } from "../static/source/interface-content.mjs";
 import { buildGrammarGravityRounds, scopeGrammarGravityMeaningChoices, validateGrammarGravityCategories, normalizeGrammarGravityPack } from "../static/source/games/grammar-gravity/grammar-gravity-core.mjs";
@@ -69,6 +70,7 @@ async function mountSequence({ language = "spanish", nounReady = true, phraseFai
   const records = [];
   const exposures = [];
   const messages = [];
+  const startupMessages = [];
   let difficulty = initialDifficulty;
   shell.CaatuuLearning = { difficulty: () => difficulty, record: (id, delta) => records.push({ id, ...delta }) };
   if (gameSettings) Object.assign(shell.CaatuuLearning, {
@@ -78,7 +80,7 @@ async function mountSequence({ language = "spanish", nounReady = true, phraseFai
   if (progression) Object.assign(shell.CaatuuLearning, { contentHistory: contentHistory || (() => ({})),
     contentGeneration: () => "before-reset",
     recordExposure: (gameId, event) => exposures.push({ gameId, ...event }) });
-  shell.postMessage = (message) => messages.push(message);
+  shell.postMessage = (message) => (message.type === "startup" ? startupMessages : messages).push(message);
   const noun = { options: null, resumes: 0, destroys: 0, nexts: 0, active: true, durationMs: null, icons: null,
     ready: () => nounReady,
     setActive(value) { noun.active = value; },
@@ -127,6 +129,7 @@ async function mountSequence({ language = "spanish", nounReady = true, phraseFai
     requestAnimationFrame: (callback) => { frames.set(++frameId, callback); return frameId; },
     cancelAnimationFrame: (id) => frames.delete(id),
     buildGrammarGravityRounds, scopeGrammarGravityMeaningChoices, validateGrammarGravityCategories, normalizeGrammarGravityPack, mountGrammarFlight, mountRobotLoadingScreen, createArabicReadingGuide,
+    reportEmbeddedGameStatus,
     readEmbeddedCourseProfile: () => course,
     fetchDeclaredCourseGameJson: async () => {
       if (deferPhrase) await new Promise((resolve) => { finishPhrase = resolve; });
@@ -188,7 +191,7 @@ async function mountSequence({ language = "spanish", nounReady = true, phraseFai
     assert.equal(state.adjectiveGame.snapshot().phase,"recap");
     element("gravityAdjectiveNext").click();
   }
-  return { ...browser, get controller() { return controller; }, state, shell, noun, controls, records, exposures, messages, errors,
+  return { ...browser, get controller() { return controller; }, state, shell, noun, controls, records, exposures, messages, startupMessages, errors,
     frames, frame, advance, answerStage, completeRound, chooseMode, element, timingChoice,
     setDifficulty(value) {
       if (gameSettings && value !== difficulty) delete gameSettings.grammarMeaningChoices;
@@ -413,12 +416,12 @@ test("ready mode changes have no forced delay and preserve menu focus while resp
 test("grammar progression records completed exercises separately for meaning, form, and sequence practice",async()=>{
   const game=await mountSequence({progression:true});
   assert.equal(game.exposures.length,0);
-  game.shell.CaatuuLearning.contentGeneration = () => "after-reset";
   game.completeRound();
   assert.equal(game.exposures.length,1);
   assert.equal(game.exposures[0].bankId,"phrases-sequence");
   assert.equal(game.exposures[0].generation,"before-reset");
   assert.equal(game.exposures[0].evidence,"independent");
+  game.shell.CaatuuLearning.contentGeneration = () => "after-reset";
   game.chooseMode("meaning");
   assert.equal(game.exposures.length,1);
   game.completeRound();
@@ -465,6 +468,30 @@ function syntheticAgreementBank(content) {
     }]))
   }));
 }
+
+test("mixed grammar bank references survive validation and round construction", async () => {
+  const raw = await json(new URL('../../languages/spanish/static/data/games/grammar-gravity/content.json', import.meta.url));
+  syntheticAgreementBank(raw);
+  raw.challenges[0].semanticBankId = 'sb.grammar-gravity.000001';
+  raw.challenges[0].englishAuditText = 'A fixture meaning.';
+  for (const challenge of raw.challenges) for (const form of Object.values(challenge.forms)) {
+    for (const example of form.examples) example.semanticBankId = 'sb.grammar-gravity.000002';
+  }
+  const pending = {id:'es.grammar-gravity.999999', semanticBankId:'sb.grammar-gravity.999999', reviewStatus:'untranslated',
+    revision:1, englishAuditText:'An unfinished example.', difficulty:1, usefulness:70, complexity:30};
+  raw.challenges.unshift(pending);
+  const pack = normalizeGrammarGravityPack(raw);
+  const rounds = buildGrammarGravityRounds(pack, 1, () => 0);
+  assert.ok(rounds.length > 0);
+  assert.ok(rounds.every(round => round.semanticBankId === 'sb.grammar-gravity.000002'));
+  assert.ok(rounds.every(round => round.challengeId !== pending.id));
+  const bad = structuredClone(raw);
+  bad.challenges[0].semanticBankId = 'sb.word-net.999999';
+  assert.throws(() => normalizeGrammarGravityPack(bad), /Grammar Gravity semantic bank/u);
+  bad.challenges[0].semanticBankId = pending.semanticBankId;
+  bad.challenges[0].id = bad.challenges[1].id;
+  assert.throws(() => normalizeGrammarGravityPack(bad), /repeats challenge ID/u);
+});
 
 for (const practiceMode of ["sequence", "meaning", "forms"]) {
   test(`${practiceMode} startup uses its own history and scopes meaning distractors to whole-example demand`, async () => {
@@ -563,4 +590,18 @@ test("destroying a deferred mount cannot revive gameplay or loading timers",asyn
   assert.equal(game.frames.size,0);
   assert.equal(game.noun.active,false);
   assert.equal(game.noun.destroys,1);
+});
+
+test("Grammar reset retires the active phrase and scores only a fresh exercise", async () => {
+  const game = await mountSequence({ progression: true });
+  const oldEncounter = game.state.encounterId;
+  game.shell.CaatuuLearning.contentGeneration = () => "after-reset";
+  game.shell.dispatchEvent({ type: "caatuu:learning-change", detail: { reason: "progress-reset" } });
+  assert.notEqual(game.state.encounterId, oldEncounter);
+  assert.equal(game.state.contentGeneration, "after-reset");
+  assert.equal(game.exposures.length, 0);
+  game.completeRound();
+  assert.equal(game.exposures.length, 1);
+  assert.equal(game.exposures[0].generation, "after-reset");
+  game.controller.destroy();
 });

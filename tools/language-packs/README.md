@@ -1,18 +1,19 @@
 # Language pack contracts
 
 This directory owns the versioned, language-neutral contract for Caatuu course
-packs. The internal catalog at `apps/languages/catalog.json` lists active and
-development packs. The generated public launcher registry includes
+packs. The internal catalog at `apps/languages/catalog.json` lists the
+released course packs. The generated public launcher registry includes
 browser-enabled active and development courses in both `languages` and
-`browserSetup`, preserving each manifest's status. Listing a development
-course does not promote it to active or clear its outstanding review gates.
+`browserSetup`, preserving each manifest's status. A development manifest
+can still be listed. It does not by itself clear a license gate. Active
+status does not withhold a course and does not approve pronunciation.
 
 Each course manifest is authoritative for identity, routes, source and target
 language tags, storage/cache namespaces, capabilities, platform support, the
 browser server backend, and resource locations. A resource marked `present`
 must exist with the declared file kind. A development course may reserve a
 confined future path with `state: "planned"`; an active course may not.
-Browser-enabled courses, including development previews, must provide present
+Browser-enabled courses, including courses whose manifest status is `development`, must provide present
 course-scoped `staticRoot` and the canonical shared `appEntry` resource at
 `apps/language-runtime/static/app/index.html`. The manifest `entryPath` is the
 course-owned browser URL at which that same document is served. Public Pages
@@ -56,17 +57,25 @@ concept-ID-keyed realization; English concept text must not be relabeled as the
 base language. `publication.learnerBaseRealizations` is `null` for an English
 base and names a confined shared learner-base catalog for any other base.
 Publication validation loads the English, base, and target catalogs as three
-independent roles. Development validation accepts explicitly marked drafts, but
-changing a course to `active` makes both catalog validation and launcher
-generation enforce native review and release-cleared licensing.
-That native-review requirement belongs to course activation and approved
-pronunciation. Disclosed development courses may ship on Pages and in Android
-APKs with explicitly marked draft catalogs for hands-on evaluation, using the
-same learner-base preview behavior as the local browser. Promotion to an active
-course still requires the recorded native-review and release-license clearance;
-preview delivery never rewrites draft metadata as approval.
-The Czech manifest is the only pack that still records `legacy-active-v1`.
-Another course cannot select that marker.
+independent roles. Active status does not withhold a course and does not
+approve pronunciation. The separate `--require-native-review` check still
+demands a completed review when someone asks for that check. Public delivery
+never rewrites a review record as approval.
+Record-based Word World packs can instead declare `word-world-records-v1`.
+This contract requires exactly `contract`, `authoring`, `provider`, `runtime`
+and `manifest`. The authoring path is the owning course's
+`content/word-world/content.json`; runtime and manifest are distinct JSON files
+inside its static root, and manifest equals `resources.wordWorldManifest`.
+The provider must be registered in
+[`record-projection/registry.mjs`](../language-content/record-projection/registry.mjs).
+
+The current `czech-standard-records-v1` provider supports an English learner
+base and Czech target text in the existing standard-corpus format. Selection
+uses the declared provider, not the course ID. It validates the source records
+and rubric, then projects the runtime bytes and their hash-addressed manifest.
+Publication rejects any mismatch with those outputs; there is no unchecked
+active-course exception. See the
+[record publication contract](../language-content/lib/record-publication.mjs).
 
 A `language-content-v1` course that enables Word World also declares
 `publication.runtimeProjection`. That object binds the selected versioned
@@ -196,10 +205,14 @@ replacement cannot select another course's caches.
 
 This projection closure applies to every delivered `language-content-v1` Word
 World course, including an English learner base; only the learner-base runtime
-overlay is conditional. The shared authored renderer is reusable across
-targets, but the current optional generation strategy is Czech-specific.
-Consequently a non-Czech Word World course must keep `generation` disabled
-until it owns an explicit versioned model/prompt/fallback strategy.
+overlay is conditional. The shared renderer uses an explicitly declared
+provider for optional generation. A course that enables `generation` must
+name a versioned, course-local module in its Word World runtime manifest's
+`generationStrategy`. That module exports `wordWorldGenerationProvider`;
+validation checks its strategy, target/audit/learner-base language identities
+and model keys against the declaration and course. Missing or unsupported
+implementations fail closed for every course ID. Prompts and fallbacks belong
+to the selected provider, while the renderer remains shared.
 
 Browser interface catalogs, embedding selections, shared embedding runtimes,
 and Android asset allowlists each have their own versioned schema beside the
@@ -253,15 +266,14 @@ setup catalog and route. `platforms.browser.enabled` means the canonical local
 server may mount the course; `platforms.browser.pagesEnabled` is the separate
 public staging gate. A new course therefore uses the same compiler and shared
 runtime; missing entrypoints, assets, stale markers, or route collisions fail
-before publication output is mutated. Active modern courses require recorded
-native review and release-cleared licensing. Pages-enabled development previews
-retain their declared draft review and provenance status and remain `noindex`;
-they use the same shared app and offline graph. Delivery flags are authoritative
-per course. Arabic, Scientific Latin, and Georgian are browser-enabled,
-`noindex` Pages previews, and Android-enabled from version 179. Russian and
-Hebrew are the same kind of Pages preview and stay out of Android. Czech's manifest
-records `active` and `legacy-active-v1`. The other packs record
-`language-content-v1`.
+before publication output is mutated. Every current course
+manifest is `active` and indexable, and every course is Android-enabled.
+Arabic, Scientific Latin, and Georgian start at version 179. Russian and
+Hebrew start at version 204, so the published Android 203 package does not
+install them. The Czech pack currently selects `word-world-records-v1` and its
+registered `czech-standard-records-v1` provider; the other packs select
+`language-content-v1`. Both publication paths validate their declared sources
+and runtime projections.
 
 ## Validation in the established development container
 

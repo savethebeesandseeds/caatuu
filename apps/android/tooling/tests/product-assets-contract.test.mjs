@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { spawnSync } from "node:child_process";
 import { mkdirSync, mkdtempSync, readFileSync, rmSync, statSync, symlinkSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join, relative } from "node:path";
@@ -10,12 +11,11 @@ import { availableGameIds } from "../../../language-runtime/static/source/shell-
 import { filterPackagedImageKeymap } from "../developer-image-catalog.mjs";
 import {
   CANONICAL_APP_ENTRY_PATH,
-  STORE_LANGUAGE_FILES,
-  PRODUCT_PROFILE,
   PRODUCT_COURSE_BUNDLE_ASSET,
   assertAndroidBundleSharedStorage,
   compileProductAssetBundle,
   compileProductAssets,
+  compactProductCss,
   compactProductJson,
   exactWorkspaceSource,
   loadAndroidCourseBundleConfiguration,
@@ -31,6 +31,9 @@ import {
 } from "../build-product-assets.mjs";
 
 const workspaceRoot = new URL("../../../..", import.meta.url).pathname;
+const czechConfiguration = loadAndroidCourseConfiguration({ workspaceRoot, courseManifestPath: "apps/languages/czech/course.json" });
+const STORE_LANGUAGE_FILES = czechConfiguration.languageFiles;
+const PRODUCT_PROFILE = czechConfiguration.productProfile;
 const languageStaticDir = join(workspaceRoot, "apps/languages/czech/static");
 const launcherStaticDir = join(workspaceRoot, "apps/launcher/static");
 const czechAssetCatalog = join(workspaceRoot, "apps/languages/czech/android-assets.json");
@@ -513,7 +516,7 @@ test("the Android product bundles declared courses behind one shared app documen
     const interfaceCatalog = JSON.parse(readFileSync(join(workspaceRoot, selectedConfiguration.interfaceContent.sourcePath), "utf8"));
     assert.equal(courseProfile.interfaceContent.revision, interfaceCatalog.revision);
     if (courseId === "es-en") assert.equal(courseProfile.learnerBasePreview, true,
-      "the APK can render the same honestly labelled draft Spanish translations as the local browser");
+      "the APK can render the Spanish learner-base translations while native review is still recorded");
     assert.equal(courseProfile.interfaceContent.catalog,
       "/" + selectedConfiguration.interfaceContent.sourcePath.replace("apps/", ""));
     assert.ok(
@@ -788,9 +791,11 @@ test("product assets compile from an exact capability-safe allowlist", async (t)
       ? Buffer.from(transformProductInterfaceCatalog(original.toString("utf8")))
       : path === "language-runtime/embedding-runtimes.json"
         ? Buffer.from(compactProductJson(original.toString("utf8")))
-      : original;
+        : path.endsWith(".css")
+          ? Buffer.from(compactProductCss(original.toString("utf8").replace(/^\uFEFF/u, "").replace(/\r\n?/gu, "\n")))
+          : original;
     assert.ok(readFileSync(join(outputDir, path)).equals(expected),
-      `product package must retain the exact reviewed shared app bytes: ${path}`);
+      `product package must retain the reviewed shared app bytes after declared transforms: ${path}`);
   }
 
   const includedCourseGameContent = [
@@ -1090,12 +1095,48 @@ test("publication treats every packaged Czech application file as release input"
 test("Android publication invokes licensing validation without requiring native review", () => {
   assert.match(
     releasePublisher,
-    /node\s+"?\$repo_root\/tools\/language-content\/validate\.mjs"?\s+--release/u,
-    "the APK publisher must enforce the licensing-only language-content release gate",
+    /node\s+"?\$repo_root\/tools\/language-content\/validate\.mjs"?\s+--all\s+--release/u,
+    "the APK publisher must enforce the licensing-only language-content release gate across all modern courses",
   );
   assert.doesNotMatch(
     releasePublisher,
     /(?:--require-native-review|activation\.native-review|release\.native-review)/u,
     "the APK publisher must not invoke the active-course native-review gate",
   );
+});
+
+
+test("compiler import and an explicit other course do not read Czech", () => {
+  const script = String.raw`
+    import fs from 'node:fs';
+    import { syncBuiltinESMExports } from 'node:module';
+    const read = fs.readFileSync;
+    fs.readFileSync = function(path, ...args) {
+      if (String(path).replaceAll('\\', '/').includes('/apps/languages/czech/')) throw new Error('Czech unavailable');
+      return read.call(this, path, ...args);
+    };
+    syncBuiltinESMExports();
+    const { loadAndroidCourseConfiguration } = await import('./apps/android/tooling/build-product-assets.mjs');
+    const selected = loadAndroidCourseConfiguration({ courseManifestPath: 'apps/languages/spanish/course.json' });
+    if (selected.course.id !== 'es') throw new Error('Wrong explicit course');
+  `;
+  const result = spawnSync(process.execPath, ["--input-type=module", "--eval", script], { cwd: workspaceRoot, encoding: "utf8" });
+  assert.equal(result.status, 0, result.stderr);
+});
+
+test("omitted compiler manifest follows the bundle default and browser selection need not enable Android", (t) => {
+  const manifestPath = currentInterfaceFixture(t, fixtureCourseManifest);
+  const metadata = JSON.parse(readFileSync(manifestPath, "utf8"));
+  metadata.platforms.browser = { enabled: true };
+  metadata.platforms.android.enabled = false;
+  writeFileSync(manifestPath, JSON.stringify(metadata));
+  assert.throws(() => loadAndroidCourseConfiguration({ workspaceRoot, courseManifestPath: manifestPath }), /not enabled for android/u);
+  assert.equal(loadAndroidCourseConfiguration({ workspaceRoot, courseManifestPath: manifestPath, platform: "browser" }).course.id, metadata.id);
+  const selectedBundle = JSON.parse(readFileSync(courseBundlePath, "utf8"));
+  selectedBundle.defaultCourseId = "es";
+  const selectedBundlePath = join(dirname(manifestPath), "default-es.json");
+  writeFileSync(selectedBundlePath, JSON.stringify(selectedBundle));
+  const selected = loadAndroidCourseConfiguration({ workspaceRoot, courseBundlePath: selectedBundlePath });
+  assert.equal(selected.course.id, "es");
+  assert.equal(selected.nativeProviders.providers.embeddings.implementation, "webview-english-minilm-v1");
 });

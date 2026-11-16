@@ -132,7 +132,10 @@ function validateRecordArray(records, label, adapter, context, issues) {
     });
     return;
   }
+  let authoredCount = 0;
   records.forEach((record, recordIndex) => {
+    if (record?.reviewStatus === "untranslated") return;
+    authoredCount += 1;
     try {
       presentDictionaryEntry(adapter, record, { ...context, recordIndex });
     } catch (error) {
@@ -142,6 +145,12 @@ function validateRecordArray(records, label, adapter, context, issues) {
       });
     }
   });
+  if (authoredCount === 0) {
+    issues.push({
+      code: "dictionary.records",
+      message: `${label} must contain at least one authored record.`
+    });
+  }
 }
 
 function normalizeLanguageId(value) {

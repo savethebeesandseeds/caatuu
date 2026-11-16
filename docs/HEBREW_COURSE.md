@@ -1,16 +1,19 @@
 # English → Hebrew
 
-The first Hebrew course is a local browser development preview at
-[`/he/`](http://127.0.0.1:8765/he/). It teaches Hebrew, labelled **עברית**,
+The first Hebrew course is a released public course at
+[`/he/`](https://caatuu.waajacu.com/he/). It teaches Hebrew, labelled **עברית**,
 to English speakers through the shared application and game engines. The
 course ID is `he`, the script is `Hebr`, speech uses `he-IL`, text direction
 is right to left, and storage and cache names start with `caatuu-he`. The
-interface catalog is English `interface-en-58`.
+interface catalog is English `interface-en-59`.
 
-The course is `development`. The browser is on, and the public website lists
-it as a `noindex` preview. Android stays off, so
-`apps/android/course-bundle.json` does not list it. License status is
-`release-review-required`. Native review is `native-review-required`.
+The course manifest status is `active`, the same as every other released course.
+The browser is on, and the public website lists it as a released, indexable
+course. Android is on in the source bundle from version 204, so
+`apps/android/course-bundle.json` includes it. The published Android 203
+package does not install it. The 11 November 2026 owner approval cleared the
+first-party license for distribution under `AGPL-3.0-only`. Pronunciation
+guides stay off.
 
 ## Games
 
@@ -111,7 +114,5 @@ people, or a religion as an opponent.
 | Noun practice | 80 bare nouns across the four lanes |
 | Memory Moon | 64 questions (16 / 16 / 16 / 16 by difficulty 0–3) |
 
-Memory Moon's content file records `spdxExpression` `AGPL-3.0-only` because
-the content validator requires that project license expression. That
-expression is not a release clearance. Independent native review is still
-required for every bank.
+Memory Moon's content file records the project license expression
+`AGPL-3.0-only`.

@@ -237,7 +237,7 @@ test("the canonical publisher reports source, build, verification, finalization,
   assert.match(publisher, /pipeline_started_at=\$SECONDS/u);
   assert.match(publisher, /\$\(\(SECONDS - phase_started_at\)\)/u);
   for (const command of [
-    'node "$repo_root/tools/language-content/validate.mjs" --release',
+    'node "$repo_root/tools/language-content/validate.mjs" --all --release',
     'bash "$repo_root/apps/android/tooling/build-release-aab.sh"',
     'validate_and_read_existing_candidate "$source_apk" "$source_aab"',
     'cp "$candidate_receipt" "$staged_receipt"',
@@ -249,10 +249,11 @@ test("the canonical publisher reports source, build, verification, finalization,
 });
 
 test("release preflight checks cheap Android safety contracts without rebuilding product or website fixtures", () => {
-  const sourceValidation = publisher.indexOf('node "$repo_root/tools/language-content/validate.mjs" --release');
+  const sourceValidation = publisher.indexOf('node "$repo_root/tools/language-content/validate.mjs" --all --release');
   const signedBuild = publisher.indexOf('bash "$repo_root/apps/android/tooling/build-release-aab.sh"');
   const preflightSource = publisher.slice(sourceValidation, signedBuild);
-  assert.match(preflightSource, /tools\/language-content\/validate\.mjs" --release/u);
+  assert.match(preflightSource, /tools\/language-content\/validate\.mjs" --all --release/u,
+    'Release source validation must cover every modern course, not only the default Mandarin target.');
   for (const contract of ["android-artifact-contract", "product-package-contract", "product-interface-catalog", "product-index-transform", "publisher-build-once-contract"]) {
     const preflight = publisher.indexOf(`${contract}.test.mjs`);
     assert.ok(preflight > sourceValidation && preflight < signedBuild,

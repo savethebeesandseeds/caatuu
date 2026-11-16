@@ -5,6 +5,7 @@ import { buildEvaluationCorpus, englishAuthority } from '../shared/corpus.mjs';
 import { fixtureCatalogs } from './fixture.mjs';
 import { loadMemoryMoonCatalogs } from '../../language-content/lib/memory-moon-content.mjs';
 import { primaryPracticeIdentity } from '../shared/mapping-audit.mjs';
+import { loadProgressionCatalogs } from '../../language-content/quality/content-progression-catalogs.mjs';
 
 test('Memory Moon has one independent playable recognition unit per authored question with exact grades and English authority', async () => {
   const banks = await loadMemoryMoonCatalogs();
@@ -12,13 +13,19 @@ test('Memory Moon has one independent playable recognition unit per authored que
     game: 'memory-moon', resource: 'memoryMoonCatalog' }));
   const corpus = buildEvaluationCorpus(catalogs);
   const authored = banks.flatMap(({ course, document }) => document.challenges.map(item => ({ course, item })));
+  const completed = authored.filter(({ item }) => item.reviewStatus !== 'untranslated');
   assert.ok(corpus.adapters.every(adapter => adapter.status === 'ok'), JSON.stringify(corpus.adapters));
   assert.equal(corpus.records.length, authored.length);
-  assert.equal(corpus.playableUnits.length, authored.length);
+  assert.equal(corpus.playableUnits.length, completed.length);
   assert.deepEqual(corpus.documents.map(row => row.englishText).sort(), [...new Set(authored.map(row => row.item.englishText))].sort());
   for (const { course, item } of authored) {
     const record = corpus.records.find(row => row.courseId === course.id && row.itemId === item.id);
     const unit = corpus.playableUnits.find(row => row.courseId === course.id && row.itemId === item.id);
+    if (item.reviewStatus === 'untranslated') {
+      assert.equal(unit, undefined);
+      assert.equal(record.reviewStatus, 'untranslated');
+      continue;
+    }
     assert.equal(record.english.text, item.englishText);
     assert.equal(record.english.field, 'englishText');
     assert.equal(record.translation.targetText, item.targetText);
@@ -35,21 +42,38 @@ test('Memory Moon has one independent playable recognition unit per authored que
   }).text, null, 'neither learner-base nor target text substitutes for an explicit English authority');
 });
 
-test('playable corpus covers every exact band of the real Case and Grammar banks once', async () => {
+test('mixed conjugation inventories map normalized forms back to exact source locations', async () => {
   const read = async path => JSON.parse(await readFile(new URL(`../../../${path}`, import.meta.url), 'utf8'));
-  const course = await read('apps/languages/czech/course.json');
-  const catalogs = await Promise.all([
-    ['caseCosmosCatalog', 'case-cosmos'], ['grammarGravityCatalog', 'grammar-gravity']
-  ].map(async ([resource, game]) => ({ course, resource, game,
-    path: course.resources[resource].path, document: await read(course.resources[resource].path) })));
+  const course = await read('apps/languages/spanish/course.json');
+  const path = course.resources.conjugationCometCatalog.path;
+  const document = await read(path);
+  document.verbs.unshift({id:'synthetic-pending',semanticBankId:'sb.conjugation-comet.999999',reviewStatus:'untranslated',
+    revision:1,difficulty:1,usefulness:70,complexity:30,englishAuditText:'pending meaning',meaningChoiceBaseText:'pending meaning',forms:[]});
+  const corpus = buildEvaluationCorpus([{course,path,document,resource:'conjugationCometCatalog',game:'conjugation-comet'}]);
+  assert.equal(corpus.adapters[0].status,'ok',corpus.adapters[0].reason);
+  const expected = document.verbs.filter(verb=>verb.reviewStatus!=='untranslated').flatMap(verb=>verb.forms);
+  assert.ok(expected.length>0);
+  assert.equal(corpus.playableUnits.length,expected.length);
+  for(const unit of corpus.playableUnits){
+    const record=corpus.records.find(record=>record.id===unit.recordIds[0]);
+    const parent=corpus.records.find(parent=>parent.id===record.parentId);
+    assert.equal(parent.itemId,unit.parentItemId);
+    assert.equal(unit.itemId,`${parent.itemId}/${record.itemId}`);
+  }
+  assert.ok(!corpus.playableUnits.some(unit=>unit.itemId.startsWith('synthetic-pending')));
+});
+
+test('playable corpus covers every exact band of the real Case and Grammar banks once', async () => {
+  const catalogs = (await loadProgressionCatalogs()).filter(catalog => ['case-cosmos','grammar-gravity'].includes(catalog.game));
   const corpus = buildEvaluationCorpus(catalogs);
   assert.ok(corpus.adapters.every(adapter => adapter.status === 'ok'), JSON.stringify(corpus.adapters));
   assert.equal(new Set(corpus.playableUnits.map(unit => unit.id)).size, corpus.playableUnits.length);
-  for (const kind of ['case-context', 'agreement-example']) {
-    const records = corpus.records.filter(record => record.kind === kind);
-    const units = corpus.playableUnits.filter(unit => unit.kind === kind);
+  for (const {course,game} of catalogs) {
+    const kind=game==='case-cosmos'?'case-context':'agreement-example';
+    const records = corpus.records.filter(record => record.courseId===course.id && record.kind === kind);
+    const units = corpus.playableUnits.filter(unit => unit.courseId===course.id && unit.kind === kind);
     assert.ok(records.length > 0);
-    assert.deepEqual([...new Set(units.map(unit => unit.metadata.difficulty))].sort(), [0, 1, 2, 3]);
+    assert.deepEqual([...new Set(units.map(unit => unit.metadata.difficulty))].sort(), [0, 1, 2, 3],`${course.id}/${game}: each offered band must have real rounds`);
     assert.deepEqual(units.flatMap(unit => unit.recordIds).sort(), records.map(record => record.id).sort());
   }
 });
@@ -76,6 +100,8 @@ test('non-English learner text never becomes English authority by fallback', () 
   assert.equal(greeting.english.field, 'englishText');
   assert.equal(greeting.english.text, 'Hello!');
   assert.equal(greeting.translation.learnerBaseText, '¡Hola!');
+  assert.deepEqual(englishAuthority(catalog, {item:{semanticBankId:'sb.verb-lab.000001',reviewStatus:'untranslated',source:'',target:'read'},kind:'lexeme'}),
+    {text:'read',field:'target',reason:null},'the bank-derived English-target course explicitly owns English in target');
 });
 
 test('Nucleus English audit authority stays separate from displayed compound examples', () => {

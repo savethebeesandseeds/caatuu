@@ -50,7 +50,7 @@ export function createMemoryMoonPractice({ course, learning, pack, runtimeHref=g
       try{history=learning.contentHistory(MEMORY_MOON_GAME,MEMORY_MOON_BANK)||{};}catch{issues.push('moon-history-unavailable');}
       const recentOwn=pack.challenges.some(item=>item.difficulty===difficulty&&now()-Date.parse(history[item.id]?.lastSeenAt)<300000);
       if(weaknesses.length||recentOwn){
-        const texts=[...new Set([...weaknesses.map(row=>row.englishText),...pack.challenges.filter(item=>item.difficulty===difficulty).map(item=>item.englishText)])];
+        const texts=[...new Set([...weaknesses.map(row=>row.englishText),...pack.challenges.filter(item=>item.reviewStatus!=="untranslated"&&item.difficulty===difficulty).map(item=>item.englishText)])];
         const missing=texts.filter(value=>!vectors.has(value));
         semanticStatus='ready';
         try {

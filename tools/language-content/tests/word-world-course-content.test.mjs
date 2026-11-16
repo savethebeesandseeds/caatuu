@@ -83,6 +83,9 @@ test("one course expands from its own JSON even when old generated inputs are st
   const report = await buildWordWorldContent({ root, courseId: "es" });
   assert.equal(report.courses.length, 1);
   assert.equal(report.recordCount, document.records.length);
+  const setup = await json(path.join(root, spanish.course.resources.setupCatalog.path));
+  const worker = await readFile(path.join(root, `apps/languages/${spanish.course.directoryName}/static/sw.js`), "utf8");
+  assert.ok(worker.includes(`self.CAATUU_OFFLINE_CACHE_NAME = "${setup.offline.cacheName}";`));
   const target = await json(path.join(root, spanish.course.publication.runtimeProjection.targetRealizationsRuntime));
   const english = await json(path.join(root, spanish.course.publication.runtimeProjection.conceptsRuntime));
   assert.deepEqual(target.realizations.at(-1).tokens, added.tokens.map(({ pronunciation, ...token }) => token));

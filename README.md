@@ -65,27 +65,27 @@ features through the [language-app contract](docs/LANGUAGE_APP_CONTRACT.md).
 The learner's base language selects the interface; shared English concepts
 provide the audit and semantic-search authority.
 
-Ten courses are registered in the browser catalog. Eight are enabled for
-Android delivery. All ten are on the public website. Czech is the active
-course. The other nine are `noindex` development previews. Russian and Hebrew
-stay out of the Android bundle until native review.
+Ten courses are registered in the browser catalog. All ten are released and
+enabled for Android delivery. Czech remains the default course. Russian and
+Hebrew join the Android source bundle from version 204. The published Android
+203 package does not install them.
 
 | Flag or emblem | Learner language | Learning language | Route | Course status |
 | --- | --- | --- | --- | --- |
-| <img src="apps/launcher/static/assets/icons/czech_flag_ui.png" width="64" alt="Czech flag"> | English | Czech | `/cz/` | Active |
-| <img src="apps/launcher/static/assets/icons/china_flag.png" width="64" alt="Chinese flag"> | English | Mandarin (Simplified Chinese) | `/zh/` | Development preview |
-| <img src="apps/launcher/static/assets/icons/spain_flag.png" width="64" alt="Spanish flag"> | English | Spanish | `/es/` | Development preview |
-| <img src="apps/launcher/static/assets/icons/english_flag.png" width="64" alt="English course flag"> | Spanish | English (American) | `/es-en/` | Development preview |
-| <img src="apps/launcher/static/assets/icons/norway_flag.png" width="64" alt="Norwegian flag"> | English | Norwegian Bokmål | `/nb/` | Development preview |
-| <img src="apps/launcher/static/assets/icons/arabic_mark.png" width="64" alt="Arabic course emblem"> | English | Modern Standard Arabic | `/ar/` | Development preview |
-| <img src="apps/launcher/static/assets/icons/latin_mark.png" width="64" alt="Latin course emblem"> | English | Scientific Latin (Neo-Latin) | `/la/` | Development preview |
-| <img src="apps/launcher/static/assets/icons/georgian_flag.png" width="64" alt="Georgian flag"> | English | Georgian | `/ka/` | Development preview |
-| <img src="apps/launcher/static/assets/icons/russian_flag.png" width="64" alt="Russian flag"> | English | Russian | `/ru/` | Development preview |
-| <img src="apps/launcher/static/assets/icons/hebrew_flag.png" width="64" alt="Hebrew flag"> | English | Hebrew | `/he/` | Development preview |
+| <img src="apps/launcher/static/assets/icons/czech_flag_ui.png" width="64" alt="Czech flag"> | English | Czech | `/cz/` | Released |
+| <img src="apps/launcher/static/assets/icons/china_flag.png" width="64" alt="Chinese flag"> | English | Mandarin (Simplified Chinese) | `/zh/` | Released |
+| <img src="apps/launcher/static/assets/icons/spain_flag.png" width="64" alt="Spanish flag"> | English | Spanish | `/es/` | Released |
+| <img src="apps/launcher/static/assets/icons/english_flag.png" width="64" alt="English course flag"> | Spanish | English (American) | `/es-en/` | Released |
+| <img src="apps/launcher/static/assets/icons/norway_flag.png" width="64" alt="Norwegian flag"> | English | Norwegian Bokmål | `/nb/` | Released |
+| <img src="apps/launcher/static/assets/icons/arabic_mark.png" width="64" alt="Arabic course emblem"> | English | Modern Standard Arabic | `/ar/` | Released |
+| <img src="apps/launcher/static/assets/icons/latin_mark.png" width="64" alt="Latin course emblem"> | English | Scientific Latin (Neo-Latin) | `/la/` | Released |
+| <img src="apps/launcher/static/assets/icons/georgian_flag.png" width="64" alt="Georgian flag"> | English | Georgian | `/ka/` | Released |
+| <img src="apps/launcher/static/assets/icons/russian_flag.png" width="64" alt="Russian flag"> | English | Russian | `/ru/` | Released |
+| <img src="apps/launcher/static/assets/icons/hebrew_flag.png" width="64" alt="Hebrew flag"> | English | Hebrew | `/he/` | Released |
 
 Every course is the same application. A manifest declares that course's
-languages, content, and capabilities. The Russian preview is described in
-[docs/RUSSIAN_COURSE.md](docs/RUSSIAN_COURSE.md). The Hebrew preview is
+languages, content, and capabilities. The Russian course is described in
+[docs/RUSSIAN_COURSE.md](docs/RUSSIAN_COURSE.md). The Hebrew course is
 described in [docs/HEBREW_COURSE.md](docs/HEBREW_COURSE.md). The screenshots show Czech sentences
 because that art already existed. This table describes the current source
 checkout.
@@ -93,33 +93,31 @@ Courses on the public website or in an installed APK depend on the version
 that was published.
 
 The [Norwegian course report](docs/NORWEGIAN_BOKMAL_COURSE_20260909.md) records its
-expanded banks, Bokmål conventions, validation, and remaining review. Registering
-Norwegian does not add it to an already published APK. The
-[Arabic course note](docs/ARABIC_COURSE.md) records its substantial first-course
-scope, curriculum licensing and pending language reviews. Arabic joins the
-Android course bundle starting with version 179.
+expanded banks, Bokmål conventions, and validation. Norwegian is in the Android
+course bundle from version 172. The
+[Arabic course note](docs/ARABIC_COURSE.md) records its first-course
+scope and curriculum licensing. Arabic joins the Android course bundle from
+version 179.
 
 The [Scientific Latin course note](docs/LATIN_SCIENTIFIC_COURSE.md)
 introduces Scientific Neo-Latin through Word World, vocabulary, conjugation,
-and agreement practice, with 2,500 sentences and 600 verb pairs. Qualified
-Latinist review remains pending; speech
-uses the shared browser/Android device speech provider. Pronunciation
-review remains pending; a dedicated listening game is not enabled.
+agreement practice, and Sounds Quasar, with 2,500 sentences and 600 verb pairs.
+Speech uses the shared browser/Android device speech provider. Pronunciation
+guides stay off.
 
 The [Georgian course note](docs/GEORGIAN_COURSE.md) describes its 2,500 sentences,
 600 verb-meaning pairs, beginner reading content and explicit verb/case
 contexts. The verb count includes practical phrases. Its painted five-cross
 flag follows the same visual style as the other course icons, with a thin black
-outline that keeps its white edges visible. Native Georgian
-review remains pending. Audio uses the shared
-browser/Android device speech provider and joins the Android course bundle
-starting with version 179.
+outline that keeps its white edges visible. Audio uses the shared
+browser/Android device speech provider. Georgian joins the Android course bundle
+from version 179.
 
 The [Russian course note](docs/RUSSIAN_COURSE.md) describes the English-to-Russian
-preview: 2,500 sentences, 600 verb-meaning pairs, a small authored conjugation
+course: 2,500 sentences, 600 verb-meaning pairs, a small authored conjugation
 set, and four-lane adjective agreement. A red Latin reading line uses BGN/PCGN
-romanization. Case Cosmos and listening stay off. The website lists it as a
-`noindex` preview. It stays out of the Android bundle until native review.
+romanization. Case Cosmos stays off. Russian is in the Android source bundle
+from version 204. The published Android 203 package does not install it.
 
 New courses follow the [language-pack guide](tools/language-packs/README.md).
 Registration, content review, licensing, and publication remain separate steps.
@@ -208,8 +206,9 @@ tooling, and release workflows.
 
 ## Built openly
 
-Caatuu is an active development preview growing in public. You are welcome to
-explore the code, follow its progress, and learn from the project. External
+Caatuu is a free language-learning app, released in public with ten courses.
+You are welcome to explore the code, follow its progress, and learn from the
+project. External
 contributions are temporarily paused while the core product and collaboration
 process settle; the contribution guide records the current policy.
 
@@ -221,8 +220,7 @@ process settle; the contribution guide records the current policy.
 
 First-party software, developer documentation, and Caatuu-authored English,
 Mandarin, Spanish-course, Norwegian, Arabic, Latin and Georgian curriculum content are licensed
-[`AGPL-3.0-only`](LICENSE). The course license approval does not certify
-native-speaker or pronunciation review.
+[`AGPL-3.0-only`](LICENSE). Pronunciation guides stay off.
 Third-party or separately licensed models, dictionaries, datasets, artwork,
 branding, and components may have separate terms; see
 [licensing and attribution](docs/LICENSING.md).

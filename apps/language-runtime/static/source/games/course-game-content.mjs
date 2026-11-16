@@ -1,3 +1,20 @@
+/** Publish actual asynchronous startup status, including starts before iframe load. */
+export function reportEmbeddedGameStatus(scope, gameId, status) {
+  if (!["ready", "error"].includes(status)) return;
+  const root = scope.document?.documentElement;
+  // Later practice errors remain owned by the already running game's recovery UI.
+  if (status === "error" && root?.dataset.caatuuGameId === gameId && root.dataset.caatuuGameStatus === "ready") return;
+  if (root) {
+    root.dataset.caatuuGameId = gameId;
+    root.dataset.caatuuGameStatus = status;
+  }
+  try {
+    if (scope.parent && scope.parent !== scope && scope.parent.location.origin === scope.location.origin) {
+      scope.parent.postMessage({ source: "caatuu-game", type: "startup", gameId, status }, scope.location.origin);
+    }
+  } catch { /* Standalone games need no parent handshake. */ }
+}
+
 const CONTENT_ID_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/u;
 const COURSE_ROUTE_PATTERN = /^\/[a-z0-9]+(?:-[a-z0-9]+)*$/u;
 

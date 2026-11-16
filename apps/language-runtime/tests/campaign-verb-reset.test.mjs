@@ -143,7 +143,7 @@ test("cancelling a handoff retires suspension without reactivating the outgoing 
 test("a late embedded load or appearance sync cannot reactivate the outgoing game during handoff", () => {
   const messages = [];
   const state = { activeView: "verbs", trainTab: "memory-moon", campaignHandoffPending: true };
-  const frame = { dataset: { ready: "true" }, contentWindow: {
+  const frame = { dataset: { ready: "true", documentReady: "true" }, contentWindow: {
     postMessage: message => messages.push(message)
   } };
   const context = vm.createContext({ state, Object,
