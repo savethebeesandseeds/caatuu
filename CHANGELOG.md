@@ -25,6 +25,8 @@
 - The APK bootstrap budget is 8,200,000 bytes. Russian and Hebrew add their
   setup catalogs to the package, and the previous 8,000,000-byte budget was
   118,374 bytes short.
+- The setup companion stores JSON without indentation. Mandarin's catalogs
+  make that download 120 MB; the previous reviewed budget was 96 MB.
 - Describe the public site as a free released language-learning app for ten
   courses. The homepage and each course page name the courses, say the app is
   free and safe for children, and stay indexable. The Android control says

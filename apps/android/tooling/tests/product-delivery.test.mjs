@@ -81,6 +81,20 @@ test("Home requires its artwork and every declared course flag before selected-c
   assert.throws(() => homeBootstrapAssets(input.files, courses), /normalized/u);
 });
 
+test("setup JSON drops indentation and keeps the parsed catalog", () => {
+  const input = fixture();
+  const pretty = Buffer.from(`${JSON.stringify({ words: ["one"] }, null, 2)}\n`);
+  input.files.set("courses/alpha/data/games/words.json", pretty);
+  const result = planProductDelivery(input);
+  const record = result.setupPayload.artifacts.find(({ assetPath }) => assetPath === "courses/alpha/data/games/words.json");
+  const stored = result.setupObjects.get(record.file);
+  assert.equal(stored.toString("utf8"), JSON.stringify({ words: ["one"] }));
+  assert.ok(stored.length < pretty.length);
+  const unchanged = planProductDelivery(fixture());
+  const original = unchanged.setupPayload.artifacts.find(({ assetPath }) => assetPath === "courses/alpha/data/games/words.json");
+  assert.equal(original.sha256, digest(buffer({ words: ["one"] })));
+});
+
 test("course selection installs only its own content and shared art has one physical object", () => {
   const result = planProductDelivery(fixture());
   assert.equal(result.setupPayload.artifacts.length, 3);

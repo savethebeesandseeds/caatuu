@@ -42,14 +42,25 @@ export const HOME_BOOTSTRAP_ARTWORK = Object.freeze([
 // Separate residency, curriculum and native vector database budgets. Stable
 // model and dictionary downloads remain independently hosted.
 export const PRODUCT_BOOTSTRAP_MAX_BYTES = 8_200_000;
-// The complete eight-course companion is currently about 83 MB. This bounded
-// download budget covers the three approved 2,500-sentence courses; it is not
-// APK residency, and a device installs only its selected course plus shared art.
-export const PRODUCT_SETUP_PAYLOAD_MAX_BYTES = 96_000_000;
+// Mandarin's published game catalogs, kept without JSON indentation, put the
+// companion above the earlier 96 MB eight-course budget. This is the shared
+// download, not APK residency. A device still installs one course plus shared art.
+export const PRODUCT_SETUP_PAYLOAD_MAX_BYTES = 120_000_000;
 export const PRODUCT_NATIVE_VECTOR_PAYLOAD_MAX_BYTES = 32_000_000;
 export const NATIVE_SETUP_CATALOG_FORMAT = "android-native-v1";
 
 const hash = (bytes) => createHash("sha256").update(bytes).digest("hex");
+
+/** Keep parsed setup JSON and drop authoring indentation from the download. */
+function setupDeliveryBytes(path, bytes) {
+  if (!path.endsWith(".json")) return bytes;
+  try {
+    const compact = Buffer.from(JSON.stringify(JSON.parse(bytes.toString("utf8"))));
+    return compact.length < bytes.length ? compact : bytes;
+  } catch {
+    return bytes;
+  }
+}
 // APK setup catalogs repeat shared receipts across courses. Omit formatting
 // whitespace while preserving every field and exact downloaded-byte identity.
 const jsonBytes = (value) => Buffer.from(`${JSON.stringify(value)}\n`, "utf8");
@@ -184,9 +195,10 @@ export function planProductDelivery({ files, courseIds, profile, bootstrapAssets
       continue;
     }
     assert.ok(bytes.length > 0, `A setup-delivered asset must be nonempty: ${path}`);
-    const record = immutableObject(path, bytes);
+    const deliveredBytes = setupDeliveryBytes(path, bytes);
+    const record = immutableObject(path, deliveredBytes);
     records.push(record);
-    setupObjects.set(record.file, bytes);
+    setupObjects.set(record.file, deliveredBytes);
   }
   // Vector databases have a native owner and never enter either the APK or
   // StaticAssetManager's file list. Seal their exact bytes alongside ordinary

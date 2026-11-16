@@ -58,7 +58,7 @@ builder's course-pack validation.
 
 The builder's metadata-only Pages capacity preflight runs before Gradle. It
 accounts for pending finalized releases, applies only the explicitly approved
-APK archive policy, and reserves the full 96 MB content companion, a separate
+APK archive policy, and reserves the full 120 MB content companion, a separate
 32 MB native vector payload and two 16 MB APK copies. New signed builds enforce
 that per-APK bound before sealing; historical receipts retain their exact bytes.
 The APK-resident bootstrap budget is 8,200,000 bytes from Android 204.

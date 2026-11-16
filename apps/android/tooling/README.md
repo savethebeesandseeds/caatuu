@@ -133,7 +133,7 @@ compiler projection. Protected text, quoted values, comments and escapes stay
 intact; staged validation and signed-package auditing use the same projection.
 Receipt audits select this formatting policy from the sealed source compiler;
 older source without the declaration keeps its original HTML projection.
-The complete eight-course companion has a bounded 96 MB content budget plus
+The complete course companion has a bounded 120 MB content budget plus
 a separate 32 MB native vector-database budget; each device still downloads
 shared assets and only its selected course content.
 Release preflight validates all registered modern language-content publications
