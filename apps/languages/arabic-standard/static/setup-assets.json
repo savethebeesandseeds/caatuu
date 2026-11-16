@@ -7,7 +7,7 @@
     "appEntry": "apps/language-runtime/static/app/index.html"
   },
   "offline": {
-    "cacheName": "caatuu-ar-pwa-v50",
+    "cacheName": "caatuu-ar-pwa-v51",
     "cachePrefix": "caatuu-ar-pwa-",
     "assets": [
       "/language-runtime/static/assets/initial-image.png",
@@ -585,32 +585,32 @@
       "kind": "english-concept-catalog",
       "url": "/language-runtime/static/data/english-concepts/word-world-ar-v1.json",
       "browserRequired": true,
-      "bytes": 41491,
-      "sha256": "16faf8e830e34a100a9e37a9cb631f7cc5c8a9253cc6e21a0b334f95dad2f680"
+      "bytes": 884039,
+      "sha256": "0d27ac6c2eec77e5806ee4de0d0f96e309dbbcaa34553e316787e154e275cd35"
     },
     {
       "key": "target-realizations",
       "kind": "target-realization-catalog",
       "url": "/ar/data/games/word-world/content.json",
       "browserRequired": true,
-      "bytes": 58545,
-      "sha256": "bbbcdf9106d3241eb43ab1f290f2bbf2f9676a781e7d194140d5ab6b56608364"
+      "bytes": 2061083,
+      "sha256": "a2f9a2056b1d2b9e7ee8eb38dc70df1945741b4861d512ab1cd3b11ebfa2f2df"
     },
     {
       "key": "word-world-manifest",
       "kind": "runtime-manifest",
       "url": "/ar/data/games/word-world/manifest.json?v=word-world-content-1",
       "browserRequired": true,
-      "bytes": 1520,
-      "sha256": "6f4f48d64bbdc708e23e6799881722ddd7be46257594bb0ae3c4a50f9b53d028"
+      "bytes": 1521,
+      "sha256": "cd76d727b1e3811a286aa4b12ef48054335fe4ab60b0dc5f1edd402aa93d913a"
     },
     {
       "key": "verb-nebula-catalog",
       "kind": "course-game-content",
       "url": "/ar/data/games/verb-nebula/content.json",
       "browserRequired": true,
-      "bytes": 583971,
-      "sha256": "670438191ad719690cfcfc07ef1a0a2a68ba50dc49372b3d5a087c57f5fba48b"
+      "bytes": 191602,
+      "sha256": "c607325f842646fe1a00c17c2e27793fa315bf924776abc364770ac63d2719b2"
     },
     {
       "key": "embedding-catalog",
@@ -634,7 +634,7 @@
       "url": "/ar/sw.js",
       "browserRequired": true,
       "bytes": 190,
-      "sha256": "a117e15db9e1e86b62ff37e1e36b7f0d74267ba7fa30ab203c3a9b21e6e9a3b9"
+      "sha256": "c620ada0c15459ee528eb893094e99fc8ec64c49188d1b4398331a73d660a811"
     },
     {
       "key": "shared-course-service-worker",
@@ -731,8 +731,8 @@
       "kind": "course-game-content",
       "url": "/ar/data/games/naturalization-nucleus/content.json",
       "browserRequired": true,
-      "bytes": 244327,
-      "sha256": "4c8238aff184b0694e1470b9f4c4519875dacc7685ad5f6b7b48a2682e5f9d38"
+      "bytes": 34700,
+      "sha256": "2b6f2320ee6eddef44eb67121e9144bba4331fd17cfbfd3648b9015fafa9b8b1"
     },
     {
       "key": "naturalization-nucleus-controller",

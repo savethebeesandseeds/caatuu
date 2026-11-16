@@ -4188,18 +4188,6 @@
     "complexity": 29
   },
   {
-    "id": "la.verb.v0350",
-    "kind": "verb",
-    "source": "kill",
-    "target": "occīdere",
-    "englishAuditText": "kill",
-    "difficulty": 2,
-    "category": "foundations",
-    "reviewStatus": "native-review-required",
-    "usefulness": 54,
-    "complexity": 29
-  },
-  {
     "id": "la.verb.v0351",
     "kind": "verb",
     "source": "revive",

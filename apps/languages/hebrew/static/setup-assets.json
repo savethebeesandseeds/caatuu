@@ -7,7 +7,7 @@
     "appEntry": "apps/language-runtime/static/app/index.html"
   },
   "offline": {
-    "cacheName": "caatuu-he-pwa-v5",
+    "cacheName": "caatuu-he-pwa-v6",
     "cachePrefix": "caatuu-he-pwa-",
     "assets": [
       "/language-runtime/static/assets/initial-image.png",
@@ -344,8 +344,8 @@
       "kind": "course-game-content",
       "url": "/he/data/games/grammar-gravity/nouns.json?v=grammar-gravity-nouns-1",
       "browserRequired": true,
-      "bytes": 23880,
-      "sha256": "e9c5a98bb5a92c920ab33366d0d5b32ee7ec6ff6ccc2d5bb5c5c458d39dd867a"
+      "bytes": 23763,
+      "sha256": "ae1b6d4f0ea850b217da0009507970c74765ad4dd7b5205cd67c7acbbf736bbf"
     },
     {
       "key": "app-entry",
@@ -584,32 +584,32 @@
       "kind": "english-concept-catalog",
       "url": "/language-runtime/static/data/english-concepts/word-world-he-v1.json",
       "browserRequired": true,
-      "bytes": 50755,
-      "sha256": "9c44e9dd933d57e717518fb85918eeb5b30965bb6b0bcd29891c9c9e758fd17e"
+      "bytes": 722351,
+      "sha256": "03047c9fb1ae309f047f7c90f8d1c7218d7d6ff397981b39a3e4bde21af8a881"
     },
     {
       "key": "target-realizations",
       "kind": "target-realization-catalog",
       "url": "/he/data/games/word-world/content.json",
       "browserRequired": true,
-      "bytes": 93460,
-      "sha256": "991742718ff4f9a8b793db1083d44002bbfa5dbf9caf7321429fbaac70272214"
+      "bytes": 1383736,
+      "sha256": "4495a150dd1c144703849a6e5b595875bf70bd8c8709600e56bf91c3db84dd5d"
     },
     {
       "key": "word-world-manifest",
       "kind": "runtime-manifest",
       "url": "/he/data/games/word-world/manifest.json?v=word-world-content-1",
       "browserRequired": true,
-      "bytes": 1573,
-      "sha256": "f127ddf7fab3a5becf35ba76b664eeb3c69cb16be266174b4bdd4c0fc24d343b"
+      "bytes": 1574,
+      "sha256": "71c8c29fa9311acd716278293bbbf6c05c8f79edd7fc557f39b2d8486c30a44e"
     },
     {
       "key": "verb-nebula-catalog",
       "kind": "course-game-content",
       "url": "/he/data/games/verb-nebula/content.json",
       "browserRequired": true,
-      "bytes": 588451,
-      "sha256": "62c01b381ee63b6ad5b1907487377cc5355da09c9d32e2127e9b27ddd6d97406"
+      "bytes": 191068,
+      "sha256": "037ea8d8b804cbaf5ac2e3130c0d30f069b93d47156ebd4656e75e64f4467c73"
     },
     {
       "key": "embedding-catalog",
@@ -633,7 +633,7 @@
       "url": "/he/sw.js",
       "browserRequired": true,
       "bytes": 188,
-      "sha256": "375ae66b57ea0588b839c2b7ca3cb57e852f25365f259bf22dca42021782e9f3"
+      "sha256": "a90601da9599febef606ef4b67ba4fe99b09daa84393a8f7c8308138efb78892"
     },
     {
       "key": "shared-course-service-worker",

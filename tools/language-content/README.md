@@ -103,7 +103,9 @@ bytes and manifest with the checked-in outputs. Existing compatible learner
 content keeps its runtime representation while receiving full publication
 validation. Adding another record format requires a registered provider.
 
-The Czech bank-derived source now selects `czech-semantic-bank-records-v1`.
+Czech keeps `czech-standard-records-v1` until that course is reinstated
+from the English semantic banks. `czech-semantic-bank-records-v1` remains
+available for that reinstatement.
 It has its own strict token/review contract and coverage policy; it does not
 bypass the historical standard-corpus rubric or reuse historical approval
 receipts. The provider migration alone does not publish its authored subset.

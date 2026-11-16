@@ -11,6 +11,15 @@
   characters, and Memory Moon 598 sentences. Sounds Quasar is rebuilt from
   those verbs and sentences. Rows the game checks refuse stay empty. Native
   review is not claimed.
+- The learner-content safety scan can hold a catalog of several hundred
+  thousand fields. Scientific Latin Verb Nebula drops the gloss "kill"
+  (`occīdere`), the same omission the Latin listening bank already has.
+- Setup catalogs now hash the course files that ship. Spanish, English from
+  Spanish, Norwegian, Arabic, Scientific Latin, Georgian, Russian, and Hebrew
+  had pins left over from the bank-shaped catalogs.
+- Czech Word World stays on the standard corpus provider until that course
+  is reinstated from the English semantic banks. Word World publication
+  files are synchronized to the catalogs that ship.
 - Describe the public site as a free released language-learning app for ten
   courses. The homepage and each course page name the courses, say the app is
   free and safe for children, and stay indexable. The Android control says

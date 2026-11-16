@@ -1,6 +1,6 @@
 {
   "schemaVersion": "caatuu-word-world-runtime-manifest-v1",
-  "corpusVersion": "semantic-bank-cs-v1",
+  "corpusVersion": "standard-v0.1",
   "mode": "standard",
   "sessionProvider": {
     "kind": "standard-corpus",
@@ -25,27 +25,27 @@
     "modelId": "all-minilm-l6-v2-qint8-v0.1",
     "fallback": "deterministic-lexical"
   },
-  "runtimeFile": "content.json?v=8fc050c728a0dba5",
-  "recordCount": 96,
-  "contentSha256": "8fc050c728a0dba53ee514fdd41f866921437dff8bd5e18bebca42f927661a1e",
+  "runtimeFile": "content.json?v=af718eeafb6c3558",
+  "recordCount": 927,
+  "contentSha256": "af718eeafb6c3558c9bd621a45b696d8727f0804c7a4ffb09e39aa197cf7a5dd",
   "difficultyDistribution": {
-    "0": 24,
-    "1": 24,
-    "2": 24,
-    "3": 24
+    "0": 94,
+    "1": 188,
+    "2": 585,
+    "3": 60
   },
   "difficultyShare": {
-    "0": 0.25,
-    "1": 0.25,
-    "2": 0.25,
-    "3": 0.25
+    "0": 0.101402,
+    "1": 0.202805,
+    "2": 0.631068,
+    "3": 0.064725
   },
-  "playableTargets": 267,
+  "playableTargets": 791,
   "branchability": {
     "branchableMinimumRecords": 2,
-    "branchableTargets": 44,
+    "branchableTargets": 413,
     "strongMinimumRecords": 5,
-    "strongTargets": 6
+    "strongTargets": 37
   },
   "translationIncluded": true,
   "sceneQueriesIncluded": true,

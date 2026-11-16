@@ -431,7 +431,8 @@ export async function scanShippedLearnerContent(repoRoot, { android = false } = 
       recordCount: extracted.recordCount,
       fieldCount: extracted.fields.length,
     });
-    allFields.push(...extracted.fields);
+    // A spread here overflows the stack once one catalog has about 100,000 fields.
+    for (const field of extracted.fields) allFields.push(field);
   }
   const findings = inspectLearnerFields(allFields);
   return {

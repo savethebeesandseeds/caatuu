@@ -89,7 +89,7 @@
   "publication": {
     "contract": "word-world-records-v1",
     "authoring": "apps/languages/czech/content/word-world/content.json",
-    "provider": "czech-semantic-bank-records-v1",
+    "provider": "czech-standard-records-v1",
     "runtime": "apps/languages/czech/static/data/games/word-world/content.json",
     "manifest": "apps/languages/czech/static/data/games/word-world/manifest.json"
   },
