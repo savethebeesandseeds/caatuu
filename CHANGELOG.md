@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Fill the Mandarin catalogs from the English semantic banks. Word World
+  serves 8,994 sentences, Verb Nebula 2,326 rows, Naturalization Nucleus 500
+  characters, and Memory Moon 598 sentences. Sounds Quasar is rebuilt from
+  those verbs and sentences. Rows the game checks refuse stay empty. Native
+  review is not claimed.
 ## Android 203 / 0.1.51
 
 - Ask for reminder notifications the way other Android apps do, and schedule

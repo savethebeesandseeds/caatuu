@@ -57,10 +57,32 @@ before answering records assisted practice. Explicit alternate target token
 orders accept only reviewed permutations; the game never guesses valid grammar.
 
 Sounds Quasar excludes exact authored homophones from isolated-word choices.
-Naturalization Nucleus connects all 640 characters to cited compounds or
-sentences after a correct match. **Play example** speaks that context; character
+Naturalization Nucleus connects each authored character to a cited Word World
+sentence after a correct match. **Play example** speaks that context; character
 playback remains separate. Contexts and pronunciation remain machine-assisted
 previews, with qualified native and actual voice review pending.
+
+## Authored catalogs
+
+These counts are the playable Mandarin catalogs built from the English semantic
+banks. Native review is not claimed. A row stays empty when that game's checks
+refuse it.
+
+- Word World serves 8,994 sentences. Eight bank rows stay untranslated: five
+  ask for a personal name, and three contain letters the English authority
+  check rejects.
+- Verb Nebula has 2,326 of 2,327 rows. "smoke" stays empty because the
+  child-safety check rejects 抽烟. "smoke food" is 熏食物.
+- Naturalization Nucleus has 500 of 715 characters. The rest are ordinary
+  words of more than one character, a character already used in that
+  difficulty band, or a gloss with no safe matching sentence.
+- Memory Moon has 598 of 603 sentences. Good evening., Good morning.,
+  Good night., Hello., and Thank you. stay empty because those lines are
+  already present with an exclamation mark.
+- Sounds Quasar has 2,072 words and 8,925 sentences, rebuilt from the Verb
+  Nebula pairs and Word World sentences. Duplicate spoken sentences are kept
+  once.
+
 
 Refresh the character context projection after its cited Word World text changes:
 

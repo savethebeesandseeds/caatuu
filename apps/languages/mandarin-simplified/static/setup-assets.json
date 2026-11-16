@@ -580,40 +580,40 @@
       "kind": "target-realization-catalog",
       "url": "/zh/data/games/word-world/content.json",
       "browserRequired": true,
-      "bytes": 600487,
-      "sha256": "77d9b1eaaa788b52536ebcf62d5e53eb59dd8bd246d172a49d49d6b64e8810c7"
+      "bytes": 6393184,
+      "sha256": "32873267c879af1bb58a2430b00c861036e0130397b14747f82724f7b32cc323"
     },
     {
       "key": "target-reading-guides",
       "kind": "target-text-guide-catalog",
       "url": "/zh/data/games/word-world/reading-guides.json",
       "browserRequired": true,
-      "bytes": 976356,
-      "sha256": "fa5e7bf51f02f01b1ca8087c01464859110b9ab3d9302c1b3edbb2afdbb04389"
+      "bytes": 12295978,
+      "sha256": "b4360e4a2dfb848fb89205979552eea9f4549b21732e0069de54fcb758c60edd"
     },
     {
       "key": "word-world-manifest",
       "kind": "runtime-manifest",
       "url": "/zh/data/games/word-world/manifest.json?v=catalog-files-2",
       "browserRequired": true,
-      "bytes": 2421,
-      "sha256": "79b56a99a8d447d984ba28a88416e4515539f398596473c3a45b278d2ec9065c"
+      "bytes": 2422,
+      "sha256": "2c483a0bb789b831ea70d864e4295acba9e04d121835a777182a05cd932133bf"
     },
     {
       "key": "verb-nebula-catalog",
       "kind": "course-game-content",
       "url": "/zh/data/games/verb-nebula/content.json",
       "browserRequired": true,
-      "bytes": 362703,
-      "sha256": "f32aa16deb0ed075cc9f0cf1e620c96a691132a08ab8d2b5d0ba05e2ea430798"
+      "bytes": 1964126,
+      "sha256": "52a01bcf6f63a113ba2cc487d9f86f42af83a1e9d20b83a1a8e2707d7dbc29a9"
     },
     {
       "key": "naturalization-nucleus-catalog",
       "kind": "course-game-content",
       "url": "/zh/data/games/naturalization-nucleus/content.json",
       "browserRequired": true,
-      "bytes": 345176,
-      "sha256": "c1cf7582d82fc3bc1e2d5a133dd13ffc1c91f2a633aa2e9a701de08c2eeb63d1"
+      "bytes": 371707,
+      "sha256": "ddd770e874d6d3098cba5bff3bf441520ea3e90895eb00199c8b376b3837c763"
     },
     {
       "key": "naturalization-nucleus-controller",

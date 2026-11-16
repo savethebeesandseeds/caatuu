@@ -77,3 +77,21 @@ were not copied.
 The shared-runtime `mandarin-verb-readings.test.mjs` verifies the complete
 playable inventory, exact glyph alignment, contextual polyphonic readings,
 neutral syllables, listening-catalog consistency and retained review gates.
+
+## Catalog fill
+
+The English semantic banks remain the meaning source. Native review is not
+claimed.
+
+- Word World serves 8,994 sentences. Eight bank rows stay untranslated: five
+  ask for a personal name, and three contain letters the English authority
+  check rejects.
+- Verb Nebula has 2,326 of 2,327 rows. "smoke" stays empty because the
+  child-safety check rejects 抽烟.
+- Naturalization Nucleus has 500 of 715 characters. Multi-character words are
+  not truncated.
+- Memory Moon has 598 of 603 sentences. Five punctuation twins of lines
+  already in the catalog stay empty.
+- Sounds Quasar has 2,072 words and 8,925 sentences projected from those
+  verbs and sentences.
+
