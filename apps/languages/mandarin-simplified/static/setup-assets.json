@@ -351,8 +351,8 @@
       "kind": "course-contract",
       "url": "/zh/source/shared/course-profile.js",
       "browserRequired": true,
-      "bytes": 32202,
-      "sha256": "940df54643e2d94694922835eb3854d048364e7e2b2c0865a6c5f848a15b6522"
+      "bytes": 28911,
+      "sha256": "c3f2ac5dabfeb6d2bcf4245e926410e0eec6c9f4c56d9091ef3485368940dfa4"
     },
     {
       "key": "shared-app-bootstrap",

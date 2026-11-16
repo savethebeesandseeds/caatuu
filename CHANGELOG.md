@@ -20,6 +20,8 @@
 - Czech Word World stays on the standard corpus provider until that course
   is reinstated from the English semantic banks. Word World publication
   files are synchronized to the catalogs that ship.
+- Mandarin Stats has one topic goal, Everyday sentences, because the
+  published sentences share the topic `general`.
 - Describe the public site as a free released language-learning app for ten
   courses. The homepage and each course page name the courses, say the app is
   free and safe for children, and stay indexable. The Android control says
