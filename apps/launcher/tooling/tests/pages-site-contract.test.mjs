@@ -728,6 +728,13 @@ test("retired Czech databases and unreferenced setup duplicates are omitted", ()
     { path: "assets/setup/a/file.png", sha256: "old" },
     { path: "assets/setup/b/file.png", sha256: "old" },
   ], new Set()).sort(), ["assets/setup/a/file.png", "assets/setup/b/file.png"]);
+  assert.deepEqual(unreferencedDuplicateSetupPaths([
+    { path: "assets/stores/stores (1).png", sha256: "store" },
+    { path: "assets/setup/current/stores (1).png", sha256: "store" },
+    { path: "assets/setup/old/stores (1).png", sha256: "store" },
+  ], new Set(["assets/setup/current/stores (1).png"])).sort(), [
+    "assets/setup/old/stores (1).png",
+  ]);
   const filtered = omitDisabledCourseSetupSurfaces({
     artifacts: [
       {

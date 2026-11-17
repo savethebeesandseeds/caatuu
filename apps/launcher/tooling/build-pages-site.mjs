@@ -157,10 +157,16 @@ function latestReleaseSetupPaths(currentRelease) {
 }
 
 /**
- * When the latest version names at least one copy, every other URL of those
- * bytes goes. That includes an older setup hash and a second website address.
- * When it names none, older setup hashes go and the website paths stay.
+ * Older setup hashes go when the latest version does not name them.
+ * A Czech-local copy goes when the latest version names another URL of those
+ * bytes. Website files the site still serves stay, even when the APK also
+ * keeps a hashed setup copy of the same bytes.
  */
+function retiredCzechLocalDuplicate(path, paths, latestPaths) {
+  if (!path.startsWith("cz/data/embeddings/") && !path.startsWith("cz/data/dictionaries/")) return false;
+  return paths.some((other) => other !== path && latestPaths.has(other));
+}
+
 export function unreferencedDuplicateSetupPaths(files, latestPaths) {
   const groups = new Map();
   for (const file of files) {
@@ -173,11 +179,12 @@ export function unreferencedDuplicateSetupPaths(files, latestPaths) {
   for (const paths of groups.values()) {
     if (paths.length < 2) continue;
     const referenced = paths.filter((path) => latestPaths.has(path));
-    const relevant = referenced.length > 0
-      ? referenced
-      : paths.filter((path) => !path.startsWith("assets/setup/"));
     for (const path of paths) {
-      if (!relevant.includes(path)) remove.push(path);
+      if (path.startsWith("assets/setup/")) {
+        if (referenced.length === 0 || !referenced.includes(path)) remove.push(path);
+        continue;
+      }
+      if (retiredCzechLocalDuplicate(path, paths, latestPaths)) remove.push(path);
     }
   }
   return remove;

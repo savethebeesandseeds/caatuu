@@ -7,10 +7,10 @@
 - When a newer APK is published, About shows that download address. Opening
   it uses the browser. The package stays on the website.
 - The Czech full dictionary and the Czech curriculum embedding database are
-  no longer published. A second URL of the same bytes is dropped when the
-  latest version does not use that address, including an older setup copy and
-  a Czech-local copy of the shared MiniLM model. Czech lessons stay available.
-  The shared MiniLM model stays.
+  no longer published. An older setup copy is dropped when the latest
+  version does not use that address, and so is a Czech-local copy of the
+  shared MiniLM model. Website files the site still serves stay. Czech
+  lessons stay available. The shared MiniLM model stays.
 
 ## Android 204 / 0.1.52
 

@@ -197,8 +197,9 @@ hostname now has an endpoint.
 The Czech full dictionary (`caatuu-cs-en.sqlite`, 143,106,048 bytes) and the
 Czech curriculum embedding database (`caatuu-cz-curriculum.sqlite`, including
 the older 16,121,856-byte setup copy) are not published. The site build also
-drops a second URL when the latest version does not use that address. A
-Czech-local copy of the shared MiniLM model is one of those second URLs.
+drops an older setup copy when the latest version does not use that address,
+and a Czech-local copy of the shared MiniLM model. Website files the site
+still serves stay, including when an installed APK keeps a hashed setup copy.
 Historical GitHub Release
 `caatuu-setup-assets-v1` stays write-once and is not replaced. It is no longer
 routed for those two databases.
@@ -285,8 +286,8 @@ Size alone does not prove operational fit: Pages has a 10-minute deployment
 limit and a soft 100 GB monthly bandwidth limit. The shared MiniLM model and
 runtime use GitHub Releases at runtime. The preservation bundle still contains
 the retired Czech dictionary and curriculum database; the site build removes
-those bytes, and any second URL the latest version does not use, before it
-publishes. Recheck these limits before expanding beyond the
+those bytes, older setup copies the latest version does not use, and a
+Czech-local copy of the shared model before it publishes. Recheck these limits before expanding beyond the
 current personal use case.
 
 ```powershell

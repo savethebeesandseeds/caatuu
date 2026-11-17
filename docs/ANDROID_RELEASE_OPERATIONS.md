@@ -72,7 +72,9 @@ Native vector databases are sealed in the companion with immutable download
 URLs projected into the APK's embedding catalog. Logical WebView paths and
 the pinned byte count and SHA-256 remain unchanged. The Czech full dictionary
 and the Czech curriculum embedding database are not published. The site build
-also drops a second URL when the latest version does not use that address. Setup verification reads native provider catalogs as well as
+also drops an older setup copy when the latest version does not use that
+address, and a Czech-local copy of the shared MiniLM model. Website files
+the site still serves stay. Setup verification reads native provider catalogs as well as
 the ordinary setup manifest.
 
 Signing lineage is pinned by
