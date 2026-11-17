@@ -544,6 +544,75 @@ test("each planned course cache revision covers offline-only bytes and excludes 
   }
 });
 
+test("baseline-owned public artwork keeps its historical bytes", () => {
+  const temporaryDirectory = mkdtempSync(join(tmpdir(), "caatuu-pages-baseline-art-test-"));
+  const siteDir = join(temporaryDirectory, "site");
+  const baselineSite = join(temporaryDirectory, "baseline");
+  const workerSource = '"use strict";\n\n// Offline catalog revision: caatuu-cz-pwa-v1\nself.CAATUU_OFFLINE_CACHE_NAME = "caatuu-cz-pwa-v1";\n';
+  const course = {
+    id: "cz",
+    publicRoute: "/cz/",
+    entryPath: "/cz/index.html",
+    setupPath: "/cz/setup-assets.json",
+    profilePath: "/cz/course-profile.js",
+    profileRelativePath: "course-profile.js",
+  };
+  const historical = "historical-planet";
+  const manifest = {
+    schemaVersion: "fixture-v1",
+    courseId: "cz",
+    application: { entryPath: "/cz/index.html" },
+    offline: {
+      cacheName: "caatuu-cz-pwa-v1",
+      cachePrefix: "caatuu-cz-pwa-",
+      assets: ["/assets/planets/conjugation-comet.png"],
+    },
+    artifacts: [
+      {
+        key: "course-service-worker",
+        url: "/cz/sw.js",
+        browser_required: true,
+        native_required: false,
+        bytes: 1,
+        sha256: "0".repeat(64),
+      },
+      {
+        key: "planet-conjugation",
+        url: "/assets/planets/conjugation-comet.png",
+        browser_required: true,
+        native_required: true,
+        bytes: 11,
+        sha256: "b".repeat(64),
+      },
+    ],
+  };
+  try {
+    mkdirSync(join(siteDir, "cz"), { recursive: true });
+    mkdirSync(join(siteDir, "assets/planets"), { recursive: true });
+    mkdirSync(join(siteDir, "language-runtime/static/source"), { recursive: true });
+    mkdirSync(join(baselineSite, "assets/planets"), { recursive: true });
+    writeFileSync(join(siteDir, "cz/index.html"), "<main>Czech</main>\n");
+    writeFileSync(join(siteDir, "cz/course-profile.js"), "globalThis.fixtureCourse = true;\n");
+    writeFileSync(join(siteDir, "cz/sw.js"), workerSource);
+    writeFileSync(join(siteDir, "language-runtime/static/source/course-service-worker.js"), "shared worker\n");
+    writeFileSync(join(siteDir, "assets/planets/conjugation-comet.png"), historical);
+    writeFileSync(join(baselineSite, "assets/planets/conjugation-comet.png"), historical);
+    writeFileSync(join(siteDir, "cz/setup-assets.json"), JSON.stringify(manifest));
+    const rewritten = rewriteFinalCourseSetup({
+      course,
+      siteDir,
+      canonicalOrigin: "https://caatuu.waajacu.com",
+      baselineSite,
+    });
+    const artwork = rewritten.manifest.artifacts.find((artifact) => artifact.key === "planet-conjugation");
+    assert.equal(artwork.native_required, false);
+    assert.equal(artwork.bytes, historical.length);
+    assert.equal(readFileSync(join(siteDir, "assets/planets/conjugation-comet.png"), "utf8"), historical);
+  } finally {
+    rmSync(temporaryDirectory, { recursive: true, force: true });
+  }
+});
+
 test("the published course worker bypasses durable release paths idempotently", () => {
   const temporaryDirectory = mkdtempSync(join(tmpdir(), "caatuu-pages-course-worker-test-"));
   const workerPath = join(temporaryDirectory, "course-service-worker.js");

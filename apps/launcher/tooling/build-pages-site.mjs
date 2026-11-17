@@ -1261,7 +1261,14 @@ export function rewritePagesCourseProfileReceipt({ course, siteDir, canonicalOri
   return { manifest, setupPath };
 }
 
-export function rewriteFinalCourseSetup({ course, siteDir, canonicalOrigin }) {
+function publishedFileMatchesBaseline(baselineSite, path, bytes, sha256) {
+  if (!baselineSite) return false;
+  const baselineFile = outputPath(baselineSite, path);
+  if (!existsSync(baselineFile)) return false;
+  return statSync(baselineFile).size === bytes && sha256File(baselineFile) === sha256;
+}
+
+export function rewriteFinalCourseSetup({ course, siteDir, canonicalOrigin, baselineSite = null }) {
   const { manifest, setupPath } = rewritePagesCourseProfileReceipt({
     course,
     siteDir,
@@ -1281,8 +1288,22 @@ export function rewriteFinalCourseSetup({ course, siteDir, canonicalOrigin }) {
     const bytes = statSync(file).size;
     const sha256 = sha256File(file);
     if (nativeRequiredArtifact(artifact)) {
-      assert.equal(bytes, Number(artifact.bytes), `${course.id} native artifact byte count changed: ${artifact.key}`);
-      assert.equal(sha256, String(artifact.sha256).toLowerCase(), `${course.id} native artifact hash changed: ${artifact.key}`);
+      const pinBytes = Number(artifact.bytes);
+      const pinHash = String(artifact.sha256).toLowerCase();
+      if (
+        (bytes !== pinBytes || sha256 !== pinHash)
+        && publishedFileMatchesBaseline(baselineSite, path, bytes, sha256)
+      ) {
+        // The frozen baseline still owns this public address. The current
+        // bytes travel with the Android setup companion at a hashed URL.
+        artifact.native_required = false;
+        artifact.nativeRequired = false;
+        artifact.bytes = bytes;
+        artifact.sha256 = sha256;
+      } else {
+        assert.equal(bytes, pinBytes, `${course.id} native artifact byte count changed: ${artifact.key}`);
+        assert.equal(sha256, pinHash, `${course.id} native artifact hash changed: ${artifact.key}`);
+      }
     } else if (path === workerPublicPath) {
       assert.equal(localWorkerArtifact, null, `${course.id} setup repeats its local course worker`);
       localWorkerArtifact = artifact;
@@ -1940,6 +1961,7 @@ export async function compilePagesSite({
           course,
           siteDir: stagingDir,
           canonicalOrigin: baseline.descriptor.canonicalOrigin,
+          baselineSite: join(baseline.baselineDir, "site"),
         });
       courseSetups.set(course.id, result);
     }
