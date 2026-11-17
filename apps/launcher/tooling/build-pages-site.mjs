@@ -943,6 +943,35 @@ export function stagePagesBrowserCourses({ workspaceRoot, siteDir, canonicalOrig
       }
       copyVerified(source, destination, null, `${course.id} browser asset ${assetPath}`);
     }
+    const workerPublic = `${course.publicRoute.slice(1)}sw.js`;
+    const workerSource = join(resolve(workspaceRoot, ...course.staticRootPath.split("/")), "sw.js");
+    if (existsSync(workerSource)) {
+      const workerDestination = outputPath(siteDir, workerPublic);
+      copyVerified(workerSource, workerDestination, null, `${course.id} course worker`);
+      const listed = setup.artifacts.some((artifact) => {
+        try {
+          return setupArtifactPublicPath(artifact, canonicalOrigin, `${course.id} worker`) === workerPublic;
+        } catch {
+          return false;
+        }
+      });
+      if (!listed) {
+        setup.artifacts.push({
+          key: "course-service-worker",
+          label: `${course.id} course service worker`,
+          artifact_kind: "service-worker",
+          url: `/${workerPublic}`,
+          asset_path: "sw.js",
+          bytes: statSync(workerDestination).size,
+          sha256: sha256File(workerDestination),
+          native_required: false,
+          nativeRequired: false,
+          browser_required: true,
+          browserRequired: true,
+        });
+        writeJson(outputPath(siteDir, course.setupPath.slice(1)), setup);
+      }
+    }
     stagedCourses.push(Object.freeze({
       id: course.id,
       browserArtifactCount: browserArtifacts.length,
