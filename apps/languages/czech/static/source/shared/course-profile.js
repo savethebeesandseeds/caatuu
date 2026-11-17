@@ -99,22 +99,8 @@
         memoryMoonCatalog: "data/games/memory-moon/content.json?v=memory-moon-1"
       }
     },
-    dictionaryContent: {
-      catalog: "data/dictionaries/catalog.json",
-      coreEntries: "data/games/verb-nebula/content.json",
-      scriptLines: "data/language/scripts.json",
-      referenceDocument: "data/dictionaries/reference.html",
-      providerId: "czech-full-dictionary-v1",
-      providerModule: "source/features/dictionary/dictionary-full.js?v=full-dictionary-7",
-      gapReporting: {
-        providerId: "czech-full-dictionary-v1",
-        dictionaryKey: "kaikki-cs-en-2026-07-09",
-        dictionaryDirection: "cs-en"
-      }
-    },
-    embeddingContent: {
-      catalog: "data/embeddings/models.json"
-    },
+    dictionaryContent: null,
+    embeddingContent: null,
     courseSelector: {
       schemaVersion: 1,
       courses: [
@@ -151,16 +137,8 @@
                 memoryMoonCatalog: "data/games/memory-moon/content.json?v=memory-moon-1"
               }
             },
-            dictionaryContent: {
-              providerId: "czech-full-dictionary-v1",
-              catalog: "data/dictionaries/catalog.json",
-              coreEntries: "data/games/verb-nebula/content.json",
-              scriptLines: "data/language/scripts.json",
-              referenceDocument: "data/dictionaries/reference.html"
-            },
-            embeddingContent: {
-              catalog: "data/embeddings/models.json"
-            }
+            dictionaryContent: null,
+            embeddingContent: null
           },
           sourceLanguage: {
             id: "en",
@@ -811,9 +789,9 @@
       llm: true,
       generation: true,
       chat: true,
-      embeddings: true,
-      semanticSearch: true,
-      dictionary: true,
+      embeddings: false,
+      semanticSearch: false,
+      dictionary: false,
       memory: true,
       verbs: true,
       wordWorld: true,
@@ -899,7 +877,7 @@
       browser: {
         enabled: true,
         entryPath: "/cz/index.html",
-        backend: "dictionary-api-v1"
+        backend: "static"
       },
       android: {
         enabled: true,

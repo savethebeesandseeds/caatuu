@@ -158,31 +158,16 @@ test("dictionary inspector searches arbitrary language fields, paginates, and re
   cleanup();
 });
 
-test("dictionary inspector loads only the selected declared Czech resource and escapes reference markup", async () => {
-  const { course, readResource } = courses.find((item) => item.name === "czech");
-  const resourcePaths = ["coreEntries", "catalog", "scriptLines", "referenceDocument"]
-    .map((key) => course.dictionaryContent[key]);
-  const resourceText = new Map(await Promise.all(resourcePaths.map(async (path) => [path, await readResource(path)])));
-  const harness = harnessFor(course, async (url) => {
-    const relative = new URL(url).pathname.slice(`${course.routePrefix}/`.length);
-    assert.ok(resourceText.has(relative), `Unexpected undeclared resource fetch: ${relative}`);
-    return new Response(resourceText.get(relative));
+test("dictionary inspector reports that Czech declares no dictionary", async () => {
+  const { course } = courses.find((item) => item.name === "czech");
+  assert.equal(course.dictionaryContent, null);
+  assert.equal(course.embeddingContent, null);
+  const harness = harnessFor(course, async () => {
+    assert.fail("Czech must not fetch a dictionary");
   });
   const cleanup = await mountDictionaryInspector(harness);
-  assert.equal(harness.requests.length, 1);
-  assert.match(harness.root.textContent, /czech-full-dictionary-v1/);
-  for (const [key, expected] of [
-    ["catalog", /default_dictionary/],
-    ["scriptLines", /Cafe/],
-    ["referenceDocument", /<section class="dictionary-section-intro">/]
-  ]) {
-    setControl(harness.root, "[data-dictionary-resource]", key);
-    await flush();
-    assert.match(harness.root.textContent, expected);
-    assert.equal(harness.requests.at(-1).url, `https://caatuu.test${course.routePrefix}/${course.dictionaryContent[key]}`);
-  }
-  assert.equal(harness.requests.length, 4);
-  assert.equal(harness.root.querySelectorAll("iframe, script, .dictionary-section-intro").length, 0);
+  assert.equal(harness.requests.length, 0);
+  assert.match(harness.root.textContent, /No dictionary resources are declared for Czech/);
   cleanup();
 });
 

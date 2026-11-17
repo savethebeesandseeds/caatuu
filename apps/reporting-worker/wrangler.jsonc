@@ -26,14 +26,6 @@
       "zone_name": "waajacu.com"
     },
     {
-      "pattern": "caatuu.waajacu.com/cz/data/dictionaries/kaikki-cs-en-2026-07-09/caatuu-cs-en.sqlite*",
-      "zone_name": "waajacu.com"
-    },
-    {
-      "pattern": "caatuu.waajacu.com/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite*",
-      "zone_name": "waajacu.com"
-    },
-    {
       "pattern": "caatuu.waajacu.com/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/onnx/model_qint8_arm64.onnx*",
       "zone_name": "waajacu.com"
     },

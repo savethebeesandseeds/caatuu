@@ -70,11 +70,10 @@ and agree on capacity rather than repeatedly invoking the publisher.
 
 Native vector databases are sealed in the companion with immutable download
 URLs projected into the APK's embedding catalog. Logical WebView paths and
-the pinned byte count and SHA-256 remain unchanged. Preserve the historical
-database routes: Czech's old route serves the frozen 20,029,440-byte database,
-while newer curriculum catalogs pin different bytes. Setup verification reads
-native provider catalogs as well as the ordinary setup manifest, including
-the remaining independently hosted dictionary downloads.
+the pinned byte count and SHA-256 remain unchanged. The Czech full dictionary
+and the Czech curriculum embedding database are not published. The site build
+also drops a second URL when the latest version does not use that address. Setup verification reads native provider catalogs as well as
+the ordinary setup manifest.
 
 Signing lineage is pinned by
 [`direct-release-certificate.sha256`](../apps/android/tooling/direct-release-certificate.sha256).

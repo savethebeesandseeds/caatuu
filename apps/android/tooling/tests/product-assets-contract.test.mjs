@@ -222,7 +222,8 @@ test("courses share one Android app document and bundle while retaining course-o
     fixture.appAssets.map(({ output }) => output),
   );
   assert.notDeepEqual(czech.languageFiles, fixture.languageFiles);
-  assert.equal(czech.productProfile.capabilities.dictionary, true);
+  assert.equal(czech.productProfile.capabilities.dictionary, false);
+  assert.equal(czech.productProfile.capabilities.embeddings, false);
   assert.equal(fixture.productProfile.capabilities.dictionary, false);
   for (const configuration of [czech, fixture]) {
     assert.equal(
@@ -563,20 +564,18 @@ test("the Android product bundles declared courses behind one shared app documen
   const czechRuntimeArtifacts = czechSetup.artifacts.filter(
     (artifact) => artifact.artifact_kind === "embedding-runtime",
   );
+  assert.equal(czechRuntimeArtifacts.length, 0);
+  assert.ok(!czechSetup.artifacts.some((artifact) => /data\/embeddings|caatuu-(?:cs-en|cz-curriculum)\.sqlite/u.test(`${artifact.url} ${artifact.asset_path}`)));
+  assert.ok(!czechSetup.offline.assets.some((asset) => /data\/embeddings|caatuu-(?:cs-en|cz-curriculum)\.sqlite/u.test(String(asset))));
   const mandarinSetup = JSON.parse(readFileSync(join(outputDir, "courses/zh/setup-assets.json"), "utf8"));
   const mandarinRuntimeArtifacts = mandarinSetup.artifacts.filter(
     (artifact) => artifact.artifact_kind === "embedding-runtime",
   );
-  assert.equal(czechRuntimeArtifacts.length, sharedRuntime.artifacts.length);
   assert.equal(mandarinRuntimeArtifacts.length, sharedRuntime.artifacts.length);
-  assert.deepEqual(
-    czechRuntimeArtifacts.map(({ asset_path }) => asset_path),
-    mandarinRuntimeArtifacts.map(({ asset_path }) => asset_path),
-  );
-  assert.ok(czechRuntimeArtifacts.every((artifact) => artifact.url.startsWith("/language-runtime/")));
-  assert.ok(czechRuntimeArtifacts.every((artifact) => artifact.asset_path.startsWith("language-runtime/")));
-  assert.ok(czechRuntimeArtifacts.every((artifact) => artifact.native_required === true));
-  assert.ok(czechSetup.offline.assets.includes("/language-runtime/vendor/transformers/transformers.min.js"));
+  assert.ok(mandarinRuntimeArtifacts.every((artifact) => artifact.url.startsWith("/language-runtime/")));
+  assert.ok(mandarinRuntimeArtifacts.every((artifact) => artifact.asset_path.startsWith("language-runtime/")));
+  assert.ok(mandarinRuntimeArtifacts.every((artifact) => artifact.native_required === true));
+  assert.ok(mandarinSetup.offline.assets.includes("/language-runtime/vendor/transformers/transformers.min.js"));
   assert.ok(!czechSetup.offline.assets.includes("./vendor/transformers/transformers.min.js"));
   const czechVectorDb = readFileSync(join(outputDir, "courses/cz/source/shared/vector-db.js"), "utf8");
   assert.match(czechVectorDb, /defaultTransformersModuleUrl = "\/language-runtime\/vendor\/transformers\/transformers\.min\.js"/u);
@@ -590,7 +589,12 @@ test("the Android product bundles declared courses behind one shared app documen
   const mandarin = catalog.courses.find(({ id }) => id === "zh");
   assert.equal(czech.entryPath, "/cz/index.html");
   assert.equal(czech.assetPrefix, "courses/cz");
-  assert.equal(czech.nativeProviders.providers.embeddings.catalogAsset, "courses/cz/data/embeddings/models.json");
+  assert.equal(czech.nativeProviders.providers.embeddings, undefined);
+  assert.equal(czech.nativeProviders.providers.dictionary, undefined);
+  assert.deepEqual(czech.nativeProviders.providers.speech, {
+    implementation: "android-text-to-speech-v1",
+    locale: "cs-CZ",
+  });
   assert.equal(mandarin.entryPath, "/zh/index.html");
   assert.equal(mandarin.assetPrefix, "courses/zh");
   assert.equal(mandarin.targetLanguage.speechLocale, "zh-CN");
@@ -660,7 +664,9 @@ test("product assets compile from an exact capability-safe allowlist", async (t)
 
   const profile = JSON.parse(readFileSync(join(outputDir, "caatuu-profile.json"), "utf8"));
   assert.deepEqual(profile, PRODUCT_PROFILE);
-  assert.equal(profile.capabilities.embeddings, true);
+  assert.equal(profile.capabilities.embeddings, false);
+  assert.equal(profile.capabilities.semanticSearch, false);
+  assert.equal(profile.capabilities.dictionary, false);
   assert.equal(profile.capabilities.wordWorldStandardOnly, true);
   assert.equal(profile.capabilities.llm, false);
   assert.equal(profile.capabilities.generation, false);
@@ -672,14 +678,6 @@ test("product assets compile from an exact capability-safe allowlist", async (t)
   assert.deepEqual(profile.nativeProviders, {
     schemaVersion: 1,
     providers: {
-      embeddings: {
-        implementation: "vector-database-catalog-v1",
-        catalogAsset: "data/embeddings/models.json",
-      },
-      dictionary: {
-        implementation: "sqlite-dictionary-catalog-v1",
-        catalogAsset: "data/dictionaries/catalog.json",
-      },
       speech: {
         implementation: "android-text-to-speech-v1",
         locale: "cs-CZ",

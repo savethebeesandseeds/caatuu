@@ -17,6 +17,10 @@ import { fileURLToPath } from "node:url";
 
 import {
   assertDeclaredPagesLanguageCoverage,
+  disabledCourseSetupSurface,
+  omitDisabledCourseSetupSurfaces,
+  retiredCzechDatabasePath,
+  unreferencedDuplicateSetupPaths,
   compilePagesSite,
   deriveCoursePagesCacheName,
   enablePagesDurableBypassInCourseWorker,
@@ -693,4 +697,51 @@ test("Spanish-only reporting installs and precaches shared delivery without Czec
   } finally {
     rmSync(temporaryRoot, { recursive: true, force: true });
   }
+});
+
+test("retired Czech databases and unreferenced setup duplicates are omitted", () => {
+  assert.equal(retiredCzechDatabasePath("cz/data/dictionaries/kaikki-cs-en-2026-07-09/caatuu-cs-en.sqlite"), true);
+  assert.equal(retiredCzechDatabasePath("cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite"), true);
+  assert.equal(
+    retiredCzechDatabasePath("assets/setup/8ec3e42b476ffbbeeede427a2fb80cdca70f62c2d420e7298038393ea2ffa8df/d4ed923795f43a0c-caatuu-cz-curriculum.sqlite"),
+    true,
+  );
+  assert.equal(retiredCzechDatabasePath("language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/onnx/model_qint8_arm64.onnx"), false);
+  const latest = new Set(["assets/setup/current/picture.png", "assets/macaw/picture.png"]);
+  assert.deepEqual(unreferencedDuplicateSetupPaths([
+    { path: "assets/macaw/picture.png", sha256: "same" },
+    { path: "assets/setup/current/picture.png", sha256: "same" },
+    { path: "assets/setup/old/picture.png", sha256: "same" },
+    { path: "assets/setup/old-only/catalog.json", sha256: "unique" },
+  ], latest).sort(), ["assets/setup/old/picture.png"]);
+  const sharedOnnx = "language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/onnx/model_qint8_arm64.onnx";
+  const czechOnnx = "cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/runtime/onnx/model_qint8_arm64.onnx";
+  assert.deepEqual(unreferencedDuplicateSetupPaths([
+    { path: sharedOnnx, sha256: "onnx" },
+    { path: czechOnnx, sha256: "onnx" },
+    { path: "assets/setup/old/model_qint8_arm64.onnx", sha256: "onnx" },
+  ], new Set([sharedOnnx])).sort(), [
+    "assets/setup/old/model_qint8_arm64.onnx",
+    czechOnnx,
+  ]);
+  assert.deepEqual(unreferencedDuplicateSetupPaths([
+    { path: "assets/setup/a/file.png", sha256: "old" },
+    { path: "assets/setup/b/file.png", sha256: "old" },
+  ], new Set()).sort(), ["assets/setup/a/file.png", "assets/setup/b/file.png"]);
+  const filtered = omitDisabledCourseSetupSurfaces({
+    artifacts: [
+      {
+        key: "embedding-runtime-onnx",
+        artifact_kind: "embedding-runtime",
+        url: `/${czechOnnx}`,
+        asset_path: "data/embeddings/all-minilm-l6-v2-qint8-v0.1/runtime/onnx/model_qint8_arm64.onnx",
+      },
+      { key: "shared-model", artifact_kind: "embedding-runtime", url: `/${sharedOnnx}` },
+      { key: "lesson", url: "/cz/index.html" },
+    ],
+    offline: { assets: ["./data/embeddings/models.json", "./index.html", "./source/shared/vector-db.js?v=vector-db-10", "./vendor/transformers/transformers.min.js"] },
+  }, { embeddings: false, dictionary: false });
+  assert.deepEqual(filtered.artifacts.map((artifact) => artifact.key), ["lesson"]);
+  assert.deepEqual(filtered.offline.assets, ["./index.html"]);
+  assert.equal(disabledCourseSetupSurface("language-runtime/models/model.onnx", { embeddings: true }), false);
 });

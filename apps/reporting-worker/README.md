@@ -2,8 +2,9 @@
 
 This is the small dynamic companion to the otherwise static GitHub Pages site.
 It accepts only two write-only report protocols, exposes one data-free health
-route, and protects raw byte-range delivery for four version-pinned setup files
-that are treated as write-once:
+route, and protects raw byte-range delivery for two version-pinned model files
+that are treated as write-once. The Czech dictionary database and the Czech
+curriculum embedding database are no longer routed.
 
 ```text
 POST /api/v2/dictionary-gaps
@@ -11,8 +12,6 @@ POST /api/v2/sentence-reports
 POST /cz/api/dictionary/gaps        (legacy v1)
 POST /api/sentence-reports         (legacy v1)
 GET  /api/reporting/health
-GET  /cz/data/dictionaries/kaikki-cs-en-2026-07-09/caatuu-cs-en.sqlite
-GET  /cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite
 GET  /language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/onnx/model_qint8_arm64.onnx
 GET  /language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/ort/ort-wasm-simd-threaded.wasm
 ```

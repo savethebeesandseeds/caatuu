@@ -592,9 +592,11 @@ test("Czech mirrors the active registry, runtime profile, and resource catalogs"
   assert.equal(czech.status, "active");
   assert.equal(czech.routePrefix, "/cz");
   assert.equal(czech.platforms.browser.pagesEnabled, true);
-  assert.equal(czech.platforms.browser.backend, "dictionary-api-v1");
+  assert.equal(czech.platforms.browser.backend, "static");
   assert.equal(czech.capabilities.llm, true);
-  assert.equal(czech.capabilities.embeddings, true);
+  assert.equal(czech.capabilities.embeddings, false);
+  assert.equal(czech.capabilities.dictionary, false);
+  assert.equal(czech.capabilities.semanticSearch, false);
   assert.equal(czech.capabilities.speech, true);
   assert.equal(
     czech.routes.conjugationComet,
@@ -614,14 +616,12 @@ test("Czech mirrors the active registry, runtime profile, and resource catalogs"
       { kind: "preview", minimumVersionCode: 160 }
     ]
   );
-  assert.equal(czech.resources.embeddingCatalog.path, "apps/languages/czech/static/data/embeddings/models.json");
-  assert.equal(czech.resources.dictionaryCatalog.path, "apps/languages/czech/static/data/dictionaries/catalog.json");
-  assert.equal(czech.resources.dictionaryProvider.path, "apps/languages/czech/static/source/features/dictionary/dictionary-full.js");
-  assert.equal(czech.resources.dictionaryProvider.providerId, "czech-full-dictionary-v1");
-  assert.equal(czech.resources.dictionaryProvider.revision, "full-dictionary-7");
-  assert.equal(czech.resources.dictionaryReferenceDocument.path, "apps/languages/czech/static/data/dictionaries/reference.html");
-  assert.equal(czech.resources.dictionaryCoreEntries.path, "apps/languages/czech/static/data/games/verb-nebula/content.json");
-  assert.equal(czech.resources.dictionaryScriptLines.path, "apps/languages/czech/static/data/language/scripts.json");
+  assert.equal(czech.resources.embeddingCatalog, undefined);
+  assert.equal(czech.resources.dictionaryCatalog, undefined);
+  assert.equal(czech.resources.dictionaryProvider, undefined);
+  assert.equal(czech.resources.dictionaryReferenceDocument, undefined);
+  assert.equal(czech.resources.dictionaryCoreEntries, undefined);
+  assert.equal(czech.resources.dictionaryScriptLines, undefined);
   assert.equal(czech.resources.modelCatalog.path, "apps/languages/czech/static/data/models/models.json");
   assert.equal(czech.resources.wordWorldManifest.path, "apps/languages/czech/static/data/games/word-world/manifest.json");
   assert.equal(czech.resources.verbNebulaCatalog.path, "apps/languages/czech/static/data/games/verb-nebula/content.json");
@@ -1220,7 +1220,9 @@ test("launcher and course-profile compatibility views match the current consumer
   assert.equal(generatedProfileSource, existingProfileSource.replace(/\r\n/gu, "\n"));
   assert.match(generatedProfileSource, /\n    schemaVersion: 1,/);
   assert.doesNotMatch(generatedProfileSource, /"schemaVersion":/);
-  assert.equal(context.window.CaatuuCourse.capabilities.embeddings, true);
+  assert.equal(context.window.CaatuuCourse.capabilities.embeddings, false);
+  assert.equal(context.window.CaatuuCourse.capabilities.dictionary, false);
+  assert.equal(context.window.CaatuuCourse.capabilities.semanticSearch, false);
   assert.equal(context.window.CaatuuCourse.targetLanguage.script, "Latn");
   assert.equal(context.window.CaatuuCourse.targetLanguage.speechLocale, "cs-CZ");
   assert.equal(context.window.CaatuuCourse.languageAdapter.module, "source/language/adapter.mjs");
@@ -1272,22 +1274,8 @@ test("launcher and course-profile compatibility views match the current consumer
       }
     }
   );
-  assert.deepEqual(
-    JSON.parse(JSON.stringify(context.window.CaatuuCourse.dictionaryContent)),
-    {
-      catalog: "data/dictionaries/catalog.json",
-      coreEntries: "data/games/verb-nebula/content.json",
-      scriptLines: "data/language/scripts.json",
-      referenceDocument: "data/dictionaries/reference.html",
-      providerId: "czech-full-dictionary-v1",
-      providerModule: "source/features/dictionary/dictionary-full.js?v=full-dictionary-7",
-      gapReporting: {
-        providerId: "czech-full-dictionary-v1",
-        dictionaryKey: "kaikki-cs-en-2026-07-09",
-        dictionaryDirection: "cs-en"
-      }
-    }
-  );
+  assert.equal(context.window.CaatuuCourse.dictionaryContent, null);
+  assert.equal(context.window.CaatuuCourse.embeddingContent, null);
   assert.deepEqual(
     JSON.parse(JSON.stringify(
       context.window.CaatuuCourse.courseSelector.courses.map(({ id, status, storage }) => ({ id, status, storage }))
@@ -1518,9 +1506,18 @@ test("failure fixtures catch capability, backend, and resource contradictions", 
     {
       name: "dictionary API backend without dictionary capability",
       code: "backend.contradiction",
+      message: /dictionary-api-v1 backend requires dictionary capability/u,
       mutate(candidate) {
-        candidate.courses[0].course.capabilities.dictionary = false;
-        delete candidate.courses[0].course.resources.dictionaryCatalog;
+        const course = candidate.courses.find(({ course }) => course.id === "cz").course;
+        course.capabilities.dictionary = false;
+        course.platforms.browser.backend = "dictionary-api-v1";
+        for (const name of [
+          "dictionaryCatalog",
+          "dictionaryCoreEntries",
+          "dictionaryScriptLines",
+          "dictionaryReferenceDocument",
+          "dictionaryProvider",
+        ]) delete course.resources[name];
       }
     },
     {
@@ -1528,7 +1525,9 @@ test("failure fixtures catch capability, backend, and resource contradictions", 
       code: "backend.contradiction",
       message: /dictionary-api-v1/u,
       mutate(candidate) {
-        candidate.courses[0].course.platforms.browser.backend = "static";
+        const course = candidate.courses.find(({ course }) => course.id === "cz").course;
+        course.capabilities.dictionary = true;
+        course.platforms.browser.backend = "static";
       }
     },
     {
@@ -1897,8 +1896,52 @@ test("Word World runtime outputs are bound exactly to course publication authori
   }
 });
 
+function czechWithDictionary(loaded) {
+  const candidate = cloneLoaded(loaded);
+  const course = candidate.courses.find(({ course }) => course.id === "cz").course;
+  course.capabilities.dictionary = true;
+  course.platforms.browser.backend = "dictionary-api-v1";
+  course.resources.dictionaryCatalog = {
+    kind: "file",
+    path: "apps/languages/czech/static/data/dictionaries/catalog.json",
+    scope: "course",
+    state: "present"
+  };
+  course.resources.dictionaryCoreEntries = {
+    kind: "file",
+    path: "apps/languages/czech/static/data/games/verb-nebula/content.json",
+    scope: "course",
+    state: "present"
+  };
+  course.resources.dictionaryScriptLines = {
+    kind: "file",
+    path: "apps/languages/czech/static/data/language/scripts.json",
+    scope: "course",
+    state: "present"
+  };
+  course.resources.dictionaryReferenceDocument = {
+    kind: "file",
+    path: "apps/languages/czech/static/data/dictionaries/reference.html",
+    scope: "course",
+    state: "present"
+  };
+  course.resources.dictionaryProvider = {
+    kind: "file",
+    path: "apps/languages/czech/static/source/features/dictionary/dictionary-full.js",
+    scope: "course",
+    state: "present",
+    providerId: "czech-full-dictionary-v1",
+    gapReporting: {
+      dictionaryKey: "kaikki-cs-en-2026-07-09",
+      dictionaryDirection: "cs-en"
+    },
+    revision: "full-dictionary-7"
+  };
+  return candidate;
+}
+
 test("dictionary capability requires explicit course data and projects its declared browser paths", async () => {
-  const czech = loaded.courses.find(({ course }) => course.id === "cz").course;
+  const czech = czechWithDictionary(loaded).courses.find(({ course }) => course.id === "cz").course;
   for (const resourceName of [
     "dictionaryCatalog",
     "dictionaryCoreEntries",
@@ -1916,7 +1959,7 @@ test("dictionary capability requires explicit course data and projects its decla
       resourceName
     );
 
-    const missing = cloneLoaded(loaded);
+    const missing = czechWithDictionary(loaded);
     delete missing.courses.find(({ course }) => course.id === "cz").course.resources[resourceName];
     await assert.rejects(
       validateCourseCatalog(missing, { checkExistence: false }),
@@ -1924,7 +1967,7 @@ test("dictionary capability requires explicit course data and projects its decla
     );
   }
 
-  const planned = cloneLoaded(loaded);
+  const planned = czechWithDictionary(loaded);
   planned.courses.find(({ course }) => course.id === "cz")
     .course.resources.dictionaryScriptLines.state = "planned";
   await assert.rejects(
@@ -1932,7 +1975,7 @@ test("dictionary capability requires explicit course data and projects its decla
     (error) => hasIssue(error, "capability.resource", /dictionaryScriptLines\.state to be present/u)
   );
 
-  const shared = cloneLoaded(loaded);
+  const shared = czechWithDictionary(loaded);
   shared.courses.find(({ course }) => course.id === "cz")
     .course.resources.dictionaryCoreEntries.scope = "shared";
   await assert.rejects(
@@ -1940,7 +1983,7 @@ test("dictionary capability requires explicit course data and projects its decla
     (error) => hasIssue(error, "path.scope", /dictionaryCoreEntries.*course scope/u)
   );
 
-  const directory = cloneLoaded(loaded);
+  const directory = czechWithDictionary(loaded);
   directory.courses.find(({ course }) => course.id === "cz")
     .course.resources.dictionaryCoreEntries.kind = "directory";
   await assert.rejects(
@@ -1978,7 +2021,7 @@ test("dictionary capability requires explicit course data and projects its decla
   );
 
   for (const providerId of [undefined, "unversioned-provider", "Provider-v1"]) {
-    const invalid = cloneLoaded(loaded);
+    const invalid = czechWithDictionary(loaded);
     const provider = invalid.courses.find(({ course }) => course.id === "cz")
       .course.resources.dictionaryProvider;
     if (providerId === undefined) delete provider.providerId;
@@ -1990,7 +2033,7 @@ test("dictionary capability requires explicit course data and projects its decla
     );
   }
 
-  const wrongArtifactBinding = cloneLoaded(loaded);
+  const wrongArtifactBinding = czechWithDictionary(loaded);
   wrongArtifactBinding.courses.find(({ course }) => course.id === "cz")
     .course.resources.dictionaryProvider.providerId = "different-dictionary-provider-v1";
   await assert.rejects(
@@ -2002,7 +2045,7 @@ test("dictionary capability requires explicit course data and projects its decla
     ["dictionaryKey", "other-dictionary-v1"],
     ["dictionaryDirection", "es-en"]
   ]) {
-    const wrongGapBinding = cloneLoaded(loaded);
+    const wrongGapBinding = czechWithDictionary(loaded);
     wrongGapBinding.courses.find(({ course }) => course.id === "cz")
       .course.resources.dictionaryProvider.gapReporting[field] = value;
     await assert.rejects(
@@ -2011,9 +2054,15 @@ test("dictionary capability requires explicit course data and projects its decla
     );
   }
 
-  const misplacedProviderIdentity = cloneLoaded(loaded);
+  const misplacedProviderIdentity = czechWithDictionary(loaded);
   misplacedProviderIdentity.courses.find(({ course }) => course.id === "cz")
-    .course.resources.embeddingCatalog.providerId = "misplaced-provider-v1";
+    .course.resources.embeddingCatalog = {
+      kind: "file",
+      path: "apps/languages/czech/static/data/embeddings/models.json",
+      scope: "course",
+      state: "present",
+      providerId: "misplaced-provider-v1"
+    };
   await assert.rejects(
     validateCourseCatalog(misplacedProviderIdentity, { checkExistence: false }),
     (error) => hasIssue(error, "manifest.shape", /embeddingCatalog.*providerId/u)

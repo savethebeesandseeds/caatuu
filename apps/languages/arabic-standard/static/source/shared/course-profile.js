@@ -136,16 +136,8 @@
                 memoryMoonCatalog: "data/games/memory-moon/content.json?v=memory-moon-1"
               }
             },
-            dictionaryContent: {
-              providerId: "czech-full-dictionary-v1",
-              catalog: "data/dictionaries/catalog.json",
-              coreEntries: "data/games/verb-nebula/content.json",
-              scriptLines: "data/language/scripts.json",
-              referenceDocument: "data/dictionaries/reference.html"
-            },
-            embeddingContent: {
-              catalog: "data/embeddings/models.json"
-            }
+            dictionaryContent: null,
+            embeddingContent: null
           },
           sourceLanguage: {
             id: "en",

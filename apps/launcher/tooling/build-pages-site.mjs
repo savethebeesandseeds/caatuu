@@ -133,6 +133,164 @@ function isDurableReleasePublicPath(path) {
   return durableReleasePrefixes.some((prefix) => rooted.startsWith(prefix));
 }
 
+/** The full Czech dictionary and curriculum vector database are no longer published. */
+export function retiredCzechDatabasePath(path) {
+  return /(?:^|\/)(?:[0-9a-f]+-)?caatuu-(?:cs-en|cz-curriculum)\.sqlite(?:[?#].*)?$/u.test(String(path));
+}
+
+function latestReleaseSetupPaths(currentRelease) {
+  const paths = new Set();
+  const origin = currentRelease.descriptor.canonicalOrigin;
+  const add = (path) => {
+    if (!path || retiredCzechDatabasePath(path)) return;
+    paths.add(path);
+  };
+  for (const [path] of currentRelease.current?.setupPayload ?? []) add(path);
+  for (const setup of currentRelease.setupManifests?.values() ?? []) {
+    for (const artifact of setup.artifacts ?? []) {
+      const url = new URL(String(artifact?.url || ""), origin);
+      if (url.origin !== origin) continue;
+      add(publicPath(decodeURIComponent(url.pathname.slice(1)), "latest setup artifact"));
+    }
+  }
+  return paths;
+}
+
+/**
+ * When the latest version names at least one copy, every other URL of those
+ * bytes goes. That includes an older setup hash and a second website address.
+ * When it names none, older setup hashes go and the website paths stay.
+ */
+export function unreferencedDuplicateSetupPaths(files, latestPaths) {
+  const groups = new Map();
+  for (const file of files) {
+    if (retiredCzechDatabasePath(file.path)) continue;
+    const group = groups.get(file.sha256);
+    if (group) group.push(file.path);
+    else groups.set(file.sha256, [file.path]);
+  }
+  const remove = [];
+  for (const paths of groups.values()) {
+    if (paths.length < 2) continue;
+    const referenced = paths.filter((path) => latestPaths.has(path));
+    const relevant = referenced.length > 0
+      ? referenced
+      : paths.filter((path) => !path.startsWith("assets/setup/"));
+    for (const path of paths) {
+      if (!relevant.includes(path)) remove.push(path);
+    }
+  }
+  return remove;
+}
+
+export function disabledCourseSetupSurface(surface, capabilities = {}) {
+  const value = String(surface || "");
+  if (
+    capabilities.embeddings === false
+    && /(?:^|[/"'])data\/embeddings(?:\/|$)|embedding-runtime|embedding-sqlite|vector-db\.js|vendor\/transformers|caatuu-cz-curriculum\.sqlite/iu.test(value)
+  ) return true;
+  if (capabilities.dictionary === false && /caatuu-cs-en\.sqlite/iu.test(value)) return true;
+  return false;
+}
+
+function setupSurfaceText(artifact) {
+  return [
+    artifact?.artifact_kind,
+    artifact?.kind,
+    artifact?.key,
+    artifact?.url,
+    artifact?.asset_path,
+    artifact?.modelKey,
+  ].filter(Boolean).join(" ");
+}
+
+/** Drop setup entries the current course no longer publishes. Mutates manifest. */
+export function omitDisabledCourseSetupSurfaces(manifest, capabilities = {}) {
+  if (Array.isArray(manifest?.artifacts)) {
+    manifest.artifacts = manifest.artifacts.filter(
+      (artifact) => !disabledCourseSetupSurface(setupSurfaceText(artifact), capabilities),
+    );
+  }
+  if (Array.isArray(manifest?.offline?.assets)) {
+    manifest.offline.assets = manifest.offline.assets.filter(
+      (asset) => !disabledCourseSetupSurface(String(asset), capabilities),
+    );
+  }
+  return manifest;
+}
+
+function pagesOmissions({ baselinePaths, sitePaths, currentRelease, readHash }) {
+  const byPath = new Map();
+  for (const path of [...baselinePaths, ...sitePaths]) {
+    if (!byPath.has(path)) byPath.set(path, readHash(path));
+  }
+  const files = [...byPath].map(([path, sha256]) => ({ path, sha256 }));
+  const omitted = new Set(files.filter((file) => retiredCzechDatabasePath(file.path)).map((file) => file.path));
+  for (const path of unreferencedDuplicateSetupPaths(files, latestReleaseSetupPaths(currentRelease))) {
+    omitted.add(path);
+  }
+  return omitted;
+}
+
+function stripRetiredDatabaseReferences(siteDir) {
+  for (const path of allFiles(siteDir)) {
+    if (!path.endsWith("/setup-assets.json") && path !== "setup-assets.json") continue;
+    const absolute = outputPath(siteDir, path);
+    let manifest;
+    try {
+      manifest = JSON.parse(readText(absolute));
+    } catch {
+      continue;
+    }
+    if (!Array.isArray(manifest.artifacts)) continue;
+    const artifacts = manifest.artifacts.filter((artifact) => (
+      !retiredCzechDatabasePath(artifact?.url) && !retiredCzechDatabasePath(artifact?.asset_path)
+    ));
+    const offline = Array.isArray(manifest.offline?.assets)
+      ? manifest.offline.assets.filter((asset) => !retiredCzechDatabasePath(String(asset)))
+      : manifest.offline?.assets;
+    if (artifacts.length === manifest.artifacts.length && offline === manifest.offline?.assets) continue;
+    manifest.artifacts = artifacts;
+    if (manifest.offline && offline !== manifest.offline.assets) manifest.offline.assets = offline;
+    writeJson(absolute, manifest);
+  }
+}
+
+function stripDisabledCourseSetups({ siteDir, workspaceRoot, languagePlan }) {
+  if (!languagePlan || !workspaceRoot) return;
+  for (const course of languagePlan.browserCourses) {
+    const absolute = outputPath(siteDir, course.setupPath.slice(1));
+    if (!existsSync(absolute)) continue;
+    const declaration = JSON.parse(readText(join(workspaceRoot, course.manifestPath)));
+    const manifest = JSON.parse(readText(absolute));
+    const beforeArtifacts = manifest.artifacts?.length ?? 0;
+    const beforeOffline = manifest.offline?.assets?.length ?? 0;
+    omitDisabledCourseSetupSurfaces(manifest, declaration.capabilities ?? {});
+    if (
+      (manifest.artifacts?.length ?? 0) === beforeArtifacts
+      && (manifest.offline?.assets?.length ?? 0) === beforeOffline
+    ) continue;
+    writeJson(absolute, manifest);
+  }
+}
+
+function retireUnwantedPagesPayload({ siteDir, workspaceRoot, languagePlan, currentRelease }) {
+  stripRetiredDatabaseReferences(siteDir);
+  stripDisabledCourseSetups({ siteDir, workspaceRoot, languagePlan });
+  const sitePaths = allFiles(siteDir).filter((path) => path !== "caatuu-web-bundle.json");
+  const omitted = pagesOmissions({
+    baselinePaths: [],
+    sitePaths,
+    currentRelease,
+    readHash: (path) => sha256File(outputPath(siteDir, path)),
+  });
+  for (const path of omitted) {
+    const absolute = outputPath(siteDir, path);
+    if (existsSync(absolute)) rmSync(absolute);
+  }
+  return omitted;
+}
+
 function inside(parent, child) {
   const value = relative(resolve(parent), resolve(child));
   return value !== "" && value !== ".." && !value.startsWith(`..${sep}`) && !isAbsolute(value);
@@ -707,7 +865,10 @@ export function stagePagesBrowserCourses({ workspaceRoot, siteDir, canonicalOrig
       source: resolve(workspaceRoot, ...course.setupRepositoryPath.split("/")),
       label: `${course.id} setup source`,
     });
-    const setup = JSON.parse(readText(setupSource));
+    const setup = omitDisabledCourseSetupSurfaces(
+      JSON.parse(readText(setupSource)),
+      declaration.capabilities ?? {},
+    );
     const setupMarker = normalizePagesCourseSetupMarker({
       setup,
       setupFile: course.setupPath.slice(1),
@@ -743,6 +904,10 @@ export function stagePagesBrowserCourses({ workspaceRoot, siteDir, canonicalOrig
     for (const assetPath of requestedPaths) {
       const destination = outputPath(siteDir, assetPath);
       assertNoSymlinkAncestors(destination, siteDir, "Course asset");
+      if (assetPath === course.setupPath.slice(1)) {
+        writeJson(destination, setup);
+        continue;
+      }
       if (assetPath === course.entryPath.slice(1)) {
         assertNoSymlinkAncestors(destination, siteDir, "Course entry");
         writeText(destination, projectBrowserGameFrames({ source: sharedEntry, course: declaration }));
@@ -813,6 +978,7 @@ function validateFinalWebSetup({ siteDir, canonicalOrigin, course, courseId = co
   const paths = [];
   for (const artifact of manifest.artifacts.filter(browserRequiredArtifact)) {
     const path = setupArtifactPublicPath(artifact, canonicalOrigin, `${courseId}:${artifact.key}`);
+    assert.ok(!retiredCzechDatabasePath(path), `${courseId} setup still publishes ${artifact.key}`);
     const file = outputPath(siteDir, path);
     assert.ok(existsSync(file), `Final Pages setup is missing ${artifact.key}: ${path}`);
     assert.equal(statSync(file).size, Number(artifact.bytes), `${artifact.key} final setup byte count changed`);
@@ -1329,6 +1495,7 @@ function validateCurrentAndroidSetupClosure({ siteDir, currentRelease }) {
       const url = new URL(artifact.url, canonicalOrigin);
       assert.equal(url.origin, canonicalOrigin, `${entry}:${artifact.key} changed setup origin`);
       const path = publicPath(decodeURIComponent(url.pathname.slice(1)), `${entry}:${artifact.key} path`);
+      if (retiredCzechDatabasePath(path)) continue;
       const file = outputPath(siteDir, path);
       assert.ok(
         existsSync(file),
@@ -1396,8 +1563,21 @@ function validatePreparedPagesSite({ workspaceRoot, outputDir, baseline, current
 
   const baselineSite = join(baseline.baselineDir, "site");
   const archived = new Set((currentRelease.descriptor.archivedApks ?? []).map(({ path }) => path));
-  for (const path of allFiles(baselineSite)) {
-    if (archived.has(path)) continue;
+  const baselinePaths = allFiles(baselineSite);
+  const publishedPaths = files.filter((path) => path !== "caatuu-web-bundle.json");
+  const omitted = pagesOmissions({
+    baselinePaths,
+    sitePaths: publishedPaths,
+    currentRelease,
+    readHash: (path) => sha256File(existsSync(outputPath(siteDir, path))
+      ? outputPath(siteDir, path)
+      : outputPath(baselineSite, path)),
+  });
+  for (const path of omitted) {
+    assert.ok(!existsSync(outputPath(siteDir, path)), `Retired Pages file is still published: ${path}`);
+  }
+  for (const path of baselinePaths) {
+    if (archived.has(path) || omitted.has(path)) continue;
     const source = outputPath(baselineSite, path);
     const published = outputPath(siteDir, path);
     assert.ok(existsSync(published), `Pages output is missing baseline path: ${path}`);
@@ -1734,6 +1914,12 @@ export async function compilePagesSite({
     restorePagesMaintenance({ workspaceRoot: workspace, siteDir: stagingDir });
     enableReportingSurfaces({ workspaceRoot: workspace, siteDir: stagingDir, languagePlan });
     enablePagesDurableBypassInCourseWorker(outputPath(stagingDir, sharedCourseWorkerPublicPath));
+    retireUnwantedPagesPayload({
+      siteDir: stagingDir,
+      workspaceRoot: workspace,
+      languagePlan,
+      currentRelease,
+    });
     const courseSetups = new Map();
     for (const course of languagePlan.browserCourses) {
       const setup = JSON.parse(readText(outputPath(stagingDir, course.setupPath.slice(1))));

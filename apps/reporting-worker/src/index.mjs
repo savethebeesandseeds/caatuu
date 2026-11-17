@@ -22,16 +22,6 @@ const routes = Object.freeze({
 });
 
 export const DURABLE_ASSETS = Object.freeze({
-  "/cz/data/dictionaries/kaikki-cs-en-2026-07-09/caatuu-cs-en.sqlite": Object.freeze({
-    bytes: 143106048,
-    contentType: "application/vnd.sqlite3",
-    releaseUrl: `${DURABLE_ASSET_RELEASE_BASE_URL}/caatuu-cs-en.sqlite`
-  }),
-  "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite": Object.freeze({
-    bytes: 20029440,
-    contentType: "application/vnd.sqlite3",
-    releaseUrl: `${DURABLE_ASSET_RELEASE_BASE_URL}/caatuu-cz-curriculum.sqlite`
-  }),
   "/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/onnx/model_qint8_arm64.onnx": Object.freeze({
     bytes: 23026053,
     contentType: "application/octet-stream",

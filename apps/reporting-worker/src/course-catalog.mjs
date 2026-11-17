@@ -7,11 +7,7 @@ export const REPORTING_COURSE_CATALOG = Object.freeze({
       "sourceLanguage": "en",
       "targetLanguage": "cs-CZ",
       "sentenceReports": true,
-      "dictionary": {
-        "providerId": "czech-full-dictionary-v1",
-        "dictionaryKey": "kaikki-cs-en-2026-07-09",
-        "dictionaryDirection": "cs-en"
-      }
+      "dictionary": null
     },
     {
       "courseId": "zh",

@@ -16,7 +16,23 @@ const payload = { kind: "word_world_sentence_feedback", title: "discard", messag
     recentSentences: ["discard"], sentenceModelKey: "discard" } };
 const asCourse = declaration => ({ id: declaration.courseId, sourceLanguage: { locale: declaration.sourceLanguage },
   targetLanguage: { locale: declaration.targetLanguage } });
-const dictionaryDeclaration = REPORTING_COURSE_CATALOG.courses.find(course => course.dictionary);
+const dictionaryDeclaration = {
+  courseId: "cz",
+  sourceLanguage: "en",
+  targetLanguage: "cs-CZ",
+  sentenceReports: true,
+  dictionary: {
+    providerId: "czech-full-dictionary-v1",
+    dictionaryKey: "kaikki-cs-en-2026-07-09",
+    dictionaryDirection: "cs-en"
+  }
+};
+const reportingConfiguration = {
+  schemaVersion: 2,
+  courses: REPORTING_COURSE_CATALOG.courses.map((course) => (
+    course.courseId === dictionaryDeclaration.courseId ? dictionaryDeclaration : course
+  ))
+};
 const defaultCourse = asCourse(dictionaryDeclaration);
 const dictionaryGap = (word = "Příklad") => ({ ...dictionaryDeclaration.dictionary, targetWord: word,
   normalizedWord: word.toLocaleLowerCase(dictionaryDeclaration.targetLanguage), lookupOutcome: "no_results", lookupReturned: 0 });
@@ -30,7 +46,7 @@ function memoryStorage(entries = []) {
     setItem(key, value) { check("set"); values.set(key, String(value)); },
     removeItem(key) { check("remove"); values.delete(key); } };
 }
-async function harness({ course = defaultCourse, configuration = REPORTING_COURSE_CATALOG, storage = memoryStorage(),
+async function harness({ course = defaultCourse, configuration = reportingConfiguration, storage = memoryStorage(),
   maintenance = {}, fetchImpl, origin = "https://caatuu.waajacu.com" } = {}) {
   const browser = createBrowserHarness({ course, location: { origin }, runtime: { maintenance } });
   const { window, document } = browser;
@@ -153,9 +169,9 @@ test("legacy queues are never read or uploaded and unchecked consent cannot enqu
 });
 
 test("dictionary payloads bind declared providers and normalize identically to Worker v2", () => {
-  const configuration = resolveReportingConfiguration(defaultCourse, REPORTING_COURSE_CATALOG);
+  const configuration = resolveReportingConfiguration(defaultCourse, reportingConfiguration);
   const report = buildDictionaryGapReport(dictionaryGap(), { course: defaultCourse, configuration });
-  assert.deepEqual(validateDictionaryGapV2(report), report);
+  assert.deepEqual(validateDictionaryGapV2(report, reportingConfiguration), report);
   for (const patch of [{ dictionaryKey: "other" }, { dictionaryDirection: "es-en" }, { normalizedWord: "OTHER" },
     { lookupReturned: 1 }, { targetWord: "bad\u0000word" }]) {
     assert.equal(buildDictionaryGapReport({ ...dictionaryGap(), ...patch }, { course: defaultCourse, configuration }), null);
@@ -269,7 +285,7 @@ test("unsupported diagnostics and unconsented dictionaries never invoke legacy m
   await browser.maintenance.setDictionaryGapSharing(true);
   await browser.maintenance.setDictionaryGapSharing(false);
   await browser.maintenance.flushDictionaryGaps();
-  const noDictionary = REPORTING_COURSE_CATALOG.courses.find(course => !course.dictionary);
+  const noDictionary = reportingConfiguration.courses.find(course => !course.dictionary);
   const other = await harness({ course: asCourse(noDictionary), maintenance });
   assert.equal((await other.maintenance.enqueueDictionaryGap(dictionaryGap())).unsupported, true);
   assert.deepEqual(called, []);

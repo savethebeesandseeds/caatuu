@@ -194,13 +194,20 @@ public rollout marker, not a secret. Clients without it are rejected before the
 body is read, so older local queues cannot begin uploading merely because the
 hostname now has an endpoint.
 
-Four additional exact Worker routes protect the large setup files used by APK
-163 and the web runtime:
+The Czech full dictionary (`caatuu-cs-en.sqlite`, 143,106,048 bytes) and the
+Czech curriculum embedding database (`caatuu-cz-curriculum.sqlite`, including
+the older 16,121,856-byte setup copy) are not published. The site build also
+drops a second URL when the latest version does not use that address. A
+Czech-local copy of the shared MiniLM model is one of those second URLs.
+Historical GitHub Release
+`caatuu-setup-assets-v1` stays write-once and is not replaced. It is no longer
+routed for those two databases.
+
+Two exact Worker routes still protect the shared MiniLM runtime used by the
+web model:
 
 | Public Caatuu path | Release asset | Bytes | SHA-256 |
 | --- | --- | ---: | --- |
-| `/cz/data/dictionaries/kaikki-cs-en-2026-07-09/caatuu-cs-en.sqlite` | `caatuu-cs-en.sqlite` | 143,106,048 | `80e47c922b3abb42ecb363b06844a26c8fc2fd5ae2578203824dc6b94f130a71` |
-| `/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite` | `caatuu-cz-curriculum.sqlite` | 20,029,440 | `d30277c5180b6c927ad116f8d00852f747b22c497480f36aa33f4bbf61cb7e13` |
 | `/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/onnx/model_qint8_arm64.onnx` | `model_qint8_arm64.onnx` | 23,026,053 | `4278337fd0ff3c68bfb6291042cad8ab363e1d9fbc43dcb499fe91c871902474` |
 | `/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/ort/ort-wasm-simd-threaded.wasm` | `ort-wasm-simd-threaded.wasm` | 12,942,611 | `f4f290847a4df02d0b93cdbf39b4b0e71acefbe80573e7e6b9342a7abd7b290a` |
 
@@ -275,10 +282,12 @@ The preservation archive is also below GitHub's
 and the Pages workflow remains below the
 [10 GB uncompressed artifact limit](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
 Size alone does not prove operational fit: Pages has a 10-minute deployment
-limit and a soft 100 GB monthly bandwidth limit. The four largest files use
-GitHub Releases at runtime, but the preservation bundle still validates their
-exact bytes. Recheck these limits before expanding beyond the current personal
-use case.
+limit and a soft 100 GB monthly bandwidth limit. The shared MiniLM model and
+runtime use GitHub Releases at runtime. The preservation bundle still contains
+the retired Czech dictionary and curriculum database; the site build removes
+those bytes, and any second URL the latest version does not use, before it
+publishes. Recheck these limits before expanding beyond the
+current personal use case.
 
 ```powershell
 docker exec -w /workspace caatuu-dev node apps/launcher/tooling/build-pages-site.mjs --baseline-archive artifacts/android/caatuu-pages-v162.tar --output artifacts/web/github-pages

@@ -28,7 +28,19 @@ test("generated reporting authority exactly follows enabled course locale/provid
   assert.deepEqual(buildReportingCourseCatalog({ courses: [disabled] }).courses, []);
   assert.throws(() => buildReportingCourseCatalog({ courses: [alias, alias] }), /Duplicate reporting course/u);
   const invalidProvider = structuredClone(alias);
-  invalidProvider.resources.dictionaryProvider.gapReporting.dictionaryKey = "not-in-catalog";
+  invalidProvider.capabilities.dictionary = true;
+  invalidProvider.resources.dictionaryCatalog = {
+    kind: "file",
+    path: "apps/languages/czech/static/data/dictionaries/catalog.json",
+    state: "present",
+  };
+  invalidProvider.resources.dictionaryProvider = {
+    kind: "file",
+    state: "present",
+    path: "apps/languages/czech/static/source/features/dictionary/dictionary-full.js",
+    providerId: "czech-full-dictionary-v1",
+    gapReporting: { dictionaryKey: "not-in-catalog", dictionaryDirection: "cs-en" },
+  };
   assert.throws(() => buildReportingCourseCatalog({ courses: [invalidProvider] }), /active catalog entry/u);
 });
 
@@ -46,15 +58,20 @@ test("v2 sentence reports accept every declared course and preserve legitimate c
   assert.notEqual(canonicalSentencePayloadV2(sentence(first)), canonicalSentencePayloadV2(sentence(second)));
 });
 
+const dictionaryCourse = {
+  courseId: "cz", sourceLanguage: "en", targetLanguage: "cs-CZ", sentenceReports: true,
+  dictionary: { providerId: "czech-full-dictionary-v1", dictionaryKey: "kaikki-cs-en-2026-07-09", dictionaryDirection: "cs-en" }
+};
+const dictionaryCatalog = { schemaVersion: 2, courses: [dictionaryCourse] };
 test("v2 dictionary reports bind the exact declared tuple and use the target locale for normalization", () => {
-  const course = REPORTING_COURSE_CATALOG.courses.find(course => course.dictionary);
+  const course = dictionaryCourse;
   const report = { schema: DICTIONARY_GAP_SCHEMA_V2, courseId: course.courseId,
     sourceLanguage: course.sourceLanguage, targetLanguage: course.targetLanguage, ...course.dictionary,
     targetWord: "Příklad", normalizedWord: "příklad", lookupOutcome: "no_results", lookupReturned: 0 };
-  assert.deepEqual(validateDictionaryGapV2(report), report);
+  assert.deepEqual(validateDictionaryGapV2(report, dictionaryCatalog), report);
   for (const patch of [{ providerId: "wrong" }, { dictionaryKey: "wrong" }, { dictionaryDirection: "es-en" },
     { targetLanguage: "cs" }, { courseId: "es" }, { lookupReturned: "0" }, { lookupReturned: 1 }]) {
-    assert.equal(validateDictionaryGapV2({ ...report, ...patch }), null);
+    assert.equal(validateDictionaryGapV2({ ...report, ...patch }, dictionaryCatalog), null);
   }
   const turkish = { courseId: "another", sourceLanguage: "en", targetLanguage: "tr-TR", sentenceReports: true,
     dictionary: { providerId: "another-provider", dictionaryKey: "dataset", dictionaryDirection: "tr-en" } };
@@ -64,13 +81,13 @@ test("v2 dictionary reports bind the exact declared tuple and use the target loc
 });
 
 test("v2 dictionary normalization restores NFC after locale casing reorders combining marks", () => {
-  const course = REPORTING_COURSE_CATALOG.courses.find(course => course.dictionary);
+  const course = dictionaryCourse;
   const report = { schema: DICTIONARY_GAP_SCHEMA_V2, courseId: course.courseId,
     sourceLanguage: course.sourceLanguage, targetLanguage: course.targetLanguage, ...course.dictionary,
     targetWord: "\u0130\u0327", normalizedWord: "i\u0327\u0307", lookupOutcome: "no_results", lookupReturned: 0 };
   assert.notEqual(report.targetWord.toLocaleLowerCase(course.targetLanguage), report.normalizedWord);
-  assert.deepEqual(validateDictionaryGapV2(report), report);
-  assert.equal(validateDictionaryGapV2({ ...report, normalizedWord: "i" }), null);
+  assert.deepEqual(validateDictionaryGapV2(report, dictionaryCatalog), report);
+  assert.equal(validateDictionaryGapV2({ ...report, normalizedWord: "i" }, dictionaryCatalog), null);
 });
 
 test("v2 rollout policy is checked before reading bodies or touching storage", async () => {

@@ -97,9 +97,9 @@
     "llm": true,
     "generation": true,
     "chat": true,
-    "embeddings": true,
-    "semanticSearch": true,
-    "dictionary": true,
+    "embeddings": false,
+    "semanticSearch": false,
+    "dictionary": false,
     "memory": true,
     "verbs": true,
     "wordWorld": true,
@@ -186,7 +186,7 @@
       "enabled": true,
       "pagesEnabled": true,
       "entryPath": "/cz/index.html",
-      "backend": "dictionary-api-v1"
+      "backend": "static"
     },
     "android": {
       "enabled": true,
@@ -268,48 +268,6 @@
       "kind": "file",
       "path": "apps/language-runtime/static/assets/home/english_flag.png",
       "scope": "shared",
-      "state": "present"
-    },
-    "embeddingCatalog": {
-      "kind": "file",
-      "path": "apps/languages/czech/static/data/embeddings/models.json",
-      "scope": "course",
-      "state": "present"
-    },
-    "dictionaryCatalog": {
-      "kind": "file",
-      "path": "apps/languages/czech/static/data/dictionaries/catalog.json",
-      "scope": "course",
-      "state": "present"
-    },
-    "dictionaryProvider": {
-      "kind": "file",
-      "path": "apps/languages/czech/static/source/features/dictionary/dictionary-full.js",
-      "scope": "course",
-      "state": "present",
-      "providerId": "czech-full-dictionary-v1",
-      "gapReporting": {
-        "dictionaryKey": "kaikki-cs-en-2026-07-09",
-        "dictionaryDirection": "cs-en"
-      },
-      "revision": "full-dictionary-7"
-    },
-    "dictionaryReferenceDocument": {
-      "kind": "file",
-      "path": "apps/languages/czech/static/data/dictionaries/reference.html",
-      "scope": "course",
-      "state": "present"
-    },
-    "dictionaryCoreEntries": {
-      "kind": "file",
-      "path": "apps/languages/czech/static/data/games/verb-nebula/content.json",
-      "scope": "course",
-      "state": "present"
-    },
-    "dictionaryScriptLines": {
-      "kind": "file",
-      "path": "apps/languages/czech/static/data/language/scripts.json",
-      "scope": "course",
       "state": "present"
     },
     "courseRuntime": {

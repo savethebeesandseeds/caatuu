@@ -134,10 +134,6 @@ async function body(response) {
 const durableAssetPath = Object.keys(DURABLE_ASSETS)[0];
 const durableAsset = DURABLE_ASSETS[durableAssetPath];
 const expectedReleaseUrls = Object.freeze({
-  "/cz/data/dictionaries/kaikki-cs-en-2026-07-09/caatuu-cs-en.sqlite":
-    "https://github.com/savethebeesandseeds/caatuu/releases/download/caatuu-setup-assets-v1/caatuu-cs-en.sqlite",
-  "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite":
-    "https://github.com/savethebeesandseeds/caatuu/releases/download/caatuu-setup-assets-v1/caatuu-cz-curriculum.sqlite",
   "/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/onnx/model_qint8_arm64.onnx":
     "https://github.com/savethebeesandseeds/caatuu/releases/download/caatuu-setup-assets-v1/model_qint8_arm64.onnx",
   "/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/ort/ort-wasm-simd-threaded.wasm":
@@ -510,7 +506,7 @@ test("durable asset routes reject writes without invoking the origin", async () 
 });
 
 test("durable asset queries stay inside the Worker boundary but not the pinned release URL", async () => {
-  const path = "/cz/data/embeddings/all-minilm-l6-v2-qint8-v0.1/caatuu-cz-curriculum.sqlite";
+  const path = "/language-runtime/models/all-minilm-l6-v2-qint8-v0.1/runtime/onnx/model_qint8_arm64.onnx";
   const asset = DURABLE_ASSETS[path];
   let upstreamUrl = "";
   const response = await handleRequest(

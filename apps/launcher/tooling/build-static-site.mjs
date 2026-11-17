@@ -375,7 +375,7 @@ export function transformCourseProfile(input) {
   return serializeCourseProfileSource(profile);
 }
 
-function transformRuntime(input) {
+function transformRuntime(input, { dictionary = true } = {}) {
   let source = normalizeText(input);
   source = replacePattern(source, /^  const embeddingCatalogPath = .*\n/mu, "", "runtime embedding catalog constant");
   source = replacePattern(source, /^  const dictionaryPatchPath = .*\n/mu, "", "runtime dictionary patch constant");
@@ -451,7 +451,8 @@ function transformRuntime(input) {
     source,
     "  async function loadEmbeddingCatalog() {",
     "  window.CaatuuRuntime = {",
-    `  let staticDictionaryRuntimePromise = null;
+    dictionary
+      ? `  let staticDictionaryRuntimePromise = null;
 
   function staticDictionaryRuntime() {
     if (!staticDictionaryRuntimePromise) {
@@ -465,9 +466,35 @@ function transformRuntime(input) {
     return staticDictionaryRuntimePromise;
   }
 
-`,
+`
+      : "  \n",
     "model/vector/dynamic-dictionary implementation"
   );
+  const dictionaryApi = dictionary
+    ? `    dictionary: {
+      async status() {
+        return (await staticDictionaryRuntime()).status();
+      },
+      async download(handlers = {}) {
+        return (await staticDictionaryRuntime()).download(handlers);
+      },
+      async search(query, options = {}) {
+        return (await staticDictionaryRuntime()).search(query, options);
+      }
+    },
+`
+    : `    dictionary: {
+      status() {
+        return Promise.resolve({ available: false, ready: false, runtime: "retired" });
+      },
+      download() {
+        return Promise.resolve({ available: false, ready: false, runtime: "retired" });
+      },
+      search() {
+        return Promise.resolve({ available: false, ready: false, runtime: "retired", results: [] });
+      }
+    },
+`;
   source = replaceBetween(
     source,
     "    vector: {",
@@ -490,18 +517,7 @@ function transformRuntime(input) {
         });
       }
     },
-    dictionary: {
-      async status() {
-        return (await staticDictionaryRuntime()).status();
-      },
-      async download(handlers = {}) {
-        return (await staticDictionaryRuntime()).download(handlers);
-      },
-      async search(query, options = {}) {
-        return (await staticDictionaryRuntime()).search(query, options);
-      }
-    },
-`,
+${dictionaryApi}`,
     "model-free vector compatibility API"
   );
   assert.doesNotMatch(source, /(?:\/android\/|\/api\/|vector-db\.js|embeddingCatalogPath|dictionaryPatchPath|browserVectorDatabase)/u);
@@ -667,15 +683,22 @@ function transformProductOutput(workspaceRoot, stagingDir, configuration, { shar
   const courseDir = join(stagingDir, configuration.course.routePrefix.slice(1));
   const dictionary = usesStaticDictionaryProvider(configuration.course);
   const sharedSourceDir = join(stagingDir, "language-runtime/static/source");
-  if (dictionary) for (const [moduleName, importCount] of [["case-cosmos-content.mjs", 1], ["case-cosmos.js", 1]]) {
+  for (const [moduleName, importCount] of [["case-cosmos-content.mjs", 1], ["case-cosmos.js", 1]]) {
     const modulePath = join(courseDir, "source/games/case-cosmos", moduleName);
-    writeText(modulePath, exactReplace(readText(modulePath),
-      "../../../../../../language-runtime/static/source/",
+    if (!existsSync(modulePath)) continue;
+    const source = readText(modulePath);
+    const relativeRoot = "../../../../../../language-runtime/static/source/";
+    if (!source.includes(relativeRoot)) continue;
+    writeText(modulePath, exactReplace(source,
+      relativeRoot,
       "/language-runtime/static/source/",
       `published ${moduleName} shared imports`, importCount));
   }
-  if (dictionary) {
-    const compatibilityPath = join(courseDir, "source/shared/feedback-outbox.mjs");
+  const compatibilityPath = join(courseDir, "source/shared/feedback-outbox.mjs");
+  if (
+    existsSync(compatibilityPath)
+    && readText(compatibilityPath).includes("../../../../../language-runtime/static/source/feedback-outbox.mjs")
+  ) {
     writeText(compatibilityPath, transformStaticFeedbackOutbox(readText(compatibilityPath)));
   }
   const profilePath = join(courseDir, "source/shared/course-profile.js");
@@ -683,7 +706,7 @@ function transformProductOutput(workspaceRoot, stagingDir, configuration, { shar
   writeText(profilePath, languagePlan ? projectPagesCourseProfileSource({
     source: staticProfile, languagePlan, courseId: configuration.course.id, label: "static course profile",
   }) : staticProfile);
-  if (dictionary) writeText(join(courseDir, "source/shared/runtime.js"), transformRuntime(readText(join(courseDir, "source/shared/runtime.js"))));
+  writeText(join(courseDir, "source/shared/runtime.js"), transformRuntime(readText(join(courseDir, "source/shared/runtime.js")), { dictionary }));
   writeText(join(courseDir, "index.html"), projectBrowserGameFrames({
     source: transformLanguageIndex(readText(join(courseDir, "index.html"))),
     course: configuration.course,

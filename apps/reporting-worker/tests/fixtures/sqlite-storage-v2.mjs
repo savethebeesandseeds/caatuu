@@ -65,23 +65,14 @@ try {
   assert.equal((await handleRequest(post("/api/v2/sentence-reports", { ...first, comment: "changed" }), env(database))).status, 409);
   assert.equal((await handleRequest(post("/api/v2/sentence-reports", { ...first, sourceLanguage: "zz" }), env(database))).status, 422);
 
-  const course = REPORTING_COURSE_CATALOG.courses.find(course => course.dictionary);
+  const course = REPORTING_COURSE_CATALOG.courses.find((entry) => entry.courseId === "cz");
+  assert.equal(course.dictionary, null);
   const gap = { schema: DICTIONARY_GAP_SCHEMA_V2, courseId: course.courseId, sourceLanguage: course.sourceLanguage,
-    targetLanguage: course.targetLanguage, ...course.dictionary, targetWord: "Příklad", normalizedWord: "příklad", lookupOutcome: "no_results", lookupReturned: 0 };
-  const identity = [course.courseId, course.sourceLanguage, course.targetLanguage, course.dictionary.providerId, course.dictionary.dictionaryKey, course.dictionary.dictionaryDirection];
-  const seed = database.sqlite.prepare("INSERT INTO dictionary_gaps_v2 VALUES (?1,?2,?3,?4,?5,?6,?7,?7,'no_results',0,1,1,1)");
-  for (let i=0;i<4095;i++) seed.run(...identity, `existing-${i}`);
-  database.pairWrites();
-  const gaps = [gap, { ...gap, targetWord: "Jiný", normalizedWord: "jiný" }];
-  const accepted = await Promise.all(gaps.map(report => handleRequest(post("/api/v2/dictionary-gaps", report), env(database))));
-  assert.deepEqual(accepted.map(response => response.status).sort(), [200,507]);
-  database.beforeWrite = undefined;
-  const winner = gaps[accepted.findIndex(response => response.status === 200)];
-  assert.equal((await handleRequest(post("/api/v2/dictionary-gaps", winner), env(database))).status, 200);
-  assert.equal(database.sqlite.prepare("SELECT observation_count FROM dictionary_gaps_v2 WHERE normalized_word = ?1").get(winner.normalizedWord).observation_count, 2);
-  // SQL uniqueness includes the course tuple even when providers, keys and words match.
-  seed.run("ordinary", ...identity.slice(1), winner.normalizedWord);
-  assert.equal(database.sqlite.prepare("SELECT COUNT(*) AS count FROM dictionary_gaps_v2").get().count, 4097);
+    targetLanguage: course.targetLanguage, providerId: "czech-full-dictionary-v1", dictionaryKey: "kaikki-cs-en-2026-07-09",
+    dictionaryDirection: "cs-en", targetWord: "Příklad", normalizedWord: "příklad", lookupOutcome: "no_results", lookupReturned: 0 };
+  assert.equal((await handleRequest(post("/api/v2/dictionary-gaps", gap), env(database))).status, 422);
+  database.sqlite.prepare("INSERT INTO dictionary_gaps_v2 VALUES (?1,?2,?3,?4,?5,?6,?7,?7,'no_results',0,?8,?8,1)")
+    .run(course.courseId, course.sourceLanguage, course.targetLanguage, "czech-full-dictionary-v1", "kaikki-cs-en-2026-07-09", "cs-en", "příklad", Date.now());
 
   const old = Date.now() - 500 * 86400000;
   database.sqlite.prepare("UPDATE sentence_reports_v2 SET received_at_unix_ms = ?1 WHERE course_id = ?2").run(old, first.courseId);

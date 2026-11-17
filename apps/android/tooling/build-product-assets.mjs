@@ -1513,6 +1513,11 @@ function isDisabledProductSetupSurface(value, productCapabilities) {
     (productCapabilities.llm === false || productCapabilities.offlineModels === false)
     && /(?:^|\/)data\/models(?:\/|$)|\.gguf(?:[?#]|$)|web-?llm|(?:^|[._-])(?:llm-model|language-model)(?:[._-]|$)/iu.test(surface)
   ) return true;
+  if (
+    productCapabilities.embeddings === false
+    && /(?:^|[/"'])data\/embeddings(?:\/|$)|embedding-runtime|embedding-sqlite|vendor\/transformers|caatuu-cz-curriculum\.sqlite/iu.test(surface)
+  ) return true;
+  if (productCapabilities.dictionary === false && /caatuu-cs-en\.sqlite/iu.test(surface)) return true;
   return productCapabilities.generation === false
     && /(?:^|\/)(?:source\/features\/)?generat(?:ion|ive)(?:[/.]|$)/iu.test(surface);
 }
