@@ -1268,7 +1268,28 @@ function publishedFileMatchesBaseline(baselineSite, path, bytes, sha256) {
   return statSync(baselineFile).size === bytes && sha256File(baselineFile) === sha256;
 }
 
-export function rewriteFinalCourseSetup({ course, siteDir, canonicalOrigin, baselineSite = null }) {
+function latestNativePublicPaths(currentRelease) {
+  const paths = new Set();
+  const origin = currentRelease?.descriptor?.canonicalOrigin;
+  if (!origin) return paths;
+  for (const setup of currentRelease.setupManifests?.values() ?? []) {
+    for (const artifact of setup.artifacts ?? []) {
+      if (!nativeRequiredArtifact(artifact)) continue;
+      const url = new URL(String(artifact?.url || ""), origin);
+      if (url.origin !== origin) continue;
+      paths.add(publicPath(decodeURIComponent(url.pathname.slice(1)), "latest native artifact"));
+    }
+  }
+  return paths;
+}
+
+export function rewriteFinalCourseSetup({
+  course,
+  siteDir,
+  canonicalOrigin,
+  baselineSite = null,
+  latestNativePaths = null,
+}) {
   const { manifest, setupPath } = rewritePagesCourseProfileReceipt({
     course,
     siteDir,
@@ -1290,12 +1311,16 @@ export function rewriteFinalCourseSetup({ course, siteDir, canonicalOrigin, base
     if (nativeRequiredArtifact(artifact)) {
       const pinBytes = Number(artifact.bytes);
       const pinHash = String(artifact.sha256).toLowerCase();
+      const publishedSeparately = latestNativePaths instanceof Set && !latestNativePaths.has(path);
       if (
         (bytes !== pinBytes || sha256 !== pinHash)
-        && publishedFileMatchesBaseline(baselineSite, path, bytes, sha256)
+        && (
+          publishedFileMatchesBaseline(baselineSite, path, bytes, sha256)
+          || publishedSeparately
+        )
       ) {
-        // The frozen baseline still owns this public address. The current
-        // bytes travel with the Android setup companion at a hashed URL.
+        // This public address is the website copy. The current Android package
+        // downloads its own bytes from a hashed setup URL.
         artifact.native_required = false;
         artifact.nativeRequired = false;
         artifact.bytes = bytes;
@@ -1948,6 +1973,7 @@ export async function compilePagesSite({
       languagePlan,
       currentRelease,
     });
+    const latestNativePaths = latestNativePublicPaths(currentRelease);
     const courseSetups = new Map();
     for (const course of languagePlan.browserCourses) {
       const setup = JSON.parse(readText(outputPath(stagingDir, course.setupPath.slice(1))));
@@ -1962,6 +1988,7 @@ export async function compilePagesSite({
           siteDir: stagingDir,
           canonicalOrigin: baseline.descriptor.canonicalOrigin,
           baselineSite: join(baseline.baselineDir, "site"),
+          latestNativePaths,
         });
       courseSetups.set(course.id, result);
     }

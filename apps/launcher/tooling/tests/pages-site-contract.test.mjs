@@ -584,6 +584,14 @@ test("baseline-owned public artwork keeps its historical bytes", () => {
         bytes: 11,
         sha256: "b".repeat(64),
       },
+      {
+        key: "games-launchpad-ship-meta",
+        url: "/assets/ships/meta.json",
+        browser_required: true,
+        native_required: true,
+        bytes: 11,
+        sha256: "c".repeat(64),
+      },
     ],
   };
   try {
@@ -595,18 +603,24 @@ test("baseline-owned public artwork keeps its historical bytes", () => {
     writeFileSync(join(siteDir, "cz/course-profile.js"), "globalThis.fixtureCourse = true;\n");
     writeFileSync(join(siteDir, "cz/sw.js"), workerSource);
     writeFileSync(join(siteDir, "language-runtime/static/source/course-service-worker.js"), "shared worker\n");
+    mkdirSync(join(siteDir, "assets/ships"), { recursive: true });
     writeFileSync(join(siteDir, "assets/planets/conjugation-comet.png"), historical);
     writeFileSync(join(baselineSite, "assets/planets/conjugation-comet.png"), historical);
+    writeFileSync(join(siteDir, "assets/ships/meta.json"), "filtered");
     writeFileSync(join(siteDir, "cz/setup-assets.json"), JSON.stringify(manifest));
     const rewritten = rewriteFinalCourseSetup({
       course,
       siteDir,
       canonicalOrigin: "https://caatuu.waajacu.com",
       baselineSite,
+      latestNativePaths: new Set(),
     });
     const artwork = rewritten.manifest.artifacts.find((artifact) => artifact.key === "planet-conjugation");
     assert.equal(artwork.native_required, false);
     assert.equal(artwork.bytes, historical.length);
+    const ships = rewritten.manifest.artifacts.find((artifact) => artifact.key === "games-launchpad-ship-meta");
+    assert.equal(ships.native_required, false);
+    assert.equal(ships.bytes, "filtered".length);
     assert.equal(readFileSync(join(siteDir, "assets/planets/conjugation-comet.png"), "utf8"), historical);
   } finally {
     rmSync(temporaryDirectory, { recursive: true, force: true });
