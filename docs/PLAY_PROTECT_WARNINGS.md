@@ -91,7 +91,9 @@ public manifest while the installer stays off.
 declare `REQUEST_INSTALL_PACKAGES`. `downloadLatest` and `openInstaller` still
 refuse. When that build finds a newer version, the existing Update button
 opens the manifest’s `apk_url` in the browser. The phone downloads the APK
-there. The app does not install it.
+there. The app does not install it. Android 205 writes the running version
+on Settings → About without waiting for that check, and shows the download
+address when a newer APK is published.
 
 ## Device result
 

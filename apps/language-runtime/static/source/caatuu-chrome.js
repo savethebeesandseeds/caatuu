@@ -5592,6 +5592,7 @@
               <button class="maintenance-row-control pwa-install-action" type="button" id="updateApp" aria-describedby="maintenanceStatus" hidden>${interfaceHtml("settings.update.action")}</button>
             </div>
             <p class="maintenance-status" id="maintenanceStatus" role="status" aria-live="polite" aria-atomic="true" hidden></p>
+            <a class="about-update-link" id="settingsUpdateLink" hidden rel="noopener"></a>
             <dialog class="settings-update-dialog" id="appUpdateConfirmDialog" aria-labelledby="appUpdateConfirmTitle" aria-describedby="appUpdateConfirmVersions appUpdateConfirmNote">
               <form class="settings-update-dialog-card" method="dialog">
                 <p class="settings-kicker kicker">${interfaceHtml("settings.update.app")}</p>
@@ -5689,8 +5690,28 @@
     updateThemeControls(readStoredTheme());
     updateFontSizeControls(readStoredFontSize());
     setSettingsView(panel, readRememberedBackpackView(), { persist: false });
+    writeInstalledAppVersion(panel);
     panel.dataset.caatuuSettingsRendered = "true";
     return panel;
+  }
+
+  function writeInstalledAppVersion(panel) {
+    const versionNode = panel.querySelector("#settingsVersion");
+    const bridge = window.CaatuuAndroid;
+    if (!versionNode || typeof bridge?.appVersionName !== "function") return;
+    let version = "";
+    let code = "";
+    try {
+      version = String(bridge.appVersionName() ?? "").trim();
+      if (typeof bridge.appVersionCode === "function") code = String(bridge.appVersionCode() ?? "").trim();
+    } catch {
+      return;
+    }
+    if (!version && !code) return;
+    versionNode.textContent = interfaceMessage("maintenance.version.line", {
+      version: version || interfaceMessage("maintenance.version.unknownvalue"),
+      code: code || "?"
+    });
   }
 
   function setSettingsViewTransitionState(panel, requestedView, pending) {

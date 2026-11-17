@@ -1,5 +1,12 @@
 # Changelog
 
+## Android 205 / 0.1.53
+
+- Settings → About writes the version of the package that is running, before
+  the update check finishes.
+- When a newer APK is published, About shows that download address. Opening
+  it uses the browser. The package stays on the website.
+
 ## Android 204 / 0.1.52
 
 - Restore the non-Mandarin course catalogs from the 13 November snapshot so

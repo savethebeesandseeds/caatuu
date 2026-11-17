@@ -40,10 +40,10 @@ function harness({ android = true, confirm = true, existing = null, speech = tru
   const row = document.createElement("div");
   row.dataset.maintenanceActionRow = "";
   row.hidden = true;
-  for (const id of ["updateApp", "maintenanceStatus", "settingsVersion", "browserInstallActions"]) {
-    const node = document.createElement(id === "updateApp" ? "button" : "div");
+  for (const id of ["updateApp", "maintenanceStatus", "settingsVersion", "settingsUpdateLink", "browserInstallActions"]) {
+    const node = document.createElement(id === "updateApp" ? "button" : id === "settingsUpdateLink" ? "a" : "div");
     node.id = id;
-    node.hidden = id === "updateApp";
+    node.hidden = id === "updateApp" || id === "settingsUpdateLink";
     row.append(node);
   }
   document.body.append(row);
@@ -76,6 +76,90 @@ test("Mandarin gets update and cache operations without replacing its working sp
   assert.equal((await speaking).outcome, "completed");
   await checking;
   assert.ok(h.document.getElementById("settingsVersion").textContent.includes("1.0"));
+});
+
+test("About writes the running package version before the update server answers", async () => {
+  const h = harness();
+  h.context.CaatuuAndroid.appVersionName = () => "0.1.51";
+  h.context.CaatuuAndroid.appVersionCode = () => 203;
+  const version = h.document.getElementById("settingsVersion");
+  version.textContent = "Details";
+  const checking = h.ui.getUpdateController().refresh();
+  assert.equal(version.textContent, englishInterfaceContent.t("maintenance.version.line", {
+    version: "0.1.51", code: 203
+  }));
+  assert.equal(h.document.getElementById("settingsUpdateLink").hidden, true);
+  h.reply(h.requests[0], {
+    selfUpdateEnabled: false,
+    updateDelivery: "browser",
+    updateAvailable: false,
+    serverReachable: false,
+    updateError: "The update service is unavailable."
+  });
+  await checking;
+  assert.equal(version.textContent, englishInterfaceContent.t("maintenance.version.line", {
+    version: "0.1.51", code: 203
+  }));
+});
+
+test("About shows the published APK address when a newer browser update exists", async () => {
+  const h = harness();
+  const apkUrl = "https://caatuu.waajacu.com/android/releases/204/caatuu.apk";
+  const checking = h.ui.getUpdateController().refresh();
+  h.reply(h.requests[0], {
+    selfUpdateEnabled: false,
+    updateDelivery: "browser",
+    updateAvailable: true,
+    serverReachable: true,
+    currentVersionName: "0.1.51",
+    currentVersionCode: 203,
+    latestVersionName: "0.1.52",
+    latestVersionCode: 204,
+    apkUrl
+  });
+  await checking;
+  const link = h.document.getElementById("settingsUpdateLink");
+  const button = h.document.getElementById("updateApp");
+  assert.equal(link.hidden, false);
+  assert.equal(link.getAttribute("href"), apkUrl);
+  assert.equal(link.textContent, apkUrl);
+  assert.equal(button.hidden, false);
+  link.click();
+  assert.equal(h.requests.at(-1).type, "update_app");
+});
+
+test("About shows the published download address when the native check cannot see it", async () => {
+  const h = harness();
+  h.context.CaatuuAndroid.appVersionName = () => "0.1.51";
+  h.context.CaatuuAndroid.appVersionCode = () => 203;
+  const apkUrl = "https://caatuu.waajacu.com/android/releases/204/caatuu.apk";
+  h.context.fetch = async (url, options) => {
+    assert.equal(String(url), "https://caatuu.waajacu.com/android/caatuu.json");
+    assert.equal(options?.cache, "no-store");
+    return new h.context.Response(JSON.stringify({
+      version_name: "0.1.52",
+      version_code: 204,
+      apk_url: apkUrl
+    }), { status: 200, headers: { "content-type": "application/json" } });
+  };
+  const checking = h.ui.getUpdateController().refresh();
+  h.reply(h.requests[0], {
+    selfUpdateEnabled: false,
+    updateDelivery: "browser",
+    updateAvailable: false,
+    serverReachable: false,
+    updateError: "The update service is unavailable.",
+    currentVersionName: "0.1.51",
+    currentVersionCode: 203
+  });
+  await checking;
+  await flush();
+  const link = h.document.getElementById("settingsUpdateLink");
+  assert.equal(link.hidden, false);
+  assert.equal(link.textContent, apkUrl);
+  assert.equal(link.getAttribute("href"), apkUrl);
+  link.click();
+  assert.equal(h.requests.at(-1).type, "update_app");
 });
 
 test("About keeps the installed version visible when the update service is unavailable", async () => {

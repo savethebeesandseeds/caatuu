@@ -238,6 +238,8 @@ export function validateAndroidProjectSources(sources) {
     ["trusted course lookup", "courseRegistry.courseForTrustedUrl(webView.url)"],
     ["bundled course query", "courseRegistry.isBundled(id)"],
     ["non-preview product bridge", "fun isDeveloperPreview(): Boolean = false"],
+    ["installed version name", "fun appVersionName(): String = BuildConfig.VERSION_NAME"],
+    ["installed version code", "fun appVersionCode(): Int = BuildConfig.VERSION_CODE"],
     ["native theme bridge", "fun setTheme(theme: String)"],
     ["notification permission query", "fun notificationPermission()"],
     ["notification permission request", "fun requestNotificationPermission()"],

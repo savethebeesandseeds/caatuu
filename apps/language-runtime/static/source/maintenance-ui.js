@@ -298,6 +298,43 @@
     return publishedApkVersionRequest;
   }
 
+  function installedBridgeVersion() {
+    const bridge = globalThis.CaatuuAndroid;
+    if (!bridge) return null;
+    try {
+      const name = typeof bridge.appVersionName === "function" ? String(bridge.appVersionName() ?? "").trim() : "";
+      const rawCode = typeof bridge.appVersionCode === "function" ? Number(bridge.appVersionCode()) : Number.NaN;
+      const code = Number.isInteger(rawCode) && rawCode > 0 ? rawCode : 0;
+      if (!name && !code) return null;
+      return {
+        currentVersionName: name,
+        currentVersionCode: code || undefined
+      };
+    } catch {
+      return null;
+    }
+  }
+
+  function statusWithInstalledVersion(status) {
+    if (status?.currentVersionName || status?.currentVersionCode) return status;
+    const installed = installedBridgeVersion();
+    return installed ? { ...status, ...installed } : status;
+  }
+
+  const PUBLIC_ANDROID_MANIFEST_URL = "https://caatuu.waajacu.com/android/caatuu.json";
+
+  function httpsCaatuuApkUrl(value) {
+    try {
+      const parsed = new URL(String(value || "").trim());
+      if (parsed.protocol !== "https:" || parsed.username || parsed.password) return "";
+      if (parsed.hostname !== "caatuu.waajacu.com") return "";
+      if (!parsed.pathname.endsWith(".apk")) return "";
+      return parsed.href;
+    } catch {
+      return "";
+    }
+  }
+
   function createUpdateController(runtime = window.CaatuuRuntime) {
     const buttons = () => [...document.querySelectorAll("#updateApp, [data-app-update-control]")];
     if (!buttons().length || !runtime?.maintenance) return null;
@@ -369,6 +406,84 @@
       const homeStatus = document.querySelector("#homeUpdateStatus");
       if (homeStatus) { homeStatus.textContent = message; homeStatus.hidden = !message; }
     };
+    let publishedDownload;
+    let publishedDownloadRequest = null;
+    function requestPublishedDownload() {
+      if (publishedDownload !== undefined) return Promise.resolve(publishedDownload);
+      if (publishedDownloadRequest) return publishedDownloadRequest;
+      if (typeof fetch !== "function") {
+        publishedDownload = null;
+        return Promise.resolve(null);
+      }
+      publishedDownloadRequest = fetch(PUBLIC_ANDROID_MANIFEST_URL, { cache: "no-store" })
+        .then(async (response) => {
+          if (!response?.ok) return null;
+          const manifest = await response.json();
+          const versionCode = Number(manifest?.version_code);
+          const apkUrl = httpsCaatuuApkUrl(manifest?.apk_url);
+          if (!Number.isInteger(versionCode) || versionCode <= 0 || !apkUrl) return null;
+          return { versionCode, apkUrl };
+        })
+        .catch(() => null)
+        .then((value) => {
+          publishedDownload = value;
+          return value;
+        });
+      return publishedDownloadRequest;
+    }
+    function hideDownloadLink(link) {
+      link.hidden = true;
+      link.removeAttribute("href");
+      link.textContent = "";
+    }
+    function showDownloadLink(link, url) {
+      if (link.dataset.sharedUpdateLink !== "true") {
+        link.dataset.sharedUpdateLink = "true";
+        link.addEventListener("click", (event) => {
+          if (runtime.env !== "android") return;
+          event.preventDefault();
+          const browserDelivery = !currentStatus
+            || currentStatus.updateDelivery === "browser"
+            || currentStatus.selfUpdateEnabled === false;
+          if (!browserDelivery) {
+            void activate();
+            return;
+          }
+          void runtime.maintenance.updateApp().catch(() => setMessage(t("maintenance.copy.checkfailed")));
+        });
+      }
+      link.href = url;
+      link.textContent = url;
+      link.hidden = false;
+    }
+    function renderPublishedDownloadLink(status) {
+      const link = document.querySelector("#settingsUpdateLink");
+      if (!link) return;
+      if (runtime.env !== "android") {
+        hideDownloadLink(link);
+        return;
+      }
+      const nativeUrl = hasNativeAppUpdate(status) ? httpsCaatuuApkUrl(status?.apkUrl) : "";
+      if (nativeUrl) {
+        showDownloadLink(link, nativeUrl);
+        return;
+      }
+      if (status?.serverReachable === true && status?.updateAvailable !== true) {
+        hideDownloadLink(link);
+        return;
+      }
+      const installedCode = Number(statusWithInstalledVersion(status)?.currentVersionCode || 0);
+      if (publishedDownload && installedCode > 0 && publishedDownload.versionCode > installedCode) {
+        showDownloadLink(link, publishedDownload.apkUrl);
+        return;
+      }
+      hideDownloadLink(link);
+      if (publishedDownload !== undefined) return;
+      void requestPublishedDownload().then(() => {
+        if (link !== document.querySelector("#settingsUpdateLink")) return;
+        render();
+      });
+    }
     const render = (status = currentStatus, { busy = Boolean(inFlight || phase) } = {}) => {
       scheduleActivePoll(status);
       buttons().forEach((button) => {
@@ -384,7 +499,8 @@
         });
       });
       if (runtime.env === "android") {
-        setVersionNote(versionNode(), status);
+        setVersionNote(versionNode(), statusWithInstalledVersion(status));
+        renderPublishedDownloadLink(status);
       } else {
         const element = versionNode();
         if (element) {

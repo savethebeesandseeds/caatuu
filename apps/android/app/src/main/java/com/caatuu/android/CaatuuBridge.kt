@@ -103,6 +103,13 @@ class CaatuuBridge(
     @JavascriptInterface
     fun isDeveloperPreview(): Boolean = BuildConfig.DEBUG
 
+    // About reads these while the page opens. They must not wait on the update server.
+    @JavascriptInterface
+    fun appVersionName(): String = BuildConfig.VERSION_NAME
+
+    @JavascriptInterface
+    fun appVersionCode(): Int = BuildConfig.VERSION_CODE
+
     @JavascriptInterface
     fun postMessage(rawMessage: String) {
         scope.launch {

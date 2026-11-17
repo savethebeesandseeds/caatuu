@@ -1424,6 +1424,25 @@ test("About preserves its content with a compact update button and install contr
   harness.window.dispatchEvent({ type: "pagehide" });
 });
 
+test("About writes the running Android version before an update check", () => {
+  const harness = createBrowserHarness({ course: fixtureCourse() });
+  runChrome(harness);
+  harness.window.CaatuuAndroid = {
+    appVersionName: () => "0.1.51",
+    appVersionCode: () => 203
+  };
+  const panel = harness.document.createElement("div");
+  // This harness stores innerHTML as text, so seed the node About writes into.
+  const version = harness.document.createElement("h3");
+  version.id = "settingsVersion";
+  version.textContent = "Details";
+  panel.append(version);
+  harness.window.CaatuuChrome.renderSettingsPanel(panel);
+  assert.equal(version.textContent, "Version 0.1.51 (203)");
+  assert.match(panel.innerHTML, /id="settingsUpdateLink"[^>]*hidden/u);
+  harness.window.dispatchEvent({ type: "pagehide" });
+});
+
 test("shared update controls keep browser freshness checks and offline failures out of the page chrome", async () => {
   const h = createBrowserHarness({ course: fixtureCourse() });
   h.window.CaatuuRuntime = { env: "browser", registerServiceWorker: async () => false };
